@@ -103,3 +103,6 @@ theme: landscape
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
+  repo: https://github.com/twalichiewicz/twalichiewicz.github.io
+  # example, https://github.com/hexojs/hexojs.github.io
+  branch: gh-pages
