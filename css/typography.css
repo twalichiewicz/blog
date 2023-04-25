@@ -18,12 +18,31 @@ img {
 }
 
 blockquote {
-  border-left: 4px solid var(--white-2);
-  margin-left: 21px;
+  border-left: 2px solid rgba(0, 0, 0, 0.12);
+  margin-left: 0;
 }
 blockquote p {
-  color: var(--grey);
-  margin-left: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-left: 12px;
+}
+
+blockquote p:first-child::before {
+  content: '"';
+  font-size: 30px;
+  font-family: cursive;
+  font-weight: bolder;
+  position: relative;
+  top: 9px;
+  margin-right: 9px;
+  background: rgba(0, 0, 0, 0.07);
+  height: 17px;
+  display: inline-block;
+  vertical-align: super;
+  padding-top: 10px;
+  text-align: center;
+  border-radius: 100px;
+  width: 27px;
+  color: rgba(0, 0, 0, 0.3);
 }
 
 pre,
