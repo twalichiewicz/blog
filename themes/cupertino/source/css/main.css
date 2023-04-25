@@ -36,6 +36,12 @@ a:visited {
   padding: 24px 16px;
 }
 
+@media screen and (max-width: 800px) {
+  .container {
+    padding: 16px 0;
+  }
+}
+
 .section-title {
   color: var(--grey);
   font-size: 0.6rem;
