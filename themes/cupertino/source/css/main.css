@@ -43,14 +43,22 @@ a:visited {
 }
 
 .section-title {
+  background: #fbfbfd;
+  border-radius: 3px;
   color: var(--grey);
+  display: flex;
   font-size: 0.6rem;
   font-weight: 400;
   line-height: 1.125;
   letter-spacing: 0.004em;
-  margin-bottom: 12px;
+  margin: 0 auto 48px auto;
+  padding: 3px;
+  position: sticky;
   text-align: center;
   text-transform: uppercase;
+  top: 6px;
+  width: fit-content;
+  z-index: 9999;
 }
 
 .theme-command {
