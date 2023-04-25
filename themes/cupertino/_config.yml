@@ -31,7 +31,7 @@ capitalize_tags: false
 hashtag_prefix_before_tags: true
 
 # rainbow!
-rainbow_banner: true
+rainbow_banner: false
 rainbow_banner_colors:
   - "#e50000"
   - "#ff8d00"
@@ -54,7 +54,7 @@ scroll_reveal: true
 # navigation config
 nav:
   # the title displays in the upper left corner which won't change
-  title: Design in Everything
+  title: Newest at the Top
   # the items displays in the upper right corner
   items:
     # these items will display as a link
@@ -72,7 +72,7 @@ nav:
   # footer items
   # footer:
   # the title
-  Design in Everything:
+  Newest at the Top:
     # the items after the title, display as links
     Latest Posts: /
     Archives: /archives
