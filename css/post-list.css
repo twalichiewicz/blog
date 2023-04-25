@@ -6,10 +6,11 @@
   margin: auto;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .post-list {
     display: block;
     max-width: 366px;
+    overflow-x: hidden;
   }
 }
 
@@ -25,7 +26,12 @@
   width: 100%;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
+  .post-list-item {
+    border-radius: 0;
+    margin: auto;
+  }
+
   .post-list-item:nth-child(n) {
     margin-left: 0;
     margin-right: 0;
