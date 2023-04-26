@@ -66,22 +66,36 @@
   line-height: 1.16667;
   font-weight: 400;
   letter-spacing: 0.009em;
+  margin-bottom: 0;
   max-height: 7em;
   overflow: hidden;
 }
 
 .post-list-item .title-permlink {
-  background-color: transparent;
-  border-radius: 3px;
-  display: inline-block;
-  font-size: 12px;
-  padding: 3px;
-  text-decoration: none;
+  border-radius: 9px;
+  color: inherit;
+  transition: all 300ms ease-in-out;
 }
 .post-list-item .title-permlink:hover {
-  background-color: rgba(0, 0, 0, 0.12);
-  text-decoration: none;
+  box-shadow: 0 9px 12px rgba(0, 0, 0, 0.15);
+  transition: all 300ms ease-in-out;
 }
+
+/* .post-list-item .title-permlink:hover .content-body {
+  padding: 6px 18px;
+  transition: all 300ms ease-in-out;
+} */
+
+/* .post-list-item .title-permlink:hover .content-body p {
+  left: 0;
+  position: relative;
+  transition: all 300ms ease-in-out;
+}
+.post-list-item .title-permlink:hover .content-body p {
+  left: -6px;
+  position: relative;
+  transition: all 300ms ease-in-out;
+} */
 
 .post-list-item .content {
   display: flex;
