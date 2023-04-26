@@ -140,14 +140,14 @@
 
 .post-list-item .categories span {
   color: transparent;
-  font-size: 1vw;
+  font-size: 10px;
   margin-right: 6px;
   text-decoration: none;
   text-shadow: 0 1px 0 lightslategrey;
 }
 @media screen and {
   .post-list-item .categories span {
-    font-size: 1.5vw;
+    font-size: 10px;
   }
 }
 
@@ -168,7 +168,7 @@
   align-items: center;
   color: var(--card-time);
   display: inline-block;
-  font-size: 1vw;
+  font-size: 10px;
   line-height: 10px;
   letter-spacing: -0.016em;
   justify-content: flex-start;
@@ -176,9 +176,9 @@
   text-transform: uppercase;
   margin-top: 6px;
 }
-@media screen and {
+@media screen and (max-width: 750px) {
   .post-list-item .time {
-    font-size: 1.5vw;
+    font-size: 10px;
   }
 }
 

@@ -33,13 +33,6 @@ a:visited {
 .container {
   max-width: 980px;
   margin: auto;
-  padding: 24px 16px;
-}
-
-@media screen and (max-width: var(--mobile-breakpoint)) {
-  .container {
-    padding: 24px 0;
-  }
 }
 
 .section-title {
@@ -47,7 +40,7 @@ a:visited {
   border-radius: 3px;
   color: var(--grey);
   display: flex;
-  font-size: 1.25vw;
+  font-size: 12px;
   font-weight: 400;
   line-height: 1.125;
   letter-spacing: 0.004em;
@@ -65,11 +58,11 @@ a:visited {
     background: #101010;
   }
 }
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) {
   .section-title {
-    font-size: 2vw;
+    font-size: 12px;
   }
-}
+} */
 
 .theme-command {
   display: none;
