@@ -26,17 +26,26 @@
                     <% }) %>
                 </div>
                 <% } %>
-                <!-- <div class="title">
-                    <%= post.title %>
+
+                <% if (post.long) { %>
                     <a class="title-permlink" href="<%- url_for(post.path) %>">
-                        🔗
+                        <div class="content-body content-body-long">
+                            <% if (post.show_title) { %>
+
+                                <p class="title">
+                                    <%= post.title %>
+                                </p>
+                            <% } %>
+
+                            <% if (theme.show_excerpt) { %>
+                            <p>
+                                <%- post.excerpt %>
+                            </p>
+                            <% } %>
+                        </div>
                     </a>
-                </div> -->
-                <% if (theme.show_excerpt) { %>
-                <div class="excerpt">
-                    <%- post.excerpt %>
-                </div>
                 <% } %>
+
                 <% if (post.short) { %>
                 <div class="content-body">
                     <%- post.content %>

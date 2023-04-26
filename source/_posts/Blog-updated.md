@@ -6,4 +6,5 @@ short: true
 ---
 
 Finally updated my portfolio's blog.
+
 _Hopefully that means fewer excuses for not writing._
