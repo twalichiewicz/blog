@@ -1,7 +1,3 @@
-body {
-  --mobile-breakpoint: 750px;
-}
-
 body[data-color-scheme="auto"],
 body[data-color-scheme="light"] {
   --white-opacity-8: rgba(255, 255, 255, 0.8);
