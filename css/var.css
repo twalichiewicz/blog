@@ -1,3 +1,7 @@
+body {
+  --mobile-breakpoint: 750px;
+}
+
 body[data-color-scheme="auto"],
 body[data-color-scheme="light"] {
   --white-opacity-8: rgba(255, 255, 255, 0.8);
@@ -14,7 +18,7 @@ body[data-color-scheme="light"] {
 
   --border-color: #8882;
 
-  --link: #06c;
+  --link: #3570d1;
 
   --blur: blur(32px);
 
@@ -48,7 +52,7 @@ body[data-color-scheme="light"] {
 
     --border-color: #8884;
 
-    --link: #5fafff;
+    --link: #3570d1;
 
     --blur: blur(32px);
 

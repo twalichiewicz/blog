@@ -25,9 +25,9 @@ blockquote p {
   color: rgba(0, 0, 0, 0.5);
   margin-left: 12px;
 }
-
 blockquote p:first-child::before {
   content: '"';
+  color: rgba(0, 0, 0, 0.3);
   font-size: 30px;
   font-family: cursive;
   font-weight: bolder;
@@ -42,7 +42,18 @@ blockquote p:first-child::before {
   text-align: center;
   border-radius: 100px;
   width: 27px;
-  color: rgba(0, 0, 0, 0.3);
+}
+@media (prefers-color-scheme: dark) {
+  blockquote {
+    border-left-color: rgba(255, 255, 255, 0.12);
+  }
+  blockquote p {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  blockquote p:first-child::before {
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.3);
+  }
 }
 
 pre,
