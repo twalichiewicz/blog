@@ -51,10 +51,14 @@
                     <%- post.content %>
                 </div>
                 <% } %>
+
                 <div class="time">
                     <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
                     <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
                     <span><%- post.date.year() %></span>
+                    <% if (post.original_date) { %>
+                        <span>(edited)</span>
+                    <% } %>
                 </div>
             </div>
         </article>

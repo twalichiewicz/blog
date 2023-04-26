@@ -6,7 +6,7 @@
   margin: auto;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and {
   .post-list {
     margin: auto;
     max-width: 100%;
@@ -140,10 +140,15 @@
 
 .post-list-item .categories span {
   color: transparent;
-  font-size: 11px;
+  font-size: 1vw;
   margin-right: 6px;
   text-decoration: none;
   text-shadow: 0 1px 0 lightslategrey;
+}
+@media screen and {
+  .post-list-item .categories span {
+    font-size: 1.5vw;
+  }
 }
 
 .post-list-item .excerpt {
@@ -153,7 +158,7 @@
   line-height: 20px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and {
   .post-list-item .content {
     font-size: 12px;
   }
@@ -163,13 +168,18 @@
   align-items: center;
   color: var(--card-time);
   display: inline-block;
-  font-size: 10px;
+  font-size: 1vw;
   line-height: 10px;
   letter-spacing: -0.016em;
   justify-content: flex-start;
   text-align: right;
   text-transform: uppercase;
   margin-top: 6px;
+}
+@media screen and {
+  .post-list-item .time {
+    font-size: 1.5vw;
+  }
 }
 
 .post-list-item .read-more {
