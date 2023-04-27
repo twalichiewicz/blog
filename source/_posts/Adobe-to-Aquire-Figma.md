@@ -1,7 +1,7 @@
 ---
 title: Adobe to Aquire Figma
 date: 2022-09-15
-categories: 📣
+categories: 🔖
 short: true
 ---
 
