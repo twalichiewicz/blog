@@ -1,7 +1,7 @@
 ---
 title: Blog updated
 date: 2023-04-25 08:13:14
-categories: 💬
+categories: 📣
 short: true
 ---
 
