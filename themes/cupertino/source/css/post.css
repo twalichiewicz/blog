@@ -171,6 +171,13 @@ hr,
 .content ol {
   padding: 0 16px;
   max-width: calc(800px - 16px * 2);
+  list-style-position: outside;
+}
+@media screen and (max-width: 750px) {
+  .content ul,
+  .content ol {
+    list-style-position: inside;
+  }
 }
 
 .content ul *,
