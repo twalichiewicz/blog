@@ -13,11 +13,6 @@
     <div class="post-list">
         <% page.posts.each(function (post) { %>
         <article class="post-list-item">
-            <% if (post.cover_image) { %>
-            <div class="cover-img">
-                <img src="<%= post.cover_image %>" alt="<%= post.cover_image_alt %>">
-            </div>
-            <% } %>
             <div class="content">
                 <% if (post.categories && post.categories.length) { %>
                 <div class="categories<%= theme.uppercase_categories ? ' text-uppercase' : '' %>">
@@ -28,8 +23,13 @@
                 <% } %>
 
                 <% if (post.long) { %>
-                    <a class="title-permlink" href="<%- url_for(post.path) %>">
+                    <a class="title-permlink<%= post.new_label ? ' new-label' : '' %>" href="<%- url_for(post.path) %>">
                         <div class="content-body content-body-long">
+                            <% if (post.cover_image) { %>
+                                <div class="cover-img">
+                                    <img src="<%= post.cover_image %>" alt="<%= post.cover_image_alt %>">
+                                </div>
+                            <% } %>
                             <% if (post.show_title) { %>
 
                                 <p class="title">
@@ -41,6 +41,7 @@
                             <p>
                                 <%- post.excerpt %>
                             </p>
+                            <button class="read-more">Read more</button>
                             <% } %>
                         </div>
                     </a>
@@ -52,13 +53,25 @@
                 </div>
                 <% } %>
 
-                <div class="time">
-                    <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
-                    <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
-                    <span><%- post.date.year() %></span>
-                    <% if (post.original_date) { %>
-                        <span>(edited)</span>
+                <div class="post-footer">
+                    <% if (post.reading_time) { %>
+                        <div class="reading-time">
+                            <span><%- post.reading_time %></span>
+                            <% if (post.original_date) { %>
+                                <span>minute</span>
+                                <span>read</span>
+                            <% } %>
+                        </div>
                     <% } %>
+
+                    <div class="time">
+                        <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
+                        <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
+                        <span><%- post.date.year() %></span>
+                        <% if (post.original_date) { %>
+                            <span>(edited)</span>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </article>
