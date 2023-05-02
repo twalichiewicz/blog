@@ -32,7 +32,7 @@
                             <!-- Shows a cover image, if it has one -->
                             <% if (post.cover_image) { %>
                                 <div class="cover-img">
-                                    <img src="<%= post.cover_image %>" alt="<%= post.cover_image_alt %>">
+                                    <img class="<%= post.draft ? 'draft-card' : '' %>" src="<%= post.cover_image %>" alt="<%= post.cover_image_alt %>">
                                 </div>
                             <% } %>
                             <!-- Show the title, if it has one -->
