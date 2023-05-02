@@ -2,7 +2,7 @@
 title: "Design Systems: Expectations & Realities"
 show_title: true
 cover_image: https://res.cloudinary.com/bornfight-studio/image/upload/v1678372951/bornfight-web-2022/https_lh4_googleusercontent_ce39fbc90f.png
-date: 2025-04-25 15:46:27
+date: 2023-05-05 12:00:00
 reading_time: 15 minutes
 long: true
 categories: 📦 WRITE-UP (DRAFT)
