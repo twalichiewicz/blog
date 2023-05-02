@@ -63,6 +63,11 @@
   transform: scale(1.03);
   filter: brightness(0.85);
 }
+.post-list-item:hover .cover-img img.draft-card,
+.post-list-item > a:focus .cover-img img.draft-card {
+  transform: scale(1);
+  filter: saturate(0);
+}
 
 .post-list-item .title {
   color: var(--card-title);
