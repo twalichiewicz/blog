@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head prefix="og: https://ogp.me/ns#">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBFBFD" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101010" />
+  
+  <title>Design Systems: Expectations &amp; Realities - Newest at the Top</title>
+  
+    <link rel="shortcut icon" href="https://thomas.design/media/favicon.ico">
+  
+  
+    <link rel='manifest' href='https://thomas.design/media/site.webmanifest'>
+  
+
+  
+  
+  
+  <meta property="og:title" content="Design Systems: Expectations &amp; Realities - Newest at the Top" />
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:url" content="https://twalichiewicz.github.io/blog/2025/04/25/Component-Systems-The-good-the-bad-and-the-ugly/index.html" />
+  
+  <meta property="og:image" content="https://res.cloudinary.com/bornfight-studio/image/upload/v1678372951/bornfight-web-2022/https_lh4_googleusercontent_ce39fbc90f.png" />
+  
+  <meta property="og:article:published_time" content="2025-04-25T22:46:27.000Z" />
+  
+  <meta property="og:article:author" content="Thomas Walichiwicz" />
+  
+  
+
+  
+<link rel="stylesheet" href="/blog/css/var.css">
+
+  
+<link rel="stylesheet" href="/blog/css/main.css">
+
+  
+<link rel="stylesheet" href="/blog/css/typography.css">
+
+  
+<link rel="stylesheet" href="/blog/css/code-highlighting.css">
+
+  
+<link rel="stylesheet" href="/blog/css/components.css">
+
+  
+<link rel="stylesheet" href="/blog/css/nav.css">
+
+  
+<link rel="stylesheet" href="/blog/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/blog/css/footer.css">
+
+  
+<link rel="stylesheet" href="/blog/css/post-list.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/blog/css/toc.css">
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/blog/css/post.css">
+
+  
+  
+  
+  
+  
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+    <body
+        data-color-scheme="auto"
+        data-uppercase-categories="true"
+        
+        data-config-root="/blog/"
+        
+        data-toc="true"
+        data-toc-max-depth="2"
+        
+        
+    >
+        <!-- <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/blog/">
+            <h1>Newest at the Top</h1>
+            <span class="subhead">If I have to see it everywhere so do you</span>
+        </a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/blog/">Home</a>
+            
+                <br>
+                <div class="color-scheme-toggle" role="radiogroup" id="theme-color-scheme-toggle">
+                    <label>
+                        <input type="radio" value="light">
+                        <span>🌞</span>
+                    </label>
+                    <label>
+                        <input type="radio" value="dark">
+                        <span>🌚</span>
+                    </label>
+                    <label>
+                        <input type="radio" value="auto">
+                        <span>Auto</span>
+                    </label>
+                </div>
+            
+            
+            
+            <a class="nav-item nav-item-search nav-item-icon" href="/blog/search" target="_blank">&nbsp;</a>
+            
+            
+        </div>
+    </div>
+</nav>
+ -->
+        
+<article class="post">
+    <div class="meta">
+        
+        <div class="categories text-uppercase">
+        
+            <a href="/blog/categories/📦-WRITE-UP-DRAFT/">📦 WRITE-UP (DRAFT)</a>
+        
+        </div>
+        
+
+        
+        <div class="date" id="date">
+            <span>April</span>
+            <span>25,</span>
+            <span>2025</span>
+        </div>
+        
+
+        <h2 class="title">Design Systems: Expectations &amp; Realities</h2>
+        <h3 class="byline"></h3>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="content">
+        <h2 id="Standardizing-designs"><a href="#Standardizing-designs" class="headerlink" title="Standardizing designs"></a>Standardizing designs</h2><p>To begin, let’s align on what exactly we’re talking about when we say “design system”:</p>
+<p><a target="_blank" rel="noopener" href="https://www.nngroup.com/articles/design-systems-101/">via Nielsen Norman Group:</a></p>
+<blockquote>
+<p>A design system is a set of standards to manage design at scale by reducing redundancy while creating a shared language and visual consistency across different pages and channels.</p>
+</blockquote>
+<p>Contrast this with the more traditional approach, “human interface guidelines”:</p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Human_interface_guidelines">via Wikipedia:</a></p>
+<blockquote>
+<p>Human interface guidelines (HIG) are software development documents which offer application developers a set of recommendations. Their aim is to improve the experience for the users by making application interfaces more intuitive, learnable, and consistent.</p>
+</blockquote>
+<p>Design systems are created to provide consistency and efficiency in the design process. They can help designers save time and reduce the risk of errors by providing pre-designed components, typography, color schemes, and other design elements. However, relying too heavily on a design system can limit a designer’s ability to explore and experiment with new ideas and approaches.</p>
+<p>Additionally, design systems are often created to serve a broad range of products and use cases, which may not always align with the specific needs of individual users or products. Over-reliance on the design system can lead to a “one size fits all” approach that does not adequately address the unique needs of users or products.</p>
+<h3 id="The-good"><a href="#The-good" class="headerlink" title="The good"></a>The good</h3><ol>
+<li><p><strong>The elements of your design share a consistent language.</strong><br>A design system ensures consistency across all products, features, and touch-points, reducing the likelihood of errors or confusion. Changes made to the design system can be easily shared among components and pages, and duplication of work can be minimized.</p>
+</li>
+<li><p><strong>Faster development time due to design &#x2F; code parity.</strong><br>When design elements and codebase are tightly integrated, designers and developers are able to work together more efficiently and collaboratively, reducing the amount of time and effort required to implement designs. By using pre-designed components, patterns, and guidelines, teams can avoid reinventing the wheel for every feature they implement. This allows them to focus on the unique aspects of each design rather than wasting time on repetitive tasks.</p>
+</li>
+</ol>
+<h3 id="The-bad"><a href="#The-bad" class="headerlink" title="The bad"></a>The bad</h3><ol>
+<li><p><strong>The implementation of a design system can be time-consuming and costly, especially when trying to retrofit existing designs and systems.</strong><br>The most intensive part of building a custom system is designing the components that make up the system. Every interaction with your product matters, and the components must be designed with an eye for comprehension and ease of use. Fitt’s law compliant components react to user input in a multitude of ways to make a product feel more responsive. Moreover, special attention is given to making a user experience with each component a pleasure to use by adding small animations and transitions to every interaction.</p>
+</li>
+<li><p><strong>Design system updates and changes can lead to compatibility issues and errors, requiring significant effort to resolve.</strong><br>To make the transition from design mockup to product code seamless, components are built in such a way that engineers can mimic all the changes designers could make. Styles are simple to update, thanks to a nested LESS architecture that makes wide-reaching changes easy. The design system’s breadth is also a crucial factor, as it provides a shared language of components that eliminates the need to reinvent the wheel every time a new project begins.</p>
+<p>Remember a couple sentences ago when I said that one of the Good items about Design Systems is design &#x2F; code parity? In reality that pipe-dream is much more complicated problem to solve than it seems.<br>a. Unless you have a pipeline for directly publishing designs into your codebase, you’re going to take on the responsibility of checking that your designs have be correctly implemented in code. (As opposed to trusting a previously created &#x2F; vetted design library).</p>
+</li>
+</ol>
+<h3 id="The-ugly"><a href="#The-ugly" class="headerlink" title="The ugly"></a>The ugly</h3><ol>
+<li><p><strong>Design Systems can be an expensive, inescapable quagmire.</strong><br>Advocating for fixing design debts puts other feature work on the back-burner, and that is a big no-no for startups that rely on every feature to bring in a slew of new customers.</p>
+<p>The final challenge revolves around making the user experience with each component a pleasure to use. To achieve this, small animations and transitions are added to every interaction. The Human Interest design system comes into its own when used to build interfaces. All the previous considerations and component design come together to create a cohesive experience, making it drag-and-drop simple to implement in production.</p>
+</li>
+<li><p><strong>Over-reliance on the design system can stifle creativity and innovation, leading to a generic and unremarkable user experience.</strong><br>It’s much harder than you think to convince leadership a design system is valuable.</p>
+</li>
+<li><p><strong>The strict adherence to a design system can make it difficult to accommodate unique user needs and preferences.</strong><br>Yes, it’s true that a lot of patterns solve a user’s problem <em>most</em> of the way. Bt how much more could you have solved it had you not decided to end your solution-seeking short by sticking to an existing pattern?</p>
+</li>
+</ol>
+<hr>
+<h2 id="foreground-Figma"><a href="#foreground-Figma" class="headerlink" title="foreground Figma"></a>foreground Figma</h2><figure class="video_container">
+  <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F8sbt0LsFyBu9u5arocXqBu%2Fbehance-pages%3Fnode-id%3D1%253A913%26t%3DlHLlKVsECgi8R0l0-1" allowfullscreen></iframe>
+</figure>
+
+<p>As a company and product matures, it becomes necessary to switch over from stock styling components and paradigms and begin to build out a system personalized for your business and your users. My solution, presented here, is <strong>foreground</strong>.</p>
+<figure class="video_container">
+  <details><summary>User interface guidelines</summary>
+  Enter text here
+  </details>
+  <details><summary>Design values</summary>
+  - Modular
+  - Simple to implement
+  - Meticulously crafted
+  </details>
+  <details><summary>Iconography</summary>
+  Enter text here
+  </details>
+  <details><summary>Components</summary>
+  Enter text here
+  </details>
+</figure>
+
+<figure class="video_container">
+  <details><summary>Color system</summary>
+  Enter text here
+  </details>
+  <details><summary>Typography</summary>
+  Enter text here
+  </details>
+  <details><summary>Iconography</summary>
+  Enter text here
+  </details>
+  <details><summary>Components</summary>
+  Enter text here
+  </details>
+</figure>
+<!--
+#### Color system
+
+<p>Human Interest is all about provide in otherwise restrictive services in a white-glove, personable way. This personality informed the premium feel of the color system, with bright colors used to accent generous whitespace. Standardizing around a set of colors also created a common language between designers and engineers, making hand-offs between the teams significantly simpler.</p>
+<h4 id="Typography"><a href="#Typography" class="headerlink" title="Typography"></a>Typography</h4><p>Typography makes or breaks every design syste. When you consider that financial products demand even more of their typefaces (lots of numbers with tight spacing, usage of line-breaking financial glyphs, usability across multiple screen sizes, on to mention getting across the brand’s look and feel) the typeface that is ultimately selected must truly be robust.</p>
+<p>Utimately, this led us to <strong>Inter</strong>. Not only because it is a beautifully designed font with great usability considerations, but also because of its ability to handle otherwise mundane pieces of information and make them look stunning.</p>
+<h4 id="Icons"><a href="#Icons" class="headerlink" title="Icons"></a>Icons</h4><p>Part of the challenge of working in a regulated, and non-matreial idustry is the lack of appropriate visualizations to explian complicated financial terms. And when taking into account the fact that most users are only spending fractions of a second to process a page of an applicatoin, clear, concise imagrey is paramount ot ensuring your users are confident and knowledgalble about eh decisions thy’re making.</p>
+<h4 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h4><p>The most intensive part of this project, the components ended up being both passion project and source of countless revisions as I tried to craft the perfect interactive components for Human Interest’s suite of products.</p>
+<h4 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h4><p>One of my major goals for the design system was to make the transition from design mockup to product code seamless. Components are built in such a way that engineers would be able to mimic all of the changes designers could make. Styles are simple to update, thanks to a nested LESS architecture which makes wide-reaching changes easy.</p>
+<h4 id="Usability"><a href="#Usability" class="headerlink" title="Usability"></a>Usability</h4><p>Every interaction with your product matters. Smallest frustrations or issues head up rapidly, and can we be wondering why are users are excited about being champions of your product. Keeping in mind the mantra, “don’t make me think”, All the components for design with an eye for comprehension and ease of use.</p>
+<h6 id="Fitt’s-law-compliant"><a href="#Fitt’s-law-compliant" class="headerlink" title="Fitt’s law compliant"></a>Fitt’s law compliant</h6><p>Buttons are more vertically pad for decreased acquisition time.</p>
+<h6 id="Affordance-available"><a href="#Affordance-available" class="headerlink" title="Affordance available"></a>Affordance available</h6><p>In order to give a Ford and throw the product, special Starling is only a flight interactive elements.</p>
+<h6 id="Interactive-by-nature"><a href="#Interactive-by-nature" class="headerlink" title="Interactive by nature"></a>Interactive by nature</h6><p>Components react to user input in a multitude of ways to make a product feel more responsive.</p>
+<h4 id="Breadth"><a href="#Breadth" class="headerlink" title="Breadth"></a>Breadth</h4><p>A large part of what makes a design system use for a shared language of components of what is the necessity of reinventing the wheel every time a new project begins. 20 minute time to develop a system like this is always constrain, I performed an analysis of all of our products are turning which elements are the most frequently used, as well as those which had the most glaring need an update.</p>
+<h4 id="Delightful"><a href="#Delightful" class="headerlink" title="Delightful"></a>Delightful</h4><p>The final challenge revolved around making a user experience with each component a pleasure to use. I feel that this is often overlooked (particularly in the financial industry), so to make your interest feel more personable, small animations and transitions were added to every interaction</p>
+<h3 id="Usage-in-product"><a href="#Usage-in-product" class="headerlink" title="Usage in product"></a>Usage in product</h3><p>System really comes into its own when you start using it to build interfaces. All the previous consideration as I need to component come together and create a cohesive experience, is abuse case Ashley because of the flexibility on how the compressor belt all these pages become your drag-and-drop simple to implement in production. –&gt;</p>
+
+    </div>
+
+    
+    <div class="about">
+        <h1>About this Post</h1>
+        <div class="details">
+            <p>This post is written by Thomas Walichiwicz, licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+        </div>
+        
+    </div>
+    
+
+    <div class="container post-prev-next">
+        <a class="next"></a>
+        
+        <a href="/blog/2023/04/29/Apple-Watch-broke/" class="prev">
+            <div>
+                <div class="text">
+                    <p class="label">Previous</p>
+                    <h3 class="title">Apple Watch broke</>
+                </div>
+            </div>
+        </a>
+        
+    </div>
+
+    
+        
+        
+    
+</article>
+
+
+        <footer>
+    <div class="inner">
+        <div class="links">
+            
+        </div>
+        <span>&copy; 2023 Thomas Walichiwicz<br>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> </span>
+        
+    </div>
+</footer>
+
+
+        
+<script src="/blog/js/main.js"></script>
+
+        
+        
+        
+
+        
+        <script src="https://unpkg.com/scrollreveal"></script>
+        <script>
+            window.addEventListener('load', () => {
+                ScrollReveal({ delay: 250, reset: true, easing: 'cubic-bezier(0, 0, 0, 1)' })
+                ScrollReveal().reveal('.post-list-item .cover-img img')
+                ScrollReveal().reveal('.post-list-item, .card, .content p img, .content .block-large img', { distance: '60px', origin: 'bottom', duration: 800 })
+            })
+        </script>
+        
+    </body>
+</html>
