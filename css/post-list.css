@@ -83,8 +83,13 @@
   text-decoration: none;
   transition: all 300ms ease-in-out;
 }
+.title-permlink.draft-card:hover {
+  box-shadow: none;
+  cursor: wait;
+  text-decoration: none;
+}
 .new-label {
-  box-shadow: 0 9px 12px rgba(0, 0, 0, 0.15);
+  /* This is where a new post styling will show up */
 }
 
 /* .post-list-item .title-permlink:hover .content-body {
@@ -122,6 +127,14 @@
   line-height: 21px;
   padding: 0 12px;
 }
+.content-body.draft-card {
+  background-color: transparent;
+  box-shadow: none;
+  color: darkgrey;
+}
+.content-body.draft-card p.title {
+  color: darkgrey;
+}
 
 /* .post-list-item a,
 .post-list-item a:hover,
@@ -143,13 +156,15 @@
   user-select: none;
   -webkit-user-select: none;
 }
-
 .post-list-item .categories span {
   color: transparent;
   font-size: 10px;
   margin-right: 6px;
   text-decoration: none;
   text-shadow: 0 1px 0 lightslategrey;
+}
+.categories.text-uppercase.draft-card {
+  opacity: 60%;
 }
 @media screen and {
   .post-list-item .categories span {
@@ -204,6 +219,11 @@
   border-radius: 32px;
   cursor: pointer;
   margin-bottom: 12px;
+}
+.read-more.draft-button {
+  background: lightgrey;
+  color: black;
+  opacity: 30%;
 }
 
 /* in archive page, use a more compact list view */

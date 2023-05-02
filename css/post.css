@@ -27,6 +27,13 @@ body {
   font-size: 48px;
   line-height: 48px;
   margin-top: 16px;
+  margin-bottom: 16px;
+}
+.meta .byline {
+  color: darkgrey;
+  font-size: 36px;
+  line-height: 36px;
+  margin-top: 12px;
 }
 
 .content {
@@ -52,6 +59,7 @@ body {
 .container,
 hr,
 .meta .title,
+.meta .byline,
 .toc,
 .content blockquote,
 .content table,
@@ -195,6 +203,24 @@ hr,
 .content > .katex {
   display: block;
   text-align: center;
+}
+
+.content .carousel {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}
+.content .carousel-card {
+  background: var(--body-bg);
+  border: solid 1px rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  display: block;
+  margin: 12px 300px;
+  min-width: 300px;
+  scroll-snap-align: start;
+  padding: 24px;
+  width: 800px;
 }
 
 .tags {
