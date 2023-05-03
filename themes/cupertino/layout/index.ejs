@@ -12,7 +12,7 @@
 
     <div class="post-list">
         <% page.posts.each(function (post) { %>
-        <article class="post-list-item">
+        <article class="post-list-item" id="<%= post.title %>">
             <div class="content">
                 <% if (post.categories && post.categories.length) { %>
                 <div class="categories<%= theme.uppercase_categories ? ' text-uppercase' : '' %><%= post.draft ? ' draft-card' : '' %>">
