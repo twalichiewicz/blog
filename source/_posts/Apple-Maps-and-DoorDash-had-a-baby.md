@@ -3,8 +3,14 @@ title: Apple Maps and DoorDash had a baby
 date: 2023-06-19 13:38:56
 short: true
 categories: 👨‍🎨
-cover_image: https://thomas.design/media/blog/AppleMapsAndDoorDash.jpg
 ---
 
 [![Apple Maps results and DoorDash results combined](https://thomas.design/media/blog/AppleMapsAndDoorDash.jpg)](https://thomas.design/media/blog/AppleMapsAndDoorDash.jpg)
-The immediacy of DoorDash + Apple Maps results
+The immediacy of DoorDash + Apple Maps results.
+
+_**Some fun details:**_
+
+- _Star in the top corner to quickly add / remove a favorite_
+- _If the restaurant closes soon, the directions icon is shown with an alert to tell the user they need to leave soon_
+- _"Top Rated Nearby" is a smart category that checks the most common attributes the user filters against_
+- _There is a small shadow / gradient to show that the list continues off the right edge of the screen_
