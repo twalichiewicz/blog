@@ -9,10 +9,6 @@ hr {
   margin: 64px auto;
 }
 
-img {
-  width: 100%;
-}
-
 ::marker {
   color: var(--black-4);
 }
