@@ -1,7 +1,7 @@
 ---
 title: Just Live Activities Goofin' 🤠
 date: 2022-10-18
-categories: 🖌️
+categories: 👨‍🎨
 short: true
 ---
 
