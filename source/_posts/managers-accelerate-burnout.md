@@ -7,3 +7,5 @@ categories: 💬
 ---
 
 Nothing accelerates burnout faster than bad management. Think you're passionate about the craft of design? See how long that lasts in a toxic design culture.
+
+These are obviously very difficult things to scale though. A small startup has a much easier time of maintaining a culture of trust and respect for the process than a large multi-org corporation.
