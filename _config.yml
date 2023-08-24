@@ -64,7 +64,7 @@ feed:
   path: rss2.xml
   limit: 20
   hub:
-  content:
+  content: true
   content_limit: 140
   content_limit_delim: " "
   order_by: -date
