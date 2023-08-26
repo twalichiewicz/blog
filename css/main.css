@@ -1,62 +1,65 @@
 * {
-  transition: color 0.2s, background-color 0.2s;
+	transition: color 0.2s, background-color 0.2s;
 }
 
 body {
-  margin: 0;
-  margin-top: 56px;
-  color: var(--black-2);
-  background-color: var(--body-bg);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	margin: 0;
+	margin-top: 56px;
+	color: var(--black-2);
+	background-color: var(--body-bg);
+	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+		Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	-moz-text-size-adjust: none;
+	-webkit-text-size-adjust: none;
+	-ms-text-size-adjust: none;
 }
 
 a:link {
-  color: var(--link);
-  text-decoration: none;
+	color: var(--link);
+	text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 a:active {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 a:visited {
-  color: var(--link);
-  text-decoration: none;
+	color: var(--link);
+	text-decoration: none;
 }
 
 .container {
-  max-width: 980px;
-  margin: auto;
+	max-width: 980px;
+	margin: auto;
 }
 
 .section-title {
-  background: #fbfbfd;
-  border-radius: 3px;
-  color: var(--grey);
-  display: flex;
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 1.125;
-  letter-spacing: 0.004em;
-  margin: 0 auto 48px auto;
-  padding: 3px;
-  position: sticky;
-  text-align: center;
-  text-transform: uppercase;
-  top: 6px;
-  width: fit-content;
-  z-index: 9999;
+	background: #fbfbfd;
+	border-radius: 3px;
+	color: var(--grey);
+	display: flex;
+	font-size: 12px;
+	font-weight: 800;
+	line-height: 1.125;
+	letter-spacing: 0.004em;
+	margin: 0 auto 48px auto;
+	padding: 3px;
+	position: sticky;
+	text-align: center;
+	text-transform: uppercase;
+	top: 6px;
+	width: fit-content;
+	z-index: 9999;
 }
 @media (prefers-color-scheme: dark) {
-  .section-title {
-    background: #101010;
-  }
+	.section-title {
+		background: #101010;
+	}
 }
 /* @media screen and (max-width: 800px) {
   .section-title {
@@ -65,5 +68,5 @@ a:visited {
 } */
 
 .theme-command {
-  display: none;
+	display: none;
 }
