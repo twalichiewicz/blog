@@ -1,19 +1,8 @@
 <footer>
-    <div class="inner">
-        <div class="links">
-            <% for (const i in theme.footer) { %>
-            <div class="group">
-                <h4 class="title"><%= i %></h4>
-                <% for (const n in theme.footer[i]) { %>
-                <a href="<%- theme.footer[i][n] %>" class="item"><%= n %></a>
-                <% } %>
-            </div>
-            <% } %>
-        </div>
-        <span>&copy; <%= date(new Date(), 'YYYY') %> <%= config.author || config.title %><br><%- __('powered_by', '<a href="http://hexo.io/" target="_blank">Hexo</a>') %> </span>
-        <% if (theme.footer_extra_description) { %>
-        <br>
-        <span class="footer-extra-description"><%- theme.footer_extra_description %></span>
-        <% } %>
-    </div>
+	<div class="inner">
+		<span
+			>Designed, written, and coded by <%= config.author || config.title %> in
+			California<br />&copy; <%= date(new Date(), 'YYYY') %></span
+		>
+	</div>
 </footer>
