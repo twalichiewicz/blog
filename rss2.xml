@@ -15,8 +15,35 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 30 Aug 2023 20:14:55 GMT</pubDate>
+    <pubDate>Mon, 04 Sep 2023 21:31:24 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Portfolio online</title>
+      <link>https://twalichiewicz.github.io/blog/2023/09/04/Portfolio-online/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/09/04/Portfolio-online/</guid>
+      <pubDate>Mon, 04 Sep 2023 21:27:37 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Finally got around to finishing the code for my portfolio page. &lt;a href=&quot;https://thomas.design/portfolio&quot;&gt;It’s live now&lt;/a&gt;, and I’ll be</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Finally got around to finishing the code for my portfolio page. <a href="https://thomas.design/portfolio">It’s live now</a>, and I’ll be adding projects there in the coming weeks.</p>]]></content:encoded>
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%8E%89/">🎉</category>
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/09/04/Portfolio-online/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>redoing portfolio</title>
@@ -538,35 +565,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/04/27/User-story-as-haiku/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Who is paying for news subscriptions?</title>
-      <link>https://twalichiewicz.github.io/blog/2023/04/27/Who-is-paying-for-news-subscriptions/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/04/27/Who-is-paying-for-news-subscriptions/</guid>
-      <pubDate>Thu, 27 Apr 2023 15:57:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Who is out there subscribing to individual news outlets? I struggle to think of a single publication that can justify the high cost when</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Who is out there subscribing to individual news outlets? I struggle to think of a single publication that can justify the high cost when there are so many alternatives to read. Apple News+ offers access to multiple sources with just one subscription, but it begs the question: why aren’t there more options like this available?</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/thoughts/">thoughts</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/04/27/Who-is-paying-for-news-subscriptions/#disqus_thread</comments>
       
     </item>
     
