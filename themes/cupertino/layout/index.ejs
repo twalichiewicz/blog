@@ -1,27 +1,8 @@
 <div class="container">
-    <% if (page.path == "index.html") { %>
-    <!-- <div class="hero">
-        <div class="group">
-            <h2 class="sub"><%= config.subtitle %></h2>
-            <h2 class="large"><%= config.description %></h2>
-        </div>
-    </div> -->
-
-    <a href="#"><h2 class="section-title"><%= __('latest_posts') %></h2></a>
-    <% } %>
-
     <div class="post-list">
         <% page.posts.each(function (post) { %>
         <article class="post-list-item" id="<%= post.title %>">
             <div class="content">
-                <% if (post.categories && post.categories.length) { %>
-                <div class="categories<%= theme.uppercase_categories ? ' text-uppercase' : '' %><%= post.draft ? ' draft-card' : '' %>">
-                    <% post.categories.forEach((category) => { %>
-                    <span><%= category.name %></span>
-                    <% }) %>
-                </div>
-                <% } %>
-
                 <% if (post.long) { %>
                     <% if (!post.draft) { %>
                         <a class="title-permlink<%= post.new_label ? ' new-label' : '' %><%= post.draft ? ' draft-card' : '' %>" href="<%- url_for(post.path) %>">
@@ -56,30 +37,20 @@
 
                 <% if (post.short) { %>
                 <div class="content-body">
+                    <div class="post-footer">
+                        <div class="time">
+                            <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
+                            <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
+                            <span><%- post.date.year() %></span>
+                            <% if (post.original_date) { %>
+                                <span>(edited)</span>
+                            <% } %>
+                        </div>
+                        <a href="<%- url_for(post.path) %>">↗</a>
+                    </div>
                     <%- post.content %>
                 </div>
                 <% } %>
-
-                <div class="post-footer">
-                    <% if (post.reading_time) { %>
-                        <div class="reading-time">
-                            <span><%- post.reading_time %></span>
-                            <% if (post.original_date) { %>
-                                <span>minute</span>
-                                <span>read</span>
-                            <% } %>
-                        </div>
-                    <% } %>
-
-                    <div class="time">
-                        <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
-                        <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
-                        <span><%- post.date.year() %></span>
-                        <% if (post.original_date) { %>
-                            <span>(edited)</span>
-                        <% } %>
-                    </div>
-                </div>
             </div>
         </article>
         <% }) %>

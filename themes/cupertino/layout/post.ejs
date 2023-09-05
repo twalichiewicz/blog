@@ -1,100 +1,72 @@
-<% if (theme.search == true && page.type == 'search') { %>
-    <%- partial('_partial/search') %>
-<% } else if (page.type == 'tags') { %>
-    <%- partial('_partial/tags') %>
-<% } else if (page.type == 'categories') { %>
-    <%- partial('_partial/categories') %>
-<% } else { %>
-<article class="post">
-    <div class="meta">
-        <% if (page.categories && page.categories.length) { %>
-        <div class="categories<%= theme.uppercase_categories ? ' text-uppercase' : '' %>">
-        <% page.categories.forEach((category) => { %>
-            <a href="<%= config.root + category.path %>"><%= category.name %></a>
-        <% }) %>
-        </div>
-        <% } %>
-
-        <% if (!page.no_date) { %>
-        <div class="date" id="date">
-            <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][page.date.month()] %></span>
-            <span><%- page.date.date() %>,</span>
-            <span><%- page.date.year() %></span>
-        </div>
-        <% } %>
-
-        <h2 class="title"><%= page.title %></h2>
-        <h3 class="byline"><%= page.byline %></h3>
-    </div>
-
-    <div class="divider"></div>
-
+<article class="post-list-item" id="<%= page.title %>">
     <div class="content">
-        <%- page.content %>
-    </div>
-
-    <% if (!page.no_about) { %>
-    <div class="about">
-        <h1><%= __('about_this_post') %></h1>
-        <div class="details">
-            <p><%- __('this_post_is_written_by', config.author) %>, <%- __('licensed_under', `<a href="${theme.license_link}">${theme.license}</a>`) %>.</p>
-        </div>
-        <% if (page.tags && page.tags.length) { %>
-        <p class="tags<%= theme.capitalize_tags ? ' text-capitalize' : '' %>">
-            <%
-                var tags = ''
-                page.tags.forEach((tag) => {
-                    tags += `<a href="${config.root}${tag.path}" class="tag">${theme.hashtag_prefix_before_tags ? '#' : ''}${tag.name}</a>${theme.hashtag_prefix_before_tags ? '' : ','}`
-                })
-                if (!theme.hashtag_prefix_before_tags) { tags = tags.slice(0, tags.length - 1) }
-            %>
-            <i class="icon"></i>
-            <%- tags %>
-        </p>
-        <% } %>
-    </div>
-    <% } %>
-
-    <div class="container post-prev-next">
-        <% if (page.prev) { %>
-        <a href="<%= url_for(page.prev.path) %>" class="next">
-            <div>
-                <div class="text">
-                    <p class="label"><%= __('next_post') %></p>
-                    <h3 class="title"><%= page.prev.title %></h3>
-                </div>
-            </div>
-        </a>
-        <% } else { %><a class="next"></a><% } %>
-        <% if (page.next) { %>
-        <a href="<%= url_for(page.next.path) %>" class="prev">
-            <div>
-                <div class="text">
-                    <p class="label"><%= __('prev_post') %></p>
-                    <h3 class="title"><%= page.next.title %></>
-                </div>
-            </div>
-        </a>
-        <% } else { %><a class="prev"></a><% } %>
-    </div>
-
-    <% if (!page.no_comments) { %>
-        <% if (config.waline) { %>
-        <div class="container">
-            <div id="waline"></div>
-            <script>
-                new Waline({
-                    el: "#waline",
-                    <% for (const i in config.waline) { %>
-                    <%- i %>: <%- config.waline[i] %>,
+        <% if (page.long) { %>
+            <% if (!page.draft) { %>
+                <a class="title-permlink<%= page.new_label ? ' new-label' : '' %><%= page.draft ? ' draft-card' : '' %>" href="<%- url_for(page.path) %>">
+            <% } else { %>
+                <div class="title-permlink<%= page.new_label ? ' new-label' : '' %><%= page.draft ? ' draft-card' : '' %>">
+            <% } %>
+                <div class="content-body content-body-long<%= page.draft ? ' draft-card' : '' %>">
+                    <!-- Shows a cover image, if it has one -->
+                    <% if (page.cover_image) { %>
+                        <div class="cover-img">
+                            <img class="<%= page.draft ? 'draft-card' : '' %>" src="<%= page.cover_image %>" alt="<%= page.cover_image_alt %>">
+                        </div>
                     <% } %>
-                });
-            </script>
+                    <!-- Show the title, if it has one -->
+                    <% if (page.show_title) { %>
+                        <p class="title">
+                            <%= page.title %>
+                        </p>
+                    <% } %>
+                    <!-- Show the excerpt, only used for long form pages. Will also add a button to "read more" -->
+                    <% if (theme.show_excerpt) { %>
+                    <p>
+                        <%- page.excerpt %>
+                    </p>
+                    <button class="read-more<%- page.draft ? ' draft-button' : '' %>">
+                        <%= page.draft ? 'Coming soon' : 'Read more' %>
+                    </button>
+                    <% } %>
+                </div>
+            </a>
+        <% } %>
+
+        <% if (page.short) { %>
+        <div class="content-body">
+            <div class="post-footer">
+                <div class="time">
+                    <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][page.date.month()] %></span>
+                    <span>&nbsp;<%- page.date.date() %>,&nbsp;</span>
+                    <span><%- page.date.year() %></span>
+                    <% if (page.original_date) { %>
+                        <span>(edited)</span>
+                    <% } %>
+                </div>
+            </div>
+            <%- page.content %>
         </div>
         <% } %>
-        <% if (config.giscus) { %>
-        <%- config.giscus %>
-        <% } %>
-    <% } %>
+
+        <div class="post-footer">
+            <% if (page.reading_time) { %>
+                <div class="reading-time">
+                    <span><%- page.reading_time %></span>
+                    <% if (page.original_date) { %>
+                        <span>minute</span>
+                        <span>read</span>
+                    <% } %>
+                </div>
+            <% } %>
+
+            <div class="time">
+                <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][page.date.month()] %></span>
+                <span>&nbsp;<%- page.date.date() %>,&nbsp;</span>
+                <span><%- page.date.year() %></span>
+                <% if (page.original_date) { %>
+                    <span>(edited)</span>
+                <% } %>
+            </div>
+        </div>
+    </div>
 </article>
-<% } %>
