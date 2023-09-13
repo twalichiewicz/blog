@@ -15,8 +15,35 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 05 Sep 2023 05:15:34 GMT</pubDate>
+    <pubDate>Wed, 13 Sep 2023 04:42:55 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Apple Wonderlust event</title>
+      <link>https://twalichiewicz.github.io/blog/2023/09/13/Apple-Wonderlust-event/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/09/13/Apple-Wonderlust-event/</guid>
+      <pubDate>Wed, 13 Sep 2023 04:39:13 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Today’s Apple event might have been the first time I didn’t actively watch or follow the updates. When I went back to check what had</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Today’s Apple event might have been the first time I didn’t actively watch or follow the updates. When I went back to check what had been announced, I saw that there was nothing of particular significance. This felt like such a non-event that it made me genuinely wonder what these teams have been doing for an entire year.</p><p>Perhaps the iPhone is soon reaching the same point MacBook Pros did a few years ago, where a complete overhaul saved the line from being the joke had it become.</p>]]></content:encoded>
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/09/13/Apple-Wonderlust-event/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>SUV loading ramp collapsible</title>
@@ -533,33 +560,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/04/29/Apple-Watch-broke/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Twitter DLC</title>
-      <link>https://twalichiewicz.github.io/blog/2023/04/28/Twitter-DLC/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/04/28/Twitter-DLC/</guid>
-      <pubDate>Fri, 28 Apr 2023 06:27:54 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Verified is to Twitter as &lt;select id=&quot;metaphorPicker&quot; default=&quot;&quot; style=&quot;height: 21px; font-size: 14px; line-height: 21px; color:</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Verified is to Twitter as <select id="metaphorPicker" default="" style="height: 21px; font-size: 14px; line-height: 21px; color: rgb(51,51,51);"><optgroup label="Shitty metaphors"><option id="cosmetics" value="video games">cosmetics</option><option id="skins" value="cars">trim packages</option><option id="hats" value="Team Fortress 2">hats</option></optgroup></select> are to <input type="text" id="selectedMetaphor" value="video games" readonly="readonly" style="border: none; font-size: 14px; color: rgb(51,51,51);" ></p><p>How long until there is a Twitter cosmetic store?</p><script>    document.getElementById('metaphorPicker').onchange = function() {         document.getElementById('selectedMetaphor').value = this.value;    };</script>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/04/28/Twitter-DLC/#disqus_thread</comments>
       
     </item>
     
