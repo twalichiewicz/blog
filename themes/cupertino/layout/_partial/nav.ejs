@@ -1,3 +1,24 @@
-<a href=<% if (page.path == "index.html") { %>"#"<% } else { %>"/blog/"<% } %>>
-    <h2 class="section-title"><% if (page.path !== "index.html") { %>↩ <% } %><%= __('latest_posts') %></h2>
-</a>
+<nav>
+    <div class="nav-content-container">
+        <div class="breadcrumbs">
+                <a href="https://www.thomas.design">
+                    <h2 class="nav-home-page">thomas.design</h2>
+                </a>
+                <span class="nav-spacer">/</span>
+                <a href=<% if (page.path == "index.html") { %>"#"<% } else { %>"/blog/"<% } %>>
+                    <h2 class="section-title active">Blog</h2>
+                </a>
+                <a href="https://www.thomas.design/portfolio">
+                    <h2 class="section-title">Portfolio</h2>
+                </a>
+                <a href="https://www.linkedin.com/in/twalichiewicz/">
+                    <h2 class="section-title">Contact ↗</h2>
+                </a>
+        </div>
+        <% if (page.path == "index.html") { %>
+            <div class="nav-title">
+                <h1 class="title"><em>Newest at the Top</em></h1>
+            </div>
+        <% }%>
+    </div>
+</nav>
