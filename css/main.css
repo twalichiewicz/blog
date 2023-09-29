@@ -34,12 +34,6 @@ a:visited {
 	margin: auto;
 }
 
-@media (prefers-color-scheme: dark) {
-	.section-title {
-		background: #101010;
-	}
-}
-
 .theme-command {
 	display: none;
 }
