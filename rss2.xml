@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 03 Oct 2023 19:33:33 GMT</pubDate>
+    <pubDate>Fri, 06 Oct 2023 18:54:33 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Internet without blockers</title>
+      <link>https://twalichiewicz.github.io/blog/2023/10/06/Internet-without-blockers/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/10/06/Internet-without-blockers/</guid>
+      <pubDate>Fri, 06 Oct 2023 18:51:04 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;It’s always sobering to accidentally leave an adblocker off and visit a couple websites. Staggering just how many ads they try and cram</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>It’s always sobering to accidentally leave an adblocker off and visit a couple websites. Staggering just how many ads they try and cram into the page.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/10/06/Internet-without-blockers/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>homepage updated</title>
@@ -533,33 +558,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/05/05/Mario-Mid-Movie/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>News Minimalist</title>
-      <link>https://twalichiewicz.github.io/blog/2023/05/03/News-Minimalist/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/05/03/News-Minimalist/</guid>
-      <pubDate>Wed, 03 May 2023 19:10:09 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Just a small shout-out to &lt;a href=&quot;https://www.newsminimalist.com/&quot;&gt;News Minimalist&lt;/a&gt;, for giving me what I actually &lt;em&gt;want&lt;/em&gt; out</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Just a small shout-out to <a href="https://www.newsminimalist.com/">News Minimalist</a>, for giving me what I actually <em>want</em> out of a news aggregator: simple summaries of what happened today with the ability to see more.</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/05/03/News-Minimalist/#disqus_thread</comments>
       
     </item>
     
