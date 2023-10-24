@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 13 Oct 2023 06:28:18 GMT</pubDate>
+    <pubDate>Tue, 24 Oct 2023 19:14:06 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>apple maps restaurant menus</title>
+      <link>https://twalichiewicz.github.io/blog/2023/10/24/apple-maps-restaurant-menus/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/10/24/apple-maps-restaurant-menus/</guid>
+      <pubDate>Tue, 24 Oct 2023 19:06:43 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Considering how good iOS’s image-to-text processing is (especially compared to competitors), Apple Maps should be able to convert menus</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Considering how good iOS’s image-to-text processing is (especially compared to competitors), Apple Maps should be able to convert menus into standardized POI metadata.</p><ul><li>For those that require assistive devices to read a menu, they could just load the restaurant POI</li><li>Keeps users who are interested in delivery in the Apple Maps app longer, since they don’t need to jump immediately to DoorDash to check the menu if a restaurant looks good<ul><li>Eventually you should be able to order (via applet) directly from the Apple Maps POI card</li></ul></li><li>Assuming it’s easy for a restaurant owner to upload the menu, it incentivizes businesses to engage with &#x2F; update Apple Maps content</li></ul>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/10/24/apple-maps-restaurant-menus/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>you know when you</title>
@@ -529,33 +554,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/05/26/Fluent-2-Design-System/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>MVPs degrade brand perception</title>
-      <link>https://twalichiewicz.github.io/blog/2023/05/26/MVPs-degrade-brand-perception/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/05/26/MVPs-degrade-brand-perception/</guid>
-      <pubDate>Fri, 26 May 2023 00:54:54 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;As anyone who has worked in tech knows, Minimum Viable Product (MVP) solutions are &lt;em&gt;the&lt;/em&gt; popular approach for launching new</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>As anyone who has worked in tech knows, Minimum Viable Product (MVP) solutions are <em>the</em> popular approach for launching new products. But after a decade of worth in in the industry, I think that releasing products in an MVP state to your customers is generally a mistake.</p><p>No customer wants to feel like they’re paying to use something incomplete. And releasing products in an unfinished, lacking state is problematic not only to your customers but the perception of your company as a whole.</p><p>You can really only make your first impression once, and you will be fighting an uphill battle to prove the value of your product the moment after you release it.</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/05/26/MVPs-degrade-brand-perception/#disqus_thread</comments>
       
     </item>
     
