@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 24 Oct 2023 19:14:06 GMT</pubDate>
+    <pubDate>Wed, 25 Oct 2023 16:41:23 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>slack redesignw</title>
+      <link>https://twalichiewicz.github.io/blog/2023/10/25/slack-redesignw/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/10/25/slack-redesignw/</guid>
+      <pubDate>Wed, 25 Oct 2023 16:38:52 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;img src=&quot;/blog/2023/10/25/slack-redesignw/slackRedesignFail.png&quot;&gt;&lt;br&gt;The Slack redesign team didn’t account for</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><img src="/blog/2023/10/25/slack-redesignw/slackRedesignFail.png"><br>The Slack redesign team didn’t account for <em>me</em>.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/10/25/slack-redesignw/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>apple maps restaurant menus</title>
@@ -527,33 +552,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/06/06/Apple-Vision-Pro/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Fluent 2 Design System</title>
-      <link>https://twalichiewicz.github.io/blog/2023/05/26/Fluent-2-Design-System/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/05/26/Fluent-2-Design-System/</guid>
-      <pubDate>Fri, 26 May 2023 21:44:17 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;So Microsoft &lt;a href=&quot;https://fluent2.microsoft.design/&quot; title=&quot;Fluent 2 component / design breakdown page&quot;&gt;released Fluent</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>So Microsoft <a href="https://fluent2.microsoft.design/" title="Fluent 2 component / design breakdown page">released Fluent 2</a>…</p><p>I’ll defer to <a href="https://seanosullivan.co.uk/">this comment on Hacker News</a> that sums it up nicely:</p><blockquote><p>It’s too bad that Microsoft as an organization doesn’t care about good design. I don’t look at Satya Nadella and think of a man who has taste. And Microsoft doesn’t have a Chief Design Officer, as far as I know.</p><p>Instead, Microsoft has VPs. So there’s no one person at the helm saying, “This is the vision and where we’re heading.”</p><p>As a result, I suspect there are actual good designers at Microsoft trying to start movements from within, and those have bubbled up to what we see today as the progression of Microsoft’s design through Fluent from Metro and prior.</p><p>But because there’s no one at the helm, these efforts will always be isolated.</p><p>There will never be anyone saying, “Let’s carry these efforts across products and down to the UI.” “Let’s deprecate and discontinue all of these fragmented UI frameworks. Moving forward, Microsoft will only create UI using Fluent UI.”</p><p>Worse yet, even if someone tried, Microsoft has tried and failed again and again and again so why would you bother? It’s clear Microsoft’s UIs are shifting sand compared to Apple’s platforms or even Linux desktops!</p></blockquote>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/05/26/Fluent-2-Design-System/#disqus_thread</comments>
       
     </item>
     
