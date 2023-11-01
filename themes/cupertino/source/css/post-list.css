@@ -137,12 +137,22 @@
 	color: darkgrey;
 }
 .content-body img {
+	border-radius: 9px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	max-height: 360px;
 	max-width: 100%;
 	overflow-y: hidden;
+}
+
+/* for [hexo-math](https://github.com/hexojs/hexo-math): */
+.content-body .katex {
+		display: block;
+		text-align: center;
+		margin-bottom: 1em;
+		margin-top: 1em;
+	}
 }
 
 /* .post-list-item a,
