@@ -6,6 +6,16 @@ short: true
 
 ![](betterIcon.png)
 
-Who was the designer working on the Apple Music app that thought a dot actually conveyed any meaning to the user?
+> "Hey what symbol should we use to show a track is popular?"
+>
+> "How about the universally accepted symbol for 'New' in a list view?"
+>
+> "Perfect. And what should the user interaction be when you hover over it?"
+>
+> "I dunno, how about the Favorite functionality?"
+>
+> "Sounds good to me! Ship it!"
+
+What the fuck
 
 _It's even more offensive considering they already use "🔥 Trending" in the Maps app to show when a POI is being frequently viewed._
