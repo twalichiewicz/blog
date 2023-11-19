@@ -15,8 +15,34 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 01 Nov 2023 18:06:12 GMT</pubDate>
+    <pubDate>Sun, 19 Nov 2023 01:48:11 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Apple Music confusing iconography</title>
+      <link>https://twalichiewicz.github.io/blog/2023/11/19/Apple-Music-confusing-iconography/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/11/19/Apple-Music-confusing-iconography/</guid>
+      <pubDate>Sun, 19 Nov 2023 01:23:51 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;img src=&quot;/blog/2023/11/19/Apple-Music-confusing-iconography/betterIcon.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Who was the designer working on the Apple Music app</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><img src="/blog/2023/11/19/Apple-Music-confusing-iconography/betterIcon.png"></p><p>Who was the designer working on the Apple Music app that thought a dot actually conveyed any meaning to the user?</p><p><em>It’s even more offensive considering they already use “🔥 Trending” in the Maps app to show when a POI is being frequently viewed.</em></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/11/19/Apple-Music-confusing-iconography/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>slack redesignw</title>
@@ -525,33 +551,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/06/12/enshittification/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Apple Vision Pro</title>
-      <link>https://twalichiewicz.github.io/blog/2023/06/06/Apple-Vision-Pro/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/06/06/Apple-Vision-Pro/</guid>
-      <pubDate>Tue, 06 Jun 2023 07:37:54 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Is it even worth mentioning anything else when the &lt;a href=&quot;https://www.apple.com/apple-vision-pro/&quot;&gt;Apple Vision Pro&lt;/a&gt; was announced</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Is it even worth mentioning anything else when the <a href="https://www.apple.com/apple-vision-pro/">Apple Vision Pro</a> was announced today?</p><p>It really seems Apple did their homework on this one, especially as I read the more informed opinions online.</p><p>And as a designer, it’s super fun to have a new method by which you can solve problems!</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/06/06/Apple-Vision-Pro/#disqus_thread</comments>
       
     </item>
     
