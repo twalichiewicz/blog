@@ -15,8 +15,34 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sun, 19 Nov 2023 01:53:01 GMT</pubDate>
+    <pubDate>Mon, 20 Nov 2023 20:46:52 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>MURAL stupid outage</title>
+      <link>https://twalichiewicz.github.io/blog/2023/11/20/MURAL-stupid-outage/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/11/20/MURAL-stupid-outage/</guid>
+      <pubDate>Mon, 20 Nov 2023 20:34:04 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;img src=&quot;/blog/2023/11/20/MURAL-stupid-outage/oldDumbassMURAL.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Whoever approved this as a solution should be fired, but I</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><img src="/blog/2023/11/20/MURAL-stupid-outage/oldDumbassMURAL.png"></p><p>Whoever approved this as a solution should be fired, but I think MURAL is basically a Microsoft property by now meaning they’ll probably be promoted instead.</p><p>Though really, why does MURAL even exist when you can just use FigJam?</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/11/20/MURAL-stupid-outage/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Apple Music confusing iconography</title>
@@ -524,34 +550,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/06/19/Apple-Maps-and-DoorDash-had-a-baby/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>enshittification</title>
-      <link>https://twalichiewicz.github.io/blog/2023/06/12/enshittification/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/06/12/enshittification/</guid>
-      <pubDate>Mon, 12 Jun 2023 20:11:26 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;blockquote&gt;
-&lt;h1 id=&quot;Enshittification&quot;&gt;&lt;a href=&quot;#Enshittification&quot; class=&quot;headerlink&quot; title=&quot;Enshittification&quot;&gt;&lt;/a&gt;&lt;a</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<blockquote><h1 id="Enshittification"><a href="#Enshittification" class="headerlink" title="Enshittification"></a><a href="https://knowyourmeme.com/memes/enshittification">Enshittification</a></h1><p><strong>(verb)</strong></p><ol><li>To enshittify.</li><li>The process by which a social media platform’s content and engagement is overwhelmed by its toxicity (either internally or externally focused).</li><li>How a platform dies.</li></ol></blockquote><p><a href="https://www.wired.com/story/tiktok-platforms-cory-doctorow/">Facebook, TikTok,</a> <a href="https://www.marginalia.nu/log/82_killing_community/">Reddit,</a> …</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/06/12/enshittification/#disqus_thread</comments>
       
     </item>
     
