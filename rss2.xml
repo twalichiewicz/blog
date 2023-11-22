@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 20 Nov 2023 20:46:52 GMT</pubDate>
+    <pubDate>Wed, 22 Nov 2023 18:09:36 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>glorified autocomplete</title>
+      <link>https://twalichiewicz.github.io/blog/2023/11/22/glorified-autocomplete/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/11/22/glorified-autocomplete/</guid>
+      <pubDate>Wed, 22 Nov 2023 17:16:15 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Some thoughts after reading &lt;a</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Some thoughts after reading <a href="https://statmodeling.stat.columbia.edu/2023/11/18/i-disagree-with-geoff-hinton-regarding-glorified-autocomplete/">this great blog post from Columbia’s Stats blog:</a></p><p>Where we are today, Large Language Models (LLMs) have become skilled at mimicking human intuition— taking into consideration all of the individual’s <em>(well, the LLM’s scraping of the internet, in this case)</em> experiences and perceptions and providing heuristic responses to prompts.</p><p>What’s <em>really</em> exiting is as we move out of the nascent phase of LLM AI we can now attempt to recreate the higher level of human cognition: reasoning. The question now is which LLM AI product will be the one to realize that a large investment in bringing in psychologists will help them reach that goal first?</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/11/22/glorified-autocomplete/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>MURAL stupid outage</title>
@@ -523,33 +548,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/06/20/Netflix-Games-and-third-party-app-stores-SHRT/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Apple Maps and DoorDash had a baby</title>
-      <link>https://twalichiewicz.github.io/blog/2023/06/19/Apple-Maps-and-DoorDash-had-a-baby/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/06/19/Apple-Maps-and-DoorDash-had-a-baby/</guid>
-      <pubDate>Mon, 19 Jun 2023 20:38:56 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;a href=&quot;https://thomas.design/media/blog/AppleMapsAndDoorDash.jpg&quot;&gt;&lt;img src=&quot;https://thomas.design/media/blog/AppleMapsAndDoorDash.jpg&quot;</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><a href="https://thomas.design/media/blog/AppleMapsAndDoorDash.jpg"><img src="https://thomas.design/media/blog/AppleMapsAndDoorDash.jpg" alt="Apple Maps results and DoorDash results combined"></a><br>The immediacy of DoorDash + Apple Maps results.</p><p><em><strong>Some fun details:</strong></em></p><ul><li><em>Star in the top corner to quickly add &#x2F; remove a favorite</em></li><li><em>If the restaurant closes soon, the directions icon is shown with an alert to tell the user they need to leave soon</em></li><li><em>“Top Rated Nearby” is a smart category that checks the most common attributes the user filters against</em></li><li><em>There is a small shadow &#x2F; gradient to show that the list continues off the right edge of the screen</em></li></ul>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%91%A8%E2%80%8D%F0%9F%8E%A8/">👨‍🎨</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/06/19/Apple-Maps-and-DoorDash-had-a-baby/#disqus_thread</comments>
       
     </item>
     
