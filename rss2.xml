@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 22 Nov 2023 18:09:36 GMT</pubDate>
+    <pubDate>Fri, 24 Nov 2023 18:02:54 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>stripe black friday dashboard</title>
+      <link>https://twalichiewicz.github.io/blog/2023/11/24/stripe-black-friday-dashboard/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/11/24/stripe-black-friday-dashboard/</guid>
+      <pubDate>Fri, 24 Nov 2023 17:50:41 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;a href=&quot;https://bfcm.stripe.dev/&quot;&gt;Awesome little visualization from Stripe&lt;/a&gt; to start the morning.</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><a href="https://bfcm.stripe.dev/">Awesome little visualization from Stripe</a> to start the morning. 🌞</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/11/24/stripe-black-friday-dashboard/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>glorified autocomplete</title>
@@ -521,33 +546,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/06/22/Over-meeting-is-bad-for-design/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Netflix Games and third-party app stores SHRT</title>
-      <link>https://twalichiewicz.github.io/blog/2023/06/20/Netflix-Games-and-third-party-app-stores-SHRT/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/06/20/Netflix-Games-and-third-party-app-stores-SHRT/</guid>
-      <pubDate>Tue, 20 Jun 2023 15:56:51 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;a href=&quot;https://thomas.design/media/blog/NetflixGamesBS.jpeg&quot;&gt;&lt;img src=&quot;https://thomas.design/media/blog/NetflixGamesBS.jpeg&quot;</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><a href="https://thomas.design/media/blog/NetflixGamesBS.jpeg"><img src="https://thomas.design/media/blog/NetflixGamesBS.jpeg" alt="Apple Maps results and DoorDash results combined"></a><br>This is exactly what I think of when people advocate for third-party App Stores on iOS. Instead of one consistent, straightforward purchasing experience, we get these shells that always require some additional bullshit to use.</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/06/20/Netflix-Games-and-third-party-app-stores-SHRT/#disqus_thread</comments>
       
     </item>
     
