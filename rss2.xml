@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 24 Nov 2023 18:02:54 GMT</pubDate>
+    <pubDate>Sat, 25 Nov 2023 01:07:51 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>apple tv visualizer</title>
+      <link>https://twalichiewicz.github.io/blog/2023/11/25/apple-tv-visualizer/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/11/25/apple-tv-visualizer/</guid>
+      <pubDate>Sat, 25 Nov 2023 01:06:57 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Why the hell doesn’t the Apple TV Music app have a</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Why the hell doesn’t the Apple TV Music app have a visualizer?</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/11/25/apple-tv-visualizer/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>stripe black friday dashboard</title>
@@ -519,33 +544,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/06/24/Notification-spam-and-toxicity/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Over-meeting is bad for design</title>
-      <link>https://twalichiewicz.github.io/blog/2023/06/22/Over-meeting-is-bad-for-design/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/06/22/Over-meeting-is-bad-for-design/</guid>
-      <pubDate>Thu, 22 Jun 2023 03:46:15 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Over-meeting days are pretty much shit for design productivity. What makes it particularly frustrating is that there isn’t automatically</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Over-meeting days are pretty much shit for design productivity. What makes it particularly frustrating is that there isn’t automatically additional time given to complete the actual designs. This is why designers often end up having to resort to the simplest solution: they simply haven’t had enough time to properly process the problem and try an adequate number of solutions.</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/06/22/Over-meeting-is-bad-for-design/#disqus_thread</comments>
       
     </item>
     
