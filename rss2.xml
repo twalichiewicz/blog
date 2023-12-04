@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sat, 25 Nov 2023 01:07:51 GMT</pubDate>
+    <pubDate>Mon, 04 Dec 2023 07:55:10 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>touch interfaces contextual menu affordance</title>
+      <link>https://twalichiewicz.github.io/blog/2023/12/04/touch-interfaces-contextual-menu-affordance/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/12/04/touch-interfaces-contextual-menu-affordance/</guid>
+      <pubDate>Mon, 04 Dec 2023 07:34:52 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;One thing that I still haven’t seen touch interfaces properly provide affordance for are secondary actions. Yes, you can access them by</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>One thing that I still haven’t seen touch interfaces properly provide affordance for are secondary actions. Yes, you can access them by typically a long-press, but how does a user <em>know</em> which items contain additional functionality?</p><p><img src="/blog/2023/12/04/touch-interfaces-contextual-menu-affordance/whereDidTheUITouchYou.png"></p><p><strong>P.S.</strong> <em>Onboarding modals or tooltips are a lazy excuse and if you thought that was an acceptable answer you are wrong.</em></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/12/04/touch-interfaces-contextual-menu-affordance/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>apple tv visualizer</title>
@@ -517,33 +542,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/07/03/Adorable-iPad-college-animation/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Notification spam and toxicity</title>
-      <link>https://twalichiewicz.github.io/blog/2023/06/24/Notification-spam-and-toxicity/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/06/24/Notification-spam-and-toxicity/</guid>
-      <pubDate>Sat, 24 Jun 2023 21:45:22 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Notification toxicity is always a clear sign of non-designers trying to eke out some congratulatory metrics at the cost of brand</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Notification toxicity is always a clear sign of non-designers trying to eke out some congratulatory metrics at the cost of brand perception and user experience.</p><p>The example that always comes to mind are DoorDash notifications. You <em>would</em> want to leave them on for what you can consider useful information (order status, delivery driver messages), but by doing so you get uninvited marketing spam piped directly to you.</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/06/24/Notification-spam-and-toxicity/#disqus_thread</comments>
       
     </item>
     
