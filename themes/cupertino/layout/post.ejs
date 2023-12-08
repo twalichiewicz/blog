@@ -58,15 +58,6 @@
                     <% } %>
                 </div>
             <% } %>
-
-            <div class="time">
-                <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][page.date.month()] %></span>
-                <span>&nbsp;<%- page.date.date() %>,&nbsp;</span>
-                <span><%- page.date.year() %></span>
-                <% if (page.original_date) { %>
-                    <span>(edited)</span>
-                <% } %>
-            </div>
         </div>
     </div>
 </article>
