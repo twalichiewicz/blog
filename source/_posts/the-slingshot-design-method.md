@@ -19,7 +19,8 @@ short: true
 
 **Slingshot design**
 _A metaphorical design process_
-Slowly drawing back a sling-shot as you determine all the parameters and direction you want your solution to end up in. Once you're fairly confident you'll hit the agreed upon target, development should rapidly and exponentially accelerate towards the target (with some minor corrections along the way, but that stay within the bounds of the vectors of the slingshot).
+
+Slowly drawing back a slingshot as you determine all the parameters and direction you want your solution to end up in. Once you're fairly confident you'll hit the agreed upon target, development should rapidly and exponentially accelerate towards the target (with some minor corrections along the way, but that stay within the bounds of the vectors of the slingshot).
 
 After the target hits, you do analysis to see if you were on target and pick from two follow-ups:
 
