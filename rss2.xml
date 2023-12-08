@@ -15,8 +15,38 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 04 Dec 2023 07:59:50 GMT</pubDate>
+    <pubDate>Fri, 08 Dec 2023 06:12:16 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>the slingshot design method</title>
+      <link>https://twalichiewicz.github.io/blog/2023/12/08/the-slingshot-design-method/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/12/08/the-slingshot-design-method/</guid>
+      <pubDate>Fri, 08 Dec 2023 04:47:35 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;div class=&quot;alert alert-default&quot;&gt;
+  &lt;div class=&quot;alert-inner&quot;&gt;
+    &lt;div class=&quot;alert-icon&quot;&gt;
+      ☝️
+    &lt;/div&gt;
+    &lt;div</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<div class="alert alert-default">  <div class="alert-inner">    <div class="alert-icon">      ☝️    </div>    <div class="alert-gutter"></div>    <div class="alert-copy">      <span class="alert-copy-title">Author's note</span>      <span class="alert-copy-body">I'm going to leave up this draft version and update it as I flesh out this idea. <a href="https://www.youtube.com/watch?v=R_nuZD4Y7IM">Relevant joke.</a></span>    </div>  </div></div><p><strong>Slingshot design</strong><br><em>A metaphorical design process</em><br>Slowly drawing back a sling-shot as you determine all the parameters and direction you want your solution to end up in. Once you’re fairly confident you’ll hit the agreed upon target, development should rapidly and exponentially accelerate towards the target (with some minor corrections along the way, but that stay within the bounds of the vectors of the slingshot).</p><p>After the target hits, you do analysis to see if you were on target and pick from two follow-ups:</p><ol><li>The target was directly hit, but is still standing; next, you re-fire the same shot but with more resources behind it and increase the size of your MVP.</li><li>The target was missed (and to what degree); next, you restart your process of trying to re-aim the slingshot. You don’t necessarily need to redo everything since you have muscle memory from before (documentation), but you make adjustments to try and hit the target more in the center.</li></ol>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/12/08/the-slingshot-design-method/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>touch interfaces contextual menu affordance</title>
@@ -515,33 +545,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/07/08/Apple-Maps-Favorites-with-filters/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Adorable iPad college animation</title>
-      <link>https://twalichiewicz.github.io/blog/2023/07/03/Adorable-iPad-college-animation/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/07/03/Adorable-iPad-college-animation/</guid>
-      <pubDate>Mon, 03 Jul 2023 02:52:08 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;img src=&quot;https://www.apple.com/105/media/us/home/2023/7f9f4504-ae23-4873-b01a-8f803990d57f/anim/bts-hero/small.mp4&quot; alt=&quot;Apple iPad</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><img src="https://www.apple.com/105/media/us/home/2023/7f9f4504-ae23-4873-b01a-8f803990d57f/anim/bts-hero/small.mp4" alt="Apple iPad college promotion animation"> Adorable. <a href="https://www.apple.com/us-edu/shop/back-to-school">From here.</a></p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/07/03/Adorable-iPad-college-animation/#disqus_thread</comments>
       
     </item>
     
