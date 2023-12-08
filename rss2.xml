@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 08 Dec 2023 06:12:16 GMT</pubDate>
+    <pubDate>Fri, 08 Dec 2023 06:14:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>blog long, money long, me and no filters we don&#39;t get along</title>
+      <link>https://twalichiewicz.github.io/blog/2023/12/08/blog-long-money-long-me-and-no-filters-we-don-t-get-along/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/12/08/blog-long-money-long-me-and-no-filters-we-don-t-get-along/</guid>
+      <pubDate>Fri, 08 Dec 2023 06:13:19 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;I’m starting to think there are enough posts on this blog that I should implement some filtering at the head of the</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>I’m starting to think there are enough posts on this blog that I should implement some filtering at the head of the page.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/12/08/blog-long-money-long-me-and-no-filters-we-don-t-get-along/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>the slingshot design method</title>
@@ -518,33 +543,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/07/11/managers-accelerate-burnout/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Apple Maps Favorites with filters</title>
-      <link>https://twalichiewicz.github.io/blog/2023/07/08/Apple-Maps-Favorites-with-filters/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/07/08/Apple-Maps-Favorites-with-filters/</guid>
-      <pubDate>Sat, 08 Jul 2023 07:14:44 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;a href=&quot;https://thomas.design/media/blog/MapsFavoriteswithfiltering.png&quot;&gt;&lt;img</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><a href="https://thomas.design/media/blog/MapsFavoriteswithfiltering.png"><img src="https://thomas.design/media/blog/MapsFavoriteswithfilteringPREVIEW.png" alt="A screenshot of the Apple Maps UI on macOS with a filters bar added"></a></p><p>Even some basic filtering of the Favorites in Apple Maps would make a world of difference for searching</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%91%A8%E2%80%8D%F0%9F%8E%A8/">👨‍🎨</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/07/08/Apple-Maps-Favorites-with-filters/#disqus_thread</comments>
       
     </item>
     
