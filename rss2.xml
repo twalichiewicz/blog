@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 08 Dec 2023 06:23:48 GMT</pubDate>
+    <pubDate>Sun, 10 Dec 2023 18:59:29 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>testla cyberfuck</title>
+      <link>https://twalichiewicz.github.io/blog/2023/12/10/testla-cyberfuck/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/12/10/testla-cyberfuck/</guid>
+      <pubDate>Sun, 10 Dec 2023 08:23:30 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Via &lt;a</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Via <a href="https://www.reuters.com/business/autos-transportation/tesla-cybertrucks-stiff-structure-sharp-design-raise-safety-concerns-experts-2023-12-08/">Reuters</a>:</p><blockquote><p>“A vehicle of this size, power and huge weight will be lethal to pedestrians and cyclists in a collision,” the Brussels-based nonprofit European Transport Safety Council said in a statement.</p></blockquote><p><a href="https://thomas.design/blog/2023/08/24/cyberstupid/">hmm.</a></p><p><b>Days without incident:</b> <span id="days"></span></p><script>    var currentTime = new Date();    let newMsec = Date.parse(currentTime);    let eventMsec = Date.parse("November 28, 2023");    var difference = Math.round(newMsec - eventMsec);    var daysSinceEvent = Math.round(difference/86400000);    document.querySelector('#days').innerHTML = daysSinceEvent;</script>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/12/10/testla-cyberfuck/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>blog long, money long, me and no filters we don&#39;t get along</title>
@@ -516,33 +541,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/07/31/design-patterns-for-feature-propogation/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>managers accelerate burnout</title>
-      <link>https://twalichiewicz.github.io/blog/2023/07/11/managers-accelerate-burnout/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/07/11/managers-accelerate-burnout/</guid>
-      <pubDate>Tue, 11 Jul 2023 06:15:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Nothing accelerates burnout faster than bad management. Think you’re passionate about the craft of design? See how long that lasts in a</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Nothing accelerates burnout faster than bad management. Think you’re passionate about the craft of design? See how long that lasts in a toxic design culture.</p><p>These are obviously very difficult things to scale though. A small startup has a much easier time of maintaining a culture of trust and respect for the process than a large multi-org corporation.</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/07/11/managers-accelerate-burnout/#disqus_thread</comments>
       
     </item>
     
