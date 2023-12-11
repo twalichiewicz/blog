@@ -207,7 +207,7 @@
 .post-list-item .post-footer {
 	color: var(--card-time);
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	flex-basis: max-content;
 	font-size: 10px;
 	line-height: 10px;
