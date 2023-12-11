@@ -14,6 +14,6 @@ footer {
 footer span {
 	color: var(--footer-link-grey);
 	display: block;
-	font-size: 0.4rem;
+	font-size: 0.5rem;
 	margin-bottom: 2px;
 }
