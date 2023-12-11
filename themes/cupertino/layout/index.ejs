@@ -42,7 +42,7 @@
                             <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
                             <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
                             <span><%- post.date.year() %></span>
-                            <% if (post.original_date) { %>
+                            <% if (post.edit) { %>
                                 <span>(edited)</span>
                             <% } %>
                         </div>
