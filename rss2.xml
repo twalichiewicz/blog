@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 11 Dec 2023 20:06:45 GMT</pubDate>
+    <pubDate>Mon, 11 Dec 2023 21:05:07 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>responding to &#39;enter late-stage UX&#39;</title>
+      <link>https://twalichiewicz.github.io/blog/2023/12/11/responding-to-enter-late-stage-UX/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/12/11/responding-to-enter-late-stage-UX/</guid>
+      <pubDate>Mon, 11 Dec 2023 20:07:39 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Recently finished reading &lt;a href=&quot;https://uxdesign.cc/the-state-of-ux-in-2024-enter-late-stage-ux-e9b403b67667&quot;&gt;The State of UX in</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Recently finished reading <a href="https://uxdesign.cc/the-state-of-ux-in-2024-enter-late-stage-ux-e9b403b67667">The State of UX in 2024: Enter late-stage UX</a>, and had a few thoughts:</p><blockquote><p><strong>Automation</strong><br>AI automates an increasing part of our jobs and reduces demand for designers in certain markets.</p></blockquote><p>This evolution has been a long time in the making. Hard skills, traditionally deemed future-proof, are now facing challenges. The current opportunity lies in designers embracing AI-driven design generation to facilitate faster iterations and expedite the turnaround of concepts.</p><blockquote><p><strong>Saturation</strong><br>Supply of designers outstrips demand. Market is still uncertain.</p></blockquote><p>This was evident even in the early 2010s when the market was saturated with “designers” from bootcamps who made negligible contributions to the industry at large.</p><blockquote><p><strong>Commoditization</strong><br>Focus on scalability and standardization over differentiation and delight.</p></blockquote><p>Much like the industrialization of physical products, it is only logical that the next evolutionary step in digital design involves seeking ways to componentize and streamline the overall process. While there is still value in craftsmanship, (particularly when users anticipate a premium experience) the majority of products are utilitarian in nature and do not necessarily benefit from overly crafted experiences.</p><blockquote><p><strong>Financialization</strong><br>Greater influence of financial health, shareholders interests, and business metrics in design decisions.</p></blockquote><p>First and foremost you are a designer, not an artist; you are hired to solve business problems through design.</p><blockquote><p><strong>Disintegration</strong><br>Lack of trust in digital products makes users either skeptical, complacent, or susceptible to exploitation.</p></blockquote><p>An industry that heavily relied on dark patterns and manipulation to maintain user engagement results in a lack of trust? What a surprise.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/12/11/responding-to-enter-late-stage-UX/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>testla cyberfuck</title>
@@ -514,33 +539,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/08/24/cyberstupid/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>design patterns for feature propogation</title>
-      <link>https://twalichiewicz.github.io/blog/2023/07/31/design-patterns-for-feature-propogation/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/07/31/design-patterns-for-feature-propogation/</guid>
-      <pubDate>Mon, 31 Jul 2023 02:15:17 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Design pattern libraries could really super-charge their utility if they were used to propagate component-specific features across all</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Design pattern libraries could really super-charge their utility if they were used to propagate component-specific features across all the channels that component appears in.</p><p><em>Example:</em> if you ensure that every video throughout your app is loaded in a common <code>video</code> component, any quality of life improvements or new features would be consistent everywhere.</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/07/31/design-patterns-for-feature-propogation/#disqus_thread</comments>
       
     </item>
     
