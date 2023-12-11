@@ -207,12 +207,13 @@
 .post-list-item .post-footer {
 	color: var(--card-time);
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	flex-basis: max-content;
 	font-size: 10px;
 	line-height: 10px;
 	letter-spacing: -0.016em;
 	padding-top: 6px;
+	text-align: center;
 	text-transform: uppercase;
 	vertical-align: middle;
 	width: 100%;
