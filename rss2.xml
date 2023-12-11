@@ -15,7 +15,7 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 11 Dec 2023 02:30:46 GMT</pubDate>
+    <pubDate>Mon, 11 Dec 2023 20:06:45 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -89,7 +89,7 @@
       
       
       
-      <content:encoded><![CDATA[<div class="alert alert-default">  <div class="alert-inner">    <div class="alert-icon">      ☝️    </div>    <div class="alert-gutter"></div>    <div class="alert-copy">      <span class="alert-copy-title">Author's note</span>      <span class="alert-copy-body">I'm going to leave up this draft version and update it as I flesh out this idea. <a href="https://www.youtube.com/watch?v=R_nuZD4Y7IM">Relevant joke.</a></span>    </div>  </div></div><p><strong>Slingshot design</strong><br><em>A metaphorical design process</em></p><p>Slowly drawing back a slingshot as you determine all the parameters and direction you want your solution to end up in. Once you’re fairly confident you’ll hit the agreed upon target, development should rapidly and exponentially accelerate towards the target (with some minor corrections along the way, but that stay within the bounds of the vectors of the slingshot).</p><p>After the target hits, you do analysis to see if you were on target and pick from two follow-ups:</p><ol><li>The target was directly hit, but is still standing; next, you re-fire the same shot but with more resources behind it and increase the size of your MVP.</li><li>The target was missed (and to what degree); next, you restart your process of trying to re-aim the slingshot. You don’t necessarily need to redo everything since you have muscle memory from before (documentation), but you make adjustments to try and hit the target more in the center.</li></ol>]]></content:encoded>
+      <content:encoded><![CDATA[<div class="alert alert-default">  <div class="alert-inner">    <div class="alert-icon">      ☝️    </div>    <div class="alert-gutter"></div>    <div class="alert-copy">      <span class="alert-copy-title">Author's note</span>      <span class="alert-copy-body">I'm going to leave up this draft version and update it as I flesh out this idea. <a href="https://www.youtube.com/watch?v=R_nuZD4Y7IM">Relevant joke.</a></span>    </div>  </div></div><p><strong>Slingshot Design</strong></p><p>Envision your design process as pulling back a slingshot, meticulously setting parameters and direction. Release the tension, propelling development swiftly toward the target with minor adjustments within the slingshot’s vectors.</p><p>Evaluate the impact:</p><ol><li>Direct hit but standing: Amplify resources and extend MVP for a more impactful follow-up.</li><li>Missed target (degree noted): Refine your aim without starting over, leveraging existing documentation and making adjustments for a more accurate shot.”</li></ol>]]></content:encoded>
       
       
       
