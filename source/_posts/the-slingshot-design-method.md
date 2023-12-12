@@ -25,4 +25,4 @@ Envision your design process as pulling back a slingshot, meticulously setting p
 Evaluate the impact:
 
 1. Direct hit but standing: Amplify resources and extend MVP for a more impactful follow-up.
-2. Missed target (degree noted): Refine your aim without starting over, leveraging existing documentation and making adjustments for a more accurate shot."
+2. Missed target (degree noted): Refine your aim without starting over, leveraging existing documentation and making adjustments for a more accurate shot.
