@@ -1,5 +1,10 @@
 <article class="post-list-item" id="<%= page.title %>">
     <div class="content">
+        <div class="post-footer">
+            <p>
+            You're currently viewing a single post from my blog, <a href="https://thomas.design/blog">Newest at the Top</a>.
+            </p>
+        </div>
         <% if (page.long) { %>
             <% if (!page.draft) { %>
                 <a class="title-permlink<%= page.new_label ? ' new-label' : '' %><%= page.draft ? ' draft-card' : '' %>" href="<%- url_for(page.path) %>">
@@ -47,11 +52,5 @@
             <%- page.content %>
         </div>
         <% } %>
-
-        <div class="post-footer">
-            <p>
-            You're currently viewing a single post from my blog, <a href="https://thomas.design/blog">Newest at the Top</a>.
-            </p>
-        </div>
     </div>
 </article>
