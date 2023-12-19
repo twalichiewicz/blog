@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 12 Dec 2023 19:54:36 GMT</pubDate>
+    <pubDate>Tue, 19 Dec 2023 23:07:31 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>macOS stacks button fail</title>
+      <link>https://twalichiewicz.github.io/blog/2023/12/19/macOS-stacks-button-fail/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/12/19/macOS-stacks-button-fail/</guid>
+      <pubDate>Tue, 19 Dec 2023 22:37:11 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;img src=&quot;/blog/2023/12/19/macOS-stacks-button-fail/dumbStack.png&quot;&gt;&lt;br&gt;Why is the button to view a Stack in the Finder (making the</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><img src="/blog/2023/12/19/macOS-stacks-button-fail/dumbStack.png"><br>Why is the button to view a Stack in the Finder (making the content more easily searchable, sortable, scannable, etc.) the <em>last</em> item in the grid?</p><p>If it were the first item, at least then the user could easily decide between the stack view or the Finder view, but as the last item you’re always forced to scroll through the entire list (in some cases, a VERY long list).</p><hr><p>Hell, even better? Put it as a floating object fixed to top of the panel.</p><p><img src="/blog/2023/12/19/macOS-stacks-button-fail/fixedStack.png"></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/12/19/macOS-stacks-button-fail/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>responding to &#39;enter late-stage UX&#39;</title>
@@ -512,33 +537,6 @@ style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/08/26/redoing-portfolio/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>cyberstupid</title>
-      <link>https://twalichiewicz.github.io/blog/2023/08/24/cyberstupid/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/08/24/cyberstupid/</guid>
-      <pubDate>Thu, 24 Aug 2023 18:38:59 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;a</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><a href="https://arstechnica.com/cars/2023/08/tesla-cybertrucks-bad-build-quality-shows-up-like-a-sore-thumb-musk-says/?comments=1&comments-page=1">Via Ars Technica:</a></p><blockquote><p>“All parts for this vehicle, whether internal or from suppliers, need to be designed and built to sub 10 micron accuracy. That means all part dimensions need to be to the third decimal place in millimeters and tolerances need to be specified in single digit microns. If Lego and soda cans, which are very low cost, can do this, so can we,” Musk wrote, referring to products that are the result of decades of constant manufacturing improvement.</p></blockquote><p>Ah good, so at least when pedestrians are blinded by the stainless steel and then decapitated by one of the many sharp edges they can have some peace in their final moments knowing that <a href="/blog/2023/08/24/cyberstupid/cyberstupid.png" target="_blank">this monstrosity</a> has the same tolerances as a soda can.</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/08/24/cyberstupid/#disqus_thread</comments>
       
     </item>
     
