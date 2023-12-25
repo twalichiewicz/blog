@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 25 Dec 2023 00:32:55 GMT</pubDate>
+    <pubDate>Mon, 25 Dec 2023 07:05:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>finally got interactivity working</title>
+      <link>https://twalichiewicz.github.io/blog/2023/12/25/finally-got-interactivity-working/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/12/25/finally-got-interactivity-working/</guid>
+      <pubDate>Mon, 25 Dec 2023 07:03:21 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Finally got full interactivity working on the home page. Entirely coded using ChatGPT, figure that.</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Finally got full interactivity working on the home page. Entirely coded using ChatGPT, figure that. 🤖</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/12/25/finally-got-interactivity-working/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>macOS stacks button fail</title>
@@ -508,35 +533,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/09/04/Portfolio-online/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>redoing portfolio</title>
-      <link>https://twalichiewicz.github.io/blog/2023/08/26/redoing-portfolio/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/08/26/redoing-portfolio/</guid>
-      <pubDate>Sat, 26 Aug 2023 07:56:54 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2023/08/26/redoing-portfolio/icons.svg&quot;
-style=&quot;width: 100%&quot;&gt;&lt;/img&gt;&lt;/p&gt;
-&lt;p&gt;Got to love rediscovering old</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><img src="/blog/2023/08/26/redoing-portfolio/icons.svg"style="width: 100%"></img></p><p>Got to love rediscovering old art.</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/08/26/redoing-portfolio/#disqus_thread</comments>
       
     </item>
     
