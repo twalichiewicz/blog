@@ -15,8 +15,35 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 25 Dec 2023 18:25:26 GMT</pubDate>
+    <pubDate>Sun, 31 Dec 2023 16:40:59 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>end of 2023 poem</title>
+      <link>https://twalichiewicz.github.io/blog/2023/12/31/end-of-2023-poem/</link>
+      <guid>https://twalichiewicz.github.io/blog/2023/12/31/end-of-2023-poem/</guid>
+      <pubDate>Sun, 31 Dec 2023 16:24:50 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;div style=&quot;text-align: justify;
+  text-justify: inter-word; max-width: 350px; margin-left: auto; margin-right: auto;&quot;&gt;
+    In the realm</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<div style="text-align: justify;  text-justify: inter-word; max-width: 350px; margin-left: auto; margin-right: auto;">    In the realm where clicks and swipes hold sway,<br/>2023 bids design to play.<br/>A dance of pixels, seamless and refined,<br/>As interfaces evolve, innovation intertwined.<br/><br/>Gestures whisper, a tactile ballet,<br/>User journeys mapped in a vibrant display.<br/>From dark modes sleek to gradients bold,<br/>Designers weave stories, a tale to be told.<br/><br/>Into 2024, the canvas expands,<br/>Augmented realities and intuitive hands.<br/>With empathy as ink, and pixels as lore,<br/>Experience design evolves, a symphony evermore. 🍃</div>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2023/12/31/end-of-2023-poem/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>finally got interactivity working</title>
@@ -506,33 +533,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/09/04/SUV-loading-ramp-collapsible/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Portfolio online</title>
-      <link>https://twalichiewicz.github.io/blog/2023/09/04/Portfolio-online/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/09/04/Portfolio-online/</guid>
-      <pubDate>Mon, 04 Sep 2023 21:27:37 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Finally got around to finishing the code for my portfolio page. &lt;a href=&quot;https://thomas.design/portfolio&quot;&gt;It’s live now&lt;/a&gt;, and I’ll be</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Finally got around to finishing the code for my portfolio page. <a href="https://thomas.design/portfolio">It’s live now</a>, and I’ll be adding projects there in the coming weeks.</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%8E%89/">🎉</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/09/04/Portfolio-online/#disqus_thread</comments>
       
     </item>
     
