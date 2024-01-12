@@ -39,6 +39,9 @@ blockquote p:first-child::before {
   border-radius: 100px;
   width: 27px;
 }
+blockquote * {
+  color: rgba(0, 0, 0, 0.5);
+}
 @media (prefers-color-scheme: dark) {
   blockquote {
     border-left-color: rgba(255, 255, 255, 0.12);
@@ -49,6 +52,9 @@ blockquote p:first-child::before {
   blockquote p:first-child::before {
     background: rgba(255, 255, 255, 0.07);
     color: rgba(255, 255, 255, 0.3);
+  }
+  blockquote * {
+    color: rgba(255, 255, 255, 0.5);
   }
 }
 
