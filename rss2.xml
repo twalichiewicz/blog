@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 23 Jan 2024 08:35:24 GMT</pubDate>
+    <pubDate>Wed, 24 Jan 2024 05:44:42 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>rabbit ai</title>
+      <link>https://twalichiewicz.github.io/blog/2024/01/24/rabbit-ai/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/01/24/rabbit-ai/</guid>
+      <pubDate>Wed, 24 Jan 2024 05:34:21 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;I’ve been talking about the idea of AI taking the role of a personal assistant in people’s lives with friends and coworkers since the</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>I’ve been talking about the idea of AI taking the role of a personal assistant in people’s lives with friends and coworkers since the boom of AI in recent months. This looks like the first practical application I’ve seen of that idea, have a watch if you haven’t already:</p><iframe width="500" height="315" style="margin-left: auto;margin-right: auto;display: block;" src="https://www.youtube-nocookie.com/embed/22wlLy7hKP4?si=6FEIepH2up0Ha6P1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/01/24/rabbit-ai/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>the bending spoons cancer continues to spread</title>
@@ -503,33 +528,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/10/06/Internet-without-blockers/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>homepage updated</title>
-      <link>https://twalichiewicz.github.io/blog/2023/09/23/homepage-updated/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/09/23/homepage-updated/</guid>
-      <pubDate>Sat, 23 Sep 2023 01:03:21 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Updated &lt;a href=&quot;https://www.thomas.design/&quot;&gt;the home page&lt;/a&gt; with a fun new simulation</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Updated <a href="https://www.thomas.design/">the home page</a> with a fun new simulation 🙂</p>]]></content:encoded>
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/categories/%F0%9F%92%AC/">💬</category>
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/09/23/homepage-updated/#disqus_thread</comments>
       
     </item>
     
