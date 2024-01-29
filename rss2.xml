@@ -15,7 +15,7 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 29 Jan 2024 04:32:29 GMT</pubDate>
+    <pubDate>Mon, 29 Jan 2024 04:35:37 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -28,13 +28,13 @@
         
           
           
-      <description>&lt;p&gt;Apple Maps inaccurately directed me on a longer route due to a one-way street misidentification. Discovered the error while driving,</description>
+      <description>&lt;p&gt;I noticed Apple Maps has been inaccurately directed me on a longer route home due to a one-way street misidentification. Discovered the</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<p>Apple Maps inaccurately directed me on a longer route due to a one-way street misidentification. Discovered the error while driving, reported it, and it was recently fixed, saving 5 minutes.</p><p>It does make me wonder about how widespread errors are in Apple Maps data. I wonder if there would be a benefit in supporting user contributions to address such issues efficiently. Maybe some sort of opt-in feature for Maps capturing detailed data to enhance routing and updates?</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p>I noticed Apple Maps has been inaccurately directed me on a longer route home due to a one-way street misidentification. Discovered the error while driving, reported it, and it was recently fixed, saving 5 minutes every time I head that way.</p><p>It does make me wonder about how widespread errors are in Apple Maps data. I wonder if there would be a benefit in supporting user contributions to address such issues efficiently. Maybe some sort of opt-in feature for Maps capturing detailed data to enhance routing and updates?</p>]]></content:encoded>
       
       
       
