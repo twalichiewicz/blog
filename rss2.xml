@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sat, 27 Jan 2024 04:26:41 GMT</pubDate>
+    <pubDate>Mon, 29 Jan 2024 04:32:29 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>apple maps updated driving directions near me</title>
+      <link>https://twalichiewicz.github.io/blog/2024/01/28/apple-maps-updated-driving-directions-near-me/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/01/28/apple-maps-updated-driving-directions-near-me/</guid>
+      <pubDate>Sun, 28 Jan 2024 22:57:27 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Apple Maps inaccurately directed me on a longer route due to a one-way street misidentification. Discovered the error while driving,</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Apple Maps inaccurately directed me on a longer route due to a one-way street misidentification. Discovered the error while driving, reported it, and it was recently fixed, saving 5 minutes.</p><p>It does make me wonder about how widespread errors are in Apple Maps data. I wonder if there would be a benefit in supporting user contributions to address such issues efficiently. Maybe some sort of opt-in feature for Maps capturing detailed data to enhance routing and updates?</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/01/28/apple-maps-updated-driving-directions-near-me/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>rabbit ai</title>
@@ -503,31 +528,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/10/13/you-know-when-you/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Internet without blockers</title>
-      <link>https://twalichiewicz.github.io/blog/2023/10/06/Internet-without-blockers/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/10/06/Internet-without-blockers/</guid>
-      <pubDate>Fri, 06 Oct 2023 18:51:04 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;It’s always sobering to accidentally leave an adblocker off and visit a couple websites. They really are trying to cram ads into any</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>It’s always sobering to accidentally leave an adblocker off and visit a couple websites. They really are trying to cram ads into any available whitespace.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/10/06/Internet-without-blockers/#disqus_thread</comments>
       
     </item>
     
