@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 29 Jan 2024 23:05:14 GMT</pubDate>
+    <pubDate>Tue, 30 Jan 2024 20:17:53 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>vision pro crawl stand walk gestures</title>
+      <link>https://twalichiewicz.github.io/blog/2024/01/30/vision-pro-crawl-stand-walk-gestures/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/01/30/vision-pro-crawl-stand-walk-gestures/</guid>
+      <pubDate>Tue, 30 Jan 2024 20:12:32 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;The first full reviews of the Vision Pro are coming out, and gotta say the use case for a</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>The first full reviews of the Vision Pro are coming out, and gotta say the use case for a go-anywhere-monitor-that-can-also-put-up-a-privacy-screen-but-also-doesn’t-require-you-to-bring-along-other-peripherals is pretty compelling.</p><p>One thing I’ve noticed from watching <a href="https://www.youtube.com/watch?v=SaneSRqePVY">some</a> of the <a href="https://www.youtube.com/watch?v=8xI10SFgzQ8">review videos</a> is how everyone’s gestures are very deliberate and precise right now. It reminds me of the early days of the iPhone, where everyone had to learn a new way of typing: with their thumbs.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/01/30/vision-pro-crawl-stand-walk-gestures/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>the 80&#39;s are back baby</title>
@@ -509,31 +534,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/10/25/slack-redesignw/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>apple maps restaurant menus</title>
-      <link>https://twalichiewicz.github.io/blog/2023/10/24/apple-maps-restaurant-menus/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/10/24/apple-maps-restaurant-menus/</guid>
-      <pubDate>Tue, 24 Oct 2023 19:06:43 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Considering how good iOS’s image-to-text processing is (especially compared to competitors), Apple Maps should be able to convert menus</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Considering how good iOS’s image-to-text processing is (especially compared to competitors), Apple Maps should be able to convert menus into standardized POI metadata.</p><ul><li>For those that require assistive devices to read a menu, they could just load the restaurant POI</li><li>Keeps users who are interested in delivery in the Apple Maps app longer, since they don’t need to jump immediately to DoorDash to check the menu if a restaurant looks good<ul><li>Eventually you should be able to order (via applet) directly from the Apple Maps POI card</li></ul></li><li>Assuming it’s easy for a restaurant owner to upload the menu, it incentivizes businesses to engage with &#x2F; update Apple Maps content</li></ul>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/10/24/apple-maps-restaurant-menus/#disqus_thread</comments>
       
     </item>
     
