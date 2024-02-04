@@ -49,7 +49,7 @@ toc: true
 toc_max_depth: 2
 
 # scroll reveal (https://scrollrevealjs.org/) - animating elements as they enter/leave the viewport
-scroll_reveal: true
+scroll_reveal: false
 
 # navigation config
 nav:
