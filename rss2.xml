@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 05 Feb 2024 01:35:26 GMT</pubDate>
+    <pubDate>Mon, 05 Feb 2024 04:00:38 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>apple vision pro creative industry applications</title>
+      <link>https://twalichiewicz.github.io/blog/2024/02/05/apple-vision-pro-creative-industry-applications/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/02/05/apple-vision-pro-creative-industry-applications/</guid>
+      <pubDate>Mon, 05 Feb 2024 04:00:05 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;I’m obviously going to be biased for my own industry when I think of the most immediate applications, but I’m really curious what new</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>I’m obviously going to be biased for my own industry when I think of the most immediate applications, but I’m really curious what new interaction patterns can be created when working with creative tools. (A comparable example from mobile interfaces were things like shake to undo, overscrolling the top to trigger a refresh, pinch gestures, etc.)</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/02/05/apple-vision-pro-creative-industry-applications/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>interest in the Apple Vision Pro</title>
@@ -34,7 +59,7 @@
       
       
       
-      <content:encoded><![CDATA[<p>Can definitely see Apple Vision Pro normalizing VR (as it previously had with other products). Went to see what the interest was like at my local store– huge crowds, and trying to schedule a demo showed that next available date as “unavailable”. 🧐</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p>Can definitely see Apple Vision Pro normalizing VR (as it previously had with other products). Went to see what the interest was like at my local store– huge crowds, and trying to schedule a demo showed that next available date as “unavailable”.</p>]]></content:encoded>
       
       
       
@@ -506,32 +531,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/11/22/glorified-autocomplete/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>MURAL stupid outage</title>
-      <link>https://twalichiewicz.github.io/blog/2023/11/20/MURAL-stupid-outage/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/11/20/MURAL-stupid-outage/</guid>
-      <pubDate>Mon, 20 Nov 2023 20:34:04 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2023/11/20/MURAL-stupid-outage/oldDumbassMURAL.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;Whoever approved this as a solution should be fired, but I</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><img src="/blog/2023/11/20/MURAL-stupid-outage/oldDumbassMURAL.png"></p><p>Whoever approved this as a solution should be fired, but I think MURAL is basically a Microsoft property by now meaning they’ll probably be promoted instead.</p><p>Though really, why does MURAL even exist when you can just use FigJam?</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/11/20/MURAL-stupid-outage/#disqus_thread</comments>
       
     </item>
     
