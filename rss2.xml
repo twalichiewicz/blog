@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 05 Feb 2024 04:00:38 GMT</pubDate>
+    <pubDate>Mon, 05 Feb 2024 18:09:08 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>workspace in Vision Pro</title>
+      <link>https://twalichiewicz.github.io/blog/2024/02/05/workspace-in-Vision-Pro/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/02/05/workspace-in-Vision-Pro/</guid>
+      <pubDate>Mon, 05 Feb 2024 18:01:46 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;iframe style=&quot;width: calc(100%);margin-top:14px;border-radius: 6px;&quot; height=&quot;315&quot;</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<iframe style="width: calc(100%);margin-top:14px;border-radius: 6px;" height="315" src="https://www.youtube.com/embed/BV9Xy6L_rlM?si=vVrRInKX6pbsw6Jp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><p>Starting to get convinced yet?</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/02/05/workspace-in-Vision-Pro/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>apple vision pro creative industry applications</title>
@@ -506,31 +531,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/11/24/stripe-black-friday-dashboard/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>glorified autocomplete</title>
-      <link>https://twalichiewicz.github.io/blog/2023/11/22/glorified-autocomplete/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/11/22/glorified-autocomplete/</guid>
-      <pubDate>Wed, 22 Nov 2023 17:16:15 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Some thoughts after reading &lt;a</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Some thoughts after reading <a href="https://statmodeling.stat.columbia.edu/2023/11/18/i-disagree-with-geoff-hinton-regarding-glorified-autocomplete/">this great blog post from Columbia’s Stats blog:</a></p><p>Where we are today, Large Language Models (LLMs) have become skilled at mimicking human intuition— taking into consideration all of the individual’s <em>(well, the LLM’s scraping of the internet, in this case)</em> experiences and perceptions and providing heuristic responses to prompts.</p><p>What’s <em>really</em> exiting is as we move out of the nascent phase of LLM AI we can now attempt to recreate the higher level of human cognition: reasoning. The question now is which LLM AI product will be the one to realize that a large investment in bringing in psychologists will help them reach that goal first?</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/11/22/glorified-autocomplete/#disqus_thread</comments>
       
     </item>
     
