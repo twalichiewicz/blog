@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 05 Feb 2024 18:11:42 GMT</pubDate>
+    <pubDate>Mon, 05 Feb 2024 22:00:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>appletv model but for games</title>
+      <link>https://twalichiewicz.github.io/blog/2024/02/05/appletv-model-but-for-games/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/02/05/appletv-model-but-for-games/</guid>
+      <pubDate>Mon, 05 Feb 2024 21:58:27 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;I wonder if Apple has considered taking an approach to getting games on the platform similar to their strategy for getting AppleTV+</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>I wonder if Apple has considered taking an approach to getting games on the platform similar to their strategy for getting AppleTV+ originals. Seems like a good way to harbor more developers and growing their gaming catalog.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/02/05/appletv-model-but-for-games/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>workspace in Vision Pro</title>
@@ -506,31 +531,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/11/25/apple-tv-visualizer/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>stripe black friday dashboard</title>
-      <link>https://twalichiewicz.github.io/blog/2023/11/24/stripe-black-friday-dashboard/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/11/24/stripe-black-friday-dashboard/</guid>
-      <pubDate>Fri, 24 Nov 2023 17:50:41 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;a href=&quot;https://bfcm.stripe.dev/&quot;&gt;Awesome little visualization from Stripe&lt;/a&gt; to start the morning.</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><a href="https://bfcm.stripe.dev/">Awesome little visualization from Stripe</a> to start the morning. 🌞</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/11/24/stripe-black-friday-dashboard/#disqus_thread</comments>
       
     </item>
     
