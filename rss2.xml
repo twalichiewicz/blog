@@ -15,8 +15,34 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 05 Feb 2024 22:00:09 GMT</pubDate>
+    <pubDate>Fri, 09 Feb 2024 04:52:00 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>google preannounce redesign</title>
+      <link>https://twalichiewicz.github.io/blog/2024/02/09/google-preannounce-redesign/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/02/09/google-preannounce-redesign/</guid>
+      <pubDate>Fri, 09 Feb 2024 04:38:56 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;So I saw this when I was signing into YouTube:&lt;/p&gt;
+&lt;p&gt;&lt;img</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>So I saw this when I was signing into YouTube:</p><p><img src="/blog/2024/02/09/google-preannounce-redesign/beforeFlex.png"></p><p>This has to be one of the most bizarre things to put on a such a prominent page: no link to a blog post about the redesign? No way to preview it yet? What the fuck is the point of this message?</p><p>At the very least fix your <code>flex</code> implementation:<br><img src="/blog/2024/02/09/google-preannounce-redesign/afterFlex.png"></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/02/09/google-preannounce-redesign/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>appletv model but for games</title>
@@ -506,31 +532,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/12/04/touch-interfaces-contextual-menu-affordance/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>apple tv visualizer</title>
-      <link>https://twalichiewicz.github.io/blog/2023/11/25/apple-tv-visualizer/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/11/25/apple-tv-visualizer/</guid>
-      <pubDate>Sat, 25 Nov 2023 01:06:57 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Why the hell doesn’t the Apple TV Music app have a</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Why the hell doesn’t the Apple TV Music app have a visualizer?</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/11/25/apple-tv-visualizer/#disqus_thread</comments>
       
     </item>
     
