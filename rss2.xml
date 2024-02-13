@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 09 Feb 2024 04:52:00 GMT</pubDate>
+    <pubDate>Tue, 13 Feb 2024 04:40:55 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>is app-based the direction for apple vision pro?</title>
+      <link>https://twalichiewicz.github.io/blog/2024/02/13/is-app-based-the-direction-for-apple-vision-pro/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/02/13/is-app-based-the-direction-for-apple-vision-pro/</guid>
+      <pubDate>Tue, 13 Feb 2024 04:08:59 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Maybe it’s coming in a future iteration of the Apple Vision Pro, but it’s strange that they stuck to the app paradigm for a device that</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Maybe it’s coming in a future iteration of the Apple Vision Pro, but it’s strange that they stuck to the app paradigm for a device that seems to suggest it’d be a great persistent head-up display assistant:</p><ul><li>Always knows what you’re looking at, could reasonably overlay relevant information</li><li>Speaking to Siri could automatically process whatever you’re looking at</li><li>As we’ve seen from some of the early demos, window-based interfaces make sense for laptops &#x2F; desktops because they’re stationary, that paradigm falls apart if people are moving too much (though having multiple apps placed in 3d space is an okay in-between solution)</li></ul>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/02/13/is-app-based-the-direction-for-apple-vision-pro/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>google preannounce redesign</title>
@@ -507,31 +532,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/12/08/the-slingshot-design-method/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>touch interfaces contextual menu affordance</title>
-      <link>https://twalichiewicz.github.io/blog/2023/12/04/touch-interfaces-contextual-menu-affordance/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/12/04/touch-interfaces-contextual-menu-affordance/</guid>
-      <pubDate>Mon, 04 Dec 2023 07:34:52 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;One thing that I still haven’t seen touch interfaces properly provide affordance for are secondary actions. Yes, you can access them by</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>One thing that I still haven’t seen touch interfaces properly provide affordance for are secondary actions. Yes, you can access them by typically a long-press, but how does a user <em>know</em> which items contain additional functionality?</p><p><img src="/blog/2023/12/04/touch-interfaces-contextual-menu-affordance/whereDidTheUITouchYou.png"></p><p><strong>P.S.</strong> <em>Onboarding modals or tooltips are a lazy excuse and if you thought that was an acceptable answer you are wrong.</em></p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/12/04/touch-interfaces-contextual-menu-affordance/#disqus_thread</comments>
       
     </item>
     
