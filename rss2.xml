@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 13 Feb 2024 04:40:55 GMT</pubDate>
+    <pubDate>Tue, 13 Feb 2024 07:02:06 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>cyberrust</title>
+      <link>https://twalichiewicz.github.io/blog/2024/02/13/cyberrust/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/02/13/cyberrust/</guid>
+      <pubDate>Tue, 13 Feb 2024 06:58:42 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;via &lt;a</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>via <a href="https://www.carsdirect.com/automotive-news/green-technology/tesla-cybertruck-may-have-a-rust-problem">CarsDirect:</a></p><blockquote><p>Some people may wonder what the big deal is. Normal cars need to be washed and cleaned regularly. But, what makes the Cybertruck more unique than other vehicles on the road is that its body doesn’t have a clear coat. <strong>That means that any corrosive substances that come in contact with the body have to be cleaned immediately or they’ll heavily damage the stainless steel body.</strong></p></blockquote><p>Sounds like fun.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/02/13/cyberrust/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>is app-based the direction for apple vision pro?</title>
@@ -502,36 +527,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/12/08/blog-long-money-long-me-and-no-filters-we-don-t-get-along/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>the slingshot design method</title>
-      <link>https://twalichiewicz.github.io/blog/2023/12/08/the-slingshot-design-method/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/12/08/the-slingshot-design-method/</guid>
-      <pubDate>Fri, 08 Dec 2023 04:47:35 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;div class=&quot;alert alert-default&quot;&gt;
-  &lt;div class=&quot;alert-inner&quot;&gt;
-    &lt;div class=&quot;alert-icon&quot;&gt;
-      ☝️
-    &lt;/div&gt;
-    &lt;div</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<div class="alert alert-default">  <div class="alert-inner">    <div class="alert-icon">      ☝️    </div>    <div class="alert-gutter"></div>    <div class="alert-copy">      <span class="alert-copy-title">Author's note</span>      <span class="alert-copy-body">I'm going to leave up this draft version and update it as I flesh out this idea. <a href="https://www.youtube.com/watch?v=R_nuZD4Y7IM">Relevant joke.</a></span>    </div>  </div></div><p><strong>Slingshot Design</strong></p><p>Envision your design process as pulling back a slingshot, meticulously setting parameters and direction. Release the tension, propelling development swiftly toward the target with minor adjustments within the slingshot’s vectors.</p><p>Evaluate the impact:</p><ol><li>Direct hit but standing: Amplify resources and extend MVP for a more impactful follow-up.</li><li>Missed target (degree noted): Refine your aim without starting over, leveraging existing documentation and making adjustments for a more accurate shot.</li></ol>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/12/08/the-slingshot-design-method/#disqus_thread</comments>
       
     </item>
     
