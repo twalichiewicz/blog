@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 13 Feb 2024 07:02:06 GMT</pubDate>
+    <pubDate>Thu, 22 Feb 2024 18:28:58 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Siri LLM AI application: summarizing web results</title>
+      <link>https://twalichiewicz.github.io/blog/2024/02/22/Siri-LLM-AI-application-summarizing-web-results/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/02/22/Siri-LLM-AI-application-summarizing-web-results/</guid>
+      <pubDate>Thu, 22 Feb 2024 18:26:02 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;If Apple is looking for suggestions of what to first use LLM AI tech for in Siri: allow it to summarize web results and then</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>If Apple is looking for suggestions of what to first use LLM AI tech for in Siri: allow it to summarize web results and then text-to-voice.</p><p>Then, finally, I can have some peace from hearing: “I found some web results, I can show you if you ask again from your iPhone.”</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/02/22/Siri-LLM-AI-application-summarizing-web-results/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>cyberrust</title>
@@ -502,31 +527,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/12/10/testla-cyberfuck/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>blog long, money long, me and no filters we don&#39;t get along</title>
-      <link>https://twalichiewicz.github.io/blog/2023/12/08/blog-long-money-long-me-and-no-filters-we-don-t-get-along/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/12/08/blog-long-money-long-me-and-no-filters-we-don-t-get-along/</guid>
-      <pubDate>Fri, 08 Dec 2023 06:13:19 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;I’m starting to think there are enough posts on this blog that I should implement some filtering at the head of the</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>I’m starting to think there are enough posts on this blog that I should implement some filtering at the head of the page.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/12/08/blog-long-money-long-me-and-no-filters-we-don-t-get-along/#disqus_thread</comments>
       
     </item>
     
