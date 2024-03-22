@@ -15,8 +15,34 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 22 Mar 2024 07:05:20 GMT</pubDate>
+    <pubDate>Fri, 22 Mar 2024 16:00:36 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>figma gib page nav</title>
+      <link>https://twalichiewicz.github.io/blog/2024/03/23/figma-gib-page-nav/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/03/23/figma-gib-page-nav/</guid>
+      <pubDate>Sat, 23 Mar 2024 01:28:56 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Figma please just make it so I can organize my Pages like every file structure system since the 90’s.&lt;/p&gt;
+&lt;p&gt;&lt;img</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Figma please just make it so I can organize my Pages like every file structure system since the 90’s.</p><p><img src="/blog/2024/03/23/figma-gib-page-nav/newFigmaPageOrg.gif"></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/03/23/figma-gib-page-nav/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>email field capitalization</title>
@@ -41,31 +67,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/03/14/email-field-capitalization/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>figma gib page nav</title>
-      <link>https://twalichiewicz.github.io/blog/2024/03/13/figma-gib-page-nav/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/03/13/figma-gib-page-nav/</guid>
-      <pubDate>Wed, 13 Mar 2024 01:28:56 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Figma please just make it so I can organize my Pages like every file structure system since the</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Figma please just make it so I can organize my Pages like every file structure system since the 90’s.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/03/13/figma-gib-page-nav/#disqus_thread</comments>
       
     </item>
     
