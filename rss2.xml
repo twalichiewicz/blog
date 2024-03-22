@@ -15,8 +15,59 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Thu, 22 Feb 2024 18:28:58 GMT</pubDate>
+    <pubDate>Fri, 22 Mar 2024 07:05:20 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>email field capitalization</title>
+      <link>https://twalichiewicz.github.io/blog/2024/03/14/email-field-capitalization/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/03/14/email-field-capitalization/</guid>
+      <pubDate>Thu, 14 Mar 2024 18:01:49 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;A small web pet peeve: email fields that try to auto correct names to be capitalized.&lt;/p&gt;
+&lt;p&gt;Every work email I’ve ever had is my name</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>A small web pet peeve: email fields that try to auto correct names to be capitalized.</p><p>Every work email I’ve ever had is my name lowercase, and the autocorrect is way too aggressive in trying to capitalize, which then makes the validation fail if the website is strict about upper and lower case letters.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/03/14/email-field-capitalization/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>figma gib page nav</title>
+      <link>https://twalichiewicz.github.io/blog/2024/03/13/figma-gib-page-nav/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/03/13/figma-gib-page-nav/</guid>
+      <pubDate>Wed, 13 Mar 2024 01:28:56 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Figma please just make it so I can organize my Pages like every file structure system since the</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Figma please just make it so I can organize my Pages like every file structure system since the 90’s.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/03/13/figma-gib-page-nav/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Siri LLM AI application: summarizing web results</title>
@@ -477,56 +528,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/12/19/macOS-stacks-button-fail/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>responding to &#39;enter late-stage UX&#39;</title>
-      <link>https://twalichiewicz.github.io/blog/2023/12/11/responding-to-enter-late-stage-UX/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/12/11/responding-to-enter-late-stage-UX/</guid>
-      <pubDate>Mon, 11 Dec 2023 20:07:39 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Recently finished reading &lt;a href=&quot;https://uxdesign.cc/the-state-of-ux-in-2024-enter-late-stage-ux-e9b403b67667&quot;&gt;The State of UX in</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Recently finished reading <a href="https://uxdesign.cc/the-state-of-ux-in-2024-enter-late-stage-ux-e9b403b67667">The State of UX in 2024: Enter late-stage UX</a>, and had a few thoughts:</p><blockquote><p><strong>Automation</strong><br>AI automates an increasing part of our jobs and reduces demand for designers in certain markets.</p></blockquote><p>This evolution has been a long time in the making. Hard skills, traditionally deemed future-proof, are now facing challenges. The current opportunity lies in designers embracing AI-driven design generation to facilitate faster iterations and expedite the turnaround of concepts.</p><blockquote><p><strong>Saturation</strong><br>Supply of designers outstrips demand. Market is still uncertain.</p></blockquote><p>This was evident even in the early 2010s when the market was saturated with “designers” from bootcamps who made negligible contributions to the industry at large.</p><blockquote><p><strong>Commoditization</strong><br>Focus on scalability and standardization over differentiation and delight.</p></blockquote><p>Much like the industrialization of physical products, it is only logical that the next evolutionary step in digital design involves seeking ways to componentize and streamline the overall process. While there is still value in craftsmanship, (particularly when users anticipate a premium experience) the majority of products are utilitarian in nature and do not necessarily benefit from overly crafted experiences.</p><blockquote><p><strong>Financialization</strong><br>Greater influence of financial health, shareholders interests, and business metrics in design decisions.</p></blockquote><p>First and foremost you are a designer, not an artist; you are hired to solve business problems through design.</p><blockquote><p><strong>Disintegration</strong><br>Lack of trust in digital products makes users either skeptical, complacent, or susceptible to exploitation.</p></blockquote><p>An industry that heavily relied on dark patterns and manipulation to maintain user engagement results in a lack of trust? What a surprise.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/12/11/responding-to-enter-late-stage-UX/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>testla cyberfuck</title>
-      <link>https://twalichiewicz.github.io/blog/2023/12/10/testla-cyberfuck/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/12/10/testla-cyberfuck/</guid>
-      <pubDate>Sun, 10 Dec 2023 08:23:30 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Via &lt;a</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Via <a href="https://www.reuters.com/business/autos-transportation/tesla-cybertrucks-stiff-structure-sharp-design-raise-safety-concerns-experts-2023-12-08/">Reuters</a>:</p><blockquote><p>“A vehicle of this size, power and huge weight will be lethal to pedestrians and cyclists in a collision,” the Brussels-based nonprofit European Transport Safety Council said in a statement.</p></blockquote><p><a href="https://thomas.design/blog/2023/08/24/cyberstupid/">hmm.</a></p><p><b>Days without incident:</b> <span id="days"></span></p><script>    var currentTime = new Date();    let newMsec = Date.parse(currentTime);    let eventMsec = Date.parse("November 28, 2023");    var difference = Math.round(newMsec - eventMsec);    var daysSinceEvent = Math.round(difference/86400000);    document.querySelector('#days').innerHTML = daysSinceEvent;</script>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/12/10/testla-cyberfuck/#disqus_thread</comments>
       
     </item>
     
