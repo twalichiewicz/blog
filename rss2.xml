@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 22 Mar 2024 16:02:38 GMT</pubDate>
+    <pubDate>Fri, 29 Mar 2024 02:58:39 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>filling another design notebook</title>
+      <link>https://twalichiewicz.github.io/blog/2024/03/29/filling-another-design-notebook/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/03/29/filling-another-design-notebook/</guid>
+      <pubDate>Fri, 29 Mar 2024 02:52:27 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;There’s an inexplicable satisfaction that comes with filling the pages of a design notebook and adding it to the stack of</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>There’s an inexplicable satisfaction that comes with filling the pages of a design notebook and adding it to the stack of predecessors.</p><p>While I may never find the time to thoroughly read through each page, these notebooks serve as tangible reminders of the daily dedication poured into design work. In a world where digital products often fade into the ether, there’s a comforting permanence in holding something physical.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/03/29/filling-another-design-notebook/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>figma gib page nav</title>
@@ -504,31 +529,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2023/12/25/finally-got-interactivity-working/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>macOS stacks button fail</title>
-      <link>https://twalichiewicz.github.io/blog/2023/12/19/macOS-stacks-button-fail/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/12/19/macOS-stacks-button-fail/</guid>
-      <pubDate>Tue, 19 Dec 2023 22:37:11 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2023/12/19/macOS-stacks-button-fail/dumbStack.png&quot;&gt;&lt;br&gt;Why is the button to view a Stack in the Finder (making the</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><img src="/blog/2023/12/19/macOS-stacks-button-fail/dumbStack.png"><br>Why is the button to view a Stack in the Finder (making the content more easily searchable, sortable, scannable, etc.) the <em>last</em> item in the grid?</p><p>If it were the first item, at least then the user could easily decide between the stack view or the Finder view, but as the last item you’re always forced to scroll through the entire list (in some cases, a VERY long list).</p><hr><p>Hell, even better? Put it as a floating object fixed to top of the panel.</p><p><img src="/blog/2023/12/19/macOS-stacks-button-fail/fixedStack.png"></p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/12/19/macOS-stacks-button-fail/#disqus_thread</comments>
       
     </item>
     
