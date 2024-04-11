@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 02 Apr 2024 20:25:36 GMT</pubDate>
+    <pubDate>Thu, 11 Apr 2024 05:28:51 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>udio ai music generator</title>
+      <link>https://twalichiewicz.github.io/blog/2024/04/11/udio-ai-music-generator/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/04/11/udio-ai-music-generator/</guid>
+      <pubDate>Thu, 11 Apr 2024 05:23:39 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Another fun application of AI-generated content: Udio lets you create music just from prompts. This basically completely removes the</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Another fun application of AI-generated content: Udio lets you create music just from prompts. This basically completely removes the need for all that terrible stock music you have to use if you don’t feel like licensing the good stuff.</p><p>My favorite so far? <a href="https://www.udio.com/songs/eY7xtug1dV6hbfCDhyHJua">Dune: the Broadway Musical</a></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/04/11/udio-ai-music-generator/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>apple music crossfade as dj</title>
@@ -502,33 +527,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/01/08/Microsoft-design-strikes-again/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>end of 2023 poem</title>
-      <link>https://twalichiewicz.github.io/blog/2023/12/31/end-of-2023-poem/</link>
-      <guid>https://twalichiewicz.github.io/blog/2023/12/31/end-of-2023-poem/</guid>
-      <pubDate>Sun, 31 Dec 2023 16:24:50 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;div style=&quot;text-align: justify;
-  text-justify: inter-word; max-width: 350px; margin-left: auto; margin-right: auto;&quot;&gt;
-    In the realm</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<div style="text-align: justify;  text-justify: inter-word; max-width: 350px; margin-left: auto; margin-right: auto;">    In the realm where clicks and swipes hold sway,<br/>2023 bids design to play.<br/>A dance of pixels, seamless and refined,<br/>As interfaces evolve, innovation intertwined.<br/><br/>Gestures whisper, a tactile ballet,<br/>User journeys mapped in a vibrant display.<br/>From dark modes sleek to gradients bold,<br/>Designers weave stories, a tale to be told.<br/><br/>Into 2024, the canvas expands,<br/>Augmented realities and intuitive hands.<br/>With empathy as ink, and pixels as lore,<br/>Experience design evolves, a symphony evermore. 🍃</div>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2023/12/31/end-of-2023-poem/#disqus_thread</comments>
       
     </item>
     
