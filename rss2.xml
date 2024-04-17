@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 17 Apr 2024 02:37:23 GMT</pubDate>
+    <pubDate>Wed, 17 Apr 2024 05:59:16 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>turning the phone into companion ai with iSight</title>
+      <link>https://twalichiewicz.github.io/blog/2024/04/17/turning-the-phone-into-companion-ai-with-iSight/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/04/17/turning-the-phone-into-companion-ai-with-iSight/</guid>
+      <pubDate>Wed, 17 Apr 2024 05:12:24 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;As far as I’ve seen, most of these smart assistant devices that have been coming out can’t answer a pretty obvious question– why can’t</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>As far as I’ve seen, most of these smart assistant devices that have been coming out can’t answer a pretty obvious question– why can’t this just be an app?</p><p>Seriously, I don’t know anyone who is going to want to carry <em>another</em> device around to capture this functionality, and the tradeoffs in functionality you lose from not having your phone (as fancy and sleek as some of these devices look) make you worse off. All of these demoes rely <strong>heavily</strong> on everything working out correctly, and you going along with what the assistant is saying it’s doing. You know what you’re going to want when something isn’t working? A large screen with direct input on the algo &#x2F; AI that’s running the task (oh hey, like a phone!).</p><p>Paradoxically, the form factor is also the limiting factor for using a phone as one of these smart devices (size, weight, portability). So instead of an entirely new device, why not an accessary that takes all the strengths of a assistant-focused device and pair it to the phone as the processor?</p><p>The capture device (probably a combination camera, microphone, and minimal interactive interface) can be much lighter since they don’t need to handle processing on-device, and can probably be even more minimalistic since you you can offload secondary interactions to the phone.</p><p>Basically what I’m imagining is a revamp of the old iSight: a camera, microphone, and (now) interaction interface that is paired to your phone and serves as your assistant’s eyes into your context. Something like this:</p><p><img src="/blog/2024/04/17/turning-the-phone-into-companion-ai-with-iSight/newSight.jpeg"></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/04/17/turning-the-phone-into-companion-ai-with-iSight/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>democracy dies behind paywalls</title>
@@ -500,31 +525,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/01/28/apple-maps-updated-driving-directions-near-me/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>rabbit ai</title>
-      <link>https://twalichiewicz.github.io/blog/2024/01/24/rabbit-ai/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/01/24/rabbit-ai/</guid>
-      <pubDate>Wed, 24 Jan 2024 05:34:21 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;I’ve been talking about the idea of AI taking the role of a personal assistant in people’s lives with friends and coworkers since the</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>I’ve been talking about the idea of AI taking the role of a personal assistant in people’s lives with friends and coworkers since the boom of AI in recent months. This looks like the first practical application I’ve seen of that idea, have a watch if you haven’t already:</p><iframe width="500" height="315" style="margin-left: auto; margin-right: auto; display: block; width: calc(100%); border-radius: 6px; min-width: 300px;" src="https://www.youtube-nocookie.com/embed/22wlLy7hKP4?si=6FEIepH2up0Ha6P1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><p><em>Edit:</em><br>Okay, so what’s so cool about this idea? Let’s break it down:</p><ul><li>I agree with moving away from the app model<ul><li>If anything, I see apps as just their core function, everything else is extraneous</li><li>I’d actually be happier if every app was just a series of APIs I can plug into</li></ul></li><li>This is the first application I’ve seen of an OS that moves to simply a command:reponse function</li><li>The camera looking at what you’re looking at fits directly into my future vision of phones: phone as a translation layer.</li></ul>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/01/24/rabbit-ai/#disqus_thread</comments>
       
     </item>
     
