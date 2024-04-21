@@ -15,8 +15,35 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 17 Apr 2024 05:59:16 GMT</pubDate>
+    <pubDate>Sun, 21 Apr 2024 20:38:42 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>cyberfuck car wash mode</title>
+      <link>https://twalichiewicz.github.io/blog/2024/04/21/cyberfuck-car-wash-mode/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/04/21/cyberfuck-car-wash-mode/</guid>
+      <pubDate>Sun, 21 Apr 2024 20:33:06 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Via &lt;a href=&quot;https://www.theregister.com/2024/04/20/cybertruck_car_wash_mode/&quot;&gt;The Register:&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The advisor said</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Via <a href="https://www.theregister.com/2024/04/20/cybertruck_car_wash_mode/">The Register:</a></p><blockquote><p>The advisor said that “it is a known issue in the Cybertruck that when you do a screen reset, instead of resetting in the standard two minutes, it takes five hours.”</p></blockquote><p>I will never tire of hearing about this appliance-on-wheels’s woes.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/04/21/cyberfuck-car-wash-mode/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>turning the phone into companion ai with iSight</title>
@@ -500,31 +527,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/01/29/the-80-s-are-back-baby/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>apple maps updated driving directions near me</title>
-      <link>https://twalichiewicz.github.io/blog/2024/01/28/apple-maps-updated-driving-directions-near-me/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/01/28/apple-maps-updated-driving-directions-near-me/</guid>
-      <pubDate>Sun, 28 Jan 2024 22:57:27 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;I noticed Apple Maps has been inaccurately directed me on a longer route home due to a one-way street misidentification. Discovered the</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>I noticed Apple Maps has been inaccurately directed me on a longer route home due to a one-way street misidentification. Discovered the error while driving, reported it, and it was recently fixed, saving 5 minutes every time I head that way.</p><p>It does make me wonder about how widespread errors are in Apple Maps data. I wonder if there would be a benefit in supporting user contributions to address such issues efficiently. Maybe some sort of opt-in feature for Maps capturing detailed data to enhance routing and updates?</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/01/28/apple-maps-updated-driving-directions-near-me/#disqus_thread</comments>
       
     </item>
     
