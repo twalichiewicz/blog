@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 14 May 2024 03:48:32 GMT</pubDate>
+    <pubDate>Tue, 14 May 2024 04:28:49 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>GPT-4o</title>
+      <link>https://twalichiewicz.github.io/blog/2024/05/14/GPT-4o/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/05/14/GPT-4o/</guid>
+      <pubDate>Tue, 14 May 2024 04:14:44 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;iframe style=&quot;width: calc(100%);margin-top:14px;border-radius: 6px;&quot; height=&quot;315&quot;</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<iframe style="width: calc(100%);margin-top:14px;border-radius: 6px;" height="315" src="https://www.youtube-nocookie.com/embed/vgYi3Wr7v_g?si=r0-gLAWYRtz1gAO9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><p>Yes, it really does work as well as those demo videos show.</p><p>It turns out all those recent smart assistant devices could just be an app! (And it has access to all the useful features a smartphone already has.)</p><p>It seems the stage is set for this to replace Siri. With first-party support for app and service integration, you have an opportunity for a very compelling new interaction paradigm.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/05/14/GPT-4o/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>ipad crush ad</title>
@@ -496,31 +521,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/02/05/interest-in-the-Apple-Vision-Pro/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>apple vision pro battery mouse</title>
-      <link>https://twalichiewicz.github.io/blog/2024/01/31/apple-vision-pro-battery-mouse/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/01/31/apple-vision-pro-battery-mouse/</guid>
-      <pubDate>Wed, 31 Jan 2024 23:19:38 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;l used a SIM card push pin to &amp;quot;unlock&amp;quot; the cable connected to the Apple</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<blockquote class="twitter-tweet"><p lang="en" dir="ltr">l used a SIM card push pin to &quot;unlock&quot; the cable connected to the Apple Vision Pro battery pack. It popped right out. <a href="https://t.co/tShScpMlvr">pic.twitter.com/tShScpMlvr</a></p>&mdash; Ray Wong (@raywongy) <a href="https://twitter.com/raywongy/status/1752787114071298255?ref_src=twsrc%5Etfw">January 31, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>This would be a pretty solid redesign of the Magic Mouse if they add the multi-touch and optical sensor to this thing.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/01/31/apple-vision-pro-battery-mouse/#disqus_thread</comments>
       
     </item>
     
