@@ -15,7 +15,7 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 14 May 2024 04:28:49 GMT</pubDate>
+    <pubDate>Thu, 16 May 2024 02:51:58 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -34,7 +34,7 @@
       
       
       
-      <content:encoded><![CDATA[<iframe style="width: calc(100%);margin-top:14px;border-radius: 6px;" height="315" src="https://www.youtube-nocookie.com/embed/vgYi3Wr7v_g?si=r0-gLAWYRtz1gAO9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><p>Yes, it really does work as well as those demo videos show.</p><p>It turns out all those recent smart assistant devices could just be an app! (And it has access to all the useful features a smartphone already has.)</p><p>It seems the stage is set for this to replace Siri. With first-party support for app and service integration, you have an opportunity for a very compelling new interaction paradigm.</p>]]></content:encoded>
+      <content:encoded><![CDATA[<iframe style="width: calc(100%);margin-top:14px;border-radius: 6px;" height="315" src="https://www.youtube-nocookie.com/embed/vgYi3Wr7v_g?si=r0-gLAWYRtz1gAO9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><ol><li>Yes, it really does work as well as those demo videos show.</li><li>It turns out all those recent smart assistant devices could just be an app! <em>(Not to mention it has access to all the useful features a smartphone already has.)</em></li><li>It seems the stage is set for this to replace Siri. With first-party support for app and service integration, you have an opportunity for a very compelling new interaction paradigm.</li></ol>]]></content:encoded>
       
       
       
