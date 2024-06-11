@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 11 Jun 2024 04:09:23 GMT</pubDate>
+    <pubDate>Tue, 11 Jun 2024 04:54:50 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>ios 18 home screen customization</title>
+      <link>https://twalichiewicz.github.io/blog/2024/06/11/ios-18-home-screen-customization/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/06/11/ios-18-home-screen-customization/</guid>
+      <pubDate>Tue, 11 Jun 2024 04:53:56 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;The iOS 18 color customization could use some</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>The iOS 18 color customization could use some work.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/06/11/ios-18-home-screen-customization/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>ios 18</title>
@@ -490,32 +515,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/02/13/is-app-based-the-direction-for-apple-vision-pro/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>google preannounce redesign</title>
-      <link>https://twalichiewicz.github.io/blog/2024/02/09/google-preannounce-redesign/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/02/09/google-preannounce-redesign/</guid>
-      <pubDate>Fri, 09 Feb 2024 04:38:56 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;So I saw this when I was signing into YouTube:&lt;/p&gt;
-&lt;p&gt;&lt;img</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>So I saw this when I was signing into YouTube:</p><p><img src="/blog/2024/02/09/google-preannounce-redesign/beforeFlex.png"></p><p>This has to be one of the most bizarre things to put on a such a prominent page: no link to a blog post about the redesign? No way to preview it yet? What the fuck is the point of this message?</p><p>At the very least fix your <code>flex</code> implementation:<br><img src="/blog/2024/02/09/google-preannounce-redesign/afterFlex.png"></p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/02/09/google-preannounce-redesign/#disqus_thread</comments>
       
     </item>
     
