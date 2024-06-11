@@ -15,8 +15,35 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sat, 08 Jun 2024 02:15:39 GMT</pubDate>
+    <pubDate>Tue, 11 Jun 2024 04:09:23 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>ios 18</title>
+      <link>https://twalichiewicz.github.io/blog/2024/06/11/ios-18/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/06/11/ios-18/</guid>
+      <pubDate>Tue, 11 Jun 2024 04:06:19 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Interesting how Apple redesigned the Settings app in iOS 18:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Explainers at the header of all the major</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Interesting how Apple redesigned the Settings app in iOS 18:</p><ul><li>Explainers at the header of all the major sections</li><li>First party apps are now equally discoverable to Third party apps, since they’re all in the new “Apps” subcategory</li><li>The seem to be developing a language where the background (blue versus grey background) of some of the sections seems to pertain to their controls</li></ul>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/06/11/ios-18/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>ai art, the new scribble on a postit</title>
@@ -489,31 +516,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/02/09/google-preannounce-redesign/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>appletv model but for games</title>
-      <link>https://twalichiewicz.github.io/blog/2024/02/05/appletv-model-but-for-games/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/02/05/appletv-model-but-for-games/</guid>
-      <pubDate>Mon, 05 Feb 2024 21:58:27 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;I wonder if Apple has considered taking an approach to getting games on the platform similar to their strategy for getting AppleTV+</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>I wonder if Apple has considered taking an approach to getting games on the platform similar to their strategy for getting AppleTV+ originals. Seems like a good way to harbor more developers and growing their gaming catalog.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/02/05/appletv-model-but-for-games/#disqus_thread</comments>
       
     </item>
     
