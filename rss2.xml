@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Thu, 13 Jun 2024 16:18:38 GMT</pubDate>
+    <pubDate>Sat, 15 Jun 2024 17:49:53 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>apple maps community updates</title>
+      <link>https://twalichiewicz.github.io/blog/2024/06/15/apple-maps-community-updates/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/06/15/apple-maps-community-updates/</guid>
+      <pubDate>Sat, 15 Jun 2024 17:44:58 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Apple Maps should consider integrating an editor tool that empowers approved community members to update points of interest (POIs) and</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Apple Maps should consider integrating an editor tool that empowers approved community members to update points of interest (POIs) and correct errors directly. Mapping services like OpenStreetMap already support this functionality, resulting in remarkable detail and accuracy contributed by community members.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/06/15/apple-maps-community-updates/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>ios 18 home screen customization</title>
@@ -500,31 +525,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/02/13/cyberrust/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>is app-based the direction for apple vision pro?</title>
-      <link>https://twalichiewicz.github.io/blog/2024/02/13/is-app-based-the-direction-for-apple-vision-pro/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/02/13/is-app-based-the-direction-for-apple-vision-pro/</guid>
-      <pubDate>Tue, 13 Feb 2024 04:08:59 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Maybe it’s coming in a future iteration of the Apple Vision Pro, but it’s strange that they stuck to the app paradigm for a device that</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Maybe it’s coming in a future iteration of the Apple Vision Pro, but it’s strange that they stuck to the app paradigm for a device that seems to suggest it’d be a great persistent head-up display assistant:</p><ul><li>Always knows what you’re looking at, could reasonably overlay relevant information</li><li>Speaking to Siri could automatically process whatever you’re looking at</li><li>As we’ve seen from some of the early demos, window-based interfaces make sense for laptops &#x2F; desktops because they’re stationary, that paradigm falls apart if people are moving too much (though having multiple apps placed in 3d space is an okay in-between solution)</li></ul>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/02/13/is-app-based-the-direction-for-apple-vision-pro/#disqus_thread</comments>
       
     </item>
     
