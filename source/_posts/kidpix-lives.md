@@ -19,6 +19,7 @@ short: true
 	}
 	img  {
 		border:solid 6px white;
+		box-shadow: 0 3px 15px rgba(0,0,0,0.18);
 	}
 </style>
 
