@@ -17,6 +17,9 @@ short: true
 		margin:24px 0 24px 0;
 		cursor: help !important;
 	}
+	#hashtagButton:hover {
+		text-decoration: red underline wavy;
+	}
 	img  {
 		border:solid 6px white;
 		box-shadow: 0 3px 15px rgba(0,0,0,0.18);
@@ -24,6 +27,8 @@ short: true
 </style>
 
 [![](kidPix.png)](https://kidpix.app)
+
+<audio id="stampSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/stamp0.wav.mp3"></audio>
 
 
 <div id="hashtagContainer">
@@ -37,5 +42,12 @@ short: true
 		var audio = document.getElementById('oopsSound');
 		audio.play();
 	});
-</script>
 
+	var images = document.getElementsByTagName('img');
+	for (var i = 0; i < images.length; i++) {
+		images[i].addEventListener('click', function() {
+			var audio = document.getElementById('stampSound');
+			audio.play();
+		});
+	}
+</script>
