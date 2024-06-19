@@ -15,8 +15,40 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sat, 15 Jun 2024 17:49:53 GMT</pubDate>
+    <pubDate>Wed, 19 Jun 2024 06:30:13 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>kidpix lives</title>
+      <link>https://twalichiewicz.github.io/blog/2024/06/19/kidpix-lives/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/06/19/kidpix-lives/</guid>
+      <pubDate>Wed, 19 Jun 2024 05:29:51 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;style&gt;
+    #hashtagContainer {
+        width:100%;
+        text-align:center;
+    }
+    #hashtagButton {
+        background:none;
+       </description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<style>    #hashtagContainer {        width:100%;        text-align:center;    }    #hashtagButton {        background:none;        border:none;        font-size: 1.25rem;        padding:0;        margin:24px 0 24px 0;        cursor: help !important;    }    img  {        border:solid 6px white;    }</style><p><a href="https://kidpix.app/"><img src="/blog/2024/06/19/kidpix-lives/kidPix.png"></a></p><div id="hashtagContainer"><button id="hashtagButton"><b>#bringbackUISFX</b></button></div><p><audio id="oopsSound" src="/blog/2024/06/18/kidpix-lives/oops2.wav.mp3"></audio></p><script>    document.getElementById('hashtagButton').addEventListener('click', function() {        var audio = document.getElementById('oopsSound');        audio.play();    });</script>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/06/19/kidpix-lives/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>apple maps community updates</title>
@@ -500,31 +532,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/02/22/Siri-LLM-AI-application-summarizing-web-results/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>cyberrust</title>
-      <link>https://twalichiewicz.github.io/blog/2024/02/13/cyberrust/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/02/13/cyberrust/</guid>
-      <pubDate>Tue, 13 Feb 2024 06:58:42 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;via &lt;a</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>via <a href="https://www.carsdirect.com/automotive-news/green-technology/tesla-cybertruck-may-have-a-rust-problem">CarsDirect:</a></p><blockquote><p>Some people may wonder what the big deal is. Normal cars need to be washed and cleaned regularly. But, what makes the Cybertruck more unique than other vehicles on the road is that its body doesn’t have a clear coat. <strong>That means that any corrosive substances that come in contact with the body have to be cleaned immediately or they’ll heavily damage the stainless steel body.</strong></p></blockquote><p>Sounds like fun.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/02/13/cyberrust/#disqus_thread</comments>
       
     </item>
     
