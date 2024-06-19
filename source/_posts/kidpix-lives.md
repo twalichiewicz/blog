@@ -29,7 +29,7 @@ short: true
 <button id="hashtagButton"><b>#bringbackUISFX</b></button>
 </div>
 
-<audio id="oopsSound" src="/blog/2024/06/18/kidpix-lives/oops2.wav.mp3"></audio>
+<audio id="oopsSound" src="/2024/06/18/kidpix-lives/oops2.wav.mp3"></audio>
 
 <script>
 	document.getElementById('hashtagButton').addEventListener('click', function() {
