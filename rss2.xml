@@ -15,7 +15,7 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 19 Jun 2024 06:35:02 GMT</pubDate>
+    <pubDate>Wed, 19 Jun 2024 18:02:26 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -41,7 +41,7 @@
       
       
       
-      <content:encoded><![CDATA[<style>    #hashtagContainer {        width:100%;        text-align:center;    }    #hashtagButton {        background:none;        border:none;        font-size: 1.25rem;        padding:0;        margin:24px 0 24px 0;        cursor: help !important;    }    img  {        border:solid 6px white;    }</style><p><a href="https://kidpix.app/"><img src="/blog/2024/06/19/kidpix-lives/kidPix.png"></a></p><div id="hashtagContainer"><button id="hashtagButton"><b>#bringbackUISFX</b></button></div><p><audio id="oopsSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/oops2.wav.mp3"></audio></p><script>    document.getElementById('hashtagButton').addEventListener('click', function() {        var audio = document.getElementById('oopsSound');        audio.play();    });</script>]]></content:encoded>
+      <content:encoded><![CDATA[<style>    #hashtagContainer {        width:100%;        text-align:center;    }    #hashtagButton {        background:none;        border:none;        font-size: 1.25rem;        padding:0;        margin:24px 0 24px 0;        cursor: help !important;    }    img  {        border:solid 6px white;        box-shadow: 0 3px 15px rgba(0,0,0,0.18);    }</style><p><a href="https://kidpix.app/"><img src="/blog/2024/06/19/kidpix-lives/kidPix.png"></a></p><div id="hashtagContainer"><button id="hashtagButton"><b>#bringbackUISFX</b></button></div><p><audio id="oopsSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/oops2.wav.mp3"></audio></p><script>    document.getElementById('hashtagButton').addEventListener('click', function() {        var audio = document.getElementById('oopsSound');        audio.play();    });</script>]]></content:encoded>
       
       
       
