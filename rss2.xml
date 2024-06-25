@@ -15,8 +15,36 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 19 Jun 2024 23:11:40 GMT</pubDate>
+    <pubDate>Tue, 25 Jun 2024 04:18:30 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>iPhone Mirroring</title>
+      <link>https://twalichiewicz.github.io/blog/2024/06/25/iPhone-Mirroring/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/06/25/iPhone-Mirroring/</guid>
+      <pubDate>Tue, 25 Jun 2024 04:13:08 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;The iPhone Mirroring feature:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Is great for that-one-app-that-is-only-on-mobile&lt;/li&gt;
+&lt;li&gt;Introduces a new paradigm for</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>The iPhone Mirroring feature:</p><ul><li>Is great for that-one-app-that-is-only-on-mobile</li><li>Introduces a new paradigm for showing &#x2F; hiding the window controls, could use a little affordance but pretty slick</li><li>Sort of makes me wonder why even show the home screen at all? You could probably get away with integrating the hardware to be recognized as native to the Mac and the apps alongside the native ones</li></ul>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/06/25/iPhone-Mirroring/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>kidpix lives</title>
@@ -507,31 +535,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/03/14/email-field-capitalization/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Siri LLM AI application: summarizing web results</title>
-      <link>https://twalichiewicz.github.io/blog/2024/02/22/Siri-LLM-AI-application-summarizing-web-results/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/02/22/Siri-LLM-AI-application-summarizing-web-results/</guid>
-      <pubDate>Thu, 22 Feb 2024 18:26:02 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;If Apple is looking for suggestions of what to first use LLM AI tech for in Siri: allow it to summarize web results and then</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>If Apple is looking for suggestions of what to first use LLM AI tech for in Siri: allow it to summarize web results and then text-to-voice.</p><p>Then, finally, I can have some peace from hearing: “I found some web results, I can show you if you ask again from your iPhone.”</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/02/22/Siri-LLM-AI-application-summarizing-web-results/#disqus_thread</comments>
       
     </item>
     
