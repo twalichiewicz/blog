@@ -4,6 +4,8 @@ date: 2024-06-18 22:29:51
 short: true
 ---
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
 <style>
 	#hashtagContainer {
 		width:100%;
@@ -32,7 +34,7 @@ short: true
 
 
 <div id="hashtagContainer">
-<button id="hashtagButton"><b>#bringbackUISFX</b></button>
+<button id="hashtagButton" onclick="popConfetti(event)"><b>#bringbackUISFX</b></button>
 </div>
 
 <audio id="oopsSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/oops2.wav.mp3"></audio>
@@ -48,6 +50,21 @@ short: true
 		images[i].addEventListener('click', function() {
 			var audio = document.getElementById('stampSound');
 			audio.play();
+		});
+	}
+
+	function popConfetti(event) {
+		// Get the button's bounding rectangle
+		var rect = event.target.getBoundingClientRect();
+		// Calculate the origin for the confetti
+		var originX = (rect.left + rect.width / 2) / window.innerWidth;
+		var originY = (rect.top + rect.height / 2) / window.innerHeight;
+
+		// Fire the confetti
+		confetti({
+			particleCount: 100,
+			spread: 70,
+			origin: { x: originX, y: originY }
 		});
 	}
 </script>
