@@ -15,8 +15,35 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 25 Jun 2024 04:18:30 GMT</pubDate>
+    <pubDate>Wed, 26 Jun 2024 23:27:26 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Figma Config 2024</title>
+      <link>https://twalichiewicz.github.io/blog/2024/06/26/Figma-Config-2024/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/06/26/Figma-Config-2024/</guid>
+      <pubDate>Wed, 26 Jun 2024 23:10:37 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Figma Config announced &lt;a href=&quot;https://www.figma.com/whats-new/&quot;&gt;some new features&lt;/a&gt; today:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;UI3, a redesigned</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Figma Config announced <a href="https://www.figma.com/whats-new/">some new features</a> today:</p><ul><li>UI3, a redesigned Figma</li><li>Figma AI (Make Design, Make Prototype, Visual Search, Replace Content, Rename Layers)</li><li>Figma Slides</li><li>and some other stuff</li></ul><hr><p>Watching the CEO use Figma was peak “How do you do, fellow designers”</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/06/26/Figma-Config-2024/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>iPhone Mirroring</title>
@@ -509,32 +536,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/03/22/figma-gib-page-nav/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>email field capitalization</title>
-      <link>https://twalichiewicz.github.io/blog/2024/03/14/email-field-capitalization/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/03/14/email-field-capitalization/</guid>
-      <pubDate>Thu, 14 Mar 2024 18:01:49 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;A small web pet peeve: email fields that try to auto correct names to be capitalized.&lt;/p&gt;
-&lt;p&gt;Every work email I’ve ever had is my name</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>A small web pet peeve: email fields that try to auto correct names to be capitalized.</p><p>Every work email I’ve ever had is my name lowercase, and the autocorrect is way too aggressive in trying to capitalize, which then makes the validation fail if the website is strict about upper and lower case letters.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/03/14/email-field-capitalization/#disqus_thread</comments>
       
     </item>
     
