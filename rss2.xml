@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 26 Jun 2024 23:44:46 GMT</pubDate>
+    <pubDate>Thu, 27 Jun 2024 18:54:22 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Apple Music Station Stew</title>
+      <link>https://twalichiewicz.github.io/blog/2024/06/27/Apple-Music-Station-Stew/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/06/27/Apple-Music-Station-Stew/</guid>
+      <pubDate>Thu, 27 Jun 2024 18:52:02 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;The Apple Music “station from source” feature is pretty good, but what I’d really like to see is an option to “refine”. Sometimes</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>The Apple Music “station from source” feature is pretty good, but what I’d really like to see is an option to “refine”. Sometimes defining the exact vibe of station you want takes more than just one data source.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/06/27/Apple-Music-Station-Stew/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Figma Config 2024</title>
@@ -507,32 +532,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/03/29/filling-another-design-notebook/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>figma gib page nav</title>
-      <link>https://twalichiewicz.github.io/blog/2024/03/22/figma-gib-page-nav/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/03/22/figma-gib-page-nav/</guid>
-      <pubDate>Fri, 22 Mar 2024 16:00:00 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Figma please just make it so I can organize my Pages like every file structure system since the 90’s.&lt;/p&gt;
-&lt;p&gt;&lt;img</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Figma please just make it so I can organize my Pages like every file structure system since the 90’s.</p><p><img src="/blog/2024/03/22/figma-gib-page-nav/newFigmaPageOrg.gif"></p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/03/22/figma-gib-page-nav/#disqus_thread</comments>
       
     </item>
     
