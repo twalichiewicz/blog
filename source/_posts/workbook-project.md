@@ -12,17 +12,17 @@ short: true
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		max-width:522px;
+		max-width: 522px;
 		max-height: 80vh;
-		overflow-y:scroll;
+		overflow-y: scroll;
 		background-color: white;
 		margin-top: 12px;
 	}
 	img {
 		max-width: 100%;
 		max-height: 100% !important;
-		border:none !important;
-		box-shadow:none !important;
+		border: none !important;
+		box-shadow: none !important;
 	}
 	.controls {
 		display: flex;
@@ -34,7 +34,7 @@ short: true
 	button {
 		padding: 12px 14px;
 		border: none;
-		border-radius: 100%;
+		border-radius: 1rem;
 		background-color: #000;
 		color: white;
 		cursor: pointer;
@@ -64,7 +64,7 @@ short: true
 	#toggle-view {
 		position: relative;
 		padding: 8px 10px;
-		border: solid 1px rgba(0,0,0,0.12);
+		border: solid 1px rgba(0, 0, 0, 0.12);
 		background-color: transparent;
 		color: white;
 		cursor: pointer;
