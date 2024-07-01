@@ -15,8 +15,36 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sun, 30 Jun 2024 21:44:28 GMT</pubDate>
+    <pubDate>Mon, 01 Jul 2024 20:47:22 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>door dash notifications fuckery</title>
+      <link>https://twalichiewicz.github.io/blog/2024/07/01/door-dash-notifications-fuckery/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/07/01/door-dash-notifications-fuckery/</guid>
+      <pubDate>Mon, 01 Jul 2024 02:54:16 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;ul&gt;
+&lt;li&gt;Turn off a bunch of extraneous DoorDash notifications&lt;/li&gt;
+&lt;li&gt;Playing around the app&lt;/li&gt;
+&lt;li&gt;DoorDash shows a modal suggesting</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<ul><li>Turn off a bunch of extraneous DoorDash notifications</li><li>Playing around the app</li><li>DoorDash shows a modal suggesting that I might miss relevant updates</li><li>Go back to notification settings</li><li>All of them have been turned back on</li></ul><p>Bunch of bullshit</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/07/01/door-dash-notifications-fuckery/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>post</title>
@@ -508,31 +536,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/04/11/udio-ai-music-generator/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>apple music crossfade as dj</title>
-      <link>https://twalichiewicz.github.io/blog/2024/03/31/apple-music-crossfade-as-dj/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/03/31/apple-music-crossfade-as-dj/</guid>
-      <pubDate>Sun, 31 Mar 2024 03:45:02 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;It would be nice if the Crossfade feature in Apple Music worked when you manually change songs as well rather than just abruptly</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>It would be nice if the Crossfade feature in Apple Music worked when you manually change songs as well rather than just abruptly starting and stopping the music.</p><p>That’d also be an elegant solution to implement some AI-powered stem blending for that authentic DJ experience.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/03/31/apple-music-crossfade-as-dj/#disqus_thread</comments>
       
     </item>
     
