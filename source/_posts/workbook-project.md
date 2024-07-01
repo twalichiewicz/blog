@@ -133,7 +133,7 @@ short: true
 	let currentIndex = 0;
 	function showImage(index) {
 		const imageViewer = document.getElementById('image-viewer');
-		imageViewer.src = `http://localhost:4000/blog/2024/06/30/workbook-project/${images[index]}`;
+		imageViewer.src = `https://thomas.design/blog/2024/06/30/workbook-project/${images[index]}`;
 		document.getElementById('prev').disabled = index === 0;
 		document.getElementById('next').disabled = index === images.length - 1;
 	}
