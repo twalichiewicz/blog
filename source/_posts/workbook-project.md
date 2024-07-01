@@ -5,16 +5,6 @@ short: true
 ---
 
 <style>
-	body {
-		padding-top: 1000px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		height: 100vh;
-		margin: 0;
-		background-color: #f0f0f0;
-	}
 	.image-container {
 		position: relative;
 		display: flex;
