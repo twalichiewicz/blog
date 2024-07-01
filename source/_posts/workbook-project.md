@@ -40,6 +40,7 @@ short: true
 		cursor: pointer;
 		font-size: 16px;
 		margin: auto 12px;
+		font-size: 24px;
 	}
 	button:disabled {
 		background-color: #ccc;
@@ -69,7 +70,7 @@ short: true
 		cursor: pointer;
 		font-size: 16px;
 		border-radius: 5px;
-		margin-bottom: 6px;
+		margin: 0 !important;
 	}
 </style>
 
