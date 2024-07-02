@@ -14,9 +14,11 @@ short: true
 		width: 100%;
 		max-width: 522px;
 		max-height: 80vh;
-		overflow-y: scroll;
 		background-color: white;
 		margin-top: 12px;
+		transition: height 0.3s ease;
+		overflow: hidden; /* Hide the scrollbar */
+		height: auto;
 	}
 	img {
 		max-width: 100%;
@@ -25,6 +27,7 @@ short: true
 		box-shadow: none !important;
 	}
 	.controls {
+		touch-action: manipulation;
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
@@ -51,6 +54,7 @@ short: true
 		flex-wrap: wrap;
 		justify-content: center;
 		width: 100%;
+		overflow-y: auto; /* Allow scrolling in grid view */
 	}
 	.grid-item {
 		margin: 5px;
@@ -62,21 +66,43 @@ short: true
 		object-fit: cover;
 	}
 	#toggle-view {
+		touch-action: manipulation;
 		position: relative;
-		padding: 8px 10px;
-		border: solid 1px rgba(0, 0, 0, 0.12);
+		padding: 3px 6px;
+		border: none;
 		background-color: transparent;
-		color: white;
+		color: grey;
 		cursor: pointer;
-		font-size: 16px;
+		font-size: 12px;
 		border-radius: 5px;
-		margin: 0 !important;
+		text-transform: uppercase;
+		font-weight: 500;
+		text-align: center;
+		display: block;
+		margin-bottom: 12px;
+		margin-left: auto;
+		margin-right: auto;
+		transition: color 0.3s ease, text-shadow 0.3s ease, opacity 0.3s ease;
+	}
+	@keyframes shadowPulse {
+		0% {
+			color: grey;
+			text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+		}
+		50% {
+			color: lightgrey;
+			text-shadow: 0 3px 10px rgba(0, 0, 0, 1);
+		}
+		100% {
+			color: black;
+			text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+		}
 	}
 </style>
 
-<button id="toggle-view" onclick="toggleView()">🎞️</button>
+<button id="toggle-view" onclick="toggleView()">Grid View</button>
 
-<div class="image-container">
+<div class="image-container" id="image-container">
 	<img id="image-viewer" src="https://thomas.design/blog/2024/06/30/workbook-project/00.jpeg" alt="Image Viewer">
 	<div class="controls">
 		<button id="prev" onclick="showPrev()" disabled="">←</button>
@@ -164,13 +190,18 @@ short: true
 		// Add more image filenames as needed
 	];
 	let currentIndex = 0;
-	let gridView = false;
+	let containerHeight = 0;
 
 	function showImage(index) {
 		const imageViewer = document.getElementById('image-viewer');
+		const imageContainer = document.getElementById('image-container');
 		imageViewer.src = `https://thomas.design/blog/2024/06/30/workbook-project/${images[index]}`;
 		document.getElementById('prev').disabled = index === 0;
 		document.getElementById('next').disabled = index === images.length - 1;
+		imageViewer.onload = () => {
+			containerHeight = imageContainer.clientHeight;
+			document.getElementById('image-container').style.height = `${containerHeight}px`;
+		};
 	}
 
 	function showPrev() {
@@ -195,6 +226,8 @@ short: true
 			div.classList.add('grid-item');
 			div.onclick = () => {
 				currentIndex = index;
+				// Cache the height before switching
+				containerHeight = document.getElementById('image-container').clientHeight;
 				toggleView();
 				showImage(currentIndex);
 			};
@@ -210,18 +243,32 @@ short: true
 		const controls = document.querySelector('.controls');
 		const gridView = document.getElementById('grid-view');
 		const toggleButton = document.getElementById('toggle-view');
+		const imageContainer = document.getElementById('image-container');
 
-		if (gridView.style.display === 'none' || !gridView.style.display) {
-			gridView.style.display = 'flex';
-			imageView.style.display = 'none';
-			controls.style.display = 'none';
-			toggleButton.innerText = '📽️';
-		} else {
-			gridView.style.display = 'none';
-			imageView.style.display = 'block';
-			controls.style.display = 'flex';
-			toggleButton.innerText = '🎞️';
-		}
+		// Fade out text
+		toggleButton.style.opacity = '0';
+		setTimeout(() => {
+			if (gridView.style.display === 'none' || !gridView.style.display) {
+				gridView.style.display = 'flex';
+				imageView.style.display = 'none';
+				controls.style.display = 'none';
+				imageContainer.style.overflowY = 'auto'; /* Enable scrollbar in grid view */
+				imageContainer.style.height = `${containerHeight}px`;
+				toggleButton.innerText = 'Single View';
+			} else {
+				gridView.style.display = 'none';
+				imageView.style.display = 'block';
+				controls.style.display = 'flex';
+				showImage(currentIndex);  // Recalculate the height of the image container
+				toggleButton.innerText = 'Grid View';
+			}
+			// Fade in text with shadow
+			toggleButton.style.opacity = '1';
+			toggleButton.classList.add('show-shadow');
+			setTimeout(() => {
+				toggleButton.classList.remove('show-shadow');
+			}, 600);
+		}, 300);
 	}
 
 	// Initialize the viewer with the first image and create the grid
