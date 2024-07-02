@@ -100,8 +100,6 @@ short: true
 	}
 </style>
 
-<button id="toggle-view" onclick="toggleView()">Grid View</button>
-
 <div class="image-container" id="image-container">
 	<img id="image-viewer" src="https://thomas.design/blog/2024/06/30/workbook-project/00.jpeg" alt="Image Viewer">
 	<div class="controls">
@@ -110,6 +108,8 @@ short: true
 	</div>
 	<div id="grid-view"></div>
 </div>
+
+<button id="toggle-view" onclick="toggleView()">Grid View</button>
 
 <div>
 	<p style="text-align: center;">
