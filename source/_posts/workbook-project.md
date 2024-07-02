@@ -98,6 +98,15 @@ short: true
 			text-shadow: 0 0 0 rgba(0, 0, 0, 0);
 		}
 	}
+	.hidden-text {
+		display: none;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+	.hidden-text.show {
+		opacity: 1;
+		display: block;
+	}
 </style>
 
 <div class="image-container" id="image-container">
@@ -114,6 +123,9 @@ short: true
 <div>
 	<p style="text-align: center;">
 		Another notebook down.
+	</p>
+	<p id="hidden-text" class="hidden-text" style="text-align: center;">
+		Made you look.
 	</p>
 </div>
 
@@ -195,6 +207,7 @@ short: true
 	function showImage(index) {
 		const imageViewer = document.getElementById('image-viewer');
 		const imageContainer = document.getElementById('image-container');
+		const hiddenText = document.getElementById('hidden-text');
 		imageViewer.src = `https://thomas.design/blog/2024/06/30/workbook-project/${images[index]}`;
 		document.getElementById('prev').disabled = index === 0;
 		document.getElementById('next').disabled = index === images.length - 1;
@@ -202,6 +215,9 @@ short: true
 			containerHeight = imageContainer.clientHeight;
 			document.getElementById('image-container').style.height = `${containerHeight}px`;
 		};
+		if (images[index] === '057.jpeg') {
+			hiddenText.classList.add('show');
+		}
 	}
 
 	function showPrev() {
