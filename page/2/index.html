@@ -122,6 +122,87 @@
 <div class="container">
     <div class="post-list">
         
+        <article class="post-list-item" id="kidpix lives">
+            <div class="content">
+                
+
+                
+                <div class="content-body">
+                    <div class="post-header">
+                        <div class="time">
+                            <span>June</span>
+                            <span>&nbsp;19,&nbsp;</span>
+                            <span>2024</span>
+                            
+                        </div>
+                        <a href="/blog/2024/06/19/kidpix-lives/">↗</a>
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+<style>
+    #hashtagContainer {
+        width:100%;
+        text-align:center;
+    }
+    #hashtagButton {
+        background:none;
+        border:none;
+        font-size: 1.25rem;
+        padding:0;
+        margin:24px 0 24px 0;
+        cursor: help !important;
+    }
+    #hashtagButton:hover {
+        text-decoration: red underline wavy;
+    }
+    img  {
+        border:solid 6px white;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.18);
+    }
+</style>
+
+<p><a target="_blank" rel="noopener" href="https://kidpix.app/"><img src="/blog/2024/06/19/kidpix-lives/kidPix.png"></a></p>
+<p><audio id="stampSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/stamp0.wav.mp3"></audio></p>
+<div id="hashtagContainer">
+<button id="hashtagButton" onclick="popConfetti(event)"><b>#bringbackUISFX</b></button>
+</div>
+
+<p><audio id="oopsSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/oops2.wav.mp3"></audio></p>
+<script>
+    document.getElementById('hashtagButton').addEventListener('click', function() {
+        var audio = document.getElementById('oopsSound');
+        audio.play();
+    });
+
+    var images = document.getElementsByTagName('img');
+    for (var i = 0; i < images.length; i++) {
+        images[i].addEventListener('click', function() {
+            var audio = document.getElementById('stampSound');
+            audio.play();
+        });
+    }
+
+    function popConfetti(event) {
+        // Get the button's bounding rectangle
+        var rect = event.target.getBoundingClientRect();
+        // Calculate the origin for the confetti
+        var originX = (rect.left + rect.width / 2) / window.innerWidth;
+        var originY = (rect.top + rect.height / 2) / window.innerHeight;
+
+        // Fire the confetti
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { x: originX, y: originY }
+        });
+    }
+</script>
+
+                </div>
+                
+            </div>
+        </article>
+        
         <article class="post-list-item" id="apple maps community updates">
             <div class="content">
                 
@@ -340,37 +421,11 @@
             </div>
         </article>
         
-        <article class="post-list-item" id="cyberfuck car wash mode">
-            <div class="content">
-                
-
-                
-                <div class="content-body">
-                    <div class="post-header">
-                        <div class="time">
-                            <span>April</span>
-                            <span>&nbsp;21,&nbsp;</span>
-                            <span>2024</span>
-                            
-                        </div>
-                        <a href="/blog/2024/04/21/cyberfuck-car-wash-mode/">↗</a>
-                    </div>
-                    <p>Via <a target="_blank" rel="noopener" href="https://www.theregister.com/2024/04/20/cybertruck_car_wash_mode/">The Register:</a></p>
-<blockquote>
-<p>The advisor said that “it is a known issue in the Cybertruck that when you do a screen reset, instead of resetting in the standard two minutes, it takes five hours.”</p>
-</blockquote>
-<p>I will never tire of hearing about this appliance-on-wheels’s woes.</p>
-
-                </div>
-                
-            </div>
-        </article>
-        
     </div>
 
     
 <div class="paginator">
-    <a class="extend prev" rel="prev" href="/blog/">Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/9/">9</a><a class="extend next" rel="next" href="/blog/page/3/">Next</a>
+    <a class="extend prev" rel="prev" href="/blog/">Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="extend next" rel="next" href="/blog/page/3/">Next</a>
 </div>
 
 </div>
