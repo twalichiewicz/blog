@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 02 Jul 2024 17:50:43 GMT</pubDate>
+    <pubDate>Wed, 03 Jul 2024 19:08:54 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>rotating sandwiches</title>
+      <link>https://twalichiewicz.github.io/blog/2024/07/02/rotating-sandwiches/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/07/02/rotating-sandwiches/</guid>
+      <pubDate>Tue, 02 Jul 2024 22:30:21 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;a href=&quot;https://rotatingsandwiches.com/&quot;&gt;Rotating</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><a href="https://rotatingsandwiches.com/">Rotating sandwiches</a></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/07/02/rotating-sandwiches/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>apple card pro</title>
@@ -515,31 +540,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/04/21/cyberfuck-car-wash-mode/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>turning the phone into companion ai with iSight</title>
-      <link>https://twalichiewicz.github.io/blog/2024/04/17/turning-the-phone-into-companion-ai-with-iSight/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/04/17/turning-the-phone-into-companion-ai-with-iSight/</guid>
-      <pubDate>Wed, 17 Apr 2024 05:12:24 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;As far as I’ve seen, most of these smart assistant devices that have been coming out can’t answer a pretty obvious question– why can’t</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>As far as I’ve seen, most of these smart assistant devices that have been coming out can’t answer a pretty obvious question– why can’t this just be an app?</p><p>Seriously, I don’t know anyone who is going to want to carry <em>another</em> device around to capture this functionality, and the tradeoffs in functionality you lose from not having your phone (as fancy and sleek as some of these devices look) make you worse off. All of these demoes rely <strong>heavily</strong> on everything working out correctly, and you going along with what the assistant is saying it’s doing. You know what you’re going to want when something isn’t working? A large screen with direct input on the algo &#x2F; AI that’s running the task (oh hey, like a phone!).</p><p>Paradoxically, the form factor is also the limiting factor for using a phone as one of these smart devices (size, weight, portability). So instead of an entirely new device, why not an accessary that takes all the strengths of a assistant-focused device and pair it to the phone as the processor?</p><p>The capture device (probably a combination camera, microphone, and minimal interactive interface) can be much lighter since they don’t need to handle processing on-device, and can probably be even more minimalistic since you you can offload secondary interactions to the phone.</p><p>Basically what I’m imagining is a revamp of the old iSight: a camera, microphone, and (now) interaction interface that is paired to your phone and serves as your assistant’s eyes into your context. Something like this:</p><p><img src="/blog/2024/04/17/turning-the-phone-into-companion-ai-with-iSight/newSight.jpeg"></p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/04/17/turning-the-phone-into-companion-ai-with-iSight/#disqus_thread</comments>
       
     </item>
     
