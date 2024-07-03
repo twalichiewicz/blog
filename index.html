@@ -126,28 +126,6 @@
 <div class="container">
     <div class="post-list">
         
-        <article class="post-list-item" id="Slack Summary AI">
-            <div class="content">
-                
-
-                
-                <div class="content-body">
-                    <div class="post-header">
-                        <div class="time">
-                            <span>July</span>
-                            <span>&nbsp;3,&nbsp;</span>
-                            <span>2024</span>
-                            
-                        </div>
-                        <a href="/blog/2024/07/03/Slack-Summary-AI/">↗</a>
-                    </div>
-                    <p>Thinking of AI tools— a feature for Slack that summarizes all of my conversations into a simple list. If it could break them out into tasks &#x2F; prioritize them, even better.</p>
-
-                </div>
-                
-            </div>
-        </article>
-        
         <article class="post-list-item" id="rotating sandwiches">
             <div class="content">
                 
@@ -653,11 +631,92 @@
             </div>
         </article>
         
+        <article class="post-list-item" id="kidpix lives">
+            <div class="content">
+                
+
+                
+                <div class="content-body">
+                    <div class="post-header">
+                        <div class="time">
+                            <span>June</span>
+                            <span>&nbsp;19,&nbsp;</span>
+                            <span>2024</span>
+                            
+                        </div>
+                        <a href="/blog/2024/06/19/kidpix-lives/">↗</a>
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+<style>
+    #hashtagContainer {
+        width:100%;
+        text-align:center;
+    }
+    #hashtagButton {
+        background:none;
+        border:none;
+        font-size: 1.25rem;
+        padding:0;
+        margin:24px 0 24px 0;
+        cursor: help !important;
+    }
+    #hashtagButton:hover {
+        text-decoration: red underline wavy;
+    }
+    img  {
+        border:solid 6px white;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.18);
+    }
+</style>
+
+<p><a target="_blank" rel="noopener" href="https://kidpix.app/"><img src="/blog/2024/06/19/kidpix-lives/kidPix.png"></a></p>
+<p><audio id="stampSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/stamp0.wav.mp3"></audio></p>
+<div id="hashtagContainer">
+<button id="hashtagButton" onclick="popConfetti(event)"><b>#bringbackUISFX</b></button>
+</div>
+
+<p><audio id="oopsSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/oops2.wav.mp3"></audio></p>
+<script>
+    document.getElementById('hashtagButton').addEventListener('click', function() {
+        var audio = document.getElementById('oopsSound');
+        audio.play();
+    });
+
+    var images = document.getElementsByTagName('img');
+    for (var i = 0; i < images.length; i++) {
+        images[i].addEventListener('click', function() {
+            var audio = document.getElementById('stampSound');
+            audio.play();
+        });
+    }
+
+    function popConfetti(event) {
+        // Get the button's bounding rectangle
+        var rect = event.target.getBoundingClientRect();
+        // Calculate the origin for the confetti
+        var originX = (rect.left + rect.width / 2) / window.innerWidth;
+        var originY = (rect.top + rect.height / 2) / window.innerHeight;
+
+        // Fire the confetti
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { x: originX, y: originY }
+        });
+    }
+</script>
+
+                </div>
+                
+            </div>
+        </article>
+        
     </div>
 
     
 <div class="paginator">
-    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="extend next" rel="next" href="/blog/page/2/">Next</a>
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/9/">9</a><a class="extend next" rel="next" href="/blog/page/2/">Next</a>
 </div>
 
 </div>
