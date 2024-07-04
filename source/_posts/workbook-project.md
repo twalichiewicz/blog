@@ -186,19 +186,6 @@ short: true
 		'052.jpeg',
 		'053.jpeg',
 		'054.jpeg',
-		'055.jpeg',
-		'056.jpeg',
-		'057.jpeg',
-		'058.jpeg',
-		'059.jpeg',
-		'060.jpeg',
-		'061.jpeg',
-		'062.jpeg',
-		'063.jpeg',
-		'064.jpeg',
-		'065.jpeg',
-		'066.jpeg',
-		'067.jpeg',
 		// Add more image filenames as needed
 	];
 	let currentIndex = 0;
@@ -215,7 +202,7 @@ short: true
 			containerHeight = imageContainer.clientHeight;
 			document.getElementById('image-container').style.height = `${containerHeight}px`;
 		};
-		if (images[index] === '057.jpeg') {
+		if (images[index] === '054.jpeg') {
 			hiddenText.classList.add('show');
 		}
 	}
