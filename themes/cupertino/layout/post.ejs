@@ -12,51 +12,46 @@
             </p>
         </div>
         <% if (page.long) { %>
-            <% if (!page.draft) { %>
-                <a class="title-permlink<%= page.new_label ? ' new-label' : '' %><%= page.draft ? ' draft-card' : '' %>" href="<%- url_for(page.path) %>">
-            <% } else { %>
-                <div class="title-permlink<%= page.new_label ? ' new-label' : '' %><%= page.draft ? ' draft-card' : '' %>">
-            <% } %>
-                <div class="content-body content-body-long<%= page.draft ? ' draft-card' : '' %>">
-                    <!-- Shows a cover image, if it has one -->
-                    <% if (page.cover_image) { %>
-                        <div class="cover-img">
-                            <img class="<%= page.draft ? 'draft-card' : '' %>" src="<%= page.cover_image %>" alt="<%= page.cover_image_alt %>">
-                        </div>
-                    <% } %>
-                    <!-- Show the title, if it has one -->
-                    <% if (page.show_title) { %>
-                        <p class="title">
-                            <%= page.title %>
-                        </p>
-                    <% } %>
-                    <!-- Show the excerpt, only used for long form pages. Will also add a button to "read more" -->
-                    <% if (theme.show_excerpt) { %>
-                    <p>
-                        <%- page.excerpt %>
+            <div class="content-body content-body-long<%= page.draft ? ' draft-card' : '' %>">
+                <div class="post-header">
+                    <div class="time">
+                        <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][page.date.month()] %></span>
+                        <span>&nbsp;<%- page.date.date() %>,&nbsp;</span>
+                        <span><%- page.date.year() %></span>
+                        <% if (page.edit) { %>
+                            <span>(edited)</span>
+                        <% } %>
+                    </div>
+                </div>
+                <!-- Shows a cover image, if it has one -->
+                <% if (page.cover_image) { %>
+                    <div class="cover-img">
+                        <img class="<%= page.draft ? 'draft-card' : '' %>" src="<%= page.cover_image %>" alt="<%= page.cover_image_alt %>">
+                    </div>
+                <% } %>
+                <!-- Show the title, if it has one -->
+                <% if (page.show_title) { %>
+                    <p class="title">
+                        <%= page.title %>
                     </p>
-                    <button class="read-more<%- page.draft ? ' draft-button' : '' %>">
-                        <%= page.draft ? 'Coming soon' : 'Read more' %>
-                    </button>
-                    <% } %>
-                </div>
-            </a>
-        <% } %>
-
-        <% if (page.short) { %>
-        <div class="content-body">
-            <div class="post-header">
-                <div class="time">
-                    <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][page.date.month()] %></span>
-                    <span>&nbsp;<%- page.date.date() %>,&nbsp;</span>
-                    <span><%- page.date.year() %></span>
-                    <% if (page.edit) { %>
-                        <span>(edited)</span>
-                    <% } %>
-                </div>
+                <% } %>
+                <!-- Show the full content -->
+                <%- page.content %>
             </div>
-            <%- page.content %>
-        </div>
+        <% } else if (page.short) { %>
+            <div class="content-body">
+                <div class="post-header">
+                    <div class="time">
+                        <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][page.date.month()] %></span>
+                        <span>&nbsp;<%- page.date.date() %>,&nbsp;</span>
+                        <span><%- page.date.year() %></span>
+                        <% if (page.edit) { %>
+                            <span>(edited)</span>
+                        <% } %>
+                    </div>
+                </div>
+                <%- page.content %>
+            </div>
         <% } %>
     </div>
 </article>
