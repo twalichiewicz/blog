@@ -6,52 +6,55 @@
         <article class="post-list-item" id="<%= post.title %>">
             <div class="content">
                 <% if (post.long) { %>
-                    <% if (!post.draft) { %>
-                        <a class="title-permlink<%= post.new_label ? ' new-label' : '' %><%= post.draft ? ' draft-card' : '' %>" href="<%- url_for(post.path) %>">
-                    <% } else { %>
-                        <div class="title-permlink<%= post.new_label ? ' new-label' : '' %><%= post.draft ? ' draft-card' : '' %>">
-                    <% } %>
-                        <div class="content-body content-body-long<%= post.draft ? ' draft-card' : '' %>">
-                            <!-- Shows a cover image, if it has one -->
-                            <% if (post.cover_image) { %>
-                                <div class="cover-img">
-                                    <img class="<%= post.draft ? 'draft-card' : '' %>" src="<%= post.cover_image %>" alt="<%= post.cover_image_alt %>">
-                                </div>
-                            <% } %>
-                            <!-- Show the title, if it has one -->
-                            <% if (post.show_title) { %>
-                                <p class="title">
-                                    <%= post.title %>
-                                </p>
-                            <% } %>
-                            <!-- Show the excerpt, only used for long form posts. Will also add a button to "read more" -->
-                            <% if (theme.show_excerpt) { %>
-                            <p>
-                                <%- post.excerpt %>
+                    <div class="content-body content-body-long<%= post.draft ? ' draft-card' : '' %>">
+                        <div class="post-header">
+                            <div class="time">
+                                <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
+                                <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
+                                <span><%- post.date.year() %></span>
+                                <% if (post.edit) { %>
+                                    <span>(edited)</span>
+                                <% } %>
+                            </div>
+                            <a href="<%- url_for(post.path) %>">↗</a>
+                        </div>
+                        <!-- Shows a cover image, if it has one -->
+                        <% if (post.cover_image) { %>
+                            <div class="cover-img">
+                                <img class="<%= post.draft ? 'draft-card' : '' %>" src="<%= post.cover_image %>" alt="<%= post.cover_image_alt %>">
+                            </div>
+                        <% } %>
+                        <!-- Show the title, if it has one -->
+                        <% if (post.show_title) { %>
+                            <p class="title">
+                                <%= post.title %>
                             </p>
-                            <button class="read-more<%- post.draft ? ' draft-button' : '' %>">
-                                <%= post.draft ? 'Coming soon' : 'Read more' %>
-                            </button>
-                            <% } %>
-                        </div>
-                    </a>
-                <% } %>
-
-                <% if (post.short) { %>
-                <div class="content-body">
-                    <div class="post-header">
-                        <div class="time">
-                            <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
-                            <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
-                            <span><%- post.date.year() %></span>
-                            <% if (post.edit) { %>
-                                <span>(edited)</span>
-                            <% } %>
-                        </div>
-                        <a href="<%- url_for(post.path) %>">↗</a>
+                        <% } %>
+                        <!-- Show the excerpt, only used for long form posts. Will also add a button to "read more" -->
+                        <% if (theme.show_excerpt) { %>
+                        <p>
+                            <%- post.excerpt %>
+                        </p>
+                        <a class="read-more<%- post.draft ? ' draft-button' : '' %>" href="<%- url_for(post.path) %>">
+                            <%= post.draft ? 'Coming soon' : 'Keep reading' %>
+                        </a>
+                        <% } %>
                     </div>
-                    <%- post.content %>
-                </div>
+                <% } else if (post.short) { %>
+                    <div class="content-body">
+                        <div class="post-header">
+                            <div class="time">
+                                <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
+                                <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
+                                <span><%- post.date.year() %></span>
+                                <% if (post.edit) { %>
+                                    <span>(edited)</span>
+                                <% } %>
+                            </div>
+                            <a href="<%- url_for(post.path) %>">↗</a>
+                        </div>
+                        <%- post.content %>
+                    </div>
                 <% } %>
             </div>
         </article>
