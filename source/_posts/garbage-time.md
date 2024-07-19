@@ -6,6 +6,6 @@ short: true
 
 ![](garbageTimeNotebook.jpg)
 
-**Garbage time**
+**Design limbo**
 *noun*
 1. The time between meetings when you can't get any design work done.
