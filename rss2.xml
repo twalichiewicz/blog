@@ -15,8 +15,34 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Thu, 18 Jul 2024 18:28:18 GMT</pubDate>
+    <pubDate>Fri, 19 Jul 2024 17:19:22 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>crowdstrike</title>
+      <link>https://twalichiewicz.github.io/blog/2024/07/19/crowdstrike/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/07/19/crowdstrike/</guid>
+      <pubDate>Fri, 19 Jul 2024 17:15:35 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/07/19/crowdstrike/crowdstriken.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;If Apple doesn’t create an ad campaign out of &lt;a</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><img src="/blog/2024/07/19/crowdstrike/crowdstriken.png"></p><p>If Apple doesn’t create an ad campaign out of <a href="https://abcnews.go.com/US/american-airlines-issues-global-ground-stop-flights/story?id=112092372">today’s mess</a> I will be displeased.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/07/19/crowdstrike/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>tinyPod</title>
@@ -509,31 +535,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/05/21/copilotPlus/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>GPT-4o</title>
-      <link>https://twalichiewicz.github.io/blog/2024/05/14/GPT-4o/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/05/14/GPT-4o/</guid>
-      <pubDate>Tue, 14 May 2024 04:14:44 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;iframe style=&quot;width: calc(100%);margin-top:14px;border-radius: 6px;&quot; height=&quot;315&quot;</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<iframe style="width: calc(100%);margin-top:14px;border-radius: 6px;" height="315" src="https://www.youtube-nocookie.com/embed/vgYi3Wr7v_g?si=r0-gLAWYRtz1gAO9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><ol><li>Yes, it really does work as well as those demo videos show.</li><li>It turns out all those recent smart assistant devices could just be an app! <em>(Not to mention it has access to all the useful features a smartphone already has.)</em></li><li>It seems the stage is set for this to replace Siri. With first-party support for app and service integration, you have an opportunity for a very compelling new interaction paradigm.</li></ol>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/05/14/GPT-4o/#disqus_thread</comments>
       
     </item>
     
