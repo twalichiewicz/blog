@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 19 Jul 2024 20:49:12 GMT</pubDate>
+    <pubDate>Wed, 24 Jul 2024 19:08:30 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>AppleTV versus Library bad UX</title>
+      <link>https://twalichiewicz.github.io/blog/2024/07/24/AppleTV-versus-Library-bad-UX/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/07/24/AppleTV-versus-Library-bad-UX/</guid>
+      <pubDate>Wed, 24 Jul 2024 19:05:44 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Why is it that &lt;em&gt;within the same app&lt;/em&gt; the AppleTV Library view is so much worse than the Show view? If I try to browse the</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Why is it that <em>within the same app</em> the AppleTV Library view is so much worse than the Show view? If I try to browse the episodes by going through the Library view, the UI is ironically worse for browsing through all the episodes. Meanwhile, if you go from the Search view or happen to see a card for the show from the Home page, it has season categories, additional info, etc.</p><p>???</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/07/24/AppleTV-versus-Library-bad-UX/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>garbage time</title>
@@ -510,31 +535,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/06/08/ai-art-the-new-scribble-on-a-postit/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>pluck</title>
-      <link>https://twalichiewicz.github.io/blog/2024/05/23/pluck/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/05/23/pluck/</guid>
-      <pubDate>Thu, 23 May 2024 03:50:21 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;What a &lt;a href=&quot;https://string.spiel.com/&quot;&gt;fun little guitar toy&lt;/a&gt;.</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>What a <a href="https://string.spiel.com/">fun little guitar toy</a>. 🎸</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/05/23/pluck/#disqus_thread</comments>
       
     </item>
     
