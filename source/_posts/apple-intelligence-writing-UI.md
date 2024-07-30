@@ -1,0 +1,63 @@
+---
+title: apple intelligence writing UI
+date: 2024-07-30 07:54:40
+short: true
+---
+
+<style>
+	#textSpan {
+		display: flex;
+		flex-direction: column;
+		font-size: 15px;
+		margin-top: 24px;
+		text-align: center;
+		width: 100%;
+	}
+	#toggleIcon {
+		border-radius: 12px;
+		margin-top: 24px;
+		margin-left: auto;
+		margin-right: auto;
+		cursor: pointer;
+  		color: blue;
+  		display: inline-block;
+  		transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+		width: 24px;
+		height: 24px;
+	}
+</style>
+
+![](appleAIWritingUI.png)
+
+<span id="textSpan">So intuitive, you’ll spend more time finding the right button than writing.
+<span id="toggleIcon" class="toggle-icon">![](refresh.png)</span>
+</span>
+
+<script>
+	const texts = [
+  	"Ah, yes, the 'let's cram everything into one tiny box' approach.",
+  	"A design so sleek, it’s nearly impossible to figure out what’s happening.",
+  	"Who needs clear labels when you have tiny, confusing icons?",
+  	"Because squinting at my screen is exactly what I wanted to do today."
+	];
+	let usedTexts = [];
+	function getRandomText() {
+  	if (usedTexts.length === texts.length) {
+		usedTexts = [];
+  	}
+  	let availableTexts = texts.filter(text => !usedTexts.includes(text));
+  	let randomText = availableTexts[Math.floor(Math.random() * availableTexts.length)];
+  	usedTexts.push(randomText);
+  	return randomText;
+	}
+	document.getElementById('toggleIcon').addEventListener('click', function() {
+  	var textSpan = document.getElementById('textSpan');
+  	textSpan.firstChild.nodeValue = getRandomText() + " ";
+  	// Spin the icon
+		toggleIcon.style.transform = 'rotate(360deg)';
+		// Reset the spin after the animation duration
+		setTimeout(function() {
+	  	toggleIcon.style.transform = 'rotate(0deg)';
+		}, 350);
+	});
+</script>
