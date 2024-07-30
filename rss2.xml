@@ -15,8 +15,39 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 24 Jul 2024 19:08:30 GMT</pubDate>
+    <pubDate>Tue, 30 Jul 2024 15:50:28 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>apple intelligence writing UI</title>
+      <link>https://twalichiewicz.github.io/blog/2024/07/30/apple-intelligence-writing-UI/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/07/30/apple-intelligence-writing-UI/</guid>
+      <pubDate>Tue, 30 Jul 2024 14:54:40 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;style&gt;
+    #textSpan {
+        display: flex;
+        flex-direction: column;
+        font-size: 15px;
+        margin-top: 24px;
+       </description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<style>    #textSpan {        display: flex;        flex-direction: column;        font-size: 15px;        margin-top: 24px;        text-align: center;        width: 100%;    }    #toggleIcon {        border-radius: 12px;        margin-top: 24px;        margin-left: auto;        margin-right: auto;        cursor: pointer;          color: blue;          display: inline-block;          transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);        width: 24px;        height: 24px;    }</style><p><img src="/blog/2024/07/30/apple-intelligence-writing-UI/appleAIWritingUI.png"></p><p><span id="textSpan">So intuitive, you’ll spend more time finding the right button than writing.<br><span id="toggleIcon" class="toggle-icon"><img src="/blog/2024/07/30/apple-intelligence-writing-UI/refresh.png"></span><br></span></p><script>    const texts = [      "Ah, yes, the 'let's cram everything into one tiny box' approach.",      "A design so sleek, it’s nearly impossible to figure out what’s happening.",      "Who needs clear labels when you have tiny, confusing icons?",      "Because squinting at my screen is exactly what I wanted to do today."    ];    let usedTexts = [];    function getRandomText() {      if (usedTexts.length === texts.length) {        usedTexts = [];      }      let availableTexts = texts.filter(text => !usedTexts.includes(text));      let randomText = availableTexts[Math.floor(Math.random() * availableTexts.length)];      usedTexts.push(randomText);      return randomText;    }    document.getElementById('toggleIcon').addEventListener('click', function() {      var textSpan = document.getElementById('textSpan');      textSpan.firstChild.nodeValue = getRandomText() + " ";      // Spin the icon        toggleIcon.style.transform = 'rotate(360deg)';        // Reset the spin after the animation duration        setTimeout(function() {      toggleIcon.style.transform = 'rotate(0deg)';        }, 350);    });</script>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/07/30/apple-intelligence-writing-UI/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>AppleTV versus Library bad UX</title>
@@ -510,31 +541,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/06/11/ios-18/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>ai art, the new scribble on a postit</title>
-      <link>https://twalichiewicz.github.io/blog/2024/06/08/ai-art-the-new-scribble-on-a-postit/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/06/08/ai-art-the-new-scribble-on-a-postit/</guid>
-      <pubDate>Sat, 08 Jun 2024 02:14:19 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;AI generated art fills that perfect niche of “stuff I used to throw together for fun in photoshop based off some stupid</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>AI generated art fills that perfect niche of “stuff I used to throw together for fun in photoshop based off some stupid idea”</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/06/08/ai-art-the-new-scribble-on-a-postit/#disqus_thread</comments>
       
     </item>
     
