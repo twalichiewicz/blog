@@ -26,6 +26,12 @@ short: true
   		transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 		width: 24px;
 		height: 24px;
+		user-select: none;
+	}
+	.disabled {
+	  pointer-events: none;
+	  opacity: 0.3;
+	  transition: all 150ms ease;
 	}
 </style>
 
@@ -52,12 +58,17 @@ short: true
 	}
 	document.getElementById('toggleIcon').addEventListener('click', function() {
   	var textSpan = document.getElementById('textSpan');
+	if (toggleIcon.classList.contains('disabled')) {
+		return;
+	}
   	textSpan.firstChild.nodeValue = getRandomText() + " ";
-  	// Spin the icon
-		toggleIcon.style.transform = 'rotate(360deg)';
-		// Reset the spin after the animation duration
-		setTimeout(function() {
-	  	toggleIcon.style.transform = 'rotate(0deg)';
-		}, 350);
+	// Spin the icon
+	toggleIcon.classList.add('disabled');
+	toggleIcon.style.transform = 'rotate(360deg)';
+	// Reset the spin after the animation duration
+	setTimeout(function() {
+	toggleIcon.style.transform = 'rotate(0deg)';
+	toggleIcon.classList.remove('disabled');
+	}, 350);
 	});
 </script>
