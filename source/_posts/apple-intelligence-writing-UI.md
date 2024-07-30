@@ -14,7 +14,9 @@ short: true
 		width: 100%;
 	}
 	#toggleIcon {
-		border-radius: 12px;
+		border: solid 1px rgba(0,0,0,0.3);
+		padding: 3px;
+		border-radius: 100%;
 		margin-top: 24px;
 		margin-left: auto;
 		margin-right: auto;
@@ -30,9 +32,7 @@ short: true
 ![](appleAIWritingUI.png)
 
 <span id="textSpan">So intuitive, you’ll spend more time finding the right button than writing.
-<span id="toggleIcon" class="toggle-icon">![](refresh.png)</span>
-</span>
-
+<span id="toggleIcon" class="toggle-icon">![](refresh.png)</span></span>
 <script>
 	const texts = [
   	"Ah, yes, the 'let's cram everything into one tiny box' approach.",
