@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 30 Jul 2024 16:06:22 GMT</pubDate>
+    <pubDate>Fri, 02 Aug 2024 19:11:45 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>icloud calendly</title>
+      <link>https://twalichiewicz.github.io/blog/2024/08/02/icloud-calendly/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/08/02/icloud-calendly/</guid>
+      <pubDate>Fri, 02 Aug 2024 19:04:44 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;If Apple is continuing to expand their iCloud services (things like iCloud Relay, Hide My Email, etc.), I’d love to see a native</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>If Apple is continuing to expand their iCloud services (things like iCloud Relay, Hide My Email, etc.), I’d love to see a native Calendly competitor built into the Calendar app &#x2F; service.</p><p>Feels like a pretty natural fit since all of their other services are about quality of life improvements to using the internet and connecting with people.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/08/02/icloud-calendly/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>apple intelligence writing UI</title>
@@ -514,33 +539,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/06/11/ios-18-home-screen-customization/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>ios 18</title>
-      <link>https://twalichiewicz.github.io/blog/2024/06/11/ios-18/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/06/11/ios-18/</guid>
-      <pubDate>Tue, 11 Jun 2024 04:06:19 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Interesting how Apple redesigned the Settings app in iOS 18:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Explainers at the header of all the major</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Interesting how Apple redesigned the Settings app in iOS 18:</p><ul><li>Explainers at the header of all the major sections</li><li>First party apps are now equally discoverable to Third party apps, since they’re all in the new “Apps” subcategory</li><li>The seem to be developing a language where the background (blue versus grey background) of some of the sections seems to pertain to their controls</li></ul>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/06/11/ios-18/#disqus_thread</comments>
       
     </item>
     
