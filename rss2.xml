@@ -15,8 +15,35 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 06 Aug 2024 16:41:47 GMT</pubDate>
+    <pubDate>Mon, 12 Aug 2024 19:56:48 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>a ux designer walks into a tesla bar</title>
+      <link>https://twalichiewicz.github.io/blog/2024/08/12/a-ux-designer-walks-into-a-tesla-bar/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/08/12/a-ux-designer-walks-into-a-tesla-bar/</guid>
+      <pubDate>Mon, 12 Aug 2024 19:44:02 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Via &lt;a href=&quot;https://jenson.org/tesla/&quot;&gt;Scott Jenson&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Most importantly, in 99% of cars on the road today, I</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Via <a href="https://jenson.org/tesla/">Scott Jenson</a>:</p><blockquote><p>Most importantly, in 99% of cars on the road today, I don’t need to RTFM to turn steer, accelerate, brake, use the turn signals, or turn on the damn defroster. That’s why these things are standardized. There are lots of things I will likely need the manual for but not these basics. The v11 design broke this.</p></blockquote><p>Standardization exists for a reason. When basics become complex (due to clearly baseless modifications), user experience suffers.</p><p><em>This doesn’t appear to be fixed in v12, FYI.</em></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/08/12/a-ux-designer-walks-into-a-tesla-bar/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>reddit in 2024</title>
@@ -510,35 +537,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/06/25/iPhone-Mirroring/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>kidpix lives</title>
-      <link>https://twalichiewicz.github.io/blog/2024/06/19/kidpix-lives/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/06/19/kidpix-lives/</guid>
-      <pubDate>Wed, 19 Jun 2024 05:29:51 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;script src=&quot;https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js&quot;&gt;&lt;/script&gt;
-
-&lt;style&gt;
-    #hashtagContainer {
-  </description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script><style>    #hashtagContainer {        width:100%;        text-align:center;    }    #hashtagButton {        background:none;        border:none;        font-size: 1.25rem;        padding:0;        margin:24px 0 24px 0;        cursor: help !important;    }    #hashtagButton:hover {        text-decoration: red underline wavy;    }    img  {        border:solid 6px white;        box-shadow: 0 3px 15px rgba(0,0,0,0.18);    }</style><p><a href="https://kidpix.app/"><img src="/blog/2024/06/19/kidpix-lives/kidPix.png"></a></p><p><audio id="stampSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/stamp0.wav.mp3"></audio></p><div id="hashtagContainer"><button id="hashtagButton" onclick="popConfetti(event)"><b>#bringbackUISFX</b></button></div><p><audio id="oopsSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/oops2.wav.mp3"></audio></p><script>    document.getElementById('hashtagButton').addEventListener('click', function() {        var audio = document.getElementById('oopsSound');        audio.play();    });    var images = document.getElementsByTagName('img');    for (var i = 0; i < images.length; i++) {        images[i].addEventListener('click', function() {            var audio = document.getElementById('stampSound');            audio.play();        });    }    function popConfetti(event) {        // Get the button's bounding rectangle        var rect = event.target.getBoundingClientRect();        // Calculate the origin for the confetti        var originX = (rect.left + rect.width / 2) / window.innerWidth;        var originY = (rect.top + rect.height / 2) / window.innerHeight;        // Fire the confetti        confetti({            particleCount: 100,            spread: 70,            origin: { x: originX, y: originY }        });    }</script>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/06/19/kidpix-lives/#disqus_thread</comments>
       
     </item>
     
