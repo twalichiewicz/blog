@@ -15,8 +15,34 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 13 Aug 2024 15:51:56 GMT</pubDate>
+    <pubDate>Wed, 14 Aug 2024 01:03:57 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>when there is no pressure</title>
+      <link>https://twalichiewicz.github.io/blog/2024/08/14/when-there-is-no-pressure/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/08/14/when-there-is-no-pressure/</guid>
+      <pubDate>Wed, 14 Aug 2024 00:56:53 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Brilliance is born in the freedom to explore, but true genius lies in the strength to</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<blockquote><p>Brilliance is born in the freedom to explore, but true genius lies in the strength to refine.</p></blockquote>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/08/14/when-there-is-no-pressure/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>designers that are slave to process</title>
@@ -507,33 +533,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/06/27/Apple-Music-Station-Stew/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Figma Config 2024</title>
-      <link>https://twalichiewicz.github.io/blog/2024/06/26/Figma-Config-2024/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/06/26/Figma-Config-2024/</guid>
-      <pubDate>Wed, 26 Jun 2024 23:10:37 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Figma Config announced &lt;a href=&quot;https://www.figma.com/whats-new/&quot;&gt;some new features&lt;/a&gt; today:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;UI3, a redesigned</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Figma Config announced <a href="https://www.figma.com/whats-new/">some new features</a> today:</p><ul><li>UI3, a redesigned Figma</li><li>Figma AI (Make Design, Make Prototype, Visual Search, Replace Content, Rename Layers)</li><li>Figma Slides</li><li>and some other stuff</li></ul><hr><p>Watching the CEO use Figma was peak “How do you do, fellow designers”</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/06/26/Figma-Config-2024/#disqus_thread</comments>
       
     </item>
     
