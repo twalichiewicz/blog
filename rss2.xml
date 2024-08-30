@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sun, 25 Aug 2024 17:00:12 GMT</pubDate>
+    <pubDate>Fri, 30 Aug 2024 07:40:58 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>chatgpt tv</title>
+      <link>https://twalichiewicz.github.io/blog/2024/08/30/chatgpt-tv/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/08/30/chatgpt-tv/</guid>
+      <pubDate>Fri, 30 Aug 2024 07:38:46 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;strong&gt;ChatGPTV&lt;/strong&gt;&lt;br&gt;Watching TV with ChatGPT running so I can ask it for additional details about a scene or what the artists</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><strong>ChatGPTV</strong><br>Watching TV with ChatGPT running so I can ask it for additional details about a scene or what the artists were intending. On-the-fly documentary track.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/08/30/chatgpt-tv/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Apple Music local versus cloud</title>
@@ -502,32 +527,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/07/01/door-dash-notifications-fuckery/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>post</title>
-      <link>https://twalichiewicz.github.io/blog/2024/06/30/post/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/06/30/post/</guid>
-      <pubDate>Sun, 30 Jun 2024 21:42:33 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;“Oh no how am I going to mass rotate all of these individual image files?”&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1. Select the files&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;2. ⌘</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>“Oh no how am I going to mass rotate all of these individual image files?”</p><p><strong>1. Select the files</strong><br><strong>2. ⌘ R</strong></p><p>Amazing.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/06/30/post/#disqus_thread</comments>
       
     </item>
     
