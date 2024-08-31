@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 30 Aug 2024 07:40:58 GMT</pubDate>
+    <pubDate>Sat, 31 Aug 2024 02:06:46 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>something new mac</title>
+      <link>https://twalichiewicz.github.io/blog/2024/08/31/something-new-mac/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/08/31/something-new-mac/</guid>
+      <pubDate>Sat, 31 Aug 2024 02:01:18 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;img</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><img src="/blog/2024/08/31/something-new-mac/macOS.PNG"></p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/08/31/something-new-mac/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>chatgpt tv</title>
@@ -499,34 +524,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/07/02/GPT-capabilities/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>door dash notifications fuckery</title>
-      <link>https://twalichiewicz.github.io/blog/2024/07/01/door-dash-notifications-fuckery/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/07/01/door-dash-notifications-fuckery/</guid>
-      <pubDate>Mon, 01 Jul 2024 02:54:16 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;ul&gt;
-&lt;li&gt;Turn off a bunch of extraneous DoorDash notifications&lt;/li&gt;
-&lt;li&gt;Playing around the app&lt;/li&gt;
-&lt;li&gt;DoorDash shows a modal suggesting</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<ul><li>Turn off a bunch of extraneous DoorDash notifications</li><li>Playing around the app</li><li>DoorDash shows a modal suggesting that I might miss relevant updates</li><li>Go back to notification settings</li><li>All of them have been turned back on</li></ul><p>Bunch of bullshit</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/07/01/door-dash-notifications-fuckery/#disqus_thread</comments>
       
     </item>
     
