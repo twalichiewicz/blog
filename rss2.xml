@@ -15,7 +15,7 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 01 Oct 2024 05:47:46 GMT</pubDate>
+    <pubDate>Tue, 01 Oct 2024 05:48:03 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -29,13 +29,13 @@
           
           
       <description>&lt;video width=&quot;100%&quot; height=&quot;auto&quot; autoplay controls&gt;
-    &lt;source src=&quot; /blog/2024/10/01/Hudson-s-Song/hudsonSong.mp4 &quot;</description>
+    &lt;source src=&quot;/blog/2024/10/01/Hudson-s-Song/hudsonSong.mp4&quot;</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<video width="100%" height="auto" autoplay controls>    <source src=" /blog/2024/10/01/Hudson-s-Song/hudsonSong.mp4 " type="video/mp4"></video><p>Thanks ChatGPT</p>]]></content:encoded>
+      <content:encoded><![CDATA[<video width="100%" height="auto" autoplay controls>    <source src="/blog/2024/10/01/Hudson-s-Song/hudsonSong.mp4" type="video/mp4"></video><p>Thanks ChatGPT</p>]]></content:encoded>
       
       
       
