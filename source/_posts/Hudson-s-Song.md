@@ -4,7 +4,7 @@ date: 2024-09-30 22:16:22
 short: true
 ---
 
-<video width="100%" height="auto" autoplay controls>
+<video width="auto" height="600px" autoplay controls style="margin-top:24px;">
 	<source src="{% asset_path hudsonSong.mp4 %}" type="video/mp4">
 </video>
 
