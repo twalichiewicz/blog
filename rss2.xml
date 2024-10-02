@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 01 Oct 2024 06:55:30 GMT</pubDate>
+    <pubDate>Wed, 02 Oct 2024 16:06:55 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>one problem, one designer</title>
+      <link>https://twalichiewicz.github.io/blog/2024/10/02/one-problem-one-designer/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/10/02/one-problem-one-designer/</guid>
+      <pubDate>Wed, 02 Oct 2024 15:45:38 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;h2</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h2 style="color:black;font-size:3rem;line-height:89%;text-align:center;margin-left:auto;margin-right:auto;margin-top:36px;margin-bottom:36px;">One problem,<br/>one designer.</h2><hr><p><strong>FAQ</strong></p><ul><li><p><strong>What if they need help?</strong><br>If a designer needs help, it’s important to assess whether the project’s scope matches their experience level. Assigning a more senior designer can provide the expertise required. A skilled designer effectively manages large projects by prioritizing tasks and leveraging efficient workflows. They collaborate with team members for support in non-design areas, ensuring the project stays on track.</p></li><li><p><strong>What about the benefits of peer review and critique among designers?</strong><br>While peer review can enhance a project’s quality, it doesn’t necessarily require multiple designers working on the same project simultaneously. A single designer can still engage in peer reviews by presenting their work to other designers not directly involved in the project. This approach maintains the integrity of the singular vision while benefiting from constructive feedback. Additionally, design critiques can be scheduled at key milestones, allowing the designer to refine their work based on expert insights without fragmenting the design process.</p></li><li><p><strong>What about bias? Oversight?</strong><br>To address potential bias and oversight, a competent designer engages in continuous feedback loops with users, clients, and team members. They conduct user research and usability testing to uncover blind spots and ensure the design is inclusive and effective. This proactive approach leads to a well-rounded product that meets the needs of all stakeholders.</p></li><li><p><strong>Isn’t specialization important in complex projects requiring diverse design skills?</strong><br>Complex projects often require a range of design skills, such as user experience (UX), user interface (UI), graphic design, and interaction design. A competent designer usually has a broad skill set and can handle multiple aspects of design. However, when specialized expertise is necessary, the lead designer can collaborate with specialists in those areas. This collaboration doesn’t dilute the singular design vision but rather enriches it by incorporating specialized knowledge into a cohesive whole.</p></li></ul>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/10/02/one-problem-one-designer/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Hudson&#39;s Song</title>
@@ -500,34 +525,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/07/24/AppleTV-versus-Library-bad-UX/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>garbage time</title>
-      <link>https://twalichiewicz.github.io/blog/2024/07/19/garbage-time/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/07/19/garbage-time/</guid>
-      <pubDate>Fri, 19 Jul 2024 17:58:04 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/07/19/garbage-time/garbageTimeNotebook.jpg&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Design limbo&lt;/strong&gt;&lt;br&gt;&lt;em&gt;noun&lt;/em&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;The</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><img src="/blog/2024/07/19/garbage-time/garbageTimeNotebook.jpg"></p><p><strong>Design limbo</strong><br><em>noun</em></p><ol><li>The time between meetings when you can’t get any design work done.</li></ol>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/07/19/garbage-time/#disqus_thread</comments>
       
     </item>
     
