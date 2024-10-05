@@ -4,7 +4,7 @@ date: 2024-10-02 08:45:38
 short: true
 ---
 
-<h2 style="color:black;font-size:3rem;line-height:89%;text-align:center;margin-left:auto;margin-right:auto;margin-top:36px;margin-bottom:36px;">One problem,<br/>one designer.</h2>
+<h2 style="color:currentcolor;font-size:3rem;line-height:89%;text-align:center;margin-left:auto;margin-right:auto;margin-top:36px;margin-bottom:36px;">One problem,<br/>one designer.</h2>
 
 ***
 
