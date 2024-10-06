@@ -121,6 +121,91 @@
 <div class="container">
     <div class="post-list">
         
+        <article class="post-list-item" id="apple intelligence writing UI">
+            <div class="content">
+                
+                    <div class="content-body">
+                        <div class="post-header">
+                            <div class="time">
+                                <span>July</span>
+                                <span>&nbsp;30,&nbsp;</span>
+                                <span>2024</span>
+                                
+                            </div>
+                            <a href="/blog/2024/07/30/apple-intelligence-writing-UI/">↗</a>
+                        </div>
+                        <style>
+    #textSpan {
+        display: flex;
+        flex-direction: column;
+        font-size: 15px;
+        margin-top: 24px;
+        text-align: center;
+        width: 100%;
+    }
+    #toggleIcon {
+        border: solid 1px rgba(0,0,0,0.3);
+        padding: 3px;
+        border-radius: 100%;
+        margin-top: 24px;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+          color: blue;
+          display: inline-block;
+          transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        width: 24px;
+        height: 24px;
+        user-select: none;
+    }
+    .disabled {
+      pointer-events: none;
+      opacity: 0.3;
+      transition: all 150ms ease;
+    }
+</style>
+
+<p><img src="/blog/2024/07/30/apple-intelligence-writing-UI/appleAIWritingUI.png"></p>
+<p><span id="textSpan">So intuitive, you’ll spend more time finding the right button than writing.<br><span id="toggleIcon" class="toggle-icon"><img src="/blog/2024/07/30/apple-intelligence-writing-UI/refresh.png"></span></span></p>
+<script>
+    const texts = [
+      "Ah, yes, the 'let's cram everything into one tiny box' approach.",
+      "A design so sleek, it’s nearly impossible to figure out what’s happening.",
+      "Who needs clear labels when you have tiny, confusing icons?",
+      "Because squinting at my screen is exactly what I wanted to do today."
+    ];
+    let usedTexts = [];
+    function getRandomText() {
+      if (usedTexts.length === texts.length) {
+        usedTexts = [];
+      }
+      let availableTexts = texts.filter(text => !usedTexts.includes(text));
+      let randomText = availableTexts[Math.floor(Math.random() * availableTexts.length)];
+      usedTexts.push(randomText);
+      return randomText;
+    }
+    document.getElementById('toggleIcon').addEventListener('click', function() {
+      var textSpan = document.getElementById('textSpan');
+    if (toggleIcon.classList.contains('disabled')) {
+        return;
+    }
+      textSpan.firstChild.nodeValue = getRandomText() + " ";
+    // Spin the icon
+    toggleIcon.classList.add('disabled');
+    toggleIcon.style.transform = 'rotate(360deg)';
+    // Reset the spin after the animation duration
+    setTimeout(function() {
+    toggleIcon.style.transform = 'rotate(0deg)';
+    toggleIcon.classList.remove('disabled');
+    }, 350);
+    });
+</script>
+
+                    </div>
+                
+            </div>
+        </article>
+        
         <article class="post-list-item" id="AppleTV versus Library bad UX">
             <div class="content">
                 
@@ -318,33 +403,6 @@
                             <a href="/blog/2024/07/02/GPT-capabilities/">↗</a>
                         </div>
                         <p>Hard skills become a little irrelevant in the world of GPTs.</p>
-
-                    </div>
-                
-            </div>
-        </article>
-        
-        <article class="post-list-item" id="door dash notifications fuckery">
-            <div class="content">
-                
-                    <div class="content-body">
-                        <div class="post-header">
-                            <div class="time">
-                                <span>July</span>
-                                <span>&nbsp;1,&nbsp;</span>
-                                <span>2024</span>
-                                
-                            </div>
-                            <a href="/blog/2024/07/01/door-dash-notifications-fuckery/">↗</a>
-                        </div>
-                        <ul>
-<li>Turn off a bunch of extraneous DoorDash notifications</li>
-<li>Playing around the app</li>
-<li>DoorDash shows a modal suggesting that I might miss relevant updates</li>
-<li>Go back to notification settings</li>
-<li>All of them have been turned back on</li>
-</ul>
-<p>Bunch of bullshit</p>
 
                     </div>
                 
