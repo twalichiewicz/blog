@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sun, 13 Oct 2024 06:15:09 GMT</pubDate>
+    <pubDate>Sun, 13 Oct 2024 06:24:11 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>design pet peeves</title>
+      <link>https://twalichiewicz.github.io/blog/2024/10/13/design-pet-peeves/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/10/13/design-pet-peeves/</guid>
+      <pubDate>Sun, 13 Oct 2024 06:13:29 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Let’s talk about laggy UI, one of my new favorite pet peeves. You go to click, but a surprise pop-in makes you miss the target due to</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Let’s talk about laggy UI, one of my new favorite pet peeves. You go to click, but a surprise pop-in makes you miss the target due to poor implementation. Now you’re facing a loading screen while the system processes, freezing all interaction. And just when you think you’re in the clear—you realize you have to undo the mistake and endure all those loading delays again.</p><p>Assuming, of course, you don’t get so frustrated that you repeat the entire ordeal thanks to that maddening interface.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/10/13/design-pet-peeves/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>WORKING FROM HOME IS POWERING PRODUCTIVITY</title>
@@ -492,33 +517,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/08/13/designers-that-are-slave-to-process/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>a ux designer walks into a tesla bar</title>
-      <link>https://twalichiewicz.github.io/blog/2024/08/12/a-ux-designer-walks-into-a-tesla-bar/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/08/12/a-ux-designer-walks-into-a-tesla-bar/</guid>
-      <pubDate>Mon, 12 Aug 2024 19:44:02 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Via &lt;a href=&quot;https://jenson.org/tesla/&quot;&gt;Scott Jenson&lt;/a&gt;:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Most importantly, in 99% of cars on the road today, I</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Via <a href="https://jenson.org/tesla/">Scott Jenson</a>:</p><blockquote><p>Most importantly, in 99% of cars on the road today, I don’t need to RTFM to turn steer, accelerate, brake, use the turn signals, or turn on the damn defroster. That’s why these things are standardized. There are lots of things I will likely need the manual for but not these basics. The v11 design broke this.</p></blockquote><p>Standardization exists for a reason. When basics become complex (due to clearly baseless modifications), user experience suffers.</p><p><em>This doesn’t appear to be fixed in v12, FYI.</em></p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/08/12/a-ux-designer-walks-into-a-tesla-bar/#disqus_thread</comments>
       
     </item>
     
