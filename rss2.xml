@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 14 Oct 2024 22:12:16 GMT</pubDate>
+    <pubDate>Wed, 16 Oct 2024 04:25:35 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>apple fullscreen new window annoyance</title>
+      <link>https://twalichiewicz.github.io/blog/2024/10/16/apple-fullscreen-new-window-annoyance/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/10/16/apple-fullscreen-new-window-annoyance/</guid>
+      <pubDate>Wed, 16 Oct 2024 04:18:33 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Apple’s current approach to fullscreen apps often leaves users with a fragmented experience, especially when new windows are involved.</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Apple’s current approach to fullscreen apps often leaves users with a fragmented experience, especially when new windows are involved. It’s almost like that ‘forgetting why I entered the room’ effect—each time you’re forced to switch between spaces, it disrupts your focus and makes it harder to stay on task.</p><p>A more cohesive approach would be for the OS to support functionality that keeps new windows within the same fullscreen space. For instance, imagine an option to open new windows in a side panel, modal, or integrated split view within the existing fullscreen environment. The specifics aren’t as important as the need for a smoother, more intuitive way to manage windows in fullscreen mode. A redesigned experience like this would allow for better task continuity and a more productive workflow overall.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/10/16/apple-fullscreen-new-window-annoyance/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>apple tv music app control</title>
@@ -491,32 +516,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/08/15/Amazon-not-ratings/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>when there is no pressure</title>
-      <link>https://twalichiewicz.github.io/blog/2024/08/14/when-there-is-no-pressure/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/08/14/when-there-is-no-pressure/</guid>
-      <pubDate>Wed, 14 Aug 2024 00:56:53 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;blockquote&gt;
-&lt;p&gt;Brilliance is born in the freedom to explore, but true genius lies in the strength to</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<blockquote><p>Brilliance is born in the freedom to explore, but true genius lies in the strength to refine.</p></blockquote>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/08/14/when-there-is-no-pressure/#disqus_thread</comments>
       
     </item>
     
