@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 16 Oct 2024 19:25:02 GMT</pubDate>
+    <pubDate>Sat, 26 Oct 2024 04:20:17 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>books apple tv app?</title>
+      <link>https://twalichiewicz.github.io/blog/2024/10/26/books-apple-tv-app/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/10/26/books-apple-tv-app/</guid>
+      <pubDate>Sat, 26 Oct 2024 04:11:30 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;It’s puzzling that Apple hasn’t introduced a Books app for Apple TV. Our TVs have become the modern hearth, so why not recreate the</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>It’s puzzling that Apple hasn’t introduced a Books app for Apple TV. Our TVs have become the modern hearth, so why not recreate the experience of reading around the fireplace?</p><p>Imagine an Apple TV Books app that brings audiobooks to the big screen, turning stories into shared experiences. Families could gather to listen together, with synchronized visuals enhancing the narrative—perfect for kids’ books and interactive tales.</p><p>Even better, incorporating voice-to-text would let you enjoy any book audibly, leaving dynamic bookmarks so you can pick up right where you left off. It could also be a game-changer for education, making group discussions and interactive lessons more engaging.</p><p>Bringing Books to Apple TV could merge technology with tradition, creating a modern storytelling circle around our digital hearth.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/10/26/books-apple-tv-app/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>awkward wireframes</title>
@@ -491,31 +516,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/08/30/chatgpt-tv/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Apple Music local versus cloud</title>
-      <link>https://twalichiewicz.github.io/blog/2024/08/25/Apple-Music-local-versus-cloud/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/08/25/Apple-Music-local-versus-cloud/</guid>
-      <pubDate>Sun, 25 Aug 2024 16:58:02 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;After all these years, &lt;strong&gt;how&lt;/strong&gt; has the Apple Music team still not figured out a way to make it clear if you’re looking at</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>After all these years, <strong>how</strong> has the Apple Music team still not figured out a way to make it clear if you’re looking at the Library (local content) versus Apple Music?</p><p>Sometimes I honestly wonder what everyone is even doing at a company this large…They barely put out anything, and bugs&#x2F;design tech persist for decades.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/08/25/Apple-Music-local-versus-cloud/#disqus_thread</comments>
       
     </item>
     
