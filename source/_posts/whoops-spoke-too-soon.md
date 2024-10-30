@@ -5,4 +5,4 @@ short: true
 ---
 
 ![](whoopsSpokeTooSoon.jpeg)
-Whoops spoke too soon.
+Spoke too soon.
