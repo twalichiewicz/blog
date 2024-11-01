@@ -15,8 +15,35 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Wed, 30 Oct 2024 07:57:28 GMT</pubDate>
+    <pubDate>Fri, 01 Nov 2024 16:26:53 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>happy halloween 2024</title>
+      <link>https://twalichiewicz.github.io/blog/2024/10/31/happy-halloween-2024/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/10/31/happy-halloween-2024/</guid>
+      <pubDate>Thu, 31 Oct 2024 18:59:59 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;div class=&quot;happyHalloween2024&quot;&gt;
+
+&lt;p&gt;&lt;img src=&quot;/blog/2024/10/31/happy-halloween-2024/IMG_2571.webp&quot;&gt;&lt;br&gt;&lt;img</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<div class="happyHalloween2024"><p><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2571.webp"><br><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2579.webp"><br><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2583.webp"></p></div><br/><div class="spookyText"><span class="halloweenSpookyText">Happy Halloween! 🎃</span><br/>Digging through my photos I found some old drawings, enjoy!</div><br/><br/><style>    .happyHalloween2024 {        display: flex;        flex-direction: row;        margin-left:auto;        margin-right:auto;    }    .happyHalloween2024 p {        display: flex;        justify-content: center;        margin-left: auto;        margin-right: auto;        transition: all 300ms ease-in-out;        width: 100%;    }    .happyHalloween2024 > p > img {        margin: 12px;        width: 128px;        height: 128px;        border: solid 1px #ccc;        box-shadow: 0 3px 12px rgba(0,0,0,0.09);        transition: all 300ms ease-in-out;     }    .happyHalloween2024 p img:hover, img:active {        width: 100%;     }    .spookyText {        text-align: center;        margin-left: auto;        margin-right: auto;    }    .spookyText .halloweenSpookyText {        font-size: 2rem;        font-weight: 600;    }</style>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/10/31/happy-halloween-2024/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>whoops spoke too soon</title>
@@ -28,13 +55,13 @@
         
           
           
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.jpeg&quot;&gt;&lt;br&gt;Spoke too</description>
+      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp&quot;&gt;&lt;br&gt;Spoke too</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.jpeg"><br>Spoke too soon.</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><img src="/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp"><br>Spoke too soon.</p>]]></content:encoded>
       
       
       
@@ -491,31 +518,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/09/14/iphone-16/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>next era of design is customized</title>
-      <link>https://twalichiewicz.github.io/blog/2024/09/03/next-era-of-design-is-customized/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/09/03/next-era-of-design-is-customized/</guid>
-      <pubDate>Tue, 03 Sep 2024 13:46:27 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Design is entering a new era—customized, but not bespoke. The one-size-fits-all model of persona and pain point is more antiquated than</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Design is entering a new era—customized, but not bespoke. The one-size-fits-all model of persona and pain point is more antiquated than I think most have realized.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/09/03/next-era-of-design-is-customized/#disqus_thread</comments>
       
     </item>
     
