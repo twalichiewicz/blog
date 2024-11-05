@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 01 Nov 2024 16:26:53 GMT</pubDate>
+    <pubDate>Tue, 05 Nov 2024 19:22:44 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>what we lost-- macOS app icons</title>
+      <link>https://twalichiewicz.github.io/blog/2024/11/05/what-we-lost-macOS-app-icons/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/11/05/what-we-lost-macOS-app-icons/</guid>
+      <pubDate>Tue, 05 Nov 2024 19:17:34 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;While I appreciate a lot of the improvements to macOS’s visual language—like the slick animations and cleaner interfaces—I can’t forgive</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>While I appreciate a lot of the improvements to macOS’s visual language—like the slick animations and cleaner interfaces—I can’t forgive the damn move away from those bespoke, semi-skeuomorphic app icons. Seriously, it’s mind-numbing to see a row of soulless rectangles staring back at me. They’re not highway signs; they don’t need to be that standardized. Where’s the charm? The personality?</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/11/05/what-we-lost-macOS-app-icons/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>happy halloween 2024</title>
@@ -493,31 +518,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/09/16/thoughts-on-ui-paradigms/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>iphone 16</title>
-      <link>https://twalichiewicz.github.io/blog/2024/09/14/iphone-16/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/09/14/iphone-16/</guid>
-      <pubDate>Sat, 14 Sep 2024 07:51:52 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;img</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNW1jc2FwbzJnb3N1Nzh6cDVvNHBucm01NWZseGEwNnRwMjZibXMxbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26BRuNOYPshwxGuDm/giphy.gif"></img></p><p>Apple’s new Intelligence features claim to need advanced hardware, but do they really? Feels like we’re being nudged into upgrades when our older iPhones might be perfectly capable.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/09/14/iphone-16/#disqus_thread</comments>
       
     </item>
     
