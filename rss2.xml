@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Tue, 05 Nov 2024 19:22:44 GMT</pubDate>
+    <pubDate>Thu, 07 Nov 2024 21:11:14 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>the irony of attention to detail</title>
+      <link>https://twalichiewicz.github.io/blog/2024/11/07/the-irony-of-attention-to-detail/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/11/07/the-irony-of-attention-to-detail/</guid>
+      <pubDate>Thu, 07 Nov 2024 21:10:12 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;The irony is not lost on me that my blog post about Apple’s attention to detail is itself broken due to a lack of attention to (coding)</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>The irony is not lost on me that my blog post about Apple’s attention to detail is itself broken due to a lack of attention to (coding) detail.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/11/07/the-irony-of-attention-to-detail/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>what we lost-- macOS app icons</title>
@@ -105,13 +130,14 @@
         
           
           
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/30/attention-to-detail-ios/attentionToDetail.mp4&quot;&gt;&lt;br&gt;Hat tip to that level of attention to</description>
+      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/30/attention-to-detail-ios/batteryColorSwitch.mp4&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Hat tip to that level of attention to</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/10/30/attention-to-detail-ios/attentionToDetail.mp4"><br>Hat tip to that level of attention to detail</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><img src="/blog/2024/10/30/attention-to-detail-ios/batteryColorSwitch.mp4"></p><p>Hat tip to that level of attention to detail</p>]]></content:encoded>
       
       
       
@@ -493,31 +519,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/09/19/chatgpt-UX/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>thoughts on ui paradigms</title>
-      <link>https://twalichiewicz.github.io/blog/2024/09/16/thoughts-on-ui-paradigms/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/09/16/thoughts-on-ui-paradigms/</guid>
-      <pubDate>Mon, 16 Sep 2024 18:42:45 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;img</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><img src="/blog/2024/09/16/thoughts-on-ui-paradigms/image001.png"></p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/09/16/thoughts-on-ui-paradigms/#disqus_thread</comments>
       
     </item>
     
