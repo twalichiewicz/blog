@@ -7,6 +7,7 @@
   --border-color: var(--border-color);
   
   /* Spacing */
+  --content-max-width: 580px;
   --spacing-xs: 6px;
   --spacing-sm: 12px;
   --spacing-md: 18px;
@@ -22,6 +23,10 @@
   --border-radius-sm: 6px;
   --border-radius-md: 9px;
   --border-radius-lg: 12px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+  --shadow-md: 0 6px 24px rgba(0,0,0,0.015);
 }
 
 /* Reusable components */

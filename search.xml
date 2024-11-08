@@ -103,13 +103,6 @@
       </categories>
   </entry>
   <entry>
-    <title>AppleTV versus Library bad UX</title>
-    <url>/2024/07/AppleTV-versus-Library-bad-UX/</url>
-    <content><![CDATA[<p>Why is it that <em>within the same app</em> the AppleTV Library view is so much worse than the Show view? If I try to browse the episodes by going through the Library view, the UI is ironically worse for browsing through all the episodes. Meanwhile, if you go from the Search view or happen to see a card for the show from the Home page, it has season categories, additional info, etc.</p>
-<p>???</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Apple Wonderlust event</title>
     <url>/2023/09/Apple-Wonderlust-event/</url>
     <content><![CDATA[<p><em>Addendum:</em> I thought about this a bit more, and while I still agree with my original sentiments, I figured I’d expand my thinking slightly. But, yes, I think the event was 100% “this could have been an email” territory.</p>
@@ -125,6 +118,13 @@
       </categories>
   </entry>
   <entry>
+    <title>AppleTV versus Library bad UX</title>
+    <url>/2024/07/AppleTV-versus-Library-bad-UX/</url>
+    <content><![CDATA[<p>Why is it that <em>within the same app</em> the AppleTV Library view is so much worse than the Show view? If I try to browse the episodes by going through the Library view, the UI is ironically worse for browsing through all the episodes. Meanwhile, if you go from the Search view or happen to see a card for the show from the Home page, it has season categories, additional info, etc.</p>
+<p>???</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Blog updated</title>
     <url>/2023/04/Blog-updated/</url>
     <content><![CDATA[<p>Finally updated my portfolio’s blog.</p>
@@ -132,6 +132,21 @@
 ]]></content>
       <categories>
         <category>📣</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Designing Around Feedback</title>
+    <url>/2022/11/Designing-Around-Feedback/</url>
+    <content><![CDATA[<p><a href="https://jarango.com/2022/11/08/feedback-and-design/">via Jorge Arango:</a></p>
+<blockquote>
+<p>Skillful action demands that you master the particulars. You can only do that if you pay attention to feedback.[…]</p>
+<p>So you design with feedback. But you also design for feedback.</p>
+<p>Shed the negative associations. Embrace feedback for what it is: core to skillful action and good design.</p>
+</blockquote>
+<p>A nice reminder on a rainy morning.</p>
+]]></content>
+      <categories>
+        <category>🔖</category>
       </categories>
   </entry>
   <entry>
@@ -230,21 +245,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Designing Around Feedback</title>
-    <url>/2022/11/Designing-Around-Feedback/</url>
-    <content><![CDATA[<p><a href="https://jarango.com/2022/11/08/feedback-and-design/">via Jorge Arango:</a></p>
-<blockquote>
-<p>Skillful action demands that you master the particulars. You can only do that if you pay attention to feedback.[…]</p>
-<p>So you design with feedback. But you also design for feedback.</p>
-<p>Shed the negative associations. Embrace feedback for what it is: core to skillful action and good design.</p>
-</blockquote>
-<p>A nice reminder on a rainy morning.</p>
-]]></content>
-      <categories>
-        <category>🔖</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Figma Config 2024</title>
     <url>/2024/06/Figma-Config-2024/</url>
     <content><![CDATA[<p>Figma Config announced <a href="https://www.figma.com/whats-new/">some new features</a> today:</p>
@@ -256,18 +256,6 @@
 </ul>
 <hr>
 <p>Watching the CEO use Figma was peak “How do you do, fellow designers”</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>GPT-4o</title>
-    <url>/2024/05/GPT-4o/</url>
-    <content><![CDATA[<iframe style="width: calc(100%);margin-top:14px;border-radius: 6px;" height="315" src="https://www.youtube-nocookie.com/embed/vgYi3Wr7v_g?si=r0-gLAWYRtz1gAO9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<ol>
-<li>Yes, it really does work as well as those demo videos show.</li>
-<li>It turns out all those recent smart assistant devices could just be an app! <em>(Not to mention it has access to all the useful features a smartphone already has.)</em></li>
-<li>It seems the stage is set for this to replace Siri. With first-party support for app and service integration, you have an opportunity for a very compelling new interaction paradigm.</li>
-</ol>
 ]]></content>
   </entry>
   <entry>
@@ -287,6 +275,18 @@
       <categories>
         <category>💬</category>
       </categories>
+  </entry>
+  <entry>
+    <title>GPT-4o</title>
+    <url>/2024/05/GPT-4o/</url>
+    <content><![CDATA[<iframe style="width: calc(100%);margin-top:14px;border-radius: 6px;" height="315" src="https://www.youtube-nocookie.com/embed/vgYi3Wr7v_g?si=r0-gLAWYRtz1gAO9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<ol>
+<li>Yes, it really does work as well as those demo videos show.</li>
+<li>It turns out all those recent smart assistant devices could just be an app! <em>(Not to mention it has access to all the useful features a smartphone already has.)</em></li>
+<li>It seems the stage is set for this to replace Siri. With first-party support for app and service integration, you have an opportunity for a very compelling new interaction paradigm.</li>
+</ol>
+]]></content>
   </entry>
   <entry>
     <title>GPT capabilities</title>
@@ -321,14 +321,6 @@
       </categories>
   </entry>
   <entry>
-    <title>MURAL stupid outage</title>
-    <url>/2023/11/MURAL-stupid-outage/</url>
-    <content><![CDATA[<p><img src="/2023/11/MURAL-stupid-outage/oldDumbassMURAL.png"></p>
-<p>Whoever approved this as a solution should be fired, but I think MURAL is basically a Microsoft property by now meaning they’ll probably be promoted instead.</p>
-<p>Though really, why does MURAL even exist when you can just use FigJam?</p>
-]]></content>
-  </entry>
-  <entry>
     <title>MVPs degrade brand perception</title>
     <url>/2023/05/MVPs-degrade-brand-perception/</url>
     <content><![CDATA[<p>As anyone who has worked in tech knows, Minimum Viable Product (MVP) solutions are <em>the</em> popular approach for launching new products. But after a decade of worth in in the industry, I think that releasing products in an MVP state to your customers is generally a mistake.</p>
@@ -340,12 +332,11 @@
       </categories>
   </entry>
   <entry>
-    <title>Microsoft design strikes again</title>
-    <url>/2024/01/Microsoft-design-strikes-again/</url>
-    <content><![CDATA[<p><strong>Microsoft design team strikes again.</strong></p>
-<p><img src="/2024/01/Microsoft-design-strikes-again/MsftDesignLOL.png"></p>
-<p>EDIT: <em>Ah yes, but why?</em></p>
-<p><img src="/2024/01/Microsoft-design-strikes-again/unevenHeights.png"><br><img src="/2024/01/Microsoft-design-strikes-again/unevenPadding.png"><br><img src="/2024/01/Microsoft-design-strikes-again/differentStyles.png"><br><img src="/2024/01/Microsoft-design-strikes-again/spacingButtonfromLabel.png"></p>
+    <title>MURAL stupid outage</title>
+    <url>/2023/11/MURAL-stupid-outage/</url>
+    <content><![CDATA[<p><img src="/2023/11/MURAL-stupid-outage/oldDumbassMURAL.png"></p>
+<p>Whoever approved this as a solution should be fired, but I think MURAL is basically a Microsoft property by now meaning they’ll probably be promoted instead.</p>
+<p>Though really, why does MURAL even exist when you can just use FigJam?</p>
 ]]></content>
   </entry>
   <entry>
@@ -361,6 +352,15 @@
       <categories>
         <category>💬</category>
       </categories>
+  </entry>
+  <entry>
+    <title>Microsoft design strikes again</title>
+    <url>/2024/01/Microsoft-design-strikes-again/</url>
+    <content><![CDATA[<p><strong>Microsoft design team strikes again.</strong></p>
+<p><img src="/2024/01/Microsoft-design-strikes-again/MsftDesignLOL.png"></p>
+<p>EDIT: <em>Ah yes, but why?</em></p>
+<p><img src="/2024/01/Microsoft-design-strikes-again/unevenHeights.png"><br><img src="/2024/01/Microsoft-design-strikes-again/unevenPadding.png"><br><img src="/2024/01/Microsoft-design-strikes-again/differentStyles.png"><br><img src="/2024/01/Microsoft-design-strikes-again/spacingButtonfromLabel.png"></p>
+]]></content>
   </entry>
   <entry>
     <title>Netflix Games and third-party app stores SHRT</title>
@@ -530,12 +530,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>apple maps community updates</title>
-    <url>/2024/06/apple-maps-community-updates/</url>
-    <content><![CDATA[<p>Apple Maps should consider integrating an editor tool that empowers approved community members to update points of interest (POIs) and correct errors directly. Mapping services like OpenStreetMap already support this functionality, resulting in remarkable detail and accuracy contributed by community members.</p>
-]]></content>
-  </entry>
-  <entry>
     <title>apple intelligence writing UI</title>
     <url>/2024/07/apple-intelligence-writing-UI/</url>
     <content><![CDATA[<style>
@@ -607,6 +601,12 @@
 ]]></content>
   </entry>
   <entry>
+    <title>apple maps community updates</title>
+    <url>/2024/06/apple-maps-community-updates/</url>
+    <content><![CDATA[<p>Apple Maps should consider integrating an editor tool that empowers approved community members to update points of interest (POIs) and correct errors directly. Mapping services like OpenStreetMap already support this functionality, resulting in remarkable detail and accuracy contributed by community members.</p>
+]]></content>
+  </entry>
+  <entry>
     <title>apple maps restaurant menus</title>
     <url>/2023/10/apple-maps-restaurant-menus/</url>
     <content><![CDATA[<p>Considering how good iOS’s image-to-text processing is (especially compared to competitors), Apple Maps should be able to convert menus into standardized POI metadata.</p>
@@ -628,16 +628,16 @@
 ]]></content>
   </entry>
   <entry>
+    <title>apple music landscape</title>
+    <url>/2024/10/apple-music-landscape/</url>
+    <content><![CDATA[<p>The Apple Music iOS app should really have a landscape mode for when you want the speaks unobstructed, and the visual should look like a tiny boombox. Thank you.</p>
+]]></content>
+  </entry>
+  <entry>
     <title>apple music crossfade as dj</title>
     <url>/2024/03/apple-music-crossfade-as-dj/</url>
     <content><![CDATA[<p>It would be nice if the Crossfade feature in Apple Music worked when you manually change songs as well rather than just abruptly starting and stopping the music.</p>
 <p>That’d also be an elegant solution to implement some AI-powered stem blending for that authentic DJ experience.</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>apple music landscape</title>
-    <url>/2024/10/apple-music-landscape/</url>
-    <content><![CDATA[<p>The Apple Music iOS app should really have a landscape mode for when you want the speaks unobstructed, and the visual should look like a tiny boombox. Thank you.</p>
 ]]></content>
   </entry>
   <entry>
@@ -653,6 +653,12 @@
 ]]></content>
   </entry>
   <entry>
+    <title>apple vision pro creative industry applications</title>
+    <url>/2024/02/apple-vision-pro-creative-industry-applications/</url>
+    <content><![CDATA[<p>I’m obviously going to be biased for my own industry when I think of the most immediate applications, but I’m really curious what new interaction patterns can be created when working with creative tools. (A comparable example from mobile interfaces were things like shake to undo, overscrolling the top to trigger a refresh, pinch gestures, etc.)</p>
+]]></content>
+  </entry>
+  <entry>
     <title>apple vision pro battery mouse</title>
     <url>/2024/01/apple-vision-pro-battery-mouse/</url>
     <content><![CDATA[<blockquote class="twitter-tweet"><p lang="en" dir="ltr">l used a SIM card push pin to &quot;unlock&quot; the cable connected to the Apple Vision Pro battery pack. It popped right out. <a href="https://t.co/tShScpMlvr">pic.twitter.com/tShScpMlvr</a></p>&mdash; Ray Wong (@raywongy) <a href="https://twitter.com/raywongy/status/1752787114071298255?ref_src=twsrc%5Etfw">January 31, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -664,12 +670,6 @@
     <title>appletv model but for games</title>
     <url>/2024/02/appletv-model-but-for-games/</url>
     <content><![CDATA[<p>I wonder if Apple has considered taking an approach to getting games on the platform similar to their strategy for getting AppleTV+ originals. Seems like a good way to harbor more developers and growing their gaming catalog.</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>apple vision pro creative industry applications</title>
-    <url>/2024/02/apple-vision-pro-creative-industry-applications/</url>
-    <content><![CDATA[<p>I’m obviously going to be biased for my own industry when I think of the most immediate applications, but I’m really curious what new interaction patterns can be created when working with creative tools. (A comparable example from mobile interfaces were things like shake to undo, overscrolling the top to trigger a refresh, pinch gestures, etc.)</p>
 ]]></content>
   </entry>
   <entry>
@@ -739,16 +739,16 @@
 ]]></content>
   </entry>
   <entry>
-    <title>cybercab</title>
-    <url>/2024/10/cybercab/</url>
-    <content><![CDATA[<p>Shout-out to the Tesla design team for once again proving they can make some of the ugliest cars on the road. It’s almost impressive how consistently they nail it.</p>
-]]></content>
-  </entry>
-  <entry>
     <title>crowdstrike</title>
     <url>/2024/07/crowdstrike/</url>
     <content><![CDATA[<p><img src="/2024/07/crowdstrike/crowdstriken.png"></p>
 <p>If Apple doesn’t create an ad campaign out of <a href="https://abcnews.go.com/US/american-airlines-issues-global-ground-stop-flights/story?id=112092372">today’s mess</a> I will be displeased.</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>cybercab</title>
+    <url>/2024/10/cybercab/</url>
+    <content><![CDATA[<p>Shout-out to the Tesla design team for once again proving they can make some of the ugliest cars on the road. It’s almost impressive how consistently they nail it.</p>
 ]]></content>
   </entry>
   <entry>
@@ -772,6 +772,13 @@
 ]]></content>
   </entry>
   <entry>
+    <title>dating app premium experience</title>
+    <url>/2024/07/dating-app-premium-experience/</url>
+    <content><![CDATA[<p>The dating app premium model (think HingeX, Tinder Gold, etc) is so lazy— it’s just about <em>not</em> hamstringing the experience by removing the profiles you would be actually interested in &#x2F; removing the like restrictions to maintain daily&#x2F;weekly&#x2F;monthly usage numbers</p>
+<p>Seems like the best thing they could offer would be a way to connect you with a dating coach who reviews your profile, helps you work on your conversation skills, etc. You could even flag that to potential dates so they know that this user is taking it more seriously.</p>
+]]></content>
+  </entry>
+  <entry>
     <title>cyberstupid</title>
     <url>/2023/08/cyberstupid/</url>
     <content><![CDATA[<p><a href="https://arstechnica.com/cars/2023/08/tesla-cybertrucks-bad-build-quality-shows-up-like-a-sore-thumb-musk-says/?comments=1&comments-page=1">Via Ars Technica:</a></p>
@@ -785,10 +792,10 @@
       </categories>
   </entry>
   <entry>
-    <title>dating app premium experience</title>
-    <url>/2024/07/dating-app-premium-experience/</url>
-    <content><![CDATA[<p>The dating app premium model (think HingeX, Tinder Gold, etc) is so lazy— it’s just about <em>not</em> hamstringing the experience by removing the profiles you would be actually interested in &#x2F; removing the like restrictions to maintain daily&#x2F;weekly&#x2F;monthly usage numbers</p>
-<p>Seems like the best thing they could offer would be a way to connect you with a dating coach who reviews your profile, helps you work on your conversation skills, etc. You could even flag that to potential dates so they know that this user is taking it more seriously.</p>
+    <title>democracy dies behind paywalls</title>
+    <url>/2024/04/democracy-dies-behind-paywalls/</url>
+    <content><![CDATA[<p><img src="/2024/04/democracy-dies-behind-paywalls/democracyPaywallHypocritical.png"></p>
+<p>The irony is not lost on The Atlantic, I suppose.</p>
 ]]></content>
   </entry>
   <entry>
@@ -800,13 +807,6 @@
       <categories>
         <category>💬</category>
       </categories>
-  </entry>
-  <entry>
-    <title>democracy dies behind paywalls</title>
-    <url>/2024/04/democracy-dies-behind-paywalls/</url>
-    <content><![CDATA[<p><img src="/2024/04/democracy-dies-behind-paywalls/democracyPaywallHypocritical.png"></p>
-<p>The irony is not lost on The Atlantic, I suppose.</p>
-]]></content>
   </entry>
   <entry>
     <title>design pet peeves</title>
@@ -942,6 +942,14 @@ Experience design evolves, a symphony evermore. 🍃
 ]]></content>
   </entry>
   <entry>
+    <title>glorified autocomplete</title>
+    <url>/2023/11/glorified-autocomplete/</url>
+    <content><![CDATA[<p>Some thoughts after reading <a href="https://statmodeling.stat.columbia.edu/2023/11/18/i-disagree-with-geoff-hinton-regarding-glorified-autocomplete/">this great blog post from Columbia’s Stats blog:</a></p>
+<p>Where we are today, Large Language Models (LLMs) have become skilled at mimicking human intuition— taking into consideration all of the individual’s <em>(well, the LLM’s scraping of the internet, in this case)</em> experiences and perceptions and providing heuristic responses to prompts.</p>
+<p>What’s <em>really</em> exiting is as we move out of the nascent phase of LLM AI we can now attempt to recreate the higher level of human cognition: reasoning. The question now is which LLM AI product will be the one to realize that a large investment in bringing in psychologists will help them reach that goal first?</p>
+]]></content>
+  </entry>
+  <entry>
     <title>google preannounce redesign</title>
     <url>/2024/02/google-preannounce-redesign/</url>
     <content><![CDATA[<p>So I saw this when I was signing into YouTube:</p>
@@ -1000,14 +1008,6 @@ Experience design evolves, a symphony evermore. 🍃
 ]]></content>
   </entry>
   <entry>
-    <title>glorified autocomplete</title>
-    <url>/2023/11/glorified-autocomplete/</url>
-    <content><![CDATA[<p>Some thoughts after reading <a href="https://statmodeling.stat.columbia.edu/2023/11/18/i-disagree-with-geoff-hinton-regarding-glorified-autocomplete/">this great blog post from Columbia’s Stats blog:</a></p>
-<p>Where we are today, Large Language Models (LLMs) have become skilled at mimicking human intuition— taking into consideration all of the individual’s <em>(well, the LLM’s scraping of the internet, in this case)</em> experiences and perceptions and providing heuristic responses to prompts.</p>
-<p>What’s <em>really</em> exiting is as we move out of the nascent phase of LLM AI we can now attempt to recreate the higher level of human cognition: reasoning. The question now is which LLM AI product will be the one to realize that a large investment in bringing in psychologists will help them reach that goal first?</p>
-]]></content>
-  </entry>
-  <entry>
     <title>homepage updated</title>
     <url>/2023/09/homepage-updated/</url>
     <content><![CDATA[<p>Updated <a href="https://www.thomas.design/">the home page</a> with a fun new simulation 🙂</p>
@@ -1021,6 +1021,13 @@ Experience design evolves, a symphony evermore. 🍃
     <url>/2024/04/humane-cicret-ai-bracelet/</url>
     <content><![CDATA[<p>Looks like the reviews are coming out for the Human Ai Pin, and the on-hand projection is as terrible as I would have expected when it was first announced.</p>
 <p>I wonder if in all their design ideation they considered <a href="https://www.youtube.com/watch?v=KbgvSi35n6o">this Captain Disillusion video from seven years ago</a> explaining exactly why this would be such a terrible idea?</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>icloud calendly</title>
+    <url>/2024/08/icloud-calendly/</url>
+    <content><![CDATA[<p>If Apple is continuing to expand their iCloud services (things like iCloud Relay, Hide My Email, etc.), I’d love to see a native Calendly competitor built into the Calendar app &#x2F; service.</p>
+<p>Feels like a pretty natural fit since all of their other services are about quality of life improvements to using the internet and connecting with people.</p>
 ]]></content>
   </entry>
   <entry>
@@ -1047,13 +1054,6 @@ Experience design evolves, a symphony evermore. 🍃
 ]]></content>
   </entry>
   <entry>
-    <title>icloud calendly</title>
-    <url>/2024/08/icloud-calendly/</url>
-    <content><![CDATA[<p>If Apple is continuing to expand their iCloud services (things like iCloud Relay, Hide My Email, etc.), I’d love to see a native Calendly competitor built into the Calendar app &#x2F; service.</p>
-<p>Feels like a pretty natural fit since all of their other services are about quality of life improvements to using the internet and connecting with people.</p>
-]]></content>
-  </entry>
-  <entry>
     <title>ios 18</title>
     <url>/2024/06/ios-18/</url>
     <content><![CDATA[<p>Interesting how Apple redesigned the Settings app in iOS 18:</p>
@@ -1065,18 +1065,18 @@ Experience design evolves, a symphony evermore. 🍃
 ]]></content>
   </entry>
   <entry>
+    <title>iphone 16</title>
+    <url>/2024/09/iphone-16/</url>
+    <content><![CDATA[<p><img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNW1jc2FwbzJnb3N1Nzh6cDVvNHBucm01NWZseGEwNnRwMjZibXMxbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26BRuNOYPshwxGuDm/giphy.gif"></img></p>
+<p>Apple’s new Intelligence features claim to need advanced hardware, but do they really? Feels like we’re being nudged into upgrades when our older iPhones might be perfectly capable.</p>
+]]></content>
+  </entry>
+  <entry>
     <title>ipad crush ad</title>
     <url>/2024/05/ipad-crush-ad/</url>
     <content><![CDATA[<p>I know I’m late to the commentary party, but who the hell at Apple saw <a href="https://www.youtube.com/watch?v=ntjkwIXWtrc">that iPad crush ad</a> and thought, “Yep, good to go”?</p>
 <p>Super tone deaf, and the idea itself was totally salvageable if they had been a little more creative with the imagery.</p>
 <p><a href="https://www.youtube.com/watch?v=qzAo9HzOgtQ">Not to mention this exact idea has been done before.</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>iphone 16</title>
-    <url>/2024/09/iphone-16/</url>
-    <content><![CDATA[<p><img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNW1jc2FwbzJnb3N1Nzh6cDVvNHBucm01NWZseGEwNnRwMjZibXMxbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26BRuNOYPshwxGuDm/giphy.gif"></img></p>
-<p>Apple’s new Intelligence features claim to need advanced hardware, but do they really? Feels like we’re being nudged into upgrades when our older iPhones might be perfectly capable.</p>
 ]]></content>
   </entry>
   <entry>
@@ -1166,16 +1166,6 @@ Experience design evolves, a symphony evermore. 🍃
 ]]></content>
   </entry>
   <entry>
-    <title>managers accelerate burnout</title>
-    <url>/2023/07/managers-accelerate-burnout/</url>
-    <content><![CDATA[<p>Nothing accelerates burnout faster than bad management. Think you’re passionate about the craft of design? See how long that lasts in a toxic design culture.</p>
-<p>These are obviously very difficult things to scale though. A small startup has a much easier time of maintaining a culture of trust and respect for the process than a large multi-org corporation.</p>
-]]></content>
-      <categories>
-        <category>💬</category>
-      </categories>
-  </entry>
-  <entry>
     <title>next era of design is customized</title>
     <url>/2024/09/next-era-of-design-is-customized/</url>
     <content><![CDATA[<p>Design is entering a new era—customized, but not bespoke. The one-size-fits-all model of persona and pain point is more antiquated than I think most have realized.</p>
@@ -1199,6 +1189,16 @@ Experience design evolves, a symphony evermore. 🍃
 </li>
 </ul>
 ]]></content>
+  </entry>
+  <entry>
+    <title>managers accelerate burnout</title>
+    <url>/2023/07/managers-accelerate-burnout/</url>
+    <content><![CDATA[<p>Nothing accelerates burnout faster than bad management. Think you’re passionate about the craft of design? See how long that lasts in a toxic design culture.</p>
+<p>These are obviously very difficult things to scale though. A small startup has a much easier time of maintaining a culture of trust and respect for the process than a large multi-org corporation.</p>
+]]></content>
+      <categories>
+        <category>💬</category>
+      </categories>
   </entry>
   <entry>
     <title>oreo dipper</title>
@@ -1269,6 +1269,12 @@ style="width: 100%"></img></p>
       </categories>
   </entry>
   <entry>
+    <title>rotating sandwiches</title>
+    <url>/2024/07/rotating-sandwiches/</url>
+    <content><![CDATA[<p><a href="https://rotatingsandwiches.com/">Rotating sandwiches</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>responding to &#39;enter late-stage UX&#39;</title>
     <url>/2023/12/responding-to-enter-late-stage-UX/</url>
     <content><![CDATA[<p>Recently finished reading <a href="https://uxdesign.cc/the-state-of-ux-in-2024-enter-late-stage-ux-e9b403b67667">The State of UX in 2024: Enter late-stage UX</a>, and had a few thoughts:</p>
@@ -1295,27 +1301,21 @@ style="width: 100%"></img></p>
 ]]></content>
   </entry>
   <entry>
-    <title>rotating sandwiches</title>
-    <url>/2024/07/rotating-sandwiches/</url>
-    <content><![CDATA[<p><a href="https://rotatingsandwiches.com/">Rotating sandwiches</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>slack redesignw</title>
     <url>/2023/10/slack-redesignw/</url>
     <content><![CDATA[<p><img src="/2023/10/slack-redesignw/slackRedesignFail.png"><br>The Slack redesign team didn’t account for <em>me</em>.</p>
 ]]></content>
   </entry>
   <entry>
-    <title>something new mac</title>
-    <url>/2024/08/something-new-mac/</url>
-    <content><![CDATA[<p><img src="/2024/08/something-new-mac/macOS.PNG"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>stripe black friday dashboard</title>
     <url>/2023/11/stripe-black-friday-dashboard/</url>
     <content><![CDATA[<p><a href="https://bfcm.stripe.dev/">Awesome little visualization from Stripe</a> to start the morning. 🌞</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>something new mac</title>
+    <url>/2024/08/something-new-mac/</url>
+    <content><![CDATA[<p><img src="/2024/08/something-new-mac/macOS.PNG"></p>
 ]]></content>
   </entry>
   <entry>
@@ -1353,6 +1353,12 @@ style="width: 100%"></img></p>
 ]]></content>
   </entry>
   <entry>
+    <title>the irony of attention to detail</title>
+    <url>/2024/11/the-irony-of-attention-to-detail/</url>
+    <content><![CDATA[<p>The irony is not lost on me that my blog post about Apple’s attention to detail is itself broken due to a lack of attention to (coding) detail.</p>
+]]></content>
+  </entry>
+  <entry>
     <title>the bending spoons cancer continues to spread</title>
     <url>/2024/01/the-bending-spoons-cancer-continues-to-spread/</url>
     <content><![CDATA[<p>via <a href="https://twitter.com/rjonesy/status/1745567200600076531">Ryan Jones on Twitter:</a></p>
@@ -1366,12 +1372,6 @@ style="width: 100%"></img></p>
 <p>Sneak peak at the playbook: ultra scammy tactics, no new features, sell user data, more ads, and other lovely things.</p>
 </blockquote>
 <p>And so the Bending Spoons cancer continues to spread.</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>the irony of attention to detail</title>
-    <url>/2024/11/the-irony-of-attention-to-detail/</url>
-    <content><![CDATA[<p>The irony is not lost on me that my blog post about Apple’s attention to detail is itself broken due to a lack of attention to (coding) detail.</p>
 ]]></content>
   </entry>
   <entry>
@@ -1400,6 +1400,12 @@ style="width: 100%"></img></p>
 ]]></content>
   </entry>
   <entry>
+    <title>thoughts on ui paradigms</title>
+    <url>/2024/09/thoughts-on-ui-paradigms/</url>
+    <content><![CDATA[<p><img src="/2024/09/thoughts-on-ui-paradigms/image001.png"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>tinyPod</title>
     <url>/2024/07/tinyPod/</url>
     <content><![CDATA[<p><img src="/2024/07/tinyPod/tinyPod.gif"></p>
@@ -1408,12 +1414,6 @@ style="width: 100%"></img></p>
 <hr>
 <p>Vaguely related— where is the Apple Watch Mini? It seems like they’ve explored expanding the capabilities of the watch form factor with the Ultra, but it would be interesting to see how a minimalistic fitness tracker only experience would resonate with customers.</p>
 <p>Smart rings seem like the closest example that comes to mind, but it seems like you are limited by the data you can capture from that region of the body relative to the whole. Maybe some kind of minimal glove?</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>thoughts on ui paradigms</title>
-    <url>/2024/09/thoughts-on-ui-paradigms/</url>
-    <content><![CDATA[<p><img src="/2024/09/thoughts-on-ui-paradigms/image001.png"></p>
 ]]></content>
   </entry>
   <entry>
@@ -1447,18 +1447,18 @@ style="width: 100%"></img></p>
 ]]></content>
   </entry>
   <entry>
+    <title>what we lost-- macOS app icons</title>
+    <url>/2024/11/what-we-lost-macOS-app-icons/</url>
+    <content><![CDATA[<p>While I appreciate a lot of the improvements to macOS’s visual language—like the slick animations and cleaner interfaces—I can’t forgive the damn move away from those bespoke, semi-skeuomorphic app icons. Seriously, it’s mind-numbing to see a row of soulless rectangles staring back at me. They’re not highway signs; they don’t need to be that standardized. Where’s the charm? The personality?</p>
+]]></content>
+  </entry>
+  <entry>
     <title>vision pro crawl stand walk gestures</title>
     <url>/2024/01/vision-pro-crawl-stand-walk-gestures/</url>
     <content><![CDATA[<p>The first full reviews of the Vision Pro are coming out, and gotta say the use case for a go-anywhere-monitor-that-can-also-put-up-a-privacy-screen-but-also-doesn’t-require-you-to-bring-along-other-peripherals is pretty compelling.</p>
 <p>One thing I’ve noticed from watching <a href="https://www.youtube.com/watch?v=SaneSRqePVY">some</a> of the <a href="https://www.youtube.com/watch?v=8xI10SFgzQ8">review videos</a> is how everyone’s gestures are very deliberate and precise right now. It reminds me of the early days of the iPhone, where everyone had to learn a new way of typing: with their thumbs.</p>
 <hr>
 <p>EDIT: Got around to watching <a href="https://www.youtube.com/watch?v=hdwaWxY11jQ">The Verge’s review</a>. That’s some serious production value.</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>what we lost-- macOS app icons</title>
-    <url>/2024/11/what-we-lost-macOS-app-icons/</url>
-    <content><![CDATA[<p>While I appreciate a lot of the improvements to macOS’s visual language—like the slick animations and cleaner interfaces—I can’t forgive the damn move away from those bespoke, semi-skeuomorphic app icons. Seriously, it’s mind-numbing to see a row of soulless rectangles staring back at me. They’re not highway signs; they don’t need to be that standardized. Where’s the charm? The personality?</p>
 ]]></content>
   </entry>
   <entry>
@@ -1473,14 +1473,6 @@ style="width: 100%"></img></p>
     <title>whoops spoke too soon</title>
     <url>/2024/10/whoops-spoke-too-soon/</url>
     <content><![CDATA[<p><img src="/2024/10/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp"><br>Spoke too soon.</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>workspace in Vision Pro</title>
-    <url>/2024/02/workspace-in-Vision-Pro/</url>
-    <content><![CDATA[<iframe style="width: calc(100%);margin-top:14px;border-radius: 6px;" height="315" src="https://www.youtube.com/embed/BV9Xy6L_rlM?si=vVrRInKX6pbsw6Jp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-<p>We’re still in the early day of use cases for this thing, but paying $3500 for a very fancy &#x2F; convenient monitor doesn’t seem like such a silly investment if you look at what the potentially of that actually is.</p>
 ]]></content>
   </entry>
   <entry>
@@ -1759,6 +1751,14 @@ style="width: 100%"></img></p>
     showImage(currentIndex);
     createGrid();
 </script>
+]]></content>
+  </entry>
+  <entry>
+    <title>workspace in Vision Pro</title>
+    <url>/2024/02/workspace-in-Vision-Pro/</url>
+    <content><![CDATA[<iframe style="width: calc(100%);margin-top:14px;border-radius: 6px;" height="315" src="https://www.youtube.com/embed/BV9Xy6L_rlM?si=vVrRInKX6pbsw6Jp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<p>We’re still in the early day of use cases for this thing, but paying $3500 for a very fancy &#x2F; convenient monitor doesn’t seem like such a silly investment if you look at what the potentially of that actually is.</p>
 ]]></content>
   </entry>
   <entry>

@@ -5,24 +5,20 @@
 	text-size-adjust: none;
 }
 
+/* Base post list structure */
 .post-list {
-	user-select: none;
 	display: grid;
 	grid-template-columns: 1fr;
-	max-width: 980px;
+	max-width: 580px; /* Consolidate max-width */
 	margin: auto;
+	user-select: none;
 }
 
+/* Post item styling */
 .post-list-item {
-	/* border: solid 1px rgba(0, 0, 0, 0.06);
-  border-radius: 9px;
-  background-color: var(--card-bg); */
-	display: flex;
-	overflow: hidden;
 	margin: auto auto 15px auto;
-	max-width: 580px;
-	transition: all 200ms ease;
 	width: 100%;
+	transition: all 200ms ease;
 }
 
 @media screen and (max-width: 800px) {
@@ -126,14 +122,15 @@
 	width: 100%;
 }
 
-.post-list-item .content-body {
+/* Content body styling */
+.content-body {
 	border: solid 1px rgba(0, 0, 0, 0.06);
 	border-radius: 9px;
 	background-color: var(--card-bg);
 	box-shadow: 0 6px 24px rgba(0, 0, 0, 0.015), 0 1px 1px rgba(0, 0, 0, 0.12);
+	padding: 12px;
 	font-size: 14px;
 	line-height: 21px;
-	padding: 12px;
 }
 .content-body.draft-card {
 	background-color: transparent;
@@ -143,14 +140,14 @@
 .content-body.draft-card p.title {
 	color: darkgrey;
 }
+
+/* Image handling */
 .content-body img {
 	border-radius: 9px;
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	max-height: 360px;
+	margin: 0 auto;
 	max-width: 100%;
-	overflow-y: hidden;
+	height: auto;
 }
 
 /* for [hexo-math](https://github.com/hexojs/hexo-math): */
@@ -199,19 +196,16 @@
 	line-height: 20px;
 }
 
-.post-list-item .post-header {
-	color: var(--card-time);
+/* Post header */
+.post-header {
 	display: flex;
-	flex-direction: row;
-	flex-grow: 1;
+	justify-content: space-between;
+	align-items: center;
+	color: var(--card-time);
 	font-size: 10px;
-	line-height: 10px;
-	letter-spacing: -0.016em;
-	padding-top: 6px;
-	text-align: right;
 	text-transform: uppercase;
-	vertical-align: middle;
-	width: 100%;
+	letter-spacing: -0.016em;
+	margin-bottom: 12px;
 }
 
 .post-list-item .post-footer {
