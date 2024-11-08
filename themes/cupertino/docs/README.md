@@ -9,7 +9,6 @@ Some features are optional and requires further configuration, so check out the 
 - [Tags and Categories](./features/tags-and-categories.md)
 - [Search](./features/search.md)
 - [LaTeX](./features/latex.md)
-- [Rainbow Banner](./features/rainbow-banner.md)
 
 ## Integrations
 
