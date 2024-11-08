@@ -15,8 +15,34 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Thu, 07 Nov 2024 21:11:14 GMT</pubDate>
+    <pubDate>Fri, 08 Nov 2024 18:52:52 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>github indexing repo lack of status indicator</title>
+      <link>https://twalichiewicz.github.io/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/</guid>
+      <pubDate>Fri, 08 Nov 2024 18:46:20 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/githubIndexIndication.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;GitHub, if you could just go</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><img src="/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/githubIndexIndication.png"></p><p>GitHub, if you could just go ahead and add an indication of what the system is doing here after I click “Index” <a href="https://en.wikipedia.org/wiki/Bill_Lumbergh">that would be <em>greaaat</em></a>.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>the irony of attention to detail</title>
@@ -494,31 +520,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/09/29/chatgpt-voice-ux-good/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>chatgpt UX</title>
-      <link>https://twalichiewicz.github.io/blog/2024/09/19/chatgpt-UX/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/09/19/chatgpt-UX/</guid>
-      <pubDate>Thu, 19 Sep 2024 18:31:02 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;For as amazing as the technology of ChatGPT is, the UX of the actual app is utter</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>For as amazing as the technology of ChatGPT is, the UX of the actual app is utter dogshit.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/09/19/chatgpt-UX/#disqus_thread</comments>
       
     </item>
     
