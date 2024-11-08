@@ -4,51 +4,45 @@
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Newest at the Top</title>
-    <link>https://twalichiewicz.github.io/blog/</link>
+    <link>https://thomas.design/</link>
     
-    <image>
-      <url>https://twalichiewicz.github.io/blog/icon.png</url>
-      <title>Newest at the Top</title>
-      <link>https://twalichiewicz.github.io/blog/</link>
-    </image>
+    <atom:link href="https://thomas.design/rss2.xml" rel="self" type="application/rss+xml"/>
     
-    <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
-    
-    <description></description>
-    <pubDate>Fri, 08 Nov 2024 18:52:52 GMT</pubDate>
+    <description>A product design blog.</description>
+    <pubDate>Fri, 08 Nov 2024 22:15:25 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
       <title>github indexing repo lack of status indicator</title>
-      <link>https://twalichiewicz.github.io/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/</guid>
-      <pubDate>Fri, 08 Nov 2024 18:46:20 GMT</pubDate>
+      <link>https://thomas.design/2024/11/github-indexing-repo-lack-of-status-indicator/</link>
+      <guid>https://thomas.design/2024/11/github-indexing-repo-lack-of-status-indicator/</guid>
+      <pubDate>Fri, 08 Nov 2024 10:46:20 GMT</pubDate>
       
         
         
           
           
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/githubIndexIndication.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;GitHub, if you could just go</description>
+      <description>&lt;p&gt;&lt;img src=&quot;/2024/11/github-indexing-repo-lack-of-status-indicator/githubIndexIndication.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;GitHub, if you could just go ahead</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/githubIndexIndication.png"></p><p>GitHub, if you could just go ahead and add an indication of what the system is doing here after I click “Index” <a href="https://en.wikipedia.org/wiki/Bill_Lumbergh">that would be <em>greaaat</em></a>.</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><img src="/2024/11/github-indexing-repo-lack-of-status-indicator/githubIndexIndication.png"></p><p>GitHub, if you could just go ahead and add an indication of what the system is doing here after I click “Index” <a href="https://en.wikipedia.org/wiki/Bill_Lumbergh">that would be <em>greaaat</em></a>.</p>]]></content:encoded>
       
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/11/github-indexing-repo-lack-of-status-indicator/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>the irony of attention to detail</title>
-      <link>https://twalichiewicz.github.io/blog/2024/11/07/the-irony-of-attention-to-detail/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/11/07/the-irony-of-attention-to-detail/</guid>
-      <pubDate>Thu, 07 Nov 2024 21:10:12 GMT</pubDate>
+      <link>https://thomas.design/2024/11/the-irony-of-attention-to-detail/</link>
+      <guid>https://thomas.design/2024/11/the-irony-of-attention-to-detail/</guid>
+      <pubDate>Thu, 07 Nov 2024 13:10:12 GMT</pubDate>
       
         
         
@@ -65,15 +59,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/11/07/the-irony-of-attention-to-detail/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/11/the-irony-of-attention-to-detail/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>what we lost-- macOS app icons</title>
-      <link>https://twalichiewicz.github.io/blog/2024/11/05/what-we-lost-macOS-app-icons/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/11/05/what-we-lost-macOS-app-icons/</guid>
-      <pubDate>Tue, 05 Nov 2024 19:17:34 GMT</pubDate>
+      <link>https://thomas.design/2024/11/what-we-lost-macOS-app-icons/</link>
+      <guid>https://thomas.design/2024/11/what-we-lost-macOS-app-icons/</guid>
+      <pubDate>Tue, 05 Nov 2024 11:17:34 GMT</pubDate>
       
         
         
@@ -90,15 +84,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/11/05/what-we-lost-macOS-app-icons/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/11/what-we-lost-macOS-app-icons/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>happy halloween 2024</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/31/happy-halloween-2024/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/31/happy-halloween-2024/</guid>
-      <pubDate>Thu, 31 Oct 2024 18:59:59 GMT</pubDate>
+      <link>https://thomas.design/2024/10/happy-halloween-2024/</link>
+      <guid>https://thomas.design/2024/10/happy-halloween-2024/</guid>
+      <pubDate>Thu, 31 Oct 2024 11:59:59 GMT</pubDate>
       
         
         
@@ -106,77 +100,77 @@
           
       <description>&lt;div class=&quot;happyHalloween2024&quot;&gt;
 
-&lt;p&gt;&lt;img src=&quot;/blog/2024/10/31/happy-halloween-2024/IMG_2571.webp&quot;&gt;&lt;br&gt;&lt;img</description>
+&lt;p&gt;&lt;img src=&quot;/2024/10/happy-halloween-2024/IMG_2571.webp&quot;&gt;&lt;br&gt;&lt;img</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<div class="happyHalloween2024"><p><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2571.webp"><br><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2579.webp"><br><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2583.webp"></p></div><br/><div class="spookyText"><span class="halloweenSpookyText">Happy Halloween! 🎃</span><br/>Digging through my photos I found some old drawings, enjoy!</div><br/><br/><style>    .happyHalloween2024 {        display: flex;        flex-direction: row;        margin-left:auto;        margin-right:auto;    }    .happyHalloween2024 p {        display: flex;        justify-content: center;        margin-left: auto;        margin-right: auto;        transition: all 300ms ease-in-out;        width: 100%;    }    .happyHalloween2024 > p > img {        margin: 12px;        width: 128px;        height: 128px;        border: solid 1px #ccc;        box-shadow: 0 3px 12px rgba(0,0,0,0.09);        transition: all 300ms ease-in-out;     }    .happyHalloween2024 p img:hover, img:active {        width: 100%;     }    .spookyText {        text-align: center;        margin-left: auto;        margin-right: auto;    }    .spookyText .halloweenSpookyText {        font-size: 2rem;        font-weight: 600;    }</style>]]></content:encoded>
+      <content:encoded><![CDATA[<div class="happyHalloween2024"><p><img src="/2024/10/happy-halloween-2024/IMG_2571.webp"><br><img src="/2024/10/happy-halloween-2024/IMG_2579.webp"><br><img src="/2024/10/happy-halloween-2024/IMG_2583.webp"></p></div><br/><div class="spookyText"><span class="halloweenSpookyText">Happy Halloween! 🎃</span><br/>Digging through my photos I found some old drawings, enjoy!</div><br/><br/><style>    .happyHalloween2024 {        display: flex;        flex-direction: row;        margin-left:auto;        margin-right:auto;    }    .happyHalloween2024 p {        display: flex;        justify-content: center;        margin-left: auto;        margin-right: auto;        transition: all 300ms ease-in-out;        width: 100%;    }    .happyHalloween2024 > p > img {        margin: 12px;        width: 128px;        height: 128px;        border: solid 1px #ccc;        box-shadow: 0 3px 12px rgba(0,0,0,0.09);        transition: all 300ms ease-in-out;     }    .happyHalloween2024 p img:hover, img:active {        width: 100%;     }    .spookyText {        text-align: center;        margin-left: auto;        margin-right: auto;    }    .spookyText .halloweenSpookyText {        font-size: 2rem;        font-weight: 600;    }</style>]]></content:encoded>
       
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/31/happy-halloween-2024/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/happy-halloween-2024/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>whoops spoke too soon</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/30/whoops-spoke-too-soon/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/30/whoops-spoke-too-soon/</guid>
-      <pubDate>Wed, 30 Oct 2024 07:51:59 GMT</pubDate>
+      <link>https://thomas.design/2024/10/whoops-spoke-too-soon/</link>
+      <guid>https://thomas.design/2024/10/whoops-spoke-too-soon/</guid>
+      <pubDate>Wed, 30 Oct 2024 00:51:59 GMT</pubDate>
       
         
         
           
           
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp&quot;&gt;&lt;br&gt;Spoke too</description>
+      <description>&lt;p&gt;&lt;img src=&quot;/2024/10/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp&quot;&gt;&lt;br&gt;Spoke too</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp"><br>Spoke too soon.</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><img src="/2024/10/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp"><br>Spoke too soon.</p>]]></content:encoded>
       
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/30/whoops-spoke-too-soon/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/whoops-spoke-too-soon/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>attention to detail ios</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/30/attention-to-detail-ios/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/30/attention-to-detail-ios/</guid>
-      <pubDate>Wed, 30 Oct 2024 07:47:18 GMT</pubDate>
+      <link>https://thomas.design/2024/10/attention-to-detail-ios/</link>
+      <guid>https://thomas.design/2024/10/attention-to-detail-ios/</guid>
+      <pubDate>Wed, 30 Oct 2024 00:47:18 GMT</pubDate>
       
         
         
           
           
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/30/attention-to-detail-ios/batteryColorSwitch.mp4&quot;&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;img src=&quot;/2024/10/attention-to-detail-ios/batteryColorSwitch.mp4&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Hat tip to that level of attention to</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/10/30/attention-to-detail-ios/batteryColorSwitch.mp4"></p><p>Hat tip to that level of attention to detail</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><img src="/2024/10/attention-to-detail-ios/batteryColorSwitch.mp4"></p><p>Hat tip to that level of attention to detail</p>]]></content:encoded>
       
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/30/attention-to-detail-ios/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/attention-to-detail-ios/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>books apple tv app?</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/26/books-apple-tv-app/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/26/books-apple-tv-app/</guid>
-      <pubDate>Sat, 26 Oct 2024 04:11:30 GMT</pubDate>
+      <link>https://thomas.design/2024/10/books-apple-tv-app/</link>
+      <guid>https://thomas.design/2024/10/books-apple-tv-app/</guid>
+      <pubDate>Fri, 25 Oct 2024 21:11:30 GMT</pubDate>
       
         
         
@@ -193,15 +187,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/26/books-apple-tv-app/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/books-apple-tv-app/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>awkward wireframes</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/16/awkward-wireframes/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/16/awkward-wireframes/</guid>
-      <pubDate>Wed, 16 Oct 2024 18:03:22 GMT</pubDate>
+      <link>https://thomas.design/2024/10/awkward-wireframes/</link>
+      <guid>https://thomas.design/2024/10/awkward-wireframes/</guid>
+      <pubDate>Wed, 16 Oct 2024 11:03:22 GMT</pubDate>
       
         
         
@@ -218,15 +212,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/16/awkward-wireframes/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/awkward-wireframes/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>apple fullscreen new window annoyance</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/16/apple-fullscreen-new-window-annoyance/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/16/apple-fullscreen-new-window-annoyance/</guid>
-      <pubDate>Wed, 16 Oct 2024 04:18:33 GMT</pubDate>
+      <link>https://thomas.design/2024/10/apple-fullscreen-new-window-annoyance/</link>
+      <guid>https://thomas.design/2024/10/apple-fullscreen-new-window-annoyance/</guid>
+      <pubDate>Tue, 15 Oct 2024 21:18:33 GMT</pubDate>
       
         
         
@@ -243,15 +237,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/16/apple-fullscreen-new-window-annoyance/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/apple-fullscreen-new-window-annoyance/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>apple tv music app control</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/14/apple-tv-music-app-control/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/14/apple-tv-music-app-control/</guid>
-      <pubDate>Mon, 14 Oct 2024 22:11:07 GMT</pubDate>
+      <link>https://thomas.design/2024/10/apple-tv-music-app-control/</link>
+      <guid>https://thomas.design/2024/10/apple-tv-music-app-control/</guid>
+      <pubDate>Mon, 14 Oct 2024 15:11:07 GMT</pubDate>
       
         
         
@@ -268,15 +262,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/14/apple-tv-music-app-control/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/apple-tv-music-app-control/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>design pet peeves</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/13/design-pet-peeves/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/13/design-pet-peeves/</guid>
-      <pubDate>Sun, 13 Oct 2024 06:13:29 GMT</pubDate>
+      <link>https://thomas.design/2024/10/design-pet-peeves/</link>
+      <guid>https://thomas.design/2024/10/design-pet-peeves/</guid>
+      <pubDate>Sat, 12 Oct 2024 23:13:29 GMT</pubDate>
       
         
         
@@ -293,15 +287,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/13/design-pet-peeves/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/design-pet-peeves/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>WORKING FROM HOME IS POWERING PRODUCTIVITY</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/</guid>
-      <pubDate>Sat, 12 Oct 2024 00:34:56 GMT</pubDate>
+      <link>https://thomas.design/2024/10/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/</link>
+      <guid>https://thomas.design/2024/10/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/</guid>
+      <pubDate>Fri, 11 Oct 2024 17:34:56 GMT</pubDate>
       
         
         
@@ -318,15 +312,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>cybercab</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/11/cybercab/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/11/cybercab/</guid>
-      <pubDate>Fri, 11 Oct 2024 15:01:10 GMT</pubDate>
+      <link>https://thomas.design/2024/10/cybercab/</link>
+      <guid>https://thomas.design/2024/10/cybercab/</guid>
+      <pubDate>Fri, 11 Oct 2024 08:01:10 GMT</pubDate>
       
         
         
@@ -343,15 +337,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/11/cybercab/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/cybercab/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>apple music landscape</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/08/apple-music-landscape/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/08/apple-music-landscape/</guid>
-      <pubDate>Tue, 08 Oct 2024 23:54:05 GMT</pubDate>
+      <link>https://thomas.design/2024/10/apple-music-landscape/</link>
+      <guid>https://thomas.design/2024/10/apple-music-landscape/</guid>
+      <pubDate>Tue, 08 Oct 2024 16:54:05 GMT</pubDate>
       
         
         
@@ -368,15 +362,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/08/apple-music-landscape/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/apple-music-landscape/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>faceid per app</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/06/faceid-per-app/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/06/faceid-per-app/</guid>
-      <pubDate>Sun, 06 Oct 2024 22:04:47 GMT</pubDate>
+      <link>https://thomas.design/2024/10/faceid-per-app/</link>
+      <guid>https://thomas.design/2024/10/faceid-per-app/</guid>
+      <pubDate>Sun, 06 Oct 2024 15:04:47 GMT</pubDate>
       
         
         
@@ -393,15 +387,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/06/faceid-per-app/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/faceid-per-app/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>bad appletv marketing promotion</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/04/bad-appletv-marketing-promotion/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/04/bad-appletv-marketing-promotion/</guid>
-      <pubDate>Fri, 04 Oct 2024 22:17:39 GMT</pubDate>
+      <link>https://thomas.design/2024/10/bad-appletv-marketing-promotion/</link>
+      <guid>https://thomas.design/2024/10/bad-appletv-marketing-promotion/</guid>
+      <pubDate>Fri, 04 Oct 2024 15:17:39 GMT</pubDate>
       
         
         
@@ -418,15 +412,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/04/bad-appletv-marketing-promotion/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/bad-appletv-marketing-promotion/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>one problem, one designer</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/02/one-problem-one-designer/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/02/one-problem-one-designer/</guid>
-      <pubDate>Wed, 02 Oct 2024 15:45:38 GMT</pubDate>
+      <link>https://thomas.design/2024/10/one-problem-one-designer/</link>
+      <guid>https://thomas.design/2024/10/one-problem-one-designer/</guid>
+      <pubDate>Wed, 02 Oct 2024 08:45:38 GMT</pubDate>
       
         
         
@@ -443,15 +437,15 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/02/one-problem-one-designer/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/10/one-problem-one-designer/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>Hudson&#39;s Song</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/01/Hudson-s-Song/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/01/Hudson-s-Song/</guid>
-      <pubDate>Tue, 01 Oct 2024 05:16:22 GMT</pubDate>
+      <link>https://thomas.design/2024/09/Hudson-s-Song/</link>
+      <guid>https://thomas.design/2024/09/Hudson-s-Song/</guid>
+      <pubDate>Mon, 30 Sep 2024 22:16:22 GMT</pubDate>
       
         
         
@@ -463,46 +457,46 @@
       
       
       
-      <content:encoded><![CDATA[<video width="auto" height="600px" autoplay controls style="margin-top:24px; margin-left: auto; margin-right: auto;border:solid 1px #ccc;display: block;border-radius: 12px;">    <source src="/blog/2024/10/01/Hudson-s-Song/hudsonSong.mp4" type="video/mp4"></video><p>Thanks ChatGPT</p>]]></content:encoded>
+      <content:encoded><![CDATA[<video width="auto" height="600px" autoplay controls style="margin-top:24px; margin-left: auto; margin-right: auto;border:solid 1px #ccc;display: block;border-radius: 12px;">    <source src="/2024/09/Hudson-s-Song/hudsonSong.mp4" type="video/mp4"></video><p>Thanks ChatGPT</p>]]></content:encoded>
       
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/01/Hudson-s-Song/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/09/Hudson-s-Song/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>quality control rockets</title>
-      <link>https://twalichiewicz.github.io/blog/2024/09/30/quality-control-rockets/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/09/30/quality-control-rockets/</guid>
-      <pubDate>Mon, 30 Sep 2024 17:22:51 GMT</pubDate>
+      <link>https://thomas.design/2024/09/quality-control-rockets/</link>
+      <guid>https://thomas.design/2024/09/quality-control-rockets/</guid>
+      <pubDate>Mon, 30 Sep 2024 10:22:51 GMT</pubDate>
       
         
         
           
           
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/09/30/quality-control-rockets/teslaQuality.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;Let’s hope their quality control isn’t taking notes from</description>
+      <description>&lt;p&gt;&lt;img src=&quot;/2024/09/quality-control-rockets/teslaQuality.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Let’s hope their quality control isn’t taking notes from another</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/09/30/quality-control-rockets/teslaQuality.png"></p><p>Let’s hope their quality control isn’t taking notes from another high-profile operation under the same management. 👀</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><img src="/2024/09/quality-control-rockets/teslaQuality.png"></p><p>Let’s hope their quality control isn’t taking notes from another high-profile operation under the same management. 👀</p>]]></content:encoded>
       
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/09/30/quality-control-rockets/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/09/quality-control-rockets/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>chatgpt voice ux good</title>
-      <link>https://twalichiewicz.github.io/blog/2024/09/29/chatgpt-voice-ux-good/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/09/29/chatgpt-voice-ux-good/</guid>
-      <pubDate>Sun, 29 Sep 2024 01:54:14 GMT</pubDate>
+      <link>https://thomas.design/2024/09/chatgpt-voice-ux-good/</link>
+      <guid>https://thomas.design/2024/09/chatgpt-voice-ux-good/</guid>
+      <pubDate>Sat, 28 Sep 2024 18:54:14 GMT</pubDate>
       
         
         
@@ -519,7 +513,7 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/09/29/chatgpt-voice-ux-good/#disqus_thread</comments>
+      <comments>https://thomas.design/2024/09/chatgpt-voice-ux-good/#disqus_thread</comments>
       
     </item>
     

@@ -95,14 +95,11 @@
         }
     }
 
-    if (document.body.attributes['data-rainbow-banner']) {
         var shown = false
-        switch (document.body.attributes['data-rainbow-banner-shown'].value) {
             case 'always':
                 shown = true
                 break;
             case 'auto':
-                shown = new Date().getMonth() + 1 == parseInt(document.body.attributes['data-rainbow-banner-month'].value, 10)
                 break;
             default:
                 break;
@@ -110,8 +107,6 @@
         if (shown) {
             var banner = document.createElement('div')
 
-            banner.style.setProperty('--gradient', `linear-gradient(90deg, ${document.body.attributes['data-rainbow-banner-colors'].value})`)
-            banner.classList.add('rainbow-banner')
 
             navEl.after(banner)
         }
