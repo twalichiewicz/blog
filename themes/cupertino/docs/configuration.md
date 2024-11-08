@@ -13,5 +13,4 @@ Some features are not enabled by default, and you need to enable it on your own.
 You can integrate these services to your blog:
 
 - [Tidio](./integrations/tidio.md)
-- [Waline](./integrations/waline.md)
 - [Ackee](./integrations/ackee.md)
