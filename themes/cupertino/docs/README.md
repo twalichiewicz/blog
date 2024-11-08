@@ -15,6 +15,4 @@ Some features are optional and requires further configuration, so check out the 
 You can integrate these services to your blog:
 
 - [Tidio](./integrations/tidio.md)
-- [Waline](./integrations/waline.md)
-- [giscus](./integrations/giscus.md)
 - [Ackee](./integrations/ackee.md)
