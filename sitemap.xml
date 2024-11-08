@@ -92,6 +92,15 @@
   </url>
   
   <url>
+    <loc>https://thomas.design/2023/12/macOS-stacks-button-fail/</loc>
+    
+    <lastmod>2024-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thomas.design/2023/07/managers-accelerate-burnout/</loc>
     
     <lastmod>2024-11-08</lastmod>
@@ -137,6 +146,15 @@
   </url>
   
   <url>
+    <loc>https://thomas.design/2024/08/police-apple-wallet/</loc>
+    
+    <lastmod>2024-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thomas.design/2024/06/post/</loc>
     
     <lastmod>2024-11-08</lastmod>
@@ -147,15 +165,6 @@
   
   <url>
     <loc>https://thomas.design/2024/09/quality-control-rockets/</loc>
-    
-    <lastmod>2024-11-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thomas.design/2024/08/police-apple-wallet/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -281,7 +290,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/09/thoughts-on-ui-paradigms/</loc>
+    <loc>https://thomas.design/2024/07/tinyPod/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -290,7 +299,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/07/tinyPod/</loc>
+    <loc>https://thomas.design/2024/09/thoughts-on-ui-paradigms/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -326,24 +335,6 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/08/icloud-calendly/</loc>
-    
-    <lastmod>2024-11-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thomas.design/2024/06/ios-18/</loc>
-    
-    <lastmod>2024-11-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://thomas.design/2024/02/interest-in-the-Apple-Vision-Pro/</loc>
     
     <lastmod>2024-11-08</lastmod>
@@ -362,7 +353,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/09/iphone-16/</loc>
+    <loc>https://thomas.design/2024/08/icloud-calendly/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -371,7 +362,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/02/is-app-based-the-direction-for-apple-vision-pro/</loc>
+    <loc>https://thomas.design/2024/06/ios-18/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -389,7 +380,16 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2023/12/macOS-stacks-button-fail/</loc>
+    <loc>https://thomas.design/2024/09/iphone-16/</loc>
+    
+    <lastmod>2024-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://thomas.design/2024/02/is-app-based-the-direction-for-apple-vision-pro/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -425,6 +425,15 @@
   </url>
   
   <url>
+    <loc>https://thomas.design/2024/07/gaming-on-mac-sequels/</loc>
+    
+    <lastmod>2024-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thomas.design/2024/07/garbage-time/</loc>
     
     <lastmod>2024-11-08</lastmod>
@@ -435,24 +444,6 @@
   
   <url>
     <loc>https://thomas.design/2024/11/github-indexing-repo-lack-of-status-indicator/</loc>
-    
-    <lastmod>2024-11-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thomas.design/2024/07/gaming-on-mac-sequels/</loc>
-    
-    <lastmod>2024-11-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thomas.design/2023/11/glorified-autocomplete/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -479,6 +470,15 @@
   </url>
   
   <url>
+    <loc>https://thomas.design/2023/11/glorified-autocomplete/</loc>
+    
+    <lastmod>2024-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thomas.design/2024/07/dating-app-premium-experience/</loc>
     
     <lastmod>2024-11-08</lastmod>
@@ -488,7 +488,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/04/democracy-dies-behind-paywalls/</loc>
+    <loc>https://thomas.design/2023/07/design-patterns-for-feature-propogation/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -497,7 +497,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2023/07/design-patterns-for-feature-propogation/</loc>
+    <loc>https://thomas.design/2024/04/democracy-dies-behind-paywalls/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -578,7 +578,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/07/crowdstrike/</loc>
+    <loc>https://thomas.design/2024/10/cybercab/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -587,7 +587,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/10/cybercab/</loc>
+    <loc>https://thomas.design/2024/07/crowdstrike/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -686,15 +686,6 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/07/apple-card-pro/</loc>
-    
-    <lastmod>2024-11-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://thomas.design/2024/06/ai-art-the-new-scribble-on-a-postit/</loc>
     
     <lastmod>2024-11-08</lastmod>
@@ -704,7 +695,25 @@
   </url>
   
   <url>
+    <loc>https://thomas.design/2024/07/apple-card-pro/</loc>
+    
+    <lastmod>2024-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thomas.design/2024/10/apple-fullscreen-new-window-annoyance/</loc>
+    
+    <lastmod>2024-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://thomas.design/2024/06/apple-maps-community-updates/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -731,15 +740,6 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/06/apple-maps-community-updates/</loc>
-    
-    <lastmod>2024-11-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://thomas.design/2024/01/apple-maps-updated-driving-directions-near-me/</loc>
     
     <lastmod>2024-11-08</lastmod>
@@ -758,7 +758,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/10/apple-tv-music-app-control/</loc>
+    <loc>https://thomas.design/2024/10/apple-music-landscape/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -767,7 +767,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/10/apple-music-landscape/</loc>
+    <loc>https://thomas.design/2024/10/apple-tv-music-app-control/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -794,7 +794,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/02/apple-vision-pro-creative-industry-applications/</loc>
+    <loc>https://thomas.design/2024/02/appletv-model-but-for-games/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -803,7 +803,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/02/appletv-model-but-for-games/</loc>
+    <loc>https://thomas.design/2024/02/apple-vision-pro-creative-industry-applications/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -866,7 +866,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/09/chatgpt-voice-ux-good/</loc>
+    <loc>https://thomas.design/2024/08/chatgpt-tv/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -875,7 +875,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/08/chatgpt-tv/</loc>
+    <loc>https://thomas.design/2024/09/chatgpt-voice-ux-good/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -929,7 +929,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2023/09/SUV-loading-ramp-collapsible/</loc>
+    <loc>https://thomas.design/2023/09/Portfolio-online/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -938,7 +938,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2023/09/Portfolio-online/</loc>
+    <loc>https://thomas.design/2023/09/SUV-loading-ramp-collapsible/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -983,7 +983,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2023/05/Mario-Mid-Movie/</loc>
+    <loc>https://thomas.design/2024/01/Microsoft-design-strikes-again/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -992,7 +992,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/01/Microsoft-design-strikes-again/</loc>
+    <loc>https://thomas.design/2023/05/Mario-Mid-Movie/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -1028,6 +1028,15 @@
   </url>
   
   <url>
+    <loc>https://thomas.design/2023/07/Apple-Maps-Favorites-with-filters/</loc>
+    
+    <lastmod>2024-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thomas.design/2023/06/Apple-Maps-and-DoorDash-had-a-baby/</loc>
     
     <lastmod>2024-11-08</lastmod>
@@ -1038,15 +1047,6 @@
   
   <url>
     <loc>https://thomas.design/2024/06/Apple-Music-Station-Stew/</loc>
-    
-    <lastmod>2024-11-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thomas.design/2023/07/Apple-Maps-Favorites-with-filters/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -1073,15 +1073,6 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2023/04/Apple-Watch-broke/</loc>
-    
-    <lastmod>2024-11-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://thomas.design/2023/06/Apple-Vision-Pro/</loc>
     
     <lastmod>2024-11-08</lastmod>
@@ -1091,7 +1082,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2023/09/Apple-Wonderlust-event/</loc>
+    <loc>https://thomas.design/2023/04/Apple-Watch-broke/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -1109,7 +1100,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2023/04/Blog-updated/</loc>
+    <loc>https://thomas.design/2023/09/Apple-Wonderlust-event/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -1118,7 +1109,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2022/11/Designing-Around-Feedback/</loc>
+    <loc>https://thomas.design/2023/04/Blog-updated/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -1136,6 +1127,15 @@
   </url>
   
   <url>
+    <loc>https://thomas.design/2022/11/Designing-Around-Feedback/</loc>
+    
+    <lastmod>2024-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thomas.design/2024/06/Figma-Config-2024/</loc>
     
     <lastmod>2024-11-08</lastmod>
@@ -1145,7 +1145,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2023/05/Fluent-2-Design-System/</loc>
+    <loc>https://thomas.design/2024/05/GPT-4o/</loc>
     
     <lastmod>2024-11-08</lastmod>
     
@@ -1154,7 +1154,7 @@
   </url>
   
   <url>
-    <loc>https://thomas.design/2024/05/GPT-4o/</loc>
+    <loc>https://thomas.design/2023/05/Fluent-2-Design-System/</loc>
     
     <lastmod>2024-11-08</lastmod>
     

@@ -353,3 +353,24 @@
 	font-size: 0.75rem;
 	line-height: 18px;
 }
+
+/* Post specific styles using shared tokens */
+.post-title {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.post-meta {
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.post-content {
+  line-height: 1.6;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-sm);
+}
