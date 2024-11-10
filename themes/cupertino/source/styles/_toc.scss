@@ -1,0 +1,32 @@
+// themes/cupertino/source/styles/_toc.scss
+@use 'variables';
+
+.toc {
+    margin-bottom: 128px;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+}
+
+.toc li {
+    margin: 0.5em 0;
+}
+
+.toc .title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.toc .meta {
+    color: variables.$text-color-secondary;
+    font-size: 0.9rem;
+}
+.toc .content {
+    line-height: 1.6;
+}
+.toc .content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}

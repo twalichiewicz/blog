@@ -1,0 +1,28 @@
+@use 'variables';
+
+.categories {
+    margin-bottom: 128px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+@media screen and (max-width: 800px) {
+    .categories {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+.categories .category {
+    display: block;
+    padding: 12px 24px;
+    margin: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 12px;
+    background-color: variables.$white;
+    color: variables.$black-2;
+    text-decoration: none;
+    border: 1px solid variables.$border-color;
+}
+.categories .category:hover {
+    background-color: variables.$white-1;
+    color: variables.$black;
+}

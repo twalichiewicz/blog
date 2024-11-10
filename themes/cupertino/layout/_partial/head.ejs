@@ -1,102 +1,16 @@
-<head<% if (theme.og_enabled) { %> prefix="og: https://ogp.me/ns#"<% } %>>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22><%= theme.favicon_emoji %></text></svg>">
+<head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'><%= theme.favicon_emoji %></text></svg>">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBFBFD" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101010" />
-  <%
-  var title = page.title;
-
-  if (is_archive()){
-    title = __('archives');
-
-    if (is_month()){
-      title += ': ' + page.year + '/' + page.month;
-    } else if (is_year()){
-      title += ': ' + page.year;
-    }
-  } else if (is_category()){
-    title = __('category') + ': ' + page.category;
-  } else if (is_tag()){
-    if (theme.hashtag_prefix_before_tags) {
-      title = '#' + page.tag;
-    } else {
-      title = __('tag') + ': ' + page.tag;
-    }
-  } else if (theme.search == true && page.type == 'search') {
-    title = __('search')
-  } else if (page.type == 'tags') {
-    title = __('tags');
-  } else if (page.type == 'categories') {
-    title = __('categories');
-  }
-  %>
-  <title><% if (title){ %><%= title %> - <% } %><%= config.title %></title>
-  <% if (theme.favicon){ %>
-    <%- favicon_tag(theme.favicon) %>
-  <% } %>
-  <% if (theme.manifest) { %>
-    <link rel='manifest' href='<%= theme.manifest %>'>
-  <% } %>
-
-  <% if (theme.og_enabled) { %>
-  <%
-  var og = {};
-
-  og['title'] = (title ? title + ' - ' : '') + config.title;
-  og['type'] = is_post() ? 'article' : 'website';
-  og['url'] = url;
-  og['image'] = page.cover_image ? page.cover_image : theme.og_image;
-  if (is_post()) {
-    og['article:published_time'] = page.date.toISOString();
-    og['article:author'] = config.author;
-  }
-
-  if (theme['og']) {
-    for (const i in theme.og) {
-      og[i] = theme.og[i];
-    }
-  }
-
-  if (page['og']) {
-    for (const i in page.og) {
-      og[i] = page.og[i];
-    }
-  }
-  %>
-  <% for (const i in og) { %>
-  <meta property="og:<%= i %>" content="<%= og[i] %>" />
-  <% } %>
-  <% } %>
-
+  <link rel="stylesheet" href="<%- url_for('styles/index.css') %>">
+  <!-- Additional head content -->
   <%- css('css/var') %>
+  <%- css('css/shared') %>
   <%- css('css/main') %>
   <%- css('css/typography') %>
   <%- css('css/code-highlighting') %>
-  <%- css('css/components') %>
-  <%- css('css/nav') %>
-  <%- css('css/paginator') %>
-  <%- css('css/footer') %>
-  <%- css('css/post-list') %>
-  <% if (theme.toc) { %>
-  <%- css('css/toc') %>
-  <% if (page.path == "index.html") { %>
-  <%- css('css/index') %>
-  <% } %>
-  <% if (page.path != "index.html") { %>
-  <%- css('css/post') %>
-  <% } %>
-  <% if (is_archive() || is_category() || is_tag() || (theme.search == true && page.type == 'search') || page.type == 'tags' || page.type == 'categories') { %>
-  <%- css('css/archive') %>
-  <% } %>
-  <% if (theme.search == true && page.type == 'search') { %>
-  <%- css('css/search') %>
-  <% } %>
-  <% if (page.type == 'tags') { %>
-  <%- css('css/tags') %>
-  <% } %>
-  <% if (page.type == 'categories') { %>
-  <%- css('css/categories') %>
-  <% } %>
+  <!-- Other includes -->
 </head>

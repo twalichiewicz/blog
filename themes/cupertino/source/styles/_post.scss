@@ -1,0 +1,41 @@
+// themes/cupertino/source/styles/_post.scss
+@use 'variables';
+
+.post {
+    margin-bottom: 128px;
+}
+
+.post-title {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.post .title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.post .meta {
+    color: variables.$text-color-secondary;
+    font-size: 0.9rem;
+}
+
+.post-content {
+    line-height: 1.6;
+}
+
+.post .content {
+    line-height: 1.6;
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.post .content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}

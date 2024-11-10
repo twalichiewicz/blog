@@ -1,0 +1,30 @@
+// themes/cupertino/source/styles/_search.scss
+@use 'variables';
+
+.search {
+    margin-bottom: 128px;
+}
+
+.search input {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.search .title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+.search .meta {
+    color: variables.$text-color-secondary;
+    font-size: 0.9rem;
+}
+.search .content {
+    line-height: 1.6;
+}
+.search .content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}

@@ -1,0 +1,33 @@
+@use 'variables';
+
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.card-grid {
+    max-width: 1000px;
+    margin: auto;
+    padding: 0 16px;
+}
+@media screen and (max-width: 1000px) {
+    .card-grid {
+        max-width: 800px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .card-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (max-width: 600px) {
+    .card-grid {
+        display: block;
+    }
+}
+.card {
+    overflow: hidden;
+    border-radius: 16px;
+    background-color: variables.$card-bg;
+    margin-bottom: 21px;
+    transition: all 200ms ease;
+}

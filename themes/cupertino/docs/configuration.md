@@ -8,9 +8,3 @@ Some features are not enabled by default, and you need to enable it on your own.
 
 - [LaTeX](./features/latex.md)
 
-## Integrations
-
-You can integrate these services to your blog:
-
-- [Tidio](./integrations/tidio.md)
-- [Ackee](./integrations/ackee.md)
