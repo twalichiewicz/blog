@@ -1,0 +1,14 @@
+// themes/cupertino/source/styles/_archive.scss
+@use 'variables';
+
+.meta {
+    margin-top: 128px;
+}
+.meta .type {
+    color: variables.$grey;
+    font-weight: 600;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 16px;
+}

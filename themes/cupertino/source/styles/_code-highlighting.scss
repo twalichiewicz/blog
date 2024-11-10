@@ -1,44 +1,37 @@
-/* This Code Highlighting Theme is based on GitHub Theme */
+// themes/cupertino/source/styles/_code-highlighting.scss
+@use 'variables';
 
 .gutter {
-    color: var(--grey);
+    color: variables.$grey;
     user-select: none;
 }
-
 .highlight .name {
     color: #22863a;
 }
-
 .highlight .attr, .highlight .meta, .highlight .meta-keyword, .highlight .attribute, .highlight .number, .highlight .selector-class {
-    color: #005cc5
+    color: #005cc5;
 }
-
 .highlight .string {
     color: #032f62;
 }
-
 .highlight .symbol {
     color: #005cc5;
 }
-
 .highlight .selector-tag {
     color: #22863a;
 }
-
 .highlight .built_in {
     color: #6f42c1;
 }
-
 .highlight .keyword {
     color: #d73a49;
 }
-
 @media (prefers-color-scheme: dark) {
     .highlight .name {
         color: #7ee787;
     }
     .highlight .attr, .highlight .meta, .highlight .meta-keyword, .highlight .attribute, .highlight .number, .highlight .selector-class {
-        color: #79c0ff
+        color: #79c0ff;
     }
     .highlight .string {
         color: #a5d6ff;

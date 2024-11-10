@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="<%= config.language %>">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <head>    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <%- partial('_partial/head') %>
     </head>
-    <%- partial('_partial/head') %>
     <body
         data-color-scheme="<%= theme.color_scheme %>"
         data-uppercase-categories="<%= theme.uppercase_categories %>"
@@ -25,12 +25,6 @@
         <% if (theme.search == true && page.type == 'search') { %>
         <%- js('js/search.js') %>
         <% } %>
-        <% if (config.tidio) { %>
-        <%- js(config.tidio) %>
-        <% } %>
-        <% if (config.ackee) { %>
-        <%- config.ackee %>
-        <% } %>
 
         <% if (theme.scroll_reveal) { %>
         <script src="https://unpkg.com/scrollreveal"></script>
@@ -42,5 +36,6 @@
             })
         </script>
         <% } %>
+        <!-- Additional scripts -->
     </body>
 </html>
