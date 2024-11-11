@@ -39,19 +39,6 @@
     }
 }
 
-@media screen and (max-width: 800px) {
-    .post-list-item {
-        border-radius: 0;
-        margin: auto;
-    }
-    .post-list-item:first-child {
-        border-radius: 3px 3px 0 0;
-    }
-    .post-list-item:last-child {
-        border-radius: 0 0 3px 3px;
-    }
-}
-
 .post-list-item .cover-img {
     border-radius: 3px;
     overflow: hidden;
@@ -174,7 +161,12 @@
 
 @media screen and (max-width: 600px) {
     .post-list {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        
         padding: 12px;
+        width: auto;
     }
 
     .post-list-item {

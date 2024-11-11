@@ -2,10 +2,11 @@
 @use 'variables';
 
 .paginator {
-    display: block;
+    display: flex;
     text-align: center;
     padding: 16px;
-    margin: 8px;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .paginator>* {
