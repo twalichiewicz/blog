@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 11 Nov 2024 03:37:37 GMT</pubDate>
+    <pubDate>Mon, 11 Nov 2024 03:40:35 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>refactor mostly done</title>
+      <link>https://twalichiewicz.github.io/blog/2024/11/11/refactor-mostly-done/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/11/11/refactor-mostly-done/</guid>
+      <pubDate>Mon, 11 Nov 2024 11:39:53 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;Phew, refactor of the blog is (mostly)</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Phew, refactor of the blog is (mostly) done.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/11/11/refactor-mostly-done/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>github indexing repo lack of status indicator</title>
@@ -494,31 +519,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/09/30/quality-control-rockets/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>chatgpt voice ux good</title>
-      <link>https://twalichiewicz.github.io/blog/2024/09/29/chatgpt-voice-ux-good/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/09/29/chatgpt-voice-ux-good/</guid>
-      <pubDate>Sun, 29 Sep 2024 01:54:14 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Okay there are clearly some peaks and valleys in the OpenAI design, because this voice chat experience is pretty</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Okay there are clearly some peaks and valleys in the OpenAI design, because this voice chat experience is pretty nice.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/09/29/chatgpt-voice-ux-good/#disqus_thread</comments>
       
     </item>
     
