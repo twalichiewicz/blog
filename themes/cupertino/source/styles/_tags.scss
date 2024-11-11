@@ -8,11 +8,13 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
+
 @media screen and (max-width: 800px) {
     .tags {
         grid-template-columns: 1fr 1fr;
     }
 }
+
 .tag {
     display: block;
     margin: 6px;
@@ -25,7 +27,23 @@
     text-decoration: none;
     border: 1px solid variables.$border-color;
 }
+
+@media (prefers-color-scheme: dark) {
+    .tag {
+        background-color: variables.$dark-white;
+        color: variables.$dark-black-2;
+        border: 1px solid variables.$dark-border-color;
+    }
+}
+
 .tags .tag:hover {
     background-color: variables.$white-1;
     color: variables.$black;
+}
+
+@media (prefers-color-scheme: dark) {
+    .tags .tag:hover {
+        background-color: variables.$dark-white-1;
+        color: variables.$dark-black;
+    }
 }

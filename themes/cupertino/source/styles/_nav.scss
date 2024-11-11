@@ -15,6 +15,14 @@ nav {
     transition: height 0.8s cubic-bezier(0.86, 0, 0.07, 1);
     width: 100%;
 }
+
+@media (prefers-color-scheme: dark) {
+    nav {
+        background-color: variables.$dark-nav-bg;
+        border-bottom: 1px solid variables.$dark-border-color;
+    }
+}
+
 nav > .nav-content-container {
     display: flex;
     flex-direction: column;
@@ -22,7 +30,7 @@ nav > .nav-content-container {
     max-width: 980px;
 }
 nav > .nav-content-container > .breadcrumbs {
-    align-items: baseline;
+    align-items: center;
     display: inline-flex;
     flex-direction: row;
     justify-content: center;
@@ -31,7 +39,11 @@ nav > .nav-content-container > .breadcrumbs {
 }
 nav > .nav-content-container > .breadcrumbs > .nav-spacer {
     color: rgba(0, 0, 0, 0.3);
-    margin: auto 9px auto 3px;
+}
+@media (prefers-color-scheme: dark) {
+    nav > .nav-content-container > .breadcrumbs > .nav-spacer {
+        color: rgba(255, 255, 255, 0.3);
+    }
 }
 nav > .nav-content-container > .breadcrumbs > a {
     margin: auto 9px;
@@ -58,6 +70,9 @@ nav > .nav-content-container > .breadcrumbs > a > .nav-home-page {
 nav > .nav-content-container > .breadcrumbs > a > .section-title.active {
     font-weight: bold;
 }
+// nav > .nav-content-container > .breadcrumbs > a > .nav-home-page {
+//     color: rgba(255, 255, 255, 0.6);
+// }
 nav > * > .inner {
     display: inline-flex;
     flex-direction: row;

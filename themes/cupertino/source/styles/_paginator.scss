@@ -7,6 +7,7 @@
     padding: 16px;
     margin: 8px;
 }
+
 .paginator>* {
     border-radius: 32px;
     padding: 6px 12px;
@@ -14,12 +15,27 @@
     user-select: none;
     transition: all 0.2s;
 }
+
 .paginator>*:hover {
     background-color: variables.$card-bg;
 }
+
+@media (prefers-color-scheme: dark) {
+    .paginator>*:hover {
+        background-color: variables.$dark-card-bg;
+    }
+}
+
 .paginator>*:active {
     background-color: variables.$card-border;
 }
+
+@media (prefers-color-scheme: dark) {
+    .paginator>*:active {
+        background-color: variables.$dark-card-border;
+    }
+}
+
 .paginator .current:hover {
     background-color: transparent;
 }

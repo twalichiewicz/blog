@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     </head>
     <body>
-<article class="post-list-item" id="<%= page.title %>">
+<article class="post-list-item <%= page.title.replace(/\s+/g, '-').toLowerCase() %>" id="<%= page.title %>">
     <div class="content">
         <div class="post-footer">
             <p>
@@ -22,6 +22,7 @@
                             <span>(edited)</span>
                         <% } %>
                     </div>
+                    <a class="external-link" href="external-link-url" target="_blank" rel="noopener">External Link</a>
                 </div>
                 <!-- Shows a cover image, if it has one -->
                 <% if (page.cover_image) { %>
@@ -49,7 +50,21 @@
                             <span>(edited)</span>
                         <% } %>
                     </div>
+                    <a class="external-link" href="external-link-url" target="_blank" rel="noopener">External Link</a>
                 </div>
+                <!-- Shows a cover image, if it has one -->
+                <% if (page.cover_image) { %>
+                    <div class="cover-img">
+                        <img class="<%= page.draft ? 'draft-card' : '' %>" src="<%= page.cover_image %>" alt="<%= page.cover_image_alt %>">
+                    </div>
+                <% } %>
+                <!-- Show the title, if it has one -->
+                <% if (page.show_title) { %>
+                    <p class="title">
+                        <%= page.title %>
+                    </p>
+                <% } %>
+                <!-- Show the full content -->
                 <%- page.content %>
             </div>
         <% } %>

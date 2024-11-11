@@ -5,12 +5,14 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
+
 @media screen and (max-width: 800px) {
     .categories {
         grid-template-columns: 1fr 1fr;
     }
 }
-.categories .category {
+
+.category {
     display: block;
     padding: 12px 24px;
     margin: 6px;
@@ -22,7 +24,23 @@
     text-decoration: none;
     border: 1px solid variables.$border-color;
 }
+
+@media (prefers-color-scheme: dark) {
+    .category {
+        background-color: variables.$dark-white;
+        color: variables.$dark-black-2;
+        border: 1px solid variables.$dark-border-color;
+    }
+}
+
 .categories .category:hover {
     background-color: variables.$white-1;
     color: variables.$black;
+}
+
+@media (prefers-color-scheme: dark) {
+    .categories .category:hover {
+        background-color: variables.$dark-white-1;
+        color: variables.$dark-black;
+    }
 }
