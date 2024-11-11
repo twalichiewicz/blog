@@ -15,7 +15,7 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Fri, 08 Nov 2024 23:22:37 GMT</pubDate>
+    <pubDate>Mon, 11 Nov 2024 03:37:37 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -104,15 +104,13 @@
         
           
           
-      <description>&lt;div class=&quot;happyHalloween2024&quot;&gt;
-
-&lt;p&gt;&lt;img src=&quot;/blog/2024/10/31/happy-halloween-2024/IMG_2571.webp&quot;&gt;&lt;br&gt;&lt;img</description>
+      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/31/happy-halloween-2024/IMG_2571.webp&quot;&gt;&lt;br&gt;&lt;img</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<div class="happyHalloween2024"><p><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2571.webp"><br><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2579.webp"><br><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2583.webp"></p></div><br/><div class="spookyText"><span class="halloweenSpookyText">Happy Halloween! 🎃</span><br/>Digging through my photos I found some old drawings, enjoy!</div><br/><br/><style>    .happyHalloween2024 {        display: flex;        flex-direction: row;        margin-left:auto;        margin-right:auto;    }    .happyHalloween2024 p {        display: flex;        justify-content: center;        margin-left: auto;        margin-right: auto;        transition: all 300ms ease-in-out;        width: 100%;    }    .happyHalloween2024 > p > img {        margin: 12px;        width: 128px;        height: 128px;        border: solid 1px #ccc;        box-shadow: 0 3px 12px rgba(0,0,0,0.09);        transition: all 300ms ease-in-out;     }    .happyHalloween2024 p img:hover, img:active {        width: 100%;     }    .spookyText {        text-align: center;        margin-left: auto;        margin-right: auto;    }    .spookyText .halloweenSpookyText {        font-size: 2rem;        font-weight: 600;    }</style>]]></content:encoded>
+      <content:encoded><![CDATA[<p><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2571.webp"><br><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2579.webp"><br><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2583.webp"></p><p>Happy Halloween! 🎃</p><p>Digging through my photos I found some old drawings, enjoy!</p>]]></content:encoded>
       
       
       
@@ -122,22 +120,23 @@
     </item>
     
     <item>
-      <title>whoops spoke too soon</title>
+      <title>Whoops Spoke Too Soon</title>
       <link>https://twalichiewicz.github.io/blog/2024/10/30/whoops-spoke-too-soon/</link>
       <guid>https://twalichiewicz.github.io/blog/2024/10/30/whoops-spoke-too-soon/</guid>
-      <pubDate>Wed, 30 Oct 2024 07:51:59 GMT</pubDate>
+      <pubDate>Wed, 30 Oct 2024 19:00:00 GMT</pubDate>
       
         
         
           
           
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp&quot;&gt;&lt;br&gt;Spoke too</description>
+      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Spoke too</description>
           
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp"><br>Spoke too soon.</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><img src="/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.webp"></p><p>Spoke too soon</p>]]></content:encoded>
       
       
       
@@ -463,7 +462,7 @@
       
       
       
-      <content:encoded><![CDATA[<video width="auto" height="600px" autoplay controls style="margin-top:24px; margin-left: auto; margin-right: auto;border:solid 1px #ccc;display: block;border-radius: 12px;">    <source src="/blog/2024/10/01/Hudson-s-Song/hudsonSong.mp4" type="video/mp4"></video><p>Thanks ChatGPT</p>]]></content:encoded>
+      <content:encoded><![CDATA[<video width="auto" height="600px" autoplay controls style="margin-top:24px; margin-left: auto; margin-right: auto;border:solid 1px #ccc;display: block;border-radius: 12px; width: 100%;">    <source src="/blog/2024/10/01/Hudson-s-Song/hudsonSong.mp4" type="video/mp4"></video><p>Thanks ChatGPT</p>]]></content:encoded>
       
       
       
