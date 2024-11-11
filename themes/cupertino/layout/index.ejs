@@ -3,20 +3,20 @@
     <div class="post-list">
         <% page.posts.each(function (post) { %>
         <article class="post-list-item" id="<%= post.title %>">
+            <div class="post-header">
+                <div class="time">
+                    <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
+                    <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
+                    <span><%- post.date.year() %></span>
+                    <% if (post.edit) { %>
+                        <span>(edited)</span>
+                    <% } %>
+                </div>
+                <a href="<%- url_for(post.path) %>">↗</a>
+            </div>
             <div class="content">
                 <% if (post.long) { %>
                     <div class="content-body content-body-long<%= post.draft ? ' draft-card' : '' %>">
-                        <div class="post-header">
-                            <div class="time">
-                                <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
-                                <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
-                                <span><%- post.date.year() %></span>
-                                <% if (post.edit) { %>
-                                    <span>(edited)</span>
-                                <% } %>
-                            </div>
-                            <a href="<%- url_for(post.path) %>">↗</a>
-                        </div>
                         <!-- Shows a cover image, if it has one -->
                         <% if (post.cover_image) { %>
                             <div class="cover-img">
@@ -41,17 +41,6 @@
                     </div>
                 <% } else if (post.short) { %>
                     <div class="content-body">
-                        <div class="post-header">
-                            <div class="time">
-                                <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
-                                <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
-                                <span><%- post.date.year() %></span>
-                                <% if (post.edit) { %>
-                                    <span>(edited)</span>
-                                <% } %>
-                            </div>
-                            <a href="<%- url_for(post.path) %>">↗</a>
-                        </div>
                         <%- post.content %>
                     </div>
                 <% } %>

@@ -1,19 +1,50 @@
 // themes/cupertino/source/styles/_variables.scss
+
+// Primary Colors
 $primary-color: #3498db;
+$link: #3498db;
+$dark-primary-color: #2980b9;
+$dark-link: #2980b9;
+$link-dark: #2980b9;
+
+// Black and White
 $black: #000;
 $black-2: #333;
 $black-4: #666;
 $white: #fff;
 $white-1: #f9f9f9;
-$border-color: #e0e0e0;
-$card-bg: #ffffff;
+$dark-black: #fff;
+$dark-black-2: #ccc;
+$dark-black-4: #999;
+$dark-white: #000;
+$dark-white-1: #1a1a1a;
+
+// Grey Shades
 $grey: #7c7c7c;
 $footer-link-grey: #999;
-$body-bg: #ffffff;
-$link: #3498db;
 $text-color-secondary: #666;
-$nav-bg: #f8f8f8;
-$nav-arrow: #ccc;
+$dark-grey: #b3b3b3;
+$dark-footer-link-grey: #ccc;
+$dark-text-color-secondary: #999;
+
+// Background Colors
+$body-bg: #fafafa;
+$nav-bg: rgba(255, 255, 255, 0.3);
+$card-bg: #ffffff;
+$dark-body-bg: #1a1a1a;
+$dark-nav-bg: rgba(0, 0, 0, 0.6);
+$dark-card-bg: #2c2c2c;
+
+// Border Colors
+$border-color: #cccccc;
 $card-border: #ddd;
-$card-title: #333; 
+$dark-border-color: #2b2b2b;
+$dark-card-border: #555;
+
+// Other
+$nav-arrow: #ccc;
+$card-title: #333;
 $blur: blur(32px);
+$dark-nav-arrow: #888;
+$dark-card-title: #ccc;
+$dark-blur: blur(32px);

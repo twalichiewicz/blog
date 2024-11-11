@@ -7,25 +7,25 @@ short: true
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
 
 <style>
-	#hashtagContainer {
-		width:100%;
-		text-align:center;
-	}
-	#hashtagButton {
-		background:none;
-		border:none;
-		font-size: 1.25rem;
-		padding:0;
-		margin:24px 0 24px 0;
-		cursor: help !important;
-	}
-	#hashtagButton:hover {
-		text-decoration: red underline wavy;
-	}
-	img  {
-		border:solid 6px white;
-		box-shadow: 0 3px 15px rgba(0,0,0,0.18);
-	}
+    .kidpix-lives #hashtagContainer {
+        width:100%;
+        text-align:center;
+    }
+    .kidpix-lives #hashtagButton {
+        background:none;
+        border:none;
+        font-size: 1.25rem;
+        padding:0;
+        margin:24px 0 24px 0;
+        cursor: help !important;
+    }
+    .kidpix-lives #hashtagButton:hover {
+        text-decoration: red underline wavy;
+    }
+    .kidpix-lives img  {
+        border:solid 6px white;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.18);
+    }
 </style>
 
 [![](kidPix.png)](https://kidpix.app)

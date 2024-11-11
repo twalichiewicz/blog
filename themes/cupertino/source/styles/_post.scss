@@ -28,14 +28,22 @@
     line-height: 1.6;
 }
 
-.post-content img {
+.post-content img,
+.post-content video,
+.post-content iframe {
     max-width: 100%;
     height: auto;
-    border-radius: 4px;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto;
 }
 
-.post .content img {
+.post .content img,
+.post .content video,
+.post .content iframe {
     max-width: 100%;
     height: auto;
-    border-radius: 4px;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto;
 }

@@ -4,16 +4,38 @@
 * {
     transition: color 0.2s, background-color 0.2s;
 }
+
 body {
     margin: 0;
     color: variables.$black-2;
     background-color: variables.$body-bg;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        color: variables.$dark-black-2;
+        background-color: variables.$dark-body-bg;
+    }
+    a:link, a:visited {
+        color: variables.$dark-link;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        color: variables.$black-2;
+        background-color: variables.$body-bg;
+    }
+    a:link, a:visited {
+        color: variables.$link;
+    }
+}
+
 a:link {
-    color: variables.$link;
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: underline;
 }
@@ -21,7 +43,6 @@ a:active {
     text-decoration: none;
 }
 a:visited {
-    color: variables.$link;
     text-decoration: none;
 }
 .container {
