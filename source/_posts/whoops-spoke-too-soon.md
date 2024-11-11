@@ -4,6 +4,6 @@ date: 2024-10-30 12:00:00
 short: true
 ---
 
-![](whoopsSpokeTooSoon.webp)
+![](whoopsSpokeTooSoon.jpeg)
 
 Spoke too soon
