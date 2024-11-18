@@ -19,8 +19,10 @@ Amazon thrives on ubiquity, while Costco thrives on scarcity—you go there beca
 
 Costco might not be Amazon 2.0, but it doesn’t have to be. It can be Costco 2.0—and that might just be enough to shift the game.
 
+<br/>
 
 ***
 
+<br/>
 
 *P.S. I've been sick this past week, and have been relying on Amazon for basics. But I also hate the idea of giving Bezos any more money [for his penis rockets](https://www.yahoo.com/entertainment/jeff-bezos-penis-shaped-rocket-144010824.html) so here we are.*
