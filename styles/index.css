@@ -450,7 +450,7 @@ nav a.title .subhead {
   flex-direction: column;
   overflow: hidden;
   margin: auto auto 15px auto;
-  max-width: 468px;
+  max-width: 70ch;
   transition: all 200ms ease;
   width: 100%;
   background: #fff;
@@ -458,6 +458,7 @@ nav a.title .subhead {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.2);
   padding: 16px;
   border: none;
+  align-items: center;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -537,7 +538,6 @@ nav a.title .subhead {
   flex-direction: column;
   flex-grow: 1;
   flex-shrink: 1;
-  max-width: 476px;
 }
 
 .post-list-item .post-header {
@@ -547,6 +547,7 @@ nav a.title .subhead {
   align-items: center;
   font-size: 9px;
   margin-bottom: 8px;
+  width: 100%;
 }
 
 .post-list-item .post-header .time {
@@ -766,8 +767,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-  margin: 0.3rem 0;
-  line-height: 1.45;
+  margin: 1.5em 0;
+  line-height: 1.5em;
   font-size: 0.9rem;
 }
 
