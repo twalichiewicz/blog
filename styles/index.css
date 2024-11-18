@@ -538,6 +538,7 @@ nav a.title .subhead {
   flex-direction: column;
   flex-grow: 1;
   flex-shrink: 1;
+  width: 100%;
 }
 
 .post-list-item .post-header {
