@@ -787,6 +787,14 @@ p {
   font-size: 0.9rem;
 }
 
+.content-body p:first-child {
+  margin-top: 0;
+}
+
+.content-body p:last-child {
+  margin-bottom: 0;
+}
+
 .heading-1 {
   font-size: 2rem;
   font-weight: 600;
