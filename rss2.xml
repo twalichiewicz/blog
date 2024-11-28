@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Sat, 23 Nov 2024 17:40:07 GMT</pubDate>
+    <pubDate>Thu, 28 Nov 2024 06:15:56 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>ChatGPT pinned conversations</title>
+      <link>https://twalichiewicz.github.io/blog/2024/11/28/ChatGPT-pinned-conversations/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/11/28/ChatGPT-pinned-conversations/</guid>
+      <pubDate>Thu, 28 Nov 2024 05:44:35 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;All I want is to be able to pin previous conversations in the ChatGPT web-app. My current solution of WRITE THE KEYWORDS IN CAPS does</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>All I want is to be able to pin previous conversations in the ChatGPT web-app. My current solution of WRITE THE KEYWORDS IN CAPS does the trick for now, but…</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/11/28/ChatGPT-pinned-conversations/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>costco: amazon v2?</title>
@@ -493,31 +518,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/10/02/one-problem-one-designer/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Hudson&#39;s Song</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/01/Hudson-s-Song/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/01/Hudson-s-Song/</guid>
-      <pubDate>Tue, 01 Oct 2024 05:16:22 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;video width=&quot;auto&quot; height=&quot;600px&quot; autoplay controls style=&quot;margin-top:24px; margin-left: auto; margin-right: auto;border:solid 1px</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<video width="auto" height="600px" autoplay controls style="margin-top:24px; margin-left: auto; margin-right: auto;border:solid 1px #ccc;display: block;border-radius: 12px; width: 100%;">    <source src="/blog/2024/10/01/Hudson-s-Song/hudsonSong.mp4" type="video/mp4"></video><p>Thanks ChatGPT</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/10/01/Hudson-s-Song/#disqus_thread</comments>
       
     </item>
     
