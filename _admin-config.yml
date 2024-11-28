@@ -3,7 +3,3 @@ options:
 editor:
   inputStyle: contenteditable
   spellcheck: true
-admin:
-  username: twalichiewicz
-  password_hash: $2a$10$7vYp2Wx1h3bf8LuNGTbSb.Zavzfp1xVThMXOnZuG9yIPCGCUtHkcq
-  secret: Go fuck yourself

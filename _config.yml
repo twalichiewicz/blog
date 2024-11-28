@@ -114,6 +114,11 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: cupertino
+## Admin
+admin:
+  username: twalichiewicz
+  password_hash: $2a$10$7vYp2Wx1h3bf8LuNGTbSb.Zavzfp1xVThMXOnZuG9yIPCGCUtHkcq
+  secret: Go fuck yourself
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
