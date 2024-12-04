@@ -5,18 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
         <%- partial('_partial/head') %>
     </head>
-    <body
-        data-color-scheme="<%= theme.color_scheme %>"
-        data-uppercase-categories="<%= theme.uppercase_categories %>"
-        data-config-root="<%- config.root %>"
-        <% if (theme.toc == true) { %>
-        data-toc="<%= theme.toc %>"
-        data-toc-max-depth="<%= theme.toc_max_depth %>"
-        <% } %>
-        <% if (theme.search == true && page.type == 'search') { %>
-        data-search-path="<%= theme.search_path %>"
-        <% } %>
-    >
+    <body>
         <%- partial('_partial/nav') %>
         <%- body %>
         <%- partial('_partial/footer') %>
