@@ -15,8 +15,33 @@
     <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Mon, 09 Dec 2024 03:45:05 GMT</pubDate>
+    <pubDate>Sat, 14 Dec 2024 05:44:16 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>OpenAI vs Musky</title>
+      <link>https://twalichiewicz.github.io/blog/2024/12/14/OpenAI-vs-Musky/</link>
+      <guid>https://twalichiewicz.github.io/blog/2024/12/14/OpenAI-vs-Musky/</guid>
+      <pubDate>Sat, 14 Dec 2024 05:29:40 GMT</pubDate>
+      
+        
+        
+          
+          
+      <description>&lt;p&gt;I really enjoyed reading &lt;a href=&quot;https://openai.com/index/elon-musk-wanted-an-openai-for-profit/&quot;&gt;this post today&lt;/a&gt; on the OpenAI</description>
+          
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>I really enjoyed reading <a href="https://openai.com/index/elon-musk-wanted-an-openai-for-profit/">this post today</a> on the OpenAI blog.</p>]]></content:encoded>
+      
+      
+      
+      
+      <comments>https://twalichiewicz.github.io/blog/2024/12/14/OpenAI-vs-Musky/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>stolen stickes</title>
@@ -496,31 +521,6 @@
       
       
       <comments>https://twalichiewicz.github.io/blog/2024/10/08/apple-music-landscape/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>faceid per app</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/06/faceid-per-app/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/06/faceid-per-app/</guid>
-      <pubDate>Sun, 06 Oct 2024 22:04:47 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;This new FaceID per app feature in iOS should really be enabled by default for any of the communication apps (Messages, Phone, Email),</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>This new FaceID per app feature in iOS should really be enabled by default for any of the communication apps (Messages, Phone, Email), since they not only provide an opportunity to onboard the user to the feature, those apps are the most damaging if a bad actor got your hands on your device*.</p><p>*Obviously this could be different person-to-person, but those three I would estimate everyone wants some control over the means by which we communicate to other people.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/10/06/faceid-per-app/#disqus_thread</comments>
       
     </item>
     
