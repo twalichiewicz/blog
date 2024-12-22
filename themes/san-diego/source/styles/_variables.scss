@@ -1,50 +1,48 @@
-// themes/cupertino/source/styles/_variables.scss
-
-// Primary Colors
-$primary-color: #3498db;
-$link: #3498db;
-$dark-primary-color: #2980b9;
-$dark-link: #fb7e7e;
-$link-dark: #fb7e7e;
+// Light Theme (Default)
+$primary-color: hsl(35, 15%, 88%); // Sandstone beige
+$link: hsl(15, 70%, 40%); // Warm terracotta
+$dark-primary-color: hsl(240, 5%, 10%); // Deep charcoal black
+$dark-link: hsl(40, 80%, 50%); // Gold veins
+$link-dark: hsl(40, 80%, 50%);
 
 // Black and White
-$black: #000;
-$black-2: #333;
-$black-4: #666;
-$white: #fff;
-$white-1: #f9f9f9;
-$dark-black: #fff;
-$dark-black-2: #ccc;
-$dark-black-4: #999;
-$dark-white: #000;
-$dark-white-1: #1a1a1a;
+$black: hsl(0, 0%, 10%);
+$black-2: hsl(0, 0%, 25%);
+$black-4: hsl(0, 0%, 40%);
+$white: hsl(0, 0%, 100%);
+$white-1: hsl(35, 15%, 96%); // Soft sandstone white
+$dark-black: hsl(0, 0%, 100%);
+$dark-black-2: hsl(0, 0%, 80%);
+$dark-black-4: hsl(0, 0%, 60%);
+$dark-white: hsl(0, 0%, 0%);
+$dark-white-1: hsl(240, 5%, 10%);
 
 // Grey Shades
-$grey: #7c7c7c;
-$footer-link-grey: #999;
-$text-color-secondary: #666;
-$dark-grey: #b3b3b3;
-$dark-footer-link-grey: #ccc;
-$dark-text-color-secondary: #999;
+$grey: hsl(35, 10%, 50%);
+$footer-link-grey: hsl(35, 10%, 40%);
+$text-color-secondary: hsl(35, 15%, 30%); // Deep sandstone
+$dark-grey: hsl(0, 0%, 70%);
+$dark-footer-link-grey: hsl(0, 0%, 80%);
+$dark-text-color-secondary: hsl(0, 0%, 60%);
 
 // Background Colors
-$body-bg: #fafafa;
-$nav-bg: rgba(255, 255, 255, 0.3);
-$card-bg: #ffffff;
-$dark-body-bg: #1a1a1a;
+$body-bg: hsl(35, 15%, 88%); // Sandstone beige
+$nav-bg: rgba(245, 240, 235, 0.9); // Subtle light stone
+$card-bg: hsl(0, 0%, 100%);
+$dark-body-bg: hsl(240, 5%, 10%);
 $dark-nav-bg: rgba(0, 0, 0, 0.6);
-$dark-card-bg: #2c2c2c;
+$dark-card-bg: hsl(0, 0%, 20%);
 
 // Border Colors
-$border-color: #cccccc;
-$card-border: #ddd;
-$dark-border-color: #2b2b2b;
-$dark-card-border: #555;
+$border-color: hsl(35, 10%, 75%);
+$card-border: hsl(35, 10%, 85%);
+$dark-border-color: hsl(0, 0%, 20%);
+$dark-card-border: hsl(0, 0%, 35%);
 
 // Other
-$nav-arrow: #ccc;
-$card-title: #333;
+$nav-arrow: hsl(35, 10%, 60%);
+$card-title: hsl(35, 15%, 30%); // Deep sandstone
 $blur: blur(32px);
-$dark-nav-arrow: #888;
-$dark-card-title: #ccc;
+$dark-nav-arrow: hsl(0, 0%, 60%);
+$dark-card-title: hsl(0, 0%, 80%);
 $dark-blur: blur(32px);
