@@ -1,136 +1,123 @@
-(() => {
-    var navEl = document.getElementById('theme-nav');
-    navEl.addEventListener('click', (e) => {
-        if (window.innerWidth <= 600) {
-            if (navEl.classList.contains('open')) {
-                navEl.style.height = ''
-            } else {
-                navEl.style.height = 48 + document.querySelector('#theme-nav .nav-items').clientHeight + 'px'
-            }
-            navEl.classList.toggle('open')
-        } else {
-            if (navEl.classList.contains('open')) {
-                navEl.style.height = ''
-                navEl.classList.remove('open')
-            }
-        }
-    })
-    window.addEventListener('resize', (e) => {
-        if (navEl.classList.contains('open')) {
-            navEl.style.height = 48 + document.querySelector('#theme-nav .nav-items').clientHeight + 'px'
-        }
-        if (window.innerWidth > 600) {
-            if (navEl.classList.contains('open')) {
-                navEl.style.height = ''
-                navEl.classList.remove('open')
-            }
-        }
-    })
+document.addEventListener('DOMContentLoaded', function () {
+    const navEl = document.getElementById('theme-nav');
+    const navTitle = document.querySelector('.nav-title');
+    let lastScrollPosition = 0;
 
-    // a simple solution for managing cookies
+    if (navEl) {
+        navEl.addEventListener('click', (e) => {
+            if (window.innerWidth <= 600) {
+                if (navEl.classList.contains('open')) {
+                    navEl.style.height = '';
+                } else {
+                    navEl.style.height = 48 + document.querySelector('#theme-nav .nav-items').clientHeight + 'px';
+                }
+                navEl.classList.toggle('open');
+            } else {
+                if (navEl.classList.contains('open')) {
+                    navEl.style.height = '';
+                    navEl.classList.remove('open');
+                }
+            }
+        });
+
+        window.addEventListener('resize', (e) => {
+            if (navEl.classList.contains('open')) {
+                navEl.style.height = 48 + document.querySelector('#theme-nav .nav-items').clientHeight + 'px';
+            }
+            if (window.innerWidth > 600) {
+                if (navEl.classList.contains('open')) {
+                    navEl.style.height = '';
+                    navEl.classList.remove('open');
+                }
+            }
+        });
+    }
+
+    // Hide the nav-title when scrolling down
+    if (navTitle) {
+        window.addEventListener('scroll', function () {
+            const currentScrollPosition = window.scrollY;
+
+            if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 50) {
+                // User is scrolling down, hide the nav-title
+                navTitle.style.height = '0px';
+                navTitle.style.opacity = '0';
+                navTitle.style.transition = 'all 300ms ease-in-out';
+            } else {
+                // User is scrolling up, show the nav-title
+                navTitle.style.height = '';
+                navTitle.style.opacity = '1';
+            }
+
+            lastScrollPosition = currentScrollPosition;
+        });
+    }
+
+    // Additional features like cookies and color scheme management remain unchanged
     const Cookies = new class {
         get(key, fallback) {
-            const temp = document.cookie.split('; ').find(row => row.startsWith(key + '='))
+            const temp = document.cookie.split('; ').find(row => row.startsWith(key + '='));
             if (temp) {
                 return temp.split('=')[1];
             } else {
-                return fallback
+                return fallback;
             }
         }
         set(key, value) {
-            document.cookie = key + '=' + value + '; path=' + document.body.getAttribute('data-config-root')
+            document.cookie = key + '=' + value + '; path=' + document.body.getAttribute('data-config-root');
         }
-    }
+    };
 
     const ColorScheme = new class {
         constructor() {
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { this.updateCurrent(Cookies.get('color-scheme', 'auto')) })
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { this.updateCurrent(Cookies.get('color-scheme', 'auto')) });
         }
         get() {
-            const stored = Cookies.get('color-scheme', 'auto')
-            this.updateCurrent(stored)
-            return stored
+            const stored = Cookies.get('color-scheme', 'auto');
+            this.updateCurrent(stored);
+            return stored;
         }
         set(value) {
-            bodyEl.setAttribute('data-color-scheme', value)
-            Cookies.set('color-scheme', value)
-            this.updateCurrent(value)
-            return value
+            bodyEl.setAttribute('data-color-scheme', value);
+            Cookies.set('color-scheme', value);
+            this.updateCurrent(value);
+            return value;
         }
         updateCurrent(value) {
-            var current = 'light'
+            var current = 'light';
             if (value == 'auto') {
                 if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    current = 'dark'
+                    current = 'dark';
                 }
             } else {
-                current = value
+                current = value;
             }
-            document.body.setAttribute('data-current-color-scheme', current)
+            document.body.setAttribute('data-current-color-scheme', current);
         }
-    }
+    };
 
     if (document.getElementById('theme-color-scheme-toggle')) {
-        var bodyEl = document.body
-        var themeColorSchemeToggleEl = document.getElementById('theme-color-scheme-toggle')
-        var options = themeColorSchemeToggleEl.getElementsByTagName('input')
+        var bodyEl = document.body;
+        var themeColorSchemeToggleEl = document.getElementById('theme-color-scheme-toggle');
+        var options = themeColorSchemeToggleEl.getElementsByTagName('input');
 
         if (ColorScheme.get()) {
-            bodyEl.setAttribute('data-color-scheme', ColorScheme.get())
+            bodyEl.setAttribute('data-color-scheme', ColorScheme.get());
         }
 
         for (const option of options) {
             if (option.value == bodyEl.getAttribute('data-color-scheme')) {
-                option.checked = true
+                option.checked = true;
             }
             option.addEventListener('change', (ev) => {
-                var value = ev.target.value
-                ColorScheme.set(value)
+                var value = ev.target.value;
+                ColorScheme.set(value);
                 for (const o of options) {
                     if (o.value != value) {
-                        o.checked = false
+                        o.checked = false;
                     }
                 }
-            })
+            });
         }
     }
-
-    if (document.body.attributes['data-toc']) {
-        const content = document.getElementsByClassName('content')[0]
-        const maxDepth = document.body.attributes['data-toc-max-depth'].value
-
-        var headingSelector = ''
-        for (var i = 1; i <= maxDepth; i++) {
-            headingSelector += 'h' + i + ','
-        }
-        headingSelector = headingSelector.slice(0, -1)
-        const headings = content.querySelectorAll(headingSelector)
-
-        var source = []
-        headings.forEach((heading) => {
-            source.push({
-                html: heading.innerHTML,
-                href: heading.getElementsByClassName('headerlink')[0].attributes['href'].value
-            })
-        })
-
-        const toc = document.createElement('div')
-        toc.classList.add('toc')
-        for (const i in source) {
-            const item = document.createElement('p')
-            const link = document.createElement('a')
-            link.href = source[i].href
-            link.innerHTML = source[i].html
-            link.removeChild(link.getElementsByClassName('headerlink')[0])
-            item.appendChild(link)
-            toc.appendChild(item)
-        }
-
-        if (toc.children.length != 0) {
-            document.getElementsByClassName('post')[0].getElementsByClassName('divider')[0].after(toc)
-            const divider = document.createElement('div')
-            divider.classList.add('divider')
-            toc.after(divider)
-        }
-    }
-})()
+});
