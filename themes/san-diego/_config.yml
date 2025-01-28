@@ -105,3 +105,17 @@ license_link: https://creativecommons.org/licenses/by-nc/4.0
 search: true
 search_path: search.json
 # REMEMBER TO EDIT THIS BEFORE DEPLOYING!!!
+
+# Number of posts to show per page
+posts_per_page: 5
+
+# Post types
+post_types:
+  link:
+    icon: 📎
+    class: link-share
+    header_style: alert
+  project_gallery:
+    icon: 🎨
+    class: project-gallery
+    header_style: full-width

@@ -2,8 +2,9 @@
 title: Designing Around Feedback
 date: 2022-11-09 16:20:39
 link: https://jarango.com/2022/11/08/feedback-and-design/
-categories: 🔖
 short: true
+tags:
+  - blog
 ---
 
 [via Jorge Arango:](https://jarango.com/2022/11/08/feedback-and-design/)

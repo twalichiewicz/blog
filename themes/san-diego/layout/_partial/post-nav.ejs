@@ -1,0 +1,54 @@
+<nav class="project-sticky-nav">
+  <div class="project-nav-container">
+    <div class="project-nav-title">
+      <a class="project-nav-back" href="javascript:history.back()">← Back</a>
+      <%= page.title %>
+    </div>
+    <div class="project-section-links">
+      <% 
+      // Check if page has sub-pages
+      if (site.pages && Array.isArray(site.pages.data)) {
+        const subPages = site.pages.data.filter(subPage => {
+          // Check if this page is a parent of the sub-page
+          // Assuming URLs are structured like /parent/child
+          const parentPath = page.path.replace(/index\.html$/, '');
+          return subPage.path.startsWith(parentPath) && subPage.path !== page.path;
+        });
+
+        // Generate links for sub-pages
+        subPages.forEach(function(subPage) {
+          const title = subPage.title;
+          const url = url_for(subPage.path);
+          %>
+          <a href="<%= url %>"><%= title %></a>
+        <% });
+      }
+
+      // If no sub-pages, fall back to generating links from h2 headers
+      const rawContent = page._content || page.raw || page.content;
+      if (!site.pages || !site.pages.data || !site.pages.data.length) {
+        if (rawContent) {
+          // Extract ONLY h2 headers from markdown content
+          const headerRegex = /(?:^|\n)##\s+([^\n#]+)(?:\n|$)/g;
+          const headers = [];
+          let match;
+          
+          while ((match = headerRegex.exec(rawContent)) !== null) {
+            const title = match[1].trim();
+            
+            headers.push({
+              title: title,
+              anchor: title.toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+            });
+          }
+          
+          headers.forEach(function(header) { %>
+            <a href="#<%= header.anchor %>"><%= header.title %></a>
+          <% });
+        }
+      } %>
+    </div>
+  </div>
+</nav>

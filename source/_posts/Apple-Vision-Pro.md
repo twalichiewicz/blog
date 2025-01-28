@@ -1,9 +1,9 @@
 ---
 title: Apple Vision Pro
 date: 2023-06-06 00:37:54
-tags:
-categories: 💬
 short: true
+tags:
+  - blog
 ---
 
 Is it even worth mentioning anything else when the [Apple Vision Pro](https://www.apple.com/apple-vision-pro/) was announced today?

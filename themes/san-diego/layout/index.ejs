@@ -1,53 +1,551 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<div class="container">
-    <div class="post-list">
-        <% page.posts.each(function (post) { %>
-        <article class="post-list-item" id="<%= post.title %>">
-            <div class="post-header">
-                <div class="time">
-                    <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][post.date.month()] %></span>
-                    <span>&nbsp;<%- post.date.date() %>,&nbsp;</span>
-                    <span><%- post.date.year() %></span>
-                    <% if (post.edit) { %>
-                        <span>(edited)</span>
-                    <% } %>
-                </div>
-                <a href="<%- url_for(post.path) %>">↗</a>
-            </div>
-            <div class="content">
-                <% if (post.long) { %>
-                    <div class="content-body content-body-long<%= post.draft ? ' draft-card' : '' %>">
-                        <!-- Shows a cover image, if it has one -->
-                        <% if (post.cover_image) { %>
-                            <div class="cover-img">
-                                <img class="<%= post.draft ? 'draft-card' : '' %>" src="<%= post.cover_image %>" alt="<%= post.cover_image_alt %>">
-                            </div>
-                        <% } %>
-                        <!-- Show the title, if it has one -->
-                        <% if (post.show_title) { %>
-                            <p class="title">
-                                <%= post.title %>
-                            </p>
-                        <% } %>
-                        <!-- Show the excerpt, only used for long form posts. Will also add a button to "read more" -->
-                        <% if (theme.show_excerpt) { %>
-                        <p>
-                            <%- post.excerpt %>
-                        </p>
-                        <a class="read-more<%- post.draft ? ' draft-button' : '' %>" href="<%- url_for(post.path) %>">
-                            <%= post.draft ? 'Coming soon' : 'Keep reading' %>
-                        </a>
-                        <% } %>
-                    </div>
-                <% } else if (post.short) { %>
-                    <div class="content-body">
-                        <%- post.content %>
-                    </div>
-                <% } %>
-            </div>
-        </article>
-        <% }) %>
-    </div>
-
-    <%- partial('_partial/paginator') %>
+<div class="home">
+    <%- partial('_partial/loading-skull') %>
 </div>
+
+<!-- Phone frame container -->
+<div class="phone-container">
+    <div class="network-band vertical"></div>
+    <div class="network-band horizontal"></div>
+    <div class="notch">
+        <div class="camera"></div>
+    </div>
+    <div class="screen">
+        <iframe 
+            src="/blog" 
+            class="phone-frame" 
+            id="mobileFrame"
+            allow="fullscreen"
+            loading="lazy"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+        ></iframe>
+    </div>
+</div>
+
+<div class="coming-soon-message alert alert-default">
+    Full desktop experience coming soon. For now, enjoy the mobile version!
+</div>
+
+<script>
+// Only redirect on actual mobile devices
+if (window.innerWidth <= 768 && /Mobi|Android/i.test(navigator.userAgent)) {
+    setTimeout(() => {
+        window.location.href = '/blog';
+    }, 800);
+}
+
+// Handle loading screen and animations
+document.addEventListener('DOMContentLoaded', () => {
+    const frame = document.getElementById('mobileFrame');
+    const loadingScreen = document.querySelector('.home');
+    
+    // Hide loading screen when iframe is loaded
+    frame.onload = () => {
+        setTimeout(() => {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 300);
+        }, 500);
+    };
+
+    // Ensure iframe content is properly scaled
+    frame.addEventListener('load', () => {
+        try {
+            const iframeDoc = frame.contentWindow.document;
+            iframeDoc.body.style.width = '100%';
+            iframeDoc.body.style.margin = '0';
+            iframeDoc.body.style.padding = '0';
+            
+            // Add message listener for PDF events
+            window.addEventListener('message', (event) => {
+                if (event.data && event.data.type === 'pdf-loaded') {
+                    const pdfWrapper = iframeDoc.querySelector('.pdf-wrapper');
+                    if (pdfWrapper) {
+                        pdfWrapper.style.height = '100%';
+                    }
+                }
+            });
+        } catch (e) {
+            console.warn('Could not access iframe content:', e);
+        }
+    });
+});
+</script>
+
+<style>
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease-out;
+}
+
+.loading-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.loading-skull {
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    filter: invert(1); /* Make skull white */
+    animation: fadeIn 0.3s ease-out forwards;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.circular-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: spin 8s linear infinite;
+    top: 0;
+    left: 0;
+}
+
+.circular-text text {
+    font-size: 8px;
+    text-transform: uppercase;
+    font-family: monospace;
+    letter-spacing: 8px;  /* Increased letter spacing for better distribution */
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Add the circular text path */
+.circular-text {
+    path {
+        fill: none;
+    }
+    text {
+        fill: currentColor;
+    }
+}
+
+/* Remove the ::before pseudo-element that was creating duplicate text */
+.circular-text::before {
+    display: none;
+}
+
+/* Hide all view toggles */
+.view-toggle {
+    display: none !important;
+}
+
+/* Hide view toggle in blog section */
+.blog .view-toggle {
+    display: none !important;
+}
+
+/* Hide list view specifically */
+.view-toggle.list-view {
+    display: none !important;
+}
+</style>
+
+<!-- Commenting out the original code for now -->
+<!--
+<div id="canvasWrapper">
+    <canvas id="waveCanvas"></canvas>
+    <canvas id="skullCanvas"></canvas>
+</div>
+
+<button class="mobile-action-button" onclick="window.location.href='/blog'">
+    <span class="button-icon">↗</span>
+    Enter
+</button>
+
+<script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+}
+</script>
+
+<script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import { initHomeVisuals } from '/js/home.js';
+    
+    // Make THREE and GLTFLoader available globally for our components
+    window.THREE = THREE;
+    window.GLTFLoader = GLTFLoader;
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        initHomeVisuals({
+            showWave: true,
+            showSkull: true,
+            waveConfig: {
+                baseString: "Design in Everything ",
+                frequency: 0.009,
+                amplitude: 30,
+                speed: 0.0003,
+                font: {
+                    size: 21,
+                    lineHeight: 30,
+                    charWidth: 14
+                }
+            },
+            skullConfig: {
+                mouseLookFactor: 0.05,
+                dragRotationSpeed: 0.005,
+                resetDelay: 2000,
+                resetSpeed: 0.05,
+                autoRotationSpeed: 0.0005
+            }
+        });
+    });
+
+    /* ================================================
+       1. Wave Animation (the background canvas)
+       ================================================ */
+    class WaveAnimation {
+        constructor(canvas, config) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext("2d");
+            this.config = config;
+            this.textData = [];
+            this.rocks = [];
+            this.startTime = 0;
+            this.needsResize = true;
+            
+            // Initialize Three.js components
+            this.scene = new THREE.Scene();
+            this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true });
+        }
+
+        init() {
+            this.resizeCanvas();
+            this.generateRocks();
+            this.buildTextData();
+            window.addEventListener("resize", this.onResize.bind(this));
+            requestAnimationFrame(this.animateWave.bind(this));
+        }
+
+        resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            this.canvas.width = window.innerWidth * dpr;
+            this.canvas.height = window.innerHeight * dpr;
+            this.ctx.scale(dpr, dpr);
+            this.buildTextData();
+        }
+
+        generateRocks() {
+            const { count, size } = this.config.rocks;
+            this.rocks = Array.from({ length: count }, () => ({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                size,
+            }));
+        }
+
+        buildTextData() {
+            const { charWidth, lineHeight } = this.config.font;
+            const gridCols = Math.ceil(this.canvas.width / charWidth) + 2;
+            const gridRows = Math.ceil(this.canvas.height / lineHeight);
+
+            const repeatedLine = this.config.baseString.repeat(gridCols);
+            this.textData = [];
+
+            for (let row = 0; row < gridRows; row++) {
+                for (let col = -1; col < gridCols; col++) {
+                    const char = repeatedLine[(row * gridCols + col + gridCols) % repeatedLine.length];
+                    const isBold = this.config.boldLetters.includes(char.toLowerCase());
+                    this.textData.push({
+                        char,
+                        bold: isBold,
+                        baseX: col * charWidth,
+                        baseY: row * lineHeight,
+                        currentX: col * charWidth,
+                        currentY: row * lineHeight,
+                        offset: Math.random() * this.config.wave.randomFactor,
+                        z: 0,
+                    });
+                }
+            }
+        }
+
+        onResize() {
+            this.needsResize = true;
+        }
+
+        animateWave(timestamp) {
+            if (this.needsResize) {
+                this.resizeCanvas();
+                this.needsResize = false;
+            }
+
+            if (!this.startTime) this.startTime = timestamp;
+            const elapsed = timestamp - this.startTime;
+
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+            const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const textColor = prefersDarkMode ? "hsla(0, 0%, 85%," : "hsla(0, 6%, 37%,";
+
+            for (let i = 0; i < this.textData.length; i++) {
+                const td = this.textData[i];
+
+                let wave = Math.sin(
+                    (td.baseY * this.config.wave.frequency) -
+                    (elapsed * this.config.wave.speed)
+                ) * this.config.wave.amplitude;
+
+                const springX = (td.baseX - td.currentX) * 0.3;
+                const springY = (td.baseY - td.currentY) * 0.3;
+
+                td.currentX += springX + wave * 0.5;
+                td.currentY += springY;
+
+                td.z = wave;
+                const depthColor = `${textColor} ${0.3 + 0.7 * (1 - Math.abs(wave) / this.config.wave.amplitude)})`;
+
+                this.ctx.font = td.bold
+					? 'bold ' + this.config.font.size + 'px sans-serif'
+					: this.config.font.size + 'px sans-serif';
+
+                this.ctx.fillStyle = depthColor;
+                this.ctx.shadowColor = prefersDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.2)';
+                this.ctx.shadowBlur = 0;
+                this.ctx.shadowOffsetX = -3;
+                this.ctx.shadowOffsetY = 12;
+                this.ctx.fillText(td.char, td.currentX, td.currentY);
+                
+                // Reset shadow settings to prevent affecting other elements
+                this.ctx.shadowColor = 'transparent';
+                this.ctx.shadowBlur = 0;
+                this.ctx.shadowOffsetX = 0;
+                this.ctx.shadowOffsetY = 0;
+            }
+
+            requestAnimationFrame(this.animateWave.bind(this));
+        }
+    }
+
+    const waveConfig = {
+        baseString: "Design in Everything ",
+        boldLetters: [],
+        wave: {
+            frequency: 0.009,
+            amplitude: 30,
+            speed: 0.0003,
+            randomFactor: 1,
+        },
+        font: {
+            size: 21,
+            lineHeight: 30,
+            charWidth: 14,
+        },
+        rocks: {
+            count: 15,
+            size: 30,
+        },
+    };
+
+    // Initialize the wave
+    const waveCanvas = document.getElementById("waveCanvas");
+    const waveAnimation = new WaveAnimation(waveCanvas, waveConfig);
+    waveAnimation.init();
+
+    /* ================================================
+       2. Skull 3D Scene (the top canvas)
+       - Auto-center bounding box
+       - Click+drag rotation
+       - Auto-reset when not interacting
+       - Optimized for 60fps performance
+       ================================================ */
+    let camera, scene, renderer, skullCanvas, skull;
+    let isDragging = false;
+    let pointerX = 0, pointerY = 0;
+    let previousMouseX = 0, previousMouseY = 0;
+    let rotationY = 0, rotationX = 0;
+    let targetRotationY = 0, targetRotationX = 0;
+    let lastInteractionTime = 0;
+    let animationFrameId;
+    let lastFrameTime = 0;
+
+    // Tweak these as needed
+    const MOUSE_LOOK_FACTOR = 0.05;      // how strongly skull tilts to mouse
+    const DRAG_ROTATION_SPEED = 0.005;   // rotation speed when dragging
+    const RESET_DELAY = 2000;            // ms to wait before resetting
+    const RESET_SPEED = 0.05;            // speed of reset animation
+    const AUTO_ROTATION_SPEED = 0.0005;  // speed of idle rotation
+    const TARGET_FPS = 60;
+    const FRAME_TIME = 1000 / TARGET_FPS;
+
+    function initSkullCanvas() {
+      skullCanvas = document.getElementById("skullCanvas");
+
+      camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        200
+      );
+      camera.position.set(0, -6, 20);
+      camera.lookAt(0, 0, 0);
+
+      scene = new THREE.Scene();
+
+      const ambientLight = new THREE.AmbientLight(0x404040, 0.8);
+      scene.add(ambientLight);
+
+      const loader = new GLTFLoader();
+      loader.load('img/skully3d.glb', (gltf) => {
+        skull = gltf.scene;
+        scene.add(skull);
+
+        // Auto-center the loaded model via bounding box
+        const box = new THREE.Box3().setFromObject(skull);
+        const center = box.getCenter(new THREE.Vector3());
+        skull.position.x += (skull.position.x - center.x);
+        skull.position.y += (skull.position.y - center.y);
+        skull.position.z += (skull.position.z - center.z);
+
+        // Start animation loop only after model is loaded
+        lastFrameTime = performance.now();
+        animationFrameId = requestAnimationFrame(animate);
+      });
+
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        canvas: skullCanvas,
+        powerPreference: "high-performance"
+      });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // Pointer events with passive listeners for better performance
+      skullCanvas.addEventListener('pointermove', onPointerMove, { passive: true });
+      skullCanvas.addEventListener('pointerdown', onPointerDown, { passive: true });
+      skullCanvas.addEventListener('pointerup', onPointerUp, { passive: true });
+
+      // Throttled resize handler
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        if (resizeTimeout) {
+          cancelAnimationFrame(resizeTimeout);
+        }
+        resizeTimeout = requestAnimationFrame(onWindowResize);
+      });
+    }
+
+    function animate(timestamp) {
+      if (!skull) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+
+      // Maintain consistent animation speed regardless of frame rate
+      const deltaTime = timestamp - lastFrameTime;
+      if (deltaTime < FRAME_TIME) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+
+      const timeSinceInteraction = timestamp - lastInteractionTime;
+
+      if (isDragging) {
+        // When dragging, use direct rotation values
+        skull.rotation.y = rotationY + pointerX * MOUSE_LOOK_FACTOR;
+        skull.rotation.x = rotationX + pointerY * MOUSE_LOOK_FACTOR;
+      } else {
+        // When not dragging, apply smooth auto-rotation
+        skull.rotation.y = rotationY + (timestamp * AUTO_ROTATION_SPEED);
+        skull.rotation.x = rotationX;
+
+        if (timeSinceInteraction > RESET_DELAY) {
+          // Smoothly reset X rotation to 0 when idle
+          rotationX *= (1 - RESET_SPEED * (deltaTime / FRAME_TIME));
+        }
+      }
+
+      renderer.render(scene, camera);
+      lastFrameTime = timestamp;
+      animationFrameId = requestAnimationFrame(animate);
+    }
+
+    function updateInteractionTime() {
+      lastInteractionTime = performance.now();
+    }
+
+    function onPointerMove(event) {
+      if (isDragging) {
+        updateInteractionTime();
+      }
+
+      // Convert to normalized device coords (-1..1)
+      pointerX = (event.clientX / window.innerWidth) * 2 - 1;
+      pointerY = -((event.clientY / window.innerHeight) * 2 - 1);
+
+      if (isDragging) {
+        const deltaX = event.clientX - previousMouseX;
+        const deltaY = event.clientY - previousMouseY;
+
+        rotationY += deltaX * DRAG_ROTATION_SPEED;
+        rotationX += deltaY * DRAG_ROTATION_SPEED;
+
+        // Clamp vertical rotation to prevent flipping
+        rotationX = Math.max(-Math.PI/3, Math.min(Math.PI/3, rotationX));
+
+        previousMouseX = event.clientX;
+        previousMouseY = event.clientY;
+      }
+    }
+
+    function onPointerDown(event) {
+      updateInteractionTime();
+      isDragging = true;
+      skullCanvas.classList.add('dragging');
+      previousMouseX = event.clientX;
+      previousMouseY = event.clientY;
+    }
+
+    function onPointerUp() {
+      skullCanvas.classList.remove('dragging');
+      isDragging = false;
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    // Initialize the skull scene
+    initSkullCanvas();
+</script>

@@ -2,6 +2,8 @@
 title: door dash notifications fuckery
 date: 2024-06-30 19:54:16
 short: true
+tags:
+  - blog
 ---
 
 * Turn off a bunch of extraneous DoorDash notifications

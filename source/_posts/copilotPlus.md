@@ -2,6 +2,8 @@
 title: copilotPlus
 date: 2024-05-20 21:28:44
 short: true
+tags:
+  - blog
 ---
 
 It looks like you're writing a blog post.

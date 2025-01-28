@@ -2,6 +2,8 @@
 title: a ux designer walks into a tesla bar
 date: 2024-08-12 12:44:02
 short: true
+tags:
+  - blog
 ---
 
 Via [Scott Jenson](https://jenson.org/tesla/):

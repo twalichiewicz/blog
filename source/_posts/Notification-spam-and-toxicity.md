@@ -1,8 +1,9 @@
 ---
 title: Notification spam and toxicity
 date: 2023-06-24 14:45:22
-categories: 💬
 short: true
+tags:
+  - blog
 ---
 
 Notification toxicity is always a clear sign of non-designers trying to eke out some congratulatory metrics at the cost of brand perception and user experience.

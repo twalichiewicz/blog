@@ -1,30 +1,242 @@
 // themes/cupertino/source/styles/_search.scss
 @use 'variables';
+@use 'sass:color';
 
 .search {
-    margin-bottom: 128px;
+	margin-bottom: 128px;
 }
 
-.search input {
-    width: 100%;
-    padding: 0.5em;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+.search-container {
+	position: relative;
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 2rem variables.$space-md;
+
+	#search-form {
+		margin: 2rem 0;
+
+		#searchbox {
+			width: 100%;
+			padding: 12px 24px;
+			background: linear-gradient(135deg,
+					variables.$primary-color,
+					color.scale(variables.$primary-color, $lightness: 10%));
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 24px;
+			color: variables.$white;
+			font-size: 16px;
+			letter-spacing: 0.3px;
+			backdrop-filter: variables.$blur;
+			box-shadow:
+				0 2px 12px rgba(0, 0, 0, 0.1),
+				0 4px 24px rgba(0, 0, 0, 0.05);
+			transition: all 0.2s ease;
+
+			&::placeholder {
+				color: rgba(255, 255, 255, 0.7);
+			}
+
+			&:focus {
+				outline: none;
+				box-shadow:
+					0 4px 16px rgba(0, 0, 0, 0.15),
+					0 8px 32px rgba(0, 0, 0, 0.1);
+			}
+		}
+	}
+
+	#search-results {
+		margin-top: 2rem;
+
+		.post-item {
+			padding: 1rem;
+			margin: 1rem 0;
+			border-radius: 12px;
+			background: variables.$card-bg;
+			border: 1px solid variables.$border-color;
+			transition: all 0.2s ease;
+
+			&:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+			}
+
+			.post-title {
+				color: variables.$text-color;
+				font-size: 1.2rem;
+				margin-bottom: 0.5rem;
+
+				&:hover {
+					color: variables.$link-color;
+				}
+			}
+
+			.post-content {
+				color: variables.$text-color-secondary;
+				font-size: 0.9rem;
+			}
+		}
+	}
+}
+
+// Add specific styling for search bar inside view toggle
+.view-toggle {
+	display: flex;
+	gap: 0.5rem;
+	margin: 1rem 0;
+	padding: 0.25rem;
+	background: variables.$card-bg;
+	border-radius: 8px;
+	border: 1px solid variables.$border-color;
+	width: fit-content;
+
+	button {
+		padding: 0.5rem 1rem;
+		border: none;
+		border-radius: 6px;
+		background: transparent;
+		color: variables.$text-color;
+		font-size: 0.9rem;
+		cursor: pointer;
+		transition: all 0.2s ease;
+
+		&.active {
+			background: variables.$white;
+			color: variables.$text-color;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+		}
+
+		&:hover:not(.active) {
+			background: rgba(0, 0, 0, 0.05);
+		}
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.view-toggle {
+		background: variables.$card-bg-dark;
+		border-color: variables.$border-color-dark;
+
+		button {
+			color: variables.$text-color-dark;
+
+			&.active {
+				background: variables.$primary-color-dark;
+				color: variables.$white;
+			}
+
+			&:hover:not(.active) {
+				background: rgba(255, 255, 255, 0.1);
+			}
+		}
+	}
+
+	.search-container {
+		#search-form #searchbox {
+			background: linear-gradient(135deg,
+					variables.$primary-color-dark,
+					color.scale(variables.$primary-color-dark, $lightness: 5%));
+			border-color: variables.$border-color-dark;
+			color: variables.$white;
+
+			&::placeholder {
+				color: rgba(255, 255, 255, 0.5);
+			}
+		}
+
+		#search-results .post-item {
+			background: variables.$card-bg-dark;
+			border-color: variables.$border-color-dark;
+
+			.post-title {
+				color: variables.$text-color-dark;
+
+				&:hover {
+					color: variables.$link-color-dark;
+				}
+			}
+
+			.post-content {
+				color: variables.$text-color-secondary-dark;
+			}
+		}
+	}
 }
 
 .search .title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+	font-size: 2rem;
+	margin-bottom: 1rem;
 }
+
 .search .meta {
-    color: variables.$text-color-secondary;
-    font-size: 0.9rem;
+	color: variables.$text-color-secondary;
+	font-size: 0.9rem;
 }
+
 .search .content {
-    line-height: 1.6;
+	line-height: 1.6;
 }
+
 .search .content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
+	max-width: 100%;
+	height: auto;
+	border-radius: 4px;
+}
+
+.search-results {
+	.post-list-item {
+		margin: 1rem 0;
+		padding: 1rem;
+	}
+}
+
+// Search container styles
+#search-form {
+	margin: 2rem 0;
+	width: 100%;
+	max-width: 600px;
+}
+
+#searchbox {
+	width: 100%;
+	padding: 0.75rem 1rem;
+	font-size: 1rem;
+	border: 1px solid variables.$border-color;
+	border-radius: 6px;
+	background: variables.$white;
+	color: variables.$text-color;
+	transition: all 0.2s ease;
+
+	&:focus {
+		outline: none;
+		border-color: variables.$primary-color;
+		box-shadow: 0 0 0 3px rgba(variables.$primary-color, 0.1);
+	}
+
+	&::placeholder {
+		color: variables.$grey;
+	}
+}
+
+// Dark mode styles
+@media (prefers-color-scheme: dark) {
+	#searchbox {
+		background: variables.$card-bg-dark;
+		border-color: variables.$border-color-dark;
+		color: variables.$text-color-dark;
+
+		&:focus {
+			border-color: variables.$primary-color-dark;
+			box-shadow: 0 0 0 3px rgba(variables.$primary-color-dark, 0.1);
+		}
+
+		&::placeholder {
+			color: variables.$grey-dark;
+		}
+	}
+}
+
+#search-results {
+	margin-top: 2rem;
 }

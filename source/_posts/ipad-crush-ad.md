@@ -2,6 +2,8 @@
 title: ipad crush ad
 date: 2024-05-13 20:41:29
 short: true
+tags:
+  - blog
 ---
 
 I know I'm late to the commentary party, but who the hell at Apple saw [that iPad crush ad](https://www.youtube.com/watch?v=ntjkwIXWtrc) and thought, "Yep, good to go"?

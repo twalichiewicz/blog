@@ -1,0 +1,367 @@
+@use 'variables';
+
+.carousel {
+	position: relative;
+	width: 100%;
+	margin: 2rem auto;
+	border-radius: 12px;
+	overflow: hidden;
+	max-width: 1200px;
+	min-height: 300px;
+	border: 1px solid rgba(200, 200, 200, 0.2);
+
+	&-container {
+		position: relative;
+		width: 100%;
+		padding-bottom: 66.67%; // 3:2 aspect ratio
+		height: 0;
+		overflow: hidden;
+	}
+
+	&-track {
+		position: relative;
+		width: 100%;
+		height: 100%;
+
+		.carousel-container & {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+
+	&-slide {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		transition: opacity 0.3s ease-in-out;
+		pointer-events: none;
+
+		&.active {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		img {
+			width: 100%;
+			height: auto;
+			display: block;
+			object-fit: contain;
+		}
+
+		iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+			background: transparent;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+		&.physics-simulation {
+			iframe {
+				min-height: 500px;
+				aspect-ratio: 16/9;
+				background: transparent;
+			}
+		}
+	}
+
+	&-button {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 33px;
+		height: 33px;
+		border: none;
+		background: rgba(0, 0, 0, 0.3);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border-radius: 50%;
+		color: #fff;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 2;
+		transition: all 0.3s ease;
+
+		&:hover {
+			background: rgba(0, 0, 0, 0.4);
+			transform: translateY(-50%) scale(1.05);
+		}
+
+		&.prev,
+		&.spotlight-prev {
+			left: 1rem;
+		}
+
+		&.next,
+		&.spotlight-next {
+			right: 1rem;
+		}
+
+		&.prev::before,
+		&.next::before,
+		&.spotlight-prev::before,
+		&.spotlight-next::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			border: 2px solid #fff;
+			border-left: 0;
+			border-bottom: 0;
+			position: absolute;
+		}
+
+		&.prev::before,
+		&.spotlight-prev::before {
+			transform: rotate(-135deg);
+			right: 10px;
+		}
+
+		&.next::before,
+		&.spotlight-next::before {
+			transform: rotate(45deg);
+			left: 10px;
+		}
+
+		svg {
+			display: none;
+		}
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			background: rgba(0, 0, 0, 0.3);
+		}
+	}
+
+	&-indicators {
+		position: absolute;
+		bottom: 16px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 8px;
+		z-index: 2;
+		background-color: rgba(0, 0, 0, 0.6);
+		padding: 6px;
+		border-radius: 12px;
+
+		.indicator {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.5);
+			border: none;
+			padding: 0;
+			cursor: pointer;
+
+			&.active {
+				background: variables.$white;
+			}
+		}
+	}
+}
+
+.project-gallery {
+	.carousel {
+		max-width: 100%;
+		height: 60vh;
+		margin: 0 0 4rem 0;
+		border-radius: 0;
+		background: variables.$black;
+
+		.carousel-slide {
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				object-position: center;
+			}
+		}
+
+		.carousel-button {
+			color: variables.$white;
+
+			&.prev {
+				left: 24px;
+			}
+
+			&.next {
+				right: 24px;
+			}
+		}
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			height: 50vh;
+			margin-bottom: 2rem;
+
+			.carousel-button {
+				&.prev {
+					left: 16px;
+				}
+
+				&.next {
+					right: 16px;
+				}
+			}
+		}
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.carousel {
+		&:not(.project-gallery .carousel) {
+			background: variables.$card-bg-dark;
+		}
+	}
+}
+
+.spotlight-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.9);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+
+	&.active {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	img {
+		max-width: 90vw;
+		max-height: 90vh;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			max-width: 95vw;
+			max-height: 80vh;
+		}
+	}
+
+	&-close {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		width: 33px;
+		height: 33px;
+		border: none;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.2);
+		color: variables.$white;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background-color 0.3s ease;
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.3);
+		}
+
+		svg {
+			width: 33px;
+			height: 33px;
+
+			path {
+				fill: currentColor;
+			}
+		}
+	}
+
+	&.single-image {
+		.spotlight-nav-button {
+			display: none;
+		}
+	}
+
+	.carousel-indicators {
+		position: absolute;
+		bottom: 16px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 8px;
+		z-index: 2;
+		background-color: rgba(0, 0, 0, 0.6);
+		padding: 6px;
+		border-radius: 12px;
+
+		.indicator {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.5);
+			border: none;
+			padding: 0;
+			cursor: pointer;
+
+			&.active {
+				background: #fff;
+			}
+		}
+	}
+}
+
+.physics-simulation {
+	.carousel {
+		background: transparent;
+
+		iframe {
+			min-height: 500px; // Adjust this value based on your simulation needs
+			aspect-ratio: 16/9;
+		}
+	}
+}
+
+// Apply carousel button styles to spotlight buttons
+.spotlight-nav-button {
+	@extend .carousel-button;
+}
+
+.spotlight-modal-close {
+	@extend .carousel-button;
+	top: 20px;
+	right: 20px;
+	transform: none;
+
+	&:hover {
+		transform: scale(1.05);
+	}
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		width: 16px;
+		height: 2px;
+		background-color: #fff;
+		top: 50%;
+		left: 50%;
+	}
+
+	&::before {
+		transform: translate(-50%, -50%) rotate(45deg);
+	}
+
+	&::after {
+		transform: translate(-50%, -50%) rotate(-45deg);
+	}
+}

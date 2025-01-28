@@ -5,9 +5,10 @@ cover_image: https://res.cloudinary.com/bornfight-studio/image/upload/v167837295
 date: 2023-05-05 12:00:00
 reading_time: 15 minutes
 long: true
-categories: 📦 WRITE-UP (DRAFT)
 excerpt: Have you ever wondered what it takes to build a successful design system library? In 2019, I embarked on this journey and created my own library. Now, I'm excited to share the insights I've gained after working on this project, as well as others. In this post, I'll cover the myths and realities of design systems, and how they can be implemented successfully in your own organization.
 draft: true
+tags:
+  - blog
 ---
 
 ## Standardizing designs

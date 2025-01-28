@@ -1,0 +1,22 @@
+@use 'variables';
+
+.page-title {
+    margin-top: 128px;
+    margin-bottom: 12px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-title h1 {
+    font-family: serif;
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 0;
+    color: variables.$text-color;
+}
+
+@media (prefers-color-scheme: dark) {
+    .page-title h1 {
+        color: variables.$text-color-dark;
+    }
+}

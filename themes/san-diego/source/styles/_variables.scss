@@ -1,48 +1,110 @@
-// Light Theme (Default)
-$primary-color: hsl(35, 15%, 88%); // Sandstone beige
-$link: hsl(15, 70%, 40%); // Warm terracotta
-$dark-primary-color: hsl(240, 5%, 10%); // Deep charcoal black
-$dark-link: hsl(40, 80%, 50%); // Gold veins
-$link-dark: hsl(40, 80%, 50%);
+// Text & Typography
+$text-color: hsl(24, 3%, 35%);
+$text-color-dark: hsl(0, 0%, 90%);
+$text-color-secondary: hsl(35, 15%, 30%);
+$text-color-secondary-dark: hsl(0, 0%, 71%);
+$link-color: hsl(15, 70%, 40%);
+$link-color-dark: hsl(40, 80%, 50%);
+$hover-color: hsl(15, 70%, 40%);
+$hover-color-dark: hsl(40, 80%, 50%);
+$footer-link-color: hsl(35, 10%, 40%);
+$footer-link-color-dark: hsl(0, 0%, 80%);
+$card-title-color: hsl(35, 15%, 30%);
+$card-title-color-dark: hsl(0, 0%, 80%);
 
 // Black and White
 $black: hsl(0, 0%, 10%);
 $black-2: hsl(0, 0%, 25%);
 $black-4: hsl(0, 0%, 40%);
 $white: hsl(0, 0%, 100%);
-$white-1: hsl(35, 15%, 96%); // Soft sandstone white
-$dark-black: hsl(0, 0%, 100%);
-$dark-black-2: hsl(0, 0%, 80%);
-$dark-black-4: hsl(0, 0%, 60%);
-$dark-white: hsl(0, 0%, 0%);
-$dark-white-1: hsl(240, 5%, 10%);
+$white-1: hsl(35, 15%, 96%);
+$black-dark: hsl(0, 0%, 100%);
+$black-2-dark: hsl(0, 0%, 80%);
+$black-4-dark: hsl(0, 0%, 60%);
+$white-dark: hsl(0, 0%, 0%);
+$white-1-dark: hsl(240, 5%, 10%);
 
 // Grey Shades
 $grey: hsl(35, 10%, 50%);
-$footer-link-grey: hsl(35, 10%, 40%);
-$text-color-secondary: hsl(35, 15%, 30%); // Deep sandstone
-$dark-grey: hsl(0, 0%, 70%);
-$dark-footer-link-grey: hsl(0, 0%, 80%);
-$dark-text-color-secondary: hsl(0, 0%, 60%);
+$grey-light: hsl(35, 10%, 75%);
+$grey-dark: hsl(0, 0%, 70%);
 
 // Background Colors
-$body-bg: hsl(35, 15%, 88%); // Sandstone beige
-$nav-bg: rgba(245, 240, 235, 0.9); // Subtle light stone
+$body-bg: hsl(35, 15%, 88%);
+$nav-bg: rgba(245, 240, 235, 0.9);
 $card-bg: hsl(0, 0%, 100%);
-$dark-body-bg: hsl(240, 5%, 10%);
-$dark-nav-bg: rgba(0, 0, 0, 0.6);
-$dark-card-bg: hsl(0, 0%, 20%);
+$body-bg-dark: hsl(27.98, 8.4%, 11.99%);
+$nav-bg-dark: rgba(0, 0, 0, 0.6);
+$card-bg-dark: hsl(0, 0%, 20%);
 
 // Border Colors
 $border-color: hsl(35, 10%, 75%);
-$card-border: hsl(35, 10%, 85%);
-$dark-border-color: hsl(0, 0%, 20%);
-$dark-card-border: hsl(0, 0%, 35%);
+$card-border-color: hsl(35, 10%, 85%);
+$border-color-dark: hsl(0, 0%, 20%);
+$card-border-color-dark: hsl(0, 0%, 35%);
 
-// Other
-$nav-arrow: hsl(35, 10%, 60%);
-$card-title: hsl(35, 15%, 30%); // Deep sandstone
+// UI Elements
+$nav-arrow-color: hsl(35, 10%, 60%);
+$nav-arrow-color-dark: hsl(0, 0%, 60%);
 $blur: blur(32px);
-$dark-nav-arrow: hsl(0, 0%, 60%);
-$dark-card-title: hsl(0, 0%, 80%);
-$dark-blur: blur(32px);
+$blur-dark: blur(32px);
+
+// Breakpoints
+$mobile-breakpoint: 768px;
+$tablet-breakpoint: 1024px;
+
+// Accent Colors
+$accent-gold: hsl(43, 40%, 60%);
+$accent-gold-light: hsl(43, 40%, 80%);
+$accent-gold-dark: hsl(43, 35%, 40%);
+
+$accent-sage: hsl(150, 15%, 40%);
+$accent-sage-light: hsl(150, 15%, 80%);
+$accent-sage-dark: hsl(150, 15%, 20%);
+
+// Gradients
+$gradient-light: linear-gradient(135deg, $accent-gold-light 0%, $white 100%);
+$gradient-dark: linear-gradient(135deg, $accent-gold-dark 0%, $black 100%);
+
+// Shadows
+$shadow-light: 0 1px 3px rgba(0, 0, 0, 0.02),
+	0 1px 2px rgba(0, 0, 0, 0.04),
+	0 15px 25px rgba(0, 0, 0, 0.03);
+
+$shadow-dark: 0 1px 3px rgba(0, 0, 0, 0.1),
+	0 1px 2px rgba(0, 0, 0, 0.15),
+	0 15px 25px rgba(0, 0, 0, 0.08);
+
+$shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.05),
+	0 5px 15px rgba(0, 0, 0, 0.1);
+
+$shadow-medium-dark: 0 4px 6px rgba(0, 0, 0, 0.2),
+	0 5px 15px rgba(0, 0, 0, 0.25);
+
+$shadow-soft: 0 2px 4px rgba(0, 0, 0, 0.05),
+	0 1px 2px rgba(0, 0, 0, 0.1);
+
+$shadow-soft-dark: 0 2px 4px rgba(0, 0, 0, 0.2),
+	0 1px 2px rgba(0, 0, 0, 0.3);
+
+// Theme Colors
+$primary-color: $accent-gold;
+$primary-color-dark: $accent-gold-light;
+
+// Spacing System (multiples of 3)
+$space-xxs: 3px; // 1x  - Minimal spacing, borders
+$space-xs: 6px; // 2x  - Tight spacing, small gaps
+$space-sm: 12px; // 4x  - Default padding, margins
+$space-md: 24px; // 8x  - Section spacing
+$space-lg: 36px; // 12x - Large gaps
+$space-xl: 48px; // 16x - Major sections
+$space-xxl: 72px; // 24x - Page level spacing
+
+// Spacing Compositions
+$spacing-section: $space-xl; // 48px - Default section spacing
+$spacing-card: $space-md; // 24px - Card internal padding
+$spacing-stack-sm: $space-xs; // 6px  - Small vertical stack
+$spacing-stack: $space-sm; // 12px - Default vertical stack
+$spacing-stack-lg: $space-md; // 24px - Large vertical stack
+$spacing-inline: $space-sm; // 12px - Default horizontal spacing
+$spacing-inline-lg: $space-md; // 24px - Large horizontal spacing

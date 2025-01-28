@@ -2,6 +2,8 @@
 title: kidpix lives
 date: 2024-06-18 22:29:51
 short: true
+tags:
+  - blog
 ---
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
@@ -28,7 +30,7 @@ short: true
     }
 </style>
 
-[![](kidPix.png)](https://kidpix.app)
+![A screenshot showing kidpix](/2024/06/19/kidpix-lives/kidPix.png)
 
 <audio id="stampSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/stamp0.wav.mp3"></audio>
 
@@ -40,15 +42,15 @@ short: true
 <audio id="oopsSound" src="https://thomas.design/blog/2024/06/19/kidpix-lives/oops2.wav.mp3"></audio>
 
 <script>
-	document.getElementById('hashtagButton').addEventListener('click', function() {
-		var audio = document.getElementById('oopsSound');
+	document.querySelector('.kidpix-lives #hashtagButton').addEventListener('click', function() {
+		var audio = document.querySelector('.kidpix-lives #oopsSound');
 		audio.play();
 	});
 
-	var images = document.getElementsByTagName('img');
+	var images = document.querySelectorAll('.kidpix-lives img');
 	for (var i = 0; i < images.length; i++) {
 		images[i].addEventListener('click', function() {
-			var audio = document.getElementById('stampSound');
+			var audio = document.querySelector('.kidpix-lives #stampSound');
 			audio.play();
 		});
 	}
