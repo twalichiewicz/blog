@@ -1,0 +1,86 @@
+<%- partial('_partial/project-nav') %>
+
+<article class="project-gallery">
+  <div class="project-content">
+    <% if (page.gallery_images && page.gallery_images.length > 0) { %>
+      <div class="carousel">
+        <div class="carousel-track">
+          <% page.gallery_images.forEach(function(item, index) { %>
+            <div class="carousel-slide <%= index === 0 ? 'active' : '' %> <%= item.class || '' %>">
+              <% if (item.type === 'video') { %>
+                <video controls <%= item.autoplay ? 'autoplay' : '' %> <%= item.loop ? 'loop' : '' %> <%= item.muted ? 'muted' : '' %>>
+                  <source src="<%- url_for(item.url) %>" type="<%= item.videoType || 'video/mp4' %>">
+                  Your browser does not support the video tag.
+                </video>
+              <% } else if (item.type === 'iframe') { %>
+                <iframe src="<%- url_for(item.url) %>" 
+                        frameborder="0" 
+                        allowfullscreen
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        title="<%- item.caption || 'Embedded content' %>">
+                </iframe>
+              <% } else { %>
+                <img src="<%- url_for(item.url) %>" 
+                     alt="<%- item.caption || '' %>" 
+                     loading="lazy">
+              <% } %>
+            </div>
+          <% }); %>
+        </div>
+        
+        <% if (page.gallery_images.length > 1) { %>
+          <button class="carousel-button prev" aria-label="Previous slide">
+            <svg width="33" height="33" viewBox="0 0 52 52">
+              <path d="M24.6641 5.37109C36.1152 5.37109 45.4824 14.7383 45.4824 26.2109C45.4824 37.6621 36.1152 47.0293 24.6641 47.0293C13.2129 47.0293 3.8457 37.6621 3.8457 26.2109C3.8457 14.7383 13.2129 5.37109 24.6641 5.37109ZM28.8984 34.8047L30.1172 33.5859L21.7578 25.2266L30.1172 16.8672L28.8984 15.6484L19.2578 25.2266Z"/>
+            </svg>
+          </button>
+          <button class="carousel-button next" aria-label="Next slide">
+            <svg width="33" height="33" viewBox="0 0 52 52">
+              <path d="M24.6641 5.37109C36.1152 5.37109 45.4824 14.7383 45.4824 26.2109C45.4824 37.6621 36.1152 47.0293 24.6641 47.0293C13.2129 47.0293 3.8457 37.6621 3.8457 26.2109C3.8457 14.7383 13.2129 5.37109 24.6641 5.37109ZM20.4297 34.8047L30.0703 25.2266L20.4297 15.6484L19.2109 16.8672L27.5703 25.2266L19.2109 33.5859Z"/>
+            </svg>
+          </button>
+          
+          <div class="carousel-indicators">
+            <% page.gallery_images.forEach(function(_, index) { %>
+              <button class="indicator <%= index === 0 ? 'active' : '' %>" 
+                      aria-label="Go to slide <%= index + 1 %>"></button>
+            <% }); %>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
+
+    <div class="project-details">
+      <div class="metadata">
+        <div class="metadata-list">
+          <% if (page.credits && page.credits.length) { %>
+            <% page.credits.forEach(function(credit) { %>
+              <div class="metadata-item">
+                <span class="label"><%= credit.role %></span>
+                <span class="value"><%= credit.name %></span>
+              </div>
+            <% }); %>
+          <% } %>
+          <% if (page.year) { %>
+            <div class="metadata-item">
+              <span class="label">Design year</span>
+              <span class="value"><%= page.year %></span>
+            </div>
+          <% } %>
+          <% if (page.location) { %>
+            <div class="metadata-item">
+              <span class="label">Location</span>
+              <span class="value"><%= page.location %></span>
+            </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="project-description">
+        <%- page.content %>
+      </div>
+    </div>
+  </div>
+</article>
+
+<%- partial('_partial/footer') %> 

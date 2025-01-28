@@ -1,0 +1,60 @@
+@use 'variables';
+@use 'sass:color';
+
+#canvasWrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: -1;
+}
+
+#waveCanvas,
+#skullCanvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
+#skullCanvas {
+	pointer-events: auto;
+	cursor: grab;
+
+	&.dragging {
+		cursor: grabbing;
+	}
+}
+
+.home {
+	height: calc(100vh - var(--nav-height));
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	color: variables.$text-color;
+
+	canvas {
+		width: 100vw;
+		height: 100%;
+		display: block;
+	}
+
+	#touch-container {
+		width: 100vw;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	// .button-container {
+	//   ... button styles ...
+	// }
+}

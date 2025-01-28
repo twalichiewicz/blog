@@ -2,6 +2,8 @@
 title: end of 2023 poem
 date: 2023-12-31 08:24:50
 short: true
+tags:
+  - blog
 ---
 
 <div style="text-align: justify;

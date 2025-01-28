@@ -1,0 +1,18 @@
+<article class="<%= post.layout === 'link' ? 'post-link' : '' %>">
+    <h2><a href="<%- url_for(post.path) %>"><%= post.title %></a></h2>
+    <% if (post.excerpt) { %>
+        <div class="post-excerpt">
+            <%- post.excerpt %>
+        </div>
+    <% } %>
+    <div class="post-meta">
+        <span class="post-date"><%= date(post.date, 'MMMM D, YYYY') %></span>
+        <% if (post.categories && post.categories.length) { %>
+            <span class="post-categories">
+                <% post.categories.forEach(function(cat) { %>
+                    <a href="<%- url_for(cat.path) %>"><%= cat.name %></a>
+                <% }) %>
+            </span>
+        <% } %>
+    </div>
+</article> 

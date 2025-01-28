@@ -2,6 +2,8 @@
 title: icloud calendly
 date: 2024-08-02 12:04:44
 short: true
+tags:
+  - blog
 ---
 
 If Apple is continuing to expand their iCloud services (things like iCloud Relay, Hide My Email, etc.), I'd love to see a native Calendly competitor built into the Calendar app / service.

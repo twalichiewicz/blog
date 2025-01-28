@@ -1,0 +1,76 @@
+/* Global Styles */
+body {
+  &.has-scroll-snap {
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+.propel-case-study {
+  // Core variables
+  --spacing-unit: 8px;
+  --content-width: min(1200px, 90vw);
+  --text-primary: #1d1d1f;
+  --text-secondary: #86868b;
+  --background-light: #fbfbfd;
+  --section-height: 100vh;
+  
+  // Typography scale
+  --font-hero: clamp(48px, 10vw, 96px);
+  --font-headline: clamp(40px, 5vw, 64px);
+  --font-title: clamp(32px, 4vw, 48px);
+  --font-body-large: clamp(21px, 2.5vw, 24px);
+  --font-body: 17px;
+
+  // Container styles
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+  
+  // Base section styles
+  section {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    // Only apply scroll-snap to specific sections
+    &.hero-section,
+    &.stats-section,
+    &.problem-section,
+    &.solution-section {
+      scroll-snap-align: start;
+    }
+    
+    // Allow normal scrolling for long-form section
+    &.long-form-section {
+      min-height: auto;
+      padding: 4rem 0;
+    }
+    
+    .content-wrap {
+      width: var(--content-width);
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+      
+      &.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+} 

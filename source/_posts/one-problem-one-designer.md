@@ -1,14 +1,16 @@
 ---
-title: one problem, one designer
+title: One problem, one designer
 date: 2024-10-02 08:45:38
-short: true
+long: true
+excerpt: A single, competent designer is the most effective way to deliver quality products
+tags:
+  - blog
 ---
 
 <h2 style="color:currentcolor;font-size:3rem;line-height:89%;text-align:center;margin-left:auto;margin-right:auto;margin-top:36px;margin-bottom:36px;">One problem,<br/>one designer.</h2>
 
-***
-
 **FAQ**
+
 * **What if they need help?**
 If a designer needs help, it's important to assess whether the project's scope matches their experience level. Assigning a more senior designer can provide the expertise required. A skilled designer effectively manages large projects by prioritizing tasks and leveraging efficient workflows. They collaborate with team members for support in non-design areas, ensuring the project stays on track.
 

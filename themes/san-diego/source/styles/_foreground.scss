@@ -1,0 +1,407 @@
+@use 'variables';
+
+.foreground-project {
+	&-page {
+		margin: 0;
+		padding: 0;
+		min-height: 100vh;
+		height: auto;
+		overflow: visible;
+		display: flex;
+		justify-content: center;
+	}
+
+	&-container {
+		display: flex;
+		flex-direction: row;
+		min-height: 100vh;
+		height: auto;
+		max-width: 100%;
+		overflow-x: hidden;
+		position: relative;
+	}
+
+	&-column {
+		display: flex;
+		flex-direction: column;
+		padding: variables.$space-sm;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		transition: all ease-in-out 300ms;
+
+		&--content {
+			flex: 6 4 auto;
+			padding-top: variables.$space-md;
+			max-width: 100%;
+		}
+
+		&--aside {
+			background: variables.$white;
+			border-right: solid 1px variables.$border-color;
+			flex: 2 0 auto;
+			padding-top: variables.$space-md;
+
+			&.hide-aside {
+				flex: 0 0 0;
+				padding: 0;
+				border: none;
+			}
+		}
+	}
+
+	&-section {
+		margin-bottom: variables.$space-sm;
+		background: variables.$white;
+		border-radius: 4px;
+		overflow: hidden;
+		max-width: 900px;
+		width: 100%;
+
+		img {
+			max-width: 100%;
+			height: auto;
+			object-fit: contain;
+		}
+
+		&-header {
+			padding: variables.$space-md;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border: 1px solid rgba(variables.$black, 0.06);
+			transition: all 150ms ease-out;
+
+			&:hover {
+				background: rgba(variables.$black, 0.04);
+			}
+
+			h2 {
+				margin: 0;
+				font-size: 1.5rem;
+				font-weight: 500;
+				display: flex;
+				align-items: center;
+				gap: variables.$space-sm;
+
+				svg {
+					width: variables.$space-md;
+					height: variables.$space-md;
+					fill: currentColor;
+					opacity: 0.5;
+				}
+			}
+
+			.expand-icon {
+				width: variables.$space-md;
+				height: variables.$space-md;
+				transition: transform 300ms ease;
+
+				&.expanded {
+					transform: rotate(180deg);
+				}
+			}
+		}
+
+		&-content {
+			max-height: 0;
+			opacity: 0;
+			overflow: hidden;
+			transition: all 300ms ease-out;
+			padding: 0 variables.$space-md;
+
+			&.expanded {
+				max-height: none;
+				opacity: 1;
+				padding: variables.$space-md;
+			}
+
+			p {
+				margin: 0 0 1.5rem;
+				line-height: 1.6;
+				color: rgba(variables.$black, 0.8);
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+}
+
+// Navigation styles
+.nav-stack {
+	ul {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+
+	li {
+		margin: variables.$space-xxs 0;
+	}
+
+	a {
+		display: flex;
+		align-items: center;
+		padding: variables.$space-xs variables.$space-sm;
+		color: variables.$grey;
+		text-decoration: none;
+		border-radius: 3px;
+		transition: all 150ms ease-out;
+
+		&.active {
+			background: linear-gradient(90deg, rgba(variables.$black, 0.075) 0%, rgba(variables.$black, 0.0) 100%);
+		}
+
+		&:hover {
+			background: rgba(variables.$black, 0.075);
+			color: variables.$black;
+		}
+
+		svg {
+			width: variables.$space-md;
+			height: variables.$space-md;
+			margin-right: variables.$space-sm;
+			fill: currentColor;
+		}
+	}
+}
+
+// Content styles
+.center-container {
+	width: 100%;
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 0 variables.$space-xs;
+	transition: opacity 0.3s ease-in-out;
+
+	&.fade-out {
+		opacity: 0;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+		margin: variables.$space-md auto;
+		border-radius: 4px;
+		box-shadow: variables.$shadow-soft;
+	}
+
+	hr {
+		margin: variables.$space-md 0;
+		border: none;
+		border-top: 1px solid variables.$border-color;
+	}
+}
+
+// Color tower component
+.color-tower {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 660px;
+	margin: 2rem auto;
+	gap: 2px;
+	border-radius: 4px;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+	>* {
+		flex: 1 0 2.7%;
+		height: 124px;
+		transition: all 150ms ease-out;
+
+		&:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+			z-index: 2;
+		}
+	}
+}
+
+// Color palette classes
+@mixin color-classes($name, $colors) {
+	@each $shade, $color in $colors {
+		.#{$name}-#{$shade} {
+			background-color: $color;
+		}
+	}
+}
+
+$red-colors: (
+	0: #2E0C0E,
+	1: #5C191C,
+	2: #8A262A,
+	3: #B83338,
+	4: #E64046,
+	5: #EB666B,
+	6: #F08C90,
+	7: #F5B2B5,
+	8: #FAD8DA
+);
+
+$orange-colors: (
+	0: #4A1E01,
+	1: #773F04,
+	2: #A46007,
+	3: #D1810A,
+	4: #FFA30D,
+	5: #FEB53E,
+	6: #FEC76F,
+	7: #FDD9A0,
+	8: #FDECD2
+);
+
+$green-colors: (
+	0: #0B230C,
+	1: #1A421B,
+	2: #29622B,
+	3: #38823B,
+	4: #47A24B,
+	5: #6CB86F,
+	6: #92CE94,
+	7: #B7E4B9,
+	8: #DDFADE
+);
+
+$blue-colors: (
+	0: #102034,
+	1: #1E3C5F,
+	2: #2D588B,
+	3: #3B74B6,
+	4: #4A90E2,
+	5: #6DA6E8,
+	6: #90BCEF,
+	7: #B3D2F6,
+	8: #D7E9FD
+);
+
+@include color-classes('red', $red-colors);
+@include color-classes('orange', $orange-colors);
+@include color-classes('green', $green-colors);
+@include color-classes('blue', $blue-colors);
+
+// Mobile styles
+@media (max-width: variables.$tablet-breakpoint) {
+	.foreground-project {
+		&-page {
+			height: auto;
+			overflow: visible;
+		}
+
+		&-container {
+			flex-direction: column;
+			height: auto;
+			flex-grow: 1;
+		}
+
+		&-column {
+			padding: variables.$space-sm;
+
+			&--content {
+				flex: none;
+				border: none;
+				padding-top: variables.$space-sm;
+			}
+
+			&--aside {
+				display: none;
+			}
+		}
+
+		&-section {
+			&-header {
+				padding: variables.$space-sm;
+			}
+
+			&-content {
+				padding: 0 variables.$space-sm;
+
+				&.expanded {
+					padding: variables.$space-sm;
+				}
+			}
+		}
+	}
+
+	.nav-stack {
+		overflow-x: auto;
+		margin: 0 -#{variables.$space-sm};
+		padding: 0 variables.$space-sm;
+		-webkit-overflow-scrolling: touch;
+
+		ul {
+			display: flex;
+			white-space: nowrap;
+			padding-bottom: variables.$space-xs;
+		}
+
+		li {
+			margin: 0 variables.$space-xxs;
+		}
+
+		a {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			padding: variables.$space-xs;
+
+			svg {
+				margin: 0 0 variables.$space-xs;
+			}
+		}
+	}
+
+	.color-tower>* {
+		flex: 1 0 11.11%;
+		height: 48px;
+	}
+}
+
+// Dark mode styles
+@media (prefers-color-scheme: dark) {
+	.foreground-project {
+		&-column {
+
+			&--content,
+			&--aside {}
+		}
+
+		&-section {
+			background: variables.$white-dark;
+
+			&-header {
+				background: rgba(variables.$white, 0.03);
+				border-color: rgba(variables.$white, 0.1);
+
+				&:hover {
+					background: rgba(variables.$white, 0.05);
+				}
+			}
+
+			&-content p {
+				color: rgba(variables.$white, 0.8);
+			}
+		}
+	}
+
+	.nav-stack {
+		a {
+			color: variables.$grey-dark;
+
+			&:hover {
+				color: variables.$white;
+				background: rgba(variables.$white, 0.1);
+			}
+
+			&.active {
+				background: linear-gradient(90deg, rgba(variables.$white, 0.15) 0%, rgba(variables.$white, 0.0) 100%);
+			}
+		}
+	}
+
+	hr {
+		border-color: variables.$border-color-dark;
+	}
+}

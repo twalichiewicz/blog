@@ -1,8 +1,9 @@
 ---
 title: Mario Mid Movie
 date: 2023-05-05 16:41:58
-categories: 💬
 short: true
+tags:
+  - blog
 ---
 
 [via Variety:](https://variety.com/2023/film/news/super-mario-bros-movie-1-billion-box-office-milestone-1235598832/)

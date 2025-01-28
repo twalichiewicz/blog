@@ -14,6 +14,7 @@
   "dependencies": {
     "ajv": "^8.17.1",
     "braces": "^3.0.3",
+    "chart.js": "^4.4.1",
     "hawk": "^9.0.2",
     "hexo": "^6.3.0",
     "hexo-admin": "^2.3.0",
@@ -24,6 +25,7 @@
     "hexo-generator-index": "^3.0.0",
     "hexo-generator-tag": "^2.0.0",
     "hexo-math": "^5.0.0",
+    "hexo-pdf": "^1.1.1",
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-marked": "^6.0.0",
     "hexo-renderer-sass": "^0.5.0",
@@ -31,6 +33,8 @@
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^0.0.3",
     "highlight.js": "^11.11.0",
-    "tough-cookie": "^5.0.0"
+    "pdfjs-dist": "^4.10.38",
+    "tough-cookie": "^5.0.0",
+    "two.js": "^0.8.12"
   }
 }

@@ -2,9 +2,11 @@
 title: Apple Music confusing iconography
 date: 2023-11-18 17:23:51
 short: true
+tags:
+  - blog
 ---
 
-![](betterIcon.png)
+![A screenshot showing a better icon](/2023/11/18/Apple-Music-confusing-iconography/betterIcon.png)
 
 > "Hey what symbol should we use to show a track is popular?"
 >

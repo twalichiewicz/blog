@@ -2,61 +2,75 @@
 title: apple intelligence writing UI
 date: 2024-07-30 07:54:40
 short: true
+tags:
+  - blog
 ---
 
-<style>
-    .apple-intelligence-writing-ui #textSpan {
-        display: flex;
-        flex-direction: column;
-        font-size: 15px;
-        margin-top: 24px;
-        text-align: center;
-        width: 100%;
-    }
-    .apple-intelligence-writing-ui #toggleIcon {
-        border: solid 1px rgba(0,0,0,0.3);
-        padding: 3px;
-        border-radius: 100%;
-        margin-top: 24px;
-        margin-left: auto;
-        margin-right: auto;
-        cursor: pointer;
-          color: blue;
-          display: inline-block;
-          transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        width: 24px;
-        height: 24px;
-        user-select: none;
-    }
-    .apple-intelligence-writing-ui .disabled {
-      pointer-events: none;
-      opacity: 0.3;
-      transition: all 150ms ease;
-    }
-</style>
+![A screenshot showing a Apple Intelligence Writing UI](/2024/07/30/apple-intelligence-writing-UI/appleAIWritingUI.png)
 
-![](appleAIWritingUI.png)
+<div class="alert">
+    <span id="textSpan" class="alert__content"></span>
+    <button id="toggleIcon" aria-label="Show another quote">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M2 12C2 6.47715 6.47715 2 12 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 3"/>
+            <path d="M2 4L5 7M5 7L8 4M5 7V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+</div>
 
-<span id="textSpan">So intuitive, you’ll spend more time finding the right button than writing.
-<span id="toggleIcon" class="toggle-icon">![](refresh.png)</span></span>
 <script>
     const texts = [
-     "Ah, yes, the 'let's cram everything into one tiny box' approach.",
-     "A design so sleek, it’s nearly impossible to figure out what’s happening.",
-     "Who needs clear labels when you have tiny, confusing icons?",
-     "Because squinting at my screen is exactly what I wanted to do today."
+        "Ah, yes, the 'let's cram everything into one tiny box' approach.",
+        "A design so sleek, it's nearly impossible to figure out what's happening.",
+        "Who needs clear labels when you have tiny, confusing icons?",
+        "Because squinting at my screen is exactly what I wanted to do today."
     ];
     let usedTexts = [];
+    
     function getRandomText() {
-    if (usedTexts.length === texts.length) {
-        usedTexts = [];
+        if (usedTexts.length === texts.length) {
+            usedTexts = [];
+        }
+        let availableTexts = texts.filter(text => !usedTexts.includes(text));
+        let randomText = availableTexts[Math.floor(Math.random() * availableTexts.length)];
+        usedTexts.push(randomText);
+        return randomText;
     }
-    let availableTexts = texts.filter(text => !usedTexts.includes(text));
-    let randomText = availableTexts[Math.floor(Math.random() * availableTexts.length)];
-    usedTexts.push(randomText);
-    return randomText;
+
+    function updateText() {
+        const textSpan = document.getElementById('textSpan');
+        textSpan.style.opacity = '0';
+        
+        setTimeout(() => {
+            textSpan.innerText = getRandomText();
+            textSpan.style.opacity = '1';
+        }, 200);
     }
-    document.getElementById('toggleIcon').addEventListener('click', function() {
-        document.getElementById('textSpan').innerText = getRandomText();
-    });
+
+    document.getElementById('toggleIcon').addEventListener('click', updateText);
+    
+    // Set initial text when page loads
+    window.addEventListener('load', updateText);
 </script>
+
+<style>
+#textSpan {
+    transition: opacity 0.2s ease;
+}
+
+#toggleIcon {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+#toggleIcon:hover {
+    transform: rotate(45deg);
+}
+</style>

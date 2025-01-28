@@ -1,0 +1,223 @@
+@use 'variables';
+
+// Core variables
+:root {
+	// Layout
+	--project-max-width: 1400px;
+	--project-padding: clamp(1rem, 5vw, 3rem);
+	--section-spacing: clamp(4rem, 10vw, 8rem);
+
+	// Typography
+	--heading-xl: clamp(3rem, 8vw, 6rem);
+	--heading-lg: clamp(2.5rem, 6vw, 4rem);
+	--heading-md: clamp(2rem, 4vw, 3rem);
+	--text-lg: clamp(1.25rem, 2vw, 1.5rem);
+	--text-md: 1.125rem;
+	--text-sm: 0.875rem;
+
+	// Animation
+	--transition-fast: 0.2s ease;
+	--transition-medium: 0.4s ease;
+	--transition-slow: 0.6s ease;
+}
+
+// Base project template
+.project-template {
+
+	// Hero Components
+	.project-hero {
+		min-height: 90vh;
+		display: grid;
+		place-items: center;
+		padding: var(--project-padding);
+		position: relative;
+		overflow: hidden;
+
+		&__content {
+			max-width: var(--project-max-width);
+			width: 100%;
+			display: grid;
+			gap: 2rem;
+			text-align: center;
+		}
+
+		&__title {
+			font-size: var(--heading-xl);
+			line-height: 1.1;
+			font-weight: 700;
+		}
+
+		&__subtitle {
+			font-size: var(--text-lg);
+			max-width: 60ch;
+			margin: 0 auto;
+			opacity: 0.8;
+		}
+
+		&__media {
+			margin-top: 2rem;
+			width: 100%;
+
+			img,
+			video {
+				width: 100%;
+				height: auto;
+				border-radius: 1rem;
+			}
+		}
+	}
+
+	// Content Sections
+	.content-section {
+		padding: variables.$space-xl variables.$space-md;
+
+		&__inner {
+			max-width: 1200px;
+		}
+
+		&__grid {
+			display: grid;
+			gap: 4rem;
+
+			@media (min-width: variables.$mobile-breakpoint) {
+				grid-template-columns: repeat(2, 1fr);
+				align-items: center;
+			}
+		}
+
+		&__title {
+			font-size: var(--heading-lg);
+			margin-bottom: 2rem;
+		}
+
+		&__text {
+			font-size: var(--text-md);
+			line-height: 1.6;
+		}
+	}
+
+	// Feature Grid
+	.feature-grid {
+		display: grid;
+		gap: 2rem;
+
+		@media (min-width: variables.$mobile-breakpoint) {
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		}
+
+		&__item {
+			padding: variables.$space-lg;
+			border-radius: variables.$space-sm;
+			background: variables.$white;
+			transition: transform var(--transition-fast);
+
+			&:hover {
+				transform: translateY(-4px);
+			}
+		}
+
+		&__title {
+			font-size: var(--text-lg);
+			margin-bottom: 1rem;
+		}
+
+		&__description {
+			font-size: var(--text-md);
+			opacity: 0.8;
+		}
+	}
+
+	// Stats Component
+	.stats-grid {
+		display: grid;
+		gap: 3rem;
+		text-align: center;
+
+		@media (min-width: variables.$mobile-breakpoint) {
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		}
+
+		&__item {
+			.number {
+				font-size: var(--heading-md);
+				font-weight: 700;
+				margin-bottom: 0.5rem;
+			}
+
+			.label {
+				font-size: var(--text-md);
+				opacity: 0.8;
+			}
+		}
+	}
+
+	// Media Components
+	.media-showcase {
+		border-radius: 1rem;
+		overflow: hidden;
+
+		&--video {
+			position: relative;
+			padding-bottom: 56.25%; // 16:9 aspect ratio
+
+			iframe {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		&--image {
+			img {
+				width: 100%;
+				height: auto;
+			}
+		}
+	}
+
+	// Call to Action
+	.cta-section {
+		text-align: center;
+		padding: var(--section-spacing) var(--project-padding);
+
+		&__title {
+			font-size: var(--heading-lg);
+			margin-bottom: 2rem;
+		}
+
+		&__text {
+			font-size: var(--text-lg);
+			margin-bottom: 3rem;
+			opacity: 0.8;
+		}
+
+		&__button {
+			display: inline-block;
+			padding: 1rem 2rem;
+			border-radius: 2rem;
+			background: variables.$white-1;
+			color: variables.$text-color;
+			text-decoration: none;
+			transition: transform var(--transition-fast);
+
+			&:hover {
+				transform: scale(1.05);
+			}
+		}
+	}
+
+	// Utility classes
+	.animate-on-scroll {
+		opacity: 0;
+		transform: translateY(30px);
+		transition: opacity var(--transition-medium),
+			transform var(--transition-medium);
+
+		&.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+}

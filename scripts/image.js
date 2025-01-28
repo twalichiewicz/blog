@@ -6,4 +6,4 @@ hexo.extend.tag.register('image', function(args) {
             <img src="${src}" alt="${alt}" class="clickable-image">
         </div>
     `;
-}, { ends: false });1
+}, { ends: false });

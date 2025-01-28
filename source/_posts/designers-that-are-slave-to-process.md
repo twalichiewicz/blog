@@ -2,6 +2,8 @@
 title: designers that are slave to process
 date: 2024-08-13 07:38:44
 short: true
+tags:
+  - blog
 ---
 
 Designers who hide behind rigid processes and endless documentation stifle creativity and churn out uninspired designs that miss the mark.

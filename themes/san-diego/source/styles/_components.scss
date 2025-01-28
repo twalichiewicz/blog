@@ -1,33 +1,491 @@
 @use 'variables';
 
+@mixin button-styles {
+	padding: 0.5rem 1rem;
+	border: 1px solid currentColor;
+	border-radius: 6px;
+	background: transparent;
+	font-family: inherit;
+	font-size: 0.9rem;
+	text-decoration: none;
+	cursor: pointer;
+	display: inline-block;
+	transition: all 150ms ease;
+
+	&:hover {
+		background: currentColor;
+		color: variables.$white;
+	}
+
+	&.active {
+		background: variables.$link-color;
+		color: variables.$white;
+	}
+}
+
+// Button components
+.button,
+button {
+	@include button-styles;
+}
+
+// Grid layout components
 .card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	max-width: 1000px;
+	margin: auto;
+	padding: 0 16px;
+
+	@media screen and (max-width: 1000px) {
+		max-width: 800px;
+	}
+
+	@media screen and (max-width: variables.$mobile-breakpoint) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media screen and (max-width: 600px) {
+		display: block;
+	}
 }
-.card-grid {
-    max-width: 1000px;
-    margin: auto;
-    padding: 0 16px;
-}
-@media screen and (max-width: 1000px) {
-    .card-grid {
-        max-width: 800px;
-    }
-}
-@media screen and (max-width: 800px) {
-    .card-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-@media screen and (max-width: 600px) {
-    .card-grid {
-        display: block;
-    }
-}
+
 .card {
-    overflow: hidden;
-    border-radius: 16px;
-    background-color: variables.$card-bg;
-    margin-bottom: 21px;
-    transition: all 200ms ease;
+	overflow: hidden;
+	border-radius: 16px;
+	background-color: variables.$card-bg;
+	margin-bottom: 21px;
+	transition: all 200ms ease;
+}
+
+// Media components
+.post-video {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+	margin: 24px 0;
+}
+
+// Interactive components
+.segmented-button {
+	display: flex;
+	gap: 0.5rem;
+	padding: 0.25rem;
+	border-radius: 8px;
+	background: variables.$white-1;
+	border: 1px solid variables.$border-color;
+
+	@media screen and (max-width: variables.$mobile-breakpoint) {
+		display: none; // Hide the list/book toggle on mobile
+	}
+
+	button {
+		flex: 1;
+		border: none;
+		background: none;
+		padding: 0.5rem 1rem;
+		border-radius: 6px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+
+		&.active {
+			background: variables.$white;
+			box-shadow: variables.$shadow-soft;
+		}
+	}
+}
+
+.archive-toggle {
+	display: flex;
+	gap: 0.5rem;
+	margin-bottom: 20px;
+
+	button {
+		&.active {
+			background: variables.$link-color;
+			color: variables.$white;
+		}
+	}
+}
+
+// Typography components
+blockquote {
+	margin: 24px 0;
+	padding: 16px 24px;
+	border-left: 4px solid variables.$link-color;
+	background: variables.$card-bg;
+	border-radius: 4px;
+
+	p {
+		margin: 0;
+		color: variables.$text-color;
+		font-style: italic;
+
+		&:not(:last-child) {
+			margin-bottom: 16px;
+		}
+	}
+
+	cite {
+		display: block;
+		margin-top: 8px;
+		font-size: 0.9em;
+		color: variables.$text-color-secondary;
+		font-style: normal;
+
+		&:before {
+			content: "—";
+			margin-right: 8px;
+		}
+	}
+}
+
+// Alert component
+.alert {
+	display: flex;
+	align-items: flex-start;
+	padding: 1rem 1.25rem;
+	margin: 1.5rem 0;
+	border-radius: 12px;
+	font-size: 0.95rem;
+	line-height: 1.5;
+	background-color: variables.$white-1;
+	border: 1px solid variables.$border-color;
+	color: variables.$text-color;
+
+	// Alert variants
+	&--warning {
+		background-color: #fff9eb;
+		border-color: #ffd77a;
+	}
+
+	&--error {
+		background-color: #fef1f1;
+		border-color: #facfcf;
+	}
+
+	&--success {
+		background-color: #f1f9f1;
+		border-color: #cfeacf;
+	}
+
+	&-icon {
+		flex-shrink: 0;
+		margin-right: 0.75rem;
+		margin-top: 0.125rem;
+
+		svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+	&-content {
+		flex: 1;
+
+		h3 {
+			margin: 0 0 6px 0;
+			font-size: 15px !important;
+			color: variables.$text-color;
+		}
+
+		p {
+			margin: 0;
+			font-size: 12px;
+
+			&:not(:last-child) {
+				margin-bottom: 0.5rem;
+			}
+		}
+
+		a {
+			color: variables.$link-color;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+// Utility components
+.scroll-to-top {
+	position: fixed;
+	padding: 12px;
+	bottom: 1rem;
+	right: 1rem;
+	width: 40px;
+	height: 40px;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: variables.$link-color;
+	color: variables.$white;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease;
+
+	&.visible {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	&:hover {
+		background: variables.$link-color-dark;
+		transform: translateY(-3px);
+		box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+	}
+}
+
+// Dark mode styles
+@media (prefers-color-scheme: dark) {
+
+	.button,
+	button {
+		color: variables.$link-color-dark;
+
+		&.active {
+			background: variables.$link-color-dark;
+		}
+	}
+
+	.segmented-button {
+		background: variables.$card-bg-dark;
+	}
+
+	.alert {
+		background-color: variables.$card-bg-dark;
+		border-color: variables.$border-color-dark;
+		color: variables.$text-color-dark;
+
+		&--warning {
+			background-color: rgba(255, 215, 122, 0.1);
+			border-color: rgba(255, 215, 122, 0.3);
+		}
+
+		&--error {
+			background-color: rgba(250, 207, 207, 0.1);
+			border-color: rgba(250, 207, 207, 0.3);
+		}
+
+		&--success {
+			background-color: rgba(207, 234, 207, 0.1);
+			border-color: rgba(207, 234, 207, 0.3);
+		}
+
+		a {
+			color: variables.$link-color-dark;
+		}
+
+		h3 {
+			color: variables.$text-color-dark;
+		}
+	}
+
+	.scroll-to-top {
+		background: variables.$primary-color-dark;
+		border-color: variables.$border-color-dark;
+	}
+}
+
+// Default button styling
+button {
+	display: flex;
+	gap: 4px;
+	border: none;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
+		0 1px 2px rgba(0, 0, 0, 0.06),
+		inset 0 2px 4px rgba(0, 0, 0, 0.1),
+		inset 0 -1px 2px rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	cursor: pointer;
+	transition: all 0.3s ease;
+
+	@media (prefers-color-scheme: dark) {
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2),
+			0 1px 2px rgba(0, 0, 0, 0.12),
+			inset 0 2px 4px rgba(0, 0, 0, 0.2),
+			inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+	}
+}
+
+// Mobile tabs specific styling
+.mobile-tabs {
+	display: flex;
+	width: 100%;
+	margin: 0 auto 1rem;
+	background: hsl(0, 0%, 100%);
+	border-radius: 8px;
+	padding: 4px;
+	gap: 4px;
+	position: relative;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
+		0 1px 2px rgba(0, 0, 0, 0.06);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	--slider-x: 0px;
+
+	.tab-button {
+		flex: 1;
+		border: none;
+		background: none;
+		padding: 8px 16px;
+		font-size: 14px;
+		font-weight: 500;
+		color: variables.$text-color-secondary;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		position: relative;
+		z-index: 1;
+		box-shadow: none;
+		border: none;
+		text-align: center;
+		justify-content: center;
+
+		&.active {
+			color: variables.$text-color;
+		}
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		left: var(--slider-x);
+		top: 4px;
+		bottom: 4px;
+		width: calc(50% - 4px);
+		background: variables.$white;
+		border-radius: 6px;
+		transition: left 0.2s ease;
+		box-shadow: variables.$shadow-soft;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		background: hsl(0, 0%, 10%);
+
+		&::after {
+			background: hsl(0, 0%, 15%);
+			box-shadow: variables.$shadow-soft-dark;
+		}
+
+		.tab-button {
+			color: variables.$text-color-secondary-dark;
+
+			&.active {
+				color: variables.$text-color-dark;
+			}
+		}
+	}
+}
+
+.profile-header {
+	position: relative;
+
+	.contact-wrapper {
+		position: absolute;
+		top: -3px;
+		right: -18px;
+		z-index: 10;
+		perspective: 1000px;
+
+		.contact-button {
+			padding: 8px 16px;
+			background: variables.$card-bg;
+			border: 1px solid variables.$border-color;
+			border-radius: 6px;
+			font-size: 12px;
+			color: variables.$text-color;
+			text-decoration: none;
+			cursor: pointer;
+			position: relative;
+			transform-style: preserve-3d;
+			transition: transform 0.3s ease;
+			transform-origin: 50% 100%;
+
+			&:hover {
+				background: variables.$link-color;
+				color: variables.$white;
+			}
+
+			&.active {
+				transform: rotateX(-90deg);
+			}
+		}
+
+		.contact-options {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			display: flex;
+			flex-direction: column;
+			transform-style: preserve-3d;
+			transform-origin: 50% 0;
+			transform: rotateX(-90deg);
+			opacity: 0;
+			transition: transform 0.3s ease, opacity 0.1s;
+
+			.contact-option {
+				padding: 8px 16px;
+				font-size: 12px;
+				color: variables.$text-color;
+				text-decoration: none;
+				text-align: center;
+				background: variables.$card-bg;
+				border: 1px solid variables.$border-color;
+				transition: transform 0.2s ease;
+
+				&:first-child {
+					border-top-left-radius: 6px;
+					border-top-right-radius: 6px;
+				}
+
+				&:last-child {
+					border-bottom-left-radius: 6px;
+					border-bottom-right-radius: 6px;
+				}
+
+				&:hover {
+					background: variables.$link-color;
+					color: variables.$white;
+					transform: scale(1.05);
+				}
+			}
+		}
+
+		.contact-button.active+.contact-options {
+			transform: rotateX(0deg);
+			opacity: 1;
+			transition: transform 0.3s ease 0.1s, opacity 0.1s 0.1s;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			.contact-button {
+				background: variables.$card-bg-dark;
+				border-color: variables.$border-color-dark;
+				color: variables.$text-color-dark;
+
+				&:hover {
+					background: variables.$link-color-dark;
+				}
+			}
+
+			.contact-options {
+				.contact-option {
+					background: variables.$card-bg-dark;
+					border-color: variables.$border-color-dark;
+					color: variables.$text-color-dark;
+
+					&:hover {
+						background: variables.$link-color-dark;
+					}
+				}
+			}
+		}
+	}
 }

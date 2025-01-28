@@ -2,6 +2,8 @@
 title: ios 18
 date: 2024-06-10 21:06:19
 short: true
+tags:
+  - blog
 ---
 
 Interesting how Apple redesigned the Settings app in iOS 18:

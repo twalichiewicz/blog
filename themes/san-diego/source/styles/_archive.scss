@@ -1,14 +1,57 @@
-// themes/cupertino/source/styles/_archive.scss
 @use 'variables';
 
 .meta {
-    margin-top: 128px;
+	margin-top: variables.$space-xxl;
+
+	.type {
+		color: variables.$grey;
+		font-weight: 600;
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 0 variables.$space-sm;
+	}
 }
-.meta .type {
-    color: variables.$grey;
-    font-weight: 600;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 16px;
+
+.archive {
+	&-content {
+		display: flex;
+		min-height: calc(100vh - variables.$space-xxl);
+
+		@media screen and (max-width: variables.$mobile-breakpoint) {
+			flex-direction: column;
+		}
+	}
+}
+
+.archive-list {
+	width: 30%;
+	overflow-y: auto;
+	border-right: 1px solid variables.$border-color;
+}
+
+.archive-details {
+	width: 70%;
+	padding: variables.$space-md;
+}
+
+.paginator {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+	margin: 2rem 0;
+
+	a,
+	span {
+		padding: 0.5rem 1rem;
+		border-radius: 4px;
+
+		&.current {
+			background: variables.$primary-color;
+			color: variables.$white;
+		}
+
+		&:hover:not(.current) {
+			background: variables.$grey-light;
+		}
+	}
 }
