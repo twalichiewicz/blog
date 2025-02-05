@@ -1,8 +1,9 @@
 ---
 title: apple maps restaurant menus
 date: 2023-10-24 12:06:43
-tags:
 short: true
+tags:
+  - blog
 ---
 
 Considering how good iOS's image-to-text processing is (especially compared to competitors), Apple Maps should be able to convert menus into standardized POI metadata.

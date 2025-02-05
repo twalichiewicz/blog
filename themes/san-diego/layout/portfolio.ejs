@@ -1,0 +1,64 @@
+<%- partial('_partial/nav') %>
+
+<div class="portfolio">
+    <% 
+    const currentPage = parseInt(page.current || 1);
+    const postsPerPage = 10;
+
+    const blogPosts = site.posts
+        .toArray()
+        .filter(post => post.tags && post.tags.toArray().some(tag => tag.name === 'blog'))
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Explicit sort by date
+
+    const totalPages = Math.ceil(blogPosts.length / postsPerPage);
+    const paginatedPosts = blogPosts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
+    %>
+    
+    <% 
+    const portfolioPosts = site.posts
+        .toArray()
+        .filter(post => post.tags && post.tags.data.some(tag => tag.name === 'portfolio') && !post.draft)
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()); // Sort by date descending
+    %>
+
+    <% if (portfolioPosts.length > 0) { %>
+        <div class="portfolio-list">
+            <% 
+            // Get all posts and sort them by date (newest first)
+            const allPosts = site.posts.data.sort((a, b) => {
+                // Convert dates to timestamps for reliable comparison
+                const dateA = new Date(a.date).getTime();
+                const dateB = new Date(b.date).getTime();
+                return dateB - dateA;
+            });
+
+            // Filter for portfolio posts that aren't drafts
+            allPosts.forEach(function(post) { 
+                if (post.tags && post.tags.data.some(tag => tag.name === 'portfolio') && !post.draft) { %>
+                    <a href="<%- url_for(post.path) %>" class="portfolio-item">
+                        <div class="portfolio-image">
+                            <% if (post.cover_image) { %>
+                                <img 
+                                    src="<%- url_for(post.cover_image) %>" 
+                                    alt="<%- post.title %>"
+                                    loading="lazy"
+                                >
+                            <% } %>
+                        </div>
+                        <div class="portfolio-content">
+                            <% if (post.company) { %>
+                                <div class="company-byline"><%- post.company %></div>
+                            <% } %>
+                            <h3><%- post.title %></h3>
+                            <% if (post.byline) { %>
+                                <p><%- post.byline %></p>
+                            <% } %>
+                        </div>
+                    </a>
+                <% } %>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p>No portfolio items available.</p>
+    <% } %>
+</div>

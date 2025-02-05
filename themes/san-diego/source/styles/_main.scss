@@ -1,68 +1,96 @@
-// themes/cupertino/source/styles/_main.scss
 @use 'variables';
 
 * {
-    transition: color 0.2s, background-color 0.2s;
+	transition: color 0.2s, background-color 0.2s;
+	-webkit-text-size-adjust: none;
+	box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    color: variables.$black-2;
-    background-color: variables.$body-bg;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	margin: 0;
+	color: variables.$text-color;
+	background-color: variables.$body-bg;
+	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	min-height: 100vh;
+	min-height: -webkit-fill-available;
+}
+
+// Add viewport-fit meta tag support for iOS Safari
+@supports(padding: max(0px)) {
+	body {
+		padding-top: env(safe-area-inset-top);
+	}
 }
 
 @media (prefers-color-scheme: dark) {
-    body {
-        color: variables.$dark-black-2;
-        background-color: variables.$dark-body-bg;
-    }
-    a:link, a:visited {
-        color: variables.$dark-link;
-    }
+	body {
+		color: variables.$text-color-dark;
+		background-color: variables.$body-bg-dark;
+	}
+
+	a:link,
+	a:visited {
+		color: variables.$link-color-dark;
+	}
 }
 
 @media (prefers-color-scheme: light) {
-    body {
-        color: variables.$black-2;
-        background-color: variables.$body-bg;
-    }
-    a:link, a:visited {
-        color: variables.$link;
-    }
+
+	a:link,
+	a:visited {
+		color: variables.$link-color;
+	}
 }
 
 a:link {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
+
 a:active {
-    text-decoration: none;
+	text-decoration: none;
 }
+
 a:visited {
-    text-decoration: none;
+	text-decoration: none;
 }
+
 .container {
-    max-width: 980px;
-    margin: auto;
+	max-width: 980px;
+	margin: auto;
 }
+
 .theme-command {
-    display: none;
+	display: none;
 }
+
 @media (prefers-color-scheme: light) {
-    hr {
-        border: 0;
-        height: 1px;
-        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
-    }
+	hr {
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+	}
 }
+
 @media (prefers-color-scheme: dark) {
-    hr {
-        border: 0;
-        height: 1px;
-        background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-    }
+	hr {
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+	}
+}
+
+// Add specificity to prevent conflicts with blog/post styles
+nav#theme-nav {
+	.nav-content-container {
+		z-index: 100; // Ensure nav stays above other content
+	}
+}
+
+// Hide desktop widgets temporarily
+.desktop-widgets {
+	display: none !important;
 }

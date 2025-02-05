@@ -1,9 +1,9 @@
 ---
 title: Fluent 2 Design System
 date: 2023-05-26 14:44:17
-tags:
 short: true
-categories: 💬
+tags:
+  - blog
 ---
 
 So Microsoft [released Fluent 2](https://fluent2.microsoft.design "Fluent 2 component / design breakdown page")…

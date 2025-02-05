@@ -1,0 +1,15 @@
+<div class="page-title">
+    <% if (page.title) { %>
+        <h1><%= page.title %></h1>
+    <% } else if (page.archive) { %>
+        <h1>Archives</h1>
+    <% } else if (page.category) { %>
+        <h1>Category: <%= page.category %></h1>
+    <% } else if (page.tag) { %>
+        <h1>Tag: <%= page.tag %></h1>
+    <% } else if (page.path === 'blog/index.html') { %>
+        <h1>Newest at the Top</h1>
+    <% } else { %>
+        <h1>404</h1>
+    <% } %>
+</div>

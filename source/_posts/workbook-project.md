@@ -1,7 +1,11 @@
 ---
-title: workbook project
+title: Workbook
 date: 2024-06-30 14:07:00
 short: true
+draft: true
+tags:
+  - portfolio
+layout: project
 ---
 
 <style>
@@ -95,9 +99,7 @@ short: true
         </div>
         <div id="grid-view"></div>
     </div>
-
     <button id="toggle-view" onclick="toggleView()">Grid View</button>
-
     <div>
         <p style="text-align: center;">
             Another notebook down.

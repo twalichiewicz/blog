@@ -2,6 +2,8 @@
 title: email field capitalization
 date: 2024-03-14 11:01:49
 short: true
+tags:
+  - blog
 ---
 
 A small web pet peeve: email fields that try to auto correct names to be capitalized.

@@ -1,9 +1,9 @@
 ---
 title: design patterns for feature propogation
 date: 2023-07-30 19:15:17
-tags:
 short: true
-categories: 💬
+tags:
+  - blog
 ---
 
 Design pattern libraries could really super-charge their utility if they were used to propagate component-specific features across all the channels that component appears in.

@@ -2,6 +2,8 @@
 title: Figma Config 2024
 date: 2024-06-26 16:10:37
 short: true
+tags:
+  - blog
 ---
 
 Figma Config announced [some new features](https://www.figma.com/whats-new/) today:

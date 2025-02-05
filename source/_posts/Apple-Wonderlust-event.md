@@ -1,8 +1,9 @@
 ---
 title: Apple Wonderlust event
 date: 2023-09-12 21:39:13
-categories: 💬
 short: true
+tags:
+  - blog
 ---
 
 _Addendum:_ I thought about this a bit more, and while I still agree with my original sentiments, I figured I'd expand my thinking slightly. But, yes, I think the event was 100% "this could have been an email" territory.

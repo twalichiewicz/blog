@@ -1,49 +1,77 @@
-// themes/cupertino/source/styles/_post.scss
 @use 'variables';
 
 .post {
-    margin-bottom: 128px;
+	margin: 0 auto;
+	max-width: 800px;
+	width: 100%;
+	padding: variables.$space-md;
+	box-sizing: border-box;
+	margin-bottom: variables.$space-xxl;
 }
 
 .post-title {
-    font-size: 2em;
-    margin-bottom: 0.5em;
-}
-
-.post .title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+	font-size: 2em;
+	margin-bottom: 0.5em;
 }
 
 .post .meta {
-    color: variables.$text-color-secondary;
-    font-size: 0.9rem;
+	color: variables.$text-color-secondary;
+	font-size: 0.9rem;
 }
 
 .post-content {
-    line-height: 1.6;
-}
-
-.post .content {
-    line-height: 1.6;
+	line-height: 1.6;
+	color: variables.$text-color;
 }
 
 .post-content img,
 .post-content video,
 .post-content iframe {
-    max-width: 100%;
-    height: auto;
-    border-radius: 6px;
-    display: block;
-    margin: 0 auto;
+	max-width: 100%;
+	height: auto;
+	border-radius: 6px;
+	display: block;
+	margin: 0 auto;
 }
 
 .post .content img,
 .post .content video,
 .post .content iframe {
-    max-width: 100%;
-    height: auto;
-    border-radius: 6px;
-    display: block;
-    margin: 0 auto;
+	max-width: 100%;
+	height: auto;
+	border-radius: 6px;
+	display: block;
+	margin: 0 auto;
+}
+
+// Add consistent divider styling
+.post-divider {
+	border: none;
+	height: 1px;
+	background-color: variables.$border-color;
+	margin: 2rem 0;
+}
+
+@media screen and (max-width: variables.$mobile-breakpoint) {
+	.post {
+		padding: variables.$space-md;
+	}
+
+	.post-divider {
+		margin: 1rem 0;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.post-content {
+		color: variables.$text-color-dark;
+	}
+
+	.post .meta {
+		color: variables.$text-color-secondary-dark;
+	}
+
+	.post-title {
+		color: variables.$text-color-dark;
+	}
 }

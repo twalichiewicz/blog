@@ -2,6 +2,8 @@
 title: cyberrust
 date: 2024-02-12 22:58:42
 short: true
+tags:
+  - blog
 ---
 
 via [CarsDirect:](https://www.carsdirect.com/automotive-news/green-technology/tesla-cybertruck-may-have-a-rust-problem)

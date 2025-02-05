@@ -2,6 +2,8 @@
 title: cyberfuck car wash mode
 date: 2024-04-21 13:33:06
 short: true
+tags:
+  - blog
 ---
 
 Via [The Register:](https://www.theregister.com/2024/04/20/cybertruck_car_wash_mode/)
