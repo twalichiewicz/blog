@@ -9,14 +9,14 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Wed, 05 Feb 2025 21:12:00 GMT</pubDate>
+    <pubDate>Wed, 05 Feb 2025 21:25:26 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
       <title>Mobile pharmacy app</title>
       <link>https://twalichiewicz.github.io/2025/02/05/Miti-Health/</link>
       <guid>https://twalichiewicz.github.io/2025/02/05/Miti-Health/</guid>
-      <pubDate>Wed, 05 Feb 2025 21:12:00 GMT</pubDate>
+      <pubDate>Wed, 05 Feb 2025 21:25:26 GMT</pubDate>
       
       
       
@@ -26,6 +26,30 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/02/05/Miti-Health/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>New blog 2025</title>
+      <link>https://twalichiewicz.github.io/2025/02/05/New-blog-2025/</link>
+      <guid>https://twalichiewicz.github.io/2025/02/05/New-blog-2025/</guid>
+      <pubDate>Wed, 05 Feb 2025 21:15:30 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;strong&gt;Welcome to the new blog! 🎉&lt;/strong&gt;&lt;br&gt;After way too long, I’ve gotten around to releasing this MVP of the redesigned portfolio </description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><strong>Welcome to the new blog! 🎉</strong><br>After way too long, I’ve gotten around to releasing this MVP of the redesigned portfolio site. Some stuff is still broken, and there is an entirely separate desktop version that is still under construction. I’m excited to reveal some of the redesigned project write-ups, but I didn’t want to delay the larger release any longer.</p><h3 style="margin-top: 2rem;margin-bottom: -15px;">What's new:</h3><ul><li>Separate mobile and desktop versions</li><li>Simplified to a monopage design</li><li>Sexy new color scheme</li><li>Handling for post-types (links, projects, etc.)</li><li>Project write-ups have been redesigned</li><li>Added some sound effects</li><li>Lots of small quality-of-life improvements</li></ul>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/02/05/New-blog-2025/#disqus_thread</comments>
       
     </item>
     
@@ -451,23 +475,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2024/10/13/design-pet-peeves/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Work from home is powering productivity</title>
-      <link>https://twalichiewicz.github.io/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/</link>
-      <guid>https://twalichiewicz.github.io/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/</guid>
-      <pubDate>Sat, 12 Oct 2024 00:34:56 GMT</pubDate>
-      
-      
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/#disqus_thread</comments>
       
     </item>
     
