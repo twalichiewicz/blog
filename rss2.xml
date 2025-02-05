@@ -3,38 +3,46 @@
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Newest at the Top</title>
-    <link>https://twalichiewicz.github.io/blog/</link>
+    <title>Thomas Walichiewicz</title>
+    <link>https://twalichiewicz.github.io/</link>
     
-    <image>
-      <url>https://twalichiewicz.github.io/blog/icon.png</url>
-      <title>Newest at the Top</title>
-      <link>https://twalichiewicz.github.io/blog/</link>
-    </image>
+    <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
-    <atom:link href="https://twalichiewicz.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
-    
-    <description></description>
-    <pubDate>Tue, 28 Jan 2025 20:41:55 GMT</pubDate>
+    <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
+    <pubDate>Wed, 05 Feb 2025 19:32:09 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
+      <title>Mobile pharmacy app</title>
+      <link>https://twalichiewicz.github.io/2025/02/05/Miti-Health/</link>
+      <guid>https://twalichiewicz.github.io/2025/02/05/Miti-Health/</guid>
+      <pubDate>Wed, 05 Feb 2025 19:32:09 GMT</pubDate>
+      
+      
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/portfolio/">portfolio</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/02/05/Miti-Health/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>late is just for a little while</title>
-      <link>https://twalichiewicz.github.io/blog/2025/01/28/late-is-just-for-a-little-while/</link>
-      <guid>https://twalichiewicz.github.io/blog/2025/01/28/late-is-just-for-a-little-while/</guid>
+      <link>https://twalichiewicz.github.io/2025/01/28/late-is-just-for-a-little-while/</link>
+      <guid>https://twalichiewicz.github.io/2025/01/28/late-is-just-for-a-little-while/</guid>
       <pubDate>Tue, 28 Jan 2025 20:08:31 GMT</pubDate>
       
         
         
-          
-          
       <description>&lt;style&gt;
 .book-quote {
     font-family: &#39;Playfair Display&#39;, &#39;Georgia&#39;, serif;
     font-size: 1.8em;
     line-height: 1.6;
-    padding: 40px</description>
-          
+    padding: 40px 6</description>
         
       
       
@@ -44,47 +52,61 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2025/01/28/late-is-just-for-a-little-while/#disqus_thread</comments>
+      <comments>https://twalichiewicz.github.io/2025/01/28/late-is-just-for-a-little-while/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>GEICO email language choice</title>
+      <link>https://twalichiewicz.github.io/2024/12/31/GEICO-email-language-choice/</link>
+      <guid>https://twalichiewicz.github.io/2024/12/31/GEICO-email-language-choice/</guid>
+      <pubDate>Tue, 31 Dec 2024 06:58:59 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Nothing reassures me about my insurance provider quite like a headline that screams ‘phishing attempt’ (including a cheerful :D). Truly, </description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Nothing reassures me about my insurance provider quite like a headline that screams ‘phishing attempt’ (including a cheerful :D). Truly, a masterclass in corporate communication.</p><p><img src="/2024/12/30/GEICO-email-language-choice/GEICO:DDDDDDDD.jpg" alt="A screenshot showing a GEICO email language choice"></p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2024/12/31/GEICO-email-language-choice/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>OpenAI vs Musky</title>
-      <link>https://twalichiewicz.github.io/blog/2024/12/14/OpenAI-vs-Musky/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/12/14/OpenAI-vs-Musky/</guid>
+      <link>https://twalichiewicz.github.io/2024/12/14/OpenAI-vs-Musky/</link>
+      <guid>https://twalichiewicz.github.io/2024/12/14/OpenAI-vs-Musky/</guid>
       <pubDate>Sat, 14 Dec 2024 05:29:40 GMT</pubDate>
       
-        
-        
-          
-          
-      <description>&lt;p&gt;I really enjoyed reading &lt;a href=&quot;https://openai.com/index/elon-musk-wanted-an-openai-for-profit/&quot;&gt;this post today&lt;/a&gt; on the OpenAI</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>I really enjoyed reading <a href="https://openai.com/index/elon-musk-wanted-an-openai-for-profit/">this post today</a> on the OpenAI blog.</p>]]></content:encoded>
       
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/12/14/OpenAI-vs-Musky/#disqus_thread</comments>
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2024/12/14/OpenAI-vs-Musky/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>stolen stickes</title>
-      <link>https://twalichiewicz.github.io/blog/2024/12/09/stolen-stickes/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/12/09/stolen-stickes/</guid>
+      <link>https://twalichiewicz.github.io/2024/12/09/stolen-stickes/</link>
+      <guid>https://twalichiewicz.github.io/2024/12/09/stolen-stickes/</guid>
       <pubDate>Mon, 09 Dec 2024 03:29:19 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;I think someone stole one of my partially used sticky pads I use for my design notes. Such a</description>
-          
+      <description>&lt;p&gt;I think someone stole one of my partially used sticky pads I use for my design notes. Such a violation.&lt;/p&gt;
+</description>
         
       
       
@@ -94,50 +116,45 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/12/09/stolen-stickes/#disqus_thread</comments>
+      <comments>https://twalichiewicz.github.io/2024/12/09/stolen-stickes/#disqus_thread</comments>
       
     </item>
     
     <item>
-      <title>jaguar type 00</title>
-      <link>https://twalichiewicz.github.io/blog/2024/12/03/jaguar-type-00/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/12/03/jaguar-type-00/</guid>
+      <title>Jaguar Type 00</title>
+      <link>https://twalichiewicz.github.io/2024/12/03/jaguar-type-00/</link>
+      <guid>https://twalichiewicz.github.io/2024/12/03/jaguar-type-00/</guid>
       <pubDate>Tue, 03 Dec 2024 19:50:47 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/12/03/jaguar-type-00/ilikethenewjag.jpg&quot;&gt;&lt;/p&gt;
-&lt;div style=&quot;text-align:center;&quot;&gt;
-
-&lt;h3</description>
-          
+      <description>&lt;ol&gt;
+&lt;li&gt;&lt;img src=&quot;/2024/12/03/jaguar-type-00/ilikethenewjag.jpg&quot; alt=&quot;Norman Rockwell man standing up&quot;&gt;&lt;/li&gt;
+&lt;li&gt;It reminds me a bit of the</description>
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/12/03/jaguar-type-00/ilikethenewjag.jpg"></p><div style="text-align:center;"><h3 id="I-like-the-new-Jaguar-Type-00"><a href="#I-like-the-new-Jaguar-Type-00" class="headerlink" title="I like the new Jaguar Type 00"></a>I like the new <a href="https://www.jaguarusa.com/copy-nothing/jaguar-type-00.html">Jaguar Type 00</a></h3></div><p>It reminds me a bit of the Batman animated series, definitely more what I would want  to see in a futuritstic car design.</p>]]></content:encoded>
+      <content:encoded><![CDATA[<ol><li><img src="/2024/12/03/jaguar-type-00/ilikethenewjag.jpg" alt="Norman Rockwell man standing up"></li><li>It reminds me a bit of the Batman animated series, definitely more what I would want  to see in a futuritstic car design.</li></ol>]]></content:encoded>
       
       
       
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
-      <comments>https://twalichiewicz.github.io/blog/2024/12/03/jaguar-type-00/#disqus_thread</comments>
+      
+      <comments>https://twalichiewicz.github.io/2024/12/03/jaguar-type-00/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>ChatGPT pinned conversations</title>
-      <link>https://twalichiewicz.github.io/blog/2024/11/28/ChatGPT-pinned-conversations/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/11/28/ChatGPT-pinned-conversations/</guid>
+      <link>https://twalichiewicz.github.io/2024/11/28/ChatGPT-pinned-conversations/</link>
+      <guid>https://twalichiewicz.github.io/2024/11/28/ChatGPT-pinned-conversations/</guid>
       <pubDate>Thu, 28 Nov 2024 05:44:35 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;All I want is to be able to pin previous conversations in the ChatGPT web-app. My current solution of WRITE THE KEYWORDS IN CAPS does</description>
-          
+      <description>&lt;p&gt;All I want is to be able to pin previous conversations in the ChatGPT web-app. My current solution of WRITE THE KEYWORDS IN CAPS does the</description>
         
       
       
@@ -146,24 +163,20 @@
       
       
       
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
-      <comments>https://twalichiewicz.github.io/blog/2024/11/28/ChatGPT-pinned-conversations/#disqus_thread</comments>
+      
+      <comments>https://twalichiewicz.github.io/2024/11/28/ChatGPT-pinned-conversations/#disqus_thread</comments>
       
     </item>
     
     <item>
-      <title>costco: amazon v2?</title>
-      <link>https://twalichiewicz.github.io/blog/2024/11/18/costco-amazon-v2/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/11/18/costco-amazon-v2/</guid>
+      <title>Costco: Amazon v2?</title>
+      <link>https://twalichiewicz.github.io/2024/11/18/costco-amazon-v2/</link>
+      <guid>https://twalichiewicz.github.io/2024/11/18/costco-amazon-v2/</guid>
       <pubDate>Mon, 18 Nov 2024 05:06:38 GMT</pubDate>
       
-        
-        
-          
-          
-      <description>&lt;p&gt;Costco has long been the king of bulk buying and private-label loyalty. Its warehouses, stocked with pallets of everything from giant</description>
-          
-        
+      <description>Costco has long been the king of bulk buying and private-label loyalty. Its warehouses, stocked with pallets of everything from giant bags of coffee beans to surprisingly great Kirkland-brand dress shirts, have earned it an incredibly loyal membership base. But in the age of e-commerce, does Costco have what it takes to evolve into something like an Amazon competitor?</description>
       
       
       
@@ -171,23 +184,23 @@
       
       
       
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
-      <comments>https://twalichiewicz.github.io/blog/2024/11/18/costco-amazon-v2/#disqus_thread</comments>
+      
+      <comments>https://twalichiewicz.github.io/2024/11/18/costco-amazon-v2/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>refactor mostly done</title>
-      <link>https://twalichiewicz.github.io/blog/2024/11/11/refactor-mostly-done/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/11/11/refactor-mostly-done/</guid>
+      <link>https://twalichiewicz.github.io/2024/11/11/refactor-mostly-done/</link>
+      <guid>https://twalichiewicz.github.io/2024/11/11/refactor-mostly-done/</guid>
       <pubDate>Mon, 11 Nov 2024 11:39:53 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;Phew, refactor of the blog is (mostly)</description>
-          
+      <description>&lt;p&gt;Phew, refactor of the blog is (mostly) done.&lt;/p&gt;
+</description>
         
       
       
@@ -197,48 +210,43 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/11/11/refactor-mostly-done/#disqus_thread</comments>
+      <comments>https://twalichiewicz.github.io/2024/11/11/refactor-mostly-done/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>github indexing repo lack of status indicator</title>
-      <link>https://twalichiewicz.github.io/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/</guid>
+      <link>https://twalichiewicz.github.io/2024/11/08/github-indexing-repo-lack-of-status-indicator/</link>
+      <guid>https://twalichiewicz.github.io/2024/11/08/github-indexing-repo-lack-of-status-indicator/</guid>
       <pubDate>Fri, 08 Nov 2024 18:46:20 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/githubIndexIndication.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;GitHub, if you could just go</description>
-          
+      <description>&lt;p&gt;GitHub, if you could just go ahead and add an indication of what the system is doing here after I click “Index” &lt;a href=&quot;https://en.wikip</description>
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/githubIndexIndication.png"></p><p>GitHub, if you could just go ahead and add an indication of what the system is doing here after I click “Index” <a href="https://en.wikipedia.org/wiki/Bill_Lumbergh">that would be <em>greaaat</em></a>.</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p>GitHub, if you could just go ahead and add an indication of what the system is doing here after I click “Index” <a href="https://en.wikipedia.org/wiki/Bill_Lumbergh">that would be <em>greaaat</em></a>.</p><p><img src="/2024/11/08/github-indexing-repo-lack-of-status-indicator/githubIndexIndication.png" alt="A screenshot showing a github indexing repo lack of status indicator"></p>]]></content:encoded>
       
       
       
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
-      <comments>https://twalichiewicz.github.io/blog/2024/11/08/github-indexing-repo-lack-of-status-indicator/#disqus_thread</comments>
+      
+      <comments>https://twalichiewicz.github.io/2024/11/08/github-indexing-repo-lack-of-status-indicator/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>the irony of attention to detail</title>
-      <link>https://twalichiewicz.github.io/blog/2024/11/07/the-irony-of-attention-to-detail/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/11/07/the-irony-of-attention-to-detail/</guid>
+      <link>https://twalichiewicz.github.io/2024/11/07/the-irony-of-attention-to-detail/</link>
+      <guid>https://twalichiewicz.github.io/2024/11/07/the-irony-of-attention-to-detail/</guid>
       <pubDate>Thu, 07 Nov 2024 21:10:12 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;The irony is not lost on me that my blog post about Apple’s attention to detail is itself broken due to a lack of attention to (coding)</description>
-          
+      <description>&lt;p&gt;The irony is not lost on me that my blog post about Apple’s attention to detail is itself broken due to a lack of attention to (coding) d</description>
         
       
       
@@ -248,22 +256,19 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/11/07/the-irony-of-attention-to-detail/#disqus_thread</comments>
+      <comments>https://twalichiewicz.github.io/2024/11/07/the-irony-of-attention-to-detail/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>what we lost-- macOS app icons</title>
-      <link>https://twalichiewicz.github.io/blog/2024/11/05/what-we-lost-macOS-app-icons/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/11/05/what-we-lost-macOS-app-icons/</guid>
+      <link>https://twalichiewicz.github.io/2024/11/05/what-we-lost-macOS-app-icons/</link>
+      <guid>https://twalichiewicz.github.io/2024/11/05/what-we-lost-macOS-app-icons/</guid>
       <pubDate>Tue, 05 Nov 2024 19:17:34 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;While I appreciate a lot of the improvements to macOS’s visual language—like the slick animations and cleaner interfaces—I can’t forgive</description>
-          
+      <description>&lt;p&gt;While I appreciate a lot of the improvements to macOS’s visual language—like the slick animations and cleaner interfaces—I can’t forgive </description>
         
       
       
@@ -273,99 +278,69 @@
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/11/05/what-we-lost-macOS-app-icons/#disqus_thread</comments>
+      <comments>https://twalichiewicz.github.io/2024/11/05/what-we-lost-macOS-app-icons/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>happy halloween 2024</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/31/happy-halloween-2024/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/31/happy-halloween-2024/</guid>
+      <link>https://twalichiewicz.github.io/2024/10/31/happy-halloween-2024/</link>
+      <guid>https://twalichiewicz.github.io/2024/10/31/happy-halloween-2024/</guid>
       <pubDate>Thu, 31 Oct 2024 18:59:59 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/31/happy-halloween-2024/IMG_2571.webp&quot;&gt;&lt;br&gt;&lt;img</description>
-          
+      <description>&lt;p&gt;Happy Halloween! 🎃&lt;br&gt;Digging through my photos I found some old drawings, enjoy!&lt;/p&gt;
+&lt;div class=&quot;carousel&quot; aria-label=&quot;Media carousel&quot;&gt;</description>
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2571.webp"><br><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2579.webp"><br><img src="/blog/2024/10/31/happy-halloween-2024/IMG_2583.webp"></p><p>Happy Halloween! 🎃</p><p>Digging through my photos I found some old drawings, enjoy!</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p>Happy Halloween! 🎃<br>Digging through my photos I found some old drawings, enjoy!</p><div class="carousel" aria-label="Media carousel">      <div class="carousel-track">        <div class="carousel-slide active"                       aria-hidden="false">            <img src="/2024/10/31/happy-halloween-2024/IMG_2571.webp"                                alt="Halloween drawing 1"                               loading="lazy"                               decoding="async">                      </div><div class="carousel-slide "                       aria-hidden="true">            <img src="/2024/10/31/happy-halloween-2024/IMG_2579.webp"                                alt="Halloween drawing 2"                               loading="lazy"                               decoding="async">                      </div><div class="carousel-slide "                       aria-hidden="true">            <img src="/2024/10/31/happy-halloween-2024/IMG_2583.webp"                                alt="Halloween drawing 3"                               loading="lazy"                               decoding="async">                      </div>      </div>              <button class="carousel-button prev" aria-label="Previous slide"></button>        <button class="carousel-button next" aria-label="Next slide"></button>        <div class="carousel-indicators">                      <button class="indicator active"                     aria-label="Go to slide 1"></button>                      <button class="indicator "                     aria-label="Go to slide 2"></button>                      <button class="indicator "                     aria-label="Go to slide 3"></button>                  </div>          </div>]]></content:encoded>
       
       
       
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/31/happy-halloween-2024/#disqus_thread</comments>
+      
+      <comments>https://twalichiewicz.github.io/2024/10/31/happy-halloween-2024/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>Whoops Spoke Too Soon</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/30/whoops-spoke-too-soon/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/30/whoops-spoke-too-soon/</guid>
+      <link>https://twalichiewicz.github.io/2024/10/30/whoops-spoke-too-soon/</link>
+      <guid>https://twalichiewicz.github.io/2024/10/30/whoops-spoke-too-soon/</guid>
       <pubDate>Wed, 30 Oct 2024 19:00:00 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.jpg&quot;&gt;&lt;/p&gt;
-&lt;p&gt;Spoke too</description>
-          
+      <description>&lt;p&gt;&lt;img src=&quot;/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.jpg&quot; alt=&quot;A screenshot showing a premature celebration&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Got to lov</description>
         
       
       
       
-      <content:encoded><![CDATA[<p><img src="/blog/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.jpg"></p><p>Spoke too soon</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><img src="/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.jpg" alt="A screenshot showing a premature celebration"></p><p>Got to love the random iOS beta bugs.</p>]]></content:encoded>
       
       
       
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/10/30/whoops-spoke-too-soon/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>attention to detail ios</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/30/attention-to-detail-ios/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/30/attention-to-detail-ios/</guid>
-      <pubDate>Wed, 30 Oct 2024 07:47:18 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;img src=&quot;/blog/2024/10/30/attention-to-detail-ios/batteryColorSwitch.mp4&quot;&gt;&lt;/p&gt;
-&lt;p&gt;Hat tip to that level of attention to</description>
-          
-        
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
       
-      
-      <content:encoded><![CDATA[<p><img src="/blog/2024/10/30/attention-to-detail-ios/batteryColorSwitch.mp4"></p><p>Hat tip to that level of attention to detail</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/10/30/attention-to-detail-ios/#disqus_thread</comments>
+      <comments>https://twalichiewicz.github.io/2024/10/30/whoops-spoke-too-soon/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>books apple tv app?</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/26/books-apple-tv-app/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/26/books-apple-tv-app/</guid>
+      <link>https://twalichiewicz.github.io/2024/10/26/books-apple-tv-app/</link>
+      <guid>https://twalichiewicz.github.io/2024/10/26/books-apple-tv-app/</guid>
       <pubDate>Sat, 26 Oct 2024 04:11:30 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;It’s puzzling that Apple hasn’t introduced a Books app for Apple TV. Our TVs have become the modern hearth, so why not recreate the</description>
-          
+      <description>&lt;p&gt;It’s puzzling that Apple hasn’t introduced a Books app for Apple TV. Our TVs have become the modern hearth, so why not recreate the exper</description>
         
       
       
@@ -374,23 +349,23 @@
       
       
       
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/26/books-apple-tv-app/#disqus_thread</comments>
+      
+      <comments>https://twalichiewicz.github.io/2024/10/26/books-apple-tv-app/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>awkward wireframes</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/16/awkward-wireframes/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/16/awkward-wireframes/</guid>
+      <link>https://twalichiewicz.github.io/2024/10/16/awkward-wireframes/</link>
+      <guid>https://twalichiewicz.github.io/2024/10/16/awkward-wireframes/</guid>
       <pubDate>Wed, 16 Oct 2024 18:03:22 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;Reminder: an MVP is supposed to show potential, not look like a warning label. Set the bar a bit</description>
-          
+      <description>&lt;p&gt;Reminder: an MVP is supposed to show potential, not look like a warning label. Set the bar a bit higher.&lt;/p&gt;
+</description>
         
       
       
@@ -399,23 +374,22 @@
       
       
       
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/16/awkward-wireframes/#disqus_thread</comments>
+      
+      <comments>https://twalichiewicz.github.io/2024/10/16/awkward-wireframes/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>apple fullscreen new window annoyance</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/16/apple-fullscreen-new-window-annoyance/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/16/apple-fullscreen-new-window-annoyance/</guid>
+      <link>https://twalichiewicz.github.io/2024/10/16/apple-fullscreen-new-window-annoyance/</link>
+      <guid>https://twalichiewicz.github.io/2024/10/16/apple-fullscreen-new-window-annoyance/</guid>
       <pubDate>Wed, 16 Oct 2024 04:18:33 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;Apple’s current approach to fullscreen apps often leaves users with a fragmented experience, especially when new windows are involved.</description>
-          
+      <description>&lt;p&gt;Apple’s current approach to fullscreen apps often leaves users with a fragmented experience, especially when new windows are involved. It</description>
         
       
       
@@ -424,23 +398,23 @@
       
       
       
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/16/apple-fullscreen-new-window-annoyance/#disqus_thread</comments>
+      
+      <comments>https://twalichiewicz.github.io/2024/10/16/apple-fullscreen-new-window-annoyance/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>apple tv music app control</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/14/apple-tv-music-app-control/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/14/apple-tv-music-app-control/</guid>
+      <link>https://twalichiewicz.github.io/2024/10/14/apple-tv-music-app-control/</link>
+      <guid>https://twalichiewicz.github.io/2024/10/14/apple-tv-music-app-control/</guid>
       <pubDate>Mon, 14 Oct 2024 22:11:07 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;It’s been 17 years since the Apple TV was introduced and the way you control the Music app with the remote still barely makes</description>
-          
+      <description>&lt;p&gt;It’s been 17 years since the Apple TV was introduced and the way you control the Music app with the remote still barely makes sense.&lt;/p&gt;
+</description>
         
       
       
@@ -449,23 +423,22 @@
       
       
       
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/14/apple-tv-music-app-control/#disqus_thread</comments>
+      
+      <comments>https://twalichiewicz.github.io/2024/10/14/apple-tv-music-app-control/#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>design pet peeves</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/13/design-pet-peeves/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/13/design-pet-peeves/</guid>
+      <link>https://twalichiewicz.github.io/2024/10/13/design-pet-peeves/</link>
+      <guid>https://twalichiewicz.github.io/2024/10/13/design-pet-peeves/</guid>
       <pubDate>Sun, 13 Oct 2024 06:13:29 GMT</pubDate>
       
         
         
-          
-          
-      <description>&lt;p&gt;Let’s talk about laggy UI, one of my new favorite pet peeves. You go to click, but a surprise pop-in makes you miss the target due to</description>
-          
+      <description>&lt;p&gt;Let’s talk about laggy UI, one of my new favorite pet peeves. You go to click, but a surprise pop-in makes you miss the target due to poo</description>
         
       
       
@@ -474,58 +447,27 @@
       
       
       
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/13/design-pet-peeves/#disqus_thread</comments>
+      
+      <comments>https://twalichiewicz.github.io/2024/10/13/design-pet-peeves/#disqus_thread</comments>
       
     </item>
     
     <item>
-      <title>WORKING FROM HOME IS POWERING PRODUCTIVITY</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/</guid>
+      <title>Work from home is powering productivity</title>
+      <link>https://twalichiewicz.github.io/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/</link>
+      <guid>https://twalichiewicz.github.io/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/</guid>
       <pubDate>Sat, 12 Oct 2024 00:34:56 GMT</pubDate>
       
-        
-        
-          
-          
-      <description>&lt;p&gt;&lt;a href=&quot;https://www.imf.org/en/Publications/fandd/issues/2024/09/working-from-home-is-powering-productivity-bloom&quot;&gt;&lt;strong&gt;WORKING FROM</description>
-          
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><a href="https://www.imf.org/en/Publications/fandd/issues/2024/09/working-from-home-is-powering-productivity-bloom"><strong>WORKING FROM HOME IS POWERING PRODUCTIVITY</strong></a></p>]]></content:encoded>
       
       
       
       
-      <comments>https://twalichiewicz.github.io/blog/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>cybercab</title>
-      <link>https://twalichiewicz.github.io/blog/2024/10/11/cybercab/</link>
-      <guid>https://twalichiewicz.github.io/blog/2024/10/11/cybercab/</guid>
-      <pubDate>Fri, 11 Oct 2024 15:01:10 GMT</pubDate>
-      
-        
-        
-          
-          
-      <description>&lt;p&gt;Shout-out to the Tesla design team for once again proving they can make some of the ugliest cars on the road. It’s almost impressive how</description>
-          
-        
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
       
-      
-      <content:encoded><![CDATA[<p>Shout-out to the Tesla design team for once again proving they can make some of the ugliest cars on the road. It’s almost impressive how consistently they nail it.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/blog/2024/10/11/cybercab/#disqus_thread</comments>
+      <comments>https://twalichiewicz.github.io/2024/10/12/WORKING-FROM-HOME-IS-POWERING-PRODUCTIVITY/#disqus_thread</comments>
       
     </item>
     

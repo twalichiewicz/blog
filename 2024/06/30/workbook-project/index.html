@@ -4,90 +4,67 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
         <head>
-  <title>Newest at the Top</title>
+  <title>Design in Everything - by Thomas Walichiewicz</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>😀</text></svg>">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FBFBFD" />
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101010" />
-  <link rel="stylesheet" href="/blog/styles/index.css">
-  <!-- Additional head content -->
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
+  <link rel="stylesheet" href="/styles/styles.css">
   
-<link rel="stylesheet" href="/blog/css/var.css">
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+  <script src="/js/propel-visualizations.js"></script>
+  <script src="/js/project-components.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.querySelector('.propel-case-study')) {
+        new PropelVisualizations();
+      }
+    });
+  </script>
   
-<link rel="stylesheet" href="/blog/css/shared.css">
-
-  
-<link rel="stylesheet" href="/blog/css/main.css">
-
-  
-<link rel="stylesheet" href="/blog/css/typography.css">
-
-  
-<link rel="stylesheet" href="/blog/css/code-highlighting.css">
-
-  <!-- Other includes -->
+  <script src="/js/carousel.js"></script>
+  <script src="/js/animations.js"></script>
+  <script src="/js/scroll.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/desktop-widgets.js"></script>
+  <script type="module" src="/js/components/HomeVisuals.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
+    }
+  }
+  </script>
+  <script src="/js/mobile-tabs.js"></script>
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/rss2.xml" title="Newest at the Top" type="application/rss+xml">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/rss2.xml" title="Thomas Walichiewicz" type="application/rss+xml">
 </head>
     </head>
     <body>
-        <nav id="theme-nav">
-    <div class="nav-content-container">
-        <div class="breadcrumbs">
-                <a target="_self" href="https://thomas.design">
-                    <h2 class="nav-home-page">thomas.design</h2>
-                </a>
-                <span class="nav-spacer">/</span>
-                <a target="_self" href="https://thomas.design/blog">
-                    <h2 class="section-title active">Blog</h2>
-                </a>
-                <a target="_self" href="https://thomas.design/portfolio">
-                    <h2 class="section-title">Portfolio</h2>
-                </a>
-                <a target="_blank" href="https://www.linkedin.com/in/twalichiewicz/">
-                    <h2 class="section-title">Contact</h2>
-                </a>
-        </div>
-        
+		<nav class="project-sticky-nav">
+  <div class="project-nav-container">
+    <div class="project-nav-title">
+      <a class="project-nav-back" href="javascript:history.back()">← Back</a>
+      Workbook
     </div>
+    <div class="project-section-links">
+      
+    </div>
+  </div>
 </nav>
 
-        <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    </head>
-    <body>
-<article class="post-list-item workbook-project" id="workbook project">
-    <div class="content">
-        <div class="post-footer">
-            <p>
-            You're currently viewing a single post from my blog, <a target="_blank" rel="noopener" href="https://thomas.design/blog">Newest at the Top</a>.
-            </p>
-        </div>
-        
-            <div class="content-body">
-                <div class="post-header">
-                    <div class="time">
-                        <span>June</span>
-                        <span>&nbsp;30,&nbsp;</span>
-                        <span>2024</span>
-                        
-                    </div>
-                    <a class="external-link" href="external-link-url" target="_blank" rel="noopener">External Link</a>
-                </div>
-                <!-- Shows a cover image, if it has one -->
-                
-                <!-- Show the title, if it has one -->
-                
-                <!-- Show the full content -->
-                <style>
+
+<main class="project-page">
+    <article class="project">
+        <style>
     .workbook-project .image-container {
         position: relative;
         display: flex;
@@ -171,25 +148,22 @@
 
 <div class="workbook-project">
     <div class="image-container" id="image-container">
-        <img id="image-viewer" src="https://thomas.design/blog/2024/06/30/workbook-project/00.jpeg" alt="Image Viewer">
+        <img id="image-viewer" src="https://thomas.design/blog/2024/06/30/workbook-project/00.jpeg" alt="Image Viewer" loading="lazy" decoding="async">
         <div class="controls">
             <button id="prev" onclick="showPrev()" disabled="">←</button>
             <button id="next" onclick="showNext()">→</button>
         </div>
         <div id="grid-view"></div>
     </div>
-
-<pre><code>&lt;button id=&quot;toggle-view&quot; onclick=&quot;toggleView()&quot;&gt;Grid View&lt;/button&gt;
-
-&lt;div&gt;
-    &lt;p style=&quot;text-align: center;&quot;&gt;
-        Another notebook down.
-    &lt;/p&gt;
-    &lt;p id=&quot;hidden-text&quot; class=&quot;hidden-text&quot; style=&quot;text-align: center;&quot;&gt;
-        Made you look.
-    &lt;/p&gt;
-&lt;/div&gt;
-</code></pre>
+    <button id="toggle-view" onclick="toggleView()">Grid View</button>
+    <div>
+        <p style="text-align: center;">
+            Another notebook down.
+        </p>
+        <p id="hidden-text" class="hidden-text" style="text-align: center;">
+            Made you look.
+        </p>
+    </div>
 </div>
 
 <script>
@@ -342,29 +316,23 @@
     createGrid();
 </script>
 
-            </div>
-        
-    </div>
-</article>
-    </body>
-</html>
-
-        <footer>
-	<div class="inner">
-		<span
-			>Designed, written, and coded by Thomas Walichiewicz in
-			California<br />&copy; 2025</span
-		>
-	</div>
-</footer>
+    </article>
+</main>
 
 
         
-<script src="/blog/js/main.js"></script>
+<script src="/js/main.js"></script>
 
         
 
         
+
+        
+<script src="/js/mobile-tabs.js"></script>
+
+        
+<script src="/js/sound-effects.js"></script>
+
         <!-- Additional scripts -->
     </body>
 </html>

@@ -120,4 +120,38 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }
+
+    // Add error handling for color scheme toggle
+    if (document.getElementById('theme-color-scheme-toggle')) {
+        try {
+            // ... existing color scheme code ...
+        } catch (error) {
+            console.error('Error initializing color scheme:', error);
+        }
+    }
+
+    // Initialize scroll-to-top functionality
+    if (typeof initScrollToTop === 'function') {
+        initScrollToTop();
+    }
+
+    // Initialize animations for sections
+    if (typeof createScrollObserver === 'function') {
+        createScrollObserver('.section');
+        createScrollObserver('.blog-post');
+        createScrollObserver('.portfolio-item');
+    }
+
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    sections.forEach(section => observer.observe(section));
 });
