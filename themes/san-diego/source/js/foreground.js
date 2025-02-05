@@ -8,15 +8,15 @@ const foregroundContent = {
 		</svg>`,
 		title: "Introduction",
 		content: `
-			<p>At Human Interest—a mission-driven fintech empowering small and medium-sized businesses to offer 401(k) plans—I led the creation of a comprehensive design system that would unify all of our product interfaces. My goal was to craft a framework that balances brand identity and scalable functionality, enabling rapid product development while preserving a cohesive user experience.</p>
-			<p>Working closely with cross-functional teams, I established a visual and interaction language robust enough to handle everything from complex forms to mobile dashboards. The result is a single source of truth for designers and developers, ensuring our products remain intuitively familiar and unmistakably Human Interest.</p>
+			<p>At Human Interest—a mission-driven fintech empowering small and medium-sized businesses to offer 401(k) plans—I personally ideated, designed, and coded a comprehensive design system to unify our product interfaces. My main goal was to create a framework that balances brand identity with functional scalability, enabling rapid product development while preserving a cohesive user experience.</p>
+			<p>Collaborating with cross-functional teams, I took ownership of every step—from initial design concepts to final front-end implementation. The result is a single source of truth for both designers and developers, ensuring our products remain visually consistent, intuitively familiar, and unmistakably Human Interest.</p>
 			<img src="/2018/04/05/foreground/foreground-preview.jpg" alt="Design system preview">
 			<div class='alert alert-yellow'>
 				<div class='alert-inner'>
 					<div class='alert-gutter'></div>
 					<div class='alert-copy'>
 						<span class='alert-copy-title'>Post in-progress</span>
-						<span class='alert-copy-body'>This re-upload mostly contains the original content from the first write-up I did of this project for a Behance page several years ago, though I plan to go through and do a more complete write-up on what my process was for each aspect. If you want to view that version, <a href='foreground.jpg'>here you go!</a></span>
+						<span class='alert-copy-body'>This re-upload mostly contains the original content from a Behance page I created several years ago, though I plan to provide a more thorough write-up soon. If you want to view the older version, <a href='foreground.jpg'>here you go!</a></span>
 					</div>
 				</div>
 			</div>
@@ -28,8 +28,8 @@ const foregroundContent = {
 		</svg>`,
 		title: "Color",
 		content: `
-			<p>Color is foundational to a product's personality and usability. Our palette was built not only to express brand essence but also to guide user focus and communicate status at a glance. I introduced a systematic approach to naming and usage—mapping a suite of hues and tints to specific roles, such as primary calls-to-action, success indicators, and subtle backgrounds.</p>
-			<p>These guidelines guarantee consistency across the platform and make color application nearly foolproof in production. Furthermore, contrast ratios were rigorously tested to ensure full accessibility compliance, enabling all users to interact confidently with our tools.</p>
+			<p>Color is foundational to both a product's personality and its usability. I personally developed a palette designed not only to express the Human Interest brand but also to guide user focus and convey status at a glance. By implementing a systematic naming and mapping structure, each hue and tint is tied to a specific purpose—from primary calls-to-action to subtle background elements.</p>
+			<p>These guidelines, along with the production code I wrote to enforce them, ensure near-flawless color application throughout the platform. I also performed rigorous contrast checks, guaranteeing accessibility compliance so every user can interact confidently with our products.</p>
 			<div class="color-tower">
 				<div class="red-0"></div><div class="red-1"></div><div class="red-2"></div><div class="red-3"></div>
 				<div class="red-4"></div><div class="red-5"></div><div class="red-6"></div><div class="red-7"></div>
@@ -50,8 +50,8 @@ const foregroundContent = {
 		</svg>`,
 		title: "Typography",
 		content: `
-			<p>A well-defined typographic system lays the groundwork for visual hierarchy and readability. We selected a modern, highly legible typeface and standardized a responsive scale to cover every scenario—from in-depth data tables in analytics dashboards to user-friendly onboarding wizards.</p>
-			<p>By defining spacing, weight, and size guidelines, I created a flexible system that prevents disjointed layouts and ensures fluid transitions between breakpoints. This consistent typography not only strengthens brand identity but also reduces design and engineering churn, as teams can quickly reference pre-approved styles without reinventing the wheel.</p>
+			<p>A well-defined typographic system underpins visual hierarchy and readability. After exploring multiple options, I handpicked a modern, highly legible typeface and then coded a responsive typographic scale for everything from dense analytical dashboards to user-friendly onboarding flows.</p>
+			<p>By specifying weights, sizes, and spacing rules—and encoding these directly into our front-end styles—I eliminated the risk of inconsistency across breakpoints. This approach not only strengthens our brand identity but also drastically cuts down design and engineering churn, as teams simply use the pre-approved, code-ready text styles.</p>
 			<img src="/2018/04/05/foreground/typography.jpg" alt="Typography system">
 		`
 	},
@@ -64,8 +64,8 @@ const foregroundContent = {
 		</svg>`,
 		title: "Iconography",
 		content: `
-			<p>Our icon set is deliberately minimalistic yet expressive, designed to communicate core concepts instantly. By adhering to a shared geometry and stroke style, we produced a library where icons feel cohesive and easily recognizable.</p>
-			<p>It's more than just aesthetics; strong iconography enhances navigation, reduces cognitive load, and provides universal cues for user actions. The collaborative documentation process I led allowed designers and developers to quickly locate, size, and color icons appropriately, speeding up implementation while preserving visual harmony throughout the platform.</p>
+			<p>Our icon set is minimalistic yet expressive, designed to convey ideas at a glance. I established the geometric and stroke guidelines, then personally created the core icon library, ensuring a coherent look and feel across the suite. On the development side, I built out the icon components so designers and engineers can easily integrate them without guesswork.</p>
+			<p>Beyond aesthetics, consistent iconography eases navigation, reduces cognitive load, and provides universal action cues. Thanks to thorough documentation, teams can quickly locate, size, and color icons correctly—accelerating launches and keeping visuals uniformly on-brand.</p>
 			<img src="/2018/04/05/foreground/hicons.jpg" alt="Icon system">
 		`
 	},
@@ -78,8 +78,8 @@ const foregroundContent = {
 		</svg>`,
 		title: "Components",
 		content: `
-			<p>The real engine of this system is our component library—modular, reusable building blocks that form the backbone of every product flow. Each component was meticulously documented, from interaction states to edge-case behaviors. This unwavering clarity means designers and engineers can confidently integrate components, knowing they'll look and behave consistently.</p>
-			<p>I also focused on scalability: components are designed to adapt seamlessly to varied contexts or device types, cutting down on repetitive custom solutions. In effect, we've established an ecosystem that drives rapid prototyping, consistent brand storytelling, and future-proof design patterns.</p>
+			<p>The true powerhouse of this system is our component library—modular, reusable building blocks that drive every product flow. I personally coded many of these components from the ground up, detailing states, behaviors, and edge cases to ensure consistency and reliability.</p>
+			<p>Each piece is designed to scale seamlessly for varied contexts or devices, reducing the need for one-off workarounds. This modular approach enables rapid prototyping, a unified brand narrative, and a solid foundation that we can extend well into the future.</p>
 			<img src="/2018/04/05/foreground/componentsPreview.png" alt="Component system">
 		`
 	},
@@ -89,8 +89,8 @@ const foregroundContent = {
 		</svg>`,
 		title: "Application",
 		content: `
-			<p>When these components and guidelines converge in production, the impact is immediate. Page construction becomes as simple as assembling a puzzle: color, typography, iconography, and interactivity fit together flawlessly. This orchestrated approach not only accelerates time to market but also enforces a top-tier user experience across the entire product suite.</p>
-			<p>Engineers benefit from streamlined code and reduced QA cycles, while product managers appreciate the predictability and reliability of new feature rollouts. Ultimately, this design system liberates teams to concentrate on strategic challenges—like refining user flows or exploring new functionality—rather than rehashing design fundamentals.</p>
+			<p>When all these coded components and design guidelines converge in production, the value becomes clear. Page construction is practically plug-and-play: color, typography, iconography, and interactive elements align effortlessly. This coordinated approach speeds up development cycles and ensures a high-caliber user experience across the entire product suite.</p>
+			<p>Engineers benefit from structured, well-documented code and shorter QA processes, while product managers value the predictability of each release. Ultimately, this design system—much of which I built and documented myself—liberates teams to focus on more strategic challenges, such as refining user flows or exploring innovative new features, rather than revisiting core design fundamentals.</p>
 			<img src="/2018/04/05/foreground/redesigned-admin.jpg" alt="Dashboard example">
 			<img src="/2018/04/05/foreground/onboarding-fauxdal.jpg" alt="Modal example">
 		`
@@ -174,4 +174,4 @@ class ForegroundProject {
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
 	new ForegroundProject();
-}); 
+});

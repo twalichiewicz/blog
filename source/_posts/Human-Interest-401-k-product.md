@@ -1,17 +1,24 @@
 ---
 title: 401(k) Administration product
 company: Human Interest
-byline: A simple yet robust 401(k) administration tool for small to medium sized businesses
+byline: Redesigned the 401(k) administration experience for small to medium businesses, creating an intuitive platform that simplifies complex financial processes while maintaining robust functionality and compliance requirements
 categories:
   - [content]
   - [visuals]
-cover_image: 2017/08/30/Human-Interest-401-k-product/cutaway-preview.jpg
+cover_image: 2017/02/01/Human-Interest-401-k-product/cutaway-preview.jpg
 fullscreen: true
-date: 2017-08-30 13:22:52
+date: 2017-02-01 20:52:01
 tags:
   - portfolio
 layout: project
 ---
+
+<style>
+  .alert {
+    margin-left: 12px;
+ margin-right: 12px;
+  }
+</style>
 
 <div class="alert alert-default">
   <div class="alert-inner">

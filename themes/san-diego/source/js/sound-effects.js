@@ -24,75 +24,52 @@ document.addEventListener('DOMContentLoaded', function () {
 	const contactButton = document.querySelector('.contact-button');
 	const contactOptions = document.querySelector('.contact-options');
 	if (contactButton) {
-		contactButton.addEventListener('mousedown', playSliderSound);
-		contactButton.addEventListener('mouseup', playSliderSound);
-		contactButton.addEventListener('touchstart', playSliderSound);
-		contactButton.addEventListener('touchend', playSliderSound);
-
-		// Add click handler to toggle active state
+		// On click, play sound and toggle the active state
 		contactButton.addEventListener('click', (e) => {
 			e.preventDefault();
+			playSliderSound();
 			contactButton.classList.toggle('active');
 		});
 
-		// Close contact options when clicking outside
+		// Close contact options when clicking outside (no sound)
 		document.addEventListener('click', (e) => {
 			if (!e.target.closest('.contact-wrapper')) {
 				contactButton.classList.remove('active');
-				// Don't play sound when closing via outside click
 			}
 		});
 
-		// Play sound when clicking contact options
+		// Play sound when clicking on contact option buttons
 		const contactOptionButtons = document.querySelectorAll('.contact-option');
 		contactOptionButtons.forEach(button => {
-			button.addEventListener('mousedown', playSliderSound);
-			button.addEventListener('mouseup', playSliderSound);
-			button.addEventListener('touchstart', playSliderSound);
-			button.addEventListener('touchend', playSliderSound);
+			button.addEventListener('click', playSliderSound);
 		});
 	}
 
 	// Tab buttons
 	const tabButtons = document.querySelectorAll('.tab-button');
 	tabButtons.forEach(button => {
-		button.addEventListener('mousedown', playSliderSound);
-		button.addEventListener('mouseup', playSliderSound);
-		button.addEventListener('touchstart', playSliderSound);
-		button.addEventListener('touchend', playSliderSound);
+		button.addEventListener('click', playSliderSound);
 	});
 
 	// Carousel buttons
 	const carouselButtons = document.querySelectorAll('.carousel-button');
 	carouselButtons.forEach(button => {
-		button.addEventListener('mousedown', playSliderSound);
-		button.addEventListener('mouseup', playSliderSound);
-		button.addEventListener('touchstart', playSliderSound);
-		button.addEventListener('touchend', playSliderSound);
+		button.addEventListener('click', playSliderSound);
 	});
 
 	// Spotlight buttons
 	const spotlightButtons = document.querySelectorAll('.spotlight-nav-button');
 	spotlightButtons.forEach(button => {
-		button.addEventListener('mousedown', playSliderSound);
-		button.addEventListener('mouseup', playSliderSound);
-		button.addEventListener('touchstart', playSliderSound);
-		button.addEventListener('touchend', playSliderSound);
+		button.addEventListener('click', playSliderSound);
 	});
 
 	// Book/List mode toggle buttons
 	const bookModeBtn = document.getElementById('bookModeBtn');
 	const listModeBtn = document.getElementById('listModeBtn');
 	if (bookModeBtn) {
-		bookModeBtn.addEventListener('mousedown', playSliderSound);
-		bookModeBtn.addEventListener('mouseup', playSliderSound);
-		bookModeBtn.addEventListener('touchstart', playSliderSound);
-		bookModeBtn.addEventListener('touchend', playSliderSound);
+		bookModeBtn.addEventListener('click', playSliderSound);
 	}
 	if (listModeBtn) {
-		listModeBtn.addEventListener('mousedown', playSliderSound);
-		listModeBtn.addEventListener('mouseup', playSliderSound);
-		listModeBtn.addEventListener('touchstart', playSliderSound);
-		listModeBtn.addEventListener('touchend', playSliderSound);
+		listModeBtn.addEventListener('click', playSliderSound);
 	}
 });

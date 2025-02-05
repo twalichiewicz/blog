@@ -1,9 +1,9 @@
 ---
 title: 2016 Research Report
 company: Common Cents Lab
-byline: A comprehensive summary of the behavioral science projects and experiments conducted by Common Cents Lab in 2016
-date: 2016-12-31 00:00:00
-cover_image: /2016/12/31/Common-Cents-Lab-2016-Research-Report/ccl-2016-report-preview.png
+byline: A comprehensive summary of our behavioral science projects and experiments in 2016
+date: 2017-12-31 00:00:00
+cover_image: /2017/12/31/Common-Cents-Lab-2016-Research-Report/ccl-2016-report-preview.png
 fullscreen: true
 tags:
   - portfolio
@@ -12,14 +12,14 @@ layout: project
 
 <div class="pdf-wrapper" style="height: calc(100vh - var(--nav-height));">
   <object
-    data="/2016/12/31/Common-Cents-Lab-2016-Research-Report/Common_Cents_Lab_End_of_Year_2016_Report.pdf"
+    data="/2017/12/31/Common-Cents-Lab-2016-Research-Report/Common_Cents_Lab_End_of_Year_2016_Report.pdf"
     type="application/pdf"
     width="100%"
     height="100%"
     style="overflow: auto;"
   >
     <embed
-      src="/2016/12/31/Common-Cents-Lab-2016-Research-Report/Common_Cents_Lab_End_of_Year_2016_Report.pdf"
+      src="/2017/12/31/Common-Cents-Lab-2016-Research-Report/Common_Cents_Lab_End_of_Year_2016_Report.pdf"
       type="application/pdf"
       width="100%"
       height="100%"

@@ -140,29 +140,105 @@
 
     <div id="projectsContent" style="display: none;" class="portfolio-list">
         <% if (site.posts.length > 0) { %>
-            <% site.posts.sort('date', -1).forEach(function(post) { %>
-                <% if (post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio') && !post.draft) { %>
-                    <a href="<%- url_for(post.path) %>" class="portfolio-item">
-                        <div class="portfolio-image">
-                            <% if (post.cover_image) { %>
-                                <img 
-                                    src="<%- url_for(post.cover_image) %>" 
-                                    alt="<%- post.title %>"
-                                    loading="lazy"
-                                >
+            <% 
+            // Group posts by company
+            const projectsByCompany = {};
+            site.posts.sort('date', -1).forEach(function(post) {
+                if (post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio') && !post.draft) {
+                    const company = post.company || 'Other Projects';
+                    if (!projectsByCompany[company]) {
+                        projectsByCompany[company] = [];
+                    }
+                    projectsByCompany[company].push(post);
+                }
+            });
+
+            // Sort companies alphabetically, but keep "Other Projects" at the end
+            const companyOrder = [
+                'Autodesk',
+                'Human Interest',
+                'Common Cents Lab',
+                'Lyra Health',
+				'Maisha Meds',
+                'Other Projects'
+            ];
+
+            const companyYears = {
+                'Autodesk': '2019—Present',
+                'Human Interest': '2017—2019',
+                'Common Cents Lab': '2016—2017',
+                'Lyra Health': '2015',
+				'Maisha Meds': '2013-2014'
+            };
+            
+            const sortedCompanies = Object.keys(projectsByCompany).sort((a, b) => {
+                const indexA = companyOrder.indexOf(a);
+                const indexB = companyOrder.indexOf(b);
+                
+                // If both companies are in our order list, use that order
+                if (indexA !== -1 && indexB !== -1) {
+                    return indexA - indexB;
+                }
+                
+                // If only one company is in our list, prioritize it
+                if (indexA !== -1) return -1;
+                if (indexB !== -1) return 1;
+                
+                // For companies not in our list, sort alphabetically
+                // but keep "Other Projects" at the end
+                if (a === 'Other Projects') return 1;
+                if (b === 'Other Projects') return -1;
+                return a.localeCompare(b);
+            });
+            %>
+
+            <% sortedCompanies.forEach(function(company) { %>
+                <div class="company-group">
+                    <h2 class="company-name">
+                        <%= company %>
+                        <% if (companyYears[company]) { %>
+                            <span class="company-years"><%= companyYears[company] %></span>
+                        <% } %>
+                    </h2>
+                    <div class="company-projects">
+                        <% projectsByCompany[company].forEach(function(post) { %>
+                            <% if (post.has_writeup === false) { %>
+                                <div class="portfolio-item">
+                            <% } else { %>
+                                <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup">
                             <% } %>
-                        </div>
-                        <div class="portfolio-content">
-                            <% if (post.company) { %>
-                                <div class="company-byline"><%- post.company %></div>
+                                <div class="portfolio-image">
+                                    <% if (post.cover_image && post.has_writeup !== false) { %>
+                                        <img 
+                                            src="<%- url_for(post.cover_image) %>" 
+                                            alt="<%- post.title %>"
+                                            loading="lazy"
+                                        >
+                                    <% } %>
+                                </div>
+                                <div class="portfolio-content">
+                                    <div class="content-text">
+                                        <% if (post.has_writeup === false) { %>
+                                            <h4><%- post.title %></h4>
+                                        <% } else { %>
+                                            <h3><%- post.title %></h3>
+                                        <% } %>
+                                        <% if (post.byline) { %>
+                                            <p><%- post.byline %></p>
+                                        <% } %>
+                                    </div>
+                                    <% if (post.has_writeup !== false) { %>
+                                        <div class="arrow-button"><span class="external-icon">→</span></div>
+                                    <% } %>
+                                </div>
+                            <% if (post.has_writeup === false) { %>
+                                </div>
+                            <% } else { %>
+                                </a>
                             <% } %>
-                            <h3><%- post.title %></h3>
-                            <% if (post.byline) { %>
-                                <p><%- post.byline %></p>
-                            <% } %>
-                        </div>
-                    </a>
-                <% } %>
+                        <% }) %>
+                    </div>
+                </div>
             <% }) %>
         <% } else { %>
             <%- partial('_partial/loading-skull') %>

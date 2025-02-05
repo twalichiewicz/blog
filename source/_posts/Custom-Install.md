@@ -1,7 +1,8 @@
 ---
 title: Custom Install
+has_writeup: false
 company: Autodesk
-byline: Reimagining how enterprises deploy Autodesk software
+byline: Led the design of an enterprise-scale cloud-based deployment solution
 role: Lead Designer
 date: 2019-08-30 20:52:01
 categories:
@@ -15,18 +16,143 @@ tags:
 layout: project
 ---
 
+<style>
+  /* Increase project-header height to include nav (44px) */
+  .project-header {
+    position: relative;
+    height: calc(120vh + 44px); /* 120vh plus the 44px nav */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Header content is limited to 100vh and pushed down by 44px so that it appears below the navigation */
+  .header-content {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    margin-top: 44px;
+  }
+
+  /* Make sure the container with the project title sits above the boxes */
+  .header-content .container {
+    position: relative;
+    z-index: 10;
+    padding-top: 2rem; /* adjust as needed */
+ top: 23%;
+  }
+
+  /* Container for the falling boxes */
+  .parachute-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* Package (box emoji) animation style */
+  .parachute-box {
+    position: absolute;
+    top: -50px;
+    font-size: 60px;
+    animation: parachute-fall 4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .parachute-box::before {
+    content: "🪂";
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    font-size: 40px;
+  }
+
+  /* Layer some boxes behind the title and some in front */
+  .parachute-box:nth-child(odd) {
+    z-index: 5;
+  }
+  
+  .parachute-box:nth-child(even) {
+    z-index: 15;
+  }
+
+  @keyframes parachute-fall {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(calc(100vh + 5vh)) translateX(-20px);
+      opacity: 0;
+    }
+  }
+
+  /* Scroll arrow positioned at the bottom of .header-content (100vh) */
+  .scroll-arrow {
+    position: absolute;
+    bottom: 99px;
+    left: 52%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+  .scroll-arrow .scroll-arrow-text {
+  font-size: 36px;
+    fill: currentColor;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+  }
+
+  /* Remove border radii from all sections */
+  section, .content-section, .project-content, .intro-section {
+    border-radius: 0;
+  }
+
+  /* TLDR button near-black background using $_variables.scss's $black (hsl(0, 0%, 10%)) */
+  .tldr-button {
+    background-color: hsl(0, 0%, 10%);
+    color: hsl(0, 0%, 100%);
+    border: none;
+    padding: 0.5rem 1rem;
+  }
+</style>
+
 <div class="project-page">
   <header class="project-header">
-    <div class="container">
-      <h1 class="project-title">Transforming Software Deployment at Enterprise Scale</h1>
+    <div class="parachute-container">
+      <div class="parachute-box">📦</div>
+      <div class="parachute-box">📦</div>
+      <div class="parachute-box">📦</div>
+      <div class="parachute-box">📦</div>
+    </div>
+    <div class="header-content">
+      <div class="container">
+        <h1 class="project-title">Transforming Software Deployment at Enterprise Scale</h1>
+      </div>
+      <div class="scroll-arrow">
+          <div class="scroll-arrow-text">↓</div>
+      </div>
     </div>
   </header>
-  <div class="parachute-container">
-    <div class="parachute-box">📦</div>
-    <div class="parachute-box">📦</div>
-    <div class="parachute-box">📦</div>
-    <div class="parachute-box">📦</div>
-  </div>
+  
   <section class="intro-section">
     <div class="container">
       <p class="intro-text">For over 30 years, Autodesk has been a leader in design software. This is the story of how we transformed their fragmented installation systems into a unified, scalable platform.</p>
@@ -35,9 +161,9 @@ layout: project
       </div>
     </div>
   </section>
+  
   <div id="tldrModal" class="tldr-modal">
     <div class="modal-header">
-      <h2>Quick Summary</h2>
       <button class="close-button" onclick="document.body.classList.remove('modal-open'); document.getElementById('tldrModal').classList.remove('active')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 18L18 6M6 6l12 12"/>
@@ -60,18 +186,9 @@ layout: project
           <p>Reduced installation times by 60%, enabled 30,000+ package creations, and streamlined deployment for enterprise customers worldwide.</p>
         </div>
       </div>
-      <div class="live-preview">
-        <h3>Live Preview</h3>
-        <div class="preview-content">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H3V4h18v10z"/>
-          </svg>
-          <p>Try the latest version of this tool in your <a href="https://manage.autodesk.com/products/deployments" target="_blank">Autodesk Account</a></p>
-        </div>
-      </div>
     </div>
   </div>
-  <div class="color-transition"></div>
+  
   <div class="project-content">
     <div class="content-wrap">
       <div class="content-section">
@@ -127,7 +244,6 @@ layout: project
           </div>
         </div>
       </div>
-
       <!-- NEW SECTION: PARACHUTE METAPHOR -->
       <div class="content-section">
         <h2>Foreground: A Parachute Metaphor for Deployment</h2>
@@ -136,56 +252,50 @@ layout: project
             Imagine a scenario where a remote team—like a group of engineers or designers—needs
             critical supplies to complete their work. For CAD managers (CALs), ensuring each team member
             has the exact tools, in the correct version, can feel just as urgent as delivering life-saving
-            supplies to a remote outpost. That’s where our supply drop analogy comes in: we’re “airdropping”
+            supplies to a remote outpost. That's where our supply drop analogy comes in: we're "airdropping"
             software packages so they safely reach each user without error or delay.
           </p>
-
           <h3>The Workflow: A Parachute for Every Need</h3>
           <p>
-            Our deployment process can be broken down into four main stages. From “packing the parachutes” 
-            (configuring installers) to “dropping the supplies” (delivering them via SCCM), each step reflects 
+            Our deployment process can be broken down into four main stages. From "packing the parachutes"
+            (configuring installers) to "dropping the supplies" (delivering them via SCCM), each step reflects
             the precision required in large-scale software management.
           </p>
-
           <h4>Stage 1: Configuration – Packing the Parachutes</h4>
           <ul>
             <li><strong>Metaphor</strong>: Carefully selecting and preparing resources (tools, settings, plugins)</li>
             <li><strong>What Happens</strong>: CALs pick which products and customizations belong in a single package.</li>
-            <li><strong>Visual Cue</strong>: Imagine selecting fresh fruit for a care package—everything is meticulously 
-            labeled (e.g., “AutoCAD Plugins,” “Revit Libraries”) to ensure a safe “landing.”</li>
+            <li><strong>Visual Cue</strong>: Imagine selecting fresh fruit for a care package—everything is meticulously
+            labeled (e.g., "AutoCAD Plugins," "Revit Libraries") to ensure a safe "landing."</li>
           </ul>
-
           <h4>Stage 2: Packaging – Bundling for Deployment</h4>
           <ul>
-            <li><strong>Metaphor</strong>: After packing parachutes, they’re sealed into crates—our customized installers.</li>
-            <li><strong>What Happens</strong>: All chosen customizations are combined into a single, cohesive installer 
+            <li><strong>Metaphor</strong>: After packing parachutes, they're sealed into crates—our customized installers.</li>
+            <li><strong>What Happens</strong>: All chosen customizations are combined into a single, cohesive installer
             ready for mass deployment.</li>
             <li><strong>Visual Cue</strong>: Boxes labeled with product names and versions, each sporting a little parachute icon.</li>
           </ul>
-
           <h4>Stage 3: Deployment – Dropping the Supplies</h4>
           <ul>
-            <li><strong>Metaphor</strong>: SCCM (our “aircraft,” nicknamed SCCMair) delivers these parachuted packages 
+            <li><strong>Metaphor</strong>: SCCM (our "aircraft," nicknamed SCCMair) delivers these parachuted packages
             to target machines.</li>
-            <li><strong>What Happens</strong>: Automated distribution ensures each package “lands” on the correct 
+            <li><strong>What Happens</strong>: Automated distribution ensures each package "lands" on the correct
             computer, while CALs monitor the status remotely.</li>
-            <li><strong>Visual Cue</strong>: A plane silhouette releasing multiple parachuted boxes labeled 
-            “AutoCAD,” “Revit,” “3ds Max,” etc.</li>
+            <li><strong>Visual Cue</strong>: A plane silhouette releasing multiple parachuted boxes labeled
+            "AutoCAD," "Revit," "3ds Max," etc.</li>
           </ul>
-
           <h4>Stage 4: Managed Environment – The Supplies in Action</h4>
           <ul>
-            <li><strong>Metaphor</strong>: Once the packages land, they’re opened by end users (like Javier), 
+            <li><strong>Metaphor</strong>: Once the packages land, they're opened by end users (like Javier),
             who immediately see everything set up and ready.</li>
-            <li><strong>What Happens</strong>: The installation is preconfigured, letting the user focus on design 
+            <li><strong>What Happens</strong>: The installation is preconfigured, letting the user focus on design
             tasks rather than manual setup.</li>
-            <li><strong>Visual Cue</strong>: Javier opening a box and instantly accessing precisely the toolset 
+            <li><strong>Visual Cue</strong>: Javier opening a box and instantly accessing precisely the toolset
             he needs to keep projects moving.</li>
           </ul>
         </div>
       </div>
       <!-- END NEW SECTION -->
-
       <div class="content-section">
         <h2>Context</h2>
         <div class="content-section__inner">
@@ -280,7 +390,6 @@ layout: project
         <h2>Standardizing customization</h2>
         <div class="content-section__inner">
           <p>Even with my newfound knowledge of all the potential ways that individual products could be customized, I knew that centralizing the maintenance of those customizations would not only be a large commitment of resources from our own team, but it would perpetually leave us having to back-and-forth with product teams, who might want to make necessary adjustments based off their own users's feedback or a new feature were were planning on releasing.</p>
-          <p>In order to handle this, I took an approach similar to that of a design system: we would provide the components for each installer's customizations, and product teams would be responsible for putting the components into an order that made sense for their product.</p>
           <div class="responsibilities-table">
             <h3>Team Responsibilities</h3>
             <table>
@@ -383,7 +492,6 @@ layout: project
     </button>
   </div>
 </div>
-
 <script>
   // Show/hide floating TL;DR button based on scroll position
   const floatingTldr = document.querySelector('.floating-tldr');
@@ -395,5 +503,15 @@ layout: project
     } else {
       floatingTldr.classList.remove('visible');
     }
+  });
+
+  // Randomize the animation delay for each falling box on every animation cycle
+  document.querySelectorAll('.parachute-box').forEach(box => {
+    // Set an initial random delay between 0 and 2 seconds
+    box.style.animationDelay = Math.random() *2 + "s";
+    // Upon each animation iteration, assign a new random delay
+    box.addEventListener('animationiteration', function() {
+      box.style.animationDelay = Math.random()* 2 + "s";
+    });
   });
 </script>

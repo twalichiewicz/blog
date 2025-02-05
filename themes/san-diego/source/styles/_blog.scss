@@ -1,10 +1,5 @@
 @use 'variables';
 
-html {
-	// Prevent layout shift from scrollbar
-	scrollbar-gutter: stable;
-}
-
 .blog {
 	max-width: 1600px;
 	margin: 0 auto;

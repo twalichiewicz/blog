@@ -23,13 +23,11 @@
 	}
 }
 
-// Button components
 .button,
 button {
 	@include button-styles;
 }
 
-// Grid layout components
 .card-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -58,7 +56,6 @@ button {
 	transition: all 200ms ease;
 }
 
-// Media components
 .post-video {
 	width: 100%;
 	max-width: 100%;
@@ -67,7 +64,6 @@ button {
 	margin: 24px 0;
 }
 
-// Interactive components
 .segmented-button {
 	display: flex;
 	gap: 0.5rem;
@@ -77,7 +73,7 @@ button {
 	border: 1px solid variables.$border-color;
 
 	@media screen and (max-width: variables.$mobile-breakpoint) {
-		display: none; // Hide the list/book toggle on mobile
+		display: none;
 	}
 
 	button {
@@ -109,7 +105,6 @@ button {
 	}
 }
 
-// Typography components
 blockquote {
 	margin: 24px 0;
 	padding: 16px 24px;
@@ -141,7 +136,6 @@ blockquote {
 	}
 }
 
-// Alert component
 .alert {
 	display: flex;
 	align-items: flex-start;
@@ -154,7 +148,6 @@ blockquote {
 	border: 1px solid variables.$border-color;
 	color: variables.$text-color;
 
-	// Alert variants
 	&--warning {
 		background-color: #fff9eb;
 		border-color: #ffd77a;
@@ -185,7 +178,7 @@ blockquote {
 		flex: 1;
 
 		h3 {
-			margin: 0 0 6px 0;
+			margin: 0 0 6px;
 			font-size: 15px !important;
 			color: variables.$text-color;
 		}
@@ -210,7 +203,6 @@ blockquote {
 	}
 }
 
-// Utility components
 .scroll-to-top {
 	position: fixed;
 	padding: 12px;
@@ -243,7 +235,6 @@ blockquote {
 	}
 }
 
-// Dark mode styles
 @media (prefers-color-scheme: dark) {
 
 	.button,
@@ -294,28 +285,27 @@ blockquote {
 	}
 }
 
-// Default button styling
 button {
 	display: flex;
 	gap: 4px;
-	border: none;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow:
+		0 1px 3px rgba(0, 0, 0, 0.1),
 		0 1px 2px rgba(0, 0, 0, 0.06),
 		inset 0 2px 4px rgba(0, 0, 0, 0.1),
 		inset 0 -1px 2px rgba(255, 255, 255, 0.1);
-	border: 1px solid rgba(255, 255, 255, 0.1);
 	cursor: pointer;
 	transition: all 0.3s ease;
 
 	@media (prefers-color-scheme: dark) {
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2),
+		box-shadow:
+			0 1px 3px rgba(0, 0, 0, 0.2),
 			0 1px 2px rgba(0, 0, 0, 0.12),
 			inset 0 2px 4px rgba(0, 0, 0, 0.2),
 			inset 0 -1px 2px rgba(255, 255, 255, 0.05);
 	}
 }
 
-// Mobile tabs specific styling
 .mobile-tabs {
 	display: flex;
 	width: 100%;
@@ -343,7 +333,6 @@ button {
 		position: relative;
 		z-index: 1;
 		box-shadow: none;
-		border: none;
 		text-align: center;
 		justify-content: center;
 
@@ -488,4 +477,197 @@ button {
 			}
 		}
 	}
+}
+
+.tldr-modal {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	margin: 0 auto;
+	width: 90vw;
+	max-width: 600px;
+	max-height: 90vh;
+	background: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(4px);
+	border-radius: 6px 6px 0 0;
+	border-top: 1px solid variables.$border-color;
+	border-left: 1px solid variables.$border-color;
+	border-right: 1px solid variables.$border-color;
+	display: flex;
+	flex-direction: column;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+	z-index: 1000;
+
+	&.active {
+		opacity: 1;
+		visibility: visible;
+
+		.modal-content {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	.modal-header {
+		background: var(--propel-bg);
+		padding: 6px;
+		border: none;
+		border-radius: 6px 6px 0 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		position: relative;
+		margin: 0;
+		width: 100%;
+
+		h2 {
+			margin: 0;
+			font-size: 15px;
+			color: var(--propel-text);
+			text-transform: none;
+		}
+
+		.close-button {
+			background: none;
+			border: none;
+			padding: 0;
+			margin: 0;
+			cursor: pointer;
+			color: var(--propel-text-secondary);
+			transition: color 0.2s ease;
+			width: 24px;
+			height: 24px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			&:hover {
+				color: var(--propel-text);
+			}
+
+			svg {
+				width: 16px;
+				height: 16px;
+			}
+		}
+	}
+
+	.modal-content {
+		background: var(--propel-bg);
+		width: 100%;
+		overflow-y: auto;
+		margin: 0;
+		padding: 2rem;
+		position: relative;
+		box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+		border-top: 1px solid var(--propel-border);
+		border-radius: 0;
+		opacity: 0;
+		transform: translateY(100%);
+		transition:
+			transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+			opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+		.tldr-summary {
+			font-size: 15px;
+			color: var(--propel-text-secondary);
+			margin-top: 0;
+		}
+
+		.key-points {
+			display: grid;
+			gap: 1.5rem;
+			margin: 2rem 0;
+
+			.point {
+				background: variables.$grey;
+				border-radius: 12px;
+				padding: variables.$space-sm;
+
+				h3 {
+					font-size: 0.9rem;
+					margin: 0;
+					color: var(--propel-text);
+				}
+
+				p {
+					margin: 0;
+					font-size: 12px;
+					color: var(--propel-text-secondary);
+					line-height: 1.5;
+				}
+
+				svg {
+					width: 24px;
+					height: 24px;
+					color: var(--propel-green);
+				}
+			}
+		}
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.tldr-modal {
+		.modal-content {
+			background: var(--propel-bg);
+
+			.modal-header {
+				background: var(--propel-bg);
+				border-color: var(--propel-border);
+
+				h2 {
+					color: var(--propel-text);
+				}
+
+				.close-button {
+					color: var(--propel-text-secondary);
+
+					&:hover {
+						color: var(--propel-text);
+					}
+				}
+			}
+
+			.key-points .point {
+				h3 {
+					color: var(--propel-text);
+				}
+
+				p {
+					color: var(--propel-text-secondary);
+				}
+			}
+
+			.live-preview {
+				background: var(--propel-bg-alt);
+
+				h3 {
+					color: var(--propel-text);
+				}
+
+				.preview-content {
+					svg {
+						color: var(--propel-green);
+					}
+
+					p {
+						color: var(--propel-text-secondary);
+
+						a {
+							color: var(--propel-green);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+body.modal-open {
+	overflow: hidden;
 }
