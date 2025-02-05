@@ -1,7 +1,7 @@
 <nav class="project-sticky-nav">
   <div class="project-nav-container">
     <div class="project-nav-title">
-      <a class="project-nav-back" href="<%= url_for('/') %>?section=posts">← Back</a>
+      <a class="project-nav-back" href="javascript:history.back()">← Back</a>
       <%= page.title %>
     </div>
     <div class="project-section-links">
@@ -10,6 +10,7 @@
       if (site.pages && Array.isArray(site.pages.data)) {
         const subPages = site.pages.data.filter(subPage => {
           // Check if this page is a parent of the sub-page
+          // Assuming URLs are structured like /parent/child
           const parentPath = page.path.replace(/index\.html$/, '');
           return subPage.path.startsWith(parentPath) && subPage.path !== page.path;
         });
