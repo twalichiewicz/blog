@@ -2,6 +2,8 @@
 title: apple maps updated driving directions near me
 date: 2024-01-28 14:57:27
 short: true
+tags:
+  - blog
 ---
 
 I noticed Apple Maps has been inaccurately directed me on a longer route home due to a one-way street misidentification. Discovered the error while driving, reported it, and it was recently fixed, saving 5 minutes every time I head that way.

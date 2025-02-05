@@ -1,8 +1,9 @@
 ---
 title: MVPs degrade brand perception
 date: 2023-05-25 17:54:54
-categories: 💬
 short: true
+tags:
+  - blog
 ---
 
 As anyone who has worked in tech knows, Minimum Viable Product (MVP) solutions are _the_ popular approach for launching new products. But after a decade of worth in in the industry, I think that releasing products in an MVP state to your customers is generally a mistake.

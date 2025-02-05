@@ -2,6 +2,8 @@
 title: filling another design notebook
 date: 2024-03-28 19:52:27
 short: true
+tags:
+  - blog
 ---
 
 There's an inexplicable satisfaction that comes with filling the pages of a design notebook and adding it to the stack of predecessors.

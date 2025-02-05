@@ -1,0 +1,181 @@
+<%- partial('_partial/nav') %>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+</head>
+<body class="about-page" data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+	<div class="content-container">
+		<div class="two-column-layout">
+			<!-- Left Column -->
+			<div class="text-column">
+				<div class="content-wrapper">
+					<div class="top-section">
+						<h1>About</h1>
+						<p>
+							I'm a designer, a researcher, and—above all—a relentless problem solver. As a kid, I didn't just play computer games—I picked them apart to see what made them so engaging, then reimagined how they could be improved. That same curiosity has guided my career in digital product design, from dissecting complex workflows to building entire design systems from scratch.
+						</p>
+					</div>
+					<div class="middle-section">
+						<p>
+							My path took me through a psychology degree, where I dove deep into how people think, feel, and behave—insights that turned out to be the perfect complement to design. Blending research-driven data with a passion for aesthetics, I've led projects in diverse industries, often as the founding (or solo) head of design. I specialize in transforming "impossible" challenges into scalable frameworks that stand the test of time.
+						</p>
+					</div>
+					<div class="bottom-section">
+						<p>
+							Whether I'm rethinking a cross-product ecosystem or fine-tuning a single UI detail, I never lose sight of the bigger picture: design isn't just about how something looks—it's about how it fundamentally works for people. That's what excites me, and that's what I bring to every product I touch. If you're looking to take your product or team to the next level, feel free to <a href="mailto:hey@thomas.design">drop me a line</a> or <a href="https://www.linkedin.com/in/twalichiewicz">connect on LinkedIn</a>.
+						</p>
+						<div class="signature-container">
+							<img src="/img/signature.svg" alt="Thomas Walichiewicz signature" class="signature">
+							<p class="signature-name">Thomas Walichiewicz</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Right Column -->
+			<div class="photo-column">
+				<img src="/img/profilePhoto.jpeg" alt="Thomas Walichiewicz" class="profile-photo">
+			</div>
+		</div>
+	</div>
+
+	<script>
+		document.getElementById('current-year').textContent = new Date().getFullYear();
+	</script>
+
+	<script>
+		// Set up physics world and renderer
+		const container = document.querySelector('#touch-container');
+		const two = new Two({
+			type: Two.Types.canvas,
+			width: container.clientWidth,
+			height: container.clientHeight
+		}).appendTo(container);
+
+		const engine = Matter.Engine.create();
+		const runner = Matter.Runner.create();
+		const world = engine.world;
+
+		// Add walls
+		const wallOptions = { isStatic: true };
+		const walls = [
+			Matter.Bodies.rectangle(two.width/2, two.height + 50, two.width + 100, 100, wallOptions), // bottom
+			Matter.Bodies.rectangle(-50, two.height/2, 100, two.height + 100, wallOptions), // left
+			Matter.Bodies.rectangle(two.width + 50, two.height/2, 100, two.height + 100, wallOptions) // right
+		];
+		Matter.World.add(world, walls);
+
+		// Convert text to physics objects
+		const words = document.querySelector('#interactive__text').textContent.split(/\s+/);
+		const bodies = [];
+		const fontSize = Math.min(two.width * 0.08, 40); // Reduced font size
+		const padding = 6; // Fixed 6px padding
+
+		words.forEach((word, i) => {
+			// Create text object
+			const text = new Two.Text(word, 0, 0, {
+				size: fontSize,
+				family: '-apple-system, BlinkMacSystemFont, sans-serif',
+				weight: word.startsWith('<b>') ? 700 : 400
+			});
+
+			// Create physics body with draggable properties and padding
+			const bounds = text.getBoundingClientRect();
+			const x = Math.random() * (two.width - bounds.width - padding*2) + bounds.width/2 + padding;
+			const y = -i * (bounds.height + padding*2);
+			const body = Matter.Bodies.rectangle(x, y, bounds.width + padding*2, bounds.height + padding*2, {
+				chamfer: { radius: 10 },
+				render: {
+					fillStyle: '#000'
+				},
+				restitution: 0.3,
+				friction: 0.2,
+				density: 0.002,
+				isStatic: false
+			});
+
+			// Make body interactive
+			body.isInteractive = true;
+
+			// Link text and physics body
+			body.text = text;
+			bodies.push(body);
+
+			// Add to scene
+			two.add(text);
+		});
+
+		Matter.World.add(world, bodies);
+
+		// Add mouse interaction with improved dragging
+		const mouse = Matter.Mouse.create(two.renderer.domElement);
+		const mouseConstraint = Matter.MouseConstraint.create(engine, {
+			mouse: mouse,
+			constraint: {
+				stiffness: 0.2,
+				render: {
+					visible: false
+				}
+			}
+		});
+
+		// Enable smooth dragging
+		mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
+		mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
+
+		Matter.World.add(world, mouseConstraint);
+
+		// Add touch events for mobile
+		container.addEventListener('touchstart', (e) => {
+			e.preventDefault();
+			const touch = e.touches[0];
+			mouse.position.x = touch.clientX;
+			mouse.position.y = touch.clientY;
+			mouse.mousedown.x = touch.clientX;
+			mouse.mousedown.y = touch.clientY;
+		}, { passive: false });
+
+		container.addEventListener('touchmove', (e) => {
+			e.preventDefault();
+			const touch = e.touches[0];
+			mouse.position.x = touch.clientX;
+			mouse.position.y = touch.clientY;
+		}, { passive: false });
+
+		container.addEventListener('touchend', () => {
+			mouse.mouseup.x = mouse.position.x;
+			mouse.mouseup.y = mouse.position.y;
+		});
+
+		// Update loop with smoother transitions
+		Matter.Events.on(engine, 'afterUpdate', () => {
+			bodies.forEach(body => {
+				body.text.position.x = body.position.x;
+				body.text.position.y = body.position.y;
+				body.text.rotation = body.angle;
+			});
+			two.render();
+		});
+
+		// Start simulation
+		Matter.Runner.run(runner, engine);
+
+		// Handle resize
+		window.addEventListener('resize', () => {
+			// Get new container dimensions
+			const containerWidth = container.clientWidth;
+			const containerHeight = window.innerWidth <= 768 ? window.innerHeight * 0.5 : container.clientHeight;
+			
+			// Update Two.js canvas size
+			two.renderer.setSize(containerWidth, containerHeight);
+			
+			// Update wall positions
+			Matter.Body.setPosition(walls[0], Matter.Vector.create(two.width/2, two.height + 50));
+			Matter.Body.setPosition(walls[1], Matter.Vector.create(-50, two.height/2));
+			Matter.Body.setPosition(walls[2], Matter.Vector.create(two.width + 50, two.height/2));
+		});
+	</script>
+</body>

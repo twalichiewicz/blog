@@ -1,8 +1,19 @@
-<% if (page.total > 1){ %>
-<div class="paginator">
-    <%- paginator({
-        prev_text: "" + __('prev'),
-        next_text: __('next') + ""
-      }) %>
-</div>
+<% if (totalPages > 1) { %>
+  <div class="paginator">
+      <% if (currentPage > 1) { %>
+          <a href="<%- url_for(page.prev_link) %>" class="prev"><%= __('prev') %></a>
+      <% } %>
+  
+      <% for (let i = 1; i <= totalPages; i++) { %>
+          <% if (i === currentPage) { %>
+              <span class="current"><%= i %></span>
+          <% } else { %>
+              <a href="<%- url_for(i === 1 ? '' : 'page/' + i + '/') %>"><%= i %></a>
+          <% } %>
+      <% } %>
+  
+      <% if (currentPage < totalPages) { %>
+          <a href="<%- url_for(page.next_link) %>" class="next"><%= __('next') %></a>
+      <% } %>
+  </div>
 <% } %>

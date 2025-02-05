@@ -1,0 +1,14 @@
+<div class="wave-container">
+    <canvas id="waveCanvas"></canvas>
+    <script type="module">
+        import { WaveAnimation } from '/js/components/HomeVisuals.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const waveCanvas = document.getElementById("waveCanvas");
+            if (waveCanvas) {
+                const waveAnimation = new WaveAnimation(waveCanvas, <%- JSON.stringify(config) %>);
+                waveAnimation.init();
+            }
+        });
+    </script>
+</div> 

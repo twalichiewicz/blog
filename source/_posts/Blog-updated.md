@@ -1,8 +1,9 @@
 ---
 title: Blog updated
 date: 2023-04-25 08:13:14
-categories: 📣
 short: true
+tags:
+  - blog
 ---
 
 Finally updated my portfolio's blog.

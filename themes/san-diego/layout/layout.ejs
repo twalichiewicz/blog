@@ -6,9 +6,7 @@
         <%- partial('_partial/head') %>
     </head>
     <body>
-        <%- partial('_partial/nav') %>
-        <%- body %>
-        <%- partial('_partial/footer') %>
+		<%- body %>
 
         <%- js('js/main.js') %>
         <% if (theme.search == true && page.type == 'search') { %>
@@ -25,6 +23,9 @@
             })
         </script>
         <% } %>
+
+        <%- js('js/mobile-tabs.js') %>
+        <%- js('js/sound-effects.js') %>
         <!-- Additional scripts -->
     </body>
 </html>

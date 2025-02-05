@@ -2,6 +2,8 @@
 title: books apple tv app?
 date: 2024-10-25 21:11:30
 short: true
+tags:
+  - blog
 ---
 
 It's puzzling that Apple hasn't introduced a Books app for Apple TV. Our TVs have become the modern hearth, so why not recreate the experience of reading around the fireplace?

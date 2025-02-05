@@ -1,73 +1,24 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    </head>
+    <%- partial('_partial/head') %>
     <body>
-<article class="post-list-item <%= page.title.replace(/\s+/g, '-').toLowerCase() %>" id="<%= page.title %>">
-    <div class="content">
-        <div class="post-footer">
-            <p>
-            You're currently viewing a single post from my blog, <a href="https://thomas.design/blog">Newest at the Top</a>.
-            </p>
-        </div>
-        <% if (page.long) { %>
-            <div class="content-body content-body-long<%= page.draft ? ' draft-card' : '' %>">
+        <% if (page) { %>
+		<%- partial('_partial/post-nav') %>
+        <article class="post <%= page.type ? 'post-' + page.type : '' %> <%= page.short ? 'short-post' : '' %>">
+            <% if (page.type === 'link') { %>
                 <div class="post-header">
-                    <div class="time">
-                        <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][page.date.month()] %></span>
-                        <span>&nbsp;<%- page.date.date() %>,&nbsp;</span>
-                        <span><%- page.date.year() %></span>
-                        <% if (page.edit) { %>
-                            <span>(edited)</span>
-                        <% } %>
-                    </div>
+                    <h2 class="post-title">
+                        <a href="<%= page.url %>" target="_blank" rel="noopener">
+                            <%= page.url_label || page.title %>
+                        </a>
+                    </h2>
                 </div>
-                <!-- Shows a cover image, if it has one -->
-                <% if (page.cover_image) { %>
-                    <div class="cover-img">
-                        <img class="<%= page.draft ? 'draft-card' : '' %>" src="<%= page.cover_image %>" alt="<%= page.cover_image_alt %>">
-                    </div>
-                <% } %>
-                <!-- Show the title, if it has one -->
-                <% if (page.show_title) { %>
-                    <p class="title">
-                        <%= page.title %>
-                    </p>
-                <% } %>
-                <!-- Show the full content -->
-                <%- page.content %>
-            </div>
-        <% } else if (page.short) { %>
-            <div class="content-body">
-                <div class="post-header">
-                    <div class="time">
-                        <span><%= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][page.date.month()] %></span>
-                        <span>&nbsp;<%- page.date.date() %>,&nbsp;</span>
-                        <span><%- page.date.year() %></span>
-                        <% if (page.edit) { %>
-                            <span>(edited)</span>
-                        <% } %>
-                    </div>
-                    <a class="external-link" href="external-link-url" target="_blank" rel="noopener">External Link</a>
-                </div>
-                <!-- Shows a cover image, if it has one -->
-                <% if (page.cover_image) { %>
-                    <div class="cover-img">
-                        <img class="<%= page.draft ? 'draft-card' : '' %>" src="<%= page.cover_image %>" alt="<%= page.cover_image_alt %>">
-                    </div>
-                <% } %>
-                <!-- Show the title, if it has one -->
-                <% if (page.show_title) { %>
-                    <p class="title">
-                        <%= page.title %>
-                    </p>
-                <% } %>
-                <!-- Show the full content -->
-                <%- page.content %>
-            </div>
+            <% } else { %>
+                <h1 class="post-title"><%= page.title %></h1>
+            <% } %>
+            
+            <%- page.content %>
+        </article>
         <% } %>
-    </div>
-</article>
     </body>
 </html>

@@ -2,6 +2,8 @@
 title: iPhone Mirroring
 date: 2024-06-24 21:13:08
 short: true
+tags:
+  - blog
 ---
 
 The iPhone Mirroring feature:

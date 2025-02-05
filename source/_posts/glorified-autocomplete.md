@@ -2,6 +2,8 @@
 title: glorified autocomplete
 date: 2023-11-22 09:16:15
 short: true
+tags:
+  - blog
 ---
 
 Some thoughts after reading [this great blog post from Columbia's Stats blog:](https://statmodeling.stat.columbia.edu/2023/11/18/i-disagree-with-geoff-hinton-regarding-glorified-autocomplete/)

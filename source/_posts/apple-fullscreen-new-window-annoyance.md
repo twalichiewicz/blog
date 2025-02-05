@@ -2,6 +2,8 @@
 title: apple fullscreen new window annoyance
 date: 2024-10-15 21:18:33
 short: true
+tags:
+  - blog
 ---
 
 Apple's current approach to fullscreen apps often leaves users with a fragmented experience, especially when new windows are involved. It’s almost like that 'forgetting why I entered the room' effect—each time you’re forced to switch between spaces, it disrupts your focus and makes it harder to stay on task.

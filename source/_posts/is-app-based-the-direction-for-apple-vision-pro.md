@@ -2,6 +2,8 @@
 title: is app-based the direction for apple vision pro?
 date: 2024-02-12 20:08:59
 short: true
+tags:
+  - blog
 ---
 
 Maybe it's coming in a future iteration of the Apple Vision Pro, but it's strange that they stuck to the app paradigm for a device that seems to suggest it'd be a great persistent head-up display assistant:

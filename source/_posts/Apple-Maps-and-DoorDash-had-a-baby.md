@@ -2,10 +2,11 @@
 title: Apple Maps and DoorDash had a baby
 date: 2023-06-19 13:38:56
 short: true
-categories: 👨‍🎨
+tags:
+  - blog
 ---
 
-[![Apple Maps results and DoorDash results combined](https://thomas.design/media/blog/AppleMapsAndDoorDash.jpg)](https://thomas.design/media/blog/AppleMapsAndDoorDash.jpg)
+![A screenshot showing a Apple Maps results and DoorDash results combined](/2023/06/19/Apple-Maps-and-DoorDash-had-a-baby/AppleMapsAndDoorDash.jpg)
 The immediacy of DoorDash + Apple Maps results.
 
 _**Some fun details:**_
