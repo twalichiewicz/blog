@@ -6,7 +6,20 @@
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
-  <link rel="stylesheet" href="<%- url_for('styles/index.css') %>">
+  <link rel="stylesheet" href="<%- url_for('styles/styles.css') %>">
+  <% if (page.layout === 'project') { %>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+  <script src="<%- url_for('js/propel-visualizations.js') %>"></script>
+  <script src="<%- url_for('js/project-components.js') %>"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.querySelector('.propel-case-study')) {
+        new PropelVisualizations();
+      }
+    });
+  </script>
+  <% } %>
   <script src="<%- url_for('js/carousel.js') %>"></script>
   <script src="<%- url_for('js/animations.js') %>"></script>
   <script src="<%- url_for('js/scroll.js') %>"></script>

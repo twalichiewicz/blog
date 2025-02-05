@@ -21,7 +21,7 @@
 		border-radius: 12px;
 		overflow: hidden;
 		background: variables.$text-color-secondary;
-		padding: variables.$space-sm;
+		padding: variables.$space-xs variables.$space-sm;
 		margin: 0;
 		box-shadow: variables.$shadow-soft;
 		transition: transform 0.2s ease;
@@ -90,11 +90,11 @@
 			p {
 				margin-top: 3px;
 				margin-bottom: 0;
-				font-size: 0.9rem;
+				font-size: 12px;
 				color: rgba(255, 255, 255, 0.7);
 				line-height: 125%;
 				display: -webkit-box;
-				-webkit-line-clamp: 2;
+				-webkit-line-clamp: 3;
 				-webkit-box-orient: vertical;
 				overflow: hidden;
 			}
@@ -114,6 +114,15 @@
 				p {
 					color: variables.$grey-dark;
 				}
+			}
+		}
+	}
+
+	// New rule for has-writeup items without using !important
+	.portfolio-item.has-writeup {
+		.portfolio-content {
+			p {
+				font-size: 0.8rem;
 			}
 		}
 	}

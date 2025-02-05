@@ -2,14 +2,14 @@
 layout: project_gallery
 company: Human Interest
 title: Company rebranding
-byline: Comprehensive brand transformation and design system development for Human Interest, encompassing identity design, brand architecture, marketing collateral, and product interface design
+byline: Led comprehensive brand transformation across all touchpoints, unifying visual identity, marketing, and product design
 cover_image: 2017/09/11/Human-Interest-brand/humanInterestBrand-preview.png
 date: 2017-09-11 00:00:00
 type: project_gallery
 year: 2017
 credits:
   - role: Design & Brand Lead
-    name: Independent project
+    name: Thomas Walichiewicz
 gallery_images:
   - url: /2017/09/11/Human-Interest-brand/brand-LOGO.jpg
     caption: The refined Human Interest logo and typography system. The mark symbolizes an unfolding map, representing the company's role in guiding clients toward financial security. The negative space artfully integrates the letters "H" and "I".
