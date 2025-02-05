@@ -969,6 +969,7 @@ body.modal-open {
     z-index: 1;
     box-sizing: border-box;
     width: 100%;
+    overflow: hidden;
   }
   .blog .mobile-tabs {
     width: auto;
@@ -2547,7 +2548,7 @@ img {
   content: "";
   width: 8px;
   height: 8px;
-  border: 2px solid hsl(35, 10%, 50%);
+  border: 2px solid hsl(0, 0%, 100%);
   border-left: 0;
   border-bottom: 0;
   position: absolute;
@@ -3623,7 +3624,6 @@ nav#theme-nav .nav-content-container {
   border: none;
   transform: scale(0.99);
   transform-origin: top left;
-  margin-left: 3px;
 }
 .phone-container .notch {
   width: 7rem;
