@@ -68,6 +68,12 @@
 			border: none;
 			transform: scale(0.99);
 			transform-origin: top left;
+			scrollbar-width: none;
+			-ms-overflow-style: none;
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
 		}
 	}
 
@@ -112,9 +118,11 @@
 
 .coming-soon-message {
 	position: fixed;
-	bottom: 40px;
-	left: 50%;
+	top: auto;
+	bottom: 40px !important;
+	left: 50vw;
 	transform: translateX(-50%);
+	z-index: 1000;
 	background: rgba(0, 0, 0, 0.8);
 	color: white;
 	padding: 15px 30px;
@@ -125,8 +133,10 @@
 	max-width: 80%;
 	box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 	opacity: 0;
+	transition: opacity 0.8s ease-out;
 	animation: fadeIn 0.8s ease-out forwards;
-	animation-delay: 1.2s; // Slightly after phone animation
+	animation-delay: 1.2s;
+	align-items: center;
 }
 
 @keyframes slideFromCenter {
@@ -144,12 +154,10 @@
 @keyframes fadeIn {
 	0% {
 		opacity: 0;
-		transform: translate(-50%, 20px);
 	}
 
 	100% {
 		opacity: 1;
-		transform: translate(-50%, 0);
 	}
 }
 

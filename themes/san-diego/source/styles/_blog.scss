@@ -1920,3 +1920,26 @@ img {
 		margin-top: 1rem;
 	}
 }
+
+/* Override container styles for mobile view in phone frame */
+@media screen and (max-width: 480px) {
+	.container {
+		max-width: 100% !important;
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	body {
+		margin: 0 !important;
+		padding: 0 !important;
+		overflow-x: hidden;
+	}
+}
+
+// Apply .profile-header styling to #projectsContent when used as .portfolio-list
+#projectsContent.portfolio-list {
+	margin: 12px 24px 36px 24px;
+	width: auto !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}

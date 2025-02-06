@@ -126,4 +126,28 @@
 			}
 		}
 	}
+
+	.company-projects {
+		display: flex;
+		flex-direction: column;
+		gap: 9px;
+		width: 100%;
+	}
+}
+
+@media (max-width: 480px) {
+	.portfolio-list .company-group .company-projects {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Ensure contained items in portfolio list resize fluidly */
+.portfolio-list .company-group {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.portfolio-list .company-group .company-name {
+	width: 100%;
+	box-sizing: border-box;
 }

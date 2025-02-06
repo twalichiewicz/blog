@@ -305,8 +305,8 @@
 		}
 
 		.company-projects {
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+			display: flex;
+			flex-direction: column;
 			gap: 9px;
 		}
 	}
@@ -813,5 +813,21 @@
 
 	50% {
 		transform: translateX(var(--swing-amount));
+	}
+}
+
+/* Fix for project list width on mobile/phone frame */
+.project-list {
+	max-width: 320px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 10px;
+	margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+	.project-list {
+		max-width: 320px;
+		padding: 0 10px;
 	}
 }
