@@ -2452,6 +2452,26 @@ img {
   margin-top: 1rem;
 }
 
+/* Override container styles for mobile view in phone frame */
+@media screen and (max-width: 480px) {
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden;
+  }
+}
+#projectsContent.portfolio-list {
+  margin: 12px 24px 36px 24px;
+  width: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 .carousel {
   position: relative;
   width: 100%;
@@ -3624,6 +3644,11 @@ nav#theme-nav .nav-content-container {
   border: none;
   transform: scale(0.99);
   transform-origin: top left;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.phone-container .screen iframe::-webkit-scrollbar {
+  display: none;
 }
 .phone-container .notch {
   width: 7rem;
@@ -3661,9 +3686,11 @@ nav#theme-nav .nav-content-container {
 
 .coming-soon-message {
   position: fixed;
-  bottom: 40px;
-  left: 50%;
+  top: auto;
+  bottom: 40px !important;
+  left: 50vw;
   transform: translateX(-50%);
+  z-index: 1000;
   background: rgba(0, 0, 0, 0.8);
   color: white;
   padding: 15px 30px;
@@ -3674,8 +3701,10 @@ nav#theme-nav .nav-content-container {
   max-width: 80%;
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   opacity: 0;
+  transition: opacity 0.8s ease-out;
   animation: fadeIn 0.8s ease-out forwards;
   animation-delay: 1.2s;
+  align-items: center;
 }
 
 @keyframes slideFromCenter {
@@ -3691,11 +3720,9 @@ nav#theme-nav .nav-content-container {
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translate(-50%, 20px);
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, 0);
   }
 }
 @media (max-width: 500px) {
@@ -3809,6 +3836,28 @@ nav#theme-nav .nav-content-container {
 }
 .portfolio-list .portfolio-item.has-writeup .portfolio-content p {
   font-size: 0.8rem;
+}
+.portfolio-list .company-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .portfolio-list .company-group .company-projects {
+    grid-template-columns: 1fr;
+  }
+}
+/* Ensure contained items in portfolio list resize fluidly */
+.portfolio-list .company-group {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.portfolio-list .company-group .company-name {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .post {
@@ -4942,8 +4991,8 @@ body.has-scroll-snap {
   padding-bottom: 1px;
 }
 .portfolio-list .company-group .company-projects {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 9px;
 }
 .portfolio-list .portfolio-item {
@@ -5337,6 +5386,21 @@ body.has-scroll-snap {
   }
   50% {
     transform: translateX(var(--swing-amount));
+  }
+}
+/* Fix for project list width on mobile/phone frame */
+.project-list {
+  max-width: 320px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  .project-list {
+    max-width: 320px;
+    padding: 0 10px;
   }
 }
 :root {
