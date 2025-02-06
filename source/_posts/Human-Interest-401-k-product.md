@@ -5,7 +5,7 @@ byline: Redesigned the 401(k) administration experience for small to medium busi
 categories:
   - [content]
   - [visuals]
-cover_image: /2017/02/01/Human-Interest-401-k-product/cutawayPreview.jpg
+cover_image: 2017/02/02/Human-Interest-401-k-product/cutawayPreviewUpdated.jpg
 fullscreen: true
 date: 2017-02-01 20:52:01
 tags:
