@@ -671,3 +671,20 @@ button {
 body.modal-open {
 	overflow: hidden;
 }
+
+/* Fade in/out for alert on index page */
+#comingSoonAlert {
+	opacity: 0;
+	animation: fadeIn 0.8s forwards;
+	transition: opacity 0.8s ease;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
