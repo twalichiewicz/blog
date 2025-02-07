@@ -9,14 +9,14 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Thu, 06 Feb 2025 06:38:40 GMT</pubDate>
+    <pubDate>Fri, 07 Feb 2025 03:19:04 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
       <title>Mobile pharmacy app</title>
-      <link>https://twalichiewicz.github.io/2025/02/06/Miti-Health/</link>
-      <guid>https://twalichiewicz.github.io/2025/02/06/Miti-Health/</guid>
-      <pubDate>Thu, 06 Feb 2025 06:38:40 GMT</pubDate>
+      <link>https://twalichiewicz.github.io/2025/02/07/Miti-Health/</link>
+      <guid>https://twalichiewicz.github.io/2025/02/07/Miti-Health/</guid>
+      <pubDate>Fri, 07 Feb 2025 03:19:04 GMT</pubDate>
       
       
       
@@ -25,7 +25,24 @@
       <category domain="https://twalichiewicz.github.io/blog/tags/portfolio/">portfolio</category>
       
       
-      <comments>https://twalichiewicz.github.io/2025/02/06/Miti-Health/#disqus_thread</comments>
+      <comments>https://twalichiewicz.github.io/2025/02/07/Miti-Health/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Paper apps</title>
+      <link>https://twalichiewicz.github.io/2025/02/07/Paper-apps/</link>
+      <guid>https://twalichiewicz.github.io/2025/02/07/Paper-apps/</guid>
+      <pubDate>Fri, 07 Feb 2025 03:11:36 GMT</pubDate>
+      
+      
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/02/07/Paper-apps/#disqus_thread</comments>
       
     </item>
     
@@ -451,30 +468,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2024/10/14/apple-tv-music-app-control/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>design pet peeves</title>
-      <link>https://twalichiewicz.github.io/2024/10/13/design-pet-peeves/</link>
-      <guid>https://twalichiewicz.github.io/2024/10/13/design-pet-peeves/</guid>
-      <pubDate>Sun, 13 Oct 2024 06:13:29 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Let’s talk about laggy UI, one of my new favorite pet peeves. You go to click, but a surprise pop-in makes you miss the target due to poo</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Let’s talk about laggy UI, one of my new favorite pet peeves. You go to click, but a surprise pop-in makes you miss the target due to poor implementation. Now you’re facing a loading screen while the system processes, freezing all interaction. And just when you think you’re in the clear—you realize you have to undo the mistake and endure all those loading delays again.</p><p>Assuming, of course, you don’t get so frustrated that you repeat the entire ordeal thanks to that maddening interface.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2024/10/13/design-pet-peeves/#disqus_thread</comments>
       
     </item>
     
