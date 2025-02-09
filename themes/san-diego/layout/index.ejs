@@ -1,3 +1,14 @@
+<style>
+    #close-alert {
+       border: none;
+	   box-shadow: none;
+		color: currentColor;
+    }
+	#close-alert:hover {
+		color: hsl(40, 80%, 50%);
+    }
+</style>	
+
 <div class="home">
     <%- partial('_partial/loading-skull') %>
 </div>
@@ -23,7 +34,7 @@
 
 <div id="comingSoonAlert" class="coming-soon-message alert alert-default">
     <span>Full desktop experience coming soon. For now, enjoy the mobile version!</span>
-    <button class="close-alert" type="button" onclick="this.parentElement.style.animation='none'; this.parentElement.style.opacity='0';" style="position: relative; background: transparent; border: none; font-size: 20px; cursor: pointer; margin-left: 12px;">&times;</button>
+    <button id="close-alert" type="button" onclick="this.parentElement.style.animation='none'; this.parentElement.style.opacity='0';" style="position: relative; background: transparent; border: none; font-size: 20px; cursor: pointer; margin-left: 12px;">&times;</button>
 </div>
 
 <script>

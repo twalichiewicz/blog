@@ -464,8 +464,6 @@
 				align-items: center;
 				justify-content: center;
 				z-index: 2;
-
-				// Add mobile-tabs styling while preserving original hover
 				display: flex;
 				gap: 4px;
 				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
@@ -1778,13 +1776,44 @@ img {
 				justify-content: space-between;
 
 				.external-icon {
-					margin-left: auto;
-					font-size: 0.9em;
-					margin-top: 0.2em;
+					align-self: center;
+					flex-shrink: 0;
+					width: 32px;
+					height: 32px;
+					border-radius: 16px;
+					background: variables.$white-1;
+					border: 1px solid variables.$border-color;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					opacity: 1;
+					transform: translateX(0);
+					transition: all 0.2s ease-in-out;
+					margin-right: 6px;
+					color: variables.$text-color;
+					font-size: var(--text-md);
 				}
 
 				&:hover {
-					color: hsl(26.11, 100%, 59.25%);
+					color: variables.$white;
+
+					.external-icon {
+						background: variables.$link-color;
+						border-color: variables.$link-color;
+						color: variables.$white;
+					}
+				}
+
+				@media (prefers-color-scheme: dark) {
+					&:hover {
+						color: variables.$link-color-dark;
+
+						.external-icon {
+							background: variables.$link-color-dark;
+							border-color: variables.$link-color-dark;
+							color: variables.$white;
+						}
+					}
 				}
 			}
 		}
