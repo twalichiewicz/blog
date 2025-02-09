@@ -8,4 +8,4 @@ tags:
 
 Was playin' around with the idea of how live activities might be used for live sports.
 
-![A screenshot showing a live activities mockup](/2022/10/18/Just-Live-Activities-Goofin/live-activities-mockup.png)
+![A screenshot showing a live activities mockup](live-activities-mockup.png)

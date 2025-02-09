@@ -6,6 +6,6 @@ tags:
   - blog
 ---
 
-![A screenshot showing a Apple Vision Pro battery mouse](/2024/01/31/apple-vision-pro-battery-mouse/appleVisionProBatteryMouse.png)
+![A screenshot showing a Apple Vision Pro battery mouse](appleVisionProBatteryMouse.jpeg)
 
 This would be a pretty solid redesign of the Magic Mouse if they add the multi-touch and optical sensor to this thing.
