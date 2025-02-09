@@ -576,6 +576,21 @@ body.modal-open {
   overflow: hidden;
 }
 
+/* Fade in/out for alert on index page */
+#comingSoonAlert {
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+  transition: opacity 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .about-page {
   min-height: 100vh;
   margin: 0;
@@ -3687,13 +3702,13 @@ nav#theme-nav .nav-content-container {
 .coming-soon-message {
   position: fixed;
   top: auto;
-  bottom: 40px !important;
+  bottom: 6px;
   left: 50vw;
   transform: translateX(-50%);
   z-index: 1000;
   background: rgba(0, 0, 0, 0.8);
   color: white;
-  padding: 15px 30px;
+  padding: 15px 12px 15px 30px;
   border-radius: 30px;
   font-size: 0.9rem;
   backdrop-filter: blur(10px);
@@ -3705,6 +3720,7 @@ nav#theme-nav .nav-content-container {
   animation: fadeIn 0.8s ease-out forwards;
   animation-delay: 1.2s;
   align-items: center;
+  margin: 0;
 }
 
 @keyframes slideFromCenter {
