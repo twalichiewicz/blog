@@ -6,6 +6,4 @@ tags:
   - blog
 ---
 
-![A screenshot showing a crowdstrike](/2024/07/19/crowdstrike/crowdstriken.png)
-
-If Apple doesn't create an ad campaign out of [today's mess](https://abcnews.go.com/US/american-airlines-issues-global-ground-stop-flights/story?id=112092372) I will be displeased.
+If Apple doesn't create an ad campaign out of [today's Crowdstrike mess](https://abcnews.go.com/US/american-airlines-issues-global-ground-stop-flights/story?id=112092372) it would be a real shame.
