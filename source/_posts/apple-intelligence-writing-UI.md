@@ -6,16 +6,29 @@ tags:
   - blog
 ---
 
+<style>
+    .alert {
+    align-items: center;
+  }
+  #divider {
+    height: 45px;
+    width: 1px;
+    margin: 0 12px;
+  }
+ #toggleIcon {
+   background: none;
+   border: none;
+   box-shadow: none;
+ }
+</style>
+
 ![A screenshot showing a Apple Intelligence Writing UI](/2024/07/30/apple-intelligence-writing-UI/appleAIWritingUI.png)
 
 <div class="alert">
     <span id="textSpan" class="alert__content"></span>
+ <hr id="divider"/>
     <button id="toggleIcon" aria-label="Show another quote">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M2 12C2 6.47715 6.47715 2 12 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 3"/>
-            <path d="M2 4L5 7M5 7L8 4M5 7V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        🔄
     </button>
 </div>
 
@@ -27,7 +40,7 @@ tags:
         "Because squinting at my screen is exactly what I wanted to do today."
     ];
     let usedTexts = [];
-    
+
     function getRandomText() {
         if (usedTexts.length === texts.length) {
             usedTexts = [];
@@ -41,7 +54,7 @@ tags:
     function updateText() {
         const textSpan = document.getElementById('textSpan');
         textSpan.style.opacity = '0';
-        
+
         setTimeout(() => {
             textSpan.innerText = getRandomText();
             textSpan.style.opacity = '1';
@@ -49,7 +62,7 @@ tags:
     }
 
     document.getElementById('toggleIcon').addEventListener('click', updateText);
-    
+
     // Set initial text when page loads
     window.addEventListener('load', updateText);
 </script>
