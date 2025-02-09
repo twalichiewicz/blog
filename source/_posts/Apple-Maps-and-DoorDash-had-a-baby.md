@@ -6,7 +6,7 @@ tags:
   - blog
 ---
 
-![A screenshot showing a Apple Maps results and DoorDash results combined](/2023/06/19/Apple-Maps-and-DoorDash-had-a-baby/AppleMapsAndDoorDash.jpg)
+![A screenshot showing a Apple Maps results and DoorDash results combined](AppleMapsAndDoorDash.jpg)
 The immediacy of DoorDash + Apple Maps results.
 
 _**Some fun details:**_

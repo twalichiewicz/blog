@@ -6,6 +6,6 @@ tags:
   - blog
 ---
 
-![A screenshot showing a democracy paywall hypocritical](/2024/04/16/democracy-dies-behind-paywalls/democracyPaywallHypocritical.png)
+![A screenshot showing a democracy paywall hypocritical](democracyPaywallHypocritical.png)
 
 The irony is not lost on The Atlantic, I suppose.

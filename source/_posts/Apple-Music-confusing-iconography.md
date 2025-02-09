@@ -6,7 +6,7 @@ tags:
   - blog
 ---
 
-![A screenshot showing a better icon](/2023/11/18/Apple-Music-confusing-iconography/betterIcon.png)
+![A screenshot showing a better icon](betterIcon.png)
 
 > "Hey what symbol should we use to show a track is popular?"
 >

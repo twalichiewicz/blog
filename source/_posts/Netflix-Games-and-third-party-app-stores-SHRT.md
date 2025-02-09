@@ -6,5 +6,5 @@ tags:
   - blog
 ---
 
-![A screenshot showing a Netflix Games and third-party app stores](/2023/06/20/Netflix-Games-and-third-party-app-stores-SHRT/NetflixGamesBS.jpeg)
+![A screenshot showing a Netflix Games and third-party app stores](NetflixGamesBS.jpeg)
 This is exactly what I think of when people advocate for third-party App Stores on iOS. Instead of one consistent, straightforward purchasing experience, we get these shells that always require some additional bullshit to use.
