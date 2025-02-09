@@ -2355,12 +2355,40 @@ img {
   justify-content: space-between;
 }
 .blog .blog-list .post-list-item.post-link .link-share h3 a .external-icon {
-  margin-left: auto;
-  font-size: 0.9em;
-  margin-top: 0.2em;
+  align-self: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: hsl(35, 15%, 96%);
+  border: 1px solid hsl(35, 10%, 75%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.2s ease-in-out;
+  margin-right: 6px;
+  color: hsl(24, 3%, 35%);
+  font-size: var(--text-md);
 }
 .blog .blog-list .post-list-item.post-link .link-share h3 a:hover {
-  color: hsl(26.11, 100%, 59.25%);
+  color: hsl(0, 0%, 100%);
+}
+.blog .blog-list .post-list-item.post-link .link-share h3 a:hover .external-icon {
+  background: hsl(15, 70%, 40%);
+  border-color: hsl(15, 70%, 40%);
+  color: hsl(0, 0%, 100%);
+}
+@media (prefers-color-scheme: dark) {
+  .blog .blog-list .post-list-item.post-link .link-share h3 a:hover {
+    color: hsl(40, 80%, 50%);
+  }
+  .blog .blog-list .post-list-item.post-link .link-share h3 a:hover .external-icon {
+    background: hsl(40, 80%, 50%);
+    border-color: hsl(40, 80%, 50%);
+    color: hsl(0, 0%, 100%);
+  }
 }
 .blog .blog-list .post-list-item.post-link .link-share .link-source {
   margin-top: 3px;
