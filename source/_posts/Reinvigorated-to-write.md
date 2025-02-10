@@ -6,4 +6,4 @@ tags:
 date: 2025-02-09 13:32:34
 ---
 
-Redesigning the blog has really reinvogorated my design to write and flesh out
+Redesigning the blog has really reinvogorated my design to write and flesh out the write-ups in the project section.
