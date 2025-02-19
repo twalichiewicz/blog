@@ -1,96 +1,96 @@
 @use 'variables';
 
 .reading-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 3px;
-  background: variables.$primary-color;
-  z-index: 1000;
-  transition: width 0.1s ease;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 3px;
+	background: variables.$primary-color;
+	z-index: 1000;
+	transition: width 0.1s ease;
 }
 
 // Navigation transitions
 .project-nav {
-  transition: transform var(--transition-medium);
-  
-  &.nav-hidden {
-    transform: translateY(-100%);
-  }
-  
-  a.active {
-    color: variables.$primary-color;
-    font-weight: 600;
-  }
+	transition: transform var(--transition-medium);
+
+	&.nav-hidden {
+		transform: translateY(-100%);
+	}
+
+	a.active {
+		color: variables.$primary-color;
+		font-weight: 600;
+	}
 }
 
 // Media showcase interactions
 .media-showcase {
-  &[data-parallax] {
-    will-change: transform;
-  }
-  
-  img {
-    transition: opacity var(--transition-medium);
-    
-    &[data-src] {
-      opacity: 0;
-    }
-  }
-  
-  video {
-    transition: opacity var(--transition-medium);
-    
-    &.playing {
-      opacity: 1;
-    }
-    
-    &:not(.playing) {
-      opacity: 0.7;
-    }
-  }
+	&[data-parallax] {
+		will-change: transform;
+	}
+
+	img {
+		transition: opacity var(--transition-medium);
+
+		&[data-src] {
+			opacity: 0;
+		}
+	}
+
+	video {
+		transition: opacity var(--transition-medium);
+
+		&.playing {
+			opacity: 1;
+		}
+
+		&:not(.playing) {
+			opacity: 0.7;
+		}
+	}
 }
 
 // Smooth scroll behavior
 html {
-  scroll-behavior: smooth;
-  
-  @media (prefers-reduced-motion: reduce) {
-    scroll-behavior: auto;
-  }
+	scroll-behavior: smooth;
+
+	@media (prefers-reduced-motion: reduce) {
+		scroll-behavior: auto;
+	}
 }
 
 // Animation classes
 .fade-in {
-  opacity: 0;
-  transition: opacity var(--transition-medium);
-  
-  &.visible {
-    opacity: 1;
-  }
+	opacity: 0;
+	transition: opacity var(--transition-medium);
+
+	&.visible {
+		opacity: 1;
+	}
 }
 
 .slide-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity var(--transition-medium),
-              transform var(--transition-medium);
-  
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity var(--transition-medium),
+		transform var(--transition-medium);
+
+	&.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .scale-in {
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity var(--transition-medium),
-              transform var(--transition-medium);
-  
-  &.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
+	opacity: 0;
+	transform: scale(0.95);
+	transition: opacity var(--transition-medium),
+		transform var(--transition-medium);
+
+	&.visible {
+		opacity: 1;
+		transform: scale(1);
+	}
 }

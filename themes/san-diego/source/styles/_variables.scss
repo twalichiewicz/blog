@@ -108,3 +108,7 @@ $spacing-stack: $space-sm; // 12px - Default vertical stack
 $spacing-stack-lg: $space-md; // 24px - Large vertical stack
 $spacing-inline: $space-sm; // 12px - Default horizontal spacing
 $spacing-inline-lg: $space-md; // 24px - Large horizontal spacing
+
+// Meta Card Background Colors
+$meta-card-bg-light: hsl(0, 0%, 95%);
+$meta-card-bg-dark: hsl(0, 0%, 30%);

@@ -688,3 +688,108 @@ body.modal-open {
 		opacity: 1;
 	}
 }
+
+/* Text Carousel Styles */
+.text-carousel {
+	margin: variables.$spacing-section 0;
+	padding: 0;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+
+	.text-carousel-track {
+		display: flex;
+		overflow: hidden;
+		width: 100%;
+		transition: transform 0.3s ease;
+	}
+
+	.text-carousel-slide {
+		flex: 0 0 100%;
+		padding: variables.$space-md;
+		box-sizing: border-box;
+		min-height: 150px;
+		background-color: variables.$card-bg;
+		border: 1px solid variables.$border-color;
+		border-radius: 4px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		margin-bottom: variables.$space-sm;
+
+		h2 {
+			margin-bottom: variables.$space-xs;
+		}
+
+		p {
+			margin: 0;
+		}
+	}
+
+	.text-carousel-button {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 2;
+	}
+
+	.text-carousel-button.prev {
+		left: 10px;
+	}
+
+	.text-carousel-button.next {
+		right: 10px;
+	}
+
+	.text-carousel-indicators {
+		margin-top: variables.$space-sm;
+		display: flex;
+		gap: variables.$space-xs;
+
+		.indicator {
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background: transparent;
+			border: 1px solid currentColor;
+			cursor: pointer;
+
+			&.active {
+				background: currentColor;
+			}
+		}
+	}
+}
+
+/* Meta Cards Styles */
+.meta-cards {
+	display: flex;
+	flex-direction: column;
+	gap: variables.$space-sm;
+	margin: 0 auto;
+	max-width: 1000px;
+	padding: 0 variables.$space-sm;
+}
+
+.meta-card {
+	width: 100%;
+	padding: variables.$space-sm;
+	border-radius: 4px;
+	color: variables.$text-color;
+	margin: 24px 0;
+
+	h2 {
+		margin-bottom: variables.$space-xs;
+		margin-top: 0;
+		font-size: 1.2rem;
+	}
+
+	p {
+		margin: 0;
+		padding-top: 6px;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.meta-card {
+		color: variables.$text-color-dark;
+	}
+}
