@@ -37,16 +37,22 @@ gallery_images:
     type: iframe
 tags:
   - portfolio
-  - design
-  - branding
-  - marketing
+  
 ---
 
-As the lead designer for Human Interest's comprehensive brand transformation, I orchestrated the development and implementation of a cohesive design system that elevated the company's market presence and user experience.
+### Opportunity
 
-This extensive rebranding initiative garnered industry recognition, earning [a feature in Brand New's "Spotted" section in February 2018](https://www.underconsideration.com/brandnew/archives/new_name_and_logo_for_human_interest.php). The project exemplifies the successful execution of a holistic design approach, completed within an ambitious six-month timeline.
+ Human Interest faced the challenge of an outdated brand identity that no longer resonated with its modern audience. The existing visuals did not reflect the company's innovative approach, leading to a disconnect with potential clients.
 
-Key deliverables included:
+### Insight
+
+Extensive market research and user insights revealed that customers desired a unified and trustworthy brand experience. The evidence showed that a cohesive visual identity was crucial for improving customer engagement and building trust.
+
+### Solution
+
+Spearheaded a comprehensive rebranding initiative that transformed the company's visual identity. The project encompassed a complete overhaul of the logo, color palette, and typography, alongside updated marketing collateral and digital interfaces. This strategic rebranding not only revitalized Human Interest's image but also garnered industry recognition.
+
+  Key deliverables included:
 
 - Strategic brand identity system encompassing logo design, color palette, and typography
 - Comprehensive brand guidelines and design system documentation
