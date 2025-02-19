@@ -46,7 +46,7 @@ Human Interest needed a modern brand identity to reflect its innovative offering
 
 ### Process & Key Findings
 
-A combination of market research and user interviews revealed that customers sought a cohesive, trustworthy brand experience. This data confirmed that an updated visual identity—paired with consistent messaging—would be key to improving engagement and establishing deeper trust
+A combination of market research and user interviews revealed that customers sought a cohesive, trustworthy brand experience. This data confirmed that an updated visual identity—paired with consistent messaging—would be key to improving engagement and establishing deeper trust.
 
 ### Design & Execution
 
