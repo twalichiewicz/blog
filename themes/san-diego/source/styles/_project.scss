@@ -95,7 +95,30 @@
 	}
 }
 
-// Generic Intro Section
+.project-title {
+	margin: 0 -24px 0 -24px;
+	padding: 1rem 24px;
+	background: variables.$black;
+	border-radius: 3px;
+	color: variables.$white;
+	cursor: pointer;
+
+	summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.project-category {
+		font-size: 12px;
+	}
+
+	h2 {
+		margin-top: 0;
+		margin-bottom: 0;
+		font-size: 24px;
+		font-weight: 400;
+	}
+}
+
 .intro-section {
 	min-height: 100vh;
 	display: flex;
@@ -156,7 +179,7 @@
 
 // Floating TL;DR Button
 .floating-tldr {
-	position: fixed;
+	position: absolute;
 	bottom: 2rem;
 	right: 2rem;
 	z-index: 100;
@@ -376,7 +399,7 @@
 					opacity: 1;
 					transform: translateX(0);
 					transition: all 0.2s ease-in-out;
-					margin-right: 6px;
+					margin-right: 16px;
 
 					.external-icon {
 						color: variables.$text-color;
@@ -539,158 +562,60 @@
 	max-width: 935px; // Instagram's max width
 	margin: 0 auto;
 
-	.project-content {
-		.carousel {
-			width: min(100%, 600px); // Instagram's image width
-			margin: 0 auto;
-			margin-bottom: 2rem;
-			background: variables.$card-bg;
+	.project-details {
+		padding: 0 var(--project-padding);
+		max-width: 600px; // Match carousel width
+		margin: 0 auto 0;
+		font-family: var(--font-sans);
 
-			.carousel-track {
-				position: relative;
-				width: 100%;
-				aspect-ratio: 1/1;
+		.metadata {
+			margin-bottom: 0;
+			margin-top: 24px;
 
-				.carousel-slide {
-					position: absolute;
-					inset: 0;
-					opacity: 0;
-					transition: opacity 0.3s ease;
-
-					&.active {
-						opacity: 1;
-						z-index: 1;
-					}
-
-					img,
-					video,
-					iframe {
-						width: 100%;
-						height: 100%;
-						object-fit: cover;
-						border-radius: 0;
-					}
-				}
+			.metadata-list {
+				display: grid;
+				gap: 1rem;
 			}
 
-			.carousel-button {
-				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
-				z-index: 2;
-				background: rgba(255, 255, 255, 0.9);
-				border: none;
-				width: 32px;
-				height: 32px;
-				border-radius: 50%;
-				cursor: pointer;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				transition: all 0.2s ease;
-				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			.metadata-item {
+				display: grid;
+				gap: 0.25rem;
 
-				&:hover {
-					background: white;
-					box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+				.label {
+					font-size: 12px;
+					font-weight: 600;
+					text-transform: uppercase;
+					letter-spacing: 0.05em;
 				}
 
-				&.prev {
-					left: 1rem;
-				}
-
-				&.next {
-					right: 1rem;
-				}
-
-				svg {
-					width: 20px;
-					height: 20px;
-					fill: currentColor;
-				}
-			}
-
-			.carousel-indicators {
-				position: absolute;
-				bottom: 1rem;
-				left: 50%;
-				transform: translateX(-50%);
-				display: flex;
-				gap: 0.5rem;
-				z-index: 2;
-
-				.indicator {
-					width: 6px;
-					height: 6px;
-					border-radius: 50%;
-					background: rgba(255, 255, 255, 0.5);
-					border: none;
-					padding: 0;
-					cursor: pointer;
-					transition: all 0.2s ease;
-
-					&.active {
-						background: white;
-					}
+				.value {
+					font-size: var(--text-sm);
 				}
 			}
 		}
 
-		.project-details {
-			padding: 0 var(--project-padding);
-			max-width: 600px; // Match carousel width
-			margin: 2rem auto 0;
-			font-family: var(--font-sans);
+		.project-description {
+			font-size: var(--text-md);
+			line-height: 1.6;
+			color: variables.$text-color;
 
-			.metadata {
-				margin-bottom: 2rem;
-
-				.metadata-list {
-					display: grid;
-					gap: 1rem;
-				}
-
-				.metadata-item {
-					display: grid;
-					gap: 0.25rem;
-
-					.label {
-						font-size: 12px;
-						font-weight: 600;
-						color: variables.$text-color-secondary;
-						text-transform: uppercase;
-						letter-spacing: 0.05em;
-					}
-
-					.value {
-						font-size: var(--text-sm);
-						color: variables.$text-color;
-					}
-				}
+			p {
+				margin-bottom: 1.5rem;
+				margin-top: 8px;
 			}
 
-			.project-description {
-				font-size: var(--text-md);
-				line-height: 1.6;
+			h2 {
+				font-size: var(--heading-md);
+				font-weight: 600;
+				margin: 2rem 0 1rem;
 				color: variables.$text-color;
+			}
 
-				p {
-					margin-bottom: 1.5rem;
-				}
-
-				h2 {
-					font-size: var(--heading-md);
-					font-weight: 600;
-					margin: 2rem 0 1rem;
-					color: variables.$text-color;
-				}
-
-				h3 {
-					font-size: var(--text-lg);
-					font-weight: 600;
-					margin: 1.5rem 0 0.75rem;
-					color: variables.$text-color;
-				}
+			h3 {
+				font-size: var(--text-lg);
+				font-weight: 600;
+				margin: 3rem 0 0.75rem;
+				color: variables.$text-color;
 			}
 		}
 	}
