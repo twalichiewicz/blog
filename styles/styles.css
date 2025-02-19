@@ -5330,8 +5330,9 @@ body.has-scroll-snap {
 .project-gallery .project-details {
   padding: 0 var(--project-padding);
   max-width: 600px;
-  margin: 0 auto 0;
+  margin: 0 auto 2rem;
   font-family: var(--font-sans);
+  overflow-x: hidden;
 }
 .project-gallery .project-details .metadata {
   margin-bottom: 0;
@@ -6310,7 +6311,7 @@ h3 {
 
 ul,
 ol {
-  margin: 1.5em 0;
+  margin: 0.6rem 0 0.6rem 0;
   line-height: 1.5em;
   font-size: 0.9rem;
 }
