@@ -591,6 +591,98 @@ body.modal-open {
     opacity: 1;
   }
 }
+/* Text Carousel Styles */
+.text-carousel {
+  margin: 48px 0;
+  padding: 0;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.text-carousel .text-carousel-track {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+.text-carousel .text-carousel-slide {
+  flex: 0 0 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  min-height: 150px;
+  background-color: hsl(0, 0%, 100%);
+  border: 1px solid hsl(35, 10%, 75%);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+}
+.text-carousel .text-carousel-slide h2 {
+  margin-bottom: 6px;
+}
+.text-carousel .text-carousel-slide p {
+  margin: 0;
+}
+.text-carousel .text-carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.text-carousel .text-carousel-button.prev {
+  left: 10px;
+}
+.text-carousel .text-carousel-button.next {
+  right: 10px;
+}
+.text-carousel .text-carousel-indicators {
+  margin-top: 12px;
+  display: flex;
+  gap: 6px;
+}
+.text-carousel .text-carousel-indicators .indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid currentColor;
+  cursor: pointer;
+}
+.text-carousel .text-carousel-indicators .indicator.active {
+  background: currentColor;
+}
+
+/* Meta Cards Styles */
+.meta-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 0 12px;
+}
+
+.meta-card {
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  color: hsl(24, 3%, 35%);
+  margin: 24px 0;
+}
+.meta-card h2 {
+  margin-bottom: 6px;
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+.meta-card p {
+  margin: 0;
+  padding-top: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .meta-card {
+    color: hsl(0, 0%, 90%);
+  }
+}
 .about-page {
   min-height: 100vh;
   margin: 0;
@@ -2660,7 +2752,7 @@ img {
 .project-gallery .carousel {
   max-width: 100%;
   height: 60vh;
-  margin: 0 0 4rem 0;
+  margin: 0;
   border-radius: 0;
   background: hsl(0, 0%, 10%);
 }
@@ -2669,6 +2761,7 @@ img {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  border-radius: 0;
 }
 .project-gallery .carousel .carousel-button, .project-gallery .carousel .spotlight-modal-close, .project-gallery .carousel .spotlight-nav-button {
   color: hsl(0, 0%, 100%);
@@ -2682,7 +2775,6 @@ img {
 @media (max-width: 768px) {
   .project-gallery .carousel {
     height: 50vh;
-    margin-bottom: 2rem;
   }
   .project-gallery .carousel .carousel-button.prev, .project-gallery .carousel .prev.spotlight-modal-close, .project-gallery .carousel .prev.spotlight-nav-button {
     left: 16px;
@@ -4863,6 +4955,27 @@ body.has-scroll-snap {
   max-width: 50ch;
 }
 
+.project-title {
+  margin: 0 -24px 0 -24px;
+  padding: 1rem 24px;
+  background: hsl(0, 0%, 10%);
+  border-radius: 3px;
+  color: hsl(0, 0%, 100%);
+  cursor: pointer;
+}
+.project-title summary::-webkit-details-marker {
+  display: none;
+}
+.project-title .project-category {
+  font-size: 12px;
+}
+.project-title h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 24px;
+  font-weight: 400;
+}
+
 .intro-section {
   min-height: 100vh;
   display: flex;
@@ -4915,7 +5028,7 @@ body.has-scroll-snap {
 }
 
 .floating-tldr {
-  position: fixed;
+  position: absolute;
   bottom: 2rem;
   right: 2rem;
   z-index: 100;
@@ -5097,7 +5210,7 @@ body.has-scroll-snap {
   opacity: 1;
   transform: translateX(0);
   transition: all 0.2s ease-in-out;
-  margin-right: 6px;
+  margin-right: 16px;
 }
 .portfolio-list .portfolio-item.has-writeup .portfolio-content .arrow-button .external-icon {
   color: hsl(24, 3%, 35%);
@@ -5214,135 +5327,52 @@ body.has-scroll-snap {
   max-width: 935px;
   margin: 0 auto;
 }
-.project-gallery .project-content .carousel {
-  width: min(100%, 600px);
-  margin: 0 auto;
-  margin-bottom: 2rem;
-  background: hsl(0, 0%, 100%);
-}
-.project-gallery .project-content .carousel .carousel-track {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1/1;
-}
-.project-gallery .project-content .carousel .carousel-track .carousel-slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.project-gallery .project-content .carousel .carousel-track .carousel-slide.active {
-  opacity: 1;
-  z-index: 1;
-}
-.project-gallery .project-content .carousel .carousel-track .carousel-slide img,
-.project-gallery .project-content .carousel .carousel-track .carousel-slide video,
-.project-gallery .project-content .carousel .carousel-track .carousel-slide iframe {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0;
-}
-.project-gallery .project-content .carousel .carousel-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.project-gallery .project-content .carousel .carousel-button:hover {
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-.project-gallery .project-content .carousel .carousel-button.prev {
-  left: 1rem;
-}
-.project-gallery .project-content .carousel .carousel-button.next {
-  right: 1rem;
-}
-.project-gallery .project-content .carousel .carousel-button svg {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
-}
-.project-gallery .project-content .carousel .carousel-indicators {
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 0.5rem;
-  z-index: 2;
-}
-.project-gallery .project-content .carousel .carousel-indicators .indicator {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.project-gallery .project-content .carousel .carousel-indicators .indicator.active {
-  background: white;
-}
-.project-gallery .project-content .project-details {
+.project-gallery .project-details {
   padding: 0 var(--project-padding);
   max-width: 600px;
-  margin: 2rem auto 0;
+  margin: 0 auto 0;
   font-family: var(--font-sans);
 }
-.project-gallery .project-content .project-details .metadata {
-  margin-bottom: 2rem;
+.project-gallery .project-details .metadata {
+  margin-bottom: 0;
+  margin-top: 24px;
 }
-.project-gallery .project-content .project-details .metadata .metadata-list {
+.project-gallery .project-details .metadata .metadata-list {
   display: grid;
   gap: 1rem;
 }
-.project-gallery .project-content .project-details .metadata .metadata-item {
+.project-gallery .project-details .metadata .metadata-item {
   display: grid;
   gap: 0.25rem;
 }
-.project-gallery .project-content .project-details .metadata .metadata-item .label {
+.project-gallery .project-details .metadata .metadata-item .label {
   font-size: 12px;
   font-weight: 600;
-  color: hsl(35, 15%, 30%);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-.project-gallery .project-content .project-details .metadata .metadata-item .value {
+.project-gallery .project-details .metadata .metadata-item .value {
   font-size: var(--text-sm);
-  color: hsl(24, 3%, 35%);
 }
-.project-gallery .project-content .project-details .project-description {
+.project-gallery .project-details .project-description {
   font-size: var(--text-md);
   line-height: 1.6;
   color: hsl(24, 3%, 35%);
 }
-.project-gallery .project-content .project-details .project-description p {
+.project-gallery .project-details .project-description p {
   margin-bottom: 1.5rem;
+  margin-top: 8px;
 }
-.project-gallery .project-content .project-details .project-description h2 {
+.project-gallery .project-details .project-description h2 {
   font-size: var(--heading-md);
   font-weight: 600;
   margin: 2rem 0 1rem;
   color: hsl(24, 3%, 35%);
 }
-.project-gallery .project-content .project-details .project-description h3 {
+.project-gallery .project-details .project-description h3 {
   font-size: var(--text-lg);
   font-weight: 600;
-  margin: 1.5rem 0 0.75rem;
+  margin: 3rem 0 0.75rem;
   color: hsl(24, 3%, 35%);
 }
 
@@ -5793,7 +5823,7 @@ body.has-scroll-snap {
   }
 }
 .reading-progress {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 0;
