@@ -564,9 +564,10 @@
 
 	.project-details {
 		padding: 0 var(--project-padding);
-		max-width: 600px; // Match carousel width
-		margin: 0 auto 0;
+		max-width: 600px; // Match carousel max-width
+		margin: 0 auto 2rem;
 		font-family: var(--font-sans);
+		overflow-x: hidden;
 
 		.metadata {
 			margin-bottom: 0;
