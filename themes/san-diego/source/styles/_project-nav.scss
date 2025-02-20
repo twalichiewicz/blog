@@ -1,9 +1,5 @@
 @use 'variables';
 
-:root {
-	--nav-height: 44px;
-}
-
 .project-sticky-nav {
 	position: relative;
 	top: 0;
@@ -12,7 +8,7 @@
 	backdrop-filter: variables.$blur;
 	border-bottom: 1px solid variables.$border-color;
 	transition: transform 0.3s ease;
-	height: var(--nav-height);
+	height: auto;
 
 	.project-nav-back {
 		font-size: 0.75rem;
@@ -32,7 +28,7 @@
 	.project-nav-container {
 		max-width: 1000px;
 		margin: 0 auto;
-		padding: 0.8rem 1rem;
+		padding: 0.3rem 1rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
