@@ -47,11 +47,11 @@ gallery_images:
 
 ### Opportunity
 
-Miti Health (now Maisha Meds) provided an Android-based mobile pharmacy software aimed at rural Kenyan pharmacies. However, the digital interface didn’t quite reflect the everyday realities of these users—who work at desks with paper records. The challenge was to redesign the experience so it felt natural and intuitive, echoing the familiar, paper-based workflow of the pharmacies.
+In 2014, Miti Health (now Maisha Meds) provided an Android-based mobile pharmacy software for rural Kenyan pharmacies. However, the digital interface didn’t reflect the everyday realities of these users—who worked at desks with paper records. The challenge was to redesign the experience so it felt natural and intuitive, echoing the familiar, paper-based workflow of the pharmacies.
 
 ### Process & Key Findings
 
-I began with a comprehensive UX audit, complemented by a review of photos documenting how pharmacists actually worked on the ground. This research surfaced key insights:
+I began with a comprehensive UX audit and reviewed photos that documented how pharmacists worked on the ground. This research revealed several key insights:
 
 - **Workflow Alignment:** Pharmacists were accustomed to handling paper and organizing information at a desk. The existing interface felt too detached from this reality.
 - **Usability Gaps:** The digital experience needed to be more intuitive, reducing friction and mirroring the logical flow of their daily tasks.
@@ -59,11 +59,11 @@ I began with a comprehensive UX audit, complemented by a review of photos docume
 
 ### Design & Execution
 
-With these insights in hand, I reimagined the interface to bridge the gap between digital and physical workflows:
+Guided by these insights, I reimagined the interface to bridge the gap between digital and physical workflows:
 
 - **Contextual Interface Design:** I crafted a design that mirrored the structure and feel of a paper-based system, making it easier for users to adapt to the digital environment.
 - **Simplified Navigation:** The new layout streamlined key tasks like inventory management and record-keeping, closely aligning with the natural flow of working at a desk.
-- **Familiar Visual Cues:** By incorporating design elements reminiscent of traditional paper forms and organized desks, the interface felt like an intuitive extension of their current processes.
+- **Familiar Visual Cues:** By incorporating design elements reminiscent of traditional paper forms and organized desks, the interface felt like a logical extension of their current processes.
 
 ### Key Deliverables
 
@@ -73,4 +73,4 @@ With these insights in hand, I reimagined the interface to bridge the gap betwee
 
 ### Outcomes
 
-Early feedback from the field has been encouraging. Pharmacy staff noted that the new design felt familiar and intuitive—making it easier to transition from traditional methods to a digital solution. This project laid a strong foundation for more user-centric innovations in rural healthcare, ensuring that technology truly serves the way people work.
+Feedback from the field was encouraging. Pharmacy staff noted that the redesigned interface felt familiar and intuitive—making it easier to transition from traditional methods to a digital solution. This project laid a strong foundation for more user-centric innovations in rural healthcare, ensuring that technology truly served the way people worked.
