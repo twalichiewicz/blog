@@ -7,7 +7,11 @@ cover_image: 2014/01/01/Miti-Health/mitiHealth-preview.jpg
 tags: [portfolio]
 has_writeup: true
 layout: project_gallery
-year: 2014
+credits:
+  - role: UX & Visual Design
+    name: Thomas Walichiewicz
+  - role: Year
+    name: 2014
 gallery_images:
   - url: /2014/01/01/Miti-Health/000_mitiHealth.png
     caption: Miti Health app interface
