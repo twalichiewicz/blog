@@ -18,7 +18,9 @@ gallery_images:
     type: image
   - url: /2019/09/15/Common-Project-Administration/001_cpa.png
     type: image
-  - url: /2019/09/15/Common-Project-Administration/002_cpa.png
+  - url: /2019/09/15/Common-Project-Administration/010_cpa.png
+    type: image
+  - url: /2019/09/15/Common-Project-Administration/011_cpa.png
     type: image
 
 --- 
