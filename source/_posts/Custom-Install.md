@@ -9,26 +9,26 @@ credits:
   - role: Year
     name: 2019
 date: 2019-08-30 20:52:01
-cover_image: /2019/08/30/custom-install/customInstall-preview.png
-fullscreen: true
+cover_image: /2019/08/31/custom-install/customInstall-preview.png
 tags:
   - portfolio
 layout: project_gallery
 gallery_images:
-  - url: /2019/08/30/custom-install/000_customInstall.jpg
+  - url: /2019/08/31/custom-install/000_customInstall.jpg
     type: image
-  - url: /2019/08/30/custom-install/010_customInstall.jpg
+  - url: /2019/08/31/custom-install/010_customInstall.jpg
     type: image
-  - url: /2019/08/30/custom-install/011_customInstall.jpg
+  - url: /2019/08/31/custom-install/011_customInstall.jpg
     type: image
-  - url: /2019/08/30/custom-install/012_customInstall.jpg
+  - url: /2019/08/31/custom-install/012_customInstall.jpg
     type: image
-  - url: /2019/08/30/custom-install/020_customInstall.jpg
+  - url: /2019/08/31/custom-install/020_customInstall.jpg
     type: image
-  - url: /2019/08/30/custom-install/021_customInstall.jpg
+  - url: /2019/08/31/custom-install/021_customInstall.jpg
     type: image
-  - url: /2019/08/30/custom-install/030_customInstall.png
+  - url: /2019/08/31/custom-install/030_customInstall.png
     type: image
+
 ---
 
 ### Opportunity
