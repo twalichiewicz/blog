@@ -1,7 +1,7 @@
 ---
-title: Custom Installer Deployments
+title: Multi-product install generator
 company: Autodesk
-byline: Cloud-based enterprise software deployment system with advanced configuration and automated distribution capabilities
+byline: Designed the upgraded multi-product install sequencer and deployment tool
 date: 2019-08-30
 cover_image: 
 tags: [portfolio]

@@ -1,7 +1,7 @@
 ---
-title: Multi-product online deployment tool
+title: Online install generator
 company: Autodesk
-byline: Allowed dynamic generation of installer packages with sequencing and extended configuration options
+byline: Designed a dynamic product install generator with extended configuration options
 date: 2019-07-30 20:52:01
 cover_image: 
 tags: [portfolio]
