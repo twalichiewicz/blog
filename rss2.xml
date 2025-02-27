@@ -9,8 +9,33 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Tue, 25 Feb 2025 07:06:45 GMT</pubDate>
+    <pubDate>Thu, 27 Feb 2025 21:12:29 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>TikTok Desktop Mode</title>
+      <link>https://twalichiewicz.github.io/2025/02/27/TikTok-Desktop-Mode/</link>
+      <guid>https://twalichiewicz.github.io/2025/02/27/TikTok-Desktop-Mode/</guid>
+      <pubDate>Thu, 27 Feb 2025 21:09:47 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Just like this site (soon)!&lt;/p&gt;
+&lt;p&gt;But really, I’m glad we’re moving away from a world where responsive design means a desktop version th</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Just like this site (soon)!</p><p>But really, I’m glad we’re moving away from a world where responsive design means a desktop version that is a smaller version of the mobile version.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/02/27/TikTok-Desktop-Mode/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Metaverse ad</title>
@@ -452,30 +477,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2024/10/16/awkward-wireframes/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>apple fullscreen new window annoyance</title>
-      <link>https://twalichiewicz.github.io/2024/10/16/apple-fullscreen-new-window-annoyance/</link>
-      <guid>https://twalichiewicz.github.io/2024/10/16/apple-fullscreen-new-window-annoyance/</guid>
-      <pubDate>Wed, 16 Oct 2024 04:18:33 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Apple’s current approach to fullscreen apps often leaves users with a fragmented experience, especially when new windows are involved. It</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Apple’s current approach to fullscreen apps often leaves users with a fragmented experience, especially when new windows are involved. It’s almost like that ‘forgetting why I entered the room’ effect—each time you’re forced to switch between spaces, it disrupts your focus and makes it harder to stay on task.</p><p>A more cohesive approach would be for the OS to support functionality that keeps new windows within the same fullscreen space. For instance, imagine an option to open new windows in a side panel, modal, or integrated split view within the existing fullscreen environment. The specifics aren’t as important as the need for a smoother, more intuitive way to manage windows in fullscreen mode. A redesigned experience like this would allow for better task continuity and a more productive workflow overall.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2024/10/16/apple-fullscreen-new-window-annoyance/#disqus_thread</comments>
       
     </item>
     
