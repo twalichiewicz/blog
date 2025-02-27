@@ -10,4 +10,4 @@ url: https://techcrunch.com/2025/02/27/in-challenge-to-youtube-tiktok-revamps-it
 
 Just like this site (soon)!
 
-But really, I'm glad we're moving away from a world where responsive design means a desktop version that is a smaller version of the mobile version.
+But really, I'm glad we're moving away from a world where responsive design means a desktop version is just a larger version of the mobile version.
