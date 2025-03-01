@@ -9,8 +9,32 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Thu, 27 Feb 2025 22:07:33 GMT</pubDate>
+    <pubDate>Sat, 01 Mar 2025 20:52:04 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>TouchPad</title>
+      <link>https://twalichiewicz.github.io/2025/02/28/TouchPad/</link>
+      <guid>https://twalichiewicz.github.io/2025/02/28/TouchPad/</guid>
+      <pubDate>Fri, 28 Feb 2025 19:30:09 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Writing on my MacBook Pro with a Touch Bar has made me realize there might be an ideal fusion: a keyboard&amp;#x2F;trackpad that retains its </description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Writing on my MacBook Pro with a Touch Bar has made me realize there might be an ideal fusion: a keyboard&#x2F;trackpad that retains its speed, efficiency, and ergonomic benefits while also offering the intuitive, direct control of a touchscreen. Imagine merging the familiar feel of a keyboard with a secondary touch display—similar to the concepts behind the Nintendo DS or the iPhone’s all-touch interface—so that your fingers can immediately manipulate the UI as naturally as if you were handling physical controls.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/02/28/TouchPad/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>TikTok Desktop Mode</title>
@@ -452,31 +476,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2024/10/26/books-apple-tv-app/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>awkward wireframes</title>
-      <link>https://twalichiewicz.github.io/2024/10/16/awkward-wireframes/</link>
-      <guid>https://twalichiewicz.github.io/2024/10/16/awkward-wireframes/</guid>
-      <pubDate>Wed, 16 Oct 2024 18:03:22 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Reminder: an MVP is supposed to show potential, not look like a warning label. Set the bar a bit higher.&lt;/p&gt;
-</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Reminder: an MVP is supposed to show potential, not look like a warning label. Set the bar a bit higher.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2024/10/16/awkward-wireframes/#disqus_thread</comments>
       
     </item>
     
