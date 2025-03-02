@@ -22,21 +22,21 @@
 		#postsContent,
 		#projectsContent {
 			flex: 1;
-			min-height: 0; // Prevent content from expanding beyond viewport
-			overflow-y: auto; // Allow scrolling within content
+			min-height: 0;
+			overflow-y: auto;
 		}
 
 		.post-list-item {
 			padding: variables.$space-md 0;
-			height: auto; // Allow natural height
-			min-height: unset; // Remove any minimum height constraints
+			height: auto;
+			min-height: unset;
 		}
 
 		// Keep other mobile styles the same
 		.profile-header,
 		.mobile-tabs,
 		.view-toggle {
-			flex-shrink: 0; // Prevent these from shrinking
+			flex-shrink: 0;
 		}
 
 		.profile-header {
@@ -320,6 +320,7 @@
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
+				border-radius: 0;
 			}
 		}
 
@@ -725,25 +726,6 @@
 						gap: 0.5rem;
 						justify-content: space-between;
 
-						.external-icon {
-							align-self: center;
-							flex-shrink: 0;
-							width: 32px;
-							height: 32px;
-							border-radius: 16px;
-							background: variables.$white-1;
-							border: 1px solid variables.$border-color;
-							display: flex;
-							align-items: center;
-							justify-content: center;
-							opacity: 1;
-							transform: translateX(0);
-							transition: all 0.2s ease-in-out;
-							margin-right: 6px;
-							color: variables.$text-color;
-							font-size: var(--text-md);
-						}
-
 						&:hover {
 							color: variables.$white;
 
@@ -958,7 +940,40 @@
 			border-radius: 8px;
 			padding: 4px;
 			gap: 4px;
-			box-shadow: variables.$shadow-soft;
+			position: relative;
+			box-shadow:
+				0 1px 3px rgba(0, 0, 0, 0.1),
+				0 1px 2px rgba(0, 0, 0, 0.06),
+				inset 0 2px 4px rgba(0, 0, 0, 0.1),
+				inset 0 -1px 2px rgba(255, 255, 255, 0.1);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+
+			// Add CSS custom property for slider position
+			--slider-x: 0px;
+
+			&::after {
+				content: '';
+				position: absolute;
+				left: 4px;
+				top: 4px;
+				width: calc((100% - 12px) / 2);
+				height: calc(100% - 8px);
+				background: variables.$link-color;
+				border-radius: 6px;
+				z-index: 1;
+				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+				transform: translateX(var(--slider-x));
+				transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+				will-change: transform;
+
+				.is-dragging & {
+					transition: none;
+				}
+			}
+
+			&[data-active-tab="portfolio"]:not(.is-dragging)::after {
+				--slider-x: calc(100% + 4px);
+			}
 
 			.tab-button {
 				flex: 1;
@@ -970,31 +985,17 @@
 				font-weight: 500;
 				color: variables.$text-color-secondary;
 				cursor: pointer;
-				transition: all 0.2s ease;
+				transition: color 0.2s ease;
+				position: relative;
+				z-index: 2;
+				text-align: center;
 
 				&.active {
-					background: variables.$link-color;
 					color: variables.$white;
 				}
 
 				&:not(.active):hover {
-					background: rgba(0, 0, 0, 0.05);
-				}
-			}
-
-			@media (prefers-color-scheme: dark) {
-				background: rgba(255, 255, 255, 0.1);
-
-				.tab-button {
-					color: variables.$text-color-secondary-dark;
-
-					&.active {
-						background: variables.$link-color-dark;
-					}
-
-					&:not(.active):hover {
-						background: rgba(255, 255, 255, 0.05);
-					}
+					color: variables.$text-color;
 				}
 			}
 		}
@@ -1456,96 +1457,6 @@
 	}
 }
 
-.mobile-tabs {
-	display: none;
-	margin-bottom: 2rem !important;
-
-	@media screen and (max-width: variables.$mobile-breakpoint) {
-		display: flex;
-		width: 100%;
-		margin: 0 auto 1rem;
-		background: variables.$card-bg;
-		border-radius: 8px;
-		padding: 4px;
-		gap: 4px;
-		position: relative;
-		box-shadow:
-			0 1px 3px rgba(0, 0, 0, 0.1),
-			0 1px 2px rgba(0, 0, 0, 0.06),
-			inset 0 2px 4px rgba(0, 0, 0, 0.1),
-			inset 0 -1px 2px rgba(255, 255, 255, 0.1);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-
-		// Add CSS custom property for slider position
-		--slider-x: 0px;
-
-		&::after {
-			content: '';
-			position: absolute;
-			left: 4px;
-			top: 4px;
-			width: calc((100% - 12px) / 2);
-			height: calc(100% - 8px);
-			background: variables.$link-color;
-			border-radius: 6px;
-			z-index: 1;
-			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-			transform: translateX(var(--slider-x));
-			transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-			will-change: transform;
-
-			.is-dragging & {
-				transition: none;
-			}
-		}
-
-		&[data-active-tab="portfolio"]:not(.is-dragging)::after {
-			--slider-x: calc(100% + 4px);
-		}
-
-		.tab-button {
-			flex: 1;
-			padding: 8px 16px;
-			border: none;
-			background: transparent;
-			border-radius: 6px;
-			font-size: 14px;
-			font-weight: 500;
-			color: variables.$text-color-secondary;
-			cursor: pointer;
-			transition: color 0.2s ease;
-			position: relative;
-			z-index: 2;
-			text-align: center;
-
-			&.active {
-				color: variables.$white;
-			}
-
-			&:not(.active):hover {
-				color: variables.$text-color;
-			}
-		}
-	}
-
-	@media (prefers-color-scheme: dark) {
-		background: rgba(255, 255, 255, 0.1);
-
-		&::after {
-			background: variables.$link-color-dark;
-			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-		}
-
-		.tab-button {
-			color: variables.$text-color-secondary-dark;
-
-			&:not(.active):hover {
-				color: variables.$text-color-dark;
-			}
-		}
-	}
-}
-
 .loading-screen {
 	position: fixed;
 	top: 0;
@@ -1714,24 +1625,27 @@ img {
 			transform: translateY(-50%);
 			width: 33px;
 			height: 33px;
-			border: none;
+			border-radius: 50%;
+			z-index: 2;
+
+			/* Appearance */
 			background: rgba(0, 0, 0, 0.3);
 			backdrop-filter: blur(20px);
 			-webkit-backdrop-filter: blur(20px);
-			border-radius: 50%;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+
+			/* Layout */
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			z-index: 2;
-
-			// Add mobile-tabs styling while preserving original hover
-			display: flex;
 			gap: 4px;
-			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
+
+			/* Effects */
+			box-shadow:
+				0 1px 3px rgba(0, 0, 0, 0.1),
 				0 1px 2px rgba(0, 0, 0, 0.06),
 				inset 0 2px 4px rgba(0, 0, 0, 0.1),
 				inset 0 -1px 2px rgba(255, 255, 255, 0.1);
-			border: 1px solid rgba(255, 255, 255, 0.1);
 			cursor: pointer;
 			transition: all 0.3s ease;
 
@@ -1840,6 +1754,31 @@ img {
 	}
 }
 
+.external-icon {
+	align-self: center;
+	flex-shrink: 0;
+	width: 32px;
+	height: 32px;
+	border-radius: 16px;
+	background: variables.$white-1;
+	border: 1px solid variables.$border-color;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 1;
+	transform: translateX(0);
+	transition: all 0.2s ease-in-out;
+	margin-right: 6px;
+	color: variables.$text-color;
+	font-size: var(--text-md);
+
+	&:hover {
+		background: variables.$link-color;
+		border-color: variables.$link-color;
+		color: variables.$white;
+	}
+}
+
 .blog .blog-list .post-list-item.post-link {
 	background: variables.$text-color-secondary;
 	border-radius: 12px;
@@ -1870,35 +1809,6 @@ img {
 				align-items: flex-start;
 				gap: 0.5rem;
 				justify-content: space-between;
-
-				.external-icon {
-					align-self: center;
-					flex-shrink: 0;
-					width: 32px;
-					height: 32px;
-					border-radius: 16px;
-					background: variables.$white-1;
-					border: 1px solid variables.$border-color;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					opacity: 1;
-					transform: translateX(0);
-					transition: all 0.2s ease-in-out;
-					margin-right: 6px;
-					color: variables.$text-color;
-					font-size: var(--text-md);
-				}
-
-				&:hover {
-					color: variables.$white;
-
-					.external-icon {
-						background: variables.$link-color;
-						border-color: variables.$link-color;
-						color: variables.$white;
-					}
-				}
 
 				@media (prefers-color-scheme: dark) {
 					&:hover {
@@ -2071,4 +1981,226 @@ img {
 	width: auto !important;
 	padding-left: 0 !important;
 	padding-right: 0 !important;
+
+	.company-group {
+		margin-bottom: 3rem;
+		width: 100%;
+		box-sizing: border-box;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		.company-name {
+			font-size: var(--text-lg);
+			color: variables.$text-color-secondary;
+			margin-bottom: 1rem;
+			padding-bottom: 1px;
+			border-bottom: 3px solid variables.$text-color-secondary;
+			font-weight: 600;
+			display: flex;
+			justify-content: space-between;
+			align-items: end;
+			width: 100%;
+			box-sizing: border-box;
+
+			.company-years {
+				font-size: 12px;
+				color: variables.$grey;
+				font-weight: 400;
+				margin: 0;
+				padding-bottom: 1px;
+			}
+		}
+
+		.company-projects {
+			display: flex;
+			flex-direction: column;
+			gap: 0;
+		}
+	}
+
+	// Dark mode styles for company groups
+	@media (prefers-color-scheme: dark) {
+		.company-group {
+			.company-name {
+				color: variables.$text-color-secondary-dark;
+				border-bottom-color: variables.$border-color-dark;
+
+				.company-years {
+					color: variables.$text-color-secondary-dark;
+				}
+			}
+		}
+	}
+
+	.portfolio-item {
+		display: block;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		margin: 0.5rem 0;
+		border-radius: 12px;
+		overflow: hidden;
+		position: relative;
+
+		// Base styles for all items
+		.portfolio-content {
+			position: relative;
+			z-index: 2;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem;
+
+			.content-text {
+				h4 {
+					margin: 0 0 0.25rem 0;
+					font-size: 1.1rem;
+					line-height: 1.3;
+				}
+
+				p {
+					margin: 0;
+					font-size: 0.85rem;
+				}
+			}
+
+			.external-icon {
+				font-size: 1.2rem;
+			}
+		}
+
+		// Styles for items with writeups
+		&.has-writeup {
+			background: variables.$text-color-secondary;
+			color: variables.$text-color-dark;
+
+			&:hover {
+				transform: translateY(-2px);
+
+				.portfolio-image::after {
+					opacity: 0.75;
+				}
+			}
+
+			.portfolio-image {
+				position: relative;
+				width: 100%;
+				max-height: 150px;
+				overflow: hidden;
+				margin-bottom: 0;
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+
+				&::after {
+					content: '';
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					background: linear-gradient(to bottom,
+							rgba(0, 0, 0, 0.2) 0%,
+							rgba(0, 0, 0, 0.8) 100%);
+					transition: opacity 0.2s ease;
+				}
+			}
+
+			.portfolio-content {
+				position: relative;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: transparent;
+				padding: 1.5rem;
+				z-index: 3;
+				gap: variables.$space-md;
+
+				.content-text {
+					h4 {
+						color: variables.$white;
+						font-weight: 500;
+					}
+
+					p {
+						color: variables.$white-1;
+						opacity: 0.9;
+					}
+				}
+			}
+		}
+
+		// Styles for items without writeups
+		&:not(.has-writeup) {
+			background: variables.$grey-light;
+			opacity: 0.8;
+			cursor: default;
+			border: 1px solid variables.$border-color;
+
+			.portfolio-content {
+				.content-text {
+					h4 {
+						color: variables.$text-color-secondary;
+						font-weight: 400;
+					}
+
+					p {
+						color: variables.$text-color-secondary;
+						opacity: 0.8;
+					}
+				}
+			}
+
+			&:hover {
+				transform: none;
+			}
+		}
+	}
+
+	// Dark mode adjustments
+	@media (prefers-color-scheme: dark) {
+		.portfolio-item {
+			&.has-writeup {
+				background: variables.$card-bg-dark;
+
+				.portfolio-image::after {
+					background: linear-gradient(to bottom,
+							rgba(0, 0, 0, 0.3) 0%,
+							rgba(0, 0, 0, 0.9) 100%);
+				}
+
+				.portfolio-content {
+					.external-icon {
+						color: variables.$white;
+					}
+				}
+			}
+
+			&:not(.has-writeup) {
+				background: variables.$card-bg-dark;
+				border-color: variables.$border-color-dark;
+				opacity: 0.6;
+
+				.content-text {
+					h4 {
+						color: variables.$text-color-secondary-dark;
+					}
+
+					p {
+						color: variables.$grey-dark;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 480px) {
+	#projectsContent.portfolio-list .company-group .company-projects {
+		grid-template-columns: 1fr;
+	}
 }

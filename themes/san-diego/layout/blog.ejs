@@ -211,30 +211,30 @@
                             <% } else { %>
                                 <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup">
                             <% } %>
-                                <div class="portfolio-image">
-                                    <% if (post.cover_image && post.has_writeup !== false) { %>
-                                        <img 
-                                            src="<%- url_for(post.cover_image) %>" 
-                                            alt="<%- post.title %>"
-                                            loading="lazy"
-                                        >
-                                    <% } %>
-                                </div>
-                                <div class="portfolio-content">
-                                    <div class="content-text">
-                                        <% if (post.has_writeup === false) { %>
-                                            <h4><%- post.title %></h4>
-                                        <% } else { %>
-                                            <h3><%- post.title %></h3>
-                                        <% } %>
-                                        <% if (post.byline) { %>
-                                            <p><%- post.byline %></p>
-                                        <% } %>
-                                    </div>
-                                    <% if (post.has_writeup !== false) { %>
-                                        <div class="arrow-button"><span class="external-icon">→</span></div>
-                                    <% } %>
-                                </div>
+                            <% if (post.cover_image && post.has_writeup !== false) { %>    
+							<div class="portfolio-image">
+								<img 
+									src="<%- url_for(post.cover_image) %>" 
+									alt="<%- post.title %>"
+									loading="lazy"
+								>
+								</div>
+							<% } %>
+							<div class="portfolio-content">
+								<div class="content-text">
+									<% if (post.has_writeup === false) { %>
+										<h4><%- post.title %></h4>
+									<% } else { %>
+										<h4><%- post.title %></h4>
+									<% } %>
+									<% if (post.byline) { %>
+										<p><%- post.byline %></p>
+									<% } %>
+								</div>
+								<% if (post.has_writeup !== false) { %>
+									<div class="external-icon">→</div>
+								<% } %>
+							</div>
                             <% if (post.has_writeup === false) { %>
                                 </div>
                             <% } else { %>

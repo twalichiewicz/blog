@@ -36,15 +36,15 @@
             allPosts.forEach(function(post) { 
                 if (post.tags && post.tags.data.some(tag => tag.name === 'portfolio') && !post.draft) { %>
                     <a href="<%- url_for(post.path) %>" class="portfolio-item">
-                        <div class="portfolio-image">
-                            <% if (post.cover_image) { %>
-                                <img 
-                                    src="<%- url_for(post.cover_image) %>" 
-                                    alt="<%- post.title %>"
-                                    loading="lazy"
-                                >
-                            <% } %>
-                        </div>
+                        <% if (post.cover_image) { %>
+							<div class="portfolio-image">
+								<img 
+									src="<%- url_for(post.cover_image) %>" 
+									alt="<%- post.title %>"
+									loading="lazy"
+								>
+							</div>
+						<% } %>
                         <div class="portfolio-content">
                             <% if (post.company) { %>
                                 <div class="company-byline"><%- post.company %></div>
