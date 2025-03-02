@@ -315,8 +315,6 @@
     </div>
 </main>
 
-<%- partial('_partial/scroll-to-top') %>
-
 <script>
 // Add device check at the start
 function isMobileDevice() {
@@ -451,9 +449,6 @@ document.querySelector('.search-button').addEventListener('click', function() {
         input.value = '';
     }
 });
-
-// Add scroll-to-top functionality
-const scrollToTopBtn = document.getElementById('scrollToTop');
 
 // Show button when user scrolls down 100px
 window.addEventListener('scroll', () => {
