@@ -356,10 +356,6 @@
 				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05),
 					0 5px 15px rgba(0, 0, 0, 0.1);
 
-				.portfolio-image img {
-					transform: scale(1.05);
-				}
-
 				.arrow-button {
 					opacity: 1;
 					transform: translateX(0);
@@ -421,25 +417,8 @@
 		&:not(.has-writeup) {
 			cursor: default;
 
-			.portfolio-image {
-				opacity: 0.9;
-				background: variables.$card-bg;
-
-				&::after {
-					display: none;
-				}
-			}
-
 			&:hover {
 				transform: none;
-
-				.portfolio-image {
-					opacity: 0.9;
-
-					img {
-						transform: none;
-					}
-				}
 			}
 
 			.portfolio-content {
@@ -458,23 +437,6 @@
 					margin: 0;
 					line-height: 1.4;
 				}
-			}
-		}
-
-		.portfolio-image {
-			border-radius: 0;
-			overflow: hidden;
-			margin-bottom: 1rem;
-			background: variables.$card-bg;
-			aspect-ratio: 16/9;
-			transition: opacity var(--transition-medium);
-
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				border-radius: 0;
-				transition: transform var(--transition-medium);
 			}
 		}
 
@@ -540,10 +502,6 @@
 			}
 
 			&:not(.has-writeup) {
-				.portfolio-image {
-					background: variables.$card-bg-dark;
-				}
-
 				.portfolio-content {
 					.content-text h4 {
 						color: variables.$grey-light !important;
