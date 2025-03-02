@@ -203,38 +203,6 @@ blockquote {
 	}
 }
 
-.scroll-to-top {
-	position: fixed;
-	padding: 12px;
-	bottom: 1rem;
-	right: 1rem;
-	width: 40px;
-	height: 40px;
-	z-index: 1000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: variables.$link-color;
-	color: variables.$white;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	opacity: 0;
-	visibility: hidden;
-	transition: all 0.3s ease;
-
-	&.visible {
-		opacity: 1;
-		visibility: visible;
-	}
-
-	&:hover {
-		background: variables.$link-color-dark;
-		transform: translateY(-3px);
-		box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
-	}
-}
-
 @media (prefers-color-scheme: dark) {
 
 	.button,
@@ -277,11 +245,6 @@ blockquote {
 		h3 {
 			color: variables.$text-color-dark;
 		}
-	}
-
-	.scroll-to-top {
-		background: variables.$primary-color-dark;
-		border-color: variables.$border-color-dark;
 	}
 }
 
