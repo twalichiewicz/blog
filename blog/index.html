@@ -3394,13 +3394,6 @@
     </div>
 </main>
 
-<button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
-    <svg width="33px" height="33px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: scale(1.5)">
-        <path d="M13 9H10V16H6V9L3 9V8L8 3L13 8V9Z" fill="currentColor"/>
-        <path d="M14 2H2V0H14V2Z" fill="currentColor"/>
-    </svg>
-</button> 
-
 <script>
 // Add device check at the start
 function isMobileDevice() {
@@ -3535,9 +3528,6 @@ document.querySelector('.search-button').addEventListener('click', function() {
         input.value = '';
     }
 });
-
-// Add scroll-to-top functionality
-const scrollToTopBtn = document.getElementById('scrollToTop');
 
 // Show button when user scrolls down 100px
 window.addEventListener('scroll', () => {
