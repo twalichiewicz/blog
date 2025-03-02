@@ -1739,6 +1739,7 @@ img {
 #projectsContent.portfolio-list .portfolio-item.has-writeup .portfolio-image img {
   width: 100%;
   height: 100%;
+  max-height: 150px;
   object-fit: cover;
 }
 #projectsContent.portfolio-list .portfolio-item.has-writeup .portfolio-image::after {
