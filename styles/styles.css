@@ -94,7 +94,7 @@
     padding-right: 0 !important;
   }
   .blog .mobile-tabs,
-  .blog T.view-toggle,
+  .blog .view-toggle,
   .blog .blog-list,
   .blog #postsContent,
   .blog .page-navigation,
@@ -1550,7 +1550,7 @@ img {
 }
 .blog .blog-list .post-list-item.post-link .link-share .content-accordion .accordion-content {
   margin-top: 1rem;
-  color: currentColor;
+  color: hsl(0, 0%, 90%);
 }
 .blog .blog-list .post-list-item.post-link .link-share .content-accordion .accordion-content a {
   color: hsl(40, 80%, 50%);
@@ -1709,12 +1709,12 @@ img {
 }
 #projectsContent.portfolio-list .portfolio-item .portfolio-content .content-text h4 {
   margin: 0 0 0.25rem 0;
-  font-size: 1.1rem;
+  font-size: 15px;
   line-height: 1.3;
 }
 #projectsContent.portfolio-list .portfolio-item .portfolio-content .content-text p {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 12px;
 }
 #projectsContent.portfolio-list .portfolio-item .portfolio-content .external-icon {
   font-size: 1.2rem;
@@ -1735,11 +1735,13 @@ img {
   height: 150px;
   overflow: hidden;
   margin-bottom: 0;
+  border-radius: 0;
 }
 #projectsContent.portfolio-list .portfolio-item.has-writeup .portfolio-image img {
   width: 100%;
   height: 150px;
   object-fit: cover;
+  border-radius: 0;
 }
 #projectsContent.portfolio-list .portfolio-item.has-writeup .portfolio-image::after {
   content: "";
@@ -1757,9 +1759,9 @@ img {
   left: 0;
   right: 0;
   background: transparent;
-  padding: 1.5rem;
+  padding: 16px;
   z-index: 3;
-  gap: 24px;
+  gap: 16px;
 }
 #projectsContent.portfolio-list .portfolio-item.has-writeup .portfolio-content .content-text h4 {
   color: hsl(0, 0%, 100%);
@@ -1793,19 +1795,17 @@ img {
   #projectsContent.portfolio-list .portfolio-item.has-writeup .portfolio-image::after {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.9) 100%);
   }
-  #projectsContent.portfolio-list .portfolio-item.has-writeup .portfolio-content .external-icon {
-    color: hsl(0, 0%, 100%);
-  }
   #projectsContent.portfolio-list .portfolio-item:not(.has-writeup) {
     background: hsl(0, 0%, 20%);
     border-color: hsl(0, 0%, 20%);
     opacity: 0.6;
   }
-  #projectsContent.portfolio-list .portfolio-item:not(.has-writeup) .content-text h4 {
-    color: hsl(0, 0%, 71%);
+  #projectsContent.portfolio-list .portfolio-item:not(.has-writeup) .portfolio-content .content-text h4 {
+    color: hsl(0, 0%, 90%);
   }
-  #projectsContent.portfolio-list .portfolio-item:not(.has-writeup) .content-text p {
-    color: hsl(0, 0%, 70%);
+  #projectsContent.portfolio-list .portfolio-item:not(.has-writeup) .portfolio-content .content-text p {
+    color: hsl(0, 0%, 90%);
+    opacity: 0.7;
   }
 }
 
