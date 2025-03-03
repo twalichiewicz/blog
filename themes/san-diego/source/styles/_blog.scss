@@ -47,7 +47,7 @@
 		}
 
 		.mobile-tabs,
-		T.view-toggle,
+		.view-toggle,
 		.blog-list,
 		#postsContent,
 		.page-navigation,
@@ -1858,7 +1858,7 @@ img {
 
 			.accordion-content {
 				margin-top: 1rem;
-				color: currentColor;
+				color: variables.$text-color-dark;
 
 				a {
 					color: variables.$link-color-dark;
@@ -2055,13 +2055,13 @@ img {
 			.content-text {
 				h4 {
 					margin: 0 0 0.25rem 0;
-					font-size: 1.1rem;
+					font-size: 15px;
 					line-height: 1.3;
 				}
 
 				p {
 					margin: 0;
-					font-size: 0.85rem;
+					font-size: 12px;
 				}
 			}
 
@@ -2116,9 +2116,9 @@ img {
 				left: 0;
 				right: 0;
 				background: transparent;
-				padding: 1.5rem;
+				padding: 16px;
 				z-index: 3;
-				gap: variables.$space-md;
+				gap: 16px;
 
 				.content-text {
 					h4 {
@@ -2185,13 +2185,16 @@ img {
 				border-color: variables.$border-color-dark;
 				opacity: 0.6;
 
-				.content-text {
-					h4 {
-						color: variables.$text-color-secondary-dark;
-					}
+				.portfolio-content {
+					.content-text {
+						h4 {
+							color: variables.$text-color-dark;
+						}
 
-					p {
-						color: variables.$grey-dark;
+						p {
+							color: variables.$text-color-dark;
+							opacity: 0.7;
+						}
 					}
 				}
 			}
