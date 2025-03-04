@@ -1,11 +1,11 @@
-@use 'variables';
+@use 'variables' as *;
 
 :root {
-    --primary-color: variables.$primary-color;
-    --text-color: variables.$text-color;
-    --text-color-secondary: variables.$text-color-secondary;
-    --border-color: variables.$border-color;
-    --white: variables.$white;
-    --white-1: variables.$white-1;
-    --card-bg: variables.$card-bg;
+	--primary-color: #{$primary-color};
+	--text-color: #{$text-color};
+	--text-color-secondary: #{$text-color-secondary};
+	--border-color: #{$border-color};
+	--white: #{$white};
+	--white-1: #{$white-1};
+	--card-bg: #{$card-bg};
 }
