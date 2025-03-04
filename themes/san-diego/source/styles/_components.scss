@@ -315,6 +315,7 @@ button {
 
 	.tab-button {
 		flex: 1;
+		justify-content: center;
 		padding: 8px 16px;
 		border: none;
 		background: transparent;
@@ -328,7 +329,6 @@ button {
 		z-index: 2;
 		text-align: center;
 		box-shadow: none;
-		justify-content: center;
 
 		&.active {
 			color: variables.$white;
@@ -338,8 +338,6 @@ button {
 			color: variables.$text-color;
 		}
 	}
-
-	@media screen and (max-width: variables.$mobile-breakpoint) {}
 
 	@media (prefers-color-scheme: dark) {
 		background: rgba(255, 255, 255, 0.1);
@@ -361,6 +359,70 @@ button {
 
 .profile-header {
 	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 32px;
+	padding: 18px 24px;
+	margin: 0 auto 32px;
+	max-width: 600px;
+	z-index: 1;
+	margin-right: calc(100vw - 100%);
+	box-sizing: border-box;
+	width: 100%;
+
+	.profile-photo {
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		object-fit: cover;
+		flex-shrink: 0;
+		position: relative;
+		box-shadow:
+			0 0 0 1px rgba(variables.$white, 0.7),
+			0 0 0 2px rgba(variables.$black, 0.1),
+			inset 0 2px 8px rgba(variables.$black, 0.4),
+			inset 0 -4px 8px rgba(variables.$white, 0.3);
+		padding: 4px;
+		background: linear-gradient(145deg,
+				rgba(variables.$white, 0.1),
+				rgba(variables.$black, 0.1));
+	}
+
+	.profile-info {
+		.profile-name {
+			text-shadow:
+				0 1px 1px rgba(255, 255, 255, 0.9),
+				0 -1px 1px rgba(0, 0, 0, 0.2);
+		}
+
+		.profile-bio {
+			color: variables.$text-color-secondary;
+		}
+
+		.profile-stats {
+			display: flex;
+			gap: variables.$spacing-inline-lg;
+
+			.stat {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+
+				.number {
+					display: block;
+					font-weight: 600;
+					font-size: 18px;
+				}
+
+				.label {
+					font-size: 9px;
+					color: variables.$text-color-secondary;
+					text-transform: uppercase;
+					letter-spacing: 0.05em;
+				}
+			}
+		}
+	}
 
 	.contact-wrapper {
 		position: absolute;
@@ -462,6 +524,63 @@ button {
 					}
 				}
 			}
+		}
+	}
+
+	@media screen and (max-width: variables.$mobile-breakpoint) {
+		flex-direction: column;
+		padding: variables.$spacing-card 0;
+		margin: variables.$space-sm 0 0 0;
+
+		.profile-info {
+			flex: 1;
+
+			.profile-name {
+				font-size: 24px;
+				font-weight: 600;
+				margin: 0;
+				text-shadow:
+					0 1px 1px rgba(255, 255, 255, 0.9),
+					0 -1px 1px rgba(0, 0, 0, 0.2);
+				letter-spacing: 0.02em;
+			}
+
+			.profile-bio {
+				color: variables.$text-color-secondary;
+				margin-top: 3px;
+				margin-bottom: 16px;
+				font-size: 12px;
+				line-height: 1.4;
+				max-width: 600px;
+			}
+
+			.profile-stats {
+				justify-content: flex-start;
+				gap: variables.$spacing-inline-lg;
+
+				.stat {
+					.number {
+						font-size: 16px;
+					}
+
+					.label {
+						font-size: 9px;
+					}
+				}
+			}
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.profile-photo {
+			box-shadow:
+				0 0 0 1px rgba(variables.$white, 0.2),
+				0 0 0 2px rgba(variables.$black, 0.3),
+				inset 0 2px 8px rgba(variables.$black, 0.6),
+				inset 0 -4px 8px rgba(variables.$white, 0.1);
+			background: linear-gradient(145deg,
+					rgba(variables.$white, 0.05),
+					rgba(variables.$black, 0.2));
 		}
 	}
 }
