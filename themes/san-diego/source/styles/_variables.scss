@@ -33,7 +33,7 @@ $grey-dark: hsl(0, 0%, 70%);
 $body-bg: hsl(35, 15%, 88%);
 $nav-bg: rgba(245, 240, 235, 0.9);
 $card-bg: hsl(0, 0%, 100%);
-$body-bg-dark: hsl(27.98, 8.4%, 11.99%);
+$body-bg-dark: hsl(28, 8%, 12%);
 $nav-bg-dark: rgba(0, 0, 0, 0.6);
 $card-bg-dark: hsl(0, 0%, 20%);
 
@@ -107,6 +107,7 @@ $spacing-stack-sm: $space-xs; // 6px  - Small vertical stack
 $spacing-stack: $space-sm; // 12px - Default vertical stack
 $spacing-stack-lg: $space-md; // 24px - Large vertical stack
 $spacing-inline: $space-sm; // 12px - Default horizontal spacing
+$spacing-inline-sm: $space-xs; // 6px  - Small horizontal spacing
 $spacing-inline-lg: $space-md; // 24px - Large horizontal spacing
 
 // Meta Card Background Colors
