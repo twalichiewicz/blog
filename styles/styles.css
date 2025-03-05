@@ -734,152 +734,6 @@ li .blog .post-list-item img {
 .blog .blog-list .post-list-item.post-link .link-share .content-accordion .accordion-content ul li {
   color: hsl(0, 0%, 90%);
 }
-.blog .profile-header {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  padding: 18px 24px;
-  margin: 0 auto 32px;
-  max-width: 600px;
-  position: relative;
-  z-index: 1;
-  margin-right: calc(100vw - 100%);
-  box-sizing: border-box;
-  width: 100%;
-}
-.blog .profile-header .profile-photo {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-  position: relative;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 0 2px rgba(25.5, 25.5, 25.5, 0.1), inset 0 2px 8px rgba(25.5, 25.5, 25.5, 0.4), inset 0 -4px 8px rgba(255, 255, 255, 0.3);
-  padding: 4px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(25.5, 25.5, 25.5, 0.1));
-}
-.blog .profile-header .profile-info .profile-name {
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 -1px 1px rgba(0, 0, 0, 0.2);
-}
-.blog .profile-header .profile-info .profile-bio {
-  color: hsl(35, 15%, 30%);
-}
-.blog .profile-header .profile-info .profile-stats {
-  display: flex;
-  gap: 24px;
-}
-.blog .profile-header .profile-info .profile-stats .stat {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.blog .profile-header .profile-info .profile-stats .stat .number {
-  display: block;
-  font-weight: 600;
-  font-size: 18px;
-}
-.blog .profile-header .profile-info .profile-stats .stat .label {
-  font-size: 9px;
-  color: hsl(35, 15%, 30%);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-@media screen and (max-width: 768px) {
-  .blog .profile-header {
-    flex-direction: column;
-    padding: 24px 0;
-    margin: 12px 0 0 0;
-  }
-  .blog .profile-header .profile-info {
-    flex: 1;
-  }
-  .blog .profile-header .profile-info .profile-name {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 -1px 1px rgba(0, 0, 0, 0.2);
-    letter-spacing: 0.02em;
-  }
-  .blog .profile-header .profile-info .profile-bio {
-    color: hsl(35, 15%, 30%);
-    margin-top: 3px;
-    margin-bottom: 16px;
-    font-size: 12px;
-    line-height: 1.4;
-    max-width: 600px;
-  }
-  .blog .profile-header .profile-info .profile-stats {
-    justify-content: flex-start;
-    gap: 24px;
-  }
-  .blog .profile-header .profile-info .profile-stats .stat .number {
-    font-size: 16px;
-  }
-  .blog .profile-header .profile-info .profile-stats .stat .label {
-    font-size: 9px;
-  }
-}
-@media screen and (max-width: 768px) and (prefers-color-scheme: dark) {
-  .blog .profile-header .profile-photo {
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 0 2px rgba(25.5, 25.5, 25.5, 0.3), inset 0 2px 8px rgba(25.5, 25.5, 25.5, 0.6), inset 0 -4px 8px rgba(255, 255, 255, 0.1);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(25.5, 25.5, 25.5, 0.2));
-  }
-}
-.blog .profile-header .mobile-tabs {
-  display: none;
-  width: 100%;
-  margin: 0 auto 1rem;
-  background: hsl(0, 0%, 100%);
-  border-radius: 8px;
-  padding: 4px;
-  gap: 4px;
-  position: relative;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 -1px 2px rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  --slider-x: 0px;
-}
-.blog .profile-header .mobile-tabs::after {
-  content: "";
-  position: absolute;
-  left: 4px;
-  top: 4px;
-  width: calc((100% - 12px) / 2);
-  height: calc(100% - 8px);
-  background: hsl(15, 70%, 40%);
-  border-radius: 6px;
-  z-index: 1;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  transform: translateX(var(--slider-x));
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-.is-dragging .blog .profile-header .mobile-tabs::after {
-  transition: none;
-}
-.blog .profile-header .mobile-tabs[data-active-tab=portfolio]:not(.is-dragging)::after {
-  --slider-x: calc(100% + 4px);
-}
-.blog .profile-header .mobile-tabs .tab-button {
-  flex: 1;
-  padding: 8px 16px;
-  border: none;
-  background: transparent;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  color: hsl(35, 15%, 30%);
-  cursor: pointer;
-  transition: color 0.2s ease;
-  position: relative;
-  z-index: 2;
-  text-align: center;
-}
-.blog .profile-header .mobile-tabs .tab-button.active {
-  color: hsl(0, 0%, 100%);
-}
-.blog .profile-header .mobile-tabs .tab-button:not(.active):hover {
-  color: hsl(24, 3%, 35%);
-}
 .blog #bookNavigation {
   display: none;
 }
@@ -1061,7 +915,7 @@ li .blog .post-list-item img {
     color: hsl(0, 0%, 71%);
   }
   .blog .blog .view-toggle {
-    background-color: hsl(27.98, 8.4%, 11.99%);
+    background-color: hsl(28, 8%, 12%);
   }
   .blog .blog .view-toggle .segmented-button {
     background: rgba(0, 0, 0, 0.3);
@@ -2446,67 +2300,62 @@ button {
 }
 
 .mobile-tabs {
-  display: none;
-  margin-bottom: 2rem !important;
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  background: hsl(0, 0%, 100%);
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 -1px 2px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  --slider-x: 0px;
 }
-@media screen and (max-width: 768px) {
-  .mobile-tabs {
-    display: flex;
-    width: 100%;
-    margin: 0 auto 1rem;
-    background: hsl(0, 0%, 100%);
-    border-radius: 8px;
-    padding: 4px;
-    gap: 4px;
-    position: relative;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 -1px 2px rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    --slider-x: 0px;
-  }
-  .mobile-tabs::after {
-    content: "";
-    position: absolute;
-    left: 4px;
-    top: 4px;
-    width: calc((100% - 12px) / 2);
-    height: calc(100% - 8px);
-    background: hsl(15, 70%, 40%);
-    border-radius: 6px;
-    z-index: 1;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    transform: translateX(var(--slider-x));
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform;
-  }
-  .is-dragging .mobile-tabs::after {
-    transition: none;
-  }
-  .mobile-tabs[data-active-tab=portfolio]:not(.is-dragging)::after {
-    --slider-x: calc(100% + 4px);
-  }
-  .mobile-tabs .tab-button {
-    flex: 1;
-    padding: 8px 16px;
-    border: none;
-    background: transparent;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    color: hsl(35, 15%, 30%);
-    cursor: pointer;
-    transition: color 0.2s ease;
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    box-shadow: none;
-    justify-content: center;
-  }
-  .mobile-tabs .tab-button.active {
-    color: hsl(0, 0%, 100%);
-  }
-  .mobile-tabs .tab-button:not(.active):hover {
-    color: hsl(24, 3%, 35%);
-  }
+.mobile-tabs::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: calc((100% - 12px) / 2);
+  height: calc(100% - 8px);
+  background: hsl(15, 70%, 40%);
+  border-radius: 6px;
+  z-index: 1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateX(var(--slider-x));
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.is-dragging .mobile-tabs::after {
+  transition: none;
+}
+.mobile-tabs[data-active-tab=portfolio]:not(.is-dragging)::after {
+  --slider-x: calc(100% + 4px);
+}
+.mobile-tabs .tab-button {
+  flex: 1;
+  justify-content: center;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: hsl(35, 15%, 30%);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  box-shadow: none;
+}
+.mobile-tabs .tab-button.active {
+  color: hsl(0, 0%, 100%);
+}
+.mobile-tabs .tab-button:not(.active):hover {
+  color: hsl(24, 3%, 35%);
 }
 @media (prefers-color-scheme: dark) {
   .mobile-tabs {
@@ -2526,6 +2375,53 @@ button {
 
 .profile-header {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 18px 24px;
+  margin: 0 auto 32px;
+  max-width: 600px;
+  z-index: 1;
+  margin-right: calc(100vw - 100%);
+  box-sizing: border-box;
+  width: 100%;
+}
+.profile-header .profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 0 2px rgba(25.5, 25.5, 25.5, 0.1), inset 0 2px 8px rgba(25.5, 25.5, 25.5, 0.4), inset 0 -4px 8px rgba(255, 255, 255, 0.3);
+  padding: 4px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(25.5, 25.5, 25.5, 0.1));
+}
+.profile-header .profile-info .profile-name {
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 -1px 1px rgba(0, 0, 0, 0.2);
+}
+.profile-header .profile-info .profile-bio {
+  color: hsl(35, 15%, 30%);
+}
+.profile-header .profile-info .profile-stats {
+  display: flex;
+  gap: 24px;
+}
+.profile-header .profile-info .profile-stats .stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.profile-header .profile-info .profile-stats .stat .number {
+  display: block;
+  font-weight: 600;
+  font-size: 18px;
+}
+.profile-header .profile-info .profile-stats .stat .label {
+  font-size: 9px;
+  color: hsl(35, 15%, 30%);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 .profile-header .contact-wrapper {
   position: absolute;
@@ -2612,6 +2508,47 @@ button {
   }
   .profile-header .contact-wrapper .contact-options .contact-option:hover {
     background: hsl(40, 80%, 50%);
+  }
+}
+@media screen and (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    padding: 24px 0;
+    margin: 12px 0 0 0;
+  }
+  .profile-header .profile-info {
+    flex: 1;
+  }
+  .profile-header .profile-info .profile-name {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 -1px 1px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.02em;
+  }
+  .profile-header .profile-info .profile-bio {
+    color: hsl(35, 15%, 30%);
+    margin-top: 3px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    line-height: 1.4;
+    max-width: 600px;
+  }
+  .profile-header .profile-info .profile-stats {
+    justify-content: flex-start;
+    gap: 24px;
+  }
+  .profile-header .profile-info .profile-stats .stat .number {
+    font-size: 16px;
+  }
+  .profile-header .profile-info .profile-stats .stat .label {
+    font-size: 9px;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .profile-header .profile-photo {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 0 2px rgba(25.5, 25.5, 25.5, 0.3), inset 0 2px 8px rgba(25.5, 25.5, 25.5, 0.6), inset 0 -4px 8px rgba(255, 255, 255, 0.1);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(25.5, 25.5, 25.5, 0.2));
   }
 }
 
@@ -3496,7 +3433,7 @@ body {
 @media (prefers-color-scheme: dark) {
   body {
     color: hsl(0, 0%, 90%);
-    background-color: hsl(27.98, 8.4%, 11.99%);
+    background-color: hsl(28, 8%, 12%);
   }
   a:link,
   a:visited {
@@ -3646,7 +3583,7 @@ nav#theme-nav .nav-content-container {
 }
 @media (prefers-color-scheme: dark) {
   .phone-container .screen {
-    background: hsl(27.98, 8.4%, 11.99%);
+    background: hsl(28, 8%, 12%);
   }
 }
 .phone-container .screen iframe {
@@ -4935,7 +4872,7 @@ body.has-scroll-snap {
 }
 @media (prefers-color-scheme: dark) {
   .project-page {
-    background: hsl(27.98, 8.4%, 11.99%);
+    background: hsl(28, 8%, 12%);
   }
   .project-header {
     background: hsl(0, 0%, 20%);
@@ -5997,13 +5934,13 @@ ol ul {
 }
 
 :root {
-  --primary-color: variables.$primary-color;
-  --text-color: variables.$text-color;
-  --text-color-secondary: variables.$text-color-secondary;
-  --border-color: variables.$border-color;
-  --white: variables.$white;
-  --white-1: variables.$white-1;
-  --card-bg: variables.$card-bg;
+  --primary-color: hsl(43, 40%, 60%);
+  --text-color: hsl(24, 3%, 35%);
+  --text-color-secondary: hsl(35, 15%, 30%);
+  --border-color: hsl(35, 10%, 75%);
+  --white: hsl(0, 0%, 100%);
+  --white-1: hsl(35, 15%, 96%);
+  --card-bg: hsl(0, 0%, 100%);
 }
 
 .wave-container {
