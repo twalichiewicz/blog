@@ -2,7 +2,7 @@
 title: Self-Service Hub Provisioning
 date: 2019-10-20
 company: Autodesk
-byline: Simplified internal development workflows through an intuitive self-service portal that accelerates team innovation cycles
+byline: Empowered administrators to provision new cloud hubs instantly with a guided, self-service tool—eliminating support delays and streamlining deployment
 tags: [portfolio]
 has_writeup: true
 credits:
@@ -13,13 +13,13 @@ credits:
 layout: project_gallery
 cover_image: 
 gallery_images:
-  - url: /2019/10/21/Self-Service-Hub-Provisioning/selfServiceHubProv_000.png
+  - url: /2019/10/20/Self-Service-Hub-Provisioning/selfServiceHubProv_000.png
     type: image
-  - url: /2019/10/21/Self-Service-Hub-Provisioning/selfServiceHubProv_001.png
+  - url: /2019/10/20/Self-Service-Hub-Provisioning/selfServiceHubProv_001.png
     type: image
-  - url: /2019/10/21/Self-Service-Hub-Provisioning/selfServiceHubProv_002.png
+  - url: /2019/10/20/Self-Service-Hub-Provisioning/selfServiceHubProv_002.png
     type: image
-  - url: /2019/10/21/Self-Service-Hub-Provisioning/selfServiceHubProv_003.png
+  - url: /2019/10/20/Self-Service-Hub-Provisioning/selfServiceHubProv_003.png
     type: image
 --- 
 
