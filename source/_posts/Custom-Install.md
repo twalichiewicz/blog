@@ -28,7 +28,6 @@ gallery_images:
     type: image
   - url: /2019/08/31/Custom-Install/030_customInstall.png
     type: image
-
 ---
 
 ### Opportunity
