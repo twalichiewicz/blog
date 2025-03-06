@@ -1497,10 +1497,10 @@ img {
   }
 }
 #projectsContent.portfolio-list {
-  margin: 12px 24px 36px 24px;
+  margin: 12px auto 36px auto;
   width: auto !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 #projectsContent.portfolio-list .company-group {
   margin-bottom: 3rem;
@@ -2382,7 +2382,6 @@ button {
   margin: 0 auto 32px;
   max-width: 600px;
   z-index: 1;
-  margin-right: calc(100vw - 100%);
   box-sizing: border-box;
   width: 100%;
 }
@@ -2402,6 +2401,11 @@ button {
 }
 .profile-header .profile-info .profile-bio {
   color: hsl(35, 15%, 30%);
+  margin-top: 3px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  line-height: 1.4;
+  max-width: 600px;
 }
 .profile-header .profile-info .profile-stats {
   display: flex;
@@ -2525,14 +2529,6 @@ button {
     margin: 0;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 -1px 1px rgba(0, 0, 0, 0.2);
     letter-spacing: 0.02em;
-  }
-  .profile-header .profile-info .profile-bio {
-    color: hsl(35, 15%, 30%);
-    margin-top: 3px;
-    margin-bottom: 16px;
-    font-size: 12px;
-    line-height: 1.4;
-    max-width: 600px;
   }
   .profile-header .profile-info .profile-stats {
     justify-content: flex-start;
