@@ -366,7 +366,6 @@ button {
 	margin: 0 auto 32px;
 	max-width: 600px;
 	z-index: 1;
-	margin-right: calc(100vw - 100%);
 	box-sizing: border-box;
 	width: 100%;
 
@@ -397,6 +396,11 @@ button {
 
 		.profile-bio {
 			color: variables.$text-color-secondary;
+			margin-top: 3px;
+			margin-bottom: 16px;
+			font-size: 12px;
+			line-height: 1.4;
+			max-width: 600px;
 		}
 
 		.profile-stats {
@@ -545,14 +549,7 @@ button {
 				letter-spacing: 0.02em;
 			}
 
-			.profile-bio {
-				color: variables.$text-color-secondary;
-				margin-top: 3px;
-				margin-bottom: 16px;
-				font-size: 12px;
-				line-height: 1.4;
-				max-width: 600px;
-			}
+			.profile-bio {}
 
 			.profile-stats {
 				justify-content: flex-start;

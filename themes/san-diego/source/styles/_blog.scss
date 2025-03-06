@@ -1778,10 +1778,10 @@ img {
 
 // Apply .profile-header styling to #projectsContent when used as .portfolio-list
 #projectsContent.portfolio-list {
-	margin: 12px 24px 36px 24px;
+	margin: 12px auto 36px auto;
 	width: auto !important;
-	padding-left: 0 !important;
-	padding-right: 0 !important;
+	padding-left: 24px;
+	padding-right: 24px;
 
 	.company-group {
 		margin-bottom: 3rem;
