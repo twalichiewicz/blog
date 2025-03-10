@@ -91,12 +91,14 @@
                                 <div class="link-share">
                                     <h3>
                                         <a href="<%= post.url %>" target="_blank" rel="noopener">
-                                            <%= post.title %> <span class="external-icon">↗</span>
-                                        </a>
-                                    </h3>
-                                    <div class="link-source">
+                                            <%= post.title %> 
+											<div class="link-source">
                                         <span class="link-url"><%= new URL(post.url).hostname %></span>
                                     </div>
+											<span class="external-icon">↗</span>
+                                        </a>
+                                    </h3>
+                                    
                                     <% if (post.content) { %>
                                         <details class="content-accordion">
                                             <summary>Show thoughts</summary>
