@@ -149,4 +149,41 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	sections.forEach(section => observer.observe(section));
+
+	/**
+	 * Column Title Scroll Detection
+	 * Adds 'is-scrolling' class to column titles when content is scrolled
+	 */
+	document.addEventListener('DOMContentLoaded', function () {
+		const postsContent = document.getElementById('postsContent');
+		const projectsContent = document.getElementById('projectsContent');
+
+		if (postsContent) {
+			const blogColumnTitle = postsContent.querySelector('.column-title');
+
+			postsContent.addEventListener('scroll', function () {
+				if (blogColumnTitle) {
+					if (postsContent.scrollTop > 10) {
+						blogColumnTitle.classList.add('is-scrolling');
+					} else {
+						blogColumnTitle.classList.remove('is-scrolling');
+					}
+				}
+			});
+		}
+
+		if (projectsContent) {
+			const portfolioColumnTitle = projectsContent.querySelector('.column-title');
+
+			projectsContent.addEventListener('scroll', function () {
+				if (portfolioColumnTitle) {
+					if (projectsContent.scrollTop > 10) {
+						portfolioColumnTitle.classList.add('is-scrolling');
+					} else {
+						portfolioColumnTitle.classList.remove('is-scrolling');
+					}
+				}
+			});
+		}
+	});
 });

@@ -1,0 +1,68 @@
+@use 'variables';
+@use 'device-breakpoints';
+
+/* Column Titles
+   ========================================================================== */
+
+.column-title {
+	display: none;
+	/* Hidden by default */
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	/* Higher z-index to ensure it stays on top */
+	padding: variables.$space-xs variables.$space-sm;
+	font-size: 0.85rem;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	background-color: var(--page-color, variables.$white);
+	border-bottom: 1px solid variables.$border-color;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	margin-bottom: variables.$space-sm;
+	text-align: center;
+	transition: all 0.2s ease;
+	opacity: 0.95;
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	width: 100%;
+	/* Ensure full width */
+	box-sizing: border-box;
+	/* Include padding in width calculation */
+
+	/* Only show on desktop */
+	.device-desktop & {
+		display: block;
+	}
+
+	/* Dark mode adjustments */
+	@media (prefers-color-scheme: dark) {
+		background-color: rgba(30, 30, 30, 0.9);
+		border-bottom: 1px solid variables.$border-color-dark;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	}
+
+	/* Subtle animation when scrolling starts */
+	.is-scrolling & {
+		box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+		opacity: 1;
+	}
+}
+
+/* Blog column title specific styles */
+.blog-column-title {
+	color: variables.$text-color;
+
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+	}
+}
+
+/* Portfolio column title specific styles */
+.portfolio-column-title {
+	color: variables.$text-color;
+
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+	}
+}

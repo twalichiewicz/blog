@@ -188,23 +188,25 @@
 			}
 		}
 	}
-
-	.pagination {
-		width: 100%;
-		padding: 0 24px;
-		box-sizing: border-box;
-	}
 }
 
 /* ==========================================================================
    Mobile Layout (Default)
    ========================================================================== */
 .device-mobile .blog {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+	/* Prevent body scrolling */
+
 	.profile-header {
 		flex-direction: column;
 		align-items: center;
 		text-align: center;
 		margin: variables.$space-md variables.$space-md 0;
+		flex-shrink: 0;
+		/* Prevent header from shrinking */
 
 		.profile-photo {
 			margin-bottom: variables.$space-sm;
@@ -229,14 +231,53 @@
 		width: 100%;
 		padding: 0;
 		margin: 0;
+		flex: 1;
+		/* Take remaining space */
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		/* Prevent content area scrolling */
+
+		.mobile-tabs {
+			flex-shrink: 0;
+			/* Prevent tabs from shrinking */
+		}
 
 		.content-wrapper {
 			flex-direction: column;
+			flex: 1;
+			/* Take remaining space */
+			overflow: hidden;
+			/* Prevent wrapper scrolling */
 		}
 	}
 
 	#postsContent,
-	#projectsContent,
+	#projectsContent {
+		width: 100%;
+		padding: 0 24px;
+		height: 100%;
+		/* Take full height */
+		overflow-y: auto;
+		/* Enable vertical scrolling */
+		overflow-x: hidden;
+		/* Prevent horizontal scrolling */
+
+		/* Improve scrollbar styling */
+		&::-webkit-scrollbar {
+			width: 4px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: rgba(0, 0, 0, 0.2);
+			border-radius: 3px;
+		}
+	}
+
 	.portfolio-list {
 		width: 100%;
 		padding: 0 24px;
@@ -278,11 +319,15 @@
 	flex-direction: row;
 	height: 100vh;
 	width: 100vw;
+	overflow: hidden;
+	/* Prevent body scrolling */
 
 	.blog-header {
 		align-self: start;
 		justify-content: center;
 		width: 300px;
+		flex-shrink: 0;
+		/* Prevent header from shrinking */
 
 		.profile-header {
 			flex-direction: column;
@@ -303,16 +348,44 @@
 		margin-top: 24px;
 		margin-left: 24px;
 		width: calc(100% - 324px);
+		height: calc(100vh - 48px);
+		/* Subtract top margin */
+		overflow: hidden;
+		/* Prevent content area scrolling */
+		display: flex;
+		flex-direction: column;
 
 		.content-wrapper {
 			flex-direction: column;
 			height: 100%;
+			/* Take full height of parent */
+			overflow: hidden;
+			/* Prevent wrapper scrolling */
 		}
 
 		#postsContent,
 		#projectsContent {
-			height: 100%;
+			height: calc(100vh - 100px);
+			/* Set explicit height */
 			padding: 0 variables.$space-md variables.$space-md;
+			overflow-y: auto;
+			/* Enable vertical scrolling */
+			overflow-x: hidden;
+			/* Prevent horizontal scrolling */
+
+			/* Improve scrollbar styling */
+			&::-webkit-scrollbar {
+				width: 6px;
+			}
+
+			&::-webkit-scrollbar-track {
+				background: transparent;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: rgba(0, 0, 0, 0.2);
+				border-radius: 3px;
+			}
 		}
 	}
 
@@ -364,11 +437,15 @@
 	flex-direction: row;
 	height: 100vh;
 	width: 100vw;
+	overflow: hidden;
+	/* Prevent body scrolling */
 
 	.blog-header {
 		align-self: start;
 		justify-content: center;
 		width: 360px;
+		flex-shrink: 0;
+		/* Prevent header from shrinking */
 
 		.profile-header {
 			flex-direction: column;
@@ -389,25 +466,60 @@
 		margin-top: 24px;
 		margin-left: 24px;
 		width: calc(100% - 384px);
-
-		.mobile-tabs {
-			display: none !important;
-		}
+		height: calc(100vh - 48px);
+		/* Subtract top margin */
+		overflow: hidden;
+		/* Prevent content area scrolling */
+		display: flex;
+		flex-direction: column;
 
 		.content-wrapper {
 			flex-direction: row;
+			justify-content: center;
+			gap: variables.$space-xl;
+			padding: 0 variables.$space-md;
 			height: 100%;
+			/* Take full height of parent */
+			overflow: hidden;
+			/* Prevent wrapper scrolling */
 		}
 
 		#postsContent,
 		#projectsContent {
-			display: block !important;
-			height: 100vh;
-			padding: variables.$space-lg;
-			width: 50%;
-			/* Each takes up half of the content-wrapper */
 			flex: 1;
-			/* Equal flex distribution */
+			max-width: 600px;
+			padding-top: variables.$space-md;
+			height: calc(100vh - 100px);
+			/* Set explicit height */
+			overflow-y: auto;
+			/* Enable vertical scrolling */
+			overflow-x: hidden;
+			/* Prevent horizontal scrolling */
+			position: relative;
+
+			/* Improve scrollbar styling */
+			&::-webkit-scrollbar {
+				width: 6px;
+			}
+
+			&::-webkit-scrollbar-track {
+				background: transparent;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: rgba(0, 0, 0, 0.2);
+				border-radius: 3px;
+			}
+
+			.column-title {
+				width: 100%;
+				box-sizing: border-box;
+				border-radius: 4px;
+			}
+		}
+
+		.mobile-tabs {
+			display: none;
 		}
 
 		.blog-list {
@@ -420,6 +532,7 @@
 
 		.portfolio-list {
 			border-left: 1px solid variables.$border-color;
+			padding-left: variables.$space-md;
 		}
 	}
 
