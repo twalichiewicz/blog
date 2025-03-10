@@ -1,47 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><%= config.title %><% if (config.subtitle) { %> | <%= config.subtitle %><% } %></title>
+	<%- partial('_partial/head') %>
 </head>
-
+<body>
 <main class="blog">
     <div class="blog-header">
-	<!-- <%- partial('_partial/wave-text', { 
-        config: {
-            baseString: "Design in Everything ",
-            wave: {
-                frequency: 0.006,
-                amplitude: 15,
-                speed: 0.0002
-            },
-            font: {
-                size: 18,
-                lineHeight: 24,
-                charWidth: 12
+        <!-- <%- partial('_partial/wave-text', { 
+            config: {
+                baseString: "Design in Everything ",
+                wave: {
+                    frequency: 0.006,
+                    amplitude: 15,
+                    speed: 0.0002
+                },
+                font: {
+                    size: 18,
+                    lineHeight: 24,
+                    charWidth: 12
+                }
             }
-        }
-    }) %> -->
-    
-    <div class="profile-header">
-        <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
-        <div class="profile-info">
-            <h1 class="profile-name">Thomas Walichiewicz</h1>
-            <p class="profile-bio">Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</p>
-            <div class="profile-stats">
-                <div class="stat">
-                    <span class="number"><%= site.posts.length %></span>
-                    <span class="label">Posts</span>
-                </div>
-                <div class="stat">
-                    <span class="number">30+</span>
-                    <span class="label">Projects led</span>
-                </div>
-				<div class="stat">
-					<span class="number">20M+</span>
-                    <span class="label">Users impacted</span>
-				</div>
+        }) %> -->
+        
+        <div class="profile-header">
+            <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
+            <div class="profile-info">
+                <h1 class="profile-name">Thomas Walichiewicz</h1>
+                <p class="profile-bio">Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</p>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <span class="number"><%= site.posts.length %></span>
+                        <span class="label">Posts</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">30+</span>
+                        <span class="label">Projects led</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">20M+</span>
+                        <span class="label">Users impacted</span>
+                    </div>
                 </div>
             </div>
         </div>
-		<div class="contact-wrapper">
+        <div class="contact-wrapper">
             <button class="contact-button">Contact</button>
             <div class="contact-options">
                 <a href="mailto:hey@thomas.design" class="contact-option email">Email</a>
@@ -49,40 +54,31 @@
             </div>
         </div>
     </div>
-</div>
-<div class="blog-content">
-	<div class="mobile-tabs">
-        <button class="tab-button active" data-type="blog">Posts</button>
-        <button class="tab-button" data-type="portfolio">Projects</button>
-    </div>
-
-    <% 
-    const currentPage = parseInt(page.current || 1);
-    const postsPerPage = 2;
-
-    // Separate posts and projects
-    const allPosts = site.posts.toArray();
-    const blogPosts = allPosts.filter(post => 
-        post.tags && post.tags.toArray().some(tag => tag.name === 'blog')
-    ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-    const projectPosts = allPosts.filter(post => 
-        post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio')
-    ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-    // Calculate total pages for pagination
-    const totalPages = Math.ceil(blogPosts.length / postsPerPage);
-    const paginatedPosts = blogPosts.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
-    %>
-
-    <div id="listView" class="blog-list">
-        <div id="postsContent">
-			<div class="search-bar">
-            <input type="text" id="blogSearch" placeholder="Search posts...">
+    <div class="blog-content">
+        <div class="mobile-tabs" role="tablist" aria-label="Content Sections">
+            <button class="tab-button active" data-type="blog" role="tab" aria-selected="true" aria-controls="postsContent" id="tab-blog">Posts</button>
+            <button class="tab-button" data-type="portfolio" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Projects</button>
         </div>
-            <% if (site.posts.length > 0) { %>
-                <% site.posts.sort('date', -1).forEach(function(post) { %>
-                    <% if (post.tags && post.tags.toArray().some(tag => tag.name === 'blog')) { %>
+
+        <% 
+        const currentPage = parseInt(page.current || 1);
+        const postsPerPage = 2;
+
+        // Separate posts and projects
+        const allPosts = site.posts.toArray();
+        const blogPosts = allPosts.filter(post => 
+            post.tags && post.tags.toArray().some(tag => tag.name === 'blog')
+        ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+        const projectPosts = allPosts.filter(post => 
+            post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio')
+        ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        %>
+
+        <div class="content-wrapper">
+            <div id="postsContent" class="blog-list" role="tabpanel" aria-labelledby="tab-blog">
+                <% if (blogPosts.length > 0) { %>
+                    <% blogPosts.forEach(function(post) { %>
                         <% if (post.type === 'link') { %>
                             <a href="<%= post.url %>" target="_blank" rel="noopener" class="post-link-wrapper">
                         <% } %>
@@ -122,310 +118,144 @@
                         <% if (post.type === 'link') { %>
                             </a>
                         <% } %>
-                    <% } %>
-                <% }) %>
-            <% } else { %>
-                <%- partial('_partial/loading-skull') %>
-            <% } %>
+                    <% }) %>
+                <% } else { %>
+                    <%- partial('_partial/loading-skull') %>
+                <% } %>
+                
+                <% if (blogPosts.length > postsPerPage) { %>
+                    <div class="pagination">
+                        <% if (currentPage > 1) { %>
+                            <a href="<%- url_for(page.prev_link) %>" class="prev-page">Previous</a>
+                        <% } %>
+                        
+                        <% 
+                        const totalPages = Math.ceil(blogPosts.length / postsPerPage);
+                        for (let i = 1; i <= totalPages; i++) { 
+                        %>
+                            <a href="<%- url_for(i === 1 ? '/' : 'page/' + i + '/') %>" 
+                               class="page-number <%= i === currentPage ? 'current' : '' %>">
+                                <%= i %>
+                            </a>
+                        <% } %>
+                        
+                        <% if (currentPage < totalPages) { %>
+                            <a href="<%- url_for(page.next_link) %>" class="next-page">Next</a>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+            
+            <div id="projectsContent" class="portfolio-list" role="tabpanel" aria-labelledby="tab-portfolio">
+                <% if (projectPosts.length > 0) { %>
+                    <% 
+                    // Group posts by company
+                    const projectsByCompany = {};
+                    projectPosts.forEach(function(post) {
+                        if (!post.draft) {
+                            const company = post.company || 'Other Projects';
+                            if (!projectsByCompany[company]) {
+                                projectsByCompany[company] = [];
+                            }
+                            projectsByCompany[company].push(post);
+                        }
+                    });
+
+                    // Sort companies alphabetically, but keep "Other Projects" at the end
+                    const companyOrder = [
+                        'Autodesk',
+                        'Human Interest',
+                        'Common Cents Lab',
+                        'Lyra Health',
+                        'Maisha Meds',
+                        'Other Projects'
+                    ];
+
+                    const companyYears = {
+                        'Autodesk': '2019—Present',
+                        'Human Interest': '2017—2019',
+                        'Common Cents Lab': '2016—2017',
+                        'Lyra Health': '2015',
+                        'Maisha Meds': '2013-2014'
+                    };
+                    
+                    const sortedCompanies = Object.keys(projectsByCompany).sort((a, b) => {
+                        const indexA = companyOrder.indexOf(a);
+                        const indexB = companyOrder.indexOf(b);
+                        
+                        // If both companies are in our order list, use that order
+                        if (indexA !== -1 && indexB !== -1) {
+                            return indexA - indexB;
+                        }
+                        
+                        // If only one company is in our list, prioritize it
+                        if (indexA !== -1) return -1;
+                        if (indexB !== -1) return 1;
+                        
+                        // For companies not in our list, sort alphabetically
+                        // but keep "Other Projects" at the end
+                        if (a === 'Other Projects') return 1;
+                        if (b === 'Other Projects') return -1;
+                        return a.localeCompare(b);
+                    });
+                    %>
+
+                    <% sortedCompanies.forEach(function(company) { %>
+                        <div class="company-group">
+                            <h2 class="company-name">
+                                <%= company %>
+                                <% if (companyYears[company]) { %>
+                                    <span class="company-years"><%= companyYears[company] %></span>
+                                <% } %>
+                            </h2>
+                            <div class="company-projects">
+                                <% projectsByCompany[company].forEach(function(post) { %>
+                                    <% if (post.has_writeup === false) { %>
+                                        <div class="portfolio-item">
+                                    <% } else { %>
+                                        <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup">
+                                    <% } %>
+                                    <% if (post.cover_image && post.has_writeup !== false) { %>    
+                                    <div class="portfolio-image">
+                                        <img 
+                                            src="<%- url_for(post.cover_image) %>" 
+                                            alt="<%- post.title %>"
+                                            loading="lazy"
+                                        >
+                                    </div>
+                                    <% } %>
+                                    <div class="portfolio-content">
+                                        <div class="content-text">
+                                            <% if (post.has_writeup === false) { %>
+                                                <h4><%- post.title %></h4>
+                                            <% } else { %>
+                                                <h4><%- post.title %></h4>
+                                            <% } %>
+                                            <% if (post.byline) { %>
+                                                <p><%- post.byline %></p>
+                                            <% } %>
+                                        </div>
+                                        <% if (post.has_writeup !== false) { %>
+                                            <div class="external-icon">→</div>
+                                        <% } %>
+                                    </div>
+                                    <% if (post.has_writeup === false) { %>
+                                        </div>
+                                    <% } else { %>
+                                        </a>
+                                    <% } %>
+                                <% }) %>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <%- partial('_partial/loading-skull') %>
+                <% } %>
+            </div>
         </div>
     </div>
-
-    <div id="projectsContent" style="display: none;" class="portfolio-list">
-        <% if (site.posts.length > 0) { %>
-            <% 
-            // Group posts by company
-            const projectsByCompany = {};
-            site.posts.sort('date', -1).forEach(function(post) {
-                if (post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio') && !post.draft) {
-                    const company = post.company || 'Other Projects';
-                    if (!projectsByCompany[company]) {
-                        projectsByCompany[company] = [];
-                    }
-                    projectsByCompany[company].push(post);
-                }
-            });
-
-            // Sort companies alphabetically, but keep "Other Projects" at the end
-            const companyOrder = [
-                'Autodesk',
-                'Human Interest',
-                'Common Cents Lab',
-                'Lyra Health',
-				'Maisha Meds',
-                'Other Projects'
-            ];
-
-            const companyYears = {
-                'Autodesk': '2019—Present',
-                'Human Interest': '2017—2019',
-                'Common Cents Lab': '2016—2017',
-                'Lyra Health': '2015',
-				'Maisha Meds': '2013-2014'
-            };
-            
-            const sortedCompanies = Object.keys(projectsByCompany).sort((a, b) => {
-                const indexA = companyOrder.indexOf(a);
-                const indexB = companyOrder.indexOf(b);
-                
-                // If both companies are in our order list, use that order
-                if (indexA !== -1 && indexB !== -1) {
-                    return indexA - indexB;
-                }
-                
-                // If only one company is in our list, prioritize it
-                if (indexA !== -1) return -1;
-                if (indexB !== -1) return 1;
-                
-                // For companies not in our list, sort alphabetically
-                // but keep "Other Projects" at the end
-                if (a === 'Other Projects') return 1;
-                if (b === 'Other Projects') return -1;
-                return a.localeCompare(b);
-            });
-            %>
-
-            <% sortedCompanies.forEach(function(company) { %>
-                <div class="company-group">
-                    <h2 class="company-name">
-                        <%= company %>
-                        <% if (companyYears[company]) { %>
-                            <span class="company-years"><%= companyYears[company] %></span>
-                        <% } %>
-                    </h2>
-                    <div class="company-projects">
-                        <% projectsByCompany[company].forEach(function(post) { %>
-                            <% if (post.has_writeup === false) { %>
-                                <div class="portfolio-item">
-                            <% } else { %>
-                                <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup">
-                            <% } %>
-                            <% if (post.cover_image && post.has_writeup !== false) { %>    
-							<div class="portfolio-image">
-								<img 
-									src="<%- url_for(post.cover_image) %>" 
-									alt="<%- post.title %>"
-									loading="lazy"
-								>
-								</div>
-							<% } %>
-							<div class="portfolio-content">
-								<div class="content-text">
-									<% if (post.has_writeup === false) { %>
-										<h4><%- post.title %></h4>
-									<% } else { %>
-										<h4><%- post.title %></h4>
-									<% } %>
-									<% if (post.byline) { %>
-										<p><%- post.byline %></p>
-									<% } %>
-								</div>
-								<% if (post.has_writeup !== false) { %>
-									<div class="external-icon">→</div>
-								<% } %>
-							</div>
-                            <% if (post.has_writeup === false) { %>
-                                </div>
-                            <% } else { %>
-                                </a>
-                            <% } %>
-                        <% }) %>
-                    </div>
-                </div>
-            <% }) %>
-        <% } else { %>
-            <%- partial('_partial/loading-skull') %>
-        <% } %>
-    </div>
-	</div>
 </main>
 
-<script>
-// Add device check at the start
-function isMobileDevice() {
-    return window.innerWidth <= 768; // Using the same breakpoint as defined in variables
-}
-
-// Add search functionality
-document.getElementById('blogSearch').addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase();
-    const posts = document.querySelectorAll('.post-list-item');
-    
-    posts.forEach(post => {
-        const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
-        const content = post.querySelector('p')?.textContent.toLowerCase() || '';
-        const isMatch = title.includes(searchTerm) || content.includes(searchTerm);
-        
-        if (searchTerm === '') {
-            post.style.display = '';
-            post.style.opacity = '1';
-        } else {
-            if (isMatch) {
-                post.style.display = '';
-                post.style.opacity = '1';
-            } else {
-                post.style.opacity = '0';
-                setTimeout(() => {
-                    post.style.display = 'none';
-                }, 300);
-            }
-        }
-    });
-});
-
-document.querySelector('.search-button').addEventListener('click', function() {
-    const input = document.querySelector('.search-input');
-    const button = this;
-    
-    if (!input.classList.contains('expanded')) {
-        input.classList.add('expanded');
-        button.classList.add('expanded');
-        button.innerHTML = '<img src="<%- url_for("img/close.svg") %>" alt="Close">';
-        input.focus();
-    } else {
-        input.classList.remove('expanded');
-        button.classList.remove('expanded');
-        button.innerHTML = '<img src="<%- url_for("img/search.svg") %>" alt="Search">';
-        input.value = '';
-    }
-});
-
-// Mobile tabs initialization
-document.addEventListener('DOMContentLoaded', function() {
-    // Only show mobile tabs if we're not in an iframe
-    if (window.self === window.top) {
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const postsContent = document.getElementById('postsContent');
-        const projectsContent = document.getElementById('projectsContent');
-        const tabContainer = document.querySelector('.mobile-tabs');
-
-        if (tabContainer && postsContent && projectsContent) {
-            tabContainer.style.display = 'flex';
-            
-            // Show posts by default
-            postsContent.style.display = 'block';
-            projectsContent.style.display = 'none';
-            
-            // Add click handlers for tab buttons
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const type = button.dataset.type;
-                    
-                    // Remove active class from all buttons
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    button.classList.add('active');
-                    
-                    // Show/hide content based on selected tab
-                    if (type === 'blog') {
-                        postsContent.style.display = 'block';
-                        projectsContent.style.display = 'none';
-                    } else if (type === 'portfolio') {
-                        postsContent.style.display = 'none';
-                        projectsContent.style.display = 'block';
-                    }
-                });
-            });
-        }
-    }
-});
-</script>
-
-<style>
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    transition: opacity 0.3s ease-out;
-}
-
-.loading-container {
-    position: relative;
-    width: 120px;
-    height: 120px;
-}
-
-.loading-skull {
-    width: 80px;
-    height: 80px;
-    opacity: 0;
-    filter: invert(1); /* Make skull white */
-    animation: fadeIn 0.3s ease-out forwards;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.circular-text {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    animation: spin 8s linear infinite;
-    top: 0;
-    left: 0;
-}
-
-.circular-text text {
-    font-size: 8px;
-    text-transform: uppercase;
-    font-family: monospace;
-    letter-spacing: 8px;  /* Increased letter spacing for better distribution */
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-/* Add the circular text path */
-.circular-text {
-    path {
-        fill: none;
-    }
-    text {
-        fill: currentColor;
-    }
-}
-
-/* Remove the ::before pseudo-element that was creating duplicate text */
-.circular-text::before {
-    display: none;
-}
-
-/* Hide all view toggles */
-.view-toggle {
-    display: none !important;
-}
-
-/* Hide view toggle in blog section */
-.blog .view-toggle {
-    display: none !important;
-}
-
-/* Hide list view specifically */
-.view-toggle.list-view {
-    display: none !important;
-}
-</style>
+<script src="<%- url_for('js/blog.js') %>"></script>
+</body>
+</html>

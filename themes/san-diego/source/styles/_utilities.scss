@@ -1,0 +1,77 @@
+/* Utility classes */
+
+// Visually hidden but accessible to screen readers
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+// Clearfix
+.clearfix::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+// Text alignment
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+// Display utilities
+.d-none {
+	display: none !important;
+}
+
+.d-block {
+	display: block !important;
+}
+
+.d-flex {
+	display: flex !important;
+}
+
+// Spacing utilities
+.mt-0 {
+	margin-top: 0 !important;
+}
+
+.mb-0 {
+	margin-bottom: 0 !important;
+}
+
+.ml-0 {
+	margin-left: 0 !important;
+}
+
+.mr-0 {
+	margin-right: 0 !important;
+}
+
+.m-auto {
+	margin: auto !important;
+}
+
+.mx-auto {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.my-auto {
+	margin-top: auto !important;
+	margin-bottom: auto !important;
+}

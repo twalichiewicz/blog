@@ -33,7 +33,6 @@
 
 		// Keep other mobile styles the same
 		.profile-header,
-		.mobile-tabs,
 		.view-toggle {
 			flex-shrink: 0;
 		}
@@ -43,18 +42,6 @@
 			width: auto !important;
 			padding-left: 0 !important;
 			padding-right: 0 !important;
-		}
-
-		.mobile-tabs,
-		.view-toggle,
-		.blog-list,
-		#postsContent,
-		.page-navigation,
-		.archive-link,
-		.blog-posts,
-		.book-spread {
-			margin-left: variables.$space-md;
-			margin-right: variables.$space-md;
 		}
 
 		#projectsContent {
@@ -69,11 +56,6 @@
 			z-index: 1;
 			box-sizing: border-box;
 			width: 100%;
-		}
-
-		.mobile-tabs {
-			width: auto;
-			box-sizing: border-box;
 		}
 
 		.view-toggle {
@@ -561,12 +543,6 @@
 		}
 
 		@media screen and (max-width: variables.$mobile-breakpoint) {
-			margin-left: variables.$space-md !important;
-			margin-right: variables.$space-md !important;
-			width: auto !important;
-			max-width: calc(100% - 2 * variables.$space-md) !important;
-			padding: 0 !important;
-
 			.list-view {
 				display: none !important;
 				width: 100% !important;
@@ -886,18 +862,6 @@
 				}
 			}
 
-			.mobile-tabs {
-				position: sticky;
-				top: 0;
-				background: var(--bg-color, variables.$white);
-				z-index: 10;
-				border-bottom: 1px solid variables.$border-color;
-				padding: variables.$spacing-stack variables.$spacing-card;
-				display: flex;
-				width: 100%;
-				box-sizing: border-box;
-			}
-
 			.profile-header {
 				padding: variables.$spacing-card;
 				margin: variables.$spacing-stack 0 variables.$spacing-stack;
@@ -932,17 +896,6 @@
 
 			.view-toggle {
 				margin-top: 8px;
-			}
-		}
-
-		@media (prefers-color-scheme: dark) and (max-width: variables.$mobile-breakpoint) {
-			.post-list-item {
-				border-bottom-color: variables.$border-color-dark;
-			}
-
-			.mobile-tabs {
-				background: var(--bg-color, variables.$black);
-				border-bottom-color: variables.$border-color-dark;
 			}
 		}
 	}
@@ -1006,7 +959,7 @@
 			}
 		}
 
-		&.blog .mobile-tabs .tab-button {
+		&.blog .tab-button {
 			color: variables.$grey-dark;
 
 			&.active {
@@ -1110,16 +1063,6 @@
 
 			.post-divider {
 				border-top-color: variables.$border-color-dark;
-			}
-
-			.mobile-tabs {
-				.tab-button {
-					color: variables.$grey-dark !important;
-
-					&.active {
-						color: variables.$white !important;
-					}
-				}
 			}
 		}
 	}
@@ -1777,11 +1720,6 @@ img {
 
 // Apply .profile-header styling to #projectsContent when used as .portfolio-list
 #projectsContent.portfolio-list {
-	margin: 12px auto 36px auto;
-	width: auto !important;
-	padding-left: 24px;
-	padding-right: 24px;
-
 	.company-group {
 		margin-bottom: 3rem;
 		width: 100%;
@@ -1963,7 +1901,6 @@ img {
 		}
 	}
 
-	// Dark mode adjustments
 	@media (prefers-color-scheme: dark) {
 		.portfolio-item {
 			&.has-writeup {
