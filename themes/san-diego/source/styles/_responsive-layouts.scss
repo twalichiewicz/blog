@@ -119,83 +119,171 @@
    ========================================================================== */
 .device-tablet {
 	.blog {
-		padding: 0 variables.$space-md;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: row;
+		height: 100vh;
+		width: 100vw;
 
-		.profile-header {
-			flex-direction: column;
-			align-items: center;
-			text-align: center;
-			margin: variables.$space-lg 0;
-
-			.profile-photo {
-				width: 100px;
-				height: 100px;
-				margin-bottom: variables.$space-md;
-			}
-
-			.profile-info {
-				margin-left: 0;
-			}
-
-			.profile-stats {
-				justify-content: center;
-			}
+		.wave-text {
+			display: none;
 		}
 
-		&.orientation-landscape {
-			.profile-header {
-				flex-direction: row;
-				text-align: left;
+		.blog-header {
+			display: flex;
+			flex-direction: column;
+			align-self: start;
+			justify-content: center;
+			width: 300px;
 
-				.profile-photo {
-					margin-bottom: 0;
-				}
+			.profile-header {
+				display: flex;
+				flex-direction: column;
+				margin: variables.$space-lg 0;
 
 				.profile-info {
-					margin-left: variables.$space-md;
+					h1 {
+						font-size: 20px;
+					}
+
+					.profile-bio {
+						font-size: 0.9rem;
+					}
+				}
+
+				.profile-photo {
+					width: 100px;
+					height: 100px;
 				}
 
 				.profile-stats {
-					justify-content: flex-start;
+					font-size: 0.9rem;
+				}
+			}
+		}
+
+		.blog-content {
+			background-color: var(--page-color, variables.$white);
+			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+			border-radius: 33px 0 0 0;
+			display: flex;
+			flex-direction: column;
+			margin-top: 24px;
+			margin-left: 24px;
+			width: calc(100% - 324px);
+			overflow: hidden;
+
+			.mobile-tabs {
+				display: flex !important;
+				margin: variables.$space-md;
+				justify-content: center;
+
+				.tab-button {
+					background-color: transparent;
+					border: none;
+					padding: variables.$space-sm variables.$space-md;
+					font-size: 0.9rem;
+					font-weight: 500;
+					color: variables.$text-color-secondary;
+					cursor: pointer;
+					position: relative;
+					transition: color 0.2s ease;
+
+					&:after {
+						content: '';
+						position: absolute;
+						bottom: -2px;
+						left: 50%;
+						transform: translateX(-50%);
+						width: 0;
+						height: 2px;
+						background-color: variables.$primary-color;
+						transition: width 0.2s ease;
+					}
+
+					&.active {
+						color: variables.$text-color;
+
+						&:after {
+							width: 60%;
+						}
+					}
+
+					&:hover {
+						color: variables.$text-color;
+					}
 				}
 			}
 
-			.blog-list {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: variables.$space-lg;
+			#postsContent,
+			#projectsContent {
+				overflow-y: auto;
+				height: calc(100vh - 80px); // Account for tabs height
+				padding: 0 variables.$space-md variables.$space-md;
+				box-sizing: border-box;
 			}
-		}
 
-		.view-toggle {
-			display: flex !important;
-			justify-content: space-between;
-			align-items: center;
-			margin: variables.$space-md 0;
-		}
-
-		.mobile-tabs {
-			display: flex;
-			margin: auto;
-			width: 100%;
+			.search-bar {
+				position: sticky;
+				top: 0;
+				background-color: var(--page-color, variables.$white);
+				padding: variables.$space-sm 0;
+				margin-bottom: variables.$space-md;
+				z-index: 10;
+			}
 		}
 
 		.book-spread {
 			height: 600px;
+		}
+
+		// Landscape orientation adjustments
+		&.orientation-landscape {
+			.blog-header {
+				width: 280px;
+
+				.profile-header {
+					.profile-photo {
+						width: 80px;
+						height: 80px;
+					}
+				}
+			}
+
+			.blog-content {
+				width: calc(100% - 304px);
+
+				.mobile-tabs {
+					margin: variables.$space-sm variables.$space-md;
+				}
+
+				#postsContent,
+				#projectsContent {
+					height: calc(100vh - 60px); // Smaller tabs in landscape
+				}
+			}
 		}
 	}
 
 	// iPad Pro specific adjustments
 	&.device-ipad-pro {
 		.blog {
-			.profile-header {
-				margin: variables.$space-xl 0;
+			.blog-header {
+				width: 320px;
+
+				.profile-header {
+					margin: variables.$space-xl 0;
+
+					.profile-photo {
+						width: 100px;
+						height: 100px;
+					}
+				}
 			}
 
-			&.orientation-landscape {
-				.blog-list {
-					grid-template-columns: 3fr 2fr;
-				}
+			.blog-content {
+				width: calc(100% - 344px);
 			}
 		}
 	}

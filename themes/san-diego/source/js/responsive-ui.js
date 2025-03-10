@@ -78,17 +78,76 @@ document.addEventListener('DOMContentLoaded', function () {
 		 */
 		setupTabletBehavior: function () {
 			const isLandscape = document.body.classList.contains('orientation-landscape');
+			const postsContent = document.getElementById('postsContent');
+			const projectsContent = document.getElementById('projectsContent');
+			const blogList = document.querySelector('.blog-list');
+			const portfolioList = document.querySelector('.portfolio-list');
+			const tabContainer = document.querySelector('.mobile-tabs');
+			const tabButtons = document.querySelectorAll('.tab-button');
 
-			// In landscape mode, show both posts and projects if screen is wide enough
-			if (isLandscape && window.innerWidth >= 992) {
-				const postsContent = document.getElementById('postsContent');
-				const projectsContent = document.getElementById('projectsContent');
+			// Ensure mobile tabs are visible
+			if (tabContainer) {
+				tabContainer.style.display = 'flex';
+			}
 
-				if (postsContent && projectsContent) {
+			// Set initial state - show posts by default
+			if (postsContent && projectsContent) {
+				// Get active tab or default to blog
+				const activeTab = tabContainer ? tabContainer.getAttribute('data-active-tab') || 'blog' : 'blog';
+
+				if (activeTab === 'blog') {
 					postsContent.style.display = 'block';
+					projectsContent.style.display = 'none';
+
+					// Update tab buttons
+					tabButtons.forEach(btn => {
+						if (btn.dataset.type === 'blog') {
+							btn.classList.add('active');
+						} else {
+							btn.classList.remove('active');
+						}
+					});
+				} else {
+					postsContent.style.display = 'none';
 					projectsContent.style.display = 'block';
+
+					// Update tab buttons
+					tabButtons.forEach(btn => {
+						if (btn.dataset.type === 'portfolio') {
+							btn.classList.add('active');
+						} else {
+							btn.classList.remove('active');
+						}
+					});
 				}
 			}
+
+			// Add click handlers for tab buttons if not already added
+			tabButtons.forEach(button => {
+				// Remove existing event listeners to prevent duplicates
+				const newButton = button.cloneNode(true);
+				button.parentNode.replaceChild(newButton, button);
+
+				newButton.addEventListener('click', () => {
+					const type = newButton.dataset.type;
+
+					// Remove active class from all buttons
+					tabButtons.forEach(btn => btn.classList.remove('active'));
+					// Add active class to clicked button
+					newButton.classList.add('active');
+
+					// Show/hide content based on selected tab
+					if (type === 'blog') {
+						postsContent.style.display = 'block';
+						projectsContent.style.display = 'none';
+						tabContainer.setAttribute('data-active-tab', 'blog');
+					} else if (type === 'portfolio') {
+						postsContent.style.display = 'none';
+						projectsContent.style.display = 'block';
+						tabContainer.setAttribute('data-active-tab', 'portfolio');
+					}
+				});
+			});
 
 			// Enable book view only in landscape
 			const bookModeBtn = document.getElementById('bookModeBtn');
