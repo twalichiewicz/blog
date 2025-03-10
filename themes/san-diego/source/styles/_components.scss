@@ -338,23 +338,6 @@ button {
 			color: variables.$text-color;
 		}
 	}
-
-	@media (prefers-color-scheme: dark) {
-		background: rgba(255, 255, 255, 0.1);
-
-		&::after {
-			background: variables.$link-color-dark;
-			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-		}
-
-		.tab-button {
-			color: variables.$text-color-secondary-dark;
-
-			&:not(.active):hover {
-				color: variables.$text-color-dark;
-			}
-		}
-	}
 }
 
 .profile-header {

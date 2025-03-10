@@ -1,0 +1,261 @@
+@use 'variables';
+
+/* ==========================================================================
+   Theme Modes - Dark/Light Mode Styles
+   
+   This file contains all dark mode and light mode specific styles that
+   were previously in _responsive-layouts.scss
+   ========================================================================== */
+
+/* Dark mode media queries */
+@media (prefers-color-scheme: dark) {
+	.blog {
+
+		/* Dark mode for blog header */
+		&.blog .profile-header .profile-info {
+			.profile-name {
+				text-shadow:
+					0 1px 1px rgba(255, 255, 255, 0.2),
+					0 -1px 1px rgba(variables.$black, 0.4);
+				color: variables.$white !important;
+			}
+
+			.profile-bio {
+				color: variables.$grey-dark !important;
+			}
+
+			.profile-stats .stat {
+				.number {
+					color: variables.$white !important;
+				}
+
+				.label {
+					color: variables.$grey-dark !important;
+				}
+			}
+		}
+
+		/* Dark mode for blog list items */
+		&.blog .blog-list .post-list-item {
+			.post-byline {
+				color: variables.$grey-dark;
+			}
+
+			h3 a {
+				color: variables.$white;
+
+				&:hover {
+					color: variables.$link-color-dark;
+				}
+			}
+
+			p {
+				color: variables.$grey-dark;
+
+				a {
+					color: variables.$link-color-dark;
+
+					&:hover {
+						color: variables.$link-color-dark;
+					}
+				}
+			}
+
+			&.post-link {
+				background: rgba(255, 255, 255, 0.05);
+
+				.link-share {
+					h3 a {
+						color: variables.$white;
+					}
+
+					.link-source {
+						border-top-color: variables.$border-color-dark;
+
+						.link-url {
+							color: variables.$grey-dark;
+						}
+					}
+				}
+
+				.content-accordion {
+					border-top-color: variables.$border-color-dark;
+
+					summary {
+						color: variables.$grey-dark;
+					}
+
+					.accordion-content {
+						color: variables.$grey-dark;
+					}
+				}
+			}
+		}
+
+		/* Dark mode for tabs and buttons */
+		&.blog .tab-button {
+			color: variables.$grey-dark;
+
+			&.active {
+				background: variables.$link-color-dark;
+				color: variables.$white;
+			}
+
+			&:hover:not(.active) {
+				color: variables.$link-color-dark;
+			}
+		}
+
+		&.blog .view-toggle {
+			.segmented-button button {
+				&.active {
+					background: variables.$link-color-dark;
+				}
+
+				&:hover:not(.active) {
+					color: variables.$link-color-dark;
+				}
+			}
+		}
+
+		/* Dark mode for navigation and text */
+		&.blog .page-navigation button {
+			color: variables.$link-color-dark;
+
+			&:hover {
+				color: variables.$link-color-dark;
+			}
+		}
+
+		p {
+			color: variables.$text-color-dark;
+		}
+
+		.blog-list .post-list-item .post-byline {
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.view-toggle {
+			background-color: variables.$body-bg-dark;
+
+			.segmented-button {
+				background: rgba(0, 0, 0, 0.3);
+
+				button.active {
+					background: variables.$link-color-dark;
+				}
+			}
+		}
+
+		.post-list-item h2 a,
+		.archive-link a,
+		.page-navigation button {
+			color: variables.$link-color-dark;
+		}
+
+		.profile-header {
+			.profile-photo {
+				box-shadow:
+					0 0 0 1px rgba(255, 255, 255, 0.2),
+					0 0 0 2px rgba(0, 0, 0, 0.3),
+					inset 0 2px 8px rgba(0, 0, 0, 0.6),
+					inset 0 -4px 8px rgba(255, 255, 255, 0.1);
+				background: linear-gradient(145deg,
+						rgba(255, 255, 255, 0.05),
+						rgba(0, 0, 0, 0.2));
+			}
+		}
+
+		.post-divider {
+			border-top-color: variables.$border-color-dark;
+		}
+
+		/* Dark mode for desktop widgets */
+		.desktop-widgets {
+			background: var(--bg-color, variables.$black);
+
+			.widget {
+				background: rgba(0, 0, 0, 0.8);
+				border: 1px solid variables.$border-color-dark;
+			}
+		}
+
+		/* Dark mode for blog header wave */
+		.blog-header-wave {
+			opacity: 0.15;
+		}
+
+		/* Dark mode for portfolio items */
+		#projectsContent.portfolio-list {
+			.company-group {
+				.company-name {
+					color: variables.$text-color-secondary-dark;
+					border-bottom-color: variables.$border-color-dark;
+
+					.company-years {
+						color: variables.$text-color-secondary-dark;
+					}
+				}
+			}
+
+			.portfolio-item {
+				&.has-writeup {
+					background: variables.$card-bg-dark;
+
+					.portfolio-image::after {
+						background: linear-gradient(to bottom,
+								rgba(0, 0, 0, 0.3) 0%,
+								rgba(0, 0, 0, 0.9) 100%);
+					}
+				}
+
+				&:not(.has-writeup) {
+					background: variables.$card-bg-dark;
+					border-color: variables.$border-color-dark;
+					opacity: 0.6;
+
+					.portfolio-content {
+						.content-text {
+							h4 {
+								color: variables.$text-color-dark;
+							}
+
+							p {
+								color: variables.$text-color-dark;
+								opacity: 0.7;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/* Dark mode for carousel buttons */
+		.carousel .carousel-button,
+		.spotlight .carousel-button,
+		.spotlight .spotlight-nav-button {
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2),
+				0 1px 2px rgba(0, 0, 0, 0.12),
+				inset 0 2px 4px rgba(0, 0, 0, 0.2),
+				inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+		}
+
+		/* Dark mode for blockquotes */
+		blockquote {
+			background: rgba(255, 255, 255, 0.05);
+			border-left-color: variables.$border-color-dark;
+		}
+
+		/* Dark mode for figcaptions */
+		figcaption {
+			color: variables.$text-color-secondary-dark;
+		}
+	}
+}
+
+/* Light mode specific overrides if needed */
+@media (prefers-color-scheme: light) {
+	.blog {
+		/* Light mode specific styles can be added here if needed */
+	}
+}
