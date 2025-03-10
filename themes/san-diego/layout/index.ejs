@@ -61,9 +61,6 @@
         </div>
 
         <% 
-        const currentPage = parseInt(page.current || 1);
-        const postsPerPage = 2;
-
         // Separate posts and projects
         const allPosts = site.posts.toArray();
         const blogPosts = allPosts.filter(post => 
@@ -77,6 +74,9 @@
 
         <div class="content-wrapper">
             <div id="postsContent" class="blog-list" role="tabpanel" aria-labelledby="tab-blog">
+                <!-- Desktop-only sticky column title -->
+                <div class="column-title blog-column-title">Posts</div>
+                
                 <% if (blogPosts.length > 0) { %>
                     <% blogPosts.forEach(function(post) { %>
                         <% if (post.type === 'link') { %>
@@ -122,31 +122,12 @@
                 <% } else { %>
                     <%- partial('_partial/loading-skull') %>
                 <% } %>
-                
-                <% if (blogPosts.length > postsPerPage) { %>
-                    <div class="pagination">
-                        <% if (currentPage > 1) { %>
-                            <a href="<%- url_for(page.prev_link) %>" class="prev-page">Previous</a>
-                        <% } %>
-                        
-                        <% 
-                        const totalPages = Math.ceil(blogPosts.length / postsPerPage);
-                        for (let i = 1; i <= totalPages; i++) { 
-                        %>
-                            <a href="<%- url_for(i === 1 ? '/' : 'page/' + i + '/') %>" 
-                               class="page-number <%= i === currentPage ? 'current' : '' %>">
-                                <%= i %>
-                            </a>
-                        <% } %>
-                        
-                        <% if (currentPage < totalPages) { %>
-                            <a href="<%- url_for(page.next_link) %>" class="next-page">Next</a>
-                        <% } %>
-                    </div>
-                <% } %>
             </div>
             
             <div id="projectsContent" class="portfolio-list" role="tabpanel" aria-labelledby="tab-portfolio">
+                <!-- Desktop-only sticky column title -->
+                <div class="column-title portfolio-column-title">Projects</div>
+                
                 <% if (projectPosts.length > 0) { %>
                     <% 
                     // Group posts by company
