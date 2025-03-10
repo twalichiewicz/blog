@@ -62,14 +62,4 @@ document.addEventListener('DOMContentLoaded', function () {
 	spotlightButtons.forEach(button => {
 		button.addEventListener('click', playSliderSound);
 	});
-
-	// Book/List mode toggle buttons
-	const bookModeBtn = document.getElementById('bookModeBtn');
-	const listModeBtn = document.getElementById('listModeBtn');
-	if (bookModeBtn) {
-		bookModeBtn.addEventListener('click', playSliderSound);
-	}
-	if (listModeBtn) {
-		listModeBtn.addEventListener('click', playSliderSound);
-	}
 });

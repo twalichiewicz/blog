@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+	// Skip initialization on desktop devices
+	if (document.body.classList.contains('device-desktop')) {
+		return;
+	}
+
 	const tabContainer = document.querySelector('.mobile-tabs');
 
 	// Only initialize if we have a tab container

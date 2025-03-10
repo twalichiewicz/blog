@@ -3,7 +3,8 @@
 </head>
 
 <main class="blog">
-    <%- partial('_partial/wave-text', { 
+    <div class="blog-header">
+	<!-- <%- partial('_partial/wave-text', { 
         config: {
             baseString: "Design in Everything ",
             wave: {
@@ -17,16 +18,9 @@
                 charWidth: 12
             }
         }
-    }) %>
+    }) %> -->
     
     <div class="profile-header">
-        <div class="contact-wrapper">
-            <button class="contact-button">Contact</button>
-            <div class="contact-options">
-                <a href="mailto:hey@thomas.design" class="contact-option email">Email</a>
-                <a href="https://linkedin.com/in/twalichiewicz" target="_blank" class="contact-option linkedin">LinkedIn</a>
-            </div>
-        </div>
         <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
         <div class="profile-info">
             <h1 class="profile-name">Thomas Walichiewicz</h1>
@@ -47,23 +41,19 @@
                 </div>
             </div>
         </div>
+		<div class="contact-wrapper">
+            <button class="contact-button">Contact</button>
+            <div class="contact-options">
+                <a href="mailto:hey@thomas.design" class="contact-option email">Email</a>
+                <a href="https://linkedin.com/in/twalichiewicz" target="_blank" class="contact-option linkedin">LinkedIn</a>
+            </div>
+        </div>
     </div>
+</div>
+<div class="blog-content">
 	<div class="mobile-tabs">
         <button class="tab-button active" data-type="blog">Posts</button>
         <button class="tab-button" data-type="portfolio">Projects</button>
-    </div>
-    <div class="view-toggle">
-        <div class="search-bar">
-            <input type="text" id="blogSearch" placeholder="Search posts...">
-        </div>
-        <div class="segmented-button">
-            <button id="listModeBtn" class="active">
-                <span>List</span>
-            </button>
-            <button id="bookModeBtn">
-                <span>Book</span>
-            </button>
-        </div>
     </div>
 
     <% 
@@ -87,6 +77,9 @@
 
     <div id="listView" class="blog-list">
         <div id="postsContent">
+			<div class="search-bar">
+            <input type="text" id="blogSearch" placeholder="Search posts...">
+        </div>
             <% if (site.posts.length > 0) { %>
                 <% site.posts.sort('date', -1).forEach(function(post) { %>
                     <% if (post.tags && post.tags.toArray().some(tag => tag.name === 'blog')) { %>
@@ -243,71 +236,7 @@
             <%- partial('_partial/loading-skull') %>
         <% } %>
     </div>
-
-    <div id="bookView" class="book-spread" style="display: none;">
-        <% if (paginatedPosts.length > 0) { %>
-            <div class="page left-page">
-                <div class="post-list-item <%= paginatedPosts[0].layout === 'portfolio' ? 'portfolio' : 'blog' %>" style="display: <%= paginatedPosts[0].layout === 'portfolio' ? 'block' : 'none' %>">
-                    <div class="post-byline">
-						<%= paginatedPosts[0].date.format('MMMM D, YYYY') %> • 
-						<%= paginatedPosts[0].long ? 'Post' : 'Musing' %>
-                    </div>
-                    <% if (paginatedPosts[0].type === 'link') { %>
-                        <div class="link-share">
-                            <h3>
-                                <a href="<%= paginatedPosts[0].url %>" target="_blank" rel="noopener">
-                                    <i><%= paginatedPosts[0].url_label || paginatedPosts[0].title %></i> <span class="external-icon">↗</span>
-                                </a>
-                            </h3>
-                            <%- paginatedPosts[0].content %>
-                        </div>
-                    <% } else if (paginatedPosts[0].short) { %>
-                        <%- paginatedPosts[0].content %>
-                    <% } else if (paginatedPosts[0].long) { %>
-                        <h3><a href="<%- url_for(paginatedPosts[0].path) %>"><%- paginatedPosts[0].title %></a></h3>
-                        <p><%- paginatedPosts[0].excerpt || paginatedPosts[0].content.substring(0, 150) %>...</p>
-                    <% } %>
-                </div>
-            </div>
-            
-            <% if (paginatedPosts[1]) { %>
-                <div class="page right-page">
-                    <div class="post-list-item <%= paginatedPosts[1].layout === 'portfolio' ? 'portfolio' : 'blog' %>" style="display: <%= paginatedPosts[1].layout === 'portfolio' ? 'block' : 'none' %>">
-                        <div class="post-byline">
-							<%= paginatedPosts[1].date.format('MMMM D, YYYY') %> • 
-							<%= paginatedPosts[1].long ? 'Post' : 'Musing' %>
-                        </div>
-                        <% if (paginatedPosts[1].type === 'link') { %>
-                            <div class="link-share">
-                                <h3>
-                                    <a href="<%= paginatedPosts[1].url %>" target="_blank" rel="noopener">
-                                        <i><%= paginatedPosts[1].url_label || paginatedPosts[1].title %></i> <span class="external-icon">↗</span>
-                                    </a>
-                                </h3>
-                                <%- paginatedPosts[1].content %>
-                            </div>
-                        <% } else if (paginatedPosts[1].short) { %>
-                            <%- paginatedPosts[1].content %>
-                        <% } else if (paginatedPosts[1].long) { %>
-                            <h3><a href="<%- url_for(paginatedPosts[1].path) %>"><%- paginatedPosts[1].title %></a></h3>
-                            <p><%- paginatedPosts[1].excerpt || paginatedPosts[1].content.substring(0, 150) %>...</p>
-                        <% } %>
-                    </div>
-                </div>
-            <% } %>
-        <% } else { %>
-            <%- partial('_partial/loading-skull') %>
-        <% } %>
-    </div>
-
-    <div id="bookNavigation" class="page-navigation">
-        <% if (currentPage > 1) { %>
-            <button class="prev-page" onclick="turnPage('prev')">Previous</button>
-        <% } %>
-        <% if (currentPage < totalPages) { %>
-            <button class="next-page" onclick="turnPage('next')">Next</button>
-        <% } %>
-    </div>
+	</div>
 </main>
 
 <script>
@@ -400,12 +329,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-
-<!-- DISABLED: Coming soon alert -->
-<!-- <div id="comingSoonAlert" class="coming-soon-message alert alert-default">
-    <span>Full desktop experience coming soon. For now, enjoy the mobile version!</span>
-    <button id="close-alert" type="button" onclick="this.parentElement.style.animation='none'; this.parentElement.style.opacity='0';" style="position: relative; background: transparent; border: none; font-size: 20px; cursor: pointer; margin-left: 12px;">&times;</button>
-</div> -->
 
 <style>
 .loading-screen {
@@ -506,381 +429,3 @@ document.addEventListener('DOMContentLoaded', function() {
     display: none !important;
 }
 </style>
-
-<!-- Commenting out the original code for now -->
-<!--
-<div id="canvasWrapper">
-    <canvas id="waveCanvas"></canvas>
-    <canvas id="skullCanvas"></canvas>
-</div>
-
-<button class="mobile-action-button" onclick="window.location.href='/blog'">
-    <span class="button-icon">↗</span>
-    Enter
-</button>
-
-<script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
-<script type="importmap">
-{
-    "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-    }
-}
-</script>
-
-<script type="module">
-    import * as THREE from 'three';
-    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-    import { initHomeVisuals } from '/js/home.js';
-    
-    // Make THREE and GLTFLoader available globally for our components
-    window.THREE = THREE;
-    window.GLTFLoader = GLTFLoader;
-    
-    document.addEventListener('DOMContentLoaded', () => {
-        initHomeVisuals({
-            showWave: true,
-            showSkull: true,
-            waveConfig: {
-                baseString: "Design in Everything ",
-                frequency: 0.009,
-                amplitude: 30,
-                speed: 0.0003,
-                font: {
-                    size: 21,
-                    lineHeight: 30,
-                    charWidth: 14
-                }
-            },
-            skullConfig: {
-                mouseLookFactor: 0.05,
-                dragRotationSpeed: 0.005,
-                resetDelay: 2000,
-                resetSpeed: 0.05,
-                autoRotationSpeed: 0.0005
-            }
-        });
-    });
-
-    /* ================================================
-       1. Wave Animation (the background canvas)
-       ================================================ */
-    class WaveAnimation {
-        constructor(canvas, config) {
-            this.canvas = canvas;
-            this.ctx = canvas.getContext("2d");
-            this.config = config;
-            this.textData = [];
-            this.rocks = [];
-            this.startTime = 0;
-            this.needsResize = true;
-            
-            // Initialize Three.js components
-            this.scene = new THREE.Scene();
-            this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true });
-        }
-
-        init() {
-            this.resizeCanvas();
-            this.generateRocks();
-            this.buildTextData();
-            window.addEventListener("resize", this.onResize.bind(this));
-            requestAnimationFrame(this.animateWave.bind(this));
-        }
-
-        resizeCanvas() {
-            const dpr = window.devicePixelRatio || 1;
-            this.canvas.width = window.innerWidth * dpr;
-            this.canvas.height = window.innerHeight * dpr;
-            this.ctx.scale(dpr, dpr);
-            this.buildTextData();
-        }
-
-        generateRocks() {
-            const { count, size } = this.config.rocks;
-            this.rocks = Array.from({ length: count }, () => ({
-                x: Math.random() * this.canvas.width,
-                y: Math.random() * this.canvas.height,
-                size,
-            }));
-        }
-
-        buildTextData() {
-            const { charWidth, lineHeight } = this.config.font;
-            const gridCols = Math.ceil(this.canvas.width / charWidth) + 2;
-            const gridRows = Math.ceil(this.canvas.height / lineHeight);
-
-            const repeatedLine = this.config.baseString.repeat(gridCols);
-            this.textData = [];
-
-            for (let row = 0; row < gridRows; row++) {
-                for (let col = -1; col < gridCols; col++) {
-                    const char = repeatedLine[(row * gridCols + col + gridCols) % repeatedLine.length];
-                    const isBold = this.config.boldLetters.includes(char.toLowerCase());
-                    this.textData.push({
-                        char,
-                        bold: isBold,
-                        baseX: col * charWidth,
-                        baseY: row * lineHeight,
-                        currentX: col * charWidth,
-                        currentY: row * lineHeight,
-                        offset: Math.random() * this.config.wave.randomFactor,
-                        z: 0,
-                    });
-                }
-            }
-        }
-
-        onResize() {
-            this.needsResize = true;
-        }
-
-        animateWave(timestamp) {
-            if (this.needsResize) {
-                this.resizeCanvas();
-                this.needsResize = false;
-            }
-
-            if (!this.startTime) this.startTime = timestamp;
-            const elapsed = timestamp - this.startTime;
-
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-            const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            const textColor = prefersDarkMode ? "hsla(0, 0%, 85%," : "hsla(0, 6%, 37%,";
-
-            for (let i = 0; i < this.textData.length; i++) {
-                const td = this.textData[i];
-
-                let wave = Math.sin(
-                    (td.baseY * this.config.wave.frequency) -
-                    (elapsed * this.config.wave.speed)
-                ) * this.config.wave.amplitude;
-
-                const springX = (td.baseX - td.currentX) * 0.3;
-                const springY = (td.baseY - td.currentY) * 0.3;
-
-                td.currentX += springX + wave * 0.5;
-                td.currentY += springY;
-
-                td.z = wave;
-                const depthColor = `${textColor} ${0.3 + 0.7 * (1 - Math.abs(wave) / this.config.wave.amplitude)})`;
-
-                this.ctx.font = td.bold
-					? 'bold ' + this.config.font.size + 'px sans-serif'
-					: this.config.font.size + 'px sans-serif';
-
-                this.ctx.fillStyle = depthColor;
-                this.ctx.shadowColor = prefersDarkMode ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.2)';
-                this.ctx.shadowBlur = 0;
-                this.ctx.shadowOffsetX = -3;
-                this.ctx.shadowOffsetY = 12;
-                this.ctx.fillText(td.char, td.currentX, td.currentY);
-                
-                // Reset shadow settings to prevent affecting other elements
-                this.ctx.shadowColor = 'transparent';
-                this.ctx.shadowBlur = 0;
-                this.ctx.shadowOffsetX = 0;
-                this.ctx.shadowOffsetY = 0;
-            }
-
-            requestAnimationFrame(this.animateWave.bind(this));
-        }
-    }
-
-    const waveConfig = {
-        baseString: "Design in Everything ",
-        boldLetters: [],
-        wave: {
-            frequency: 0.009,
-            amplitude: 30,
-            speed: 0.0003,
-            randomFactor: 1,
-        },
-        font: {
-            size: 21,
-            lineHeight: 30,
-            charWidth: 14,
-        },
-        rocks: {
-            count: 15,
-            size: 30,
-        },
-    };
-
-    // Initialize the wave
-    const waveCanvas = document.getElementById("waveCanvas");
-    const waveAnimation = new WaveAnimation(waveCanvas, waveConfig);
-    waveAnimation.init();
-
-    /* ================================================
-       2. Skull 3D Scene (the top canvas)
-       - Auto-center bounding box
-       - Click+drag rotation
-       - Auto-reset when not interacting
-       - Optimized for 60fps performance
-       ================================================ */
-    let camera, scene, renderer, skullCanvas, skull;
-    let isDragging = false;
-    let pointerX = 0, pointerY = 0;
-    let previousMouseX = 0, previousMouseY = 0;
-    let rotationY = 0, rotationX = 0;
-    let targetRotationY = 0, targetRotationX = 0;
-    let lastInteractionTime = 0;
-    let animationFrameId;
-    let lastFrameTime = 0;
-
-    // Tweak these as needed
-    const MOUSE_LOOK_FACTOR = 0.05;      // how strongly skull tilts to mouse
-    const DRAG_ROTATION_SPEED = 0.005;   // rotation speed when dragging
-    const RESET_DELAY = 2000;            // ms to wait before resetting
-    const RESET_SPEED = 0.05;            // speed of reset animation
-    const AUTO_ROTATION_SPEED = 0.0005;  // speed of idle rotation
-    const TARGET_FPS = 60;
-    const FRAME_TIME = 1000 / TARGET_FPS;
-
-    function initSkullCanvas() {
-      skullCanvas = document.getElementById("skullCanvas");
-
-      camera = new THREE.PerspectiveCamera(
-        75,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        200
-      );
-      camera.position.set(0, -6, 20);
-      camera.lookAt(0, 0, 0);
-
-      scene = new THREE.Scene();
-
-      const ambientLight = new THREE.AmbientLight(0x404040, 0.8);
-      scene.add(ambientLight);
-
-      const loader = new GLTFLoader();
-      loader.load('img/skully3d.glb', (gltf) => {
-        skull = gltf.scene;
-        scene.add(skull);
-
-        // Auto-center the loaded model via bounding box
-        const box = new THREE.Box3().setFromObject(skull);
-        const center = box.getCenter(new THREE.Vector3());
-        skull.position.x += (skull.position.x - center.x);
-        skull.position.y += (skull.position.y - center.y);
-        skull.position.z += (skull.position.z - center.z);
-
-        // Start animation loop only after model is loaded
-        lastFrameTime = performance.now();
-        animationFrameId = requestAnimationFrame(animate);
-      });
-
-      renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-        canvas: skullCanvas,
-        powerPreference: "high-performance"
-      });
-      renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setSize(window.innerWidth, window.innerHeight);
-
-      // Pointer events with passive listeners for better performance
-      skullCanvas.addEventListener('pointermove', onPointerMove, { passive: true });
-      skullCanvas.addEventListener('pointerdown', onPointerDown, { passive: true });
-      skullCanvas.addEventListener('pointerup', onPointerUp, { passive: true });
-
-      // Throttled resize handler
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        if (resizeTimeout) {
-          cancelAnimationFrame(resizeTimeout);
-        }
-        resizeTimeout = requestAnimationFrame(onWindowResize);
-      });
-    }
-
-    function animate(timestamp) {
-      if (!skull) {
-        animationFrameId = requestAnimationFrame(animate);
-        return;
-      }
-
-      // Maintain consistent animation speed regardless of frame rate
-      const deltaTime = timestamp - lastFrameTime;
-      if (deltaTime < FRAME_TIME) {
-        animationFrameId = requestAnimationFrame(animate);
-        return;
-      }
-
-      const timeSinceInteraction = timestamp - lastInteractionTime;
-
-      if (isDragging) {
-        // When dragging, use direct rotation values
-        skull.rotation.y = rotationY + pointerX * MOUSE_LOOK_FACTOR;
-        skull.rotation.x = rotationX + pointerY * MOUSE_LOOK_FACTOR;
-      } else {
-        // When not dragging, apply smooth auto-rotation
-        skull.rotation.y = rotationY + (timestamp * AUTO_ROTATION_SPEED);
-        skull.rotation.x = rotationX;
-
-        if (timeSinceInteraction > RESET_DELAY) {
-          // Smoothly reset X rotation to 0 when idle
-          rotationX *= (1 - RESET_SPEED * (deltaTime / FRAME_TIME));
-        }
-      }
-
-      renderer.render(scene, camera);
-      lastFrameTime = timestamp;
-      animationFrameId = requestAnimationFrame(animate);
-    }
-
-    function updateInteractionTime() {
-      lastInteractionTime = performance.now();
-    }
-
-    function onPointerMove(event) {
-      if (isDragging) {
-        updateInteractionTime();
-      }
-
-      // Convert to normalized device coords (-1..1)
-      pointerX = (event.clientX / window.innerWidth) * 2 - 1;
-      pointerY = -((event.clientY / window.innerHeight) * 2 - 1);
-
-      if (isDragging) {
-        const deltaX = event.clientX - previousMouseX;
-        const deltaY = event.clientY - previousMouseY;
-
-        rotationY += deltaX * DRAG_ROTATION_SPEED;
-        rotationX += deltaY * DRAG_ROTATION_SPEED;
-
-        // Clamp vertical rotation to prevent flipping
-        rotationX = Math.max(-Math.PI/3, Math.min(Math.PI/3, rotationX));
-
-        previousMouseX = event.clientX;
-        previousMouseY = event.clientY;
-      }
-    }
-
-    function onPointerDown(event) {
-      updateInteractionTime();
-      isDragging = true;
-      skullCanvas.classList.add('dragging');
-      previousMouseX = event.clientX;
-      previousMouseY = event.clientY;
-    }
-
-    function onPointerUp() {
-      skullCanvas.classList.remove('dragging');
-      isDragging = false;
-    }
-
-    function onWindowResize() {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    }
-
-    // Initialize the skull scene
-    initSkullCanvas();
-</script>

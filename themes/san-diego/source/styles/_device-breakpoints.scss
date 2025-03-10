@@ -1,0 +1,134 @@
+// Device Breakpoints
+// These breakpoints are designed to target specific device categories and orientations
+
+// Mobile Breakpoints
+$mobile-small: 320px; // Small phones
+$mobile-medium: 375px; // Medium phones (iPhone SE, etc.)
+$mobile-large: 428px; // Large phones (iPhone Pro Max, etc.)
+$mobile-portrait-max: 480px;
+$mobile-landscape-min: 481px;
+$mobile-landscape-max: 767px;
+
+// Tablet Breakpoints
+$tablet-portrait-min: 768px; // iPad Mini, iPad portrait
+$tablet-portrait-max: 991px;
+$tablet-landscape-min: 992px; // iPad landscape
+$tablet-landscape-max: 1199px;
+$tablet-large-min: 1024px; // iPad Pro 11"
+$tablet-large-max: 1366px; // iPad Pro 12.9"
+
+// Desktop Breakpoints
+$desktop-small-min: 1200px;
+$desktop-small-max: 1439px;
+$desktop-medium-min: 1440px;
+$desktop-medium-max: 1919px;
+$desktop-large-min: 1920px;
+$desktop-large-max: 2559px;
+$desktop-xl-min: 2560px;
+
+// Device Detection Mixins
+@mixin mobile-only {
+	@media (max-width: #{$mobile-landscape-max}) {
+		@content;
+	}
+}
+
+@mixin mobile-portrait-only {
+	@media (max-width: #{$mobile-portrait-max}) {
+		@content;
+	}
+}
+
+@mixin mobile-landscape-only {
+	@media (min-width: #{$mobile-landscape-min}) and (max-width: #{$mobile-landscape-max}) {
+		@content;
+	}
+}
+
+@mixin tablet-only {
+	@media (min-width: #{$tablet-portrait-min}) and (max-width: #{$tablet-landscape-max}) {
+		@content;
+	}
+}
+
+@mixin tablet-portrait-only {
+	@media (min-width: #{$tablet-portrait-min}) and (max-width: #{$tablet-portrait-max}) {
+		@content;
+	}
+}
+
+@mixin tablet-landscape-only {
+	@media (min-width: #{$tablet-landscape-min}) and (max-width: #{$tablet-landscape-max}) {
+		@content;
+	}
+}
+
+@mixin desktop-only {
+	@media (min-width: #{$desktop-small-min}) {
+		@content;
+	}
+}
+
+// Orientation Mixins
+@mixin portrait-orientation {
+	@media (orientation: portrait) {
+		@content;
+	}
+}
+
+@mixin landscape-orientation {
+	@media (orientation: landscape) {
+		@content;
+	}
+}
+
+// Combined Device and Orientation Mixins
+@mixin mobile-portrait {
+	@media (max-width: #{$mobile-portrait-max}) and (orientation: portrait) {
+		@content;
+	}
+}
+
+@mixin mobile-landscape {
+	@media (min-width: #{$mobile-landscape-min}) and (max-width: #{$mobile-landscape-max}) and (orientation: landscape) {
+		@content;
+	}
+}
+
+@mixin tablet-portrait {
+	@media (min-width: #{$tablet-portrait-min}) and (max-width: #{$tablet-portrait-max}) and (orientation: portrait) {
+		@content;
+	}
+}
+
+@mixin tablet-landscape {
+	@media (min-width: #{$tablet-landscape-min}) and (max-width: #{$tablet-landscape-max}) and (orientation: landscape) {
+		@content;
+	}
+}
+
+// Device-specific mixins
+@mixin ipad-pro {
+	@media (min-width: #{$tablet-large-min}) and (max-width: #{$tablet-large-max}) {
+		@content;
+	}
+}
+
+@mixin iphone-se {
+	@media (min-width: #{$mobile-small}) and (max-width: #{$mobile-medium - 1px}) {
+		@content;
+	}
+}
+
+// Feature detection mixins
+@mixin hover-capable {
+	@media (hover: hover) {
+		@content;
+	}
+}
+
+@mixin touch-only {
+	@media (hover: none) and (pointer: coarse) {
+		@content;
+	}
+}
