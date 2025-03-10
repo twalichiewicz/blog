@@ -321,38 +321,6 @@ function isMobileDevice() {
     return window.innerWidth <= 768; // Using the same breakpoint as defined in variables
 }
 
-// Modify the view toggle initialization
-document.addEventListener('DOMContentLoaded', function() {
-    if (isMobileDevice()) {
-        // On mobile, force list view
-        const bookView = document.getElementById('bookView');
-        const listView = document.getElementById('listView');
-        const viewToggle = document.querySelector('.view-toggle');
-        
-        bookView.style.display = 'none';
-        listView.style.display = 'block';
-        listView.style.opacity = '1';
-        
-        // Force list view mode
-        viewToggle.classList.remove('book-view');
-        viewToggle.classList.add('list-view');
-    }
-});
-
-function turnPage(direction) {
-    const bookView = document.getElementById('bookView');
-    const pages = bookView.querySelectorAll('.page');
-    
-    pages.forEach(page => page.classList.add('turning'));
-    
-    setTimeout(() => {
-        // Navigate to next/prev page
-        const currentPage = parseInt('<%= currentPage %>');
-        const newPage = direction === 'next' ? currentPage + 1 : currentPage - 1;
-        window.location.href = `?page=${newPage}`;
-    }, 300); // Half the transition time
-}
-
 // Add search functionality
 document.getElementById('blogSearch').addEventListener('input', function(e) {
     const searchTerm = e.target.value.toLowerCase();

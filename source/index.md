@@ -1,9 +1,5 @@
 ---
-title: Design in Everything
-layout: index
+title: Newest at the Top
+layout: blog
+order_by: -date
 ---
-
-<div id="canvasWrapper">
-    <canvas id="waveCanvas"></canvas>
-    <canvas id="skullCanvas"></canvas>
-</div>
