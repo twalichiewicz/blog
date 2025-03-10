@@ -10,12 +10,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (!tabContainer) return;
 
 	const tabButtons = document.querySelectorAll('.tab-button');
-	const blogPosts = document.querySelectorAll('.post-list-item.blog');
-	const portfolioPosts = document.querySelectorAll('.post-list-item.portfolio');
+	const postsContent = document.getElementById('postsContent');
+	const projectsContent = document.getElementById('projectsContent');
+	const searchBar = document.querySelector('.search-bar');
 
 	// Set initial state
-	tabContainer.setAttribute('data-active-tab', 'blog');
-	showContent('blog');
+	const initialTab = tabContainer.getAttribute('data-active-tab') || 'blog';
+	tabContainer.setAttribute('data-active-tab', initialTab);
+	showContent(initialTab);
 
 	// Add click handlers for tab buttons
 	tabButtons.forEach(button => {
@@ -41,10 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	function showContent(type) {
-		const searchBar = document.querySelector('.search-bar');
-		const postsContent = document.getElementById('postsContent');
-		const projectsContent = document.getElementById('projectsContent');
-
 		if (!postsContent || !projectsContent) return;
 
 		if (type === 'blog') {
@@ -53,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (searchBar) searchBar.style.display = 'block';
 		} else if (type === 'portfolio') {
 			postsContent.style.display = 'none';
-			projectsContent.style.display = 'grid';
+			projectsContent.style.display = 'block';
 			if (searchBar) searchBar.style.display = 'none';
 		}
 
@@ -66,4 +64,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			divider.style.display = shouldShow ? 'block' : 'none';
 		});
 	}
+
+	// Handle device orientation changes
+	window.addEventListener('orientationchange', () => {
+		setTimeout(() => {
+			// Re-apply current tab state
+			const currentTab = tabContainer.getAttribute('data-active-tab') || 'blog';
+			showContent(currentTab);
+		}, 100);
+	});
 });

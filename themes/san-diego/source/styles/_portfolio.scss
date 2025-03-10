@@ -147,6 +147,91 @@
 	}
 }
 
+// Tablet-specific portfolio styles
+.device-tablet {
+	.portfolio-list {
+		display: flex;
+		flex-direction: column;
+		gap: variables.$space-sm;
+		padding: 0;
+		max-width: 100%;
+		margin: 0;
+
+		.company-group {
+			margin-bottom: variables.$space-md;
+
+			.company-name {
+				font-size: 1.1rem;
+				font-weight: 600;
+				margin-bottom: variables.$space-sm;
+				color: variables.$text-color;
+				padding-bottom: variables.$space-xxs;
+				border-bottom: 1px solid variables.$border-color;
+
+				.company-years {
+					font-size: 0.85rem;
+					opacity: 0.7;
+					margin-left: variables.$space-xs;
+				}
+			}
+
+			.company-projects {
+				display: flex;
+				flex-direction: column;
+				gap: variables.$space-xs;
+			}
+		}
+
+		.portfolio-item {
+			height: 70px;
+			display: flex;
+			align-items: center;
+			padding: variables.$space-xs;
+			margin-bottom: variables.$space-xs;
+
+			.portfolio-image {
+				position: relative;
+				width: 50px;
+				height: 50px;
+				flex-shrink: 0;
+
+				&::after {
+					background: linear-gradient(to left, rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0.7) 100%);
+				}
+
+				img {
+					border-radius: 6px;
+				}
+			}
+
+			.portfolio-content {
+				padding: 0 variables.$space-sm;
+				flex: 1;
+
+				h4 {
+					font-size: 0.85rem;
+					margin: 0 0 variables.$space-xxs 0;
+				}
+
+				p {
+					font-size: 0.75rem;
+					margin: 0;
+					opacity: 0.8;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					max-width: 100%;
+				}
+			}
+
+			.external-icon {
+				font-size: 0.85rem;
+				opacity: 0.7;
+			}
+		}
+	}
+}
+
 .company-projects {
 	display: flex;
 	flex-direction: column;

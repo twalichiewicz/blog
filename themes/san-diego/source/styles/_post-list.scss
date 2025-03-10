@@ -103,6 +103,71 @@
 	}
 }
 
+// Tablet-specific styles
+.device-tablet {
+	.blog-list {
+		padding: 0;
+		max-width: 100%;
+
+		.post-list-item {
+			margin-bottom: variables.$space-md;
+			padding: variables.$space-md;
+			border-bottom: 1px solid variables.$border-color;
+
+			&:last-child {
+				border-bottom: none;
+			}
+
+			.post-byline {
+				font-size: 0.85rem;
+				margin-bottom: variables.$space-sm;
+			}
+
+			h3 {
+				font-size: 1.2rem;
+				margin: variables.$space-xs 0;
+
+				a {
+					color: variables.$text-color;
+					text-decoration: none;
+
+					&:hover {
+						color: variables.$primary-color;
+					}
+				}
+			}
+
+			p {
+				font-size: 0.9rem;
+				line-height: 1.4;
+			}
+
+			.link-share {
+				h3 {
+					font-size: 1.1rem;
+				}
+
+				.link-source {
+					font-size: 0.8rem;
+					margin-bottom: variables.$space-xs;
+				}
+
+				.content-accordion {
+					summary {
+						font-size: 0.85rem;
+						margin-top: variables.$space-xs;
+					}
+
+					.accordion-content {
+						font-size: 0.9rem;
+						padding: variables.$space-xs 0;
+					}
+				}
+			}
+		}
+	}
+}
+
 // Post visibility classes
 .post-portfolio-visible {
 	display: block;
