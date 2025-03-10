@@ -1,4 +1,5 @@
 @use 'variables';
+@use 'device-breakpoints';
 
 // Add your post list styles here
 
@@ -63,4 +64,58 @@
 			}
 		}
 	}
+}
+
+// Desktop-specific styles for side-by-side layout
+.device-desktop {
+	.blog-list {
+		padding: 0;
+		max-width: 100%;
+
+		.post-list-item {
+			margin-bottom: variables.$space-md;
+			padding: variables.$space-md;
+			border-bottom: 1px solid variables.$border-color;
+
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+	}
+
+	.portfolio-list {
+		padding: 0;
+
+		.company-group {
+			margin-bottom: variables.$space-lg;
+
+			.company-name {
+				font-size: 1.2rem;
+				margin-bottom: variables.$space-sm;
+				padding-bottom: variables.$space-xs;
+				border-bottom: 1px solid variables.$border-color;
+			}
+
+			.portfolio-item {
+				margin-bottom: variables.$space-sm;
+			}
+		}
+	}
+}
+
+// Post visibility classes
+.post-portfolio-visible {
+	display: block;
+}
+
+.post-blog-visible {
+	display: block;
+}
+
+.post-portfolio-hidden {
+	display: none;
+}
+
+.post-blog-hidden {
+	display: none;
 }

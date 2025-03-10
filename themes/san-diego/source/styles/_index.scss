@@ -1,3 +1,5 @@
+@use 'variables';
+@use 'device-breakpoints';
 @use 'about';
 @use 'archive';
 @use 'blog';
@@ -25,11 +27,11 @@
 @use 'project-interactions';
 @use 'project-nav';
 @use 'propel';
+@use 'responsive-layouts';
 @use 'search';
 @use 'tags';
 @use 'title';
 @use 'toc';
 @use 'typography';
 @use 'var';
-@use 'variables';
 @use 'wave-text';

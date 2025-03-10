@@ -1,0 +1,280 @@
+@use 'variables';
+@use 'device-breakpoints';
+
+/* ==========================================================================
+   Responsive Layouts
+   
+   This file contains device-specific layouts and styles for:
+   - Desktop
+   - iPad (portrait and landscape)
+   - Mobile (portrait and landscape)
+   ========================================================================== */
+
+/* ==========================================================================
+   Desktop Layout
+   ========================================================================== */
+.device-desktop {
+	.blog {
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: row;
+		height: 100vh;
+		width: 100vw;
+
+		.wave-text {
+			display: none;
+		}
+
+		.blog-header {
+			display: flex;
+			flex-direction: column;
+			align-self: start;
+			justify-content: center;
+			width: 360px;
+
+			.profile-header {
+				display: flex;
+				flex-direction: column;
+				margin: variables.$space-xl 0;
+
+				.profile-info {
+					h1 {
+						font-size: 24px;
+					}
+				}
+
+				.profile-photo {
+					width: 120px;
+					height: 120px;
+				}
+			}
+		}
+
+		.blog-content {
+			background-color: var(--page-color, variables.$white);
+			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+			border-radius: 33px 0 0 0;
+			display: flex;
+			flex-direction: row;
+			margin-top: 24px;
+			margin-left: 24px;
+			justify-content: flex-start;
+			width: calc(100% - 384px);
+			overflow: hidden;
+
+			.mobile-tabs {
+				display: none !important;
+			}
+
+			#postsContent,
+			#projectsContent {
+				display: block !important;
+			}
+
+			.blog-list {
+				flex: 3;
+				overflow-y: auto;
+				height: 100vh;
+				padding: variables.$space-lg;
+				box-sizing: border-box;
+				max-width: 65%;
+			}
+
+			.portfolio-list {
+				flex: 2;
+				overflow-y: auto;
+				height: 100vh;
+				padding: variables.$space-lg;
+				box-sizing: border-box;
+				max-width: 35%;
+				border-left: 1px solid variables.$border-color;
+			}
+
+			.search-bar {
+				position: sticky;
+				top: 0;
+				background-color: var(--page-color, variables.$white);
+				padding: variables.$space-sm 0;
+				margin-bottom: variables.$space-md;
+				z-index: 10;
+			}
+		}
+
+		.view-toggle {
+			display: flex !important;
+			justify-content: space-between;
+			align-items: center;
+			margin: variables.$space-lg 0;
+		}
+
+		.book-spread {
+			height: 800px;
+		}
+	}
+}
+
+/* ==========================================================================
+   iPad Layout
+   ========================================================================== */
+.device-tablet {
+	.blog {
+		padding: 0 variables.$space-md;
+
+		.profile-header {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			margin: variables.$space-lg 0;
+
+			.profile-photo {
+				width: 100px;
+				height: 100px;
+				margin-bottom: variables.$space-md;
+			}
+
+			.profile-info {
+				margin-left: 0;
+			}
+
+			.profile-stats {
+				justify-content: center;
+			}
+		}
+
+		&.orientation-landscape {
+			.profile-header {
+				flex-direction: row;
+				text-align: left;
+
+				.profile-photo {
+					margin-bottom: 0;
+				}
+
+				.profile-info {
+					margin-left: variables.$space-md;
+				}
+
+				.profile-stats {
+					justify-content: flex-start;
+				}
+			}
+
+			.blog-list {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: variables.$space-lg;
+			}
+		}
+
+		.view-toggle {
+			display: flex !important;
+			justify-content: space-between;
+			align-items: center;
+			margin: variables.$space-md 0;
+		}
+
+		.mobile-tabs {
+			display: flex;
+			margin: auto;
+			width: 100%;
+		}
+
+		.book-spread {
+			height: 600px;
+		}
+	}
+
+	// iPad Pro specific adjustments
+	&.device-ipad-pro {
+		.blog {
+			.profile-header {
+				margin: variables.$space-xl 0;
+			}
+
+			&.orientation-landscape {
+				.blog-list {
+					grid-template-columns: 3fr 2fr;
+				}
+			}
+		}
+	}
+}
+
+/* ==========================================================================
+   Mobile Layout
+   ========================================================================== */
+.device-mobile {
+	.blog {
+		padding: 0;
+
+		.profile-header {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			margin: variables.$space-md variables.$space-md 0;
+
+			.profile-photo {
+				width: 80px;
+				height: 80px;
+				margin-bottom: variables.$space-sm;
+			}
+
+			.profile-info {
+				margin-left: 0;
+
+				.profile-bio {
+					font-size: 0.9rem;
+				}
+			}
+
+			.profile-stats {
+				justify-content: center;
+				font-size: 0.9rem;
+			}
+
+			.contact-wrapper {
+				position: absolute;
+				top: variables.$space-sm;
+				right: variables.$space-sm;
+			}
+		}
+
+		.mobile-tabs {
+			margin: 0 24px;
+		}
+
+		#postsContent,
+		#projectsContent,
+		.blog-list,
+		.portfolio-list {
+			margin-left: variables.$space-md;
+			margin-right: variables.$space-md;
+		}
+
+		.post-list-item {
+			padding: variables.$space-md 0;
+		}
+
+		.book-spread {
+			display: none !important;
+		}
+
+		&.orientation-landscape {
+			.profile-header {
+				flex-direction: row;
+				text-align: left;
+				align-items: flex-start;
+
+				.profile-photo {
+					margin-bottom: 0;
+					margin-right: variables.$space-md;
+				}
+
+				.profile-stats {
+					justify-content: flex-start;
+				}
+			}
+		}
+	}
+}

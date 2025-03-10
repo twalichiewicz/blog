@@ -8,6 +8,8 @@
     <body>
 		<%- body %>
 
+        <%- js('js/device-detection.js') %>
+        <%- js('js/responsive-ui.js') %>
         <%- js('js/main.js') %>
         <% if (theme.search == true && page.type == 'search') { %>
         <%- js('js/search.js') %>
