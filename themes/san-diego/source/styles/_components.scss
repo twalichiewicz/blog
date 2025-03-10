@@ -310,7 +310,7 @@ button {
 	}
 
 	&[data-active-tab="portfolio"]:not(.is-dragging)::after {
-		--slider-x: calc(100% + 4px);
+		--slider-x: calc(100% - 4px);
 	}
 
 	.tab-button {
@@ -318,24 +318,29 @@ button {
 		justify-content: center;
 		padding: 8px 16px;
 		border: none;
-		background: transparent;
+		background: transparent !important;
 		border-radius: 6px;
 		font-size: 14px;
 		font-weight: 500;
 		color: variables.$text-color-secondary;
 		cursor: pointer;
-		transition: color 0.2s ease;
+		transition: color 0.3s ease;
 		position: relative;
 		z-index: 2;
 		text-align: center;
 		box-shadow: none;
+		outline: none;
 
 		&.active {
-			color: variables.$white;
+			color: variables.$white !important;
 		}
 
-		&:not(.active):hover {
-			color: variables.$text-color;
+		&:not(.active) {
+			color: variables.$text-color-secondary !important;
+
+			&:hover {
+				color: variables.$text-color !important;
+			}
 		}
 	}
 }

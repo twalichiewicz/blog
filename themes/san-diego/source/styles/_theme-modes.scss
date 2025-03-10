@@ -197,34 +197,68 @@
 					}
 				}
 			}
+		}
 
-			.portfolio-item {
-				&.has-writeup {
-					background: variables.$card-bg-dark;
+		/* Dark mode for portfolio item cards */
+		.portfolio-item {
+			background: rgba(255, 255, 255, 0.05);
 
-					.portfolio-image::after {
-						background: linear-gradient(to bottom,
-								rgba(0, 0, 0, 0.3) 0%,
-								rgba(0, 0, 0, 0.9) 100%);
+			.portfolio-image::after {
+				background: linear-gradient(to bottom,
+						rgba(0, 0, 0, 0.3) 0%,
+						rgba(0, 0, 0, 0.9) 100%);
+			}
+
+			.portfolio-content .content-text {
+				h4 {
+					color: variables.$white;
+				}
+
+				p {
+					color: variables.$grey-light;
+				}
+			}
+
+			.external-icon {
+				background: rgba(255, 255, 255, 0.1);
+				border-color: rgba(255, 255, 255, 0.05);
+
+				&:hover {
+					background: variables.$link-color-dark;
+					border-color: variables.$link-color-dark;
+				}
+			}
+
+			&:not(.has-writeup) {
+				background: hsl(35, 10%, 75%);
+				border-color: rgba(0, 0, 0, 0.1);
+				opacity: 1;
+				cursor: default;
+
+				&:hover {
+					transform: none;
+				}
+
+				.portfolio-content .content-text {
+					h4 {
+						color: hsl(35, 15%, 30%);
+					}
+
+					p {
+						color: hsl(35, 15%, 30%);
+						opacity: 1;
 					}
 				}
 
-				&:not(.has-writeup) {
-					background: variables.$card-bg-dark;
-					border-color: variables.$border-color-dark;
-					opacity: 0.6;
+				.external-icon {
+					background: rgba(0, 0, 0, 0.1);
+					border-color: rgba(0, 0, 0, 0.05);
+					color: hsl(35, 15%, 30%);
 
-					.portfolio-content {
-						.content-text {
-							h4 {
-								color: variables.$text-color-dark;
-							}
-
-							p {
-								color: variables.$text-color-dark;
-								opacity: 0.7;
-							}
-						}
+					&:hover {
+						background: variables.$link-color-dark;
+						border-color: variables.$link-color-dark;
+						color: variables.$white;
 					}
 				}
 			}

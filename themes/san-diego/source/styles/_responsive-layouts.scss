@@ -140,10 +140,6 @@
 					padding-bottom: variables.$space-xs;
 					border-bottom: 1px solid variables.$border-color;
 				}
-
-				.portfolio-item {
-					margin-bottom: variables.$space-sm;
-				}
 			}
 		}
 	}
@@ -155,8 +151,16 @@
 .device-mobile .blog {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
-	overflow: hidden;
+	min-height: 100vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: relative;
+
+	.blog-header {
+		position: relative;
+		width: 100%;
+		flex-shrink: 0;
+	}
 
 	.profile-header {
 		flex-direction: column;
@@ -188,14 +192,13 @@
 		width: 100%;
 		padding: 0;
 		margin: 0;
-		flex: 1;
 		display: flex;
 		flex-direction: column;
-		overflow: hidden;
 		background-color: transparent;
 		box-shadow: none;
 		border-radius: 0;
 		align-items: center;
+		position: relative;
 
 		.mobile-tabs {
 			flex-shrink: 0;
@@ -206,9 +209,7 @@
 
 		.content-wrapper {
 			flex-direction: column;
-			flex: 1;
-			overflow: hidden;
-			height: 100%;
+			width: 100%;
 		}
 	}
 
@@ -216,8 +217,6 @@
 	#projectsContent {
 		width: 100%;
 		padding: 0 variables.$space-md;
-		height: 100%;
-		overflow-y: auto;
 		overflow-x: hidden;
 		box-sizing: border-box;
 
@@ -277,12 +276,16 @@
 	width: 100vw;
 	overflow: hidden;
 	/* Prevent body scrolling */
+	position: fixed;
+	/* Explicitly set fixed position for tablet */
 
 	.blog-header {
 		align-self: start;
 		justify-content: center;
 		width: 300px;
 		flex-shrink: 0;
+		position: relative;
+		/* Relative to the fixed container */
 
 		.profile-header {
 			flex-direction: column;
@@ -307,6 +310,8 @@
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
+		position: relative;
+		/* Relative to the fixed container */
 
 		.content-wrapper {
 			flex-direction: column;
@@ -386,12 +391,16 @@
 	height: 100vh;
 	width: 100vw;
 	overflow: hidden;
+	position: fixed;
+	/* Explicitly set fixed position for desktop */
 
 	.blog-header {
 		align-self: start;
 		justify-content: center;
 		width: 360px;
 		flex-shrink: 0;
+		position: relative;
+		/* Relative to the fixed container */
 
 		.profile-header {
 			flex-direction: column;
@@ -416,6 +425,8 @@
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
+		position: relative;
+		/* Relative to the fixed container */
 
 		.content-wrapper {
 			flex-direction: row;
@@ -503,13 +514,12 @@
 		display: flex;
 		flex-direction: column;
 		overflow-x: hidden;
+		position: relative;
 
 		/* Content containers */
 		#postsContent,
 		#projectsContent {
-			flex: 1;
-			min-height: 0;
-			overflow-y: auto;
+			width: 100%;
 		}
 
 		.post-list-item {
@@ -522,6 +532,7 @@
 		.profile-header,
 		.view-toggle {
 			flex-shrink: 0;
+			position: relative;
 		}
 
 		.profile-header {

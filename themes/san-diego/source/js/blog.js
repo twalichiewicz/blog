@@ -8,10 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	const elements = {
 		searchInput: document.getElementById('blogSearch'),
 		searchButton: document.querySelector('.search-button'),
-		tabButtons: document.querySelectorAll('.tab-button'),
-		postsContent: document.getElementById('postsContent'),
-		projectsContent: document.getElementById('projectsContent'),
-		tabContainer: document.querySelector('.mobile-tabs'),
 		expandButtons: document.querySelectorAll('.expand-button'),
 		carousels: document.querySelectorAll('.carousel')
 	};
@@ -30,11 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		elements.searchButton.addEventListener('click', toggleSearch);
 	}
 
-	// Initialize tabs
-	if (elements.tabContainer && elements.postsContent && elements.projectsContent && window.self === window.top) {
-		initTabs();
-	}
-
 	// Initialize expand buttons
 	if (elements.expandButtons.length) {
 		elements.expandButtons.forEach(btn => btn.addEventListener('click', toggleExpand));
@@ -50,118 +41,107 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Function to handle search
+	// Search functionality
 	function handleSearch(e) {
-		const searchTerm = e.target.value.toLowerCase();
+		const query = e.target.value.toLowerCase();
 		const posts = document.querySelectorAll('.post-list-item');
+		const dividers = document.querySelectorAll('.post-divider');
+		let visibleCount = 0;
 
 		posts.forEach(post => {
 			const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
-			const content = post.querySelector('p')?.textContent.toLowerCase() || '';
-			const isMatch = title.includes(searchTerm) || content.includes(searchTerm);
+			const content = post.textContent.toLowerCase();
+			const isMatch = title.includes(query) || content.includes(query);
 
-			if (searchTerm === '') {
-				post.style.display = '';
-				post.style.opacity = '1';
-			} else if (isMatch) {
-				post.style.display = '';
-				post.style.opacity = '1';
-			} else {
-				post.style.opacity = '0';
-				setTimeout(() => post.style.display = 'none', 300);
-			}
+			post.style.display = isMatch ? 'block' : 'none';
+			if (isMatch) visibleCount++;
+		});
+
+		// Update dividers visibility
+		dividers.forEach((divider, index) => {
+			divider.style.display = index < visibleCount - 1 ? 'block' : 'none';
 		});
 	}
 
-	// Function to toggle search
+	// Toggle search visibility
 	function toggleSearch() {
-		const input = document.querySelector('.search-input');
-		const button = this;
-
-		if (!input.classList.contains('expanded')) {
-			input.classList.add('expanded');
-			button.classList.add('expanded');
-			button.innerHTML = '<img src="/img/close.svg" alt="Close">';
-			input.focus();
-		} else {
-			input.classList.remove('expanded');
-			button.classList.remove('expanded');
-			button.innerHTML = '<img src="/img/search.svg" alt="Search">';
-			input.value = '';
-			input.dispatchEvent(new Event('input'));
+		const searchContainer = document.querySelector('.search-container');
+		if (searchContainer) {
+			searchContainer.classList.toggle('active');
+			if (searchContainer.classList.contains('active')) {
+				elements.searchInput.focus();
+			}
 		}
-	}
-
-	// Function to initialize tabs
-	function initTabs() {
-		// Show tabs on mobile/tablet
-		if (document.body.classList.contains('device-mobile') ||
-			document.body.classList.contains('device-tablet')) {
-			elements.tabContainer.style.display = 'flex';
-		}
-
-		// On desktop, show both sections
-		if (isDesktop) {
-			elements.postsContent.style.display = 'block';
-			elements.projectsContent.style.display = 'block';
-		} else {
-			// On mobile/tablet, show posts by default
-			elements.postsContent.style.display = 'block';
-			elements.projectsContent.style.display = 'none';
-		}
-
-		// Add click handlers for tab buttons
-		elements.tabButtons.forEach(button => {
-			button.addEventListener('click', () => {
-				const type = button.dataset.type;
-
-				// Update button states
-				elements.tabButtons.forEach(btn => {
-					btn.classList.toggle('active', btn === button);
-					btn.setAttribute('aria-selected', btn === button);
-				});
-
-				// Only toggle visibility on non-desktop devices
-				if (!isDesktop) {
-					elements.postsContent.style.display = type === 'blog' ? 'block' : 'none';
-					elements.projectsContent.style.display = type === 'portfolio' ? 'block' : 'none';
-				}
-			});
-		});
 	}
 
 	// Function to toggle expand
 	function toggleExpand() {
 		const overflow = this.nextElementSibling;
-		if (overflow) {
-			const isExpanded = overflow.classList.toggle('expanded');
-			this.textContent = isExpanded ? 'Show less' : 'Show more';
-		}
+		const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+		this.setAttribute('aria-expanded', !isExpanded);
+		overflow.style.maxHeight = isExpanded ? null : `${overflow.scrollHeight}px`;
+		this.textContent = isExpanded ? 'Read more' : 'Show less';
 	}
 
-	// Function to initialize carousel
+	// Initialize carousel
 	function initializeCarousel(carousel) {
-		const images = Array.from(carousel.querySelectorAll('.carousel-slide img'));
+		const slides = carousel.querySelectorAll('.carousel-slide');
+		const prevButton = carousel.querySelector('.carousel-button.prev');
+		const nextButton = carousel.querySelector('.carousel-button.next');
+		let currentIndex = 0;
 
-		// Add click handlers to images
-		images.forEach((img, index) => {
-			if (img) {
-				img.addEventListener('click', () => {
-					if (window.Spotlight) {
-						Spotlight.show(images, {
-							index: index,
-							theme: 'white',
-							animation: 'fade',
-							control: 'arrows',
-							arrows: true,
-							keyboard: true,
-							draggable: true
-						});
-					}
-				});
+		// Set first slide as active
+		if (slides.length > 0) {
+			slides[0].classList.add('active');
+		}
+
+		// Add event listeners to buttons
+		if (prevButton) {
+			prevButton.addEventListener('click', () => {
+				currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+				updateSlides();
+			});
+		}
+
+		if (nextButton) {
+			nextButton.addEventListener('click', () => {
+				currentIndex = (currentIndex + 1) % slides.length;
+				updateSlides();
+			});
+		}
+
+		// Update slides to show current index
+		function updateSlides() {
+			slides.forEach((slide, index) => {
+				slide.classList.toggle('active', index === currentIndex);
+			});
+		}
+
+		// Add swipe support for mobile
+		let touchStartX = 0;
+		let touchEndX = 0;
+
+		carousel.addEventListener('touchstart', e => {
+			touchStartX = e.changedTouches[0].screenX;
+		}, { passive: true });
+
+		carousel.addEventListener('touchend', e => {
+			touchEndX = e.changedTouches[0].screenX;
+			handleSwipe();
+		}, { passive: true });
+
+		function handleSwipe() {
+			const swipeThreshold = 50;
+			if (touchEndX < touchStartX - swipeThreshold) {
+				// Swipe left, go to next slide
+				currentIndex = (currentIndex + 1) % slides.length;
+				updateSlides();
+			} else if (touchEndX > touchStartX + swipeThreshold) {
+				// Swipe right, go to previous slide
+				currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+				updateSlides();
 			}
-		});
-
-		// Additional carousel functionality can be added here
+		}
 	}
 }); 
