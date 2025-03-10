@@ -1,8 +1,7 @@
 @use 'variables';
 @use 'device-breakpoints';
 
-// Add your post list styles here
-
+// Base post list styles
 .blog-list {
 	max-width: 800px;
 	margin: 0 auto;
@@ -48,9 +47,67 @@
 		}
 	}
 
+	.post-list-item {
+		margin-bottom: variables.$space-md;
+		padding: variables.$space-md 0;
+		border-bottom: 1px solid variables.$border-color;
+
+		&:last-child {
+			border-bottom: none;
+		}
+
+		.post-byline {
+			font-size: 0.9rem;
+			margin-bottom: variables.$space-sm;
+		}
+
+		h3 {
+			font-size: 1.2rem;
+			margin: variables.$space-xs 0;
+			line-height: 1.3;
+
+			a {
+				color: variables.$text-color;
+				text-decoration: none;
+
+				&:hover {
+					color: variables.$primary-color;
+				}
+			}
+		}
+
+		p {
+			font-size: 0.9rem;
+			line-height: 1.4;
+			margin: variables.$space-sm 0;
+		}
+
+		.link-share {
+			h3 {
+				font-size: 1.1rem;
+			}
+
+			.link-source {
+				font-size: 0.8rem;
+				margin-bottom: variables.$space-xs;
+			}
+
+			.content-accordion {
+				summary {
+					font-size: 0.85rem;
+					margin-top: variables.$space-xs;
+				}
+
+				.accordion-content {
+					font-size: 0.9rem;
+					padding: variables.$space-xs 0;
+				}
+			}
+		}
+	}
+
 	@media (prefers-color-scheme: dark) {
 		article {
-
 			h2 a {
 				color: variables.$text-color-dark;
 			}
@@ -60,108 +117,6 @@
 
 				.post-categories a {
 					color: variables.$text-color-secondary-dark;
-				}
-			}
-		}
-	}
-}
-
-// Desktop-specific styles for side-by-side layout
-.device-desktop {
-	.blog-list {
-		padding: 0;
-		max-width: 100%;
-
-		.post-list-item {
-			margin-bottom: variables.$space-md;
-			padding: variables.$space-md;
-			border-bottom: 1px solid variables.$border-color;
-
-			&:last-child {
-				border-bottom: none;
-			}
-		}
-	}
-
-	.portfolio-list {
-		padding: 0;
-
-		.company-group {
-			margin-bottom: variables.$space-lg;
-
-			.company-name {
-				font-size: 1.2rem;
-				margin-bottom: variables.$space-sm;
-				padding-bottom: variables.$space-xs;
-				border-bottom: 1px solid variables.$border-color;
-			}
-
-			.portfolio-item {
-				margin-bottom: variables.$space-sm;
-			}
-		}
-	}
-}
-
-// Tablet-specific styles
-.device-tablet {
-	.blog-list {
-		padding: 0;
-		max-width: 100%;
-
-		.post-list-item {
-			margin-bottom: variables.$space-md;
-			padding: variables.$space-md;
-			border-bottom: 1px solid variables.$border-color;
-
-			&:last-child {
-				border-bottom: none;
-			}
-
-			.post-byline {
-				font-size: 0.85rem;
-				margin-bottom: variables.$space-sm;
-			}
-
-			h3 {
-				font-size: 1.2rem;
-				margin: variables.$space-xs 0;
-
-				a {
-					color: variables.$text-color;
-					text-decoration: none;
-
-					&:hover {
-						color: variables.$primary-color;
-					}
-				}
-			}
-
-			p {
-				font-size: 0.9rem;
-				line-height: 1.4;
-			}
-
-			.link-share {
-				h3 {
-					font-size: 1.1rem;
-				}
-
-				.link-source {
-					font-size: 0.8rem;
-					margin-bottom: variables.$space-xs;
-				}
-
-				.content-accordion {
-					summary {
-						font-size: 0.85rem;
-						margin-top: variables.$space-xs;
-					}
-
-					.accordion-content {
-						font-size: 0.9rem;
-						padding: variables.$space-xs 0;
-					}
 				}
 			}
 		}
