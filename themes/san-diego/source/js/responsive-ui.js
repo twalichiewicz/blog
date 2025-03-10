@@ -78,76 +78,14 @@ document.addEventListener('DOMContentLoaded', function () {
 		 */
 		setupTabletBehavior: function () {
 			const isLandscape = document.body.classList.contains('orientation-landscape');
-			const postsContent = document.getElementById('postsContent');
-			const projectsContent = document.getElementById('projectsContent');
-			const blogList = document.querySelector('.blog-list');
-			const portfolioList = document.querySelector('.portfolio-list');
-			const tabContainer = document.querySelector('.mobile-tabs');
-			const tabButtons = document.querySelectorAll('.tab-button');
+			const mobileTabs = document.querySelector('.mobile-tabs');
 
 			// Ensure mobile tabs are visible
-			if (tabContainer) {
-				tabContainer.style.display = 'flex';
+			if (mobileTabs) {
+				mobileTabs.style.display = 'flex';
 			}
 
-			// Set initial state - show posts by default
-			if (postsContent && projectsContent) {
-				// Get active tab or default to blog
-				const activeTab = tabContainer ? tabContainer.getAttribute('data-active-tab') || 'blog' : 'blog';
-
-				if (activeTab === 'blog') {
-					postsContent.style.display = 'block';
-					projectsContent.style.display = 'none';
-
-					// Update tab buttons
-					tabButtons.forEach(btn => {
-						if (btn.dataset.type === 'blog') {
-							btn.classList.add('active');
-						} else {
-							btn.classList.remove('active');
-						}
-					});
-				} else {
-					postsContent.style.display = 'none';
-					projectsContent.style.display = 'block';
-
-					// Update tab buttons
-					tabButtons.forEach(btn => {
-						if (btn.dataset.type === 'portfolio') {
-							btn.classList.add('active');
-						} else {
-							btn.classList.remove('active');
-						}
-					});
-				}
-			}
-
-			// Add click handlers for tab buttons if not already added
-			tabButtons.forEach(button => {
-				// Remove existing event listeners to prevent duplicates
-				const newButton = button.cloneNode(true);
-				button.parentNode.replaceChild(newButton, button);
-
-				newButton.addEventListener('click', () => {
-					const type = newButton.dataset.type;
-
-					// Remove active class from all buttons
-					tabButtons.forEach(btn => btn.classList.remove('active'));
-					// Add active class to clicked button
-					newButton.classList.add('active');
-
-					// Show/hide content based on selected tab
-					if (type === 'blog') {
-						postsContent.style.display = 'block';
-						projectsContent.style.display = 'none';
-						tabContainer.setAttribute('data-active-tab', 'blog');
-					} else if (type === 'portfolio') {
-						postsContent.style.display = 'none';
-						projectsContent.style.display = 'block';
-						tabContainer.setAttribute('data-active-tab', 'portfolio');
-					}
-				});
-			});
+			// Note: Tab visibility and switching is handled by mobile-tabs.js
 
 			// Enable book view only in landscape
 			const bookModeBtn = document.getElementById('bookModeBtn');
@@ -167,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			// Ensure tabs are visible
-			const tabContainer = document.querySelector('.mobile-tabs');
-			if (tabContainer) {
-				tabContainer.style.display = 'flex';
+			const mobileTabs = document.querySelector('.mobile-tabs');
+			if (mobileTabs) {
+				mobileTabs.style.display = 'flex';
 			}
 
 			// Adjust post list for better mobile reading
@@ -208,4 +146,94 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Make available globally
 	window.ResponsiveUI = ResponsiveUI;
-}); 
+});
+
+// Helper functions for device detection
+function updateOrientation() {
+	const isLandscape = window.innerWidth > window.innerHeight;
+	document.body.classList.toggle('orientation-landscape', isLandscape);
+	document.body.classList.toggle('orientation-portrait', !isLandscape);
+}
+
+function initMobileLayout() {
+	// Skip if already initialized
+	if (document.body.classList.contains('device-mobile')) {
+		return;
+	}
+
+	// Add mobile device class
+	document.body.classList.add('device-mobile');
+	document.body.classList.remove('device-tablet', 'device-desktop');
+
+	// Set orientation class
+	updateOrientation();
+
+	// Mobile layout specific adjustments
+	const mobileTabs = document.querySelector('.mobile-tabs');
+	if (mobileTabs) {
+		mobileTabs.style.display = 'flex';
+	}
+}
+
+function initTabletLayout() {
+	// Skip if already initialized
+	if (document.body.classList.contains('device-tablet')) {
+		return;
+	}
+
+	// Add tablet device class
+	document.body.classList.add('device-tablet');
+	document.body.classList.remove('device-mobile', 'device-desktop');
+
+	// Set orientation class
+	updateOrientation();
+
+	// Tablet layout specific adjustments
+	const mobileTabs = document.querySelector('.mobile-tabs');
+	if (mobileTabs) {
+		mobileTabs.style.display = 'flex';
+	}
+
+	// Note: We don't set content visibility here - mobile-tabs.js will handle it
+	// This prevents the bug where both sections are visible when resizing from desktop to tablet
+}
+
+function initDesktopLayout() {
+	// Skip if already initialized
+	if (document.body.classList.contains('device-desktop')) {
+		return;
+	}
+
+	// Add desktop device class
+	document.body.classList.add('device-desktop');
+	document.body.classList.remove('device-mobile', 'device-tablet');
+
+	// Set orientation class
+	updateOrientation();
+
+	// Desktop layout specific adjustments
+	const postsContent = document.getElementById('postsContent');
+	const projectsContent = document.getElementById('projectsContent');
+
+	if (postsContent && projectsContent) {
+		postsContent.style.display = 'block';
+		projectsContent.style.display = 'block';
+	}
+}
+
+function handleDeviceChange() {
+	const width = window.innerWidth;
+	const height = window.innerHeight;
+
+	// Determine device type based on screen size
+	if (width < 768) {
+		initMobileLayout();
+	} else if (width < 1024 || (width < 1366 && height < 1024)) {
+		initTabletLayout();
+	} else {
+		initDesktopLayout();
+	}
+
+	// Update orientation class
+	updateOrientation();
+} 
