@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		searchInput: document.getElementById('blogSearch'),
 		searchButton: document.querySelector('.search-button'),
 		expandButtons: document.querySelectorAll('.expand-button'),
-		carousels: document.querySelectorAll('.carousel')
+		carousels: document.querySelectorAll('.carousel'),
+		contactButton: document.querySelector('.contact-button'),
+		contactWrapper: document.querySelector('.contact-wrapper')
 	};
 
 	// Device detection
@@ -37,6 +39,22 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (!carousel.dataset.initialized) {
 				initializeCarousel(carousel);
 				carousel.dataset.initialized = 'true';
+			}
+		});
+	}
+
+	// Initialize contact button - simplified approach
+	if (elements.contactButton) {
+		elements.contactButton.addEventListener('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			elements.contactWrapper.classList.toggle('active');
+		});
+
+		// Close dropdown when clicking outside
+		document.addEventListener('click', function (e) {
+			if (elements.contactWrapper && !elements.contactWrapper.contains(e.target)) {
+				elements.contactWrapper.classList.remove('active');
 			}
 		});
 	}
