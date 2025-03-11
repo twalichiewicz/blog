@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Track the last manually selected tab
 	let userSelectedTab = null;
+	// Track current device type to detect changes
+	let currentDeviceType = '';
 
 	// Function to ensure only one tab is active and return the active tab type
 	function validateActiveState() {
@@ -70,9 +72,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	function showContent(type) {
 		if (!postsContent || !projectsContent) return;
 
+		// Apply CSS transitions for smoother content changes
+		postsContent.style.transition = 'opacity 0.15s ease-in-out';
+		projectsContent.style.transition = 'opacity 0.15s ease-in-out';
+
 		// Only apply content changes on mobile/tablet
 		if (document.body.classList.contains('device-desktop')) {
 			// On desktop, both sections are visible
+			postsContent.style.opacity = '1';
+			projectsContent.style.opacity = '1';
 			postsContent.style.display = 'block';
 			projectsContent.style.display = 'block';
 			if (searchBar) searchBar.style.display = 'block';
@@ -87,17 +95,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// On mobile/tablet, show only the active tab
 		if (type === 'blog') {
-			postsContent.style.display = 'block';
-			projectsContent.style.display = 'none';
+			postsContent.style.opacity = '1';
+			projectsContent.style.opacity = '0';
+
+			// Use setTimeout to prevent content flashing
+			setTimeout(() => {
+				postsContent.style.display = 'block';
+				projectsContent.style.display = 'none';
+			}, 150);
+
 			if (searchBar) searchBar.style.display = 'block';
 		} else if (type === 'portfolio') {
-			postsContent.style.display = 'none';
-			projectsContent.style.display = 'block';
+			postsContent.style.opacity = '0';
+			projectsContent.style.opacity = '1';
+
+			// Use setTimeout to prevent content flashing
+			setTimeout(() => {
+				postsContent.style.display = 'none';
+				projectsContent.style.display = 'block';
+			}, 150);
+
 			if (searchBar) searchBar.style.display = 'none';
 		}
 	}
 
-	// Function to switch tabs
 	function switchTab(type, isUserAction = false) {
 		if (isUserAction) {
 			userSelectedTab = type; // Remember user's choice
@@ -135,33 +156,60 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-	// Handle window resize events
+	// Handle window resize events - reduce debounce time for more responsive feel
 	let resizeTimer;
 	window.addEventListener('resize', () => {
 		clearTimeout(resizeTimer);
+
+		// Immediately detect device type change for faster response
+		const newDeviceType = getDeviceType();
+		if (newDeviceType !== currentDeviceType) {
+			// Device type changed, update immediately
+			currentDeviceType = newDeviceType;
+			handleDeviceChange(true);
+		}
+
+		// Still use a short debounce for fine-tuning
 		resizeTimer = setTimeout(() => {
-			handleDeviceChange();
-		}, 250); // Debounce resize events
+			handleDeviceChange(false);
+		}, 100); // Reduced from 250ms to 100ms for faster response
 	});
 
+	// Helper function to get current device type
+	function getDeviceType() {
+		const width = window.innerWidth;
+		if (width >= 1024) return 'desktop';
+		if (width >= 768) return 'tablet';
+		return 'mobile';
+	}
+
 	// Function to handle device changes (desktop/tablet/mobile)
-	function handleDeviceChange() {
+	function handleDeviceChange(isDeviceTypeChange = false) {
 		const wasDesktop = document.body.classList.contains('device-desktop');
 		const isDesktop = window.innerWidth >= 1024;
 		const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 		const isMobile = window.innerWidth < 768;
 
+		// Update current device type
+		currentDeviceType = getDeviceType();
+
 		// If transitioning from desktop to tablet/mobile, immediately apply tab visibility
-		if (wasDesktop && (isTablet || isMobile)) {
+		if ((wasDesktop && (isTablet || isMobile)) || isDeviceTypeChange) {
 			// Get the current active tab or default to 'blog'
 			const activeTab = tabContainer.getAttribute('data-active-tab') || userSelectedTab || 'blog';
 
 			// Force the correct tab to be shown
 			switchTab(activeTab);
 		} else if (isDesktop) {
-			// On desktop, show both sections
-			if (postsContent) postsContent.style.display = 'block';
-			if (projectsContent) projectsContent.style.display = 'block';
+			// On desktop, show both sections with a smooth transition
+			if (postsContent) {
+				postsContent.style.opacity = '1';
+				postsContent.style.display = 'block';
+			}
+			if (projectsContent) {
+				projectsContent.style.opacity = '1';
+				projectsContent.style.display = 'block';
+			}
 
 			// Hide tabs wrapper on desktop
 			if (tabsWrapper) tabsWrapper.style.display = 'none';
@@ -176,14 +224,16 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// Initial device check
-	handleDeviceChange();
+	currentDeviceType = getDeviceType();
+	handleDeviceChange(true);
 
 	// Handle device orientation changes
 	window.addEventListener('orientationchange', () => {
+		// Apply changes more quickly after orientation change
 		setTimeout(() => {
 			validateActiveState();
-			handleDeviceChange();
-		}, 300); // Wait for orientation change to complete
+			handleDeviceChange(true);
+		}, 150); // Reduced from 300ms to 150ms
 	});
 
 	// Listen for device class changes from other scripts
@@ -192,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (mutation.attributeName === 'class') {
 				// If device class changed, update tab visibility
 				if (mutation.target === document.body) {
-					handleDeviceChange();
+					handleDeviceChange(true);
 				}
 			}
 		});

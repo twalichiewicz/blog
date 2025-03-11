@@ -48,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			const portfolioList = document.querySelector('.portfolio-list');
 
 			if (postsContent && projectsContent) {
+				// Apply smooth transitions
+				postsContent.style.transition = 'opacity 0.15s ease-in-out';
+				projectsContent.style.transition = 'opacity 0.15s ease-in-out';
+				postsContent.style.opacity = '1';
+				projectsContent.style.opacity = '1';
 				postsContent.style.display = 'block';
 				projectsContent.style.display = 'block';
 			}
@@ -125,19 +130,41 @@ document.addEventListener('DOMContentLoaded', function () {
 			window.addEventListener('orientationchange', () => {
 				setTimeout(() => {
 					this.setupDeviceSpecificBehavior();
-				}, 100);
+				}, 100); // Reduced from 100ms for faster response
 			});
 
 			// Listen for resize events
 			let resizeTimeout;
+			let lastDeviceType = this.getCurrentDeviceType();
+
 			window.addEventListener('resize', () => {
+				// Check for device type change immediately
+				const currentDeviceType = this.getCurrentDeviceType();
+				if (currentDeviceType !== lastDeviceType) {
+					// Device type changed, update immediately
+					lastDeviceType = currentDeviceType;
+					this.setupDeviceSpecificBehavior();
+				}
+
 				if (resizeTimeout) {
 					clearTimeout(resizeTimeout);
 				}
+
+				// Still use a short debounce for fine-tuning
 				resizeTimeout = setTimeout(() => {
 					this.setupDeviceSpecificBehavior();
-				}, 250);
+				}, 100); // Reduced from 250ms to 100ms for faster response
 			});
+		},
+
+		/**
+		 * Get current device type based on window width
+		 */
+		getCurrentDeviceType: function () {
+			const width = window.innerWidth;
+			if (width >= 1024) return 'desktop';
+			if (width >= 768) return 'tablet';
+			return 'mobile';
 		}
 	};
 
@@ -216,6 +243,11 @@ function initDesktopLayout() {
 	const projectsContent = document.getElementById('projectsContent');
 
 	if (postsContent && projectsContent) {
+		// Apply smooth transitions
+		postsContent.style.transition = 'opacity 0.15s ease-in-out';
+		projectsContent.style.transition = 'opacity 0.15s ease-in-out';
+		postsContent.style.opacity = '1';
+		projectsContent.style.opacity = '1';
 		postsContent.style.display = 'block';
 		projectsContent.style.display = 'block';
 	}

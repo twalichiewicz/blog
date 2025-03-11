@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			const width = window.innerWidth;
 			const body = document.body;
 
+			// Store current device type before changing
+			const currentDeviceType = this.getCurrentDeviceType();
+
 			// Remove existing device classes
 			body.classList.remove('device-mobile', 'device-tablet', 'device-desktop');
 
@@ -56,6 +59,25 @@ document.addEventListener('DOMContentLoaded', function () {
 					(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))) {
 				body.classList.add('device-ipad-pro');
 			}
+
+			// Return whether device type changed
+			return currentDeviceType !== this.getCurrentDeviceType();
+		},
+
+		/**
+		 * Get current device type based on body classes
+		 */
+		getCurrentDeviceType: function () {
+			const body = document.body;
+			if (body.classList.contains('device-desktop')) return 'desktop';
+			if (body.classList.contains('device-tablet')) return 'tablet';
+			if (body.classList.contains('device-mobile')) return 'mobile';
+
+			// Fallback based on width if classes not set yet
+			const width = window.innerWidth;
+			if (width >= this.breakpoints.desktop.min) return 'desktop';
+			if (width >= this.breakpoints.tablet.min) return 'tablet';
+			return 'mobile';
 		},
 
 		/**
@@ -95,20 +117,31 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Throttled resize handler
 			let resizeTimeout;
 			window.addEventListener('resize', () => {
+				// Check for device type change immediately
+				const deviceChanged = this.detectDevice();
+
+				// If device type changed, update orientation immediately
+				if (deviceChanged) {
+					this.detectOrientation();
+				}
+
 				if (resizeTimeout) {
 					clearTimeout(resizeTimeout);
 				}
+
+				// Use a shorter timeout for more responsive UI
 				resizeTimeout = setTimeout(() => {
 					this.detectDevice();
 					this.detectOrientation();
-				}, 250);
+				}, 100); // Reduced from 250ms to 100ms
 			});
 
 			// Orientation change handler
 			window.addEventListener('orientationchange', () => {
+				// Detect changes more quickly
 				setTimeout(() => {
 					this.detectOrientation();
-				}, 100);
+				}, 50); // Reduced from 100ms to 50ms
 			});
 		}
 	};
