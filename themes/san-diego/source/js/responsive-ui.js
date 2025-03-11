@@ -58,9 +58,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			// Hide mobile tabs
-			const mobileTabs = document.querySelector('.mobile-tabs');
-			if (mobileTabs) {
-				mobileTabs.style.display = 'none';
+			const tabsWrapper = document.querySelector('.tabs-wrapper');
+			if (tabsWrapper) {
+				tabsWrapper.style.display = 'none';
 			}
 
 			// Enable book view
@@ -78,11 +78,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		 */
 		setupTabletBehavior: function () {
 			const isLandscape = document.body.classList.contains('orientation-landscape');
-			const mobileTabs = document.querySelector('.mobile-tabs');
+			const tabsWrapper = document.querySelector('.tabs-wrapper');
 
 			// Ensure mobile tabs are visible
-			if (mobileTabs) {
-				mobileTabs.style.display = 'flex';
+			if (tabsWrapper) {
+				tabsWrapper.style.display = 'block';
 			}
 
 			// Note: Tab visibility and switching is handled by mobile-tabs.js
@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			// Ensure tabs are visible
-			const mobileTabs = document.querySelector('.mobile-tabs');
-			if (mobileTabs) {
-				mobileTabs.style.display = 'flex';
+			const tabsWrapper = document.querySelector('.tabs-wrapper');
+			if (tabsWrapper) {
+				tabsWrapper.style.display = 'block';
 			}
 
 			// Adjust post list for better mobile reading
@@ -169,9 +169,9 @@ function initMobileLayout() {
 	updateOrientation();
 
 	// Mobile layout specific adjustments
-	const mobileTabs = document.querySelector('.mobile-tabs');
-	if (mobileTabs) {
-		mobileTabs.style.display = 'flex';
+	const tabsWrapper = document.querySelector('.tabs-wrapper');
+	if (tabsWrapper) {
+		tabsWrapper.style.display = 'block';
 	}
 }
 
@@ -189,9 +189,9 @@ function initTabletLayout() {
 	updateOrientation();
 
 	// Tablet layout specific adjustments
-	const mobileTabs = document.querySelector('.mobile-tabs');
-	if (mobileTabs) {
-		mobileTabs.style.display = 'flex';
+	const tabsWrapper = document.querySelector('.tabs-wrapper');
+	if (tabsWrapper) {
+		tabsWrapper.style.display = 'block';
 	}
 
 	// Note: We don't set content visibility here - mobile-tabs.js will handle it
@@ -218,6 +218,12 @@ function initDesktopLayout() {
 	if (postsContent && projectsContent) {
 		postsContent.style.display = 'block';
 		projectsContent.style.display = 'block';
+	}
+
+	// Hide tabs wrapper on desktop
+	const tabsWrapper = document.querySelector('.tabs-wrapper');
+	if (tabsWrapper) {
+		tabsWrapper.style.display = 'none';
 	}
 }
 

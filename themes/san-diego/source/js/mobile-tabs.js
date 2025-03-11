@@ -6,6 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 	// Cache DOM elements
+	const tabsWrapper = document.querySelector('.tabs-wrapper');
 	const tabContainer = document.querySelector('.mobile-tabs');
 	if (!tabContainer) return; // Exit if no tab container exists
 
@@ -75,7 +76,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			postsContent.style.display = 'block';
 			projectsContent.style.display = 'block';
 			if (searchBar) searchBar.style.display = 'block';
+
+			// Hide tabs wrapper on desktop
+			if (tabsWrapper) tabsWrapper.style.display = 'none';
 			return;
+		} else {
+			// Show tabs wrapper on mobile/tablet
+			if (tabsWrapper) tabsWrapper.style.display = 'block';
 		}
 
 		// On mobile/tablet, show only the active tab
@@ -155,10 +162,16 @@ document.addEventListener('DOMContentLoaded', function () {
 			// On desktop, show both sections
 			if (postsContent) postsContent.style.display = 'block';
 			if (projectsContent) projectsContent.style.display = 'block';
+
+			// Hide tabs wrapper on desktop
+			if (tabsWrapper) tabsWrapper.style.display = 'none';
 		} else {
 			// On mobile/tablet, validate and apply the current tab state
 			const currentTab = validateActiveState();
 			showContent(currentTab);
+
+			// Show tabs wrapper on mobile/tablet
+			if (tabsWrapper) tabsWrapper.style.display = 'block';
 		}
 	}
 
