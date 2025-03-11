@@ -61,6 +61,13 @@
 		flex-direction: column;
 		overflow: hidden;
 
+		.tabs-wrapper {
+			width: 100%;
+			padding: 0 variables.$space-md;
+			box-sizing: border-box;
+			margin-bottom: 1rem;
+		}
+
 		.content-wrapper {
 			display: flex;
 			width: 100%;
@@ -200,6 +207,13 @@
 		align-items: center;
 		position: relative;
 
+		.tabs-wrapper {
+			width: 100%;
+			padding: 0 variables.$space-md;
+			box-sizing: border-box;
+			margin-bottom: 0.5rem;
+		}
+
 		.mobile-tabs {
 			flex-shrink: 0;
 			margin: variables.$space-sm 0;
@@ -312,6 +326,13 @@
 		flex-direction: column;
 		position: relative;
 		/* Relative to the fixed container */
+
+		.tabs-wrapper {
+			width: 100%;
+			padding: 0 variables.$space-md;
+			box-sizing: border-box;
+			margin-bottom: 1rem;
+		}
 
 		.content-wrapper {
 			flex-direction: column;
@@ -427,6 +448,11 @@
 		flex-direction: column;
 		position: relative;
 		/* Relative to the fixed container */
+
+		.tabs-wrapper {
+			display: none;
+			/* Hide tabs on desktop */
+		}
 
 		.content-wrapper {
 			flex-direction: row;
