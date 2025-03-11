@@ -421,7 +421,7 @@ button {
 	}
 }
 
-/* Contact wrapper - completely rewritten */
+/* Contact wrapper - with skeuomorphic styling */
 .contact-wrapper {
 	z-index: 10;
 
@@ -434,20 +434,39 @@ button {
 		.contact-button {
 			display: block;
 			padding: 8px 16px;
-			background: variables.$card-bg;
+			background: linear-gradient(to bottom, lighten(variables.$card-bg, 5%), variables.$card-bg);
 			border: 1px solid variables.$border-color;
 			border-radius: 6px;
 			font-size: 12px;
+			font-weight: 600;
 			color: variables.$text-color;
 			text-decoration: none;
 			cursor: pointer;
 			transition: all 0.2s ease;
 			z-index: 101;
+			box-shadow:
+				0 1px 2px rgba(0, 0, 0, 0.1),
+				0 -1px 0 rgba(255, 255, 255, 0.5) inset,
+				0 2px 0 rgba(0, 0, 0, 0.1) inset;
+			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 
-			&:hover,
+			&:hover {
+				background: linear-gradient(to bottom, lighten(variables.$card-bg, 8%), lighten(variables.$card-bg, 3%));
+				box-shadow:
+					0 1px 3px rgba(0, 0, 0, 0.15),
+					0 -1px 0 rgba(255, 255, 255, 0.6) inset,
+					0 2px 0 rgba(0, 0, 0, 0.1) inset;
+			}
+
 			&.active {
-				background: variables.$link-color;
+				background: linear-gradient(to bottom, variables.$link-color, darken(variables.$link-color, 5%));
 				color: variables.$white;
+				box-shadow:
+					0 1px 2px rgba(0, 0, 0, 0.2),
+					0 1px 0 rgba(255, 255, 255, 0.2) inset,
+					0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+				text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+				border-color: darken(variables.$link-color, 10%);
 			}
 		}
 
@@ -461,7 +480,9 @@ button {
 			background: variables.$card-bg;
 			border: 1px solid variables.$border-color;
 			border-radius: 6px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			box-shadow:
+				0 4px 8px rgba(0, 0, 0, 0.1),
+				0 0 0 1px rgba(255, 255, 255, 0.9) inset;
 			overflow: hidden;
 			z-index: 100;
 			min-width: 120px;
@@ -470,15 +491,26 @@ button {
 				display: block;
 				padding: 8px 16px;
 				font-size: 12px;
+				font-weight: 500;
 				color: variables.$text-color;
 				text-decoration: none;
 				text-align: center;
-				transition: background 0.2s ease;
+				transition: all 0.2s ease;
 				white-space: nowrap;
+				background: linear-gradient(to bottom, lighten(variables.$card-bg, 5%), variables.$card-bg);
+				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+				box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
 
 				&:hover {
-					background: variables.$link-color;
+					background: linear-gradient(to bottom, variables.$link-color, darken(variables.$link-color, 5%));
 					color: variables.$white;
+					text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+					box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+				}
+
+				&:active {
+					background: linear-gradient(to bottom, darken(variables.$link-color, 5%), variables.$link-color);
+					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
 				}
 
 				&:not(:last-child) {
@@ -509,23 +541,47 @@ button {
 			border: 1px solid variables.$border-color;
 			border-radius: 6px;
 			overflow: hidden;
+			box-shadow:
+				0 2px 4px rgba(0, 0, 0, 0.1),
+				0 0 0 1px rgba(255, 255, 255, 0.9) inset;
 
 			.contact-option {
 				padding: 8px 16px;
 				font-size: 12px;
+				font-weight: 500;
 				color: variables.$text-color;
 				text-decoration: none;
 				text-align: center;
-				background: variables.$card-bg;
-				transition: background 0.2s ease;
+				background: linear-gradient(to bottom, lighten(variables.$card-bg, 5%), variables.$card-bg);
+				transition: all 0.2s ease;
+				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+				box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+				position: relative;
 
 				&:hover {
-					background: variables.$link-color;
+					background: linear-gradient(to bottom, variables.$link-color, darken(variables.$link-color, 5%));
 					color: variables.$white;
+					text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+					box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+				}
+
+				&:active {
+					background: linear-gradient(to bottom, darken(variables.$link-color, 5%), variables.$link-color);
+					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
 				}
 
 				&:not(:last-child) {
 					border-right: 1px solid variables.$border-color;
+
+					&:after {
+						content: '';
+						position: absolute;
+						right: 0;
+						top: 0;
+						height: 100%;
+						width: 1px;
+						background: rgba(255, 255, 255, 0.7);
+					}
 				}
 			}
 		}
@@ -536,29 +592,65 @@ button {
 @media (prefers-color-scheme: dark) {
 	.contact-wrapper {
 		.contact-button {
-			background: variables.$card-bg-dark;
+			background: linear-gradient(to bottom, lighten(variables.$card-bg-dark, 8%), variables.$card-bg-dark);
 			border-color: variables.$border-color-dark;
 			color: variables.$text-color-dark;
+			box-shadow:
+				0 1px 2px rgba(0, 0, 0, 0.3),
+				0 -1px 0 rgba(255, 255, 255, 0.1) inset,
+				0 2px 0 rgba(0, 0, 0, 0.2) inset;
+			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 
-			&:hover,
+			&:hover {
+				background: linear-gradient(to bottom, lighten(variables.$card-bg-dark, 12%), lighten(variables.$card-bg-dark, 5%));
+				box-shadow:
+					0 1px 3px rgba(0, 0, 0, 0.4),
+					0 -1px 0 rgba(255, 255, 255, 0.1) inset,
+					0 2px 0 rgba(0, 0, 0, 0.2) inset;
+			}
+
 			&.active {
-				background: variables.$link-color-dark;
-				color: variables.$white;
+				background: linear-gradient(to bottom, variables.$link-color-dark, darken(variables.$link-color-dark, 10%));
+				color: variables.$black;
+				box-shadow:
+					0 1px 2px rgba(0, 0, 0, 0.4),
+					0 1px 0 rgba(255, 255, 255, 0.3) inset,
+					0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+				border-color: darken(variables.$link-color-dark, 15%);
 			}
 		}
 
 		.contact-options {
 			background: variables.$card-bg-dark;
 			border-color: variables.$border-color-dark;
+			box-shadow:
+				0 4px 8px rgba(0, 0, 0, 0.3),
+				0 0 0 1px rgba(255, 255, 255, 0.05) inset;
 
 			.contact-option {
 				color: variables.$text-color-dark;
-				background: variables.$card-bg-dark;
+				background: linear-gradient(to bottom, lighten(variables.$card-bg-dark, 8%), variables.$card-bg-dark);
 				border-color: variables.$border-color-dark;
+				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+				box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
 
 				&:hover {
-					background: variables.$link-color-dark;
-					color: variables.$white;
+					background: linear-gradient(to bottom, variables.$link-color-dark, darken(variables.$link-color-dark, 10%));
+					color: variables.$black;
+					text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+					box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+				}
+
+				&:active {
+					background: linear-gradient(to bottom, darken(variables.$link-color-dark, 10%), variables.$link-color-dark);
+					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+				}
+
+				&:not(:last-child) {
+					&:after {
+						background: rgba(255, 255, 255, 0.1);
+					}
 				}
 			}
 		}
