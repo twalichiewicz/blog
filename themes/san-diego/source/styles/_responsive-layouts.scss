@@ -595,7 +595,6 @@
 			width: auto !important;
 			padding-left: 0 !important;
 			padding-right: 0 !important;
-			border-bottom: 1px solid variables.$border-color;
 		}
 
 		/* Blog header wave */
@@ -647,7 +646,7 @@
 				}
 
 				p {
-					font-size: 0.95rem;
+					font-size: 13px;
 					line-height: 1.4;
 					margin: variables.$spacing-stack 0;
 				}

@@ -45,7 +45,7 @@
 		p,
 		ul,
 		ol {
-			font-size: 0.95rem;
+			font-size: 13px;
 			line-height: 1.4;
 			margin: variables.$spacing-stack 0;
 		}
@@ -57,7 +57,7 @@
 			li {
 				margin-bottom: 0.5rem;
 				color: variables.$grey-dark;
-				font-size: 0.95rem;
+				font-size: 13px;
 				line-height: 1.4;
 
 				&:last-child {

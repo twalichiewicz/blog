@@ -20,6 +20,60 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Track current device type to detect changes
 	let currentDeviceType = '';
 
+	// Function to update the slider width and position based on active button
+	function updateSlider() {
+		if (!tabContainer || tabButtons.length < 2) return;
+
+		const activeButton = tabContainer.querySelector('.tab-button.active');
+		if (!activeButton) return;
+
+		// Get the active button's width and position
+		const buttonWidth = activeButton.offsetWidth;
+		const buttonIndex = Array.from(tabButtons).indexOf(activeButton);
+
+		// Get the container's padding and gap
+		const containerStyle = window.getComputedStyle(tabContainer);
+		const containerPadding = parseInt(containerStyle.paddingLeft) || 4; // Default to 4px if not set
+		const gap = parseInt(containerStyle.gap) || 4; // Default to 4px if not set
+
+		// Get the container's width for calculations
+		const containerWidth = tabContainer.offsetWidth;
+
+		// Calculate the exact position of the active button relative to the container
+		let position = containerPadding;
+
+		// If it's the second button, add the width of the first button plus the gap
+		if (buttonIndex === 1) {
+			position += tabButtons[0].offsetWidth + gap;
+		}
+
+		// Calculate the adjusted width to ensure it doesn't extend beyond the container
+		let adjustedWidth;
+
+		if (buttonIndex === 0) {
+			// For the first button
+			adjustedWidth = buttonWidth - containerPadding;
+		} else {
+			// For the second button, ensure it doesn't extend beyond the container
+			const rightEdge = position + buttonWidth;
+			const maxRightPosition = containerWidth - containerPadding;
+
+			if (rightEdge > maxRightPosition) {
+				// If it would extend beyond the container, adjust the width
+				adjustedWidth = maxRightPosition - position;
+			} else {
+				adjustedWidth = buttonWidth;
+			}
+		}
+
+		// Ensure the width is never negative
+		adjustedWidth = Math.max(adjustedWidth, 0);
+
+		// Set the width and position
+		tabContainer.style.setProperty('--button-width', `${adjustedWidth}px`);
+		tabContainer.style.setProperty('--slider-x', `${position}px`);
+	}
+
 	// Function to ensure only one tab is active and return the active tab type
 	function validateActiveState() {
 		// Count active tabs
@@ -44,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				defaultButton.setAttribute('aria-selected', 'true');
 				tabContainer.setAttribute('data-active-tab', defaultTab);
 				showContent(defaultTab);
+				updateSlider(); // Update slider after changing active tab
 				return defaultTab;
 			}
 		}
@@ -61,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				const type = lastActiveButton.dataset.type;
 				tabContainer.setAttribute('data-active-tab', type);
 				showContent(type);
+				updateSlider(); // Update slider after changing active tab
 				return type;
 			}
 		}
@@ -140,6 +196,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Update the data attribute
 		tabContainer.setAttribute('data-active-tab', type);
 
+		// Update the slider position and width
+		updateSlider();
+
 		// Show the appropriate content
 		showContent(type);
 	}
@@ -147,6 +206,30 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Set initial state
 	const initialTab = validateActiveState();
 	showContent(initialTab);
+	updateSlider(); // Initialize slider position and width
+
+	// Update slider after a short delay to ensure fonts are loaded
+	setTimeout(updateSlider, 100);
+
+	// Update slider when fonts are loaded (if the browser supports the fonts API)
+	if (document.fonts && document.fonts.ready) {
+		document.fonts.ready.then(() => {
+			updateSlider();
+		});
+	}
+
+	// Use ResizeObserver to monitor container size changes
+	if (window.ResizeObserver) {
+		const resizeObserver = new ResizeObserver(() => {
+			updateSlider();
+		});
+		resizeObserver.observe(tabContainer);
+
+		// Also observe each button for size changes
+		tabButtons.forEach(button => {
+			resizeObserver.observe(button);
+		});
+	}
 
 	// Add click handlers for tab buttons
 	tabButtons.forEach(button => {
@@ -169,9 +252,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			handleDeviceChange(true);
 		}
 
+		// Update slider on resize
+		updateSlider();
+
 		// Still use a short debounce for fine-tuning
 		resizeTimer = setTimeout(() => {
 			handleDeviceChange(false);
+			updateSlider(); // Update slider again after resize completes
 		}, 100); // Reduced from 250ms to 100ms for faster response
 	});
 
@@ -217,6 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			// On mobile/tablet, validate and apply the current tab state
 			const currentTab = validateActiveState();
 			showContent(currentTab);
+			updateSlider(); // Update slider after device change
 
 			// Show tabs wrapper on mobile/tablet
 			if (tabsWrapper) tabsWrapper.style.display = 'block';
@@ -233,6 +321,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		setTimeout(() => {
 			validateActiveState();
 			handleDeviceChange(true);
+			updateSlider(); // Update slider after orientation change
 		}, 150); // Reduced from 300ms to 150ms
 	});
 
@@ -255,6 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	// This is a safety measure to ensure the UI stays consistent
 	const consistencyInterval = setInterval(() => {
 		validateActiveState();
+		updateSlider(); // Periodically update slider to ensure it stays aligned
 
 		// Check if we're on tablet/mobile and both sections are visible (bug case)
 		if (!document.body.classList.contains('device-desktop')) {
