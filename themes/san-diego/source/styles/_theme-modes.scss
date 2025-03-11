@@ -7,30 +7,429 @@
    were previously in _responsive-layouts.scss
    ========================================================================== */
 
+/* Smooth transitions between light and dark mode */
+.blog {
+	transition:
+		background-color 0.5s ease,
+		color 0.5s ease;
+
+	.blog-content {
+		transition:
+			background-color 0.5s ease,
+			box-shadow 0.5s ease,
+			border-color 0.5s ease;
+	}
+
+	.profile-header,
+	.post-list-item,
+	.profile-photo,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	a,
+	button,
+	.button,
+	.profile-name,
+	.profile-bio,
+	.profile-stats .stat .number,
+	.profile-stats .stat .label,
+	pre,
+	code,
+	blockquote,
+	.contact-button,
+	.contact-option {
+		transition:
+			color 0.3s ease,
+			background-color 0.3s ease,
+			border-color 0.3s ease,
+			box-shadow 0.3s ease;
+	}
+}
+
 /* Dark mode media queries */
 @media (prefers-color-scheme: dark) {
 	.blog {
 
 		/* Dark mode for blog header */
-		&.blog .profile-header .profile-info {
-			.profile-name {
-				text-shadow:
-					0 1px 1px rgba(255, 255, 255, 0.2),
-					0 -1px 1px rgba(variables.$black, 0.4);
-				color: variables.$white !important;
-			}
-
-			.profile-bio {
-				color: variables.$grey-dark !important;
-			}
-
-			.profile-stats .stat {
-				.number {
+		&.blog .profile-header {
+			.profile-info {
+				.profile-name {
+					text-shadow:
+						0 1px 1px rgba(255, 255, 255, 0.2),
+						0 -1px 1px rgba(variables.$black, 0.4);
 					color: variables.$white !important;
 				}
 
-				.label {
+				.profile-bio {
 					color: variables.$grey-dark !important;
+				}
+
+				.profile-stats .stat {
+					.number {
+						color: variables.$white !important;
+					}
+
+					.label {
+						color: variables.$grey-dark !important;
+					}
+				}
+			}
+
+			.profile-photo {
+				box-shadow:
+					0 0 0 1px rgba(variables.$white, 0.2),
+					0 0 0 2px rgba(variables.$black, 0.3),
+					inset 0 2px 8px rgba(variables.$black, 0.6),
+					inset 0 -4px 8px rgba(variables.$white, 0.1);
+				background: linear-gradient(145deg,
+						rgba(variables.$white, 0.05),
+						rgba(variables.$black, 0.2));
+			}
+
+			.contact-wrapper {
+				.contact-button {
+					background: variables.$card-bg-dark;
+					border-color: variables.$border-color-dark;
+					color: variables.$text-color-dark;
+
+					&:hover {
+						background: variables.$link-color-dark;
+					}
+				}
+
+				.contact-options {
+					.contact-option {
+						background: variables.$card-bg-dark;
+						border-color: variables.$border-color-dark;
+						color: variables.$text-color-dark;
+
+						&:hover {
+							background: variables.$link-color-dark;
+						}
+					}
+				}
+			}
+		}
+
+		/* Dark mode for blog content on tablet and desktop */
+		@media screen and (min-width: variables.$mobile-breakpoint) {
+			.blog-content {
+				background-color: variables.$body-bg-dark;
+				box-shadow:
+					0 4px 20px rgba(0, 0, 0, 0.3),
+					0 0 0 1px variables.$border-color-dark;
+
+				/* Content wrapper styling */
+				.content-wrapper {
+					background: variables.$card-bg-dark;
+					border-radius: 12px;
+					box-shadow: variables.$shadow-soft-dark;
+					margin: variables.$space-sm;
+					padding: 0;
+					position: relative;
+					overflow: hidden;
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					gap: variables.$space-xl;
+					height: calc(100% - variables.$space-sm * 2);
+
+					&::-webkit-scrollbar-thumb {
+						background-color: rgba(255, 255, 255, 0.1);
+						border-radius: 3px;
+					}
+
+					&::-webkit-scrollbar-track {
+						background: rgba(0, 0, 0, 0.2);
+						border-radius: 3px;
+					}
+
+					#postsContent,
+					#projectsContent {
+						background: transparent;
+						border-radius: 0;
+						box-shadow: none;
+						margin: 0;
+						padding: variables.$space-md;
+						overflow-y: auto;
+						overflow-x: hidden;
+						height: 100%;
+						flex: 1;
+						max-width: 600px;
+
+						.column-title {
+							color: variables.$white;
+							border-bottom: 1px solid variables.$border-color-dark;
+							padding-bottom: variables.$space-xs;
+							margin-bottom: variables.$space-md;
+						}
+
+						/* Post styling in dark mode */
+						.post-list-item {
+							border-bottom-color: variables.$border-color-dark;
+							padding: variables.$space-md 0;
+							transition: transform 0.2s ease, background-color 0.2s ease;
+
+							&:hover {
+								background-color: rgba(255, 255, 255, 0.03);
+								transform: translateY(-2px);
+							}
+
+							h3 {
+								a {
+									color: variables.$white;
+
+									&:hover {
+										color: variables.$link-color-dark;
+									}
+								}
+							}
+
+							p {
+								color: variables.$text-color-secondary-dark;
+							}
+
+							.post-byline {
+								color: variables.$grey-dark;
+							}
+
+							.post-date {
+								color: variables.$grey-dark;
+								font-size: 0.8rem;
+							}
+
+							.post-tags {
+								.tag {
+									background: rgba(255, 255, 255, 0.05);
+									border: 1px solid variables.$border-color-dark;
+									color: variables.$grey-dark;
+
+									&:hover {
+										background: variables.$link-color-dark;
+										color: variables.$black;
+										border-color: variables.$link-color-dark;
+									}
+								}
+							}
+						}
+
+						/* Code blocks in dark mode */
+						pre,
+						code {
+							background: rgba(0, 0, 0, 0.3);
+							border: 1px solid variables.$border-color-dark;
+							color: variables.$grey-light;
+						}
+
+						/* Images in dark mode */
+						img {
+							filter: brightness(0.9);
+							border: 1px solid variables.$border-color-dark;
+							box-shadow: variables.$shadow-soft-dark;
+						}
+
+						/* Links in dark mode */
+						a:not(.button) {
+							color: variables.$link-color-dark;
+							text-decoration: none;
+							transition: color 0.2s ease;
+
+							&:hover {
+								color: lighten(variables.$link-color-dark, 10%);
+								text-decoration: underline;
+							}
+						}
+
+						/* Headings in dark mode */
+						h1,
+						h2,
+						h3,
+						h4,
+						h5,
+						h6 {
+							color: variables.$white;
+						}
+					}
+				}
+			}
+		}
+
+		/* Specific styles for tablet */
+		&.device-tablet .blog-content {
+			background: linear-gradient(135deg,
+					rgba(variables.$black, 0.9) 0%,
+					variables.$body-bg-dark 100%);
+
+			/* Tablet-specific content styling */
+			.content-wrapper {
+				/* Subtle glow effect on content containers */
+				box-shadow:
+					variables.$shadow-soft-dark,
+					0 0 20px rgba(variables.$link-color-dark, 0.05);
+
+				/* Subtle border highlight */
+				border: 1px solid rgba(variables.$link-color-dark, 0.1);
+				flex-direction: column;
+
+				#postsContent,
+				#projectsContent {
+					/* Remove any box-shadow that might be inherited */
+					box-shadow: none;
+					border: none;
+					max-width: 100%;
+				}
+			}
+
+			/* Scrollbar styling for tablet */
+			::-webkit-scrollbar {
+				width: 6px;
+				height: 6px;
+			}
+
+			::-webkit-scrollbar-track {
+				background: rgba(0, 0, 0, 0.2);
+				border-radius: 4px;
+			}
+
+			::-webkit-scrollbar-thumb {
+				background: rgba(variables.$link-color-dark, 0.3);
+				border-radius: 4px;
+
+				&:hover {
+					background: rgba(variables.$link-color-dark, 0.5);
+				}
+			}
+		}
+
+		/* Specific styles for desktop */
+		&.device-desktop .blog-content {
+			background: linear-gradient(135deg,
+					variables.$body-bg-dark 0%,
+					rgba(variables.$black, 0.8) 100%);
+			backdrop-filter: blur(5px);
+
+			/* Desktop-specific content styling */
+			.content-wrapper {
+
+				/* Add subtle grain texture */
+				&::before {
+					content: '';
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+					opacity: 0.03;
+					pointer-events: none;
+					z-index: -1;
+				}
+
+				/* Enhanced shadow for desktop */
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2),
+				0 0 30px rgba(variables.$link-color-dark, 0.05);
+
+				/* Subtle border highlight */
+				border: 1px solid rgba(variables.$link-color-dark, 0.15);
+
+				/* Smooth transition for hover effects */
+				transition: box-shadow 0.3s ease,
+				transform 0.3s ease;
+
+				/* Maintain row layout for desktop */
+				flex-direction: row;
+
+				&:hover {
+					box-shadow:
+						0 6px 25px rgba(0, 0, 0, 0.25),
+						0 0 40px rgba(variables.$link-color-dark, 0.08);
+					transform: translateY(-2px);
+				}
+
+				#postsContent,
+				#projectsContent {
+					/* Remove any box-shadow that might be inherited */
+					box-shadow: none;
+					border: none;
+
+					/* Ensure proper scrolling */
+					overflow-y: auto;
+
+					/* Enhanced post item styling */
+					.post-list-item {
+						position: relative;
+						overflow: hidden;
+
+						&::after {
+							content: '';
+							position: absolute;
+							bottom: 0;
+							left: 0;
+							width: 100%;
+							height: 1px;
+							background: linear-gradient(to right,
+									transparent,
+									rgba(variables.$link-color-dark, 0.2),
+									transparent);
+						}
+
+						&:last-child::after {
+							display: none;
+						}
+
+						/* Add subtle hover effect */
+						&:hover {
+							background-color: rgba(255, 255, 255, 0.03);
+							transform: translateY(-2px);
+
+							h3 a {
+								color: variables.$link-color-dark;
+							}
+						}
+					}
+
+					/* Enhance scrollbar for better visibility */
+					&::-webkit-scrollbar {
+						width: 8px;
+					}
+
+					&::-webkit-scrollbar-track {
+						background: rgba(0, 0, 0, 0.2);
+						border-radius: 4px;
+					}
+
+					&::-webkit-scrollbar-thumb {
+						background: rgba(variables.$link-color-dark, 0.3);
+						border-radius: 4px;
+
+						&:hover {
+							background: rgba(variables.$link-color-dark, 0.5);
+						}
+					}
+				}
+			}
+
+			/* Custom scrollbar for desktop */
+			::-webkit-scrollbar {
+				width: 8px;
+				height: 8px;
+			}
+
+			::-webkit-scrollbar-track {
+				background: rgba(0, 0, 0, 0.2);
+				border-radius: 4px;
+			}
+
+			::-webkit-scrollbar-thumb {
+				background: rgba(variables.$link-color-dark, 0.3);
+				border-radius: 4px;
+
+				&:hover {
+					background: rgba(variables.$link-color-dark, 0.5);
 				}
 			}
 		}
@@ -103,6 +502,45 @@
 
 			&:hover:not(.active) {
 				color: variables.$link-color-dark;
+			}
+		}
+
+		/* Dark mode for mobile-tabs */
+		.tabs-wrapper {
+			.mobile-tabs {
+				background: variables.$card-bg-dark;
+				border-color: variables.$border-color-dark;
+				box-shadow:
+					0 1px 3px rgba(0, 0, 0, 0.2),
+					0 1px 2px rgba(0, 0, 0, 0.12),
+					inset 0 2px 4px rgba(0, 0, 0, 0.2),
+					inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+
+				&::after {
+					background: variables.$link-color-dark;
+					box-shadow:
+						0 1px 2px rgba(0, 0, 0, 0.4),
+						0 0 8px rgba(variables.$link-color-dark, 0.3);
+					transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+				}
+
+				.tab-button {
+					color: variables.$text-color-secondary-dark;
+					transition: color 0.3s ease;
+
+					&.active {
+						color: variables.$black !important;
+						text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+					}
+
+					&:not(.active) {
+						color: variables.$text-color-secondary-dark !important;
+
+						&:hover {
+							color: variables.$text-color-dark !important;
+						}
+					}
+				}
 			}
 		}
 
