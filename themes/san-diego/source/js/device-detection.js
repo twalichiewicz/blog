@@ -11,9 +11,9 @@
 	const body = document.body;
 
 	// Add appropriate device class
-	if (width <= 767) {
+	if (width <= 767) { // Just below $mobile-breakpoint (768px)
 		body.classList.add('device-mobile');
-	} else if (width >= 768 && width <= 1199) {
+	} else if (width >= 768 && width <= 1023) { // Between $mobile-breakpoint and $tablet-breakpoint
 		body.classList.add('device-tablet');
 	} else {
 		body.classList.add('device-desktop');
@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Breakpoints matching our SCSS definitions
 		breakpoints: {
 			mobile: {
-				max: 767
+				max: 767  // Just below $mobile-breakpoint (768px)
 			},
 			tablet: {
-				min: 768,
-				max: 1199
+				min: 768, // $mobile-breakpoint: 768px
+				max: 1023 // Just below $tablet-breakpoint (1024px)
 			},
 			desktop: {
-				min: 1200
+				min: 1024 // $tablet-breakpoint: 1024px
 			}
 		},
 
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				body.classList.add('device-desktop');
 			}
 
-			// Detect specific devices
+			// Detect specific devices - using consistent breakpoints
 			if (width >= 1024 && width <= 1366 &&
 				(navigator.userAgent.includes('iPad') ||
 					(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))) {
@@ -151,19 +151,19 @@ document.addEventListener('DOMContentLoaded', function () {
 					clearTimeout(resizeTimeout);
 				}
 
-				// Use a shorter timeout for more responsive UI
+				// Use a consistent 100ms timeout for responsive behavior
 				resizeTimeout = setTimeout(() => {
 					this.detectDevice();
 					this.detectOrientation();
-				}, 100); // Reduced from 250ms to 100ms
+				}, 100);
 			});
 
 			// Orientation change handler
 			window.addEventListener('orientationchange', () => {
-				// Detect changes more quickly
+				// Detect changes with consistent timing
 				setTimeout(() => {
 					this.detectOrientation();
-				}, 50); // Reduced from 100ms to 50ms
+				}, 50); // Consistent 50ms timeout for orientation changes
 			});
 		}
 	};

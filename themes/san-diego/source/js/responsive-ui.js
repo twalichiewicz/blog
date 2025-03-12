@@ -58,9 +58,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			if (postsContent && projectsContent) {
-				// Apply smooth transitions
-				postsContent.style.transition = 'opacity 0.15s ease-in-out';
-				projectsContent.style.transition = 'opacity 0.15s ease-in-out';
+				// Apply smooth transitions - using CSS variable values
+				const transitionTiming = '0.2s ease'; // Matches --transition-fast: 0.2s ease
+				postsContent.style.transition = `opacity ${transitionTiming}`;
+				projectsContent.style.transition = `opacity ${transitionTiming}`;
 				postsContent.style.opacity = '1';
 				projectsContent.style.opacity = '1';
 				postsContent.style.display = 'block';
@@ -150,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			window.addEventListener('orientationchange', () => {
 				setTimeout(() => {
 					this.setupDeviceSpecificBehavior();
-				}, 100); // Reduced from 100ms for faster response
+				}, 50); // Consistent 50ms timeout for orientation changes
 			});
 
 			// Listen for resize events
@@ -180,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
 									// Simulate a click on the active tab button
 									setTimeout(() => {
 										activeButton.click();
-									}, 50);
+									}, 50); // Consistent 50ms timeout for UI interactions
 								}
 							}
 						}
@@ -204,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							tabsWrapper.style.display = 'block';
 						}
 					}
-				}, 100); // Reduced from 250ms to 100ms for faster response
+				}, 100); // Consistent 100ms timeout for responsive behavior
 			});
 		},
 
@@ -213,8 +214,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		 */
 		getCurrentDeviceType: function () {
 			const width = window.innerWidth;
-			if (width >= 1024) return 'desktop';
-			if (width >= 768) return 'tablet';
+			// Use the same breakpoint values as defined in _variables.scss
+			if (width >= 1024) return 'desktop'; // $tablet-breakpoint: 1024px;
+			if (width >= 768) return 'tablet';   // $mobile-breakpoint: 768px;
 			return 'mobile';
 		}
 	};
@@ -333,10 +335,10 @@ function handleDeviceChange() {
 	const width = window.innerWidth;
 	const height = window.innerHeight;
 
-	// Determine device type based on screen size
-	if (width < 768) {
+	// Determine device type based on screen size - using consistent breakpoints
+	if (width < 768) { // Below $mobile-breakpoint
 		initMobileLayout();
-	} else if (width < 1024 || (width < 1366 && height < 1024)) {
+	} else if (width < 1024 || (width < 1366 && height < 1024)) { // Below $tablet-breakpoint
 		initTabletLayout();
 	} else {
 		initDesktopLayout();
