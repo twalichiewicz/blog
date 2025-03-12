@@ -1,4 +1,5 @@
 @use 'variables';
+@use "sass:color";
 
 /* ==========================================================================
    Theme Modes - Dark/Light Mode Styles
@@ -115,28 +116,43 @@
 			}
 		}
 
+		/* Global dark mode style for external-icon */
+		.external-icon {
+			background: rgba(255, 255, 255, 0.1);
+			border-color: rgba(255, 255, 255, 0.05);
+			color: variables.$white;
+
+			&:hover {
+				background: variables.$link-color-dark;
+				border-color: variables.$link-color-dark;
+				color: variables.$white;
+			}
+		}
+
+		/* Dark mode for mobile-tabs border */
+		.mobile-tabs {
+			border-bottom-color: variables.$border-color-dark;
+		}
+
 		/* Dark mode for blog content on tablet and desktop */
 		@media screen and (min-width: variables.$mobile-breakpoint) {
 			.blog-content {
-				background-color: variables.$body-bg-dark;
+				/* Subtle gradient background for the blog content in dark mode */
+				background: linear-gradient(135deg,
+						hsl(28, 10%, 10%) 0%,
+						hsl(28, 8%, 15%) 100%);
 				box-shadow:
 					0 4px 20px rgba(0, 0, 0, 0.3),
 					0 0 0 1px variables.$border-color-dark;
 
 				/* Content wrapper styling */
 				.content-wrapper {
-					background: variables.$card-bg-dark;
+					/* Darker background with subtle gradient */
+					background: linear-gradient(to bottom right,
+							hsl(28, 8%, 18%) 0%,
+							hsl(28, 10%, 15%) 100%);
 					border-radius: 12px;
 					box-shadow: variables.$shadow-soft-dark;
-					margin: variables.$space-sm;
-					padding: 0;
-					position: relative;
-					overflow: hidden;
-					display: flex;
-					flex-direction: row;
-					justify-content: center;
-					gap: variables.$space-xl;
-					height: calc(100% - variables.$space-sm * 2);
 
 					&::-webkit-scrollbar-thumb {
 						background-color: rgba(255, 255, 255, 0.1);
@@ -153,31 +169,15 @@
 						background: transparent;
 						border-radius: 0;
 						box-shadow: none;
-						margin: 0;
-						padding: variables.$space-md;
-						overflow-y: auto;
-						overflow-x: hidden;
-						height: 100%;
-						flex: 1;
-						max-width: 600px;
 
 						.column-title {
 							color: variables.$white;
 							border-bottom: 1px solid variables.$border-color-dark;
-							padding-bottom: variables.$space-xs;
-							margin-bottom: variables.$space-md;
 						}
 
 						/* Post styling in dark mode */
 						.post-list-item {
 							border-bottom-color: variables.$border-color-dark;
-							padding: variables.$space-md 0;
-							transition: transform 0.2s ease, background-color 0.2s ease;
-
-							&:hover {
-								background-color: rgba(255, 255, 255, 0.03);
-								transform: translateY(-2px);
-							}
 
 							h3 {
 								a {
@@ -199,7 +199,6 @@
 
 							.post-date {
 								color: variables.$grey-dark;
-								font-size: 0.8rem;
 							}
 
 							.post-tags {
@@ -213,6 +212,16 @@
 										color: variables.$black;
 										border-color: variables.$link-color-dark;
 									}
+								}
+							}
+
+							/* Only apply hover effects to post-link items */
+							&.post-link {
+								transition: transform 0.2s ease, background-color 0.2s ease;
+
+								&:hover {
+									background-color: rgba(255, 255, 255, 0.03);
+									transform: translateY(-2px);
 								}
 							}
 						}
@@ -239,7 +248,7 @@
 							transition: color 0.2s ease;
 
 							&:hover {
-								color: lighten(variables.$link-color-dark, 10%);
+								color: color.adjust(variables.$link-color-dark, $lightness: 10%);
 								text-decoration: underline;
 							}
 						}
@@ -261,8 +270,8 @@
 		/* Specific styles for tablet */
 		&.device-tablet .blog-content {
 			background: linear-gradient(135deg,
-					rgba(variables.$black, 0.9) 0%,
-					variables.$body-bg-dark 100%);
+					hsl(28, 10%, 12%) 0%,
+					hsl(28, 8%, 16%) 100%);
 
 			/* Tablet-specific content styling */
 			.content-wrapper {
@@ -273,14 +282,22 @@
 
 				/* Subtle border highlight */
 				border: 1px solid rgba(variables.$link-color-dark, 0.1);
-				flex-direction: column;
 
 				#postsContent,
 				#projectsContent {
 					/* Remove any box-shadow that might be inherited */
 					box-shadow: none;
 					border: none;
-					max-width: 100%;
+
+					/* Tablet-specific portfolio item styling */
+					.portfolio-item {
+						box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+
+						&:hover {
+							box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25),
+								0 0 0 1px rgba(variables.$link-color-dark, 0.15);
+						}
+					}
 				}
 			}
 
@@ -308,8 +325,8 @@
 		/* Specific styles for desktop */
 		&.device-desktop .blog-content {
 			background: linear-gradient(135deg,
-					variables.$body-bg-dark 0%,
-					rgba(variables.$black, 0.8) 100%);
+					hsl(28, 10%, 14%) 0%,
+					hsl(28, 8%, 10%) 100%);
 			backdrop-filter: blur(5px);
 
 			/* Desktop-specific content styling */
@@ -340,9 +357,6 @@
 				transition: box-shadow 0.3s ease,
 				transform 0.3s ease;
 
-				/* Maintain row layout for desktop */
-				flex-direction: row;
-
 				&:hover {
 					box-shadow:
 						0 6px 25px rgba(0, 0, 0, 0.25),
@@ -355,9 +369,6 @@
 					/* Remove any box-shadow that might be inherited */
 					box-shadow: none;
 					border: none;
-
-					/* Ensure proper scrolling */
-					overflow-y: auto;
 
 					/* Enhanced post item styling */
 					.post-list-item {
@@ -381,14 +392,98 @@
 							display: none;
 						}
 
-						/* Add subtle hover effect */
-						&:hover {
+						/* Add subtle hover effect only to post-link items */
+						&.post-link:hover {
 							background-color: rgba(255, 255, 255, 0.03);
 							transform: translateY(-2px);
 
 							h3 a {
 								color: variables.$link-color-dark;
 							}
+						}
+					}
+
+					/* Enhanced portfolio item styling for desktop */
+					.portfolio-item {
+						box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+						&:hover {
+							box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3),
+								0 0 0 1px rgba(variables.$link-color-dark, 0.2);
+							background-color: rgba(255, 255, 255, 0.1);
+						}
+
+						&.has-writeup {
+							background: rgba(0, 0, 0, 0.5);
+							backdrop-filter: blur(5px);
+							border: 1px solid rgba(255, 255, 255, 0.1);
+							color: variables.$text-color-dark;
+							box-shadow: variables.$shadow-soft-dark;
+
+							&:hover {
+								background-color: rgba(255, 255, 255, 0.03);
+								border-color: variables.$link-color-dark;
+								box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+							}
+
+							.company-byline {
+								color: variables.$grey-dark;
+								opacity: 0.8;
+							}
+
+							h3,
+							h4 {
+								color: variables.$white;
+
+								a {
+									color: variables.$white;
+
+									&:hover {
+										color: variables.$link-color-dark;
+									}
+								}
+							}
+
+							p {
+								color: variables.$grey-light;
+							}
+
+							.external-icon {
+								/* Dark mode appearance only - structure comes from _components.scss */
+								background: rgba(255, 255, 255, 0.1);
+								border-color: rgba(255, 255, 255, 0.05);
+								color: variables.$white;
+
+								&:hover {
+									background: variables.$link-color-dark;
+									border-color: variables.$link-color-dark;
+									color: variables.$white;
+								}
+							}
+
+							/* Dark mode accordion */
+							.content-accordion {
+								border-top-color: rgba(255, 255, 255, 0.05);
+
+								summary {
+									color: variables.$grey-dark;
+
+									&:hover {
+										color: variables.$link-color-dark;
+									}
+								}
+
+								.accordion-content {
+									color: variables.$grey-dark;
+									background: rgba(255, 255, 255, 0.03);
+								}
+							}
+						}
+
+						&:not(.has-writeup):hover {
+							transform: none;
+							box-shadow: none;
+							background: hsl(35, 10%, 75%);
 						}
 					}
 
@@ -461,11 +556,29 @@
 			}
 
 			&.post-link {
-				background: rgba(255, 255, 255, 0.05);
+				background: rgba(0, 0, 0, 0.5);
+				backdrop-filter: blur(5px);
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				color: variables.$text-color-dark;
 
 				.link-share {
 					h3 a {
 						color: variables.$white;
+
+						.link-text-group {
+							color: variables.$white;
+						}
+
+						.external-icon {
+							background: rgba(255, 255, 255, 0.1);
+							border-color: rgba(255, 255, 255, 0.1);
+							color: variables.$white;
+						}
+
+						&:hover .external-icon {
+							background: variables.$link-color-dark;
+							border-color: variables.$link-color-dark;
+						}
 					}
 
 					.link-source {
@@ -478,14 +591,27 @@
 				}
 
 				.content-accordion {
-					border-top-color: variables.$border-color-dark;
+					border-top-color: rgba(255, 255, 255, 0.05);
 
 					summary {
 						color: variables.$grey-dark;
+
+						&::before {
+							opacity: 0.5;
+						}
+
+						&:hover {
+							color: variables.$link-color-dark;
+
+							&::before {
+								opacity: 0.8;
+							}
+						}
 					}
 
 					.accordion-content {
 						color: variables.$grey-dark;
+						background: rgba(255, 255, 255, 0.03);
 					}
 				}
 			}
@@ -574,7 +700,7 @@
 		}
 
 		.view-toggle {
-			background-color: variables.$body-bg-dark;
+			background-color: hsl(28, 10%, 12%);
 
 			.segmented-button {
 				background: rgba(0, 0, 0, 0.3);
@@ -639,67 +765,7 @@
 
 		/* Dark mode for portfolio item cards */
 		.portfolio-item {
-			background: rgba(255, 255, 255, 0.05);
-
-			.portfolio-image::after {
-				background: linear-gradient(to bottom,
-						rgba(0, 0, 0, 0.3) 0%,
-						rgba(0, 0, 0, 0.9) 100%);
-			}
-
-			.portfolio-content .content-text {
-				h4 {
-					color: variables.$white;
-				}
-
-				p {
-					color: variables.$grey-light;
-				}
-			}
-
-			.external-icon {
-				background: rgba(255, 255, 255, 0.1);
-				border-color: rgba(255, 255, 255, 0.05);
-
-				&:hover {
-					background: variables.$link-color-dark;
-					border-color: variables.$link-color-dark;
-				}
-			}
-
-			&:not(.has-writeup) {
-				background: hsl(35, 10%, 75%);
-				border-color: rgba(0, 0, 0, 0.1);
-				opacity: 1;
-				cursor: default;
-
-				&:hover {
-					transform: none;
-				}
-
-				.portfolio-content .content-text {
-					h4 {
-						color: hsl(35, 15%, 30%);
-					}
-
-					p {
-						color: hsl(35, 15%, 30%);
-						opacity: 1;
-					}
-				}
-
-				.external-icon {
-					background: rgba(0, 0, 0, 0.1);
-					border-color: rgba(0, 0, 0, 0.05);
-					color: hsl(35, 15%, 30%);
-
-					&:hover {
-						background: variables.$link-color-dark;
-						border-color: variables.$link-color-dark;
-						color: variables.$white;
-					}
-				}
-			}
+			/* Dark mode styles moved to consolidated section at the end of file */
 		}
 
 		/* Dark mode for carousel buttons */
@@ -722,6 +788,91 @@
 		figcaption {
 			color: variables.$text-color-secondary-dark;
 		}
+
+		/* Dark mode for portfolio-items */
+		.portfolio-items {
+			background: rgba(0, 0, 0, 0.5);
+			backdrop-filter: blur(5px);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+			&:hover {
+				background-color: rgba(255, 255, 255, 0.03);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			}
+
+			h3 {
+				color: variables.$white;
+
+				a {
+					color: variables.$white;
+
+					&:hover {
+						color: variables.$link-color-dark;
+
+						.external-icon {
+							background: variables.$link-color-dark;
+							border-color: variables.$link-color-dark;
+							color: variables.$white;
+						}
+					}
+
+					.link-text-group {
+						color: variables.$white;
+					}
+				}
+			}
+
+			.post-byline,
+			.company-byline {
+				color: variables.$grey-dark;
+			}
+
+			p {
+				color: variables.$grey-light;
+			}
+
+			.link-source {
+				border-top-color: rgba(255, 255, 255, 0.05);
+
+				.link-url {
+					color: variables.$grey-dark;
+				}
+			}
+
+			.content-accordion {
+				border-top-color: rgba(255, 255, 255, 0.05);
+
+				summary {
+					color: variables.$grey-dark;
+
+					&:hover {
+						color: variables.$link-color-dark;
+					}
+				}
+
+				.accordion-content {
+					color: variables.$grey-dark;
+					background: rgba(255, 255, 255, 0.03);
+				}
+			}
+
+			.external-icon {
+				background: rgba(255, 255, 255, 0.1);
+				border-color: rgba(255, 255, 255, 0.05);
+				color: variables.$white;
+
+				&:hover {
+					background: variables.$link-color-dark;
+					border-color: variables.$link-color-dark;
+				}
+			}
+		}
+	}
+
+	/* Add a properly structured rule for desktop portfolio items in dark mode */
+	@media (prefers-color-scheme: dark) {
+		/* Desktop-specific dark mode styles moved to consolidated section at the end of file */
 	}
 }
 
@@ -744,12 +895,9 @@
 					background: linear-gradient(to bottom right,
 							hsl(35, 20%, 98%) 0%,
 							hsl(35, 15%, 96%) 100%);
-					border-radius: 12px;
 					box-shadow:
 						0 2px 12px rgba(0, 0, 0, 0.03),
 						0 0 0 1px rgba(0, 0, 0, 0.02);
-					position: relative;
-					overflow: hidden;
 
 					/* Add subtle texture */
 					&::before {
@@ -766,14 +914,32 @@
 					}
 
 					/* Smooth transition for hover effects */
-					transition: box-shadow 0.3s ease,
-					transform 0.3s ease;
+					transition: box-shadow 0.3s ease;
 
 					&:hover {
 						box-shadow:
 							0 4px 16px rgba(0, 0, 0, 0.05),
 							0 0 0 1px rgba(0, 0, 0, 0.03);
-						transform: translateY(-1px);
+					}
+
+					#postsContent,
+					#projectsContent {
+						.post-list-item {
+
+							/* Only apply hover effects to post-link items in light mode */
+							&.post-link {
+								transition: background-color 0.2s ease;
+								background: rgba(255, 255, 255, 0.7);
+								backdrop-filter: blur(5px);
+								border: 1px solid rgba(variables.$text-color-secondary, 0.1);
+								box-shadow: variables.$shadow-soft;
+								color: variables.$text-color;
+
+								&:hover {
+									background-color: rgba(0, 0, 0, 0.02);
+								}
+							}
+						}
 					}
 				}
 			}
@@ -803,5 +969,154 @@
 					hsl(35, 10%, 98%) 100%);
 			backdrop-filter: blur(5px);
 		}
+
+		/* Light mode styles for portfolio items moved to consolidated section at the end of file */
+	}
+}
+
+/* ==========================================================================
+   Consolidated Portfolio Item Theme Styles
+   
+   This section contains all color-related styles for portfolio items
+   for both light and dark modes, consolidated from _responsive-layouts.scss
+   and _blog.scss
+   ========================================================================== */
+
+/* Light mode portfolio item styles (outside of media query for default styling) */
+.portfolio-item.has-writeup {
+	/* Light mode appearance - default styling */
+	background: rgba(255, 255, 255, 0.7);
+	backdrop-filter: blur(5px);
+	border: 1px solid rgba(variables.$text-color-secondary, 0.1);
+	box-shadow: variables.$shadow-soft;
+	color: variables.$text-color;
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.02);
+	}
+
+	h3,
+	h4 {
+		color: variables.$text-color;
+
+		a {
+			color: variables.$text-color;
+
+			&:hover {
+				color: variables.$primary-color;
+			}
+		}
+	}
+
+	.company-byline {
+		color: variables.$text-color-secondary;
+	}
+
+	p {
+		color: variables.$text-color;
+	}
+
+	.content-accordion {
+		border-top-color: rgba(0, 0, 0, 0.05);
+
+		summary {
+			color: variables.$text-color-secondary;
+
+			&:hover {
+				color: variables.$primary-color;
+			}
+		}
+
+		.accordion-content {
+			color: variables.$text-color;
+			background: rgba(0, 0, 0, 0.02);
+		}
+	}
+}
+
+/* Light mode portfolio-items styles */
+.portfolio-items {
+	/* Light mode appearance - default styling */
+	background: rgba(255, 255, 255, 0.7);
+	backdrop-filter: blur(5px);
+	border: 1px solid rgba(variables.$text-color-secondary, 0.1);
+	box-shadow: variables.$shadow-soft;
+	color: variables.$text-color;
+}
+
+/* Dark mode portfolio item styles */
+@media (prefers-color-scheme: dark) {
+	.portfolio-item.has-writeup {
+		/* Dark mode appearance */
+		background: rgba(0, 0, 0, 0.5);
+		backdrop-filter: blur(5px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		color: variables.$text-color-dark;
+		box-shadow: variables.$shadow-soft-dark;
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.03);
+			border-color: variables.$link-color-dark;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		}
+
+		/* Dark mode typography */
+		.company-byline {
+			color: variables.$grey-dark;
+		}
+
+		h3,
+		h4 {
+			color: variables.$white;
+
+			a {
+				color: variables.$white;
+
+				&:hover {
+					color: variables.$link-color-dark;
+				}
+			}
+		}
+
+		p {
+			color: variables.$grey-light;
+		}
+
+		/* Dark mode accordion */
+		.content-accordion {
+			border-top-color: rgba(255, 255, 255, 0.05);
+
+			summary {
+				color: variables.$grey-dark;
+
+				&:hover {
+					color: variables.$link-color-dark;
+				}
+			}
+
+			.accordion-content {
+				color: variables.$grey-dark;
+				background: rgba(255, 255, 255, 0.03);
+			}
+		}
+
+		/* Dark mode external icon */
+		.external-icon {
+			background: rgba(255, 255, 255, 0.1);
+			border-color: rgba(255, 255, 255, 0.05);
+			color: variables.$white;
+
+			&:hover {
+				background: variables.$link-color-dark;
+				border-color: variables.$link-color-dark;
+				color: variables.$white;
+			}
+		}
+	}
+
+	/* Desktop-specific dark mode styles for portfolio items */
+	.device-desktop .blog .blog-content .content-wrapper #projectsContent .portfolio-item.has-writeup,
+	.device-desktop .blog .blog-content .portfolio-list .portfolio-item.has-writeup {
+		/* These styles are already covered in the general dark mode styles above */
 	}
 }
