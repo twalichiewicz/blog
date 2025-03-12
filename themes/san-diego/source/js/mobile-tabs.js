@@ -20,6 +20,26 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Track current device type to detect changes
 	let currentDeviceType = '';
 
+	// Initialize based on current device type
+	currentDeviceType = getDeviceType();
+	handleDeviceChange(true);
+
+	// Ensure desktop view is properly initialized on first load
+	if (currentDeviceType === 'desktop') {
+		// On desktop, both sections should be visible
+		if (postsContent && projectsContent) {
+			postsContent.style.opacity = '1';
+			projectsContent.style.opacity = '1';
+			postsContent.style.display = 'block';
+			postsContent.style.display = 'block';
+		}
+
+		// Hide tabs wrapper on desktop
+		if (tabsWrapper) {
+			tabsWrapper.style.display = 'none';
+		}
+	}
+
 	// Function to update the slider width and position based on active button
 	function updateSlider() {
 		if (!tabContainer || tabButtons.length < 2) return;
@@ -241,8 +261,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Handle window resize events - reduce debounce time for more responsive feel
 	let resizeTimer;
+	let lastWidth = window.innerWidth;
+	let transitioningFromDesktop = false;
+
 	window.addEventListener('resize', () => {
 		clearTimeout(resizeTimer);
+
+		const currentWidth = window.innerWidth;
+
+		// Check if we're transitioning from desktop to tablet
+		if (lastWidth >= 1024 && currentWidth < 1024 && currentWidth >= 768) {
+			transitioningFromDesktop = true;
+
+			// Force tabs wrapper to be visible immediately
+			if (tabsWrapper) {
+				tabsWrapper.style.display = 'block';
+			}
+
+			// Get the current active tab or default to 'blog'
+			const activeTab = tabContainer.getAttribute('data-active-tab') || userSelectedTab || 'blog';
+
+			// Force the correct tab to be shown with a slight delay to ensure DOM updates
+			setTimeout(() => {
+				switchTab(activeTab, false);
+				updateSlider();
+			}, 50);
+		}
+
+		// Update last width
+		lastWidth = currentWidth;
 
 		// Immediately detect device type change for faster response
 		const newDeviceType = getDeviceType();
@@ -259,6 +306,22 @@ document.addEventListener('DOMContentLoaded', function () {
 		resizeTimer = setTimeout(() => {
 			handleDeviceChange(false);
 			updateSlider(); // Update slider again after resize completes
+
+			// If we were transitioning from desktop to tablet, ensure tabs are visible
+			if (transitioningFromDesktop && getDeviceType() === 'tablet') {
+				transitioningFromDesktop = false;
+
+				if (tabsWrapper && tabsWrapper.style.display !== 'block') {
+					tabsWrapper.style.display = 'block';
+
+					// Force active tab again after a delay
+					setTimeout(() => {
+						const activeTab = tabContainer.getAttribute('data-active-tab') || userSelectedTab || 'blog';
+						switchTab(activeTab, false);
+						updateSlider();
+					}, 50);
+				}
+			}
 		}, 100); // Reduced from 250ms to 100ms for faster response
 	});
 
@@ -285,8 +348,26 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Get the current active tab or default to 'blog'
 			const activeTab = tabContainer.getAttribute('data-active-tab') || userSelectedTab || 'blog';
 
+			// Ensure tabs wrapper is visible for tablet/mobile
+			if (!isDesktop && tabsWrapper) {
+				tabsWrapper.style.display = 'block';
+
+				// Force a reflow to ensure the display change takes effect
+				void tabsWrapper.offsetHeight;
+			}
+
 			// Force the correct tab to be shown
 			switchTab(activeTab);
+
+			// Double-check after a short delay to ensure changes took effect
+			if (!isDesktop) {
+				setTimeout(() => {
+					if (tabsWrapper && tabsWrapper.style.display !== 'block') {
+						tabsWrapper.style.display = 'block';
+						switchTab(activeTab);
+					}
+				}, 100);
+			}
 		} else if (isDesktop) {
 			// On desktop, show both sections with a smooth transition
 			if (postsContent) {
@@ -299,21 +380,22 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			// Hide tabs wrapper on desktop
-			if (tabsWrapper) tabsWrapper.style.display = 'none';
+			if (tabsWrapper) {
+				tabsWrapper.style.display = 'none';
+			}
 		} else {
 			// On mobile/tablet, validate and apply the current tab state
 			const currentTab = validateActiveState();
+
+			// Ensure tabs wrapper is visible
+			if (tabsWrapper) {
+				tabsWrapper.style.display = 'block';
+			}
+
 			showContent(currentTab);
 			updateSlider(); // Update slider after device change
-
-			// Show tabs wrapper on mobile/tablet
-			if (tabsWrapper) tabsWrapper.style.display = 'block';
 		}
 	}
-
-	// Initial device check
-	currentDeviceType = getDeviceType();
-	handleDeviceChange(true);
 
 	// Handle device orientation changes
 	window.addEventListener('orientationchange', () => {
@@ -340,11 +422,29 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Start observing the body element for class changes
 	observer.observe(document.body, { attributes: true });
 
+	// Add a utility function to ensure tabs are visible in tablet mode
+	function ensureTabsVisibleInTabletMode() {
+		// Only run this check in tablet mode
+		if (getDeviceType() === 'tablet') {
+			if (tabsWrapper && tabsWrapper.style.display !== 'block') {
+				console.log('Fixing tabs visibility in tablet mode');
+				tabsWrapper.style.display = 'block';
+
+				// Force the active tab to be shown
+				const activeTab = tabContainer.getAttribute('data-active-tab') || userSelectedTab || 'blog';
+				switchTab(activeTab, false);
+			}
+		}
+	}
+
 	// Periodically check for tab state consistency (handles edge cases)
 	// This is a safety measure to ensure the UI stays consistent
 	const consistencyInterval = setInterval(() => {
 		validateActiveState();
 		updateSlider(); // Periodically update slider to ensure it stays aligned
+
+		// Ensure tabs are visible in tablet mode
+		ensureTabsVisibleInTabletMode();
 
 		// Check if we're on tablet/mobile and both sections are visible (bug case)
 		if (!document.body.classList.contains('device-desktop')) {
@@ -356,7 +456,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				showContent(activeTab);
 			}
 		}
-	}, 2000);
+	}, 1000); // Run more frequently (every second) to catch transition issues
 
 	// Clean up interval when page is unloaded
 	window.addEventListener('beforeunload', () => {

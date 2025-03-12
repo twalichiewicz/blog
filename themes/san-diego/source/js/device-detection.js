@@ -5,6 +5,28 @@
  * for device-specific styling and behavior.
  */
 
+// Run device detection immediately to ensure device classes are set before DOM is fully loaded
+(function () {
+	const width = window.innerWidth;
+	const body = document.body;
+
+	// Add appropriate device class
+	if (width <= 767) {
+		body.classList.add('device-mobile');
+	} else if (width >= 768 && width <= 1199) {
+		body.classList.add('device-tablet');
+	} else {
+		body.classList.add('device-desktop');
+	}
+
+	// Add orientation class
+	if (window.matchMedia("(orientation: portrait)").matches) {
+		body.classList.add('orientation-portrait');
+	} else {
+		body.classList.add('orientation-landscape');
+	}
+})();
+
 document.addEventListener('DOMContentLoaded', function () {
 	const DeviceDetection = {
 		// Breakpoints matching our SCSS definitions

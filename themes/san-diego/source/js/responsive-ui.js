@@ -44,8 +44,18 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Show both posts and projects side by side
 			const postsContent = document.getElementById('postsContent');
 			const projectsContent = document.getElementById('projectsContent');
+			const contentWrapper = document.querySelector('.content-wrapper');
 			const blogList = document.querySelector('.blog-list');
 			const portfolioList = document.querySelector('.portfolio-list');
+
+			// Configure content wrapper for desktop layout
+			if (contentWrapper) {
+				contentWrapper.style.flexDirection = 'row';
+				contentWrapper.style.justifyContent = 'center';
+				contentWrapper.style.gap = '48px'; // Using the space-xl variable value
+				contentWrapper.style.height = '100%';
+				contentWrapper.style.overflow = 'hidden';
+			}
 
 			if (postsContent && projectsContent) {
 				// Apply smooth transitions
@@ -55,6 +65,16 @@ document.addEventListener('DOMContentLoaded', function () {
 				projectsContent.style.opacity = '1';
 				postsContent.style.display = 'block';
 				projectsContent.style.display = 'block';
+
+				// Ensure proper column styling
+				postsContent.style.flex = '1';
+				projectsContent.style.flex = '1';
+				postsContent.style.height = '100%';
+				projectsContent.style.height = '100%';
+				postsContent.style.overflowY = 'auto';
+				projectsContent.style.overflowY = 'auto';
+				postsContent.style.maxWidth = '600px';
+				projectsContent.style.maxWidth = '600px';
 			}
 
 			// Move projectsContent to its own container if needed
@@ -143,6 +163,29 @@ document.addEventListener('DOMContentLoaded', function () {
 				if (currentDeviceType !== lastDeviceType) {
 					// Device type changed, update immediately
 					lastDeviceType = currentDeviceType;
+
+					// Force tablet behavior when transitioning from desktop to tablet
+					if (lastDeviceType === 'desktop' && currentDeviceType === 'tablet') {
+						const tabsWrapper = document.querySelector('.tabs-wrapper');
+						if (tabsWrapper) {
+							tabsWrapper.style.display = 'block';
+
+							// Force the active tab to be shown
+							const tabContainer = document.querySelector('.mobile-tabs');
+							if (tabContainer) {
+								const activeTab = tabContainer.getAttribute('data-active-tab') || 'blog';
+								const activeButton = tabContainer.querySelector(`.tab-button[data-type="${activeTab}"]`);
+
+								if (activeButton) {
+									// Simulate a click on the active tab button
+									setTimeout(() => {
+										activeButton.click();
+									}, 50);
+								}
+							}
+						}
+					}
+
 					this.setupDeviceSpecificBehavior();
 				}
 
@@ -153,6 +196,14 @@ document.addEventListener('DOMContentLoaded', function () {
 				// Still use a short debounce for fine-tuning
 				resizeTimeout = setTimeout(() => {
 					this.setupDeviceSpecificBehavior();
+
+					// Double-check tablet behavior after resize completes
+					if (this.getCurrentDeviceType() === 'tablet') {
+						const tabsWrapper = document.querySelector('.tabs-wrapper');
+						if (tabsWrapper && tabsWrapper.style.display !== 'block') {
+							tabsWrapper.style.display = 'block';
+						}
+					}
 				}, 100); // Reduced from 250ms to 100ms for faster response
 			});
 		},
@@ -241,15 +292,34 @@ function initDesktopLayout() {
 	// Desktop layout specific adjustments
 	const postsContent = document.getElementById('postsContent');
 	const projectsContent = document.getElementById('projectsContent');
+	const contentWrapper = document.querySelector('.content-wrapper');
 
 	if (postsContent && projectsContent) {
+		// Ensure content wrapper has proper desktop styling
+		if (contentWrapper) {
+			contentWrapper.style.flexDirection = 'row';
+			contentWrapper.style.justifyContent = 'center';
+			contentWrapper.style.height = '100%';
+			contentWrapper.style.overflow = 'hidden';
+		}
+
 		// Apply smooth transitions
 		postsContent.style.transition = 'opacity 0.15s ease-in-out';
 		projectsContent.style.transition = 'opacity 0.15s ease-in-out';
+
+		// Ensure both columns are visible
 		postsContent.style.opacity = '1';
 		projectsContent.style.opacity = '1';
 		postsContent.style.display = 'block';
 		projectsContent.style.display = 'block';
+
+		// Ensure proper column styling
+		postsContent.style.flex = '1';
+		projectsContent.style.flex = '1';
+		postsContent.style.height = '100%';
+		projectsContent.style.height = '100%';
+		postsContent.style.overflowY = 'auto';
+		projectsContent.style.overflowY = 'auto';
 	}
 
 	// Hide tabs wrapper on desktop

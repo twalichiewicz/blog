@@ -7,25 +7,25 @@
 .column-title {
 	display: none;
 	/* Hidden by default */
-	position: sticky;
+	position: absolute;
 	top: 0;
+	left: 0;
+	right: 0;
 	z-index: 100;
 	/* Higher z-index to ensure it stays on top */
-	padding: variables.$space-xs variables.$space-sm;
-	font-size: 0.85rem;
+	padding: variables.$space-md;
+	font-size: 24px;
 	font-weight: 600;
-	letter-spacing: 0.5px;
-	text-transform: uppercase;
-	background-color: var(--page-color, variables.$white);
-	border-bottom: 1px solid variables.$border-color;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	letter-spacing: normal;
+	text-transform: none;
+	background: transparent;
+	border: none;
+	box-shadow: none;
 	margin-bottom: variables.$space-sm;
-	text-align: center;
+	text-align: left;
 	transition: all 0.2s ease;
-	opacity: 0.95;
-	backdrop-filter: blur(5px);
-	-webkit-backdrop-filter: blur(5px);
 	width: 100%;
+	max-width: 600px;
 	/* Ensure full width */
 	box-sizing: border-box;
 	/* Include padding in width calculation */
@@ -37,14 +37,14 @@
 
 	/* Dark mode adjustments */
 	@media (prefers-color-scheme: dark) {
-		background-color: rgba(30, 30, 30, 0.9);
-		border-bottom: 1px solid variables.$border-color-dark;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		background-color: transparent;
+		border-bottom: none;
+		box-shadow: none;
 	}
 
 	/* Subtle animation when scrolling starts */
 	.is-scrolling & {
-		box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+		box-shadow: none;
 		opacity: 1;
 	}
 }

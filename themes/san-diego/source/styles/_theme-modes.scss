@@ -728,6 +728,80 @@
 /* Light mode specific overrides if needed */
 @media (prefers-color-scheme: light) {
 	.blog {
-		/* Light mode specific styles can be added here if needed */
+		/* Light mode specific styles for a more premium look */
+
+		/* Enhanced content wrapper styling for light mode */
+		@media screen and (min-width: variables.$mobile-breakpoint) {
+			.blog-content {
+				/* Subtle gradient background for the blog content */
+				background: linear-gradient(135deg,
+						hsl(35, 15%, 94%) 0%,
+						hsl(35, 10%, 98%) 100%);
+
+				/* Content wrapper styling */
+				.content-wrapper {
+					/* Premium off-white background with subtle warmth */
+					background: linear-gradient(to bottom right,
+							hsl(35, 20%, 98%) 0%,
+							hsl(35, 15%, 96%) 100%);
+					border-radius: 12px;
+					box-shadow:
+						0 2px 12px rgba(0, 0, 0, 0.03),
+						0 0 0 1px rgba(0, 0, 0, 0.02);
+					position: relative;
+					overflow: hidden;
+
+					/* Add subtle texture */
+					&::before {
+						content: '';
+						position: absolute;
+						top: 0;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+						opacity: 0.02;
+						pointer-events: none;
+						z-index: -1;
+					}
+
+					/* Smooth transition for hover effects */
+					transition: box-shadow 0.3s ease,
+					transform 0.3s ease;
+
+					&:hover {
+						box-shadow:
+							0 4px 16px rgba(0, 0, 0, 0.05),
+							0 0 0 1px rgba(0, 0, 0, 0.03);
+						transform: translateY(-1px);
+					}
+				}
+			}
+		}
+
+		/* Specific styles for tablet in light mode */
+		&.device-tablet .blog-content {
+			background: linear-gradient(135deg,
+					hsl(35, 15%, 92%) 0%,
+					hsl(35, 10%, 98%) 100%);
+
+			.content-wrapper {
+				/* Subtle glow effect on content containers */
+				box-shadow:
+					variables.$shadow-soft,
+					0 0 20px rgba(variables.$accent-gold, 0.05);
+
+				/* Subtle border highlight */
+				border: 1px solid rgba(variables.$accent-gold, 0.1);
+			}
+		}
+
+		/* Specific styles for desktop in light mode */
+		&.device-desktop .blog-content {
+			background: linear-gradient(135deg,
+					hsl(35, 15%, 94%) 0%,
+					hsl(35, 10%, 98%) 100%);
+			backdrop-filter: blur(5px);
+		}
 	}
 }
