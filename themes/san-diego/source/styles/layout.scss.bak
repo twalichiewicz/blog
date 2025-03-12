@@ -1,0 +1,163 @@
+/**
+ * LAYOUT STYLES
+ * Grid system, responsive mixins, and layout components
+ * 
+ * TABLE OF CONTENTS:
+ * 1. Responsive Mixins
+ * 2. Grid System
+ * 3. Header
+ * 4. Footer
+ * 5. Container Layouts
+ */
+
+@use 'base' as *;
+
+/* ======================
+   1. RESPONSIVE MIXINS
+   ====================== */
+
+@mixin mobile {
+	@media (max-width: #{$mobile-breakpoint - 1px}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (min-width: #{$mobile-breakpoint}) and (max-width: #{$desktop-breakpoint - 1px}) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: #{$desktop-breakpoint}) {
+		@content;
+	}
+}
+
+@mixin tablet-and-up {
+	@media (min-width: #{$mobile-breakpoint}) {
+		@content;
+	}
+}
+
+@mixin tablet-and-down {
+	@media (max-width: #{$desktop-breakpoint - 1px}) {
+		@content;
+	}
+}
+
+@mixin dark-mode {
+	@media (prefers-color-scheme: dark) {
+		@content;
+	}
+}
+
+/* ======================
+   2. GRID SYSTEM
+   ====================== */
+
+.container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 $space-md;
+
+	@include mobile {
+		padding: 0 $space-sm;
+	}
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -$space-sm;
+}
+
+.col {
+	flex: 1 0 0%;
+	padding: 0 $space-sm;
+}
+
+// Generate column classes
+@for $i from 1 through 12 {
+	.col-#{$i} {
+		flex: 0 0 percentage($i / 12);
+		max-width: percentage($i / 12);
+		padding: 0 $space-sm;
+	}
+
+	.col-md-#{$i} {
+		@include tablet-and-up {
+			flex: 0 0 percentage($i / 12);
+			max-width: percentage($i / 12);
+		}
+	}
+
+	.col-lg-#{$i} {
+		@include desktop {
+			flex: 0 0 percentage($i / 12);
+			max-width: percentage($i / 12);
+		}
+	}
+}
+
+/* ======================
+   3. HEADER
+   ====================== */
+
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	background-color: var(--nav-bg);
+	border-bottom: 1px solid var(--border-color);
+	padding: $space-md 0;
+
+	@include mobile {
+		padding: $space-sm 0;
+	}
+}
+
+// Add all header styles from header.scss here
+
+/* ======================
+   4. FOOTER
+   ====================== */
+
+.site-footer {
+	background-color: var(--card-bg);
+	border-top: 1px solid var(--border-color);
+	padding: $space-xl 0;
+	margin-top: $space-xxl;
+
+	@include mobile {
+		padding: $space-lg 0;
+		margin-top: $space-xl;
+	}
+}
+
+// Add all footer styles from footer.scss here
+
+/* ======================
+   5. CONTAINER LAYOUTS
+   ====================== */
+
+.responsive-layout {
+	width: 100%;
+	padding: 0 $space-md;
+	margin: 0 auto;
+
+	@include mobile {
+		padding: 0 $space-sm;
+	}
+
+	@include tablet {
+		max-width: 90%;
+	}
+
+	@include desktop {
+		max-width: 1200px;
+	}
+}
+
+// Add any other layout container styles here 

@@ -1,25 +1,46 @@
+// Main stylesheet for San Diego theme
+// This file imports all the partials
+
+// Core variables and utilities
 @use 'variables';
-@use 'index';
+@use 'utilities';
+@use 'shared-components';
+
+// Base styles
+@use 'typography';
+@use 'images';
+
+// Layout components
+@use 'responsive-layouts';
+@use 'column-titles';
+@use 'main';
+@use 'footer';
+@use 'hero';
+@use 'foreground';
+
+// Blog components
 @use 'blog';
 @use 'post-list';
-@use 'portfolio';
 @use 'carousel';
-@use 'responsive-layouts';
-@use 'theme-modes';
-@use 'loading';
-@use 'utilities';
-@use 'components';
-@use 'project-nav';
-@use 'typography';
-@use 'column-titles';
-@use 'images';
+
+// Project components
 @use 'project';
 @use 'project-content';
 @use 'project-components';
+@use 'project-nav';
+@use 'portfolio';
+
+// UI components
+@use 'components';
 @use 'paginator';
-@use 'main';
-@use 'hero';
-@use 'foreground';
-@use 'footer';
+@use 'loading';
 @use 'code-highlighting';
+
+// Theme modes
+@use 'theme-modes';
+
+// Home page
 @use 'home';
+
+// Index (imports all partials - use with caution as it may cause duplication)
+// @use 'index';
