@@ -93,3 +93,22 @@
 .view-toggle.list-view {
 	display: none !important;
 }
+
+/* Additional loading styles from blog.scss */
+.circular-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 120px;
+	height: 120px;
+	animation: spin 10s linear infinite;
+
+	text {
+		fill: rgba(255, 255, 255, 0.4);
+		font-size: 8px;
+		letter-spacing: 8px;
+		text-transform: uppercase;
+		font-family: monospace;
+	}
+}
