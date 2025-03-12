@@ -174,8 +174,8 @@
 		padding: variables.$spacing-card 0;
 
 		.profile-photo {
-			width: 80px;
-			height: 80px;
+			width: 124px;
+			height: 124px;
 			margin-bottom: variables.$space-sm;
 		}
 
@@ -320,6 +320,7 @@
 		.profile-header {
 			flex-direction: column;
 			margin: variables.$space-lg 0;
+			gap: 33px;
 
 			.profile-photo {
 				width: 100px;
@@ -345,7 +346,7 @@
 
 		.tabs-wrapper {
 			width: 100%;
-			padding: variables.$space-sm variables.$space-sm 0 variables.$space-sm;
+			padding: variables.$space-sm;
 			box-sizing: border-box;
 			margin-bottom: 0;
 			max-width: 600px;
@@ -455,6 +456,7 @@
 		.profile-header {
 			flex-direction: column;
 			margin: variables.$space-xl 0;
+			gap: 33px;
 
 			.profile-photo {
 				width: 120px;
@@ -489,42 +491,53 @@
 			gap: variables.$space-xl;
 			padding: 0;
 			height: 100%;
-			/* Take full height of parent */
 			overflow: hidden;
-			/* Prevent wrapper scrolling */
-		}
 
-		#postsContent,
-		#projectsContent {
-			flex: 1;
-			max-width: 600px;
-			padding: variables.$space-md variables.$space-md;
-			height: 100%;
-			overflow-y: auto;
-			overflow-x: hidden;
-			position: relative;
-			margin: 0;
-			box-sizing: border-box;
-
-			&::-webkit-scrollbar {
-				width: 6px;
-			}
-
-			&::-webkit-scrollbar-track {
-				background: transparent;
-			}
-
-			&::-webkit-scrollbar-thumb {
-				background-color: rgba(0, 0, 0, 0.2);
-				border-radius: 3px;
-			}
-
-			.column-title {
-				width: 100%;
+			#postsContent,
+			#projectsContent {
+				flex: 1;
+				max-width: 600px;
+				padding: variables.$space-md variables.$space-md;
+				height: 100%;
+				overflow-y: auto;
+				overflow-x: hidden;
+				position: relative;
+				margin: 0;
 				box-sizing: border-box;
-				border-radius: 4px;
-				margin-left: 0;
-				margin-right: 0;
+
+				&::-webkit-scrollbar {
+					width: 6px;
+				}
+
+				&::-webkit-scrollbar-track {
+					background: transparent;
+				}
+
+				&::-webkit-scrollbar-thumb {
+					background-color: rgba(0, 0, 0, 0.2);
+					border-radius: 3px;
+				}
+
+				.column-title {
+					width: 100%;
+					box-sizing: border-box;
+					border-radius: 0;
+					margin-left: 0;
+					margin-right: 0;
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					padding-top: variables.$space-md;
+					padding-bottom: variables.$space-xs;
+					z-index: 100;
+				}
+
+				/* Add padding to the top to prevent content from being hidden under the floating header */
+				.post-list-item:first-of-type,
+				.company-group:first-of-type {
+					margin-top: 30px;
+				}
 			}
 		}
 
@@ -535,9 +548,7 @@
 		.blog-list {
 			max-width: 100%;
 
-			.post-list-item {
-				padding: variables.$space-md 0;
-			}
+			.post-list-item {}
 		}
 
 		.portfolio-list {}
@@ -635,8 +646,8 @@
 
 			.post-list-item {
 				margin: 0;
-				padding: variables.$spacing-card;
-				max-width: 100%;
+				padding: variables.$spacing-card 0;
+				max-width: 600px;
 				border-bottom: 1px solid variables.$border-color;
 
 				h3 {
@@ -715,6 +726,11 @@
 /* Desktop-specific media queries */
 @media screen and (min-width: variables.$mobile-breakpoint) {
 	.blog {
+
+		/* Company group spacing for desktop */
+		.company-group {
+			margin-top: 40px;
+		}
 
 		/* Desktop widgets */
 		.desktop-widgets {

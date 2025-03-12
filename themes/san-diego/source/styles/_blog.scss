@@ -344,7 +344,7 @@
 		.post-list-item {
 			max-width: 75ch;
 			margin: 0 auto;
-			padding: 1.5rem 0;
+			padding: 12px;
 			border-bottom: 1px solid variables.$border-color;
 
 			&:last-child {
@@ -941,7 +941,7 @@ img {
 			}
 
 			p {
-				font-size: 0.85rem;
+				font-size: 13px;
 				margin: 0.25rem 0;
 				line-height: 1.3;
 				color: rgba(255, 255, 255, 0.8);
