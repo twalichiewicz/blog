@@ -95,17 +95,19 @@
                                 <div class="link-share">
                                     <h3>
                                         <a href="<%= post.url %>" target="_blank" rel="noopener">
-                                            <%= post.title %> 
-											<div class="link-source">
-                                        <span class="link-url"><%= new URL(post.url).hostname %></span>
-                                    </div>
-											<span class="external-icon">↗</span>
+                                            <div class="link-text-group">
+                                                <%= post.title %>
+                                                <div class="link-source">
+                                                    <span class="link-url"><%= new URL(post.url).hostname %></span>
+                                                </div>
+                                            </div>
+                                            <span class="external-icon">↗</span>
                                         </a>
                                     </h3>
                                     
                                     <% if (post.content) { %>
                                         <details class="content-accordion">
-                                            <summary>Show thoughts</summary>
+                                            <summary>Thoughts</summary>
                                             <div class="accordion-content">
                                                 <%- post.content %>
                                             </div>
@@ -197,10 +199,10 @@
                             </h2>
                             <div class="company-projects">
                                 <% projectsByCompany[company].forEach(function(post) { %>
-                                    <% if (post.has_writeup === false) { %>
-                                        <div class="portfolio-item">
-                                    <% } else { %>
+                                    <% if (post.has_writeup !== false) { %>
                                         <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup">
+                                    <% } else { %>
+                                        <div class="portfolio-item">
                                     <% } %>
                                     <% if (post.cover_image && post.has_writeup !== false) { %>    
                                     <div class="portfolio-image">
@@ -213,6 +215,9 @@
                                     <% } %>
                                     <div class="portfolio-content">
                                         <div class="content-text">
+                                            <% if (post.company) { %>
+                                                <div class="company-byline"><%= post.company %></div>
+                                            <% } %>
                                             <% if (post.has_writeup === false) { %>
                                                 <h4><%- post.title %></h4>
                                             <% } else { %>
@@ -221,15 +226,24 @@
                                             <% if (post.byline) { %>
                                                 <p><%- post.byline %></p>
                                             <% } %>
+                                            
+                                            <% if (post.has_writeup !== false && post.excerpt) { %>
+                                                <details class="content-accordion">
+                                                    <summary>View details</summary>
+                                                    <div class="accordion-content">
+                                                        <%- post.excerpt %>
+                                                    </div>
+                                                </details>
+                                            <% } %>
                                         </div>
                                         <% if (post.has_writeup !== false) { %>
                                             <div class="external-icon">→</div>
                                         <% } %>
                                     </div>
-                                    <% if (post.has_writeup === false) { %>
-                                        </div>
-                                    <% } else { %>
+                                    <% if (post.has_writeup !== false) { %>
                                         </a>
+                                    <% } else { %>
+                                        </div>
                                     <% } %>
                                 <% }) %>
                             </div>
