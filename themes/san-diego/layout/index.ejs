@@ -214,31 +214,30 @@
                                     </div>
                                     <% } %>
                                     <div class="portfolio-content">
-                                        <div class="content-text">
-                                            <% if (post.company) { %>
-                                                <div class="company-byline"><%= post.company %></div>
-                                            <% } %>
-                                            <% if (post.has_writeup === false) { %>
+                                        <% if (post.company) { %>
+                                            <div class="company-byline"><%= post.company %></div>
+                                        <% } %>
+                                        
+                                        <div class="title-row">
+                                            <div class="content-text">
                                                 <h4><%- post.title %></h4>
-                                            <% } else { %>
-                                                <h4><%- post.title %></h4>
-                                            <% } %>
-                                            <% if (post.byline) { %>
-                                                <p><%- post.byline %></p>
-                                            <% } %>
-                                            
-                                            <% if (post.has_writeup !== false && post.excerpt) { %>
-                                                <details class="content-accordion">
-                                                    <summary>View details</summary>
-                                                    <div class="accordion-content">
-                                                        <%- post.excerpt %>
-                                                    </div>
-                                                </details>
+                                                <% if (post.byline) { %>
+                                                    <p><%- post.byline %></p>
+                                                <% } %>
+                                                
+                                                <% if (post.has_writeup !== false && post.excerpt) { %>
+                                                    <details class="content-accordion">
+                                                        <summary>View details</summary>
+                                                        <div class="accordion-content">
+                                                            <%- post.excerpt %>
+                                                        </div>
+                                                    </details>
+                                                <% } %>
+                                            </div>
+                                            <% if (post.has_writeup !== false) { %>
+                                                <div class="external-icon">→</div>
                                             <% } %>
                                         </div>
-                                        <% if (post.has_writeup !== false) { %>
-                                            <div class="external-icon">→</div>
-                                        <% } %>
                                     </div>
                                     <% if (post.has_writeup !== false) { %>
                                         </a>

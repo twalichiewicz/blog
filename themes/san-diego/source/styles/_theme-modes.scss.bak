@@ -125,7 +125,7 @@
 
 			&:hover {
 				background: variables.$link-color-dark;
-
+				border-color: variables.$link-color-dark;
 				color: variables.$white;
 			}
 		}
@@ -139,7 +139,7 @@
 		.blog-content {
 			background-color: variables.$grey-dark;
 			box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-			border: 1px solid rgba(255, 255, 255, 0.1);
+			border: 1px solid rgba(255, 255, 255, 0.05);
 
 			&::before {
 				background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
@@ -222,7 +222,7 @@
 									&:hover {
 										background: variables.$link-color-dark;
 										color: variables.$black;
-
+										border-color: variables.$link-color-dark;
 									}
 								}
 							}
@@ -232,7 +232,7 @@
 								transition: variables.$transition-standard;
 
 								&:hover {
-									background-color: rgba(30, 30, 30, 0.8);
+									background-color: rgba(255, 255, 255, 0.03);
 									transform: translateY(-2px);
 								}
 							}
@@ -261,7 +261,7 @@
 
 							&:hover {
 								color: color.adjust(variables.$link-color-dark, $lightness: 10%);
-								text-decoration: none;
+								text-decoration: underline;
 							}
 						}
 
@@ -406,7 +406,7 @@
 
 						/* Add subtle hover effect only to post-link items */
 						&.post-link:hover {
-							background-color: rgba(30, 30, 30, 0.8);
+							background-color: rgba(255, 255, 255, 0.03);
 							transform: translateY(-2px);
 
 							h3 a {
@@ -426,15 +426,15 @@
 						}
 
 						&.has-writeup {
-							background: rgba(20, 20, 20, 0.7);
+							background: rgba(0, 0, 0, 0.5);
 							backdrop-filter: blur(5px);
 							border: 1px solid rgba(255, 255, 255, 0.1);
 							color: variables.$text-color-dark;
 							box-shadow: variables.$shadow-soft-dark;
 
 							&:hover {
-								background-color: rgba(30, 30, 30, 0.8);
-
+								background-color: rgba(255, 255, 255, 0.03);
+								border-color: variables.$link-color-dark;
 								box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 							}
 
@@ -470,7 +470,7 @@
 
 								&:hover {
 									background: variables.$link-color-dark;
-
+									border-color: variables.$link-color-dark;
 									color: variables.$white;
 								}
 							}
@@ -570,7 +570,7 @@
 			}
 
 			&.post-link {
-				background: rgba(20, 20, 20, 0.7);
+				background: rgba(0, 0, 0, 0.5);
 				backdrop-filter: blur(5px);
 				border: 1px solid rgba(255, 255, 255, 0.1);
 				color: variables.$text-color-dark;
@@ -591,7 +591,7 @@
 
 						&:hover .external-icon {
 							background: variables.$link-color-dark;
-
+							border-color: variables.$link-color-dark;
 						}
 					}
 
@@ -809,7 +809,7 @@
 
 				&:hover {
 					background: variables.$link-color-dark;
-
+					border-color: variables.$link-color-dark;
 					color: variables.$white;
 				}
 			}
@@ -852,7 +852,7 @@
 
 			&:hover {
 				background: variables.$link-color-dark;
-
+				border-color: variables.$link-color-dark;
 				color: variables.$white;
 			}
 		}
@@ -917,7 +917,7 @@
 
 			&:hover {
 				background: variables.$link-color-dark;
-
+				border-color: variables.$link-color-dark;
 				color: variables.$white;
 			}
 		}
@@ -1048,31 +1048,6 @@
    This section contains all color-related styles for portfolio items
    for both light and dark modes, consolidated from _portfolio.scss
    ========================================================================== */
-
-/* Company name styling - section heading for portfolio items */
-.company-name {
-	font-size: 1.25rem;
-	font-weight: 600;
-	margin: 1.5rem 0 0.75rem;
-	padding-bottom: 0.5rem;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-	color: variables.$text-color;
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
-
-	.company-years {
-		font-size: 0.85rem;
-		font-weight: 400;
-		color: variables.$text-color-secondary;
-		margin-left: 0.5rem;
-	}
-
-	/* First company name should have less top margin */
-	&:first-of-type {
-		margin-top: 0.5rem;
-	}
-}
 
 /* Common portfolio item styles (outside of media queries) */
 .portfolio-item {
@@ -1254,7 +1229,7 @@
 
 /* Light mode portfolio items without writeup */
 .portfolio-item:not(.has-writeup) {
-	background: transparent;
+	background: rgba(255, 255, 255, 0.5);
 	backdrop-filter: blur(5px);
 	border: 1px solid rgba(0, 0, 0, 0.05);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
@@ -1378,7 +1353,7 @@
 
 			&:hover {
 				background: variables.$link-color-dark;
-
+				border-color: variables.$link-color-dark;
 				color: variables.$white;
 			}
 		}
@@ -1406,13 +1381,13 @@
 
 	/* Dark mode portfolio-items styles */
 	.portfolio-items {
-		background: rgba(20, 20, 20, 0.7);
+		background: rgba(0, 0, 0, 0.5);
 		backdrop-filter: blur(5px);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
 		&:hover {
-			background-color: rgba(30, 30, 30, 0.8);
+			background-color: rgba(255, 255, 255, 0.03);
 			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 		}
 
@@ -1427,7 +1402,7 @@
 
 					.external-icon {
 						background: variables.$link-color-dark;
-
+						border-color: variables.$link-color-dark;
 						color: variables.$white;
 					}
 				}
@@ -1479,7 +1454,7 @@
 
 			&:hover {
 				background: variables.$link-color-dark;
-
+				border-color: variables.$link-color-dark;
 			}
 		}
 	}
