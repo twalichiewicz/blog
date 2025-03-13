@@ -49,6 +49,9 @@ $nav-arrow-color-dark: hsl(0, 0%, 60%);
 $blur: blur(32px);
 $blur-dark: blur(32px);
 
+// Transitions
+$transition-standard: all 0.3s ease;
+
 // Breakpoints
 $mobile-breakpoint: 768px;
 $tablet-breakpoint: 1024px;
