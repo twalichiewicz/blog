@@ -94,23 +94,71 @@
 
 			.contact-wrapper {
 				.contact-button {
-					background: variables.$card-bg-dark;
-					border-color: variables.$border-color-dark;
+					background: rgba(variables.$card-bg-dark, 0.7);
+					border-color: rgba(variables.$border-color-dark, 0.5);
 					color: variables.$text-color-dark;
+					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 
 					&:hover {
-						background: variables.$link-color-dark;
+						background: rgba(variables.$link-color-dark, 0.2);
+						color: variables.$link-color-dark;
+					}
+
+					&.active {
+						background: rgba(variables.$link-color-dark, 0.8);
+						color: variables.$black;
+						border-color: rgba(variables.$link-color-dark, 0.6);
 					}
 				}
 
 				.contact-options {
+					background: rgba(variables.$card-bg-dark, 0.7);
+					border-color: rgba(variables.$border-color-dark, 0.5);
+					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+					backdrop-filter: blur(4px);
+
 					.contact-option {
-						background: variables.$card-bg-dark;
-						border-color: variables.$border-color-dark;
+						background: transparent;
+						border-color: rgba(variables.$border-color-dark, 0.4);
 						color: variables.$text-color-dark;
 
 						&:hover {
-							background: variables.$link-color-dark;
+							background: rgba(variables.$link-color-dark, 0.2);
+							color: variables.$link-color-dark;
+						}
+
+						&:active {
+							background: rgba(variables.$link-color-dark, 0.3);
+						}
+					}
+				}
+			}
+		}
+
+		/* Desktop contact options in dark mode */
+		@media screen and (min-width: variables.$mobile-breakpoint) {
+			.contact-wrapper {
+				.contact-options {
+					background: rgba(variables.$card-bg-dark, 0.6);
+					border-color: rgba(variables.$border-color-dark, 0.4);
+					box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+					backdrop-filter: blur(4px);
+
+					.contact-option {
+						background: transparent;
+						color: variables.$text-color-dark;
+
+						&:hover {
+							background: rgba(variables.$link-color-dark, 0.2);
+							color: variables.$link-color-dark;
+						}
+
+						&:active {
+							background: rgba(variables.$link-color-dark, 0.3);
+						}
+
+						&:not(:last-child) {
+							border-right-color: rgba(variables.$border-color-dark, 0.4);
 						}
 					}
 				}
@@ -128,11 +176,6 @@
 
 				color: variables.$white;
 			}
-		}
-
-		/* Dark mode for mobile-tabs border */
-		.mobile-tabs {
-			border-bottom-color: variables.$border-color-dark;
 		}
 
 		/* Dark mode for basic blog content */
@@ -205,6 +248,13 @@
 								color: variables.$text-color-secondary-dark;
 							}
 
+							ul,
+							ol {
+								li {
+									color: variables.$text-color-secondary-dark !important;
+								}
+							}
+
 							.post-byline {
 								color: variables.$grey-dark;
 							}
@@ -273,6 +323,22 @@
 						h5,
 						h6 {
 							color: variables.$white;
+
+							a {
+								color: variables.$white;
+
+								&:hover {
+									color: variables.$link-color-dark;
+								}
+							}
+						}
+
+						/* Lists in dark mode */
+						ul,
+						ol {
+							li {
+								color: variables.$text-color-secondary-dark !important;
+							}
 						}
 					}
 				}
@@ -569,6 +635,31 @@
 				}
 			}
 
+			ul,
+			ol {
+				li {
+					color: variables.$grey-dark !important;
+
+					a {
+						color: variables.$link-color-dark;
+
+						&:hover {
+							color: variables.$link-color-dark;
+						}
+					}
+				}
+			}
+
+			/* Dark mode styling for the separator */
+			border-bottom-color: rgba(variables.$border-color-dark, 0.5);
+
+			&:not(:last-child)::after {
+				background: linear-gradient(to right,
+						transparent,
+						rgba(variables.$border-color-dark, 0.7),
+						transparent);
+			}
+
 			&.post-link {
 				background: rgba(20, 20, 20, 0.7);
 				backdrop-filter: blur(5px);
@@ -645,68 +736,18 @@
 			}
 		}
 
-		/* Dark mode for mobile-tabs */
-		.tabs-wrapper {
-			.mobile-tabs {
-				background: variables.$card-bg-dark;
-				border-color: variables.$border-color-dark;
-				box-shadow:
-					0 1px 3px rgba(0, 0, 0, 0.2),
-					0 1px 2px rgba(0, 0, 0, 0.12),
-					inset 0 2px 4px rgba(0, 0, 0, 0.2),
-					inset 0 -1px 2px rgba(255, 255, 255, 0.05);
-
-				&::after {
-					background: variables.$link-color-dark;
-					box-shadow:
-						0 1px 2px rgba(0, 0, 0, 0.4),
-						0 0 8px rgba(variables.$link-color-dark, 0.3);
-					transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
-				}
-
-				.tab-button {
-					color: variables.$text-color-secondary-dark;
-					transition: color 0.3s ease;
-
-					&.active {
-						color: variables.$black !important;
-						text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
-					}
-
-					&:not(.active) {
-						color: variables.$text-color-secondary-dark !important;
-
-						&:hover {
-							color: variables.$text-color-dark !important;
-						}
-					}
-				}
-			}
-		}
-
-		&.blog .view-toggle {
-			.segmented-button button {
-				&.active {
-					background: variables.$link-color-dark;
-				}
-
-				&:hover:not(.active) {
-					color: variables.$link-color-dark;
-				}
-			}
-		}
-
-		/* Dark mode for navigation and text */
-		&.blog .page-navigation button {
-			color: variables.$link-color-dark;
-
-			&:hover {
-				color: variables.$link-color-dark;
-			}
-		}
-
 		p {
 			color: variables.$text-color-dark;
+		}
+
+		/* Dark mode for lists to match paragraph styling */
+		ul,
+		ol {
+			color: variables.$text-color-dark;
+
+			li {
+				color: variables.$text-color-dark !important;
+			}
 		}
 
 		.blog-list .post-list-item .post-byline {
@@ -942,6 +983,9 @@
 	.portfolio-item.has-writeup:hover .portfolio-image img {
 		transform: none;
 	}
+
+	/* Dark mode mobile tabs styling - MOVED TO _components.scss */
+	/* Removing this section to avoid conflicts */
 }
 
 /* Light mode specific overrides if needed */

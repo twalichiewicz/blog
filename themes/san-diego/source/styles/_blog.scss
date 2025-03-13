@@ -38,7 +38,7 @@
 	}
 
 	.post-list-item {
-		margin: 3rem 0;
+		margin: 4.5rem 0;
 		padding: 0 1rem;
 		max-width: 720px;
 		margin-left: auto;
@@ -50,8 +50,7 @@
 		}
 
 		h3 {
-			font-size: 1.5rem;
-			margin: 1rem 0;
+			margin: 1.3rem 0 0.8rem;
 			line-height: 1.4;
 
 			a {
@@ -368,10 +367,25 @@
 			max-width: 75ch;
 			margin: 0 auto;
 			padding: 12px;
-			border-bottom: 1px solid variables.$border-color;
+			margin-bottom: 2rem;
+			position: relative;
+
+			&:not(:last-child)::after {
+				content: '';
+				position: absolute;
+				bottom: -1rem;
+				left: 25%;
+				right: 25%;
+				height: 1px;
+				background: linear-gradient(to right,
+						transparent,
+						rgba(variables.$border-color, 0.7),
+						transparent);
+			}
 
 			&:last-child {
 				border-bottom: none;
+				margin-bottom: 0;
 			}
 
 			.post-byline {
@@ -450,6 +464,7 @@
 
 		.post-list-item.post-link {
 			@extend .card-base;
+			margin-bottom: 1rem;
 
 			h3 {
 				font-size: 1rem;

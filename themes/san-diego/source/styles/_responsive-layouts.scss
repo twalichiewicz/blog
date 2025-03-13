@@ -108,7 +108,7 @@
 	#postsContent,
 	#projectsContent {
 		width: 100%;
-		padding: 0 variables.$space-md;
+		padding: variables.$space-md;
 		overflow-x: hidden;
 		box-sizing: border-box;
 
@@ -250,7 +250,7 @@
 		#postsContent,
 		#projectsContent {
 			height: 100%;
-			padding: 0 variables.$space-md variables.$space-md;
+			padding: variables.$space-md variables.$space-md;
 			overflow-y: auto;
 			overflow-x: hidden;
 			box-sizing: border-box;
@@ -389,6 +389,7 @@
 			overflow-x: hidden;
 			position: relative;
 			margin: 0;
+			margin-top: 12px;
 			box-sizing: border-box;
 			display: block !important;
 			/* Ensure content is displayed */
@@ -562,7 +563,6 @@
 				margin: 0;
 				padding: variables.$spacing-card 0;
 				max-width: 600px;
-				border-bottom: 1px solid variables.$border-color;
 			}
 		}
 
@@ -632,11 +632,6 @@
 /* Desktop-specific media queries */
 @media screen and (min-width: variables.$mobile-breakpoint) {
 	.blog {
-
-		/* Company group spacing for desktop */
-		.company-group {
-			margin-top: 40px;
-		}
 
 		/* Desktop widgets */
 		.desktop-widgets {
