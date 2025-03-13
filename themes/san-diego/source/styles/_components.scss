@@ -378,6 +378,153 @@ button {
 			padding: 8px 12px;
 		}
 	}
+
+	/* Dark mode styles for mobile tabs */
+	@media (prefers-color-scheme: dark) {
+		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
+		border-color: variables.$border-color-dark;
+		box-shadow:
+			0 1px 2px rgba(0, 0, 0, 0.3),
+			0 -1px 0 rgba(255, 255, 255, 0.1) inset,
+			0 2px 0 rgba(0, 0, 0, 0.2) inset;
+
+		&::after {
+			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+			box-shadow:
+				0 1px 2px rgba(0, 0, 0, 0.4),
+				0 1px 0 rgba(255, 255, 255, 0.3) inset,
+				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
+		}
+
+		.tab-button {
+			&.active {
+				color: variables.$black !important;
+				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+			}
+
+			&:not(.active) {
+				color: variables.$text-color-secondary-dark !important;
+				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+
+				&:hover {
+					color: variables.$text-color-dark !important;
+				}
+			}
+		}
+	}
+}
+
+/* Additional dark mode styles for mobile-tabs with higher specificity */
+@media (prefers-color-scheme: dark) {
+
+	/* Mobile view */
+	.device-mobile .blog .blog-content .mobile-tabs {
+		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
+		border-color: variables.$border-color-dark;
+		border-bottom: 1px solid variables.$border-color-dark;
+		box-shadow:
+			0 1px 2px rgba(0, 0, 0, 0.3),
+			0 -1px 0 rgba(255, 255, 255, 0.1) inset,
+			0 2px 0 rgba(0, 0, 0, 0.2) inset;
+
+		&::after {
+			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+			box-shadow:
+				0 1px 2px rgba(0, 0, 0, 0.4),
+				0 1px 0 rgba(255, 255, 255, 0.3) inset,
+				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
+		}
+
+		.tab-button {
+			&.active {
+				color: variables.$black !important;
+				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+			}
+
+			&:not(.active) {
+				color: variables.$text-color-secondary-dark !important;
+				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+
+				&:hover {
+					color: variables.$text-color-dark !important;
+				}
+			}
+		}
+	}
+
+	/* Tablet view */
+	.device-tablet .blog .blog-content .mobile-tabs {
+		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
+		border-color: variables.$border-color-dark;
+		border-bottom: 1px solid variables.$border-color-dark;
+		box-shadow:
+			0 1px 2px rgba(0, 0, 0, 0.3),
+			0 -1px 0 rgba(255, 255, 255, 0.1) inset,
+			0 2px 0 rgba(0, 0, 0, 0.2) inset;
+
+		&::after {
+			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+			box-shadow:
+				0 1px 2px rgba(0, 0, 0, 0.4),
+				0 1px 0 rgba(255, 255, 255, 0.3) inset,
+				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
+		}
+
+		.tab-button {
+			&.active {
+				color: variables.$black !important;
+				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+			}
+
+			&:not(.active) {
+				color: variables.$text-color-secondary-dark !important;
+				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+
+				&:hover {
+					color: variables.$text-color-dark !important;
+				}
+			}
+		}
+	}
+
+	/* Desktop view */
+	.device-desktop .blog .blog-content .mobile-tabs {
+		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
+		border-color: variables.$border-color-dark;
+		border-bottom: 1px solid variables.$border-color-dark;
+		box-shadow:
+			0 1px 2px rgba(0, 0, 0, 0.3),
+			0 -1px 0 rgba(255, 255, 255, 0.1) inset,
+			0 2px 0 rgba(0, 0, 0, 0.2) inset;
+
+		&::after {
+			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+			box-shadow:
+				0 1px 2px rgba(0, 0, 0, 0.4),
+				0 1px 0 rgba(255, 255, 255, 0.3) inset,
+				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
+		}
+
+		.tab-button {
+			&.active {
+				color: variables.$black !important;
+				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+			}
+
+			&:not(.active) {
+				color: variables.$text-color-secondary-dark !important;
+				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+
+				&:hover {
+					color: variables.$text-color-dark !important;
+				}
+			}
+		}
+	}
 }
 
 .profile-header {
@@ -385,7 +532,7 @@ button {
 	display: flex;
 	align-items: center;
 	gap: 0;
-	padding: 18px 24px;
+	padding: 18px 24px 18px 48px;
 	margin: 0 auto 32px;
 	max-width: 600px;
 	z-index: 1;
@@ -469,8 +616,8 @@ button {
 		.contact-button {
 			display: block;
 			padding: 8px 16px;
-			background: linear-gradient(to bottom, color.adjust(variables.$card-bg, $lightness: 5%), variables.$card-bg);
-			border: 1px solid variables.$border-color;
+			background: rgba(variables.$card-bg, 0.8);
+			border: 1px solid rgba(variables.$border-color, 0.6);
 			border-radius: 6px;
 			font-size: 12px;
 			font-weight: 600;
@@ -480,28 +627,24 @@ button {
 			transition: all 0.2s ease;
 			z-index: 101;
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.1),
-				0 -1px 0 rgba(255, 255, 255, 0.5) inset,
-				0 2px 0 rgba(0, 0, 0, 0.1) inset;
-			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+				0 1px 2px rgba(0, 0, 0, 0.05),
+				0 -1px 0 rgba(255, 255, 255, 0.3) inset;
+			backdrop-filter: blur(4px);
 
 			&:hover {
-				background: linear-gradient(to bottom, color.adjust(variables.$card-bg, $lightness: 8%), color.adjust(variables.$card-bg, $lightness: 3%));
+				background: rgba(variables.$card-bg, 0.9);
 				box-shadow:
-					0 1px 3px rgba(0, 0, 0, 0.15),
-					0 -1px 0 rgba(255, 255, 255, 0.6) inset,
-					0 2px 0 rgba(0, 0, 0, 0.1) inset;
+					0 1px 3px rgba(0, 0, 0, 0.1),
+					0 -1px 0 rgba(255, 255, 255, 0.4) inset;
 			}
 
 			&.active {
-				background: linear-gradient(to bottom, variables.$link-color, color.adjust(variables.$link-color, $lightness: -5%));
+				background: rgba(variables.$link-color, 0.8);
 				color: variables.$white;
 				box-shadow:
-					0 1px 2px rgba(0, 0, 0, 0.2),
-					0 1px 0 rgba(255, 255, 255, 0.2) inset,
-					0 -1px 0 rgba(0, 0, 0, 0.2) inset;
-				text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-				border-color: color.adjust(variables.$link-color, $lightness: -10%);
+					0 1px 2px rgba(0, 0, 0, 0.1),
+					0 1px 0 rgba(255, 255, 255, 0.1) inset;
+				border-color: rgba(variables.$link-color, 0.6);
 			}
 		}
 
@@ -512,15 +655,14 @@ button {
 			margin-top: 5px;
 			display: none;
 			flex-direction: column;
-			background: variables.$card-bg;
-			border: 1px solid variables.$border-color;
+			background: rgba(variables.$card-bg, 0.8);
+			border: 1px solid rgba(variables.$border-color, 0.6);
 			border-radius: 6px;
-			box-shadow:
-				0 4px 8px rgba(0, 0, 0, 0.1),
-				0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 			overflow: hidden;
 			z-index: 100;
 			min-width: 120px;
+			backdrop-filter: blur(4px);
 
 			.contact-option {
 				display: block;
@@ -532,24 +674,19 @@ button {
 				text-align: center;
 				transition: all 0.2s ease;
 				white-space: nowrap;
-				background: linear-gradient(to bottom, color.adjust(variables.$card-bg, $lightness: 5%), variables.$card-bg);
-				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
-				box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+				background: transparent;
 
 				&:hover {
-					background: linear-gradient(to bottom, variables.$link-color, color.adjust(variables.$link-color, $lightness: -5%));
-					color: variables.$white;
-					text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-					box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+					background: rgba(variables.$link-color, 0.1);
+					color: variables.$link-color;
 				}
 
 				&:active {
-					background: linear-gradient(to bottom, color.adjust(variables.$link-color, $lightness: -5%), variables.$link-color);
-					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+					background: rgba(variables.$link-color, 0.2);
 				}
 
 				&:not(:last-child) {
-					border-bottom: 1px solid variables.$border-color;
+					border-bottom: 1px solid rgba(variables.$border-color, 0.4);
 				}
 			}
 		}
@@ -573,12 +710,12 @@ button {
 		.contact-options {
 			display: flex;
 			flex-direction: row;
-			border: 1px solid variables.$border-color;
+			border: 1px solid rgba(variables.$border-color, 0.6);
 			border-radius: 6px;
 			overflow: hidden;
-			box-shadow:
-				0 2px 4px rgba(0, 0, 0, 0.1),
-				0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+			background: rgba(variables.$card-bg, 0.6);
+			backdrop-filter: blur(4px);
 
 			.contact-option {
 				padding: 8px 16px;
@@ -587,26 +724,20 @@ button {
 				color: variables.$text-color;
 				text-decoration: none;
 				text-align: center;
-				background: linear-gradient(to bottom, color.adjust(variables.$card-bg, $lightness: 5%), variables.$card-bg);
+				background: transparent;
 				transition: all 0.2s ease;
-				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
-				box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
-				position: relative;
 
 				&:hover {
-					background: linear-gradient(to bottom, variables.$link-color, color.adjust(variables.$link-color, $lightness: -5%));
-					color: variables.$white;
-					text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-					box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+					background: rgba(variables.$link-color, 0.1);
+					color: variables.$link-color;
 				}
 
 				&:active {
-					background: linear-gradient(to bottom, color.adjust(variables.$link-color, $lightness: -5%), variables.$link-color);
-					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) inset;
+					background: rgba(variables.$link-color, 0.2);
 				}
 
 				&:not(:last-child) {
-					border-right: 1px solid variables.$border-color;
+					border-right: 1px solid rgba(variables.$border-color, 0.4);
 
 					&:after {
 						content: '';
