@@ -3,13 +3,34 @@
 
 // Core blog layout styles
 .blog {
-	margin: 0 auto;
-	padding: 0 variables.$space-md;
 	width: 100%;
 	box-sizing: border-box;
 	height: auto;
 	overflow-x: hidden;
 	position: relative;
+
+	.blog-header {}
+
+	.blog-content {
+		border-radius: 15px 0 0 0;
+		background-color: variables.$white;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+		border: 1px solid rgba(0, 0, 0, 0.03);
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 2px;
+			background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.8));
+			border-radius: 15px 0 0 0;
+		}
+
+		// Dark mode styles moved to _theme-modes.scss
+	}
 
 	// Base styles for blog posts
 	.blog-posts {

@@ -134,6 +134,17 @@
 			border-bottom-color: variables.$border-color-dark;
 		}
 
+		/* Dark mode for basic blog content */
+		.blog-content {
+			background-color: variables.$grey-dark;
+			box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+			border: 1px solid rgba(255, 255, 255, 0.05);
+
+			&::before {
+				background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+			}
+		}
+
 		/* Dark mode for blog content on tablet and desktop */
 		@media screen and (min-width: variables.$mobile-breakpoint) {
 			.blog-content {
@@ -426,6 +437,7 @@
 								box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 							}
 
+							/* Dark mode typography */
 							.company-byline {
 								color: variables.$grey-dark;
 								opacity: 0.8;
@@ -868,6 +880,80 @@
 				}
 			}
 		}
+
+		/* Dark mode portfolio item styles */
+		.portfolio-item.has-writeup {
+			/* Dark mode appearance */
+			background: rgba(0, 0, 0, 0.5);
+			backdrop-filter: blur(5px);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			color: variables.$text-color-dark;
+			box-shadow: variables.$shadow-soft-dark;
+
+			&:hover {
+				background-color: rgba(255, 255, 255, 0.03);
+				border-color: variables.$link-color-dark;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			}
+
+			/* Dark mode styling for portfolio image */
+			.portfolio-image {
+				border: 1px solid rgba(255, 255, 255, 0.05);
+			}
+
+			/* Dark mode typography */
+			.company-byline {
+				color: variables.$grey-dark;
+			}
+
+			h3,
+			h4 {
+				color: variables.$white;
+
+				a {
+					color: variables.$white;
+
+					&:hover {
+						color: variables.$link-color-dark;
+					}
+				}
+			}
+
+			p {
+				color: variables.$grey-light;
+			}
+
+			/* Dark mode accordion */
+			.content-accordion {
+				border-top-color: rgba(255, 255, 255, 0.05);
+
+				summary {
+					color: variables.$grey-dark;
+
+					&:hover {
+						color: variables.$link-color-dark;
+					}
+				}
+
+				.accordion-content {
+					color: variables.$grey-dark;
+					background: rgba(255, 255, 255, 0.03);
+				}
+			}
+
+			/* Dark mode external icon */
+			.external-icon {
+				background: rgba(255, 255, 255, 0.1);
+				border-color: rgba(255, 255, 255, 0.05);
+				color: variables.$white;
+
+				&:hover {
+					background: variables.$link-color-dark;
+					border-color: variables.$link-color-dark;
+					color: variables.$white;
+				}
+			}
+		}
 	}
 
 	/* Add a properly structured rule for desktop portfolio items in dark mode */
@@ -1058,6 +1144,11 @@
 			background-color: rgba(255, 255, 255, 0.03);
 			border-color: variables.$link-color-dark;
 			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		}
+
+		/* Dark mode styling for portfolio image */
+		.portfolio-image {
+			border: 1px solid rgba(255, 255, 255, 0.05);
 		}
 
 		/* Dark mode typography */
