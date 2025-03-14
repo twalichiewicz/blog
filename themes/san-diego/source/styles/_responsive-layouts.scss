@@ -429,6 +429,11 @@
 			}
 		}
 
+		/* Add specific padding-top for projectsContent */
+		#projectsContent {
+			padding-top: 64px;
+		}
+
 		.mobile-tabs {
 			display: none;
 		}
