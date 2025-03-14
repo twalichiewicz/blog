@@ -5,8 +5,38 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><%= config.title %><% if (config.subtitle) { %> | <%= config.subtitle %><% } %></title>
 	<%- partial('_partial/head') %>
+	<style>
+		/* Fade-in animation styles */
+		.page-transition-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #000;
+			z-index: 9999;
+			opacity: 1;
+			transition: opacity 1s ease-out;
+		}
+		
+		.page-transition-overlay.fade-out {
+			opacity: 0;
+		}
+		
+		body {
+			opacity: 0;
+			transition: opacity 0.5s ease-in;
+		}
+		
+		body.loaded {
+			opacity: 1;
+		}
+	</style>
 </head>
 <body>
+<!-- Page transition overlay -->
+<div class="page-transition-overlay"></div>
+
 <main class="blog">
     <div class="blog-header">
         <!-- <%- partial('_partial/wave-text', { 
@@ -257,5 +287,37 @@
 </main>
 
 <script src="<%- url_for('js/blog.js') %>"></script>
+<script>
+	// Page fade-in animation
+	document.addEventListener('DOMContentLoaded', function() {
+		// Wait for images to load
+		window.addEventListener('load', function() {
+			// Add a slight delay before starting the animation
+			setTimeout(function() {
+				// Add loaded class to body
+				document.body.classList.add('loaded');
+				
+				// Fade out the overlay
+				const overlay = document.querySelector('.page-transition-overlay');
+				overlay.classList.add('fade-out');
+				
+				// Remove overlay after animation completes
+				setTimeout(function() {
+					overlay.style.display = 'none';
+				}, 1000);
+			}, 800); // 800ms delay before starting the animation
+		});
+		
+		// Fallback in case load event doesn't fire
+		setTimeout(function() {
+			document.body.classList.add('loaded');
+			const overlay = document.querySelector('.page-transition-overlay');
+			overlay.classList.add('fade-out');
+			setTimeout(function() {
+				overlay.style.display = 'none';
+			}, 1000);
+		}, 3000); // Increased timeout to account for the added delay
+	});
+</script>
 </body>
 </html>
