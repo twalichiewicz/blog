@@ -962,26 +962,29 @@
 				color: variables.$white;
 			}
 		}
-	}
 
-	/* Portfolio image styling in dark mode */
-	.portfolio-item.has-writeup .portfolio-image {
-		margin: 0 0 12px 0;
-		border-radius: 6px;
-		overflow: hidden;
-		max-height: 180px;
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		/* Portfolio image styling in dark mode */
+		.portfolio-image {
+			margin: 0 0 12px 0;
+			border-radius: 6px;
+			overflow: hidden;
+			max-height: 150px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			display: flex;
+			align-items: center;
+			justify-content: center;
 
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			transition: none;
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: none;
+			}
 		}
-	}
 
-	.portfolio-item.has-writeup:hover .portfolio-image img {
-		transform: none;
+		&:hover .portfolio-image img {
+			transform: none;
+		}
 	}
 
 	/* Dark mode mobile tabs styling - MOVED TO _components.scss */
@@ -1244,6 +1247,25 @@
 	box-shadow: variables.$shadow-soft;
 	color: variables.$text-color;
 
+	/* Portfolio image styling in light mode */
+	.portfolio-image {
+		margin: 0 0 12px 0;
+		border-radius: 6px;
+		overflow: hidden;
+		max-height: 150px;
+		border: 1px solid rgba(0, 0, 0, 0.05);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: none;
+		}
+	}
+
 	&:hover {
 		background-color: rgba(0, 0, 0, 0.02);
 		text-decoration: none;
@@ -1422,30 +1444,32 @@
 
 			&:hover {
 				background: variables.$link-color-dark;
-
 				color: variables.$white;
 			}
 		}
-	}
 
-	/* Portfolio image styling in dark mode */
-	.portfolio-item.has-writeup .portfolio-image {
-		margin: 0 0 12px 0;
-		border-radius: 6px;
-		overflow: hidden;
-		max-height: 180px;
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		/* Portfolio image styling in dark mode */
+		.portfolio-image {
+			margin: 0 0 12px 0;
+			border-radius: 6px;
+			overflow: hidden;
+			max-height: 150px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			display: flex;
+			align-items: center;
+			justify-content: center;
 
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			transition: none;
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: none;
+			}
 		}
-	}
 
-	.portfolio-item.has-writeup:hover .portfolio-image img {
-		transform: none;
+		&:hover .portfolio-image img {
+			transform: none;
+		}
 	}
 
 	/* Dark mode portfolio-items styles */
@@ -1471,7 +1495,6 @@
 
 					.external-icon {
 						background: variables.$link-color-dark;
-
 						color: variables.$white;
 					}
 				}
@@ -1523,7 +1546,6 @@
 
 			&:hover {
 				background: variables.$link-color-dark;
-
 			}
 		}
 	}
