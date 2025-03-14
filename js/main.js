@@ -149,4 +149,47 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	sections.forEach(section => observer.observe(section));
+
+	/**
+	 * Column Title Scroll Detection
+	 * Adds 'is-scrolling' class to column titles when content is scrolled
+	 */
+	document.addEventListener('DOMContentLoaded', function () {
+		const postsContent = document.getElementById('postsContent');
+		const projectsContent = document.getElementById('projectsContent');
+
+		if (postsContent) {
+			const blogColumnTitle = postsContent.querySelector('.column-title');
+
+			if (blogColumnTitle) {
+				// Always ensure the column title is visible
+				blogColumnTitle.style.display = 'block';
+
+				postsContent.addEventListener('scroll', function () {
+					if (postsContent.scrollTop > 10) {
+						blogColumnTitle.classList.add('is-scrolling');
+					} else {
+						blogColumnTitle.classList.remove('is-scrolling');
+					}
+				});
+			}
+		}
+
+		if (projectsContent) {
+			const portfolioColumnTitle = projectsContent.querySelector('.column-title');
+
+			if (portfolioColumnTitle) {
+				// Always ensure the column title is visible
+				portfolioColumnTitle.style.display = 'block';
+
+				projectsContent.addEventListener('scroll', function () {
+					if (projectsContent.scrollTop > 10) {
+						portfolioColumnTitle.classList.add('is-scrolling');
+					} else {
+						portfolioColumnTitle.classList.remove('is-scrolling');
+					}
+				});
+			}
+		}
+	});
 });

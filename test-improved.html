@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Improved Styles Test</title>
+  <link rel="stylesheet" href="/styles/improved/base/variables.css">
+  <link rel="stylesheet" href="/styles/improved/base/reset.css">
+  <link rel="stylesheet" href="/styles/improved/base/typography.css">
+  <link rel="stylesheet" href="/styles/improved/layout/grid.css">
+  <link rel="stylesheet" href="/styles/improved/layout/responsive.css">
+  <link rel="stylesheet" href="/styles/improved/layout/header.css">
+  <link rel="stylesheet" href="/styles/improved/layout/footer.css">
+  <link rel="stylesheet" href="/styles/improved/components/blog.css">
+  <link rel="stylesheet" href="/styles/improved/components/post.css">
+  <link rel="stylesheet" href="/styles/improved/components/carousel.css">
+  <link rel="stylesheet" href="/styles/improved/components/profile.css">
+  <link rel="stylesheet" href="/styles/improved/components/portfolio.css">
+  <link rel="stylesheet" href="/styles/improved/components/search.css">
+  <link rel="stylesheet" href="/styles/improved/components/project.css">
+  <link rel="stylesheet" href="/styles/improved/utils/animations.css">
+  <link rel="stylesheet" href="/styles/improved/utils/helpers.css">
+  <link rel="stylesheet" href="/styles/improved/utils/dark-mode.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <a href="/" class="logo">
+        <img src="/img/logo.png" alt="Logo">
+        <span class="logo-text">My Blog</span>
+      </a>
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="/" class="active">Home</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/portfolio">Portfolio</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+        <button class="mobile-menu-button">Menu</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <div class="col-4">
+        <div class="profile-header">
+          <img src="/img/profile.jpg" alt="Profile" class="profile-photo">
+          <div class="profile-info">
+            <h2 class="profile-name">John Doe</h2>
+            <p class="profile-bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia.</p>
+            <div class="profile-stats">
+              <div class="stat">
+                <span class="number">42</span>
+                <span class="label">Posts</span>
+              </div>
+              <div class="stat">
+                <span class="number">12</span>
+                <span class="label">Projects</span>
+              </div>
+              <div class="stat">
+                <span class="number">5</span>
+                <span class="label">Years</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="blog-list">
+          <article class="post-list-item">
+            <div class="post-byline">January 1, 2023</div>
+            <h3><a href="/post">Sample Blog Post Title</a></h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.</p>
+          </article>
+          <article class="post-list-item">
+            <div class="post-byline">February 15, 2023</div>
+            <h3><a href="/post">Another Blog Post Title</a></h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-list mt-lg">
+      <h2 class="text-center mb-md">Portfolio</h2>
+      <div class="grid">
+        <div class="col-4">
+          <div class="portfolio-item has-writeup">
+            <div class="portfolio-image">
+              <img src="/img/project1.jpg" alt="Project 1">
+            </div>
+            <div class="portfolio-content">
+              <div class="content-text">
+                <h4>Project 1</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+              <div class="external-icon">→</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="portfolio-item has-writeup">
+            <div class="portfolio-image">
+              <img src="/img/project2.jpg" alt="Project 2">
+            </div>
+            <div class="portfolio-content">
+              <div class="content-text">
+                <h4>Project 2</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+              <div class="external-icon">→</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="portfolio-item">
+            <div class="portfolio-image">
+              <img src="/img/project3.jpg" alt="Project 3">
+            </div>
+            <div class="portfolio-content">
+              <div class="content-text">
+                <h4>Project 3</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer mt-xl">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/portfolio">Portfolio</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <div class="contact-info">
+          <p>Email: info@example.com</p>
+          <p>Phone: +1 234 567 890</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 My Blog. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html> 
