@@ -298,12 +298,12 @@
 
 // Project Gallery
 .project-gallery {
-	max-width: 935px; // Instagram's max width
+	max-width: 2000px;
 	margin: 0 auto;
 
 	.project-details {
 		padding: 0 var(--project-padding);
-		max-width: 600px; // Match carousel max-width
+		max-width: 800px;
 		margin: 0 auto 2rem;
 		font-family: var(--font-sans);
 		overflow-x: hidden;
