@@ -47,51 +47,46 @@ document.addEventListener('DOMContentLoaded', function () {
 		const activeButton = tabContainer.querySelector('.tab-button.active');
 		if (!activeButton) return;
 
-		// Get the active button's width and position
-		const buttonWidth = activeButton.offsetWidth;
-		const buttonIndex = Array.from(tabButtons).indexOf(activeButton);
+		// Get the slider element directly
+		const slider = tabContainer.querySelector('.mobile-tabs-slider');
 
-		// Get the container's padding and gap
+		// If slider doesn't exist, create it
+		if (!slider) {
+			// Remove the ::after pseudo-element styling by adding a class
+			tabContainer.classList.add('has-slider-element');
+
+			// Create a new slider element
+			const newSlider = document.createElement('div');
+			newSlider.className = 'mobile-tabs-slider';
+			tabContainer.appendChild(newSlider);
+
+			// Position it initially
+			setTimeout(() => updateSlider(), 10);
+			return;
+		}
+
+		// Get the active button's position and dimensions
+		const buttonRect = activeButton.getBoundingClientRect();
+		const containerRect = tabContainer.getBoundingClientRect();
+
+		// Get computed styles to account for potential padding differences
 		const containerStyle = window.getComputedStyle(tabContainer);
-		const containerPadding = parseInt(containerStyle.paddingLeft) || 4; // Default to 4px if not set
-		const gap = parseInt(containerStyle.gap) || 4; // Default to 4px if not set
+		const containerPadding = parseFloat(containerStyle.paddingLeft) || 4;
 
-		// Get the container's width for calculations
-		const containerWidth = tabContainer.offsetWidth;
+		// Calculate position relative to container, accounting for padding
+		const left = buttonRect.left - containerRect.left;
+		const width = buttonRect.width;
 
-		// Calculate the exact position of the active button relative to the container
-		let position = containerPadding;
+		// Apply the position and dimensions directly to the slider element
+		slider.style.width = `${width}px`;
+		slider.style.transform = `translateX(${left}px)`;
 
-		// If it's the second button, add the width of the first button plus the gap
-		if (buttonIndex === 1) {
-			position += tabButtons[0].offsetWidth + gap;
-		}
+		// Also update the top position to account for potential padding differences
+		slider.style.top = `${containerPadding}px`;
+		slider.style.height = `calc(100% - ${containerPadding * 2}px)`;
 
-		// Calculate the adjusted width to ensure it doesn't extend beyond the container
-		let adjustedWidth;
-
-		if (buttonIndex === 0) {
-			// For the first button
-			adjustedWidth = buttonWidth - containerPadding;
-		} else {
-			// For the second button, ensure it doesn't extend beyond the container
-			const rightEdge = position + buttonWidth;
-			const maxRightPosition = containerWidth - containerPadding;
-
-			if (rightEdge > maxRightPosition) {
-				// If it would extend beyond the container, adjust the width
-				adjustedWidth = maxRightPosition - position;
-			} else {
-				adjustedWidth = buttonWidth;
-			}
-		}
-
-		// Ensure the width is never negative
-		adjustedWidth = Math.max(adjustedWidth, 0);
-
-		// Set the width and position
-		tabContainer.style.setProperty('--button-width', `${adjustedWidth}px`);
-		tabContainer.style.setProperty('--slider-x', `${position}px`);
+		// Log for debugging
+		console.log(`Button: ${activeButton.dataset.type}, Width: ${width}px, Position: ${left}px, Padding: ${containerPadding}px`);
 	}
 
 	// Function to ensure only one tab is active and return the active tab type
@@ -226,10 +221,21 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Set initial state
 	const initialTab = validateActiveState();
 	showContent(initialTab);
-	updateSlider(); // Initialize slider position and width
 
-	// Update slider after a short delay to ensure fonts are loaded
-	setTimeout(updateSlider, 100);
+	// Initialize slider with a sequence of updates to ensure it's positioned correctly
+	// as the page loads and elements render
+	function initializeSlider() {
+		updateSlider();
+
+		// Schedule multiple updates to catch any layout changes
+		const updateTimes = [50, 100, 250, 500, 1000];
+		updateTimes.forEach(time => {
+			setTimeout(updateSlider, time);
+		});
+	}
+
+	// Run the initialization
+	initializeSlider();
 
 	// Update slider when fonts are loaded (if the browser supports the fonts API)
 	if (document.fonts && document.fonts.ready) {
@@ -269,6 +275,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const currentWidth = window.innerWidth;
 
+		// Immediately update slider on resize
+		updateSlider();
+
 		// Check if we're transitioning from desktop to tablet
 		if (lastWidth >= 1024 && currentWidth < 1024 && currentWidth >= 768) {
 			transitioningFromDesktop = true;
@@ -297,15 +306,18 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Device type changed, update immediately
 			currentDeviceType = newDeviceType;
 			handleDeviceChange(true);
+			// Update slider after device change
+			updateSlider();
 		}
-
-		// Update slider on resize
-		updateSlider();
 
 		// Still use a short debounce for fine-tuning
 		resizeTimer = setTimeout(() => {
 			handleDeviceChange(false);
-			updateSlider(); // Update slider again after resize completes
+			// Update slider after resize completes and layout has settled
+			updateSlider();
+
+			// Schedule another update after a short delay to catch any layout shifts
+			setTimeout(updateSlider, 100);
 
 			// If we were transitioning from desktop to tablet, ensure tabs are visible
 			if (transitioningFromDesktop && getDeviceType() === 'tablet') {
