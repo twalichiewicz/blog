@@ -1832,8 +1832,9 @@ ol ul {
 .device-mobile .blog .blog-content .mobile-tabs {
   flex-shrink: 0;
   margin: 0;
-  padding: 0;
+  padding: 4px;
   border-bottom: 1px solid hsl(35, 10%, 75%);
+  gap: 4px;
 }
 .device-mobile .blog .blog-content .content-wrapper {
   flex-direction: column;
@@ -5791,9 +5792,33 @@ button {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 -1px 2px rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-sizing: border-box;
-  --slider-x: 0px;
-  --button-width: calc((100% - 12px) / 2);
+  --slider-x: 4px;
+  --button-width: calc(50% - 6px);
   /* Dark mode styles for mobile tabs */
+}
+.mobile-tabs .mobile-tabs-slider {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  /* Default, will be overridden by JS */
+  height: calc(100% - 8px);
+  /* Default, will be overridden by JS */
+  background: hsl(15, 70%, 40%);
+  border-radius: 6px;
+  z-index: 1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease, top 0.3s ease, height 0.3s ease;
+  will-change: transform, width, top, height;
+}
+@media (prefers-color-scheme: dark) {
+  .mobile-tabs .mobile-tabs-slider {
+    background: linear-gradient(to bottom, hsl(40, 80%, 50%), hsl(40, 80%, 40%));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+    border: 1px solid hsl(40, 80%, 35%);
+  }
+}
+.mobile-tabs.has-slider-element::after {
+  display: none;
 }
 .mobile-tabs::after {
   content: "";
@@ -5888,6 +5913,11 @@ button {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
     border: 1px solid hsl(40, 80%, 35%);
   }
+  .device-mobile .blog .blog-content .mobile-tabs .mobile-tabs-slider {
+    background: linear-gradient(to bottom, hsl(40, 80%, 50%), hsl(40, 80%, 40%));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+    border: 1px solid hsl(40, 80%, 35%);
+  }
   .device-mobile .blog .blog-content .mobile-tabs .tab-button.active {
     color: hsl(0, 0%, 10%) !important;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -5911,6 +5941,11 @@ button {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
     border: 1px solid hsl(40, 80%, 35%);
   }
+  .device-tablet .blog .blog-content .mobile-tabs .mobile-tabs-slider {
+    background: linear-gradient(to bottom, hsl(40, 80%, 50%), hsl(40, 80%, 40%));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+    border: 1px solid hsl(40, 80%, 35%);
+  }
   .device-tablet .blog .blog-content .mobile-tabs .tab-button.active {
     color: hsl(0, 0%, 10%) !important;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -5930,6 +5965,11 @@ button {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 -1px 0 rgba(255, 255, 255, 0.1) inset, 0 2px 0 rgba(0, 0, 0, 0.2) inset;
   }
   .device-desktop .blog .blog-content .mobile-tabs::after {
+    background: linear-gradient(to bottom, hsl(40, 80%, 50%), hsl(40, 80%, 40%));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+    border: 1px solid hsl(40, 80%, 35%);
+  }
+  .device-desktop .blog .blog-content .mobile-tabs .mobile-tabs-slider {
     background: linear-gradient(to bottom, hsl(40, 80%, 50%), hsl(40, 80%, 40%));
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
     border: 1px solid hsl(40, 80%, 35%);
