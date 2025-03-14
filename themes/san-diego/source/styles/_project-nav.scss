@@ -9,6 +9,7 @@
 	border-bottom: 1px solid variables.$border-color;
 	transition: transform 0.3s ease;
 	height: auto;
+	width: 100%;
 
 	.project-nav-back {
 		font-size: 0.75rem;
@@ -68,6 +69,59 @@
 					opacity: 1;
 					font-weight: 500;
 				}
+			}
+		}
+	}
+}
+
+/* Larger screen sizes - position back button in left-most corner */
+@media (min-width: 1024px) {
+	.project-sticky-nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+
+		.project-nav-container {
+			max-width: 100%;
+			padding: 0.5rem 2rem;
+		}
+
+		.project-nav-title {
+			position: absolute;
+			left: 2rem;
+
+			.project-nav-back {
+				font-size: 14px;
+				padding: 0.5rem 0;
+			}
+		}
+	}
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+	.project-sticky-nav {
+		.project-nav-container {
+			padding: 0.5rem 3rem;
+		}
+
+		.project-nav-title {
+			left: 3rem;
+		}
+	}
+}
+
+/* Project gallery specific navigation */
+.project-gallery {
+	.project-sticky-nav {
+		@media (min-width: 1024px) {
+			background: rgba(variables.$nav-bg, 0.8);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+
+			@media (prefers-color-scheme: dark) {
+				background: rgba(variables.$nav-bg-dark, 0.8);
 			}
 		}
 	}
