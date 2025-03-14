@@ -27,6 +27,8 @@
 			height: 2px;
 			background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.8));
 			border-radius: 15px 0 0 0;
+			// Dark mode variant is in _theme-modes.scss:
+			// background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
 		}
 
 		// Dark mode styles moved to _theme-modes.scss
