@@ -43,7 +43,7 @@
 
 // Shared byline styling
 .byline-base {
-	font-size: 9px;
+	font-size: 10px;
 	font-weight: 600;
 	margin-bottom: 6px;
 	text-transform: uppercase;
@@ -154,10 +154,6 @@
 		object-fit: cover;
 		transition: transform 0.3s ease;
 	}
-
-	&:hover img {
-		transform: scale(1.03);
-	}
 }
 
 // Shared link styling
@@ -182,7 +178,7 @@
 	}
 
 	p {
-		font-size: 13px;
+		font-size: 14px;
 		margin: 0.25rem 0;
 		line-height: 1.3;
 

@@ -112,7 +112,7 @@
                 <div class="column-title blog-column-title">Posts</div>
                 
                 <% if (blogPosts.length > 0) { %>
-                    <% blogPosts.forEach(function(post) { %>
+                    <% blogPosts.forEach(function(post, index) { %>
                         <% if (post.type === 'link') { %>
                             <a href="<%= post.url %>" target="_blank" rel="noopener" class="post-link-wrapper">
                         <% } %>
@@ -155,6 +155,9 @@
                         </article>
                         <% if (post.type === 'link') { %>
                             </a>
+                        <% } %>
+                        <% if (index < blogPosts.length - 1) { %>
+                            <hr class="post-separator">
                         <% } %>
                     <% }) %>
                 <% } else { %>
@@ -228,7 +231,7 @@
                                 <% } %>
                             </h2>
                             <div class="company-projects">
-                                <% projectsByCompany[company].forEach(function(post) { %>
+                                <% projectsByCompany[company].forEach(function(post, index) { %>
                                     <% if (post.has_writeup !== false) { %>
                                         <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup">
                                     <% } else { %>

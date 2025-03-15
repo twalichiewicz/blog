@@ -68,7 +68,7 @@
 		p,
 		ul,
 		ol {
-			font-size: 13px;
+			font-size: 14px;
 			line-height: 1.4;
 			margin: variables.$spacing-stack 0;
 		}
@@ -80,7 +80,7 @@
 			li {
 				margin-bottom: 0.5rem;
 				color: variables.$grey-dark;
-				font-size: 13px;
+				font-size: 14px;
 				line-height: 1.4;
 
 				&:last-child {
@@ -149,7 +149,7 @@
 			figcaption {
 				text-align: center;
 				color: variables.$text-color-secondary;
-				font-size: 13px;
+				font-size: 14px;
 			}
 		}
 
@@ -162,7 +162,7 @@
 
 			p {
 				margin: 0;
-				font-size: 13px;
+				font-size: 14px;
 				line-height: 1.5;
 				font-style: italic;
 				color: variables.$text-color-secondary;
@@ -175,7 +175,7 @@
 			padding-left: 1.5rem;
 
 			li {
-				font-size: 13px;
+				font-size: 14px;
 				line-height: 1.5;
 				color: variables.$text-color-secondary;
 				margin-bottom: 0.5em;
@@ -294,12 +294,28 @@
 		}
 	}
 
-	.post-divider {
+	.post-separator {
 		border: none;
-		border-top: 1px solid variables.$border-color;
-		margin: 3rem auto;
-		width: 100px;
-		opacity: 0.5;
+		height: 1px;
+		background: linear-gradient(to right,
+				transparent,
+				rgba(variables.$border-color, 0.3),
+				transparent);
+		margin: 1.5rem auto;
+		width: 90%;
+		box-shadow: 0 0 1px rgba(variables.$border-color, 0.05);
+	}
+
+	.project-separator {
+		border: none;
+		height: 1px;
+		background: linear-gradient(to right,
+				transparent,
+				rgba(variables.$border-color, 0.2),
+				transparent);
+		margin: 1.5rem auto;
+		width: 80%;
+		box-shadow: 0 0 1px rgba(variables.$border-color, 0.05);
 	}
 
 	.archive-link {
@@ -362,31 +378,16 @@
 		margin: 0 auto;
 		max-width: 600px;
 		width: 100%;
-		padding: 0 2rem 0 2rem;
+		padding: 0 2rem;
 		box-sizing: border-box;
 
 		.post-list-item {
 			max-width: 75ch;
 			margin: 0 auto;
-			padding: 12px;
-			margin-bottom: 2rem;
+			padding: 0 12px;
 			position: relative;
 
-			&:not(:last-child)::after {
-				content: '';
-				position: absolute;
-				bottom: -1rem;
-				left: 25%;
-				right: 25%;
-				height: 1px;
-				background: linear-gradient(to right,
-						transparent,
-						rgba(variables.$border-color, 0.7),
-						transparent);
-			}
-
 			&:last-child {
-				border-bottom: none;
 				margin-bottom: 0;
 			}
 
@@ -412,7 +413,7 @@
 			p {
 				margin: 0 0 1.4em 0;
 				line-height: 1.5;
-				font-size: 13px;
+				font-size: 14px;
 				color: variables.$text-color;
 
 				blockquote {
@@ -478,7 +479,7 @@
 			}
 
 			p {
-				font-size: 13px;
+				font-size: 14px;
 				margin: 0.25rem 0;
 				line-height: 1.3;
 			}
@@ -489,7 +490,7 @@
 				margin-bottom: 0;
 
 				.link-url {
-					font-size: 9px;
+					font-size: 10px;
 					color: variables.$text-color-secondary;
 					opacity: 0.8;
 				}
@@ -630,4 +631,10 @@ p {
 			}
 		}
 	}
+}
+
+// Remove top and bottom margins for articles in #postsContent
+#postsContent .post-list-item {
+	margin-top: 0;
+	margin-bottom: 0;
 }

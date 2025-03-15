@@ -470,6 +470,12 @@
 			.company-group:first-of-type {
 				margin-top: 64px;
 			}
+
+			/* Remove top/bottom margins from post-list-items, rely on separator margins instead */
+			.post-list-item {
+				margin-top: 0;
+				margin-bottom: 0;
+			}
 		}
 
 		/* Add specific padding-top for projectsContent */
