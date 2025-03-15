@@ -9,8 +9,32 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Sat, 15 Mar 2025 20:35:06 GMT</pubDate>
+    <pubDate>Sat, 15 Mar 2025 20:44:33 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Designer developers in 2025</title>
+      <link>https://twalichiewicz.github.io/2025/03/15/Designer-developers-in-2025/</link>
+      <guid>https://twalichiewicz.github.io/2025/03/15/Designer-developers-in-2025/</guid>
+      <pubDate>Sat, 15 Mar 2025 20:43:26 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Designers who can’t code are getting left behind. I’ve been leveraging generative tools to rapidly prototype and ship finished components</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Designers who can’t code are getting left behind. I’ve been leveraging generative tools to rapidly prototype and ship finished components—cutting my implementation time in half while maintaining complete creative control.<br>Why this matters: Understanding how your designs translate to code makes you a better designer. Period. You spot technical constraints earlier, make smarter decisions about interactions, and speak the language developers respect.</p><p>The most valuable designers in 2025 aren’t just creating static mockups—they’re building functional prototypes that demonstrate real behavior and can evolve into production code.</p><p>Stop outsourcing your technical understanding. Start utilizing technology to execute your vision directly and precisely.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/03/15/Designer-developers-in-2025/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Coding over writing?</title>
@@ -452,31 +476,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2024/10/31/happy-halloween-2024/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Whoops Spoke Too Soon</title>
-      <link>https://twalichiewicz.github.io/2024/10/30/whoops-spoke-too-soon/</link>
-      <guid>https://twalichiewicz.github.io/2024/10/30/whoops-spoke-too-soon/</guid>
-      <pubDate>Wed, 30 Oct 2024 19:00:00 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;&lt;img src=&quot;/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.jpg&quot; alt=&quot;A screenshot showing a premature celebration&quot;&gt;&lt;/p&gt;
-&lt;p&gt;Got to lov</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p><img src="/2024/10/30/whoops-spoke-too-soon/whoopsSpokeTooSoon.jpg" alt="A screenshot showing a premature celebration"></p><p>Got to love the random iOS beta bugs.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2024/10/30/whoops-spoke-too-soon/#disqus_thread</comments>
       
     </item>
     
