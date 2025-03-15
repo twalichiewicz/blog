@@ -63,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	function handleSearch(e) {
 		const query = e.target.value.toLowerCase();
 		const posts = document.querySelectorAll('.post-list-item');
-		const dividers = document.querySelectorAll('.post-divider');
 		let visibleCount = 0;
 
 		posts.forEach(post => {

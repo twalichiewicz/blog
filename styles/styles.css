@@ -116,7 +116,7 @@
 
 .byline-base, .blog .post-list-item .post-byline, .blog .blog-list .post-list-item .post-byline, .blog .blog-list .post-list-item.post-link .post-byline, .portfolio-item .company-byline, .portfolio-items .post-byline,
 .portfolio-items .company-byline {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 600;
   margin-bottom: 6px;
   text-transform: uppercase;
@@ -224,9 +224,6 @@
   object-fit: cover;
   transition: transform 0.3s ease;
 }
-.image-container:hover img, .portfolio-item .portfolio-image:hover img {
-  transform: scale(1.03);
-}
 
 .link-text, .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group, .portfolio-items h3 a .link-text-group, .portfolio-items .link-text-group {
   display: flex;
@@ -261,7 +258,7 @@
   }
 }
 .link-text p, .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group p, .portfolio-items h3 a .link-text-group p, .portfolio-items .link-text-group p {
-  font-size: 13px;
+  font-size: 14px;
   margin: 0.25rem 0;
   line-height: 1.3;
 }
@@ -320,14 +317,14 @@ p,
 h3 {
   margin: 1.5em 0;
   line-height: 1.5em;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 ul,
 ol {
   margin: 0.6rem 0 0.6rem 0;
   line-height: 1.5em;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 ul,
@@ -337,7 +334,7 @@ ol {
 ul li,
 ol li {
   margin-bottom: 0.5rem;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
 }
 ul li:last-child,
@@ -1010,7 +1007,6 @@ ol ul {
   }
   .blog.blog .blog-list .post-list-item {
     /* Dark mode styling for the separator */
-    border-bottom-color: rgba(51, 51, 51, 0.5);
   }
   .blog.blog .blog-list .post-list-item .post-byline {
     color: hsl(0, 0%, 70%);
@@ -1041,9 +1037,6 @@ ol ul {
   .blog.blog .blog-list .post-list-item ul li a:hover,
   .blog.blog .blog-list .post-list-item ol li a:hover {
     color: hsl(40, 80%, 50%);
-  }
-  .blog.blog .blog-list .post-list-item:not(:last-child)::after {
-    background: linear-gradient(to right, transparent, rgba(51, 51, 51, 0.7), transparent);
   }
   .blog.blog .blog-list .post-list-item.post-link {
     background: rgba(20, 20, 20, 0.7);
@@ -1132,8 +1125,13 @@ ol ul {
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 0 2px rgba(0, 0, 0, 0.3), inset 0 2px 8px rgba(0, 0, 0, 0.6), inset 0 -4px 8px rgba(255, 255, 255, 0.1);
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.2));
   }
-  .blog .post-divider {
-    border-top-color: hsl(0, 0%, 20%);
+  .blog .post-separator {
+    background: linear-gradient(to right, transparent, rgba(51, 51, 51, 0.3), transparent);
+    box-shadow: 0 0 1px rgba(51, 51, 51, 0.05);
+  }
+  .blog .project-separator {
+    background: linear-gradient(to right, transparent, rgba(51, 51, 51, 0.2), transparent);
+    box-shadow: 0 0 1px rgba(51, 51, 51, 0.05);
   }
   .blog .desktop-widgets {
     background: var(--bg-color, hsl(0, 0%, 10%));
@@ -1165,9 +1163,6 @@ ol ul {
   .blog .portfolio-item:hover {
     background-color: rgba(30, 30, 30, 0.8);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-  .blog .portfolio-item:hover .title-row h4 {
-    color: hsl(40, 80%, 50%);
   }
   .blog .portfolio-item .company-byline {
     color: hsl(0, 0%, 70%);
@@ -1420,7 +1415,6 @@ ol ul {
   font-weight: 500;
 }
 .portfolio-item .portfolio-content .title-row .content-text p {
-  font-size: 13px;
   margin: 0 0 0.25rem 0;
   line-height: 1.3;
 }
@@ -1515,6 +1509,8 @@ ol ul {
   color: hsl(35, 15%, 30%);
 }
 .portfolio-item.has-writeup p {
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
   color: hsl(24, 3%, 35%);
 }
 .portfolio-item.has-writeup .content-accordion {
@@ -1549,6 +1545,8 @@ ol ul {
   color: hsl(35, 15%, 40%);
 }
 .portfolio-item:not(.has-writeup) p {
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
   color: hsl(35, 15%, 45%);
 }
 
@@ -1580,7 +1578,6 @@ ol ul {
   text-decoration: none;
 }
 .portfolio-items p {
-  font-size: 13px;
   margin: 0 0 0.25rem 0;
   line-height: 1.3;
   color: hsl(24, 3%, 35%);
@@ -1593,7 +1590,7 @@ ol ul {
   padding-top: 0.25rem;
 }
 .portfolio-items .link-source .link-url {
-  font-size: 9px;
+  font-size: 10px;
   color: hsl(35, 15%, 30%);
   opacity: 0.8;
 }
@@ -2122,6 +2119,7 @@ ol ul {
   display: block !important;
   /* Ensure content is displayed */
   /* Add padding to the top to prevent content from being hidden under the floating header */
+  /* Remove top/bottom margins from post-list-items, rely on separator margins instead */
 }
 .device-desktop .blog .blog-content #postsContent::-webkit-scrollbar,
 .device-desktop .blog .blog-content #projectsContent::-webkit-scrollbar {
@@ -2156,6 +2154,11 @@ ol ul {
 .device-desktop .blog .blog-content #projectsContent .post-list-item:first-of-type,
 .device-desktop .blog .blog-content #projectsContent .company-group:first-of-type {
   margin-top: 64px;
+}
+.device-desktop .blog .blog-content #postsContent .post-list-item,
+.device-desktop .blog .blog-content #projectsContent .post-list-item {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .device-desktop .blog .blog-content #projectsContent {
   padding-top: 64px;
@@ -3206,7 +3209,7 @@ footer span {
 .blog .post-list-item p,
 .blog .post-list-item ul,
 .blog .post-list-item ol {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
   margin: 12px 0;
 }
@@ -3218,7 +3221,7 @@ footer span {
 .blog .post-list-item ol li {
   margin-bottom: 0.5rem;
   color: hsl(0, 0%, 70%);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
 }
 .blog .post-list-item ul li:last-child,
@@ -3272,7 +3275,7 @@ li .blog .post-list-item img {
 .blog .post-list-item figure figcaption {
   text-align: center;
   color: hsl(35, 15%, 30%);
-  font-size: 13px;
+  font-size: 14px;
 }
 .blog .post-list-item blockquote {
   margin: 1.5rem 0;
@@ -3283,7 +3286,7 @@ li .blog .post-list-item img {
 }
 .blog .post-list-item blockquote p {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
   font-style: italic;
   color: hsl(35, 15%, 30%);
@@ -3295,7 +3298,7 @@ li .blog .post-list-item img {
 }
 .blog .post-list-item ol li,
 .blog .post-list-item ul li {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
   color: hsl(35, 15%, 30%);
   margin-bottom: 0.5em;
@@ -3390,12 +3393,21 @@ li .blog .post-list-item img {
 .blog .post-list-item .carousel .carousel-button.next {
   right: 1rem;
 }
-.blog .post-divider {
+.blog .post-separator {
   border: none;
-  border-top: 1px solid hsl(35, 10%, 75%);
-  margin: 3rem auto;
-  width: 100px;
-  opacity: 0.5;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(197.625, 192.3125, 184.875, 0.3), transparent);
+  margin: 1.5rem auto;
+  width: 90%;
+  box-shadow: 0 0 1px rgba(197.625, 192.3125, 184.875, 0.05);
+}
+.blog .project-separator {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(197.625, 192.3125, 184.875, 0.2), transparent);
+  margin: 1.5rem auto;
+  width: 80%;
+  box-shadow: 0 0 1px rgba(197.625, 192.3125, 184.875, 0.05);
 }
 .blog .archive-link {
   text-align: center;
@@ -3448,27 +3460,16 @@ li .blog .post-list-item img {
   margin: 0 auto;
   max-width: 600px;
   width: 100%;
-  padding: 0 2rem 0 2rem;
+  padding: 0 2rem;
   box-sizing: border-box;
 }
 .blog .blog-list .post-list-item {
   max-width: 75ch;
   margin: 0 auto;
-  padding: 12px;
-  margin-bottom: 2rem;
+  padding: 0 12px;
   position: relative;
 }
-.blog .blog-list .post-list-item:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  bottom: -1rem;
-  left: 25%;
-  right: 25%;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(197.625, 192.3125, 184.875, 0.7), transparent);
-}
 .blog .blog-list .post-list-item:last-child {
-  border-bottom: none;
   margin-bottom: 0;
 }
 .blog .blog-list .post-list-item h3 {
@@ -3486,7 +3487,7 @@ li .blog .post-list-item img {
 .blog .blog-list .post-list-item p {
   margin: 0 0 1.4em 0;
   line-height: 1.5;
-  font-size: 13px;
+  font-size: 14px;
   color: hsl(24, 3%, 35%);
 }
 .blog .blog-list .post-list-item p blockquote {
@@ -3528,7 +3529,7 @@ li .blog .post-list-item img {
   margin: 0.25rem 0;
 }
 .blog .blog-list .post-list-item.post-link p {
-  font-size: 13px;
+  font-size: 14px;
   margin: 0.25rem 0;
   line-height: 1.3;
 }
@@ -3538,7 +3539,7 @@ li .blog .post-list-item img {
   margin-bottom: 0;
 }
 .blog .blog-list .post-list-item.post-link .link-source .link-url {
-  font-size: 9px;
+  font-size: 10px;
   color: hsl(35, 15%, 30%);
   opacity: 0.8;
 }
@@ -3631,6 +3632,11 @@ p img:not(:only-child) {
   margin-bottom: 0;
 }
 .post-list-item.blog > p:last-child:has(> img:only-child) > img {
+  margin-bottom: 0;
+}
+
+#postsContent .post-list-item {
+  margin-top: 0;
   margin-bottom: 0;
 }
 
@@ -5453,7 +5459,7 @@ body.has-scroll-snap {
   gap: 1rem;
 }
 .project-sticky-nav .project-nav-container .project-nav-title a {
-  font-size: 13px;
+  font-size: 14px;
   opacity: 0.7;
   text-decoration: none;
 }
@@ -5529,7 +5535,7 @@ button {
   border-radius: 6px;
   background: transparent;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 14px;
   text-decoration: none;
   cursor: pointer;
   display: inline-block;
@@ -6323,7 +6329,7 @@ button {
   padding: 12px;
 }
 .tldr-modal .modal-content .key-points .point h3 {
-  font-size: 13px;
+  font-size: 14px;
   margin: 0;
   color: var(--propel-text);
 }
