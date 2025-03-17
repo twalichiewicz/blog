@@ -1599,3 +1599,124 @@
 		}
 	}
 }
+
+/* Post page dark mode styles */
+@media (prefers-color-scheme: dark) {
+	.post {
+		background-color: variables.$card-bg-dark;
+		color: variables.$text-color-dark;
+		box-shadow: variables.$shadow-dark;
+		border-color: variables.$border-color-dark;
+
+		.post-back-link a {
+			color: variables.$link-color-dark;
+
+			&:hover {
+				color: variables.$hover-color-dark;
+			}
+		}
+
+		.post-title {
+			color: variables.$text-color-dark;
+
+			a {
+				color: variables.$text-color-dark;
+
+				&:hover {
+					color: variables.$primary-color-dark;
+				}
+			}
+		}
+
+		p,
+		li {
+			color: variables.$text-color-dark;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			color: variables.$text-color-dark;
+		}
+
+		h2 {
+			border-bottom-color: variables.$card-border-color-dark;
+		}
+
+		blockquote {
+			background-color: variables.$white-1-dark;
+			border-left-color: variables.$accent-gold-dark;
+		}
+
+		pre,
+		code,
+		p code,
+		li code {
+			background-color: variables.$meta-card-bg-dark;
+			color: variables.$text-color-dark;
+		}
+
+		table {
+
+			th,
+			td {
+				border-color: variables.$card-border-color-dark;
+			}
+
+			th {
+				background-color: variables.$white-1-dark;
+			}
+
+			tr:nth-child(even) {
+				background-color: variables.$white-1-dark;
+			}
+		}
+
+		hr {
+			background-color: variables.$card-border-color-dark;
+		}
+
+		a {
+			color: variables.$link-color-dark;
+
+			&:hover {
+				color: variables.$hover-color-dark;
+			}
+		}
+
+		.post-footer {
+			border-top-color: variables.$card-border-color-dark;
+
+			.post-tags .tag {
+				background-color: variables.$white-1-dark;
+				color: variables.$text-color-secondary-dark;
+
+				&:hover {
+					background-color: variables.$accent-gold-dark;
+					color: variables.$text-color-dark;
+				}
+			}
+
+			.post-nav {
+
+				.prev a,
+				.next a {
+					.nav-label {
+						color: variables.$text-color-secondary-dark;
+					}
+
+					.post-title {
+						color: variables.$text-color-dark;
+					}
+
+					&:hover .post-title {
+						color: variables.$link-color-dark;
+					}
+				}
+			}
+		}
+	}
+}
