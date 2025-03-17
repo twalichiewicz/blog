@@ -3,9 +3,6 @@
     <%- partial('_partial/head') %>
     <body>
         <% if (page) { %>
-        <div class="post-back-link-container">
-            <a href="/">← Back to Home</a>
-        </div>
         <article class="post <%= page.type ? 'post-' + page.type : '' %> <%= page.short ? 'short-post' : '' %>">
             <% if (page.type === 'link') { %>
                 <div class="post-header">
