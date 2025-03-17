@@ -2,6 +2,27 @@
 @use 'sass:color';
 @use 'propel';
 
+// Project back link container
+.project-back-link-container {
+	max-width: var(--project-max-width, 1200px);
+	margin: 1.5rem auto 0.5rem;
+	padding: 0 var(--project-padding, 1.5rem);
+
+	a {
+		color: variables.$link-color;
+		text-decoration: none;
+		font-size: 0.9rem;
+		display: inline-flex;
+		align-items: center;
+		transition: variables.$transition-standard;
+
+		&:hover {
+			color: variables.$hover-color;
+			transform: translateX(-3px);
+		}
+	}
+}
+
 // Project Variables
 :root {
 	// Layout
@@ -271,6 +292,14 @@
 		.project-byline {
 			font-size: var(--text-md);
 		}
+	}
+}
+
+// Responsive styles
+@media (max-width: variables.$mobile-breakpoint) {
+	.project-back-link-container {
+		padding: 0 1rem;
+		margin-top: 1rem;
 	}
 }
 

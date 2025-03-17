@@ -1602,19 +1602,21 @@
 
 /* Post page dark mode styles */
 @media (prefers-color-scheme: dark) {
+
+	.post-back-link-container a,
+	.project-back-link-container a {
+		color: variables.$link-color-dark;
+
+		&:hover {
+			color: variables.$hover-color-dark;
+		}
+	}
+
 	.post {
 		background-color: variables.$card-bg-dark;
 		color: variables.$text-color-dark;
 		box-shadow: variables.$shadow-dark;
 		border-color: variables.$border-color-dark;
-
-		.post-back-link a {
-			color: variables.$link-color-dark;
-
-			&:hover {
-				color: variables.$hover-color-dark;
-			}
-		}
 
 		.post-title {
 			color: variables.$text-color-dark;
