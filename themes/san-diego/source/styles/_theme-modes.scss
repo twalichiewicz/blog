@@ -55,6 +55,8 @@
 /* Dark mode media queries */
 @media (prefers-color-scheme: dark) {
 	.blog {
+		/* Set CSS variable for dark mode */
+		--bg-color: rgba(20, 20, 20, 0.7);
 
 		/* Dark mode for blog header */
 		&.blog .profile-header {
@@ -871,8 +873,15 @@
 
 		/* Dark mode for blockquotes */
 		blockquote {
-			background: rgba(255, 255, 255, 0.05);
-			border-left-color: variables.$border-color-dark;
+			--bg-color: rgba(255, 255, 255, 0.03);
+			background-color: rgba(255, 255, 255, 0.03) !important;
+			background: rgba(255, 255, 255, 0.03) !important;
+			border-left-color: rgba(255, 255, 255, 0.05);
+			color: variables.$text-color-dark !important;
+
+			p {
+				color: variables.$text-color-dark !important;
+			}
 		}
 
 		/* Dark mode for figcaptions */
@@ -1649,8 +1658,15 @@
 		}
 
 		blockquote {
-			background-color: variables.$white-1-dark;
-			border-left-color: variables.$accent-gold-dark;
+			--bg-color: rgba(255, 255, 255, 0.03);
+			background-color: rgba(255, 255, 255, 0.03) !important;
+			background: rgba(255, 255, 255, 0.03) !important;
+			border-left-color: rgba(255, 255, 255, 0.05);
+			color: variables.$text-color-dark !important;
+
+			p {
+				color: variables.$text-color-dark !important;
+			}
 		}
 
 		pre,
