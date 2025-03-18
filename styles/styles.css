@@ -501,6 +501,8 @@ ol ul {
 /* Dark mode media queries */
 @media (prefers-color-scheme: dark) {
   .blog {
+    /* Set CSS variable for dark mode */
+    --bg-color: rgba(20, 20, 20, 0.7);
     /* Dark mode for blog header */
     /* Desktop contact options in dark mode */
     /* Global dark mode style for external-icon */
@@ -1183,8 +1185,14 @@ ol ul {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 -1px 2px rgba(255, 255, 255, 0.05);
   }
   .blog blockquote {
-    background: rgba(255, 255, 255, 0.05);
-    border-left-color: hsl(0, 0%, 20%);
+    --bg-color: rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-left-color: rgba(255, 255, 255, 0.05);
+    color: hsl(0, 0%, 90%) !important;
+  }
+  .blog blockquote p {
+    color: hsl(0, 0%, 90%) !important;
   }
   .blog figcaption {
     color: hsl(0, 0%, 71%);
@@ -1784,8 +1792,14 @@ ol ul {
     border-bottom-color: hsl(0, 0%, 35%);
   }
   .post blockquote {
-    background-color: hsl(240, 5%, 10%);
-    border-left-color: hsl(43, 35%, 40%);
+    --bg-color: rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-left-color: rgba(255, 255, 255, 0.05);
+    color: hsl(0, 0%, 90%) !important;
+  }
+  .post blockquote p {
+    color: hsl(0, 0%, 90%) !important;
   }
   .post pre,
   .post code,
