@@ -239,9 +239,14 @@
 							h3 {
 								a {
 									color: variables.$white;
+									text-decoration: underline;
+									text-decoration-style: dotted;
+									text-underline-offset: 4px;
+									text-decoration-thickness: 1px;
 
 									&:hover {
 										color: variables.$link-color-dark;
+										text-decoration-style: solid;
 									}
 								}
 							}
@@ -477,7 +482,7 @@
 							background-color: rgba(30, 30, 30, 0.8);
 							transform: translateY(-2px);
 
-							h3 a {
+							h3 {
 								color: variables.$link-color-dark;
 							}
 						}
@@ -519,9 +524,14 @@
 
 								a {
 									color: variables.$white;
+									text-decoration: underline;
+									text-decoration-style: dotted;
+									text-underline-offset: 4px;
+									text-decoration-thickness: 1px;
 
 									&:hover {
 										color: variables.$link-color-dark;
+										text-decoration-style: solid;
 									}
 								}
 							}
@@ -619,9 +629,14 @@
 
 			h3 a {
 				color: variables.$white;
+				text-decoration: underline;
+				text-decoration-style: dotted;
+				text-underline-offset: 4px;
+				text-decoration-thickness: 1px;
 
 				&:hover {
 					color: variables.$link-color-dark;
+					text-decoration-style: solid;
 				}
 			}
 
@@ -660,30 +675,30 @@
 				color: variables.$text-color-dark;
 
 				.link-share {
-					h3 a {
+					h3 {
 						color: variables.$white;
+						text-decoration: none;
+
+						&:hover {
+							color: variables.$link-color-dark;
+
+							.external-icon {
+								background: variables.$link-color-dark;
+								color: variables.$white;
+							}
+						}
 
 						.link-text-group {
 							color: variables.$white;
 						}
-
-						.external-icon {
-							background: rgba(255, 255, 255, 0.1);
-							border-color: rgba(255, 255, 255, 0.1);
-							color: variables.$white;
-						}
-
-						&:hover .external-icon {
-							background: variables.$link-color-dark;
-
-						}
 					}
 
 					.link-source {
-						border-top-color: variables.$border-color-dark;
+						border-top-color: rgba(255, 255, 255, 0.05);
 
 						.link-url {
 							color: variables.$grey-dark;
+							text-decoration: none;
 						}
 					}
 				}
@@ -760,6 +775,7 @@
 		}
 
 		.post-list-item h2 a,
+		.post-list-item h3 a,
 		.archive-link a,
 		.page-navigation button {
 			color: variables.$link-color-dark;
@@ -1413,6 +1429,7 @@
 			font-size: 10px;
 			color: variables.$text-color-secondary;
 			opacity: 0.8;
+			text-decoration: none;
 		}
 	}
 
@@ -1503,18 +1520,10 @@
 
 			a {
 				color: variables.$white;
+				text-decoration: none;
 
 				&:hover {
 					color: variables.$link-color-dark;
-
-					.external-icon {
-						background: variables.$link-color-dark;
-						color: variables.$white;
-					}
-				}
-
-				.link-text-group {
-					color: variables.$white;
 				}
 			}
 		}
@@ -1533,6 +1542,7 @@
 
 			.link-url {
 				color: variables.$grey-dark;
+				text-decoration: none;
 			}
 		}
 
