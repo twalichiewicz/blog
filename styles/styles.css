@@ -225,14 +225,14 @@
   transition: transform 0.3s ease;
 }
 
-.link-text, .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group, .portfolio-items h3 a .link-text-group, .portfolio-items .link-text-group {
+.link-text, .blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group, .portfolio-items h3 a .link-text-group, .portfolio-items .link-text-group {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
-.link-text h3, .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group h3, .portfolio-items h3 a .link-text-group h3, .portfolio-items .link-text-group h3,
+.link-text h3, .blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group h3, .portfolio-items h3 a .link-text-group h3, .portfolio-items .link-text-group h3,
 .link-text h4,
-.blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group h4,
+.blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group h4,
 .portfolio-items h3 a .link-text-group h4,
 .portfolio-items .link-text-group h4 {
   font-size: 1rem;
@@ -240,35 +240,35 @@
   line-height: 1.4;
 }
 @media (prefers-color-scheme: light) {
-  .link-text h3, .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group h3, .portfolio-items h3 a .link-text-group h3, .portfolio-items .link-text-group h3,
+  .link-text h3, .blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group h3, .portfolio-items h3 a .link-text-group h3, .portfolio-items .link-text-group h3,
   .link-text h4,
-  .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group h4,
+  .blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group h4,
   .portfolio-items h3 a .link-text-group h4,
   .portfolio-items .link-text-group h4 {
     color: hsl(24, 3%, 35%);
   }
 }
 @media (prefers-color-scheme: dark) {
-  .link-text h3, .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group h3, .portfolio-items h3 a .link-text-group h3, .portfolio-items .link-text-group h3,
+  .link-text h3, .blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group h3, .portfolio-items h3 a .link-text-group h3, .portfolio-items .link-text-group h3,
   .link-text h4,
-  .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group h4,
+  .blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group h4,
   .portfolio-items h3 a .link-text-group h4,
   .portfolio-items .link-text-group h4 {
     color: hsl(0, 0%, 100%);
   }
 }
-.link-text p, .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group p, .portfolio-items h3 a .link-text-group p, .portfolio-items .link-text-group p {
+.link-text p, .blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group p, .portfolio-items h3 a .link-text-group p, .portfolio-items .link-text-group p {
   font-size: 14px;
   margin: 0.25rem 0;
   line-height: 1.3;
 }
 @media (prefers-color-scheme: light) {
-  .link-text p, .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group p, .portfolio-items h3 a .link-text-group p, .portfolio-items .link-text-group p {
+  .link-text p, .blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group p, .portfolio-items h3 a .link-text-group p, .portfolio-items .link-text-group p {
     color: hsl(35, 15%, 30%);
   }
 }
 @media (prefers-color-scheme: dark) {
-  .link-text p, .blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group p, .portfolio-items h3 a .link-text-group p, .portfolio-items .link-text-group p {
+  .link-text p, .blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group p, .portfolio-items h3 a .link-text-group p, .portfolio-items .link-text-group p {
     color: hsl(0, 0%, 71%);
   }
 }
@@ -664,10 +664,15 @@ ol ul {
   .blog .blog-content .content-wrapper #postsContent .post-list-item h3 a,
   .blog .blog-content .content-wrapper #projectsContent .post-list-item h3 a {
     color: hsl(0, 0%, 100%);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
   }
   .blog .blog-content .content-wrapper #postsContent .post-list-item h3 a:hover,
   .blog .blog-content .content-wrapper #projectsContent .post-list-item h3 a:hover {
     color: hsl(40, 80%, 50%);
+    text-decoration-style: solid;
   }
   .blog .blog-content .content-wrapper #postsContent .post-list-item p,
   .blog .blog-content .content-wrapper #projectsContent .post-list-item p {
@@ -888,8 +893,8 @@ ol ul {
     background-color: rgba(30, 30, 30, 0.8);
     transform: translateY(-2px);
   }
-  .blog.device-desktop .blog-content .content-wrapper #postsContent .post-list-item.post-link:hover h3 a,
-  .blog.device-desktop .blog-content .content-wrapper #projectsContent .post-list-item.post-link:hover h3 a {
+  .blog.device-desktop .blog-content .content-wrapper #postsContent .post-list-item.post-link:hover h3,
+  .blog.device-desktop .blog-content .content-wrapper #projectsContent .post-list-item.post-link:hover h3 {
     color: hsl(40, 80%, 50%);
   }
   .blog.device-desktop .blog-content .content-wrapper #postsContent .portfolio-item,
@@ -930,10 +935,15 @@ ol ul {
   .blog.device-desktop .blog-content .content-wrapper #postsContent .portfolio-item.has-writeup h3 a,
   .blog.device-desktop .blog-content .content-wrapper #projectsContent .portfolio-item.has-writeup h3 a {
     color: hsl(0, 0%, 100%);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
   }
   .blog.device-desktop .blog-content .content-wrapper #postsContent .portfolio-item.has-writeup h3 a:hover,
   .blog.device-desktop .blog-content .content-wrapper #projectsContent .portfolio-item.has-writeup h3 a:hover {
     color: hsl(40, 80%, 50%);
+    text-decoration-style: solid;
   }
   .blog.device-desktop .blog-content .content-wrapper #postsContent .portfolio-item.has-writeup p,
   .blog.device-desktop .blog-content .content-wrapper #projectsContent .portfolio-item.has-writeup p {
@@ -1015,9 +1025,14 @@ ol ul {
   }
   .blog.blog .blog-list .post-list-item h3 a {
     color: hsl(0, 0%, 100%);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
   }
   .blog.blog .blog-list .post-list-item h3 a:hover {
     color: hsl(40, 80%, 50%);
+    text-decoration-style: solid;
   }
   .blog.blog .blog-list .post-list-item p {
     color: hsl(0, 0%, 70%);
@@ -1046,25 +1061,26 @@ ol ul {
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: hsl(0, 0%, 90%);
   }
-  .blog.blog .blog-list .post-list-item.post-link .link-share h3 a {
+  .blog.blog .blog-list .post-list-item.post-link .link-share h3 {
     color: hsl(0, 0%, 100%);
+    text-decoration: none;
   }
-  .blog.blog .blog-list .post-list-item.post-link .link-share h3 a .link-text-group {
-    color: hsl(0, 0%, 100%);
+  .blog.blog .blog-list .post-list-item.post-link .link-share h3:hover {
+    color: hsl(40, 80%, 50%);
   }
-  .blog.blog .blog-list .post-list-item.post-link .link-share h3 a .external-icon {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: hsl(0, 0%, 100%);
-  }
-  .blog.blog .blog-list .post-list-item.post-link .link-share h3 a:hover .external-icon {
+  .blog.blog .blog-list .post-list-item.post-link .link-share h3:hover .external-icon {
     background: hsl(40, 80%, 50%);
+    color: hsl(0, 0%, 100%);
+  }
+  .blog.blog .blog-list .post-list-item.post-link .link-share h3 .link-text-group {
+    color: hsl(0, 0%, 100%);
   }
   .blog.blog .blog-list .post-list-item.post-link .link-share .link-source {
-    border-top-color: hsl(0, 0%, 20%);
+    border-top-color: rgba(255, 255, 255, 0.05);
   }
   .blog.blog .blog-list .post-list-item.post-link .link-share .link-source .link-url {
     color: hsl(0, 0%, 70%);
+    text-decoration: none;
   }
   .blog.blog .blog-list .post-list-item.post-link .content-accordion {
     border-top-color: rgba(255, 255, 255, 0.05);
@@ -1119,6 +1135,7 @@ ol ul {
     background: hsl(40, 80%, 50%);
   }
   .blog .post-list-item h2 a,
+  .blog .post-list-item h3 a,
   .blog .archive-link a,
   .blog .page-navigation button {
     color: hsl(40, 80%, 50%);
@@ -1601,6 +1618,7 @@ ol ul {
   font-size: 10px;
   color: hsl(35, 15%, 30%);
   opacity: 0.8;
+  text-decoration: none;
 }
 /* Dark mode portfolio item styles */
 @media (prefers-color-scheme: dark) {
@@ -1670,16 +1688,10 @@ ol ul {
   }
   .portfolio-items h3 a {
     color: hsl(0, 0%, 100%);
+    text-decoration: none;
   }
   .portfolio-items h3 a:hover {
     color: hsl(40, 80%, 50%);
-  }
-  .portfolio-items h3 a:hover .external-icon {
-    background: hsl(40, 80%, 50%);
-    color: hsl(0, 0%, 100%);
-  }
-  .portfolio-items h3 a .link-text-group {
-    color: hsl(0, 0%, 100%);
   }
   .portfolio-items .post-byline,
   .portfolio-items .company-byline {
@@ -1693,6 +1705,7 @@ ol ul {
   }
   .portfolio-items .link-source .link-url {
     color: hsl(0, 0%, 70%);
+    text-decoration: none;
   }
   .portfolio-items .content-accordion, .portfolio-items .content-accordion {
     border-top-color: rgba(255, 255, 255, 0.05);
@@ -3683,22 +3696,20 @@ li .blog .post-list-item img {
   font-size: 10px;
   color: hsl(35, 15%, 30%);
   opacity: 0.8;
+  text-decoration: none;
 }
 .blog .blog-list .post-list-item.post-link .link-share h3 {
   margin: 0.25rem 0;
   font-size: 1rem;
   line-height: 1.3;
-}
-.blog .blog-list .post-list-item.post-link .link-share h3 a {
   color: hsl(24, 3%, 35%);
-  text-decoration: none;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.5rem;
 }
-.blog .blog-list .post-list-item.post-link .link-share h3 a:hover {
+.blog .blog-list .post-list-item.post-link .link-share h3:hover {
   color: hsl(15, 70%, 40%);
 }
 .blog #bookNavigation {
