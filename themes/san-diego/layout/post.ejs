@@ -2,8 +2,37 @@
 <html>
     <%- partial('_partial/head') %>
     <body>
+        <div class="page-transition-overlay"></div>
+        
+        <div class="post-navigation">
+            <a href="<%= url_for('/') %>" class="profile-link" title="Home">
+                <div class="mini-profile-photo">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="home-icon">
+                        <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+                        <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+                    </svg>
+                </div>
+                <span class="home-tooltip">Home</span>
+            </a>
+        </div>
+        
         <% if (page) { %>
         <article class="post <%= page.type ? 'post-' + page.type : '' %> <%= page.short ? 'short-post' : '' %>">
+            <% if (page.header_image) { %>
+            <div class="post-header-image">
+                <img src="<%= page.header_image %>" alt="<%= page.title %>" />
+                <% if (page.image_caption) { %>
+                <div class="header-image-caption"><%= page.image_caption %></div>
+                <% } %>
+            </div>
+            <% } %>
+            
+            <% if (page.categories && page.categories.length) { %>
+            <div class="post-section-indicator">
+                <a href="<%= url_for(page.categories.toArray()[0].path) %>"><%= page.categories.toArray()[0].name %></a>
+            </div>
+            <% } %>
+            
             <% if (page.type === 'link') { %>
                 <div class="post-header">
                     <h2 class="post-title">
@@ -16,8 +45,287 @@
                 <h1 class="post-title"><%= page.title %></h1>
             <% } %>
             
+            <div class="post-metadata">
+                <% if (page.date) { %>
+                <span class="post-date">
+                    <%= page.date.format('MMMM D, YYYY') %>
+                </span>
+                <% } %>
+                
+                <% if (theme.author || config.author || page.author) { %>
+                <span class="post-author">
+                    by <%= page.author || theme.author || config.author %>
+                </span>
+                <% } %>
+                
+                <% 
+                // Calculate reading time
+                let wordCount = 0;
+                if (page._content) {
+                    // Strip HTML tags and count words
+                    const content = page._content.replace(/<\/?[^>]+(>|$)/g, '');
+                    wordCount = content.split(/\s+/).length;
+                }
+                const readingTime = Math.max(1, Math.ceil(wordCount / 200)); // Assuming 200 words per minute
+                %>
+                
+                <span class="post-reading-time">
+                    <%= readingTime %> min read
+                </span>
+            </div>
+            
             <%- page.content %>
+            
+            <div class="author-mini-bio">
+                <div class="author-mini-bio-image">
+                    <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
+                </div>
+                <div class="author-mini-bio-content">
+                    <h4 class="author-mini-bio-name">Thomas Walichiewicz</h4>
+                    <p class="author-mini-bio-text">Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</p>
+                </div>
+            </div>
         </article>
         <% } %>
+        
+        <style>
+            /* Fade-in animation styles */
+            .page-transition-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #000;
+                z-index: 9999;
+                opacity: 1;
+                transition: opacity 1s ease-out;
+            }
+            
+            .page-transition-overlay.fade-out {
+                opacity: 0;
+            }
+            
+            body {
+                opacity: 0;
+                transition: opacity 0.5s ease-in;
+            }
+            
+            body.loaded {
+                opacity: 1;
+            }
+            
+            .post {
+                transform: translateY(20px);
+                transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+                opacity: 0;
+                margin-top: 3rem;
+            }
+            
+            body.loaded .post {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .post-navigation {
+                transform: translateY(-10px);
+                transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                            opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+                opacity: 0;
+            }
+            
+            body.loaded .post-navigation {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .post-navigation .mini-profile-photo {
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba(0, 0, 0, 0.08);
+                color: rgba(0, 0, 0, 0.7);
+                transition: all 0.2s ease;
+            }
+            
+            .post-navigation .mini-profile-photo:hover {
+                background-color: rgba(0, 0, 0, 0.12);
+                color: rgba(0, 0, 0, 0.9);
+            }
+            
+            .post-navigation .home-icon {
+                width: 20px;
+                height: 20px;
+            }
+            
+            @media (prefers-color-scheme: dark) {
+                .post-navigation .mini-profile-photo {
+                    background-color: rgba(255, 255, 255, 0.15);
+                    color: rgba(255, 255, 255, 0.8);
+                }
+                
+                .post-navigation .mini-profile-photo:hover {
+                    background-color: rgba(255, 255, 255, 0.2);
+                    color: rgba(255, 255, 255, 1);
+                }
+            }
+            
+            /* Post metadata styles */
+            .post-metadata {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                font-size: 9px;
+                margin-bottom: 2rem;
+                opacity: 0.75;
+                color: inherit;
+            }
+            
+            .post-metadata span:not(:last-child)::after {
+                content: "•";
+                margin-left: 0.75rem;
+            }
+            
+            /* Reduce space between title and metadata */
+            .post-title {
+                margin-bottom: 0.5rem;
+            }
+            
+            /* Author mini-bio styles */
+            .author-mini-bio {
+                display: flex;
+                padding: 1.25rem;
+                margin: 3rem 0 1rem;
+                border-radius: 10px;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                background: rgba(0, 0, 0, 0.01);
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.01), 0 2px 8px rgba(0, 0, 0, 0.01);
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .author-mini-bio::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 1px;
+                background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.03), transparent);
+            }
+            
+            .author-mini-bio-image {
+                flex-shrink: 0;
+                width: 52px;
+                height: 52px;
+                border-radius: 50%;
+                overflow: hidden;
+                margin-right: 0.875rem;
+                border: 1px solid rgba(0, 0, 0, 0.04);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+                position: relative;
+            }
+            
+            .author-mini-bio-image::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            }
+            
+            .author-mini-bio-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: grayscale(12%);
+            }
+            
+            .author-mini-bio-content {
+                flex-grow: 1;
+            }
+            
+            .author-mini-bio-name {
+                margin: 0 0 6px;
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: -0.01em;
+                color: rgba(0, 0, 0, 0.85);
+            }
+            
+            .author-mini-bio .author-mini-bio-content .author-mini-bio-text {
+                margin: 0;
+                font-size: 12px;
+                line-height: 1.4;
+                color: rgba(0, 0, 0, 0.6);
+                max-width: 75ch;
+            }
+            
+            @media (prefers-color-scheme: dark) {
+                .author-mini-bio {
+                    background: rgba(255, 255, 255, 0.02);
+                    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.05);
+                }
+                
+                .author-mini-bio::after {
+                    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.02), transparent);
+                }
+                
+                .author-mini-bio-image {
+                    border-color: rgba(255, 255, 255, 0.04);
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+                }
+                
+                .author-mini-bio-name {
+                    color: rgba(255, 255, 255, 0.9);
+                }
+                
+                .author-mini-bio .author-mini-bio-content .author-mini-bio-text {
+                    color: rgba(255, 255, 255, 0.6);
+                }
+            }
+        </style>
+        
+        <script>
+            // Page fade-in animation
+            document.addEventListener('DOMContentLoaded', function() {
+                // Wait for images to load
+                window.addEventListener('load', function() {
+                    // Add a slight delay before starting the animation
+                    setTimeout(function() {
+                        // Add loaded class to body
+                        document.body.classList.add('loaded');
+                        
+                        // Fade out the overlay
+                        const overlay = document.querySelector('.page-transition-overlay');
+                        overlay.classList.add('fade-out');
+                        
+                        // Remove overlay after animation completes
+                        setTimeout(function() {
+                            overlay.style.display = 'none';
+                        }, 1000);
+                    }, 400); // 400ms delay before starting the animation
+                });
+                
+                // Fallback in case load event doesn't fire
+                setTimeout(function() {
+                    document.body.classList.add('loaded');
+                    const overlay = document.querySelector('.page-transition-overlay');
+                    overlay.classList.add('fade-out');
+                    setTimeout(function() {
+                        overlay.style.display = 'none';
+                    }, 1000);
+                }, 2000); // Fallback timeout
+            });
+        </script>
     </body>
 </html>

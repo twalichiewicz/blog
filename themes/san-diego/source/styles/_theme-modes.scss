@@ -1612,6 +1612,32 @@
 /* Post page dark mode styles */
 @media (prefers-color-scheme: dark) {
 
+	.post-navigation {
+		.profile-link {
+			.mini-profile-photo {
+				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2),
+					0 0 0 1px rgba(255, 255, 255, 0.1);
+
+				.placeholder-avatar {
+					background-color: variables.$accent-gold-dark;
+				}
+			}
+
+			.home-tooltip {
+				background-color: variables.$card-bg-dark;
+				color: variables.$text-color-dark;
+				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+			}
+
+			&:hover {
+				.mini-profile-photo {
+					box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3),
+						0 0 0 2px variables.$accent-gold-light;
+				}
+			}
+		}
+	}
+
 	.post-back-link-container a,
 	.project-back-link-container a {
 		color: variables.$link-color-dark;
@@ -1626,6 +1652,33 @@
 		color: variables.$text-color-dark;
 		box-shadow: variables.$shadow-dark;
 		border-color: variables.$border-color-dark;
+
+		.post-header-image {
+			.header-image-caption {
+				background: rgba(0, 0, 0, 0.8);
+				color: variables.$text-color-dark;
+			}
+
+			img {
+				filter: brightness(0.9);
+			}
+		}
+
+		.post-section-indicator a {
+			color: variables.$accent-gold-light;
+
+			&::after {
+				background-color: variables.$accent-gold-light;
+			}
+
+			&:hover {
+				color: variables.$hover-color-dark;
+
+				&::after {
+					background-color: variables.$hover-color-dark;
+				}
+			}
+		}
 
 		.post-title {
 			color: variables.$text-color-dark;

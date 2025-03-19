@@ -1,5 +1,5 @@
 <head>
-  <title><% if (page.layout === 'blog') { %>Newest at the Top - Design in Everything<% } else if (page.layout === 'project_gallery') { %>Pixels Pushed - Design in Everything<% } else if (page.layout === 'about') { %>About - Design in Everything<% } else { %>Design in Everything - by Thomas Walichiewicz<% } %></title>
+  <title><% if (page.layout === 'blog') { %>Newest at the Top - Design in Everything<% } else if (page.layout === 'project_gallery') { %>Pixels Pushed - Design in Everything<% } else if (page.layout === 'about') { %>About - Design in Everything<% } else if (page.title && page.layout === 'post') { %><%= page.title %> | Design in Everything<% } else { %>Design in Everything - by Thomas Walichiewicz<% } %></title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'><%= theme.favicon_emoji %></text></svg>">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
