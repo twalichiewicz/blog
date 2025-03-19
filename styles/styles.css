@@ -7723,6 +7723,10 @@ body.modal-open {
     color: hsl(0, 0%, 90%);
   }
 }
+.author-mini-bio-content .author-mini-bio-name {
+  margin-bottom: 3px;
+}
+
 .paginator {
   display: flex;
   text-align: center;
