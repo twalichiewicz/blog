@@ -118,9 +118,18 @@
             .post {
                 transform: translateY(20px);
                 transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+                            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                            margin-top 0.8s cubic-bezier(0.16, 1, 0.3, 1);
                 opacity: 0;
-                margin-top: 3rem;
+                margin-top: 5rem;
+                border-top-left-radius: 6px;
+                border-top-right-radius: 6px;
+            }
+            
+            @media (min-width: 768px) {
+                .post {
+                    margin-top: 2.5rem;
+                }
             }
             
             body.loaded .post {
@@ -193,7 +202,7 @@
             
             /* Reduce space between title and metadata */
             .post-title {
-                margin-bottom: 0.5rem;
+                margin-bottom: 12px;
             }
             
             /* Author mini-bio styles */
@@ -270,7 +279,68 @@
                 max-width: 75ch;
             }
             
+            /* Markdown image container styles */
+            .md-image-container {
+                border-radius: 6px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .md-image-container img {
+                width: 100%;
+                height: auto;
+                max-height: 300px;
+                object-fit: cover;
+                display: block;
+                margin: 0 auto;
+                vertical-align: middle;
+                pointer-events: none;
+            }
+            
+            /* Ensure emphasis colors match the theme */
+            .post a {
+                color: hsl(15, 70%, 40%);
+                text-decoration: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
+            
+            .post a:hover {
+                color: hsl(15, 70%, 40%);
+                border-bottom-color: hsl(15, 70%, 40%);
+            }
+            
+            /* Heading styles */
+            .post h3::before {
+                top: 2px;
+                background-color: hsl(15, 70%, 40%);
+            }
+            
+            .post h2::after {
+                background-color: hsl(15, 70%, 40%);
+            }
+            
             @media (prefers-color-scheme: dark) {
+                .post a {
+                    color: hsl(40, 80%, 50%);
+                    border-bottom-color: rgba(255, 255, 255, 0.1);
+                }
+                
+                .post a:hover {
+                    color: hsl(40, 80%, 50%);
+                    border-bottom-color: hsl(40, 80%, 50%);
+                }
+                
+                .post h3::before {
+                    background-color: hsl(40, 80%, 50%);
+                }
+                
+                .post h2::after {
+                    background-color: hsl(40, 80%, 50%);
+                }
+                
                 .author-mini-bio {
                     background: rgba(255, 255, 255, 0.02);
                     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.05);
