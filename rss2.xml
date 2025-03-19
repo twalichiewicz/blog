@@ -9,13 +9,13 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Wed, 19 Mar 2025 19:28:16 GMT</pubDate>
+    <pubDate>Wed, 19 Mar 2025 19:33:24 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
       <title>The MAP Framework: A New Direction for Product Development</title>
-      <link>https://twalichiewicz.github.io/2025/03/18/The-Design-Plane-Model/</link>
-      <guid>https://twalichiewicz.github.io/2025/03/18/The-Design-Plane-Model/</guid>
+      <link>https://twalichiewicz.github.io/2025/03/18/The-MAP-Framework/</link>
+      <guid>https://twalichiewicz.github.io/2025/03/18/The-MAP-Framework/</guid>
       <pubDate>Tue, 18 Mar 2025 01:36:53 GMT</pubDate>
       
       <description>After years of watching talented teams build disjointed products, I&#39;ve developed the MAP Framework—a process that fundamentally reorders how we create digital experiences. By placing design Mapping before product Assessment and engineering Production, teams can explore comprehensive solutions before committing to implementation paths. This approach leads to more coherent user experiences, fewer expensive pivots, and products that genuinely resonate with users.</description>
@@ -29,7 +29,7 @@
       <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
       
       
-      <comments>https://twalichiewicz.github.io/2025/03/18/The-Design-Plane-Model/#disqus_thread</comments>
+      <comments>https://twalichiewicz.github.io/2025/03/18/The-MAP-Framework/#disqus_thread</comments>
       
     </item>
     
