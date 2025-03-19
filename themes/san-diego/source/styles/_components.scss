@@ -1196,3 +1196,8 @@ body.modal-open {
 		color: variables.$text-color-dark;
 	}
 }
+
+// Author mini-bio name margin override
+.author-mini-bio-content .author-mini-bio-name {
+	margin-bottom: 3px;
+}
