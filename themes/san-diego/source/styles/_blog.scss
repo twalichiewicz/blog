@@ -493,6 +493,7 @@
 					font-size: 10px;
 					color: variables.$text-color-secondary;
 					opacity: 0.8;
+					text-decoration: none;
 				}
 			}
 
@@ -501,23 +502,19 @@
 					margin: 0.25rem 0;
 					font-size: 1rem;
 					line-height: 1.3;
+					color: variables.$text-color;
+					display: flex;
+					flex-direction: row;
+					align-items: flex-start;
+					justify-content: space-between;
+					gap: 0.5rem;
 
-					a {
-						color: variables.$text-color;
-						text-decoration: none;
-						display: flex;
-						flex-direction: row;
-						align-items: flex-start;
-						justify-content: space-between;
-						gap: 0.5rem;
+					&:hover {
+						color: variables.$link-color;
+					}
 
-						&:hover {
-							color: variables.$link-color;
-						}
-
-						.link-text-group {
-							@extend .link-text;
-						}
+					.link-text-group {
+						@extend .link-text;
 					}
 				}
 
