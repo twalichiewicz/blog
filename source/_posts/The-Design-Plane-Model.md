@@ -3,7 +3,7 @@ layout: post
 title: "The MAP Framework: A New Direction for Product Development"
 date: 2025-03-17 18:36:53
 long: true
-excerpt: "After years of watching talented teams build disjointed products, I've started to think through an approach that fundamentally reorders how we create digital experiences. Putting design exploration before roadmapping and implementing temporary cross-functional teams provides an opportunity to transform the product development process, leading to more coherent user experiences and fewer expensive pivots."
+excerpt: "After years of watching talented teams build disjointed products, I've developed the MAP Framework—a process that fundamentally reorders how we create digital experiences. By placing design Mapping before product Assessment and engineering Production, teams can explore comprehensive solutions before committing to implementation paths. This approach leads to more coherent user experiences, fewer expensive pivots, and products that genuinely resonate with users."
 tags:
   - blog
 ---
