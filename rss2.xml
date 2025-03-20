@@ -9,8 +9,32 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Wed, 19 Mar 2025 19:43:14 GMT</pubDate>
+    <pubDate>Thu, 20 Mar 2025 03:04:31 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Talking to LLMs</title>
+      <link>https://twalichiewicz.github.io/2025/03/20/Talking-to-LLMs/</link>
+      <guid>https://twalichiewicz.github.io/2025/03/20/Talking-to-LLMs/</guid>
+      <pubDate>Thu, 20 Mar 2025 03:00:11 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;The progress made with LLMs is impressive, but we’re still facing a fundamental issue: users must rethink how they communicate with AI sy</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>The progress made with LLMs is impressive, but we’re still facing a fundamental issue: users must rethink how they communicate with AI systems, rather than AI accommodating natural human language.</p><p>Yes, we’ve moved beyond the rigid command structures of early voice assistants (“Hey Siri,” “Hey Google,” followed by carefully phrased requests), but the proliferation of prompt engineering guides and entire books on “how to talk to ChatGPT” reveals an uncomfortable truth—we’re still adapting to the machine, not the other way around.</p><p>This mirrors the early days of computing when users needed to learn command-line interfaces before graphical UIs made computers accessible to everyone. The true breakthrough in AI interfaces won’t be more powerful models, but systems that adapt to individual communication styles and quirks, meeting users where they are rather than where engineers wish them to be.</p><p>Until then, we’re still speaking a second language when talking to AI—just with a more forgiving grammar.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/03/20/Talking-to-LLMs/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>The MAP Framework: A New Direction for Product Development</title>
@@ -450,28 +474,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2024/11/07/the-irony-of-attention-to-detail/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>what we lost-- macOS app icons</title>
-      <link>https://twalichiewicz.github.io/2024/11/05/what-we-lost-macOS-app-icons/</link>
-      <guid>https://twalichiewicz.github.io/2024/11/05/what-we-lost-macOS-app-icons/</guid>
-      <pubDate>Tue, 05 Nov 2024 19:17:34 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;While I appreciate a lot of the improvements to macOS’s visual language—like the slick animations and cleaner interfaces—I can’t forgive </description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>While I appreciate a lot of the improvements to macOS’s visual language—like the slick animations and cleaner interfaces—I can’t forgive the damn move away from those bespoke, semi-skeuomorphic app icons. Seriously, it’s mind-numbing to see a row of soulless rectangles staring back at me. They’re not highway signs; they don’t need to be that standardized. Where’s the charm? The personality?</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/2024/11/05/what-we-lost-macOS-app-icons/#disqus_thread</comments>
       
     </item>
     
