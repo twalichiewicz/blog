@@ -7,6 +7,7 @@ date: 2025-03-20 12:45:24
 ---
 
 AI agents should function like CarPlay – a consistent experience that follows you everywhere, adapting to your context.
+
 Imagine if your personal preferences, history, and working style moved with you across every device and application:
 
 - In Figma, it automatically applies your preferred spacing, color patterns, and component structures based on your past designs
