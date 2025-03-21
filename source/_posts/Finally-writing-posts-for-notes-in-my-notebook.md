@@ -6,4 +6,4 @@ tags:
 date: 2025-03-20 12:59:14
 ---
 
-In case it isn't obvious, I've finally evolved my notebook scribbles into proper posts.
+In case it isn't obvious, I've finally gotten around to turning my notebook scribbles into proper posts.
