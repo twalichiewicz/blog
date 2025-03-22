@@ -103,23 +103,35 @@
 <div class="page-transition-overlay"></div>
 
 <main class="blog">
-    <div class="blog-header">
-        <!-- <div class="wave-container">
-    <canvas id="waveCanvas"></canvas>
+    <div class="blog-header" style="position: relative; min-height: 300px;">
+        <div class="wave-container" style="position: absolute !important; display: block !important; visibility: visible !important; opacity: 1 !important; top: -30px; left: 0; right: 0; height: 300px; z-index: 0;">
     <script type="module">
-        import { WaveAnimation } from '/js/components/HomeVisuals.js';
+        import { createWaveText } from '/js/components/WaveTextLoader.js';
         
         document.addEventListener('DOMContentLoaded', () => {
-            const waveCanvas = document.getElementById("waveCanvas");
-            if (waveCanvas) {
-                const waveAnimation = new WaveAnimation(waveCanvas, {"baseString":"Design in Everything ","wave":{"frequency":0.006,"amplitude":15,"speed":0.0002},"font":{"size":18,"lineHeight":24,"charWidth":12}});
-                waveAnimation.init();
+            try {
+                const container = document.querySelector('.wave-container');
+                console.log('Wave container:', container);
+                
+                if (container) {
+                    // Pass the server-rendered config
+                    const config = {"baseString":"Design in Everything ","wave":{"frequency":0.006,"amplitude":15,"speed":0.0002},"font":{"size":18,"lineHeight":24,"charWidth":12}};
+                    console.log('Server config:', config);
+                    
+                    const waveText = createWaveText(container, config);
+                    waveText.init();
+                    console.log('Wave text initialized');
+                } else {
+                    console.error('Wave container not found');
+                }
+            } catch (error) {
+                console.error('Error initializing wave text:', error);
             }
         });
     </script>
-</div>  -->
+</div> 
         
-        <div class="profile-header">
+        <div class="profile-header" style="position: relative; z-index: 10; padding-top: 40px;">
             <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo" loading="lazy" decoding="async">
             <div class="profile-info">
                 <h1 class="profile-name">Thomas Walichiewicz</h1>
@@ -3636,9 +3648,9 @@
                                         
                                         <div class="title-row">
                                             <div class="content-text">
-                                                <h4>Marketing tools</h4>
+                                                <h4>Physician app</h4>
                                                 
-                                                    <p>A series of webtools to show employers the value of offering Lyra's telemedicine benefit</p>
+                                                    <p>A tool for physicians to track patient progress, care plans, and coordinate care with the case manager</p>
                                                 
                                                 
                                                 
@@ -3661,9 +3673,9 @@
                                         
                                         <div class="title-row">
                                             <div class="content-text">
-                                                <h4>Physician app</h4>
+                                                <h4>Marketing tools</h4>
                                                 
-                                                    <p>A tool for physicians to track patient progress, care plans, and coordinate care with the case manager</p>
+                                                    <p>A series of webtools to show employers the value of offering Lyra's telemedicine benefit</p>
                                                 
                                                 
                                                 

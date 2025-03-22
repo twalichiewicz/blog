@@ -1924,7 +1924,18 @@ ol ul {
   position: relative;
   width: 100%;
   flex-shrink: 0;
+  padding-top: 0;
+  overflow: visible;
+  min-height: 300px;
   /* Position contact wrapper for mobile */
+}
+.device-mobile .blog .blog-header .wave-container {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  z-index: 0;
 }
 .device-mobile .blog .blog-header .contact-wrapper {
   position: absolute;
@@ -1939,6 +1950,9 @@ ol ul {
   margin: 24px 24px 0;
   flex-shrink: 0;
   padding: 24px 0;
+  position: relative;
+  z-index: 2;
+  /* Ensure it's above the wave container */
 }
 .device-mobile .blog .profile-header .profile-photo {
   width: 124px;
@@ -2084,8 +2098,20 @@ ol ul {
   width: 300px;
   flex-shrink: 0;
   position: relative;
-  /* Relative to the fixed container */
+  padding-top: 0;
+  min-height: 300px;
+  /* Reset padding for tablet view */
+  overflow: visible;
+  /* Ensure wave container remains visible in tablet view */
   /* Position contact wrapper for tablet */
+}
+.device-tablet .blog .blog-header .wave-container {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 0;
 }
 .device-tablet .blog .blog-header .contact-wrapper {
   position: static;
@@ -2212,6 +2238,7 @@ ol ul {
   width: 360px;
   flex-shrink: 0;
   position: relative;
+  min-height: 300px;
   /* Relative to the fixed container */
   /* Position contact wrapper for desktop */
 }
@@ -2222,6 +2249,14 @@ ol ul {
   width: 100%;
   box-sizing: border-box;
   margin-top: 24px;
+}
+.device-desktop .blog .blog-header .wave-container {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 0;
 }
 .device-desktop .blog .blog-header .profile-header {
   flex-direction: column;
