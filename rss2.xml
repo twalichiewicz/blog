@@ -9,8 +9,32 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Sat, 22 Mar 2025 07:46:50 GMT</pubDate>
+    <pubDate>Sat, 22 Mar 2025 20:14:22 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Assistant confidence interval vocal</title>
+      <link>https://twalichiewicz.github.io/2025/03/22/Assistant-confidence-interval-vocal/</link>
+      <guid>https://twalichiewicz.github.io/2025/03/22/Assistant-confidence-interval-vocal/</guid>
+      <pubDate>Sat, 22 Mar 2025 20:09:51 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;When a voice assistant has high confidence (&amp;gt;95%) in understanding a request, it shouldn’t need to verbally confirm by repeating the e</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>When a voice assistant has high confidence (&gt;95%) in understanding a request, it shouldn’t need to verbally confirm by repeating the entire command. A brief confirmation tone would be more efficient and less intrusive.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/03/22/Assistant-confidence-interval-vocal/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Finally writing posts for notes in my notebook</title>
@@ -455,29 +479,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2024/11/18/costco-amazon-v2/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>refactor mostly done</title>
-      <link>https://twalichiewicz.github.io/2024/11/11/refactor-mostly-done/</link>
-      <guid>https://twalichiewicz.github.io/2024/11/11/refactor-mostly-done/</guid>
-      <pubDate>Mon, 11 Nov 2024 11:39:53 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Phew, refactor of the blog is (mostly) done.&lt;/p&gt;
-</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Phew, refactor of the blog is (mostly) done.</p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>https://twalichiewicz.github.io/2024/11/11/refactor-mostly-done/#disqus_thread</comments>
       
     </item>
     
