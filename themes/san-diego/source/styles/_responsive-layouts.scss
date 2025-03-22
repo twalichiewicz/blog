@@ -28,6 +28,18 @@
 		position: relative;
 		width: 100%;
 		flex-shrink: 0;
+		padding-top: 0;
+		overflow: visible;
+		min-height: 300px;
+
+		.wave-container {
+			position: absolute !important;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 300px;
+			z-index: 0;
+		}
 
 		/* Position contact wrapper for mobile */
 		.contact-wrapper {
@@ -45,6 +57,9 @@
 		margin: variables.$space-md variables.$space-md 0;
 		flex-shrink: 0;
 		padding: variables.$spacing-card 0;
+		position: relative;
+		z-index: 2;
+		/* Ensure it's above the wave container */
 
 		.profile-photo {
 			width: 124px;
@@ -216,7 +231,20 @@
 		width: 300px;
 		flex-shrink: 0;
 		position: relative;
-		/* Relative to the fixed container */
+		padding-top: 0;
+		min-height: 300px;
+		/* Reset padding for tablet view */
+		overflow: visible;
+
+		/* Ensure wave container remains visible in tablet view */
+		.wave-container {
+			position: absolute !important;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 100%;
+			z-index: 0;
+		}
 
 		/* Position contact wrapper for tablet */
 		.contact-wrapper {
@@ -371,6 +399,7 @@
 		width: 360px;
 		flex-shrink: 0;
 		position: relative;
+		min-height: 300px;
 		/* Relative to the fixed container */
 
 		/* Position contact wrapper for desktop */
@@ -381,6 +410,15 @@
 			width: 100%;
 			box-sizing: border-box;
 			margin-top: variables.$space-md;
+		}
+
+		.wave-container {
+			position: absolute !important;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 100%;
+			z-index: 0;
 		}
 
 		.profile-header {
