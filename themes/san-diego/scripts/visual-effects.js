@@ -8,18 +8,14 @@ hexo.extend.tag.register('wave_text', function (args) {
 			.replace(/:([^",}\s][^,}]*)/g, ':"$1"')
 		) : {};
 
-		return `<div class="visual-effects-wrapper">
+		return `<div class="visual-effects-wrapper wave-container">
             <script type="module">
-                import { VisualEffects } from '/js/components/VisualEffects.js';
+                import { createWaveText } from '/js/components/WaveTextLoader.js';
                 
                 document.addEventListener('DOMContentLoaded', () => {
                     const container = document.currentScript.parentElement;
-                    const effects = new VisualEffects({ 
-                        showWave: true, 
-                        showSkull: false,
-                        waveConfig: ${JSON.stringify(config)}
-                    });
-                    effects.init(container);
+                    const waveText = createWaveText(container, ${JSON.stringify(config)});
+                    waveText.init();
                 });
             </script>
         </div>`;

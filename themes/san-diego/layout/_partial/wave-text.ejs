@@ -1,13 +1,25 @@
-<div class="wave-container">
-    <canvas id="waveCanvas"></canvas>
+<div class="wave-container" style="position: absolute !important; display: block !important; visibility: visible !important; opacity: 1 !important; top: -30px; left: 0; right: 0; height: 300px; z-index: 0;">
     <script type="module">
-        import { WaveAnimation } from '/js/components/HomeVisuals.js';
+        import { createWaveText } from '/js/components/WaveTextLoader.js';
         
         document.addEventListener('DOMContentLoaded', () => {
-            const waveCanvas = document.getElementById("waveCanvas");
-            if (waveCanvas) {
-                const waveAnimation = new WaveAnimation(waveCanvas, <%- JSON.stringify(config) %>);
-                waveAnimation.init();
+            try {
+                const container = document.querySelector('.wave-container');
+                console.log('Wave container:', container);
+                
+                if (container) {
+                    // Pass the server-rendered config
+                    const config = <%- JSON.stringify(config || {}) %>;
+                    console.log('Server config:', config);
+                    
+                    const waveText = createWaveText(container, config);
+                    waveText.init();
+                    console.log('Wave text initialized');
+                } else {
+                    console.error('Wave container not found');
+                }
+            } catch (error) {
+                console.error('Error initializing wave text:', error);
             }
         });
     </script>
