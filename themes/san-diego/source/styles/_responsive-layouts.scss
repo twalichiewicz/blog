@@ -395,7 +395,7 @@
 
 		.wave-container {
 			position: absolute !important;
-			top: -300px;
+			top: -110px;
 			left: 0;
 			right: 0;
 			height: 100%;
@@ -419,7 +419,7 @@
 		margin-left: 24px;
 		width: calc(100% - 384px);
 		height: calc(100vh - 24px);
-		overflow: hidden;
+		overflow: visible;
 		display: flex;
 		flex-direction: column;
 		position: relative;
@@ -436,7 +436,7 @@
 			gap: variables.$space-xl;
 			padding: 0;
 			height: 100%;
-			overflow: hidden;
+			overflow: visible;
 			display: flex;
 			/* Ensure content wrapper is displayed */
 		}
@@ -485,7 +485,6 @@
 			}
 
 			/* Add padding to the top to prevent content from being hidden under the floating header */
-			.post-list-item:first-of-type:not(.post-link),
 			.company-group:first-of-type {
 				margin-top: 64px;
 			}
@@ -500,6 +499,11 @@
 		/* Add specific padding-top for projectsContent */
 		#projectsContent {
 			padding-top: 64px;
+		}
+
+		/* Add specific padding-top for postsContent */
+		#postsContent {
+			padding-top: 75px;
 		}
 
 		.mobile-tabs {
