@@ -15,7 +15,7 @@ const supportsFeature = (feature) => {
 	return false;
 };
 
-// Performance detection
+// Performance detection with more reliable mobile checks
 const isLowEndDevice = () => {
 	// Check if the device has limited resources
 	const navigatorInfo = window.navigator;
@@ -30,23 +30,17 @@ const isLowEndDevice = () => {
 		return true;
 	}
 
-	// Check if battery is low and saving mode is active (if available)
-	if (navigatorInfo.getBattery) {
-		navigatorInfo.getBattery().then(battery => {
-			if (battery.level < 0.15 && battery.charging === false) {
-				return true;
-			}
-		}).catch(e => {
-			// Ignore errors
-		});
-	}
+	// More reliable mobile detection using multiple signals
+	const isMobile =
+		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigatorInfo.userAgent) ||
+		(window.innerWidth < 768) ||
+		(window.matchMedia && window.matchMedia('(max-width: 767px)').matches) ||
+		(navigatorInfo.maxTouchPoints && navigatorInfo.maxTouchPoints > 1); // Likely touch device
 
-	// Check if the device might be a mobile device
-	const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-		navigatorInfo.userAgent
-	);
+	// If we're on iOS, it can have performance issues with complex animations
+	const isIOS = /iPad|iPhone|iPod/.test(navigatorInfo.userAgent) && !window.MSStream;
 
-	return isMobile;
+	return isMobile || isIOS;
 };
 
 // Check if reduced motion is preferred
@@ -83,6 +77,21 @@ const normalizeConfig = (config) => {
 		if (config.wave.amplitude) normalized.amplitude = config.wave.amplitude;
 		if (config.wave.speed) normalized.speed = config.wave.speed;
 		if (config.wave.font) normalized.font = { ...normalized.font, ...config.wave.font };
+	}
+
+	// For mobile devices, adjust parameters for better performance
+	if (window.innerWidth < 768) {
+		// Adjust animation parameters for mobile - significantly speed up the animation
+		normalized.amplitude = normalized.amplitude * 0.8;    // Slightly higher amplitude 
+		normalized.speed = normalized.speed * 3.0;           // Much faster speed on mobile
+		normalized.frequency = normalized.frequency * 1.5;    // Higher frequency for more visible waves
+
+		// Slightly reduce font size on small screens if needed
+		if (normalized.font.size > 18) {
+			normalized.font.size = 18;
+			normalized.font.lineHeight = Math.max(normalized.font.lineHeight * 0.9, 24);
+			normalized.font.charWidth = Math.max(normalized.font.charWidth * 0.9, 12);
+		}
 	}
 
 	console.log('Normalized config:', normalized);
@@ -125,9 +134,6 @@ export const createWaveText = (container, config = {}) => {
 		}
 	});
 
-	// Default to CSS implementation as it's more performant
-	let implementation = 'css';
-
 	// If user prefers reduced motion, use the most lightweight implementation
 	if (reducedMotion) {
 		// Use CSS with static styling (animation is disabled in CSS for reduced motion)
@@ -150,15 +156,29 @@ export const createWaveText = (container, config = {}) => {
 	// For debugging
 	console.log('Browser features:', { hasModernFeatures, isLowPerformance });
 
-	if (hasModernFeatures && !isLowPerformance) {
+	// Default to canvas implementation for mobile (better performance)
+	const isMobile = window.innerWidth < 768;
+
+	if (isMobile || isLowPerformance) {
+		// Use optimized canvas implementation for mobile or low-performance devices
+		console.log('Using Canvas implementation for mobile/low-performance device');
+
+		// First ensure we have a canvas element
+		let canvas = container.querySelector('canvas#waveCanvas');
+		if (!canvas) {
+			canvas = document.createElement('canvas');
+			canvas.id = 'waveCanvas';
+			container.appendChild(canvas);
+		}
+
+		return new OptimizedWaveAnimation(canvas, normalizedConfig);
+	} else if (hasModernFeatures) {
 		// Use CSS-based implementation for modern browsers on capable devices
-		implementation = 'css';
 		console.log('Using CSS implementation');
 		return new CssWaveText(container, normalizedConfig);
 	} else {
 		// Fall back to optimized canvas implementation for better compatibility
-		implementation = 'canvas';
-		console.log('Using Canvas implementation');
+		console.log('Using Canvas implementation for compatibility');
 
 		// First ensure we have a canvas element
 		let canvas = container.querySelector('canvas#waveCanvas');
