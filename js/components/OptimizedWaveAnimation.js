@@ -26,6 +26,21 @@ export class OptimizedWaveAnimation {
 		this.needsResize = true;
 		this.isVisible = true;
 		this.animationFrame = null;
+		this.resizeTimeoutId = null;
+
+		// Further reduce the frame rate on mobile
+		const isMobile = window.innerWidth < 768;
+		if (isMobile) {
+			this.frameInterval = 1000 / 24; // Higher FPS on mobile for smoother animation
+
+			// Adjust animation parameters for mobile
+			if (this.config.speed) {
+				this.config.speed *= 3.0; // Much faster on mobile
+			}
+			if (this.config.frequency) {
+				this.config.frequency *= 1.5; // More waves on mobile
+			}
+		}
 	}
 
 	init() {
@@ -38,6 +53,12 @@ export class OptimizedWaveAnimation {
 		// Set up resize handling
 		this.resizeHandler = () => this.onResize();
 		window.addEventListener("resize", this.resizeHandler);
+
+		// Handle orientation changes
+		window.addEventListener('orientationchange', () => {
+			// Delay resize handling to give the browser time to update dimensions
+			setTimeout(() => this.onResize(), 300);
+		});
 
 		// Start animation
 		this.lastFrameTime = performance.now();
@@ -59,11 +80,22 @@ export class OptimizedWaveAnimation {
 	resizeCanvas() {
 		// Use lower resolution on mobile for better performance
 		const isMobile = window.innerWidth < 768;
-		const scaleFactor = isMobile ? 0.5 : 1;
+		const scaleFactor = isMobile ? 0.4 : 0.8; // More aggressive scaling for mobile
 		const dpr = window.devicePixelRatio * scaleFactor || 1;
 
-		this.canvas.width = window.innerWidth * dpr;
-		this.canvas.height = 300 * dpr; // Fixed height for performance
+		// Store original dimensions
+		const displayWidth = this.canvas.clientWidth || window.innerWidth;
+		const displayHeight = this.canvas.clientHeight || 300;
+
+		// Set actual drawing dimensions
+		this.canvas.width = displayWidth * dpr;
+		this.canvas.height = 300 * dpr;
+
+		// Maintain the CSS display size
+		this.canvas.style.width = displayWidth + 'px';
+		this.canvas.style.height = '300px';
+
+		// Scale the context according to the device pixel ratio and performance factor
 		this.ctx.scale(dpr, dpr);
 	}
 
@@ -75,7 +107,7 @@ export class OptimizedWaveAnimation {
 
 		// Calculate grid size based on screen size - use fewer columns on mobile
 		const isMobile = window.innerWidth < 768;
-		const density = isMobile ? 0.5 : 1; // Reduce density on mobile
+		const density = isMobile ? 0.85 : 0.8; // Less aggressive density reduction for mobile
 
 		const gridCols = Math.ceil(this.canvas.width / charWidth / density);
 		const gridRows = Math.ceil(this.canvas.height / lineHeight / density);
@@ -99,7 +131,15 @@ export class OptimizedWaveAnimation {
 	}
 
 	onResize() {
-		this.needsResize = true;
+		// Debounce resize to avoid excessive calculations
+		if (this.resizeTimeoutId) {
+			clearTimeout(this.resizeTimeoutId);
+		}
+
+		this.resizeTimeoutId = setTimeout(() => {
+			this.needsResize = true;
+			this.resizeTimeoutId = null;
+		}, 150);
 	}
 
 	animate(timestamp) {
@@ -129,7 +169,13 @@ export class OptimizedWaveAnimation {
 		// Pre-set the font just once per frame
 		this.ctx.font = this.config.font.size + 'px sans-serif';
 
-		for (const td of this.textData) {
+		// Rather than render every character, on mobile we'll skip some for performance
+		const isMobile = window.innerWidth < 768;
+		const renderStep = isMobile ? 1 : 1; // Render all characters on mobile for better appearance
+
+		// Precalculate wave values to avoid repetitive calculations
+		for (let i = 0; i < this.textData.length; i += renderStep) {
+			const td = this.textData[i];
 			// Optimize wave calculation
 			const wave = Math.sin(
 				(td.baseY * this.config.frequency) -
@@ -154,6 +200,11 @@ export class OptimizedWaveAnimation {
 		}
 
 		window.removeEventListener('resize', this.resizeHandler);
+		window.removeEventListener('orientationchange', this.resizeHandler);
+
+		if (this.resizeTimeoutId) {
+			clearTimeout(this.resizeTimeoutId);
+		}
 
 		if (this.observer) {
 			this.observer.disconnect();
