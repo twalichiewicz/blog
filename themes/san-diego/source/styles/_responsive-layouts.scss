@@ -32,15 +32,6 @@
 		overflow: visible;
 		min-height: 300px;
 
-		.wave-container {
-			position: absolute !important;
-			top: 0;
-			left: 0;
-			right: 0;
-			height: 300px;
-			z-index: 0;
-		}
-
 		/* Position contact wrapper for mobile */
 		.contact-wrapper {
 			position: absolute;
@@ -236,16 +227,6 @@
 		/* Reset padding for tablet view */
 		overflow: visible;
 
-		/* Ensure wave container remains visible in tablet view */
-		.wave-container {
-			position: absolute !important;
-			top: 0;
-			left: 0;
-			right: 0;
-			height: 100%;
-			z-index: 0;
-		}
-
 		/* Position contact wrapper for tablet */
 		.contact-wrapper {
 			position: static;
@@ -414,7 +395,7 @@
 
 		.wave-container {
 			position: absolute !important;
-			top: 0;
+			top: -300px;
 			left: 0;
 			right: 0;
 			height: 100%;
