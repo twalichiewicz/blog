@@ -29,6 +29,7 @@ export class CssWaveText {
 
 		console.log('CssWaveText initialized with config:', this.config);
 		this.initialized = false;
+		this.resizeTimeoutId = null;
 	}
 
 	init() {
@@ -74,13 +75,17 @@ export class CssWaveText {
 		// Create row-specific animations
 		let styleContent = '';
 		const rowCount = 21;
-		const animDuration = 3; // seconds
+
+		// Use shorter animation duration on mobile
+		const isMobile = window.innerWidth < 768;
+		const animDuration = isMobile ? 1.2 : 3; // seconds - much faster on mobile
 
 		// Create a different style for each row to create a wave effect
 		for (let i = 0; i < rowCount; i++) {
-			const delay = (i / rowCount) * animDuration;
-			// Reduce animation amplitude as we go down the rows
-			const amplitude = Math.max(5, 20 - (i / rowCount) * 15); // 20px at top, gradually decreasing
+			const delay = (i / rowCount) * (animDuration * 0.7); // Shorter delays on mobile
+			// Reduce animation amplitude as we go down the rows, but make sure it's visible on mobile
+			const baseAmplitude = isMobile ? 15 : 20; // Higher minimum amplitude on mobile
+			const amplitude = Math.max(8, baseAmplitude - (i / rowCount) * 12); // Less reduction for visibility
 
 			styleContent += `
 				.wave-char-row-${i} {
@@ -129,14 +134,19 @@ export class CssWaveText {
 
 		// Calculate rows and columns to fill the container
 		const { charWidth, lineHeight } = this.config.font;
-		const cols = Math.ceil(containerWidth / charWidth) + 2;
+
+		// Reduce density on mobile devices for better performance
+		const isMobile = window.innerWidth < 768;
+		const densityFactor = isMobile ? 1.1 : 1;
+
+		const cols = Math.ceil(containerWidth / (charWidth * densityFactor)) + 2;
 		const rows = Math.ceil(containerHeight / lineHeight);
 
 		console.log(`Grid size: ${cols}x${rows} (${cols * rows} characters)`);
 
 		// Style the grid
 		this.gridElement.style.gridTemplateRows = `repeat(${rows}, ${lineHeight}px)`;
-		this.gridElement.style.gridTemplateColumns = `repeat(${cols}, ${charWidth}px)`;
+		this.gridElement.style.gridTemplateColumns = `repeat(${cols}, ${charWidth * densityFactor}px)`;
 		this.gridElement.style.width = '100%';
 		this.gridElement.style.height = '100%';
 
@@ -196,7 +206,12 @@ export class CssWaveText {
 
 				charSpan.style.color = `${baseColor} ${opacity})`;
 				charSpan.style.textShadow = '0 0 1px rgba(0,0,0,0.1)';
-				charSpan.style.willChange = 'transform, opacity';
+
+				// On mobile, reduce the performance impact of will-change
+				if (!isMobile) {
+					charSpan.style.willChange = 'transform, opacity';
+				}
+
 				charSpan.style.position = 'relative';
 				charSpan.style.fontWeight = '500';
 
@@ -214,28 +229,58 @@ export class CssWaveText {
 		// Use ResizeObserver to rebuild the grid when container size changes
 		if ('ResizeObserver' in window) {
 			this.resizeObserver = new ResizeObserver(entries => {
-				for (const entry of entries) {
-					if (entry.target === this.container) {
-						console.log('Container resized, rebuilding grid');
-						this.buildTextGrid();
-						break;
-					}
+				// Debounce resize events to prevent loops and improve performance
+				if (this.resizeTimeoutId) {
+					clearTimeout(this.resizeTimeoutId);
 				}
+
+				this.resizeTimeoutId = setTimeout(() => {
+					for (const entry of entries) {
+						if (entry.target === this.container) {
+							console.log('Container resized, rebuilding grid');
+							this.buildTextGrid();
+							break;
+						}
+					}
+					this.resizeTimeoutId = null;
+				}, 150); // 150ms debounce delay
 			});
 
 			this.resizeObserver.observe(this.container);
 		}
 
-		// Also listen for window resize as fallback
-		this.resizeHandler = () => this.buildTextGrid();
+		// Also listen for window resize as fallback, with debouncing
+		this.resizeHandler = () => {
+			if (this.resizeTimeoutId) {
+				clearTimeout(this.resizeTimeoutId);
+			}
+
+			this.resizeTimeoutId = setTimeout(() => {
+				this.buildTextGrid();
+				this.resizeTimeoutId = null;
+			}, 150);
+		};
+
 		window.addEventListener('resize', this.resizeHandler);
+
+		// Also handle orientation change on mobile
+		window.addEventListener('orientationchange', () => {
+			// Give the browser time to complete the orientation change
+			setTimeout(() => this.buildTextGrid(), 300);
+		});
 	}
 
 	destroy() {
 		if (this.resizeObserver) {
 			this.resizeObserver.disconnect();
 		}
+
+		if (this.resizeTimeoutId) {
+			clearTimeout(this.resizeTimeoutId);
+		}
+
 		window.removeEventListener('resize', this.resizeHandler);
+
 		if (this.gridElement && this.gridElement.parentNode) {
 			this.gridElement.parentNode.removeChild(this.gridElement);
 		}
