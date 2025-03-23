@@ -1,24 +1,25 @@
 .wave-container {
 	position: absolute !important;
-	top: 0;
+	top: -30px;
 	left: 0;
 	right: 0;
 	height: 300px;
 	z-index: 0;
 	opacity: 0.9;
+	visibility: visible !important;
 	pointer-events: none;
 	mask-image: linear-gradient(to bottom,
 			rgba(0, 0, 0, 1) 0%,
 			rgba(0, 0, 0, 0.9) 15%,
 			rgba(0, 0, 0, 0.7) 25%,
 			rgba(0, 0, 0, 0.4) 35%,
-			rgba(0, 0, 0, 0) 50%);
+			rgba(0, 0, 0, 0) 100%);
 	-webkit-mask-image: linear-gradient(to bottom,
 			rgba(0, 0, 0, 1) 0%,
 			rgba(0, 0, 0, 0.9) 15%,
 			rgba(0, 0, 0, 0.7) 25%,
 			rgba(0, 0, 0, 0.4) 35%,
-			rgba(0, 0, 0, 0) 50%);
+			rgba(0, 0, 0, 0) 100%);
 	overflow: hidden;
 	display: block !important;
 	will-change: transform, opacity;
@@ -30,7 +31,6 @@
 
 	/* Prevent horizontal scrolling issues on mobile */
 	box-sizing: border-box;
-	left: 0 !important;
 	width: 100% !important;
 
 	canvas {
@@ -68,47 +68,46 @@
 }
 
 /* Mobile-specific adjustments */
-@media (max-width: 767px) {
-	.wave-container {
-		height: 270px;
-		/* Slightly taller height on mobile to avoid abrupt cutoff */
-		top: 0;
-		opacity: 0.8;
+.device-mobile .blog .blog-header .wave-container {
+	height: 270px;
+	/* Slightly taller height on mobile to avoid abrupt cutoff */
+	top: -70px;
+	/* More negative top value to reduce overlap with bio text */
+	opacity: 0.8;
 
-		/* Smoother gradient for mobile */
-		mask-image: linear-gradient(to bottom,
-				rgba(0, 0, 0, 1) 0%,
-				rgba(0, 0, 0, 0.9) 20%,
-				rgba(0, 0, 0, 0.7) 40%,
-				rgba(0, 0, 0, 0.4) 60%,
-				rgba(0, 0, 0, 0) 80%);
-		-webkit-mask-image: linear-gradient(to bottom,
-				rgba(0, 0, 0, 1) 0%,
-				rgba(0, 0, 0, 0.9) 20%,
-				rgba(0, 0, 0, 0.7) 40%,
-				rgba(0, 0, 0, 0.4) 60%,
-				rgba(0, 0, 0, 0) 80%);
+	/* Smoother gradient for mobile */
+	mask-image: linear-gradient(to bottom,
+			rgba(0, 0, 0, 1) 0%,
+			rgba(0, 0, 0, 0.9) 20%,
+			rgba(0, 0, 0, 0.7) 40%,
+			rgba(0, 0, 0, 0.4) 60%,
+			rgba(0, 0, 0, 0) 80%);
+	-webkit-mask-image: linear-gradient(to bottom,
+			rgba(0, 0, 0, 1) 0%,
+			rgba(0, 0, 0, 0.9) 20%,
+			rgba(0, 0, 0, 0.7) 40%,
+			rgba(0, 0, 0, 0.4) 60%,
+			rgba(0, 0, 0, 0) 80%);
 
-		/* Fix overflow issues on mobile */
-		overflow: hidden !important;
-		-webkit-transform: translateZ(0);
-		transform: translateZ(0);
+	/* Fix overflow issues on mobile */
+	overflow: hidden !important;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
 
-		/* Reduce the performance impact of will-change on mobile */
-		will-change: opacity;
+	/* Reduce the performance impact of will-change on mobile */
+	will-change: opacity;
 
-		.wave-grid {
-			/* Ensure grid cells are properly sized on mobile */
-			grid-template-columns: repeat(auto-fill, minmax(12px, 1fr)) !important;
-		}
+	.wave-grid {
+		/* Ensure grid cells are properly sized on mobile */
+		grid-template-columns: repeat(auto-fill, minmax(12px, 1fr)) !important;
+	}
 
-		.wave-char {
-			font-size: 18px;
-			line-height: 24px;
-			will-change: none;
-			padding: 0 !important;
-			margin: 0 !important;
-		}
+	.wave-char {
+		font-size: 18px;
+		line-height: 24px;
+		will-change: none;
+		padding: 0 !important;
+		margin: 0 !important;
 	}
 }
 
