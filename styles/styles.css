@@ -2276,6 +2276,7 @@ ol ul {
   overflow: visible;
   display: flex;
   /* Ensure content wrapper is displayed */
+  border-radius: 15px 0 0 0;
 }
 .device-desktop .blog .blog-content #postsContent,
 .device-desktop .blog .blog-content #projectsContent {
@@ -3443,6 +3444,7 @@ footer span {
   left: 0;
   right: 0;
   height: 2px;
+  margin-left: 15px;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.8));
   border-radius: 15px 0 0 0;
 }
