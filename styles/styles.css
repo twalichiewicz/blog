@@ -2235,7 +2235,7 @@ ol ul {
 }
 .device-desktop .blog .blog-header .wave-container {
   position: absolute !important;
-  top: -300px;
+  top: -110px;
   left: 0;
   right: 0;
   height: 100%;
@@ -2255,12 +2255,13 @@ ol ul {
   margin-left: 24px;
   width: calc(100% - 384px);
   height: calc(100vh - 24px);
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   position: relative;
   /* Relative to the fixed container */
   /* Add specific padding-top for projectsContent */
+  /* Add specific padding-top for postsContent */
 }
 .device-desktop .blog .blog-content .tabs-wrapper {
   display: none;
@@ -2272,7 +2273,7 @@ ol ul {
   gap: 48px;
   padding: 0;
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   /* Ensure content wrapper is displayed */
 }
@@ -2321,9 +2322,7 @@ ol ul {
   padding-bottom: 6px;
   z-index: 100;
 }
-.device-desktop .blog .blog-content #postsContent .post-list-item:first-of-type:not(.post-link),
 .device-desktop .blog .blog-content #postsContent .company-group:first-of-type,
-.device-desktop .blog .blog-content #projectsContent .post-list-item:first-of-type:not(.post-link),
 .device-desktop .blog .blog-content #projectsContent .company-group:first-of-type {
   margin-top: 64px;
 }
@@ -2334,6 +2333,9 @@ ol ul {
 }
 .device-desktop .blog .blog-content #projectsContent {
   padding-top: 64px;
+}
+.device-desktop .blog .blog-content #postsContent {
+  padding-top: 75px;
 }
 .device-desktop .blog .blog-content .mobile-tabs {
   display: none;
