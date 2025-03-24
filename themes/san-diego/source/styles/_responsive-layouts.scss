@@ -192,12 +192,15 @@
 				width: 100%;
 				max-width: 100%;
 				height: 40vh;
-				margin-bottom: 1rem;
+				margin: 0;
+				overflow: hidden;
 			}
 
 			.project-details {
 				width: 100%;
 				padding: 1rem var(--project-padding);
+				overflow-y: auto;
+				overflow-x: hidden;
 			}
 		}
 	}
@@ -930,9 +933,6 @@
 /* Large desktop screens */
 @media screen and (min-width: 1440px) {
 	.project-gallery {
-		padding-top: 4rem;
-		/* Increase space for fixed navigation */
-
 		.project-content {
 			max-width: 1800px;
 			gap: 4rem;
@@ -955,9 +955,6 @@
 /* Extra large desktop screens */
 @media screen and (min-width: 1920px) {
 	.project-gallery {
-		padding-top: 5rem;
-		/* Further increase space for fixed navigation */
-
 		.project-content {
 			max-width: 2000px;
 			gap: 5rem;
