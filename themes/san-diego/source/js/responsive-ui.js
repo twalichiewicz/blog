@@ -229,29 +229,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Look for project wrapper
 	const projectWrapper = document.querySelector('.project-wrapper');
+	const projectNavigation = document.querySelector('.project-navigation');
 
-	if (projectWrapper) {
+	if (projectWrapper && projectNavigation) {
 		// Handle project wrapper responsiveness
 		const handleProjectWrapperResize = () => {
-			const windowHeight = window.innerHeight;
 			const windowWidth = window.innerWidth;
 
 			// Get padding based on screen size
-			let padding = 64; // Default for desktop
+			let wrapperPadding = '32px 64px 64px'; // Default for desktop
+			let navPadding = '32px 64px 0';
 
 			if (windowWidth <= 768) { // Mobile
-				padding = 24;
+				wrapperPadding = '24px 16px 48px';
+				navPadding = '16px 24px 0';
 			} else if (windowWidth <= 1024) { // Tablet
-				padding = 48;
+				wrapperPadding = '28px 48px 56px';
+				navPadding = '24px 48px 0';
 			}
 
-			// Set min-height properly
-			projectWrapper.style.minHeight = `${windowHeight}px`;
+			// First, set them both as part of a unified container
+			projectNavigation.style.padding = navPadding;
+			projectWrapper.style.padding = wrapperPadding;
+
+			// Now get the navigation height and calculate the wrapper height
+			const navHeight = projectNavigation.offsetHeight;
+			document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
 		}
 
 		// Call on load and resize
 		handleProjectWrapperResize();
 		window.addEventListener('resize', handleProjectWrapperResize);
+
+		// Add a small delay to ensure all elements are properly rendered
+		setTimeout(handleProjectWrapperResize, 100);
 	}
 });
 

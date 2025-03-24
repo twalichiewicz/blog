@@ -1,89 +1,108 @@
+<div class="project-navigation">
+	<div class="project-mini-bio">
+		<div class="project-mini-bio-image">
+			<img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
+		</div>
+		<div class="project-mini-bio-content">
+			<h4 class="project-mini-bio-name">Project Showcase</h4>
+			<p class="project-mini-bio-text">You're viewing a single project from the portfolio collection. Explore the details and images below.</p>
+		</div>
+		<a href="/" class="project-home-button" aria-label="Back to home">
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21M9 21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+			<span>Home</span>
+		</a>
+	</div>
+</div>
+
 <div class="project-wrapper">
-	<article class="project-gallery">
-		<div class="project-content">
-		<% if (page.gallery_images && page.gallery_images.length > 0) { %>
-			<div class="carousel">
+	<div class="project-gallery">
+		<div class="carousel" aria-label="Media carousel">
 			<div class="carousel-track">
-				<% page.gallery_images.forEach(function(item, index) { %>
-				<div class="carousel-slide <%= index === 0 ? 'active' : '' %> <%= item.class || '' %>">
-					<% if (item.type === 'video') { %>
-					<video controls <%= item.autoplay ? 'autoplay' : '' %> <%= item.loop ? 'loop' : '' %> <%= item.muted ? 'muted' : '' %>>
-						<source src="<%- url_for(item.url) %>" type="<%= item.videoType || 'video/mp4' %>">
-						Your browser does not support the video tag.
-					</video>
-					<% } else if (item.type === 'iframe') { %>
-					<iframe src="<%- url_for(item.url) %>" 
-							frameborder="0" 
-							allowfullscreen
-							loading="lazy"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							title="<%- item.caption || 'Embedded content' %>">
-					</iframe>
-					<% } else { %>
-					<img src="<%- url_for(item.url) %>" 
-							alt="<%- item.caption || '' %>" 
-							loading="lazy">
-					<% } %>
-				</div>
-				<% }); %>
-			</div>
-			
-			<% if (page.gallery_images.length > 1) { %>
-				<button class="carousel-button prev" aria-label="Previous slide">
-				<svg width="33" height="33" viewBox="0 0 52 52">
-					<path d="M24.6641 5.37109C36.1152 5.37109 45.4824 14.7383 45.4824 26.2109C45.4824 37.6621 36.1152 47.0293 24.6641 47.0293C13.2129 47.0293 3.8457 37.6621 3.8457 26.2109C3.8457 14.7383 13.2129 5.37109 24.6641 5.37109ZM28.8984 34.8047L30.1172 33.5859L21.7578 25.2266L30.1172 16.8672L28.8984 15.6484L19.2578 25.2266Z"/>
-				</svg>
-				</button>
-				<button class="carousel-button next" aria-label="Next slide">
-				<svg width="33" height="33" viewBox="0 0 52 52">
-					<path d="M24.6641 5.37109C36.1152 5.37109 45.4824 14.7383 45.4824 26.2109C45.4824 37.6621 36.1152 47.0293 24.6641 47.0293C13.2129 47.0293 3.8457 37.6621 3.8457 26.2109C3.8457 14.7383 13.2129 5.37109 24.6641 5.37109ZM20.4297 34.8047L30.0703 25.2266L20.4297 15.6484L19.2109 16.8672L27.5703 25.2266L19.2109 33.5859Z"/>
-				</svg>
-				</button>
-				
-				<div class="carousel-indicators">
-				<% page.gallery_images.forEach(function(_, index) { %>
-					<button class="indicator <%= index === 0 ? 'active' : '' %>" 
-							aria-label="Go to slide <%= index + 1 %>"></button>
-				<% }); %>
-				</div>
-			<% } %>
-			</div>
-		<% } %>
-		<div class="project-details">
-			<details class="project-title">
-				<summary>
-					<span class="project-category"><%- page.company %></span>
-					<h2><%- page.title %></h2>
-				</summary>
-				<div class="metadata">
-				<div class="metadata-list">
-					<% if (page.credits && page.credits.length) { %>
-					<% page.credits.forEach(function(credit) { %>
-						<div class="metadata-item">
-						<span class="label" style="font-size: 9px;"><%= credit.role %></span>
-						<span class="value" style="font-size: 12px;"><%= credit.name %></span>
+				<% if (page.gallery_images && page.gallery_images.length > 0) { %>
+					<% page.gallery_images.forEach((item, index) => { %>
+						<div class="carousel-slide <%= index === 0 ? 'active' : '' %>" 
+							aria-hidden="<%= index === 0 ? 'false' : 'true' %>">
+							<% if (item.type === 'video') { %>
+								<video controls <%= item.autoplay ? 'autoplay' : '' %> <%= item.loop ? 'loop' : '' %> <%= item.muted ? 'muted' : '' %>>
+									<source src="<%= item.url %>" type="<%= item.videoType || 'video/mp4' %>">
+									Your browser does not support the video tag.
+								</video>
+							<% } else if (item.type === 'iframe') { %>
+								<iframe src="<%= item.url %>" 
+										frameborder="0" 
+										allowfullscreen
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+										loading="lazy"
+										style="width: 100%; height: 100%; border: none;"
+										title="<%= item.caption || 'Embedded content' %>">
+								</iframe>
+							<% } else { %>
+								<img src="<%= item.url || item.src %>" 
+									alt="<%= item.caption || item.alt || '' %>"
+									loading="lazy"
+									decoding="async">
+							<% } %>
+							<% if (item.caption) { %>
+								<div class="carousel-caption"><%= item.caption %></div>
+							<% } %>
 						</div>
 					<% }); %>
+
+					<% if (page.gallery_images.length > 1) { %>
+						<button class="carousel-button prev" aria-label="Previous slide"></button>
+						<button class="carousel-button next" aria-label="Next slide"></button>
+						
+						<div class="carousel-indicators">
+							<% page.gallery_images.forEach((_, index) => { %>
+								<button class="indicator <%= index === 0 ? 'active' : '' %>" 
+										aria-label="Go to slide <%= index + 1 %>"></button>
+							<% }); %>
+						</div>
 					<% } %>
-					<% if (page.year) { %>
-					<div class="metadata-item">
-						<span class="label" style="font-size: 9px;">Year</span>
-						<span class="value" style="font-size: 12px;"><%= page.year %></span>
+				<% } else { %>
+					<div class="carousel-empty">
+						<p>No media content available</p>
 					</div>
-					<% } %>
-					<% if (page.location) { %>
-					<div class="metadata-item">
-						<span class="label" style="font-size: 9px;">Location</span>
-						<span class="value" style="font-size: 12px;"><%= page.location %></span>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	
+	<div class="project-content">
+		<div class="project-details">
+			<div class="project-title">
+				<span class="project-category"><%- page.company %></span>
+				<h2><%- page.title %></h2>
+				<div class="metadata">
+					<div class="metadata-list">
+						<% if (page.credits && page.credits.length) { %>
+						<% page.credits.forEach(function(credit) { %>
+							<div class="metadata-item">
+							<span class="label" style="font-size: 9px;"><%= credit.role %></span>
+							<span class="value" style="font-size: 12px;"><%= credit.name %></span>
+							</div>
+						<% }); %>
+						<% } %>
+						<% if (page.year) { %>
+						<div class="metadata-item">
+							<span class="label" style="font-size: 9px;">Year</span>
+							<span class="value" style="font-size: 12px;"><%= page.year %></span>
+						</div>
+						<% } %>
+						<% if (page.location) { %>
+						<div class="metadata-item">
+							<span class="label" style="font-size: 9px;">Location</span>
+							<span class="value" style="font-size: 12px;"><%= page.location %></span>
+						</div>
+						<% } %>
 					</div>
-					<% } %>
 				</div>
 			</div>
-			</details>
 			<div class="project-description">
-			<%- page.content %>
+				<%- page.content %>
 			</div>
 		</div>
-		</div>
-	</article>
+	</div>
 </div> 
