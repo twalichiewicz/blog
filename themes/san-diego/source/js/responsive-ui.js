@@ -226,6 +226,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Make available globally
 	window.ResponsiveUI = ResponsiveUI;
+
+	// Look for project wrapper
+	const projectWrapper = document.querySelector('.project-wrapper');
+
+	if (projectWrapper) {
+		// Handle project wrapper responsiveness
+		const handleProjectWrapperResize = () => {
+			const windowHeight = window.innerHeight;
+			const windowWidth = window.innerWidth;
+
+			// Get padding based on screen size
+			let padding = 64; // Default for desktop
+
+			if (windowWidth <= 768) { // Mobile
+				padding = 24;
+			} else if (windowWidth <= 1024) { // Tablet
+				padding = 48;
+			}
+
+			// Set min-height properly
+			projectWrapper.style.minHeight = `${windowHeight}px`;
+		}
+
+		// Call on load and resize
+		handleProjectWrapperResize();
+		window.addEventListener('resize', handleProjectWrapperResize);
+	}
 });
 
 // Helper functions for device detection
@@ -318,7 +345,7 @@ function initDesktopLayout() {
 		// Ensure proper column styling
 		postsContent.style.flex = '1';
 		projectsContent.style.flex = '1';
-		postsContent.style.height = '100%';
+		projectsContent.style.height = '100%';
 		projectsContent.style.height = '100%';
 		postsContent.style.overflowY = 'auto';
 		projectsContent.style.overflowY = 'auto';
