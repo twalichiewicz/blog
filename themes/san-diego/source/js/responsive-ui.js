@@ -235,16 +235,19 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Handle project wrapper responsiveness
 		const handleProjectWrapperResize = () => {
 			const windowWidth = window.innerWidth;
+			const height = window.innerHeight;
+			console.log('Window width:', windowWidth); // Debug log
 
 			// Get padding based on screen size
-			let wrapperPadding = '32px 64px 64px'; // Default for desktop
+			let wrapperPadding = '32px 64px'; // Default for desktop - equal padding all around
 			let navPadding = '32px 64px 0';
 
-			if (windowWidth <= 768) { // Mobile
-				wrapperPadding = '24px 16px 48px';
+			// Match the exact breakpoint logic from handleDeviceChange
+			if (windowWidth < 768) { // Mobile
+				wrapperPadding = '24px 16px 0';
 				navPadding = '16px 24px 0';
-			} else if (windowWidth <= 1024) { // Tablet
-				wrapperPadding = '28px 48px 56px';
+			} else if (windowWidth <= 1024 || (windowWidth < 1366 && height < 1024)) { // Tablet - using <= to include 1024
+				wrapperPadding = '28px 48px 0';
 				navPadding = '24px 48px 0';
 			}
 
@@ -257,9 +260,20 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
 		}
 
-		// Call on load and resize
+		// Call immediately when the script loads
 		handleProjectWrapperResize();
-		window.addEventListener('resize', handleProjectWrapperResize);
+
+		// Call on load event to ensure it runs after everything is loaded
+		window.addEventListener('load', handleProjectWrapperResize);
+
+		// Call on resize with a debounce
+		let resizeTimeout;
+		window.addEventListener('resize', () => {
+			if (resizeTimeout) {
+				clearTimeout(resizeTimeout);
+			}
+			resizeTimeout = setTimeout(handleProjectWrapperResize, 100);
+		});
 
 		// Add a small delay to ensure all elements are properly rendered
 		setTimeout(handleProjectWrapperResize, 100);
