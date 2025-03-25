@@ -5,9 +5,9 @@
 // Project wrapper container
 .project-wrapper {
 	width: 100%;
-	height: calc(100vh - var(--nav-height, 0px));
+	height: 100vh;
 	min-height: auto;
-	max-height: calc(100vh - var(--nav-height, 0px));
+	max-height: 100vh;
 	box-sizing: border-box;
 	display: flex;
 	justify-content: center;
@@ -28,8 +28,15 @@
 	@media (max-width: variables.$mobile-breakpoint) {
 		padding: 16px 16px 0;
 		overflow: hidden;
-		height: 100vh;
-		max-height: 100vh;
+		height: 100%;
+		max-height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		flex-direction: column;
 	}
 }
 
@@ -404,6 +411,13 @@
 		margin-bottom: 16px;
 	}
 
+	@media (max-width: variables.$mobile-breakpoint) {
+		height: 40%;
+		min-height: 250px;
+		flex-shrink: 0;
+		margin-bottom: 16px;
+	}
+
 	.carousel {
 		flex: 1;
 		width: 100%;
@@ -432,6 +446,11 @@
 
 		@media (max-width: variables.$tablet-breakpoint) {
 			border-radius: 12px;
+		}
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			border-radius: 12px 12px 0 0;
+			min-height: 250px;
 		}
 	}
 }
@@ -462,6 +481,15 @@
 		border-radius: 15px 15px 0 0;
 	}
 
+	@media (max-width: variables.$mobile-breakpoint) {
+		height: auto;
+		min-height: 0;
+		flex: 1;
+		margin-bottom: env(safe-area-inset-bottom, 0px);
+		display: flex;
+		flex-direction: column;
+	}
+
 	&:hover {
 		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05),
 			0 0 0 1px rgba(0, 0, 0, 0.03);
@@ -480,6 +508,15 @@
 			padding-bottom: 3rem;
 		}
 
+		@media (max-width: variables.$mobile-breakpoint) {
+			padding: 1rem;
+			padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+			height: 100%;
+			overflow-y: auto;
+			-webkit-overflow-scrolling: touch;
+			flex: 1;
+		}
+
 		&::-webkit-scrollbar {
 			width: 8px;
 		}
@@ -492,11 +529,6 @@
 		&::-webkit-scrollbar-thumb {
 			background-color: rgba(0, 0, 0, 0.2);
 			border-radius: 4px;
-		}
-
-		@media (max-width: variables.$mobile-breakpoint) {
-			padding: 1rem;
-			padding-bottom: 3rem;
 		}
 	}
 
