@@ -5,92 +5,349 @@
 // Post navigation with mini profile
 .post-navigation {
 	position: fixed;
-	top: 2rem;
-	left: 2rem;
-	z-index: 100;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 10;
+	pointer-events: none;
 
-	.profile-link {
-		position: relative;
-		display: block;
-		text-decoration: none;
+	.post-mini-bio {
+		pointer-events: auto;
+		display: flex;
+		padding: 6px;
+		border-radius: 10px;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+		background: rgba(255, 255, 255, 0.7);
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.03);
+		backdrop-filter: blur(8px);
+		align-items: flex-start;
+		position: absolute;
+		overflow: hidden;
+		max-width: 450px;
+		top: 24px;
+		left: 24px;
+		z-index: 10;
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-		.mini-profile-photo {
-			width: 48px;
-			height: 48px;
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 1px;
+			background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.05), transparent);
+		}
+
+		.post-mini-bio-image {
+			flex-shrink: 0;
+			width: 52px;
+			height: 52px;
 			border-radius: 50%;
 			overflow: hidden;
-			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1),
-				0 0 0 1px rgba(0, 0, 0, 0.05);
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-			@media (prefers-color-scheme: dark) {
-				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2),
-					0 0 0 1px rgba(255, 255, 255, 0.1);
-			}
+			margin-right: 9px;
+			padding: 2px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			box-shadow:
+				0 0 0 1px rgba(255, 255, 255, 0.7),
+				0 0 0 2px rgba(0, 0, 0, 0.1),
+				inset 0 2px 4px rgba(0, 0, 0, 0.4),
+				inset 0 -2px 4px rgba(255, 255, 255, 0.3);
+			background: linear-gradient(145deg,
+					rgba(255, 255, 255, 0.1),
+					rgba(0, 0, 0, 0.1));
 
 			img {
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
+				filter: grayscale(12%);
+				border-radius: 50%;
+			}
+		}
+
+		.post-mini-bio-content {
+			flex-grow: 1;
+			margin-right: 16px;
+		}
+
+		.post-mini-bio-name {
+			font-size: 13px;
+			font-weight: 500;
+			margin: 0 0 2px 0;
+			color: rgba(0, 0, 0, 0.8);
+		}
+
+		.post-mini-bio-text {
+			margin: 0;
+			font-size: 12px;
+			line-height: 1.4;
+			color: rgba(0, 0, 0, 0.6);
+			max-width: 75ch;
+		}
+
+		.button-stack {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			margin-left: auto;
+		}
+
+		.post-home-button {
+			display: flex;
+			align-items: center;
+			padding: 4px 10px;
+			border-radius: 6px;
+			text-decoration: none;
+			color: #fff;
+			font-size: 12px;
+			font-weight: 500;
+			background: #007AFF;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+			box-shadow:
+				0 1px 2px rgba(0, 0, 0, 0.05),
+				inset 0 1px 0 rgba(255, 255, 255, 0.1);
+			transition: all 0.2s ease;
+			flex-shrink: 0;
+			width: auto;
+
+			svg {
+				width: 16px;
+				height: 16px;
+				margin-right: 6px;
+				stroke: currentColor;
+				flex-shrink: 0;
 			}
 
-			.placeholder-avatar {
-				width: 100%;
-				height: 100%;
+			span {
+				line-height: 16px;
+			}
+
+			&:hover {
+				background: #0066FF;
+				box-shadow:
+					0 2px 4px rgba(0, 0, 0, 0.1),
+					0 1px 2px rgba(0, 0, 0, 0.05),
+					inset 0 1px 0 rgba(255, 255, 255, 0.2);
+				transform: translateY(-1px);
+			}
+
+			&:active {
+				background: #0055DD;
+				box-shadow:
+					0 1px 1px rgba(0, 0, 0, 0.05),
+					inset 0 1px 2px rgba(0, 0, 0, 0.1);
+				transform: translateY(1px);
+			}
+		}
+
+		.post-collapse-button {
+			display: flex;
+			align-items: center;
+			gap: 0;
+			padding: 4px 10px;
+			border-radius: 6px;
+			color: rgba(0, 0, 0, 0.7);
+			font-size: 12px;
+			font-weight: 500;
+			background: rgba(255, 255, 255, 0.8);
+			border: 1px solid rgba(0, 0, 0, 0.1);
+			box-shadow:
+				0 1px 2px rgba(0, 0, 0, 0.05),
+				0 1px 1px rgba(0, 0, 0, 0.03),
+				inset 0 1px 0 rgba(255, 255, 255, 0.8);
+			transition: all 0.2s ease;
+			cursor: pointer;
+			flex-shrink: 0;
+			width: auto;
+
+			svg {
+				width: 16px;
+				height: 16px;
+				margin-right: 6px;
+				transition: transform 0.3s ease;
+				flex-shrink: 0;
+			}
+
+			span {
+				line-height: 16px;
+			}
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.95);
+				box-shadow:
+					0 2px 4px rgba(0, 0, 0, 0.08),
+					0 1px 2px rgba(0, 0, 0, 0.05),
+					inset 0 1px 0 rgba(255, 255, 255, 1);
+			}
+
+			&:active {
+				background: rgba(240, 240, 240, 0.9);
+				box-shadow:
+					0 1px 1px rgba(0, 0, 0, 0.05),
+					inset 0 1px 3px rgba(0, 0, 0, 0.1);
+			}
+		}
+
+		&.collapsed {
+			max-width: fit-content;
+			transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+				transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+				opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+			.post-mini-bio-content {
+				opacity: 0;
+				transform: translateY(-10px);
+				height: 0;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				width: 0;
+			}
+
+			.post-mini-bio-image {
+				opacity: 0;
+				transform: translateY(-10px);
+				height: 0;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				width: 0;
+			}
+
+			.post-home-button {
+				padding: 4px;
+				width: 24px;
+				height: 24px;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				background-color: variables.$accent-gold;
-				color: variables.$white;
-				font-size: 1.5rem;
-				font-weight: 600;
 
-				@media (prefers-color-scheme: dark) {
-					background-color: variables.$accent-gold-dark;
+				span {
+					display: none;
+				}
+
+				svg {
+					margin: 0;
+				}
+			}
+
+			.post-collapse-button {
+				padding: 4px;
+				width: 24px;
+				height: 24px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 0;
+				gap: 0;
+
+				span {
+					display: none;
+				}
+
+				svg {
+					margin: 0;
+					transform: rotate(180deg);
 				}
 			}
 		}
 
-		.home-tooltip {
-			position: absolute;
-			left: 50%;
-			bottom: -25px;
-			transform: translateX(-50%) translateY(10px);
-			background-color: variables.$white;
-			color: variables.$text-color;
-			padding: 5px 10px;
-			border-radius: 15px;
-			font-size: 12px;
-			opacity: 0;
-			visibility: hidden;
-			transition: all 0.3s ease;
-			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-			white-space: nowrap;
-			pointer-events: none;
-
-			@media (prefers-color-scheme: dark) {
-				background-color: variables.$card-bg-dark;
-				color: variables.$text-color-dark;
-				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-			}
+		.post-mini-bio-content,
+		.post-mini-bio-image,
+		.button-stack {
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		}
 
-		&:hover {
-			.mini-profile-photo {
-				transform: scale(1.1);
-				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15),
-					0 0 0 2px variables.$accent-gold;
+		@media (prefers-color-scheme: dark) {
+			background: rgba(30, 30, 30, 0.7);
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.15);
+			backdrop-filter: blur(8px);
 
-				@media (prefers-color-scheme: dark) {
-					box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3),
-						0 0 0 2px variables.$accent-gold-light;
+			&::after {
+				background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent);
+			}
+
+			.post-mini-bio-image {
+				box-shadow:
+					0 0 0 1px rgba(255, 255, 255, 0.2),
+					0 0 0 2px rgba(0, 0, 0, 0.3),
+					inset 0 2px 4px rgba(0, 0, 0, 0.6),
+					inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+				background: linear-gradient(145deg,
+						rgba(255, 255, 255, 0.05),
+						rgba(0, 0, 0, 0.2));
+			}
+
+			.post-mini-bio-name {
+				color: rgba(255, 255, 255, 0.9);
+			}
+
+			.post-mini-bio-text {
+				color: rgba(255, 255, 255, 0.6);
+			}
+
+			.post-home-button {
+				background: #0A84FF;
+				border-color: rgba(0, 0, 0, 0.2);
+				color: #fff;
+				box-shadow:
+					0 1px 2px rgba(0, 0, 0, 0.2),
+					inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+				&:hover {
+					background: #0074E0;
+					color: #fff;
+					box-shadow:
+						0 2px 4px rgba(0, 0, 0, 0.3),
+						0 1px 2px rgba(0, 0, 0, 0.2),
+						inset 0 1px 0 rgba(255, 255, 255, 0.1);
+				}
+
+				&:active {
+					background: #006ACC;
+					box-shadow:
+						0 1px 1px rgba(0, 0, 0, 0.2),
+						inset 0 1px 2px rgba(0, 0, 0, 0.2);
 				}
 			}
 
-			.home-tooltip {
-				opacity: 1;
-				visibility: visible;
-				transform: translateX(-50%) translateY(0);
+			.post-collapse-button {
+				background: rgba(255, 255, 255, 0.1);
+				color: rgba(255, 255, 255, 0.8);
+				border-color: rgba(255, 255, 255, 0.1);
+				box-shadow:
+					0 1px 2px rgba(0, 0, 0, 0.2),
+					inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.15);
+					box-shadow:
+						0 2px 4px rgba(0, 0, 0, 0.3),
+						inset 0 1px 0 rgba(255, 255, 255, 0.1);
+				}
+
+				&:active {
+					background: rgba(255, 255, 255, 0.05);
+					box-shadow:
+						0 1px 1px rgba(0, 0, 0, 0.2),
+						inset 0 1px 2px rgba(0, 0, 0, 0.2);
+				}
+			}
+		}
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			top: 16px;
+			left: 16px;
+			right: 16px;
+			max-width: calc(100% - 32px);
+
+			.button-stack {
+				margin-left: 0;
 			}
 		}
 	}
