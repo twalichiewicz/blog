@@ -226,6 +226,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Make available globally
 	window.ResponsiveUI = ResponsiveUI;
+
+	// Look for project wrapper
+	const projectWrapper = document.querySelector('.project-wrapper');
+	const projectNavigation = document.querySelector('.project-navigation');
+
+	if (projectWrapper && projectNavigation) {
+		// Handle project wrapper responsiveness
+		const handleProjectWrapperResize = () => {
+			const windowWidth = window.innerWidth;
+			const height = window.innerHeight;
+			console.log('Window width:', windowWidth); // Debug log
+
+			// Get padding based on screen size
+			let wrapperPadding = '32px 64px'; // Default for desktop - equal padding all around
+			let navPadding = '32px 64px 0';
+
+			// Match the exact breakpoint logic from handleDeviceChange
+			if (windowWidth < 768) { // Mobile
+				wrapperPadding = '24px 16px 0';
+				navPadding = '16px 24px 0';
+			} else if (windowWidth <= 1024 || (windowWidth < 1366 && height < 1024)) { // Tablet - using <= to include 1024
+				wrapperPadding = '28px 48px 0';
+				navPadding = '24px 48px 0';
+			}
+
+			// First, set them both as part of a unified container
+			projectNavigation.style.padding = navPadding;
+			projectWrapper.style.padding = wrapperPadding;
+
+			// Now get the navigation height and calculate the wrapper height
+			const navHeight = projectNavigation.offsetHeight;
+			document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
+		}
+
+		// Call immediately when the script loads
+		handleProjectWrapperResize();
+
+		// Call on load event to ensure it runs after everything is loaded
+		window.addEventListener('load', handleProjectWrapperResize);
+
+		// Call on resize with a debounce
+		let resizeTimeout;
+		window.addEventListener('resize', () => {
+			if (resizeTimeout) {
+				clearTimeout(resizeTimeout);
+			}
+			resizeTimeout = setTimeout(handleProjectWrapperResize, 100);
+		});
+
+		// Add a small delay to ensure all elements are properly rendered
+		setTimeout(handleProjectWrapperResize, 100);
+	}
 });
 
 // Helper functions for device detection
@@ -318,7 +370,7 @@ function initDesktopLayout() {
 		// Ensure proper column styling
 		postsContent.style.flex = '1';
 		projectsContent.style.flex = '1';
-		postsContent.style.height = '100%';
+		projectsContent.style.height = '100%';
 		projectsContent.style.height = '100%';
 		postsContent.style.overflowY = 'auto';
 		projectsContent.style.overflowY = 'auto';
