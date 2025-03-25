@@ -697,13 +697,15 @@ body {
 	background: rgba(255, 255, 255, 0.7);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.03);
 	backdrop-filter: blur(8px);
-	align-items: center;
+	align-items: flex-start;
 	position: absolute;
 	overflow: hidden;
 	max-width: 450px;
 	top: 24px;
 	left: 24px;
 	z-index: 10;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 	&::after {
 		content: '';
@@ -747,14 +749,14 @@ body {
 
 	.project-mini-bio-content {
 		flex-grow: 1;
+		margin-right: 16px;
 	}
 
 	.project-mini-bio-name {
-		margin: 0 0 3px;
-		font-size: 11px;
-		font-weight: 600;
-		letter-spacing: -0.01em;
-		color: rgba(0, 0, 0, 0.85);
+		font-size: 13px;
+		font-weight: 500;
+		margin: 0 0 2px 0;
+		color: rgba(0, 0, 0, 0.8);
 	}
 
 	.project-mini-bio-text {
@@ -765,13 +767,59 @@ body {
 		max-width: 75ch;
 	}
 
+	.button-stack {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		margin-left: auto;
+	}
+
 	.project-home-button {
 		display: flex;
 		align-items: center;
-		padding: 8px 14px;
-		margin-left: 16px;
-		border-radius: 8px;
+		padding: 4px 10px;
+		border-radius: 6px;
 		text-decoration: none;
+		color: #fff;
+		font-size: 12px;
+		font-weight: 500;
+		background: #007AFF;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		box-shadow:
+			0 1px 2px rgba(0, 0, 0, 0.05),
+			inset 0 1px 0 rgba(255, 255, 255, 0.1);
+		transition: all 0.2s ease;
+		flex-shrink: 0;
+		width: auto;
+
+		svg {
+			margin-right: 6px;
+			stroke: currentColor;
+		}
+
+		&:hover {
+			background: #0066FF;
+			box-shadow:
+				0 2px 4px rgba(0, 0, 0, 0.1),
+				0 1px 2px rgba(0, 0, 0, 0.05),
+				inset 0 1px 0 rgba(255, 255, 255, 0.2);
+			transform: translateY(-1px);
+		}
+
+		&:active {
+			background: #0055DD;
+			box-shadow:
+				0 1px 1px rgba(0, 0, 0, 0.05),
+				inset 0 1px 2px rgba(0, 0, 0, 0.1);
+			transform: translateY(1px);
+		}
+	}
+
+	.project-collapse-button {
+		display: flex;
+		align-items: center;
+		padding: 4px 10px;
+		border-radius: 6px;
 		color: rgba(0, 0, 0, 0.7);
 		font-size: 12px;
 		font-weight: 500;
@@ -782,11 +830,13 @@ body {
 			0 1px 1px rgba(0, 0, 0, 0.03),
 			inset 0 1px 0 rgba(255, 255, 255, 0.8);
 		transition: all 0.2s ease;
+		cursor: pointer;
 		flex-shrink: 0;
 		width: auto;
 
 		svg {
 			margin-right: 6px;
+			transition: transform 0.3s ease;
 		}
 
 		&:hover {
@@ -795,7 +845,6 @@ body {
 				0 2px 4px rgba(0, 0, 0, 0.08),
 				0 1px 2px rgba(0, 0, 0, 0.05),
 				inset 0 1px 0 rgba(255, 255, 255, 1);
-			transform: translateY(-1px);
 		}
 
 		&:active {
@@ -803,8 +852,62 @@ body {
 			box-shadow:
 				0 1px 1px rgba(0, 0, 0, 0.05),
 				inset 0 1px 3px rgba(0, 0, 0, 0.1);
-			transform: translateY(1px);
 		}
+	}
+
+	&.collapsed {
+		max-width: fit-content;
+		transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+			transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+		.project-mini-bio-content {
+			opacity: 0;
+			transform: translateY(-10px);
+			height: 0;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			width: 0;
+		}
+
+		.project-mini-bio-image {
+			opacity: 0;
+			transform: translateY(-10px);
+			height: 0;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			width: 0;
+		}
+
+		.project-home-button,
+		.project-collapse-button {
+			padding: 4px;
+			width: 24px;
+			height: 24px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			span {
+				display: none;
+			}
+
+			svg {
+				margin: 0;
+			}
+		}
+
+		.project-collapse-button svg {
+			transform: rotate(180deg);
+		}
+	}
+
+	.project-mini-bio-content,
+	.project-mini-bio-image,
+	.button-stack {
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	@media (prefers-color-scheme: dark) {
@@ -830,17 +933,16 @@ body {
 		}
 
 		.project-home-button {
-			background: rgba(30, 30, 30, 0.8);
-			border-color: rgba(255, 255, 255, 0.1);
-			color: rgba(255, 255, 255, 0.8);
+			background: #0A84FF;
+			border-color: rgba(0, 0, 0, 0.2);
+			color: #fff;
 			box-shadow:
 				0 1px 2px rgba(0, 0, 0, 0.2),
-				0 1px 1px rgba(0, 0, 0, 0.1),
-				inset 0 1px 0 rgba(255, 255, 255, 0.05);
+				inset 0 1px 0 rgba(255, 255, 255, 0.1);
 
 			&:hover {
-				background: rgba(40, 40, 40, 0.9);
-				color: rgba(255, 255, 255, 0.95);
+				background: #0074E0;
+				color: #fff;
 				box-shadow:
 					0 2px 4px rgba(0, 0, 0, 0.3),
 					0 1px 2px rgba(0, 0, 0, 0.2),
@@ -848,10 +950,10 @@ body {
 			}
 
 			&:active {
-				background: rgba(20, 20, 20, 0.9);
+				background: #006ACC;
 				box-shadow:
 					0 1px 1px rgba(0, 0, 0, 0.2),
-					inset 0 1px 3px rgba(0, 0, 0, 0.3);
+					inset 0 1px 2px rgba(0, 0, 0, 0.2);
 			}
 		}
 	}
