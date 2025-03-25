@@ -10,8 +10,8 @@
                     <img src="/img/profilePhoto.jpeg" alt="Profile Photo">
                 </div>
                 <div class="post-mini-bio-content">
-                    <h4 class="post-mini-bio-name">Project Details</h4>
-                    <p class="post-mini-bio-text">Exploring ideas through design and code.</p>
+                    <h4 class="post-mini-bio-name">Blog Post</h4>
+                    <p class="post-mini-bio-text">Thanks for reading! More posts are available from the home page.</p>
                 </div>
                 <div class="button-stack">
                     <a href="<%= url_for('/') %>" class="post-home-button" title="Home">
@@ -124,6 +124,10 @@
             body {
                 opacity: 0;
                 transition: opacity 0.5s ease-in;
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;
+                overflow-y: auto;
             }
             
             body.loaded {
@@ -139,11 +143,19 @@
                 margin-top: 5rem;
                 border-top-left-radius: 6px;
                 border-top-right-radius: 6px;
+                position: relative;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 2rem;
+                min-height: calc(100vh - 7rem);
+                box-sizing: border-box;
             }
             
             @media (min-width: 768px) {
                 .post {
                     margin-top: 2.5rem;
+                    min-height: calc(100vh - 4.5rem);
                 }
             }
             
@@ -157,6 +169,16 @@
                 transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
                             opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
                 opacity: 0;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+                pointer-events: none;
+            }
+            
+            .post-navigation > * {
+                pointer-events: auto;
             }
             
             body.loaded .post-navigation {
