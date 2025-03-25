@@ -103,10 +103,10 @@
 			padding: 4px 10px;
 			border-radius: 6px;
 			text-decoration: none;
-			color: #fff;
+			color: variables.$white;
 			font-size: 12px;
 			font-weight: 500;
-			background: #007AFF;
+			background: variables.$link-color;
 			border: 1px solid rgba(0, 0, 0, 0.1);
 			box-shadow:
 				0 1px 2px rgba(0, 0, 0, 0.05),
@@ -128,7 +128,7 @@
 			}
 
 			&:hover {
-				background: #0066FF;
+				background: variables.$hover-color;
 				box-shadow:
 					0 2px 4px rgba(0, 0, 0, 0.1),
 					0 1px 2px rgba(0, 0, 0, 0.05),
@@ -137,7 +137,7 @@
 			}
 
 			&:active {
-				background: #0055DD;
+				background: variables.$hover-color;
 				box-shadow:
 					0 1px 1px rgba(0, 0, 0, 0.05),
 					inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -292,16 +292,16 @@
 			}
 
 			.post-home-button {
-				background: #0A84FF;
+				background: variables.$link-color-dark;
 				border-color: rgba(0, 0, 0, 0.2);
-				color: #fff;
+				color: variables.$black;
 				box-shadow:
 					0 1px 2px rgba(0, 0, 0, 0.2),
 					inset 0 1px 0 rgba(255, 255, 255, 0.1);
 
 				&:hover {
-					background: #0074E0;
-					color: #fff;
+					background: variables.$hover-color-dark;
+					color: variables.$black;
 					box-shadow:
 						0 2px 4px rgba(0, 0, 0, 0.3),
 						0 1px 2px rgba(0, 0, 0, 0.2),
@@ -309,7 +309,7 @@
 				}
 
 				&:active {
-					background: #006ACC;
+					background: variables.$hover-color-dark;
 					box-shadow:
 						0 1px 1px rgba(0, 0, 0, 0.2),
 						inset 0 1px 2px rgba(0, 0, 0, 0.2);
