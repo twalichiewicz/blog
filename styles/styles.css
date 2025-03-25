@@ -6350,9 +6350,9 @@ body.has-scroll-snap {
 }
 .project-wrapper {
   width: 100%;
-  height: calc(100vh - var(--nav-height, 0px));
+  height: 100vh;
   min-height: auto;
-  max-height: calc(100vh - var(--nav-height, 0px));
+  max-height: 100vh;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -6375,8 +6375,15 @@ body.has-scroll-snap {
   .project-wrapper {
     padding: 16px 16px 0;
     overflow: hidden;
-    height: 100vh;
-    max-height: 100vh;
+    height: 100%;
+    max-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -6689,6 +6696,14 @@ body.has-scroll-snap {
     margin-bottom: 16px;
   }
 }
+@media (max-width: 768px) {
+  .project-gallery {
+    height: 40%;
+    min-height: 250px;
+    flex-shrink: 0;
+    margin-bottom: 16px;
+  }
+}
 .project-gallery .carousel {
   flex: 1;
   width: 100%;
@@ -6718,6 +6733,12 @@ body.has-scroll-snap {
     border-radius: 12px;
   }
 }
+@media (max-width: 768px) {
+  .project-gallery .carousel {
+    border-radius: 12px 12px 0 0;
+    min-height: 250px;
+  }
+}
 
 .project-content {
   width: 35%;
@@ -6745,6 +6766,16 @@ body.has-scroll-snap {
     border-radius: 15px 15px 0 0;
   }
 }
+@media (max-width: 768px) {
+  .project-content {
+    height: auto;
+    min-height: 0;
+    flex: 1;
+    margin-bottom: env(safe-area-inset-bottom, 0px);
+    display: flex;
+    flex-direction: column;
+  }
+}
 .project-content:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.03);
 }
@@ -6762,6 +6793,16 @@ body.has-scroll-snap {
     padding-bottom: 3rem;
   }
 }
+@media (max-width: 768px) {
+  .project-content .project-details {
+    padding: 1rem;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex: 1;
+  }
+}
 .project-content .project-details::-webkit-scrollbar {
   width: 8px;
 }
@@ -6772,12 +6813,6 @@ body.has-scroll-snap {
 .project-content .project-details::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
-}
-@media (max-width: 768px) {
-  .project-content .project-details {
-    padding: 1rem;
-    padding-bottom: 3rem;
-  }
 }
 @media (prefers-color-scheme: dark) {
   .project-content {
