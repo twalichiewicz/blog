@@ -723,7 +723,7 @@ body {
 		height: 52px;
 		border-radius: 50%;
 		overflow: hidden;
-		margin-right: 16px;
+		margin-right: 9px;
 		border: 1px solid rgba(0, 0, 0, 0.04);
 		display: flex;
 		align-items: center;
@@ -793,8 +793,15 @@ body {
 		width: auto;
 
 		svg {
+			width: 16px;
+			height: 16px;
 			margin-right: 6px;
 			stroke: currentColor;
+			flex-shrink: 0;
+		}
+
+		span {
+			line-height: 16px;
 		}
 
 		&:hover {
@@ -818,6 +825,7 @@ body {
 	.project-collapse-button {
 		display: flex;
 		align-items: center;
+		gap: 0;
 		padding: 4px 10px;
 		border-radius: 6px;
 		color: rgba(0, 0, 0, 0.7);
@@ -835,8 +843,15 @@ body {
 		width: auto;
 
 		svg {
+			width: 16px;
+			height: 16px;
 			margin-right: 6px;
 			transition: transform 0.3s ease;
+			flex-shrink: 0;
+		}
+
+		span {
+			line-height: 16px;
 		}
 
 		&:hover {
@@ -881,8 +896,7 @@ body {
 			width: 0;
 		}
 
-		.project-home-button,
-		.project-collapse-button {
+		.project-home-button {
 			padding: 4px;
 			width: 24px;
 			height: 24px;
@@ -899,8 +913,24 @@ body {
 			}
 		}
 
-		.project-collapse-button svg {
-			transform: rotate(180deg);
+		.project-collapse-button {
+			padding: 4px;
+			width: 24px;
+			height: 24px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0;
+			gap: 0;
+
+			span {
+				display: none;
+			}
+
+			svg {
+				margin: 0;
+				transform: rotate(180deg);
+			}
 		}
 	}
 
