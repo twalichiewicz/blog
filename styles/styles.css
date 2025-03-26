@@ -2369,6 +2369,14 @@ ol ul {
    ========================================================================== */
 /* Mobile-specific media queries */
 @media screen and (max-width: 768px) {
+  /* Mini Bio Mobile Adjustments */
+  .project-navigation .project-mini-bio,
+  .project-navigation .post-mini-bio,
+  .post-navigation .project-mini-bio,
+  .post-navigation .post-mini-bio {
+    top: 9px !important;
+    left: 9px !important;
+  }
   .blog {
     padding: 0;
     width: 100%;
@@ -4153,17 +4161,6 @@ p img:not(:only-child) {
   .post-navigation .post-mini-bio .post-collapse-button:active {
     background: rgba(255, 255, 255, 0.05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.2);
-  }
-}
-@media (max-width: 768px) {
-  .post-navigation .post-mini-bio {
-    top: 16px;
-    left: 16px;
-    right: 16px;
-    max-width: calc(100% - 32px);
-  }
-  .post-navigation .post-mini-bio .button-stack {
-    margin-left: 0;
   }
 }
 
