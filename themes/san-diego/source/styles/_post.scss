@@ -339,17 +339,6 @@
 				}
 			}
 		}
-
-		@media (max-width: variables.$mobile-breakpoint) {
-			top: 16px;
-			left: 16px;
-			right: 16px;
-			max-width: calc(100% - 32px);
-
-			.button-stack {
-				margin-left: 0;
-			}
-		}
 	}
 }
 
