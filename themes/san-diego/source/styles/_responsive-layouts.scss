@@ -546,6 +546,18 @@
 
 /* Mobile-specific media queries */
 @media screen and (max-width: variables.$mobile-breakpoint) {
+
+	/* Mini Bio Mobile Adjustments */
+	.project-navigation,
+	.post-navigation {
+
+		.project-mini-bio,
+		.post-mini-bio {
+			top: 9px !important;
+			left: 9px !important;
+		}
+	}
+
 	.blog {
 		padding: 0;
 		width: 100%;
