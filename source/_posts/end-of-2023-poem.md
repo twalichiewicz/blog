@@ -6,7 +6,7 @@ tags:
   - blog
 ---
 
-<div style="font-family: 'Yu Mincho', serif; text-align: center; max-width: 350px; margin-top: 64px; margin-bottom: 12px; line-height: 1.6; color: #333; font-size: 21px;">
+<div style="font-family: 'Yu Mincho', serif; text-align: center; max-width: 350px; margin-top: 64px; margin-bottom: 12px; line-height: 1.6; font-size: 21px;">
   Fading clicks at dusk,<br/><br/>
   Pixel blossoms softly fall,<br/><br/>
   Dawn whispers new design. 🍃<br/><br/>
