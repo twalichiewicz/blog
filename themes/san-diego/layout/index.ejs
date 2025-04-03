@@ -77,12 +77,22 @@
             </div>
         </div>
         
+        <!-- Services promotion section -->
+        <!-- <div class="services-promo">
+            <div class="content-bg"></div>
+            <div class="hover-effect"></div>
+            <h2 class="services-title">Need design expertise?</h2>
+            <p class="services-description">I offer UX consulting and design services for startups and established companies.</p>
+            <a href="/services" class="services-link">View Services</a>
+        </div> -->
+
         <!-- Contact wrapper moved outside of profile-header for better positioning -->
         <div class="contact-wrapper">
             <button class="contact-button">Contact</button>
             <div class="contact-options">
                 <a href="mailto:hey@thomas.design" class="contact-option email">Email</a>
                 <a href="https://linkedin.com/in/twalichiewicz" target="_blank" class="contact-option linkedin">LinkedIn</a>
+                <a href="/docs/Thomas Walichiewicz CV Q2 2025.pdf" target="_blank" class="contact-option resume">Resume</a>
             </div>
         </div>
     </div>
@@ -317,6 +327,36 @@
 			}, 1000);
 		}, 3000); // Increased timeout to account for the added delay
 	});
+
+    // Glassmorphic effect for services promo
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const servicesPromo = document.querySelector('.services-promo');
+        
+    //     if (servicesPromo) {
+    //         servicesPromo.addEventListener('mousemove', (e) => {
+    //             const rect = servicesPromo.getBoundingClientRect();
+    //             const x = e.clientX - rect.left;
+    //             const y = e.clientY - rect.top;
+                
+    //             servicesPromo.style.setProperty('--mouse-x', `${x}px`);
+    //             servicesPromo.style.setProperty('--mouse-y', `${y}px`);
+    //         });
+
+    //         // Make the entire promo clickable
+    //         servicesPromo.addEventListener('click', (e) => {
+    //             const link = servicesPromo.querySelector('.services-link');
+    //             if (link && !e.target.closest('.services-link')) {
+    //                 link.click();
+    //             }
+    //         });
+
+    //         // Remove mouse position when leaving the element
+    //         servicesPromo.addEventListener('mouseleave', () => {
+    //             servicesPromo.style.setProperty('--mouse-x', '50%');
+    //             servicesPromo.style.setProperty('--mouse-y', '50%');
+    //         });
+    //     }
+    // });
 </script>
 </body>
 </html>
