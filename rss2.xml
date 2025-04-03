@@ -9,8 +9,32 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Thu, 03 Apr 2025 08:28:58 GMT</pubDate>
+    <pubDate>Thu, 03 Apr 2025 17:52:12 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Full-stack product designers in 2025</title>
+      <link>https://twalichiewicz.github.io/2025/04/03/Full-stack-product-designers-in-2025/</link>
+      <guid>https://twalichiewicz.github.io/2025/04/03/Full-stack-product-designers-in-2025/</guid>
+      <pubDate>Thu, 03 Apr 2025 17:45:42 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Strategy, UX, UI, prototyping, maybe even shipping code. The role sounds like a dream, but most teams don’t know how to actually use it.&lt;</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Strategy, UX, UI, prototyping, maybe even shipping code. The role sounds like a dream, but most teams don’t know how to actually use it.</p><p>I’ve often been brought on because I work this way— across product strategy, cross-product systems, AI tooling, and UX design. The job is about seeing the big picture, stitching together product intent, and making sure the execution supports it end to end.</p><p>But here’s what I’ve learned:<br>Full-stack doesn’t mean “do everything.”<br>It means “connect everything.”</p><p>Too often, companies hire this kind of designer… then unintentionally limit their impact. They get stuck in handoff loops, vague ownership zones, or left out of key product decisions entirely.</p><p>If you’re hiring for a designer who can go end-to-end, here’s what actually sets them up for success:<br> • Involve them early in framing the problem, not just shaping the UI<br> • Give them access to context, not just tasks<br> • Trust them to lead cross-functionally, not just design individually<br> • Let them define what done looks like, not just what pretty looks like</p><p>When done well, this role becomes a force multiplier. Not just for speed but for clarity, alignment, and momentum. The orgs that recognize that (and build the structure to support it) will attract and retain a different caliber of designer.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/04/03/Full-stack-product-designers-in-2025/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>The best new game of 2025 is Sora</title>
@@ -451,30 +475,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/01/28/late-is-just-for-a-little-while/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>GEICO email language choice</title>
-      <link>https://twalichiewicz.github.io/2024/12/31/GEICO-email-language-choice/</link>
-      <guid>https://twalichiewicz.github.io/2024/12/31/GEICO-email-language-choice/</guid>
-      <pubDate>Tue, 31 Dec 2024 06:58:59 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Nothing reassures me about my insurance provider quite like a headline that screams ‘phishing attempt’ (including a cheerful :D).&lt;br/&gt;&lt;br</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Nothing reassures me about my insurance provider quite like a headline that screams ‘phishing attempt’ (including a cheerful :D).<br/><br/>Truly, a masterclass in corporate communication.</p><p><img src="/2024/12/31/GEICO-email-language-choice/geicoEmail.jpg" alt="A screenshot showing a GEICO email language choice"></p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2024/12/31/GEICO-email-language-choice/#disqus_thread</comments>
       
     </item>
     
