@@ -187,7 +187,7 @@ class Carousel {
 		// Add click handlers for images
 		this.slides.forEach(slide => {
 			const img = slide.querySelector('img');
-			img.style.cursor = 'pointer';
+			img.style.cursor = 'nesw-resize';
 			img.addEventListener('click', () => this.openSpotlight(img.src, img.alt));
 		});
 
@@ -442,6 +442,7 @@ class Carousel {
 				img.addEventListener('click', () => {
 					this.openSpotlight(img.src, img.alt);
 				});
+				img.style.cursor = 'nesw-resize';
 			}
 		});
 	}
@@ -478,6 +479,18 @@ class Carousel {
 				}
 			};
 		}
+
+		// Close on background click
+		modal.addEventListener('click', (e) => {
+			// Check if the click was directly on the modal (background) and not on its children
+			if (e.target === modal) {
+				this.closeSpotlight();
+				// Play slider sound
+				if (window.playSliderSound) {
+					window.playSliderSound();
+				}
+			}
+		});
 
 		// Keyboard navigation
 		document.addEventListener('keydown', (e) => {
