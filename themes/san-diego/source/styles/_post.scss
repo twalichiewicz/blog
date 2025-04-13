@@ -942,76 +942,6 @@
 		}
 	}
 
-	// Tables - Claude.ai inspired
-	table {
-		width: 100%;
-		margin: variables.$space-lg 0;
-		border-collapse: separate;
-		border-spacing: 0;
-		font-size: 0.85rem;
-		border-radius: 12px;
-		overflow: hidden;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-		border: 1px solid variables.$card-border-color;
-
-		@media (prefers-color-scheme: dark) {
-			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-			border: 1px solid variables.$card-border-color-dark;
-		}
-
-		th,
-		td {
-			padding: variables.$space-xs variables.$space-sm;
-			border: none;
-			border-bottom: 1px solid variables.$card-border-color;
-			border-right: 1px solid variables.$card-border-color;
-			text-align: left;
-
-			@media (prefers-color-scheme: dark) {
-				border-bottom-color: variables.$card-border-color-dark;
-				border-right-color: variables.$card-border-color-dark;
-				color: variables.$text-color-dark;
-			}
-
-			&:last-child {
-				border-right: none;
-			}
-		}
-
-		tr:last-child td {
-			border-bottom: none;
-		}
-
-		th {
-			background-color: rgba(variables.$accent-gold-light, 0.2);
-			font-weight: 600;
-			text-transform: uppercase;
-			font-size: 0.75rem;
-			letter-spacing: 0.05em;
-
-			@media (prefers-color-scheme: dark) {
-				background-color: rgba(variables.$accent-gold-dark, 0.2);
-				color: variables.$text-color-dark;
-			}
-		}
-
-		tr:nth-child(even) {
-			background-color: variables.$white-1;
-
-			@media (prefers-color-scheme: dark) {
-				background-color: rgba(255, 255, 255, 0.03);
-			}
-		}
-
-		tr:hover {
-			background-color: rgba(variables.$accent-gold-light, 0.1);
-
-			@media (prefers-color-scheme: dark) {
-				background-color: rgba(variables.$accent-gold-dark, 0.1);
-			}
-		}
-	}
-
 	// Images - Claude.ai inspired
 	img {
 		max-width: 100%;
@@ -1305,48 +1235,6 @@
 			border-top-color: variables.$card-border-color-dark;
 		}
 
-		.post-tags {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 0.5rem;
-			margin-bottom: variables.$space-md;
-
-			.tag {
-				display: inline-flex;
-				align-items: center;
-				padding: 0.3rem 0.7rem;
-				background-color: variables.$white-1;
-				border-radius: 30px;
-				font-size: 0.75rem;
-				font-weight: 500;
-				color: variables.$text-color-secondary;
-				text-decoration: none;
-				transition: variables.$transition-standard;
-				border: 1px solid variables.$card-border-color;
-				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-
-				@media (prefers-color-scheme: dark) {
-					background-color: rgba(255, 255, 255, 0.05);
-					color: variables.$text-color-secondary-dark;
-					border-color: variables.$card-border-color-dark;
-					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-				}
-
-				&:hover {
-					background-color: variables.$accent-gold-light;
-					color: variables.$text-color;
-					transform: translateY(-1px);
-					box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-
-					@media (prefers-color-scheme: dark) {
-						background-color: variables.$accent-gold-dark;
-						color: variables.$black;
-						box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-					}
-				}
-			}
-		}
-
 		.post-nav {
 			display: flex;
 			justify-content: space-between;
@@ -1434,6 +1322,51 @@
 				.nav-label::after {
 					content: '→';
 					margin-left: 0.5rem;
+				}
+			}
+		}
+	}
+
+	// Blog post tables
+	.post-content {
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: 1.5em 0;
+			font-size: 0.9em;
+			line-height: 1.4;
+
+			th {
+				text-align: left;
+				padding: 0.75em 1em;
+				background-color: rgba(0, 0, 0, 0.03);
+				font-weight: 500;
+				border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+				display: flex;
+				flex-direction: column;
+			}
+
+			td {
+				padding: 0.75em 1em;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+			}
+
+			tr:last-child td {
+				border-bottom: none;
+			}
+
+			// Style for the "Updated" and "New" badges
+			th span {
+				font-size: 9px;
+				background-color: #f0f0f0;
+				padding: 2px 4px;
+				border-radius: 3px;
+				width: fit-content;
+				margin-bottom: 0.5em;
+				display: inline-block;
+
+				&[style*="background-color: #e6f7ff"] {
+					background-color: #e6f7ff;
 				}
 			}
 		}

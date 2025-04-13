@@ -1741,18 +1741,33 @@
 		}
 
 		table {
+			border-color: rgba(variables.$border-color-dark, 0.3);
+			box-shadow: variables.$shadow-soft-dark;
+			background-color: rgba(0, 0, 0, 0.2);
 
-			th,
-			td {
-				border-color: variables.$card-border-color-dark;
+			tr {
+				border-bottom-color: rgba(variables.$border-color-dark, 0.2);
+
+				&:nth-child(even) {
+					background-color: rgba(0, 0, 0, 0.15);
+				}
 			}
 
 			th {
-				background-color: variables.$white-1-dark;
+				background-color: rgba(255, 255, 255, 0.1);
+				color: variables.$text-color-dark;
+				border-right-color: rgba(variables.$border-color-dark, 0.2);
 			}
 
-			tr:nth-child(even) {
-				background-color: variables.$white-1-dark;
+			td {
+				color: variables.$text-color-dark;
+				border-right-color: rgba(variables.$border-color-dark, 0.2);
+			}
+
+			// Style for the "Updated" and "New" badges
+			th span {
+				background-color: rgba(255, 255, 255, 0.1);
+				color: variables.$text-color-dark;
 			}
 		}
 
@@ -1797,6 +1812,65 @@
 						color: variables.$link-color-dark;
 					}
 				}
+			}
+		}
+	}
+}
+
+/* Dark mode for tables */
+@media (prefers-color-scheme: dark) {
+	table {
+		border-color: rgba(variables.$border-color-dark, 0.3);
+		box-shadow: variables.$shadow-soft-dark;
+		background-color: rgba(0, 0, 0, 0.2);
+
+		tr {
+			border-bottom-color: rgba(variables.$border-color-dark, 0.2);
+
+			&:nth-child(even) {
+				background-color: rgba(0, 0, 0, 0.15);
+			}
+		}
+
+		th {
+			background-color: rgba(255, 255, 255, 0.1);
+			color: variables.$text-color-dark;
+			border-right-color: rgba(variables.$border-color-dark, 0.2);
+		}
+
+		td {
+			color: variables.$text-color-dark;
+			border-right-color: rgba(variables.$border-color-dark, 0.2);
+		}
+
+		// Style for the "Updated" and "New" badges
+		th span {
+			background-color: rgba(255, 255, 255, 0.1);
+			color: variables.$text-color-dark;
+		}
+	}
+}
+
+/* Dark mode for tags */
+@media (prefers-color-scheme: dark) {
+	.tag {
+		background-color: rgba(255, 255, 255, 0.1);
+		border-color: rgba(255, 255, 255, 0.2);
+		color: variables.$text-color-dark;
+		box-shadow: variables.$shadow-soft-dark;
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.15);
+			box-shadow: variables.$shadow-medium-dark;
+		}
+
+		&--new {
+			background-color: rgba(180, 83, 9, 0.2);
+			border-color: rgba(180, 83, 9, 0.3);
+			color: #fdba74;
+
+			&:hover {
+				background-color: rgba(180, 83, 9, 0.3);
 			}
 		}
 	}
