@@ -235,47 +235,24 @@ blockquote {
 	flex-wrap: wrap;
 	gap: 0.5rem;
 	margin-bottom: variables.$space-md;
+}
 
-	.tag {
-		display: inline-block;
-		padding: 0.25rem 0.5rem;
-		background-color: variables.$white-1;
-		border: 1px solid variables.$border-color;
-		border-radius: 4px;
-		font-size: 0.75rem;
-		font-weight: 500;
-		line-height: 1;
-		color: variables.$text-color;
-		box-shadow: variables.$shadow-soft;
-		transition: all 150ms ease;
+.tag {
+	display: inline-block;
+	padding: 0.25rem 0.5rem;
+	background-color: variables.$accent-gold-light;
+	border: 1px solid variables.$accent-gold;
+	border-radius: 4px;
+	font-size: 9px;
+	font-weight: 500;
+	line-height: 1;
+	color: variables.$accent-gold-dark;
+	box-shadow: variables.$shadow-soft;
 
-		&:hover {
-			background-color: variables.$white;
-			box-shadow: variables.$shadow-medium;
-		}
-
-		&--new {
-			background-color: #fff9eb;
-			border-color: #ffd77a;
-			color: #b45309;
-		}
-
-		@media (prefers-color-scheme: dark) {
-			background-color: variables.$card-bg-dark;
-			border-color: variables.$border-color-dark;
-			color: variables.$text-color-dark;
-
-			&:hover {
-				background-color: variables.$white-1-dark;
-				box-shadow: variables.$shadow-medium-dark;
-			}
-
-			&--new {
-				background-color: #422006;
-				border-color: #92400e;
-				color: #fdba74;
-			}
-		}
+	&--new {
+		background-color: variables.$link-color;
+		border-color: variables.$link-color;
+		color: variables.$white;
 	}
 }
 
@@ -294,16 +271,16 @@ blockquote {
 		background: variables.$card-bg-dark;
 	}
 
-	.post-tags .tag {
-		background-color: rgba(255, 255, 255, 0.05);
-		color: variables.$text-color-secondary-dark;
-		border-color: variables.$card-border-color-dark;
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	.tag {
+		background-color: rgba(255, 255, 255, 0.1);
+		border-color: rgba(255, 255, 255, 0.2);
+		color: hsl(0, 0%, 90%);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3);
 
-		&:hover {
-			background-color: variables.$accent-gold-dark;
-			color: variables.$black;
-			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+		&--new {
+			background-color: #422006;
+			border-color: #92400e;
+			color: #fdba74;
 		}
 	}
 
