@@ -9,8 +9,57 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Sun, 13 Apr 2025 19:12:54 GMT</pubDate>
+    <pubDate>Mon, 14 Apr 2025 01:10:27 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Apple Tahoe</title>
+      <link>https://twalichiewicz.github.io/2025/04/13/Apple-Tahoe/</link>
+      <guid>https://twalichiewicz.github.io/2025/04/13/Apple-Tahoe/</guid>
+      <pubDate>Sun, 13 Apr 2025 23:53:53 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;If Apple’s gearing up for another Snow Leopard moment (macOS Tahoe?), I’d love to see it go beyond under-the-hood refinements and embrace</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>If Apple’s gearing up for another Snow Leopard moment (macOS Tahoe?), I’d love to see it go beyond under-the-hood refinements and embrace a real paradigm shift — one centered on productivity, window management, and collaboration. It’s time to reexamine the windowed, compartmentalized model we’ve relied on for decades and ask where software interaction is truly headed next.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/04/13/Apple-Tahoe/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Leaning into AI</title>
+      <link>https://twalichiewicz.github.io/2025/04/11/Leaning-into-AI/</link>
+      <guid>https://twalichiewicz.github.io/2025/04/11/Leaning-into-AI/</guid>
+      <pubDate>Fri, 11 Apr 2025 18:28:03 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;I see a ton of nothingburger articles about AI and design every day, so I figured I’d throw my two cents into the void.&lt;/p&gt;
+&lt;p&gt;Lately, I’</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>I see a ton of nothingburger articles about AI and design every day, so I figured I’d throw my two cents into the void.</p><p>Lately, I’ve been deep in the weeds building enterprise systems to automate complicated, laborious, mission-critical work:</p><ul><li>AI&#x2F;ML tooling pipelines  </li><li>Product instance generators  </li><li>Standardized installers across 60+ enterprise tools</li></ul><p><em>(Sexy stuff, I know.)</em></p><p>At their core, each of these projects solved a human-level problem: eliminate waste and free people from repetitive tasks so they can focus on decisions that actually matter.</p><p>In that same spirit, I turned the lens on myself—and put together real-life release notes for the latest version of me:</p><table> <tr>  <td><h4>Product Designer 2.5</h4></td> </tr>  <tr>    <th style="max-width: 175px;"><span class="tag">Updated</span>I explore more broadly</th>    <td>I use AI to spin up multiple design directions and pressure-test concepts early—less about “more options,” more about sharpening judgment on why one direction wins.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag">Updated</span>I automate repetitive work</th>    <td>Instead of hand-coding elements or rewriting copy for every variant, I script reusable components and use LLMs to translate content across use cases. That lets me stay focused on systems, not scaffolding.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag">Updated</span>I get clarity faster</th>    <td>AI helps me burn through early noise so I hit friction points sooner. That’s where meaningful design decisions actually begin.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I redefine the problem space and embed earlier</th>    <td>With less time spent in production, I go upstream—reframing what should even exist. I dig into overlooked workflows, unmet needs, and the ripple effects of product decisions. The best design isn’t always a better UI. Sometimes it’s changing the brief entirely.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I design for second-/third-order effects</th>    <td>I think more about scale, team ops, and behavior. What happens when this pattern gets reused 10,000 times? What kind of culture are we shaping? It’s not just usability anymore—it’s long-term coherence and trust.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I shape vision through prototypes, not slides</th>    <td>Fully interactive prototypes in hours. I use them to pitch bolder, more abstract ideas—the kind that usually get dismissed for being “too big” or “too early.” Now I can show, not just tell.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I create reusable thinking, not just reusable components</th>    <td>Beyond design systems, I document principles, tradeoffs, and mental models—so others (not just designers) can make smarter decisions without reinventing the wheel.</td>  </tr></table>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/04/11/Leaning-into-AI/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Sora horny</title>
@@ -431,48 +480,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/02/22/Metaverse-ad/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Reinvigorated to write</title>
-      <link>https://twalichiewicz.github.io/2025/02/09/Reinvigorated-to-write/</link>
-      <guid>https://twalichiewicz.github.io/2025/02/09/Reinvigorated-to-write/</guid>
-      <pubDate>Sun, 09 Feb 2025 21:32:34 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Redesigning the blog has really reinvogorated my design to write and flesh out the write-ups in the project section.&lt;/p&gt;
-</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Redesigning the blog has really reinvogorated my design to write and flesh out the write-ups in the project section.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/02/09/Reinvigorated-to-write/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Paper apps</title>
-      <link>https://twalichiewicz.github.io/2025/02/07/Paper-apps/</link>
-      <guid>https://twalichiewicz.github.io/2025/02/07/Paper-apps/</guid>
-      <pubDate>Fri, 07 Feb 2025 03:11:36 GMT</pubDate>
-      
-      
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/02/07/Paper-apps/#disqus_thread</comments>
       
     </item>
     
