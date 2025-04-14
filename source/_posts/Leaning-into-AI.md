@@ -33,7 +33,7 @@ In that same spirit, I turned the lens on myself—and put together real-life re
     <td>Instead of hand-coding elements or rewriting copy for every variant, I script reusable components and use LLMs to translate content across use cases. That lets me stay focused on systems, not scaffolding.</td>
   </tr>
   <tr>
-    <th style="max-width: 175px;"><span class="tag">Updated</span>I get clarity faster</th>
+    <th style="max-width: 175px;"><span class="tag">Updated</span>I get to clarity faster</th>
     <td>AI helps me burn through early noise so I hit friction points sooner. That’s where meaningful design decisions actually begin.</td>
   </tr>
   <tr>
@@ -41,7 +41,7 @@ In that same spirit, I turned the lens on myself—and put together real-life re
     <td>With less time spent in production, I go upstream—reframing what should even exist. I dig into overlooked workflows, unmet needs, and the ripple effects of product decisions. The best design isn’t always a better UI. Sometimes it’s changing the brief entirely.</td>
   </tr>
   <tr>
-    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I design for second-/third-order effects</th>
+    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I design for second- and third-order effects</th>
     <td>I think more about scale, team ops, and behavior. What happens when this pattern gets reused 10,000 times? What kind of culture are we shaping? It’s not just usability anymore—it’s long-term coherence and trust.</td>
   </tr>
   <tr>
