@@ -22,7 +22,7 @@ In that same spirit, I turned the lens on myself—and put together real-life re
 
 <table>
  <tr>
-  <td><h4>Product Designer 2.5</h4></td>
+  <td><h4>Product Designer 2.5 - Release Notes</h4></td>
  </tr>
   <tr>
     <th style="max-width: 175px;"><span class="tag">Updated</span>I explore more broadly</th>
