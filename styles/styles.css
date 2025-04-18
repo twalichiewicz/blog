@@ -2335,7 +2335,7 @@ ol ul {
 .device-desktop .blog .blog-content .content-wrapper {
   flex-direction: row;
   justify-content: center;
-  gap: 48px;
+  gap: 12px;
   padding: 0;
   height: 100%;
   overflow: visible;
