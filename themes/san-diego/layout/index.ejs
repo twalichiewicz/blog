@@ -5,33 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><%= config.title %><% if (config.subtitle) { %> | <%= config.subtitle %><% } %></title>
 	<%- partial('_partial/head') %>
-	<style>
-		/* Fade-in animation styles */
-		.page-transition-overlay {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: #000;
-			z-index: 9999;
-			opacity: 1;
-			transition: opacity 1s ease-out;
-		}
-		
-		.page-transition-overlay.fade-out {
-			opacity: 0;
-		}
-		
-		body {
-			opacity: 0;
-			transition: opacity 0.5s ease-in;
-		}
-		
-		body.loaded {
-			opacity: 1;
-		}
-	</style>
 </head>
 <body>
 <!-- Page transition overlay -->
@@ -119,6 +92,17 @@
         <div class="content-wrapper">
             <div id="postsContent" class="blog-list" role="tabpanel" aria-labelledby="tab-blog">
                 <div class="column-title blog-column-title">Posts</div>
+                
+                <!-- Add search bar -->
+                <div class="search-container">
+                    <div class="search-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 21l-4.35-4.35"/>
+                            <path d="M15.5 10.5a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"/>
+                        </svg>
+                    </div>
+                    <input type="text" id="postSearch" placeholder="Search posts..." class="search-input">
+                </div>
                 
                 <% if (blogPosts.length > 0) { %>
                     <% blogPosts.forEach(function(post, index) { %>
@@ -357,6 +341,60 @@
     //         });
     //     }
     // });
+
+    // Add search functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('postSearch');
+        const postItems = document.querySelectorAll('.post-list-item');
+        const blogList = document.getElementById('postsContent');
+        
+        // Create no results message element
+        const noResultsMessage = document.createElement('div');
+        noResultsMessage.className = 'no-results-message';
+        noResultsMessage.textContent = "Haven't written about that yet!";
+        noResultsMessage.style.display = 'none';
+        blogList.appendChild(noResultsMessage);
+        
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            let visibleCount = 0;
+            const visiblePosts = [];
+            
+            // First, hide all separators
+            const separators = document.querySelectorAll('.post-separator');
+            separators.forEach(separator => separator.style.display = 'none');
+            
+            // Process posts and track visible ones
+            postItems.forEach(function(post) {
+                const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
+                const content = post.textContent.toLowerCase();
+                const excerpt = post.querySelector('p')?.textContent.toLowerCase() || '';
+                
+                if (title.includes(searchTerm) || content.includes(searchTerm) || excerpt.includes(searchTerm)) {
+                    post.style.display = '';
+                    visibleCount++;
+                    visiblePosts.push(post);
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+            
+            // Show/hide no results message
+            noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+            
+            // Add separators between visible posts
+            if (visibleCount > 0) {
+                visiblePosts.forEach((post, index) => {
+                    if (index < visiblePosts.length - 1) {
+                        const separator = post.nextElementSibling;
+                        if (separator && separator.classList.contains('post-separator')) {
+                            separator.style.display = '';
+                        }
+                    }
+                });
+            }
+        });
+    });
 </script>
 </body>
 </html>

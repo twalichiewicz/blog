@@ -1,16 +1,16 @@
 // Text & Typography
 $text-color: hsl(24, 3%, 35%);
-$text-color-dark: hsl(0, 0%, 90%);
+$text-color-dark: hsl(0, 0%, 95%);
 $text-color-secondary: hsl(35, 15%, 30%);
-$text-color-secondary-dark: hsl(0, 0%, 71%);
+$text-color-secondary-dark: hsl(0, 0%, 75%);
 $link-color: hsl(15, 70%, 40%);
-$link-color-dark: hsl(40, 80%, 50%);
+$link-color-dark: hsl(40, 90%, 60%);
 $hover-color: hsl(15, 70%, 40%);
-$hover-color-dark: hsl(40, 80%, 50%);
+$hover-color-dark: hsl(40, 90%, 65%);
 $footer-link-color: hsl(35, 10%, 40%);
-$footer-link-color-dark: hsl(0, 0%, 80%);
+$footer-link-color-dark: hsl(0, 0%, 85%);
 $card-title-color: hsl(35, 15%, 30%);
-$card-title-color-dark: hsl(0, 0%, 80%);
+$card-title-color-dark: hsl(0, 0%, 90%);
 
 // Black and White
 $black: hsl(0, 0%, 10%);
@@ -19,33 +19,33 @@ $black-4: hsl(0, 0%, 40%);
 $white: hsl(0, 0%, 100%);
 $white-1: hsl(35, 15%, 96%);
 $black-dark: hsl(0, 0%, 100%);
-$black-2-dark: hsl(0, 0%, 80%);
-$black-4-dark: hsl(0, 0%, 60%);
+$black-2-dark: hsl(0, 0%, 85%);
+$black-4-dark: hsl(0, 0%, 65%);
 $white-dark: hsl(0, 0%, 0%);
-$white-1-dark: hsl(240, 5%, 10%);
+$white-1-dark: hsl(240, 5%, 12%);
 
 // Grey Shades
 $grey: hsl(35, 10%, 50%);
 $grey-light: hsl(35, 10%, 75%);
-$grey-dark: hsl(0, 0%, 70%);
+$grey-dark: hsl(0, 0%, 75%);
 
 // Background Colors
 $body-bg: hsl(35, 15%, 88%);
 $nav-bg: rgba(245, 240, 235, 0.9);
 $card-bg: hsl(0, 0%, 100%);
-$body-bg-dark: hsl(28, 8%, 12%);
-$nav-bg-dark: rgba(0, 0, 0, 0.6);
-$card-bg-dark: hsl(0, 0%, 20%);
+$body-bg-dark: hsl(28, 8%, 15%);
+$nav-bg-dark: rgba(0, 0, 0, 0.7);
+$card-bg-dark: hsl(0, 0%, 18%);
 
 // Border Colors
 $border-color: hsl(35, 10%, 75%);
 $card-border-color: hsl(35, 10%, 85%);
-$border-color-dark: hsl(0, 0%, 20%);
-$card-border-color-dark: hsl(0, 0%, 35%);
+$border-color-dark: hsl(0, 0%, 25%);
+$card-border-color-dark: hsl(0, 0%, 30%);
 
 // UI Elements
 $nav-arrow-color: hsl(35, 10%, 60%);
-$nav-arrow-color-dark: hsl(0, 0%, 60%);
+$nav-arrow-color-dark: hsl(0, 0%, 70%);
 $blur: blur(32px);
 $blur-dark: blur(32px);
 
@@ -60,11 +60,11 @@ $desktop-breakpoint: 1200px;
 // Accent Colors
 $accent-gold: hsl(43, 40%, 60%);
 $accent-gold-light: hsl(43, 40%, 80%);
-$accent-gold-dark: hsl(43, 35%, 40%);
+$accent-gold-dark: hsl(43, 50%, 50%);
 
 $accent-sage: hsl(150, 15%, 40%);
 $accent-sage-light: hsl(150, 15%, 80%);
-$accent-sage-dark: hsl(150, 15%, 20%);
+$accent-sage-dark: hsl(150, 20%, 30%);
 
 // Gradients
 $gradient-light: linear-gradient(135deg, $accent-gold-light 0%, $white 100%);
@@ -116,4 +116,4 @@ $spacing-inline-lg: $space-md; // 24px - Large horizontal spacing
 
 // Meta Card Background Colors
 $meta-card-bg-light: hsl(0, 0%, 95%);
-$meta-card-bg-dark: hsl(0, 0%, 30%);
+$meta-card-bg-dark: hsl(0, 0%, 22%);
