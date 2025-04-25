@@ -9,8 +9,33 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Wed, 23 Apr 2025 17:43:14 GMT</pubDate>
+    <pubDate>Fri, 25 Apr 2025 18:21:51 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>You Can Be a Great Designer and Be Completely Unknown</title>
+      <link>https://twalichiewicz.github.io/2025/04/25/You-Can-Be-a-Great-Designer-and-Be-Completely-Unknown/</link>
+      <guid>https://twalichiewicz.github.io/2025/04/25/You-Can-Be-a-Great-Designer-and-Be-Completely-Unknown/</guid>
+      <pubDate>Fri, 25 Apr 2025 18:07:51 GMT</pubDate>
+      
+        
+        
+      <description>&lt;blockquote&gt;
+&lt;p&gt;“My name is Ozymandias, King of Kings;&lt;br&gt;Look on my Works, ye Mighty, and despair!”&lt;br&gt;Nothing beside remains. Round the de</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<blockquote><p>“My name is Ozymandias, King of Kings;<br>Look on my Works, ye Mighty, and despair!”<br>Nothing beside remains. Round the decay<br>Of that colossal Wreck, boundless and bare<br>The lone and level sands stretch far away.</p><p>— Percy Bysshe Shelley, “Ozymandias” (1818)</p></blockquote><p>Fame fades. Usefulness lasts.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/04/25/You-Can-Be-a-Great-Designer-and-Be-Completely-Unknown/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Command minus minus</title>
@@ -455,31 +480,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/02/28/TouchPad/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>TikTok Desktop Mode</title>
-      <link>https://twalichiewicz.github.io/2025/02/27/TikTok-Desktop-Mode/</link>
-      <guid>https://twalichiewicz.github.io/2025/02/27/TikTok-Desktop-Mode/</guid>
-      <pubDate>Thu, 27 Feb 2025 21:09:47 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Just like this site (soon)!&lt;/p&gt;
-&lt;p&gt;But really, I’m glad we’re moving away from a world where responsive design means a desktop version is</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Just like this site (soon)!</p><p>But really, I’m glad we’re moving away from a world where responsive design means a desktop version is just a larger version of the mobile version.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/02/27/TikTok-Desktop-Mode/#disqus_thread</comments>
       
     </item>
     
