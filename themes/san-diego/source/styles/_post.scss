@@ -345,8 +345,8 @@
 // Post page styling
 .post {
 	max-width: 800px;
-	margin: 0 auto variables.$space-xl;
-	padding: variables.$space-lg variables.$space-md variables.$space-xl;
+	margin: 0 auto variables.$space-md;
+	padding: variables.$space-md variables.$space-md;
 	position: relative;
 
 	// Light mode
@@ -364,36 +364,24 @@
 		border: 1px solid variables.$border-color-dark;
 	}
 
-	// Claude.ai style top decoration
-	&::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 4px;
-		background: linear-gradient(90deg,
-				variables.$accent-gold-light 0%,
-				variables.$accent-gold 50%,
-				variables.$accent-gold-light 100%);
-		border-radius: 20px 20px 0 0;
-		opacity: 0.8;
-	}
-
-	// NYTimes-style header image
+	// Apple Newsroom style header image
 	.post-header-image {
 		margin: -#{variables.$space-lg} -#{variables.$space-md} variables.$space-md;
 		position: relative;
 		overflow: hidden;
 		border-radius: 20px 20px 0 0;
+		aspect-ratio: 16/9;
+		background-color: rgba(0, 0, 0, 0.05);
 
 		img {
 			width: 100%;
-			height: auto;
+			height: 100%;
+			object-fit: cover;
 			display: block;
 			margin: 0;
 			border-radius: 0;
 			box-shadow: none;
+			transition: transform 0.3s ease;
 
 			@media (prefers-color-scheme: dark) {
 				filter: brightness(0.9);
@@ -405,11 +393,12 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
-			background: rgba(0, 0, 0, 0.6);
+			background: rgba(0, 0, 0, 0.7);
 			color: white;
 			padding: variables.$space-xs variables.$space-md;
 			font-size: 0.85rem;
 			font-style: italic;
+			backdrop-filter: blur(5px);
 
 			@media (prefers-color-scheme: dark) {
 				background: rgba(0, 0, 0, 0.8);
@@ -418,17 +407,17 @@
 		}
 	}
 
-	// NYTimes-inspired section indicator
+	// Apple Newsroom style section indicator
 	.post-section-indicator {
 		margin-bottom: variables.$space-sm;
 
 		a {
-			font-family: Georgia, serif;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 			font-size: 0.9rem;
-			font-weight: 700;
+			font-weight: 600;
 			text-transform: uppercase;
 			letter-spacing: 0.05em;
-			color: variables.$accent-gold;
+			color: rgba(0, 0, 0, 0.6);
 			border-bottom: none;
 			position: relative;
 			padding-bottom: 0.5rem;
@@ -441,64 +430,268 @@
 				left: 0;
 				width: 2.5rem;
 				height: 1px;
-				background-color: variables.$accent-gold;
+				background-color: rgba(0, 0, 0, 0.3);
 			}
 
 			&:hover {
-				color: variables.$hover-color;
+				color: rgba(0, 0, 0, 0.8);
 
 				&::after {
-					background-color: variables.$hover-color;
+					background-color: rgba(0, 0, 0, 0.5);
 				}
 			}
 
 			@media (prefers-color-scheme: dark) {
-				color: variables.$accent-gold-light;
+				color: rgba(255, 255, 255, 0.6);
 
 				&::after {
-					background-color: variables.$accent-gold-light;
+					background-color: rgba(255, 255, 255, 0.3);
 				}
 
 				&:hover {
-					color: variables.$hover-color-dark;
+					color: rgba(255, 255, 255, 0.8);
 
 					&::after {
-						background-color: variables.$hover-color-dark;
+						background-color: rgba(255, 255, 255, 0.5);
 					}
 				}
 			}
 		}
 	}
 
-	// Post title
+	// Apple Newsroom style post title
 	.post-title {
-		font-size: clamp(1.4rem, 4vw, 1.8rem);
-		font-weight: 700;
-		line-height: 1.2;
-		margin: variables.$space-xs 0 variables.$space-xs;
+		font-size: 1.5rem;
+		margin: variables.$space-xs 0;
+	}
+
+	// Apple Newsroom style post metadata
+	.post-metadata {
+		font-size: 0.875rem;
+		margin-bottom: variables.$space-md;
+		color: rgba(0, 0, 0, 0.6);
+
+		@media (prefers-color-scheme: dark) {
+			color: rgba(255, 255, 255, 0.6);
+		}
+	}
+
+	// Post content typography
+	p {
+		font-size: 14px;
+		line-height: 1.6;
+		margin: 1rem 0;
 		color: variables.$text-color;
-		letter-spacing: -0.02em;
-		font-family: Georgia, serif;
 
 		@media (prefers-color-scheme: dark) {
 			color: variables.$text-color-dark;
 		}
 
-		a {
-			color: variables.$text-color;
-			text-decoration: none;
+		// Fix for Markdown rendering issues with consecutive paragraphs
+		&+p {
+			margin-top: 0.75rem;
+		}
+	}
+
+	// Apple Newsroom style headings
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		font-weight: 600;
+		line-height: 1.3;
+		color: variables.$text-color;
+		letter-spacing: -0.01em;
+		position: relative;
+
+		@media (prefers-color-scheme: dark) {
+			color: variables.$text-color-dark;
+		}
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		// Reduce excessive spacing between headings
+		&+h1,
+		&+h2,
+		&+h3,
+		&+h4,
+		&+h5,
+		&+h6 {
+			margin-top: 0.75rem;
+		}
+	}
+
+	h1 {
+		font-size: 24px;
+	}
+
+	h2 {
+		font-size: 20px;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+		@media (prefers-color-scheme: dark) {
+			border-bottom-color: rgba(255, 255, 255, 0.1);
+		}
+	}
+
+	h3 {
+		font-size: 18px;
+		margin-left: 0;
+	}
+
+	h4 {
+		font-size: 16px;
+	}
+
+	h5 {
+		font-size: 14px;
+	}
+
+	h6 {
+		font-size: 12px;
+	}
+
+	// Apple Newsroom style links
+	a {
+		color: variables.$link-color;
+		text-decoration: none;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+		transition: variables.$transition-standard;
+		padding-bottom: 1px;
+
+		&:hover {
+			color: variables.$hover-color;
+			border-bottom-color: rgba(0, 0, 0, 0.4);
+		}
+
+		@media (prefers-color-scheme: dark) {
+			color: variables.$link-color-dark;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
 			&:hover {
-				color: variables.$primary-color;
+				color: variables.$hover-color-dark;
+				border-bottom-color: rgba(255, 255, 255, 0.4);
 			}
+		}
+	}
+
+	// Apple Newsroom style blockquotes
+	blockquote {
+		margin: 2rem 0;
+		padding: 1.5rem;
+		border-left: 4px solid variables.$primary-color;
+		background: rgba(0, 0, 0, 0.03);
+		border-radius: 4px;
+		font-style: italic;
+
+		@media (prefers-color-scheme: dark) {
+			background: rgba(255, 255, 255, 0.05);
+			border-left-color: variables.$primary-color-dark;
+		}
+
+		p {
+			margin: 0;
+			font-size: 14px;
+			line-height: 1.6;
+			color: variables.$text-color-secondary;
+
+			@media (prefers-color-scheme: dark) {
+				color: variables.$text-color-secondary-dark;
+			}
+		}
+	}
+
+	// Apple Newsroom style lists
+	ul,
+	ol {
+		margin: 1.5rem 0;
+		padding-left: 1.5rem;
+		font-size: 14px;
+		line-height: 1.6;
+
+		li {
+			margin-bottom: 0.75rem;
+			color: variables.$text-color;
 
 			@media (prefers-color-scheme: dark) {
 				color: variables.$text-color-dark;
-
-				&:hover {
-					color: variables.$primary-color-dark;
-				}
 			}
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			// Fix for paragraphs inside list items
+			p {
+				margin: 0.25rem 0;
+			}
+		}
+	}
+
+	// Apple Newsroom style code blocks
+	pre {
+		margin: 2rem 0;
+		padding: 1.5rem;
+		font-size: 14px;
+		line-height: 1.6;
+		border-radius: 8px;
+		background: rgba(0, 0, 0, 0.03);
+
+		@media (prefers-color-scheme: dark) {
+			background: rgba(0, 0, 0, 0.3);
+		}
+	}
+
+	code {
+		font-size: 14px;
+		padding: 0.1rem 0.3rem;
+		background: rgba(0, 0, 0, 0.03);
+		border-radius: 4px;
+
+		@media (prefers-color-scheme: dark) {
+			background: rgba(0, 0, 0, 0.3);
+		}
+	}
+
+	// Apple Newsroom style tables
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 2rem 0;
+		font-size: 14px;
+		line-height: 1.6;
+
+		th {
+			text-align: left;
+			padding: 1rem;
+			background-color: rgba(0, 0, 0, 0.03);
+			font-weight: 600;
+			border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+
+			@media (prefers-color-scheme: dark) {
+				background-color: rgba(255, 255, 255, 0.05);
+				border-bottom-color: rgba(255, 255, 255, 0.1);
+			}
+		}
+
+		td {
+			padding: 1rem;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+			@media (prefers-color-scheme: dark) {
+				border-bottom-color: rgba(255, 255, 255, 0.05);
+			}
+		}
+
+		tr:last-child td {
+			border-bottom: none;
 		}
 	}
 
@@ -556,28 +749,6 @@
 		display: flex;
 	}
 
-	// Post content typography
-	p {
-		font-size: 0.9rem;
-		line-height: 1.5;
-		margin: variables.$space-md 0;
-		color: variables.$text-color;
-
-		@media (prefers-color-scheme: dark) {
-			color: variables.$text-color-dark;
-		}
-
-		// Fix for Markdown rendering issues with consecutive paragraphs
-		&+p {
-			margin-top: 1.25rem; // Reduce space between consecutive paragraphs
-		}
-
-		// Fix for empty paragraphs that Hexo sometimes generates
-		&:empty {
-			display: none;
-		}
-	}
-
 	// Handle common cases where elements are wrapped in paragraphs by Hexo
 	p>img:only-child,
 	p>iframe:only-child,
@@ -594,544 +765,14 @@
 		margin-bottom: variables.$space-md;
 	}
 
-	// First paragraph styling - like Claude.ai
-	p:first-of-type {
-		font-size: 1rem;
-		line-height: 1.6;
-		color: color.adjust(variables.$text-color, $lightness: -5%);
-
-		@media (prefers-color-scheme: dark) {
-			color: color.adjust(variables.$text-color-dark, $lightness: 5%);
-		}
-	}
-
-	// Headings
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		margin-top: variables.$space-xl;
-		margin-bottom: variables.$space-sm;
-		font-weight: 700;
-		line-height: 1.3;
-		color: variables.$text-color;
-		letter-spacing: -0.01em;
-		position: relative;
-
-		@media (prefers-color-scheme: dark) {
-			color: variables.$text-color-dark;
-		}
-
-		&:first-child {
-			margin-top: 0;
-		}
-
-		// Reduce excessive spacing between headings
-		&+h1,
-		&+h2,
-		&+h3,
-		&+h4,
-		&+h5,
-		&+h6 {
-			margin-top: 1.5rem;
-		}
-
-		// Fix for empty headings that Hexo sometimes generates
-		&:empty {
-			display: none;
-		}
-	}
-
-	h2 {
-		font-size: 1.4rem;
-		border-bottom: none;
-		padding-bottom: 0.75rem;
-		position: relative;
-
-		&::after {
-			content: '';
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 1px;
-			background: linear-gradient(90deg,
-					variables.$accent-gold-light 0%,
-					variables.$card-border-color 40%);
-
-			@media (prefers-color-scheme: dark) {
-				background: linear-gradient(90deg,
-						variables.$accent-gold-light 0%,
-						variables.$card-border-color-dark 40%);
-			}
-		}
-	}
-
-	h3 {
-		font-size: 1.2rem;
-		position: relative;
-		padding-left: 1rem;
-		margin-left: -1rem;
-
-		&::before {
-			content: '';
-			position: absolute;
-			left: 0;
-			top: 0.4em;
-			width: 4px;
-			height: 1em;
-			background-color: variables.$accent-gold-light;
-			border-radius: 2px;
-
-			@media (prefers-color-scheme: dark) {
-				background-color: variables.$accent-gold-dark;
-			}
-		}
-	}
-
-	h4 {
-		font-size: 1.05rem;
-	}
-
-	h5 {
-		font-size: 0.95rem;
-	}
-
-	h6 {
-		font-size: 0.85rem;
-		font-weight: 600;
-	}
-
-	// Lists
-	ul,
-	ol {
-		margin: variables.$space-md 0;
-		padding-left: 1.5rem;
-
-		li {
-			margin-bottom: variables.$space-xs;
-			font-size: 0.9rem;
-			line-height: 1.5;
-			position: relative;
-			color: variables.$text-color;
-
-			@media (prefers-color-scheme: dark) {
-				color: variables.$text-color-dark;
-			}
-
-			&:last-child {
-				margin-bottom: 0;
-			}
-
-			// Fix for paragraphs inside list items
-			p {
-				margin: 0.5rem 0;
-
-				&:first-child {
-					margin-top: 0;
-				}
-
-				&:last-child {
-					margin-bottom: 0;
-				}
-			}
-		}
-	}
-
-	ul {
-		list-style: none;
-
-		li {
-			padding-left: 0.75rem;
-
-			&::before {
-				content: '•';
-				position: absolute;
-				left: -0.75rem;
-				color: variables.$accent-gold;
-				font-weight: bold;
-
-				@media (prefers-color-scheme: dark) {
-					color: variables.$accent-gold-light;
-				}
-			}
-		}
-	}
-
-	ol {
-		list-style-type: decimal;
-		counter-reset: item;
-
-		li {
-			counter-increment: item;
-		}
-	}
-
-	// Nested lists - fix excessive padding
-	ul ul,
-	ol ol,
-	ul ol,
-	ol ul {
-		margin: variables.$space-xs 0 variables.$space-xs 0.75rem;
-	}
-
-	// Handle paragraphs following lists
-	ul+p,
-	ol+p {
-		margin-top: variables.$space-md;
-	}
-
-	// Handle paragraphs following headings
-	h1+p,
-	h2+p,
-	h3+p,
-	h4+p,
-	h5+p,
-	h6+p {
-		margin-top: 1rem;
-	}
-
-	// Blockquotes - Claude.ai style
-	blockquote {
-		margin: variables.$space-lg 0;
-		padding: variables.$space-md;
-		background-color: variables.$white-1;
-		border-radius: 12px;
-		border-left: none;
-		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
-		position: relative;
-		font-style: italic;
-
-		@media (prefers-color-scheme: dark) {
-			background-color: rgba(255, 255, 255, 0.03);
-			box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-		}
-
-		// Fix for paragraphs before and after blockquotes
-		&+p {
-			margin-top: variables.$space-md;
-		}
-
-		&::before {
-			content: '"';
-			position: absolute;
-			top: -0.5rem;
-			left: 1rem;
-			font-size: 2rem;
-			color: variables.$accent-gold;
-			font-family: Georgia, serif;
-			font-weight: bold;
-
-			@media (prefers-color-scheme: dark) {
-				color: variables.$accent-gold-light;
-			}
-		}
-
-		p {
-			margin: variables.$space-xs 0;
-			font-size: 0.9rem;
-			text-indent: 1.5rem;
-
-			@media (prefers-color-scheme: dark) {
-				color: variables.$text-color-dark;
-			}
-
-			&:first-child {
-				margin-top: 0;
-			}
-
-			&:last-child {
-				margin-bottom: 0;
-			}
-		}
-
-		cite {
-			display: block;
-			margin-top: variables.$space-sm;
-			font-size: 0.8rem;
-			font-weight: 500;
-			font-style: normal;
-			opacity: 0.8;
-			text-align: right;
-
-			&::before {
-				content: '— ';
-			}
-		}
-	}
-
-	// Code blocks - Claude.ai style
-	pre {
-		margin: variables.$space-md 0;
-		padding: variables.$space-md;
-		background-color: #1e1e2e;
-		color: #cdd6f4;
-		border-radius: 12px;
-		overflow-x: auto;
-		font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-		font-size: 0.8rem;
-		line-height: 1.5;
-		border: none;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-		position: relative;
-
-		// Dark mode styles are already set with dark colors by default
-		@media (prefers-color-scheme: dark) {
-			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-		}
-
-		// Fix spacing before and after code blocks
-		&+p {
-			margin-top: variables.$space-md;
-		}
-
-		p+& {
-			margin-top: variables.$space-md;
-		}
-
-		&::before {
-			content: '';
-			position: absolute;
-			top: 12px;
-			left: 12px;
-			width: 10px;
-			height: 10px;
-			border-radius: 50%;
-			background-color: #f38ba8;
-			box-shadow:
-				18px 0 0 0 #f9e2af,
-				36px 0 0 0 #a6e3a1;
-		}
-
-		code {
-			padding-top: 1rem;
-			display: block;
-			background-color: transparent;
-			color: inherit;
-		}
-	}
-
-	code {
-		font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-		background-color: rgba(0, 0, 0, 0.03);
-		padding: 0.2rem 0.4rem;
-		border-radius: 4px;
-		font-size: 0.75em;
-		color: variables.$text-color;
-
-		@media (prefers-color-scheme: dark) {
-			background-color: rgba(255, 255, 255, 0.05);
-			color: variables.$text-color-dark;
-		}
-	}
-
-	// Inline code (not in a pre block)
-	p code,
-	li code {
-		background-color: rgba(0, 0, 0, 0.03);
-		padding: 0.2rem 0.4rem;
-		border-radius: 4px;
-		font-size: 0.75em;
-		color: variables.$hover-color;
-
-		@media (prefers-color-scheme: dark) {
-			background-color: rgba(255, 255, 255, 0.05);
-			color: variables.$hover-color-dark;
-		}
-	}
-
-	// Images - Claude.ai inspired
+	// Images
 	img {
-		max-width: 100%;
-		height: auto;
-		border-radius: 12px;
-		margin: variables.$space-md 0;
-		display: block;
-		box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-		transition: transform 0.3s ease;
-
-		@media (prefers-color-scheme: dark) {
-			box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-			// Slight brightness adjustment for images in dark mode
-			filter: brightness(0.9);
-		}
-
-		&:hover {
-			transform: scale(1.01);
-		}
+		margin: variables.$space-sm 0;
 	}
 
-	// Image captions
-	.image-caption {
-		text-align: center;
-		font-size: 0.8rem;
-		color: variables.$text-color-secondary;
-		margin-top: 0.5rem;
-		margin-bottom: variables.$space-md;
-		font-style: italic;
-
-		@media (prefers-color-scheme: dark) {
-			color: variables.$text-color-secondary-dark;
-		}
-	}
-
-	// Thoughts-style image caption
-	.accordion-caption {
-		margin-top: 0.25rem;
-		color: variables.$text-color-secondary;
-		font-size: 0.8rem;
-		line-height: 1.4;
-		padding: 0.25rem 0.75rem;
-		background: rgba(0, 0, 0, 0.02);
-		border-radius: 4px;
-		margin-bottom: variables.$space-md;
-
-		@media (prefers-color-scheme: dark) {
-			color: variables.$text-color-secondary-dark;
-			background: rgba(255, 255, 255, 0.03);
-		}
-
-		p {
-			margin: 0.5rem 0;
-			font-size: 0.8rem;
-			line-height: 1.4;
-
-			&:first-child {
-				margin-top: 0;
-			}
-
-			&:last-child {
-				margin-bottom: 0;
-			}
-
-			@media (prefers-color-scheme: dark) {
-				color: variables.$text-color-secondary-dark;
-			}
-		}
-
-		// For when caption contains a single paragraph
-		&:has(p:only-child) {
-			p {
-				margin: 0;
-			}
-		}
-
-		// Links within captions
-		a {
-			color: variables.$link-color;
-			border-bottom: 1px solid rgba(variables.$link-color, 0.2);
-			font-weight: 500;
-
-			&:hover {
-				color: variables.$hover-color;
-				border-bottom-color: variables.$hover-color;
-			}
-
-			@media (prefers-color-scheme: dark) {
-				color: variables.$link-color-dark;
-				border-bottom: 1px solid rgba(variables.$link-color-dark, 0.2);
-
-				&:hover {
-					color: variables.$hover-color-dark;
-					border-bottom-color: variables.$hover-color-dark;
-				}
-			}
-		}
-	}
-
-	// Image figure with caption container
-	figure.image-with-caption {
-		margin: variables.$space-md 0;
-
-		img {
-			margin: 0 0 0.25rem;
-		}
-
-		.accordion-caption {
-			margin-top: 0.25rem;
-			margin-bottom: 0;
-		}
-	}
-
-	// Markdown-friendly image containers
-	.md-image-container {
-		margin: variables.$space-md 0;
-		display: block;
-
-		img {
-			margin: 0 0 0.25rem;
-		}
-
-		.accordion-caption {
-			margin-top: 0.25rem;
-			margin-bottom: 0;
-		}
-
-		// For standalone images that need to look good in dark mode
-		@media (prefers-color-scheme: dark) {
-			img {
-				box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-			}
-		}
-	}
-
-	// Horizontal rule - Claude.ai style
+	// Horizontal rule
 	hr {
-		margin: variables.$space-xl auto;
-		border: 0;
-		height: 1px;
-		width: 40%;
-		background-color: variables.$card-border-color;
-		position: relative;
-		overflow: visible;
-
-		@media (prefers-color-scheme: dark) {
-			background-color: variables.$card-border-color-dark;
-		}
-
-		&::before {
-			content: '✧';
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			background: variables.$white;
-			width: 3rem;
-			text-align: center;
-			color: variables.$accent-gold;
-			font-size: 0.8rem;
-
-			@media (prefers-color-scheme: dark) {
-				background: variables.$card-bg-dark;
-				color: variables.$accent-gold-light;
-			}
-		}
-	}
-
-	// Links - Claude.ai style
-	a {
-		color: variables.$link-color;
-		text-decoration: none;
-		border-bottom: 1px solid rgba(variables.$link-color, 0.3);
-		transition: variables.$transition-standard;
-		padding-bottom: 1px;
-
-		&:hover {
-			color: variables.$hover-color;
-			border-bottom-color: variables.$hover-color;
-		}
-
-		@media (prefers-color-scheme: dark) {
-			color: variables.$link-color-dark;
-			border-bottom: 1px solid rgba(variables.$link-color-dark, 0.3);
-
-			&:hover {
-				color: variables.$hover-color-dark;
-				border-bottom-color: variables.$hover-color-dark;
-			}
-		}
+		margin: variables.$space-lg 0;
 	}
 
 	// Special post types
@@ -1178,41 +819,41 @@
 		margin: variables.$space-md 0;
 		padding: variables.$space-md;
 		border-radius: 12px;
-		background-color: rgba(variables.$accent-gold-light, 0.2);
-		border-left: 4px solid variables.$accent-gold;
+		background-color: rgba(0, 0, 0, 0.05);
+		border-left: 4px solid rgba(0, 0, 0, 0.2);
 
 		@media (prefers-color-scheme: dark) {
-			background-color: rgba(variables.$accent-gold-dark, 0.1);
-			border-left: 4px solid variables.$accent-gold-dark;
+			background-color: rgba(255, 255, 255, 0.05);
+			border-left: 4px solid rgba(255, 255, 255, 0.2);
 		}
 
 		&.info {
-			background-color: rgba(#86abdc, 0.2);
-			border-left-color: #86abdc;
+			background-color: rgba(0, 0, 0, 0.05);
+			border-left-color: rgba(0, 0, 0, 0.2);
 
 			@media (prefers-color-scheme: dark) {
-				background-color: rgba(#86abdc, 0.1);
-				border-left-color: rgba(#86abdc, 0.7);
+				background-color: rgba(255, 255, 255, 0.05);
+				border-left-color: rgba(255, 255, 255, 0.2);
 			}
 		}
 
 		&.warning {
-			background-color: rgba(#f9e2af, 0.2);
-			border-left-color: #f9e2af;
+			background-color: rgba(0, 0, 0, 0.08);
+			border-left-color: rgba(0, 0, 0, 0.3);
 
 			@media (prefers-color-scheme: dark) {
-				background-color: rgba(#f9e2af, 0.1);
-				border-left-color: rgba(#f9e2af, 0.7);
+				background-color: rgba(255, 255, 255, 0.08);
+				border-left-color: rgba(255, 255, 255, 0.3);
 			}
 		}
 
 		&.error {
-			background-color: rgba(#f38ba8, 0.2);
-			border-left-color: #f38ba8;
+			background-color: rgba(0, 0, 0, 0.1);
+			border-left-color: rgba(0, 0, 0, 0.4);
 
 			@media (prefers-color-scheme: dark) {
-				background-color: rgba(#f38ba8, 0.1);
-				border-left-color: rgba(#f38ba8, 0.7);
+				background-color: rgba(255, 255, 255, 0.1);
+				border-left-color: rgba(255, 255, 255, 0.4);
 			}
 		}
 
@@ -1329,47 +970,10 @@
 
 	// Blog post tables
 	.post-content {
-		table {
-			width: 100%;
-			border-collapse: collapse;
-			margin: 1.5em 0;
-			font-size: 0.9em;
-			line-height: 1.4;
-
-			th {
-				text-align: left;
-				padding: 0.75em 1em;
-				background-color: rgba(0, 0, 0, 0.03);
-				font-weight: 500;
-				border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-				display: flex;
-				flex-direction: column;
-			}
-
-			td {
-				padding: 0.75em 1em;
-				border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-			}
-
-			tr:last-child td {
-				border-bottom: none;
-			}
-
-			// Style for the "Updated" and "New" badges
-			th span {
-				font-size: 9px;
-				background-color: #f0f0f0;
-				padding: 2px 4px;
-				border-radius: 3px;
-				width: fit-content;
-				margin-bottom: 0.5em;
-				display: inline-block;
-
-				&[style*="background-color: #e6f7ff"] {
-					background-color: #e6f7ff;
-				}
-			}
-		}
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 0 variables.$space-md;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 	}
 }
 
