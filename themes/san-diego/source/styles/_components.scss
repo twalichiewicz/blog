@@ -1253,6 +1253,7 @@ table {
 	border-radius: 6px;
 	overflow: hidden;
 	box-shadow: variables.$shadow-soft;
+	background-color: rgba(variables.$card-bg, 0.5);
 
 	tr {
 		display: flex;
@@ -1262,6 +1263,10 @@ table {
 
 		&:last-child {
 			border-bottom: none;
+		}
+
+		&:nth-child(even) {
+			background-color: rgba(variables.$card-bg, 0.3);
 		}
 	}
 
