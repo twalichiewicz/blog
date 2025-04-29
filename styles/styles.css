@@ -2032,6 +2032,8 @@ ol ul {
 }
 .device-mobile .blog .profile-header .profile-info {
   margin-left: 0;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 .device-mobile .blog .profile-header .profile-info .profile-stats {
   justify-content: center;
