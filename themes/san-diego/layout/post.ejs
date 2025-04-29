@@ -89,7 +89,9 @@
                 </span>
             </div>
             
-            <%- page.content %>
+            <div class="post-content">
+                <%- page.content %>
+            </div>
             
             <div class="author-mini-bio">
                 <div class="author-mini-bio-image">
@@ -140,22 +142,24 @@
                             opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
                             margin-top 0.8s cubic-bezier(0.16, 1, 0.3, 1);
                 opacity: 0;
-                margin-top: 5rem;
-                border-top-left-radius: 6px;
-                border-top-right-radius: 6px;
+                margin-top: 3rem;
+                border-radius: 16px;
                 position: relative;
                 max-width: 800px;
                 margin-left: auto;
                 margin-right: auto;
-                padding: 2rem;
-                min-height: calc(100vh - 7rem);
+                padding: 1.5rem;
+                min-height: calc(100vh - 5rem);
                 box-sizing: border-box;
+                background-color: #fff;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(0, 0, 0, 0.03);
             }
             
             @media (min-width: 768px) {
                 .post {
-                    margin-top: 2.5rem;
-                    min-height: calc(100vh - 4.5rem);
+                    margin-top: 2rem;
+                    min-height: calc(100vh - 3rem);
                 }
             }
             
@@ -225,11 +229,11 @@
             .post-metadata {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 0.375rem;
-                font-size: 9px;
-                margin-bottom: 2rem;
-                opacity: 0.75;
-                color: inherit;
+                gap: 0.5rem;
+                font-size: 0.875rem;
+                margin-bottom: 1rem;
+                color: rgba(0, 0, 0, 0.6);
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             }
             
             .post-metadata span:not(:last-child)::after {
@@ -237,17 +241,20 @@
                 margin-left: 0.375rem;
             }
             
-            /* Reduce space between title and metadata */
+            /* Post title styles */
             .post-title {
-                margin-bottom: 12px;
+                margin-bottom: 0.5rem;
+                font-size: 1.5rem;
+                line-height: 1.3;
+                font-weight: 600;
             }
             
             /* Author mini-bio styles */
             .author-mini-bio {
                 display: flex;
-                padding: 1.25rem;
-                margin: 3rem 0 1rem;
-                border-radius: 10px;
+                padding: 1rem;
+                margin: 2rem 0 1rem;
+                border-radius: 8px;
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
                 background: rgba(0, 0, 0, 0.01);
                 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.01), 0 2px 8px rgba(0, 0, 0, 0.01);
@@ -256,53 +263,9 @@
                 overflow: hidden;
             }
             
-            .author-mini-bio::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                height: 1px;
-                background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.03), transparent);
-            }
-            
-            .author-mini-bio-image {
-                flex-shrink: 0;
-                width: 52px;
-                height: 52px;
-                border-radius: 50%;
-                overflow: hidden;
-                margin-right: 0.875rem;
-                border: 1px solid rgba(0, 0, 0, 0.04);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-                position: relative;
-            }
-            
-            .author-mini-bio-image::after {
-                content: '';
-                position: absolute;
-                inset: 0;
-                border-radius: 50%;
-                box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-            }
-            
-            .author-mini-bio-image img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                filter: grayscale(12%);
-            }
-            
-            .author-mini-bio-content {
-                flex-grow: 1;
-            }
-            
             .author-mini-bio-name {
-                margin: 0 0 3px;
-                font-size: 11px;
+                margin: 0 0 2px;
+                font-size: 0.875rem;
                 font-weight: 600;
                 letter-spacing: -0.01em;
                 color: rgba(0, 0, 0, 0.85);
@@ -310,86 +273,72 @@
             
             .author-mini-bio .author-mini-bio-content .author-mini-bio-text {
                 margin: 0;
-                font-size: 12px;
+                font-size: 0.875rem;
                 line-height: 1.4;
                 color: rgba(0, 0, 0, 0.6);
                 max-width: 75ch;
             }
             
-            /* Markdown image container styles */
-            .md-image-container {
-                border-radius: 6px;
-                overflow: hidden;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+            /* Post content styles */
+            .post-content {
+                font-size: 14px;
+                line-height: 1.6;
+                color: rgba(0, 0, 0, 0.8);
             }
             
-            .md-image-container img {
-                width: 100%;
-                height: auto;
-                max-height: 300px;
-                object-fit: cover;
-                display: block;
-                margin: 0 auto;
-                vertical-align: middle;
-                pointer-events: none;
+            .post-content p {
+                margin: 1rem 0;
+                font-size: 14px;
             }
             
-            /* Ensure emphasis colors match the theme */
-            .post a {
-                color: hsl(15, 70%, 40%);
-                text-decoration: none;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-                transition: all 0.3s ease;
+            .post-content h1 {
+                font-size: 24px;
+                margin: 2rem 0 1rem;
             }
             
-            .post a:hover {
-                color: hsl(15, 70%, 40%);
-                border-bottom-color: hsl(15, 70%, 40%);
+            .post-content h2 {
+                font-size: 20px;
+                margin: 1.75rem 0 0.75rem;
             }
             
-            /* Heading styles */
-            .post h3::before {
-                top: 2px;
-                background-color: hsl(15, 70%, 40%);
+            .post-content h3 {
+                font-size: 18px;
+                margin: 1.5rem 0 0.5rem;
             }
             
-            .post h2::after {
-                background-color: hsl(15, 70%, 40%);
+            .post-content h4 {
+                font-size: 16px;
+                margin: 1.25rem 0 0.5rem;
             }
             
+            .post-content h5 {
+                font-size: 14px;
+                margin: 1rem 0 0.5rem;
+            }
+            
+            .post-content h6 {
+                font-size: 12px;
+                margin: 0.75rem 0 0.5rem;
+            }
+            
+            /* Dark mode styles */
             @media (prefers-color-scheme: dark) {
-                .post a {
-                    color: hsl(40, 80%, 50%);
-                    border-bottom-color: rgba(255, 255, 255, 0.1);
+                .post {
+                    background-color: #1a1a1a;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                    border-color: rgba(255, 255, 255, 0.1);
                 }
                 
-                .post a:hover {
-                    color: hsl(40, 80%, 50%);
-                    border-bottom-color: hsl(40, 80%, 50%);
+                .post-metadata {
+                    color: rgba(255, 255, 255, 0.6);
                 }
                 
-                .post h3::before {
-                    background-color: hsl(40, 80%, 50%);
-                }
-                
-                .post h2::after {
-                    background-color: hsl(40, 80%, 50%);
+                .post-title {
+                    color: rgba(255, 255, 255, 0.9);
                 }
                 
                 .author-mini-bio {
-                    background: rgba(255, 255, 255, 0.02);
-                    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.05);
-                }
-                
-                .author-mini-bio::after {
-                    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.02), transparent);
-                }
-                
-                .author-mini-bio-image {
-                    border-color: rgba(255, 255, 255, 0.04);
-                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+                    background: rgba(255, 255, 255, 0.05);
                 }
                 
                 .author-mini-bio-name {
@@ -398,6 +347,10 @@
                 
                 .author-mini-bio .author-mini-bio-content .author-mini-bio-text {
                     color: rgba(255, 255, 255, 0.6);
+                }
+                
+                .post-content {
+                    color: rgba(255, 255, 255, 0.8);
                 }
             }
         </style>
