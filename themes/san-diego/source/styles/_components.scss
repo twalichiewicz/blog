@@ -1318,13 +1318,13 @@ table {
 	max-width: 600px;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 0 1rem;
+	padding: 0;
 	width: 100%;
 	box-sizing: border-box;
 
 	.search-icon {
 		position: absolute;
-		left: 24px;
+		left: 12px;
 		top: 50%;
 		transform: translateY(-50%);
 		width: 16px;
