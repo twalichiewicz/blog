@@ -60,6 +60,8 @@
 
 		.profile-info {
 			margin-left: 0;
+			padding-left: variables.$space-sm;
+			padding-right: variables.$space-sm;
 
 			.profile-stats {
 				justify-content: center;
