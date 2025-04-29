@@ -90,7 +90,7 @@
 
 		.tabs-wrapper {
 			width: 100%;
-			padding: 0 variables.$space-md;
+			padding: 0 variables.$space-sm;
 			box-sizing: border-box;
 			margin-bottom: 0;
 			max-width: 600px;
@@ -115,7 +115,7 @@
 	#postsContent,
 	#projectsContent {
 		width: 100%;
-		padding: variables.$space-md;
+		padding: variables.$space-sm;
 		overflow-x: hidden;
 		box-sizing: border-box;
 
@@ -171,11 +171,13 @@
 	.view-toggle {
 		flex-direction: column;
 		gap: 1rem;
-		padding: 1rem;
+		padding: 1rem 0;
 
 		.search-bar {
 			width: 100%;
 			max-width: none;
+			padding-left: 0;
+			padding-right: 0;
 		}
 
 		.segmented-button {
@@ -600,6 +602,8 @@
 			padding: variables.$space-md 0;
 			height: auto;
 			min-height: unset;
+			padding-left: 0;
+			padding-right: 0;
 		}
 
 		/* Header elements - simplified */
