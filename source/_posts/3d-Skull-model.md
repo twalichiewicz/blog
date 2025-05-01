@@ -104,6 +104,10 @@ class PatchedSkullAnimation {
       ...config
     };
 
+    // Add timestamp tracking for rotation
+    this.lastTimestamp = 0;
+    this.accumulatedRotation = 0;
+
     // Get container dimensions
     this.container = this.canvas.parentElement;
     this.containerRect = this.container.getBoundingClientRect();
@@ -296,11 +300,23 @@ class PatchedSkullAnimation {
     this.previousMouseX = event.clientX;
     this.previousMouseY = event.clientY;
     this.updateInteractionTime();
+
+    // Store the current rotation state
+    if (this.skull) {
+      this.rotationY = this.skull.rotation.y;
+      this.rotationX = this.skull.rotation.x;
+    }
   }
 
   onPointerUp() {
     this.isDragging = false;
     this.canvas.classList.remove('dragging');
+
+    // Store the final rotation position to continue from here
+    if (this.skull) {
+      this.accumulatedRotation = this.skull.rotation.y % (2 * Math.PI);
+      this.lastTimestamp = performance.now();
+    }
   }
 
   onWindowResize() {
@@ -317,12 +333,17 @@ class PatchedSkullAnimation {
   animate(timestamp = 0) {
     if (this.skull) {
       if (this.isDragging) {
+        // During drag, use the stored rotation plus mouse movement
         this.skull.rotation.y = this.rotationY + this.pointerX * this.config.mouseLookFactor;
         this.skull.rotation.x = this.rotationX + this.pointerY * this.config.mouseLookFactor;
       } else {
-        this.skull.rotation.y = (this.rotationY || 0) + (timestamp * this.config.autoRotationSpeed);
+        // When not dragging, continue rotation from last position
+        const deltaTime = this.lastTimestamp ? timestamp - this.lastTimestamp : 0;
+        this.accumulatedRotation += deltaTime * this.config.autoRotationSpeed;
+        this.skull.rotation.y = this.accumulatedRotation;
         this.skull.rotation.x = this.rotationX || 0;
       }
+      this.lastTimestamp = timestamp;
     }
 
     this.renderer.render(this.scene, this.camera);
