@@ -123,7 +123,7 @@ class PatchedSkullAnimation {
       0.1,
       1000
     );
-    this.camera.position.set(0, 0, 4); // Moved closer from 5 to 4
+    this.camera.position.set(0, 0, 4);
     this.camera.lookAt(0, 0, 0);
 
     // Set up renderer with proper size and DPI handling
@@ -139,25 +139,34 @@ class PatchedSkullAnimation {
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.0;
 
-    // Enhanced lighting setup
-    // Ambient light for base illumination
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    this.scene.add(ambientLight);
-
-    // Key light
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    keyLight.position.set(1, 2, 3);
+    // Studio lighting setup
+    // Main key light (top-right)
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    keyLight.position.set(2, 3, 4);
     this.scene.add(keyLight);
 
-    // Fill light
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
-    fillLight.position.set(-2, 0, -2);
+    // Fill light (left side)
+    const fillLight = new THREE.DirectionalLight(0xf2e6d9, 0.7); // Warm fill
+    fillLight.position.set(-4, 0, 3);
     this.scene.add(fillLight);
 
-    // Rim light for depth
-    const rimLight = new THREE.DirectionalLight(0xffffff, 0.2);
-    rimLight.position.set(0, 3, -2);
+    // Rim light (back-right)
+    const rimLight = new THREE.DirectionalLight(0xd9ebf2, 0.8); // Cool rim
+    rimLight.position.set(3, 2, -3);
     this.scene.add(rimLight);
+
+    // Top light for subtle highlights
+    const topLight = new THREE.DirectionalLight(0xffffff, 0.4);
+    topLight.position.set(0, 5, 0);
+    this.scene.add(topLight);
+
+    // Soft ambient light
+    const ambientLight = new THREE.HemisphereLight(
+      0xffffff, // Sky color
+      0xe6d9cc, // Ground color
+      0.4 // Intensity
+    );
+    this.scene.add(ambientLight);
 
     console.log('Loading model from:', this.modelPath);
 
@@ -177,18 +186,20 @@ class PatchedSkullAnimation {
             console.log('Model loaded successfully:', obj);
             this.skull = obj;
 
-            // Enhance materials
+            // Apply material to all meshes
             obj.traverse((child) => {
               if (child instanceof THREE.Mesh) {
-                if (!child.material) {
-                  child.material = new THREE.MeshPhysicalMaterial({
-                    color: 0xcccccc,
-                    metalness: 0.0,
-                    roughness: 0.5,
-                    clearcoat: 0.1,
-                    clearcoatRoughness: 0.4
-                  });
-                }
+                child.material = new THREE.MeshStandardMaterial({
+                  color: 0xf5f5f0, // Very subtle off-white
+                  metalness: 0.0,
+                  roughness: 0.85, // Slightly reduced for better light interaction
+                  emissive: 0x000000,
+                  emissiveIntensity: 0
+                });
+
+                // Add subtle shadows
+                child.castShadow = true;
+                child.receiveShadow = true;
               }
             });
 
