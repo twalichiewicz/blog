@@ -7,7 +7,7 @@ tags: [portfolio]
 layout: project_gallery
 has_writeup: true
 credits:
-  - role: Senior User Experience Designer
+  - role: Lead Product Designer
     name: Thomas Walichiewicz
   - role: Year
     name: 2024
