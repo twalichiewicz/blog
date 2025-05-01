@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="project-wrapper">
-		<div class="project-gallery">
+		<div class="project-gallery" style="<%= !page.gallery_images || page.gallery_images.length === 0 ? 'display: none;' : '' %>">
 			<div class="carousel" aria-label="Media carousel">
 				<div class="carousel-track">
 					<% if (page.gallery_images && page.gallery_images.length > 0) { %>
