@@ -1252,8 +1252,10 @@ table {
 	border: 1px solid rgba(variables.$border-color, 0.3);
 	border-radius: 6px;
 	overflow: hidden;
-	box-shadow: variables.$shadow-soft;
-	background-color: rgba(variables.$card-bg, 0.5);
+	box-shadow:
+		0 1px 2px rgba(0, 0, 0, 0.05),
+		0 1px 1px rgba(0, 0, 0, 0.03);
+	background-color: rgba(variables.$card-bg, 0.8);
 
 	tr {
 		display: flex;
@@ -1266,14 +1268,18 @@ table {
 		}
 
 		&:nth-child(even) {
-			background-color: rgba(variables.$card-bg, 0.3);
+			background-color: rgba(variables.$white, 0.4);
+		}
+
+		&:nth-child(odd):not(:first-child) {
+			background-color: rgba(variables.$white, 0.8);
 		}
 	}
 
 	th {
 		text-align: left;
 		padding: 0.75em 1em;
-		background-color: rgba(0, 0, 0, 0.02);
+		background-color: rgba(variables.$card-bg, 0.95);
 		font-weight: 500;
 		vertical-align: top;
 		display: flex;
@@ -1282,6 +1288,7 @@ table {
 		box-sizing: border-box;
 		align-self: stretch;
 		border-right: 1px solid rgba(variables.$border-color, 0.2);
+		border-bottom: 1px solid rgba(variables.$border-color, 0.3);
 
 		&:last-child {
 			border-right: none;
@@ -1312,6 +1319,88 @@ table {
 
 		&[style*="background-color: #e6f7ff"] {
 			background-color: #e6f7ff;
+		}
+	}
+}
+
+// Dark mode styles for tables
+@media (prefers-color-scheme: dark) {
+	table {
+		border-color: rgba(variables.$border-color-dark, 0.5);
+		background-color: rgba(variables.$card-bg-dark, 0.8);
+		box-shadow:
+			0 1px 2px rgba(0, 0, 0, 0.15),
+			0 1px 1px rgba(0, 0, 0, 0.1);
+
+		tr {
+			border-bottom-color: rgba(variables.$border-color-dark, 0.4);
+
+			&:nth-child(even) {
+				background-color: rgba(variables.$card-bg-dark, 0.6);
+			}
+
+			&:nth-child(odd):not(:first-child) {
+				background-color: rgba(variables.$card-bg-dark, 0.3);
+			}
+		}
+
+		th {
+			background-color: rgba(variables.$card-bg-dark, 0.95);
+			border-right-color: rgba(variables.$border-color-dark, 0.4);
+			border-bottom-color: rgba(variables.$border-color-dark, 0.5);
+			color: variables.$text-color-dark;
+			position: relative;
+
+			&:after {
+				content: '';
+				position: absolute;
+				right: -1px;
+				top: 0;
+				height: 100%;
+				width: 1px;
+				background: linear-gradient(to bottom,
+						rgba(variables.$border-color-dark, 0.2),
+						rgba(variables.$border-color-dark, 0.4),
+						rgba(variables.$border-color-dark, 0.2));
+			}
+
+			&:last-child:after {
+				display: none;
+			}
+		}
+
+		td {
+			border-right-color: rgba(variables.$border-color-dark, 0.4);
+			color: variables.$text-color-secondary-dark;
+			position: relative;
+
+			&:after {
+				content: '';
+				position: absolute;
+				right: -1px;
+				top: 0;
+				height: 100%;
+				width: 1px;
+				background: linear-gradient(to bottom,
+						rgba(variables.$border-color-dark, 0.2),
+						rgba(variables.$border-color-dark, 0.4),
+						rgba(variables.$border-color-dark, 0.2));
+			}
+
+			&:last-child:after {
+				display: none;
+			}
+		}
+
+		// Dark mode badge styles
+		th span {
+			background-color: rgba(255, 255, 255, 0.1);
+			color: variables.$text-color-dark;
+
+			&[style*="background-color: #e6f7ff"] {
+				background-color: rgba(variables.$link-color-dark, 0.2);
+				color: variables.$link-color-dark;
+			}
 		}
 	}
 }
