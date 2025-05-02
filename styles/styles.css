@@ -6431,8 +6431,6 @@ body.has-scroll-snap {
   .project-content {
     width: 100%;
     max-width: none;
-    height: 50vh;
-    min-height: 50vh;
     margin-left: 0;
     overflow-y: auto;
     overflow-x: hidden;
