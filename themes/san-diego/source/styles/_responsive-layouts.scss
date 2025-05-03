@@ -230,6 +230,8 @@
 		flex-shrink: 0;
 		position: relative;
 		padding-top: 0;
+		padding-bottom: 24px;
+		/* Added padding to bottom instead of margin on blog-content */
 		min-height: 300px;
 		/* Reset padding for tablet view */
 		overflow: visible;
@@ -258,8 +260,8 @@
 
 	.blog-content {
 		margin-top: 24px;
-		margin-left: 24px;
-		width: calc(100% - 324px);
+		margin-left: 0;
+		width: calc(100% - 300px);
 		height: calc(100vh - 24px);
 		overflow: hidden;
 		display: flex;
@@ -388,6 +390,8 @@
 		flex-shrink: 0;
 		position: relative;
 		min-height: 300px;
+		padding-bottom: 24px;
+		/* Added padding to bottom instead of margin on blog-content */
 		/* Relative to the fixed container */
 
 		/* Position contact wrapper for desktop */
@@ -423,8 +427,8 @@
 
 	.blog-content {
 		margin-top: 24px;
-		margin-left: 24px;
-		width: calc(100% - 384px);
+		margin-left: 0;
+		width: calc(100% - 360px);
 		height: calc(100vh - 24px);
 		overflow: visible;
 		display: flex;
