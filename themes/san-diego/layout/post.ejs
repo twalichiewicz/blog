@@ -93,13 +93,9 @@
                 <%- page.content %>
             </div>
             
-            <div class="author-mini-bio">
-                <div class="author-mini-bio-image">
-                    <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
-                </div>
-                <div class="author-mini-bio-content">
-                    <h4 class="author-mini-bio-name">Thomas Walichiewicz</h4>
-                    <p class="author-mini-bio-text">Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</p>
+            <div class="post-footer">
+                <div class="skully-icon">
+                    <img src="/img/skully.svg" alt="Skully" width="24" height="24">
                 </div>
             </div>
         </article>
@@ -351,6 +347,33 @@
                 
                 .post-content {
                     color: rgba(255, 255, 255, 0.8);
+                }
+            }
+            
+            /* Post footer with skully icon */
+            .post-footer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 3rem 0 1rem;
+            }
+            
+            .skully-icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .skully-icon img {
+                width: 24px;
+                height: 24px;
+                filter: opacity(0.4);
+            }
+            
+            /* Dark mode support */
+            @media (prefers-color-scheme: dark) {
+                .skully-icon img {
+                    filter: opacity(0.3);
                 }
             }
         </style>
