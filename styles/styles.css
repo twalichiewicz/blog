@@ -431,6 +431,11 @@ ol ul {
   }
 }
 
+.portfolio-content .content-text p {
+  font-size: 12px;
+  margin: 0;
+}
+
 .image-container {
   max-width: 100%;
   max-height: 300px;
@@ -677,6 +682,7 @@ ol ul {
   .blog .blog-content .content-wrapper #postsContent .post-list-item p,
   .blog .blog-content .content-wrapper #projectsContent .post-list-item p {
     color: hsl(0, 0%, 75%);
+    line-height: 1.3;
   }
   .blog .blog-content .content-wrapper #postsContent .post-list-item ul li,
   .blog .blog-content .content-wrapper #postsContent .post-list-item ol li,
@@ -1440,7 +1446,6 @@ ol ul {
   font-weight: 500;
 }
 .portfolio-item .portfolio-content .title-row .content-text p {
-  margin: 0 0 0.25rem 0;
   line-height: 1.3;
 }
 .portfolio-item .portfolio-content .title-row .external-icon {
