@@ -1539,7 +1539,7 @@ ol ul {
   color: hsl(35, 15%, 30%);
 }
 .portfolio-item.has-writeup p {
-  margin: 0 0 0.25rem 0;
+  margin: 0;
   line-height: 1.3;
   color: hsl(24, 3%, 35%);
 }
@@ -1575,7 +1575,7 @@ ol ul {
   color: hsl(35, 15%, 40%);
 }
 .portfolio-item:not(.has-writeup) p {
-  margin: 0 0 0.25rem 0;
+  margin: 0;
   line-height: 1.3;
   color: hsl(35, 15%, 45%);
 }
@@ -1608,7 +1608,7 @@ ol ul {
   text-decoration: none;
 }
 .portfolio-items p {
-  margin: 0 0 0.25rem 0;
+  margin: 0;
   line-height: 1.3;
   color: hsl(24, 3%, 35%);
 }
