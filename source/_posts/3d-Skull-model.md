@@ -11,7 +11,7 @@ date: 2025-04-30 23:17:10
   width: 100%;
   height: 400px;
   position: relative;
-  margin: 2rem 0;
+  margin: 0;
   border: 1px solid #ccc;
   background: rgba(0,0,0,0.02);
   border-radius: 8px;
