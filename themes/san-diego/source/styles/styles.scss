@@ -12,7 +12,6 @@
 
 // Layout components
 @use 'responsive-layouts';
-@use 'column-titles';
 @use 'main';
 @use 'footer';
 @use 'hero';
@@ -37,8 +36,8 @@
 @use 'loading';
 @use 'code-highlighting';
 
-// Theme modes
-@use 'theme-modes';
+// Theme modes - importing the index file which manages all theme mode styles
+@use 'theme-modes/index' as theme-modes;
 
 // Home page
 @use 'home';

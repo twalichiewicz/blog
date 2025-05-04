@@ -9,8 +9,8 @@
 		<%- body %>
 
         <%- js('js/device-detection.js') %>
-        <%- js('js/responsive-ui.js') %>
-        <%- js('js/main.js') %>
+        <script type="module" src="<%- url_for('js/responsive-ui.js') %>"></script>
+        <script type="module" src="<%- url_for('js/main.js') %>"></script>
         <% if (theme.search == true && page.type == 'search') { %>
         <%- js('js/search.js') %>
         <% } %>
@@ -26,7 +26,7 @@
         </script>
         <% } %>
 
-        <%- js('js/mobile-tabs.js') %>
+        <script type="module" src="<%- url_for('js/mobile-tabs.js') %>"></script>
         <%- js('js/sound-effects.js') %>
         <!-- Additional scripts -->
     </body>
