@@ -9,8 +9,34 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Sat, 03 May 2025 19:04:05 GMT</pubDate>
+    <pubDate>Sun, 04 May 2025 22:58:49 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Per-season TV show rentals</title>
+      <link>https://twalichiewicz.github.io/2025/05/03/Temporary-tv-subscriptions/</link>
+      <guid>https://twalichiewicz.github.io/2025/05/03/Temporary-tv-subscriptions/</guid>
+      <pubDate>Sat, 03 May 2025 17:59:01 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Why can’t I rent a TV season? Subscribing for a single series or buying an entire season sight‑unseen is overkill.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Give me a</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Why can’t I rent a TV season? Subscribing for a single series or buying an entire season sight‑unseen is overkill.</p><ul><li>Give me a season-length rental cut stitched into one file.<br><em>or</em></li><li>Treat each episode like a mini movie rental. One watch, time limit once started.</li></ul><p><img src="/2025/05/03/Temporary-tv-subscriptions/rentableTV.jpeg" alt="A screenshot of the Apple TV UI with an added option to rent a season of the TV show"></p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/05/03/Temporary-tv-subscriptions/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>3d Skull model</title>
@@ -462,31 +488,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/03/15/Designer-developers-in-2025/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Coding over writing?</title>
-      <link>https://twalichiewicz.github.io/2025/03/15/Coding-over-writing/</link>
-      <guid>https://twalichiewicz.github.io/2025/03/15/Coding-over-writing/</guid>
-      <pubDate>Sat, 15 Mar 2025 06:01:06 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;It’s gotten to be that working on this site is almost more fun than writing the actual posts.&lt;/p&gt;
-</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>It’s gotten to be that working on this site is almost more fun than writing the actual posts.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/03/15/Coding-over-writing/#disqus_thread</comments>
       
     </item>
     
