@@ -481,20 +481,7 @@
 				border-radius: 3px;
 			}
 
-			.column-title {
-				width: 100%;
-				box-sizing: border-box;
-				border-radius: 0;
-				margin-left: 0;
-				margin-right: 0;
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				padding-top: variables.$space-md;
-				padding-bottom: variables.$space-xs;
-				z-index: 100;
-			}
+			/* Additional styles for column-title within content containers are now handled in the Column Titles section */
 
 			/* Add padding to the top to prevent content from being hidden under the floating header */
 			.company-group:first-of-type {
@@ -994,4 +981,99 @@
 			}
 		}
 	}
+}
+
+/* ==========================================================================
+   Column Titles - Responsive Behavior
+   ========================================================================== */
+
+/* Base styles for column titles - hidden by default */
+.column-title {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+	/* Higher z-index to ensure it stays on top */
+	padding: variables.$space-md;
+	font-size: 24px;
+	font-weight: 600;
+	letter-spacing: normal;
+	text-transform: none;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	margin-bottom: variables.$space-sm;
+	text-align: left;
+	transition: all 0.2s ease;
+	width: 100%;
+	max-width: 600px;
+	/* Ensure full width */
+	box-sizing: border-box;
+	/* Include padding in width calculation */
+
+	/* Dark mode adjustments */
+	@media (prefers-color-scheme: dark) {
+		background-color: transparent;
+		border-bottom: none;
+		box-shadow: none;
+	}
+
+	/* Subtle animation when scrolling starts */
+	.is-scrolling & {
+		box-shadow: none;
+		opacity: 1;
+	}
+}
+
+/* Blog column title specific styles */
+.blog-column-title {
+	color: variables.$text-color;
+
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+	}
+}
+
+/* Portfolio column title specific styles */
+.portfolio-column-title {
+	color: variables.$text-color;
+
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+	}
+}
+
+/* Desktop styles for column titles */
+@media screen and (min-width: variables.$tablet-breakpoint) {
+	.column-title {
+		display: block;
+
+		/* Desktop-specific adjustments */
+		width: 100%;
+		box-sizing: border-box;
+		border-radius: 0;
+		margin-left: 0;
+		margin-right: 0;
+		padding-top: variables.$space-md;
+		padding-bottom: variables.$space-xs;
+	}
+}
+
+/* Tablet and mobile styles - ensure column titles are hidden */
+@media screen and (max-width: variables.$tablet-breakpoint) {
+	.column-title {
+		display: none !important;
+	}
+}
+
+/* Device-specific classes for additional control */
+.device-desktop .column-title {
+	display: block;
+}
+
+.device-tablet .column-title,
+.device-mobile .column-title {
+	display: none !important;
 }

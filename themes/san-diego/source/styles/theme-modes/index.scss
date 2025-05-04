@@ -1,0 +1,57 @@
+/* ==========================================================================
+   Theme Modes - Dark/Light Mode Styles
+   
+   This file imports all theme mode related styles
+   ========================================================================== */
+
+@use '../variables';
+@use "sass:color";
+@use 'light-mode';
+@use 'dark-mode';
+
+/* Forward the forced mode styles */
+@forward 'light-mode-forced';
+@forward 'dark-mode-forced';
+
+/* Base theme mode transitions */
+.blog {
+	transition:
+		background-color 0.5s ease,
+		color 0.5s ease;
+
+	.blog-content {
+		transition:
+			background-color 0.5s ease,
+			box-shadow 0.5s ease,
+			border-color 0.5s ease;
+	}
+
+	.profile-header,
+	.post-list-item,
+	.profile-photo,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	a,
+	button,
+	.button,
+	.profile-name,
+	.profile-bio,
+	.profile-stats .stat .number,
+	.profile-stats .stat .label,
+	pre,
+	code,
+	blockquote,
+	.contact-button,
+	.contact-option {
+		transition:
+			color 0.3s ease,
+			background-color 0.3s ease,
+			border-color 0.3s ease,
+			box-shadow 0.3s ease;
+	}
+}
