@@ -2387,6 +2387,7 @@ ol ul {
   box-sizing: border-box;
   display: block !important;
   /* Ensure content is displayed */
+  /* Additional styles for column-title within content containers are now handled in the Column Titles section */
   /* Add padding to the top to prevent content from being hidden under the floating header */
   /* Remove top/bottom margins from post-list-items, rely on separator margins instead */
 }
@@ -2402,21 +2403,6 @@ ol ul {
 .device-desktop .blog .blog-content #projectsContent::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-}
-.device-desktop .blog .blog-content #postsContent .column-title,
-.device-desktop .blog .blog-content #projectsContent .column-title {
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: 0;
-  margin-left: 0;
-  margin-right: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding-top: 24px;
-  padding-bottom: 6px;
-  z-index: 100;
 }
 .device-desktop .blog .blog-content #postsContent .company-group:first-of-type,
 .device-desktop .blog .blog-content #projectsContent .company-group:first-of-type {
@@ -2816,11 +2802,12 @@ ol ul {
     padding-right: 3rem;
   }
 }
-/* Column Titles
+/* ==========================================================================
+   Column Titles - Responsive Behavior
    ========================================================================== */
+/* Base styles for column titles - hidden by default */
 .column-title {
   display: none;
-  /* Hidden by default */
   position: absolute;
   top: 0;
   left: 0;
@@ -2843,12 +2830,8 @@ ol ul {
   /* Ensure full width */
   box-sizing: border-box;
   /* Include padding in width calculation */
-  /* Only show on desktop */
   /* Dark mode adjustments */
   /* Subtle animation when scrolling starts */
-}
-.device-desktop .column-title {
-  display: block;
 }
 @media (prefers-color-scheme: dark) {
   .column-title {
@@ -2880,6 +2863,36 @@ ol ul {
   .portfolio-column-title {
     color: hsl(0, 0%, 95%);
   }
+}
+
+/* Desktop styles for column titles */
+@media screen and (min-width: 1024px) {
+  .column-title {
+    display: block;
+    /* Desktop-specific adjustments */
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 24px;
+    padding-bottom: 6px;
+  }
+}
+/* Tablet and mobile styles - ensure column titles are hidden */
+@media screen and (max-width: 1024px) {
+  .column-title {
+    display: none !important;
+  }
+}
+/* Device-specific classes for additional control */
+.device-desktop .column-title {
+  display: block;
+}
+
+.device-tablet .column-title,
+.device-mobile .column-title {
+  display: none !important;
 }
 
 * {
@@ -8711,6 +8724,304 @@ body.loaded {
     color: #ff7b72;
   }
 }
+/* ==========================================================================
+   Theme Modes - Dark/Light Mode Styles
+
+   This file imports all theme mode related styles
+   ========================================================================== */
+/* ==========================================================================
+   Light Mode Specific Styles
+   ========================================================================== */
+/* Light mode (default) styles */
+.blog {
+  /* Set CSS variable for light mode */
+  --bg-color: rgba(250, 250, 250, 0.7);
+  /* Light mode for blog header */
+  /* Desktop contact options in light mode */
+  /* Light mode for basic blog content */
+}
+.blog.blog .profile-header .profile-info .profile-name {
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8), 0 -1px 1px rgba(25.5, 25.5, 25.5, 0.2);
+  color: hsl(0, 0%, 10%) !important;
+}
+.blog.blog .profile-header .profile-info .profile-bio {
+  color: hsl(35, 15%, 30%) !important;
+}
+.blog.blog .profile-header .profile-info .profile-stats .stat .number {
+  color: hsl(0, 0%, 10%) !important;
+}
+.blog.blog .profile-header .profile-info .profile-stats .stat .label {
+  color: hsl(35, 15%, 30%) !important;
+}
+.blog.blog .profile-header .profile-photo {
+  box-shadow: 0 0 0 1px rgba(25.5, 25.5, 25.5, 0.05), 0 0 0 2px rgba(255, 255, 255, 0.5), inset 0 2px 8px rgba(25.5, 25.5, 25.5, 0.1), inset 0 -4px 8px rgba(255, 255, 255, 0.3);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(25.5, 25.5, 25.5, 0.1));
+}
+.blog.blog .profile-header .contact-wrapper .contact-button {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(197.625, 192.3125, 184.875, 0.5);
+  color: hsl(24, 3%, 35%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.blog.blog .profile-header .contact-wrapper .contact-button:hover {
+  background: rgba(173.4, 66.3, 30.6, 0.2);
+  color: hsl(15, 70%, 40%);
+}
+.blog.blog .profile-header .contact-wrapper .contact-button.active {
+  background: hsl(15, 70%, 40%);
+  color: hsl(0, 0%, 100%);
+  border-color: hsl(15, 70%, 40%);
+}
+.blog.blog .profile-header .contact-wrapper .contact-options {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(197.625, 192.3125, 184.875, 0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+}
+.blog.blog .profile-header .contact-wrapper .contact-options .contact-option {
+  background: transparent;
+  border-color: rgba(197.625, 192.3125, 184.875, 0.2);
+  color: hsl(24, 3%, 35%);
+}
+.blog.blog .profile-header .contact-wrapper .contact-options .contact-option:hover {
+  background: rgba(173.4, 66.3, 30.6, 0.1);
+  color: hsl(15, 70%, 40%);
+}
+.blog.blog .profile-header .contact-wrapper .contact-options .contact-option:active {
+  background: rgba(173.4, 66.3, 30.6, 0.2);
+}
+@media screen and (min-width: 768px) {
+  .blog .contact-wrapper .contact-options {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(197.625, 192.3125, 184.875, 0.3);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(4px);
+  }
+  .blog .contact-wrapper .contact-options .contact-option {
+    background: transparent;
+    color: hsl(24, 3%, 35%);
+  }
+  .blog .contact-wrapper .contact-options .contact-option:hover {
+    background: rgba(173.4, 66.3, 30.6, 0.1);
+    color: hsl(15, 70%, 40%);
+  }
+  .blog .contact-wrapper .contact-options .contact-option:active {
+    background: rgba(173.4, 66.3, 30.6, 0.2);
+  }
+  .blog .contact-wrapper .contact-options .contact-option:not(:last-child) {
+    border-right-color: rgba(197.625, 192.3125, 184.875, 0.2);
+  }
+}
+.blog .blog-content {
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.blog .blog-content::before {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.04));
+}
+
+/* ==========================================================================
+   Dark Mode Specific Styles
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  .blog {
+    /* Set CSS variable for dark mode */
+    --bg-color: rgba(20, 20, 20, 0.7);
+    /* Dark mode for blog header */
+    /* Desktop contact options in dark mode */
+    /* Global dark mode style for external-icon */
+    /* Dark mode for basic blog content */
+  }
+  .blog.blog .profile-header .profile-info .profile-name {
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2), 0 -1px 1px rgba(25.5, 25.5, 25.5, 0.4);
+    color: hsl(0, 0%, 100%) !important;
+  }
+  .blog.blog .profile-header .profile-info .profile-bio {
+    color: hsl(0, 0%, 75%) !important;
+  }
+  .blog.blog .profile-header .profile-info .profile-stats .stat .number {
+    color: hsl(0, 0%, 100%) !important;
+  }
+  .blog.blog .profile-header .profile-info .profile-stats .stat .label {
+    color: hsl(0, 0%, 75%) !important;
+  }
+  .blog.blog .profile-header .profile-photo {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 0 2px rgba(25.5, 25.5, 25.5, 0.3), inset 0 2px 8px rgba(25.5, 25.5, 25.5, 0.6), inset 0 -4px 8px rgba(255, 255, 255, 0.1);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(25.5, 25.5, 25.5, 0.2));
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button {
+    background: rgba(45.9, 45.9, 45.9, 0.7);
+    border-color: rgba(63.75, 63.75, 63.75, 0.5);
+    color: hsl(0, 0%, 95%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button:hover {
+    background: rgba(244.8, 183.6, 61.2, 0.2);
+    color: hsl(40, 90%, 60%);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button.active {
+    background: rgba(244.8, 183.6, 61.2, 0.8);
+    color: hsl(0, 0%, 10%);
+    border-color: rgba(244.8, 183.6, 61.2, 0.6);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-options {
+    background: rgba(45.9, 45.9, 45.9, 0.7);
+    border-color: rgba(63.75, 63.75, 63.75, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-options .contact-option {
+    background: transparent;
+    border-color: rgba(63.75, 63.75, 63.75, 0.4);
+    color: hsl(0, 0%, 95%);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-options .contact-option:hover {
+    background: rgba(244.8, 183.6, 61.2, 0.2);
+    color: hsl(40, 90%, 60%);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-options .contact-option:active {
+    background: rgba(244.8, 183.6, 61.2, 0.3);
+  }
+}
+@media screen and (prefers-color-scheme: dark) and (min-width: 768px) {
+  .blog .contact-wrapper .contact-options {
+    background: rgba(45.9, 45.9, 45.9, 0.6);
+    border-color: rgba(63.75, 63.75, 63.75, 0.4);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(4px);
+  }
+  .blog .contact-wrapper .contact-options .contact-option {
+    background: transparent;
+    color: hsl(0, 0%, 95%);
+  }
+  .blog .contact-wrapper .contact-options .contact-option:hover {
+    background: rgba(244.8, 183.6, 61.2, 0.2);
+    color: hsl(40, 90%, 60%);
+  }
+  .blog .contact-wrapper .contact-options .contact-option:active {
+    background: rgba(244.8, 183.6, 61.2, 0.3);
+  }
+  .blog .contact-wrapper .contact-options .contact-option:not(:last-child) {
+    border-right-color: rgba(63.75, 63.75, 63.75, 0.4);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .blog .external-icon {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.05);
+    color: hsl(0, 0%, 100%);
+  }
+  .blog .external-icon:hover {
+    background: hsl(40, 90%, 60%);
+    color: hsl(0, 0%, 100%);
+  }
+  .blog .blog-content {
+    background-color: hsl(0, 0%, 75%);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .blog .blog-content::before {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+  }
+}
+/* Forward the forced mode styles */
+/* ==========================================================================
+   Forced Light Mode Styles (when user selects light mode explicitly)
+   ========================================================================== */
+/* These styles apply when the user selects light mode regardless of system preference */
+[data-color-scheme=light] .blog {
+  /* Set CSS variable for light mode */
+  --bg-color: rgba(250, 250, 250, 0.7);
+  /* Light mode for blog header */
+  /* Light mode for basic blog content */
+}
+[data-color-scheme=light] .blog.blog .profile-header .profile-name {
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8), 0 -1px 1px rgba(25.5, 25.5, 25.5, 0.2);
+  color: hsl(0, 0%, 10%) !important;
+}
+[data-color-scheme=light] .blog.blog .profile-header .profile-bio {
+  color: hsl(35, 15%, 30%) !important;
+}
+[data-color-scheme=light] .blog.blog .profile-header .profile-stats .stat .number {
+  color: hsl(0, 0%, 10%) !important;
+}
+[data-color-scheme=light] .blog.blog .profile-header .profile-stats .stat .label {
+  color: hsl(35, 15%, 30%) !important;
+}
+[data-color-scheme=light] .blog .blog-content {
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   Forced Dark Mode Styles (when user selects dark mode explicitly)
+   ========================================================================== */
+/* These styles apply when the user selects dark mode regardless of system preference */
+[data-color-scheme=dark] .blog {
+  /* Set CSS variable for dark mode */
+  --bg-color: rgba(20, 20, 20, 0.7);
+  /* Dark mode for blog header */
+  /* Global dark mode style for external-icon */
+  /* Dark mode for basic blog content */
+}
+[data-color-scheme=dark] .blog.blog .profile-header .profile-name {
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2), 0 -1px 1px rgba(25.5, 25.5, 25.5, 0.4);
+  color: hsl(0, 0%, 100%) !important;
+}
+[data-color-scheme=dark] .blog.blog .profile-header .profile-bio {
+  color: hsl(0, 0%, 75%) !important;
+}
+[data-color-scheme=dark] .blog.blog .profile-header .profile-stats .stat .number {
+  color: hsl(0, 0%, 100%) !important;
+}
+[data-color-scheme=dark] .blog.blog .profile-header .profile-stats .stat .label {
+  color: hsl(0, 0%, 75%) !important;
+}
+[data-color-scheme=dark] .blog .external-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.05);
+  color: hsl(0, 0%, 100%);
+}
+[data-color-scheme=dark] .blog .blog-content {
+  background-color: hsl(0, 0%, 75%);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Base theme mode transitions */
+.blog {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+.blog .blog-content {
+  transition: background-color 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
+}
+.blog .profile-header,
+.blog .post-list-item,
+.blog .profile-photo,
+.blog h1,
+.blog h2,
+.blog h3,
+.blog h4,
+.blog h5,
+.blog h6,
+.blog p,
+.blog a,
+.blog button,
+.blog .button,
+.blog .profile-name,
+.blog .profile-bio,
+.blog .profile-stats .stat .number,
+.blog .profile-stats .stat .label,
+.blog pre,
+.blog code,
+.blog blockquote,
+.blog .contact-button,
+.blog .contact-option {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
 #canvasWrapper {
   position: fixed;
   top: 0;
