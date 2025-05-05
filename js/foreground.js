@@ -104,11 +104,90 @@ class ForegroundProject {
 	}
 
 	init() {
+		this.addProjectNavigation();
 		this.renderSections();
 		this.setupEventListeners();
 
 		// Add loaded class to body after initialization
 		document.body.classList.add('loaded');
+	}
+
+	addProjectNavigation() {
+		// Create the project navigation HTML
+		const navigationHTML = `
+			<div class="project-navigation">
+				<div class="project-mini-bio">
+					<div class="project-mini-bio-image">
+						<img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
+					</div>
+					<div class="project-mini-bio-content">
+						<h4 class="project-mini-bio-name">Project Details</h4>
+						<p class="project-mini-bio-text">Thanks for reading this project deep dive! Even more are available from the home page.</p>
+					</div>
+					<div class="button-stack">
+						<a href="/" class="project-home-button" title="Home">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+								<path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+							</svg>
+							<span>Home</span>
+						</a>
+						<button class="project-collapse-button" aria-label="Toggle navigation">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<polyline points="15 18 9 12 15 6"></polyline>
+							</svg>
+							<span>Collapse</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		`;
+
+		// Insert navigation at the beginning of the body
+		document.body.insertAdjacentHTML('afterbegin', navigationHTML);
+
+		// Add page transition overlay
+		document.body.insertAdjacentHTML('afterbegin', '<div class="page-transition-overlay"></div>');
+
+		// Add collapse/expand functionality
+		this.setupNavigationEvents();
+	}
+
+	setupNavigationEvents() {
+		// Wait for DOM to be fully loaded
+		setTimeout(() => {
+			const collapseButton = document.querySelector('.project-collapse-button');
+			const projectMiniBio = document.querySelector('.project-mini-bio');
+
+			if (collapseButton && projectMiniBio) {
+				collapseButton.addEventListener('click', function () {
+					projectMiniBio.classList.toggle('collapsed');
+					const isCollapsed = projectMiniBio.classList.contains('collapsed');
+
+					// Update button text and icon
+					const buttonText = collapseButton.querySelector('span');
+					if (buttonText) {
+						buttonText.textContent = isCollapsed ? 'Expand' : 'Collapse';
+					}
+
+					// Update aria-label
+					collapseButton.setAttribute('aria-label',
+						isCollapsed ? 'Expand navigation' : 'Collapse navigation'
+					);
+				});
+			}
+
+			// Fade out the overlay
+			const overlay = document.querySelector('.page-transition-overlay');
+			if (overlay) {
+				overlay.classList.add('fade-out');
+
+				// Remove overlay after animation completes
+				setTimeout(function () {
+					overlay.style.display = 'none';
+				}, 1000);
+			}
+		}, 100);
 	}
 
 	renderSections() {
