@@ -106,6 +106,9 @@ class ForegroundProject {
 	init() {
 		this.renderSections();
 		this.setupEventListeners();
+
+		// Add loaded class to body after initialization
+		document.body.classList.add('loaded');
 	}
 
 	renderSections() {
@@ -174,4 +177,15 @@ class ForegroundProject {
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
 	new ForegroundProject();
+});
+
+// Fallback to ensure page becomes visible even if there are script errors
+window.addEventListener('load', () => {
+	// Add a timeout to make sure the page becomes visible even if script fails
+	setTimeout(() => {
+		if (!document.body.classList.contains('loaded')) {
+			document.body.classList.add('loaded');
+			console.warn('ForegroundProject may not have initialized properly, applying fallback visibility.');
+		}
+	}, 1000);
 });
