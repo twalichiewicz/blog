@@ -9,8 +9,33 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Mon, 05 May 2025 02:18:04 GMT</pubDate>
+    <pubDate>Mon, 05 May 2025 02:48:57 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Finding errors after sharing portfolio</title>
+      <link>https://twalichiewicz.github.io/2025/05/05/Finding-errors-after-sharing-portfolio/</link>
+      <guid>https://twalichiewicz.github.io/2025/05/05/Finding-errors-after-sharing-portfolio/</guid>
+      <pubDate>Mon, 05 May 2025 02:47:47 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Got to hate finding errors&amp;#x2F;broken code immediately after sharing out my portfolio. Such is the cost of being my own maintainer.&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Got to hate finding errors&#x2F;broken code immediately after sharing out my portfolio. Such is the cost of being my own maintainer.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/05/05/Finding-errors-after-sharing-portfolio/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Per-season TV show rentals</title>
@@ -464,30 +489,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/03/18/The-MAP-Framework/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Designer developers in 2025</title>
-      <link>https://twalichiewicz.github.io/2025/03/15/Designer-developers-in-2025/</link>
-      <guid>https://twalichiewicz.github.io/2025/03/15/Designer-developers-in-2025/</guid>
-      <pubDate>Sat, 15 Mar 2025 20:43:26 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Designers who can’t code are getting left behind. I’ve been leveraging generative tools to rapidly prototype and ship finished components</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Designers who can’t code are getting left behind. I’ve been leveraging generative tools to rapidly prototype and ship finished components—cutting my implementation time in half while maintaining complete creative control.</p><p>Why this matters: Understanding how your designs translate to code makes you a better designer. Period. You spot technical constraints earlier, make smarter decisions about interactions, and speak the language developers respect.</p><p>The most valuable designers in 2025 aren’t just creating static mockups—they’re building functional prototypes that demonstrate real behavior and can evolve into production code.</p><p>Stop outsourcing your technical understanding. Start utilizing technology to execute your vision directly and precisely.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/03/15/Designer-developers-in-2025/#disqus_thread</comments>
       
     </item>
     
