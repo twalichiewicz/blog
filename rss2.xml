@@ -9,8 +9,35 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Mon, 05 May 2025 19:48:05 GMT</pubDate>
+    <pubDate>Tue, 06 May 2025 02:00:44 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Google Material 3 preview</title>
+      <link>https://twalichiewicz.github.io/2025/05/06/Google-Material-3-preview/</link>
+      <guid>https://twalichiewicz.github.io/2025/05/06/Google-Material-3-preview/</guid>
+      <pubDate>Tue, 06 May 2025 01:13:38 GMT</pubDate>
+      
+        
+        
+      <description>&lt;div class=&quot;carousel&quot; aria-label=&quot;Media carousel&quot;&gt;
+      &lt;div class=&quot;carousel-track&quot;&gt;
+        &lt;div class=&quot;carousel-slide active&quot; 
+          </description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<div class="carousel" aria-label="Media carousel">      <div class="carousel-track">        <div class="carousel-slide active"                       aria-hidden="false">            <img src="/2025/05/05/Google-Material-3-preview/Material 3 Before.png"                                alt="Material 3 Before"                               loading="lazy"                               decoding="async">                      </div><div class="carousel-slide "                       aria-hidden="true">            <img src="/2025/05/05/Google-Material-3-preview/Material 3 After.png"                                alt="Material 3 After"                               loading="lazy"                               decoding="async">                      </div>      </div>              <button class="carousel-button prev" aria-label="Previous slide"></button>        <button class="carousel-button next" aria-label="Next slide"></button>        <div class="carousel-indicators">                      <button class="indicator active"                     aria-label="Go to slide 1"></button>                      <button class="indicator "                     aria-label="Go to slide 2"></button>                  </div>          </div><p>Would probably make a sweet visualizer for a randomizer mode though.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/05/06/Google-Material-3-preview/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>I&#39;d rather read the prompt</title>
@@ -469,30 +496,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/03/20/AI-Agents-CarPlay/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Talking to LLMs</title>
-      <link>https://twalichiewicz.github.io/2025/03/20/Talking-to-LLMs/</link>
-      <guid>https://twalichiewicz.github.io/2025/03/20/Talking-to-LLMs/</guid>
-      <pubDate>Thu, 20 Mar 2025 03:00:11 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;The progress made with LLMs is impressive, but we’re still facing a fundamental issue: users must rethink how they communicate with AI sy</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>The progress made with LLMs is impressive, but we’re still facing a fundamental issue: users must rethink how they communicate with AI systems, rather than AI accommodating natural human language.</p><p>Yes, we’ve moved beyond the rigid command structures of early voice assistants (“Hey Siri,” “Hey Google,” followed by carefully phrased requests), but the proliferation of prompt engineering guides and entire books on “how to talk to ChatGPT” reveals an uncomfortable truth—we’re still adapting to the machine, not the other way around.</p><p>This mirrors the early days of computing when users needed to learn command-line interfaces before graphical UIs made computers accessible to everyone. The true breakthrough in AI interfaces won’t be more powerful models, but systems that adapt to individual communication styles and quirks, meeting users where they are rather than where engineers wish them to be.</p><p>Until then, we’re still speaking a second language when talking to AI—just with a more forgiving grammar.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/03/20/Talking-to-LLMs/#disqus_thread</comments>
       
     </item>
     
