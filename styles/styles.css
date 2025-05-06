@@ -3682,6 +3682,7 @@ li .blog .post-list-item img {
   height: auto;
   overflow: hidden;
   background-color: hsl(24, 20%, 85%);
+  margin-bottom: 9px;
 }
 .blog .post-list-item .carousel-track {
   position: relative;
