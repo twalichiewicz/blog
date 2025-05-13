@@ -1,6 +1,7 @@
 ---
 title: Leaning into AI
-short: true
+long: true
+excerpt: I see a ton of nothingburger articles about AI and design every day, so I figured I’d throw my two cents into the void.
 tags:
   - blog
 date: 2025-04-11 11:28:03
