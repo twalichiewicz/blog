@@ -9,8 +9,33 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Tue, 06 May 2025 03:13:22 GMT</pubDate>
+    <pubDate>Fri, 16 May 2025 18:54:15 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Apple CarPlay Ultra</title>
+      <link>https://twalichiewicz.github.io/2025/05/16/Apple-CarPlay-Ultra/</link>
+      <guid>https://twalichiewicz.github.io/2025/05/16/Apple-CarPlay-Ultra/</guid>
+      <pubDate>Fri, 16 May 2025 17:09:30 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;/2025/05/16/Apple-CarPlay-Ultra/carplayUltraQuestionmark.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=rzfpbVzSBFg&quot;&gt;THI</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><img src="/2025/05/16/Apple-CarPlay-Ultra/carplayUltraQuestionmark.png"></p><p><a href="https://www.youtube.com/watch?v=rzfpbVzSBFg">THIS</a> is what Apple CarPlay Ultra looks like?</p><p>This looks like a rough mock you put together before you spend time polishing the visuals to match the level of craftsmanship clear in the physical design of the car. This might have been amazing back in the early 2000’s when car infotainment systems were a running joke, but now this is being compared against <a href="https://www.thedrive.com/news/rivians-new-cel-shaded-infotainment-update-is-cool-and-mandatory">Rivian</a>, <a href="https://lucidowners.com/threads/some-ui-screenshots-gravity-software-v-3-07.12085/">Lucid</a>, <a href="https://www.youtube.com/watch?v=GalOmedUCoo">Volvo</a>, and others.</p><p>Apple pitches Ultra as “deeply integrated and fully skinnable,” but Aston’s launch video shows the stock iOS palette pasted over six-figure craftsmanship. Meanwhile, the flat-grey HVAC sliders ignore the cabin’s knurled toggles, and the music widget’s left-to-right progress bar falls directly under a right-hand steering-wheel spoke—neither is a fatal flaw, but both scream phone app rather than GT cockpit.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/05/16/Apple-CarPlay-Ultra/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Google Material 3 preview</title>
@@ -226,11 +251,7 @@
       <guid>https://twalichiewicz.github.io/2025/04/11/Leaning-into-AI/</guid>
       <pubDate>Fri, 11 Apr 2025 18:28:03 GMT</pubDate>
       
-        
-        
-      <description>&lt;p&gt;I see a ton of nothingburger articles about AI and design every day, so I figured I’d throw my two cents into the void.&lt;/p&gt;
-&lt;p&gt;Lately, I’</description>
-        
+      <description>I see a ton of nothingburger articles about AI and design every day, so I figured I’d throw my two cents into the void.</description>
       
       
       
@@ -471,31 +492,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/03/20/Finally-writing-posts-for-notes-in-my-notebook/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>AI-Agents CarPlay</title>
-      <link>https://twalichiewicz.github.io/2025/03/20/AI-Agents-CarPlay/</link>
-      <guid>https://twalichiewicz.github.io/2025/03/20/AI-Agents-CarPlay/</guid>
-      <pubDate>Thu, 20 Mar 2025 19:45:24 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;AI agents should function like CarPlay – a consistent experience that follows you everywhere, adapting to your context.&lt;/p&gt;
-&lt;p&gt;Imagine if</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>AI agents should function like CarPlay – a consistent experience that follows you everywhere, adapting to your context.</p><p>Imagine if your personal preferences, history, and working style moved with you across every device and application:</p><ul><li>In Figma, it automatically applies your preferred spacing, color patterns, and component structures based on your past designs</li><li>When you switch to Google Docs, it adjusts your writing to match previous tone and style while suggesting content based on related projects</li><li>During a Zoom call, it retrieves relevant materials from past meetings without you having to search</li><li>In Xcode, it suggests code patterns matching your typical architectural approaches while flagging potential issues based on your historical bugs</li></ul><p>Think of it as a dual-screen setup where your AI device acts as that second screen – offering insights, suggestions, and corrections based on your established patterns while adapting to your current context.</p><p>This isn’t just about assistant features – it’s about creating true digital continuity:</p><ol><li>Your design preferences automatically apply in any creative tool</li><li>Your writing style and communication patterns follow you into any document</li><li>Your organizational systems adapt to whatever information environment you’re in</li></ol><p>The breakthrough comes when you no longer need to maintain separate workflows and preferences for each application. Your digital environment shapes itself around you, rather than you adapting to each environment.</p><p>Could this be the next evolution of personal computing – environments that truly know and adapt to us, rather than the other way around?</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/03/20/AI-Agents-CarPlay/#disqus_thread</comments>
       
     </item>
     
