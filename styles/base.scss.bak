@@ -1,0 +1,182 @@
+/**
+ * BASE STYLES
+ * Variables, reset, and typography
+ * 
+ * TABLE OF CONTENTS:
+ * 1. Variables
+ * 2. CSS Custom Properties
+ * 3. Reset
+ * 4. Typography
+ */
+
+/* ======================
+   1. VARIABLES
+   ====================== */
+
+// Colors
+$white: hsl(0, 0%, 100%);
+$black: hsl(0, 0%, 10%);
+$grey-dark: hsl(0, 0%, 70%);
+$grey: hsl(24, 10%, 50%);
+$grey-light: hsl(24, 10%, 75%);
+
+// Text colors
+$text-color: hsl(24, 3%, 35%);
+$text-color-dark: hsl(0, 0%, 90%);
+$text-color-secondary: hsl(24, 15%, 30%);
+$text-color-secondary-dark: hsl(0, 0%, 71%);
+$link-color: hsl(15, 70%, 40%);
+$link-color-dark: hsl(40, 80%, 50%);
+$hover-color: hsl(15, 70%, 40%);
+$hover-color-dark: hsl(40, 80%, 50%);
+
+// Background colors
+$body-bg: hsl(35, 15%, 88%);
+$body-bg-dark: hsl(28, 8%, 12%);
+$nav-bg: rgba(245, 240, 235, 0.9);
+$nav-bg-dark: rgba(0, 0, 0, 0.6);
+$card-bg: hsl(0, 0%, 100%);
+$card-bg-dark: hsl(0, 0%, 20%);
+
+// Border colors
+$border-color: hsl(24, 10%, 75%);
+$border-color-dark: hsl(0, 0%, 20%);
+$card-border-color: hsl(24, 10%, 85%);
+$card-border-color-dark: hsl(0, 0%, 35%);
+
+// Breakpoints
+$mobile-breakpoint: 768px;
+$desktop-breakpoint: 1024px;
+
+// Spacing
+$space-xs: 0.25rem;
+$space-sm: 0.5rem;
+$space-md: 1rem;
+$space-lg: 1.5rem;
+$space-xl: 2rem;
+$space-xxl: 3rem;
+
+// Aliases for backward compatibility
+$spacing-card: $space-md;
+$spacing-stack: $space-md;
+$spacing-stack-sm: $space-sm;
+$spacing-inline-lg: $space-lg;
+
+/* ======================
+   2. CSS CUSTOM PROPERTIES
+   ====================== */
+
+:root {
+	// Light mode
+	--text-color: #{$text-color};
+	--text-color-secondary: #{$text-color-secondary};
+	--link-color: #{$link-color};
+	--hover-color: #{$hover-color};
+	--body-bg: #{$body-bg};
+	--nav-bg: #{$nav-bg};
+	--card-bg: #{$card-bg};
+	--border-color: #{$border-color};
+	--card-border-color: #{$card-border-color};
+
+	// Dark mode
+	@media (prefers-color-scheme: dark) {
+		--text-color: #{$text-color-dark};
+		--text-color-secondary: #{$text-color-secondary-dark};
+		--link-color: #{$link-color-dark};
+		--hover-color: #{$hover-color-dark};
+		--body-bg: #{$body-bg-dark};
+		--nav-bg: #{$nav-bg-dark};
+		--card-bg: #{$card-bg-dark};
+		--border-color: #{$border-color-dark};
+		--card-border-color: #{$card-border-color-dark};
+	}
+}
+
+/* ======================
+   3. RESET
+   ====================== */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	line-height: 1.6;
+	color: var(--text-color);
+	background-color: var(--body-bg);
+}
+
+a {
+	color: var(--link-color);
+	text-decoration: none;
+
+	&:hover {
+		color: var(--hover-color);
+	}
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-family: inherit;
+}
+
+/* ======================
+   4. TYPOGRAPHY
+   ====================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 700;
+	line-height: 1.2;
+	margin-bottom: $space-md;
+	color: var(--text-color);
+}
+
+h1 {
+	font-size: 2.5rem;
+}
+
+h2 {
+	font-size: 2rem;
+}
+
+h3 {
+	font-size: 1.75rem;
+}
+
+h4 {
+	font-size: 1.5rem;
+}
+
+h5 {
+	font-size: 1.25rem;
+}
+
+h6 {
+	font-size: 1rem;
+}
+
+p {
+	margin-bottom: $space-md;
+}
+
+// Add all typography styles from typography.scss here 

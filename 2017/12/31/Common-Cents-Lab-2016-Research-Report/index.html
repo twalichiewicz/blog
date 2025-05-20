@@ -4,43 +4,45 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
         <head>
-  <title>Design in Everything - by Thomas Walichiewicz</title>
+  <title>2016 Research Report | Common Cents Lab - Design in Everything</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>😀</text></svg>">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
   <link rel="stylesheet" href="/styles/styles.css">
   
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
-  <script src="/js/propel-visualizations.js"></script>
-  <script src="/js/project-components.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (document.querySelector('.propel-case-study')) {
-        new PropelVisualizations();
-      }
-    });
+    if (typeof window.themeInitialized === 'undefined') {
+      const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.themeInitialized = true;
+    }
   </script>
-  
-  <script src="/js/carousel.js"></script>
-  <script src="/js/animations.js"></script>
-  <script src="/js/scroll.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/desktop-widgets.js"></script>
-  <script type="module" src="/js/components/HomeVisuals.js"></script>
+  <!-- Core Libraries -->
+  <!-- <script src="/js/lib/moment.min.js"></script> -->
+
+  <!-- Import Map -->
   <script type="importmap">
   {
     "imports": {
+      "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/+esm",
       "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
       "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
       "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
     }
   }
   </script>
-  <script src="/js/mobile-tabs.js"></script>
+
+  <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/components/HomeVisuals.js"></script>
+  <script type="module" src="/js/mobile-tabs.js"></script>
+  <script type="module" src="/js/carousel.js"></script>
+  <script type="module" src="/js/desktop-widgets.js"></script>
+  <script type="module" src="/js/animations.js"></script>
+  <script src="/js/scroll.js"></script>
+  <script src="/js/sound-effects.js"></script>
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
@@ -49,56 +51,242 @@
 </head>
     </head>
     <body>
-		<main class="project-page">
-    <article class="project">
-        <div class="pdf-wrapper" style="height: calc(100vh - var(--nav-height));">
-  <object
-    data="/2017/12/31/Common-Cents-Lab-2016-Research-Report/Common_Cents_Lab_End_of_Year_2016_Report.pdf"
-    type="application/pdf"
-    width="100%"
-    height="100%"
-    style="overflow: auto;"
-  >
-    <embed
-      src="/2017/12/31/Common-Cents-Lab-2016-Research-Report/Common_Cents_Lab_End_of_Year_2016_Report.pdf"
-      type="application/pdf"
-      width="100%"
-      height="100%"
-    />
-  </object>
-</div>
+		<!DOCTYPE html>
+<html>
+<head>
+  <title>2016 Research Report | Common Cents Lab - Design in Everything</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>😀</text></svg>">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
+  <link rel="stylesheet" href="/styles/styles.css">
+  
+  <script>
+    if (typeof window.themeInitialized === 'undefined') {
+      const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.themeInitialized = true;
+    }
+  </script>
+  <!-- Core Libraries -->
+  <!-- <script src="/js/lib/moment.min.js"></script> -->
 
-<style>
-.pdf-wrapper {
-  position: relative;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-.pdf-wrapper object,
-.pdf-wrapper embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  border: none;
-  margin: 0;
-  padding: 0;
-}
-
-@media screen and (max-width: 768px) {
-  .pdf-wrapper {
-    height: calc(100vh - 60px) !important;
+  <!-- Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/+esm",
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
+    }
   }
-}
-</style>
+  </script>
 
-    </article>
-</main>
+  <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/components/HomeVisuals.js"></script>
+  <script type="module" src="/js/mobile-tabs.js"></script>
+  <script type="module" src="/js/carousel.js"></script>
+  <script type="module" src="/js/desktop-widgets.js"></script>
+  <script type="module" src="/js/animations.js"></script>
+  <script src="/js/scroll.js"></script>
+  <script src="/js/sound-effects.js"></script>
+</head>
+<body class="project-page">
+	<div class="page-transition-overlay"></div>
+	<div class="project-wrapper">
+		<div class="project-navigation">
+			<div class="project-mini-bio">
+				<div class="button-stack">
+					<a href="/" class="project-home-button" title="Home">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+							<path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+						</svg>
+						<span>Home</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="project-gallery hidden">
+			<div class="carousel" aria-label="Media carousel">
+				<div class="carousel-track">
+					
+						<div class="carousel-empty">
+							<p>No media content available</p>
+						</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="project-content">
+			<div class="project-details">
+				<div class="project-title">
+					<span class="project-category">Common Cents Lab</span>
+					<h2>2016 Research Report</h2>
+					<div class="metadata">
+						<div class="metadata-list">
+							
+							
+								<div class="metadata-item">
+								<span class="label" style="font-size: 9px;">Co-author, layout, illustration, concept</span>
+								<span class="value" style="font-size: 12px;">Thomas Walichiewicz</span>
+								</div>
+							
+								<div class="metadata-item">
+								<span class="label" style="font-size: 9px;">Year</span>
+								<span class="value" style="font-size: 12px;">2016</span>
+								</div>
+							
+							
+							
+							
+						</div>
+					</div>
+				</div>
+				<div class="project-description">
+					<p><img src="/2017/12/31/Common-Cents-Lab-2016-Research-Report/ccl-2016-report-preview.png" loading="lazy" decoding="async"></p>
+<p><a href="Common_Cents_Lab_End_of_Year_2016_Report.pdf">Download full report</a></p>
 
+				</div>
+			</div>
+		</div>
+
+		<style>
+			/* Fade-in animation styles */
+			.page-transition-overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #000;
+				z-index: 9999;
+				opacity: 1;
+				transition: opacity 1s ease-out;
+			}
+			
+			.page-transition-overlay.fade-out {
+				opacity: 0;
+			}
+			
+			html, body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+			
+			body.loaded,
+			body.loaded html {
+				overflow: auto !important;
+			}
+			
+			body {
+				opacity: 0;
+				transition: opacity 0.5s ease-in;
+			}
+			
+			body.loaded {
+				opacity: 1;
+			}
+			
+			.project-wrapper {
+				min-height: 100vh;
+				transform: translateY(20px);
+				transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+							opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+				opacity: 0;
+			}
+			
+			body.loaded .project-wrapper {
+				transform: translateY(0);
+				opacity: 1;
+			}
+			
+			.project-navigation {
+				transform: translateY(-10px);
+				transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+							opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+				opacity: 0;
+			}
+			
+			body.loaded .project-navigation {
+				transform: translateY(0);
+				opacity: 1;
+			}
+			
+			/* Rule removed, will be added to global SCSS */
+			/* .project-wrapper.dynamic-loaded .project-navigation {
+				display: none !important;
+			} */
+			.project-gallery.hidden {
+				display: none;
+			}
+		</style>
+	</div>
+
+	<script>
+		// Page fade-in animation
+		document.addEventListener('DOMContentLoaded', function() {
+			// Wait for images to load
+			window.addEventListener('load', function() {
+				// Add a slight delay before starting the animation
+				setTimeout(function() {
+					// Add loaded class to body
+					document.body.classList.add('loaded');
+					
+					// Fade out the overlay
+					const overlay = document.querySelector('.page-transition-overlay');
+					overlay.classList.add('fade-out');
+					
+					// Remove overlay after animation completes
+					setTimeout(function() {
+						overlay.style.display = 'none';
+					}, 1000);
+				}, 400); // 400ms delay before starting the animation
+			});
+			
+			// Fallback in case load event doesn't fire
+			setTimeout(function() {
+				document.body.classList.add('loaded');
+				const overlay = document.querySelector('.page-transition-overlay');
+				overlay.classList.add('fade-out');
+				setTimeout(function() {
+					overlay.style.display = 'none';
+				}, 1000);
+			}, 2000); // Fallback timeout
+		});
+
+		// Collapse/Expand functionality
+		document.addEventListener('DOMContentLoaded', function() {
+			const collapseButton = document.querySelector('.project-collapse-button');
+			const projectMiniBio = document.querySelector('.project-mini-bio');
+			
+			if (collapseButton && projectMiniBio) {
+				collapseButton.addEventListener('click', function() {
+					projectMiniBio.classList.toggle('collapsed');
+					const isCollapsed = projectMiniBio.classList.contains('collapsed');
+					
+					// Update button text and icon
+					const buttonText = collapseButton.querySelector('span');
+					if (buttonText) {
+						buttonText.textContent = isCollapsed ? 'Expand' : 'Collapse';
+					}
+					
+					// Update aria-label
+					collapseButton.setAttribute('aria-label', 
+						isCollapsed ? 'Expand navigation' : 'Collapse navigation'
+					);
+				});
+			}
+		});
+	</script>
+</body>
+</html> 
 
         
 <script src="/js/device-detection.js"></script>

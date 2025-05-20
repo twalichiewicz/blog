@@ -21,6 +21,14 @@ export default class MobileTabs {
 			...options
 		};
 
+		// Store bound listeners for removal
+		this.boundListeners = {
+			handleTabClick: null,
+			handleResize: null,
+			handleOrientationChange: null
+		};
+		this.tabClickListeners = new Map(); // Store individual tab click listeners
+
 		// Initialize state
 		this.userSelectedTab = null;
 		this.currentDeviceType = '';
@@ -67,19 +75,63 @@ export default class MobileTabs {
 	 * Set up event listeners
 	 */
 	setupEventListeners() {
+		// Ensure previous listeners are removed before adding new ones
+		this.removeEventListeners();
+
+		// Create bound versions of handlers
+		this.boundListeners.handleResize = this.handleResize.bind(this);
+		this.boundListeners.handleOrientationChange = this.handleDeviceChange.bind(this);
+
 		// Tab button click events
 		this.tabButtons.forEach(button => {
-			button.addEventListener('click', (e) => {
+			// Create a unique bound handler for each button to manage individually if needed,
+			// or use a shared one if parameters aren't button-specific.
+			// Here, we use a shared handler factory approach.
+			const handler = (e) => {
 				const type = e.currentTarget.dataset.type;
 				this.switchTab(type, true);
-			});
+			};
+			this.tabClickListeners.set(button, handler); // Store handler associated with button
+			button.addEventListener('click', handler);
 		});
 
 		// Window resize event
-		window.addEventListener('resize', () => this.handleResize());
+		window.addEventListener('resize', this.boundListeners.handleResize);
 
 		// Device orientation change
-		window.addEventListener('orientationchange', () => this.handleDeviceChange());
+		window.addEventListener('orientationchange', this.boundListeners.handleOrientationChange);
+	}
+
+	/**
+	 * Remove all event listeners added by this instance.
+	 */
+	removeEventListeners() {
+		// Remove tab button listeners
+		this.tabClickListeners.forEach((handler, button) => {
+			button.removeEventListener('click', handler);
+		});
+		this.tabClickListeners.clear(); // Clear the map after removing
+
+		// Remove window listeners
+		if (this.boundListeners.handleResize) {
+			window.removeEventListener('resize', this.boundListeners.handleResize);
+		}
+		if (this.boundListeners.handleOrientationChange) {
+			window.removeEventListener('orientationchange', this.boundListeners.handleOrientationChange);
+		}
+	}
+
+	/**
+	 * Destroy the component instance, removing listeners.
+	 */
+	destroy() {
+		this.removeEventListeners();
+		// Optional: Add any other cleanup logic here (e.g., removing added elements)
+		const slider = this.tabContainer?.querySelector('.mobile-tabs-slider');
+		if (slider) {
+			// slider.remove(); // Decide if the slider element should be removed on destroy
+		}
+		this.tabContainer?.classList.remove('has-slider-element');
 	}
 
 	/**
@@ -113,17 +165,23 @@ export default class MobileTabs {
 
 		// If slider doesn't exist, create it
 		if (!slider) {
-			// Remove the ::after pseudo-element styling by adding a class
-			this.tabContainer.classList.add('has-slider-element');
-
-			// Create a new slider element
+			console.log('[MobileTabs] Slider element not found, creating it.');
 			slider = document.createElement('div');
 			slider.className = 'mobile-tabs-slider';
 			this.tabContainer.appendChild(slider);
 		}
 
+		// Ensure the class to hide the ::after pseudo-element is present
+		// regardless of whether the slider was found or created.
+		this.tabContainer.classList.add('has-slider-element');
+
 		// Position the slider initially
-		setTimeout(() => this.updateSlider(), 10);
+		// setTimeout(() => this.updateSlider(), 10);
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				this.updateSlider();
+			});
+		});
 	}
 
 	/**
@@ -172,54 +230,60 @@ export default class MobileTabs {
 	 * @returns {string} The active tab type
 	 */
 	validateActiveState() {
-		// Count active tabs
-		let activeCount = 0;
-		let lastActiveButton = null;
-
+		let activeButtons = [];
 		this.tabButtons.forEach(button => {
 			if (button.classList.contains(this.config.activeClass)) {
-				activeCount++;
-				lastActiveButton = button;
+				activeButtons.push(button);
 			}
 		});
 
-		// If no tabs are active, activate the blog tab by default
-		// or the last user-selected tab if available
-		if (activeCount === 0) {
-			const defaultTab = this.userSelectedTab || 'blog';
-			const defaultButton = Array.from(this.tabButtons).find(
-				btn => btn.dataset.type === defaultTab
-			);
+		let targetTabType = this.userSelectedTab; // Prioritize user's last explicit selection
 
-			if (defaultButton) {
-				defaultButton.classList.add(this.config.activeClass);
-				defaultButton.setAttribute('aria-selected', 'true');
-				this.tabContainer.setAttribute('data-active-tab', defaultTab);
-				this.showContent(defaultTab);
-				this.updateSlider(); // Update slider after changing active tab
-				return defaultTab;
-			}
+		// If a user selection exists and the UI matches it, we're good.
+		if (targetTabType && activeButtons.length === 1 && activeButtons[0].dataset.type === targetTabType) {
+			this.showContent(targetTabType); // Ensure content is consistent
+			this.updateSlider();
+			return targetTabType;
 		}
 
-		// If multiple tabs are active, keep only the last one active
-		if (activeCount > 1) {
-			this.tabButtons.forEach(button => {
-				button.classList.remove(this.config.activeClass);
-				button.setAttribute('aria-selected', 'false');
-			});
+		// If UI is inconsistent or no user selection yet, reset and apply a sensible default.
+		this.tabButtons.forEach(button => {
+			button.classList.remove(this.config.activeClass);
+			button.setAttribute('aria-selected', 'false');
+		});
 
-			if (lastActiveButton) {
-				lastActiveButton.classList.add(this.config.activeClass);
-				lastActiveButton.setAttribute('aria-selected', 'true');
-				const type = lastActiveButton.dataset.type;
-				this.tabContainer.setAttribute('data-active-tab', type);
-				this.showContent(type);
-				this.updateSlider(); // Update slider after changing active tab
-				return type;
-			}
+		if (!targetTabType && this.tabContainer.dataset.activeTab) {
+			// Fallback to data-active-tab if no user selection (e.g. from previous state or HTML)
+			targetTabType = this.tabContainer.dataset.activeTab;
+		} else if (!targetTabType) {
+			// If still no target, default to 'blog'
+			targetTabType = 'blog';
 		}
 
-		return this.tabContainer.getAttribute('data-active-tab') || 'blog';
+		const targetButton = Array.from(this.tabButtons).find(
+			btn => btn.dataset.type === targetTabType
+		);
+
+		if (targetButton) {
+			targetButton.classList.add(this.config.activeClass);
+			targetButton.setAttribute('aria-selected', 'true');
+			this.tabContainer.setAttribute('data-active-tab', targetTabType);
+			this.showContent(targetTabType);
+			this.updateSlider();
+			return targetTabType;
+		} else if (this.tabButtons.length > 0) {
+			// Absolute fallback: if targetButton somehow not found, activate the first available tab.
+			const firstButton = this.tabButtons[0];
+			targetTabType = firstButton.dataset.type;
+			firstButton.classList.add(this.config.activeClass);
+			firstButton.setAttribute('aria-selected', 'true');
+			this.tabContainer.setAttribute('data-active-tab', targetTabType);
+			this.showContent(targetTabType);
+			this.updateSlider();
+			return targetTabType;
+		}
+
+		return null; // Should ideally not be reached if there are tabs
 	}
 
 	/**

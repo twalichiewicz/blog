@@ -2,6 +2,7 @@ class Carousel {
 	static activeSpotlightCarousel = null; // Static property to track active carousel
 
 	constructor(element) {
+		console.log('[Carousel] Constructor called for:', element);
 		this.carousel = element;
 		this.track = element.querySelector('.carousel-track');
 		this.slides = Array.from(element.querySelectorAll('.carousel-slide'));
@@ -35,9 +36,32 @@ class Carousel {
 
 		// Add image click handlers
 		this.setupImageHandlers();
+		console.log('[Carousel] Constructor finished for:', element);
 	}
 
 	init() {
+		console.log('[Carousel init()] Called for:', this.carousel);
+		// Store bound versions of handlers for easy removal
+		this.boundPrev = this.prev.bind(this);
+		this.boundNext = this.next.bind(this);
+		this.indicatorHandlers = new Map();
+		this.imageClickHandlers = new Map();
+		this.boundTouchStart = this.handleTouchStart.bind(this);
+		this.boundTouchMove = this.handleTouchMove.bind(this);
+		this.boundTouchEnd = this.handleTouchEnd.bind(this);
+
+		// Remove any listeners potentially added by previous instances/calls
+		// (Note: this is somewhat redundant if destroy() is called reliably before re-init)
+		this.prevButton?.removeEventListener('click', this.boundPrev);
+		this.nextButton?.removeEventListener('click', this.boundNext);
+		this.indicators.forEach((indicator, index) => {
+			const handler = this.indicatorHandlers.get(indicator);
+			if (handler) {
+				indicator.removeEventListener('click', handler);
+			}
+		});
+		this.indicatorHandlers.clear();
+
 		// Only initialize carousel navigation if more than one slide
 		if (this.slideCount > 1) {
 			// Update the button HTML with SF Symbols SVGs
@@ -130,65 +154,30 @@ class Carousel {
 		  </svg>
 		`;
 
-			this.prevButton?.addEventListener('click', () => this.prev());
-			this.nextButton?.addEventListener('click', () => this.next());
+			this.prevButton?.addEventListener('click', this.boundPrev);
+			this.nextButton?.addEventListener('click', this.boundNext);
 
 			this.indicators.forEach((indicator, index) => {
-				indicator.addEventListener('click', () => this.goToSlide(index));
+				const handler = () => this.goToSlide(index);
+				this.indicatorHandlers.set(indicator, handler); // Store handler
+				indicator.addEventListener('click', handler);
 			});
 
 			// Enhanced touch support
-			if (this.slideCount > 1) {
-				this.carousel.addEventListener('touchstart', (e) => {
-					this.touchStartX = e.touches[0].clientX;
-					this.touchStartY = e.touches[0].clientY;
-					this.touchStartTime = Date.now();
-				}, { passive: true });
-
-				this.carousel.addEventListener('touchmove', (e) => {
-					if (!this.touchStartX) return;
-
-					const currentX = e.touches[0].clientX;
-					const currentY = e.touches[0].clientY;
-					const deltaX = this.touchStartX - currentX;
-					const deltaY = Math.abs(this.touchStartY - currentY);
-
-					// If scrolling more vertical than horizontal, don't prevent default
-					if (deltaY > Math.abs(deltaX)) return;
-
-					// Prevent page scrolling when swiping horizontally
-					e.preventDefault();
-				}, { passive: false });
-
-				this.carousel.addEventListener('touchend', (e) => {
-					const touchEndTime = Date.now();
-					const touchDuration = touchEndTime - this.touchStartTime;
-
-					this.touchEndX = e.changedTouches[0].clientX;
-					this.touchEndY = e.changedTouches[0].clientY;
-
-					const deltaX = this.touchStartX - this.touchEndX;
-					const deltaY = Math.abs(this.touchStartY - this.touchEndY);
-
-					// Only handle horizontal swipes
-					if (deltaY < Math.abs(deltaX)) {
-						this.handleSwipe(deltaX, touchDuration);
-					}
-
-					// Reset values
-					this.touchStartX = 0;
-					this.touchStartY = 0;
-					this.touchEndX = 0;
-					this.touchEndY = 0;
-				}, { passive: true });
-			}
+			this.carousel.addEventListener('touchstart', this.boundTouchStart, { passive: true });
+			this.carousel.addEventListener('touchmove', this.boundTouchMove, { passive: false });
+			this.carousel.addEventListener('touchend', this.boundTouchEnd, { passive: true });
 		}
 
 		// Add click handlers for images
 		this.slides.forEach(slide => {
 			const img = slide.querySelector('img');
-			img.style.cursor = 'nesw-resize';
-			img.addEventListener('click', () => this.openSpotlight(img.src, img.alt));
+			if (img) {
+				img.style.cursor = 'nesw-resize';
+				const handler = () => this.openSpotlight(img.src, img.alt);
+				this.imageClickHandlers.set(img, handler);
+				img.addEventListener('click', handler);
+			}
 		});
 
 		// Add lazy loading to carousel images
@@ -199,6 +188,7 @@ class Carousel {
 				img.decoding = 'async';
 			}
 		});
+		console.log('[Carousel init()] Finished for:', this.carousel);
 	}
 
 	handleSwipe(deltaX, duration) {
@@ -356,8 +346,12 @@ class Carousel {
 		if (modal) {
 			modal.classList.remove('active');
 			document.body.style.overflow = '';
-			// Clear the active spotlight carousel reference
 			Carousel.activeSpotlightCarousel = null;
+			// Remove the specific keydown listener for this spotlight instance
+			if (this.boundSpotlightKeydownHandler) {
+				document.removeEventListener('keydown', this.boundSpotlightKeydownHandler);
+				this.boundSpotlightKeydownHandler = null; // Clear reference
+			}
 		}
 	}
 
@@ -451,10 +445,11 @@ class Carousel {
 		const prevButton = modal.querySelector('.spotlight-nav-button.prev');
 		const nextButton = modal.querySelector('.spotlight-nav-button.next');
 		const closeButton = modal.querySelector('.spotlight-modal-close');
+		const self = this; // Store reference to Carousel instance
 
 		if (prevButton) {
 			prevButton.onclick = () => {
-				this.navigateSpotlight('prev');
+				self.navigateSpotlight('prev');
 				// Play slider sound
 				if (window.playSliderSound) {
 					window.playSliderSound();
@@ -463,7 +458,7 @@ class Carousel {
 		}
 		if (nextButton) {
 			nextButton.onclick = () => {
-				this.navigateSpotlight('next');
+				self.navigateSpotlight('next');
 				// Play slider sound
 				if (window.playSliderSound) {
 					window.playSliderSound();
@@ -472,7 +467,7 @@ class Carousel {
 		}
 		if (closeButton) {
 			closeButton.onclick = () => {
-				this.closeSpotlight();
+				self.closeSpotlight();
 				// Play slider sound
 				if (window.playSliderSound) {
 					window.playSliderSound();
@@ -484,7 +479,7 @@ class Carousel {
 		modal.addEventListener('click', (e) => {
 			// Check if the click was directly on the modal (background) and not on its children
 			if (e.target === modal) {
-				this.closeSpotlight();
+				self.closeSpotlight();
 				// Play slider sound
 				if (window.playSliderSound) {
 					window.playSliderSound();
@@ -493,32 +488,30 @@ class Carousel {
 		});
 
 		// Keyboard navigation
-		document.addEventListener('keydown', (e) => {
+		// Remove previous keydown listener if it exists on this instance
+		if (self.boundSpotlightKeydownHandler) {
+			document.removeEventListener('keydown', self.boundSpotlightKeydownHandler);
+		}
+		// Define and bind the handler
+		self.boundSpotlightKeydownHandler = (e) => {
 			if (!modal.classList.contains('active')) return;
-			if (Carousel.activeSpotlightCarousel !== this) return;
+			// Use Carousel.activeSpotlightCarousel for the check, not self, as it's static
+			if (Carousel.activeSpotlightCarousel !== self) return;
 
 			if (e.key === 'ArrowLeft') {
-				this.navigateSpotlight('prev');
-				// Play slider sound
-				if (window.playSliderSound) {
-					window.playSliderSound();
-				}
+				self.navigateSpotlight('prev');
+				if (window.playSliderSound) window.playSliderSound();
 			}
 			if (e.key === 'ArrowRight') {
-				this.navigateSpotlight('next');
-				// Play slider sound
-				if (window.playSliderSound) {
-					window.playSliderSound();
-				}
+				self.navigateSpotlight('next');
+				if (window.playSliderSound) window.playSliderSound();
 			}
 			if (e.key === 'Escape') {
-				this.closeSpotlight();
-				// Play slider sound
-				if (window.playSliderSound) {
-					window.playSliderSound();
-				}
+				self.closeSpotlight();
+				if (window.playSliderSound) window.playSliderSound();
 			}
-		});
+		};
+		document.addEventListener('keydown', self.boundSpotlightKeydownHandler);
 	}
 
 	navigateSpotlight(direction) {
@@ -561,36 +554,177 @@ class Carousel {
 			}
 		});
 	}
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-	// Initial initialization
-	initializeCarousels();
+	destroy() {
+		console.log('[Carousel destroy()] Called for:', this.carousel);
+		// Remove event listeners added in init()
+		this.prevButton?.removeEventListener('click', this.boundPrev);
+		this.nextButton?.removeEventListener('click', this.boundNext);
 
-	// Re-run initialization when new content is loaded
-	const observer = new MutationObserver((mutations) => {
-		mutations.forEach((mutation) => {
-			if (mutation.addedNodes.length) {
-				initializeCarousels();
+		this.indicators.forEach((indicator, index) => {
+			const handler = this.indicatorHandlers?.get(indicator);
+			if (handler) {
+				indicator.removeEventListener('click', handler);
 			}
 		});
-	});
+		this.indicatorHandlers?.clear();
 
-	// Observe the blog container for new carousels
-	const blogContainer = document.querySelector('.blog');
-	if (blogContainer) {
-		observer.observe(blogContainer, {
-			childList: true,
-			subtree: true
+		// Remove touch listeners
+		if (this.boundTouchStart) this.carousel.removeEventListener('touchstart', this.boundTouchStart);
+		if (this.boundTouchMove) this.carousel.removeEventListener('touchmove', this.boundTouchMove);
+		if (this.boundTouchEnd) this.carousel.removeEventListener('touchend', this.boundTouchEnd);
+
+		// Remove image click listeners
+		this.slides.forEach(slide => {
+			const img = slide.querySelector('img');
+			const handler = this.imageClickHandlers?.get(img);
+			if (img && handler) {
+				img.removeEventListener('click', handler);
+			}
 		});
+		this.imageClickHandlers?.clear();
+
+		// Remove iframe load listeners maybe?
+		// ... other cleanup ...
+
+		// Remove spotlight keydown listener if it was attached
+		if (this.boundSpotlightKeydownHandler) {
+			document.removeEventListener('keydown', this.boundSpotlightKeydownHandler);
+			this.boundSpotlightKeydownHandler = null;
+		}
+
+		console.log('Carousel instance destroyed:', this.carousel);
+		console.log('[Carousel destroy()] Finished for:', this.carousel);
+		// Mark as no longer initialized internally (for debugging, classList is external)
+		this.carousel.dataset.carouselInstanceDestroyed = 'true';
+	}
+
+	// Need to define handleTouchStart, handleTouchMove, handleTouchEnd as methods
+	handleTouchStart(e) {
+		if (this.slideCount <= 1) return;
+		this.touchStartX = e.touches[0].clientX;
+		this.touchStartY = e.touches[0].clientY;
+		this.touchStartTime = Date.now();
+	}
+
+	handleTouchMove(e) {
+		if (this.slideCount <= 1 || !this.touchStartX) return;
+		const currentX = e.touches[0].clientX;
+		const currentY = e.touches[0].clientY;
+		const deltaX = this.touchStartX - currentX;
+		const deltaY = Math.abs(this.touchStartY - currentY);
+		// If scrolling more vertical than horizontal, don't prevent default
+		if (deltaY > Math.abs(deltaX)) return;
+		// Prevent page scrolling when swiping horizontally
+		e.preventDefault();
+	}
+
+	handleTouchEnd(e) {
+		if (this.slideCount <= 1 || !this.touchStartX) return;
+		const touchEndTime = Date.now();
+		const touchDuration = touchEndTime - this.touchStartTime;
+		this.touchEndX = e.changedTouches[0].clientX;
+		this.touchEndY = e.changedTouches[0].clientY;
+		const deltaX = this.touchStartX - this.touchEndX;
+		const deltaY = Math.abs(this.touchStartY - this.touchEndY);
+		// Only handle horizontal swipes
+		if (deltaY < Math.abs(deltaX)) {
+			this.handleSwipe(deltaX, touchDuration);
+		}
+		// Reset values
+		this.touchStartX = 0;
+		this.touchStartY = 0;
+		this.touchEndX = 0;
+		this.touchEndY = 0;
+	}
+}
+
+// Keep track of initialized carousel elements
+const initializedCarousels = new WeakSet();
+let carouselInstances = []; // Store instances for potential cleanup
+
+export function initializeCarousels(container = document) {
+	console.log('[carousel.js] initializeCarousels Start, container:', container.id || container.tagName);
+	// Query ALL carousels in the container, not just those :not(.initialized)
+	const carouselsToProcess = container.querySelectorAll('.carousel');
+	console.log(`[carousel.js] Found ${carouselsToProcess.length} total .carousel elements in container ${container.id || container.tagName}`);
+
+	carouselsToProcess.forEach(carouselElement => {
+		console.log('[carousel.js] Processing carouselElement:', carouselElement, 'Current classes:', carouselElement.className);
+
+		// Attempt to find and destroy any existing instance associated with this DOM element
+		const existingInstanceIndex = carouselInstances.findIndex(inst => inst.carousel === carouselElement);
+		if (existingInstanceIndex > -1) {
+			console.log('[carousel.js] Destroying existing tracked instance for:', carouselElement);
+			try {
+				carouselInstances[existingInstanceIndex].destroy();
+			} catch (e) {
+				console.error('[carousel.js] Error destroying existing instance:', e, carouselElement);
+			}
+			carouselInstances.splice(existingInstanceIndex, 1);
+		}
+		// Also ensure it's removed from the WeakSet if it was there
+		initializedCarousels.delete(carouselElement);
+
+		// Always remove .initialized class before attempting re-initialization to ensure a clean state
+		carouselElement.classList.remove('initialized');
+		delete carouselElement.dataset.carouselInstanceDestroyed; // Clean up our debug marker
+
+		console.log('[carousel.js] Attempting to initialize new Carousel for element:', carouselElement);
+		try {
+			const newInstance = new Carousel(carouselElement);
+			carouselElement.classList.add('initialized'); // Mark as initialized *after* successful construction
+			initializedCarousels.add(carouselElement);
+			carouselInstances.push(newInstance);
+		} catch (error) {
+			console.error('[carousel.js] Error initializing carousel:', error, carouselElement);
+		}
+	});
+	console.log(`[carousel.js] initializeCarousels End. Total active instances: ${carouselInstances.length}`);
+}
+
+// Clean up instances associated with a container before it's removed/replaced
+export function cleanupCarouselInstances(container) {
+	console.log('[carousel.js] cleanupCarouselInstances Start for container:', container.id || container.tagName);
+	const carouselsInContainer = container.querySelectorAll('.carousel.initialized'); // Find carousels marked as initialized
+	console.log(`[carousel.js] Found ${carouselsInContainer.length} .carousel.initialized in container ${container.id || container.tagName} to cleanup.`);
+
+	carouselsInContainer.forEach(carouselElement => {
+		console.log('[carousel.js cleanup] Processing carouselElement for cleanup:', carouselElement);
+		const instanceIndex = carouselInstances.findIndex(inst => inst.carousel === carouselElement);
+		if (instanceIndex > -1) {
+			try {
+				console.log('[carousel.js cleanup] Destroying instance during cleanup for:', carouselElement);
+				carouselInstances[instanceIndex].destroy();
+				carouselInstances.splice(instanceIndex, 1);
+			} catch (error) {
+				console.error('[carousel.js cleanup] Error destroying carousel instance during cleanup:', error, carouselElement);
+			}
+		} else {
+			console.warn('[carousel.js cleanup] Could not find instance in carouselInstances for element:', carouselElement);
+		}
+		initializedCarousels.delete(carouselElement);
+		carouselElement.classList.remove('initialized');
+		// Remove the dataset marker if it was set
+		delete carouselElement.dataset.carouselInstanceDestroyed;
+	});
+	console.log(`[carousel.js] cleanupCarouselInstances End. Total active instances: ${carouselInstances.length}`);
+}
+
+// Handle bfcache restore
+window.addEventListener('pageshow', (event) => {
+	if (event.persisted) {
+		console.log('[carousel.js pageshow] Start - bfcache');
+		// Simply re-run initialization for the whole document.
+		// The logic within initializeCarousels handles destroying old instances.
+		initializeCarousels(document);
+		console.log('[carousel.js pageshow] End - bfcache');
 	}
 });
 
-function initializeCarousels() {
-	document.querySelectorAll('.carousel').forEach(carousel => {
-		if (!carousel.hasAttribute('data-initialized')) {
-			new Carousel(carousel);
-			carousel.setAttribute('data-initialized', 'true');
-		}
-	});
+// Initialize on initial load (since this is a module, it runs once) - Moved pageshow logic here
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', () => initializeCarousels(document));
+} else {
+	initializeCarousels(document); // Initialize if DOM is already ready
 }

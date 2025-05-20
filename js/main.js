@@ -2,9 +2,10 @@
  * Main JavaScript Entry Point
  * Import and initialize all modules
  */
-import ColorScheme from './utils/color-scheme.js';
+// import ColorScheme from './components/ColorScheme.js'; // Commented out - file not found
 import { initNavigation } from './utils/navigation.js';
 import { initSectionAnimations, initColumnTitleScrollDetection } from './utils/animations.js';
+import { initializeDesktopWidgets, cleanupDesktopWidgetsInstance } from './desktop-widgets.js';
 
 document.addEventListener('DOMContentLoaded', function () {
 	try {
@@ -48,20 +49,24 @@ function initColorScheme() {
 		const bodyEl = document.body;
 		const options = colorSchemeToggle.getElementsByTagName('input');
 
-		// Get the initial color scheme preference
+		// Get the initial color scheme preference - Requires ColorScheme class
+		/* Commented out due to missing ColorScheme.js
 		const currentScheme = ColorScheme.getCurrent();
 		if (currentScheme) {
 			bodyEl.setAttribute('data-color-scheme', currentScheme);
 		}
+		*/
 
 		// Set up event listeners for the color scheme toggle
 		for (const option of options) {
-			if (option.value === bodyEl.getAttribute('data-color-scheme')) {
+			if (option.value === bodyEl.getAttribute('data-color-scheme')) { // Check against existing attribute
 				option.checked = true;
 			}
 			option.addEventListener('change', (ev) => {
 				const value = ev.target.value;
-				ColorScheme.setCurrent(value);
+				// ColorScheme.setCurrent(value); // Requires ColorScheme class
+				bodyEl.setAttribute('data-color-scheme', value); // Directly set attribute for now
+				localStorage.setItem('theme', value); // Also save to localStorage
 				for (const o of options) {
 					o.checked = (o.value === value);
 				}
@@ -71,3 +76,12 @@ function initColorScheme() {
 		console.error('Error initializing color scheme:', error);
 	}
 }
+
+// Handle bfcache for widgets (or remove if module handles it)
+window.addEventListener('pageshow', (event) => {
+	if (event.persisted) {
+		console.log("[main.js pageshow] Start - bfcache");
+		// Desktop widgets initialization/cleanup is handled within its own module's pageshow
+		console.log("[main.js pageshow] End - bfcache");
+	}
+});

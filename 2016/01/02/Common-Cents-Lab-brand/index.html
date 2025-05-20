@@ -6,29 +6,43 @@
         <head>
   <title>Common Cents Lab brand | Common Cents Lab - Design in Everything</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>😀</text></svg>">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
   <link rel="stylesheet" href="/styles/styles.css">
   
-  <script src="/js/carousel.js"></script>
-  <script src="/js/animations.js"></script>
-  <script src="/js/scroll.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/desktop-widgets.js"></script>
-  <script type="module" src="/js/components/HomeVisuals.js"></script>
+  <script>
+    if (typeof window.themeInitialized === 'undefined') {
+      const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.themeInitialized = true;
+    }
+  </script>
+  <!-- Core Libraries -->
+  <!-- <script src="/js/lib/moment.min.js"></script> -->
+
+  <!-- Import Map -->
   <script type="importmap">
   {
     "imports": {
+      "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/+esm",
       "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
       "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
       "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
     }
   }
   </script>
-  <script src="/js/mobile-tabs.js"></script>
+
+  <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/components/HomeVisuals.js"></script>
+  <script type="module" src="/js/mobile-tabs.js"></script>
+  <script type="module" src="/js/carousel.js"></script>
+  <script type="module" src="/js/desktop-widgets.js"></script>
+  <script type="module" src="/js/animations.js"></script>
+  <script src="/js/scroll.js"></script>
+  <script src="/js/sound-effects.js"></script>
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
@@ -42,70 +56,68 @@
 <head>
   <title>Common Cents Lab brand | Common Cents Lab - Design in Everything</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>😀</text></svg>">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
   <link rel="stylesheet" href="/styles/styles.css">
   
-  <script src="/js/carousel.js"></script>
-  <script src="/js/animations.js"></script>
-  <script src="/js/scroll.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/desktop-widgets.js"></script>
-  <script type="module" src="/js/components/HomeVisuals.js"></script>
+  <script>
+    if (typeof window.themeInitialized === 'undefined') {
+      const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      window.themeInitialized = true;
+    }
+  </script>
+  <!-- Core Libraries -->
+  <!-- <script src="/js/lib/moment.min.js"></script> -->
+
+  <!-- Import Map -->
   <script type="importmap">
   {
     "imports": {
+      "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/+esm",
       "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
       "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
       "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
     }
   }
   </script>
-  <script src="/js/mobile-tabs.js"></script>
+
+  <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/components/HomeVisuals.js"></script>
+  <script type="module" src="/js/mobile-tabs.js"></script>
+  <script type="module" src="/js/carousel.js"></script>
+  <script type="module" src="/js/desktop-widgets.js"></script>
+  <script type="module" src="/js/animations.js"></script>
+  <script src="/js/scroll.js"></script>
+  <script src="/js/sound-effects.js"></script>
 </head>
 <body class="project-page">
 	<div class="page-transition-overlay"></div>
-	
-	<div class="project-navigation">
-		<div class="project-mini-bio">
-			<div class="project-mini-bio-image">
-				<img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo" loading="lazy" decoding="async">
-			</div>
-			<div class="project-mini-bio-content">
-				<h4 class="project-mini-bio-name">Project Details</h4>
-				<p class="project-mini-bio-text">Thanks for reading this project deep dive! Even more are available from the home page.</p>
-			</div>
-			<div class="button-stack">
-				<a href="/" class="project-home-button" title="Home">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-						<path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
-						<path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
-					</svg>
-					<span>Home</span>
-				</a>
-				<button class="project-collapse-button" aria-label="Toggle navigation">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<polyline points="15 18 9 12 15 6"></polyline>
-					</svg>
-					<span>Collapse</span>
-				</button>
+	<div class="project-wrapper">
+		<div class="project-navigation">
+			<div class="project-mini-bio">
+				<div class="button-stack">
+					<a href="/" class="project-home-button" title="Home">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+							<path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+						</svg>
+						<span>Home</span>
+					</a>
+				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="project-wrapper">
-		<div class="project-gallery" style="">
+		<div class="project-gallery">
 			<div class="carousel" aria-label="Media carousel">
 				<div class="carousel-track">
 					
 						
-							<div class="carousel-slide active" 
-								aria-hidden="false">
+							<div class="carousel-slide active" aria-hidden="false">
 								
-									<img src="/2016/01/02/Common-Cents-Lab-brand/introVideo.gif" 
+									<img src="/2016/01/02/Common-Cents-Lab-brand/introVideo.gif"
 										alt="Common Cents Lab logo animation."
 										loading="lazy"
 										decoding="async">
@@ -115,10 +127,9 @@
 								
 							</div>
 						
-							<div class="carousel-slide " 
-								aria-hidden="true">
+							<div class="carousel-slide " aria-hidden="true">
 								
-									<img src="/2016/01/02/Common-Cents-Lab-brand/ccPayableWebinar.png" 
+									<img src="/2016/01/02/Common-Cents-Lab-brand/ccPayableWebinar.png"
 										alt="The Common Cents Lab logo."
 										loading="lazy"
 										decoding="async">
@@ -128,10 +139,9 @@
 								
 							</div>
 						
-							<div class="carousel-slide " 
-								aria-hidden="true">
+							<div class="carousel-slide " aria-hidden="true">
 								
-									<img src="/2016/01/02/Common-Cents-Lab-brand/promotionalImages.png" 
+									<img src="/2016/01/02/Common-Cents-Lab-brand/promotionalImages.png"
 										alt="Promotional images for the Common Cents Lab booklet."
 										loading="lazy"
 										decoding="async">
@@ -141,21 +151,16 @@
 								
 							</div>
 						
-
 						
 							<button class="carousel-button prev" aria-label="Previous slide"></button>
 							<button class="carousel-button next" aria-label="Next slide"></button>
-							
 							<div class="carousel-indicators">
 								
-									<button class="indicator active" 
-											aria-label="Go to slide 1"></button>
+									<button class="indicator active" aria-label="Go to slide 1"></button>
 								
-									<button class="indicator " 
-											aria-label="Go to slide 2"></button>
+									<button class="indicator " aria-label="Go to slide 2"></button>
 								
-									<button class="indicator " 
-											aria-label="Go to slide 3"></button>
+									<button class="indicator " aria-label="Go to slide 3"></button>
 								
 							</div>
 						
@@ -196,66 +201,80 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<style>
-		/* Fade-in animation styles */
-		.page-transition-overlay {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: #000;
-			z-index: 9999;
-			opacity: 1;
-			transition: opacity 1s ease-out;
-		}
-		
-		.page-transition-overlay.fade-out {
-			opacity: 0;
-		}
-		
-		html, body {
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-		}
-		
-		body {
-			opacity: 0;
-			transition: opacity 0.5s ease-in;
-		}
-		
-		body.loaded {
-			opacity: 1;
-		}
-		
-		.project-wrapper {
-			transform: translateY(20px);
-			transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-						opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-			opacity: 0;
-		}
-		
-		body.loaded .project-wrapper {
-			transform: translateY(0);
-			opacity: 1;
-		}
-		
-		.project-navigation {
-			transform: translateY(-10px);
-			transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
-						opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-			opacity: 0;
-		}
-		
-		body.loaded .project-navigation {
-			transform: translateY(0);
-			opacity: 1;
-		}
-	</style>
+		<style>
+			/* Fade-in animation styles */
+			.page-transition-overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #000;
+				z-index: 9999;
+				opacity: 1;
+				transition: opacity 1s ease-out;
+			}
+			
+			.page-transition-overlay.fade-out {
+				opacity: 0;
+			}
+			
+			html, body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+			
+			body.loaded,
+			body.loaded html {
+				overflow: auto !important;
+			}
+			
+			body {
+				opacity: 0;
+				transition: opacity 0.5s ease-in;
+			}
+			
+			body.loaded {
+				opacity: 1;
+			}
+			
+			.project-wrapper {
+				min-height: 100vh;
+				transform: translateY(20px);
+				transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+							opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+				opacity: 0;
+			}
+			
+			body.loaded .project-wrapper {
+				transform: translateY(0);
+				opacity: 1;
+			}
+			
+			.project-navigation {
+				transform: translateY(-10px);
+				transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+							opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+				opacity: 0;
+			}
+			
+			body.loaded .project-navigation {
+				transform: translateY(0);
+				opacity: 1;
+			}
+			
+			/* Rule removed, will be added to global SCSS */
+			/* .project-wrapper.dynamic-loaded .project-navigation {
+				display: none !important;
+			} */
+			.project-gallery.hidden {
+				display: none;
+			}
+		</style>
+	</div>
 
 	<script>
 		// Page fade-in animation
