@@ -1,362 +1,45 @@
 @use 'variables';
 @use 'shared-components';
 @use "sass:color";
+@use 'project';
 
 // Post navigation with mini profile
-.post-navigation {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 10;
-	pointer-events: none;
-
-	.post-mini-bio {
-		pointer-events: auto;
-		display: flex;
-		padding: 6px;
-		border-radius: 10px;
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-		background: rgba(255, 255, 255, 0.7);
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.03);
-		backdrop-filter: blur(8px);
-		align-items: flex-start;
-		position: absolute;
-		overflow: hidden;
-		max-width: 450px;
-		top: 24px;
-		left: 24px;
-		z-index: 10;
-		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-			opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-		&::after {
-			content: '';
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			height: 1px;
-			background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.05), transparent);
-		}
-
-		.post-mini-bio-image {
-			flex-shrink: 0;
-			width: 52px;
-			height: 52px;
-			border-radius: 50%;
-			overflow: hidden;
-			margin-right: 9px;
-			padding: 2px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			position: relative;
-			box-shadow:
-				0 0 0 1px rgba(255, 255, 255, 0.7),
-				0 0 0 2px rgba(0, 0, 0, 0.1),
-				inset 0 2px 4px rgba(0, 0, 0, 0.4),
-				inset 0 -2px 4px rgba(255, 255, 255, 0.3);
-			background: linear-gradient(145deg,
-					rgba(255, 255, 255, 0.1),
-					rgba(0, 0, 0, 0.1));
-
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				filter: grayscale(12%);
-				border-radius: 50%;
-			}
-		}
-
-		.post-mini-bio-content {
-			flex-grow: 1;
-			margin-right: 16px;
-		}
-
-		.post-mini-bio-name {
-			font-size: 13px;
-			font-weight: 500;
-			margin: 0 0 2px 0;
-			color: rgba(0, 0, 0, 0.8);
-		}
-
-		.post-mini-bio-text {
-			margin: 0;
-			font-size: 12px;
-			line-height: 1.4;
-			color: rgba(0, 0, 0, 0.6);
-			max-width: 75ch;
-		}
-
-		.button-stack {
-			display: flex;
-			flex-direction: column;
-			gap: 4px;
-			margin-left: auto;
-		}
-
-		.post-home-button {
-			display: flex;
-			align-items: center;
-			padding: 4px 10px;
-			border-radius: 6px;
-			text-decoration: none;
-			color: variables.$white;
-			font-size: 12px;
-			font-weight: 500;
-			background: variables.$link-color;
-			border: 1px solid rgba(0, 0, 0, 0.1);
-			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.05),
-				inset 0 1px 0 rgba(255, 255, 255, 0.1);
-			transition: all 0.2s ease;
-			flex-shrink: 0;
-			width: auto;
-
-			svg {
-				width: 16px;
-				height: 16px;
-				margin-right: 6px;
-				stroke: currentColor;
-				flex-shrink: 0;
-			}
-
-			span {
-				line-height: 16px;
-			}
-
-			&:hover {
-				background: variables.$hover-color;
-				box-shadow:
-					0 2px 4px rgba(0, 0, 0, 0.1),
-					0 1px 2px rgba(0, 0, 0, 0.05),
-					inset 0 1px 0 rgba(255, 255, 255, 0.2);
-				transform: translateY(-1px);
-			}
-
-			&:active {
-				background: variables.$hover-color;
-				box-shadow:
-					0 1px 1px rgba(0, 0, 0, 0.05),
-					inset 0 1px 2px rgba(0, 0, 0, 0.1);
-				transform: translateY(1px);
-			}
-		}
-
-		.post-collapse-button {
-			display: flex;
-			align-items: center;
-			gap: 0;
-			padding: 4px 10px;
-			border-radius: 6px;
-			color: rgba(0, 0, 0, 0.7);
-			font-size: 12px;
-			font-weight: 500;
-			background: rgba(255, 255, 255, 0.8);
-			border: 1px solid rgba(0, 0, 0, 0.1);
-			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.05),
-				0 1px 1px rgba(0, 0, 0, 0.03),
-				inset 0 1px 0 rgba(255, 255, 255, 0.8);
-			transition: all 0.2s ease;
-			cursor: pointer;
-			flex-shrink: 0;
-			width: auto;
-
-			svg {
-				width: 16px;
-				height: 16px;
-				margin-right: 6px;
-				transition: transform 0.3s ease;
-				flex-shrink: 0;
-			}
-
-			span {
-				line-height: 16px;
-			}
-
-			&:hover {
-				background: rgba(255, 255, 255, 0.95);
-				box-shadow:
-					0 2px 4px rgba(0, 0, 0, 0.08),
-					0 1px 2px rgba(0, 0, 0, 0.05),
-					inset 0 1px 0 rgba(255, 255, 255, 1);
-			}
-
-			&:active {
-				background: rgba(240, 240, 240, 0.9);
-				box-shadow:
-					0 1px 1px rgba(0, 0, 0, 0.05),
-					inset 0 1px 3px rgba(0, 0, 0, 0.1);
-			}
-		}
-
-		&.collapsed {
-			max-width: fit-content;
-			transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-				transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-				opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-			.post-mini-bio-content {
-				opacity: 0;
-				transform: translateY(-10px);
-				height: 0;
-				margin: 0;
-				padding: 0;
-				overflow: hidden;
-				width: 0;
-			}
-
-			.post-mini-bio-image {
-				opacity: 0;
-				transform: translateY(-10px);
-				height: 0;
-				margin: 0;
-				padding: 0;
-				overflow: hidden;
-				width: 0;
-			}
-
-			.post-home-button {
-				padding: 4px;
-				width: 24px;
-				height: 24px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-
-				span {
-					display: none;
-				}
-
-				svg {
-					margin: 0;
-				}
-			}
-
-			.post-collapse-button {
-				padding: 4px;
-				width: 24px;
-				height: 24px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				margin: 0;
-				gap: 0;
-
-				span {
-					display: none;
-				}
-
-				svg {
-					margin: 0;
-					transform: rotate(180deg);
-				}
-			}
-		}
-
-		.post-mini-bio-content,
-		.post-mini-bio-image,
-		.button-stack {
-			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		}
-
-		@media (prefers-color-scheme: dark) {
-			background: rgba(30, 30, 30, 0.7);
-			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.15);
-			backdrop-filter: blur(8px);
-
-			&::after {
-				background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent);
-			}
-
-			.post-mini-bio-image {
-				box-shadow:
-					0 0 0 1px rgba(255, 255, 255, 0.2),
-					0 0 0 2px rgba(0, 0, 0, 0.3),
-					inset 0 2px 4px rgba(0, 0, 0, 0.6),
-					inset 0 -2px 4px rgba(255, 255, 255, 0.1);
-				background: linear-gradient(145deg,
-						rgba(255, 255, 255, 0.05),
-						rgba(0, 0, 0, 0.2));
-			}
-
-			.post-mini-bio-name {
-				color: rgba(255, 255, 255, 0.9);
-			}
-
-			.post-mini-bio-text {
-				color: rgba(255, 255, 255, 0.6);
-			}
-
-			.post-home-button {
-				background: variables.$link-color-dark;
-				border-color: rgba(0, 0, 0, 0.2);
-				color: variables.$black;
-				box-shadow:
-					0 1px 2px rgba(0, 0, 0, 0.2),
-					inset 0 1px 0 rgba(255, 255, 255, 0.1);
-
-				&:hover {
-					background: variables.$hover-color-dark;
-					color: variables.$black;
-					box-shadow:
-						0 2px 4px rgba(0, 0, 0, 0.3),
-						0 1px 2px rgba(0, 0, 0, 0.2),
-						inset 0 1px 0 rgba(255, 255, 255, 0.1);
-				}
-
-				&:active {
-					background: variables.$hover-color-dark;
-					box-shadow:
-						0 1px 1px rgba(0, 0, 0, 0.2),
-						inset 0 1px 2px rgba(0, 0, 0, 0.2);
-				}
-			}
-
-			.post-collapse-button {
-				background: rgba(255, 255, 255, 0.1);
-				color: rgba(255, 255, 255, 0.8);
-				border-color: rgba(255, 255, 255, 0.1);
-				box-shadow:
-					0 1px 2px rgba(0, 0, 0, 0.2),
-					inset 0 1px 0 rgba(255, 255, 255, 0.05);
-
-				&:hover {
-					background: rgba(255, 255, 255, 0.15);
-					box-shadow:
-						0 2px 4px rgba(0, 0, 0, 0.3),
-						inset 0 1px 0 rgba(255, 255, 255, 0.1);
-				}
-
-				&:active {
-					background: rgba(255, 255, 255, 0.05);
-					box-shadow:
-						0 1px 1px rgba(0, 0, 0, 0.2),
-						inset 0 1px 2px rgba(0, 0, 0, 0.2);
-				}
-			}
-		}
-	}
+.post-navigation,
+.project-navigation {
+	@extend .project-navigation;
 }
 
-// Post page styling
-.post {
-	max-width: 800px;
-	margin: 0 auto variables.$space-md;
-	padding: variables.$space-md variables.$space-md;
-	position: relative;
+.post-mini-bio,
+.project-mini-bio {
+	@extend .project-mini-bio;
+}
 
-	// Light mode
+.post-home-button,
+.project-home-button {
+	@extend .project-home-button;
+}
+
+.post-collapse-button,
+.project-collapse-button {
+	@extend .project-collapse-button;
+}
+
+// Make .post match .project-description for content area
+.post {
+	@include project.content-area-styles;
+	margin: 0 auto 24px auto;
+	max-width: 800px;
+	padding: 32px;
+	border-radius: 16px;
+	background: variables.$white;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+	border: 1px solid rgba(0, 0, 0, 0.03);
 	background-color: variables.$white;
 	color: variables.$text-color;
 	box-shadow: variables.$shadow-medium;
 	border-radius: 20px;
 	border: 1px solid rgba(0, 0, 0, 0.03);
 
-	// Dark mode
 	@media (prefers-color-scheme: dark) {
 		background-color: variables.$card-bg-dark;
 		color: variables.$text-color-dark;
@@ -979,15 +662,18 @@
 
 // Responsive styles
 @media (max-width: variables.$mobile-breakpoint) {
-	.post-navigation {
-		top: 1rem;
-		left: 1rem;
+	.project-navigation {
+		position: relative;
 	}
 
 	.post {
-		padding: variables.$space-md variables.$space-sm variables.$space-lg;
-		margin-bottom: variables.$space-lg;
-		margin-top: 3.5rem; // Add top margin to prevent overlap with home button
+		transform: none;
+		margin-left: 16px;
+		margin-right: 16px;
+		margin-top: 0;
+		margin-bottom: 0;
+		padding-left: 16px;
+		padding-right: 16px;
 		border-radius: 16px;
 
 		.post-title {
@@ -1046,6 +732,65 @@
 			}
 		}
 	}
+
+	.post .post-content {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.post-navigation {
+		top: 1rem;
+		left: 1rem;
+	}
 }
 
 // Dark mode styles will be handled in _theme-modes.scss
+
+// Added by AI - 2024-07-30
+.blog-content>.content-inner-wrapper {
+	// overflow: scroll; // Removed to prevent scroll on mobile
+
+	@media (max-width: variables.$mobile-breakpoint) {
+		overflow: visible;
+	}
+
+	article.post {
+		background-color: transparent;
+		box-shadow: none;
+		border-color: transparent;
+
+		@media (prefers-color-scheme: dark) {
+			background-color: transparent;
+			border-color: transparent;
+		}
+	}
+}
+
+// Added by AI - 2024-07-30
+.skully-container {
+	text-align: center; // Centers inline or inline-block children
+	margin-top: variables.$space-lg; // Add some space above the skully
+
+	.skully-image {
+		// Assuming skully is an image with this class
+		display: inline-block; // Allows text-align to work if it's a block image by default
+		// Add any specific skully image styles here, like max-width
+		max-width: 100px; // Example width
+
+		@media (prefers-color-scheme: dark) {
+			filter: invert(1) grayscale(100%) brightness(200%); // Makes it white/light
+		}
+	}
+
+	// If skully is an SVG and you can change its fill color via CSS:
+	.skully-svg {
+		// Add centering for SVG if needed, e.g., display: block; margin: 0 auto;
+		// width: 100px; // Example width
+		// height: 100px; // Example height
+		fill: variables.$text-color; // Default color
+
+		@media (prefers-color-scheme: dark) {
+			fill: variables.$text-color-dark; // Use existing light color for dark mode
+		}
+	}
+}

@@ -32,10 +32,15 @@ tags:
 </div>
 
 <script>
- document.querySelector('.kidpix-lives #hashtagButton').addEventListener('click', function() {
-  var audio = document.querySelector('.kidpix-lives #oopsSound');
-  audio.play();
- });
+ const hashtagButton = document.querySelector('.kidpix-lives #hashtagButton');
+ if (hashtagButton) {
+  hashtagButton.addEventListener('click', function() {
+   var audio = document.querySelector('.kidpix-lives #oopsSound');
+   if (audio) {
+    audio.play();
+   }
+  });
+ }
 
  var images = document.querySelectorAll('.kidpix-lives img');
  for (var i = 0; i < images.length; i++) {

@@ -64,7 +64,7 @@
 			padding-right: variables.$space-sm;
 
 			.profile-stats {
-				justify-content: center;
+				justify-content: start;
 			}
 		}
 	}
@@ -277,19 +277,24 @@
 			max-width: 600px;
 			margin-left: auto;
 			margin-right: auto;
+			flex-shrink: 0;
 		}
 
 		.content-wrapper {
-			flex-direction: column;
-			height: 100%;
-			overflow: hidden;
+			position: relative;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			overflow-y: auto;
+			overflow-x: hidden;
 		}
 
 		#postsContent,
 		#projectsContent {
-			height: 100%;
+			height: auto;
 			padding: variables.$space-md variables.$space-md;
-			overflow-y: auto;
+			overflow-y: visible;
 			overflow-x: hidden;
 			box-sizing: border-box;
 
@@ -369,6 +374,13 @@
 			}
 		}
 	}
+
+	/* Tablet Portrait adjustments (iPad portrait: 768px width) */
+	&.orientation-portrait {
+		.blog-header {
+			width: 768px;
+		}
+	}
 }
 
 /* ==========================================================================
@@ -430,7 +442,7 @@
 		margin-left: 0;
 		width: calc(100% - 360px);
 		height: calc(100vh - 24px);
-		overflow: visible;
+		overflow: hidden;
 		display: flex;
 		flex-direction: column;
 		position: relative;
@@ -442,31 +454,32 @@
 		}
 
 		.content-wrapper {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			min-height: 0;
+			overflow: hidden;
+			display: flex;
 			flex-direction: row;
 			justify-content: center;
 			gap: variables.$space-sm;
 			padding: 0;
-			height: 100%;
-			overflow: visible;
-			display: flex;
-			/* Ensure content wrapper is displayed */
 			border-radius: 15px 0 0 0;
 		}
 
 		#postsContent,
 		#projectsContent {
-			flex: 1;
 			max-width: 600px;
 			padding: variables.$space-md variables.$space-md;
 			height: 100%;
+			min-height: 0;
 			overflow-y: auto;
 			overflow-x: hidden;
 			position: relative;
 			margin: 0;
-			margin-top: 12px;
 			box-sizing: border-box;
-			display: block !important;
-			/* Ensure content is displayed */
 
 			&::-webkit-scrollbar {
 				width: 6px;
@@ -513,7 +526,7 @@
 	/* Ensure both content sections are visible on desktop */
 	#postsContent,
 	#projectsContent {
-		display: block !important;
+		display: block;
 		visibility: visible !important;
 		opacity: 1 !important;
 	}
@@ -541,6 +554,9 @@
 
 /* Mobile-specific media queries */
 @media screen and (max-width: variables.$mobile-breakpoint) {
+	.mobile-hide {
+		display: none !important;
+	}
 
 	/* Mini Bio Mobile Adjustments */
 	.project-navigation,
@@ -548,8 +564,8 @@
 
 		.project-mini-bio,
 		.post-mini-bio {
-			top: 9px !important;
-			left: 9px !important;
+			// top: 9px !important;
+			// left: 9px !important;
 		}
 	}
 
@@ -607,10 +623,22 @@
 		}
 
 		.profile-header {
-			margin: variables.$space-sm variables.$space-md 0;
-			width: auto !important;
-			padding-left: 0 !important;
-			padding-right: 0 !important;
+			flex-direction: row !important;
+			padding: 12px 12px 24px 12px !important;
+			align-items: flex-start;
+
+			.profile-photo {
+				width: 90px !important;
+				height: 90px !important;
+			}
+
+			.profile-info {
+				text-align: left;
+
+				.profile-name {
+					font-size: 21px !important;
+				}
+			}
 		}
 
 		/* Blog header wave */
@@ -696,6 +724,15 @@
 				}
 			}
 		}
+
+		.profile-photo {
+			width: 90px !important;
+			height: 90px !important;
+		}
+
+		.blog-header {
+			min-height: unset !important;
+		}
 	}
 }
 
@@ -739,28 +776,36 @@
 		transform: scale(1.02);
 	}
 
-	/* Project Gallery Layout - Side by Side */
+	/* Project Gallery Layout - Now Column by Default */
 	.project-gallery {
 		.project-content {
 			display: flex;
-			flex-direction: row-reverse;
-			align-items: flex-start;
-			gap: 2rem;
+			flex-direction: column;
+			/* Changed from row-reverse */
+			align-items: stretch;
+			/* Changed from flex-start, children will stretch */
+			gap: 1rem;
+			/* Adjusted or can be removed if margin handles spacing */
 			max-width: 1600px;
+			/* This can remain or be adjusted if needed */
 			margin: 0 auto;
 			padding: 0 1rem;
 
 			.carousel {
-				flex: 1;
-				position: sticky;
-				top: 2rem;
-				max-width: 60%;
-				height: calc(100vh - 4rem);
-				max-height: 900px;
-				transition: height 0.3s ease, max-width 0.3s ease;
+				/* flex: 1; Removed */
+				/* position: sticky; Removed */
+				/* top: 2rem; Removed */
+				width: 100%;
+				/* Changed from max-width: 60% */
+				height: auto;
+				/* Changed from calc(100vh - 4rem), or set to e.g. 50vh */
+				/* max-height: 900px; This can be kept or adjusted */
+				transition: height 0.3s ease, width 0.3s ease;
+				/* Width transition might not be needed now */
 
 				.carousel-track {
-					min-height: 400px;
+					min-height: 300px;
+					/* Adjusted from 400px, or make it more flexible */
 					max-height: 100%;
 				}
 
@@ -770,15 +815,18 @@
 					video,
 					iframe {
 						object-fit: contain;
-						max-height: calc(100vh - 8rem);
+						max-height: 70vh;
+						/* Adjusted from calc(100vh - 8rem) */
 					}
 				}
 			}
 
 			.project-details {
-				flex: 1;
-				max-width: 40%;
-				padding-right: 1rem;
+				/* flex: 1; Removed */
+				width: 100%;
+				/* Changed from max-width: 40% */
+				padding-right: 0;
+				/* Adjusted from 1rem, or match parent padding */
 
 				.project-description {
 
@@ -792,7 +840,8 @@
 	}
 }
 
-/* Medium screens - transitional layout */
+/* Medium screens - transitional layout - Commented out as base 769px+ is now column */
+/*
 @media (min-width: 769px) and (max-width: 1024px) {
 	.project-gallery {
 		.project-content {
@@ -809,6 +858,7 @@
 		}
 	}
 }
+*/
 
 /* Desktop-specific media queries */
 @media screen and (min-width: variables.$mobile-breakpoint) {
@@ -889,8 +939,13 @@
 
 		/* Project Gallery Desktop Enhancements */
 		.project-gallery {
-			padding-top: 3rem;
-			/* Add space for fixed navigation */
+			// padding-top: 3rem; // Add space for fixed navigation // This line is now commented out
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			height: 50%;
+			/* Note: Effective height depends on parent container's height */
+			margin-bottom: 16px;
 
 			.project-content {
 				padding: 0 2rem;

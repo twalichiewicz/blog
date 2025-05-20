@@ -57,6 +57,10 @@
         
         <div class="profile-header" style="position: relative; z-index: 10; padding-top: 40px;">
             <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
+            <!-- Contact wrapper for mobile, below profile image -->
+            <div class="contact-wrapper mobile-only">
+                <button class="contact-button" id="mobileContactBtn">@</button>
+            </div>
             <div class="profile-info">
                 <h1 class="profile-name">Thomas Walichiewicz</h1>
                 <p class="profile-bio">Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</p>
@@ -76,18 +80,9 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Services promotion section -->
-        <!-- <div class="services-promo">
-            <div class="content-bg"></div>
-            <div class="hover-effect"></div>
-            <h2 class="services-title">Need design expertise?</h2>
-            <p class="services-description">I offer UX consulting and design services for startups and established companies.</p>
-            <a href="/services" class="services-link">View Services</a>
-        </div> -->
 
         <!-- Contact wrapper moved outside of profile-header for better positioning -->
-        <div class="contact-wrapper">
+        <div class="contact-wrapper mobile-hide">
             <button class="contact-button">Contact</button>
             <div class="contact-options">
                 <a href="mailto:hey@thomas.design" class="contact-option email">Email</a>
@@ -97,246 +92,299 @@
         </div>
     </div>
     <div class="blog-content">
-        <div class="tabs-wrapper">
-            <div class="mobile-tabs" role="tablist" aria-label="Content Sections">
-                <button class="tab-button active" data-type="blog" role="tab" aria-selected="true" aria-controls="postsContent" id="tab-blog">Posts</button>
-                <button class="tab-button" data-type="portfolio" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Projects</button>
+        <div class="content-inner-wrapper">
+            <div class="tabs-wrapper">
+                <div class="mobile-tabs" role="tablist" aria-label="Content Sections">
+                    <button class="tab-button active" data-type="blog" role="tab" aria-selected="true" aria-controls="postsContent" id="tab-blog">Posts</button>
+                    <button class="tab-button" data-type="portfolio" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Projects</button>
+                </div>
             </div>
-        </div>
 
-        <% 
-        // Separate posts and projects
-        const allPosts = site.posts.toArray();
-        const blogPosts = allPosts.filter(post => 
-            post.tags && post.tags.toArray().some(tag => tag.name === 'blog')
-        ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            <% 
+            // Separate posts and projects
+            const allPosts = site.posts.toArray();
+            const blogPosts = allPosts.filter(post => 
+                post.tags && post.tags.toArray().some(tag => tag.name === 'blog')
+            ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-        const projectPosts = allPosts.filter(post => 
-            post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio')
-        ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        %>
+            const projectPosts = allPosts.filter(post => 
+                post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio')
+            ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            %>
 
-        <div class="content-wrapper">
-            <div id="postsContent" class="blog-list" role="tabpanel" aria-labelledby="tab-blog">
-                <div class="column-title blog-column-title">Posts</div>
-                
-                <!-- Add search bar -->
-                <div class="search-container">
-                    <div class="search-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 21l-4.35-4.35"/>
-                            <path d="M15.5 10.5a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"/>
-                        </svg>
+            <div class="content-wrapper">
+                <div id="postsContent" class="blog-list" role="tabpanel" aria-labelledby="tab-blog">
+                    <div class="column-title blog-column-title">Posts</div>
+                    
+                    <!-- Add search bar -->
+                    <div class="search-container">
+                        <div class="search-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 21l-4.35-4.35"/>
+                                <path d="M15.5 10.5a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"/>
+                            </svg>
+                        </div>
+                        <input type="text" id="postSearch" placeholder="Search posts..." class="search-input">
                     </div>
-                    <input type="text" id="postSearch" placeholder="Search posts..." class="search-input">
+                    
+                    <% if (blogPosts.length > 0) { %>
+                        <% blogPosts.forEach(function(post, index) { %>
+                            <% if (post.type === 'link') { %>
+                                <a href="<%= post.url %>" target="_blank" rel="noopener" class="post-link-wrapper">
+                            <% } %>
+                            <article class="post-list-item <%= post.type === 'link' ? 'post-link' : '' %>">
+                                <div class="post-byline">
+                                    <%= date(post.date, 'MMMM D, YYYY') %> • 
+                                    <%= post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post') %>
+                                </div>
+                                <% if (post.type === 'link') { %>
+                                    <div class="link-share">
+                                        <h3>
+                                            <div class="link-text-group">
+                                                <%= post.title %>
+                                                <div class="link-source">
+                                                    <span class="link-url"><%= new URL(post.url).hostname %></span>
+                                                </div>
+                                            </div>
+                                            <span class="external-icon">↗</span>
+                                        </h3>
+                                        
+                                        <% if (post.content) { %>
+                                            <details class="content-accordion">
+                                                <summary>Thoughts</summary>
+                                                <div class="accordion-content">
+                                                    <%- post.content %>
+                                                </div>
+                                            </details>
+                                        <% } %>
+                                    </div>
+                                <% } else if (post.short) { %>
+                                    <%- post.content %>
+                                <% } else { %>
+                                    <h3><a href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+                                    <% if (post.excerpt) { %>
+                                        <p><%- post.excerpt %></p>
+                                    <% } %>
+                                <% } %>
+                            </article>
+                            <% if (post.type === 'link') { %>
+                                </a>
+                            <% } %>
+                            <% if (index < blogPosts.length - 1) { %>
+                                <hr class="post-separator">
+                            <% } %>
+                        <% }) %>
+                    <% } else { %>
+                        <%- partial('_partial/loading-skull') %>
+                    <% } %>
                 </div>
                 
-                <% if (blogPosts.length > 0) { %>
-                    <% blogPosts.forEach(function(post, index) { %>
-                        <% if (post.type === 'link') { %>
-                            <a href="<%= post.url %>" target="_blank" rel="noopener" class="post-link-wrapper">
-                        <% } %>
-                        <article class="post-list-item <%= post.type === 'link' ? 'post-link' : '' %>">
-                            <div class="post-byline">
-                                <%= date(post.date, 'MMMM D, YYYY') %> • 
-                                <%= post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post') %>
-                            </div>
-                            <% if (post.type === 'link') { %>
-                                <div class="link-share">
-                                    <h3>
-                                        <div class="link-text-group">
-                                            <%= post.title %>
-                                            <div class="link-source">
-                                                <span class="link-url"><%= new URL(post.url).hostname %></span>
-                                            </div>
-                                        </div>
-                                        <span class="external-icon">↗</span>
-                                    </h3>
-                                    
-                                    <% if (post.content) { %>
-                                        <details class="content-accordion">
-                                            <summary>Thoughts</summary>
-                                            <div class="accordion-content">
-                                                <%- post.content %>
-                                            </div>
-                                        </details>
-                                    <% } %>
-                                </div>
-                            <% } else if (post.short) { %>
-                                <%- post.content %>
-                            <% } else { %>
-                                <h3><a href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
-                                <% if (post.excerpt) { %>
-                                    <p><%- post.excerpt %></p>
-                                <% } %>
-                            <% } %>
-                        </article>
-                        <% if (post.type === 'link') { %>
-                            </a>
-                        <% } %>
-                        <% if (index < blogPosts.length - 1) { %>
-                            <hr class="post-separator">
-                        <% } %>
-                    <% }) %>
-                <% } else { %>
-                    <%- partial('_partial/loading-skull') %>
-                <% } %>
-            </div>
-            
-            <div id="projectsContent" class="portfolio-list" role="tabpanel" aria-labelledby="tab-portfolio">
-                <div class="column-title portfolio-column-title">Projects</div>
-                
-                <% if (projectPosts.length > 0) { %>
-                    <% 
-                    // Group posts by company
-                    const projectsByCompany = {};
-                    projectPosts.forEach(function(post) {
-                        if (!post.draft) {
-                            const company = post.company || 'Other Projects';
-                            if (!projectsByCompany[company]) {
-                                projectsByCompany[company] = [];
-                            }
-                            projectsByCompany[company].push(post);
-                        }
-                    });
-
-                    // Sort companies alphabetically, but keep "Other Projects" at the end
-                    const companyOrder = [
-                        'Autodesk',
-                        'Human Interest',
-                        'Common Cents Lab',
-                        'Lyra Health',
-                        'Maisha Meds',
-                        'Other Projects'
-                    ];
-
-                    const companyYears = {
-                        'Autodesk': '2019—Present',
-                        'Human Interest': '2017—2019',
-                        'Common Cents Lab': '2016—2017',
-                        'Lyra Health': '2015',
-                        'Maisha Meds': '2013-2014'
-                    };
+                <div id="projectsContent" class="portfolio-list" role="tabpanel" aria-labelledby="tab-portfolio">
+                    <div class="column-title portfolio-column-title">Projects</div>
                     
-                    const sortedCompanies = Object.keys(projectsByCompany).sort((a, b) => {
-                        const indexA = companyOrder.indexOf(a);
-                        const indexB = companyOrder.indexOf(b);
-                        
-                        // If both companies are in our order list, use that order
-                        if (indexA !== -1 && indexB !== -1) {
-                            return indexA - indexB;
-                        }
-                        
-                        // If only one company is in our list, prioritize it
-                        if (indexA !== -1) return -1;
-                        if (indexB !== -1) return 1;
-                        
-                        // For companies not in our list, sort alphabetically
-                        // but keep "Other Projects" at the end
-                        if (a === 'Other Projects') return 1;
-                        if (b === 'Other Projects') return -1;
-                        return a.localeCompare(b);
-                    });
-                    %>
+                    <% if (projectPosts.length > 0) { %>
+                        <% 
+                        // Group posts by company
+                        const projectsByCompany = {};
+                        projectPosts.forEach(function(post) {
+                            if (!post.draft) {
+                                const company = post.company || 'Other Projects';
+                                if (!projectsByCompany[company]) {
+                                    projectsByCompany[company] = [];
+                                }
+                                projectsByCompany[company].push(post);
+                            }
+                        });
 
-                    <% sortedCompanies.forEach(function(company) { %>
-                        <div class="company-group">
-                            <h2 class="company-name">
-                                <%= company %>
-                                <% if (companyYears[company]) { %>
-                                    <span class="company-years"><%= companyYears[company] %></span>
-                                <% } %>
-                            </h2>
-                            <div class="company-projects">
-                                <% projectsByCompany[company].forEach(function(post, index) { %>
-                                    <% if (post.has_writeup !== false) { %>
-                                        <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup">
-                                    <% } else { %>
-                                        <div class="portfolio-item">
+                        // Sort companies alphabetically, but keep "Other Projects" at the end
+                        const companyOrder = [
+                            'Autodesk',
+                            'Human Interest',
+                            'Common Cents Lab',
+                            'Lyra Health',
+                            'Maisha Meds',
+                            'Other Projects'
+                        ];
+
+                        const companyYears = {
+                            'Autodesk': '2019—Present',
+                            'Human Interest': '2017—2019',
+                            'Common Cents Lab': '2016—2017',
+                            'Lyra Health': '2015',
+                            'Maisha Meds': '2013-2014'
+                        };
+                        
+                        const sortedCompanies = Object.keys(projectsByCompany).sort((a, b) => {
+                            const indexA = companyOrder.indexOf(a);
+                            const indexB = companyOrder.indexOf(b);
+                            
+                            // If both companies are in our order list, use that order
+                            if (indexA !== -1 && indexB !== -1) {
+                                return indexA - indexB;
+                            }
+                            
+                            // If only one company is in our list, prioritize it
+                            if (indexA !== -1) return -1;
+                            if (indexB !== -1) return 1;
+                            
+                            // For companies not in our list, sort alphabetically
+                            // but keep "Other Projects" at the end
+                            if (a === 'Other Projects') return 1;
+                            if (b === 'Other Projects') return -1;
+                            return a.localeCompare(b);
+                        });
+                        %>
+
+                        <% sortedCompanies.forEach(function(company) { %>
+                            <div class="company-group">
+                                <h2 class="company-name">
+                                    <%= company %>
+                                    <% if (companyYears[company]) { %>
+                                        <span class="company-years"><%= companyYears[company] %></span>
                                     <% } %>
-                                    <% if (post.cover_image && post.has_writeup !== false) { %>    
-                                    <div class="portfolio-image">
-                                        <img 
-                                            src="<%- url_for(post.cover_image) %>" 
-                                            alt="<%- post.title %>"
-                                            loading="lazy"
-                                        >
-                                    </div>
-                                    <% } %>
-                                    <div class="portfolio-content">
-                                        <% if (post.company) { %>
-                                            <div class="company-byline"><%= post.company %></div>
+                                </h2>
+                                <div class="company-projects">
+                                    <% projectsByCompany[company].forEach(function(post, index) { %>
+                                        <% if (post.has_writeup !== false) { %>
+                                            <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup">
+                                        <% } else { %>
+                                            <div class="portfolio-item">
                                         <% } %>
-                                        
-                                        <div class="title-row">
-                                            <div class="content-text">
-                                                <h4><%- post.title %></h4>
-                                                <% if (post.byline) { %>
-                                                    <p><%- post.byline %></p>
-                                                <% } %>
-                                                
-                                                <% if (post.has_writeup !== false && post.excerpt) { %>
-                                                    <details class="content-accordion">
-                                                        <summary>View details</summary>
-                                                        <div class="accordion-content">
-                                                            <%- post.excerpt %>
-                                                        </div>
-                                                    </details>
+                                        <% if (post.cover_image && post.has_writeup !== false) { %>    
+                                        <div class="portfolio-image">
+                                            <img 
+                                                src="<%- url_for(post.cover_image) %>" 
+                                                alt="<%- post.title %>"
+                                                loading="lazy"
+                                            >
+                                        </div>
+                                        <% } %>
+                                        <div class="portfolio-content">
+                                            <% if (post.company) { %>
+                                                <div class="company-byline"><%= post.company %></div>
+                                            <% } %>
+                                            
+                                            <div class="title-row">
+                                                <div class="content-text">
+                                                    <h4><%- post.title %></h4>
+                                                    <% if (post.byline) { %>
+                                                        <p><%- post.byline %></p>
+                                                    <% } %>
+                                                    
+                                                    <% if (post.has_writeup !== false && post.excerpt) { %>
+                                                        <details class="content-accordion">
+                                                            <summary>View details</summary>
+                                                            <div class="accordion-content">
+                                                                <%- post.excerpt %>
+                                                            </div>
+                                                        </details>
+                                                    <% } %>
+                                                </div>
+                                                <% if (post.has_writeup !== false) { %>
+                                                    <div class="external-icon">→</div>
                                                 <% } %>
                                             </div>
-                                            <% if (post.has_writeup !== false) { %>
-                                                <div class="external-icon">→</div>
-                                            <% } %>
                                         </div>
-                                    </div>
-                                    <% if (post.has_writeup !== false) { %>
-                                        </a>
-                                    <% } else { %>
-                                        </div>
-                                    <% } %>
-                                <% }) %>
+                                        <% if (post.has_writeup !== false) { %>
+                                            </a>
+                                        <% } else { %>
+                                            </div>
+                                        <% } %>
+                                    <% }) %>
+                                </div>
                             </div>
-                        </div>
-                    <% }) %>
-                <% } else { %>
-                    <%- partial('_partial/loading-skull') %>
-                <% } %>
+                        <% }) %>
+                    <% } else { %>
+                        <%- partial('_partial/loading-skull') %>
+                    <% } %>
+                </div>
             </div>
         </div>
     </div>
 </main>
 
-<script src="<%- url_for('js/blog.js') %>"></script>
+<!-- Mobile Contact Modal -->
+<div class="contact-modal" id="contactModal">
+    <div class="contact-modal-backdrop" id="contactModalBackdrop"></div>
+    <div class="contact-modal-sheet">
+        <button class="contact-modal-close" id="contactModalClose" aria-label="Close contact options">&times;</button>
+        <div class="contact-modal-title">Contact</div>
+        <div class="contact-modal-options">
+            <a href="mailto:hey@thomas.design" class="contact-option email">Email</a>
+            <a href="https://linkedin.com/in/twalichiewicz" target="_blank" class="contact-option linkedin">LinkedIn</a>
+            <a href="/docs/Thomas Walichiewicz CV Q2 2025.pdf" target="_blank" class="contact-option resume">Resume</a>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="<%- url_for('js/blog.js') %>"></script>
+
 <script>
 	// Page fade-in animation
-	document.addEventListener('DOMContentLoaded', function() {
-		// Wait for images to load
-		window.addEventListener('load', function() {
-			// Add a slight delay before starting the animation
-			setTimeout(function() {
-				// Add loaded class to body
-				document.body.classList.add('loaded');
-				
-				// Fade out the overlay
-				const overlay = document.querySelector('.page-transition-overlay');
-				overlay.classList.add('fade-out');
-				
-				// Remove overlay after animation completes
-				setTimeout(function() {
-					overlay.style.display = 'none';
-				}, 1000);
-			}, 800); // 800ms delay before starting the animation
-		});
-		
-		// Fallback in case load event doesn't fire
-		setTimeout(function() {
+	function initiatePageFadeIn() {
+		// Ensure this runs only once if called multiple times rapidly
+		if (document.body.classList.contains('fade-in-initialized')) {
+			// If already loaded and overlay is gone, ensure body is opaque
+			if (document.body.classList.contains('loaded') && 
+			    (!document.querySelector('.page-transition-overlay') || document.querySelector('.page-transition-overlay').style.display === 'none')) {
+				document.body.style.opacity = '1'; // Ensure body is visible if animation was completed
+			}
+			return;
+		}
+		document.body.classList.add('fade-in-initialized');
+
+		let animationComplete = false;
+
+		function completeAnimation() {
+			if (animationComplete) return;
+			animationComplete = true;
+
 			document.body.classList.add('loaded');
 			const overlay = document.querySelector('.page-transition-overlay');
-			overlay.classList.add('fade-out');
-			setTimeout(function() {
-				overlay.style.display = 'none';
-			}, 1000);
-		}, 3000); // Increased timeout to account for the added delay
+			if (overlay) {
+				overlay.classList.add('fade-out');
+				setTimeout(function() {
+					if (overlay) overlay.style.display = 'none';
+				}, 1000); // Match CSS transition
+			} else {
+				// If somehow overlay is not there, ensure body is visible
+				document.body.style.opacity = '1';
+			}
+		}
+
+		// Wait for images to load (primary trigger)
+		window.addEventListener('load', function() {
+			setTimeout(completeAnimation, 800); // 800ms delay
+		});
+		
+		// Fallback in case load event doesn't fire or is too slow
+		setTimeout(completeAnimation, 3000); // Increased timeout
+	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+		initiatePageFadeIn();
+	});
+
+	window.addEventListener('pageshow', function(event) {
+		if (event.persisted) {
+            console.log('[index.ejs pageshow] Start - bfcache');
+			// Page is loaded from bfcache
+			// Reset body opacity and remove 'loaded' in case it was set before bfcache
+			document.body.style.opacity = '0'; 
+			document.body.classList.remove('loaded');
+			document.body.classList.remove('fade-in-initialized'); // Allow re-initialization
+
+			// Ensure overlay is visible again for the animation
+			const overlay = document.querySelector('.page-transition-overlay');
+			if (overlay) {
+				overlay.style.display = 'block'; // Make it block first
+				overlay.style.opacity = '1';     // Reset its opacity
+				overlay.classList.remove('fade-out');
+			}
+			
+			initiatePageFadeIn();
+            console.log('[index.ejs pageshow] End - bfcache');
+		}
 	});
 
     // Glassmorphic effect for services promo
@@ -370,58 +418,107 @@
     // });
 
     // Add search functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('postSearch');
-        const postItems = document.querySelectorAll('.post-list-item');
-        const blogList = document.getElementById('postsContent');
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const searchInput = document.getElementById('postSearch');
+    //     const postItems = document.querySelectorAll('.post-list-item');
+    //     const blogList = document.getElementById('postsContent');
         
-        // Create no results message element
-        const noResultsMessage = document.createElement('div');
-        noResultsMessage.className = 'no-results-message';
-        noResultsMessage.textContent = "Haven't written about that yet!";
-        noResultsMessage.style.display = 'none';
-        blogList.appendChild(noResultsMessage);
+    //     // Create no results message element
+    //     const noResultsMessage = document.createElement('div');
+    //     noResultsMessage.className = 'no-results-message';
+    //     noResultsMessage.textContent = "Haven't written about that yet!";
+    //     noResultsMessage.style.display = 'none';
+    //     blogList.appendChild(noResultsMessage);
         
-        searchInput.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            let visibleCount = 0;
-            const visiblePosts = [];
+    //     searchInput.addEventListener('input', function(e) {
+    //         const searchTerm = e.target.value.toLowerCase();
+    //         let visibleCount = 0;
+    //         const visiblePosts = [];
             
-            // First, hide all separators
-            const separators = document.querySelectorAll('.post-separator');
-            separators.forEach(separator => separator.style.display = 'none');
+    //         // First, hide all separators
+    //         const separators = document.querySelectorAll('.post-separator');
+    //         separators.forEach(separator => separator.style.display = 'none');
             
-            // Process posts and track visible ones
-            postItems.forEach(function(post) {
-                const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
-                const content = post.textContent.toLowerCase();
-                const excerpt = post.querySelector('p')?.textContent.toLowerCase() || '';
+    //         // Process posts and track visible ones
+    //         postItems.forEach(function(post) {
+    //             const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
+    //             const content = post.textContent.toLowerCase();
+    //             const excerpt = post.querySelector('p')?.textContent.toLowerCase() || '';
                 
-                if (title.includes(searchTerm) || content.includes(searchTerm) || excerpt.includes(searchTerm)) {
-                    post.style.display = '';
-                    visibleCount++;
-                    visiblePosts.push(post);
-                } else {
-                    post.style.display = 'none';
-                }
-            });
+    //             if (title.includes(searchTerm) || content.includes(searchTerm) || excerpt.includes(searchTerm)) {
+    //                 post.style.display = '';
+    //                 visibleCount++;
+    //                 visiblePosts.push(post);
+    //             } else {
+    //                 post.style.display = 'none';
+    //             }
+    //         });
             
-            // Show/hide no results message
-            noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+    //         // Show/hide no results message
+    //         noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
             
-            // Add separators between visible posts
-            if (visibleCount > 0) {
-                visiblePosts.forEach((post, index) => {
-                    if (index < visiblePosts.length - 1) {
-                        const separator = post.nextElementSibling;
-                        if (separator && separator.classList.contains('post-separator')) {
-                            separator.style.display = '';
-                        }
-                    }
-                });
-            }
-        });
+    //         // Add separators between visible posts
+    //         if (visibleCount > 0) {
+    //             visiblePosts.forEach((post, index) => {
+    //                 if (index < visiblePosts.length - 1) {
+    //                     const separator = post.nextElementSibling;
+    //                     if (separator && separator.classList.contains('post-separator')) {
+    //                         separator.style.display = '';
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     });
+    // });
+
+(function() {
+  // Only run on mobile
+  function isMobile() {
+    return window.matchMedia && window.matchMedia('(max-width: 600px)').matches;
+  }
+  var contactBtn = document.getElementById('mobileContactBtn');
+  var modal = document.getElementById('contactModal');
+  var closeBtn = document.getElementById('contactModalClose');
+  var backdrop = document.getElementById('contactModalBackdrop');
+  var html = document.documentElement;
+
+  function openModal() {
+    if (!isMobile()) return;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    html.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    html.style.overflow = '';
+  }
+
+  if (contactBtn) {
+    contactBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openModal();
     });
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeModal();
+    });
+  }
+  if (backdrop) {
+    backdrop.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeModal();
+    });
+  }
+  // Optional: close on ESC key
+  document.addEventListener('keydown', function(e) {
+    if (modal.classList.contains('active') && (e.key === 'Escape' || e.keyCode === 27)) {
+      closeModal();
+    }
+  });
+})();
 </script>
 </body>
 </html>

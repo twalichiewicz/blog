@@ -8,6 +8,7 @@ categories:
   - [code]
   - [visuals]
 cover_image: 2018/04/05/foreground/foreground-preview.jpg
+has_writeup: false
 fullscreen: true
 tags:
   - portfolio

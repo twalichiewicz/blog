@@ -1,6 +1,7 @@
 ---
-title: Sora redefining designer's value
-short: true
+title: Welcome to the new age of concept generation
+long: true
+excerpt: No mockups, no wireframes, and no hours of pixel pushing. Just a ~200-word prompt, and Sora generated everything.
 tags:
   - blog
 date: 2025-03-27 21:08:59
@@ -9,6 +10,7 @@ date: 2025-03-27 21:08:59
 [This entire landing page](<https://sora.com/g/gen_01jq93q70jem0rwpd998m4jdj2>) was made from a single paragraph of text. 🤯
 
 No mockups, no wireframes, and no hours of pixel pushing.
+
 Just a ~200-word prompt, and Sora generated everything: layout, visuals, illustration, copy tone, and UX flow.
 
 That is the new baseline.

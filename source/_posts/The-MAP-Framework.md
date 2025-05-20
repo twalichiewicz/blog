@@ -1,11 +1,16 @@
 ---
-layout: post
+layout: project_gallery
 title: "The MAP Framework: A New Direction for Product Development"
 date: 2025-03-17 18:36:53
 long: true
 excerpt: "After years of watching talented teams build disjointed products, I've developed the MAP Framework—a process that fundamentally reorders how we create digital experiences. By placing design Mapping before product Assessment and engineering Production, teams can explore comprehensive solutions before committing to implementation paths. This approach leads to more coherent user experiences, fewer expensive pivots, and products that genuinely resonate with users."
 tags:
   - blog
+credits:
+  - role: Author
+    name: Thomas Walichiewicz
+  - role: Year
+    name: 2025
 ---
 
 <div class="md-image-container">
