@@ -8,6 +8,11 @@ date: 2017-02-01 20:52:01
 tags:
   - portfolio
 layout: project
+credits:
+  - role: Lead Product Designer
+    name: Thomas Walichiewicz
+  - role: Year
+    name: 2019
 ---
 
 <style>

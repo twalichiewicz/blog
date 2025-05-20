@@ -1,0 +1,321 @@
+/**
+ * UTILITY STYLES
+ * Helper classes, animations, and utility functions
+ * 
+ * TABLE OF CONTENTS:
+ * 1. Display Utilities
+ * 2. Spacing Utilities
+ * 3. Text Utilities
+ * 4. Animations
+ * 5. Dark Mode Utilities
+ */
+
+@use 'base' as *;
+@use 'layout' as *;
+
+/* ======================
+   1. DISPLAY UTILITIES
+   ====================== */
+
+.d-none {
+	display: none !important;
+}
+
+.d-block {
+	display: block !important;
+}
+
+.d-flex {
+	display: flex !important;
+}
+
+.d-inline-flex {
+	display: inline-flex !important;
+}
+
+.d-grid {
+	display: grid !important;
+}
+
+// Responsive display utilities
+@include mobile {
+	.d-none-mobile {
+		display: none !important;
+	}
+
+	.d-block-mobile {
+		display: block !important;
+	}
+}
+
+@include tablet {
+	.d-none-tablet {
+		display: none !important;
+	}
+
+	.d-block-tablet {
+		display: block !important;
+	}
+}
+
+@include desktop {
+	.d-none-desktop {
+		display: none !important;
+	}
+
+	.d-block-desktop {
+		display: block !important;
+	}
+}
+
+/* ======================
+   2. SPACING UTILITIES
+   ====================== */
+
+// Margin utilities
+.m-0 {
+	margin: 0 !important;
+}
+
+.m-1 {
+	margin: $space-xs !important;
+}
+
+.m-2 {
+	margin: $space-sm !important;
+}
+
+.m-3 {
+	margin: $space-md !important;
+}
+
+.m-4 {
+	margin: $space-lg !important;
+}
+
+.m-5 {
+	margin: $space-xl !important;
+}
+
+.mt-0 {
+	margin-top: 0 !important;
+}
+
+.mt-1 {
+	margin-top: $space-xs !important;
+}
+
+.mt-2 {
+	margin-top: $space-sm !important;
+}
+
+.mt-3 {
+	margin-top: $space-md !important;
+}
+
+.mt-4 {
+	margin-top: $space-lg !important;
+}
+
+.mt-5 {
+	margin-top: $space-xl !important;
+}
+
+.mb-0 {
+	margin-bottom: 0 !important;
+}
+
+.mb-1 {
+	margin-bottom: $space-xs !important;
+}
+
+.mb-2 {
+	margin-bottom: $space-sm !important;
+}
+
+.mb-3 {
+	margin-bottom: $space-md !important;
+}
+
+.mb-4 {
+	margin-bottom: $space-lg !important;
+}
+
+.mb-5 {
+	margin-bottom: $space-xl !important;
+}
+
+// Padding utilities
+.p-0 {
+	padding: 0 !important;
+}
+
+.p-1 {
+	padding: $space-xs !important;
+}
+
+.p-2 {
+	padding: $space-sm !important;
+}
+
+.p-3 {
+	padding: $space-md !important;
+}
+
+.p-4 {
+	padding: $space-lg !important;
+}
+
+.p-5 {
+	padding: $space-xl !important;
+}
+
+.pt-0 {
+	padding-top: 0 !important;
+}
+
+.pt-1 {
+	padding-top: $space-xs !important;
+}
+
+.pt-2 {
+	padding-top: $space-sm !important;
+}
+
+.pt-3 {
+	padding-top: $space-md !important;
+}
+
+.pt-4 {
+	padding-top: $space-lg !important;
+}
+
+.pt-5 {
+	padding-top: $space-xl !important;
+}
+
+.pb-0 {
+	padding-bottom: 0 !important;
+}
+
+.pb-1 {
+	padding-bottom: $space-xs !important;
+}
+
+.pb-2 {
+	padding-bottom: $space-sm !important;
+}
+
+.pb-3 {
+	padding-bottom: $space-md !important;
+}
+
+.pb-4 {
+	padding-bottom: $space-lg !important;
+}
+
+.pb-5 {
+	padding-bottom: $space-xl !important;
+}
+
+/* ======================
+   3. TEXT UTILITIES
+   ====================== */
+
+.text-center {
+	text-align: center !important;
+}
+
+.text-left {
+	text-align: left !important;
+}
+
+.text-right {
+	text-align: right !important;
+}
+
+.text-bold {
+	font-weight: bold !important;
+}
+
+.text-normal {
+	font-weight: normal !important;
+}
+
+.text-italic {
+	font-style: italic !important;
+}
+
+.text-uppercase {
+	text-transform: uppercase !important;
+}
+
+.text-capitalize {
+	text-transform: capitalize !important;
+}
+
+.text-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* ======================
+   4. ANIMATIONS
+   ====================== */
+
+// Fade in animation
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.fade-in {
+	animation: fadeIn 0.3s ease-in-out;
+}
+
+// Slide in animation
+@keyframes slideIn {
+	from {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.slide-in {
+	animation: slideIn 0.3s ease-out;
+}
+
+// Add all animation styles from animations.scss here
+
+/* ======================
+   5. DARK MODE UTILITIES
+   ====================== */
+
+.dark-mode-toggle {
+	cursor: pointer;
+	padding: $space-sm;
+	border-radius: 50%;
+	background: transparent;
+	transition: background-color 0.2s;
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.1);
+
+		@include dark-mode {
+			background-color: rgba(255, 255, 255, 0.1);
+		}
+	}
+}
+
+// Add all dark mode utility styles here 

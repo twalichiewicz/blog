@@ -1,5 +1,323 @@
-<main class="project-page">
-    <article class="project">
-        <%- page.content %>
-    </article>
-</main>
+<!DOCTYPE html>
+<html>
+<%- partial('_partial/head') %>
+<body class="project-page">
+	<div class="page-transition-overlay"></div>
+	
+	<div class="project-wrapper">
+		<div class="project-navigation">
+			<div class="project-mini-bio">
+				<div class="button-stack">
+					<a href="<%= url_for('/') %>" class="project-home-button" title="Home">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+							<path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+						</svg>
+						<span>Home</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="project-content">
+			<div class="project-details">
+				<div class="project-title">
+					<% if (page.company) { %>
+						<span class="project-category"><%- page.company %></span>
+					<% } %>
+					<h2><%- page.title %></h2>
+					<div class="metadata">
+						<div class="metadata-list">
+							<% if (page.credits && page.credits.length) { %>
+							<% page.credits.forEach(function(credit) { %>
+								<div class="metadata-item">
+								<span class="label" style="font-size: 9px;"><%= credit.role %></span>
+								<span class="value" style="font-size: 12px;"><%= credit.name %></span>
+								</div>
+							<% }); %>
+							<% } %>
+							<% if (page.year) { %>
+							<div class="metadata-item">
+								<span class="label" style="font-size: 9px;">Year</span>
+								<span class="value" style="font-size: 12px;"><%= page.year %></span>
+							</div>
+							<% } %>
+							<% if (page.location) { %>
+							<div class="metadata-item">
+								<span class="label" style="font-size: 9px;">Location</span>
+								<span class="value" style="font-size: 12px;"><%= page.location %></span>
+							</div>
+							<% } %>
+						</div>
+					</div>
+				</div>
+				<article class="project-description"> <%// Changed class from project to project-description and kept article tag %>
+					<%- page.content %> <%// This is where the free-form HTML will be rendered %>
+				</article>
+			</div>
+		</div>
+	</div>
+
+	<style>
+		/* Fade-in animation styles */
+		.page-transition-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #000; /* Changed from var(--background) for broader compatibility */
+			z-index: 9999;
+			opacity: 1;
+			transition: opacity 1s ease-out;
+		}
+		
+		.page-transition-overlay.fade-out {
+			opacity: 0;
+		}
+		
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: hidden; /* Apply overflow:hidden initially */
+			display: flex; /* Added for flex layout */
+			flex-direction: column; /* Stack body children vertically */
+		}
+
+		body.loaded,
+		body.loaded html {
+			overflow: auto !important;
+		}
+		
+		body {
+			opacity: 0;
+			transition: opacity 0.5s ease-in;
+		}
+		
+		body.loaded {
+			opacity: 1;
+		}
+		
+		.project-wrapper {
+			min-height: 100vh;
+			transform: translateY(20px);
+			transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+						opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+			opacity: 0;
+            padding-top: 80px; /* Add padding to prevent overlap with fixed navigation */
+            padding-bottom: 40px; /* Add some bottom padding */
+            max-width: 1000px; /* Limit width for better readability on large screens */
+            margin: 0 auto; /* Center the content */
+			width: 100%; /* Ensure wrapper takes full width before max-width centering */
+			
+			display: flex; /* Make it a flex container */
+			flex-direction: column; /* Stack its children (project-content) vertically */
+			flex-grow: 1; /* Allow project-wrapper to grow and take available space in body */
+
+		}
+		
+		body.loaded .project-wrapper {
+			transform: translateY(0);
+			opacity: 1;
+		}
+		
+		.project-navigation {
+			transform: translateY(-10px);
+			transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+						opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+			opacity: 0;
+            position: fixed; /* Make navigation fixed */
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--card-background-color, #fff); /* Add background to prevent content showing through */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Add subtle shadow */
+		}
+		
+		body.loaded .project-navigation {
+			transform: translateY(0);
+			opacity: 1;
+		}
+
+        .project-content {
+            /* Styles for project-content if any, can be inherited or specific */
+            width: 100%;    /* Ensure it takes full available width within the wrapper's content box */
+            flex-grow: 1;   /* Allow it to grow vertically to fill project-wrapper */
+            display: flex;  /* Make it a flex container for its children like .project-details */
+            flex-direction: column; /* Stack .project-details vertically */
+        }
+
+        .project-details {
+            /* Styles for project-details */
+            width: 100%; /* Ensure details also takes full width of its parent, project-content */
+            /* If .project-details needs to manage its children with flex, add here */
+            /* display: flex; flex-direction: column; */
+        }
+        
+        .project-title {
+            margin-bottom: 20px;
+        }
+
+        .project-category {
+            display: block;
+            font-size: 0.9em;
+            color: var(--text-muted-color, #6c757d);
+            margin-bottom: 5px;
+        }
+
+        .project-description {
+            line-height: 1.7; /* Improved readability for text content */
+            font-size: 1.1em; /* Slightly larger font for content */
+        }
+
+        .project-description img,
+        .project-description video,
+        .project-description iframe {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px; /* Optional: rounded corners for media */
+        }
+
+        /* Mini Bio styles from project_gallery, potentially to be moved to a shared CSS file */
+        .project-mini-bio {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            gap: 15px;
+            /* Add other styles from project_gallery.ejs if needed */
+        }
+
+        .project-mini-bio-image .profile-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .project-mini-bio-content {
+            flex-grow: 1;
+        }
+        .project-mini-bio-name {
+            margin: 0 0 5px 0;
+            font-size: 1em;
+        }
+        .project-mini-bio-text {
+            margin: 0;
+            font-size: 0.85em;
+            color: var(--text-muted-color, #6c757d);
+        }
+        .button-stack {
+            display: flex;
+            gap: 10px;
+        }
+        .project-home-button, .project-collapse-button {
+            /* Basic button styling, adapt as needed */
+            padding: 8px 12px;
+            border: 1px solid var(--border-color, #ccc);
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--text-color, #333);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: var(--button-background, #f8f9fa);
+        }
+        .project-home-button svg, .project-collapse-button svg {
+            width: 18px;
+            height: 18px;
+        }
+        .project-collapse-button {
+             background-color: transparent;
+        }
+        .project-mini-bio.collapsed .project-mini-bio-content,
+        .project-mini-bio.collapsed .project-mini-bio-image {
+            /* Styles for collapsed state, could be display: none or reduced size */
+            /* For now, let JS handle this if it primarily changes button text/icon */
+        }
+
+
+	</style>
+
+	<script>
+		// Page fade-in animation
+		document.addEventListener('DOMContentLoaded', function() {
+			window.addEventListener('load', function() {
+				setTimeout(function() {
+					document.body.classList.add('loaded');
+					const overlay = document.querySelector('.page-transition-overlay');
+					if (overlay) {
+						overlay.classList.add('fade-out');
+						setTimeout(function() {
+							overlay.style.display = 'none';
+						}, 1000);
+					}
+				}, 400); 
+			});
+			
+			setTimeout(function() { // Fallback
+				if (!document.body.classList.contains('loaded')) {
+					document.body.classList.add('loaded');
+					const overlay = document.querySelector('.page-transition-overlay');
+					if (overlay) {
+						overlay.classList.add('fade-out');
+						setTimeout(function() {
+							overlay.style.display = 'none';
+						}, 1000);
+					}
+				}
+			}, 2000); 
+		});
+
+		// Collapse/Expand functionality
+		document.addEventListener('DOMContentLoaded', function() {
+			const collapseButton = document.querySelector('.project-collapse-button');
+			const projectMiniBio = document.querySelector('.project-mini-bio');
+			const projectNavigation = document.querySelector('.project-navigation');
+            const projectWrapper = document.querySelector('.project-wrapper');
+			
+			if (collapseButton && projectMiniBio && projectNavigation && projectWrapper) {
+				collapseButton.addEventListener('click', function() {
+					projectNavigation.classList.toggle('collapsed');
+                    const isCollapsed = projectNavigation.classList.contains('collapsed');
+					
+					const buttonText = collapseButton.querySelector('span');
+                    const buttonSvg = collapseButton.querySelector('svg polyline');
+
+					if (buttonText) {
+						buttonText.textContent = isCollapsed ? 'Expand' : 'Collapse';
+					}
+                    if (buttonSvg) {
+                        buttonSvg.setAttribute('points', isCollapsed ? "6 9 12 15 18 9" : "15 18 9 12 15 6");
+                    }
+					
+					collapseButton.setAttribute('aria-label', 
+						isCollapsed ? 'Expand navigation' : 'Collapse navigation'
+					);
+
+                    // Adjust elements based on collapsed state
+                    const miniBioImage = projectMiniBio.querySelector('.project-mini-bio-image');
+                    const miniBioContent = projectMiniBio.querySelector('.project-mini-bio-content');
+                    const homeButton = projectMiniBio.querySelector('.project-home-button span');
+
+
+                    if (isCollapsed) {
+                        if (miniBioImage) miniBioImage.style.display = 'none';
+                        if (miniBioContent) miniBioContent.style.display = 'none';
+                        if (homeButton) homeButton.style.display = 'none';
+                        projectNavigation.style.padding = "10px 20px"; // Reduced padding
+                        projectWrapper.style.paddingTop = "60px"; // Adjust based on new nav height
+                    } else {
+                        if (miniBioImage) miniBioImage.style.display = '';
+                        if (miniBioContent) miniBioContent.style.display = '';
+                        if (homeButton) homeButton.style.display = '';
+                        projectNavigation.style.padding = "10px 20px"; // Original padding
+                        projectWrapper.style.paddingTop = "80px"; // Original top padding for wrapper
+                    }
+				});
+			}
+		});
+	</script>
+</body>
+</html>

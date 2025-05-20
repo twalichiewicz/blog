@@ -4,24 +4,24 @@
     <body>
         <div class="page-transition-overlay"></div>
         
-        <div class="post-navigation">
-            <div class="post-mini-bio">
-                <div class="post-mini-bio-image">
-                    <img src="/img/profilePhoto.jpeg" alt="Profile Photo">
+        <div class="project-navigation">
+            <div class="project-mini-bio">
+                <div class="project-mini-bio-image">
+                    <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
                 </div>
-                <div class="post-mini-bio-content">
-                    <h4 class="post-mini-bio-name">Blog Post</h4>
-                    <p class="post-mini-bio-text">Thanks for reading! More posts are available from the home page.</p>
+                <div class="project-mini-bio-content">
+                    <h4 class="project-mini-bio-name">Blog Post</h4>
+                    <p class="project-mini-bio-text">Thanks for reading! More posts are available from the home page.</p>
                 </div>
                 <div class="button-stack">
-                    <a href="<%= url_for('/') %>" class="post-home-button" title="Home">
+                    <a href="<%= url_for('/') %>" class="project-home-button" title="Home">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
                             <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
                         </svg>
                         <span>Home</span>
                     </a>
-                    <button class="post-collapse-button" aria-label="Toggle navigation">
+                    <button class="project-collapse-button" aria-label="Toggle navigation">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
@@ -93,11 +93,6 @@
                 <%- page.content %>
             </div>
             
-            <div class="post-footer">
-                <div class="skully-icon">
-                    <img src="/img/skully.svg" alt="Skully" width="24" height="24">
-                </div>
-            </div>
         </article>
         <% } %>
         
@@ -164,7 +159,7 @@
                 opacity: 1;
             }
             
-            .post-navigation {
+            .project-navigation {
                 transform: translateY(-10px);
                 transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
                             opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -177,16 +172,16 @@
                 pointer-events: none;
             }
             
-            .post-navigation > * {
+            .project-navigation > * {
                 pointer-events: auto;
             }
             
-            body.loaded .post-navigation {
+            body.loaded .project-navigation {
                 transform: translateY(0);
                 opacity: 1;
             }
             
-            .post-navigation .mini-profile-photo {
+            .project-navigation .mini-profile-photo {
                 width: 40px;
                 height: 40px;
                 border-radius: 8px;
@@ -199,23 +194,23 @@
                 transition: all 0.2s ease;
             }
             
-            .post-navigation .mini-profile-photo:hover {
+            .project-navigation .mini-profile-photo:hover {
                 background-color: rgba(0, 0, 0, 0.12);
                 color: rgba(0, 0, 0, 0.9);
             }
             
-            .post-navigation .home-icon {
+            .project-navigation .home-icon {
                 width: 20px;
                 height: 20px;
             }
             
             @media (prefers-color-scheme: dark) {
-                .post-navigation .mini-profile-photo {
+                .project-navigation .mini-profile-photo {
                     background-color: rgba(255, 255, 255, 0.15);
                     color: rgba(255, 255, 255, 0.8);
                 }
                 
-                .post-navigation .mini-profile-photo:hover {
+                .project-navigation .mini-profile-photo:hover {
                     background-color: rgba(255, 255, 255, 0.2);
                     color: rgba(255, 255, 255, 1);
                 }
@@ -398,8 +393,8 @@
 
             // Handle mini bio collapse/expand
             document.addEventListener('DOMContentLoaded', function() {
-                const miniBio = document.querySelector('.post-mini-bio');
-                const collapseButton = document.querySelector('.post-collapse-button');
+                const miniBio = document.querySelector('.project-mini-bio');
+                const collapseButton = document.querySelector('.project-collapse-button');
                 
                 if (collapseButton && miniBio) {
                     collapseButton.addEventListener('click', function() {

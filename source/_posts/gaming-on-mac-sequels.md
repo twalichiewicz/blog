@@ -2,6 +2,7 @@
 title: Gaming on macOS Sequels
 date: 2024-07-06 20:30:22
 long: true
+layout: project_gallery
 excerpt: Apple’s strategy to bridge the gap by porting iOS games to macOS isn’t just clever; it’s a smart way to boost the perceived value of Macs. From a customer’s perspective, the main difference between platforms is how you interact with them. Younger generations are already comfortable doing "serious" work on mobile devices, while older generations still view computers as essential for such tasks.
 tags:
   - blog

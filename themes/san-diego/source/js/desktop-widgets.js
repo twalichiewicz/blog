@@ -1,19 +1,27 @@
 class DesktopWidgets {
 	constructor() {
+		console.log('[DesktopWidgets] Constructor called');
 		this.widgets = [];
 		this.activeWidget = null;
 		this.offset = { x: 0, y: 0 };
+		this.container = null;
+		this.boundDragStart = this.handleDragStart.bind(this);
+		this.boundDrag = this.handleDrag.bind(this);
+		this.boundDragEnd = this.handleDragEnd.bind(this);
 
 		// Only initialize on desktop
 		if (window.innerWidth > 768) {
 			this.init();
+		} else {
+			console.log('[DesktopWidgets] Not initializing on mobile/tablet.');
 		}
 	}
 
 	init() {
-		const container = document.createElement('div');
-		container.className = 'desktop-widgets';
-		document.body.appendChild(container);
+		console.log('[DesktopWidgets] init()');
+		this.container = document.createElement('div');
+		this.container.className = 'desktop-widgets';
+		document.body.appendChild(this.container);
 
 		// Create widgets for each main section, with index as the main view
 		['index', 'blog', 'about'].forEach((section, index) => {
@@ -30,6 +38,7 @@ class DesktopWidgets {
 	}
 
 	createWidget(section, position) {
+		console.log(`[DesktopWidgets] createWidget(${section})`);
 		const widget = document.createElement('div');
 		widget.className = `widget ${position.isMain ? 'main-widget' : ''}`;
 		widget.style.left = `${position.x}px`;
@@ -58,7 +67,10 @@ class DesktopWidgets {
 		// Load content
 		const contentPath = section === 'index' ? '/' : `/${section}`;
 		fetch(contentPath)
-			.then(response => response.text())
+			.then(response => {
+				if (!response.ok) throw new Error(`Failed to fetch ${section}: ${response.statusText}`);
+				return response.text();
+			})
 			.then(html => {
 				const parser = new DOMParser();
 				const doc = parser.parseFromString(html, 'text/html');
@@ -89,18 +101,32 @@ class DesktopWidgets {
 						});
 					}
 				}
+			})
+			.catch(error => {
+				console.error(`[DesktopWidgets] Error loading content for ${section}:`, error);
+				widget.querySelector('.widget-content').textContent = `Error loading ${section}.`;
 			});
 	}
 
 	setupEventListeners() {
-		document.addEventListener('mousedown', this.handleDragStart.bind(this));
-		document.addEventListener('mousemove', this.handleDrag.bind(this));
-		document.addEventListener('mouseup', this.handleDragEnd.bind(this));
+		console.log('[DesktopWidgets] setupEventListeners()');
+		// Remove first to ensure no duplicates if called again
+		document.removeEventListener('mousedown', this.boundDragStart);
+		document.removeEventListener('mousemove', this.boundDrag);
+		document.removeEventListener('mouseup', this.boundDragEnd);
+
+		// Add listeners
+		document.addEventListener('mousedown', this.boundDragStart);
+		document.addEventListener('mousemove', this.boundDrag);
+		document.addEventListener('mouseup', this.boundDragEnd);
 
 		// Add window control functionality
+		// Note: If widgets are destroyed/recreated, these might need re-attaching
+		// or use event delegation on the container.
 		this.widgets.forEach(widget => {
 			const controls = widget.querySelector('.widget-controls');
-			controls.addEventListener('click', (e) => {
+			// Consider adding checks if controls exist
+			controls?.addEventListener('click', (e) => {
 				const button = e.target;
 				if (button.classList.contains('close')) {
 					widget.style.display = 'none';
@@ -111,6 +137,21 @@ class DesktopWidgets {
 				}
 			});
 		});
+	}
+
+	destroy() {
+		console.log('[DesktopWidgets] destroy()');
+		document.removeEventListener('mousedown', this.boundDragStart);
+		document.removeEventListener('mousemove', this.boundDrag);
+		document.removeEventListener('mouseup', this.boundDragEnd);
+
+		if (this.container) {
+			this.container.remove();
+			this.container = null;
+		}
+		this.widgets = [];
+		this.activeWidget = null;
+		console.log('[DesktopWidgets] Instance destroyed');
 	}
 
 	handleDragStart(e) {
@@ -158,7 +199,55 @@ class DesktopWidgets {
 	}
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-	new DesktopWidgets();
-}); 
+let desktopWidgetsInstance = null;
+
+export function initializeDesktopWidgets() {
+	console.log('[desktop-widgets.js] initializeDesktopWidgets Start');
+	// Cleanup existing instance if it exists
+	if (desktopWidgetsInstance && typeof desktopWidgetsInstance.destroy === 'function') {
+		cleanupDesktopWidgetsInstance();
+	}
+
+	// Only initialize on desktop
+	if (window.innerWidth > 768) {
+		try {
+			desktopWidgetsInstance = new DesktopWidgets();
+		} catch (error) {
+			console.error('[desktop-widgets.js] Error initializing DesktopWidgets:', error);
+			desktopWidgetsInstance = null; // Ensure instance is null on error
+		}
+	} else {
+		console.log('[desktop-widgets.js] Not initializing on mobile/tablet.');
+		desktopWidgetsInstance = null; // Ensure instance is null when not initialized
+	}
+	console.log('[desktop-widgets.js] initializeDesktopWidgets End');
+}
+
+export function cleanupDesktopWidgetsInstance() {
+	console.log('[desktop-widgets.js] cleanupDesktopWidgetsInstance');
+	if (desktopWidgetsInstance && typeof desktopWidgetsInstance.destroy === 'function') {
+		try {
+			desktopWidgetsInstance.destroy();
+		} catch (error) {
+			console.error('[desktop-widgets.js] Error destroying DesktopWidgets instance:', error);
+		}
+	}
+	desktopWidgetsInstance = null;
+}
+
+// Handle bfcache restore
+window.addEventListener('pageshow', (event) => {
+	if (event.persisted) {
+		console.log('[desktop-widgets.js pageshow] Start - bfcache');
+		// Re-initialize (will handle cleanup internally)
+		initializeDesktopWidgets();
+		console.log('[desktop-widgets.js pageshow] End - bfcache');
+	}
+});
+
+// Initial load logic (since it's a module)
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', initializeDesktopWidgets);
+} else {
+	initializeDesktopWidgets();
+} 
