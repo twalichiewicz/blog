@@ -9,8 +9,32 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Tue, 20 May 2025 09:43:14 GMT</pubDate>
+    <pubDate>Tue, 20 May 2025 17:27:49 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Blog updated</title>
+      <link>https://twalichiewicz.github.io/2025/05/20/Blog-updated-1/</link>
+      <guid>https://twalichiewicz.github.io/2025/05/20/Blog-updated-1/</guid>
+      <pubDate>Tue, 20 May 2025 17:16:59 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;span style=&quot;font-weight: bold; color: #2ea043&quot;&gt;+4318&lt;/span&gt; &lt;span style=&quot;font-weight: bold; color: #f97316&quot;&gt;-1276&lt;/span&gt;&lt;br&gt;Deployed ano</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><span style="font-weight: bold; color: #2ea043">+4318</span> <span style="font-weight: bold; color: #f97316">-1276</span><br>Deployed another set of changes 😮‍💨</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/05/20/Blog-updated-1/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Apple CarPlay Ultra</title>
@@ -458,31 +482,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/03/22/Assistant-confidence-interval-vocal/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Finally writing posts for notes in my notebook</title>
-      <link>https://twalichiewicz.github.io/2025/03/20/Finally-writing-posts-for-notes-in-my-notebook/</link>
-      <guid>https://twalichiewicz.github.io/2025/03/20/Finally-writing-posts-for-notes-in-my-notebook/</guid>
-      <pubDate>Thu, 20 Mar 2025 19:59:14 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;In case it isn’t obvious, I’ve finally gotten around to turning my notebook scribbles into proper posts.&lt;/p&gt;
-</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>In case it isn’t obvious, I’ve finally gotten around to turning my notebook scribbles into proper posts.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/03/20/Finally-writing-posts-for-notes-in-my-notebook/#disqus_thread</comments>
       
     </item>
     
