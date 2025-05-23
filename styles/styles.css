@@ -2103,6 +2103,12 @@ ol ul {
   flex-direction: column;
   width: 100%;
 }
+.device-mobile .blog .blog-content .content-inner-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .device-mobile .blog #postsContent,
 .device-mobile .blog #projectsContent {
   width: 100%;
@@ -2198,7 +2204,7 @@ ol ul {
 }
 .device-tablet .blog .blog-header {
   align-self: start;
-  justify-content: center;
+  justify-content: start;
   width: 300px;
   flex-shrink: 0;
   position: relative;
@@ -2339,7 +2345,7 @@ ol ul {
 }
 .device-desktop .blog .blog-header {
   align-self: start;
-  justify-content: center;
+  justify-content: start;
   width: 360px;
   flex-shrink: 0;
   position: relative;
@@ -3602,6 +3608,19 @@ footer span {
   height: auto;
   overflow-x: hidden;
   position: relative;
+}
+.blog .blog-header {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .blog .blog-header {
+    height: 100%;
+  }
 }
 .blog .blog-content {
   border-radius: 15px 0 0 0;
@@ -8542,7 +8561,7 @@ table th span[style*="background-color: #e6f7ff"] {
   .contact-modal-sheet {
     position: relative;
     width: calc(100vw - 12px);
-    max-width: 468px;
+    max-width: 700px;
     margin: 0 auto;
     margin-left: 6px;
     margin-right: 6px;
