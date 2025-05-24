@@ -472,9 +472,9 @@
     // });
 
 (function() {
-  // Only run on mobile
+  // Only run on mobile (up to tablet breakpoint)
   function isMobile() {
-    return window.matchMedia && window.matchMedia('(max-width: 600px)').matches;
+    return window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
   }
   var contactBtn = document.getElementById('mobileContactBtn');
   var modal = document.getElementById('contactModal');
