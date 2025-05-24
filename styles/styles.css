@@ -2228,6 +2228,7 @@ ol ul {
   flex-direction: column;
   margin: 36px 0;
   gap: 33px;
+  padding: 24px 12px 0 24px;
 }
 .device-tablet .blog .blog-header .profile-header .profile-photo {
   width: 100px;
