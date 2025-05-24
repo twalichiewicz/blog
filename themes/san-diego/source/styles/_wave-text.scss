@@ -23,6 +23,10 @@
 	overflow: hidden;
 	display: block !important;
 	will-change: transform, opacity;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 
 	/* Ensure consistent positioning */
 	max-width: 100vw;
