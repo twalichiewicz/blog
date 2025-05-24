@@ -8688,7 +8688,7 @@ table th span[style*="background-color: #e6f7ff"] {
     border-color: rgba(0, 0, 0, 0.12);
   }
 }
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 768px) {
   .contact-modal {
     display: none !important;
   }
