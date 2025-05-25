@@ -713,35 +713,49 @@ button {
 		.contact-button {
 			display: block;
 			padding: 8px 16px;
-			background: rgba(variables.$card-bg, 0.8);
-			border: 1px solid rgba(variables.$border-color, 0.6);
+			/* Use active styling as default on mobile */
+			background: rgba(variables.$link-color, 0.8);
+			border: 1px solid rgba(variables.$link-color, 0.6);
 			border-radius: 6px;
 			font-size: 12px;
 			font-weight: 600;
-			color: variables.$text-color;
+			color: variables.$white;
 			text-decoration: none;
 			cursor: pointer;
 			transition: all 0.2s ease;
 			z-index: 101;
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.05),
-				0 -1px 0 rgba(255, 255, 255, 0.3) inset;
+				0 1px 2px rgba(0, 0, 0, 0.1),
+				0 1px 0 rgba(255, 255, 255, 0.1) inset;
 			backdrop-filter: blur(4px);
 
+			/* New hover state for active-by-default button */
 			&:hover {
-				background: rgba(variables.$card-bg, 0.9);
+				background: rgba(variables.$link-color, 0.9);
+				border-color: rgba(variables.$link-color, 0.8);
 				box-shadow:
-					0 1px 3px rgba(0, 0, 0, 0.1),
-					0 -1px 0 rgba(255, 255, 255, 0.4) inset;
+					0 2px 4px rgba(0, 0, 0, 0.15),
+					0 1px 0 rgba(255, 255, 255, 0.2) inset;
+				transform: translateY(-1px);
 			}
 
+			/* New active/pressed state for touch/mouse down */
+			&:active {
+				background: rgba(variables.$link-color, 0.7);
+				border-color: rgba(variables.$link-color, 0.5);
+				box-shadow:
+					0 1px 1px rgba(0, 0, 0, 0.1),
+					0 1px 2px rgba(0, 0, 0, 0.1) inset;
+				transform: translateY(0);
+			}
+
+			/* Keep the .active class for when dropdown is open */
 			&.active {
-				background: rgba(variables.$link-color, 0.8);
-				color: variables.$white;
+				background: rgba(variables.$link-color, 0.85);
+				border-color: rgba(variables.$link-color, 0.7);
 				box-shadow:
 					0 1px 2px rgba(0, 0, 0, 0.1),
-					0 1px 0 rgba(255, 255, 255, 0.1) inset;
-				border-color: rgba(variables.$link-color, 0.6);
+					0 1px 0 rgba(255, 255, 255, 0.15) inset;
 			}
 		}
 
@@ -854,33 +868,83 @@ button {
 /* Dark mode styles for contact wrapper */
 @media (prefers-color-scheme: dark) {
 	.contact-wrapper {
-		.contact-button {
-			background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
-			border-color: variables.$border-color-dark;
-			color: variables.$text-color-dark;
-			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.3),
-				0 -1px 0 rgba(255, 255, 255, 0.1) inset,
-				0 2px 0 rgba(0, 0, 0, 0.2) inset;
-			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 
-			&:hover {
-				background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 12%), color.adjust(variables.$card-bg-dark, $lightness: 5%));
-				box-shadow:
-					0 1px 3px rgba(0, 0, 0, 0.4),
-					0 -1px 0 rgba(255, 255, 255, 0.1) inset,
-					0 2px 0 rgba(0, 0, 0, 0.2) inset;
-			}
-
-			&.active {
+		/* Mobile styles - active by default in dark mode */
+		@media screen and (max-width: variables.$mobile-breakpoint) {
+			.contact-button {
+				/* Use active styling as default on mobile in dark mode */
 				background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+				border-color: color.adjust(variables.$link-color-dark, $lightness: -15%);
 				color: variables.$black;
 				box-shadow:
 					0 1px 2px rgba(0, 0, 0, 0.4),
 					0 1px 0 rgba(255, 255, 255, 0.3) inset,
 					0 -1px 0 rgba(0, 0, 0, 0.2) inset;
 				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
-				border-color: color.adjust(variables.$link-color-dark, $lightness: -15%);
+
+				/* New hover state for active-by-default button in dark mode */
+				&:hover {
+					background: linear-gradient(to bottom, color.adjust(variables.$link-color-dark, $lightness: 5%), color.adjust(variables.$link-color-dark, $lightness: -5%));
+					border-color: color.adjust(variables.$link-color-dark, $lightness: -10%);
+					box-shadow:
+						0 2px 4px rgba(0, 0, 0, 0.5),
+						0 1px 0 rgba(255, 255, 255, 0.4) inset,
+						0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+					transform: translateY(-1px);
+				}
+
+				/* New active/pressed state for touch/mouse down in dark mode */
+				&:active {
+					background: linear-gradient(to bottom, color.adjust(variables.$link-color-dark, $lightness: -5%), color.adjust(variables.$link-color-dark, $lightness: -15%));
+					border-color: color.adjust(variables.$link-color-dark, $lightness: -20%);
+					box-shadow:
+						0 1px 1px rgba(0, 0, 0, 0.3),
+						0 1px 2px rgba(0, 0, 0, 0.3) inset;
+					transform: translateY(0);
+				}
+
+				/* Keep the .active class for when dropdown is open in dark mode */
+				&.active {
+					background: linear-gradient(to bottom, color.adjust(variables.$link-color-dark, $lightness: 2%), color.adjust(variables.$link-color-dark, $lightness: -8%));
+					border-color: color.adjust(variables.$link-color-dark, $lightness: -12%);
+					box-shadow:
+						0 1px 2px rgba(0, 0, 0, 0.4),
+						0 1px 0 rgba(255, 255, 255, 0.35) inset,
+						0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+				}
+			}
+		}
+
+		/* Desktop/tablet styles remain unchanged for dark mode */
+		@media screen and (min-width: variables.$mobile-breakpoint) {
+			.contact-button {
+				background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
+				border-color: variables.$border-color-dark;
+				color: variables.$text-color-dark;
+				box-shadow:
+					0 1px 2px rgba(0, 0, 0, 0.3),
+					0 -1px 0 rgba(255, 255, 255, 0.1) inset,
+					0 2px 0 rgba(0, 0, 0, 0.2) inset;
+				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+
+				&:hover {
+					background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 12%), color.adjust(variables.$card-bg-dark, $lightness: 5%));
+					box-shadow:
+						0 1px 3px rgba(0, 0, 0, 0.4),
+						0 -1px 0 rgba(255, 255, 255, 0.1) inset,
+						0 2px 0 rgba(0, 0, 0, 0.2) inset;
+				}
+
+				&.active {
+					background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+					color: variables.$black;
+					box-shadow:
+						0 1px 2px rgba(0, 0, 0, 0.4),
+						0 1px 0 rgba(255, 255, 255, 0.3) inset,
+						0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+					text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+					border-color: color.adjust(variables.$link-color-dark, $lightness: -15%);
+				}
 			}
 		}
 
