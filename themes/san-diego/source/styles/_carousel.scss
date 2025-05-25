@@ -151,6 +151,47 @@
 		}
 	}
 
+	// Override standalone button styles for buttons inside indicators
+	&-indicators &-button {
+		position: static !important;
+		transform: none !important;
+		width: 16px !important;
+		height: 16px !important;
+		background: rgba(255, 255, 255, 0.5) !important;
+		border-radius: 50% !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		top: auto !important;
+		left: auto !important;
+		right: auto !important;
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.8) !important;
+			transform: scale(1.1) !important;
+		}
+
+		&.prev::before,
+		&.next::before {
+			content: '';
+			width: 4px !important;
+			height: 4px !important;
+			border: 1px solid variables.$white !important;
+			border-left: 0 !important;
+			border-bottom: 0 !important;
+			position: absolute;
+		}
+
+		&.prev::before {
+			transform: rotate(-135deg) !important;
+			right: 5px !important;
+		}
+
+		&.next::before {
+			transform: rotate(45deg) !important;
+			left: 5px !important;
+		}
+	}
+
 	&-indicators {
 		position: absolute;
 		bottom: 16px;
