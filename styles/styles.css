@@ -8347,28 +8347,39 @@ button {
   .contact-wrapper .contact-button {
     display: block;
     padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(197.625, 192.3125, 184.875, 0.6);
+    /* Use active styling as default on mobile */
+    background: rgba(173.4, 66.3, 30.6, 0.8);
+    border: 1px solid rgba(173.4, 66.3, 30.6, 0.6);
     border-radius: 6px;
     font-size: 12px;
     font-weight: 600;
-    color: hsl(24, 3%, 35%);
+    color: hsl(0, 0%, 100%);
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s ease;
     z-index: 101;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 -1px 0 rgba(255, 255, 255, 0.3) inset;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
     backdrop-filter: blur(4px);
+    /* New hover state for active-by-default button */
+    /* New active/pressed state for touch/mouse down */
+    /* Keep the .active class for when dropdown is open */
   }
   .contact-wrapper .contact-button:hover {
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 -1px 0 rgba(255, 255, 255, 0.4) inset;
+    background: rgba(173.4, 66.3, 30.6, 0.9);
+    border-color: rgba(173.4, 66.3, 30.6, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    transform: translateY(-1px);
+  }
+  .contact-wrapper .contact-button:active {
+    background: rgba(173.4, 66.3, 30.6, 0.7);
+    border-color: rgba(173.4, 66.3, 30.6, 0.5);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    transform: translateY(0);
   }
   .contact-wrapper .contact-button.active {
-    background: rgba(173.4, 66.3, 30.6, 0.8);
-    color: hsl(0, 0%, 100%);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
-    border-color: rgba(173.4, 66.3, 30.6, 0.6);
+    background: rgba(173.4, 66.3, 30.6, 0.85);
+    border-color: rgba(173.4, 66.3, 30.6, 0.7);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.15) inset;
   }
   .contact-wrapper .contact-options {
     position: absolute;
@@ -8465,6 +8476,42 @@ button {
 
 /* Dark mode styles for contact wrapper */
 @media (prefers-color-scheme: dark) {
+  .contact-wrapper {
+    /* Mobile styles - active by default in dark mode */
+    /* Desktop/tablet styles remain unchanged for dark mode */
+  }
+}
+@media screen and (prefers-color-scheme: dark) and (max-width: 768px) {
+  .contact-wrapper .contact-button {
+    /* Use active styling as default on mobile in dark mode */
+    background: linear-gradient(to bottom, hsl(40, 90%, 60%), hsl(40, 90%, 50%));
+    border-color: hsl(40, 90%, 45%);
+    color: hsl(0, 0%, 10%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+    /* New hover state for active-by-default button in dark mode */
+    /* New active/pressed state for touch/mouse down in dark mode */
+    /* Keep the .active class for when dropdown is open in dark mode */
+  }
+  .contact-wrapper .contact-button:hover {
+    background: linear-gradient(to bottom, hsl(40, 90%, 65%), hsl(40, 90%, 55%));
+    border-color: hsl(40, 90%, 50%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+    transform: translateY(-1px);
+  }
+  .contact-wrapper .contact-button:active {
+    background: linear-gradient(to bottom, hsl(40, 90%, 55%), hsl(40, 90%, 45%));
+    border-color: hsl(40, 90%, 40%);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+    transform: translateY(0);
+  }
+  .contact-wrapper .contact-button.active {
+    background: linear-gradient(to bottom, hsl(40, 90%, 62%), hsl(40, 90%, 52%));
+    border-color: hsl(40, 90%, 48%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+  }
+}
+@media screen and (prefers-color-scheme: dark) and (min-width: 768px) {
   .contact-wrapper .contact-button {
     background: linear-gradient(to bottom, hsl(0, 0%, 26%), hsl(0, 0%, 18%));
     border-color: hsl(0, 0%, 25%);
@@ -8483,6 +8530,8 @@ button {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
     border-color: hsl(40, 90%, 45%);
   }
+}
+@media (prefers-color-scheme: dark) {
   .contact-wrapper .contact-options {
     background: hsl(0, 0%, 18%);
     border-color: hsl(0, 0%, 25%);
@@ -9493,20 +9542,55 @@ body.loaded {
   box-shadow: 0 0 0 1px rgba(25.5, 25.5, 25.5, 0.05), 0 0 0 2px rgba(255, 255, 255, 0.5), inset 0 2px 8px rgba(25.5, 25.5, 25.5, 0.1), inset 0 -4px 8px rgba(255, 255, 255, 0.3);
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(25.5, 25.5, 25.5, 0.1));
 }
-.blog.blog .profile-header .contact-wrapper .contact-button {
-  background: rgba(255, 255, 255, 0.7);
-  border-color: rgba(197.625, 192.3125, 184.875, 0.5);
-  color: hsl(24, 3%, 35%);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+.blog.blog .profile-header .contact-wrapper {
+  /* Mobile styles - active by default in light mode */
+  /* Desktop/tablet styles remain unchanged for light mode */
 }
-.blog.blog .profile-header .contact-wrapper .contact-button:hover {
-  background: rgba(173.4, 66.3, 30.6, 0.2);
-  color: hsl(15, 70%, 40%);
+@media screen and (max-width: 768px) {
+  .blog.blog .profile-header .contact-wrapper .contact-button {
+    /* Use active styling as default on mobile in light mode */
+    background: hsl(15, 70%, 40%);
+    border-color: hsl(15, 70%, 40%);
+    color: hsl(0, 0%, 100%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    /* New hover state for active-by-default button in light mode */
+    /* New active/pressed state for touch/mouse down in light mode */
+    /* Keep the .active class for when dropdown is open in light mode */
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button:hover {
+    background: hsl(15, 70%, 45%);
+    border-color: hsl(15, 70%, 45%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button:active {
+    background: hsl(15, 70%, 35%);
+    border-color: hsl(15, 70%, 35%);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button.active {
+    background: hsl(15, 70%, 42%);
+    border-color: hsl(15, 70%, 42%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
 }
-.blog.blog .profile-header .contact-wrapper .contact-button.active {
-  background: hsl(15, 70%, 40%);
-  color: hsl(0, 0%, 100%);
-  border-color: hsl(15, 70%, 40%);
+@media screen and (min-width: 768px) {
+  .blog.blog .profile-header .contact-wrapper .contact-button {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(197.625, 192.3125, 184.875, 0.5);
+    color: hsl(24, 3%, 35%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button:hover {
+    background: rgba(173.4, 66.3, 30.6, 0.2);
+    color: hsl(15, 70%, 40%);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button.active {
+    background: hsl(15, 70%, 40%);
+    color: hsl(0, 0%, 100%);
+    border-color: hsl(15, 70%, 40%);
+  }
 }
 .blog.blog .profile-header .contact-wrapper .contact-options {
   background: rgba(255, 255, 255, 0.7);
@@ -9586,6 +9670,41 @@ body.loaded {
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 0 2px rgba(25.5, 25.5, 25.5, 0.3), inset 0 2px 8px rgba(25.5, 25.5, 25.5, 0.6), inset 0 -4px 8px rgba(255, 255, 255, 0.1);
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(25.5, 25.5, 25.5, 0.2));
   }
+  .blog.blog .profile-header .contact-wrapper {
+    /* Mobile styles - active by default in dark mode */
+    /* Desktop/tablet styles remain unchanged for dark mode */
+  }
+}
+@media screen and (prefers-color-scheme: dark) and (max-width: 768px) {
+  .blog.blog .profile-header .contact-wrapper .contact-button {
+    /* Use active styling as default on mobile in dark mode */
+    background: rgba(244.8, 183.6, 61.2, 0.8);
+    border-color: rgba(244.8, 183.6, 61.2, 0.6);
+    color: hsl(0, 0%, 10%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    /* New hover state for active-by-default button in dark mode */
+    /* New active/pressed state for touch/mouse down in dark mode */
+    /* Keep the .active class for when dropdown is open in dark mode */
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button:hover {
+    background: rgba(244.8, 183.6, 61.2, 0.9);
+    border-color: rgba(244.8, 183.6, 61.2, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button:active {
+    background: rgba(244.8, 183.6, 61.2, 0.7);
+    border-color: rgba(244.8, 183.6, 61.2, 0.5);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+  }
+  .blog.blog .profile-header .contact-wrapper .contact-button.active {
+    background: rgba(244.8, 183.6, 61.2, 0.85);
+    border-color: rgba(244.8, 183.6, 61.2, 0.7);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
+@media screen and (prefers-color-scheme: dark) and (min-width: 768px) {
   .blog.blog .profile-header .contact-wrapper .contact-button {
     background: rgba(45.9, 45.9, 45.9, 0.7);
     border-color: rgba(63.75, 63.75, 63.75, 0.5);
@@ -9601,6 +9720,8 @@ body.loaded {
     color: hsl(0, 0%, 10%);
     border-color: rgba(244.8, 183.6, 61.2, 0.6);
   }
+}
+@media (prefers-color-scheme: dark) {
   .blog.blog .profile-header .contact-wrapper .contact-options {
     background: rgba(45.9, 45.9, 45.9, 0.7);
     border-color: rgba(63.75, 63.75, 63.75, 0.5);
