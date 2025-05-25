@@ -512,6 +512,7 @@ ol ul {
     /* Desktop contact options in dark mode */
     /* Global dark mode style for external-icon */
     /* Dark mode for basic blog content */
+    /* Headings in dark mode - apply to all screen sizes */
     /* Dark mode for blog content on tablet and desktop */
     /* Specific styles for tablet */
     /* Specific styles for desktop */
@@ -622,6 +623,52 @@ ol ul {
   .blog .blog-content::before {
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
   }
+  .blog .blog-content .content-wrapper #postsContent,
+  .blog .blog-content .content-wrapper #projectsContent {
+    /* Headings in dark mode */
+  }
+  .blog .blog-content .content-wrapper #postsContent h1,
+  .blog .blog-content .content-wrapper #postsContent h2,
+  .blog .blog-content .content-wrapper #postsContent h3,
+  .blog .blog-content .content-wrapper #postsContent h4,
+  .blog .blog-content .content-wrapper #postsContent h5,
+  .blog .blog-content .content-wrapper #postsContent h6,
+  .blog .blog-content .content-wrapper #projectsContent h1,
+  .blog .blog-content .content-wrapper #projectsContent h2,
+  .blog .blog-content .content-wrapper #projectsContent h3,
+  .blog .blog-content .content-wrapper #projectsContent h4,
+  .blog .blog-content .content-wrapper #projectsContent h5,
+  .blog .blog-content .content-wrapper #projectsContent h6 {
+    color: hsl(0, 0%, 100%);
+  }
+  .blog .blog-content .content-wrapper #postsContent h1 a,
+  .blog .blog-content .content-wrapper #postsContent h2 a,
+  .blog .blog-content .content-wrapper #postsContent h3 a,
+  .blog .blog-content .content-wrapper #postsContent h4 a,
+  .blog .blog-content .content-wrapper #postsContent h5 a,
+  .blog .blog-content .content-wrapper #postsContent h6 a,
+  .blog .blog-content .content-wrapper #projectsContent h1 a,
+  .blog .blog-content .content-wrapper #projectsContent h2 a,
+  .blog .blog-content .content-wrapper #projectsContent h3 a,
+  .blog .blog-content .content-wrapper #projectsContent h4 a,
+  .blog .blog-content .content-wrapper #projectsContent h5 a,
+  .blog .blog-content .content-wrapper #projectsContent h6 a {
+    color: hsl(0, 0%, 100%);
+  }
+  .blog .blog-content .content-wrapper #postsContent h1 a:hover,
+  .blog .blog-content .content-wrapper #postsContent h2 a:hover,
+  .blog .blog-content .content-wrapper #postsContent h3 a:hover,
+  .blog .blog-content .content-wrapper #postsContent h4 a:hover,
+  .blog .blog-content .content-wrapper #postsContent h5 a:hover,
+  .blog .blog-content .content-wrapper #postsContent h6 a:hover,
+  .blog .blog-content .content-wrapper #projectsContent h1 a:hover,
+  .blog .blog-content .content-wrapper #projectsContent h2 a:hover,
+  .blog .blog-content .content-wrapper #projectsContent h3 a:hover,
+  .blog .blog-content .content-wrapper #projectsContent h4 a:hover,
+  .blog .blog-content .content-wrapper #projectsContent h5 a:hover,
+  .blog .blog-content .content-wrapper #projectsContent h6 a:hover {
+    color: hsl(40, 90%, 60%);
+  }
 }
 @media screen and (prefers-color-scheme: dark) and (min-width: 768px) {
   .blog .blog-content {
@@ -653,7 +700,6 @@ ol ul {
     /* Code blocks in dark mode */
     /* Images in dark mode */
     /* Links in dark mode */
-    /* Headings in dark mode */
     /* Lists in dark mode */
   }
   .blog .blog-content .content-wrapper #postsContent .column-title,
@@ -742,48 +788,6 @@ ol ul {
   .blog .blog-content .content-wrapper #projectsContent a:not(.button):hover {
     color: hsl(40, 90%, 70%);
     text-decoration: none;
-  }
-  .blog .blog-content .content-wrapper #postsContent h1,
-  .blog .blog-content .content-wrapper #postsContent h2,
-  .blog .blog-content .content-wrapper #postsContent h3,
-  .blog .blog-content .content-wrapper #postsContent h4,
-  .blog .blog-content .content-wrapper #postsContent h5,
-  .blog .blog-content .content-wrapper #postsContent h6,
-  .blog .blog-content .content-wrapper #projectsContent h1,
-  .blog .blog-content .content-wrapper #projectsContent h2,
-  .blog .blog-content .content-wrapper #projectsContent h3,
-  .blog .blog-content .content-wrapper #projectsContent h4,
-  .blog .blog-content .content-wrapper #projectsContent h5,
-  .blog .blog-content .content-wrapper #projectsContent h6 {
-    color: hsl(0, 0%, 100%);
-  }
-  .blog .blog-content .content-wrapper #postsContent h1 a,
-  .blog .blog-content .content-wrapper #postsContent h2 a,
-  .blog .blog-content .content-wrapper #postsContent h3 a,
-  .blog .blog-content .content-wrapper #postsContent h4 a,
-  .blog .blog-content .content-wrapper #postsContent h5 a,
-  .blog .blog-content .content-wrapper #postsContent h6 a,
-  .blog .blog-content .content-wrapper #projectsContent h1 a,
-  .blog .blog-content .content-wrapper #projectsContent h2 a,
-  .blog .blog-content .content-wrapper #projectsContent h3 a,
-  .blog .blog-content .content-wrapper #projectsContent h4 a,
-  .blog .blog-content .content-wrapper #projectsContent h5 a,
-  .blog .blog-content .content-wrapper #projectsContent h6 a {
-    color: hsl(0, 0%, 100%);
-  }
-  .blog .blog-content .content-wrapper #postsContent h1 a:hover,
-  .blog .blog-content .content-wrapper #postsContent h2 a:hover,
-  .blog .blog-content .content-wrapper #postsContent h3 a:hover,
-  .blog .blog-content .content-wrapper #postsContent h4 a:hover,
-  .blog .blog-content .content-wrapper #postsContent h5 a:hover,
-  .blog .blog-content .content-wrapper #postsContent h6 a:hover,
-  .blog .blog-content .content-wrapper #projectsContent h1 a:hover,
-  .blog .blog-content .content-wrapper #projectsContent h2 a:hover,
-  .blog .blog-content .content-wrapper #projectsContent h3 a:hover,
-  .blog .blog-content .content-wrapper #projectsContent h4 a:hover,
-  .blog .blog-content .content-wrapper #projectsContent h5 a:hover,
-  .blog .blog-content .content-wrapper #projectsContent h6 a:hover {
-    color: hsl(40, 90%, 60%);
   }
   .blog .blog-content .content-wrapper #postsContent ul li,
   .blog .blog-content .content-wrapper #postsContent ol li,
@@ -1583,9 +1587,8 @@ ol ul {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     background-color: transparent !important;
   }
-  .portfolio-item:not(.has-writeup):hover h4 {
-    color: hsl(0, 0%, 70%);
-    opacity: 0.9;
+  .portfolio-item:not(.has-writeup):hover .portfolio-item.has-writeup h4 {
+    color: white;
   }
 }
 .portfolio-item:not(.has-writeup) h4 {
@@ -2508,7 +2511,6 @@ ol ul {
     /* Reset all base styling for blog-content on mobile */
     /* Content containers */
     /* Header elements - simplified */
-    /* Fix for content-text h4 color on mobile - override portfolio-item.has-writeup h4 */
     /* Blog header wave */
     /* Content containers - ensure consistent max-width */
     /* Blog list and items */
@@ -2549,9 +2551,6 @@ ol ul {
   .blog .view-toggle {
     flex-shrink: 0;
     position: relative;
-  }
-  .blog .portfolio-item.has-writeup .content-text h4 {
-    color: hsl(0, 0%, 100%) !important;
   }
   .blog .profile-header {
     flex-direction: row !important;
