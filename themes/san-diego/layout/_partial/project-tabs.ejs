@@ -1,0 +1,65 @@
+<%
+// Parse the content to extract key sections and longer writeup
+const content = page.content;
+const sections = {};
+let longerWriteup = '';
+
+// Split content by the separator (<hr>) if it exists
+const parts = content.split('<hr>');
+const mainContent = parts[0];
+longerWriteup = parts.length > 1 ? parts[1].trim() : '';
+
+// Extract key sections from main content - updated regex for HTML format
+// The structure is: <h2 id="..."><a href="..." class="headerlink" title="..."></a>TITLE</h2>CONTENT
+const sectionRegex = /<h2[^>]*><a[^>]*><\/a>(The Problem|The Solution|Key Innovation[^<]*|Impact[^<]*)<\/h2>([\s\S]*?)(?=<h2|$)/g;
+let match;
+
+while ((match = sectionRegex.exec(mainContent)) !== null) {
+  const title = match[1].trim();
+  const content = match[2].trim();
+  
+  // Clean up titles like "Key Innovation: The Component System" to just "Key Innovation"
+  const cleanTitle = title.replace(/^(Key Innovation).*/, '$1');
+  
+  sections[cleanTitle] = content;
+}
+
+// Define the order of tabs
+const tabOrder = ['The Problem', 'The Solution', 'Key Innovation', 'Impact'];
+const availableTabs = tabOrder.filter(tab => sections[tab]);
+%>
+
+<% if (availableTabs.length > 0) { %>
+<div class="project-tabs">
+  <div class="tab-navigation">
+    <% availableTabs.forEach((tab, index) => { %>
+      <button class="tab-button <%= index === 0 ? 'active' : '' %>" data-tab="<%= tab.toLowerCase().replace(/\s+/g, '-') %>">
+        <%= tab %>
+      </button>
+    <% }); %>
+  </div>
+  
+  <div class="tab-content">
+    <% availableTabs.forEach((tab, index) => { %>
+      <div class="tab-panel <%= index === 0 ? 'active' : '' %>" id="<%= tab.toLowerCase().replace(/\s+/g, '-') %>">
+        <div class="tab-panel-content">
+          <%- sections[tab] %>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>
+<% } else { %>
+<!-- Fallback: Render content using existing method for projects without structured sections -->
+<article class="project-description">
+  <%- mainContent %>
+</article>
+<% } %>
+
+<% if (longerWriteup) { %>
+<div class="project-writeup">
+  <div class="writeup-content">
+    <%- longerWriteup %>
+  </div>
+</div>
+<% } %> 

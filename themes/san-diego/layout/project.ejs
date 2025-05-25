@@ -26,16 +26,15 @@
 						<span class="project-category"><%- page.company %></span>
 					<% } %>
 					<h2><%- page.title %></h2>
+					<% if (page.credits && page.credits.length) { %>
 					<div class="metadata">
 						<div class="metadata-list">
-							<% if (page.credits && page.credits.length) { %>
 							<% page.credits.forEach(function(credit) { %>
 								<div class="metadata-item">
 								<span class="label" style="font-size: 9px;"><%= credit.role %></span>
 								<span class="value" style="font-size: 12px;"><%= credit.name %></span>
 								</div>
 							<% }); %>
-							<% } %>
 							<% if (page.year) { %>
 							<div class="metadata-item">
 								<span class="label" style="font-size: 9px;">Year</span>
@@ -50,6 +49,7 @@
 							<% } %>
 						</div>
 					</div>
+					<% } %>
 				</div>
 				<article class="project-description"> <%// Changed class from project to project-description and kept article tag %>
 					<%- page.content %> <%// This is where the free-form HTML will be rendered %>
