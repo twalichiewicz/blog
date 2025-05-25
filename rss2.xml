@@ -9,7 +9,7 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Sun, 25 May 2025 23:10:48 GMT</pubDate>
+    <pubDate>Sun, 25 May 2025 23:48:06 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -77,7 +77,7 @@
       
       
       
-      <content:encoded><![CDATA[<div class="carousel" aria-label="Media carousel">      <div class="carousel-track">        <div class="carousel-slide active"                       aria-hidden="false">            <img src="/2025/05/06/Google-Material-3-preview/Material 3 Before.png"                                alt="Material 3 Before"                               loading="lazy"                               decoding="async">                      </div><div class="carousel-slide "                       aria-hidden="true">            <img src="/2025/05/06/Google-Material-3-preview/Material 3 After.png"                                alt="Material 3 After"                               loading="lazy"                               decoding="async">                      </div>      </div>              <button class="carousel-button prev" aria-label="Previous slide"></button>        <button class="carousel-button next" aria-label="Next slide"></button>        <div class="carousel-indicators">                      <button class="indicator active"                     aria-label="Go to slide 1"></button>                      <button class="indicator "                     aria-label="Go to slide 2"></button>                  </div>          </div><p>Would probably make a sweet visualizer for a randomizer mode though. <a href="https://arstechnica.com/gadgets/2025/05/google-accidentally-reveals-androids-material-3-expressive-interface-ahead-of-i-o/">From…</a></p>]]></content:encoded>
+      <content:encoded><![CDATA[<div class="carousel" aria-label="Media carousel">      <div class="carousel-track">        <div class="carousel-slide active"                       aria-hidden="false">            <img src="/2025/05/06/Google-Material-3-preview/Material 3 Before.png"                                alt="Material 3 Before"                               loading="lazy"                               decoding="async">                      </div><div class="carousel-slide "                       aria-hidden="true">            <img src="/2025/05/06/Google-Material-3-preview/Material 3 After.png"                                alt="Material 3 After"                               loading="lazy"                               decoding="async">                      </div>      </div>              <div class="carousel-indicators">          <button class="carousel-button prev" aria-label="Previous slide"></button>                      <button class="indicator active"                     aria-label="Go to slide 1"></button>                      <button class="indicator "                     aria-label="Go to slide 2"></button>                    <button class="carousel-button next" aria-label="Next slide"></button>        </div>          </div><p>Would probably make a sweet visualizer for a randomizer mode though. <a href="https://arstechnica.com/gadgets/2025/05/google-accidentally-reveals-androids-material-3-expressive-interface-ahead-of-i-o/">From…</a></p>]]></content:encoded>
       
       
       

@@ -64,53 +64,13 @@ class Carousel {
 
 		// Only initialize carousel navigation if more than one slide
 		if (this.slideCount > 1) {
-			// Update the button HTML with SF Symbols SVGs
+			// Clear button content since we're using CSS pseudo-elements for arrows
 			if (this.prevButton) {
-				this.prevButton.innerHTML = `
-			<svg width='24px' height='24px' viewBox='0 0 52 52' direction='ltr' xmlns='http://www.w3.org/2000/svg' version='1.1'>
-			  <g fill-rule='nonzero' transform='scale(1,-1) translate(0,-52.400390625)'>
-				<path fill='black' stroke='black' fill-opacity='1.0' stroke-width='1.0' d='
-				  M 24.6640625,5.37109375
-				  C 36.115234375,5.37109375 45.482421875,14.73828125 45.482421875,26.2109375
-				  C 45.482421875,37.662109375 36.115234375,47.029296875 24.6640625,47.029296875
-				  C 13.212890625,47.029296875 3.845703125,37.662109375 3.845703125,26.2109375
-				  C 3.845703125,14.73828125 13.212890625,5.37109375 24.6640625,5.37109375
-				  Z
-				  M 28.8984375,34.8046875
-				  L 30.1171875,33.5859375
-				  L 21.7578125,25.2265625
-				  L 30.1171875,16.8671875
-				  L 28.8984375,15.6484375
-				  L 19.2578125,25.2265625
-				  Z
-				' />
-			  </g>
-			</svg>
-		  `;
+				this.prevButton.innerHTML = '';
 			}
 
 			if (this.nextButton) {
-				this.nextButton.innerHTML = `
-			<svg width='24px' height='24px' viewBox='0 0 52 52' direction='ltr' xmlns='http://www.w3.org/2000/svg' version='1.1'>
-			  <g fill-rule='nonzero' transform='scale(1,-1) translate(0,-52.400390625)'>
-				<path fill='black' stroke='black' fill-opacity='1.0' stroke-width='1.0' d='
-				  M 24.6640625,5.37109375
-				  C 36.115234375,5.37109375 45.482421875,14.73828125 45.482421875,26.2109375
-				  C 45.482421875,37.662109375 36.115234375,47.029296875 24.6640625,47.029296875
-				  C 13.212890625,47.029296875 3.845703125,37.662109375 3.845703125,26.2109375
-				  C 3.845703125,14.73828125 13.212890625,5.37109375 24.6640625,5.37109375
-				  Z
-				  M 20.4296875,34.8046875
-				  L 30.0703125,25.2265625
-				  L 20.4296875,15.6484375
-				  L 19.2109375,16.8671875
-				  L 27.5703125,25.2265625
-				  L 19.2109375,33.5859375
-				  Z
-				' />
-			  </g>
-			</svg>
-		  `;
+				this.nextButton.innerHTML = '';
 			}
 
 			// Update the spotlight close button with SF Symbol
@@ -270,13 +230,13 @@ class Carousel {
 				<button class="spotlight-modal-close" aria-label="Close spotlight"></button>
 				<img src="${src}" alt="${alt}">
 				${hasMultipleImages ? `
-					<button class="spotlight-nav-button prev" aria-label="Previous image"></button>
-					<button class="spotlight-nav-button next" aria-label="Next image"></button>
 					<div class="carousel-indicators">
+						<button class="carousel-button prev" aria-label="Previous image"></button>
 						${this.carouselImages.map((_, index) => `
 							<button class="indicator ${index === this.currentSpotlightIndex ? 'active' : ''}" 
 									aria-label="Go to slide ${index + 1}"></button>
 						`).join('')}
+						<button class="carousel-button next" aria-label="Next image"></button>
 					</div>
 				` : ''}
 			`;
@@ -287,13 +247,13 @@ class Carousel {
 				<button class="spotlight-modal-close" aria-label="Close spotlight"></button>
 				<img src="${src}" alt="${alt}">
 				${hasMultipleImages ? `
-					<button class="spotlight-nav-button prev" aria-label="Previous image"></button>
-					<button class="spotlight-nav-button next" aria-label="Next image"></button>
 					<div class="carousel-indicators">
+						<button class="carousel-button prev" aria-label="Previous image"></button>
 						${this.carouselImages.map((_, index) => `
 							<button class="indicator ${index === this.currentSpotlightIndex ? 'active' : ''}" 
 									aria-label="Go to slide ${index + 1}"></button>
 						`).join('')}
+						<button class="carousel-button next" aria-label="Next image"></button>
 					</div>
 				` : ''}
 			`;
@@ -458,8 +418,8 @@ class Carousel {
 	}
 
 	setupSpotlightNavigation(modal) {
-		const prevButton = modal.querySelector('.spotlight-nav-button.prev');
-		const nextButton = modal.querySelector('.spotlight-nav-button.next');
+		const prevButton = modal.querySelector('.carousel-button.prev');
+		const nextButton = modal.querySelector('.carousel-button.next');
 		const closeButton = modal.querySelector('.spotlight-modal-close');
 		const self = this; // Store reference to Carousel instance
 

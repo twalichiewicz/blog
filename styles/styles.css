@@ -3827,37 +3827,65 @@ li .blog .post-list-item img {
 .blog .post-list-item .carousel p > img {
   margin: 0;
 }
-.blog .post-list-item .carousel .carousel-button {
+.blog .post-list-item .carousel.carousel .carousel-indicators {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 33px;
-  height: 33px;
-  border: none;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 50%;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 2;
-  display: flex;
-  gap: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 -1px 2px rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 8px;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 6px;
+  border-radius: 12px;
+  margin-bottom: 60px;
+}
+.blog .post-list-item .carousel.carousel .carousel-indicators .indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  padding: 0;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
-.blog .post-list-item .carousel .carousel-button:hover {
-  background: rgba(0, 0, 0, 0.4);
-  transform: translateY(-50%) scale(1.05);
+.blog .post-list-item .carousel.carousel .carousel-indicators .indicator.active {
+  background: hsl(0, 0%, 100%);
 }
-.blog .post-list-item .carousel .carousel-button.prev {
-  left: 1rem;
+.blog .post-list-item .carousel.carousel .carousel-indicators .carousel-button {
+  position: static !important;
+  transform: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
 }
-.blog .post-list-item .carousel .carousel-button.next {
-  right: 1rem;
+.blog .post-list-item .carousel.carousel .carousel-indicators .carousel-button:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  transform: scale(1.1) !important;
+}
+.blog .post-list-item .carousel.carousel .carousel-indicators .carousel-button.prev::before, .blog .post-list-item .carousel.carousel .carousel-indicators .carousel-button.next::before {
+  content: "";
+  width: 4px !important;
+  height: 4px !important;
+  border: 1px solid hsl(0, 0%, 100%) !important;
+  border-left: 0 !important;
+  border-bottom: 0 !important;
+  position: absolute;
+}
+.blog .post-list-item .carousel.carousel .carousel-indicators .carousel-button.prev::before {
+  transform: rotate(-135deg) !important;
+  right: 5px !important;
+}
+.blog .post-list-item .carousel.carousel .carousel-indicators .carousel-button.next::before {
+  transform: rotate(45deg) !important;
+  left: 5px !important;
 }
 .blog .post-separator {
   border: none;
@@ -6578,7 +6606,7 @@ body.loaded .project-wrapper {
 .carousel p > img {
   margin: 0;
 }
-.carousel-button, .spotlight-modal-close, .spotlight-nav-button {
+.carousel-button, .spotlight-modal-close {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -6597,17 +6625,17 @@ body.loaded .project-wrapper {
   z-index: 2;
   transition: all 0.3s ease;
 }
-.carousel-button:hover, .spotlight-modal-close:hover, .spotlight-nav-button:hover {
+.carousel-button:hover, .spotlight-modal-close:hover {
   background: rgba(0, 0, 0, 0.4);
   transform: translateY(-50%) scale(1.05);
 }
-.carousel-button.prev, .prev.spotlight-modal-close, .prev.spotlight-nav-button, .carousel-button.spotlight-prev, .spotlight-prev.spotlight-modal-close, .spotlight-prev.spotlight-nav-button {
+.carousel-button.prev, .prev.spotlight-modal-close, .carousel-button.spotlight-prev, .spotlight-prev.spotlight-modal-close {
   left: 1rem;
 }
-.carousel-button.next, .next.spotlight-modal-close, .next.spotlight-nav-button, .carousel-button.spotlight-next, .spotlight-next.spotlight-modal-close, .spotlight-next.spotlight-nav-button {
+.carousel-button.next, .next.spotlight-modal-close, .carousel-button.spotlight-next, .spotlight-next.spotlight-modal-close {
   right: 1rem;
 }
-.carousel-button.prev::before, .prev.spotlight-modal-close::before, .prev.spotlight-nav-button::before, .carousel-button.next::before, .next.spotlight-modal-close::before, .next.spotlight-nav-button::before, .carousel-button.spotlight-prev::before, .spotlight-prev.spotlight-modal-close::before, .spotlight-prev.spotlight-nav-button::before, .carousel-button.spotlight-next::before, .spotlight-next.spotlight-modal-close::before, .spotlight-next.spotlight-nav-button::before {
+.carousel-button.prev::before, .prev.spotlight-modal-close::before, .carousel-button.next::before, .next.spotlight-modal-close::before, .carousel-button.spotlight-prev::before, .spotlight-prev.spotlight-modal-close::before, .carousel-button.spotlight-next::before, .spotlight-next.spotlight-modal-close::before {
   content: "";
   width: 8px;
   height: 8px;
@@ -6616,21 +6644,55 @@ body.loaded .project-wrapper {
   border-bottom: 0;
   position: absolute;
 }
-.carousel-button.prev::before, .prev.spotlight-modal-close::before, .prev.spotlight-nav-button::before, .carousel-button.spotlight-prev::before, .spotlight-prev.spotlight-modal-close::before, .spotlight-prev.spotlight-nav-button::before {
+.carousel-button.prev::before, .prev.spotlight-modal-close::before, .carousel-button.spotlight-prev::before, .spotlight-prev.spotlight-modal-close::before {
   transform: rotate(-135deg);
   right: 10px;
 }
-.carousel-button.next::before, .next.spotlight-modal-close::before, .next.spotlight-nav-button::before, .carousel-button.spotlight-next::before, .spotlight-next.spotlight-modal-close::before, .spotlight-next.spotlight-nav-button::before {
+.carousel-button.next::before, .next.spotlight-modal-close::before, .carousel-button.spotlight-next::before, .spotlight-next.spotlight-modal-close::before {
   transform: rotate(45deg);
   left: 10px;
 }
-.carousel-button svg, .spotlight-modal-close svg, .spotlight-nav-button svg {
+.carousel-button svg, .spotlight-modal-close svg {
   display: none;
 }
 @media (max-width: 768px) {
-  .carousel-button, .spotlight-modal-close, .spotlight-nav-button {
+  .carousel-button, .spotlight-modal-close {
     background: rgba(0, 0, 0, 0.3);
   }
+}
+.carousel-indicators .carousel-button, .carousel-indicators .spotlight-modal-close {
+  position: static !important;
+  transform: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+}
+.carousel-indicators .carousel-button:hover, .carousel-indicators .spotlight-modal-close:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  transform: scale(1.1) !important;
+}
+.carousel-indicators .carousel-button.prev::before, .carousel-indicators .prev.spotlight-modal-close::before, .carousel-indicators .carousel-button.next::before, .carousel-indicators .next.spotlight-modal-close::before {
+  content: "";
+  width: 4px !important;
+  height: 4px !important;
+  border: 1px solid hsl(0, 0%, 100%) !important;
+  border-left: 0 !important;
+  border-bottom: 0 !important;
+  position: absolute;
+}
+.carousel-indicators .carousel-button.prev::before, .carousel-indicators .prev.spotlight-modal-close::before {
+  transform: rotate(-135deg) !important;
+  right: 5px !important;
+}
+.carousel-indicators .carousel-button.next::before, .carousel-indicators .next.spotlight-modal-close::before {
+  transform: rotate(45deg) !important;
+  left: 5px !important;
 }
 .carousel-indicators {
   position: absolute;
@@ -6638,6 +6700,7 @@ body.loaded .project-wrapper {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  align-items: center;
   gap: 8px;
   z-index: 3;
   background-color: rgba(0, 0, 0, 0.6);
@@ -6656,6 +6719,35 @@ body.loaded .project-wrapper {
 }
 .carousel-indicators .indicator.active {
   background: hsl(0, 0%, 100%);
+}
+.carousel-indicators .carousel-button, .carousel-indicators .spotlight-modal-close {
+  position: static;
+  transform: none;
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  padding: 0;
+  margin: 0;
+}
+.carousel-indicators .carousel-button:hover, .carousel-indicators .spotlight-modal-close:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.1);
+}
+.carousel-indicators .carousel-button.prev::before, .carousel-indicators .prev.spotlight-modal-close::before, .carousel-indicators .carousel-button.next::before, .carousel-indicators .next.spotlight-modal-close::before {
+  width: 4px;
+  height: 4px;
+  border: 1px solid hsl(0, 0%, 100%);
+  border-left: 0;
+  border-bottom: 0;
+}
+.carousel-indicators .carousel-button.prev::before, .carousel-indicators .prev.spotlight-modal-close::before {
+  transform: rotate(-135deg);
+  right: 5px;
+}
+.carousel-indicators .carousel-button.next::before, .carousel-indicators .next.spotlight-modal-close::before {
+  transform: rotate(45deg);
+  left: 5px;
 }
 .carousel-caption {
   position: absolute;
@@ -6720,8 +6812,28 @@ body.loaded .project-wrapper {
   object-fit: contain;
   max-height: none;
   margin: 0 auto;
+  border-radius: 8px;
 }
-.project-gallery .carousel .carousel-button, .project-gallery .carousel .spotlight-modal-close, .project-gallery .carousel .spotlight-nav-button {
+.project-gallery .carousel .carousel-slide video {
+  background: #000;
+  display: block;
+  min-width: 200px;
+  min-height: 150px;
+  max-width: 100%;
+  max-height: 100%;
+}
+.project-gallery .carousel .carousel-slide video::-webkit-media-controls-panel {
+  display: flex !important;
+  opacity: 1 !important;
+}
+.project-gallery .carousel .carousel-slide video::-webkit-media-controls-play-button {
+  display: block !important;
+  opacity: 1 !important;
+}
+.project-gallery .carousel .carousel-slide video::-webkit-media-controls {
+  opacity: 1 !important;
+}
+.project-gallery .carousel .carousel-button, .project-gallery .carousel .spotlight-modal-close {
   color: hsl(0, 0%, 100%);
   width: 40px;
   height: 40px;
@@ -6732,17 +6844,17 @@ body.loaded .project-wrapper {
   z-index: 10;
   transition: all 0.2s ease;
 }
-.project-gallery .carousel .carousel-button:hover, .project-gallery .carousel .spotlight-modal-close:hover, .project-gallery .carousel .spotlight-nav-button:hover {
+.project-gallery .carousel .carousel-button:hover, .project-gallery .carousel .spotlight-modal-close:hover {
   background: rgba(0, 0, 0, 0.7);
   transform: translateY(-50%) scale(1.05);
 }
-.project-gallery .carousel .carousel-button:active, .project-gallery .carousel .spotlight-modal-close:active, .project-gallery .carousel .spotlight-nav-button:active {
+.project-gallery .carousel .carousel-button:active, .project-gallery .carousel .spotlight-modal-close:active {
   transform: translateY(-50%) scale(0.95);
 }
-.project-gallery .carousel .carousel-button.prev, .project-gallery .carousel .prev.spotlight-modal-close, .project-gallery .carousel .prev.spotlight-nav-button {
+.project-gallery .carousel .carousel-button.prev, .project-gallery .carousel .prev.spotlight-modal-close {
   left: 24px;
 }
-.project-gallery .carousel .carousel-button.next, .project-gallery .carousel .next.spotlight-modal-close, .project-gallery .carousel .next.spotlight-nav-button {
+.project-gallery .carousel .carousel-button.next, .project-gallery .carousel .next.spotlight-modal-close {
   right: 24px;
 }
 .project-gallery .carousel .carousel-indicators {
@@ -6751,6 +6863,30 @@ body.loaded .project-wrapper {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 8px 12px;
+}
+.project-gallery .carousel .carousel-indicators .carousel-button, .project-gallery .carousel .carousel-indicators .spotlight-modal-close {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.project-gallery .carousel .carousel-indicators .carousel-button:hover, .project-gallery .carousel .carousel-indicators .spotlight-modal-close:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.1);
+}
+.project-gallery .carousel .carousel-indicators .carousel-button.prev::before, .project-gallery .carousel .carousel-indicators .prev.spotlight-modal-close::before, .project-gallery .carousel .carousel-indicators .carousel-button.next::before, .project-gallery .carousel .carousel-indicators .next.spotlight-modal-close::before {
+  width: 5px;
+  height: 5px;
+  border: 1.5px solid hsl(0, 0%, 100%);
+  border-left: 0;
+  border-bottom: 0;
+}
+.project-gallery .carousel .carousel-indicators .carousel-button.prev::before, .project-gallery .carousel .carousel-indicators .prev.spotlight-modal-close::before {
+  transform: rotate(-135deg);
+  right: 6px;
+}
+.project-gallery .carousel .carousel-indicators .carousel-button.next::before, .project-gallery .carousel .carousel-indicators .next.spotlight-modal-close::before {
+  transform: rotate(45deg);
+  left: 6px;
 }
 @media (max-width: 1024px) {
   .project-gallery .carousel {
@@ -6762,14 +6898,14 @@ body.loaded .project-wrapper {
     height: 40vh;
     border-radius: 12px 12px 0 0;
   }
-  .project-gallery .carousel .carousel-button, .project-gallery .carousel .spotlight-modal-close, .project-gallery .carousel .spotlight-nav-button {
+  .project-gallery .carousel .carousel-button, .project-gallery .carousel .spotlight-modal-close {
     width: 36px;
     height: 36px;
   }
-  .project-gallery .carousel .carousel-button.prev, .project-gallery .carousel .prev.spotlight-modal-close, .project-gallery .carousel .prev.spotlight-nav-button {
+  .project-gallery .carousel .carousel-button.prev, .project-gallery .carousel .prev.spotlight-modal-close {
     left: 16px;
   }
-  .project-gallery .carousel .carousel-button.next, .project-gallery .carousel .next.spotlight-modal-close, .project-gallery .carousel .next.spotlight-nav-button {
+  .project-gallery .carousel .carousel-button.next, .project-gallery .carousel .next.spotlight-modal-close {
     right: 16px;
   }
 }
@@ -6837,7 +6973,7 @@ body.loaded .project-wrapper {
 .spotlight-modal-close svg path {
   fill: currentColor;
 }
-.spotlight-modal.single-image .spotlight-nav-button {
+.spotlight-modal.single-image .carousel-button, .spotlight-modal.single-image .spotlight-modal-close {
   display: none;
 }
 .spotlight-modal .carousel-indicators {
@@ -6846,6 +6982,7 @@ body.loaded .project-wrapper {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  align-items: center;
   gap: 8px;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.6);
@@ -6863,6 +7000,35 @@ body.loaded .project-wrapper {
 }
 .spotlight-modal .carousel-indicators .indicator.active {
   background: #fff;
+}
+.spotlight-modal .carousel-indicators .carousel-button, .spotlight-modal .carousel-indicators .spotlight-modal-close {
+  position: static;
+  transform: none;
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  padding: 0;
+  margin: 0;
+}
+.spotlight-modal .carousel-indicators .carousel-button:hover, .spotlight-modal .carousel-indicators .spotlight-modal-close:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.1);
+}
+.spotlight-modal .carousel-indicators .carousel-button.prev::before, .spotlight-modal .carousel-indicators .prev.spotlight-modal-close::before, .spotlight-modal .carousel-indicators .carousel-button.next::before, .spotlight-modal .carousel-indicators .next.spotlight-modal-close::before {
+  width: 4px;
+  height: 4px;
+  border: 1px solid hsl(0, 0%, 100%);
+  border-left: 0;
+  border-bottom: 0;
+}
+.spotlight-modal .carousel-indicators .carousel-button.prev::before, .spotlight-modal .carousel-indicators .prev.spotlight-modal-close::before {
+  transform: rotate(-135deg);
+  right: 5px;
+}
+.spotlight-modal .carousel-indicators .carousel-button.next::before, .spotlight-modal .carousel-indicators .next.spotlight-modal-close::before {
+  transform: rotate(45deg);
+  left: 5px;
 }
 
 .physics-simulation .carousel {
@@ -6899,38 +7065,6 @@ body.loaded .project-wrapper {
 
 .spotlight {
   background-color: hsl(24, 20%, 85%);
-}
-.spotlight .spotlight-nav-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 33px;
-  height: 33px;
-  border: none;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  display: flex;
-  gap: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06), inset 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 -1px 2px rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.spotlight .spotlight-nav-button:hover {
-  background: rgba(0, 0, 0, 0.4);
-  transform: translateY(-50%) scale(1.05);
-}
-.spotlight .spotlight-nav-button.spotlight-prev {
-  left: 1rem;
-}
-.spotlight .spotlight-nav-button.spotlight-next {
-  right: 1rem;
 }
 .spotlight img {
   margin: 0;
