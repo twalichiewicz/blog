@@ -225,6 +225,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						blogContentElement.appendChild(contentFragment);
 					}
 					initializeBlogFeatures(blogContentElement); // This will now delegate carousel init
+					// Initialize project tabs for dynamically loaded content
+					if (window.initializeProjectTabs) {
+						window.initializeProjectTabs(blogContentElement);
+					}
 				} else {
 					const errorMsg = document.createElement('p');
 					errorMsg.textContent = 'Sorry, the content could not be loaded.';
@@ -318,6 +322,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						initializeBlogFeatures(blogContentElement);
 						initializeLinkListeners(blogContentElement);
 						initializeMobileTabs();
+						// Initialize project tabs for dynamically loaded content
+						if (window.initializeProjectTabs) {
+							window.initializeProjectTabs(blogContentElement);
+						}
 						console.log('[blog.js popstate] Features initialized. Waiting for waveTextReady...');
 
 						// Wait for wave text to signal readiness
@@ -370,6 +378,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						initializeBlogFeatures(blogContentElement);
 						initializeLinkListeners(blogContentElement);
 						initializeMobileTabs();
+						// Initialize project tabs for dynamically loaded content
+						if (window.initializeProjectTabs) {
+							window.initializeProjectTabs(blogContentElement);
+						}
 						console.log('[blog.js popstate] Features initialized (no state fallback). Waiting for waveTextReady...');
 
 						// Wait for wave text to signal readiness (duplicate logic for this branch)

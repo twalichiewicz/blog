@@ -41,6 +41,7 @@
   <script type="module" src="/js/carousel.js"></script>
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
+  <script src="/js/project-tabs.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 <!-- hexo injector head_end start -->
@@ -91,6 +92,7 @@
   <script type="module" src="/js/carousel.js"></script>
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
+  <script src="/js/project-tabs.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 </head>
@@ -142,15 +144,14 @@
 				<div class="project-title">
 					<span class="project-category"></span>
 					<h2>Skills physics simulation</h2>
+					
 					<div class="metadata">
 						<div class="metadata-list">
-							
 							
 								<div class="metadata-item">
 								<span class="label" style="font-size: 9px;">Development</span>
 								<span class="value" style="font-size: 12px;">Developer Name</span>
 								</div>
-							
 							
 							
 							<div class="metadata-item">
@@ -166,9 +167,15 @@
 							
 						</div>
 					</div>
+					
 				</div>
-				<div class="project-description">
-					<style>
+				
+				
+
+
+<!-- Fallback: Render content using existing method for projects without structured sections -->
+<article class="project-description">
+  <style>
 .carousel iframe {
   width: 100%;
   height: 100%;
@@ -193,7 +200,11 @@
   <b>Product</b> Coding Roadmapping <b>Data</b>
 </div>
  
-				</div>
+</article>
+
+
+ 
+				
 			</div>
 		</div>
 

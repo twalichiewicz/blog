@@ -41,6 +41,7 @@
   <script type="module" src="/js/carousel.js"></script>
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
+  <script src="/js/project-tabs.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 <!-- hexo injector head_end start -->
@@ -91,6 +92,7 @@
   <script type="module" src="/js/carousel.js"></script>
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
+  <script src="/js/project-tabs.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 </head>
@@ -127,9 +129,9 @@
 				<div class="project-title">
 					<span class="project-category"></span>
 					<h2>Leaning into AI</h2>
+					
 					<div class="metadata">
 						<div class="metadata-list">
-							
 							
 								<div class="metadata-item">
 								<span class="label" style="font-size: 9px;">Author</span>
@@ -143,12 +145,17 @@
 							
 							
 							
-							
 						</div>
 					</div>
+					
 				</div>
-				<div class="project-description">
-					<p>I see a ton of nothingburger articles about AI and design every day, so I figured I’d throw my two cents into the void.</p>
+				
+				
+
+
+<!-- Fallback: Render content using existing method for projects without structured sections -->
+<article class="project-description">
+  <p>I see a ton of nothingburger articles about AI and design every day, so I figured I’d throw my two cents into the void.</p>
 <p>Lately, I’ve been deep in the weeds building enterprise systems to automate complicated, laborious, mission-critical work:</p>
 <ul>
 <li>AI&#x2F;ML tooling pipelines  </li>
@@ -192,7 +199,11 @@
   </tr>
 </table>
 
-				</div>
+</article>
+
+
+ 
+				
 			</div>
 		</div>
 
