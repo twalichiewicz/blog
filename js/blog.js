@@ -133,6 +133,19 @@ document.addEventListener('DOMContentLoaded', function () {
 				initializeBlogFeatures(blogContentElement);
 				initializeLinkListeners(blogContentElement);
 				initializeMobileTabs();
+				// Re-initialize sound effects when returning to home page
+				if (window.initializeSoundEffects) {
+					console.log('[blog.js] Re-initializing sound effects for back navigation');
+					window.initializeSoundEffects();
+				} else {
+					// Fallback: try again after a short delay in case sound effects script is still loading
+					setTimeout(() => {
+						if (window.initializeSoundEffects) {
+							console.log('[blog.js] Re-initializing sound effects for back navigation (delayed)');
+							window.initializeSoundEffects();
+						}
+					}, 100);
+				}
 				await fadeInElement(blogContentElement);
 				history.pushState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
 			};
@@ -228,6 +241,19 @@ document.addEventListener('DOMContentLoaded', function () {
 					// Initialize project tabs for dynamically loaded content
 					if (window.initializeProjectTabs) {
 						window.initializeProjectTabs(blogContentElement);
+					}
+					// Re-initialize sound effects for dynamically loaded content
+					if (window.initializeSoundEffects) {
+						console.log('[blog.js] Re-initializing sound effects for dynamically loaded content');
+						window.initializeSoundEffects();
+					} else {
+						// Fallback: try again after a short delay in case sound effects script is still loading
+						setTimeout(() => {
+							if (window.initializeSoundEffects) {
+								console.log('[blog.js] Re-initializing sound effects for dynamically loaded content (delayed)');
+								window.initializeSoundEffects();
+							}
+						}, 100);
 					}
 				} else {
 					const errorMsg = document.createElement('p');
@@ -326,6 +352,11 @@ document.addEventListener('DOMContentLoaded', function () {
 						if (window.initializeProjectTabs) {
 							window.initializeProjectTabs(blogContentElement);
 						}
+						// Re-initialize sound effects for popstate navigation
+						if (window.initializeSoundEffects) {
+							console.log('[blog.js] Re-initializing sound effects for popstate navigation');
+							window.initializeSoundEffects();
+						}
 						console.log('[blog.js popstate] Features initialized. Waiting for waveTextReady...');
 
 						// Wait for wave text to signal readiness
@@ -381,6 +412,11 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Initialize project tabs for dynamically loaded content
 						if (window.initializeProjectTabs) {
 							window.initializeProjectTabs(blogContentElement);
+						}
+						// Re-initialize sound effects for popstate navigation (no state fallback)
+						if (window.initializeSoundEffects) {
+							console.log('[blog.js] Re-initializing sound effects for popstate navigation (no state fallback)');
+							window.initializeSoundEffects();
 						}
 						console.log('[blog.js popstate] Features initialized (no state fallback). Waiting for waveTextReady...');
 
