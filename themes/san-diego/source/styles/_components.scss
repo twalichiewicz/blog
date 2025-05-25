@@ -1625,6 +1625,7 @@ table {
 	.contact-modal.active {
 		pointer-events: auto;
 		opacity: 1;
+		align-items: center;
 	}
 
 	.contact-modal-backdrop {
@@ -1644,14 +1645,14 @@ table {
 	.contact-modal-sheet {
 		position: relative;
 		width: calc(100vw - 12px);
-		max-width: 700px;
+		max-width: 450px;
 		margin: 0 auto;
 		margin-left: 6px;
 		margin-right: 6px;
 		background: rgba(255, 255, 255, 0.65);
-		border-radius: 18px 18px 0 0;
+		border-radius: 12px;
 		box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
-		padding: 32px 24px 24px 24px;
+		padding: 24px 24px 24px 24px;
 		z-index: 2;
 		transform: translateY(100%);
 		transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
@@ -1665,111 +1666,96 @@ table {
 		color: #ddd;
 	}
 
-	@media (prefers-color-scheme: dark) {
-		.contact-modal-sheet {
-			background-color: hsla(28, 8%, 15%, 0.09);
-		}
-
-		.contact-modal-close {
-			color: #bbb;
-			background: rgba(255, 255, 255, 0.1);
-			box-shadow: none !important;
-		}
-
-		.contact-modal-title {
-			color: #eee;
-		}
-
-		.contact-modal-options button,
-		.contact-modal-options a {
-			background-color: rgba(255, 255, 255, 0.1);
-			color: #eee;
-			border-color: rgba(255, 255, 255, 0.2);
-
-			&:hover {
-				background-color: rgba(255, 255, 255, 0.2);
-				border-color: rgba(255, 255, 255, 0.3);
-			}
-		}
-	}
-
 	.contact-modal.active .contact-modal-sheet {
 		transform: translateY(0);
 	}
 
-	.contact-modal-close {
-		position: absolute;
-		top: 12px;
-		right: 12px;
-		background: rgba(0, 0, 0, 0.08);
-		border: none;
-		box-shadow: none !important;
-		color: #555;
-		opacity: 0.9;
-		cursor: pointer;
-		z-index: 3;
-		transition: opacity 0.2s, background-color 0.2s;
-		width: 28px;
-		height: 28px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0;
-
-		svg,
-		i {
-			width: 16px;
-			height: 16px;
-			display: block;
-		}
-	}
-
-	.contact-modal-close:hover {
-		opacity: 1;
-		background: rgba(0, 0, 0, 0.12);
-	}
-
 	.contact-modal-title {
-		font-size: 1.2rem;
-		font-weight: 600;
+		font-size: 15px;
+		font-weight: 400;
 		margin-bottom: 18px;
-		color: #222;
+		color: #666;
 		letter-spacing: 0.01em;
 		text-align: center;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.contact-modal-title {
-			color: #eee;
-		}
 	}
 
 	.contact-modal-options {
 		width: 100%;
 		display: flex;
-		flex-direction: column;
-		gap: 9px;
+		flex-direction: row;
+		gap: 12px;
+		max-height: 150px;
+		justify-content: center;
 
 		button,
 		a {
-			height: 36px;
-			width: 100%;
+			height: auto;
+			width: auto;
+			min-width: 80px;
 			display: flex;
+			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			padding: 0 12px;
-			font-size: 15px;
+			padding: 16px 12px 12px 12px;
+			font-size: 12px;
 			border-radius: 8px;
-			background-color: rgba(0, 0, 0, 0.05);
-			color: #333;
-			border: 1px solid rgba(0, 0, 0, 0.08);
+			background-color: rgba(255, 255, 255, 0.36);
+			color: #9291a1;
+			border: none;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 			text-decoration: none;
-			transition: background-color 0.2s ease, border-color 0.2s ease;
+			transition: background-color 0.2s ease, box-shadow 0.2s ease;
+			flex: 1;
+			max-width: 120px;
 
 			&:hover {
-				background-color: rgba(0, 0, 0, 0.08);
-				border-color: rgba(0, 0, 0, 0.12);
+				background-color: rgba(255, 255, 255, 1);
+				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+
+				.contact-icon {
+					transform: translateY(-2px);
+				}
+			}
+
+			.contact-icon {
+				width: 64px;
+				height: 64px;
+				margin-bottom: 8px;
+				border-radius: 4px;
+				object-fit: contain;
+				transition: transform 0.2s ease;
+			}
+
+			.contact-label {
+				font-weight: 500;
+				text-align: center;
+				line-height: 1.2;
+			}
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.contact-modal-sheet {
+			background-color: hsla(28, 8%, 15%, 0.09);
+		}
+
+		.contact-modal-title {
+			color: #e5e5e5;
+		}
+
+		.contact-modal-options button,
+		.contact-modal-options a {
+			background-color: rgba(0, 0, 0, 0.36);
+			color: #8f8f8f;
+			box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+
+			&:hover {
+				background-color: rgba(255, 255, 255, 0.2);
+				box-shadow: 0 2px 6px rgba(255, 255, 255, 0.15);
+			}
+
+			.contact-label {
+				color: #c8c7d6;
 			}
 		}
 	}
@@ -1794,20 +1780,5 @@ table {
 		height: 100%;
 		overflow-y: auto;
 		overflow-x: hidden;
-	}
-}
-
-@media (prefers-color-scheme: dark) {
-
-	.contact-modal-options button,
-	.contact-modal-options a {
-		background-color: rgba(255, 255, 255, 0.1);
-		color: #eee;
-		border-color: rgba(255, 255, 255, 0.2);
-
-		&:hover {
-			background-color: rgba(255, 255, 255, 0.2);
-			border-color: rgba(255, 255, 255, 0.3);
-		}
 	}
 }

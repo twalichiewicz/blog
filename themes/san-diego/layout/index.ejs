@@ -307,12 +307,20 @@
 <div class="contact-modal" id="contactModal">
     <div class="contact-modal-backdrop" id="contactModalBackdrop"></div>
     <div class="contact-modal-sheet">
-        <button class="contact-modal-close" id="contactModalClose" aria-label="Close contact options">&times;</button>
         <div class="contact-modal-title">Contact</div>
         <div class="contact-modal-options">
-            <a href="mailto:hey@thomas.design" class="contact-option email">Email</a>
-            <a href="https://linkedin.com/in/twalichiewicz" target="_blank" class="contact-option linkedin">LinkedIn</a>
-            <a href="/docs/Thomas Walichiewicz CV Q2 2025.pdf" target="_blank" class="contact-option resume">Resume</a>
+            <a href="mailto:hey@thomas.design" class="contact-option email">
+                <img src="/img/email.png" alt="Email" class="contact-icon">
+                <span class="contact-label">Email</span>
+            </a>
+            <a href="https://linkedin.com/in/twalichiewicz" target="_blank" class="contact-option linkedin">
+                <img src="/img/linkedin.png" alt="LinkedIn" class="contact-icon">
+                <span class="contact-label">LinkedIn</span>
+            </a>
+            <a href="/docs/Thomas Walichiewicz CV Q2 2025.pdf" target="_blank" class="contact-option resume">
+                <img src="/img/resume.png" alt="Resume" class="contact-icon">
+                <span class="contact-label">Resume</span>
+            </a>
         </div>
     </div>
 </div>
@@ -478,7 +486,6 @@
   }
   var contactBtn = document.getElementById('mobileContactBtn');
   var modal = document.getElementById('contactModal');
-  var closeBtn = document.getElementById('contactModalClose');
   var backdrop = document.getElementById('contactModalBackdrop');
   var html = document.documentElement;
 
@@ -498,12 +505,6 @@
     contactBtn.addEventListener('click', function(e) {
       e.preventDefault();
       openModal();
-    });
-  }
-  if (closeBtn) {
-    closeBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      closeModal();
     });
   }
   if (backdrop) {
