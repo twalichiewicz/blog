@@ -305,6 +305,8 @@
 			overflow-y: visible;
 			overflow-x: hidden;
 			box-sizing: border-box;
+			max-width: 600px;
+			margin: 0 auto;
 
 			&::-webkit-scrollbar {
 				width: 6px;
@@ -662,18 +664,23 @@
 			width: 100%;
 		}
 
+		/* Content containers - ensure consistent max-width */
+		#postsContent,
+		#projectsContent {
+			max-width: 600px;
+			margin: 0 auto;
+			box-sizing: border-box;
+			width: 100%;
+		}
+
 		#projectsContent {
 			display: flex;
 			align-items: center;
 			gap: variables.$space-sm;
 			padding: 0 variables.$space-md;
-			margin: 0 auto;
 			margin-bottom: variables.$space-md;
-			max-width: 600px;
 			position: relative;
 			z-index: 1;
-			box-sizing: border-box;
-			width: 100%;
 		}
 
 		.view-toggle {
@@ -693,7 +700,6 @@
 			.post-list-item {
 				margin: 0;
 				padding: variables.$spacing-card 0;
-				max-width: 600px;
 			}
 		}
 
