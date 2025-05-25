@@ -191,6 +191,32 @@
 			}
 		}
 
+		/* Headings in dark mode - apply to all screen sizes */
+		.blog-content .content-wrapper {
+
+			#postsContent,
+			#projectsContent {
+
+				/* Headings in dark mode */
+				h1,
+				h2,
+				h3,
+				h4,
+				h5,
+				h6 {
+					color: variables.$white;
+
+					a {
+						color: variables.$white;
+
+						&:hover {
+							color: variables.$link-color-dark;
+						}
+					}
+				}
+			}
+		}
+
 		/* Dark mode for blog content on tablet and desktop */
 		@media screen and (min-width: variables.$mobile-breakpoint) {
 			.blog-content {
@@ -320,24 +346,6 @@
 							&:hover {
 								color: color.adjust(variables.$link-color-dark, $lightness: 10%);
 								text-decoration: none;
-							}
-						}
-
-						/* Headings in dark mode */
-						h1,
-						h2,
-						h3,
-						h4,
-						h5,
-						h6 {
-							color: variables.$white;
-
-							a {
-								color: variables.$white;
-
-								&:hover {
-									color: variables.$link-color-dark;
-								}
 							}
 						}
 
@@ -1374,9 +1382,8 @@
 			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); // Keep minimal dark shadow
 			background-color: transparent !important; // Explicitly override any dark hover background
 
-			h4 {
-				color: hsl(0, 0%, 70%);
-				opacity: 0.9;
+			.portfolio-item.has-writeup h4 {
+				color: white;
 			}
 		}
 	}
