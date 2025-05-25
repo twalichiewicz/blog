@@ -1615,31 +1615,33 @@ table {
 		top: 0;
 		z-index: 2000;
 		display: flex;
-		align-items: flex-end;
+		align-items: center;
 		justify-content: center;
 		pointer-events: none;
 		opacity: 0;
-		transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.contact-modal.active {
 		pointer-events: auto;
 		opacity: 1;
-		align-items: center;
 	}
 
 	.contact-modal-backdrop {
 		position: absolute;
 		inset: 0;
 		background: rgba(30, 30, 40, 0.35);
-		backdrop-filter: blur(6px);
+		backdrop-filter: blur(0px);
 		z-index: 1;
 		opacity: 0;
-		transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		transition:
+			opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			backdrop-filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.contact-modal.active .contact-modal-backdrop {
 		opacity: 1;
+		backdrop-filter: blur(6px);
 	}
 
 	.contact-modal-sheet {
@@ -1654,20 +1656,31 @@ table {
 		box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
 		padding: 24px 24px 24px 24px;
 		z-index: 2;
-		transform: translateY(100%);
-		transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
-		backdrop-filter: blur(20px) saturate(1.5);
-		-webkit-backdrop-filter: blur(20px) saturate(1.5);
-		border: 1px solid rgba(200, 200, 220, 0.3);
+		transform: scale(0.3) translateY(-20px);
+		opacity: 0;
+		transition:
+			transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+			opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			background-color 0.3s ease,
+			border-color 0.3s ease,
+			backdrop-filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+		backdrop-filter: blur(2px) saturate(1.2);
+		-webkit-backdrop-filter: blur(2px) saturate(1.2);
+		border: 1px solid rgba(200, 200, 220, 0.1);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		min-height: 220px;
 		color: #ddd;
+		transform-origin: center center;
 	}
 
 	.contact-modal.active .contact-modal-sheet {
-		transform: translateY(0);
+		transform: scale(1) translateY(0);
+		opacity: 1;
+		backdrop-filter: blur(20px) saturate(1.5);
+		-webkit-backdrop-filter: blur(20px) saturate(1.5);
+		border: 1px solid rgba(200, 200, 220, 0.3);
 	}
 
 	.contact-modal-title {
@@ -1677,6 +1690,16 @@ table {
 		color: #666;
 		letter-spacing: 0.01em;
 		text-align: center;
+		opacity: 0;
+		transform: translateY(10px);
+		transition:
+			opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+			transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+	}
+
+	.contact-modal.active .contact-modal-title {
+		opacity: 1;
+		transform: translateY(0);
 	}
 
 	.contact-modal-options {
@@ -1686,6 +1709,19 @@ table {
 		gap: 12px;
 		max-height: 150px;
 		justify-content: center;
+		opacity: 0;
+		transform: translateY(15px);
+		transition:
+			opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s,
+			transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+	}
+
+	.contact-modal.active .contact-modal-options {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.contact-modal-options {
 
 		button,
 		a {
