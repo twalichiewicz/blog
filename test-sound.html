@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .button-group {
+            margin: 20px 0;
+        }
+        .tab-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .mobile-tabs {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .mobile-tabs .tab-button {
+            background: #6f42c1;
+            color: white;
+        }
+        .carousel-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .spotlight-nav-button {
+            background: #ffc107;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .contact-option {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .description {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .special {
+            background: #d1ecf1;
+            border-left: 4px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Sound Effects Test</h1>
+        
+        <div class="description">
+            <strong>Updated Test Instructions:</strong>
+            <ul>
+                <li><strong>Mobile tab buttons</strong> (Posts/Projects) should play the <em>slider.mp3</em> sound</li>
+                <li><strong>All other buttons</strong> should play the <em>smallClick.mp3</em> sound (default)</li>
+                <li>Make sure your volume is turned up to hear the differences</li>
+            </ul>
+        </div>
+
+        <div class="button-group">
+            <h2>Mobile Tab Buttons (should use slider.mp3)</h2>
+            <div class="mobile-tabs">
+                <button class="tab-button" data-type="blog">Posts</button>
+                <button class="tab-button" data-type="portfolio">Projects</button>
+            </div>
+            <div class="description special">
+                <strong>Special:</strong> Only these mobile tab buttons should use the slider sound.
+            </div>
+        </div>
+
+        <div class="button-group">
+            <h2>Regular Tab Buttons (should use smallClick.mp3)</h2>
+            <button class="tab-button" data-tab="test1">Regular Tab Button 1</button>
+            <button class="tab-button" data-tab="test2">Regular Tab Button 2</button>
+            <button class="tab-button" data-tab="test3">Regular Tab Button 3</button>
+        </div>
+
+        <div class="button-group">
+            <h2>Carousel Buttons (should use smallClick.mp3)</h2>
+            <button class="carousel-button">Carousel Button 1</button>
+            <button class="carousel-button">Carousel Button 2</button>
+        </div>
+
+        <div class="button-group">
+            <h2>Spotlight Navigation Buttons (should use smallClick.mp3)</h2>
+            <button class="spotlight-nav-button">Spotlight Nav 1</button>
+            <button class="spotlight-nav-button">Spotlight Nav 2</button>
+        </div>
+
+        <div class="button-group">
+            <h2>Contact Option Buttons (should use smallClick.mp3)</h2>
+            <button class="contact-option">Contact Option 1</button>
+            <button class="contact-option">Contact Option 2</button>
+        </div>
+
+        <div class="description">
+            <strong>Expected Behavior:</strong>
+            <ul>
+                <li><strong>Mobile tab buttons (Posts/Projects):</strong> Should produce the slider sound</li>
+                <li><strong>All other buttons:</strong> Should produce the smaller click sound (default)</li>
+                <li>The mobile tabs are the only exception - everything else uses the small click sound</li>
+            </ul>
+        </div>
+
+        <div class="button-group">
+            <h2>Dynamic Loading Test</h2>
+            <button id="testDynamicLoading" style="background: #6c757d; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 4px; cursor: pointer;">
+                Test Dynamic Re-initialization
+            </button>
+            <div class="description">
+                <strong>Test:</strong> This button simulates dynamic content loading by manually re-initializing sound effects.
+                Click it, then test other buttons to ensure they still work.
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the sound effects script -->
+    <script src="/js/sound-effects.js"></script>
+    
+    <script>
+        // Add some debugging for the test page
+        window.addEventListener('load', function() {
+            console.log('Test page loaded');
+            console.log('Sound functions available:', {
+                playSliderSound: typeof window.playSliderSound,
+                playSmallClickSound: typeof window.playSmallClickSound,
+                initializeSoundEffects: typeof window.initializeSoundEffects
+            });
+            
+            // Add click listeners to test buttons manually
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function() {
+                    console.log('Button clicked:', this.className, this.textContent);
+                });
+            });
+
+            // Add special handler for dynamic loading test
+            const testButton = document.getElementById('testDynamicLoading');
+            if (testButton) {
+                testButton.addEventListener('click', function() {
+                    console.log('Testing dynamic re-initialization...');
+                    if (window.initializeSoundEffects) {
+                        window.initializeSoundEffects();
+                        console.log('Sound effects re-initialized successfully!');
+                        this.textContent = 'Re-initialized! Test other buttons';
+                        this.style.background = '#28a745';
+                        setTimeout(() => {
+                            this.textContent = 'Test Dynamic Re-initialization';
+                            this.style.background = '#6c757d';
+                        }, 2000);
+                    } else {
+                        console.error('initializeSoundEffects not available');
+                        this.textContent = 'Error: Function not available';
+                        this.style.background = '#dc3545';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

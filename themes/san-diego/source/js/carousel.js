@@ -189,6 +189,22 @@ class Carousel {
 			}
 		});
 		console.log('[Carousel init()] Finished for:', this.carousel);
+
+		console.log('[Carousel] Initializing carousel with', this.slideCount, 'slides');
+		if (this.slideCount <= 1) {
+			console.log('[Carousel] Single slide or no slides, hiding navigation');
+			if (this.prevButton) this.prevButton.style.display = 'none';
+			if (this.nextButton) this.nextButton.style.display = 'none';
+			this.indicators.forEach(indicator => indicator.style.display = 'none');
+		} else {
+			this.setupEventListeners();
+		}
+
+		// Initialize first slide
+		this.goToSlide(0);
+
+		// Add video error handling
+		this.setupVideoErrorHandling();
 	}
 
 	handleSwipe(deltaX, duration) {
@@ -450,27 +466,27 @@ class Carousel {
 		if (prevButton) {
 			prevButton.onclick = () => {
 				self.navigateSpotlight('prev');
-				// Play slider sound
-				if (window.playSliderSound) {
-					window.playSliderSound();
+				// Play small click sound
+				if (window.playSmallClickSound) {
+					window.playSmallClickSound();
 				}
 			};
 		}
 		if (nextButton) {
 			nextButton.onclick = () => {
 				self.navigateSpotlight('next');
-				// Play slider sound
-				if (window.playSliderSound) {
-					window.playSliderSound();
+				// Play small click sound
+				if (window.playSmallClickSound) {
+					window.playSmallClickSound();
 				}
 			};
 		}
 		if (closeButton) {
 			closeButton.onclick = () => {
 				self.closeSpotlight();
-				// Play slider sound
-				if (window.playSliderSound) {
-					window.playSliderSound();
+				// Play small click sound
+				if (window.playSmallClickSound) {
+					window.playSmallClickSound();
 				}
 			};
 		}
@@ -480,9 +496,9 @@ class Carousel {
 			// Check if the click was directly on the modal (background) and not on its children
 			if (e.target === modal) {
 				self.closeSpotlight();
-				// Play slider sound
-				if (window.playSliderSound) {
-					window.playSliderSound();
+				// Play small click sound
+				if (window.playSmallClickSound) {
+					window.playSmallClickSound();
 				}
 			}
 		});
@@ -500,15 +516,15 @@ class Carousel {
 
 			if (e.key === 'ArrowLeft') {
 				self.navigateSpotlight('prev');
-				if (window.playSliderSound) window.playSliderSound();
+				if (window.playSmallClickSound) window.playSmallClickSound();
 			}
 			if (e.key === 'ArrowRight') {
 				self.navigateSpotlight('next');
-				if (window.playSliderSound) window.playSliderSound();
+				if (window.playSmallClickSound) window.playSmallClickSound();
 			}
 			if (e.key === 'Escape') {
 				self.closeSpotlight();
-				if (window.playSliderSound) window.playSliderSound();
+				if (window.playSmallClickSound) window.playSmallClickSound();
 			}
 		};
 		document.addEventListener('keydown', self.boundSpotlightKeydownHandler);
@@ -636,6 +652,33 @@ class Carousel {
 		this.touchStartY = 0;
 		this.touchEndX = 0;
 		this.touchEndY = 0;
+	}
+
+	setupVideoErrorHandling() {
+		const videos = this.carousel.querySelectorAll('video');
+		videos.forEach((video, index) => {
+			console.log(`[Carousel] Setting up video ${index}:`, video.src || video.querySelector('source')?.src);
+
+			video.addEventListener('loadstart', () => {
+				console.log(`[Carousel] Video ${index} loadstart`);
+			});
+
+			video.addEventListener('loadedmetadata', () => {
+				console.log(`[Carousel] Video ${index} metadata loaded`);
+			});
+
+			video.addEventListener('canplay', () => {
+				console.log(`[Carousel] Video ${index} can play`);
+			});
+
+			video.addEventListener('error', (e) => {
+				console.error(`[Carousel] Video ${index} error:`, e, video.error);
+			});
+
+			video.addEventListener('stalled', () => {
+				console.warn(`[Carousel] Video ${index} stalled`);
+			});
+		});
 	}
 }
 
