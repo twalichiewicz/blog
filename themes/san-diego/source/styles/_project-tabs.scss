@@ -1,0 +1,486 @@
+@use 'variables';
+
+.project-tabs {
+	margin: 16px 0 0 0;
+	border-radius: 12px;
+	background: variables.$white;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-height: 0;
+
+	.tab-navigation {
+		display: flex;
+		flex-shrink: 0;
+		background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #0f0f0f 100%);
+		border-bottom: 2px solid #0a0a0a;
+		overflow-x: auto;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+		padding: 8px;
+		box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		.tab-button {
+			flex: 1;
+			min-width: max-content;
+			justify-content: center;
+			padding: 12px;
+			margin: 0 2px;
+			border: none;
+			background: linear-gradient(to bottom, #5a5a5a 0%, #4a4a4a 20%, #3a3a3a 60%, #2a2a2a 100%);
+			color: #cccccc;
+			font-size: 0.85rem;
+			font-weight: 400;
+			cursor: pointer;
+			transition: all 0.15s ease;
+			position: relative;
+			white-space: nowrap;
+			border-radius: 6px;
+			box-shadow:
+				0 2px 4px rgba(0, 0, 0, 0.4),
+				inset 0 1px 0 rgba(255, 255, 255, 0.1),
+				inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+			text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+			transform-style: preserve-3d;
+
+			// LED indicator (off state)
+			&::before {
+				content: '';
+				position: absolute;
+				top: 4px;
+				right: 6px;
+				width: 8px;
+				height: 3px;
+				background: linear-gradient(135deg, #2a0000 0%, #1a0000 100%);
+				border-radius: 1px;
+				border: 1px solid #0a0000;
+				box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5);
+				transition: all 0.2s ease;
+			}
+
+			&:hover {
+				background: linear-gradient(to bottom, #6a6a6a 0%, #5a5a5a 20%, #4a4a4a 60%, #3a3a3a 100%);
+				color: #e0e0e0;
+				box-shadow:
+					0 4px 8px rgba(0, 0, 0, 0.6),
+					inset 0 1px 0 rgba(255, 255, 255, 0.15),
+					inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+			}
+
+			&.active {
+				background: linear-gradient(to bottom, #1a1a1a 0%, #0f0f0f 30%, #050505 80%, #000000 100%);
+				color: #ffffff;
+				font-weight: 700;
+				box-shadow:
+					inset 0 3px 6px rgba(0, 0, 0, 0.8),
+					inset 0 1px 0 rgba(0, 0, 0, 0.9),
+					0 1px 2px rgba(0, 0, 0, 0.3);
+				text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+
+				// LED indicator (on state)
+				&::before {
+					background: linear-gradient(135deg, #ff4444 0%, #ff0000 50%, #cc0000 100%);
+					border-color: #990000;
+					box-shadow:
+						inset 0 1px 1px rgba(255, 255, 255, 0.3),
+						0 0 4px rgba(255, 0, 0, 0.6),
+						0 0 8px rgba(255, 0, 0, 0.3),
+						0 0 12px rgba(255, 0, 0, 0.1);
+				}
+
+				// Additional glow effect for active state
+				&::after {
+					content: '';
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 30%, transparent 70%);
+					border-radius: 4px 4px 0 0;
+					pointer-events: none;
+				}
+			}
+
+			&:active {
+				box-shadow:
+					inset 0 4px 8px rgba(0, 0, 0, 0.9),
+					inset 0 1px 0 rgba(0, 0, 0, 0.95);
+			}
+
+			@media (max-width: variables.$mobile-breakpoint) {
+				padding: 10px 12px 14px 12px;
+				font-size: 0.8rem;
+
+				&::before {
+					width: 6px;
+					height: 2px;
+					top: 3px;
+					right: 4px;
+				}
+			}
+		}
+	}
+
+	.tab-content {
+		position: relative;
+		flex: 1;
+		max-width: 600px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+
+		.tab-panel {
+			display: none;
+			padding: 2rem;
+			position: static !important;
+			margin: 0 !important;
+			top: auto !important;
+			left: auto !important;
+			right: auto !important;
+			bottom: auto !important;
+			transform: none !important;
+			overflow-y: auto;
+
+			&.active {
+				display: flex;
+				flex-direction: column;
+				padding: 24px;
+			}
+
+			.tab-panel-content {
+
+				h2,
+				h3 {
+					margin-top: 0;
+					margin-bottom: 1rem;
+				}
+
+				p {
+					margin: 0 auto;
+					max-width: 75ch;
+					line-height: 1.6;
+				}
+
+				ul,
+				ol {
+					margin: 1rem 0;
+					padding-left: 1.5rem;
+
+					&:first-of-type {
+						margin-top: 0;
+					}
+
+					li {
+						margin-bottom: 0.5rem;
+						line-height: 1.6;
+					}
+				}
+
+				strong {
+					font-weight: 600;
+				}
+			}
+
+			@media (max-width: variables.$mobile-breakpoint) {
+				padding: 1.5rem;
+			}
+		}
+	}
+}
+
+.project-writeup {
+	margin: 3rem 0 0 0;
+	padding: 2rem 0 0 0;
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+	.writeup-content {
+
+		h2,
+		h3 {
+			margin-top: 2rem;
+			margin-bottom: 1rem;
+			color: variables.$text-color;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			font-weight: 600;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+			padding-bottom: 0.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			font-weight: 600;
+		}
+
+		p {
+			margin-bottom: 1rem;
+			line-height: 1.6;
+		}
+
+		ul,
+		ol {
+			margin: 1rem 0;
+			padding-left: 1.5rem;
+
+			li {
+				margin-bottom: 0.5rem;
+				line-height: 1.6;
+
+				strong {
+					font-weight: 600;
+				}
+			}
+		}
+
+		blockquote {
+			margin: 1.5rem 0;
+			padding: 1rem 1.5rem;
+			background: rgba(0, 0, 0, 0.02);
+			border-left: 4px solid variables.$primary-color;
+			border-radius: 0 8px 8px 0;
+
+			p {
+				margin: 0;
+				font-style: italic;
+				color: variables.$text-color-secondary;
+			}
+		}
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		transform: translateY(0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeInContent {
+	0% {
+		opacity: 0;
+		transform: translateY(0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+// Light mode styles (default)
+@media (prefers-color-scheme: light) {
+	.project-tabs {
+		background: variables.$white;
+		border-color: rgba(0, 0, 0, 0.08);
+
+		.tab-navigation {
+			background: linear-gradient(to bottom, #f5f3f0 0%, #ebe7e2 50%, #e1ddd6 100%);
+			border-bottom-color: rgba(0, 0, 0, 0.15);
+			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
+
+			.tab-button {
+				background: linear-gradient(to bottom, #f0ede8 0%, #e8e4df 20%, #ddd9d4 60%, #d2cec7 100%);
+				color: rgba(100, 97, 92, 0.85);
+				box-shadow:
+					0 2px 4px rgba(0, 0, 0, 0.1),
+					inset 0 1px 0 rgba(255, 255, 255, 0.6),
+					inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+
+				// LED indicator (off state) - warm off color
+				&::before {
+					background: linear-gradient(to bottom, #d4c4b4 0%, #c8b8a8 100%);
+					border-color: rgba(0, 0, 0, 0.15);
+					box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+				}
+
+				&:hover {
+					background: linear-gradient(to bottom, #f8f5f0 0%, #f0ede8 20%, #e8e4df 60%, #ddd9d4 100%);
+					color: rgba(80, 77, 72, 0.9);
+					box-shadow:
+						0 3px 6px rgba(0, 0, 0, 0.15),
+						inset 0 1px 0 rgba(255, 255, 255, 0.8),
+						inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+				}
+
+				&.active {
+					background: linear-gradient(to bottom, #d8d4cf 0%, #ccc8c3 30%, #c0bcb7 80%, #b4b0ab 100%);
+					color: rgba(60, 57, 52, 1);
+					box-shadow:
+						inset 0 2px 4px rgba(0, 0, 0, 0.2),
+						inset 0 1px 0 rgba(0, 0, 0, 0.3),
+						0 1px 2px rgba(0, 0, 0, 0.1);
+					text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+
+					// LED indicator (on state) - warm orange glow
+					&::before {
+						background: linear-gradient(to bottom, #ff8844 0%, #ff6622 50%, #dd4400 100%);
+						border-color: #bb3300;
+						box-shadow:
+							inset 0 1px 1px rgba(255, 255, 255, 0.4),
+							0 0 4px rgba(255, 102, 34, 0.6),
+							0 0 8px rgba(255, 102, 34, 0.3),
+							0 0 12px rgba(255, 102, 34, 0.1);
+					}
+
+					// Additional subtle highlight for active state
+					&::after {
+						background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 30%, transparent 70%);
+					}
+				}
+			}
+		}
+
+		.tab-content {
+			.tab-panel {
+				.tab-panel-content {
+					color: variables.$text-color;
+
+					h2,
+					h3 {
+						color: variables.$text-color;
+					}
+				}
+			}
+		}
+	}
+
+	.project-writeup {
+		border-top-color: rgba(0, 0, 0, 0.08);
+
+		.writeup-content {
+
+			h2,
+			h3 {
+				color: variables.$text-color;
+			}
+
+			h2 {
+				border-bottom-color: rgba(0, 0, 0, 0.08);
+			}
+
+			blockquote {
+				background: rgba(0, 0, 0, 0.02);
+				border-left-color: variables.$primary-color;
+
+				p {
+					color: variables.$text-color-secondary;
+				}
+			}
+		}
+	}
+}
+
+// Dark mode styles
+@media (prefers-color-scheme: dark) {
+	.project-tabs {
+		background: variables.$card-bg-dark;
+		border-color: rgba(255, 255, 255, 0.1);
+
+		.tab-navigation {
+			background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 50%, #050505 100%);
+			border-bottom-color: #000000;
+			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+
+			.tab-button {
+				background: linear-gradient(to bottom, #4a4a4a 0%, #3a3a3a 20%, #2a2a2a 60%, #1a1a1a 100%);
+				color: #aaaaaa;
+				box-shadow:
+					0 2px 4px rgba(0, 0, 0, 0.6),
+					inset 0 1px 0 rgba(255, 255, 255, 0.05),
+					inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+
+				// LED indicator (off state) - darker in dark mode
+				&::before {
+					background: linear-gradient(135deg, #1a0000 0%, #0f0000 100%);
+					border-color: #050000;
+				}
+
+				&:hover {
+					background: linear-gradient(to bottom, #5a5a5a 0%, #4a4a4a 20%, #3a3a3a 60%, #2a2a2a 100%);
+					color: #cccccc;
+					box-shadow:
+						0 3px 6px rgba(0, 0, 0, 0.7),
+						inset 0 1px 0 rgba(255, 255, 255, 0.08),
+						inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+				}
+
+				&.active {
+					background: linear-gradient(to bottom, #0f0f0f 0%, #050505 30%, #000000 80%, #000000 100%);
+					color: #ffffff;
+					box-shadow:
+						inset 0 2px 4px rgba(0, 0, 0, 0.8),
+						inset 0 1px 0 rgba(0, 0, 0, 0.9),
+						0 1px 2px rgba(0, 0, 0, 0.5);
+
+					// LED indicator (on state) - same bright red in dark mode
+					&::before {
+						background: linear-gradient(135deg, #ff4444 0%, #ff0000 50%, #cc0000 100%);
+						border-color: #990000;
+						box-shadow:
+							inset 0 1px 1px rgba(255, 255, 255, 0.3),
+							0 0 4px rgba(255, 0, 0, 0.8),
+							0 0 8px rgba(255, 0, 0, 0.5),
+							0 0 12px rgba(255, 0, 0, 0.2);
+					}
+
+					&::after {
+						background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 30%, transparent 70%);
+					}
+				}
+			}
+		}
+
+		.tab-content {
+			.tab-panel {
+				.tab-panel-content {
+					color: variables.$text-color-dark;
+
+					h2,
+					h3 {
+						color: variables.$text-color-dark;
+					}
+				}
+			}
+		}
+	}
+
+	.project-writeup {
+		border-top-color: rgba(255, 255, 255, 0.1);
+
+		.writeup-content {
+
+			h2,
+			h3 {
+				color: variables.$text-color-dark;
+			}
+
+			h2 {
+				border-bottom-color: rgba(255, 255, 255, 0.1);
+			}
+
+			blockquote {
+				background: rgba(255, 255, 255, 0.05);
+				border-left-color: variables.$primary-color-dark;
+
+				p {
+					color: variables.$text-color-secondary-dark;
+				}
+			}
+		}
+	}
+}

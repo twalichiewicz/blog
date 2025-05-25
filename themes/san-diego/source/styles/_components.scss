@@ -1770,6 +1770,7 @@ table {
 
 // Ensure dynamically loaded content is scrollable
 .content-inner-wrapper {
+	height: 100%;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
