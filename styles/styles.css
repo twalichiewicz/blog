@@ -2277,6 +2277,8 @@ ol ul {
   overflow-y: visible;
   overflow-x: hidden;
   box-sizing: border-box;
+  max-width: 600px;
+  margin: 0 auto;
 }
 .device-tablet .blog .blog-content #postsContent::-webkit-scrollbar,
 .device-tablet .blog .blog-content #projectsContent::-webkit-scrollbar {
@@ -2508,6 +2510,7 @@ ol ul {
     /* Header elements - simplified */
     /* Fix for content-text h4 color on mobile - override portfolio-item.has-writeup h4 */
     /* Blog header wave */
+    /* Content containers - ensure consistent max-width */
     /* Blog list and items */
     /* View toggle */
     /* Project Gallery Mobile Overrides */
@@ -2571,18 +2574,21 @@ ol ul {
     margin: 0 auto;
     width: 100%;
   }
+  .blog #postsContent,
+  .blog #projectsContent {
+    max-width: 600px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+  }
   .blog #projectsContent {
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 0 24px;
-    margin: 0 auto;
     margin-bottom: 24px;
-    max-width: 600px;
     position: relative;
     z-index: 1;
-    box-sizing: border-box;
-    width: 100%;
   }
   .blog .view-toggle {
     padding-left: 0 !important;
@@ -2598,7 +2604,6 @@ ol ul {
   .blog .blog-list .post-list-item {
     margin: 0;
     padding: 24px 0;
-    max-width: 600px;
   }
   .blog .page {
     transform: none !important;
