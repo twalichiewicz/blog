@@ -630,6 +630,11 @@
 			position: relative;
 		}
 
+		/* Fix for content-text h4 color on mobile - override portfolio-item.has-writeup h4 */
+		.portfolio-item.has-writeup .content-text h4 {
+			color: variables.$white !important;
+		}
+
 		.profile-header {
 			flex-direction: row !important;
 			padding: 12px 12px 24px 12px !important;
