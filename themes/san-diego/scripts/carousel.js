@@ -45,13 +45,13 @@ hexo.extend.tag.register('carousel', function (args) {
 		}).join('')}
       </div>
       ${images.length > 1 ? `
-        <button class="carousel-button prev" aria-label="Previous slide"></button>
-        <button class="carousel-button next" aria-label="Next slide"></button>
         <div class="carousel-indicators">
+          <button class="carousel-button prev" aria-label="Previous slide"></button>
           ${images.map((_, index) => `
             <button class="indicator ${index === 0 ? 'active' : ''}" 
                     aria-label="Go to slide ${index + 1}"></button>
           `).join('')}
+          <button class="carousel-button next" aria-label="Next slide"></button>
         </div>
       ` : ''}
     </div>`;

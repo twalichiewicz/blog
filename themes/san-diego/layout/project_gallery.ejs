@@ -24,7 +24,7 @@
 						<% page.gallery_images.forEach((item, index) => { %>
 							<div class="carousel-slide <%= index === 0 ? 'active' : '' %>" aria-hidden="<%= index === 0 ? 'false' : 'true' %>">
 								<% if (item.type === 'video') { %>
-									<video controls <%= item.autoplay ? 'autoplay' : '' %> <%= item.loop ? 'loop' : '' %> <%= item.muted ? 'muted' : '' %>>
+									<video controls preload="metadata" playsinline <%= item.poster ? `poster="${item.poster}"` : '' %> <%= item.autoplay ? 'autoplay' : '' %> <%= item.loop ? 'loop' : '' %> <%= item.muted ? 'muted' : '' %>>
 										<source src="<%= item.url %>" type="<%= item.videoType || 'video/mp4' %>">
 										Your browser does not support the video tag.
 									</video>
@@ -49,12 +49,12 @@
 							</div>
 						<% }); %>
 						<% if (page.gallery_images.length > 1) { %>
-							<button class="carousel-button prev" aria-label="Previous slide"></button>
-							<button class="carousel-button next" aria-label="Next slide"></button>
 							<div class="carousel-indicators">
+								<button class="carousel-button prev" aria-label="Previous slide"></button>
 								<% page.gallery_images.forEach((_, index) => { %>
 									<button class="indicator <%= index === 0 ? 'active' : '' %>" aria-label="Go to slide <%= index + 1 %>"></button>
 								<% }); %>
+								<button class="carousel-button next" aria-label="Next slide"></button>
 							</div>
 						<% } %>
 					<% } else { %>

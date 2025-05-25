@@ -83,6 +83,7 @@
 	}
 
 	&-button {
+		// Default styles for standalone buttons (spotlight, etc.)
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
@@ -156,6 +157,7 @@
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
+		align-items: center;
 		gap: 8px;
 		z-index: 3;
 		background-color: rgba(0, 0, 0, 0.6);
@@ -174,6 +176,42 @@
 
 			&.active {
 				background: variables.$white;
+			}
+		}
+
+		// Styles for carousel buttons when inside indicators
+		.carousel-button {
+			position: static;
+			transform: none;
+			width: 16px;
+			height: 16px;
+			background: rgba(255, 255, 255, 0.5);
+			border-radius: 50%;
+			padding: 0;
+			margin: 0;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.8);
+				transform: scale(1.1);
+			}
+
+			&.prev::before,
+			&.next::before {
+				width: 4px;
+				height: 4px;
+				border: 1px solid variables.$white;
+				border-left: 0;
+				border-bottom: 0;
+			}
+
+			&.prev::before {
+				transform: rotate(-135deg);
+				right: 5px;
+			}
+
+			&.next::before {
+				transform: rotate(45deg);
+				left: 5px;
 			}
 		}
 	}
@@ -247,6 +285,30 @@
 				object-fit: contain;
 				max-height: none;
 				margin: 0 auto;
+				border-radius: 8px;
+			}
+
+			video {
+				background: #000;
+				display: block;
+				min-width: 200px;
+				min-height: 150px;
+				max-width: 100%;
+				max-height: 100%;
+			}
+
+			video::-webkit-media-controls-panel {
+				display: flex !important;
+				opacity: 1 !important;
+			}
+
+			video::-webkit-media-controls-play-button {
+				display: block !important;
+				opacity: 1 !important;
+			}
+
+			video::-webkit-media-controls {
+				opacity: 1 !important;
 			}
 		}
 
@@ -285,6 +347,37 @@
 			backdrop-filter: blur(10px);
 			border: 1px solid rgba(255, 255, 255, 0.1);
 			padding: 8px 12px;
+
+			// Override carousel button styles for project gallery
+			.carousel-button {
+				width: 20px;
+				height: 20px;
+				background: rgba(255, 255, 255, 0.5);
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.8);
+					transform: scale(1.1);
+				}
+
+				&.prev::before,
+				&.next::before {
+					width: 5px;
+					height: 5px;
+					border: 1.5px solid variables.$white;
+					border-left: 0;
+					border-bottom: 0;
+				}
+
+				&.prev::before {
+					transform: rotate(-135deg);
+					right: 6px;
+				}
+
+				&.next::before {
+					transform: rotate(45deg);
+					left: 6px;
+				}
+			}
 		}
 
 		@media (max-width: variables.$tablet-breakpoint) {
@@ -383,7 +476,7 @@
 	}
 
 	&.single-image {
-		.spotlight-nav-button {
+		.carousel-button {
 			display: none;
 		}
 	}
@@ -394,6 +487,7 @@
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
+		align-items: center;
 		gap: 8px;
 		z-index: 2;
 		background-color: rgba(0, 0, 0, 0.6);
@@ -413,6 +507,42 @@
 				background: #fff;
 			}
 		}
+
+		// Styles for carousel buttons when inside spotlight indicators
+		.carousel-button {
+			position: static;
+			transform: none;
+			width: 16px;
+			height: 16px;
+			background: rgba(255, 255, 255, 0.5);
+			border-radius: 50%;
+			padding: 0;
+			margin: 0;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.8);
+				transform: scale(1.1);
+			}
+
+			&.prev::before,
+			&.next::before {
+				width: 4px;
+				height: 4px;
+				border: 1px solid variables.$white;
+				border-left: 0;
+				border-bottom: 0;
+			}
+
+			&.prev::before {
+				transform: rotate(-135deg);
+				right: 5px;
+			}
+
+			&.next::before {
+				transform: rotate(45deg);
+				left: 5px;
+			}
+		}
 	}
 }
 
@@ -427,10 +557,7 @@
 	}
 }
 
-// Apply carousel button styles to spotlight buttons
-.spotlight-nav-button {
-	@extend .carousel-button;
-}
+// Spotlight buttons now use .carousel-button class directly
 
 .spotlight-modal-close {
 	@extend .carousel-button;
@@ -465,45 +592,6 @@
 // Spotlight component (similar to carousel)
 .spotlight {
 	background-color: hsl(24, 20%, 85%);
-
-	.spotlight-nav-button {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		width: 33px;
-		height: 33px;
-		border: none;
-		background: rgba(0, 0, 0, 0.3);
-		backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: 2;
-		display: flex;
-		gap: 4px;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
-			0 1px 2px rgba(0, 0, 0, 0.06),
-			inset 0 2px 4px rgba(0, 0, 0, 0.1),
-			inset 0 -1px 2px rgba(255, 255, 255, 0.1);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		cursor: pointer;
-		transition: all 0.3s ease;
-
-		&:hover {
-			background: rgba(0, 0, 0, 0.4);
-			transform: translateY(-50%) scale(1.05);
-		}
-
-		&.spotlight-prev {
-			left: 1rem;
-		}
-
-		&.spotlight-next {
-			right: 1rem;
-		}
-	}
 
 	img {
 		margin: 0;

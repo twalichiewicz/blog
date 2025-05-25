@@ -251,46 +251,7 @@
 				}
 			}
 
-			.carousel-button {
-				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
-				width: 33px;
-				height: 33px;
-				border: none;
-				background: rgba(0, 0, 0, 0.3);
-				backdrop-filter: blur(20px);
-				-webkit-backdrop-filter: blur(20px);
-				border-radius: 50%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				z-index: 2;
-				display: flex;
-				gap: 4px;
-				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
-					0 1px 2px rgba(0, 0, 0, 0.06),
-					0 1px 2px rgba(0, 0, 0, 0.06),
-					inset 0 2px 4px rgba(0, 0, 0, 0.1),
-					inset 0 -1px 2px rgba(255, 255, 255, 0.1);
-				border: 1px solid rgba(255, 255, 255, 0.1);
-				cursor: pointer;
-				transition: all 0.3s ease;
-
-				&:hover {
-					background: rgba(0, 0, 0, 0.4);
-					transform: translateY(-50%) scale(1.05);
-				}
-
-				// Keep original positioning for prev/next buttons
-				&.prev {
-					left: 1rem;
-				}
-
-				&.next {
-					right: 1rem;
-				}
-			}
+			// Remove standalone carousel button styles since they're now inside indicators
 		}
 	}
 
