@@ -17,7 +17,7 @@ hexo.extend.tag.register('carousel', function (args) {
         ${images.map((item, index) => {
 			let mediaContent = '';
 			if (item.type === 'video') {
-				mediaContent = `<video controls${item.autoplay ? ' autoplay' : ''}${item.loop ? ' loop' : ''}${item.muted ? ' muted' : ''}>
+				mediaContent = `<video controls preload="metadata" playsinline${item.autoplay ? ' autoplay' : ''}${item.loop ? ' loop' : ''}${item.muted ? ' muted' : ''}>
               <source src="${item.url || item.src}" type="${item.videoType || 'video/mp4'}">
               Your browser does not support the video tag.
             </video>`;
