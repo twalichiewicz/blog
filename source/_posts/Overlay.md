@@ -7,7 +7,7 @@ tags: [portfolio]
 layout: project_gallery
 has_writeup: true
 gallery_images:
-  - url: /2020/02/15/Overlay/overlayExplainer.mp4
+  - url: /2020/02/15/Overlay/overlayExplainer_web.mp4
     type: video
     poster: /2020/02/15/Overlay/overlayPreview_poster.jpg
 cover_image: /2020/02/15/Overlay/overlayPreview_poster.jpg
