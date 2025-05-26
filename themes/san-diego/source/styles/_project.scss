@@ -237,6 +237,8 @@
 			border-color: rgba(255, 255, 255, 0.1);
 		}
 	}
+
+
 }
 
 .intro-section {
@@ -514,6 +516,8 @@
 		margin-bottom: env(safe-area-inset-bottom, 0px);
 		display: flex;
 		flex-direction: column;
+		background: linear-gradient(to bottom, #f5f3f0 0%, #ebe7e2 50%, #e1ddd6 100%);
+		box-shadow: none;
 	}
 
 	/* &:hover {
@@ -537,10 +541,9 @@
 		@media (max-width: variables.$mobile-breakpoint) {
 			padding: 0;
 			padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-			height: 100%;
-			overflow-y: auto;
-			-webkit-overflow-scrolling: touch;
-			flex: 1;
+			height: auto;
+			overflow: visible;
+			flex: none;
 
 			.project-title,
 			.project-description {
@@ -584,6 +587,10 @@
 			&::-webkit-scrollbar-thumb {
 				background-color: rgba(255, 255, 255, 0.2);
 			}
+		}
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			box-shadow: none;
 		}
 	}
 }
@@ -1102,8 +1109,8 @@
 
 	@media (max-width: variables.$mobile-breakpoint) {
 		.project-title {
-			padding-left: 9px;
-			padding-right: 9px;
+			padding: 0 9px 9px 9px;
+			background-color: hsl(35, 15%, 88%);
 		}
 
 		.project-description {
@@ -1112,6 +1119,12 @@
 			border: none;
 			background: none;
 			box-shadow: none;
+		}
+	}
+
+	@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
+		.project-title {
+			background-color: variables.$body-bg-dark;
 		}
 	}
 }
