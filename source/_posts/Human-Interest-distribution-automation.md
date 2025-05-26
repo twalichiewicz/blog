@@ -6,11 +6,6 @@ date: 2017-07-30 13:22:52
 cover_image: 
 tags: [portfolio]
 has_writeup: true
-credits:
-  - role: Lead User Experience Designer
-    name: Thomas Walichiewicz
-  - role: Year
-    name: 2017
 layout: project_gallery
 gallery_images:
   - url: /2017/07/30/Human-Interest-distribution-automation/distribution_000.png

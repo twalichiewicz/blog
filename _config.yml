@@ -62,11 +62,11 @@ admin:
   password_hash: $2a$10$7vYp2Wx1h3bf8LuNGTbSb.Zavzfp1xVThMXOnZuG9yIPCGCUtHkcq  # Ensure this is correct
   secret: secret-key  # Ensure this is correct
 
-# Deployment
-deploy:
-  type: git
-  repo: git@github.com:twalichiewicz/website.git  # Ensure this is correct
-  branch: main  # Ensure this is correct
+# Deployment - Using GitHub Actions instead of git deployment
+# deploy:
+#   type: git
+#   repo: git@github.com:twalichiewicz/twalichiewicz.github.io.git
+#   branch: main
 
 ejs:
   async: true
