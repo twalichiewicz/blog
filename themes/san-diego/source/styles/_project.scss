@@ -590,8 +590,8 @@
 		}
 
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			background-color: transparent;
 			box-shadow: none;
-			background-color: color(srgb 0.1631 0.1465 0.1358);
 		}
 
 		@media (max-width: variables.$mobile-breakpoint) {
