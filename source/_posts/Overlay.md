@@ -35,6 +35,3 @@ I designed and built a universal overlay system that runs as a cloud-connected s
 - Eliminated duplicate development of common features across product teams
 - Created persistent user context that follows users across their entire workflow
 - Enabled cross-product workflows that were previously impossible
-- Deployed to millions of users across Autodesk's entire desktop ecosystem
-
-This project fundamentally changed how Autodesk products work together, transforming isolated applications into a unified platform.
