@@ -112,13 +112,27 @@
 				</div>
 			</div>
 		</div>
-		<div class="project-gallery hidden">
+		<div class="project-gallery">
 			<div class="carousel" aria-label="Media carousel">
 				<div class="carousel-track">
 					
-						<div class="carousel-empty">
-							<p>No media content available</p>
-						</div>
+						
+							<div class="carousel-slide active" aria-hidden="false">
+								
+									<video controls preload="metadata" playsinline crossorigin="anonymous" poster=&#34;/2020/02/15/Overlay/overlayPreview_poster.jpg&#34;   >
+										
+											
+											<source src="/2020/02/15/Overlay/overlayExplainer.webm" type="video/webm">
+											<source src="/2020/02/15/Overlay/overlayExplainer_web.mp4" type="video/mp4">
+											<source src="/2020/02/15/Overlay/overlayExplainer.mp4" type="video/mp4">
+										
+										<p>Your browser does not support the video tag. <a href="/2020/02/15/Overlay/overlayExplainer.mp4" target="_blank">Download the video</a> instead.</p>
+									</video>
+								
+								
+							</div>
+						
+						
 					
 				</div>
 			</div>
@@ -130,59 +144,73 @@
 					<span class="project-category">Autodesk</span>
 					<h2>Overlay</h2>
 					
-					<div class="metadata">
-						<div class="metadata-list">
-							
-								<div class="metadata-item">
-								<span class="label" style="font-size: 9px;">Lead Product Designer</span>
-								<span class="value" style="font-size: 12px;">Thomas Walichiewicz</span>
-								</div>
-							
-								<div class="metadata-item">
-								<span class="label" style="font-size: 9px;">Year</span>
-								<span class="value" style="font-size: 12px;">2024</span>
-								</div>
-							
-							
-							
-						</div>
-					</div>
-					
 				</div>
 				
 				
 
 
-<!-- Fallback: Render content using existing method for projects without structured sections -->
-<article class="project-description">
-  <h3 id="Opportunity"><a href="#Opportunity" class="headerlink" title="Opportunity"></a>Opportunity</h3><p>As Autodesk’s product ecosystem continued to expand, the need for a unified approach to shared workflows and feature delivery grew more important. With 60+ products across web and desktop platforms, teams needed a scalable way to offer consistent, contextually aware experiences without losing product-level flexibility. This created an opportunity to design a modular overlay framework that could deliver common functionality while respecting each product’s unique environment.</p>
-<h3 id="Process-Key-Findings"><a href="#Process-Key-Findings" class="headerlink" title="Process &amp; Key Findings"></a>Process &amp; Key Findings</h3><p>Through system audits, workflow analysis, and user research, I uncovered key insights:</p>
-<ul>
-<li><strong>Inconsistent Access Patterns</strong>: Users had to relearn where to find common tools in every product.</li>
-<li><strong>Duplication of Effort</strong>: Teams rebuilt similar features independently without a reusable foundation.</li>
-<li><strong>Resistance to Disruption</strong>: Any system introduced had to respect local product nuances and workflows.</li>
-<li><strong>Opportunity for Contextual Assistance</strong>: Users often missed features or workflows they would benefit from without better in-product guidance.</li>
+<div class="project-tabs">
+  <div class="tab-navigation">
+    
+      <button class="tab-button active" data-tab="problem">
+        Problem
+      </button>
+    
+      <button class="tab-button " data-tab="solution">
+        Solution
+      </button>
+    
+      <button class="tab-button " data-tab="key-innovation">
+        Key Innovation
+      </button>
+    
+      <button class="tab-button " data-tab="impact">
+        Impact
+      </button>
+    
+  </div>
+  
+  <div class="tab-content">
+    
+      <div class="tab-panel active" id="problem">
+        <div class="tab-panel-content">
+          <p>Autodesk’s 60+ desktop products operated as completely isolated applications. Users couldn’t access shared functionality, maintain consistent workflows, or transfer context between products. Teams rebuilt identical features 60+ times, and users had to relearn basic tasks in every application.</p>
+        </div>
+      </div>
+    
+      <div class="tab-panel " id="solution">
+        <div class="tab-panel-content">
+          <p>I designed and built a universal overlay system that runs as a cloud-connected singleton across all Autodesk desktop applications. Think Steam’s overlay, but for productivity software—a persistent application layer that works everywhere while maintaining bidirectional communication with host applications.</p>
+        </div>
+      </div>
+    
+      <div class="tab-panel " id="key-innovation">
+        <div class="tab-panel-content">
+          <ul>
+<li><strong>Universal React Components</strong>: Write once, deploy across 60+ different desktop applications</li>
+<li><strong>Cloud-Synchronized State</strong>: User context, preferences, and workflows persist across all products</li>
+<li><strong>Bidirectional Communication</strong>: Overlay and host applications can exchange data and trigger actions in both directions</li>
+<li><strong>Intelligent Context Awareness</strong>: System understands what users are doing and surfaces relevant tools proactively</li>
+<li><strong>Non-Disruptive Integration</strong>: Overlay respects each product’s unique interface while providing consistent functionality</li>
 </ul>
-<h3 id="Design-Execution"><a href="#Design-Execution" class="headerlink" title="Design &amp; Execution"></a>Design &amp; Execution</h3><p>I led the design of a modular overlay system that standardized how shared functionality could be delivered across web and desktop products:</p>
-<ul>
-<li><strong>Build-Once, Deploy-Anywhere Architecture</strong>: Created flexible UI modules that teams could integrate with minimal rework.</li>
-<li><strong>Contextual Awareness</strong>: Designed interactions to adapt to the host product’s environment, avoiding disruption.</li>
-<li><strong>System Alignment</strong>: Ensured overlay components were extensible while still enforcing a shared visual and interaction language.</li>
+        </div>
+      </div>
+    
+      <div class="tab-panel " id="impact">
+        <div class="tab-panel-content">
+          <ul>
+<li>Unified 60+ fragmented applications into a coherent platform experience</li>
+<li>Eliminated duplicate development of common features across product teams</li>
+<li>Created persistent user context that follows users across their entire workflow</li>
+<li>Enabled cross-product workflows that were previously impossible</li>
+<li>Deployed to millions of users across Autodesk’s entire desktop ecosystem</li>
 </ul>
-<p>In parallel, I extended the overlay framework to support intelligent, context-aware assistance:</p>
-<ul>
-<li><strong>Persistent Intelligent Assistant</strong>: Developed a “pair programmer”-style system to surface relevant tools, tips, and predictive workflows inside the overlay.</li>
-<li><strong>Intent Mapping</strong>: Mapped user behaviors and workflows to surface smart recommendations aligned with user goals.</li>
-<li><strong>Non-Intrusive Design</strong>: Balanced proactive intelligence with unobtrusive interaction, giving users control over when and how they engaged with surfaced suggestions.</li>
-</ul>
-<h3 id="Key-Deliverables"><a href="#Key-Deliverables" class="headerlink" title="Key Deliverables"></a>Key Deliverables</h3><ul>
-<li>Cross-product overlay framework and integration patterns</li>
-<li>Component library for shared features and intelligent assistance</li>
-<li>Intelligent assistant architecture and interaction models</li>
-<li>Rollout strategy and enablement playbook for product teams</li>
-</ul>
-
-</article>
+<p>This project fundamentally changed how Autodesk products work together, transforming isolated applications into a unified platform.</p>
+        </div>
+      </div>
+    
+  </div>
+</div>
 
 
  
