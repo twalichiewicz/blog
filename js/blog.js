@@ -318,6 +318,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		initializeLinkListeners(blogContentElement);
 
+		// Add resize listener to handle desktop-to-mobile transitions for dynamic content
+		let resizeTimeout;
+		window.addEventListener('resize', function () {
+			clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(function () {
+				const isMobileView = window.innerWidth <= 768;
+				const isDynamicContentLoaded = blogContentElement &&
+					(blogContentElement.querySelector('.project-wrapper.dynamic-loaded') ||
+						blogContentElement.querySelector('.dynamic-back-button'));
+
+				// If user resized to mobile while viewing dynamic content, redirect to actual page
+				if (isMobileView && isDynamicContentLoaded) {
+					const currentUrl = window.location.pathname + window.location.search + window.location.hash;
+					// Only redirect if we're not already on the initial blog URL
+					if (currentUrl !== initialBlogContentURL) {
+						console.log('[blog.js] Redirecting to actual page due to mobile resize:', currentUrl);
+						window.location.href = currentUrl;
+					}
+				}
+			}, 150); // Debounce resize events
+		});
+
 		window.addEventListener('popstate', async function (event) {
 			console.log('[blog.js popstate] Event triggered', event.state);
 			const state = event.state;

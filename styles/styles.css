@@ -4902,7 +4902,7 @@ body.has-scroll-snap {
 }
 @media (max-width: 768px) {
   .project-wrapper {
-    padding: 16px 16px 0 16px;
+    padding: 0;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -4912,9 +4912,6 @@ body.has-scroll-snap {
     top: 16px;
     left: 16px;
     border-radius: 12px 0;
-  }
-  .project-wrapper .project-details {
-    padding: 32px 16px 16px 16px;
   }
 }
 
@@ -5337,6 +5334,8 @@ body.has-scroll-snap {
     margin-bottom: env(safe-area-inset-bottom, 0px);
     display: flex;
     flex-direction: column;
+    background: linear-gradient(to bottom, #f5f3f0 0%, #ebe7e2 50%, #e1ddd6 100%);
+    box-shadow: none;
   }
 }
 .project-content .project-details {
@@ -5355,12 +5354,16 @@ body.has-scroll-snap {
 }
 @media (max-width: 768px) {
   .project-content .project-details {
-    padding: 1rem;
+    padding: 0;
     padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-    height: 100%;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    flex: 1;
+    height: auto;
+    overflow: visible;
+    flex: none;
+  }
+  .project-content .project-details .project-title,
+  .project-content .project-details .project-description {
+    padding-left: 9px;
+    padding-right: 9px;
   }
 }
 .project-content .project-details::-webkit-scrollbar {
@@ -5391,6 +5394,11 @@ body.has-scroll-snap {
   }
   .project-content .project-details::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+  .project-content {
+    box-shadow: none;
   }
 }
 
@@ -5516,7 +5524,7 @@ body.has-scroll-snap {
 }
 @media (max-width: 768px) {
   .project-navigation, .post-navigation {
-    padding: 0;
+    padding: 9px;
   }
 }
 .project-navigation .project-mini-bio, .post-navigation .project-mini-bio, .project-navigation .post-mini-bio, .post-navigation .post-mini-bio {
@@ -5761,12 +5769,21 @@ body.has-scroll-snap {
   max-width: 900px;
 }
 @media (max-width: 768px) {
+  .project-content .project-title {
+    padding: 0 9px 9px 9px;
+    background-color: hsl(35, 15%, 88%);
+  }
   .project-content .project-description {
-    padding: 0;
+    padding: 0 9px;
     margin: 0;
     border: none;
     background: none;
     box-shadow: none;
+  }
+}
+@media (max-width: 768px) and (prefers-color-scheme: dark) {
+  .project-content .project-title {
+    background-color: hsl(28, 8%, 15%);
   }
 }
 
@@ -5837,6 +5854,14 @@ body.loaded .project-wrapper {
     color: hsl(0, 0%, 95%);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.25);
     border: 1px solid hsl(0, 0%, 25%);
+  }
+}
+@media (max-width: 768px) {
+  .post {
+    background: transparent;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
   }
 }
 .post .post-header-image {
@@ -6798,12 +6823,12 @@ body.loaded .project-wrapper {
 .project-gallery .carousel .carousel-slide img {
   width: auto;
   height: auto;
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   object-position: center;
   border-radius: 0;
-  margin: 0 auto;
+  margin: 0;
 }
 .project-gallery .carousel .carousel-slide video,
 .project-gallery .carousel .carousel-slide iframe {
@@ -7524,6 +7549,15 @@ body.loaded .project-wrapper {
   display: flex;
   flex-direction: column;
 }
+@media (max-width: 768px) {
+  .project-tabs .tab-content {
+    flex: 1;
+    max-width: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: transparent;
+  }
+}
 .project-tabs .tab-content .tab-panel {
   display: none;
   padding: 2rem;
@@ -7570,7 +7604,19 @@ body.loaded .project-wrapper {
 }
 @media (max-width: 768px) {
   .project-tabs .tab-content .tab-panel {
-    padding: 1.5rem;
+    padding: 12px;
+    background: transparent;
+  }
+  .project-tabs .tab-content .tab-panel.active {
+    background: transparent;
+  }
+}
+@media (max-width: 768px) {
+  .project-tabs {
+    border: none;
+    border-radius: 0;
+    margin-top: 0;
+    background: transparent !important;
   }
 }
 
@@ -7716,6 +7762,13 @@ body.loaded .project-wrapper {
     background: hsl(0, 0%, 18%);
     border-color: rgba(255, 255, 255, 0.1);
   }
+}
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+  .project-tabs {
+    background: transparent !important;
+  }
+}
+@media (prefers-color-scheme: dark) {
   .project-tabs .tab-navigation {
     background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 50%, #050505 100%);
     border-bottom-color: #000000;
