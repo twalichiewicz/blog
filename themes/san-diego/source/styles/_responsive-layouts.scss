@@ -408,7 +408,8 @@
 	.blog-header {
 		align-self: start;
 		justify-content: start;
-		width: 360px;
+		width: 300px;
+		max-width: 300px;
 		flex-shrink: 0;
 		position: relative;
 		min-height: 300px;
@@ -424,6 +425,20 @@
 			width: 100%;
 			box-sizing: border-box;
 			margin-top: variables.$space-md;
+
+			&.mobile-hide {
+				margin-top: 0;
+				padding-left: 24px;
+				padding-right: 24px;
+
+				.contact-options {
+					width: 100%;
+
+					.contact-option {
+						flex: 1;
+					}
+				}
+			}
 		}
 
 		.wave-container {
@@ -439,6 +454,7 @@
 			flex-direction: column;
 			margin: variables.$space-xl 0;
 			gap: 33px;
+			padding: 40px 12px 0 24px;
 
 			.profile-photo {
 				width: 120px;
@@ -450,7 +466,7 @@
 	.blog-content {
 		margin-top: 24px;
 		margin-left: 0;
-		width: calc(100% - 360px);
+		width: calc(100% - 300px);
 		height: calc(100vh - 24px);
 		overflow: hidden;
 		display: flex;
