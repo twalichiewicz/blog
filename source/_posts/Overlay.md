@@ -2,47 +2,38 @@
 title: Overlay
 date: 2020-02-15
 company: Autodesk
-byline: Designed a modular overlay framework to unify shared workflows across Autodesk’s 60+ products, with integrated intelligent assistance for contextual guidance and predictive actions.
+byline: Built a universal cloud overlay system that runs across 60+ Autodesk desktop applications—creating a shared platform layer that millions of users interact with daily
 tags: [portfolio]
 layout: project_gallery
 has_writeup: true
-credits:
-  - role: Lead Product Designer
-    name: Thomas Walichiewicz
-  - role: Year
-    name: 2024
+gallery_images:
+  - url: /2020/02/15/Overlay/overlayExplainer.mp4
+    type: video
+    poster: /2020/02/15/Overlay/overlayPreview_poster.jpg
 --- 
 
-### Opportunity
+## The Problem
 
-As Autodesk’s product ecosystem continued to expand, the need for a unified approach to shared workflows and feature delivery grew more important. With 60+ products across web and desktop platforms, teams needed a scalable way to offer consistent, contextually aware experiences without losing product-level flexibility. This created an opportunity to design a modular overlay framework that could deliver common functionality while respecting each product’s unique environment.
+Autodesk's 60+ desktop products operated as completely isolated applications. Users couldn't access shared functionality, maintain consistent workflows, or transfer context between products. Teams rebuilt identical features 60+ times, and users had to relearn basic tasks in every application.
 
-### Process & Key Findings
+## The Solution
 
-Through system audits, workflow analysis, and user research, I uncovered key insights:
+I designed and built a universal overlay system that runs as a cloud-connected singleton across all Autodesk desktop applications. Think Steam's overlay, but for productivity software—a persistent application layer that works everywhere while maintaining bidirectional communication with host applications.
 
-- **Inconsistent Access Patterns**: Users had to relearn where to find common tools in every product.
-- **Duplication of Effort**: Teams rebuilt similar features independently without a reusable foundation.
-- **Resistance to Disruption**: Any system introduced had to respect local product nuances and workflows.
-- **Opportunity for Contextual Assistance**: Users often missed features or workflows they would benefit from without better in-product guidance.
+## Key Innovation: Cross-Application Platform Architecture
 
-### Design & Execution
+- **Universal React Components**: Write once, deploy across 60+ different desktop applications
+- **Cloud-Synchronized State**: User context, preferences, and workflows persist across all products
+- **Bidirectional Communication**: Overlay and host applications can exchange data and trigger actions in both directions
+- **Intelligent Context Awareness**: System understands what users are doing and surfaces relevant tools proactively
+- **Non-Disruptive Integration**: Overlay respects each product's unique interface while providing consistent functionality
 
-I led the design of a modular overlay system that standardized how shared functionality could be delivered across web and desktop products:
+## Impact
 
-- **Build-Once, Deploy-Anywhere Architecture**: Created flexible UI modules that teams could integrate with minimal rework.
-- **Contextual Awareness**: Designed interactions to adapt to the host product’s environment, avoiding disruption.
-- **System Alignment**: Ensured overlay components were extensible while still enforcing a shared visual and interaction language.
+- Unified 60+ fragmented applications into a coherent platform experience
+- Eliminated duplicate development of common features across product teams
+- Created persistent user context that follows users across their entire workflow
+- Enabled cross-product workflows that were previously impossible
+- Deployed to millions of users across Autodesk's entire desktop ecosystem
 
-In parallel, I extended the overlay framework to support intelligent, context-aware assistance:
-
-- **Persistent Intelligent Assistant**: Developed a "pair programmer"-style system to surface relevant tools, tips, and predictive workflows inside the overlay.
-- **Intent Mapping**: Mapped user behaviors and workflows to surface smart recommendations aligned with user goals.
-- **Non-Intrusive Design**: Balanced proactive intelligence with unobtrusive interaction, giving users control over when and how they engaged with surfaced suggestions.
-
-### Key Deliverables
-
-- Cross-product overlay framework and integration patterns
-- Component library for shared features and intelligent assistance
-- Intelligent assistant architecture and interaction models
-- Rollout strategy and enablement playbook for product teams
+This project fundamentally changed how Autodesk products work together, transforming isolated applications into a unified platform.
