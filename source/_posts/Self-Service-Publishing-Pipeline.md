@@ -6,42 +6,30 @@ byline: Designed a self-service platform to empower teams to publish user-facing
 tags:
   - portfolio
 layout: project_gallery
-credits:
-  - role: Lead Product Designer
-    name: Thomas Walichiewicz
-  - role: Year
-    name: 2024
 has_writeup: true
+cover_image: /2020/01/21/Self-Service-Publishing-Pipeline/sspp_cover.png
 --- 
 
-### Opportunity
+## The Problem
 
-Autodesk wanted to deliver intelligent, contextual product experiences—such as personalized onboarding, how-to guides, and performance improvement suggestions ("Insights")—but the publishing pipeline was only accessible to engineers. This made iteration slow and disconnected non-technical stakeholders from user experience delivery.
+Autodesk's smart support system could monitor user behavior and deliver contextual guidance, but publishing new content required full engineering cycles. Every tutorial, efficiency tip, or onboarding flow needed scheduled meetings, resource allocation, wiki documentation, and cross-team coordination. This meant intelligent features that could help millions of users were bottlenecked by a process designed for major feature releases.
 
-### Process & Key Findings
+## The Solution
 
-User journey mapping and internal interviews revealed:
+I designed a self-service publishing platform that transforms content creation from engineering projects into simple form submissions. Content creators can now build contextual guidance using a WYSIWYG editor, see live previews, and publish directly to millions of users—all without touching code.
 
-- **Engineering Bottlenecks**: Content updates required full dev cycles.
-- **Low Visibility**: Non-technical teams lacked confidence in publishing outcomes.
-- **Fragmented Approval Processes**: No clear way to manage reviews and rollback.
+## Key Innovation: Engineering-to-Form Transformation
 
-### Design & Execution
+- **Process Mapping**: Analyzed the entire stakeholder lifecycle for creating one "Insight" and automated every step
+- **WYSIWYG Content Builder**: Live preview editor that shows exactly how content will appear in-product
+- **Automated Publishing Pipeline**: Form submission triggers the entire technical process that previously required engineering coordination
+- **Smart Context Targeting**: Content automatically surfaces to relevant users based on behavioral monitoring
+- **Semi-Autonomous Publication**: Built-in review workflows with rollback capabilities eliminate dev dependency
 
-I built a self-service visual publishing platform:
+## Impact
 
-- **Workflow-Driven UX**: Guided authors through creation, review, and launch.
-- **Preview and Rollback**: Ensured safe publishing without dev dependency.
-- **Localization Support**: Integrated pipelines for global audience rollout.
-
-### Key Deliverables
-
-- Insight publishing interface with structured workflows
-- Validation logic, permissioning models, and preview environments
-- UX documentation and specs for cross-team implementation
-
-### Outcomes
-
-- Reduced Insight content publish time by 60%
-- Enabled non-technical teams to ship onboarding and guidance content independently
-- Increased iteration speed and personalization capabilities
+- Reduced content publishing time by 60% (weeks to hours)
+- Democratized content creation across non-technical teams
+- Eliminated engineering bottlenecks for contextual guidance features
+- Enabled rapid iteration on user onboarding and support experiences
+- Scaled intelligent assistance to millions of users through streamlined content pipeline
