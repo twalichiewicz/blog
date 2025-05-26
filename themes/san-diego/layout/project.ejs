@@ -80,14 +80,13 @@
 			height: 100%;
 			margin: 0;
 			padding: 0;
-			overflow: hidden; /* Apply overflow:hidden initially */
+			overflow: auto; /* Allow normal scrolling */
+			-webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+		}
+		
+		body {
 			display: flex; /* Added for flex layout */
 			flex-direction: column; /* Stack body children vertically */
-		}
-
-		body.loaded,
-		body.loaded html {
-			overflow: auto !important;
 		}
 		
 		body {
@@ -100,7 +99,7 @@
 		}
 		
 		.project-wrapper {
-			min-height: 100vh;
+			min-height: auto;
 			transform: translateY(20px);
 			transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
 						opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -113,8 +112,6 @@
 			
 			display: flex; /* Make it a flex container */
 			flex-direction: column; /* Stack its children (project-content) vertically */
-			flex-grow: 1; /* Allow project-wrapper to grow and take available space in body */
-
 		}
 		
 		body.loaded .project-wrapper {
@@ -180,6 +177,31 @@
             margin-top: 20px;
             margin-bottom: 20px;
             border-radius: 8px; /* Optional: rounded corners for media */
+        }
+        
+        /* Mobile-specific styles to ensure proper scrolling */
+        @media (max-width: 768px) {
+            html, body {
+                overflow: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                height: auto !important;
+            }
+            
+            .project-wrapper {
+                min-height: auto !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            
+            .project-content {
+                overflow: visible !important;
+                height: auto !important;
+            }
+            
+            .project-details {
+                overflow: visible !important;
+                height: auto !important;
+            }
         }
 
         /* Mini Bio styles from project_gallery, potentially to be moved to a shared CSS file */
