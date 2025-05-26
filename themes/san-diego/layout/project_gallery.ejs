@@ -24,9 +24,16 @@
 						<% page.gallery_images.forEach((item, index) => { %>
 							<div class="carousel-slide <%= index === 0 ? 'active' : '' %>" aria-hidden="<%= index === 0 ? 'false' : 'true' %>">
 								<% if (item.type === 'video') { %>
-									<video controls preload="metadata" playsinline <%= item.poster ? `poster="${item.poster}"` : '' %> <%= item.autoplay ? 'autoplay' : '' %> <%= item.loop ? 'loop' : '' %> <%= item.muted ? 'muted' : '' %>>
-										<source src="<%= item.url %>" type="<%= item.videoType || 'video/mp4' %>">
-										Your browser does not support the video tag.
+									<video controls preload="metadata" playsinline crossorigin="anonymous" <%= item.poster ? `poster="${item.poster}"` : '' %> <%= item.autoplay ? 'autoplay' : '' %> <%= item.loop ? 'loop' : '' %> <%= item.muted ? 'muted' : '' %>>
+										<% if (item.url.endsWith('.mp4')) { %>
+											<% const baseUrl = item.url.replace('.mp4', '') %>
+											<source src="<%= baseUrl %>.webm" type="video/webm">
+											<source src="<%= baseUrl %>_web.mp4" type="video/mp4">
+											<source src="<%= item.url %>" type="video/mp4">
+										<% } else { %>
+											<source src="<%= item.url %>" type="<%= item.videoType || 'video/mp4' %>">
+										<% } %>
+										<p>Your browser does not support the video tag. <a href="<%= item.url %>" target="_blank">Download the video</a> instead.</p>
 									</video>
 								<% } else if (item.type === 'iframe') { %>
 									<iframe src="<%= item.url %>"

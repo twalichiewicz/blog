@@ -617,14 +617,15 @@ class Carousel {
 	setupVideoErrorHandling() {
 		const videos = this.carousel.querySelectorAll('video');
 		videos.forEach((video, index) => {
-			console.log(`[Carousel] Setting up video ${index}:`, video.src || video.querySelector('source')?.src);
+			const sources = video.querySelectorAll('source');
+			console.log(`[Carousel] Setting up video ${index}:`, sources.length ? Array.from(sources).map(s => s.src) : video.src);
 
 			video.addEventListener('loadstart', () => {
 				console.log(`[Carousel] Video ${index} loadstart`);
 			});
 
 			video.addEventListener('loadedmetadata', () => {
-				console.log(`[Carousel] Video ${index} metadata loaded`);
+				console.log(`[Carousel] Video ${index} metadata loaded - using: ${video.currentSrc}`);
 			});
 
 			video.addEventListener('canplay', () => {
@@ -633,10 +634,42 @@ class Carousel {
 
 			video.addEventListener('error', (e) => {
 				console.error(`[Carousel] Video ${index} error:`, e, video.error);
+
+				// Try to provide helpful error information
+				if (video.error) {
+					const errorMessages = {
+						1: 'MEDIA_ERR_ABORTED - The video download was aborted',
+						2: 'MEDIA_ERR_NETWORK - A network error occurred',
+						3: 'MEDIA_ERR_DECODE - The video is corrupted or not supported',
+						4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - The video format is not supported'
+					};
+					console.error(`[Carousel] Video ${index} error details:`, errorMessages[video.error.code] || 'Unknown error');
+				}
+
+				// Show fallback content or poster
+				const slide = video.closest('.carousel-slide');
+				if (slide && video.poster) {
+					console.log(`[Carousel] Video ${index} failed, showing poster image`);
+					const img = document.createElement('img');
+					img.src = video.poster;
+					img.alt = 'Video preview (video failed to load)';
+					img.style.width = '100%';
+					img.style.height = 'auto';
+					img.style.objectFit = 'contain';
+					video.style.display = 'none';
+					slide.appendChild(img);
+				}
 			});
 
 			video.addEventListener('stalled', () => {
 				console.warn(`[Carousel] Video ${index} stalled`);
+			});
+
+			// Add source error handling
+			sources.forEach((source, sourceIndex) => {
+				source.addEventListener('error', (e) => {
+					console.warn(`[Carousel] Video ${index} source ${sourceIndex} failed:`, source.src);
+				});
 			});
 		});
 	}
