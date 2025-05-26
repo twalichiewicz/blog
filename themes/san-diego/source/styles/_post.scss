@@ -47,6 +47,13 @@
 		border: 1px solid variables.$border-color-dark;
 	}
 
+	@media (max-width: variables.$mobile-breakpoint) {
+		background: transparent;
+		background-color: transparent;
+		box-shadow: none;
+		border: none;
+	}
+
 	// Apple Newsroom style header image
 	.post-header-image {
 		margin: -#{variables.$space-lg} -#{variables.$space-md} variables.$space-md;

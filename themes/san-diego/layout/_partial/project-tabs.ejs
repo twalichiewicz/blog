@@ -24,26 +24,31 @@ while ((match = sectionRegex.exec(mainContent)) !== null) {
   sections[cleanTitle] = content;
 }
 
-// Define the order of tabs
-const tabOrder = ['The Problem', 'The Solution', 'Key Innovation', 'Impact'];
-const availableTabs = tabOrder.filter(tab => sections[tab]);
+// Define the order of tabs with display names
+const tabConfig = [
+  { key: 'The Problem', display: 'Problem' },
+  { key: 'The Solution', display: 'Solution' },
+  { key: 'Key Innovation', display: 'Key Innovation' },
+  { key: 'Impact', display: 'Impact' }
+];
+const availableTabs = tabConfig.filter(tab => sections[tab.key]);
 %>
 
 <% if (availableTabs.length > 0) { %>
 <div class="project-tabs">
   <div class="tab-navigation">
     <% availableTabs.forEach((tab, index) => { %>
-      <button class="tab-button <%= index === 0 ? 'active' : '' %>" data-tab="<%= tab.toLowerCase().replace(/\s+/g, '-') %>">
-        <%= tab %>
+      <button class="tab-button <%= index === 0 ? 'active' : '' %>" data-tab="<%= tab.display.toLowerCase().replace(/\s+/g, '-') %>">
+        <%= tab.display %>
       </button>
     <% }); %>
   </div>
   
   <div class="tab-content">
     <% availableTabs.forEach((tab, index) => { %>
-      <div class="tab-panel <%= index === 0 ? 'active' : '' %>" id="<%= tab.toLowerCase().replace(/\s+/g, '-') %>">
+      <div class="tab-panel <%= index === 0 ? 'active' : '' %>" id="<%= tab.display.toLowerCase().replace(/\s+/g, '-') %>">
         <div class="tab-panel-content">
-          <%- sections[tab] %>
+          <%- sections[tab.key] %>
         </div>
       </div>
     <% }); %>
