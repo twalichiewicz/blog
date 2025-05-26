@@ -24,7 +24,7 @@
 	}
 
 	@media (max-width: variables.$mobile-breakpoint) {
-		padding: 16px 16px 0 16px;
+		padding: 0;
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -34,10 +34,6 @@
 			top: 16px;
 			left: 16px;
 			border-radius: 12px 0;
-		}
-
-		.project-details {
-			padding: 32px 16px 16px 16px;
 		}
 	}
 }
@@ -539,12 +535,18 @@
 		}
 
 		@media (max-width: variables.$mobile-breakpoint) {
-			padding: 1rem;
+			padding: 0;
 			padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
 			height: 100%;
 			overflow-y: auto;
 			-webkit-overflow-scrolling: touch;
 			flex: 1;
+
+			.project-title,
+			.project-description {
+				padding-left: 9px;
+				padding-right: 9px;
+			}
 		}
 
 		&::-webkit-scrollbar {
@@ -748,7 +750,7 @@
 	pointer-events: none;
 
 	@media (max-width: variables.$mobile-breakpoint) {
-		padding: 0;
+		padding: 9px;
 	}
 
 	.project-mini-bio {
@@ -1099,8 +1101,13 @@
 	max-width: 900px; // Desktop size
 
 	@media (max-width: variables.$mobile-breakpoint) {
+		.project-title {
+			padding-left: 9px;
+			padding-right: 9px;
+		}
+
 		.project-description {
-			padding: 0;
+			padding: 0 9px;
 			margin: 0;
 			border: none;
 			background: none;
