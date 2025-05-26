@@ -1,11 +1,12 @@
 ---
 title: Play Next
+draft: true
 short: true
 tags:
   - blog
 date: 2025-05-25 16:10:05
 ---
 
-Is it so much to ask that music players finally get the ability to dynamically transition between songs? No more abrupt stop/start between songs. Have a mini LLM generate a transition using the stems of the songs
+Is it too much to ask for music players to finally get dynamic transitions between songs? No more jarring stop-and-start. Just have a mini LLM generate seamless transitions using the stems of each track.
 
-The functionality coud work as a dip-in-dip out-- if you stop adding tracks to the Play Next queue, a station is dynamically formed, and then you as the user can take back over if it veers off or you have a specific one-off you want to listen to.
+The functionality could work as dip-in, dip-out—when you stop adding to your Play Next queue, a station forms dynamically. You can take control back whenever it veers off or you want something specific.
