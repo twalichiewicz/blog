@@ -9,8 +9,32 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Mon, 26 May 2025 04:07:20 GMT</pubDate>
+    <pubDate>Mon, 26 May 2025 04:19:19 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Play Next</title>
+      <link>https://twalichiewicz.github.io/2025/05/25/Play-Next/</link>
+      <guid>https://twalichiewicz.github.io/2025/05/25/Play-Next/</guid>
+      <pubDate>Sun, 25 May 2025 23:10:05 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Is it so much to ask that music players finally get the ability to dynamically transition between songs? No more abrupt stop&amp;#x2F;start b</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Is it so much to ask that music players finally get the ability to dynamically transition between songs? No more abrupt stop&#x2F;start between songs. Have a mini LLM generate a transition using the stems of the songs</p><p>The functionality coud work as a dip-in-dip out– if you stop adding tracks to the Play Next queue, a station is dynamically formed, and then you as the user can take back over if it veers off or you have a specific one-off you want to listen to.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/05/25/Play-Next/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Blog updated</title>
@@ -458,30 +482,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/03/23/Ars-Sometimes-it-s-the-little-things/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Assistant confidence interval vocal</title>
-      <link>https://twalichiewicz.github.io/2025/03/22/Assistant-confidence-interval-vocal/</link>
-      <guid>https://twalichiewicz.github.io/2025/03/22/Assistant-confidence-interval-vocal/</guid>
-      <pubDate>Sat, 22 Mar 2025 20:09:51 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;When a voice assistant has high confidence (&amp;gt;95%) in understanding a request, it shouldn’t need to verbally confirm by repeating the e</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>When a voice assistant has high confidence (&gt;95%) in understanding a request, it shouldn’t need to verbally confirm by repeating the entire command. A brief confirmation tone would be more efficient and less intrusive.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/03/22/Assistant-confidence-interval-vocal/#disqus_thread</comments>
       
     </item>
     
