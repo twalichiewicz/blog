@@ -5,11 +5,6 @@ company: Autodesk
 byline: Empowered administrators to provision new cloud hubs instantly with a guided, self-service tool—eliminating support delays and streamlining deployment
 tags: [portfolio]
 has_writeup: true
-credits:
-  - role: Lead User Experience Designer
-    name: Thomas Walichiewicz
-  - role: Year
-    name: 2023
 layout: project_gallery
 cover_image: 
 gallery_images:

@@ -7,11 +7,6 @@ cover_image: /2019/09/15/Common-Project-Administration/cpa-preview.png
 tags:
   - portfolio
 layout: project_gallery
-credits:
-  - role: Senior User Experience Designer
-    name: Thomas Walichiewicz
-  - role: Year
-    name: 2019
 has_writeup: true
 gallery_images:
   - url: /2019/09/15/Common-Project-Administration/000_cpa.png
