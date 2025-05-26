@@ -4904,7 +4904,7 @@ body.has-scroll-snap {
   align-items: center;
   padding: 32px 32px 0 32px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   flex: 1;
 }
 @media (max-width: 1024px) {
@@ -4991,7 +4991,14 @@ body.has-scroll-snap {
 
 .project-page html,
 .project-page body {
-  overflow: hidden;
+  overflow: auto;
+}
+@media (max-width: 768px) {
+  .project-page html,
+  .project-page body {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 .container {
@@ -5320,7 +5327,7 @@ body.has-scroll-snap {
   box-shadow: none;
   border: none;
   border-radius: 15px 15px 0 0;
-  overflow: hidden;
+  overflow: visible;
   transition: box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -5334,9 +5341,7 @@ body.has-scroll-snap {
     width: 100%;
     max-width: none;
     margin-left: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
   }
 }
 @media (max-width: 768px) {
@@ -5349,6 +5354,7 @@ body.has-scroll-snap {
     flex-direction: column;
     background: linear-gradient(to bottom, #f5f3f0 0%, #ebe7e2 50%, #e1ddd6 100%);
     box-shadow: none;
+    overflow: visible;
   }
 }
 .project-content .project-details {
@@ -7130,7 +7136,7 @@ body.loaded .project-wrapper {
   text-align: center;
   padding: 0 20px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 .hero-section .hero-title {
   font-size: 96px;
@@ -7464,11 +7470,17 @@ body.loaded .project-wrapper {
   border-radius: 12px;
   background: hsl(0, 0%, 100%);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   flex: 1;
   min-height: 0;
+}
+@media (max-width: 768px) {
+  .project-tabs {
+    overflow: visible;
+    min-height: auto;
+  }
 }
 .project-tabs .tab-navigation {
   display: flex;
@@ -7570,10 +7582,9 @@ body.loaded .project-wrapper {
 }
 @media (max-width: 768px) {
   .project-tabs .tab-content {
-    flex: 1;
+    flex: none;
     max-width: none;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
     background: transparent;
   }
 }
@@ -7587,7 +7598,7 @@ body.loaded .project-wrapper {
   right: auto !important;
   bottom: auto !important;
   transform: none !important;
-  overflow-y: auto;
+  overflow: visible;
 }
 .project-tabs .tab-content .tab-panel.active {
   display: flex;
@@ -7636,6 +7647,8 @@ body.loaded .project-wrapper {
     border-radius: 0;
     margin-top: 0;
     background: transparent !important;
+    overflow: visible !important;
+    min-height: auto !important;
   }
 }
 
