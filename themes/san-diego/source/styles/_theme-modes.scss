@@ -339,7 +339,8 @@
 						}
 
 						/* Images in dark mode */
-						img {
+						img,
+						video {
 							filter: brightness(0.9);
 							border: 1px solid variables.$border-color-dark;
 							box-shadow: variables.$shadow-soft-dark;
@@ -1019,7 +1020,8 @@
 			align-items: center;
 			justify-content: center;
 
-			img {
+			img,
+			video {
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
@@ -1027,7 +1029,8 @@
 			}
 		}
 
-		&:hover .portfolio-image img {
+		&:hover .portfolio-image img,
+		&:hover .portfolio-image video {
 			transform: none;
 		}
 	}
@@ -1528,7 +1531,8 @@
 			align-items: center;
 			justify-content: center;
 
-			img {
+			img,
+			video {
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
@@ -1536,7 +1540,8 @@
 			}
 		}
 
-		&:hover .portfolio-image img {
+		&:hover .portfolio-image img,
+		&:hover .portfolio-image video {
 			transform: none;
 		}
 	}
