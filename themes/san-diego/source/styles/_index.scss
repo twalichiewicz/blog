@@ -1,28 +1,16 @@
+// ==========================================================================
+// Index File - Imports ONLY files not already in styles.scss
+// ==========================================================================
+// WARNING: This file should only import modules that are NOT in styles.scss
+// to avoid duplication. Most imports have been moved to styles.scss.
+
 @use 'variables';
 @use 'device-breakpoints';
+
+// Files that are NOT in styles.scss:
 @use 'about';
 @use 'archive';
-@use 'blog';
-@use 'carousel';
-@use 'code-highlighting';
-@use 'components';
-@use 'footer';
-@use 'foreground';
-@use 'hero';
-@use 'home';
-@use 'images';
 @use 'loading-skull';
-@use 'main';
 @use 'nav';
-@use 'paginator';
-@use 'post';
-@use 'project';
-@use 'project-components';
-@use 'project-content';
-@use 'project-nav';
-@use 'propel';
-@use 'responsive-layouts';
-@use 'title';
-@use 'typography';
+
 @use 'var';
-@use 'wave-text';

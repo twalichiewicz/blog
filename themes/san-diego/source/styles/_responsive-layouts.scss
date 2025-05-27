@@ -31,23 +31,29 @@
 		padding-top: 0;
 		overflow: visible;
 		min-height: 300px;
+		background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
+		border-radius: 0 0 12px 12px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		margin-bottom: 16px;
 
 		/* Position contact wrapper for mobile */
 		.contact-wrapper {
 			position: absolute;
-			top: 10px;
-			right: 10px;
+			top: initial;
+			right: initial;
 			z-index: 100;
+			left: 45px;
+			bottom: 18px;
 		}
 	}
 
 	.profile-header {
 		flex-direction: column;
-		align-items: center;
+		align-items: flex-start;
 		text-align: center;
 		margin: 0 auto;
 		flex-shrink: 0;
-		padding: variables.$spacing-card 0;
+		padding: variables.$spacing-card 0 12px 0;
 		position: relative;
 		z-index: 2;
 		/* Ensure it's above the wave container */
@@ -441,14 +447,7 @@
 			}
 		}
 
-		.wave-container {
-			position: absolute !important;
-			top: -110px;
-			left: 0;
-			right: 0;
-			height: 100%;
-			z-index: 0;
-		}
+
 
 		.profile-header {
 			flex-direction: column;
@@ -762,6 +761,10 @@
 
 		.blog-header {
 			min-height: unset !important;
+			background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
+			border-radius: 0 0 12px 12px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+			margin-bottom: 16px;
 		}
 	}
 }

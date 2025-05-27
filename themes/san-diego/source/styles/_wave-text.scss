@@ -1,13 +1,26 @@
+/* ==========================================================================
+   Wave Container - Consolidated Styles
+   ========================================================================== */
+
 .wave-container {
-	position: absolute !important;
+	/* Base positioning and layout */
+	position: absolute;
 	top: -30px;
 	left: 0;
 	right: 0;
+	width: 100%;
 	height: 300px;
 	z-index: 0;
-	opacity: 0.9;
-	visibility: visible !important;
+
+	/* Display and interaction */
+	display: block;
+	visibility: visible;
 	pointer-events: none;
+	overflow: hidden;
+	box-sizing: border-box;
+
+	/* Visual effects */
+	opacity: 0.9;
 	mask-image: linear-gradient(to bottom,
 			rgba(0, 0, 0, 1) 0%,
 			rgba(0, 0, 0, 0.9) 15%,
@@ -20,106 +33,105 @@
 			rgba(0, 0, 0, 0.7) 25%,
 			rgba(0, 0, 0, 0.4) 35%,
 			rgba(0, 0, 0, 0) 100%);
-	overflow: hidden;
-	display: block !important;
+
+	/* Performance optimizations */
 	will-change: transform, opacity;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
 
-	/* Ensure consistent positioning */
+	/* Prevent layout issues */
 	max-width: 100vw;
 	margin: 0;
 	padding: 0;
 
-	/* Prevent horizontal scrolling issues on mobile */
-	box-sizing: border-box;
-	width: 100% !important;
-
+	/* Canvas styling */
 	canvas {
 		width: 100%;
 		height: 100%;
 		display: block;
 	}
 
+	/* Wave grid layout */
 	.wave-grid {
 		position: relative;
 		width: 100%;
 		height: 100%;
-		display: grid !important;
+		display: grid;
 		overflow: visible;
 	}
 
+	/* Individual wave characters */
 	.wave-char {
-		display: flex !important;
+		display: flex;
 		justify-content: center;
 		align-items: center;
 		position: relative;
 		font-size: 21px;
 		line-height: 30px;
+		font-weight: 600;
 		will-change: transform, opacity;
 		text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-		font-weight: 600;
 		transition: color 0.3s ease;
+	}
+
+	/* Desktop-specific adjustments */
+	@media screen and (min-width: 1025px) {
+		top: -110px;
+		height: 100%;
+	}
+
+	/* Mobile-specific adjustments - only override what's different */
+	@media screen and (max-width: 768px) {
+		height: 100%;
+		top: 0;
+		opacity: 0.8;
+		will-change: opacity;
+		/* Reduce performance impact on mobile */
+
+		/* Smoother gradient for mobile */
+		mask-image: linear-gradient(to bottom,
+				rgba(0, 0, 0, 1) 0%,
+				rgba(0, 0, 0, 0.9) 20%,
+				rgba(0, 0, 0, 0.7) 40%,
+				rgba(0, 0, 0, 0.4) 60%,
+				rgba(0, 0, 0, 0) 80%);
+		-webkit-mask-image: linear-gradient(to bottom,
+				rgba(0, 0, 0, 1) 0%,
+				rgba(0, 0, 0, 0.9) 20%,
+				rgba(0, 0, 0, 0.7) 40%,
+				rgba(0, 0, 0, 0.4) 60%,
+				rgba(0, 0, 0, 0) 80%);
+
+		/* Hardware acceleration for smoother performance */
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+
+		.wave-grid {
+			grid-template-columns: repeat(auto-fill, minmax(12px, 1fr));
+		}
+
+		.wave-char {
+			font-size: 18px;
+			line-height: 24px;
+			will-change: none;
+			/* Disable will-change on mobile for better performance */
+		}
 	}
 }
 
+/* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
 	.wave-container {
 		opacity: 0.7;
 	}
 }
 
-/* Mobile-specific adjustments */
-.device-mobile .blog .blog-header .wave-container {
-	height: 270px;
-	/* Slightly taller height on mobile to avoid abrupt cutoff */
-	top: -70px;
-	/* More negative top value to reduce overlap with bio text */
-	opacity: 0.8;
-
-	/* Smoother gradient for mobile */
-	mask-image: linear-gradient(to bottom,
-			rgba(0, 0, 0, 1) 0%,
-			rgba(0, 0, 0, 0.9) 20%,
-			rgba(0, 0, 0, 0.7) 40%,
-			rgba(0, 0, 0, 0.4) 60%,
-			rgba(0, 0, 0, 0) 80%);
-	-webkit-mask-image: linear-gradient(to bottom,
-			rgba(0, 0, 0, 1) 0%,
-			rgba(0, 0, 0, 0.9) 20%,
-			rgba(0, 0, 0, 0.7) 40%,
-			rgba(0, 0, 0, 0.4) 60%,
-			rgba(0, 0, 0, 0) 80%);
-
-	/* Fix overflow issues on mobile */
-	overflow: hidden !important;
-	-webkit-transform: translateZ(0);
-	transform: translateZ(0);
-
-	/* Reduce the performance impact of will-change on mobile */
-	will-change: opacity;
-
-	.wave-grid {
-		/* Ensure grid cells are properly sized on mobile */
-		grid-template-columns: repeat(auto-fill, minmax(12px, 1fr)) !important;
-	}
-
-	.wave-char {
-		font-size: 18px;
-		line-height: 24px;
-		will-change: none;
-		padding: 0 !important;
-		margin: 0 !important;
-	}
-}
-
+/* Accessibility: Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
-	.wave-container {
-		.wave-char {
-			animation: none !important;
-			opacity: 0.7;
-		}
+	.wave-container .wave-char {
+		animation: none;
+		opacity: 0.7;
 	}
 }
