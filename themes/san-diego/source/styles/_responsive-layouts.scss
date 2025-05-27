@@ -14,6 +14,19 @@
    ========================================================================== */
 
 /* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* ==========================================================================
    Mobile Layout (Default)
    ========================================================================== */
 .device-mobile .blog {
@@ -605,21 +618,25 @@
 			&[data-grid-size="1x1"] {
 				grid-column: span 1;
 				grid-row: span 1;
+				--grid-aspect: square;
 			}
 
 			&[data-grid-size="1x2"] {
 				grid-column: span 1;
 				grid-row: span 2;
+				--grid-aspect: tall;
 			}
 
 			&[data-grid-size="2x2"] {
 				grid-column: span 2;
 				grid-row: span 2;
+				--grid-aspect: square;
 			}
 
 			&[data-grid-size="3x1"] {
 				grid-column: span 3;
 				grid-row: span 1;
+				--grid-aspect: wide;
 			}
 
 			/* Special styling for items with cover images */
@@ -639,11 +656,55 @@
 					border: none;
 					max-height: none;
 
-					img {
+					img,
+					video {
 						width: 100%;
 						height: 100%;
 						object-fit: cover;
 						transition: transform 0.3s ease;
+					}
+
+					/* Video loading and play states */
+					video[data-autoplay="true"] {
+						&:not([data-playing="true"]) {
+							/* Show poster or first frame while loading */
+							background-color: rgba(0, 0, 0, 0.1);
+						}
+
+						/* Subtle loading indicator */
+						&[data-loading="true"]::after {
+							content: '';
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							width: 20px;
+							height: 20px;
+							margin: -10px 0 0 -10px;
+							border: 2px solid rgba(255, 255, 255, 0.3);
+							border-top-color: rgba(255, 255, 255, 0.8);
+							border-radius: 50%;
+							animation: spin 1s linear infinite;
+							z-index: 1;
+						}
+
+						/* Subtle play indicator for click-to-play fallback */
+						&[title*="Click to play"]::before {
+							content: '▶';
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							transform: translate(-50%, -50%);
+							color: rgba(255, 255, 255, 0.8);
+							font-size: 24px;
+							text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+							z-index: 2;
+							opacity: 0;
+							transition: opacity 0.3s ease;
+						}
+
+						&[title*="Click to play"]:hover::before {
+							opacity: 1;
+						}
 					}
 				}
 
@@ -690,7 +751,9 @@
 
 				/* Hover effects for cover image items */
 				&:hover {
-					.portfolio-image img {
+
+					.portfolio-image img,
+					.portfolio-image video {
 						transform: scale(1.05);
 					}
 
@@ -980,21 +1043,25 @@
 			&[data-grid-size="1x1"] {
 				grid-column: span 1;
 				grid-row: span 1;
+				--grid-aspect: square;
 			}
 
 			&[data-grid-size="1x2"] {
 				grid-column: span 1;
 				grid-row: span 2;
+				--grid-aspect: tall;
 			}
 
 			&[data-grid-size="2x2"] {
 				grid-column: span 2;
 				grid-row: span 2;
+				--grid-aspect: square;
 			}
 
 			&[data-grid-size="3x1"] {
 				grid-column: span 3;
 				grid-row: span 1;
+				--grid-aspect: wide;
 			}
 
 			/* Special styling for items with cover images */
@@ -1014,11 +1081,55 @@
 					border: none;
 					max-height: none;
 
-					img {
+					img,
+					video {
 						width: 100%;
 						height: 100%;
 						object-fit: cover;
 						transition: transform 0.3s ease;
+					}
+
+					/* Video loading and play states */
+					video[data-autoplay="true"] {
+						&:not([data-playing="true"]) {
+							/* Show poster or first frame while loading */
+							background-color: rgba(0, 0, 0, 0.1);
+						}
+
+						/* Subtle loading indicator */
+						&[data-loading="true"]::after {
+							content: '';
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							width: 20px;
+							height: 20px;
+							margin: -10px 0 0 -10px;
+							border: 2px solid rgba(255, 255, 255, 0.3);
+							border-top-color: rgba(255, 255, 255, 0.8);
+							border-radius: 50%;
+							animation: spin 1s linear infinite;
+							z-index: 1;
+						}
+
+						/* Subtle play indicator for click-to-play fallback */
+						&[title*="Click to play"]::before {
+							content: '▶';
+							position: absolute;
+							top: 50%;
+							left: 50%;
+							transform: translate(-50%, -50%);
+							color: rgba(255, 255, 255, 0.8);
+							font-size: 24px;
+							text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+							z-index: 2;
+							opacity: 0;
+							transition: opacity 0.3s ease;
+						}
+
+						&[title*="Click to play"]:hover::before {
+							opacity: 1;
+						}
 					}
 				}
 
@@ -1065,7 +1176,9 @@
 
 				/* Hover effects for cover image items */
 				&:hover {
-					.portfolio-image img {
+
+					.portfolio-image img,
+					.portfolio-image video {
 						transform: scale(1.05);
 					}
 

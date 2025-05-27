@@ -38,11 +38,39 @@
                     <a href="<%- url_for(post.path) %>" class="portfolio-item">
                         <% if (post.cover_image) { %>
 							<div class="portfolio-image">
+								<% 
+								// Check if cover_image is a video file
+								const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(post.cover_image);
+								%>
+								<% if (isVideo) { %>
+									<video 
+										autoplay 
+										loop 
+										muted 
+										playsinline
+										preload="metadata"
+										data-autoplay="true"
+										<% if (post.cover_video_poster) { %>poster="<%- url_for(post.cover_video_poster) %>"<% } %>
+										alt="<%- post.title %>"
+										loading="lazy"
+									>
+										<% 
+										// Generate compatible video paths
+										const basePath = post.cover_image.replace(/\.(mp4|webm|ogg|mov)$/i, '');
+										const webmPath = basePath.replace('-simple', '-compatible') + '.webm';
+										const mp4Path = basePath.replace('-simple', '-compatible') + '.mp4';
+										%>
+										<source src="<%- url_for(webmPath) %>" type="video/webm">
+										<source src="<%- url_for(mp4Path) %>" type="video/mp4">
+										<source src="<%- url_for(post.cover_image) %>" type="video/mp4">
+									</video>
+								<% } else { %>
 								<img 
 									src="<%- url_for(post.cover_image) %>" 
 									alt="<%- post.title %>"
 									loading="lazy"
 								>
+								<% } %>
 							</div>
 						<% } %>
                         <div class="portfolio-content">

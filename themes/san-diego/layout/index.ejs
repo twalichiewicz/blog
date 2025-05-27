@@ -303,11 +303,40 @@
                                         <% } %>
                                         <% if (post.cover_image && post.has_writeup !== false) { %>    
                                         <div class="portfolio-image">
+                                            <% 
+                                            // Check if cover_image is a video file
+                                            const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(post.cover_image);
+                                            %>
+                                            <% if (isVideo) { %>
+                                                <video 
+                                                    autoplay 
+                                                    loop 
+                                                    muted 
+                                                    playsinline
+                                                    preload="metadata"
+                                                    data-autoplay="true"
+                                                    <% if (post.cover_video_poster) { %>poster="<%- url_for(post.cover_video_poster) %>"<% } %>
+                                                    alt="<%- post.title %>"
+                                                    loading="lazy"
+                                                    data-base-path="<%- url_for(post.cover_image.replace(/\.(mp4|webm|ogg|mov)$/i, '').replace('-simple', '')) %>"
+                                                >
+                                                    <% 
+                                                    // Generate compatible video paths
+                                                    const basePath = post.cover_image.replace(/\.(mp4|webm|ogg|mov)$/i, '');
+                                                    const webmPath = basePath.replace('-simple', '-compatible') + '.webm';
+                                                    const mp4Path = basePath.replace('-simple', '-compatible') + '.mp4';
+                                                    %>
+                                                    <source src="<%- url_for(webmPath) %>" type="video/webm">
+                                                    <source src="<%- url_for(mp4Path) %>" type="video/mp4">
+                                                    <source src="<%- url_for(post.cover_image) %>" type="video/mp4">
+                                                </video>
+                                            <% } else { %>
                                             <img 
                                                 src="<%- url_for(post.cover_image) %>" 
                                                 alt="<%- post.title %>"
                                                 loading="lazy"
                                             >
+                                            <% } %>
                                         </div>
                                         <% } %>
                                         <div class="portfolio-content">
@@ -571,6 +600,52 @@
     }
   });
 })();
+
+// Debug video autoplay
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('[DEBUG] Page loaded, checking for videos...');
+    
+    const allVideos = document.querySelectorAll('video');
+    console.log('[DEBUG] Found total videos:', allVideos.length);
+    
+    const autoplayVideos = document.querySelectorAll('video[data-autoplay="true"]');
+    console.log('[DEBUG] Found autoplay videos:', autoplayVideos.length);
+    
+    autoplayVideos.forEach((video, index) => {
+        console.log(`[DEBUG] Video ${index + 1}:`, video.src);
+        console.log(`[DEBUG] Video ${index + 1} sources:`, Array.from(video.querySelectorAll('source')).map(s => s.src));
+        console.log(`[DEBUG] Video ${index + 1} attributes:`, {
+            autoplay: video.autoplay,
+            muted: video.muted,
+            loop: video.loop,
+            playsinline: video.playsInline,
+            readyState: video.readyState
+        });
+        console.log(`[DEBUG] Video ${index + 1} dimensions:`, {
+            offsetWidth: video.offsetWidth,
+            offsetHeight: video.offsetHeight,
+            clientWidth: video.clientWidth,
+            clientHeight: video.clientHeight,
+            scrollWidth: video.scrollWidth,
+            scrollHeight: video.scrollHeight
+        });
+        console.log(`[DEBUG] Video ${index + 1} parent:`, video.parentElement);
+        console.log(`[DEBUG] Video ${index + 1} parent dimensions:`, {
+            offsetWidth: video.parentElement?.offsetWidth,
+            offsetHeight: video.parentElement?.offsetHeight
+        });
+        
+        // Try to play immediately
+        setTimeout(() => {
+            console.log(`[DEBUG] Attempting to play video ${index + 1}...`);
+            video.play().then(() => {
+                console.log(`[DEBUG] Video ${index + 1} playing successfully!`);
+            }).catch(error => {
+                console.error(`[DEBUG] Video ${index + 1} play failed:`, error);
+            });
+        }, 2000);
+    });
+});
 </script>
 </body>
 </html>
