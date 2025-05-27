@@ -12,7 +12,7 @@ gallery_images:
     poster: /2020/02/15/Overlay/overlayPreview_poster.jpg
   - url: /2020/02/15/Overlay/overlay0.png
     type: image
-cover_image: /2020/02/15/Overlay/overlayPreview_cover.png
+cover_image: /2020/02/15/Overlay/overlayPreview_cover.jpg
 --- 
 
 ## The Problem
