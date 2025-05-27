@@ -4,6 +4,11 @@
  */
 import { initializeCarousels, cleanupCarouselInstances } from './carousel.js';
 import { initializeMobileTabs } from './mobile-tabs.js';
+import videoAutoplayManager from './components/video-autoplay.js';
+import AdaptiveVideoManager from './components/adaptive-video.js';
+
+// Initialize adaptive video manager
+const adaptiveVideoManager = new AdaptiveVideoManager();
 
 document.addEventListener('DOMContentLoaded', function () {
 	// --- Refactored Initialization Function ---
@@ -36,6 +41,18 @@ document.addEventListener('DOMContentLoaded', function () {
 			initializeCarousels(container);
 		} else {
 			console.warn('[blog.js] initializeCarousels not found!');
+		}
+
+		// --- Video Autoplay ---
+		if (videoAutoplayManager && typeof videoAutoplayManager.refresh === 'function') {
+			console.log('[blog.js] Refreshing video autoplay manager for container:', container);
+			videoAutoplayManager.refresh();
+		}
+
+		// --- Adaptive Videos ---
+		if (adaptiveVideoManager && typeof adaptiveVideoManager.refresh === 'function') {
+			console.log('[blog.js] Refreshing adaptive video manager for container:', container);
+			adaptiveVideoManager.refresh();
 		}
 
 		console.log('[blog.js] initializeBlogFeatures End');
