@@ -31,10 +31,6 @@
 		padding-top: 0;
 		overflow: visible;
 		min-height: 300px;
-		background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
-		border-radius: 0 0 12px 12px;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-		margin-bottom: 16px;
 
 		/* Position contact wrapper for mobile */
 		.contact-wrapper {
@@ -43,7 +39,7 @@
 			right: initial;
 			z-index: 100;
 			left: 45px;
-			bottom: 18px;
+			bottom: 25px;
 		}
 	}
 
@@ -51,7 +47,7 @@
 		flex-direction: column;
 		align-items: flex-start;
 		text-align: center;
-		margin: 0 auto;
+		margin: 0 12px 12px 12px;
 		flex-shrink: 0;
 		padding: variables.$spacing-card 0 12px 0;
 		position: relative;
@@ -583,6 +579,148 @@
 		display: none !important;
 	}
 
+	/* Hide external icons in portfolio items on mobile */
+	.portfolio-item .external-icon {
+		display: none !important;
+	}
+
+	/* Company name spacing on mobile */
+	.company-name {
+		margin-top: 24px;
+	}
+
+	/* Portfolio list mobile layout - dynamic grid */
+	#projectsContent.portfolio-list .company-group .company-projects {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-auto-rows: minmax(120px, auto);
+		grid-auto-flow: row dense;
+		/* Fill gaps automatically */
+		gap: 8px;
+
+		.portfolio-item {
+			margin: 0;
+
+			/* Dynamic grid sizing based on data-grid-size attribute */
+			&[data-grid-size="1x1"] {
+				grid-column: span 1;
+				grid-row: span 1;
+			}
+
+			&[data-grid-size="1x2"] {
+				grid-column: span 1;
+				grid-row: span 2;
+			}
+
+			&[data-grid-size="2x2"] {
+				grid-column: span 2;
+				grid-row: span 2;
+			}
+
+			&[data-grid-size="3x1"] {
+				grid-column: span 3;
+				grid-row: span 1;
+			}
+
+			/* Special styling for items with cover images */
+			&[data-cover-image="true"] {
+				position: relative;
+				overflow: hidden;
+				padding: 0;
+
+				.portfolio-image {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					margin: 0;
+					border-radius: 0;
+					border: none;
+					max-height: none;
+
+					img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+						transition: transform 0.3s ease;
+					}
+				}
+
+				.portfolio-content {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+					color: white;
+					padding: 12px;
+					z-index: 2;
+					transition: all 0.3s ease;
+
+					.company-byline {
+						display: none;
+					}
+
+					.title-row {
+						margin-bottom: 0;
+
+						.content-text {
+							h4 {
+								color: white;
+								font-size: 14px;
+								font-weight: 600;
+								margin: 0;
+								text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+							}
+
+							p {
+								display: none;
+							}
+						}
+
+						.external-icon {
+							color: white;
+							background: rgba(255, 255, 255, 0.2);
+							border: 1px solid rgba(255, 255, 255, 0.3);
+							backdrop-filter: blur(10px);
+						}
+					}
+				}
+
+				/* Hover effects for cover image items */
+				&:hover {
+					.portfolio-image img {
+						transform: scale(1.05);
+					}
+
+					.portfolio-content {
+						background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+					}
+				}
+			}
+
+			/* Default styling for items without cover images */
+			&:not([data-cover-image="true"]) {
+				.company-byline {
+					display: none;
+				}
+
+				.portfolio-content .title-row .content-text h4 {
+					font-size: 12px;
+				}
+
+				.portfolio-content .title-row .content-text p {
+					display: none;
+				}
+
+				.portfolio-content .title-row {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+
 	/* Mini Bio Mobile Adjustments */
 	.project-navigation,
 	.post-navigation {
@@ -651,6 +789,29 @@
 			flex-direction: row !important;
 			padding: 12px 12px 24px 12px !important;
 			align-items: flex-start;
+
+			/* Skeuomorphic styling similar to mobile-tabs */
+			background: hsl(33.33, 27.08%, 93.83%);
+			border-radius: 0 0 8px 8px;
+			box-shadow:
+				0 2px 6px rgba(0, 0, 0, 0.15),
+				0 1px 3px rgba(0, 0, 0, 0.1),
+				inset 0 -2px 4px rgba(0, 0, 0, 0.08),
+				inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+			border-left: 1px solid rgba(0, 0, 0, 0.1);
+			border-right: 1px solid rgba(0, 0, 0, 0.1);
+			border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+
+			/* Dark mode skeuomorphic styling */
+			@media (prefers-color-scheme: dark) {
+				background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), variables.$card-bg-dark);
+				border-left-color: variables.$border-color-dark;
+				border-right-color: variables.$border-color-dark;
+				border-bottom-color: variables.$border-color-dark;
+				box-shadow:
+					0 1px 2px rgba(0, 0, 0, 0.3),
+					0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+			}
 
 			.profile-photo {
 				width: 90px !important;
@@ -761,16 +922,22 @@
 
 		.blog-header {
 			min-height: unset !important;
-			background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
-			border-radius: 0 0 12px 12px;
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-			margin-bottom: 16px;
 		}
 	}
 }
 
 /* Small mobile devices */
 @media (max-width: 480px) {
+
+	/* Hide external icons in portfolio items on small mobile */
+	.portfolio-item .external-icon {
+		display: none !important;
+	}
+
+	/* Company name spacing on small mobile */
+	.company-name {
+		margin-top: 24px;
+	}
 
 	/* Container styles for phone frame */
 	.container {
@@ -797,9 +964,136 @@
 		}
 	}
 
-	/* Portfolio list in small screens */
+	/* Portfolio list in small screens - dynamic grid */
 	#projectsContent.portfolio-list .company-group .company-projects {
-		grid-template-columns: 1fr;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-auto-rows: minmax(120px, auto);
+		grid-auto-flow: row dense;
+		/* Fill gaps automatically */
+		gap: 8px;
+
+		.portfolio-item {
+			margin: 0;
+
+			/* Dynamic grid sizing based on data-grid-size attribute */
+			&[data-grid-size="1x1"] {
+				grid-column: span 1;
+				grid-row: span 1;
+			}
+
+			&[data-grid-size="1x2"] {
+				grid-column: span 1;
+				grid-row: span 2;
+			}
+
+			&[data-grid-size="2x2"] {
+				grid-column: span 2;
+				grid-row: span 2;
+			}
+
+			&[data-grid-size="3x1"] {
+				grid-column: span 3;
+				grid-row: span 1;
+			}
+
+			/* Special styling for items with cover images */
+			&[data-cover-image="true"] {
+				position: relative;
+				overflow: hidden;
+				padding: 0;
+
+				.portfolio-image {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					margin: 0;
+					border-radius: 0;
+					border: none;
+					max-height: none;
+
+					img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+						transition: transform 0.3s ease;
+					}
+				}
+
+				.portfolio-content {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+					color: white;
+					padding: 12px;
+					z-index: 2;
+					transition: all 0.3s ease;
+
+					.company-byline {
+						display: none;
+					}
+
+					.title-row {
+						margin-bottom: 0;
+
+						.content-text {
+							h4 {
+								color: white;
+								font-size: 14px;
+								font-weight: 600;
+								margin: 0;
+								text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+							}
+
+							p {
+								display: none;
+							}
+						}
+
+						.external-icon {
+							color: white;
+							background: rgba(255, 255, 255, 0.2);
+							border: 1px solid rgba(255, 255, 255, 0.3);
+							backdrop-filter: blur(10px);
+						}
+					}
+				}
+
+				/* Hover effects for cover image items */
+				&:hover {
+					.portfolio-image img {
+						transform: scale(1.05);
+					}
+
+					.portfolio-content {
+						background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+					}
+				}
+			}
+
+			/* Default styling for items without cover images */
+			&:not([data-cover-image="true"]) {
+				.company-byline {
+					display: none;
+				}
+
+				.portfolio-content .title-row .content-text h4 {
+					font-size: 12px;
+				}
+
+				.portfolio-content .title-row .content-text p {
+					display: none;
+				}
+
+				.portfolio-content .title-row {
+					margin-bottom: 0;
+				}
+			}
+		}
 	}
 }
 
