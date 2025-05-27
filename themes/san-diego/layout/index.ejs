@@ -244,11 +244,62 @@
                                     <% } %>
                                 </h2>
                                 <div class="company-projects">
-                                    <% projectsByCompany[company].forEach(function(post, index) { %>
+                                    <% 
+                                    // Sort projects within each company by priority and date
+                                    const sortedProjects = projectsByCompany[company].sort((a, b) => {
+                                        // Priority 1: has_writeup !== false AND cover_image
+                                        const aPriority1 = (a.has_writeup !== false && a.cover_image) ? 1 : 0;
+                                        const bPriority1 = (b.has_writeup !== false && b.cover_image) ? 1 : 0;
+                                        
+                                        // Priority 2: has_writeup !== false (without cover_image)
+                                        const aPriority2 = (a.has_writeup !== false && !a.cover_image) ? 1 : 0;
+                                        const bPriority2 = (b.has_writeup !== false && !b.cover_image) ? 1 : 0;
+                                        
+                                        // Priority 3: everything else
+                                        const aPriority3 = (a.has_writeup === false || !a.has_writeup) ? 1 : 0;
+                                        const bPriority3 = (b.has_writeup === false || !b.has_writeup) ? 1 : 0;
+                                        
+                                        // Compare priorities
+                                        if (aPriority1 !== bPriority1) return bPriority1 - aPriority1;
+                                        if (aPriority2 !== bPriority2) return bPriority2 - aPriority2;
+                                        if (aPriority3 !== bPriority3) return bPriority3 - aPriority3;
+                                        
+                                        // Within same priority, sort by date (most recent first)
+                                        return new Date(b.date).getTime() - new Date(a.date).getTime();
+                                    });
+                                    
+                                    // Define grid sizes in a quasi-random pattern
+                                    const gridSizes = ['2x2', '1x1', '1x2', '3x1', '1x1', '2x2', '1x2', '1x1', '3x1', '1x1'];
+                                    %>
+                                    <% 
+                                    // Track grid usage to avoid too many large items in sequence
+                                    let gridCounter = 0;
+                                    %>
+                                    <% sortedProjects.forEach(function(post, index) { %>
+                                        <% 
+                                        // Assign grid size based on priority and smart distribution
+                                        let gridSize = '1x1'; // default
+                                        
+                                        if (post.has_writeup !== false && post.cover_image) {
+                                            // Priority 1: Use larger sizes more often, but distribute smartly
+                                            const priority1Sizes = ['2x2', '1x2', '3x1', '1x2', '2x2', '1x1'];
+                                            gridSize = priority1Sizes[gridCounter % priority1Sizes.length];
+                                        } else if (post.has_writeup !== false) {
+                                            // Priority 2: Mix of medium and small sizes
+                                            const priority2Sizes = ['1x2', '1x1', '1x1', '3x1', '1x1', '1x2'];
+                                            gridSize = priority2Sizes[gridCounter % priority2Sizes.length];
+                                        } else {
+                                            // Priority 3: Mostly small sizes with occasional medium
+                                            const priority3Sizes = ['1x1', '1x1', '1x1', '1x2', '1x1', '1x1'];
+                                            gridSize = priority3Sizes[gridCounter % priority3Sizes.length];
+                                        }
+                                        
+                                        gridCounter++;
+                                        %>
                                         <% if (post.has_writeup !== false) { %>
-                                            <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup">
+                                            <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup" data-cover-image="<%= post.cover_image ? 'true' : 'false' %>" data-grid-size="<%= gridSize %>">
                                         <% } else { %>
-                                            <div class="portfolio-item">
+                                            <div class="portfolio-item" data-cover-image="<%= post.cover_image && post.has_writeup !== false ? 'true' : 'false' %>" data-grid-size="<%= gridSize %>">
                                         <% } %>
                                         <% if (post.cover_image && post.has_writeup !== false) { %>    
                                         <div class="portfolio-image">
