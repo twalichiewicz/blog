@@ -2050,10 +2050,6 @@ ol ul {
   padding-top: 0;
   overflow: visible;
   min-height: 300px;
-  background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
-  border-radius: 0 0 12px 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin-bottom: 16px;
   /* Position contact wrapper for mobile */
 }
 .device-mobile .blog .blog-header .contact-wrapper {
@@ -2062,13 +2058,13 @@ ol ul {
   right: initial;
   z-index: 100;
   left: 45px;
-  bottom: 18px;
+  bottom: 25px;
 }
 .device-mobile .blog .profile-header {
   flex-direction: column;
   align-items: flex-start;
   text-align: center;
-  margin: 0 auto;
+  margin: 0 12px 12px 12px;
   flex-shrink: 0;
   padding: 24px 0 12px 0;
   position: relative;
@@ -2519,6 +2515,119 @@ ol ul {
   .mobile-hide {
     display: none !important;
   }
+  /* Hide external icons in portfolio items on mobile */
+  .portfolio-item .external-icon {
+    display: none !important;
+  }
+  /* Company name spacing on mobile */
+  .company-name {
+    margin-top: 24px;
+  }
+  /* Portfolio list mobile layout - dynamic grid */
+  #projectsContent.portfolio-list .company-group .company-projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+    grid-auto-flow: row dense;
+    /* Fill gaps automatically */
+    gap: 8px;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item {
+    margin: 0;
+    /* Dynamic grid sizing based on data-grid-size attribute */
+    /* Special styling for items with cover images */
+    /* Default styling for items without cover images */
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="1x1"] {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="1x2"] {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="2x2"] {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="3x1"] {
+    grid-column: span 3;
+    grid-row: span 1;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    /* Hover effects for cover image items */
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    max-height: none;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+    color: white;
+    padding: 12px;
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .company-byline {
+    display: none;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row {
+    margin-bottom: 0;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row .content-text h4 {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row .content-text p {
+    display: none;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row .external-icon {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true]:hover .portfolio-image img {
+    transform: scale(1.05);
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true]:hover .portfolio-content {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .company-byline {
+    display: none;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .portfolio-content .title-row .content-text h4 {
+    font-size: 12px;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .portfolio-content .title-row .content-text p {
+    display: none;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .portfolio-content .title-row {
+    margin-bottom: 0;
+  }
   /* Mini Bio Mobile Adjustments */
   .blog {
     padding: 0;
@@ -2577,7 +2686,26 @@ ol ul {
     flex-direction: row !important;
     padding: 12px 12px 24px 12px !important;
     align-items: flex-start;
+    /* Skeuomorphic styling similar to mobile-tabs */
+    background: hsl(33.33, 27.08%, 93.83%);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 -2px 4px rgba(0, 0, 0, 0.08), inset 0 -1px 2px rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+    /* Dark mode skeuomorphic styling */
   }
+}
+@media screen and (max-width: 768px) and (prefers-color-scheme: dark) {
+  .blog .profile-header {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), hsl(0, 0%, 18%));
+    border-left-color: hsl(0, 0%, 25%);
+    border-right-color: hsl(0, 0%, 25%);
+    border-bottom-color: hsl(0, 0%, 25%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+  }
+}
+@media screen and (max-width: 768px) {
   .blog .profile-header .profile-photo {
     width: 90px !important;
     height: 90px !important;
@@ -2661,14 +2789,18 @@ ol ul {
   }
   .blog .blog-header {
     min-height: unset !important;
-    background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin-bottom: 16px;
   }
 }
 /* Small mobile devices */
 @media (max-width: 480px) {
+  /* Hide external icons in portfolio items on small mobile */
+  .portfolio-item .external-icon {
+    display: none !important;
+  }
+  /* Company name spacing on small mobile */
+  .company-name {
+    margin-top: 24px;
+  }
   /* Container styles for phone frame */
   .container {
     max-width: 100% !important;
@@ -2690,9 +2822,110 @@ ol ul {
   .blog .blog-content::before {
     display: none !important;
   }
-  /* Portfolio list in small screens */
+  /* Portfolio list in small screens - dynamic grid */
   #projectsContent.portfolio-list .company-group .company-projects {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+    grid-auto-flow: row dense;
+    /* Fill gaps automatically */
+    gap: 8px;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item {
+    margin: 0;
+    /* Dynamic grid sizing based on data-grid-size attribute */
+    /* Special styling for items with cover images */
+    /* Default styling for items without cover images */
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="1x1"] {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="1x2"] {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="2x2"] {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="3x1"] {
+    grid-column: span 3;
+    grid-row: span 1;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    /* Hover effects for cover image items */
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    max-height: none;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+    color: white;
+    padding: 12px;
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .company-byline {
+    display: none;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row {
+    margin-bottom: 0;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row .content-text h4 {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row .content-text p {
+    display: none;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row .external-icon {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true]:hover .portfolio-image img {
+    transform: scale(1.05);
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true]:hover .portfolio-content {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .company-byline {
+    display: none;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .portfolio-content .title-row .content-text h4 {
+    font-size: 12px;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .portfolio-content .title-row .content-text p {
+    display: none;
+  }
+  #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .portfolio-content .title-row {
+    margin-bottom: 0;
   }
 }
 /* Tablet and larger screens */
