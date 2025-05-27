@@ -7,7 +7,7 @@ tags:
   - portfolio
 layout: project_gallery
 has_writeup: true
-cover_image: /2020/01/21/Self-Service-Publishing-Pipeline/sspp_cover.png
+cover_image: /2020/01/21/Self-Service-Publishing-Pipeline/sspp_cover.jpg
 --- 
 
 ## The Problem
