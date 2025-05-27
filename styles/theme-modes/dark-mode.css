@@ -47,7 +47,6 @@
     background: rgba(244.8, 183.6, 61.2, 0.9);
     border-color: rgba(244.8, 183.6, 61.2, 0.8);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transform: translateY(-1px);
   }
   .blog.blog .profile-header .contact-wrapper .contact-button:active {
     background: rgba(244.8, 183.6, 61.2, 0.7);

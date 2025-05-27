@@ -83,17 +83,18 @@ export class OptimizedWaveAnimation {
 		const scaleFactor = isMobile ? 0.4 : 0.8; // More aggressive scaling for mobile
 		const dpr = window.devicePixelRatio * scaleFactor || 1;
 
-		// Store original dimensions
-		const displayWidth = this.canvas.clientWidth || window.innerWidth;
-		const displayHeight = this.canvas.clientHeight || 300;
+		// Store original dimensions - get the actual container height
+		const container = this.canvas.parentElement;
+		const displayWidth = container ? container.clientWidth : (this.canvas.clientWidth || window.innerWidth);
+		const displayHeight = container ? container.clientHeight : (this.canvas.clientHeight || 300);
 
 		// Set actual drawing dimensions
 		this.canvas.width = displayWidth * dpr;
-		this.canvas.height = 300 * dpr;
+		this.canvas.height = displayHeight * dpr;
 
-		// Maintain the CSS display size
+		// Maintain the CSS display size to match container
 		this.canvas.style.width = displayWidth + 'px';
-		this.canvas.style.height = '300px';
+		this.canvas.style.height = displayHeight + 'px';
 
 		// Scale the context according to the device pixel ratio and performance factor
 		this.ctx.scale(dpr, dpr);

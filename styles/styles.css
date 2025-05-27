@@ -511,6 +511,7 @@ ol ul {
     /* Dark mode for blog header */
     /* Desktop contact options in dark mode */
     /* Global dark mode style for external-icon */
+    /* Dark mode for blog header on mobile */
     /* Dark mode for basic blog content */
     /* Headings in dark mode - apply to all screen sizes */
     /* Dark mode for blog content on tablet and desktop */
@@ -615,6 +616,14 @@ ol ul {
     background: hsl(40, 90%, 60%);
     color: hsl(0, 0%, 100%);
   }
+}
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+  .blog .blog-header {
+    background: linear-gradient(to bottom right, hsl(28, 8%, 18%) 0%, hsl(28, 10%, 15%) 100%) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+  }
+}
+@media (prefers-color-scheme: dark) {
   .blog .blog-content {
     background-color: hsl(0, 0%, 75%);
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
@@ -1501,6 +1510,7 @@ ol ul {
   border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
   color: hsl(24, 3%, 35%);
+  transition: all 300ms ease-in-out;
   /* Portfolio image styling in light mode */
 }
 .portfolio-item.has-writeup .portfolio-image {
@@ -2040,21 +2050,27 @@ ol ul {
   padding-top: 0;
   overflow: visible;
   min-height: 300px;
+  background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 16px;
   /* Position contact wrapper for mobile */
 }
 .device-mobile .blog .blog-header .contact-wrapper {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: initial;
+  right: initial;
   z-index: 100;
+  left: 45px;
+  bottom: 18px;
 }
 .device-mobile .blog .profile-header {
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   text-align: center;
   margin: 0 auto;
   flex-shrink: 0;
-  padding: 24px 0;
+  padding: 24px 0 12px 0;
   position: relative;
   z-index: 2;
   /* Ensure it's above the wave container */
@@ -2387,14 +2403,6 @@ ol ul {
 .device-desktop .blog .blog-header .contact-wrapper.mobile-hide .contact-options .contact-option {
   flex: 1;
 }
-.device-desktop .blog .blog-header .wave-container {
-  position: absolute !important;
-  top: -110px;
-  left: 0;
-  right: 0;
-  height: 100%;
-  z-index: 0;
-}
 .device-desktop .blog .blog-header .profile-header {
   flex-direction: column;
   margin: 48px 0;
@@ -2653,6 +2661,10 @@ ol ul {
   }
   .blog .blog-header {
     min-height: unset !important;
+    background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 16px;
   }
 }
 /* Small mobile devices */
@@ -3542,32 +3554,43 @@ footer span {
     border-color: hsl(0, 0%, 25%);
   }
 }
+/* ==========================================================================
+   Wave Container - Consolidated Styles
+   ========================================================================== */
 .wave-container {
-  position: absolute !important;
+  /* Base positioning and layout */
+  position: absolute;
   top: -30px;
   left: 0;
   right: 0;
+  width: 100%;
   height: 300px;
   z-index: 0;
-  opacity: 0.9;
-  visibility: visible !important;
+  /* Display and interaction */
+  display: block;
+  visibility: visible;
   pointer-events: none;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* Visual effects */
+  opacity: 0.9;
   mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 15%, rgba(0, 0, 0, 0.7) 25%, rgba(0, 0, 0, 0.4) 35%, rgba(0, 0, 0, 0) 100%);
   -webkit-mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 15%, rgba(0, 0, 0, 0.7) 25%, rgba(0, 0, 0, 0.4) 35%, rgba(0, 0, 0, 0) 100%);
-  overflow: hidden;
-  display: block !important;
+  /* Performance optimizations */
   will-change: transform, opacity;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  /* Ensure consistent positioning */
+  /* Prevent layout issues */
   max-width: 100vw;
   margin: 0;
   padding: 0;
-  /* Prevent horizontal scrolling issues on mobile */
-  box-sizing: border-box;
-  width: 100% !important;
+  /* Canvas styling */
+  /* Wave grid layout */
+  /* Individual wave characters */
+  /* Desktop-specific adjustments */
+  /* Mobile-specific adjustments - only override what's different */
 }
 .wave-container canvas {
   width: 100%;
@@ -3578,59 +3601,62 @@ footer span {
   position: relative;
   width: 100%;
   height: 100%;
-  display: grid !important;
+  display: grid;
   overflow: visible;
 }
 .wave-container .wave-char {
-  display: flex !important;
+  display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   font-size: 21px;
   line-height: 30px;
+  font-weight: 600;
   will-change: transform, opacity;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
-  font-weight: 600;
   transition: color 0.3s ease;
 }
+@media screen and (min-width: 1025px) {
+  .wave-container {
+    top: -110px;
+    height: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .wave-container {
+    height: 100%;
+    top: 0;
+    opacity: 0.8;
+    will-change: opacity;
+    /* Reduce performance impact on mobile */
+    /* Smoother gradient for mobile */
+    mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 80%);
+    -webkit-mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 80%);
+    /* Hardware acceleration for smoother performance */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  .wave-container .wave-grid {
+    grid-template-columns: repeat(auto-fill, minmax(12px, 1fr));
+  }
+  .wave-container .wave-char {
+    font-size: 18px;
+    line-height: 24px;
+    will-change: none;
+    /* Disable will-change on mobile for better performance */
+  }
+}
 
+/* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   .wave-container {
     opacity: 0.7;
   }
 }
-/* Mobile-specific adjustments */
-.device-mobile .blog .blog-header .wave-container {
-  height: 270px;
-  /* Slightly taller height on mobile to avoid abrupt cutoff */
-  top: -70px;
-  /* More negative top value to reduce overlap with bio text */
-  opacity: 0.8;
-  /* Smoother gradient for mobile */
-  mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 80%);
-  -webkit-mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 80%);
-  /* Fix overflow issues on mobile */
-  overflow: hidden !important;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  /* Reduce the performance impact of will-change on mobile */
-  will-change: opacity;
-}
-.device-mobile .blog .blog-header .wave-container .wave-grid {
-  /* Ensure grid cells are properly sized on mobile */
-  grid-template-columns: repeat(auto-fill, minmax(12px, 1fr)) !important;
-}
-.device-mobile .blog .blog-header .wave-container .wave-char {
-  font-size: 18px;
-  line-height: 24px;
-  will-change: none;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
+/* Accessibility: Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .wave-container .wave-char {
-    animation: none !important;
+    animation: none;
     opacity: 0.7;
   }
 }
@@ -8453,7 +8479,6 @@ button {
     background: rgba(173.4, 66.3, 30.6, 0.9);
     border-color: rgba(173.4, 66.3, 30.6, 0.8);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
-    transform: translateY(-1px);
   }
   .contact-wrapper .contact-button:active {
     background: rgba(173.4, 66.3, 30.6, 0.7);
@@ -8582,7 +8607,6 @@ button {
     background: linear-gradient(to bottom, hsl(40, 90%, 65%), hsl(40, 90%, 55%));
     border-color: hsl(40, 90%, 50%);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
-    transform: translateY(-1px);
   }
   .contact-wrapper .contact-button:active {
     background: linear-gradient(to bottom, hsl(40, 90%, 55%), hsl(40, 90%, 45%));
@@ -9646,7 +9670,6 @@ body.loaded {
     background: hsl(15, 70%, 45%);
     border-color: hsl(15, 70%, 45%);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px);
   }
   .blog.blog .profile-header .contact-wrapper .contact-button:active {
     background: hsl(15, 70%, 35%);
@@ -9775,7 +9798,6 @@ body.loaded {
     background: rgba(244.8, 183.6, 61.2, 0.9);
     border-color: rgba(244.8, 183.6, 61.2, 0.8);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transform: translateY(-1px);
   }
   .blog.blog .profile-header .contact-wrapper .contact-button:active {
     background: rgba(244.8, 183.6, 61.2, 0.7);
