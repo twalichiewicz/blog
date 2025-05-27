@@ -180,6 +180,14 @@
 			}
 		}
 
+		/* Dark mode for blog header on mobile */
+		@media (max-width: variables.$mobile-breakpoint) {
+			.blog-header {
+				background: linear-gradient(to bottom right, hsl(28, 8%, 18%) 0%, hsl(28, 10%, 15%) 100%) !important;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+			}
+		}
+
 		/* Dark mode for basic blog content */
 		.blog-content {
 			background-color: variables.$grey-dark;
@@ -1281,6 +1289,7 @@
 	border: 1px solid rgba(variables.$text-color-secondary, 0.1);
 	box-shadow: variables.$shadow-soft;
 	color: variables.$text-color;
+	transition: all 300ms ease-in-out;
 
 	/* Portfolio image styling in light mode */
 	.portfolio-image {

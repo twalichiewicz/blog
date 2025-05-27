@@ -736,7 +736,6 @@ button {
 				box-shadow:
 					0 2px 4px rgba(0, 0, 0, 0.15),
 					0 1px 0 rgba(255, 255, 255, 0.2) inset;
-				transform: translateY(-1px);
 			}
 
 			/* New active/pressed state for touch/mouse down */
@@ -890,7 +889,6 @@ button {
 						0 2px 4px rgba(0, 0, 0, 0.5),
 						0 1px 0 rgba(255, 255, 255, 0.4) inset,
 						0 -1px 0 rgba(0, 0, 0, 0.1) inset;
-					transform: translateY(-1px);
 				}
 
 				/* New active/pressed state for touch/mouse down in dark mode */

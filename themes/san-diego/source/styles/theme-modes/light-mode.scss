@@ -62,7 +62,6 @@
 						background: color.adjust(variables.$link-color, $lightness: 5%);
 						border-color: color.adjust(variables.$link-color, $lightness: 5%);
 						box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-						transform: translateY(-1px);
 					}
 
 					/* New active/pressed state for touch/mouse down in light mode */
