@@ -9,8 +9,33 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Tue, 27 May 2025 04:37:42 GMT</pubDate>
+    <pubDate>Tue, 27 May 2025 17:30:59 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>New design, new shit</title>
+      <link>https://twalichiewicz.github.io/2025/05/27/New-design-new-shit/</link>
+      <guid>https://twalichiewicz.github.io/2025/05/27/New-design-new-shit/</guid>
+      <pubDate>Tue, 27 May 2025 15:14:21 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;img src=&quot;/2025/05/27/New-design-new-shit/designShit.png&quot;&gt;&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><img src="/2025/05/27/New-design-new-shit/designShit.png"></p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/05/27/New-design-new-shit/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Blog updated</title>
@@ -458,30 +483,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/03/23/Ars-Sometimes-it-s-the-little-things/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Assistant confidence interval vocal</title>
-      <link>https://twalichiewicz.github.io/2025/03/22/Assistant-confidence-interval-vocal/</link>
-      <guid>https://twalichiewicz.github.io/2025/03/22/Assistant-confidence-interval-vocal/</guid>
-      <pubDate>Sat, 22 Mar 2025 20:09:51 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;When a voice assistant has high confidence (&amp;gt;95%) in understanding a request, it shouldn’t need to verbally confirm by repeating the e</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>When a voice assistant has high confidence (&gt;95%) in understanding a request, it shouldn’t need to verbally confirm by repeating the entire command. A brief confirmation tone would be more efficient and less intrusive.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/03/22/Assistant-confidence-interval-vocal/#disqus_thread</comments>
       
     </item>
     
