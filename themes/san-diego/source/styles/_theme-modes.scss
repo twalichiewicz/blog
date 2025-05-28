@@ -893,6 +893,51 @@
 					color: variables.$white;
 				}
 			}
+
+			/* Muted text colors for non-clickable items in dark mode */
+			&:not(.has-writeup) {
+				background: transparent; // Explicit for dark non-hover
+				border: 1px solid rgba(255, 255, 255, 0.1); // Better dark mode border
+				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); // Minimal dark shadow
+
+				h4 {
+					color: hsl(0, 0%, 65%);
+					opacity: 0.9;
+				}
+
+				p {
+					color: hsl(0, 0%, 60%);
+					opacity: 0.8;
+				}
+
+				/* Dark mode overrides for portfolio items without cover images */
+				&:not([data-cover-image="true"]) {
+					.portfolio-content .title-row .content-text h4 {
+						color: variables.$white !important;
+					}
+				}
+
+				/* Dark mode overrides for portfolio items with cover images but no writeup */
+				&[data-cover-image="true"]:not(.has-writeup) {
+					.portfolio-content .title-row .content-text h4 {
+						color: white !important;
+					}
+				}
+			}
+
+			/* Dark mode overrides for portfolio items without cover images */
+			&:not([data-cover-image="true"]) {
+				.portfolio-content .title-row .content-text h4 {
+					color: variables.$white !important;
+				}
+			}
+
+			/* Dark mode overrides for portfolio items with cover images but no writeup */
+			&[data-cover-image="true"]:not(.has-writeup) {
+				.portfolio-content .title-row .content-text h4 {
+					color: white !important;
+				}
+			}
 		}
 
 		/* Dark mode for carousel buttons */
@@ -955,20 +1000,34 @@
 			color: variables.$grey-light;
 		}
 
-		.content-accordion {
-			border-top-color: rgba(255, 255, 255, 0.05);
+		/* Muted text colors for non-clickable items in dark mode */
+		&:not(.has-writeup) {
+			background: transparent; // Explicit for dark non-hover
+			border: 1px solid rgba(255, 255, 255, 0.1); // Better dark mode border
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); // Minimal dark shadow
 
-			summary {
-				color: variables.$grey-dark;
+			h4 {
+				color: hsl(0, 0%, 65%);
+				opacity: 0.9;
+			}
 
-				&:hover {
-					color: variables.$link-color-dark;
+			p {
+				color: hsl(0, 0%, 60%);
+				opacity: 0.8;
+			}
+
+			/* Dark mode overrides for portfolio items without cover images */
+			&:not([data-cover-image="true"]) {
+				.portfolio-content .title-row .content-text h4 {
+					color: variables.$white !important;
 				}
 			}
 
-			.accordion-content {
-				color: variables.$grey-dark;
-				background: rgba(255, 255, 255, 0.03);
+			/* Dark mode overrides for portfolio items with cover images but no writeup */
+			&[data-cover-image="true"]:not(.has-writeup) {
+				.portfolio-content .title-row .content-text h4 {
+					color: white !important;
+				}
 			}
 		}
 	}
@@ -1650,6 +1709,20 @@
 			p {
 				color: hsl(0, 0%, 60%);
 				opacity: 0.8;
+			}
+
+			/* Dark mode overrides for portfolio items without cover images */
+			&:not([data-cover-image="true"]) {
+				.portfolio-content .title-row .content-text h4 {
+					color: variables.$white !important;
+				}
+			}
+
+			/* Dark mode overrides for portfolio items with cover images but no writeup */
+			&[data-cover-image="true"]:not(.has-writeup) {
+				.portfolio-content .title-row .content-text h4 {
+					color: white !important;
+				}
 			}
 		}
 	}
