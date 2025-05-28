@@ -708,59 +708,7 @@
 					}
 				}
 
-				.portfolio-content {
-					position: absolute;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
-					color: white;
-					padding: 12px;
-					z-index: 2;
-					transition: all 0.3s ease;
 
-					.company-byline {
-						display: none;
-					}
-
-					.title-row {
-						margin-bottom: 0;
-
-						.content-text {
-							h4 {
-								color: white;
-								font-size: 14px;
-								font-weight: 600;
-								margin: 0;
-								text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-							}
-
-							p {
-								display: none;
-							}
-						}
-
-						.external-icon {
-							color: white;
-							background: rgba(255, 255, 255, 0.2);
-							border: 1px solid rgba(255, 255, 255, 0.3);
-							backdrop-filter: blur(10px);
-						}
-					}
-				}
-
-				/* Hover effects for cover image items */
-				&:hover {
-
-					.portfolio-image img,
-					.portfolio-image video {
-						transform: scale(1.05);
-					}
-
-					.portfolio-content {
-						background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
-					}
-				}
 			}
 
 			/* Default styling for items without cover images */
