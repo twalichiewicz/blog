@@ -1199,6 +1199,9 @@ ol ul {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3);
     /* Dark mode styling for company-byline */
     /* Dark mode external icon - to indicate clickability */
+    /* Muted text colors for non-clickable items in dark mode */
+    /* Dark mode overrides for portfolio items without cover images */
+    /* Dark mode overrides for portfolio items with cover images but no writeup */
   }
   .blog .portfolio-item:hover {
     background-color: rgba(30, 30, 30, 0.8);
@@ -1216,6 +1219,33 @@ ol ul {
   .blog .portfolio-item .external-icon:hover {
     background: hsl(40, 90%, 60%);
     color: hsl(0, 0%, 100%);
+  }
+  .blog .portfolio-item:not(.has-writeup) {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    /* Dark mode overrides for portfolio items without cover images */
+    /* Dark mode overrides for portfolio items with cover images but no writeup */
+  }
+  .blog .portfolio-item:not(.has-writeup) h4 {
+    color: hsl(0, 0%, 65%);
+    opacity: 0.9;
+  }
+  .blog .portfolio-item:not(.has-writeup) p {
+    color: hsl(0, 0%, 60%);
+    opacity: 0.8;
+  }
+  .blog .portfolio-item:not(.has-writeup):not([data-cover-image=true]) .portfolio-content .title-row .content-text h4 {
+    color: hsl(0, 0%, 100%) !important;
+  }
+  .blog .portfolio-item:not(.has-writeup)[data-cover-image=true]:not(.has-writeup) .portfolio-content .title-row .content-text h4 {
+    color: white !important;
+  }
+  .blog .portfolio-item:not([data-cover-image=true]) .portfolio-content .title-row .content-text h4 {
+    color: hsl(0, 0%, 100%) !important;
+  }
+  .blog .portfolio-item[data-cover-image=true]:not(.has-writeup) .portfolio-content .title-row .content-text h4 {
+    color: white !important;
   }
   .blog .carousel .carousel-button,
   .blog .spotlight .carousel-button,
@@ -1249,24 +1279,35 @@ ol ul {
     background: hsl(40, 90%, 60%);
     color: hsl(0, 0%, 100%);
   }
+  .portfolio-item {
+    /* Muted text colors for non-clickable items in dark mode */
+  }
   .portfolio-item h4 {
     color: hsl(0, 0%, 100%);
   }
   .portfolio-item p {
     color: hsl(35, 10%, 75%);
   }
-  .portfolio-item .content-accordion, .portfolio-item .portfolio-items .content-accordion, .portfolio-items .portfolio-item .content-accordion {
-    border-top-color: rgba(255, 255, 255, 0.05);
+  .portfolio-item:not(.has-writeup) {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    /* Dark mode overrides for portfolio items without cover images */
+    /* Dark mode overrides for portfolio items with cover images but no writeup */
   }
-  .portfolio-item .content-accordion summary, .portfolio-item .portfolio-items .content-accordion summary, .portfolio-items .portfolio-item .content-accordion summary {
-    color: hsl(0, 0%, 75%);
+  .portfolio-item:not(.has-writeup) h4 {
+    color: hsl(0, 0%, 65%);
+    opacity: 0.9;
   }
-  .portfolio-item .content-accordion summary:hover {
-    color: hsl(40, 90%, 60%);
+  .portfolio-item:not(.has-writeup) p {
+    color: hsl(0, 0%, 60%);
+    opacity: 0.8;
   }
-  .portfolio-item .content-accordion .accordion-content {
-    color: hsl(0, 0%, 75%);
-    background: rgba(255, 255, 255, 0.03);
+  .portfolio-item:not(.has-writeup):not([data-cover-image=true]) .portfolio-content .title-row .content-text h4 {
+    color: hsl(0, 0%, 100%) !important;
+  }
+  .portfolio-item:not(.has-writeup)[data-cover-image=true]:not(.has-writeup) .portfolio-content .title-row .content-text h4 {
+    color: white !important;
   }
   .portfolio-item.has-writeup {
     /* Dark mode appearance - only affecting card styling */
@@ -1790,6 +1831,8 @@ ol ul {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    /* Dark mode overrides for portfolio items without cover images */
+    /* Dark mode overrides for portfolio items with cover images but no writeup */
   }
   .portfolio-item:not(.has-writeup) h4 {
     color: hsl(0, 0%, 65%);
@@ -1798,6 +1841,12 @@ ol ul {
   .portfolio-item:not(.has-writeup) p {
     color: hsl(0, 0%, 60%);
     opacity: 0.8;
+  }
+  .portfolio-item:not(.has-writeup):not([data-cover-image=true]) .portfolio-content .title-row .content-text h4 {
+    color: hsl(0, 0%, 100%) !important;
+  }
+  .portfolio-item:not(.has-writeup)[data-cover-image=true]:not(.has-writeup) .portfolio-content .title-row .content-text h4 {
+    color: white !important;
   }
 }
 .title-row .external-icon {
@@ -4041,8 +4090,8 @@ footer span {
 }
 @media screen and (min-width: 1025px) {
   .wave-container {
-    top: -110px;
-    height: 100%;
+    top: 0;
+    height: 50%;
   }
 }
 @media screen and (max-width: 768px) {
