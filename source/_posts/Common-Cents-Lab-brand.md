@@ -3,7 +3,7 @@ title: Common Cents Lab brand
 company: Common Cents Lab
 byline: Built a comprehensive brand identity system for a behavioral science research nonprofit
 date: 2016-01-01 20:52:01
-cover_image: 2016/01/02/Common-Cents-Lab-brand/cclBrand-preview.png
+cover_image: 2016/01/01/Common-Cents-Lab-brand/cclBrand-preview.png
 tags: [portfolio]
 has_writeup: true
 layout: project_gallery
@@ -12,13 +12,13 @@ credits:
   - role: Design & Brand Lead
     name: Thomas Walichiewicz
 gallery_images:
-  - url: /2016/01/02/Common-Cents-Lab-brand/introVideo.gif
+  - url: /2016/01/01/Common-Cents-Lab-brand/introVideo.gif
     caption: Common Cents Lab logo animation.
     type: image
-  - url: /2016/01/02/Common-Cents-Lab-brand/ccPayableWebinar.png
+  - url: /2016/01/01/Common-Cents-Lab-brand/ccPayableWebinar.png
     caption: The Common Cents Lab logo.
     type: image
-  - url: /2016/01/02/Common-Cents-Lab-brand/promotionalImages.png
+  - url: /2016/01/01/Common-Cents-Lab-brand/promotionalImages.png
     caption: Promotional images for the Common Cents Lab booklet.
     type: image
 ---
