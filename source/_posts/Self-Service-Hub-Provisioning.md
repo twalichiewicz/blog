@@ -18,28 +18,26 @@ gallery_images:
     type: image
 --- 
 
-### Opportunity
+## The Problem
 
-Administrators previously had to rely on customer support to provision new web instances—or "hubs"—for Autodesk’s cloud products, causing delays. The challenge was to create a self-service solution that aligns with their workflows and speeds up deployment.
+Enterprise customers couldn't deploy new instances of Autodesk's web products without contacting customer support. Every new project, team, or deployment required a support ticket, manual provisioning by Autodesk staff, and days of waiting. This created massive friction for customers trying to scale their operations and overwhelmed support teams with routine infrastructure requests.
 
-### Design & Execution
+## The Solution
 
-I developed the Self-Service Hub Provisioning tool as an extension of the Common Project Administration dashboard:
+I designed a self-service provisioning system that allows administrators to instantly generate and manage cloud instances of any Autodesk web product. What previously required support tickets and manual intervention now happens in minutes through an automated wizard interface.
 
-- **Guided Onboarding:** A step-by-step wizard simplifies hub setup.
-- **Streamlined Actions:** Complex processes were distilled into clear, intuitive steps.
-- **Consistent Experience:** The tool integrated seamlessly with the existing administration interface.
+## Key Innovation: Infrastructure-as-a-Service for Enterprise Software
 
-### Key Deliverables
+- **Universal Provisioning Engine:** Single interface can generate instances of any Autodesk web product
+- **Guided Setup Wizard:** Complex cloud infrastructure deployment simplified to step-by-step forms
+- **Instant Deployment:** Hub instances provision automatically without human intervention
+- **Integrated Management Dashboard:** Administrators can monitor, configure, and maintain all instances from one interface
+- **Standardized Architecture:** Unified provisioning process across Autodesk's entire web product ecosystem
 
-- **Provisioning Module:** An embedded interface for quick, self-service hub setup.
-- **Interactive Wizard:** A guided flow ensuring efficient and accurate provisioning.
-- **UX Documentation:** Detailed user flows and design rationale supporting the solution.
+## Impact
 
-### Outcomes
-
-The tool transformed the provisioning process:
-
-- **Faster Deployment:** Hubs can now be provisioned instantly without support intervention.
-- **Empowered Administrators:** Users gained greater control, leading to a more agile experience.
-- **Enhanced Efficiency:** The streamlined process laid the groundwork for ongoing innovation in Autodesk’s cloud ecosystem.
+- Eliminated support ticket dependency for infrastructure provisioning
+- Reduced deployment time from days to minutes for enterprise customers
+- Freed customer support teams from routine provisioning requests
+- Enabled instant scalability for enterprise customers managing multiple projects
+- Standardized cloud infrastructure management across all Autodesk web products
