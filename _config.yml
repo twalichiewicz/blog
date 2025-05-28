@@ -7,7 +7,7 @@ description: "Thomas Walichiewicz - Designer, Developer, Thinker"
 keywords: ["design", "portfolio", "blog", "developer"]
 author: Thomas Walichiewicz
 language: en
-timezone: "America/Los_Angeles"
+timezone: "UTC"
 
 # URL
 url: https://twalichiewicz.github.io  # Ensure this is correct
