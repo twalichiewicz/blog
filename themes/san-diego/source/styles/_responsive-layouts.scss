@@ -597,9 +597,13 @@
 		display: none !important;
 	}
 
-	/* Company name spacing on mobile */
-	.company-name {
+	/* Company spacing on mobile */
+	.company-group {
 		margin-top: 24px;
+	}
+
+	.company-name {
+		margin-top: 0;
 	}
 
 	/* Portfolio list mobile layout - dynamic grid */
@@ -1042,9 +1046,13 @@
 		display: none !important;
 	}
 
-	/* Company name spacing on small mobile */
-	.company-name {
+	/* Company spacing on small mobile */
+	.company-group {
 		margin-top: 24px;
+	}
+
+	.company-name {
+		margin-top: 0;
 	}
 
 	/* Container styles for phone frame */
