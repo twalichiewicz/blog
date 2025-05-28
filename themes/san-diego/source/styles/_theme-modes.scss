@@ -1009,24 +1009,9 @@
 			}
 		}
 
-		/* Portfolio image styling in dark mode */
+		/* Portfolio image dark mode specific styling */
 		.portfolio-image {
-			margin: 0 0 12px 0;
-			border-radius: 6px;
-			overflow: hidden;
-			max-height: 150px;
 			border: 1px solid rgba(255, 255, 255, 0.1);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-
-			img,
-			video {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				transition: none;
-			}
 		}
 
 		&:hover .portfolio-image img,
@@ -1134,6 +1119,11 @@
 		}
 
 		/* Light mode portfolio item styles - see consolidated section at end of file */
+
+		/* Portfolio image light mode specific styling */
+		.portfolio-item .portfolio-image {
+			border: 1px solid rgba(0, 0, 0, 0.1);
+		}
 	}
 }
 
@@ -1183,6 +1173,25 @@
 
 	&:hover {
 		transform: translateY(-2px);
+	}
+
+	/* Base portfolio image styling for all modes */
+	.portfolio-image {
+		margin: 0 0 12px 0;
+		border-radius: 6px;
+		overflow: hidden;
+		max-height: 150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		img,
+		video {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: none;
+		}
 	}
 
 	// Common styling for company-byline
