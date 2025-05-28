@@ -1277,7 +1277,7 @@ ol ul {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3);
     /* Dark mode styling for company-byline */
     /* Dark mode external icon - to indicate clickability */
-    /* Portfolio image styling in dark mode */
+    /* Portfolio image dark mode specific styling */
   }
   .portfolio-item.has-writeup:hover {
     background-color: rgba(30, 30, 30, 0.8);
@@ -1300,21 +1300,7 @@ ol ul {
     color: hsl(0, 0%, 100%);
   }
   .portfolio-item.has-writeup .portfolio-image {
-    margin: 0 0 12px 0;
-    border-radius: 6px;
-    overflow: hidden;
-    max-height: 150px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .portfolio-item.has-writeup .portfolio-image img,
-  .portfolio-item.has-writeup .portfolio-image video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: none;
   }
   .portfolio-item.has-writeup:hover .portfolio-image img, .portfolio-item.has-writeup:hover .portfolio-image video {
     transform: none;
@@ -1328,6 +1314,7 @@ ol ul {
     /* Specific styles for tablet in light mode */
     /* Specific styles for desktop in light mode */
     /* Light mode portfolio item styles - see consolidated section at end of file */
+    /* Portfolio image light mode specific styling */
   }
 }
 @media screen and (prefers-color-scheme: light) and (min-width: 768px) {
@@ -1391,6 +1378,9 @@ ol ul {
     background: linear-gradient(135deg, hsl(35, 15%, 94%) 0%, hsl(35, 10%, 98%) 100%);
     backdrop-filter: blur(5px);
   }
+  .blog .portfolio-item .portfolio-image {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
 }
 /* ==========================================================================
    Consolidated Portfolio Item Theme Styles
@@ -1432,9 +1422,26 @@ ol ul {
   flex-direction: column;
   overflow: hidden;
   text-decoration: none;
+  /* Base portfolio image styling for all modes */
 }
 .portfolio-item:hover {
   transform: translateY(-2px);
+}
+.portfolio-item .portfolio-image {
+  margin: 0 0 12px 0;
+  border-radius: 6px;
+  overflow: hidden;
+  max-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.portfolio-item .portfolio-image img,
+.portfolio-item .portfolio-image video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: none;
 }
 .portfolio-item .company-byline {
   margin-bottom: 6px;
