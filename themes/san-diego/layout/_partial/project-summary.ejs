@@ -1,0 +1,50 @@
+<%
+// New approach: Use structured summary data from front matter
+const summary = page.summary || {};
+const hasSummary = summary && Object.keys(summary).length > 0;
+
+// Define the order and display names for summary tabs
+const summaryConfig = [
+  { key: 'problem', display: 'Problem' },
+  { key: 'solution', display: 'Solution' },
+  { key: 'innovation', display: 'Key Innovation' },
+  { key: 'impact', display: 'Impact' }
+];
+
+// Filter to only include sections that have content
+const availableSummaryTabs = summaryConfig.filter(tab => summary[tab.key]);
+%>
+
+<% if (hasSummary && availableSummaryTabs.length > 0) { %>
+<div class="project-summary">
+  <div class="summary-navigation">
+    <% availableSummaryTabs.forEach((tab, index) => { %>
+      <button class="summary-tab-button <%= index === 0 ? 'active' : '' %>" data-tab="<%= tab.display.toLowerCase().replace(/\s+/g, '-') %>">
+        <%= tab.display %>
+      </button>
+    <% }); %>
+  </div>
+  
+  <div class="summary-content">
+    <% availableSummaryTabs.forEach((tab, index) => { %>
+      <div class="summary-panel <%= index === 0 ? 'active' : '' %>" id="<%= tab.display.toLowerCase().replace(/\s+/g, '-') %>">
+        <div class="summary-panel-content">
+          <% if (summary[tab.key].title) { %>
+            <h3><%= summary[tab.key].title %></h3>
+          <% } %>
+          <% if (summary[tab.key].content) { %>
+            <%- summary[tab.key].content %>
+          <% } %>
+          <% if (summary[tab.key].bullets && summary[tab.key].bullets.length > 0) { %>
+            <ul>
+              <% summary[tab.key].bullets.forEach(bullet => { %>
+                <li><%- bullet %></li>
+              <% }); %>
+            </ul>
+          <% } %>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>
+<% } %> 

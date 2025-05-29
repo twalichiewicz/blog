@@ -226,30 +226,77 @@
 	padding: 2rem 0 0 0;
 	border-top: 1px solid rgba(0, 0, 0, 0.08);
 
+	// Desktop padding-bottom
+	padding-bottom: 128px;
+
+	// Tablet padding-bottom (~80% of desktop)
+	@media (max-width: variables.$desktop-breakpoint) {
+		padding-bottom: 102px;
+	}
+
+	// Mobile padding-bottom (~70% of desktop)
+	@media (max-width: variables.$mobile-breakpoint) {
+		padding-bottom: 90px;
+	}
+
 	.writeup-content {
 
-		h2,
-		h3 {
-			margin-top: 2rem;
-			margin-bottom: 1rem;
-			color: variables.$text-color;
-		}
-
 		h2 {
-			font-size: 1.5rem;
+			// Desktop styles (39px)
+			font-size: 39px;
 			font-weight: 600;
-			border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-			padding-bottom: 0.5rem;
+			padding: 0;
+			border: none;
+			margin: 60px 0 24px 0;
+			color: #151515;
+
+			// Tablet styles (~80% of desktop)
+			@media (max-width: variables.$desktop-breakpoint) {
+				font-size: 31px;
+				margin: 48px 0 20px 0;
+			}
+
+			// Mobile styles (~70% of desktop)
+			@media (max-width: variables.$mobile-breakpoint) {
+				font-size: 27px;
+				margin: 40px 0 16px 0;
+			}
 		}
 
 		h3 {
-			font-size: 1.25rem;
-			font-weight: 600;
+			// Desktop styles (24px)
+			font-size: 24px;
+			font-weight: 500;
+			padding: 0;
+			margin: 0;
+			color: variables.$text-color;
+
+			// Tablet styles (~80% of desktop)
+			@media (max-width: variables.$desktop-breakpoint) {
+				font-size: 19px;
+			}
+
+			// Mobile styles (~70% of desktop)
+			@media (max-width: variables.$mobile-breakpoint) {
+				font-size: 17px;
+			}
 		}
 
 		p {
-			margin-bottom: 1rem;
+			// Desktop styles
+			font-size: 24px;
+			margin: 0 0 24px 0;
 			line-height: 1.6;
+
+			// Tablet styles
+			@media (max-width: variables.$desktop-breakpoint) {
+				margin: 0 0 20px 0;
+			}
+
+			// Mobile styles
+			@media (max-width: variables.$mobile-breakpoint) {
+				margin: 0 0 16px 0;
+			}
 		}
 
 		ul,
@@ -390,13 +437,12 @@
 
 		.writeup-content {
 
-			h2,
-			h3 {
-				color: variables.$text-color;
+			h2 {
+				color: #151515;
 			}
 
-			h2 {
-				border-bottom-color: rgba(0, 0, 0, 0.08);
+			h3 {
+				color: variables.$text-color;
 			}
 
 			blockquote {
@@ -494,13 +540,12 @@
 
 		.writeup-content {
 
-			h2,
-			h3 {
-				color: variables.$text-color-dark;
+			h2 {
+				color: #f5f5f5;
 			}
 
-			h2 {
-				border-bottom-color: rgba(255, 255, 255, 0.1);
+			h3 {
+				color: variables.$text-color-dark;
 			}
 
 			blockquote {

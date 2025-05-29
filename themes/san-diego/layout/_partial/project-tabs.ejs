@@ -1,70 +1,91 @@
 <%
-// Parse the content to extract key sections and longer writeup
-const content = page.content;
-const sections = {};
-let longerWriteup = '';
-
-// Split content by the separator (<hr>) if it exists
-const parts = content.split('<hr>');
-const mainContent = parts[0];
-longerWriteup = parts.length > 1 ? parts[1].trim() : '';
-
-// Extract key sections from main content - updated regex for HTML format
-// The structure is: <h2 id="..."><a href="..." class="headerlink" title="..."></a>TITLE</h2>CONTENT
-const sectionRegex = /<h2[^>]*><a[^>]*><\/a>(The Problem|The Solution|Key Innovation[^<]*|Impact[^<]*)<\/h2>([\s\S]*?)(?=<h2|$)/g;
-let match;
-
-while ((match = sectionRegex.exec(mainContent)) !== null) {
-  const title = match[1].trim();
-  const content = match[2].trim();
-  
-  // Clean up titles like "Key Innovation: The Component System" to just "Key Innovation"
-  const cleanTitle = title.replace(/^(Key Innovation).*/, '$1');
-  
-  sections[cleanTitle] = content;
-}
-
-// Define the order of tabs with display names
-const tabConfig = [
-  { key: 'The Problem', display: 'Problem' },
-  { key: 'The Solution', display: 'Solution' },
-  { key: 'Key Innovation', display: 'Key Innovation' },
-  { key: 'Impact', display: 'Impact' }
-];
-const availableTabs = tabConfig.filter(tab => sections[tab.key]);
+// Check if the post uses the new structured summary format
+const hasSummary = page.summary && Object.keys(page.summary).length > 0;
 %>
 
-<% if (availableTabs.length > 0) { %>
-<div class="project-tabs">
-  <div class="tab-navigation">
-    <% availableTabs.forEach((tab, index) => { %>
-      <button class="tab-button <%= index === 0 ? 'active' : '' %>" data-tab="<%= tab.display.toLowerCase().replace(/\s+/g, '-') %>">
-        <%= tab.display %>
-      </button>
-    <% }); %>
-  </div>
+<% if (hasSummary) { %>
+  <!-- Use new Summary component -->
+  <%- partial('project-summary') %>
   
-  <div class="tab-content">
-    <% availableTabs.forEach((tab, index) => { %>
-      <div class="tab-panel <%= index === 0 ? 'active' : '' %>" id="<%= tab.display.toLowerCase().replace(/\s+/g, '-') %>">
-        <div class="tab-panel-content">
-          <%- sections[tab.key] %>
-        </div>
+  <!-- Render the main content after the summary -->
+  <% if (page.content) { %>
+    <div class="project-writeup">
+      <div class="writeup-content">
+        <%- page.content %>
       </div>
-    <% }); %>
-  </div>
-</div>
-<% } else { %>
-<!-- Fallback: Render content using existing method for projects without structured sections -->
-<article class="project-description">
-  <%- mainContent %>
-</article>
-<% } %>
+    </div>
+  <% } %>
 
-<% if (longerWriteup) { %>
-<div class="project-writeup">
-  <div class="writeup-content">
-    <%- longerWriteup %>
+<% } else { %>
+  <!-- Fallback to original parsing method for backward compatibility -->
+  <%
+  // Parse the content to extract key sections and longer writeup
+  const content = page.content;
+  const sections = {};
+  let longerWriteup = '';
+
+  // Split content by the separator (<hr>) if it exists
+  const parts = content.split('<hr>');
+  const mainContent = parts[0];
+  longerWriteup = parts.length > 1 ? parts[1].trim() : '';
+
+  // Extract key sections from main content - updated regex for HTML format
+  // The structure is: <h2 id="..."><a href="..." class="headerlink" title="..."></a>TITLE</h2>CONTENT
+  const sectionRegex = /<h2[^>]*><a[^>]*><\/a>(The Problem|The Solution|Key Innovation[^<]*|Impact[^<]*)<\/h2>([\s\S]*?)(?=<h2|$)/g;
+  let match;
+
+  while ((match = sectionRegex.exec(mainContent)) !== null) {
+    const title = match[1].trim();
+    const content = match[2].trim();
+    
+    // Clean up titles like "Key Innovation: The Component System" to just "Key Innovation"
+    const cleanTitle = title.replace(/^(Key Innovation).*/, '$1');
+    
+    sections[cleanTitle] = content;
+  }
+
+  // Define the order of tabs with display names
+  const tabConfig = [
+    { key: 'The Problem', display: 'Problem' },
+    { key: 'The Solution', display: 'Solution' },
+    { key: 'Key Innovation', display: 'Key Innovation' },
+    { key: 'Impact', display: 'Impact' }
+  ];
+  const availableTabs = tabConfig.filter(tab => sections[tab.key]);
+  %>
+
+  <% if (availableTabs.length > 0) { %>
+  <div class="project-tabs">
+    <div class="tab-navigation">
+      <% availableTabs.forEach((tab, index) => { %>
+        <button class="tab-button <%= index === 0 ? 'active' : '' %>" data-tab="<%= tab.display.toLowerCase().replace(/\s+/g, '-') %>">
+          <%= tab.display %>
+        </button>
+      <% }); %>
+    </div>
+    
+    <div class="tab-content">
+      <% availableTabs.forEach((tab, index) => { %>
+        <div class="tab-panel <%= index === 0 ? 'active' : '' %>" id="<%= tab.display.toLowerCase().replace(/\s+/g, '-') %>">
+          <div class="tab-panel-content">
+            <%- sections[tab.key] %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
   </div>
-</div>
+  <% } else { %>
+  <!-- Fallback: Render content using existing method for projects without structured sections -->
+  <article class="project-description">
+    <%- mainContent %>
+  </article>
+  <% } %>
+
+  <% if (longerWriteup) { %>
+  <div class="project-writeup">
+    <div class="writeup-content">
+      <%- longerWriteup %>
+    </div>
+  </div>
+  <% } %>
 <% } %> 
