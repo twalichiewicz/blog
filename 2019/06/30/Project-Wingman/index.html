@@ -42,6 +42,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 <!-- hexo injector head_end start -->
@@ -93,6 +94,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 </head>
@@ -111,6 +113,11 @@
 					</a>
 				</div>
 			</div>
+		</div>
+		<div class="project-title">
+			<span class="project-category">Autodesk</span>
+			<h2>Desktop install platform</h2>
+			
 		</div>
 		<div class="project-gallery">
 			<div class="carousel" aria-label="Media carousel">
@@ -140,80 +147,110 @@
 		
 		<div class="project-content">
 			<div class="project-details">
-				<div class="project-title">
-					<span class="project-category">Autodesk</span>
-					<h2>Desktop install platform</h2>
-					
-				</div>
-				
 				
 
 
-<div class="project-tabs">
-  <div class="tab-navigation">
+  <!-- Use new Summary component -->
+  
+
+
+<div class="project-summary">
+  <div class="summary-navigation">
     
-      <button class="tab-button active" data-tab="problem">
+      <button class="summary-tab-button active" data-tab="problem">
         Problem
       </button>
     
-      <button class="tab-button " data-tab="solution">
+      <button class="summary-tab-button " data-tab="solution">
         Solution
       </button>
     
-      <button class="tab-button " data-tab="key-innovation">
+      <button class="summary-tab-button " data-tab="key-innovation">
         Key Innovation
       </button>
     
-      <button class="tab-button " data-tab="impact">
+      <button class="summary-tab-button " data-tab="impact">
         Impact
       </button>
     
   </div>
   
-  <div class="tab-content">
+  <div class="summary-content">
     
-      <div class="tab-panel active" id="problem">
-        <div class="tab-panel-content">
-          <p>Autodesk users had to download and run separate installers for every product they needed—each with different interfaces, interaction patterns, and customization options built by different teams. Installing a full Autodesk workflow meant managing dozens of separate installer experiences, each requiring user attention and decision-making. Users couldn’t install multiple products together, and each installer blocked their work until fully complete.</p>
+      <div class="summary-panel active" id="problem">
+        <div class="summary-panel-content">
+          
+          
+            Autodesk users had to download and run separate installers for every product they needed—each with different interfaces, interaction patterns, and customization options built by different teams. Installing a full Autodesk workflow meant managing dozens of separate installer experiences, each requiring user attention and decision-making. Users couldn't install multiple products together, and each installer blocked their work until fully complete.
+          
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="solution">
-        <div class="tab-panel-content">
-          <p>I designed a universal installer framework that provides one consistent experience across all Autodesk products. The same clean, simplified interface works whether users download a single product or install an entire multi-product suite. Advanced customization was moved to the separate Custom Install web tool, keeping the desktop experience focused and streamlined.</p>
+      <div class="summary-panel " id="solution">
+        <div class="summary-panel-content">
+          
+          
+            I designed a universal installer framework that provides one consistent experience across all Autodesk products. The same clean, simplified interface works whether users download a single product or install an entire multi-product suite. Advanced customization was moved to the separate Custom Install web tool, keeping the desktop experience focused and streamlined.
+          
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="key-innovation">
-        <div class="tab-panel-content">
-          <ul>
-<li><strong>Unified Visual Design:</strong> Single, clean interface replaced 60+ different installer designs</li>
-<li><strong>Multi-Product Support:</strong> Users can install entire workflows in one session instead of managing separate installers</li>
-<li><strong>Progressive Loading:</strong> Products launch as soon as core components install, with secondary features loading in background</li>
-<li><strong>Simplified Customization:</strong> Limited to 5 essential checkboxes, with advanced options handled via web tool</li>
-<li><strong>Quiet Install Mode:</strong> Admin-controlled version prevents user modifications for enterprise deployments</li>
-</ul>
+      <div class="summary-panel " id="key-innovation">
+        <div class="summary-panel-content">
+          
+            <h3>Progressive Installation Architecture</h3>
+          
+          
+          
+            <ul>
+              
+                <li><strong>Unified Visual Design:</strong> Single, clean interface replaced 60+ different installer designs</li>
+              
+                <li><strong>Multi-Product Support:</strong> Users can install entire workflows in one session instead of managing separate installers</li>
+              
+                <li><strong>Progressive Loading:</strong> Products launch as soon as core components install, with secondary features loading in background</li>
+              
+                <li><strong>Simplified Customization:</strong> Limited to 5 essential checkboxes, with advanced options handled via web tool</li>
+              
+                <li><strong>Quiet Install Mode:</strong> Admin-controlled version prevents user modifications for enterprise deployments</li>
+              
+            </ul>
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="impact">
-        <div class="tab-panel-content">
-          <ul>
-<li>Eliminated 60+ separate installer codebases that required individual maintenance</li>
-<li>Reduced time-to-productivity through progressive installation—users can start working while installation continues</li>
-<li>Enabled multi-product workflows for the first time in Autodesk’s history</li>
-<li>Standardized installation experience across entire product ecosystem</li>
-<li>Freed engineering resources from maintaining dozens of separate installer interfaces</li>
-</ul>
+      <div class="summary-panel " id="impact">
+        <div class="summary-panel-content">
+          
+          
+          
+            <ul>
+              
+                <li>Eliminated 60+ separate installer codebases that required individual maintenance</li>
+              
+                <li>Reduced time-to-productivity through progressive installation—users can start working while installation continues</li>
+              
+                <li>Enabled multi-product workflows for the first time in Autodesk's history</li>
+              
+                <li>Standardized installation experience across entire product ecosystem</li>
+              
+                <li>Freed engineering resources from maintaining dozens of separate installer interfaces</li>
+              
+            </ul>
+          
         </div>
       </div>
     
   </div>
 </div>
-
+ 
+  
+  <!-- Render the main content after the summary -->
+  
 
  
-				
 			</div>
 		</div>
 

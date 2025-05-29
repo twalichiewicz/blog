@@ -42,6 +42,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 <!-- hexo injector head_end start -->
@@ -93,6 +94,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 </head>
@@ -111,6 +113,29 @@
 					</a>
 				</div>
 			</div>
+		</div>
+		<div class="project-title">
+			<span class="project-category">Human Interest</span>
+			<h2>Company rebranding</h2>
+			
+			<div class="metadata">
+				<div class="metadata-list">
+					
+						<div class="metadata-item">
+						<span class="label" style="font-size: 9px;">Design &amp; Brand Lead</span>
+						<span class="value" style="font-size: 12px;">Thomas Walichiewicz</span>
+						</div>
+					
+					
+					<div class="metadata-item">
+						<span class="label" style="font-size: 9px;">Year</span>
+						<span class="value" style="font-size: 12px;">2017</span>
+					</div>
+					
+					
+				</div>
+			</div>
+			
 		</div>
 		<div class="project-gallery">
 			<div class="carousel" aria-label="Media carousel">
@@ -289,68 +314,126 @@
 		
 		<div class="project-content">
 			<div class="project-details">
-				<div class="project-title">
-					<span class="project-category">Human Interest</span>
-					<h2>Company rebranding</h2>
-					
-					<div class="metadata">
-						<div class="metadata-list">
-							
-								<div class="metadata-item">
-								<span class="label" style="font-size: 9px;">Design &amp; Brand Lead</span>
-								<span class="value" style="font-size: 12px;">Thomas Walichiewicz</span>
-								</div>
-							
-							
-							<div class="metadata-item">
-								<span class="label" style="font-size: 9px;">Year</span>
-								<span class="value" style="font-size: 12px;">2017</span>
-							</div>
-							
-							
-						</div>
-					</div>
-					
-				</div>
-				
 				
 
 
-<!-- Fallback: Render content using existing method for projects without structured sections -->
-<article class="project-description">
-  <h3 id="Opportunity"><a href="#Opportunity" class="headerlink" title="Opportunity"></a>Opportunity</h3><p>Human Interest needed a modern brand identity to reflect its innovative offerings and resonate with a contemporary audience. The existing visuals felt outdated, causing a disconnect with potential clients and undermining the company’s forward-thinking reputation.</p>
-<h3 id="Process-Key-Findings"><a href="#Process-Key-Findings" class="headerlink" title="Process &amp; Key Findings"></a>Process &amp; Key Findings</h3><p>A combination of market research and user interviews revealed that customers sought a cohesive, trustworthy brand experience. This data confirmed that an updated visual identity—paired with consistent messaging—would be key to improving engagement and establishing deeper trust.</p>
-<h3 id="Design-Execution"><a href="#Design-Execution" class="headerlink" title="Design &amp; Execution"></a>Design &amp; Execution</h3><p>Guided by these findings, we launched a full-scale rebranding initiative. The effort involved:</p>
-<ul>
-<li>Overhauling the logo, color palette, and typography to create a unified visual language</li>
-<li>Developing a comprehensive design system with clear guidelines for consistency across print and digital channels</li>
-<li>Revitalizing the company’s web presence through a complete redesign and implementation, ensuring an intuitive user experience</li>
-<li>Reimagining product interfaces for admin, user, and internal platforms to align with the new brand identity</li>
-<li>Expanding the brand across marketing collateral, trade show materials, and environmental graphics, ensuring a seamless experience in every context</li>
-</ul>
-<h4 id="Key-deliverables-included"><a href="#Key-deliverables-included" class="headerlink" title="Key deliverables included"></a>Key deliverables included</h4><ul>
-<li>Strategic brand identity system (logo, color palette, typography)</li>
-<li>Comprehensive brand guidelines and design system documentation</li>
-<li>Proprietary icon library for product and marketing applications</li>
-<li>End-to-end website redesign and implementation</li>
-<li>Product interface redesign (admin, user, internal platforms)</li>
-<li>Integrated marketing and sales collateral system</li>
-<li>Trade show and event presence design</li>
-<li>Environmental graphics and workplace design</li>
-<li>Brand merchandise and corporate identity applications</li>
-</ul>
-<h3 id="Outcomes"><a href="#Outcomes" class="headerlink" title="Outcomes"></a>Outcomes</h3><ul>
-<li>Enhanced brand recognition and customer engagement, thanks to a more cohesive, impactful visual identity</li>
-<li>Streamlined marketing materials and communication channels, reducing design inconsistencies</li>
-<li>Improved user experience across platforms, cultivating trust and loyalty among clients</li>
-<li>Increased employee morale and company pride, as team members aligned around a modern, unified brand</li>
-</ul>
+  <!-- Use new Summary component -->
+  
 
-</article>
 
+<div class="project-summary">
+  <div class="summary-navigation">
+    
+      <button class="summary-tab-button active" data-tab="problem">
+        Problem
+      </button>
+    
+      <button class="summary-tab-button " data-tab="solution">
+        Solution
+      </button>
+    
+      <button class="summary-tab-button " data-tab="key-innovation">
+        Key Innovation
+      </button>
+    
+      <button class="summary-tab-button " data-tab="impact">
+        Impact
+      </button>
+    
+  </div>
+  
+  <div class="summary-content">
+    
+      <div class="summary-panel active" id="problem">
+        <div class="summary-panel-content">
+          
+          
+            Human Interest needed a modern brand identity to reflect its innovative 401(k) offerings and resonate with a contemporary audience. The existing visuals felt outdated, causing a disconnect with potential clients and undermining the company's forward-thinking reputation. Market research revealed that customers sought a cohesive, trustworthy brand experience.
+          
+          
+        </div>
+      </div>
+    
+      <div class="summary-panel " id="solution">
+        <div class="summary-panel-content">
+          
+          
+            I led a comprehensive rebranding initiative that overhauled every touchpoint—from logo and typography to product interfaces and environmental graphics. The new visual identity created a unified language that established trust and aligned with the company's innovative positioning in the 401(k) space.
+          
+          
+        </div>
+      </div>
+    
+      <div class="summary-panel " id="key-innovation">
+        <div class="summary-panel-content">
+          
+            <h3>360-Degree Brand Ecosystem</h3>
+          
+          
+          
+            <ul>
+              
+                <li><strong>Comprehensive Identity System:</strong> Logo, color palette, and typography creating unified visual language across all channels</li>
+              
+                <li><strong>Product Interface Integration:</strong> Redesigned admin, user, and internal platforms to align with new brand identity</li>
+              
+                <li><strong>Complete Digital Presence:</strong> End-to-end website redesign and implementation ensuring intuitive user experience</li>
+              
+                <li><strong>Environmental Brand Expression:</strong> Workplace design including retirement destination-themed conference rooms with precision typographic installations</li>
+              
+                <li><strong>Integrated Marketing Ecosystem:</strong> Unified design system across print, digital, trade show materials, and corporate merchandise</li>
+              
+            </ul>
+          
+        </div>
+      </div>
+    
+      <div class="summary-panel " id="impact">
+        <div class="summary-panel-content">
+          
+          
+          
+            <ul>
+              
+                <li>Enhanced brand recognition and customer engagement through cohesive visual identity</li>
+              
+                <li>Streamlined marketing materials reducing design inconsistencies</li>
+              
+                <li>Improved user experience across all platforms cultivating trust and loyalty</li>
+              
+                <li>Increased employee morale and company pride around modern, unified brand</li>
+              
+                <li>Established competitive advantage in the 401(k) industry through professional brand presence</li>
+              
+            </ul>
+          
+        </div>
+      </div>
+    
+  </div>
+</div>
+ 
+  
+  <!-- Render the main content after the summary -->
+  
+    <div class="project-writeup">
+      <div class="writeup-content">
+        <h2 id="Strategic-Brand-Development"><a href="#Strategic-Brand-Development" class="headerlink" title="Strategic Brand Development"></a>Strategic Brand Development</h2><p>The rebranding project began with comprehensive market research and competitive analysis to understand how Human Interest could differentiate itself in the crowded 401(k) space. Through user interviews and stakeholder feedback, I identified key brand attributes that would resonate with both customers and employees.</p>
+<p>The logo design process focused on creating a mark that symbolized guidance and growth. The final design represents an unfolding map, reflecting Human Interest’s role in guiding clients toward financial security, with negative space that artfully integrates the letters “H” and “I”.</p>
+<h2 id="Comprehensive-Design-System"><a href="#Comprehensive-Design-System" class="headerlink" title="Comprehensive Design System"></a>Comprehensive Design System</h2><p>I developed a complete design system that extended far beyond basic brand guidelines. The system included detailed specifications for color palettes, typography hierarchies, iconography standards, and application rules that ensured consistency across every touchpoint.</p>
+<p>The iconography system was particularly important, as it needed to work across both marketing materials and complex product interfaces. I created a library of custom icons that maintained brand consistency while serving functional interface needs.</p>
+<h2 id="Product-Integration-Strategy"><a href="#Product-Integration-Strategy" class="headerlink" title="Product Integration Strategy"></a>Product Integration Strategy</h2><p>One of the most challenging aspects was integrating the new brand into existing product interfaces without disrupting user workflows. I redesigned the admin platform, user-facing interfaces, and internal tools to align with the new visual identity while maintaining usability and functionality.</p>
+<p>This required close collaboration with engineering teams to implement changes systematically, ensuring that brand updates enhanced rather than hindered the user experience.</p>
+<h2 id="Environmental-Cultural-Impact"><a href="#Environmental-Cultural-Impact" class="headerlink" title="Environmental &amp; Cultural Impact"></a>Environmental &amp; Cultural Impact</h2><p>The rebrand extended into physical spaces with environmental graphics and workplace design. I created retirement destination-themed conference rooms with precision-aligned typographic installations that reinforced the brand’s focus on financial futures.</p>
+<p>The environmental design became a powerful tool for both employee engagement and client presentations, creating memorable experiences that reinforced Human Interest’s brand values in every interaction.</p>
+<h2 id="Results-Long-Term-Impact"><a href="#Results-Long-Term-Impact" class="headerlink" title="Results &amp; Long-Term Impact"></a>Results &amp; Long-Term Impact</h2><p>The rebrand achieved immediate improvements in brand recognition and customer engagement. Marketing teams reported significantly more cohesive campaigns, while sales teams noted increased client confidence during presentations.</p>
+<p>Most importantly, the unified brand helped Human Interest establish itself as a serious player in the enterprise 401(k) space, setting the foundation for continued growth and market expansion.</p>
+
+      </div>
+    </div>
+  
 
  
-				
 			</div>
 		</div>
 

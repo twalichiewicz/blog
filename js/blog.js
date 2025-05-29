@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			let backButton = blogContentElement.querySelector('.dynamic-back-button');
 			if (!backButton) {
 				backButton = document.createElement('button');
-				backButton.textContent = 'Back';
+				backButton.textContent = '← Back';
 				backButton.className = 'dynamic-back-button';
 
 				if (blogContentElement.firstChild) {
@@ -258,6 +258,10 @@ document.addEventListener('DOMContentLoaded', function () {
 					// Initialize project tabs for dynamically loaded content
 					if (window.initializeProjectTabs) {
 						window.initializeProjectTabs(blogContentElement);
+					}
+					// Initialize project summary for dynamically loaded content
+					if (window.initializeProjectSummary) {
+						window.initializeProjectSummary(blogContentElement);
 					}
 					// Re-initialize sound effects for dynamically loaded content
 					if (window.initializeSoundEffects) {
@@ -391,6 +395,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						if (window.initializeProjectTabs) {
 							window.initializeProjectTabs(blogContentElement);
 						}
+						// Initialize project summary for dynamically loaded content
+						if (window.initializeProjectSummary) {
+							window.initializeProjectSummary(blogContentElement);
+						}
 						// Re-initialize sound effects for popstate navigation
 						if (window.initializeSoundEffects) {
 							console.log('[blog.js] Re-initializing sound effects for popstate navigation');
@@ -451,6 +459,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Initialize project tabs for dynamically loaded content
 						if (window.initializeProjectTabs) {
 							window.initializeProjectTabs(blogContentElement);
+						}
+						// Initialize project summary for dynamically loaded content
+						if (window.initializeProjectSummary) {
+							window.initializeProjectSummary(blogContentElement);
 						}
 						// Re-initialize sound effects for popstate navigation (no state fallback)
 						if (window.initializeSoundEffects) {

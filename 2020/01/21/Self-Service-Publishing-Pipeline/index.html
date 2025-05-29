@@ -42,6 +42,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 <!-- hexo injector head_end start -->
@@ -93,6 +94,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 </head>
@@ -112,6 +114,11 @@
 				</div>
 			</div>
 		</div>
+		<div class="project-title">
+			<span class="project-category">Autodesk</span>
+			<h2>Self-Service Publishing Pipeline</h2>
+			
+		</div>
 		<div class="project-gallery hidden">
 			<div class="carousel" aria-label="Media carousel">
 				<div class="carousel-track">
@@ -126,80 +133,140 @@
 		
 		<div class="project-content">
 			<div class="project-details">
-				<div class="project-title">
-					<span class="project-category">Autodesk</span>
-					<h2>Self-Service Publishing Pipeline</h2>
-					
-				</div>
-				
 				
 
 
-<div class="project-tabs">
-  <div class="tab-navigation">
+  <!-- Use new Summary component -->
+  
+
+
+<div class="project-summary">
+  <div class="summary-navigation">
     
-      <button class="tab-button active" data-tab="problem">
+      <button class="summary-tab-button active" data-tab="problem">
         Problem
       </button>
     
-      <button class="tab-button " data-tab="solution">
+      <button class="summary-tab-button " data-tab="solution">
         Solution
       </button>
     
-      <button class="tab-button " data-tab="key-innovation">
+      <button class="summary-tab-button " data-tab="key-innovation">
         Key Innovation
       </button>
     
-      <button class="tab-button " data-tab="impact">
+      <button class="summary-tab-button " data-tab="impact">
         Impact
       </button>
     
   </div>
   
-  <div class="tab-content">
+  <div class="summary-content">
     
-      <div class="tab-panel active" id="problem">
-        <div class="tab-panel-content">
-          <p>Autodesk’s smart support system could monitor user behavior and deliver contextual guidance, but publishing new content required full engineering cycles. Every tutorial, efficiency tip, or onboarding flow needed scheduled meetings, resource allocation, wiki documentation, and cross-team coordination. This meant intelligent features that could help millions of users were bottlenecked by a process designed for major feature releases.</p>
+      <div class="summary-panel active" id="problem">
+        <div class="summary-panel-content">
+          
+          
+            Autodesk's smart support system could monitor user behavior and deliver contextual guidance, but publishing new content required full engineering cycles. Every tutorial, efficiency tip, or onboarding flow needed scheduled meetings, resource allocation, wiki documentation, and cross-team coordination. This meant intelligent features that could help millions of users were bottlenecked by a process designed for major feature releases.
+          
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="solution">
-        <div class="tab-panel-content">
-          <p>I designed a self-service publishing platform that transforms content creation from engineering projects into simple form submissions. Content creators can now build contextual guidance using a WYSIWYG editor, see live previews, and publish directly to millions of users—all without touching code.</p>
+      <div class="summary-panel " id="solution">
+        <div class="summary-panel-content">
+          
+          
+            I designed a self-service publishing platform that transforms content creation from engineering projects into simple form submissions. Content creators can now build contextual guidance using a WYSIWYG editor, see live previews, and publish directly to millions of users—all without touching code.
+          
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="key-innovation">
-        <div class="tab-panel-content">
-          <ul>
-<li><strong>Process Mapping</strong>: Analyzed the entire stakeholder lifecycle for creating one “Insight” and automated every step</li>
-<li><strong>WYSIWYG Content Builder</strong>: Live preview editor that shows exactly how content will appear in-product</li>
-<li><strong>Automated Publishing Pipeline</strong>: Form submission triggers the entire technical process that previously required engineering coordination</li>
-<li><strong>Smart Context Targeting</strong>: Content automatically surfaces to relevant users based on behavioral monitoring</li>
-<li><strong>Semi-Autonomous Publication</strong>: Built-in review workflows with rollback capabilities eliminate dev dependency</li>
-</ul>
+      <div class="summary-panel " id="key-innovation">
+        <div class="summary-panel-content">
+          
+            <h3>Engineering-to-Form Transformation</h3>
+          
+          
+          
+            <ul>
+              
+                <li><strong>Process Mapping:</strong> Analyzed the entire stakeholder lifecycle for creating one 'Insight' and automated every step</li>
+              
+                <li><strong>WYSIWYG Content Builder:</strong> Live preview editor that shows exactly how content will appear in-product</li>
+              
+                <li><strong>Automated Publishing Pipeline:</strong> Form submission triggers the entire technical process that previously required engineering coordination</li>
+              
+                <li><strong>Smart Context Targeting:</strong> Content automatically surfaces to relevant users based on behavioral monitoring</li>
+              
+                <li><strong>Semi-Autonomous Publication:</strong> Built-in review workflows with rollback capabilities eliminate dev dependency</li>
+              
+            </ul>
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="impact">
-        <div class="tab-panel-content">
-          <ul>
-<li>Reduced content publishing time by 60% (weeks to hours)</li>
-<li>Democratized content creation across non-technical teams</li>
-<li>Eliminated engineering bottlenecks for contextual guidance features</li>
-<li>Enabled rapid iteration on user onboarding and support experiences</li>
-<li>Scaled intelligent assistance to millions of users through streamlined content pipeline</li>
-</ul>
+      <div class="summary-panel " id="impact">
+        <div class="summary-panel-content">
+          
+          
+          
+            <ul>
+              
+                <li>Reduced content publishing time by 60% (weeks to hours)</li>
+              
+                <li>Democratized content creation across non-technical teams</li>
+              
+                <li>Eliminated engineering bottlenecks for contextual guidance features</li>
+              
+                <li>Enabled rapid iteration on user onboarding and support experiences</li>
+              
+                <li>Scaled intelligent assistance to millions of users through streamlined content pipeline</li>
+              
+            </ul>
+          
         </div>
       </div>
     
   </div>
 </div>
+ 
+  
+  <!-- Render the main content after the summary -->
+  
+    <div class="project-writeup">
+      <div class="writeup-content">
+        <h2 id="Content-creators-trapped-by-engineering-cycles"><a href="#Content-creators-trapped-by-engineering-cycles" class="headerlink" title="Content creators trapped by engineering cycles"></a>Content creators trapped by engineering cycles</h2><p>Sarah, a content designer on our team, had identified exactly when users were struggling with a specific workflow. She knew the perfect tutorial to help them, but publishing it meant filing a development ticket, scheduling meetings with three different teams, waiting for engineering resources, and hoping nothing got lost in translation during the handoff process.</p>
+<blockquote>
+<p>“I can see exactly what users need help with,” she told me during research, “but by the time we publish the solution, they’ve already given up or figured it out themselves.”</p>
+</blockquote>
+<p>This was the reality across Autodesk’s content teams. Our smart guidance system could detect user struggles and deliver contextual help, but creating that help required treating every tutorial like a software feature—complete with engineering sprints, QA cycles, and release schedules.</p>
+<p>I mapped the complete workflow and discovered it took eight people across four teams to publish a single guidance tip. A process that should take hours was taking 3-4 weeks, during which user problems went unaddressed.</p>
+<h2 id="Mapping-the-bottleneck"><a href="#Mapping-the-bottleneck" class="headerlink" title="Mapping the bottleneck"></a>Mapping the bottleneck</h2><p>During stakeholder interviews, I uncovered the real friction points. Content creators weren’t just frustrated by delays—they were making compromises because the process was so cumbersome. Instead of creating targeted, specific guidance, teams were batching requests into generic content that worked for multiple scenarios.</p>
+<blockquote>
+<p>“We end up writing one tutorial that sort of helps everyone instead of three tutorials that perfectly help different user types,” explained James, a senior content strategist.</p>
+</blockquote>
+<p>The technical audit revealed something interesting: our smart guidance platform was already sophisticated enough to handle dynamic content and behavioral targeting. The bottleneck wasn’t technical capability but the publishing interface, which required engineering knowledge to operate.</p>
+<p>I prototyped a simplified content creation flow and tested it with five content creators. Within minutes, they were building guidance that would have taken weeks through the old process. The key insight: they didn’t need technical training—they needed technical complexity hidden behind intuitive interfaces.</p>
+<h2 id="Making-complex-targeting-feel-simple"><a href="#Making-complex-targeting-feel-simple" class="headerlink" title="Making complex targeting feel simple"></a>Making complex targeting feel simple</h2><p>I designed a content editor that feels like writing an email but publishes to millions of users. The interface shows a live preview of exactly how content will appear within product interfaces, eliminating the guesswork that led to multiple revision cycles.</p>
+<p>The breakthrough was making behavioral targeting visual rather than technical. Instead of writing code queries, content creators drag and drop conditions: “Show this when users are in the modeling workspace AND haven’t used the extrude tool AND have been idle for 30 seconds.” The system translates these visual rules into the complex logic our platform requires.</p>
+<p>For the publishing workflow, I created a status system that mirrors familiar document collaboration patterns. Content moves through “Draft → Review → Approved → Live” stages with clear handoffs and automatic notifications. Reviewers can provide feedback directly on the preview interface, and creators can make edits without losing context.</p>
+<p>The safety features were crucial for adoption. Built-in spell check, broken link detection, and content guidelines prevent common errors. A rollback system lets anyone unpublish problematic content instantly, removing the fear that kept teams dependent on engineering oversight.</p>
+<h2 id="From-quarterly-releases-to-real-time-publishing"><a href="#From-quarterly-releases-to-real-time-publishing" class="headerlink" title="From quarterly releases to real-time publishing"></a>From quarterly releases to real-time publishing</h2><p>The first week after launch, our content team published twelve new guidance tips—more than they’d published in the previous quarter. Sarah, the content designer from my research, told me: “I can finally respond to user feedback in real time instead of adding it to next quarter’s backlog.”</p>
+<p>Content iteration cycles shortened dramatically. When user research revealed confusion about a specific feature, teams could test different guidance approaches within days rather than planning multi-sprint development work. This led to better solutions and more confident content decisions.</p>
+<p>The engineering team reclaimed an estimated 200 hours per quarter previously spent on content publishing tasks. They could focus on platform improvements while content creators took full ownership of the user guidance experience.</p>
+<p>Usage metrics showed the impact: contextual guidance engagement increased 40% as content became more relevant and timely. More importantly, user feedback shifted from requesting missing help to suggesting improvements to existing guidance—a sign that coverage was finally keeping pace with user needs.</p>
+<h2 id="Amplifying-expertise-not-replacing-it"><a href="#Amplifying-expertise-not-replacing-it" class="headerlink" title="Amplifying expertise, not replacing it"></a>Amplifying expertise, not replacing it</h2><p>This project taught me that enterprise tools don’t have to feel enterprisey. Content creators needed professional capabilities delivered through consumer-grade experiences. The challenge wasn’t simplifying their work but removing the technical barriers that prevented them from doing their best work.</p>
+<p>The visual approach to behavioral targeting surprised me with its effectiveness. Rather than dumbing down the logic, the drag-and-drop interface actually made more sophisticated targeting accessible to people who understood user behavior better than anyone else.</p>
+<p>Looking back, I wish I’d involved the engineering team earlier in the design process. While the final solution worked well, earlier collaboration might have revealed additional automation opportunities that could have made the system even more powerful.</p>
+<p>The project reinforced my belief that the best tools amplify human expertise rather than replacing it. Content creators didn’t need AI to write their guidance—they needed technology to get out of their way so they could solve user problems as quickly as they could identify them.</p>
 
+      </div>
+    </div>
+  
 
  
-				
 			</div>
 		</div>
 

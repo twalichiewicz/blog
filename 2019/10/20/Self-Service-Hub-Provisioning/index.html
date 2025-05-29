@@ -42,6 +42,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 <!-- hexo injector head_end start -->
@@ -93,6 +94,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 </head>
@@ -111,6 +113,11 @@
 					</a>
 				</div>
 			</div>
+		</div>
+		<div class="project-title">
+			<span class="project-category">Autodesk</span>
+			<h2>Self-Service Hub Provisioning</h2>
+			
 		</div>
 		<div class="project-gallery">
 			<div class="carousel" aria-label="Media carousel">
@@ -179,80 +186,121 @@
 		
 		<div class="project-content">
 			<div class="project-details">
-				<div class="project-title">
-					<span class="project-category">Autodesk</span>
-					<h2>Self-Service Hub Provisioning</h2>
-					
-				</div>
-				
 				
 
 
-<div class="project-tabs">
-  <div class="tab-navigation">
+  <!-- Use new Summary component -->
+  
+
+
+<div class="project-summary">
+  <div class="summary-navigation">
     
-      <button class="tab-button active" data-tab="problem">
+      <button class="summary-tab-button active" data-tab="problem">
         Problem
       </button>
     
-      <button class="tab-button " data-tab="solution">
+      <button class="summary-tab-button " data-tab="solution">
         Solution
       </button>
     
-      <button class="tab-button " data-tab="key-innovation">
+      <button class="summary-tab-button " data-tab="key-innovation">
         Key Innovation
       </button>
     
-      <button class="tab-button " data-tab="impact">
+      <button class="summary-tab-button " data-tab="impact">
         Impact
       </button>
     
   </div>
   
-  <div class="tab-content">
+  <div class="summary-content">
     
-      <div class="tab-panel active" id="problem">
-        <div class="tab-panel-content">
-          <p>Enterprise customers couldn’t deploy new instances of Autodesk’s web products without contacting customer support. Every new project, team, or deployment required a support ticket, manual provisioning by Autodesk staff, and days of waiting. This created massive friction for customers trying to scale their operations and overwhelmed support teams with routine infrastructure requests.</p>
+      <div class="summary-panel active" id="problem">
+        <div class="summary-panel-content">
+          
+          
+            Enterprise customers couldn't deploy new instances of Autodesk's web products without contacting customer support. Every new project, team, or deployment required a support ticket, manual provisioning by Autodesk staff, and days of waiting. This created massive friction for customers trying to scale their operations and overwhelmed support teams with routine infrastructure requests.
+          
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="solution">
-        <div class="tab-panel-content">
-          <p>I designed a self-service provisioning system that allows administrators to instantly generate and manage cloud instances of any Autodesk web product. What previously required support tickets and manual intervention now happens in minutes through an automated wizard interface.</p>
+      <div class="summary-panel " id="solution">
+        <div class="summary-panel-content">
+          
+          
+            I designed a self-service provisioning system that allows administrators to instantly generate and manage cloud instances of any Autodesk web product. What previously required support tickets and manual intervention now happens in minutes through an automated wizard interface.
+          
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="key-innovation">
-        <div class="tab-panel-content">
-          <ul>
-<li><strong>Universal Provisioning Engine:</strong> Single interface can generate instances of any Autodesk web product</li>
-<li><strong>Guided Setup Wizard:</strong> Complex cloud infrastructure deployment simplified to step-by-step forms</li>
-<li><strong>Instant Deployment:</strong> Hub instances provision automatically without human intervention</li>
-<li><strong>Integrated Management Dashboard:</strong> Administrators can monitor, configure, and maintain all instances from one interface</li>
-<li><strong>Standardized Architecture:</strong> Unified provisioning process across Autodesk’s entire web product ecosystem</li>
-</ul>
+      <div class="summary-panel " id="key-innovation">
+        <div class="summary-panel-content">
+          
+            <h3>Infrastructure-as-a-Service for Enterprise Software</h3>
+          
+          
+          
+            <ul>
+              
+                <li><strong>Universal Provisioning Engine:</strong> Single interface can generate instances of any Autodesk web product</li>
+              
+                <li><strong>Guided Setup Wizard:</strong> Complex cloud infrastructure deployment simplified to step-by-step forms</li>
+              
+                <li><strong>Instant Deployment:</strong> Hub instances provision automatically without human intervention</li>
+              
+                <li><strong>Integrated Management Dashboard:</strong> Administrators can monitor, configure, and maintain all instances from one interface</li>
+              
+                <li><strong>Standardized Architecture:</strong> Unified provisioning process across Autodesk's entire web product ecosystem</li>
+              
+            </ul>
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="impact">
-        <div class="tab-panel-content">
-          <ul>
-<li>Eliminated support ticket dependency for infrastructure provisioning</li>
-<li>Reduced deployment time from days to minutes for enterprise customers</li>
-<li>Freed customer support teams from routine provisioning requests</li>
-<li>Enabled instant scalability for enterprise customers managing multiple projects</li>
-<li>Standardized cloud infrastructure management across all Autodesk web products</li>
-</ul>
+      <div class="summary-panel " id="impact">
+        <div class="summary-panel-content">
+          
+          
+          
+            <ul>
+              
+                <li>Eliminated support ticket dependency for infrastructure provisioning</li>
+              
+                <li>Reduced deployment time from days to minutes for enterprise customers</li>
+              
+                <li>Freed customer support teams from routine provisioning requests</li>
+              
+                <li>Enabled instant scalability for enterprise customers managing multiple projects</li>
+              
+                <li>Standardized cloud infrastructure management across all Autodesk web products</li>
+              
+            </ul>
+          
         </div>
       </div>
     
   </div>
 </div>
+ 
+  
+  <!-- Render the main content after the summary -->
+  
+    <div class="project-writeup">
+      <div class="writeup-content">
+        <h2 id="Research-Discovery"><a href="#Research-Discovery" class="headerlink" title="Research &amp; Discovery"></a>Research &amp; Discovery</h2><p>The provisioning bottleneck was creating significant friction for enterprise customers who needed to spin up new project environments quickly. Through customer interviews and support ticket analysis, I discovered that 60% of support requests were routine infrastructure provisioning tasks that could be automated.</p>
+<h2 id="Design-Process"><a href="#Design-Process" class="headerlink" title="Design Process"></a>Design Process</h2><p>I worked closely with infrastructure engineers to understand the technical requirements for cloud deployment while mapping out customer workflows. The challenge was abstracting complex infrastructure decisions into intuitive interface choices that non-technical administrators could confidently navigate.</p>
+<h2 id="Solution-Architecture"><a href="#Solution-Architecture" class="headerlink" title="Solution Architecture"></a>Solution Architecture</h2><p>The self-service system breaks down complex cloud deployments into a guided wizard experience. Each step presents only the relevant choices for that stage, with smart defaults based on common enterprise configurations. The system handles all the underlying infrastructure orchestration while presenting a simple, linear workflow to users.</p>
+<h2 id="Impact-Results"><a href="#Impact-Results" class="headerlink" title="Impact &amp; Results"></a>Impact &amp; Results</h2><p>The transformation was immediate and dramatic. Enterprise customers could now scale their operations dynamically without delays, support teams could focus on complex technical issues rather than routine provisioning, and Autodesk gained a competitive advantage by offering infrastructure agility that other CAD vendors couldn’t match.</p>
+<p>The system proved so effective that it became the standard deployment method for all new Autodesk cloud products, establishing a scalable foundation for the company’s cloud-first strategy.</p>
 
+      </div>
+    </div>
+  
 
  
-				
 			</div>
 		</div>
 

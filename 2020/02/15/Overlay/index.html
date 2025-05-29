@@ -42,6 +42,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 <!-- hexo injector head_end start -->
@@ -93,6 +94,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 </head>
@@ -111,6 +113,11 @@
 					</a>
 				</div>
 			</div>
+		</div>
+		<div class="project-title">
+			<span class="project-category">Autodesk</span>
+			<h2>Overlay</h2>
+			
 		</div>
 		<div class="project-gallery">
 			<div class="carousel" aria-label="Media carousel">
@@ -160,64 +167,122 @@
 		
 		<div class="project-content">
 			<div class="project-details">
-				<div class="project-title">
-					<span class="project-category">Autodesk</span>
-					<h2>Overlay</h2>
-					
-				</div>
-				
 				
 
 
-<div class="project-tabs">
-  <div class="tab-navigation">
+  <!-- Use new Summary component -->
+  
+
+
+<div class="project-summary">
+  <div class="summary-navigation">
     
-      <button class="tab-button active" data-tab="problem">
+      <button class="summary-tab-button active" data-tab="problem">
         Problem
       </button>
     
-      <button class="tab-button " data-tab="solution">
+      <button class="summary-tab-button " data-tab="solution">
         Solution
       </button>
     
-      <button class="tab-button " data-tab="key-innovation">
+      <button class="summary-tab-button " data-tab="key-innovation">
         Key Innovation
+      </button>
+    
+      <button class="summary-tab-button " data-tab="impact">
+        Impact
       </button>
     
   </div>
   
-  <div class="tab-content">
+  <div class="summary-content">
     
-      <div class="tab-panel active" id="problem">
-        <div class="tab-panel-content">
-          <p>Autodesk’s array of desktop products operated as completely isolated silos. Users lost context switching between applications, couldn’t access shared functionality across their workflows, and had to relearn basic tasks in every product. Meanwhile, engineering teams rebuilt identical features dozens of times—smart assistance in one product remained trapped there while users struggled with the same problems in adjacent tools.</p>
+      <div class="summary-panel active" id="problem">
+        <div class="summary-panel-content">
+          
+          
+            Autodesk's array of desktop products operated as completely isolated silos. Users lost context switching between applications, couldn't access shared functionality across their workflows, and had to relearn basic tasks in every product. Meanwhile, engineering teams rebuilt identical features dozens of times—smart assistance in one product remained trapped there while users struggled with the same problems in adjacent tools.
+          
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="solution">
-        <div class="tab-panel-content">
-          <p>I designed a universal overlay system that runs as a cloud-connected singleton across all Autodesk desktop applications. Like Steam’s overlay for gaming, this creates a persistent application layer that follows users everywhere—enabling shared functionality, contextual assistance, and seamless workflows while maintaining bidirectional communication with host applications.</p>
+      <div class="summary-panel " id="solution">
+        <div class="summary-panel-content">
+          
+          
+            I designed and prototyped a universal overlay system that would run as a cloud-connected singleton across all Autodesk desktop applications. Like Steam's overlay for gaming, this concept creates a persistent application layer that follows users everywhere—enabling shared functionality, contextual assistance, and seamless workflows while maintaining bidirectional communication with host applications.
+          
+          
         </div>
       </div>
     
-      <div class="tab-panel " id="key-innovation">
-        <div class="tab-panel-content">
-          <ul>
-<li><strong>Universal React Architecture:</strong> Single codebase deploys components across different desktop applications with native-feeling integration</li>
-<li><strong>Persistent Cloud State:</strong> User context, preferences, and work history synchronize across entire product ecosystem in real-time</li>
-<li><strong>Bidirectional Communication:</strong> Overlay can read application state, trigger host actions, and respond to application events seamlessly</li>
-<li><strong>Contextual Intelligence Engine:</strong> System understands current user tasks and proactively surfaces relevant tools, shortcuts, and guidance</li>
-<li><strong>Adaptive Integration:</strong> Overlay respects each product’s unique interface language while maintaining consistent core functionality</li>
-</ul>
+      <div class="summary-panel " id="key-innovation">
+        <div class="summary-panel-content">
+          
+            <h3>Cross-Application Intelligence Platform</h3>
+          
+          
+          
+            <ul>
+              
+                <li><strong>Universal React Architecture:</strong> Conceptual single codebase that could deploy components across different desktop applications with native-feeling integration</li>
+              
+                <li><strong>Persistent Cloud State:</strong> Designed system for user context, preferences, and work history to synchronize across entire product ecosystem in real-time</li>
+              
+                <li><strong>Bidirectional Communication:</strong> Architected overlay to read application state, trigger host actions, and respond to application events seamlessly</li>
+              
+                <li><strong>Contextual Intelligence Engine:</strong> Designed system to understand current user tasks and proactively surface relevant tools, shortcuts, and guidance</li>
+              
+                <li><strong>Adaptive Integration:</strong> Designed overlay to respect each product's unique interface language while maintaining consistent core functionality</li>
+              
+            </ul>
+          
+        </div>
+      </div>
+    
+      <div class="summary-panel " id="impact">
+        <div class="summary-panel-content">
+          
+          
+          
+            <ul>
+              
+                <li>Designed architecture to enable shared functionality across 60+ Autodesk desktop applications</li>
+              
+                <li>Created framework to eliminate duplicate feature development across product teams</li>
+              
+                <li>Prototyped seamless user workflows spanning multiple applications</li>
+              
+                <li>Established architectural foundation for cloud-connected desktop experiences</li>
+              
+                <li>Reached production-ready POC stage before organizational changes shifted priorities</li>
+              
+            </ul>
+          
         </div>
       </div>
     
   </div>
 </div>
+ 
+  
+  <!-- Render the main content after the summary -->
+  
+    <div class="project-writeup">
+      <div class="writeup-content">
+        <h2 id="Architectural-Vision-Design-Process"><a href="#Architectural-Vision-Design-Process" class="headerlink" title="Architectural Vision &amp; Design Process"></a>Architectural Vision &amp; Design Process</h2><p>The Overlay concept represented a fundamental shift in how Autodesk could approach desktop software architecture. Rather than maintaining isolated applications, I designed a shared platform layer that could enhance any desktop product with cloud-connected capabilities.</p>
+<h2 id="Technical-Design-Prototyping"><a href="#Technical-Design-Prototyping" class="headerlink" title="Technical Design &amp; Prototyping"></a>Technical Design &amp; Prototyping</h2><p>Working closely with engineering teams across the organization, I designed a React-based overlay architecture that could theoretically integrate with native desktop applications. The conceptual system uses a singleton pattern to maintain state across applications while respecting each product’s unique interface requirements.</p>
+<p>The proposed overlay would communicate bidirectionally with host applications through a standardized API, allowing it to both read application state and trigger native actions. This design approach creates experiences that would feel truly integrated rather than bolted-on.</p>
+<h2 id="Envisioned-User-Experience-Impact"><a href="#Envisioned-User-Experience-Impact" class="headerlink" title="Envisioned User Experience Impact"></a>Envisioned User Experience Impact</h2><p>The concept’s most significant potential was eliminating context loss between applications. Users would access their project history, smart suggestions, and collaborative tools from any Autodesk desktop product, transforming fragmented workflows into cohesive experiences.</p>
+<p>The designed contextual intelligence engine would analyze user behavior patterns to proactively surface relevant tools and guidance. Instead of forcing users to remember different workflows across products, the overlay would adapt to their current task and provide consistent assistance.</p>
+<p>The prototype reached production-ready POC stage, demonstrating the technical feasibility and user experience potential before organizational restructuring shifted company priorities to other initiatives.</p>
 
+      </div>
+    </div>
+  
 
  
-				
 			</div>
 		</div>
 

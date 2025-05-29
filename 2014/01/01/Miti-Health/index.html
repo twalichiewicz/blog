@@ -42,6 +42,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 <!-- hexo injector head_end start -->
@@ -93,6 +94,7 @@
   <script type="module" src="/js/desktop-widgets.js"></script>
   <script type="module" src="/js/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
+  <script src="/js/project-summary.js"></script>
   <script src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
 </head>
@@ -111,6 +113,11 @@
 					</a>
 				</div>
 			</div>
+		</div>
+		<div class="project-title">
+			<span class="project-category">Maisha Meds</span>
+			<h2>Mobile pharmacy app</h2>
+			
 		</div>
 		<div class="project-gallery">
 			<div class="carousel" aria-label="Media carousel">
@@ -285,42 +292,124 @@
 		
 		<div class="project-content">
 			<div class="project-details">
-				<div class="project-title">
-					<span class="project-category">Maisha Meds</span>
-					<h2>Mobile pharmacy app</h2>
-					
-				</div>
-				
 				
 
 
-<!-- Fallback: Render content using existing method for projects without structured sections -->
-<article class="project-description">
-  <h3 id="Opportunity"><a href="#Opportunity" class="headerlink" title="Opportunity"></a>Opportunity</h3><p>In 2014, Miti Health (now Maisha Meds) provided an Android-based mobile pharmacy software for rural Kenyan pharmacies. However, the digital interface didn’t reflect the everyday realities of these users—who worked at desks with paper records. The challenge was to redesign the experience so it felt natural and intuitive, echoing the familiar, paper-based workflow of the pharmacies.</p>
-<h3 id="Process-Key-Findings"><a href="#Process-Key-Findings" class="headerlink" title="Process &amp; Key Findings"></a>Process &amp; Key Findings</h3><p>I began with a comprehensive UX audit and reviewed photos that documented how pharmacists worked on the ground. This research revealed several key insights:</p>
-<ul>
-<li><strong>Workflow Alignment:</strong> Pharmacists were accustomed to handling paper and organizing information at a desk. The existing interface felt too detached from this reality.</li>
-<li><strong>Usability Gaps:</strong> The digital experience needed to be more intuitive, reducing friction and mirroring the logical flow of their daily tasks.</li>
-<li><strong>Contextual Relevance:</strong> A design that resonated with the physical environment—its tactile and organized nature—was essential to drive adoption.</li>
-</ul>
-<h3 id="Design-Execution"><a href="#Design-Execution" class="headerlink" title="Design &amp; Execution"></a>Design &amp; Execution</h3><p>Guided by these insights, I reimagined the interface to bridge the gap between digital and physical workflows:</p>
-<ul>
-<li><strong>Contextual Interface Design:</strong> I crafted a design that mirrored the structure and feel of a paper-based system, making it easier for users to adapt to the digital environment.</li>
-<li><strong>Simplified Navigation:</strong> The new layout streamlined key tasks like inventory management and record-keeping, closely aligning with the natural flow of working at a desk.</li>
-<li><strong>Familiar Visual Cues:</strong> By incorporating design elements reminiscent of traditional paper forms and organized desks, the interface felt like a logical extension of their current processes.</li>
-</ul>
-<h3 id="Key-Deliverables"><a href="#Key-Deliverables" class="headerlink" title="Key Deliverables"></a>Key Deliverables</h3><ul>
-<li><strong>High-Fidelity Wireframes &amp; Interactive Prototypes:</strong> Detailed designs that mapped out the reimagined user journey on Android, ensuring alignment with real-world workflows.</li>
-<li><strong>End-to-End User Flow Documentation:</strong> Clear, structured flow maps that reflected the natural progression of tasks in a busy pharmacy setting.</li>
-<li><strong>Visual Design Assets:</strong> A refined set of UI components that captured the tactile feel of paper-based systems while leveraging the efficiency of digital interactions.</li>
-</ul>
-<h3 id="Outcomes"><a href="#Outcomes" class="headerlink" title="Outcomes"></a>Outcomes</h3><p>Feedback from the field was encouraging. Pharmacy staff noted that the redesigned interface felt familiar and intuitive—making it easier to transition from traditional methods to a digital solution. This project laid a strong foundation for more user-centric innovations in rural healthcare, ensuring that technology truly served the way people worked.</p>
+  <!-- Use new Summary component -->
+  
 
-</article>
 
+<div class="project-summary">
+  <div class="summary-navigation">
+    
+      <button class="summary-tab-button active" data-tab="problem">
+        Problem
+      </button>
+    
+      <button class="summary-tab-button " data-tab="solution">
+        Solution
+      </button>
+    
+      <button class="summary-tab-button " data-tab="key-innovation">
+        Key Innovation
+      </button>
+    
+      <button class="summary-tab-button " data-tab="impact">
+        Impact
+      </button>
+    
+  </div>
+  
+  <div class="summary-content">
+    
+      <div class="summary-panel active" id="problem">
+        <div class="summary-panel-content">
+          
+          
+            Rural Kenyan pharmacies relied on Android-based software that felt disconnected from their paper-based workflows. Pharmacists worked at desks with familiar paper records, but the digital interface didn't reflect these everyday realities. The existing system created friction and resistance to adoption because it failed to mirror the logical flow of their daily tasks.
+          
+          
+        </div>
+      </div>
+    
+      <div class="summary-panel " id="solution">
+        <div class="summary-panel-content">
+          
+          
+            I redesigned the interface to bridge the gap between digital and physical workflows by creating a system that mirrored the structure and feel of paper-based operations. The new design made the digital environment feel like a logical extension of their current desk-based processes.
+          
+          
+        </div>
+      </div>
+    
+      <div class="summary-panel " id="key-innovation">
+        <div class="summary-panel-content">
+          
+            <h3>Paper-to-Digital Workflow Translation</h3>
+          
+          
+          
+            <ul>
+              
+                <li><strong>Contextual Interface Design:</strong> Interface mirrored paper-based systems to reduce adaptation friction</li>
+              
+                <li><strong>Simplified Navigation:</strong> Streamlined key tasks like inventory management and record-keeping following natural desk workflow</li>
+              
+                <li><strong>Familiar Visual Cues:</strong> Design elements reminiscent of traditional paper forms and organized desk environments</li>
+              
+                <li><strong>Workflow Alignment:</strong> Digital experience that felt natural and intuitive to pharmacists accustomed to paper</li>
+              
+                <li><strong>Tactile Feel Translation:</strong> UI components captured the tactile feel of paper-based systems while leveraging digital efficiency</li>
+              
+            </ul>
+          
+        </div>
+      </div>
+    
+      <div class="summary-panel " id="impact">
+        <div class="summary-panel-content">
+          
+          
+          
+            <ul>
+              
+                <li>Pharmacy staff noted the interface felt familiar and intuitive</li>
+              
+                <li>Easier transition from traditional methods to digital solution</li>
+              
+                <li>Reduced resistance to technology adoption in rural healthcare settings</li>
+              
+                <li>Established foundation for user-centric innovations in rural healthcare</li>
+              
+                <li>Ensured technology served the way people actually worked</li>
+              
+            </ul>
+          
+        </div>
+      </div>
+    
+  </div>
+</div>
+ 
+  
+  <!-- Render the main content after the summary -->
+  
+    <div class="project-writeup">
+      <div class="writeup-content">
+        <h2 id="Research-Cultural-Understanding"><a href="#Research-Cultural-Understanding" class="headerlink" title="Research &amp; Cultural Understanding"></a>Research &amp; Cultural Understanding</h2><p>Working with Miti Health (now Maisha Meds) in 2014 required deep understanding of how rural Kenyan pharmacies actually operated. Through photo documentation and field research, I discovered that pharmacists had developed sophisticated paper-based systems that worked efficiently within their environment.</p>
+<p>The key insight was that these weren’t outdated methods—they were optimized workflows that had evolved to meet specific needs. Any digital solution needed to respect and enhance these existing patterns rather than forcing completely new behaviors.</p>
+<h2 id="Design-Process-Implementation"><a href="#Design-Process-Implementation" class="headerlink" title="Design Process &amp; Implementation"></a>Design Process &amp; Implementation</h2><p>I conducted a comprehensive UX audit while reviewing extensive photo documentation of pharmacists at work. This research revealed the importance of desk-based organization and the tactile nature of their information management systems.</p>
+<p>The design process focused on translating rather than replacing these workflows. Instead of asking pharmacists to learn new digital paradigms, I created interfaces that felt like natural extensions of their paper-based expertise.</p>
+<h2 id="User-Experience-Innovation"><a href="#User-Experience-Innovation" class="headerlink" title="User Experience Innovation"></a>User Experience Innovation</h2><p>The breakthrough was understanding that digital adoption in this context wasn’t about modernization—it was about enhancement. The interface needed to feel familiar while providing the advantages of digital systems: backup, searching, reporting, and connectivity.</p>
+<p>By incorporating visual elements reminiscent of traditional forms and maintaining the logical structure of desk-based workflows, the digital system became a tool that amplified existing expertise rather than replacing it.</p>
+<h2 id="Impact-Validation"><a href="#Impact-Validation" class="headerlink" title="Impact &amp; Validation"></a>Impact &amp; Validation</h2><p>Field feedback confirmed the approach’s effectiveness. Pharmacists described the redesigned interface as intuitive and familiar, validating the strategy of building bridges between physical and digital workflows rather than creating entirely new patterns.</p>
+<p>This project demonstrated that successful technology adoption in traditional environments requires respect for existing expertise and careful translation of proven workflows into digital advantages.</p>
+
+      </div>
+    </div>
+  
 
  
-				
 			</div>
 		</div>
 
