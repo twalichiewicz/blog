@@ -675,38 +675,31 @@ p {
 }
 
 .dynamic-back-button {
-	// Positioning and specific radius from previous state
+	// Positioning 
 	position: absolute;
-	top: 0px;
-	left: 0px;
-	border-bottom-right-radius: 12px; // Keep this specific radius
+	top: 6px;
+	left: 6px;
 	z-index: 1000;
 
-	// Styles from .project-collapse-button
+	// New styles
+	border-radius: 12px;
+	box-shadow: none;
+	background-color: black;
+	color: white;
+
+	// Keep existing functionality styles
 	display: flex;
 	align-items: center;
 	gap: 0;
 	padding: 4px 10px;
-	// border-radius: 6px; // Overridden by border-bottom-right-radius and general reset below
-	color: rgba(0, 0, 0, 0.7);
 	font-size: 12px;
 	font-weight: 500;
-	background: rgba(255, 255, 255, 0.8);
-	border: 1px solid rgba(0, 0, 0, 0.1); // General border
-	box-shadow:
-		0 1px 2px rgba(0, 0, 0, 0.05),
-		0 1px 1px rgba(0, 0, 0, 0.03),
-		inset 0 1px 0 rgba(255, 255, 255, 0.8);
+	border: none;
 	transition: all 0.2s ease;
 	cursor: pointer;
 	flex-shrink: 0;
 	width: auto;
-	text-decoration: none; // Ensure no text decoration from browser defaults
-
-	// Reset other border-radius corners to ensure only bottom-right is active
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-	border-bottom-left-radius: 0;
+	text-decoration: none;
 
 	svg {
 		width: 16px;
@@ -721,24 +714,31 @@ p {
 	}
 
 	&:hover {
-		background: rgba(255, 255, 255, 0.95);
-		color: rgba(0, 0, 0, 0.7); // Ensure text color remains on hover
-		box-shadow:
-			0 2px 4px rgba(0, 0, 0, 0.08),
-			0 1px 2px rgba(0, 0, 0, 0.05),
-			inset 0 1px 0 rgba(255, 255, 255, 1);
+		background-color: rgba(0, 0, 0, 0.8);
+		color: white;
 	}
 
 	&:active {
-		background: rgba(240, 240, 240, 0.9);
-		box-shadow:
-			0 1px 1px rgba(0, 0, 0, 0.05),
-			inset 0 1px 3px rgba(0, 0, 0, 0.1);
+		background-color: rgba(0, 0, 0, 0.9);
 	}
 
 	&:focus {
-		// Keep existing focus style for accessibility
 		outline: 2px solid var(--focus-ring-color, Highlight);
 		outline-offset: 2px;
+	}
+
+	// Dark mode styles
+	[data-theme="dark"] & {
+		background-color: white;
+		color: black;
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.8);
+			color: black;
+		}
+
+		&:active {
+			background-color: rgba(255, 255, 255, 0.9);
+		}
 	}
 }

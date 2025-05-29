@@ -31,9 +31,9 @@
 
 		.dynamic-back-button {
 			position: absolute;
-			top: 16px;
-			left: 16px;
-			border-radius: 12px 0;
+			top: 6px;
+			left: 6px;
+			border-radius: 12px;
 		}
 	}
 }
@@ -192,7 +192,8 @@
 	padding: 0 0 1rem;
 	border-radius: 0;
 	color: variables.$text-color;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+	border: none;
+	text-align: center;
 	transition: background-color 0.3s ease;
 
 	.project-category {
@@ -207,9 +208,12 @@
 
 	h2 {
 		margin: 0;
-		font-size: 18px;
+		font-size: 90px;
 		font-weight: 500;
-		line-height: 1.3;
+		line-height: 89%;
+		border: none;
+		letter-spacing: -3%;
+		color: #151515;
 	}
 
 	.metadata {
@@ -235,10 +239,13 @@
 	// Dark mode adjustments
 	@media (prefers-color-scheme: dark) {
 		color: variables.$text-color-dark;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
 		.project-category {
 			color: variables.$text-color-secondary-dark;
+		}
+
+		h2 {
+			color: #fff;
 		}
 
 		.metadata {
@@ -246,8 +253,6 @@
 			border-color: rgba(255, 255, 255, 0.1);
 		}
 	}
-
-
 }
 
 .intro-section {
@@ -523,19 +528,12 @@
 		margin-bottom: env(safe-area-inset-bottom, 0px);
 		display: flex;
 		flex-direction: column;
-		background: linear-gradient(to bottom, #f5f3f0 0%, #ebe7e2 50%, #e1ddd6 100%);
 		box-shadow: none;
 		overflow: visible;
 	}
 
-	/* &:hover {
-		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05),
-			0 0 0 1px rgba(0, 0, 0, 0.03);
-	} */
-
 	.project-details {
 		height: 100%;
-		overflow-y: auto;
 		padding: 16px 16px 0 16px;
 		scrollbar-width: thin;
 		scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05);
@@ -796,16 +794,6 @@
 		// padding: 16px;
 	}
 
-	&::after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 1px;
-		background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.05), transparent);
-	}
-
 	.project-mini-bio-image {
 		flex-shrink: 0;
 		width: 52px;
@@ -866,20 +854,18 @@
 	.project-home-button {
 		max-width: 100px;
 		justify-content: center;
-		background: rgb(229, 225, 220);
+		background-color: black;
+		color: white;
+		border-radius: 12px;
+		box-shadow: none;
+		border: none;
 		transition: background 0.2s;
-		color: rgb(154, 151, 146);
 		display: flex;
 		align-items: center;
 		padding: 4px 10px;
-		border-radius: 6px;
 		text-decoration: none;
 		font-size: 12px;
 		font-weight: 500;
-		border: 1px solid rgba(0, 0, 0, 0.1);
-		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.05),
-			inset 0 1px 0 rgba(255, 255, 255, 0.1);
 		flex-shrink: 0;
 		width: auto;
 
@@ -897,7 +883,8 @@
 
 		&:hover,
 		&:active {
-			background: rgb(200, 195, 185);
+			background-color: rgba(0, 0, 0, 0.8);
+			color: white;
 		}
 	}
 
@@ -1023,10 +1010,6 @@
 		box-shadow: none;
 		backdrop-filter: none;
 
-		&::after {
-			background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent);
-		}
-
 		.project-mini-bio-image {
 			box-shadow:
 				0 0 0 1px rgba(255, 255, 255, 0.2),
@@ -1047,29 +1030,19 @@
 		}
 
 		.project-home-button {
-			// Inspired by .dynamic-back-button, adapted for dark mode
-			background: rgba(50, 50, 50, 0.6); // Darker semi-transparent background
-			color: rgba(255, 255, 255, 0.85); // Light text
-			border: 1px solid rgba(255, 255, 255, 0.15); // Subtle light border
-			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.3), // Softer outer shadow
-				inset 0 1px 0 rgba(255, 255, 255, 0.05); // Subtle inner highlight
+			background-color: white;
+			color: black;
+			border: none;
+			box-shadow: none;
 
 			&:hover {
-				background: rgba(70, 70, 70, 0.7); // Slightly lighter on hover
-				color: rgba(255, 255, 255, 0.95);
-				border-color: rgba(255, 255, 255, 0.25);
-				box-shadow:
-					0 2px 4px rgba(0, 0, 0, 0.35),
-					inset 0 1px 0 rgba(255, 255, 255, 0.08);
+				background-color: rgba(255, 255, 255, 0.8);
+				color: black;
 			}
 
 			&:active {
-				background: rgba(40, 40, 40, 0.7); // Slightly darker/flatter on active
-				color: rgba(255, 255, 255, 0.95);
-				box-shadow:
-					0 1px 1px rgba(0, 0, 0, 0.3),
-					inset 0 1px 2px rgba(0, 0, 0, 0.1);
+				background-color: rgba(255, 255, 255, 0.9);
+				color: black;
 			}
 		}
 	}
@@ -1162,4 +1135,27 @@
 // Ensure project wrapper has full height when body is loaded
 body.loaded .project-wrapper {
 	height: 100%;
+}
+
+// Mobile-specific styles for 768px breakpoint
+@media (max-width: 768px) {
+	.project-content {
+		// Remove background linear-gradient (already removed above)
+	}
+
+	.project-summary {
+		margin-left: 18px !important;
+		margin-right: 18px !important;
+
+		.summary-navigation {
+			padding-top: 0 !important;
+			padding-left: 0 !important;
+		}
+	}
+
+	.project-writeup {
+		margin-left: 18px !important;
+		margin-right: 18px !important;
+		margin-top: 18px !important; // Override the 3rem top margin
+	}
 }

@@ -17,40 +17,48 @@ gallery_images:
     type: image
   - url: /2019/09/15/Common-Project-Administration/011_cpa.png
     type: image
+summary:
+  problem:
+    content: "With Autodesk's pivot to cloud-based products, administrators faced a fragmented experience managing multiple web instances or 'hubs' across different products. Each product required manual setup and management in separate locations, forcing administrators to navigate disparate systems that didn't align with their mental model of unified project management."
+  solution:
+    content: "I designed a centralized administration portal within the Autodesk Account tool that consolidates all web instance management into a single, unified interface. The system standardizes project administration across all Autodesk cloud products while respecting how administrators naturally think about project management."
+  innovation:
+    title: "Unified Hub Administration System"
+    bullets:
+      - "<strong>Centralized Management Portal:</strong> Single interface for managing instances, roles, permissions, and memberships across all cloud products"
+      - "<strong>Standardized Workflows:</strong> Consistent administrative patterns that work across diverse product ecosystems"
+      - "<strong>Mental Model Alignment:</strong> Interface design that mirrors real-world administrative thinking and processes"
+      - "<strong>Cross-Product Integration:</strong> Unified permissions and role management that works seamlessly across different Autodesk tools"
+      - "<strong>Streamlined Setup:</strong> Automated configuration processes that eliminate manual, product-by-product administration"
+  impact:
+    bullets:
+      - "Eliminated fragmented administration experience across multiple product hubs"
+      - "Reduced administrative overhead and minimized configuration errors"
+      - "Created consistent user experience for enterprise customers managing complex environments"
+      - "Established new standard for cloud-based administration within Autodesk"
+      - "Improved adoption rates among enterprise customers through intuitive, unified workflows"
+---
 
---- 
+## Understanding Administrative Mental Models
 
-### Opportunity
+The transition to cloud-based products created an unexpected challenge: administrators who excelled at managing complex enterprise environments suddenly found themselves struggling with fragmented interfaces that didn't match their established workflows.
 
-With Autodesk's pivot to cloud-based products, administrators faced a fragmented experience: each product maintained its own web instance—or "hub"—requiring manual setup and management across multiple locations. The challenge was to consolidate these disparate systems into a single, unified portal within the Autodesk Account tool, reflecting the real-life mental models of project administration.
+Through interviews and shadowing sessions, I discovered that administrators naturally think about project management as a unified, hierarchical system. They expect to see all their projects, permissions, and team members in one place, with clear relationships between different components.
 
-### Process & Key Findings
+## Research & Discovery Process
 
-I started by diving deep into how administrators naturally think about project management and the complexities of juggling multiple hubs. Through interviews, shadowing sessions, and workflow analysis, I uncovered several key insights:
+I conducted workflow analysis sessions with administrators managing multiple Autodesk cloud products. The research revealed that the fragmentation wasn't just inconvenient—it was creating real business problems as administrators struggled to maintain consistent access control and project organization across platforms.
 
-- **Fragmented Workflows**: Admins were forced to navigate separate instances for each product, leading to inefficiencies and a steep learning curve.
-- **Unified Mental Models**: Administrators viewed project management as a cohesive, centralized task—not as a collection of disjointed systems.
-- **Complex Permissions**: Managing roles and access across different hubs was both cumbersome and error-prone.
+The key insight was that administrators weren't asking for more features; they were asking for coherent structure. They needed a system that matched their mental models of how project administration should work.
 
-### Design & Execution
+## Design & Architecture
 
-Guided by these findings, I reimagined the administration experience with a focus on unification:
+The centralized portal design focused on creating logical groupings that matched administrative thinking patterns. Instead of forcing administrators to understand the technical differences between products, the interface presented a unified view organized around projects, teams, and access levels.
 
-- **Centralized Management**: I designed an interface that standardized the management of all web instances into a single, streamlined portal.
-- **Intuitive Workflows**: The new design mirrored real-world administrative practices, simplifying tasks like setting permissions, managing roles, and overseeing memberships.
-- **Iterative Prototyping**: Continuous stakeholder feedback and rapid prototyping ensured that the solution was both practical and aligned with administrators’ expectations.
+I designed the permissions system to work consistently across all products while still respecting the unique requirements of different tools. This required close collaboration with engineering teams to create an abstraction layer that maintained flexibility while providing administrative simplicity.
 
-### Key Deliverables
+## Implementation & Results
 
-- **Centralized Administration Dashboard**: A unified portal for managing instances, roles, permissions, and memberships across all Autodesk cloud products.
-- **High-Fidelity Prototypes & User Flows**: Detailed prototypes and journey maps that showcased the streamlined workflows and centralized management approach.
+The Common Project Administration system transformed how enterprise customers managed their Autodesk cloud environments. Instead of juggling multiple interfaces and inconsistent permission systems, administrators could manage everything from a single, coherent dashboard.
 
-### Outcomes
-
-The Common Project Administration feature transformed the administrative experience:
-
-- **Unified Experience**: Administrators now manage all their hubs from one location, eliminating the need for manual, product-by-product configuration.
-- **Enhanced Efficiency**: Streamlined workflows and intuitive design reduced administrative overhead and minimized errors.
-- **Positive User Adoption**: Stakeholders and enterprise customers praised the solution for aligning closely with their real-world processes, setting a new standard for cloud-based administration within Autodesk.
-
-This project exemplified how understanding user mental models can drive the creation of a cohesive, user-centric experience that not only simplifies workflows but also empowers administrators to manage complex environments with ease.
+The positive reception from enterprise customers validated the approach of designing around mental models rather than technical architecture. The system became the foundation for future cloud administration features across Autodesk's product portfolio.
