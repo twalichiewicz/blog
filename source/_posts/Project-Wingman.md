@@ -7,10 +7,10 @@ tags: [portfolio]
 layout: project_gallery
 has_writeup: true
 gallery_images:
-  - url: /2019/06/30/Project-Wingman/wingmanInstaller.webm
+  - url: /2019/06/30/Project-Wingman/wingmanInstaller_web.mp4
     type: video
     poster: /2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg
-cover_image: /2019/06/30/Project-Wingman/wingmanInstaller.webm
+cover_image: /2019/06/30/Project-Wingman/wingmanInstaller_web.mp4
 cover_video_poster: /2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg
 ---
 
