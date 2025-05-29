@@ -27,21 +27,28 @@ gallery_images:
 
 ## The Problem
 
-Autodesk's 60+ products each maintained their own custom installer with advanced configuration options. This meant 60+ separate codebases, 60+ different user experiences, and enterprise customers struggling to deploy multiple products consistently. The company was burning millions on duplicate development work.
+Autodesk's 100+ products each maintained their own custom installer with advanced configuration options. Enterprise customers had to download massive installer files, store them on local servers, and manually manage complex deployment sequences across multiple products. The company was burning millions on duplicate development work while customers struggled with fragmented, offline-only installation processes.
 
 ## The Solution
 
-I designed a unified web platform that dynamically generates custom installation interfaces from simple XML files. Product teams define their configuration needs in XML, and the system automatically builds the appropriate UI—no custom development required.
+I designed a unified web platform that dynamically generates custom installation interfaces from simple XML files. Product teams define their configuration needs in XML, and the system automatically builds the appropriate UI—no custom development required. The web-based approach eliminated the need for customers to store gigabyte-sized installers locally.
 
-## Key Innovation: The Component System
+## Key Innovation: Dynamic Multi-Product Configuration System
 
-- **Dynamic UI Generation**: Teams upload XML configs, system builds custom interfaces automatically
-- **Shared Configuration Library**: Enterprise customers can save, duplicate, and share installation packages across teams
-- **Multi-Product Installers**: For the first time, customers could install multiple Autodesk products in a single workflow instead of running 60+ separate installers
+- **Web-Based Accessibility:** Eliminated need for local installer storage—configs live in the cloud and generate installers on-demand
+- **XML-Driven UI Generation:** Product teams maintain simple XML files, system builds custom interfaces automatically
+- **Multi-Product Intelligence:** System knows correct installation sequences and dependencies across multiple applications
+- **Shared Configuration Library:** Save, duplicate, and share installation packages across teams and regions
+- **Dynamic Generation:** Any configuration combination instantly generates a downloadable installer
+- **Deployment Flexibility:** Create both standalone installers and enterprise deployment packages
+- **Multi-Language Support:** Quickly generate region-specific versions with localized interfaces
+- **Lightweight Storage:** CAD/BIM managers store tiny config files instead of massive GB installers
 
 ## Impact
 
-- Eliminated 60+ separate installer maintenance efforts across product teams
+- Eliminated separate installer maintenance efforts across all product teams
 - Reduced enterprise deployment time from hours to minutes
-- Created reusable configurations that organizations could share and standardize
-- Enabled multi-product installations that were previously impossible
+- Freed up terabytes of local server storage by moving configs to cloud-based library
+- Enabled complex multi-product installations with automatic dependency management
+- Launched just before COVID-19, providing critical remote accessibility when teams went distributed
+- Saved millions in duplicate development costs by consolidating fragmented systems
