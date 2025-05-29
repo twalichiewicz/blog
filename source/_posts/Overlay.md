@@ -25,7 +25,7 @@ I designed a universal overlay system that runs as a cloud-connected singleton a
 
 ## Key Innovation: Cross-Application Intelligence Platform
 
-- **Universal React Architecture:** Single codebase deploys components across 60+ different desktop applications with native-feeling integration
+- **Universal React Architecture:** Single codebase deploys components across different desktop applications with native-feeling integration
 - **Persistent Cloud State:** User context, preferences, and work history synchronize across entire product ecosystem in real-time
 - **Bidirectional Communication:** Overlay can read application state, trigger host actions, and respond to application events seamlessly
 - **Contextual Intelligence Engine:** System understands current user tasks and proactively surfaces relevant tools, shortcuts, and guidance
