@@ -17,18 +17,16 @@ cover_image: /2020/02/15/Overlay/overlayPreview_cover.jpg
 
 ## The Problem
 
-Autodesk's 60+ desktop products operated as completely isolated applications. Users couldn't access shared functionality, maintain consistent workflows, or transfer context between products. Teams rebuilt identical features 60+ times, and users had to relearn basic tasks in every application.
+Autodesk's array of desktop products operated as completely isolated silos. Users lost context switching between applications, couldn't access shared functionality across their workflows, and had to relearn basic tasks in every product. Meanwhile, engineering teams rebuilt identical features dozens of times—smart assistance in one product remained trapped there while users struggled with the same problems in adjacent tools.
 
 ## The Solution
 
-I designed and built a universal overlay system that runs as a cloud-connected singleton across all Autodesk desktop applications. Think Steam's overlay, but for productivity software—a persistent application layer that works everywhere while maintaining bidirectional communication with host applications.
+I designed a universal overlay system that runs as a cloud-connected singleton across all Autodesk desktop applications. Like Steam's overlay for gaming, this creates a persistent application layer that follows users everywhere—enabling shared functionality, contextual assistance, and seamless workflows while maintaining bidirectional communication with host applications.
 
-## Key Innovation: Cross-Application Platform Architecture
+## Key Innovation: Cross-Application Intelligence Platform
 
-- **Universal React Components**: Write once, deploy across 60+ different desktop applications
-- **Cloud-Synchronized State**: User context, preferences, and workflows persist across all products
-- **Bidirectional Communication**: Overlay and host applications can exchange data and trigger actions in both directions
-- **Intelligent Context Awareness**: System understands what users are doing and surfaces relevant tools proactively
-- **Non-Disruptive Integration**: Overlay respects each product's unique interface while providing consistent functionality
-
-## Impact
+- **Universal React Architecture:** Single codebase deploys components across 60+ different desktop applications with native-feeling integration
+- **Persistent Cloud State:** User context, preferences, and work history synchronize across entire product ecosystem in real-time
+- **Bidirectional Communication:** Overlay can read application state, trigger host actions, and respond to application events seamlessly
+- **Contextual Intelligence Engine:** System understands current user tasks and proactively surfaces relevant tools, shortcuts, and guidance
+- **Adaptive Integration:** Overlay respects each product's unique interface language while maintaining consistent core functionality
