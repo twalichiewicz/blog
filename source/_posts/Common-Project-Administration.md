@@ -37,6 +37,19 @@ summary:
       - "Created consistent user experience for enterprise customers managing complex environments"
       - "Established new standard for cloud-based administration within Autodesk"
       - "Improved adoption rates among enterprise customers through intuitive, unified workflows"
+credits:
+  - role: Role
+    name: Lead Product Designer, Platform Services - Analytics & Data
+  - role: Timeline
+    name: 1.5 years
+  - role: Cross-functional partners
+    name: 15 product teams, Platform Engineering
+  - role: Users impacted
+    name: 2,000+ enterprise administrators across 500+ organizations
+  - role: Technical scope
+    name: Unified permissions across 15 cloud products
+  - role: Current status
+    name: Foundation for all Autodesk cloud administration
 ---
 
 ## Understanding Administrative Mental Models
