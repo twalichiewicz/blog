@@ -26,36 +26,40 @@
 						<span class="project-category"><%- page.company %></span>
 					<% } %>
 					<h2><%- page.title %></h2>
-					<% if (page.credits && page.credits.length) { %>
-					<div class="metadata">
-						<div class="metadata-list">
-							<% page.credits.forEach(function(credit) { %>
-								<div class="metadata-item">
-								<span class="label" style="font-size: 9px;"><%= credit.role %></span>
-								<span class="value" style="font-size: 12px;"><%= credit.name %></span>
-								</div>
-							<% }); %>
-							<% if (page.year) { %>
-							<div class="metadata-item">
-								<span class="label" style="font-size: 9px;">Year</span>
-								<span class="value" style="font-size: 12px;"><%= page.year %></span>
-							</div>
-							<% } %>
-							<% if (page.location) { %>
-							<div class="metadata-item">
-								<span class="label" style="font-size: 9px;">Location</span>
-								<span class="value" style="font-size: 12px;"><%= page.location %></span>
-							</div>
-							<% } %>
-						</div>
-					</div>
-					<% } %>
 				</div>
 				<article class="project-description"> <%// Changed class from project to project-description and kept article tag %>
 					<%- page.content %> <%// This is where the free-form HTML will be rendered %>
 				</article>
 			</div>
 		</div>
+
+		<!-- Project metadata moved to end of page -->
+		<% if (page.credits && page.credits.length) { %>
+		<div class="project-metadata-footer">
+			<div class="metadata">
+				<div class="metadata-list">
+					<% page.credits.forEach(function(credit) { %>
+						<div class="metadata-item">
+						<span class="label" style="font-size: 9px;"><%= credit.role %></span>
+						<span class="value" style="font-size: 12px;"><%= credit.name %></span>
+						</div>
+					<% }); %>
+					<% if (page.year) { %>
+					<div class="metadata-item">
+						<span class="label" style="font-size: 9px;">Year</span>
+						<span class="value" style="font-size: 12px;"><%= page.year %></span>
+					</div>
+					<% } %>
+					<% if (page.location) { %>
+					<div class="metadata-item">
+						<span class="label" style="font-size: 9px;">Location</span>
+						<span class="value" style="font-size: 12px;"><%= page.location %></span>
+					</div>
+					<% } %>
+				</div>
+			</div>
+		</div>
+		<% } %>
 	</div>
 
 	<style>

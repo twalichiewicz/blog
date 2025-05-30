@@ -58,8 +58,6 @@
 		}
 	};
 
-
-
 	// Function to initialize or re-initialize sound effect listeners
 	function initializeSoundEffects() {
 		console.log('[sound-effects.js] initializeSoundEffects Start');
@@ -68,6 +66,7 @@
 			contactButton: !!document.querySelector('.contact-button'),
 			mobileTabButtons: document.querySelectorAll('.mobile-tabs .tab-button').length,
 			otherTabButtons: document.querySelectorAll('.tab-button:not(.mobile-tabs .tab-button)').length,
+			summaryTabButtons: document.querySelectorAll('.summary-tab-button').length,
 			carouselButtons: document.querySelectorAll('.carousel-button').length,
 			spotlightButtons: document.querySelectorAll('.spotlight-nav-button').length,
 			contactOptions: document.querySelectorAll('.contact-option').length
@@ -101,6 +100,13 @@
 		// All other tab buttons (not in mobile-tabs) - use small click sound
 		const otherTabButtons = document.querySelectorAll('.tab-button:not(.mobile-tabs .tab-button)');
 		otherTabButtons.forEach(button => {
+			button.removeEventListener('click', handlers.defaultButtonSoundHandler);
+			button.addEventListener('click', handlers.defaultButtonSoundHandler);
+		});
+
+		// Summary tab buttons - use small click sound
+		const summaryTabButtons = document.querySelectorAll('.summary-tab-button');
+		summaryTabButtons.forEach(button => {
 			button.removeEventListener('click', handlers.defaultButtonSoundHandler);
 			button.addEventListener('click', handlers.defaultButtonSoundHandler);
 		});

@@ -9,7 +9,13 @@
         <div class="carousel-slide <%= index === 0 ? 'active' : '' %>" 
              aria-hidden="<%= index === 0 ? 'false' : 'true' %>">
           <% if (item.type === 'video') { %>
-            <video controls preload="metadata" playsinline <%= item.autoplay ? 'autoplay' : '' %> <%= item.loop ? 'loop' : '' %> <%= item.muted ? 'muted' : '' %>>
+            <% 
+            // Set video defaults: autoplay, loop, and muted unless explicitly set to false
+            const autoplay = item.autoplay !== false;
+            const loop = item.loop !== false;
+            const muted = item.muted !== false;
+            %>
+            <video controls preload="metadata" playsinline <%= autoplay ? 'autoplay' : '' %> <%= loop ? 'loop' : '' %> <%= muted ? 'muted' : '' %>>
               <source src="<%= item.url %>" type="<%= item.videoType || 'video/mp4' %>">
               Your browser does not support the video tag.
             </video>

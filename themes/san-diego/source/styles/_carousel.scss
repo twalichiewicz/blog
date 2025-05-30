@@ -194,7 +194,7 @@
 
 	&-indicators {
 		position: absolute;
-		bottom: 16px;
+		bottom: 3px;
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
@@ -204,7 +204,7 @@
 		background-color: rgba(0, 0, 0, 0.6);
 		padding: 6px;
 		border-radius: 12px;
-		margin-bottom: 60px;
+		margin-bottom: 0;
 
 		.indicator {
 			width: 8px;
@@ -258,6 +258,7 @@
 	}
 
 	&-caption {
+		display: none; // Hidden for now
 		position: absolute;
 		bottom: 0;
 		left: 0;

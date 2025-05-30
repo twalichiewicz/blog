@@ -23,9 +23,7 @@
 	position: relative;
 	box-shadow:
 		0 3px 0 rgb(173, 173, 173),
-		0 8px 16px rgba(0, 0, 0, 0.3),
-		inset 0 1px 0 rgba(255, 255, 255, 0.8),
-		inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+		0 8px 16px rgba(0, 0, 0, 0.3);
 
 	// SummaryTron engraved text
 	&::after {
@@ -92,6 +90,10 @@
 		transform-style: preserve-3d;
 
 		// Mobile adjustments
+		@media (max-width: 768px) {
+			font-size: 12px;
+			align-items: center;
+		}
 
 		// LED indicator (off state)
 		&::before {
@@ -138,15 +140,15 @@
 			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 			font-weight: 500;
 
-			// LED indicator (on state) - bright golden glow
+			// LED indicator (on state) - bright red-orange glow
 			&::before {
-				background: linear-gradient(135deg, #ffdd44 0%, #ffcc00 50%, #e6b800 100%);
-				border-color: #cc9900;
+				background: linear-gradient(135deg, hsl(15, 85%, 55%) 0%, hsl(15, 70%, 40%) 50%, hsl(15, 60%, 30%) 100%);
+				border-color: hsl(15, 60%, 25%);
 				box-shadow:
 					inset 0 1px 1px rgba(255, 255, 255, 0.6),
-					0 0 6px rgba(255, 204, 0, 0.8),
-					0 0 12px rgba(255, 204, 0, 0.4),
-					0 0 18px rgba(255, 204, 0, 0.2);
+					0 0 6px hsla(15, 70%, 50%, 0.8),
+					0 0 12px hsla(15, 70%, 50%, 0.4),
+					0 0 18px hsla(15, 70%, 50%, 0.2);
 			}
 
 			// Chrome highlight effect
@@ -196,10 +198,65 @@
 		overflow: visible;
 		overflow-y: scroll;
 
+		// Custom scrollbar styling
+		scrollbar-width: thin;
+		scrollbar-color: #E6F3F8 transparent;
+
+		&::-webkit-scrollbar {
+			width: 2px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: #E6F3F8;
+			border-radius: 0; // Squared corners
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background-color: #E6F3F8;
+		}
+
 		&.active {
 			display: flex;
 			flex-direction: column;
-			padding: 24px;
+			padding: 12px;
+			height: 100%;
+			position: relative;
+			border-radius: 12px;
+
+			// Matte glass effect overlay for Teenage Engineering screen aesthetic
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				border-radius: 12px;
+				background: linear-gradient(135deg,
+						rgba(255, 255, 255, 0.08) 0%,
+						rgba(255, 255, 255, 0.03) 25%,
+						rgba(0, 0, 0, 0.02) 50%,
+						rgba(255, 255, 255, 0.04) 75%,
+						rgba(255, 255, 255, 0.06) 100%);
+				backdrop-filter: blur(0.5px);
+				box-shadow:
+					inset 0 1px 0 rgba(255, 255, 255, 0.1),
+					inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+					inset 1px 0 0 rgba(255, 255, 255, 0.05),
+					inset -1px 0 0 rgba(0, 0, 0, 0.05);
+				pointer-events: none;
+				z-index: 1;
+			}
+
+			// Ensure content stays above the glass effect
+			.summary-panel-content {
+				position: relative;
+				z-index: 2;
+			}
 		}
 
 		.summary-panel-content {
@@ -342,5 +399,13 @@
 				}
 			}
 		}
+	}
+}
+
+// Mobile styles
+@media (max-width: 768px) {
+	.summary-panel.active {
+		padding: 9px !important;
+		overflow-y: auto;
 	}
 }
