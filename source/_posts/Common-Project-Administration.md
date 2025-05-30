@@ -41,7 +41,7 @@ credits:
   - role: Role
     name: Lead Product Designer, Platform Services - Analytics & Data
   - role: Timeline
-    name: 1.5 years
+    name: 8 months
   - role: Cross-functional partners
     name: 15 product teams, Platform Engineering
   - role: Users impacted
