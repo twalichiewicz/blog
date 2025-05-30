@@ -1575,6 +1575,16 @@
 }
 
 /* ==========================================================================
+   Portfolio Content - Device-specific Rules
+   ========================================================================== */
+
+/* Hide company-byline in portfolio content on desktop and tablet */
+.device-desktop .portfolio-content .company-byline,
+.device-tablet .portfolio-content .company-byline {
+	display: none !important;
+}
+
+/* ==========================================================================
    Column Titles - Responsive Behavior
    ========================================================================== */
 
