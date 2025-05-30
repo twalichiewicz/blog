@@ -9,8 +9,33 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Fri, 30 May 2025 07:34:05 GMT</pubDate>
+    <pubDate>Fri, 30 May 2025 20:37:31 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Case studies updated</title>
+      <link>https://twalichiewicz.github.io/2025/05/29/Case-studies-updated/</link>
+      <guid>https://twalichiewicz.github.io/2025/05/29/Case-studies-updated/</guid>
+      <pubDate>Thu, 29 May 2025 22:14:31 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;I’ve gone ahead and rewritten several of the project pages, as well as added some fun UI elements. Enjoy!&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>I’ve gone ahead and rewritten several of the project pages, as well as added some fun UI elements. Enjoy!</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/05/29/Case-studies-updated/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>New design, new shit</title>
@@ -466,23 +491,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/03/26/I-m-obsessed-post/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Sometimes, it’s the little tech annoyances that sting the most</title>
-      <link>https://twalichiewicz.github.io/2025/03/22/Ars-Sometimes-it-s-the-little-things/</link>
-      <guid>https://twalichiewicz.github.io/2025/03/22/Ars-Sometimes-it-s-the-little-things/</guid>
-      <pubDate>Sat, 22 Mar 2025 22:20:42 GMT</pubDate>
-      
-      
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/03/22/Ars-Sometimes-it-s-the-little-things/#disqus_thread</comments>
       
     </item>
     
