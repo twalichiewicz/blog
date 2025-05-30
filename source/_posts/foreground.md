@@ -9,15 +9,15 @@ cover_video_poster:
 has_writeup: true
 tags: [portfolio]
 gallery_images:
-  - url: /2018/04/04/foreground/Color-scheme.jpg
+  - url: /2018/04/05/foreground/Color-scheme.jpg
     type: image
-  - url: /2018/04/04/foreground/Component-details.jpg
+  - url: /2018/04/05/foreground/Component-details.jpg
     type: image
-  - url: /2018/04/04/foreground/Components.jpg
+  - url: /2018/04/05/foreground/Components.jpg
     type: image
-  - url: /2018/04/04/foreground/Icon-Set.jpg
+  - url: /2018/04/05/foreground/Icon-Set.jpg
     type: image
-  - url: /2018/04/04/foreground/Typography.jpg
+  - url: /2018/04/05/foreground/Typography.jpg
     type: image
 summary:
   problem:
