@@ -1,12 +1,11 @@
 ---
 title: Distribution automation
-company: Human Interest
-byline: Automated distribution of 401(k) withdrawals and transfers
 date: 2017-07-30 13:22:52
-cover_image: 
+company: Human Interest
+byline: Designed and implemented an automated digital system for 401(k) distribution requests—transforming a paper-based process into a streamlined, user-friendly experience that reduced processing times and improved customer satisfaction
 tags: [portfolio]
-has_writeup: true
 layout: project_gallery
+has_writeup: true
 gallery_images:
   - url: /2017/07/30/Human-Interest-distribution-automation/distribution_000.png
     type: image
@@ -34,37 +33,35 @@ gallery_images:
     type: image
   - url: /2017/07/30/Human-Interest-distribution-automation/distribution_1000.png
     type: image
---- 
+summary:
+  problem:
+    content: "Human Interest's 401(k) distribution process relied on outdated paper forms and manual processing. Users faced a cumbersome experience filled with unclear instructions, while operations teams struggled with time-consuming paperwork and error-prone data entry. This inefficient system created unnecessary friction for customers trying to access their retirement funds."
+  solution:
+    content: "I designed and implemented a fully digital distribution request system that automated the entire process. The solution featured an intuitive, step-by-step form interface that guided users through the request process while ensuring accurate data collection. Behind the scenes, the system streamlined backend processing and validation."
+  innovation:
+    title: "Digital-First Distribution Platform"
+    bullets:
+      - "<strong>Guided User Experience:</strong> Designed an intuitive, step-by-step interface that simplified complex distribution requests into manageable tasks"
+      - "<strong>Automated Validation:</strong> Implemented real-time data validation and error prevention to reduce processing errors"
+      - "<strong>Seamless Integration:</strong> Created a unified system that connected frontend user experience with backend processing workflows"
+      - "<strong>Process Optimization:</strong> Redesigned the entire distribution workflow to eliminate manual steps and reduce processing time"
+  impact:
+    bullets:
+      - "Reduced distribution request processing time by eliminating manual paperwork"
+      - "Significantly improved user satisfaction through intuitive digital interface"
+      - "Decreased error rates in distribution requests through automated validation"
+      - "Created scalable foundation for future process improvements"
+      - "Enabled faster customer service response times through streamlined operations"
+---
 
-### Opportunity
+## Process & Design Approach
 
-Human Interest's 401(k) distribution process was stuck in the past—arduous, paper-based, and inefficient. The challenge was to modernize this outdated process with a digital automation solution, streamlining the distribution request experience for users.
+The project began with a comprehensive analysis of the existing paper-based workflow. Through user interviews and process mapping, I identified key pain points in both the customer experience and operational efficiency. This research informed the design of a digital-first solution that would transform the entire distribution request process.
 
-### Process & Key Findings
+## Technical Implementation
 
-I started by mapping the existing paper workflow and gathering feedback from users who found the process slow and cumbersome. Key insights included:
+Working closely with engineering teams, I designed a system that combined user-friendly frontend interfaces with robust backend automation. The solution featured real-time validation, automated data processing, and seamless integration with existing systems. The implementation focused on creating a reliable, scalable platform that could handle distribution requests efficiently while maintaining strict compliance requirements.
 
-- **Inefficiency**: The manual, paper mailing process was time-consuming and error-prone.
-- **User Frustration**: Users struggled with outdated forms and unclear instructions.
-- **Digital Potential**: A well-designed, automated digital form could significantly simplify the experience.
+## Results & Impact
 
-### Design & Execution
-
-I developed an automated distribution request form that replaced the old paper process:
-
-- **Guided Digital Flow**: The solution walks users through each step, ensuring all necessary information is captured efficiently.
-- **Backend Integration**: The automation streamlines data collection and processing, speeding up the entire distribution request process.
-
-### Key Deliverables
-
-- **Automated Distribution Request Form**: A fully digital, interactive form that simplifies the process.
-- **User Flow Documentation & Prototypes**: Detailed prototypes and user flow maps that validate the streamlined process.
-- **Integration Blueprint**: A plan for seamless backend integration to automate data processing.
-
-### Outcomes
-
-The automated form transformed the distribution request process:
-
-- **Faster Turnaround**: Reduced processing times by eliminating manual paperwork.
-- **Enhanced User Experience**: Simplified and intuitive interface significantly lowered user frustration.
-- **Operational Efficiency**: Automated data collection and processing paved the way for scalable improvements in customer service.
+The automated distribution system fundamentally transformed how Human Interest handled 401(k) distribution requests. Users benefited from a simplified, intuitive process that reduced frustration and confusion. Meanwhile, the operations team gained efficiency through automated processing and validation. The system's success demonstrated the value of digital transformation in financial services, setting a new standard for retirement account management.
