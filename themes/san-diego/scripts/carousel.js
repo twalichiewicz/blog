@@ -11,10 +11,24 @@ hexo.extend.tag.register('carousel', function (args) {
 
 		const images = JSON.parse(input);
 
+		// Process each item to set video defaults
+		const processedImages = images.map(item => {
+			if (item.type === 'video') {
+				// Set autoplay and loop to true by default for videos, unless explicitly set to false
+				return {
+					...item,
+					autoplay: item.autoplay !== false, // defaults to true unless explicitly false
+					loop: item.loop !== false, // defaults to true unless explicitly false
+					muted: item.muted !== false // defaults to true for autoplay compatibility
+				};
+			}
+			return item;
+		});
+
 		// Generate minimal HTML structure - let the frontend JS handle the rest
 		return `<div class="carousel" aria-label="Media carousel">
       <div class="carousel-track">
-        ${images.map((item, index) => {
+        ${processedImages.map((item, index) => {
 			let mediaContent = '';
 			if (item.type === 'video') {
 				mediaContent = `<video controls preload="metadata" playsinline${item.autoplay ? ' autoplay' : ''}${item.loop ? ' loop' : ''}${item.muted ? ' muted' : ''}>
@@ -44,10 +58,10 @@ hexo.extend.tag.register('carousel', function (args) {
           </div>`;
 		}).join('')}
       </div>
-      ${images.length > 1 ? `
+      ${processedImages.length > 1 ? `
         <div class="carousel-indicators">
           <button class="carousel-button prev" aria-label="Previous slide"></button>
-          ${images.map((_, index) => `
+          ${processedImages.map((_, index) => `
             <button class="indicator ${index === 0 ? 'active' : ''}" 
                     aria-label="Go to slide ${index + 1}"></button>
           `).join('')}

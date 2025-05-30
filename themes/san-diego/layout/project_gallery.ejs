@@ -20,30 +20,6 @@
 		<div class="project-title">
 			<span class="project-category"><%- page.company %></span>
 			<h2><%- page.title %></h2>
-			<% if (page.credits && page.credits.length) { %>
-			<div class="metadata">
-				<div class="metadata-list">
-					<% page.credits.forEach(function(credit) { %>
-						<div class="metadata-item">
-						<span class="label" style="font-size: 9px;"><%= credit.role %></span>
-						<span class="value" style="font-size: 12px;"><%= credit.name %></span>
-						</div>
-					<% }); %>
-					<% if (page.year) { %>
-					<div class="metadata-item">
-						<span class="label" style="font-size: 9px;">Year</span>
-						<span class="value" style="font-size: 12px;"><%= page.year %></span>
-					</div>
-					<% } %>
-					<% if (page.location) { %>
-					<div class="metadata-item">
-						<span class="label" style="font-size: 9px;">Location</span>
-						<span class="value" style="font-size: 12px;"><%= page.location %></span>
-					</div>
-					<% } %>
-				</div>
-			</div>
-			<% } %>
 		</div>
 		<div class="project-gallery<%= !page.gallery_images || page.gallery_images.length === 0 ? ' hidden' : '' %>">
 			<div class="carousel" aria-label="Media carousel">
@@ -52,11 +28,31 @@
 						<% page.gallery_images.forEach((item, index) => { %>
 							<div class="carousel-slide <%= index === 0 ? 'active' : '' %>" aria-hidden="<%= index === 0 ? 'false' : 'true' %>">
 								<% if (item.type === 'video') { %>
-									<video controls preload="metadata" playsinline crossorigin="anonymous" <%= item.poster ? `poster="${item.poster}"` : '' %> <%= item.autoplay ? 'autoplay' : '' %> <%= item.loop ? 'loop' : '' %> <%= item.muted ? 'muted' : '' %>>
+									<% 
+									// Set video defaults: autoplay, loop, and muted unless explicitly set to false
+									const autoplay = item.autoplay !== false;
+									const loop = item.loop !== false;
+									const muted = item.muted !== false;
+									%>
+									<video controls preload="metadata" playsinline crossorigin="anonymous" <%= item.poster ? `poster="${item.poster}"` : '' %> <%= autoplay ? 'autoplay' : '' %> <%= loop ? 'loop' : '' %> <%= muted ? 'muted' : '' %>>
 										<% if (item.url.endsWith('.mp4')) { %>
-											<% const baseUrl = item.url.replace('.mp4', '') %>
-											<source src="<%= baseUrl %>.webm" type="video/webm">
-											<source src="<%= baseUrl %>_web.mp4" type="video/mp4">
+											<% 
+											// Smart handling of video URLs to avoid double _web suffixes
+											let baseUrl, webmUrl, webMp4Url;
+											if (item.url.includes('_web.mp4')) {
+												// If URL already has _web.mp4, remove _web.mp4 to get the base
+												baseUrl = item.url.replace('_web.mp4', '');
+												webmUrl = baseUrl + '.webm';
+												webMp4Url = item.url; // Use the original _web.mp4 file
+											} else {
+												// If URL doesn't have _web, create the variants
+												baseUrl = item.url.replace('.mp4', '');
+												webmUrl = baseUrl + '.webm';
+												webMp4Url = baseUrl + '_web.mp4';
+											}
+											%>
+											<source src="<%= webmUrl %>" type="video/webm">
+											<source src="<%= webMp4Url %>" type="video/mp4">
 											<source src="<%= item.url %>" type="video/mp4">
 										<% } else { %>
 											<source src="<%= item.url %>" type="<%= item.videoType || 'video/mp4' %>">
@@ -106,6 +102,34 @@
 				<%- partial('_partial/project-tabs') %>
 			</div>
 		</div>
+
+		<!-- Project metadata moved to end of page -->
+		<% if (page.credits && page.credits.length) { %>
+		<div class="project-metadata-footer">
+			<div class="metadata">
+				<div class="metadata-list">
+					<% page.credits.forEach(function(credit) { %>
+						<div class="metadata-item">
+						<span class="label" style="font-size: 9px;"><%= credit.role %></span>
+						<span class="value" style="font-size: 12px;"><%= credit.name %></span>
+						</div>
+					<% }); %>
+					<% if (page.year) { %>
+					<div class="metadata-item">
+						<span class="label" style="font-size: 9px;">Year</span>
+						<span class="value" style="font-size: 12px;"><%= page.year %></span>
+					</div>
+					<% } %>
+					<% if (page.location) { %>
+					<div class="metadata-item">
+						<span class="label" style="font-size: 9px;">Location</span>
+						<span class="value" style="font-size: 12px;"><%= page.location %></span>
+					</div>
+					<% } %>
+				</div>
+			</div>
+		</div>
+		<% } %>
 
 		<style>
 			/* Fade-in animation styles */
