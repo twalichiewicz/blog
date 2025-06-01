@@ -8,6 +8,13 @@ tags:
 layout: project_gallery
 has_writeup: true
 cover_image: /2020/01/21/Self-Service-Publishing-Pipeline/sspp_cover.jpg
+gallery_images:
+ - url: /2020/01/21/Self-Service-Publishing-Pipeline/LINO-0.jpg
+   type: image
+ - url: /2020/01/21/Self-Service-Publishing-Pipeline/LINO-SIMPLE.png
+   type: image
+ - url: /2020/01/21/Self-Service-Publishing-Pipeline/LINO-EXPANDED.png
+   type: image
 summary:
   problem:
     content: "Autodesk's smart support system could monitor user behavior and deliver contextual guidance, but publishing new content required full engineering cycles. Every tutorial, efficiency tip, or onboarding flow needed scheduled meetings, resource allocation, wiki documentation, and cross-team coordination. This meant intelligent features that could help millions of users were bottlenecked by a process designed for major feature releases."
