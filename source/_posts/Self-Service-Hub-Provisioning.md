@@ -36,22 +36,53 @@ summary:
       - "Freed customer support teams from routine provisioning requests"
       - "Enabled instant scalability for enterprise customers managing multiple projects"
       - "Standardized cloud infrastructure management across all Autodesk web products"
+  credits:
+    - role: Role
+      name: Lead Product Designer, Cloud Hubs
+    - role: Timeline
+      name: 12 months
+    - role: Cross-functional partners
+      name: Cloud Platform Engineering, Customer Support, Product Management
+    - role: User research
+      name: Project owners, hub managers, construction professionals
+    - role: Technical scope
+      name: Cloud instance provisioning, team management, multi-product configuration
+    - role: Business impact
+      name: Eliminated support dependency for infrastructure deployment, enabled instant project scalability
 ---
 
-## Research & Discovery
+## Trapped by Support Tickets
 
-The provisioning bottleneck was creating significant friction for enterprise customers who needed to spin up new project environments quickly. Through customer interviews and support ticket analysis, I discovered that 60% of support requests were routine infrastructure provisioning tasks that could be automated.
+When enterprise customers needed to deploy new cloud instances for projects—whether Autodesk Construction Cloud, BIM 360, or Flow Production Tracking—they hit an immediate roadblock: every single deployment required contacting customer support. Project owners who could set up million-dollar construction workflows were forced to wait days for Autodesk staff to manually provision basic cloud infrastructure.
 
-## Design Process
+The process was frustrating and inefficient. Customers had to explain their project requirements through support tickets, wait for manual setup of teams and permissions, then hope everything was configured correctly for their specific regional and collaboration needs. Meanwhile, support teams spent countless hours on routine provisioning requests instead of solving actual technical problems.
 
-I worked closely with infrastructure engineers to understand the technical requirements for cloud deployment while mapping out customer workflows. The challenge was abstracting complex infrastructure decisions into intuitive interface choices that non-technical administrators could confidently navigate.
+This became particularly painful for large enterprises managing multiple concurrent projects. Every new building, every new team, every new collaboration workflow meant another support ticket and another delay in getting teams productive.
 
-## Solution Architecture
+## Research with Real Project Owners
 
-The self-service system breaks down complex cloud deployments into a guided wizard experience. Each step presents only the relevant choices for that stage, with smart defaults based on common enterprise configurations. The system handles all the underlying infrastructure orchestration while presenting a simple, linear workflow to users.
+I interviewed project owners and hub managers to understand how they actually thought about setting up new projects in the real world. These weren't IT administrators—they were construction managers, architects, and project leads who knew exactly who needed access to what tools and what standards their teams should follow.
 
-## Impact & Results
+The research revealed that these professionals had sophisticated mental models about project organization, team permissions, and tool requirements. They could quickly determine which cloud products their project needed, what regions made sense for their teams, and what levels of access different collaborators required.
 
-The transformation was immediate and dramatic. Enterprise customers could now scale their operations dynamically without delays, support teams could focus on complex technical issues rather than routine provisioning, and Autodesk gained a competitive advantage by offering infrastructure agility that other CAD vendors couldn't match.
+The bottleneck wasn't their understanding—it was our process that forced them to translate their project knowledge through support tickets instead of letting them configure directly.
 
-The system proved so effective that it became the standard deployment method for all new Autodesk cloud products, establishing a scalable foundation for the company's cloud-first strategy.
+## Designing Infrastructure as Self-Service
+
+The breakthrough was realizing that hub provisioning could follow the same self-service model that had worked for the Custom Install platform. Instead of forcing customers to describe their needs through support tickets, I designed a guided wizard that let them configure cloud infrastructure directly
+
+The wizard walks users through the essential decisions: which cloud products their project needs, what geographic region makes sense for their teams, and how permissions should be structured. Behind the scenes, the system handles the complex process of setting up cloud instances, configuring team structures in Autodesk accounts, and establishing the technical infrastructure required for collaboration.
+
+Working with engineering teams, I designed the interface to feel like project setup rather than technical configuration. Users think in terms of "I'm starting a new construction project and need these teams to collaborate" rather than "I need to provision cloud instances with these technical specifications."
+
+## From Support Dependency to Instant Deployment
+
+The transformation eliminated the support ticket bottleneck entirely. Project owners can now provision new hubs instantly through the guided interface, with all the complex cloud infrastructure setup happening automatically in the background.
+
+The wizard ensures that all the technical requirements—regional deployment, security configurations, team permission structures—are handled correctly while presenting users with straightforward project-focused choices. What previously required days of back-and-forth with support staff now happens in minutes through self-service.
+
+Support teams were freed from routine provisioning requests to focus on genuine technical support issues. Customers gained immediate control over their project infrastructure, enabling them to respond quickly to new business opportunities without waiting for manual setup processes.
+
+The system scales naturally with enterprise needs—large organizations can provision multiple hubs for complex project portfolios without creating proportional support burden. This infrastructure became essential as Autodesk's cloud products expanded and more enterprises adopted collaborative workflows.
+
+This project demonstrated how self-service design can transform operational bottlenecks into competitive advantages, giving customers immediate access to sophisticated cloud infrastructure while reducing support overhead.
