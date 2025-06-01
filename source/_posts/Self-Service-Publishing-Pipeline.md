@@ -11,9 +11,9 @@ cover_image: /2020/01/21/Self-Service-Publishing-Pipeline/sspp_cover.jpg
 gallery_images:
  - url: /2020/01/21/Self-Service-Publishing-Pipeline/LINO-0.jpg
    type: image
- - url: /2020/01/21/Self-Service-Publishing-Pipeline/LINO-SIMPLE.png
+ - url: /2020/01/21/Self-Service-Publishing-Pipeline/LINO-SIMPLE.jpg
    type: image
- - url: /2020/01/21/Self-Service-Publishing-Pipeline/LINO-EXPANDED.png
+ - url: /2020/01/21/Self-Service-Publishing-Pipeline/LINO-EXPANDED.jpg
    type: image
 summary:
   problem:
