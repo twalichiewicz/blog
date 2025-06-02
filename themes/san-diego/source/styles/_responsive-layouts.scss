@@ -519,10 +519,14 @@
 			margin: 0;
 			box-sizing: border-box;
 			/* Chrome-specific fixes for scrolling content rendering */
-			contain: layout style;
+			contain: layout style paint;
 			will-change: scroll-position;
 			transform: translateZ(0);
 			-webkit-transform: translateZ(0);
+			/* Additional Chrome optimizations */
+			-webkit-overflow-scrolling: touch;
+			overflow-anchor: none;
+			scroll-behavior: auto;
 
 			&::-webkit-scrollbar {
 				width: 6px;
@@ -551,6 +555,26 @@
 				/* Chrome rendering fix for scrollable content */
 				transform: translateZ(0);
 				-webkit-transform: translateZ(0);
+				/* Prevent content shifting */
+				contain: layout;
+			}
+
+			/* Portfolio items optimization */
+			.portfolio-item {
+				/* Chrome rendering fix for scrollable content */
+				transform: translateZ(0);
+				-webkit-transform: translateZ(0);
+				contain: layout;
+				/* Prevent layout thrashing */
+				will-change: auto;
+			}
+
+			/* Company groups optimization */
+			.company-group {
+				/* Chrome rendering fix */
+				transform: translateZ(0);
+				-webkit-transform: translateZ(0);
+				contain: layout;
 			}
 		}
 

@@ -323,7 +323,6 @@
                                                     <% if (post.cover_video_poster) { %>poster="<%- url_for(post.cover_video_poster) %>"<% } %>
                                                     alt="<%- post.title %>"
                                                     loading="lazy"
-                                                    data-base-path="<%- url_for(post.cover_image.replace(/\.(mp4|webm|ogg|mov)$/i, '').replace('-simple', '')) %>"
                                                 >
                                                     <% 
                                                     // Generate compatible video paths

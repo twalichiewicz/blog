@@ -3,7 +3,7 @@ layout: project_gallery
 company: Human Interest
 title: Company rebranding
 byline: Led comprehensive brand transformation across all touchpoints, unifying visual identity, marketing, and product design
-cover_image: 2017/09/11/Human-Interest-brand/humanInterestBrand-preview.png
+cover_image: /2017/09/10/Human-Interest-brand/humanInterestBrand-preview.png
 date: 2017-09-11 00:00:00
 type: project_gallery
 year: 2017

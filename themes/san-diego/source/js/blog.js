@@ -5,10 +5,10 @@
 import { initializeCarousels, cleanupCarouselInstances } from './carousel.js';
 import { initializeMobileTabs } from './mobile-tabs.js';
 import videoAutoplayManager from './components/video-autoplay.js';
-import AdaptiveVideoManager from './components/adaptive-video.js';
+// import AdaptiveVideoManager from './components/adaptive-video.js';
 
 // Initialize adaptive video manager
-const adaptiveVideoManager = new AdaptiveVideoManager();
+// const adaptiveVideoManager = new AdaptiveVideoManager();
 
 document.addEventListener('DOMContentLoaded', function () {
 	// --- Refactored Initialization Function ---
@@ -50,10 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		// --- Adaptive Videos ---
-		if (adaptiveVideoManager && typeof adaptiveVideoManager.refresh === 'function') {
-			console.log('[blog.js] Refreshing adaptive video manager for container:', container);
-			adaptiveVideoManager.refresh();
-		}
+		// if (adaptiveVideoManager && typeof adaptiveVideoManager.refresh === 'function') {
+		// 	console.log('[blog.js] Refreshing adaptive video manager for container:', container);
+		// 	adaptiveVideoManager.refresh();
+		// }
 
 		console.log('[blog.js] initializeBlogFeatures End');
 	}
@@ -121,11 +121,21 @@ document.addEventListener('DOMContentLoaded', function () {
 				return;
 			}
 
+			// Force layout to prevent Chrome rendering issues
+			targetElement.style.transform = 'translateZ(0)';
+			targetElement.style.willChange = 'opacity';
 			targetElement.style.opacity = '0';
 			targetElement.style.transition = `opacity ${duration}ms ease-in-out`;
+
+			// Force repaint
+			targetElement.offsetHeight;
+
 			await new Promise(resolve => setTimeout(resolve, 20)); // Small delay for style application
 			targetElement.style.opacity = '1';
 			await new Promise(resolve => setTimeout(resolve, duration));
+
+			// Clean up will-change for performance
+			targetElement.style.willChange = 'auto';
 		}
 
 		function addOrUpdateBackButton() {
