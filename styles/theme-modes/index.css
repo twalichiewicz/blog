@@ -84,6 +84,7 @@
   background: rgba(255, 255, 255, 0.7);
   border-color: rgba(197.625, 192.3125, 184.875, 0.5);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 .blog.blog .profile-header .contact-wrapper .contact-options .contact-option {
@@ -103,6 +104,7 @@
     background: rgba(255, 255, 255, 0.9);
     border-color: rgba(197.625, 192.3125, 184.875, 0.3);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
   .blog .contact-wrapper .contact-options .contact-option {
@@ -213,6 +215,7 @@
     background: rgba(45.9, 45.9, 45.9, 0.7);
     border-color: rgba(63.75, 63.75, 63.75, 0.5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
   .blog.blog .profile-header .contact-wrapper .contact-options .contact-option {
@@ -233,6 +236,7 @@
     background: rgba(45.9, 45.9, 45.9, 0.6);
     border-color: rgba(63.75, 63.75, 63.75, 0.4);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
   .blog .contact-wrapper .contact-options .contact-option {

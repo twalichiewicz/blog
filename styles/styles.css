@@ -85,6 +85,7 @@
 @media (prefers-color-scheme: light) {
   .card-base, .blog .blog-list .post-list-item.post-link, .portfolio-item.has-writeup {
     background: rgba(255, 255, 255, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -94,6 +95,7 @@
 @media (prefers-color-scheme: dark) {
   .card-base, .blog .blog-list .post-list-item.post-link, .portfolio-item.has-writeup {
     background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: hsl(0, 0%, 95%);
@@ -565,6 +567,9 @@ ol ul {
     background: rgba(45.9, 45.9, 45.9, 0.7);
     border-color: rgba(63.75, 63.75, 63.75, 0.5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
   .blog.blog .profile-header .contact-wrapper .contact-options .contact-option {
@@ -589,6 +594,9 @@ ol ul {
     background: rgba(45.9, 45.9, 45.9, 0.6);
     border-color: rgba(63.75, 63.75, 63.75, 0.4);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
   .blog .contact-wrapper .contact-options .contact-option {
@@ -851,7 +859,11 @@ ol ul {
   }
   .blog.device-desktop .blog-content {
     background: linear-gradient(135deg, hsl(28, 10%, 14%) 0%, hsl(28, 8%, 10%) 100%);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
+    /* Chrome fix: Ensure backdrop-filter doesn't interfere with scrolling */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
     /* Desktop-specific content styling */
     /* Custom scrollbar for desktop */
   }
@@ -921,6 +933,9 @@ ol ul {
   .blog.device-desktop .blog-content .content-wrapper #postsContent .portfolio-item,
   .blog.device-desktop .blog-content .content-wrapper #projectsContent .portfolio-item {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    /* Chrome rendering fix for scrollable content */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
   .blog.device-desktop .blog-content .content-wrapper #postsContent .portfolio-item:hover,
   .blog.device-desktop .blog-content .content-wrapper #projectsContent .portfolio-item:hover {
@@ -930,6 +945,7 @@ ol ul {
   .blog.device-desktop .blog-content .content-wrapper #postsContent .portfolio-item.has-writeup,
   .blog.device-desktop .blog-content .content-wrapper #projectsContent .portfolio-item.has-writeup {
     background: rgba(20, 20, 20, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: hsl(0, 0%, 95%);
@@ -1078,6 +1094,7 @@ ol ul {
   }
   .blog.blog .blog-list .post-list-item.post-link {
     background: rgba(20, 20, 20, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: hsl(0, 0%, 95%);
@@ -1193,6 +1210,7 @@ ol ul {
   .blog .portfolio-item {
     /* Dark mode appearance - only affecting card styling */
     background: rgba(20, 20, 20, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: hsl(0, 0%, 95%);
@@ -1312,6 +1330,7 @@ ol ul {
   .portfolio-item.has-writeup {
     /* Dark mode appearance - only affecting card styling */
     background: rgba(20, 20, 20, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: hsl(0, 0%, 95%);
@@ -1395,6 +1414,7 @@ ol ul {
   .blog .blog-content .content-wrapper #projectsContent .post-list-item.post-link {
     transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -1417,6 +1437,7 @@ ol ul {
   }
   .blog.device-desktop .blog-content {
     background: linear-gradient(135deg, hsl(35, 15%, 94%) 0%, hsl(35, 10%, 98%) 100%);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
   }
   .blog .portfolio-item .portfolio-image {
@@ -1521,6 +1542,7 @@ ol ul {
 }
 .portfolio-item.has-writeup {
   background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -1557,6 +1579,7 @@ ol ul {
 .portfolio-item.has-writeup {
   /* Light mode appearance - default styling */
   background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -1625,6 +1648,7 @@ ol ul {
 /* Light mode portfolio items without writeup */
 .portfolio-item:not(.has-writeup) {
   background: transparent;
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
@@ -1667,6 +1691,7 @@ ol ul {
 .portfolio-items {
   /* Light mode appearance - default styling */
   background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -1713,6 +1738,7 @@ ol ul {
   .portfolio-item.has-writeup {
     /* Dark mode appearance - only affecting card styling */
     background: rgba(20, 20, 20, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: hsl(0, 0%, 95%);
@@ -1764,6 +1790,7 @@ ol ul {
   /* Dark mode portfolio-items styles */
   .portfolio-items {
     background: rgba(20, 20, 20, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -2511,6 +2538,10 @@ ol ul {
   gap: 12px;
   padding: 0;
   border-radius: 15px 0 0 0;
+  /* Chrome rendering fixes */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  isolation: isolate;
 }
 .device-desktop .blog .blog-content #postsContent,
 .device-desktop .blog .blog-content #projectsContent {
@@ -2523,6 +2554,11 @@ ol ul {
   position: relative;
   margin: 0;
   box-sizing: border-box;
+  /* Chrome-specific fixes for scrolling content rendering */
+  contain: layout style;
+  will-change: scroll-position;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   /* Additional styles for column-title within content containers are now handled in the Column Titles section */
   /* Add padding to the top to prevent content from being hidden under the floating header */
   /* Remove top/bottom margins from post-list-items, rely on separator margins instead */
@@ -2548,6 +2584,9 @@ ol ul {
 .device-desktop .blog .blog-content #projectsContent .post-list-item {
   margin-top: 0;
   margin-bottom: 0;
+  /* Chrome rendering fix for scrollable content */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 .device-desktop .blog .blog-content #projectsContent {
   padding-top: 64px;
@@ -2780,6 +2819,7 @@ ol ul {
     color: white;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
   #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:hover .portfolio-image img,
@@ -3147,6 +3187,7 @@ ol ul {
     color: white;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
   #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true]:hover .portfolio-image img,
@@ -3266,6 +3307,7 @@ ol ul {
   .blog .desktop-widgets .widget {
     position: absolute;
     background: rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -3593,6 +3635,7 @@ ol ul {
     color: white;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
   .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true]:hover .portfolio-image img,
@@ -6396,6 +6439,7 @@ body.has-scroll-snap {
 @media (prefers-color-scheme: dark) {
   .project-mini-bio, .post-mini-bio {
     box-shadow: none;
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
   .project-mini-bio .project-mini-bio-image, .post-mini-bio .project-mini-bio-image {
@@ -6638,6 +6682,7 @@ body.loaded .project-wrapper {
   padding: 6px 24px;
   font-size: 0.85rem;
   font-style: italic;
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 }
 @media (prefers-color-scheme: dark) {
@@ -7380,8 +7425,10 @@ body.loaded .project-wrapper {
   height: 33px;
   border: none;
   background: rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-radius: 50%;
   color: #fff;
   cursor: pointer;
@@ -7526,8 +7573,10 @@ body.loaded .project-wrapper {
   padding: 0.75rem;
   text-align: center;
   font-size: 0.9rem;
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   z-index: 2;
   border-radius: 6px;
 }
@@ -7605,6 +7654,7 @@ body.loaded .project-wrapper {
   width: 40px;
   height: 40px;
   background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -7627,6 +7677,7 @@ body.loaded .project-wrapper {
 .project-gallery .carousel .carousel-indicators {
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 8px 12px;
@@ -7927,6 +7978,7 @@ body.loaded .project-wrapper {
   padding: 30px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   transition: transform 0.3s ease;
 }
@@ -8231,6 +8283,7 @@ body.loaded .project-wrapper {
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 .project-tabs .tab-navigation .tab-button::before {
@@ -8687,6 +8740,7 @@ body.loaded .project-wrapper {
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 @media (max-width: 768px) {
@@ -8801,6 +8855,7 @@ body.loaded .project-wrapper {
   bottom: 0;
   border-radius: 12px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 25%, rgba(0, 0, 0, 0.02) 50%, rgba(255, 255, 255, 0.04) 75%, rgba(255, 255, 255, 0.06) 100%);
+  -webkit-backdrop-filter: blur(0.5px);
   backdrop-filter: blur(0.5px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.1), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(0, 0, 0, 0.05);
   pointer-events: none;
@@ -9230,7 +9285,6 @@ button {
   z-index: 1;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease, top 0.3s ease, height 0.3s ease;
-  will-change: transform, width, top, height;
 }
 @media (prefers-color-scheme: dark) {
   .mobile-tabs .mobile-tabs-slider {
@@ -9255,7 +9309,6 @@ button {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   transform: translateX(var(--slider-x));
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease;
-  will-change: transform, width;
 }
 .is-dragging .mobile-tabs::after {
   transition: none;
@@ -9494,6 +9547,7 @@ button {
     transition: all 0.2s ease;
     z-index: 101;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     /* New hover state for active-by-default button */
     /* New active/pressed state for touch/mouse down */
@@ -9529,6 +9583,7 @@ button {
     overflow: hidden;
     z-index: 100;
     min-width: 120px;
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
   .contact-wrapper .contact-options .contact-option {
@@ -9575,6 +9630,7 @@ button {
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     background: rgba(255, 255, 255, 0.6);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
   .contact-wrapper .contact-options .contact-option {
@@ -9703,6 +9759,7 @@ button {
   max-width: 600px;
   max-height: 90vh;
   background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   border-radius: 6px 6px 0 0;
   border-top: 1px solid hsl(35, 10%, 75%);
@@ -10258,6 +10315,7 @@ table th span[style*="background-color: #e6f7ff"] {
     position: absolute;
     inset: 0;
     background: rgba(30, 30, 40, 0.35);
+    -webkit-backdrop-filter: blur(0px);
     backdrop-filter: blur(0px);
     z-index: 1;
     opacity: 0;
@@ -10265,6 +10323,7 @@ table th span[style*="background-color: #e6f7ff"] {
   }
   .contact-modal.active .contact-modal-backdrop {
     opacity: 1;
+    -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
   }
   .contact-modal-sheet {
@@ -10282,8 +10341,10 @@ table th span[style*="background-color: #e6f7ff"] {
     transform: scale(0.3) translateY(-20px);
     opacity: 0;
     transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-backdrop-filter: blur(2px) saturate(1.2);
     backdrop-filter: blur(2px) saturate(1.2);
     -webkit-backdrop-filter: blur(2px) saturate(1.2);
+    backdrop-filter: blur(2px) saturate(1.2);
     border: 1px solid rgba(200, 200, 220, 0.1);
     display: flex;
     flex-direction: column;
@@ -10295,8 +10356,10 @@ table th span[style*="background-color: #e6f7ff"] {
   .contact-modal.active .contact-modal-sheet {
     transform: scale(1) translateY(0);
     opacity: 1;
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
     backdrop-filter: blur(20px) saturate(1.5);
     -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    backdrop-filter: blur(20px) saturate(1.5);
     border: 1px solid rgba(200, 200, 220, 0.3);
   }
   .contact-modal-title {
@@ -10849,6 +10912,7 @@ body.loaded {
   background: rgba(255, 255, 255, 0.7);
   border-color: rgba(197.625, 192.3125, 184.875, 0.5);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 .blog.blog .profile-header .contact-wrapper .contact-options .contact-option {
@@ -10868,6 +10932,7 @@ body.loaded {
     background: rgba(255, 255, 255, 0.9);
     border-color: rgba(197.625, 192.3125, 184.875, 0.3);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
   .blog .contact-wrapper .contact-options .contact-option {
@@ -10978,6 +11043,7 @@ body.loaded {
     background: rgba(45.9, 45.9, 45.9, 0.7);
     border-color: rgba(63.75, 63.75, 63.75, 0.5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
   .blog.blog .profile-header .contact-wrapper .contact-options .contact-option {
@@ -10998,6 +11064,7 @@ body.loaded {
     background: rgba(45.9, 45.9, 45.9, 0.6);
     border-color: rgba(63.75, 63.75, 63.75, 0.4);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
   .blog .contact-wrapper .contact-options .contact-option {
