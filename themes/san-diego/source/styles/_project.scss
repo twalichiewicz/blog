@@ -1212,6 +1212,11 @@
 		height: auto;
 		min-height: auto;
 	}
+
+	// Reduced font size for project writeup paragraphs in dynamically loaded projects
+	.project-writeup .writeup-content p {
+		font-size: 18px;
+	}
 }
 
 // Ensure project wrapper has full height when body is loaded
