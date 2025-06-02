@@ -1,0 +1,48 @@
+name: Optimize and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  optimize-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: false
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Optimize images
+      run: npm run optimize:images
+
+    - name: Build site with optimizations
+      run: npm run build:prod
+
+    - name: Analyze build size
+      run: |
+        echo "Build size analysis:"
+        npm run analyze
+        
+        echo "Largest files:"
+        find public -type f -exec ls -la {} + | sort -k5 -nr | head -20
+
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        cname: thomas.design 
