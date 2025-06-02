@@ -3,10 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
+    "build": "hexo clean && hexo generate",
+    "build:prod": "hexo clean && hexo generate && npm run optimize",
+    "optimize": "npm run optimize:images",
+    "optimize:images": "node tools/optimize-images.js",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "analyze": "du -sh public/ && find public -name '*.js' -o -name '*.css' | xargs wc -c | tail -1"
   },
   "hexo": {
     "version": "6.3.0"
@@ -23,8 +27,12 @@
     "hexo-generator-category": "^2.0.0",
     "hexo-generator-feed": "^3.0.0",
     "hexo-generator-index": "^3.0.0",
+    "hexo-generator-search": "^2.4.3",
+    "hexo-generator-sitemap": "^3.0.1",
     "hexo-generator-tag": "^2.0.0",
+    "hexo-lazyload-image": "^1.0.9",
     "hexo-math": "^5.0.0",
+    "hexo-minify": "^1.8.1",
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-marked": "^6.3.0",
     "hexo-renderer-sass": "^0.5.0",
@@ -51,6 +59,8 @@
   },
   "notes": "All vulnerabilities have been addressed by removing hexo-admin and hexo-pdf, and replacing hoek with @hapi/hoek.",
   "devDependencies": {
-    "gray-matter": "^4.0.3"
+    "glob": "^10.3.10",
+    "gray-matter": "^4.0.3",
+    "sharp": "^0.33.2"
   }
 }

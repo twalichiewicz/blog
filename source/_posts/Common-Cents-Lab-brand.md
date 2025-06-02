@@ -12,9 +12,9 @@ credits:
   - role: Design & Brand Lead
     name: Thomas Walichiewicz
 gallery_images:
-  - url: /2016/01/01/Common-Cents-Lab-brand/introVideo.gif
+  - url: /2016/01/01/Common-Cents-Lab-brand/introVideo.mp4
     caption: Common Cents Lab logo animation.
-    type: image
+    type: video
   - url: /2016/01/01/Common-Cents-Lab-brand/ccPayableWebinar.png
     caption: The Common Cents Lab logo.
     type: image
@@ -25,7 +25,7 @@ gallery_images:
 
 ### Opportunity
 
-As the inaugural designer for Common Cents Lab—a nonprofit at the forefront of advancing behavioral science research and education—I faced the unique challenge of rapidly establishing a brand identity from scratch. With no pre-existing visual framework, my task was to craft a cohesive and compelling visual language that seamlessly extended across the website, social media channels, and print materials. This foundational work was designed not only to encapsulate the organization’s mission but also to deepen the audience’s understanding of the financial challenges it seeks to address.
+As the inaugural designer for Common Cents Lab—a nonprofit at the forefront of advancing behavioral science research and education—I faced the unique challenge of rapidly establishing a brand identity from scratch. With no pre-existing visual framework, my task was to craft a cohesive and compelling visual language that seamlessly extended across the website, social media channels, and print materials. This foundational work was designed not only to encapsulate the organization's mission but also to deepen the audience's understanding of the financial challenges it seeks to address.
 
 ### Design & Execution
 

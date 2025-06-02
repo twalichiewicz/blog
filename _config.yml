@@ -76,7 +76,7 @@ post_asset_folder: true
 marked:
   prependRoot: true
   postAsset: true
-  lazyLoad: true
+  lazyLoad: false
 
 # Post types
 post_types:
@@ -89,3 +89,52 @@ post_types:
     icon: 🎨
     class: project-gallery
     header_style: full-width
+
+# Performance Optimizations
+# Hexo-minify - Minify HTML, CSS, JS and optimize images  
+minify:
+  enable: true # Re-enable hexo-minify
+  preview: false # Whether to compress during local preview
+  exclude: ['*.min.*']
+  js:
+    enable: true
+    sourceMap:
+      enable: false # generate sourceMap
+      sourceMappingURL: false # //# sourceMappingURL=xxx.js.map
+    options: {}
+  css:
+    enable: true
+    sourceMap: # Added to explicitly disable if it was an implicit option
+      enable: false
+      sourceMappingURL: false
+    options: {}
+  html:
+    enable: true
+    options:
+      minifyJS: true # Compressed JavaScript
+      minifyCSS: true # CSS Compressed
+      removeComments: true # Remove the comments
+      collapseWhitespace: true # Delete any extra space
+      removeAttributeQuotes: true # Delete attribute quotes
+  image:
+    enable: true # Set to false if image optimization is handled *only* by the separate script
+    options: {}
+
+# Lazy Load Images
+lazyload:
+  enable: false # Disable hexo-lazyload-image as theme uses native loading="lazy"
+  loadingImg: # Loading image placeholder
+  placeholder: data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvc3ZnIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2VlZSIvPjwvc3ZnPg==
+
+# Sitemap
+sitemap:
+  path: sitemap.xml
+  rel: false
+  tags: true
+  categories: true
+
+# Search
+search:
+  path: search.xml
+  field: post
+  content: true
