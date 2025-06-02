@@ -370,6 +370,7 @@ button {
 		z-index: 1;
 		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease, top 0.3s ease, height 0.3s ease;
+		will-change: transform, width, top, height;
 
 		@media (prefers-color-scheme: dark) {
 			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
@@ -399,6 +400,7 @@ button {
 		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 		transform: translateX(var(--slider-x));
 		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease;
+		will-change: transform, width;
 
 		.is-dragging & {
 			transition: none;
@@ -725,7 +727,6 @@ button {
 			box-shadow:
 				0 1px 2px rgba(0, 0, 0, 0.1),
 				0 1px 0 rgba(255, 255, 255, 0.1) inset;
-			-webkit-backdrop-filter: blur(4px);
 			backdrop-filter: blur(4px);
 
 			/* New hover state for active-by-default button */
@@ -771,7 +772,6 @@ button {
 			overflow: hidden;
 			z-index: 100;
 			min-width: 120px;
-			-webkit-backdrop-filter: blur(4px);
 			backdrop-filter: blur(4px);
 
 			.contact-option {
@@ -825,7 +825,6 @@ button {
 			overflow: hidden;
 			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 			background: rgba(variables.$card-bg, 0.6);
-			-webkit-backdrop-filter: blur(4px);
 			backdrop-filter: blur(4px);
 
 			.contact-option {
@@ -996,7 +995,6 @@ button {
 	max-width: 600px;
 	max-height: 90vh;
 	background: rgba(0, 0, 0, 0.5);
-	-webkit-backdrop-filter: blur(4px);
 	backdrop-filter: blur(4px);
 	border-radius: 6px 6px 0 0;
 	border-top: 1px solid variables.$border-color;
@@ -1695,7 +1693,6 @@ table {
 		position: absolute;
 		inset: 0;
 		background: rgba(30, 30, 40, 0.35);
-		-webkit-backdrop-filter: blur(0px);
 		backdrop-filter: blur(0px);
 		z-index: 1;
 		opacity: 0;
@@ -1706,7 +1703,6 @@ table {
 
 	.contact-modal.active .contact-modal-backdrop {
 		opacity: 1;
-		-webkit-backdrop-filter: blur(6px);
 		backdrop-filter: blur(6px);
 	}
 
@@ -1730,10 +1726,8 @@ table {
 			background-color 0.3s ease,
 			border-color 0.3s ease,
 			backdrop-filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-		-webkit-backdrop-filter: blur(2px) saturate(1.2);
 		backdrop-filter: blur(2px) saturate(1.2);
 		-webkit-backdrop-filter: blur(2px) saturate(1.2);
-		backdrop-filter: blur(2px) saturate(1.2);
 		border: 1px solid rgba(200, 200, 220, 0.1);
 		display: flex;
 		flex-direction: column;
@@ -1746,10 +1740,8 @@ table {
 	.contact-modal.active .contact-modal-sheet {
 		transform: scale(1) translateY(0);
 		opacity: 1;
-		-webkit-backdrop-filter: blur(20px) saturate(1.5);
 		backdrop-filter: blur(20px) saturate(1.5);
 		-webkit-backdrop-filter: blur(20px) saturate(1.5);
-		backdrop-filter: blur(20px) saturate(1.5);
 		border: 1px solid rgba(200, 200, 220, 0.3);
 	}
 

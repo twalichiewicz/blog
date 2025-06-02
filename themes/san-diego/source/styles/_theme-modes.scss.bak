@@ -119,8 +119,6 @@
 					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 					-webkit-backdrop-filter: blur(4px);
 					backdrop-filter: blur(4px);
-					-webkit-backdrop-filter: blur(4px);
-					backdrop-filter: blur(4px);
 
 					.contact-option {
 						background: transparent;
@@ -147,8 +145,6 @@
 					background: rgba(variables.$card-bg-dark, 0.6);
 					border-color: rgba(variables.$border-color-dark, 0.4);
 					box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-					-webkit-backdrop-filter: blur(4px);
-					backdrop-filter: blur(4px);
 					-webkit-backdrop-filter: blur(4px);
 					backdrop-filter: blur(4px);
 
@@ -436,11 +432,7 @@
 			background: linear-gradient(135deg,
 					hsl(28, 10%, 14%) 0%,
 					hsl(28, 8%, 10%) 100%);
-			-webkit-backdrop-filter: blur(5px);
 			backdrop-filter: blur(5px);
-			/* Chrome fix: Ensure backdrop-filter doesn't interfere with scrolling */
-			transform: translateZ(0);
-			-webkit-transform: translateZ(0);
 
 			/* Desktop-specific content styling */
 			.content-wrapper {
@@ -519,9 +511,6 @@
 					/* Enhanced portfolio item styling for desktop */
 					.portfolio-item {
 						box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-						/* Chrome rendering fix for scrollable content */
-						transform: translateZ(0);
-						-webkit-transform: translateZ(0);
 
 						&:hover {
 							box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3),
@@ -531,7 +520,6 @@
 
 						&.has-writeup {
 							background: rgba(20, 20, 20, 0.7);
-							-webkit-backdrop-filter: blur(5px);
 							backdrop-filter: blur(5px);
 							border: 1px solid rgba(255, 255, 255, 0.1);
 							color: variables.$text-color-dark;
@@ -702,7 +690,6 @@
 			/* Dark mode styling for the separator */
 			&.post-link {
 				background: rgba(20, 20, 20, 0.7);
-				-webkit-backdrop-filter: blur(5px);
 				backdrop-filter: blur(5px);
 				border: 1px solid rgba(255, 255, 255, 0.1);
 				color: variables.$text-color-dark;
@@ -876,7 +863,6 @@
 		.portfolio-item {
 			/* Dark mode appearance - only affecting card styling */
 			background: rgba(20, 20, 20, 0.7);
-			-webkit-backdrop-filter: blur(5px);
 			backdrop-filter: blur(5px);
 			border: 1px solid rgba(255, 255, 255, 0.1);
 			color: variables.$text-color-dark;
@@ -1051,7 +1037,6 @@
 	.portfolio-item.has-writeup {
 		/* Dark mode appearance - only affecting card styling */
 		background: rgba(20, 20, 20, 0.7);
-		-webkit-backdrop-filter: blur(5px);
 		backdrop-filter: blur(5px);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		color: variables.$text-color-dark;
@@ -1154,7 +1139,6 @@
 							&.post-link {
 								transition: all 0.3s ease;
 								background: rgba(255, 255, 255, 0.7);
-								-webkit-backdrop-filter: blur(5px);
 								backdrop-filter: blur(5px);
 								border: 1px solid rgba(variables.$text-color-secondary, 0.1);
 								box-shadow: variables.$shadow-soft;
@@ -1192,7 +1176,6 @@
 			background: linear-gradient(135deg,
 					hsl(35, 15%, 94%) 0%,
 					hsl(35, 10%, 98%) 100%);
-			-webkit-backdrop-filter: blur(5px);
 			backdrop-filter: blur(5px);
 		}
 
@@ -1327,7 +1310,6 @@
 	&.has-writeup {
 		@extend .card-base !optional;
 		background: rgba(255, 255, 255, 0.7);
-		-webkit-backdrop-filter: blur(5px);
 		backdrop-filter: blur(5px);
 		border: 1px solid rgba(variables.$text-color-secondary, 0.1);
 		box-shadow: variables.$shadow-soft;
@@ -1376,7 +1358,6 @@
 .portfolio-item.has-writeup {
 	/* Light mode appearance - default styling */
 	background: rgba(255, 255, 255, 0.7);
-	-webkit-backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
 	border: 1px solid rgba(variables.$text-color-secondary, 0.1);
 	box-shadow: variables.$shadow-soft;
@@ -1459,7 +1440,6 @@
 /* Light mode portfolio items without writeup */
 .portfolio-item:not(.has-writeup) {
 	background: transparent;
-	-webkit-backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
 	border: 1px solid rgba(0, 0, 0, 0.05);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
@@ -1508,7 +1488,6 @@
 .portfolio-items {
 	/* Light mode appearance - default styling */
 	background: rgba(255, 255, 255, 0.7);
-	-webkit-backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
 	border: 1px solid rgba(variables.$text-color-secondary, 0.1);
 	box-shadow: variables.$shadow-soft;
@@ -1579,7 +1558,6 @@
 	.portfolio-item.has-writeup {
 		/* Dark mode appearance - only affecting card styling */
 		background: rgba(20, 20, 20, 0.7);
-		-webkit-backdrop-filter: blur(5px);
 		backdrop-filter: blur(5px);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		color: variables.$text-color-dark;
@@ -1641,7 +1619,6 @@
 	/* Dark mode portfolio-items styles */
 	.portfolio-items {
 		background: rgba(20, 20, 20, 0.7);
-		-webkit-backdrop-filter: blur(5px);
 		backdrop-filter: blur(5px);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);

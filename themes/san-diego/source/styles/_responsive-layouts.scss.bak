@@ -501,10 +501,6 @@
 			gap: variables.$space-sm;
 			padding: 0;
 			border-radius: 15px 0 0 0;
-			/* Chrome rendering fixes */
-			transform: translateZ(0);
-			-webkit-transform: translateZ(0);
-			isolation: isolate;
 		}
 
 		#postsContent,
@@ -518,11 +514,6 @@
 			position: relative;
 			margin: 0;
 			box-sizing: border-box;
-			/* Chrome-specific fixes for scrolling content rendering */
-			contain: layout style;
-			will-change: scroll-position;
-			transform: translateZ(0);
-			-webkit-transform: translateZ(0);
 
 			&::-webkit-scrollbar {
 				width: 6px;
@@ -548,9 +539,6 @@
 			.post-list-item {
 				margin-top: 0;
 				margin-bottom: 0;
-				/* Chrome rendering fix for scrollable content */
-				transform: translateZ(0);
-				-webkit-transform: translateZ(0);
 			}
 		}
 
@@ -829,7 +817,6 @@
 						color: white;
 						background: rgba(255, 255, 255, 0.2);
 						border: 1px solid rgba(255, 255, 255, 0.3);
-						-webkit-backdrop-filter: blur(10px);
 						backdrop-filter: blur(10px);
 					}
 				}
@@ -1275,7 +1262,6 @@
 							color: white;
 							background: rgba(255, 255, 255, 0.2);
 							border: 1px solid rgba(255, 255, 255, 0.3);
-							-webkit-backdrop-filter: blur(10px);
 							backdrop-filter: blur(10px);
 						}
 					}
@@ -1428,7 +1414,6 @@
 			.widget {
 				position: absolute;
 				background: rgba(255, 255, 255, 0.8);
-				-webkit-backdrop-filter: blur(10px);
 				backdrop-filter: blur(10px);
 				border-radius: 12px;
 				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -1805,7 +1790,6 @@
 								color: white;
 								background: rgba(255, 255, 255, 0.2);
 								border: 1px solid rgba(255, 255, 255, 0.3);
-								-webkit-backdrop-filter: blur(10px);
 								backdrop-filter: blur(10px);
 							}
 						}

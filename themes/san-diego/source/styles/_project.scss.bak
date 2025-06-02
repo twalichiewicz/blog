@@ -1023,8 +1023,7 @@
 
 	@media (prefers-color-scheme: dark) {
 		box-shadow: none;
-		-webkit-backdrop-filter: none;
-                    backdrop-filter: none;
+		backdrop-filter: none;
 
 		.project-mini-bio-image {
 			box-shadow:
