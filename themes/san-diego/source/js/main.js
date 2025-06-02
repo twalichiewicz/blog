@@ -6,9 +6,13 @@
 import { initNavigation } from './utils/navigation.js';
 import { initSectionAnimations, initColumnTitleScrollDetection } from './utils/animations.js';
 import { initializeDesktopWidgets, cleanupDesktopWidgetsInstance } from './desktop-widgets.js';
+import { initializeSoundEffects } from './utils/sound-effects.js';
 
 document.addEventListener('DOMContentLoaded', function () {
 	try {
+		// Initialize sound effects first
+		initializeSoundEffects();
+
 		// Initialize navigation functionality
 		initNavigation({
 			navSelector: '#theme-nav',
@@ -18,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Initialize color scheme functionality
 		initColorScheme();
+
+		// Initialize layout toggle functionality
+		initLayoutToggle();
 
 		// Initialize animations for sections
 		initSectionAnimations({
@@ -75,6 +82,55 @@ function initColorScheme() {
 	} catch (error) {
 		console.error('Error initializing color scheme:', error);
 	}
+}
+
+/**
+ * Initialize layout toggle functionality
+ */
+function initLayoutToggle() {
+	const layoutToggle = document.querySelector('.layout-toggle');
+	const blogElement = document.querySelector('.blog');
+
+	if (!layoutToggle || !blogElement) return;
+
+	const toggleSwitch = layoutToggle.querySelector('.layout-toggle__switch');
+
+	// Load saved layout preference from localStorage
+	const savedLayout = localStorage.getItem('portfolio-layout') || 'column';
+	setLayout(savedLayout);
+
+	// Handle click events
+	function handleToggle() {
+		const currentLayout = layoutToggle.getAttribute('data-layout');
+		const newLayout = currentLayout === 'column' ? 'grid' : 'column';
+		setLayout(newLayout);
+
+		// Play toggle sound effect
+		if (window.soundEffects) {
+			window.soundEffects.play('toggle');
+		}
+
+		// Save preference
+		localStorage.setItem('portfolio-layout', newLayout);
+	}
+
+	function setLayout(layout) {
+		layoutToggle.setAttribute('data-layout', layout);
+		blogElement.setAttribute('data-layout', layout);
+	}
+
+	// Add event listeners
+	toggleSwitch.addEventListener('click', handleToggle);
+
+	// Keyboard accessibility
+	toggleSwitch.addEventListener('keydown', function (e) {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			handleToggle();
+		}
+	});
+
+	console.log('Layout toggle initialized with sound effects');
 }
 
 // Handle bfcache for widgets (or remove if module handles it)
