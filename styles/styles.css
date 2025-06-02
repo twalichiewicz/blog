@@ -3491,6 +3491,128 @@ ol ul {
   display: none !important;
 }
 
+/* ==========================================================================
+   Layout Toggle - Column vs Grid Layout Switch for Desktop/Tablet
+   ========================================================================== */
+/* Grid layout when toggle is active - reuse existing mobile grid styles for desktop/tablet */
+@media screen and (min-width: 768px) {
+  .blog[data-layout=grid] {
+    /* Apply the same grid layout that's used on mobile to desktop/tablet */
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+    grid-auto-flow: row dense;
+    gap: 8px;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item {
+    margin: 0;
+    /* Use the same grid sizing logic as mobile */
+    /* Apply mobile-style overlay content for items with cover images */
+    /* Style for items without cover images in grid mode */
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="1x1"] {
+    grid-column: span 1;
+    grid-row: span 1;
+    --grid-aspect: square;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="1x2"] {
+    grid-column: span 1;
+    grid-row: span 2;
+    --grid-aspect: tall;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="2x2"] {
+    grid-column: span 2;
+    grid-row: span 2;
+    --grid-aspect: square;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-grid-size="3x1"] {
+    grid-column: span 3;
+    grid-row: span 1;
+    --grid-aspect: wide;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    /* Hover effects */
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    max-height: none;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-image img,
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-image video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: none;
+    color: white;
+    padding: 6px;
+    z-index: 2;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .company-byline {
+    display: none;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row {
+    margin-bottom: 0;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row .content-text {
+    flex: 0;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row .content-text h4 {
+    display: flex;
+    padding: 3px 6px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row .content-text p {
+    display: none;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true] .portfolio-content .title-row .external-icon {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true]:hover .portfolio-image img,
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item[data-cover-image=true]:hover .portfolio-image video {
+    transform: scale(1.05);
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .company-byline {
+    display: none;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .portfolio-content .title-row .content-text h4 {
+    font-size: 12px;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .portfolio-content .title-row .content-text p {
+    display: none;
+  }
+  .blog[data-layout=grid] #projectsContent.portfolio-list .company-group .company-projects .portfolio-item:not([data-cover-image=true]) .portfolio-content .title-row {
+    margin-bottom: 0;
+  }
+}
+
 * {
   transition: color 0.2s, background-color 0.2s;
   -webkit-text-size-adjust: none;
@@ -6401,6 +6523,9 @@ body.has-scroll-snap {
     height: auto;
     min-height: auto;
   }
+}
+.project-wrapper.dynamic-loaded .project-writeup .writeup-content p {
+  font-size: 18px;
 }
 
 body.loaded .project-wrapper {
@@ -10289,6 +10414,127 @@ table th span[style*="background-color: #e6f7ff"] {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+  }
+}
+/* Layout Toggle Switch - Search Input Style */
+.layout-toggle {
+  display: none;
+  /* Hidden by default, shown on desktop/tablet */
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  margin-top: 15px;
+  user-select: none;
+  /* Show on desktop and tablet only */
+  /* Tablet specific styles */
+  /* Grid mode - handle moves to right */
+}
+@media screen and (min-width: 768px) {
+  .layout-toggle {
+    display: flex;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .layout-toggle {
+    margin-top: 0;
+  }
+}
+.layout-toggle__switch {
+  position: relative;
+  width: 46px;
+  height: 28px;
+  /* Match search input height */
+  padding: 9px;
+  /* Match search input padding */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  /* Match search input border radius */
+  background: linear-gradient(to bottom, hsl(0, 0%, 102%), hsl(0, 0%, 100%));
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* Inner track */
+  /* Toggle handle */
+  /* Hover state */
+  /* Active/pressed state */
+}
+.layout-toggle__switch::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.layout-toggle__switch::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  width: 15px;
+  height: 15px;
+  background: linear-gradient(to bottom, hsl(0, 0%, 99%), hsl(0, 0%, 100%));
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(0);
+}
+.layout-toggle__switch:hover {
+  background: linear-gradient(to bottom, hsl(0, 0%, 103%), hsl(0, 0%, 101%));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.layout-toggle__switch:hover::after {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+.layout-toggle__switch:active::after {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+.layout-toggle[data-layout=grid] .layout-toggle__switch {
+  /* Keep the same neutral background - no color change for either/or toggle */
+}
+.layout-toggle[data-layout=grid] .layout-toggle__switch::after {
+  transform: translateX(15px);
+  /* Move to right side */
+}
+
+/* Dark mode styles for layout toggle */
+@media (prefers-color-scheme: dark) {
+  .layout-toggle {
+    /* Grid mode in dark mode */
+  }
+  .layout-toggle__switch {
+    background: linear-gradient(to bottom, hsl(0, 0%, 20%), hsl(0, 0%, 18%));
+    border-color: hsl(0, 0%, 25%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 -1px 0 rgba(255, 255, 255, 0.05) inset, 0 1px 0 rgba(0, 0, 0, 0.1) inset;
+  }
+  .layout-toggle__switch::before {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  .layout-toggle__switch::after {
+    background: linear-gradient(to bottom, hsl(0, 0%, 33%), hsl(0, 0%, 28%));
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2), 0 -1px 0 rgba(255, 255, 255, 0.05) inset;
+  }
+  .layout-toggle__switch:hover {
+    background: linear-gradient(to bottom, hsl(0, 0%, 22%), hsl(0, 0%, 20%));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0 rgba(255, 255, 255, 0.05) inset, 0 1px 0 rgba(0, 0, 0, 0.1) inset;
+  }
+  .layout-toggle__switch:hover::after {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3), 0 -1px 0 rgba(255, 255, 255, 0.08) inset;
+  }
+  .layout-toggle__switch:active::after {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 -1px 0 rgba(255, 255, 255, 0.03) inset;
+  }
+  .layout-toggle[data-layout=grid] .layout-toggle__switch {
+    /* Keep the same neutral background in dark mode - no color change needed for either/or toggle */
+  }
+  .layout-toggle[data-layout=grid] .layout-toggle__switch::after {
+    transform: translateX(15px);
   }
 }
 .paginator {
