@@ -1,14 +1,1 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const sections = document.querySelectorAll('.section');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-      }
-    });
-  }, {
-    threshold: 0.1
-  });
-
-  sections.forEach(section => observer.observe(section));
-});
+document.addEventListener("DOMContentLoaded",(function(){const e=document.querySelectorAll(".section"),t=new IntersectionObserver((e=>{e.forEach((e=>{e.isIntersecting&&e.target.classList.add("is-visible")}))}),{threshold:.1});e.forEach((e=>t.observe(e)))}));
