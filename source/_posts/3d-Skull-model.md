@@ -73,9 +73,9 @@ date: 2025-04-30 23:17:10
 </div>
 
 <script type="module">
-import * as THREE from 'https://unpkg.com/three@0.157.0/build/three.module.js';
-import { OBJLoader } from 'https://unpkg.com/three@0.157.0/examples/jsm/loaders/OBJLoader.js';
-import { MTLLoader } from 'https://unpkg.com/three@0.157.0/examples/jsm/loaders/MTLLoader.js';
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import { OBJLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/OBJLoader.js';
+import { MTLLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/MTLLoader.js';
 
 // Error handling
 const showError = (message) => {

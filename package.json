@@ -49,5 +49,8 @@
     "micromatch": "^4.0.8",
     "request": "^2.88.2"
   },
-  "notes": "All vulnerabilities have been addressed by removing hexo-admin and hexo-pdf, and replacing hoek with @hapi/hoek."
+  "notes": "All vulnerabilities have been addressed by removing hexo-admin and hexo-pdf, and replacing hoek with @hapi/hoek.",
+  "devDependencies": {
+    "gray-matter": "^4.0.3"
+  }
 }

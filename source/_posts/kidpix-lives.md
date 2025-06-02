@@ -9,8 +9,6 @@ tags:
   - blog
 ---
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-
 <style>
  #hashtagContainer {
   width: 100%;
@@ -31,7 +29,12 @@ tags:
   <button id="hashtagButton" onclick="popConfetti(event)">#bringbackUISFX</button>
 </div>
 
-<script>
+<script type="module">
+ import confetti from 'canvas-confetti';
+
+ // Make confetti available globally for the onclick handler
+ window.confetti = confetti;
+
  const hashtagButton = document.querySelector('.kidpix-lives #hashtagButton');
  if (hashtagButton) {
   hashtagButton.addEventListener('click', function() {
@@ -50,7 +53,7 @@ tags:
   });
  }
 
- function popConfetti(event) {
+ window.popConfetti = function(event) {
   // Get the button's bounding rectangle
   var rect = event.target.getBoundingClientRect();
   // Calculate the origin for the confetti

@@ -23,14 +23,14 @@ class DesktopWidgets {
 		this.container.className = 'desktop-widgets';
 		document.body.appendChild(this.container);
 
-		// Create widgets for each main section, with index as the main view
-		['index', 'blog', 'about'].forEach((section, index) => {
+		// Create widgets for main section (index only)
+		['index'].forEach((section, index) => {
 			this.createWidget(section, {
 				x: 40 + (index * 40),
 				y: 40 + (index * 40),
-				width: section === 'index' ? 800 : 400,
-				height: section === 'index' ? 600 : 500,
-				isMain: section === 'index'
+				width: 800,
+				height: 600,
+				isMain: true
 			});
 		});
 

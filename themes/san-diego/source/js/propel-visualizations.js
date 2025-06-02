@@ -54,8 +54,9 @@ class PropelVisualizations {
 
 	setupImageParallax() {
 		const images = document.querySelectorAll('.solution-image, .analysis-image');
+		let ticking = false;
 
-		window.addEventListener('scroll', () => {
+		const updateParallax = () => {
 			images.forEach(img => {
 				const rect = img.getBoundingClientRect();
 				const windowHeight = window.innerHeight;
@@ -63,10 +64,21 @@ class PropelVisualizations {
 				if (rect.top < windowHeight && rect.bottom > 0) {
 					const scrollPercent = (windowHeight - rect.top) / (windowHeight + rect.height);
 					const translateY = scrollPercent * 30;
-					img.style.transform = `translateY(${translateY}px)`;
+					// Use transform3d for better performance
+					img.style.transform = `translate3d(0, ${translateY}px, 0)`;
 				}
 			});
-		});
+			ticking = false;
+		};
+
+		const requestTick = () => {
+			if (!ticking) {
+				requestAnimationFrame(updateParallax);
+				ticking = true;
+			}
+		};
+
+		window.addEventListener('scroll', requestTick, { passive: true });
 	}
 
 	setupSpendingGraph() {
@@ -503,22 +515,36 @@ class PropelVisualizations {
 
 	// Scroll animation helper with improved threshold handling
 	animateOnScroll(element, callback) {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach(entry => {
-					if (entry.isIntersecting) {
-						callback();
-						observer.unobserve(entry.target);
-					}
-				});
-			},
-			{
-				threshold: 0.15,
-				rootMargin: '0px 0px -10% 0px'
-			}
-		);
+		if (!element) return;
 
-		observer.observe(element);
+		let ticking = false;
+
+		const checkElement = () => {
+			const rect = element.getBoundingClientRect();
+			const windowHeight = window.innerHeight;
+			const threshold = 0.1; // 10% of element height
+
+			if (rect.top < windowHeight - (rect.height * threshold) &&
+				rect.bottom > (rect.height * threshold)) {
+				callback();
+				// Remove listener after animation to prevent unnecessary calls
+				window.removeEventListener('scroll', requestTick);
+			}
+			ticking = false;
+		};
+
+		const requestTick = () => {
+			if (!ticking) {
+				requestAnimationFrame(checkElement);
+				ticking = true;
+			}
+		};
+
+		// Initial check
+		checkElement();
+
+		// Add scroll listener with passive flag for better performance
+		window.addEventListener('scroll', requestTick, { passive: true });
 	}
 
 	setupVideo() {

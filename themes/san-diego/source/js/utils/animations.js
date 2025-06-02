@@ -114,13 +114,25 @@ function setupColumnTitleScroll(contentId, config) {
 	observer.observe(document.body, { attributes: true });
 
 	// Set up scroll event handling
-	contentEl.addEventListener('scroll', function () {
+	let ticking = false;
+
+	const handleScroll = () => {
 		if (contentEl.scrollTop > config.scrollThreshold) {
 			columnTitle.classList.add(config.scrollingClass);
 		} else {
 			columnTitle.classList.remove(config.scrollingClass);
 		}
-	});
+		ticking = false;
+	};
+
+	const requestTick = () => {
+		if (!ticking) {
+			requestAnimationFrame(handleScroll);
+			ticking = true;
+		}
+	};
+
+	contentEl.addEventListener('scroll', requestTick, { passive: true });
 }
 
 export default {
