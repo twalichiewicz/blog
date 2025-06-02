@@ -156,8 +156,6 @@ class Carousel {
 			if (this.prevButton) this.prevButton.style.display = 'none';
 			if (this.nextButton) this.nextButton.style.display = 'none';
 			this.indicators.forEach(indicator => indicator.style.display = 'none');
-		} else {
-			this.setupEventListeners();
 		}
 
 		// Initialize first slide

@@ -2555,13 +2555,19 @@ ol ul {
   margin: 0;
   box-sizing: border-box;
   /* Chrome-specific fixes for scrolling content rendering */
-  contain: layout style;
+  contain: layout style paint;
   will-change: scroll-position;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  /* Additional Chrome optimizations */
+  -webkit-overflow-scrolling: touch;
+  overflow-anchor: none;
+  scroll-behavior: auto;
   /* Additional styles for column-title within content containers are now handled in the Column Titles section */
   /* Add padding to the top to prevent content from being hidden under the floating header */
   /* Remove top/bottom margins from post-list-items, rely on separator margins instead */
+  /* Portfolio items optimization */
+  /* Company groups optimization */
 }
 .device-desktop .blog .blog-content #postsContent::-webkit-scrollbar,
 .device-desktop .blog .blog-content #projectsContent::-webkit-scrollbar {
@@ -2587,6 +2593,24 @@ ol ul {
   /* Chrome rendering fix for scrollable content */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  /* Prevent content shifting */
+  contain: layout;
+}
+.device-desktop .blog .blog-content #postsContent .portfolio-item,
+.device-desktop .blog .blog-content #projectsContent .portfolio-item {
+  /* Chrome rendering fix for scrollable content */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  contain: layout;
+  /* Prevent layout thrashing */
+  will-change: auto;
+}
+.device-desktop .blog .blog-content #postsContent .company-group,
+.device-desktop .blog .blog-content #projectsContent .company-group {
+  /* Chrome rendering fix */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  contain: layout;
 }
 .device-desktop .blog .blog-content #projectsContent {
   padding-top: 64px;

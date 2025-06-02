@@ -551,9 +551,9 @@
 </div>
 
 <script type="module">
-import * as THREE from 'https://unpkg.com/three@0.157.0/build/three.module.js';
-import { OBJLoader } from 'https://unpkg.com/three@0.157.0/examples/jsm/loaders/OBJLoader.js';
-import { MTLLoader } from 'https://unpkg.com/three@0.157.0/examples/jsm/loaders/MTLLoader.js';
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import { OBJLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/OBJLoader.js';
+import { MTLLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/MTLLoader.js';
 
 // Error handling
 const showError = (message) => {
@@ -2417,9 +2417,7 @@ init().catch(error => console.error('Fatal error:', error));
                                             <details class="content-accordion">
                                                 <summary>Thoughts</summary>
                                                 <div class="accordion-content">
-                                                    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-
-<style>
+                                                    <style>
  #hashtagContainer {
   width: 100%;
   text-align: center;
@@ -2439,7 +2437,12 @@ init().catch(error => console.error('Fatal error:', error));
   <button id="hashtagButton" onclick="popConfetti(event)">#bringbackUISFX</button>
 </div>
 
-<script>
+<script type="module">
+ import confetti from 'canvas-confetti';
+
+ // Make confetti available globally for the onclick handler
+ window.confetti = confetti;
+
  const hashtagButton = document.querySelector('.kidpix-lives #hashtagButton');
  if (hashtagButton) {
   hashtagButton.addEventListener('click', function() {
@@ -2458,7 +2461,7 @@ init().catch(error => console.error('Fatal error:', error));
   });
  }
 
- function popConfetti(event) {
+ window.popConfetti = function(event) {
   // Get the button's bounding rectangle
   var rect = event.target.getBoundingClientRect();
   // Calculate the origin for the confetti
@@ -3765,14 +3768,14 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                         
                                         
-                                            <a href="/2020/02/15/Overlay/" class="portfolio-item has-writeup" data-cover-image="true" data-grid-size="2x2">
+                                            <a href="/2020/02/14/Overlay/" class="portfolio-item has-writeup" data-cover-image="true" data-grid-size="2x2">
                                         
                                             
                                         <div class="portfolio-image">
                                             
                                             
                                             <img 
-                                                src="/2020/02/15/Overlay/overlayPreview_cover.jpg" 
+                                                src="/2020/02/13/Overlay/overlayPreview_cover.jpg" 
                                                 alt="Overlay"
                                                 loading="lazy"
                                             >
@@ -3804,14 +3807,14 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                         
                                         
-                                            <a href="/2020/01/21/Self-Service-Publishing-Pipeline/" class="portfolio-item has-writeup" data-cover-image="true" data-grid-size="1x2">
+                                            <a href="/2020/01/20/Self-Service-Publishing-Pipeline/" class="portfolio-item has-writeup" data-cover-image="true" data-grid-size="1x2">
                                         
                                             
                                         <div class="portfolio-image">
                                             
                                             
                                             <img 
-                                                src="/2020/01/21/Self-Service-Publishing-Pipeline/sspp_cover.jpg" 
+                                                src="/2020/01/19/Self-Service-Publishing-Pipeline/sspp_cover.jpg" 
                                                 alt="Self-Service Publishing Pipeline"
                                                 loading="lazy"
                                             >
@@ -3843,14 +3846,14 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                         
                                         
-                                            <a href="/2019/09/15/Common-Project-Administration/" class="portfolio-item has-writeup" data-cover-image="true" data-grid-size="3x1">
+                                            <a href="/2019/09/14/Common-Project-Administration/" class="portfolio-item has-writeup" data-cover-image="true" data-grid-size="3x1">
                                         
                                             
                                         <div class="portfolio-image">
                                             
                                             
                                             <img 
-                                                src="/2019/09/15/Common-Project-Administration/cpa-preview.png" 
+                                                src="/2019/09/13/Common-Project-Administration/cpa-preview.png" 
                                                 alt="Common Project Administration"
                                                 loading="lazy"
                                             >
@@ -3937,12 +3940,11 @@ init().catch(error => console.error('Fatal error:', error));
                                                     poster="/2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg"
                                                     alt="Desktop install platform"
                                                     loading="lazy"
-                                                    data-base-path="/2019/06/30/Project-Wingman/wingmanInstaller_web"
                                                 >
                                                     
-                                                    <source src="/2019/06/30/Project-Wingman/wingmanInstaller_web.webm" type="video/webm">
-                                                    <source src="/2019/06/30/Project-Wingman/wingmanInstaller_web.mp4" type="video/mp4">
-                                                    <source src="/2019/06/30/Project-Wingman/wingmanInstaller_web.mp4" type="video/mp4">
+                                                    <source src="/2019/06/30/Project-Wingman/wingmanInstaller.webm" type="video/webm">
+                                                    <source src="/2019/06/30/Project-Wingman/wingmanInstaller.mp4" type="video/mp4">
+                                                    <source src="/2019/06/30/Project-Wingman/wingmanInstaller.mp4" type="video/mp4">
                                                 </video>
                                             
                                         </div>
@@ -4151,7 +4153,7 @@ init().catch(error => console.error('Fatal error:', error));
                                             
                                             
                                             <img 
-                                                src="/2017/09/11/Human-Interest-brand/humanInterestBrand-preview.png" 
+                                                src="/2017/09/10/Human-Interest-brand/humanInterestBrand-preview.png" 
                                                 alt="Company rebranding"
                                                 loading="lazy"
                                             >
@@ -4199,7 +4201,6 @@ init().catch(error => console.error('Fatal error:', error));
                                                     poster="/2017/02/01/Human-Interest-401-k-product/cutaway_cover_poster.jpg"
                                                     alt="401(k) Administration product"
                                                     loading="lazy"
-                                                    data-base-path="/2017/02/01/Human-Interest-401-k-product/cutaway_cover_web"
                                                 >
                                                     
                                                     <source src="/2017/02/01/Human-Interest-401-k-product/cutaway_cover_web-compatible.webm" type="video/webm">
@@ -4241,7 +4242,7 @@ init().catch(error => console.error('Fatal error:', error));
                                             
                                             
                                             <img 
-                                                src="/2018/04/05/foreground/foreground-preview.jpg" 
+                                                src="/2018/04/04/foreground/foreground-preview.jpg" 
                                                 alt="Design system"
                                                 loading="lazy"
                                             >
@@ -4289,7 +4290,6 @@ init().catch(error => console.error('Fatal error:', error));
                                                     poster="/2017/01/01/Human-Interest-onboarding-tool/onboarding-tool_poster.jpg"
                                                     alt="Onboarding tool"
                                                     loading="lazy"
-                                                    data-base-path="/2017/01/01/Human-Interest-onboarding-tool/onboarding-tool"
                                                 >
                                                     
                                                     <source src="/2017/01/01/Human-Interest-onboarding-tool/onboarding-tool-compatible.webm" type="video/webm">
@@ -4425,7 +4425,7 @@ init().catch(error => console.error('Fatal error:', error));
                                             
                                             
                                             <img 
-                                                src="/2017/12/31/Common-Cents-Lab-2016-Research-Report/ccl-2016-report-preview.png" 
+                                                src="/2017/12/30/Common-Cents-Lab-2016-Research-Report/ccl-2016-report-preview.png" 
                                                 alt="2016 Research Report"
                                                 loading="lazy"
                                             >
@@ -4871,9 +4871,9 @@ init().catch(error => console.error('Fatal error:', error));
                                             
                                             <div class="title-row">
                                                 <div class="content-text">
-                                                    <h4>Physician app</h4>
+                                                    <h4>Marketing tools</h4>
                                                     
-                                                        <p>A tool for physicians to track patient progress, care plans, and coordinate care with the case manager</p>
+                                                        <p>A series of webtools to show employers the value of offering Lyra's telemedicine benefit</p>
                                                     
                                                     
                                                     
@@ -4897,9 +4897,9 @@ init().catch(error => console.error('Fatal error:', error));
                                             
                                             <div class="title-row">
                                                 <div class="content-text">
-                                                    <h4>Marketing tools</h4>
+                                                    <h4>Physician app</h4>
                                                     
-                                                        <p>A series of webtools to show employers the value of offering Lyra's telemedicine benefit</p>
+                                                        <p>A tool for physicians to track patient progress, care plans, and coordinate care with the case manager</p>
                                                     
                                                     
                                                     
@@ -5191,52 +5191,6 @@ init().catch(error => console.error('Fatal error:', error));
     }
   });
 })();
-
-// Debug video autoplay
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('[DEBUG] Page loaded, checking for videos...');
-    
-    const allVideos = document.querySelectorAll('video');
-    console.log('[DEBUG] Found total videos:', allVideos.length);
-    
-    const autoplayVideos = document.querySelectorAll('video[data-autoplay="true"]');
-    console.log('[DEBUG] Found autoplay videos:', autoplayVideos.length);
-    
-    autoplayVideos.forEach((video, index) => {
-        console.log(`[DEBUG] Video ${index + 1}:`, video.src);
-        console.log(`[DEBUG] Video ${index + 1} sources:`, Array.from(video.querySelectorAll('source')).map(s => s.src));
-        console.log(`[DEBUG] Video ${index + 1} attributes:`, {
-            autoplay: video.autoplay,
-            muted: video.muted,
-            loop: video.loop,
-            playsinline: video.playsInline,
-            readyState: video.readyState
-        });
-        console.log(`[DEBUG] Video ${index + 1} dimensions:`, {
-            offsetWidth: video.offsetWidth,
-            offsetHeight: video.offsetHeight,
-            clientWidth: video.clientWidth,
-            clientHeight: video.clientHeight,
-            scrollWidth: video.scrollWidth,
-            scrollHeight: video.scrollHeight
-        });
-        console.log(`[DEBUG] Video ${index + 1} parent:`, video.parentElement);
-        console.log(`[DEBUG] Video ${index + 1} parent dimensions:`, {
-            offsetWidth: video.parentElement?.offsetWidth,
-            offsetHeight: video.parentElement?.offsetHeight
-        });
-        
-        // Try to play immediately
-        setTimeout(() => {
-            console.log(`[DEBUG] Attempting to play video ${index + 1}...`);
-            video.play().then(() => {
-                console.log(`[DEBUG] Video ${index + 1} playing successfully!`);
-            }).catch(error => {
-                console.error(`[DEBUG] Video ${index + 1} play failed:`, error);
-            });
-        }, 2000);
-    });
-});
 </script>
 </body>
 </html>
