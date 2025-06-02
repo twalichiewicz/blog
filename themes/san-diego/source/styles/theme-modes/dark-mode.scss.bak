@@ -106,8 +106,7 @@
 					background: rgba(variables.$card-bg-dark, 0.7);
 					border-color: rgba(variables.$border-color-dark, 0.5);
 					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-					-webkit-backdrop-filter: blur(4px);
-                    backdrop-filter: blur(4px);
+					backdrop-filter: blur(4px);
 
 					.contact-option {
 						background: transparent;
@@ -134,8 +133,7 @@
 					background: rgba(variables.$card-bg-dark, 0.6);
 					border-color: rgba(variables.$border-color-dark, 0.4);
 					box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-					-webkit-backdrop-filter: blur(4px);
-                    backdrop-filter: blur(4px);
+					backdrop-filter: blur(4px);
 
 					.contact-option {
 						background: transparent;

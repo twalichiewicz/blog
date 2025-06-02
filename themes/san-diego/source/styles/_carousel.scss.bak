@@ -91,10 +91,8 @@
 		height: 33px;
 		border: none;
 		background: rgba(0, 0, 0, 0.3);
+		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
-                    backdrop-filter: blur(20px);
-		-webkit-backdrop-filter: blur(20px);
-                    backdrop-filter: blur(20px);
 		border-radius: 50%;
 		color: #fff;
 		cursor: pointer;
@@ -270,10 +268,8 @@
 		padding: 0.75rem;
 		text-align: center;
 		font-size: 0.9rem;
+		backdrop-filter: blur(5px);
 		-webkit-backdrop-filter: blur(5px);
-                    backdrop-filter: blur(5px);
-		-webkit-backdrop-filter: blur(5px);
-                    backdrop-filter: blur(5px);
 		z-index: 2;
 		border-radius: 6px;
 	}
@@ -363,8 +359,7 @@
 			width: 40px;
 			height: 40px;
 			background: rgba(0, 0, 0, 0.5);
-			-webkit-backdrop-filter: blur(10px);
-                    backdrop-filter: blur(10px);
+			backdrop-filter: blur(10px);
 			border: 1px solid rgba(255, 255, 255, 0.1);
 			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 			z-index: 10;
@@ -391,8 +386,7 @@
 		.carousel-indicators {
 			z-index: 10;
 			background-color: rgba(0, 0, 0, 0.7);
-			-webkit-backdrop-filter: blur(10px);
-                    backdrop-filter: blur(10px);
+			backdrop-filter: blur(10px);
 			border: 1px solid rgba(255, 255, 255, 0.1);
 			padding: 8px 12px;
 
