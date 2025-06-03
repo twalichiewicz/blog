@@ -16,7 +16,7 @@
 	} else if (width >= 768 && width <= 1023) { // Between $mobile-breakpoint and $tablet-breakpoint
 		body.classList.add('device-tablet');
 	} else {
-		body.classList.add('device-desktop');
+		body.classList.add('device-tablet');
 	}
 
 	// Add orientation class
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			const currentDeviceType = this.getCurrentDeviceType();
 
 			// Remove existing device classes
-			body.classList.remove('device-mobile', 'device-tablet', 'device-desktop');
+			body.classList.remove('device-mobile', 'device-tablet', 'device-tablet');
 
 			// Add appropriate device class
 			if (width <= this.breakpoints.mobile.max) {
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			} else if (width >= this.breakpoints.tablet.min && width <= this.breakpoints.tablet.max) {
 				body.classList.add('device-tablet');
 			} else {
-				body.classList.add('device-desktop');
+				body.classList.add('device-tablet');
 			}
 
 			// Detect specific devices - using consistent breakpoints
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		 */
 		getCurrentDeviceType: function () {
 			const body = document.body;
-			if (body.classList.contains('device-desktop')) return 'desktop';
+			if (body.classList.contains('device-tablet')) return 'desktop';
 			if (body.classList.contains('device-tablet')) return 'tablet';
 			if (body.classList.contains('device-mobile')) return 'mobile';
 
