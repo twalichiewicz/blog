@@ -53,7 +53,7 @@
 				inset 0 -1px 0 rgba(0, 0, 0, 0.3);
 			text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 			-webkit-transform-style: preserve-3d;
-                    transform-style: preserve-3d;
+			transform-style: preserve-3d;
 
 			// LED indicator (off state)
 			&::before {
@@ -248,7 +248,7 @@
 			font-weight: 600;
 			padding: 0;
 			border: none;
-			margin: 60px 0 24px 0;
+			margin: 24px 0 24px 0;
 			color: #151515;
 
 			// Tablet styles (~80% of desktop)
