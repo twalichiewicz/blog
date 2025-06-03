@@ -34,8 +34,14 @@
         <% if (page) { %>
         <article class="post <%= page.type ? 'post-' + page.type : '' %> <%= page.short ? 'short-post' : '' %>">
             <% if (page.header_image) { %>
+            	<% 
+                let headerImagePath = page.header_image;
+                if (page.header_image && !page.header_image.startsWith('/') && !page.header_image.startsWith('http')) {
+                    headerImagePath = page.path + page.header_image; // page.path should provide the base for this single post page
+                }
+                %>
             <div class="post-header-image">
-                <img src="<%= page.header_image %>" alt="<%= page.title %>" />
+                <img src="<%- url_for(headerImagePath) %>" alt="<%= page.title %>" />
                 <% if (page.image_caption) { %>
                 <div class="header-image-caption"><%= page.image_caption %></div>
                 <% } %>

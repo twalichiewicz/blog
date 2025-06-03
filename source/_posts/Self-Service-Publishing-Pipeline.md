@@ -1,19 +1,19 @@
 ---
 title: Self-Service Publishing Pipeline
-date: 2020-01-20
+date: 2020-01-19
 company: Autodesk
 byline: Designed a self-service platform to empower teams to publish user-facing "Insights" and guidance content
 tags:
   - portfolio
 layout: project_gallery
 has_writeup: true
-cover_image: /2020/01/19/Self-Service-Publishing-Pipeline/sspp_cover.jpg
+cover_image: sspp_cover.jpg
 gallery_images:
- - url: /2020/01/19/Self-Service-Publishing-Pipeline/LINO-0.png
+ - url: LINO-0.png
    type: image
- - url: /2020/01/19/Self-Service-Publishing-Pipeline/LINO-SIMPLE.png
+ - url: LINO-SIMPLE.png
    type: image
- - url: /2020/01/19/Self-Service-Publishing-Pipeline/LINO-EXPANDED.png
+ - url: LINO-EXPANDED.png
    type: image
 summary:
   problem:

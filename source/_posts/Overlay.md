@@ -1,18 +1,18 @@
 ---
 title: Overlay
-date: 2020-02-14
+date: 2020-02-13
 company: Autodesk
 byline: Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage
 tags: [portfolio]
 layout: project_gallery
 has_writeup: true
 gallery_images:
- - url: /2020/02/13/Overlay/overlayExplainer_web.mp4
+ - url: overlayExplainer_web.mp4
    type: video
-   poster: /2020/02/13/Overlay/overlayPreview_poster.jpg
- - url: /2020/02/13/Overlay/overlay0.png
+   poster: overlayPreview_poster.jpg
+ - url: overlay0.png
    type: image
-cover_image: /2020/02/13/Overlay/overlayPreview_cover.jpg
+cover_image: overlayPreview_cover.jpg
 summary:
  problem:
    content: "Autodesk's array of desktop products operated as completely isolated silos. Users lost context switching between applications, couldn't access shared functionality across their workflows, and had to relearn basic tasks in every product. Meanwhile, engineering teams rebuilt identical features dozens of times—smart assistance in one product remained trapped there while users struggled with the same problems in adjacent tools."
