@@ -4,20 +4,20 @@ layout: project_gallery
 company: Human Interest
 byline: Built "Foreground" design system that unified product ecosystem across three user types while enabling engineering team to implement designs autonomously
 date: 2018-04-05 00:00:00
-cover_image: /2018/04/04/foreground/foreground-preview.jpg
+cover_image: foreground-preview.jpg
 cover_video_poster: 
 has_writeup: true
 tags: [portfolio]
 gallery_images:
-  - url: /2018/04/05/foreground/Color-scheme.jpg
+  - url: Color-scheme.jpg
     type: image
-  - url: /2018/04/05/foreground/Component-details.jpg
+  - url: Component-details.jpg
     type: image
-  - url: /2018/04/05/foreground/Components.jpg
+  - url: Components.jpg
     type: image
-  - url: /2018/04/05/foreground/Icon-Set.jpg
+  - url: Icon-Set.jpg
     type: image
-  - url: /2018/04/05/foreground/Typography.jpg
+  - url: Typography.jpg
     type: image
 summary:
   problem:

@@ -1,21 +1,21 @@
 ---
 title: Common Project Administration
-date: 2019-09-14
+date: 2019-09-13
 company: Autodesk
 byline: Created a standaardized project management tool for web-based Autodesk products
-cover_image: /2019/09/13/Common-Project-Administration/cpa-preview.png
+cover_image: cpa-preview.png
 tags:
   - portfolio
 layout: project_gallery
 has_writeup: true
 gallery_images:
-  - url: /2019/09/13/Common-Project-Administration/000_cpa.png
+  - url: 000_cpa.png
     type: image
-  - url: /2019/09/13/Common-Project-Administration/001_cpa.png
+  - url: 001_cpa.png
     type: image
-  - url: /2019/09/13/Common-Project-Administration/010_cpa.png
+  - url: 010_cpa.png
     type: image
-  - url: /2019/09/13/Common-Project-Administration/011_cpa.png
+  - url: 011_cpa.png
     type: image
 summary:
   problem:
