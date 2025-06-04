@@ -20,18 +20,11 @@
 	}
 
 	&-track {
-		position: relative;
+		position: absolute;
 		width: 100%;
 		height: 100%;
-		min-height: 300px;
-		max-height: 300px;
-		display: contents;
-
-		.carousel-container & {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
+		top: 0;
+		left: 0;
 	}
 
 	&-slide {
@@ -54,12 +47,8 @@
 		}
 
 		img {
-			width: 100%;
-			height: auto;
 			max-width: 100%;
 			max-height: 100%;
-			width: auto;
-			height: auto;
 			object-fit: contain;
 			margin: auto;
 		}
@@ -92,9 +81,9 @@
 		border: none;
 		background: rgba(0, 0, 0, 0.3);
 		-webkit-backdrop-filter: blur(20px);
-                    backdrop-filter: blur(20px);
+		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
-                    backdrop-filter: blur(20px);
+		backdrop-filter: blur(20px);
 		border-radius: 50%;
 		color: #fff;
 		cursor: pointer;
@@ -271,182 +260,92 @@
 		text-align: center;
 		font-size: 0.9rem;
 		-webkit-backdrop-filter: blur(5px);
-                    backdrop-filter: blur(5px);
+		backdrop-filter: blur(5px);
 		-webkit-backdrop-filter: blur(5px);
-                    backdrop-filter: blur(5px);
+		backdrop-filter: blur(5px);
 		z-index: 2;
 		border-radius: 6px;
+	}
+
+	.aspect-ratio-fallback {
+		display: none;
+	}
+
+	@supports not (aspect-ratio: 16 / 9) {
+		.aspect-ratio-fallback {
+			display: block;
+			width: 100%;
+			padding-top: 56.25%; // 16:9
+			pointer-events: none;
+			user-select: none;
+		}
 	}
 }
 
 .project-gallery {
+	margin-bottom: 2rem;
+
 	.carousel {
-		max-width: 100%;
-		height: 55vh;
-		margin: 0;
-		border-radius: 15px 15px 0 0;
-		background-color: transparent !important;
+		width: 100%;
+		max-width: 1000px;
+		margin: 0 auto;
+		border-radius: 9px;
+		background-color: #111;
 		border: none;
 		position: relative;
-		z-index: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		z-index: 20;
+		aspect-ratio: 16 / 9;
 		overflow: hidden;
 
+		@supports not (aspect-ratio: 16 / 9) {
+			&::before {
+				content: '';
+				display: block;
+				padding-top: 56.25%;
+			}
+		}
+
 		.carousel-track {
-			min-height: 400px;
-			max-height: none;
 			width: 100%;
 			height: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			position: absolute;
+			top: 0;
+			left: 0;
 		}
 
 		.carousel-slide {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			pointer-events: none;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: opacity 0.3s;
+			box-sizing: border-box;
+
 			&.active {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				width: 100%;
-				height: 100%;
+				opacity: 1;
+				pointer-events: auto;
+				z-index: 1;
 			}
 
-			img {
-				width: auto;
-				height: auto;
-				max-width: 100%;
-				max-height: 100%;
-				object-fit: contain;
-				object-position: center;
-				border-radius: 0;
-				margin: 0;
-			}
-
+			img,
 			video,
 			iframe {
-				width: 90%;
-				height: 90%;
+				width: 100%;
+				height: 100%;
 				object-fit: contain;
-				max-height: none;
-				margin: 0 auto;
-				border-radius: 8px;
-			}
-
-			video {
-				background: #000;
 				display: block;
-				min-width: 200px;
-				min-height: 150px;
+				margin: auto;
+				box-sizing: border-box;
+				border-radius: 0;
+				background: #111;
 				max-width: 100%;
 				max-height: 100%;
-			}
-
-			video::-webkit-media-controls-panel {
-				display: flex !important;
-				opacity: 1 !important;
-			}
-
-			video::-webkit-media-controls-play-button {
-				display: block !important;
-				opacity: 1 !important;
-			}
-
-			video::-webkit-media-controls {
-				opacity: 1 !important;
-			}
-		}
-
-		.carousel-button {
-			color: variables.$white;
-			width: 40px;
-			height: 40px;
-			background: rgba(0, 0, 0, 0.5);
-			-webkit-backdrop-filter: blur(10px);
-                    backdrop-filter: blur(10px);
-			border: 1px solid rgba(255, 255, 255, 0.1);
-			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-			z-index: 10;
-			transition: all 0.2s ease;
-
-			&:hover {
-				background: rgba(0, 0, 0, 0.7);
-				transform: translateY(-50%) scale(1.05);
-			}
-
-			&:active {
-				transform: translateY(-50%) scale(0.95);
-			}
-
-			&.prev {
-				left: 24px;
-			}
-
-			&.next {
-				right: 24px;
-			}
-		}
-
-		.carousel-indicators {
-			z-index: 10;
-			background-color: rgba(0, 0, 0, 0.7);
-			-webkit-backdrop-filter: blur(10px);
-                    backdrop-filter: blur(10px);
-			border: 1px solid rgba(255, 255, 255, 0.1);
-			padding: 8px 12px;
-
-			// Override carousel button styles for project gallery
-			.carousel-button {
-				width: 20px;
-				height: 20px;
-				background: rgba(255, 255, 255, 0.5);
-
-				&:hover {
-					background: rgba(255, 255, 255, 0.8);
-					transform: scale(1.1);
-				}
-
-				&.prev::before,
-				&.next::before {
-					width: 5px;
-					height: 5px;
-					border: 1.5px solid variables.$white;
-					border-left: 0;
-					border-bottom: 0;
-				}
-
-				&.prev::before {
-					transform: rotate(-135deg);
-					right: 6px;
-				}
-
-				&.next::before {
-					transform: rotate(45deg);
-					left: 6px;
-				}
-			}
-		}
-
-		@media (max-width: variables.$tablet-breakpoint) {
-			height: 45vh;
-		}
-
-		@media (max-width: variables.$mobile-breakpoint) {
-			height: 40vh;
-			border-radius: 12px 12px 0 0;
-
-			.carousel-button {
-				width: 36px;
-				height: 36px;
-
-				&.prev {
-					left: 16px;
-				}
-
-				&.next {
-					right: 16px;
-				}
 			}
 		}
 	}
