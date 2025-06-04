@@ -2040,3 +2040,68 @@
 		}
 	}
 }
+
+/* Profile Header Theme Mode Styles */
+.profile-header {
+
+	/* Dark mode styles */
+	@media (prefers-color-scheme: dark) {
+		.profile-info {
+			.location-pill {
+				background: rgba(variables.$white, 0.1);
+				color: variables.$text-color-secondary-dark;
+
+				&:hover {
+					background: rgba(variables.$white, 0.15);
+					color: variables.$text-color-dark;
+				}
+
+				.location-icon {
+					color: variables.$text-color-secondary-dark;
+				}
+			}
+		}
+	}
+
+	/* Light mode styles */
+	@media (prefers-color-scheme: light) {
+		.profile-info {
+			.location-pill {
+				background: rgba(variables.$black, 0.05);
+				color: variables.$text-color-secondary;
+
+				&:hover {
+					background: rgba(variables.$black, 0.08);
+					color: variables.$text-color;
+				}
+
+				.location-icon {
+					color: variables.$text-color-secondary;
+				}
+			}
+		}
+	}
+}
+
+/* Forced theme mode styles */
+body {
+
+	&.light-mode-forced.blog .profile-header,
+	&.dark-mode-forced.blog .profile-header {
+		.profile-info {
+			.location-pill {
+				background: var(--location-pill-bg);
+				color: var(--location-pill-color);
+
+				&:hover {
+					background: var(--location-pill-hover-bg);
+					color: var(--location-pill-hover-color);
+				}
+
+				.location-icon {
+					color: var(--location-pill-icon-color);
+				}
+			}
+		}
+	}
+}

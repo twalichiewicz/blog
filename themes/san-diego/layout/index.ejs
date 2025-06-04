@@ -38,8 +38,8 @@
 <div class="page-transition-overlay"></div>
 
 <main class="blog">
-    <div class="blog-header" style="position: relative; min-height: 300px;">
-        <div class="profile-header" style="position: relative; z-index: 10; padding-top: 40px;">
+    <div class="blog-header">
+        <div class="profile-header">
             <div class="profile-photo-wrapper">
                 <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
                 <div class="contact-wrapper mobile-only">
@@ -383,9 +383,6 @@
                                                         </details>
                                                     <% } %>
                                                 </div>
-                                                <% if (post.has_writeup !== false) { %>
-                                                    <div class="external-icon">→</div>
-                                                <% } %>
                                             </div>
                                         </div>
                                         <% if (post.has_writeup !== false) { %>
