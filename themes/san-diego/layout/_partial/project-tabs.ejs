@@ -31,7 +31,7 @@ const hasSummary = page.summary && Object.keys(page.summary).length > 0;
 
   // Extract key sections from main content - updated regex for HTML format
   // The structure is: <h2 id="..."><a href="..." class="headerlink" title="..."></a>TITLE</h2>CONTENT
-  const sectionRegex = /<h2[^>]*><a[^>]*><\/a>(The Problem|The Solution|Key Innovation[^<]*|Impact[^<]*)<\/h2>([\s\S]*?)(?=<h2|$)/g;
+  const sectionRegex = /<h2[^>]*><a[^>]*><\/a>(The Problem|The Solution|Innovation[^<]*|Impact[^<]*)<\/h2>([\s\S]*?)(?=<h2|$)/g;
   let match;
 
   while ((match = sectionRegex.exec(mainContent)) !== null) {
@@ -39,7 +39,7 @@ const hasSummary = page.summary && Object.keys(page.summary).length > 0;
     const content = match[2].trim();
     
     // Clean up titles like "Key Innovation: The Component System" to just "Key Innovation"
-    const cleanTitle = title.replace(/^(Key Innovation).*/, '$1');
+    const cleanTitle = title.replace(/^(Innovation).*/, '$1');
     
     sections[cleanTitle] = content;
   }
@@ -48,7 +48,7 @@ const hasSummary = page.summary && Object.keys(page.summary).length > 0;
   const tabConfig = [
     { key: 'The Problem', display: 'Problem' },
     { key: 'The Solution', display: 'Solution' },
-    { key: 'Key Innovation', display: 'Key Innovation' },
+    { key: 'Key Innovation', display: 'Innovation' },
     { key: 'Impact', display: 'Impact' }
   ];
   const availableTabs = tabConfig.filter(tab => sections[tab.key]);
