@@ -8,13 +8,13 @@
 /* These styles apply when the user selects dark mode regardless of system preference */
 [data-color-scheme="dark"] .blog {
 	/* Set CSS variable for dark mode */
-	--bg-color: rgba(20, 20, 20, 0.7);
+	--bg-color: rgb(20 20 20 / 70%);
 
 	/* Dark mode for blog header */
 	&.blog .profile-header {
 		.profile-name {
 			text-shadow:
-				0 1px 1px rgba(255, 255, 255, 0.2),
+				0 1px 1px rgb(255 255 255 / 20%),
 				0 -1px 1px rgba(variables.$black, 0.4);
 			color: variables.$white !important;
 		}
@@ -36,15 +36,15 @@
 
 	/* Global dark mode style for external-icon */
 	.external-icon {
-		background: rgba(255, 255, 255, 0.1);
-		border-color: rgba(255, 255, 255, 0.05);
+		background: rgb(255 255 255 / 10%);
+		border-color: rgb(255 255 255 / 5%);
 		color: variables.$white;
 	}
 
 	/* Dark mode for basic blog content */
 	.blog-content {
 		background-color: variables.$grey-dark;
-		box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		box-shadow: 0 2px 15px rgb(0 0 0 / 15%);
+		border: 1px solid rgb(255 255 255 / 10%);
 	}
 }

@@ -5,13 +5,15 @@ footer {
     width: 100%;
     text-align: center;
     user-select: none;
-    -webkit-user-select: none;
+    user-select: none;
 }
+
 .inner {
     max-width: 980px;
     margin: auto;
     padding: 32px 16px;
 }
+
 footer span {
     color: variables.$footer-link-color;
     display: block;

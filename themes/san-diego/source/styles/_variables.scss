@@ -1,51 +1,51 @@
 // Text & Typography
-$text-color: hsl(24, 3%, 35%);
-$text-color-dark: hsl(0, 0%, 95%);
-$text-color-secondary: hsl(35, 15%, 30%);
-$text-color-secondary-dark: hsl(0, 0%, 75%);
-$link-color: hsl(15, 70%, 40%);
-$link-color-dark: hsl(40, 90%, 60%);
-$hover-color: hsl(15, 70%, 40%);
-$hover-color-dark: hsl(40, 90%, 65%);
-$footer-link-color: hsl(35, 10%, 40%);
-$footer-link-color-dark: hsl(0, 0%, 85%);
-$card-title-color: hsl(35, 15%, 30%);
-$card-title-color-dark: hsl(0, 0%, 90%);
+$text-color: hsl(24deg 3% 35%);
+$text-color-dark: hsl(0deg 0% 95%);
+$text-color-secondary: hsl(35deg 15% 30%);
+$text-color-secondary-dark: hsl(0deg 0% 75%);
+$link-color: hsl(15deg 70% 40%);
+$link-color-dark: hsl(40deg 90% 60%);
+$hover-color: hsl(15deg 70% 40%);
+$hover-color-dark: hsl(40deg 90% 65%);
+$footer-link-color: hsl(35deg 10% 40%);
+$footer-link-color-dark: hsl(0deg 0% 85%);
+$card-title-color: hsl(35deg 15% 30%);
+$card-title-color-dark: hsl(0deg 0% 90%);
 
 // Black and White
-$black: hsl(0, 0%, 10%);
-$black-2: hsl(0, 0%, 25%);
-$black-4: hsl(0, 0%, 40%);
-$white: hsl(0, 0%, 100%);
-$white-1: hsl(35, 15%, 96%);
-$black-dark: hsl(0, 0%, 100%);
-$black-2-dark: hsl(0, 0%, 85%);
-$black-4-dark: hsl(0, 0%, 65%);
-$white-dark: hsl(0, 0%, 0%);
-$white-1-dark: hsl(240, 5%, 12%);
+$black: hsl(0deg 0% 10%);
+$black-2: hsl(0deg 0% 25%);
+$black-4: hsl(0deg 0% 40%);
+$white: hsl(0deg 0% 100%);
+$white-1: hsl(35deg 15% 96%);
+$black-dark: hsl(0deg 0% 100%);
+$black-2-dark: hsl(0deg 0% 85%);
+$black-4-dark: hsl(0deg 0% 65%);
+$white-dark: hsl(0deg 0% 0%);
+$white-1-dark: hsl(240deg 5% 12%);
 
 // Grey Shades
-$grey: hsl(35, 10%, 50%);
-$grey-light: hsl(35, 10%, 75%);
-$grey-dark: hsl(0, 0%, 75%);
+$grey: hsl(35deg 10% 50%);
+$grey-light: hsl(35deg 10% 75%);
+$grey-dark: hsl(0deg 0% 75%);
 
 // Background Colors
-$body-bg: hsl(35, 15%, 88%);
-$nav-bg: rgba(245, 240, 235, 0.9);
-$card-bg: hsl(0, 0%, 100%);
-$body-bg-dark: hsl(28, 8%, 15%);
-$nav-bg-dark: rgba(0, 0, 0, 0.7);
-$card-bg-dark: hsl(0, 0%, 18%);
+$body-bg: hsl(35deg 15% 88%);
+$nav-bg: rgb(245 240 235 / 90%);
+$card-bg: hsl(0deg 0% 100%);
+$body-bg-dark: hsl(28deg 8% 15%);
+$nav-bg-dark: rgb(0 0 0 / 70%);
+$card-bg-dark: hsl(0deg 0% 18%);
 
 // Border Colors
-$border-color: hsl(35, 10%, 75%);
-$card-border-color: hsl(35, 10%, 85%);
-$border-color-dark: hsl(0, 0%, 25%);
-$card-border-color-dark: hsl(0, 0%, 30%);
+$border-color: hsl(35deg 10% 75%);
+$card-border-color: hsl(35deg 10% 85%);
+$border-color-dark: hsl(0deg 0% 25%);
+$card-border-color-dark: hsl(0deg 0% 30%);
 
 // UI Elements
-$nav-arrow-color: hsl(35, 10%, 60%);
-$nav-arrow-color-dark: hsl(0, 0%, 70%);
+$nav-arrow-color: hsl(35deg 10% 60%);
+$nav-arrow-color-dark: hsl(0deg 0% 70%);
 $blur: blur(32px);
 $blur-dark: blur(32px);
 
@@ -58,38 +58,32 @@ $tablet-breakpoint: 1024px;
 $desktop-breakpoint: 1200px;
 
 // Accent Colors
-$accent-gold: hsl(43, 40%, 60%);
-$accent-gold-light: hsl(43, 40%, 80%);
-$accent-gold-dark: hsl(43, 50%, 50%);
-
-$accent-sage: hsl(150, 15%, 40%);
-$accent-sage-light: hsl(150, 15%, 80%);
-$accent-sage-dark: hsl(150, 20%, 30%);
+$accent-gold: hsl(43deg 40% 60%);
+$accent-gold-light: hsl(43deg 40% 80%);
+$accent-gold-dark: hsl(43deg 50% 50%);
+$accent-sage: hsl(150deg 15% 40%);
+$accent-sage-light: hsl(150deg 15% 80%);
+$accent-sage-dark: hsl(150deg 20% 30%);
 
 // Gradients
 $gradient-light: linear-gradient(135deg, $accent-gold-light 0%, $white 100%);
 $gradient-dark: linear-gradient(135deg, $accent-gold-dark 0%, $black 100%);
 
 // Shadows
-$shadow-light: 0 1px 3px rgba(0, 0, 0, 0.02),
-	0 1px 2px rgba(0, 0, 0, 0.04),
-	0 15px 25px rgba(0, 0, 0, 0.03);
-
-$shadow-dark: 0 1px 3px rgba(0, 0, 0, 0.1),
-	0 1px 2px rgba(0, 0, 0, 0.15),
-	0 15px 25px rgba(0, 0, 0, 0.08);
-
-$shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.05),
-	0 5px 15px rgba(0, 0, 0, 0.1);
-
-$shadow-medium-dark: 0 4px 6px rgba(0, 0, 0, 0.2),
-	0 5px 15px rgba(0, 0, 0, 0.25);
-
-$shadow-soft: 0 2px 4px rgba(0, 0, 0, 0.05),
-	0 1px 2px rgba(0, 0, 0, 0.1);
-
-$shadow-soft-dark: 0 2px 4px rgba(0, 0, 0, 0.2),
-	0 1px 2px rgba(0, 0, 0, 0.3);
+$shadow-light: 0 1px 3px rgb(0 0 0 / 2%),
+	0 1px 2px rgb(0 0 0 / 4%),
+	0 15px 25px rgb(0 0 0 / 3%);
+$shadow-dark: 0 1px 3px rgb(0 0 0 / 10%),
+	0 1px 2px rgb(0 0 0 / 15%),
+	0 15px 25px rgb(0 0 0 / 8%);
+$shadow-medium: 0 4px 6px rgb(0 0 0 / 5%),
+	0 5px 15px rgb(0 0 0 / 10%);
+$shadow-medium-dark: 0 4px 6px rgb(0 0 0 / 20%),
+	0 5px 15px rgb(0 0 0 / 25%);
+$shadow-soft: 0 2px 4px rgb(0 0 0 / 5%),
+	0 1px 2px rgb(0 0 0 / 10%);
+$shadow-soft-dark: 0 2px 4px rgb(0 0 0 / 20%),
+	0 1px 2px rgb(0 0 0 / 30%);
 
 // Theme Colors
 $primary-color: $accent-gold;
@@ -115,5 +109,5 @@ $spacing-inline-sm: $space-xs; // 6px  - Small horizontal spacing
 $spacing-inline-lg: $space-md; // 24px - Large horizontal spacing
 
 // Meta Card Background Colors
-$meta-card-bg-light: hsl(0, 0%, 95%);
-$meta-card-bg-dark: hsl(0, 0%, 22%);
+$meta-card-bg-light: hsl(0deg 0% 95%);
+$meta-card-bg-dark: hsl(0deg 0% 22%);

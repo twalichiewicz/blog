@@ -3,7 +3,7 @@
 
 @mixin button-styles {
 	padding: 0.5rem 1rem;
-	border: 1px solid currentColor;
+	border: 1px solid currentcolor;
 	border-radius: 6px;
 	background: transparent;
 	font-family: inherit;
@@ -14,7 +14,7 @@
 	transition: all 150ms ease;
 
 	&:hover {
-		background: currentColor;
+		background: currentcolor;
 		color: variables.$white;
 	}
 
@@ -36,7 +36,7 @@ button {
 	margin: auto;
 	padding: 0 16px;
 
-	@media screen and (max-width: 1000px) {
+	@media screen and (width <= 1000px) {
 		max-width: 800px;
 	}
 
@@ -44,7 +44,7 @@ button {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	@media screen and (max-width: 600px) {
+	@media screen and (width <= 600px) {
 		display: block;
 	}
 }
@@ -155,7 +155,7 @@ blockquote {
 		color: variables.$text-color-secondary;
 		font-style: normal;
 
-		&:before {
+		&::before {
 			content: "—";
 			margin-right: 8px;
 		}
@@ -257,7 +257,6 @@ blockquote {
 }
 
 @media (prefers-color-scheme: dark) {
-
 	.button,
 	button {
 		color: variables.$link-color-dark;
@@ -272,10 +271,10 @@ blockquote {
 	}
 
 	.tag {
-		background-color: rgba(255, 255, 255, 0.1);
-		border-color: rgba(255, 255, 255, 0.2);
-		color: hsl(0, 0%, 90%);
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3);
+		background-color: rgb(255 255 255 / 10%);
+		border-color: rgb(255 255 255 / 20%);
+		color: hsl(0deg 0% 90%);
+		box-shadow: 0 2px 4px rgb(0 0 0 / 20%), 0 1px 2px rgb(0 0 0 / 30%);
 
 		&--new {
 			background-color: #422006;
@@ -290,18 +289,18 @@ blockquote {
 		color: variables.$text-color-dark;
 
 		&--warning {
-			background-color: rgba(255, 215, 122, 0.1);
-			border-color: rgba(255, 215, 122, 0.3);
+			background-color: rgb(255 215 122 / 10%);
+			border-color: rgb(255 215 122 / 30%);
 		}
 
 		&--error {
-			background-color: rgba(250, 207, 207, 0.1);
-			border-color: rgba(250, 207, 207, 0.3);
+			background-color: rgb(250 207 207 / 10%);
+			border-color: rgb(250 207 207 / 30%);
 		}
 
 		&--success {
-			background-color: rgba(207, 234, 207, 0.1);
-			border-color: rgba(207, 234, 207, 0.3);
+			background-color: rgb(207 234 207 / 10%);
+			border-color: rgb(207 234 207 / 30%);
 		}
 
 		a {
@@ -317,21 +316,21 @@ blockquote {
 button {
 	display: flex;
 	gap: 4px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
+	border: 1px solid rgb(255 255 255 / 10%);
 	box-shadow:
-		0 1px 3px rgba(0, 0, 0, 0.1),
-		0 1px 2px rgba(0, 0, 0, 0.06),
-		inset 0 2px 4px rgba(0, 0, 0, 0.1),
-		inset 0 -1px 2px rgba(255, 255, 255, 0.1);
+		0 1px 3px rgb(0 0 0 / 10%),
+		0 1px 2px rgb(0 0 0 / 6%),
+		inset 0 2px 4px rgb(0 0 0 / 10%),
+		inset 0 -1px 2px rgb(255 255 255 / 10%);
 	cursor: pointer;
 	transition: all 0.3s ease;
 
 	@media (prefers-color-scheme: dark) {
 		box-shadow:
-			0 1px 3px rgba(0, 0, 0, 0.2),
-			0 1px 2px rgba(0, 0, 0, 0.12),
-			inset 0 2px 4px rgba(0, 0, 0, 0.2),
-			inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+			0 1px 3px rgb(0 0 0 / 20%),
+			0 1px 2px rgb(0 0 0 / 12%),
+			inset 0 2px 4px rgb(0 0 0 / 20%),
+			inset 0 -1px 2px rgb(255 255 255 / 5%);
 	}
 }
 
@@ -346,11 +345,11 @@ button {
 	gap: 4px;
 	position: relative;
 	box-shadow:
-		0 1px 3px rgba(0, 0, 0, 0.1),
-		0 1px 2px rgba(0, 0, 0, 0.06),
-		inset 0 2px 4px rgba(0, 0, 0, 0.1),
-		inset 0 -1px 2px rgba(255, 255, 255, 0.1);
-	border: 1px solid rgba(255, 255, 255, 0.1);
+		0 1px 3px rgb(0 0 0 / 10%),
+		0 1px 2px rgb(0 0 0 / 6%),
+		inset 0 2px 4px rgb(0 0 0 / 10%),
+		inset 0 -1px 2px rgb(255 255 255 / 10%);
+	border: 1px solid rgb(255 255 255 / 10%);
 	box-sizing: border-box;
 
 	// Add CSS custom properties for slider position and width
@@ -362,21 +361,23 @@ button {
 		position: absolute;
 		left: 0;
 		top: 4px;
+
 		/* Default, will be overridden by JS */
 		height: calc(100% - 8px);
+
 		/* Default, will be overridden by JS */
 		background: variables.$link-color;
 		border-radius: 6px;
 		z-index: 1;
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
 		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease, top 0.3s ease, height 0.3s ease;
 
 		@media (prefers-color-scheme: dark) {
 			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.4),
-				0 1px 0 rgba(255, 255, 255, 0.3) inset,
-				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
 			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
 		}
 	}
@@ -396,7 +397,7 @@ button {
 		background: variables.$link-color;
 		border-radius: 6px;
 		z-index: 1;
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
 		transform: translateX(var(--slider-x));
 		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease;
 
@@ -453,28 +454,28 @@ button {
 		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
 		border-color: variables.$border-color-dark;
 		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.3),
-			0 -1px 0 rgba(255, 255, 255, 0.1) inset,
-			0 2px 0 rgba(0, 0, 0, 0.2) inset;
+			0 1px 2px rgb(0 0 0 / 30%),
+			0 -1px 0 rgb(255 255 255 / 10%) inset,
+			0 2px 0 rgb(0 0 0 / 20%) inset;
 
 		&::after {
 			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.4),
-				0 1px 0 rgba(255, 255, 255, 0.3) inset,
-				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
 			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
 		}
 
 		.tab-button {
 			&.active {
 				color: variables.$black !important;
-				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+				text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
 			}
 
 			&:not(.active) {
 				color: variables.$text-color-secondary-dark !important;
-				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+				text-shadow: 0 1px 0 rgb(0 0 0 / 50%);
 
 				&:hover {
 					color: variables.$text-color-dark !important;
@@ -486,44 +487,43 @@ button {
 
 /* Additional dark mode styles for mobile-tabs with higher specificity */
 @media (prefers-color-scheme: dark) {
-
 	/* Mobile view */
 	.device-mobile .blog .blog-content .mobile-tabs {
 		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
 		border-color: variables.$border-color-dark;
 		border-bottom: 1px solid variables.$border-color-dark;
 		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.3),
-			0 -1px 0 rgba(255, 255, 255, 0.1) inset,
-			0 2px 0 rgba(0, 0, 0, 0.2) inset;
+			0 1px 2px rgb(0 0 0 / 30%),
+			0 -1px 0 rgb(255 255 255 / 10%) inset,
+			0 2px 0 rgb(0 0 0 / 20%) inset;
 
 		&::after {
 			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.4),
-				0 1px 0 rgba(255, 255, 255, 0.3) inset,
-				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
 			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
 		}
 
 		.mobile-tabs-slider {
 			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.4),
-				0 1px 0 rgba(255, 255, 255, 0.3) inset,
-				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
 			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
 		}
 
 		.tab-button {
 			&.active {
 				color: variables.$black !important;
-				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+				text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
 			}
 
 			&:not(.active) {
 				color: variables.$text-color-secondary-dark !important;
-				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+				text-shadow: 0 1px 0 rgb(0 0 0 / 50%);
 
 				&:hover {
 					color: variables.$text-color-dark !important;
@@ -538,37 +538,37 @@ button {
 		border-color: variables.$border-color-dark;
 		border-bottom: 1px solid variables.$border-color-dark;
 		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.3),
-			0 -1px 0 rgba(255, 255, 255, 0.1) inset,
-			0 2px 0 rgba(0, 0, 0, 0.2) inset;
+			0 1px 2px rgb(0 0 0 / 30%),
+			0 -1px 0 rgb(255 255 255 / 10%) inset,
+			0 2px 0 rgb(0 0 0 / 20%) inset;
 
 		&::after {
 			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.4),
-				0 1px 0 rgba(255, 255, 255, 0.3) inset,
-				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
 			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
 		}
 
 		.mobile-tabs-slider {
 			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.4),
-				0 1px 0 rgba(255, 255, 255, 0.3) inset,
-				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
 			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
 		}
 
 		.tab-button {
 			&.active {
 				color: variables.$black !important;
-				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+				text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
 			}
 
 			&:not(.active) {
 				color: variables.$text-color-secondary-dark !important;
-				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+				text-shadow: 0 1px 0 rgb(0 0 0 / 50%);
 
 				&:hover {
 					color: variables.$text-color-dark !important;
@@ -583,37 +583,37 @@ button {
 		border-color: variables.$border-color-dark;
 		border-bottom: 1px solid variables.$border-color-dark;
 		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.3),
-			0 -1px 0 rgba(255, 255, 255, 0.1) inset,
-			0 2px 0 rgba(0, 0, 0, 0.2) inset;
+			0 1px 2px rgb(0 0 0 / 30%),
+			0 -1px 0 rgb(255 255 255 / 10%) inset,
+			0 2px 0 rgb(0 0 0 / 20%) inset;
 
 		&::after {
 			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.4),
-				0 1px 0 rgba(255, 255, 255, 0.3) inset,
-				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
 			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
 		}
 
 		.mobile-tabs-slider {
 			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.4),
-				0 1px 0 rgba(255, 255, 255, 0.3) inset,
-				0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
 			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
 		}
 
 		.tab-button {
 			&.active {
 				color: variables.$black !important;
-				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+				text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
 			}
 
 			&:not(.active) {
 				color: variables.$text-color-secondary-dark !important;
-				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+				text-shadow: 0 1px 0 rgb(0 0 0 / 50%);
 
 				&:hover {
 					color: variables.$text-color-dark !important;
@@ -659,8 +659,8 @@ button {
 			font-weight: 600;
 			margin: 0;
 			text-shadow:
-				0 1px 1px rgba(255, 255, 255, 0.9),
-				0 -1px 1px rgba(0, 0, 0, 0.2);
+				0 1px 1px rgb(255 255 255 / 90%),
+				0 -1px 1px rgb(0 0 0 / 20%);
 			letter-spacing: 0.02em;
 		}
 
@@ -712,6 +712,7 @@ button {
 		.contact-button {
 			display: block;
 			padding: 8px 16px;
+
 			/* Use active styling as default on mobile */
 			background: rgba(variables.$link-color, 0.8);
 			border: 1px solid rgba(variables.$link-color, 0.6);
@@ -724,9 +725,9 @@ button {
 			transition: all 0.2s ease;
 			z-index: 101;
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.1),
-				0 1px 0 rgba(255, 255, 255, 0.1) inset;
-			-webkit-backdrop-filter: blur(4px);
+				0 1px 2px rgb(0 0 0 / 10%),
+				0 1px 0 rgb(255 255 255 / 10%) inset;
+			backdrop-filter: blur(4px);
 			backdrop-filter: blur(4px);
 
 			/* New hover state for active-by-default button */
@@ -734,8 +735,8 @@ button {
 				background: rgba(variables.$link-color, 0.9);
 				border-color: rgba(variables.$link-color, 0.8);
 				box-shadow:
-					0 2px 4px rgba(0, 0, 0, 0.15),
-					0 1px 0 rgba(255, 255, 255, 0.2) inset;
+					0 2px 4px rgb(0 0 0 / 15%),
+					0 1px 0 rgb(255 255 255 / 20%) inset;
 			}
 
 			/* New active/pressed state for touch/mouse down */
@@ -743,8 +744,8 @@ button {
 				background: rgba(variables.$link-color, 0.7);
 				border-color: rgba(variables.$link-color, 0.5);
 				box-shadow:
-					0 1px 1px rgba(0, 0, 0, 0.1),
-					0 1px 2px rgba(0, 0, 0, 0.1) inset;
+					0 1px 1px rgb(0 0 0 / 10%),
+					0 1px 2px rgb(0 0 0 / 10%) inset;
 				transform: translateY(0);
 			}
 
@@ -753,8 +754,8 @@ button {
 				background: rgba(variables.$link-color, 0.85);
 				border-color: rgba(variables.$link-color, 0.7);
 				box-shadow:
-					0 1px 2px rgba(0, 0, 0, 0.1),
-					0 1px 0 rgba(255, 255, 255, 0.15) inset;
+					0 1px 2px rgb(0 0 0 / 10%),
+					0 1px 0 rgb(255 255 255 / 15%) inset;
 			}
 		}
 
@@ -768,11 +769,11 @@ button {
 			background: rgba(variables.$card-bg, 0.8);
 			border: 1px solid rgba(variables.$border-color, 0.6);
 			border-radius: 6px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+			box-shadow: 0 4px 8px rgb(0 0 0 / 5%);
 			overflow: hidden;
 			z-index: 100;
 			min-width: 120px;
-			-webkit-backdrop-filter: blur(4px);
+			backdrop-filter: blur(4px);
 			backdrop-filter: blur(4px);
 
 			.contact-option {
@@ -824,9 +825,9 @@ button {
 			border: 1px solid rgba(variables.$border-color, 0.6);
 			border-radius: 6px;
 			overflow: hidden;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+			box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
 			background: rgba(variables.$card-bg, 0.6);
-			-webkit-backdrop-filter: blur(4px);
+			backdrop-filter: blur(4px);
 			backdrop-filter: blur(4px);
 
 			.contact-option {
@@ -851,14 +852,14 @@ button {
 				&:not(:last-child) {
 					border-right: 1px solid rgba(variables.$border-color, 0.4);
 
-					&:after {
+					&::after {
 						content: '';
 						position: absolute;
 						right: 0;
 						top: 0;
 						height: 100%;
 						width: 1px;
-						background: rgba(255, 255, 255, 0.7);
+						background: rgb(255 255 255 / 70%);
 					}
 				}
 			}
@@ -869,7 +870,6 @@ button {
 /* Dark mode styles for contact wrapper */
 @media (prefers-color-scheme: dark) {
 	.contact-wrapper {
-
 		/* Mobile styles - active by default in dark mode */
 		@media screen and (max-width: variables.$mobile-breakpoint) {
 			.contact-button {
@@ -878,19 +878,19 @@ button {
 				border-color: color.adjust(variables.$link-color-dark, $lightness: -15%);
 				color: variables.$black;
 				box-shadow:
-					0 1px 2px rgba(0, 0, 0, 0.4),
-					0 1px 0 rgba(255, 255, 255, 0.3) inset,
-					0 -1px 0 rgba(0, 0, 0, 0.2) inset;
-				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+					0 1px 2px rgb(0 0 0 / 40%),
+					0 1px 0 rgb(255 255 255 / 30%) inset,
+					0 -1px 0 rgb(0 0 0 / 20%) inset;
+				text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
 
 				/* New hover state for active-by-default button in dark mode */
 				&:hover {
 					background: linear-gradient(to bottom, color.adjust(variables.$link-color-dark, $lightness: 5%), color.adjust(variables.$link-color-dark, $lightness: -5%));
 					border-color: color.adjust(variables.$link-color-dark, $lightness: -10%);
 					box-shadow:
-						0 2px 4px rgba(0, 0, 0, 0.5),
-						0 1px 0 rgba(255, 255, 255, 0.4) inset,
-						0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+						0 2px 4px rgb(0 0 0 / 50%),
+						0 1px 0 rgb(255 255 255 / 40%) inset,
+						0 -1px 0 rgb(0 0 0 / 10%) inset;
 				}
 
 				/* New active/pressed state for touch/mouse down in dark mode */
@@ -898,8 +898,8 @@ button {
 					background: linear-gradient(to bottom, color.adjust(variables.$link-color-dark, $lightness: -5%), color.adjust(variables.$link-color-dark, $lightness: -15%));
 					border-color: color.adjust(variables.$link-color-dark, $lightness: -20%);
 					box-shadow:
-						0 1px 1px rgba(0, 0, 0, 0.3),
-						0 1px 2px rgba(0, 0, 0, 0.3) inset;
+						0 1px 1px rgb(0 0 0 / 30%),
+						0 1px 2px rgb(0 0 0 / 30%) inset;
 					transform: translateY(0);
 				}
 
@@ -908,9 +908,9 @@ button {
 					background: linear-gradient(to bottom, color.adjust(variables.$link-color-dark, $lightness: 2%), color.adjust(variables.$link-color-dark, $lightness: -8%));
 					border-color: color.adjust(variables.$link-color-dark, $lightness: -12%);
 					box-shadow:
-						0 1px 2px rgba(0, 0, 0, 0.4),
-						0 1px 0 rgba(255, 255, 255, 0.35) inset,
-						0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+						0 1px 2px rgb(0 0 0 / 40%),
+						0 1px 0 rgb(255 255 255 / 35%) inset,
+						0 -1px 0 rgb(0 0 0 / 15%) inset;
 				}
 			}
 		}
@@ -922,27 +922,27 @@ button {
 				border-color: variables.$border-color-dark;
 				color: variables.$text-color-dark;
 				box-shadow:
-					0 1px 2px rgba(0, 0, 0, 0.3),
-					0 -1px 0 rgba(255, 255, 255, 0.1) inset,
-					0 2px 0 rgba(0, 0, 0, 0.2) inset;
-				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+					0 1px 2px rgb(0 0 0 / 30%),
+					0 -1px 0 rgb(255 255 255 / 10%) inset,
+					0 2px 0 rgb(0 0 0 / 20%) inset;
+				text-shadow: 0 1px 0 rgb(0 0 0 / 50%);
 
 				&:hover {
 					background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 12%), color.adjust(variables.$card-bg-dark, $lightness: 5%));
 					box-shadow:
-						0 1px 3px rgba(0, 0, 0, 0.4),
-						0 -1px 0 rgba(255, 255, 255, 0.1) inset,
-						0 2px 0 rgba(0, 0, 0, 0.2) inset;
+						0 1px 3px rgb(0 0 0 / 40%),
+						0 -1px 0 rgb(255 255 255 / 10%) inset,
+						0 2px 0 rgb(0 0 0 / 20%) inset;
 				}
 
 				&.active {
 					background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
 					color: variables.$black;
 					box-shadow:
-						0 1px 2px rgba(0, 0, 0, 0.4),
-						0 1px 0 rgba(255, 255, 255, 0.3) inset,
-						0 -1px 0 rgba(0, 0, 0, 0.2) inset;
-					text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+						0 1px 2px rgb(0 0 0 / 40%),
+						0 1px 0 rgb(255 255 255 / 30%) inset,
+						0 -1px 0 rgb(0 0 0 / 20%) inset;
+					text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
 					border-color: color.adjust(variables.$link-color-dark, $lightness: -15%);
 				}
 			}
@@ -952,31 +952,31 @@ button {
 			background: variables.$card-bg-dark;
 			border-color: variables.$border-color-dark;
 			box-shadow:
-				0 4px 8px rgba(0, 0, 0, 0.3),
-				0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+				0 4px 8px rgb(0 0 0 / 30%),
+				0 0 0 1px rgb(255 255 255 / 5%) inset;
 
 			.contact-option {
 				color: variables.$text-color-dark;
 				background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
 				border-color: variables.$border-color-dark;
-				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-				box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+				text-shadow: 0 1px 0 rgb(0 0 0 / 50%);
+				box-shadow: 0 1px 0 rgb(255 255 255 / 5%) inset;
 
 				&:hover {
 					background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
 					color: variables.$black;
-					text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
-					box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+					text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
+					box-shadow: 0 1px 0 rgb(255 255 255 / 20%) inset;
 				}
 
 				&:active {
 					background: linear-gradient(to bottom, color.adjust(variables.$link-color-dark, $lightness: -10%), variables.$link-color-dark);
-					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+					box-shadow: 0 1px 2px rgb(0 0 0 / 30%) inset;
 				}
 
 				&:not(:last-child) {
-					&:after {
-						background: rgba(255, 255, 255, 0.1);
+					&::after {
+						background: rgb(255 255 255 / 10%);
 					}
 				}
 			}
@@ -991,13 +991,12 @@ button {
 	left: 0;
 	bottom: 0;
 	right: 0;
-	width: 100%;
 	margin: 0 auto;
 	width: 90vw;
 	max-width: 600px;
 	max-height: 90vh;
-	background: rgba(0, 0, 0, 0.5);
-	-webkit-backdrop-filter: blur(4px);
+	background: rgb(0 0 0 / 50%);
+	backdrop-filter: blur(4px);
 	backdrop-filter: blur(4px);
 	border-radius: 6px 6px 0 0;
 	border-top: 1px solid variables.$border-color;
@@ -1071,7 +1070,7 @@ button {
 		margin: 0;
 		padding: 2rem;
 		position: relative;
-		box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 -8px 32px rgb(0 0 0 / 10%);
 		border-top: 1px solid var(--propel-border);
 		border-radius: 0;
 		opacity: 0;
@@ -1220,7 +1219,7 @@ body.modal-open {
 		background-color: variables.$card-bg;
 		border: 1px solid variables.$border-color;
 		border-radius: 4px;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 		margin-bottom: variables.$space-sm;
 
 		h2 {
@@ -1257,11 +1256,11 @@ body.modal-open {
 			height: 10px;
 			border-radius: 50%;
 			background: transparent;
-			border: 1px solid currentColor;
+			border: 1px solid currentcolor;
 			cursor: pointer;
 
 			&.active {
-				background: currentColor;
+				background: currentcolor;
 			}
 		}
 	}
@@ -1318,8 +1317,8 @@ table {
 	border-radius: 6px;
 	overflow: hidden;
 	box-shadow:
-		0 1px 2px rgba(0, 0, 0, 0.05),
-		0 1px 1px rgba(0, 0, 0, 0.03);
+		0 1px 2px rgb(0 0 0 / 5%),
+		0 1px 1px rgb(0 0 0 / 3%);
 	background-color: rgba(variables.$card-bg, 0.8);
 
 	tr {
@@ -1394,8 +1393,8 @@ table {
 		border-color: rgba(variables.$border-color-dark, 0.5);
 		background-color: rgba(variables.$card-bg-dark, 0.8);
 		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.15),
-			0 1px 1px rgba(0, 0, 0, 0.1);
+			0 1px 2px rgb(0 0 0 / 15%),
+			0 1px 1px rgb(0 0 0 / 10%);
 
 		tr {
 			border-bottom-color: rgba(variables.$border-color-dark, 0.4);
@@ -1416,7 +1415,7 @@ table {
 			color: variables.$text-color-dark;
 			position: relative;
 
-			&:after {
+			&::after {
 				content: '';
 				position: absolute;
 				right: -1px;
@@ -1429,7 +1428,7 @@ table {
 						rgba(variables.$border-color-dark, 0.2));
 			}
 
-			&:last-child:after {
+			&:last-child::after {
 				display: none;
 			}
 		}
@@ -1439,7 +1438,7 @@ table {
 			color: variables.$text-color-secondary-dark;
 			position: relative;
 
-			&:after {
+			&::after {
 				content: '';
 				position: absolute;
 				right: -1px;
@@ -1452,14 +1451,14 @@ table {
 						rgba(variables.$border-color-dark, 0.2));
 			}
 
-			&:last-child:after {
+			&:last-child::after {
 				display: none;
 			}
 		}
 
 		// Dark mode badge styles
 		th span {
-			background-color: rgba(255, 255, 255, 0.1);
+			background-color: rgb(255 255 255 / 10%);
 			color: variables.$text-color-dark;
 
 			&[style*="background-color: #e6f7ff"] {
@@ -1503,15 +1502,15 @@ table {
 		width: 100%;
 		padding: 9px 9px 9px 30px;
 		font-size: 14px;
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		border: 1px solid rgb(255 255 255 / 10%);
 		border-radius: 8px;
 		background: linear-gradient(to bottom,
 				color.adjust(variables.$card-bg, $lightness: 2%),
 				variables.$card-bg);
 		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 		box-shadow:
-			0 1px 3px rgba(0, 0, 0, 0.1),
-			0 1px 2px rgba(0, 0, 0, 0.06);
+			0 1px 3px rgb(0 0 0 / 10%),
+			0 1px 2px rgb(0 0 0 / 6%);
 		color: variables.$text-color;
 		position: relative;
 		z-index: 1;
@@ -1521,7 +1520,7 @@ table {
 					color.adjust(variables.$card-bg, $lightness: 3%),
 					color.adjust(variables.$card-bg, $lightness: 1%));
 			box-shadow:
-				0 2px 4px rgba(0, 0, 0, 0.05);
+				0 2px 4px rgb(0 0 0 / 5%);
 		}
 
 		&:focus {
@@ -1532,7 +1531,7 @@ table {
 					variables.$white);
 			box-shadow:
 				0 0 0 2px rgba(variables.$link-color, 0.1),
-				0 2px 4px rgba(0, 0, 0, 0.05);
+				0 2px 4px rgb(0 0 0 / 5%);
 
 			&+.search-icon {
 				opacity: 0.8;
@@ -1550,7 +1549,7 @@ table {
 
 		/* Clear button styling */
 		&::-webkit-search-cancel-button {
-			-webkit-appearance: none;
+			appearance: none;
 			height: 14px;
 			width: 14px;
 			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
@@ -1582,24 +1581,24 @@ table {
 			border-color: variables.$border-color-dark;
 			color: variables.$text-color-dark;
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.2),
-				0 -1px 0 rgba(255, 255, 255, 0.05) inset,
-				0 1px 0 rgba(0, 0, 0, 0.1) inset;
+				0 1px 2px rgb(0 0 0 / 20%),
+				0 -1px 0 rgb(255 255 255 / 5%) inset,
+				0 1px 0 rgb(0 0 0 / 10%) inset;
 
 			&:focus {
-				border-color: hsl(40, 90%, 45%);
+				border-color: hsl(40deg 90% 45%);
 				background: linear-gradient(to bottom,
 						color.adjust(variables.$card-bg-dark, $lightness: 5%),
 						color.adjust(variables.$card-bg-dark, $lightness: 3%));
 				box-shadow:
-					0 0 0 2px rgba(hsl(40, 90%, 45%), 0.2),
-					0 2px 4px rgba(0, 0, 0, 0.2),
-					0 -1px 0 rgba(255, 255, 255, 0.05) inset,
-					0 1px 0 rgba(0, 0, 0, 0.1) inset;
+					0 0 0 2px rgb(hsl(40deg 90% 45%), 0.2),
+					0 2px 4px rgb(0 0 0 / 20%),
+					0 -1px 0 rgb(255 255 255 / 5%) inset,
+					0 1px 0 rgb(0 0 0 / 10%) inset;
 			}
 
 			&:active {
-				border-color: hsl(40, 90%, 45%);
+				border-color: hsl(40deg 90% 45%);
 			}
 
 			&:hover {
@@ -1607,9 +1606,9 @@ table {
 						color.adjust(variables.$card-bg-dark, $lightness: 4%),
 						color.adjust(variables.$card-bg-dark, $lightness: 2%));
 				box-shadow:
-					0 2px 4px rgba(0, 0, 0, 0.2),
-					0 -1px 0 rgba(255, 255, 255, 0.05) inset,
-					0 1px 0 rgba(0, 0, 0, 0.1) inset;
+					0 2px 4px rgb(0 0 0 / 20%),
+					0 -1px 0 rgb(255 255 255 / 5%) inset,
+					0 1px 0 rgb(0 0 0 / 10%) inset;
 			}
 
 			&::placeholder {
@@ -1674,10 +1673,7 @@ table {
 @media screen and (max-width: variables.$mobile-breakpoint) {
 	.contact-modal {
 		position: fixed;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		top: 0;
+		inset: 0;
 		z-index: 2000;
 		display: flex;
 		align-items: center;
@@ -1695,9 +1691,9 @@ table {
 	.contact-modal-backdrop {
 		position: absolute;
 		inset: 0;
-		background: rgba(30, 30, 40, 0.35);
-		-webkit-backdrop-filter: blur(0px);
-		backdrop-filter: blur(0px);
+		background: rgb(30 30 40 / 35%);
+		backdrop-filter: blur(0);
+		backdrop-filter: blur(0);
 		z-index: 1;
 		opacity: 0;
 		transition:
@@ -1707,7 +1703,7 @@ table {
 
 	.contact-modal.active .contact-modal-backdrop {
 		opacity: 1;
-		-webkit-backdrop-filter: blur(6px);
+		backdrop-filter: blur(6px);
 		backdrop-filter: blur(6px);
 	}
 
@@ -1718,10 +1714,10 @@ table {
 		margin: 0 auto;
 		margin-left: 6px;
 		margin-right: 6px;
-		background: rgba(255, 255, 255, 0.65);
+		background: rgb(255 255 255 / 65%);
 		border-radius: 12px;
-		box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
-		padding: 24px 24px 24px 24px;
+		box-shadow: 0 -8px 32px rgb(0 0 0 / 12%);
+		padding: 24px;
 		z-index: 2;
 		transform: scale(0.3) translateY(-20px);
 		opacity: 0;
@@ -1731,11 +1727,9 @@ table {
 			background-color 0.3s ease,
 			border-color 0.3s ease,
 			backdrop-filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-		-webkit-backdrop-filter: blur(2px) saturate(1.2);
 		backdrop-filter: blur(2px) saturate(1.2);
-		-webkit-backdrop-filter: blur(2px) saturate(1.2);
 		backdrop-filter: blur(2px) saturate(1.2);
-		border: 1px solid rgba(200, 200, 220, 0.1);
+		border: 1px solid rgb(200 200 220 / 10%);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -1747,11 +1741,9 @@ table {
 	.contact-modal.active .contact-modal-sheet {
 		transform: scale(1) translateY(0);
 		opacity: 1;
-		-webkit-backdrop-filter: blur(20px) saturate(1.5);
 		backdrop-filter: blur(20px) saturate(1.5);
-		-webkit-backdrop-filter: blur(20px) saturate(1.5);
 		backdrop-filter: blur(20px) saturate(1.5);
-		border: 1px solid rgba(200, 200, 220, 0.3);
+		border: 1px solid rgb(200 200 220 / 30%);
 	}
 
 	.contact-modal-title {
@@ -1793,7 +1785,6 @@ table {
 	}
 
 	.contact-modal-options {
-
 		button,
 		a {
 			height: auto;
@@ -1803,21 +1794,21 @@ table {
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			padding: 16px 12px 12px 12px;
+			padding: 16px 12px 12px;
 			font-size: 12px;
 			border-radius: 8px;
-			background-color: rgba(255, 255, 255, 0.36);
+			background-color: rgb(255 255 255 / 36%);
 			color: #9291a1;
 			border: none;
-			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+			box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
 			text-decoration: none;
 			transition: background-color 0.2s ease, box-shadow 0.2s ease;
 			flex: 1;
 			max-width: 120px;
 
 			&:hover {
-				background-color: rgba(255, 255, 255, 1);
-				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+				background-color: rgb(255 255 255 / 100%);
+				box-shadow: 0 2px 6px rgb(0 0 0 / 12%);
 
 				.contact-icon {
 					transform: translateY(-2px);
@@ -1843,7 +1834,7 @@ table {
 
 	@media (prefers-color-scheme: dark) {
 		.contact-modal-sheet {
-			background-color: hsla(28, 8%, 15%, 0.09);
+			background-color: hsl(28deg 8% 15% / 9%);
 		}
 
 		.contact-modal-title {
@@ -1852,13 +1843,13 @@ table {
 
 		.contact-modal-options button,
 		.contact-modal-options a {
-			background-color: rgba(0, 0, 0, 0.36);
+			background-color: rgb(0 0 0 / 36%);
 			color: #8f8f8f;
-			box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+			box-shadow: 0 1px 3px rgb(255 255 255 / 10%);
 
 			&:hover {
-				background-color: rgba(255, 255, 255, 0.2);
-				box-shadow: 0 2px 6px rgba(255, 255, 255, 0.15);
+				background-color: rgb(255 255 255 / 20%);
+				box-shadow: 0 2px 6px rgb(255 255 255 / 15%);
 			}
 
 			.contact-label {
@@ -1869,7 +1860,7 @@ table {
 }
 
 // Hide modal on tablet and desktop
-@media screen and (min-width: 768px) {
+@media screen and (width >= 768px) {
 	.contact-modal {
 		display: none !important;
 	}
@@ -1878,22 +1869,21 @@ table {
 // Ensure dynamically loaded content is scrollable
 .content-inner-wrapper {
 	height: 100%;
-	overflow-y: scroll;
-	overflow-x: hidden;
+	overflow: hidden scroll;
 }
 
 // Tablet fix: ensure inner wrapper is scrollable on tablet
-@media screen and (min-width: 601px) and (max-width: 1024px) {
+@media screen and (width >= 601px) and (width <= 1024px) {
 	.device-tablet .blog-content>.content-inner-wrapper {
 		height: 100%;
-		overflow-y: auto;
-		overflow-x: hidden;
+		overflow: hidden auto;
 	}
 }
 
 /* Layout Toggle Switch - Search Input Style */
 .layout-toggle {
 	display: none;
+
 	/* Hidden by default, shown on desktop/tablet */
 	flex-direction: row;
 	align-items: center;
@@ -1916,19 +1906,22 @@ table {
 		position: relative;
 		width: 46px;
 		height: 28px;
+
 		/* Match search input height */
 		padding: 9px;
+
 		/* Match search input padding */
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		border: 1px solid rgb(255 255 255 / 10%);
 		border-radius: 6px;
+
 		/* Match search input border radius */
 		background: linear-gradient(to bottom,
 				color.adjust(variables.$card-bg, $lightness: 2%),
 				variables.$card-bg);
 		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 		box-shadow:
-			0 1px 3px rgba(0, 0, 0, 0.1),
-			0 1px 2px rgba(0, 0, 0, 0.06);
+			0 1px 3px rgb(0 0 0 / 10%),
+			0 1px 2px rgb(0 0 0 / 6%);
 		cursor: pointer;
 		overflow: hidden;
 		box-sizing: border-box;
@@ -1938,9 +1931,9 @@ table {
 			content: '';
 			position: absolute;
 			inset: 2px;
-			background: rgba(0, 0, 0, 0.12);
+			background: rgb(0 0 0 / 12%);
 			border-radius: 6px;
-			box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+			box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
 		}
 
 		/* Toggle handle */
@@ -1955,10 +1948,10 @@ table {
 					color.adjust(variables.$white, $lightness: -1%),
 					variables.$white);
 			border-radius: 3px;
-			border: 1px solid rgba(0, 0, 0, 0.1);
+			border: 1px solid rgb(0 0 0 / 10%);
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.1),
-				0 1px 1px rgba(0, 0, 0, 0.06);
+				0 1px 2px rgb(0 0 0 / 10%),
+				0 1px 1px rgb(0 0 0 / 6%);
 			transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 			transform: translateX(0);
 		}
@@ -1969,12 +1962,12 @@ table {
 					color.adjust(variables.$card-bg, $lightness: 3%),
 					color.adjust(variables.$card-bg, $lightness: 1%));
 			box-shadow:
-				0 2px 4px rgba(0, 0, 0, 0.05);
+				0 2px 4px rgb(0 0 0 / 5%);
 
 			&::after {
 				box-shadow:
-					0 2px 3px rgba(0, 0, 0, 0.12),
-					0 1px 2px rgba(0, 0, 0, 0.08);
+					0 2px 3px rgb(0 0 0 / 12%),
+					0 1px 2px rgb(0 0 0 / 8%);
 			}
 		}
 
@@ -1982,7 +1975,7 @@ table {
 		&:active {
 			&::after {
 				box-shadow:
-					0 1px 2px rgba(0, 0, 0, 0.08);
+					0 1px 2px rgb(0 0 0 / 8%);
 			}
 		}
 	}
@@ -1990,10 +1983,10 @@ table {
 	/* Grid mode - handle moves to right */
 	&[data-layout="grid"] {
 		.layout-toggle__switch {
-
 			/* Keep the same neutral background - no color change for either/or toggle */
 			&::after {
 				transform: translateX(15px);
+
 				/* Move to right side */
 			}
 		}
@@ -2009,24 +2002,24 @@ table {
 					variables.$card-bg-dark);
 			border-color: variables.$border-color-dark;
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.2),
-				0 -1px 0 rgba(255, 255, 255, 0.05) inset,
-				0 1px 0 rgba(0, 0, 0, 0.1) inset;
+				0 1px 2px rgb(0 0 0 / 20%),
+				0 -1px 0 rgb(255 255 255 / 5%) inset,
+				0 1px 0 rgb(0 0 0 / 10%) inset;
 
 			&::before {
-				background: rgba(0, 0, 0, 0.2);
-				box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+				background: rgb(0 0 0 / 20%);
+				box-shadow: inset 0 1px 2px rgb(0 0 0 / 30%);
 			}
 
 			&::after {
 				background: linear-gradient(to bottom,
 						color.adjust(variables.$card-bg-dark, $lightness: 15%),
 						color.adjust(variables.$card-bg-dark, $lightness: 10%));
-				border-color: rgba(255, 255, 255, 0.1);
+				border-color: rgb(255 255 255 / 10%);
 				box-shadow:
-					0 1px 2px rgba(0, 0, 0, 0.3),
-					0 1px 1px rgba(0, 0, 0, 0.2),
-					0 -1px 0 rgba(255, 255, 255, 0.05) inset;
+					0 1px 2px rgb(0 0 0 / 30%),
+					0 1px 1px rgb(0 0 0 / 20%),
+					0 -1px 0 rgb(255 255 255 / 5%) inset;
 			}
 
 			&:hover {
@@ -2034,23 +2027,23 @@ table {
 						color.adjust(variables.$card-bg-dark, $lightness: 4%),
 						color.adjust(variables.$card-bg-dark, $lightness: 2%));
 				box-shadow:
-					0 2px 4px rgba(0, 0, 0, 0.2),
-					0 -1px 0 rgba(255, 255, 255, 0.05) inset,
-					0 1px 0 rgba(0, 0, 0, 0.1) inset;
+					0 2px 4px rgb(0 0 0 / 20%),
+					0 -1px 0 rgb(255 255 255 / 5%) inset,
+					0 1px 0 rgb(0 0 0 / 10%) inset;
 
 				&::after {
 					box-shadow:
-						0 2px 3px rgba(0, 0, 0, 0.4),
-						0 1px 2px rgba(0, 0, 0, 0.3),
-						0 -1px 0 rgba(255, 255, 255, 0.08) inset;
+						0 2px 3px rgb(0 0 0 / 40%),
+						0 1px 2px rgb(0 0 0 / 30%),
+						0 -1px 0 rgb(255 255 255 / 8%) inset;
 				}
 			}
 
 			&:active {
 				&::after {
 					box-shadow:
-						0 1px 2px rgba(0, 0, 0, 0.2),
-						0 -1px 0 rgba(255, 255, 255, 0.03) inset;
+						0 1px 2px rgb(0 0 0 / 20%),
+						0 -1px 0 rgb(255 255 255 / 3%) inset;
 				}
 			}
 		}
@@ -2058,7 +2051,6 @@ table {
 		/* Grid mode in dark mode */
 		&[data-layout="grid"] {
 			.layout-toggle__switch {
-
 				/* Keep the same neutral background in dark mode - no color change needed for either/or toggle */
 				&::after {
 					transform: translateX(15px);

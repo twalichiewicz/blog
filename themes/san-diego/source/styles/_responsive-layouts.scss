@@ -33,8 +33,7 @@
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	overflow-x: hidden;
-	overflow-y: auto;
+	overflow: hidden auto;
 	position: relative;
 
 	.blog-header {
@@ -60,11 +59,12 @@
 		flex-direction: column;
 		align-items: flex-start;
 		text-align: center;
-		margin: 0 12px 12px 12px;
+		margin: 0 12px 12px;
 		flex-shrink: 0;
 		padding: variables.$spacing-card 0 12px 0;
 		position: relative;
 		z-index: 2;
+
 		/* Ensure it's above the wave container */
 
 		.profile-photo {
@@ -152,7 +152,7 @@
 		}
 
 		&::-webkit-scrollbar-thumb {
-			background-color: rgba(0, 0, 0, 0.2);
+			background-color: rgb(0 0 0 / 20%);
 			border-radius: 3px;
 		}
 	}
@@ -225,8 +225,7 @@
 			.project-details {
 				width: 100%;
 				padding: 1rem var(--project-padding);
-				overflow-y: auto;
-				overflow-x: hidden;
+				overflow: hidden auto;
 			}
 		}
 	}
@@ -241,8 +240,10 @@
 	height: 100vh;
 	width: 100vw;
 	overflow: hidden;
+
 	/* Prevent body scrolling */
 	position: fixed;
+
 	/* Explicitly set fixed position for tablet */
 
 	.blog-header {
@@ -253,8 +254,10 @@
 		position: relative;
 		padding-top: 0;
 		padding-bottom: 24px;
+
 		/* Added padding to bottom instead of margin on blog-content */
 		min-height: 300px;
+
 		/* Reset padding for tablet view */
 		overflow: visible;
 
@@ -290,6 +293,7 @@
 		display: flex;
 		flex-direction: column;
 		position: relative;
+
 		/* Relative to the fixed container */
 
 		.tabs-wrapper {
@@ -305,20 +309,15 @@
 
 		.content-wrapper {
 			position: relative;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			overflow-y: auto;
-			overflow-x: hidden;
+			inset: 0;
+			overflow: hidden auto;
 		}
 
 		#postsContent,
 		#projectsContent {
 			height: auto;
 			padding: variables.$space-md variables.$space-md;
-			overflow-y: visible;
-			overflow-x: hidden;
+			overflow: hidden visible;
 			box-sizing: border-box;
 			max-width: 600px;
 			margin: 0 auto;
@@ -332,7 +331,7 @@
 			}
 
 			&::-webkit-scrollbar-thumb {
-				background-color: rgba(0, 0, 0, 0.2);
+				background-color: rgb(0 0 0 / 20%);
 				border-radius: 3px;
 			}
 		}
@@ -418,6 +417,7 @@
 	width: 100vw;
 	overflow: hidden;
 	position: fixed;
+
 	/* Explicitly set fixed position for desktop */
 
 	.blog-header {
@@ -429,7 +429,9 @@
 		position: relative;
 		min-height: 300px;
 		padding-bottom: 24px;
+
 		/* Added padding to bottom instead of margin on blog-content */
+
 		/* Relative to the fixed container */
 
 		/* Position contact wrapper for desktop */
@@ -480,10 +482,12 @@
 		display: flex;
 		flex-direction: column;
 		position: relative;
+
 		/* Relative to the fixed container */
 
 		.tabs-wrapper {
 			display: none;
+
 			/* Hide tabs on desktop */
 		}
 
@@ -500,10 +504,11 @@
 			justify-content: center;
 			gap: variables.$space-sm;
 			padding: 0;
-			border-radius: 15px 0 0 0;
+			border-radius: 15px 0 0;
+
 			/* Chrome rendering fixes */
 			transform: translateZ(0);
-			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
 			isolation: isolate;
 		}
 
@@ -513,16 +518,17 @@
 			padding: variables.$space-md variables.$space-md;
 			height: 100%;
 			min-height: 0;
-			overflow-y: auto;
-			overflow-x: hidden;
+			overflow: hidden auto;
 			position: relative;
 			margin: 0;
 			box-sizing: border-box;
+
 			/* Chrome-specific fixes for scrolling content rendering */
 			contain: layout style paint;
 			will-change: scroll-position;
 			transform: translateZ(0);
-			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
+
 			/* Additional Chrome optimizations */
 			-webkit-overflow-scrolling: touch;
 			overflow-anchor: none;
@@ -537,7 +543,7 @@
 			}
 
 			&::-webkit-scrollbar-thumb {
-				background-color: rgba(0, 0, 0, 0.2);
+				background-color: rgb(0 0 0 / 20%);
 				border-radius: 3px;
 			}
 
@@ -552,9 +558,11 @@
 			.post-list-item {
 				margin-top: 0;
 				margin-bottom: 0;
+
 				/* Chrome rendering fix for scrollable content */
 				transform: translateZ(0);
-				-webkit-transform: translateZ(0);
+				transform: translateZ(0);
+
 				/* Prevent content shifting */
 				contain: layout;
 			}
@@ -563,8 +571,9 @@
 			.portfolio-item {
 				/* Chrome rendering fix for scrollable content */
 				transform: translateZ(0);
-				-webkit-transform: translateZ(0);
+				transform: translateZ(0);
 				contain: layout;
+
 				/* Prevent layout thrashing */
 				will-change: auto;
 			}
@@ -573,7 +582,7 @@
 			.company-group {
 				/* Chrome rendering fix */
 				transform: translateZ(0);
-				-webkit-transform: translateZ(0);
+				transform: translateZ(0);
 				contain: layout;
 			}
 		}
@@ -648,6 +657,7 @@
 		grid-template-columns: repeat(3, 1fr);
 		grid-auto-rows: minmax(120px, auto);
 		grid-auto-flow: row dense;
+
 		/* Fill gaps automatically */
 		gap: 8px;
 
@@ -658,24 +668,28 @@
 			&[data-grid-size="1x1"] {
 				grid-column: span 1;
 				grid-row: span 1;
+
 				--grid-aspect: square;
 			}
 
 			&[data-grid-size="1x2"] {
 				grid-column: span 1;
 				grid-row: span 2;
+
 				--grid-aspect: tall;
 			}
 
 			&[data-grid-size="2x2"] {
 				grid-column: span 2;
 				grid-row: span 2;
+
 				--grid-aspect: square;
 			}
 
 			&[data-grid-size="3x1"] {
 				grid-column: span 3;
 				grid-row: span 1;
+
 				--grid-aspect: wide;
 			}
 
@@ -708,7 +722,7 @@
 					video[data-autoplay="true"] {
 						&:not([data-playing="true"]) {
 							/* Show poster or first frame while loading */
-							background-color: rgba(0, 0, 0, 0.1);
+							background-color: rgb(0 0 0 / 10%);
 						}
 
 						/* Subtle loading indicator */
@@ -720,8 +734,8 @@
 							width: 20px;
 							height: 20px;
 							margin: -10px 0 0 -10px;
-							border: 2px solid rgba(255, 255, 255, 0.3);
-							border-top-color: rgba(255, 255, 255, 0.8);
+							border: 2px solid rgb(255 255 255 / 30%);
+							border-top-color: rgb(255 255 255 / 80%);
 							border-radius: 50%;
 							animation: spin 1s linear infinite;
 							z-index: 1;
@@ -734,9 +748,9 @@
 							top: 50%;
 							left: 50%;
 							transform: translate(-50%, -50%);
-							color: rgba(255, 255, 255, 0.8);
+							color: rgb(255 255 255 / 80%);
 							font-size: 24px;
-							text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+							text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 							z-index: 2;
 							opacity: 0;
 							transition: opacity 0.3s ease;
@@ -780,7 +794,6 @@
 			/* Aspect ratio-based width/height adjustments */
 			&[data-grid-size="1x1"] .portfolio-image,
 			&[data-grid-size="2x2"] .portfolio-image {
-
 				/* Square aspect ratio - prioritize width */
 				img,
 				video {
@@ -791,7 +804,6 @@
 			}
 
 			&[data-grid-size="1x2"] .portfolio-image {
-
 				/* Tall aspect ratio - prioritize height */
 				img,
 				video {
@@ -802,7 +814,6 @@
 			}
 
 			&[data-grid-size="3x1"] .portfolio-image {
-
 				/* Wide aspect ratio - prioritize width */
 				img,
 				video {
@@ -835,13 +846,13 @@
 						h4 {
 							display: flex;
 							padding: 3px 6px;
-							background: rgba(0, 0, 0, 0.15);
+							background: rgb(0 0 0 / 15%);
 							border-radius: 6px;
 							color: white;
 							font-size: 14px;
 							font-weight: 600;
 							margin: 0;
-							text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+							text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
 						}
 
 						p {
@@ -851,9 +862,9 @@
 
 					.external-icon {
 						color: white;
-						background: rgba(255, 255, 255, 0.2);
-						border: 1px solid rgba(255, 255, 255, 0.3);
-						-webkit-backdrop-filter: blur(10px);
+						background: rgb(255 255 255 / 20%);
+						border: 1px solid rgb(255 255 255 / 30%);
+						backdrop-filter: blur(10px);
 						backdrop-filter: blur(10px);
 					}
 				}
@@ -861,7 +872,6 @@
 
 			/* Hover effects for cover image items */
 			&:hover {
-
 				.portfolio-image img,
 				.portfolio-image video {
 					transform: scale(1.05);
@@ -873,7 +883,6 @@
 	/* Mini Bio Mobile Adjustments */
 	.project-navigation,
 	.post-navigation {
-
 		.project-mini-bio,
 		.post-mini-bio {
 			// top: 9px !important;
@@ -936,30 +945,30 @@
 
 		.profile-header {
 			flex-direction: row !important;
-			padding: 12px 12px 24px 12px !important;
+			padding: 12px 12px 24px !important;
 			align-items: flex-start;
 
 			/* Skeuomorphic styling similar to mobile-tabs */
-			background: hsl(33.33, 27.08%, 93.83%);
+			background: hsl(33.33deg 27.08% 93.83%);
 			border-radius: 0 0 8px 8px;
 			box-shadow:
-				0 2px 6px rgba(0, 0, 0, 0.15),
-				0 1px 3px rgba(0, 0, 0, 0.1),
-				inset 0 -2px 4px rgba(0, 0, 0, 0.08),
-				inset 0 -1px 2px rgba(255, 255, 255, 0.3);
-			border-left: 1px solid rgba(0, 0, 0, 0.1);
-			border-right: 1px solid rgba(0, 0, 0, 0.1);
-			border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+				0 2px 6px rgb(0 0 0 / 15%),
+				0 1px 3px rgb(0 0 0 / 10%),
+				inset 0 -2px 4px rgb(0 0 0 / 8%),
+				inset 0 -1px 2px rgb(255 255 255 / 30%);
+			border-left: 1px solid rgb(0 0 0 / 10%);
+			border-right: 1px solid rgb(0 0 0 / 10%);
+			border-bottom: 2px solid rgb(0 0 0 / 15%);
 
 			/* Dark mode skeuomorphic styling */
 			@media (prefers-color-scheme: dark) {
-				background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), variables.$card-bg-dark);
+				background: linear-gradient(to bottom, rgb(255 255 255 / 8%), variables.$card-bg-dark);
 				border-left-color: variables.$border-color-dark;
 				border-right-color: variables.$border-color-dark;
 				border-bottom-color: variables.$border-color-dark;
 				box-shadow:
-					0 1px 2px rgba(0, 0, 0, 0.3),
-					0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+					0 1px 2px rgb(0 0 0 / 30%),
+					0 -1px 0 rgb(255 255 255 / 10%) inset;
 			}
 
 			.profile-photo {
@@ -1076,8 +1085,7 @@
 }
 
 /* Small mobile devices */
-@media (max-width: 480px) {
-
+@media (width <= 480px) {
 	/* Hide external icons in portfolio items on small mobile */
 	.portfolio-item .external-icon {
 		display: none !important;
@@ -1123,6 +1131,7 @@
 		grid-template-columns: repeat(3, 1fr);
 		grid-auto-rows: minmax(120px, auto);
 		grid-auto-flow: row dense;
+
 		/* Fill gaps automatically */
 		gap: 8px;
 
@@ -1133,24 +1142,28 @@
 			&[data-grid-size="1x1"] {
 				grid-column: span 1;
 				grid-row: span 1;
+
 				--grid-aspect: square;
 			}
 
 			&[data-grid-size="1x2"] {
 				grid-column: span 1;
 				grid-row: span 2;
+
 				--grid-aspect: tall;
 			}
 
 			&[data-grid-size="2x2"] {
 				grid-column: span 2;
 				grid-row: span 2;
+
 				--grid-aspect: square;
 			}
 
 			&[data-grid-size="3x1"] {
 				grid-column: span 3;
 				grid-row: span 1;
+
 				--grid-aspect: wide;
 			}
 
@@ -1183,7 +1196,7 @@
 					video[data-autoplay="true"] {
 						&:not([data-playing="true"]) {
 							/* Show poster or first frame while loading */
-							background-color: rgba(0, 0, 0, 0.1);
+							background-color: rgb(0 0 0 / 10%);
 						}
 
 						/* Subtle loading indicator */
@@ -1195,8 +1208,8 @@
 							width: 20px;
 							height: 20px;
 							margin: -10px 0 0 -10px;
-							border: 2px solid rgba(255, 255, 255, 0.3);
-							border-top-color: rgba(255, 255, 255, 0.8);
+							border: 2px solid rgb(255 255 255 / 30%);
+							border-top-color: rgb(255 255 255 / 80%);
 							border-radius: 50%;
 							animation: spin 1s linear infinite;
 							z-index: 1;
@@ -1209,9 +1222,9 @@
 							top: 50%;
 							left: 50%;
 							transform: translate(-50%, -50%);
-							color: rgba(255, 255, 255, 0.8);
+							color: rgb(255 255 255 / 80%);
 							font-size: 24px;
-							text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+							text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 							z-index: 2;
 							opacity: 0;
 							transition: opacity 0.3s ease;
@@ -1226,7 +1239,6 @@
 				/* Aspect ratio-based width/height adjustments */
 				&[data-grid-size="1x1"] .portfolio-image,
 				&[data-grid-size="2x2"] .portfolio-image {
-
 					/* Square aspect ratio - prioritize width */
 					img,
 					video {
@@ -1237,7 +1249,6 @@
 				}
 
 				&[data-grid-size="1x2"] .portfolio-image {
-
 					/* Tall aspect ratio - prioritize height */
 					img,
 					video {
@@ -1248,7 +1259,6 @@
 				}
 
 				&[data-grid-size="3x1"] .portfolio-image {
-
 					/* Wide aspect ratio - prioritize width */
 					img,
 					video {
@@ -1281,13 +1291,13 @@
 							h4 {
 								display: flex;
 								padding: 3px 6px;
-								background: rgba(0, 0, 0, 0.15);
+								background: rgb(0 0 0 / 15%);
 								border-radius: 6px;
 								color: white;
 								font-size: 14px;
 								font-weight: 600;
 								margin: 0;
-								text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+								text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
 							}
 
 							p {
@@ -1297,9 +1307,9 @@
 
 						.external-icon {
 							color: white;
-							background: rgba(255, 255, 255, 0.2);
-							border: 1px solid rgba(255, 255, 255, 0.3);
-							-webkit-backdrop-filter: blur(10px);
+							background: rgb(255 255 255 / 20%);
+							border: 1px solid rgb(255 255 255 / 30%);
+							backdrop-filter: blur(10px);
 							backdrop-filter: blur(10px);
 						}
 					}
@@ -1307,7 +1317,6 @@
 
 				/* Hover effects for cover image items */
 				&:hover {
-
 					.portfolio-image img,
 					.portfolio-image video {
 						transform: scale(1.05);
@@ -1345,7 +1354,7 @@
 }
 
 /* Tablet and larger screens */
-@media (min-width: 769px) {
+@media (width >= 769px) {
 	.blog .post-list-item img:hover {
 		transform: scale(1.02);
 	}
@@ -1355,41 +1364,52 @@
 		.project-content {
 			display: flex;
 			flex-direction: column;
+
 			/* Changed from row-reverse */
 			align-items: stretch;
+
 			/* Changed from flex-start, children will stretch */
 			gap: 1rem;
+
 			/* Adjusted or can be removed if margin handles spacing */
 			max-width: 1600px;
+
 			/* This can remain or be adjusted if needed */
 			margin: 0 auto;
 			padding: 0 1rem;
 
 			.carousel {
 				/* flex: 1; Removed */
+
 				/* position: sticky; Removed */
+
 				/* top: 2rem; Removed */
 				width: 100%;
+
 				/* Changed from max-width: 60% */
 				height: auto;
+
 				/* Changed from calc(100vh - 4rem), or set to e.g. 50vh */
+
 				/* max-height: 900px; This can be kept or adjusted */
 				transition: height 0.3s ease, width 0.3s ease;
+
 				/* Width transition might not be needed now */
 
 				.carousel-track {
 					min-height: 300px;
+
 					/* Adjusted from 400px, or make it more flexible */
 					max-height: 100%;
 				}
 
 				.carousel-slide {
-
 					img,
 					video,
 					iframe {
 						object-fit: contain;
 						max-height: 70vh;
+
 						/* Adjusted from calc(100vh - 8rem) */
 					}
 				}
@@ -1398,12 +1418,13 @@
 			.project-details {
 				/* flex: 1; Removed */
 				width: 100%;
+
 				/* Changed from max-width: 40% */
 				padding-right: 0;
+
 				/* Adjusted from 1rem, or match parent padding */
 
 				.project-description {
-
 					h2,
 					h3 {
 						margin-top: 1.5rem;
@@ -1415,6 +1436,7 @@
 }
 
 /* Medium screens - transitional layout - Commented out as base 769px+ is now column */
+
 /*
 @media (min-width: 769px) and (max-width: 1024px) {
 	.project-gallery {
@@ -1437,25 +1459,21 @@
 /* Desktop-specific media queries */
 @media screen and (min-width: variables.$mobile-breakpoint) {
 	.blog {
-
 		/* Desktop widgets */
 		.desktop-widgets {
 			position: fixed;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
+			inset: 0;
 			background: var(--bg-color, variables.$white);
 			padding: 20px;
 			overflow: hidden;
 
 			.widget {
 				position: absolute;
-				background: rgba(255, 255, 255, 0.8);
-				-webkit-backdrop-filter: blur(10px);
+				background: rgb(255 255 255 / 80%);
+				backdrop-filter: blur(10px);
 				backdrop-filter: blur(10px);
 				border-radius: 12px;
-				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+				box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
 				min-width: 300px;
 				min-height: 200px;
 				resize: both;
@@ -1519,6 +1537,7 @@
 			flex-direction: column;
 			width: 100%;
 			height: 50%;
+
 			/* Note: Effective height depends on parent container's height */
 			margin-bottom: 16px;
 
@@ -1551,15 +1570,15 @@
 							summary {
 								cursor: pointer;
 								padding: 1rem;
-								background-color: rgba(0, 0, 0, 0.02);
+								background-color: rgb(0 0 0 / 2%);
 
 								&:hover {
-									background-color: rgba(0, 0, 0, 0.04);
+									background-color: rgb(0 0 0 / 4%);
 								}
 							}
 
 							&[open] summary {
-								border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+								border-bottom: 1px solid rgb(0 0 0 / 5%);
 							}
 						}
 					}
@@ -1570,7 +1589,7 @@
 }
 
 /* Large desktop screens */
-@media screen and (min-width: 1440px) {
+@media screen and (width >= 1440px) {
 	.project-gallery {
 		.project-content {
 			max-width: 1800px;
@@ -1580,6 +1599,7 @@
 				max-width: 65%;
 				max-height: 1000px;
 				top: 5rem;
+
 				/* Adjust sticky position to account for navigation */
 			}
 
@@ -1592,7 +1612,7 @@
 }
 
 /* Extra large desktop screens */
-@media screen and (min-width: 1920px) {
+@media screen and (width >= 1920px) {
 	.project-gallery {
 		.project-content {
 			max-width: 2000px;
@@ -1602,6 +1622,7 @@
 				max-width: 70%;
 				max-height: 1200px;
 				top: 6rem;
+
 				/* Further adjust sticky position */
 			}
 
@@ -1635,6 +1656,7 @@
 	left: 0;
 	right: 0;
 	z-index: 100;
+
 	/* Higher z-index to ensure it stays on top */
 	padding: variables.$space-md;
 	font-size: 24px;
@@ -1649,8 +1671,10 @@
 	transition: all 0.2s ease;
 	width: 100%;
 	max-width: 600px;
+
 	/* Ensure full width */
 	box-sizing: border-box;
+
 	/* Include padding in width calculation */
 
 	/* Dark mode adjustments */
@@ -1725,7 +1749,6 @@
 /* Grid layout when toggle is active - reuse existing mobile grid styles for desktop/tablet */
 .blog[data-layout="grid"] {
 	@media screen and (min-width: variables.$mobile-breakpoint) {
-
 		/* Apply the same grid layout that's used on mobile to desktop/tablet */
 		#projectsContent.portfolio-list .company-group .company-projects {
 			display: grid;
@@ -1741,24 +1764,28 @@
 				&[data-grid-size="1x1"] {
 					grid-column: span 1;
 					grid-row: span 1;
+
 					--grid-aspect: square;
 				}
 
 				&[data-grid-size="1x2"] {
 					grid-column: span 1;
 					grid-row: span 2;
+
 					--grid-aspect: tall;
 				}
 
 				&[data-grid-size="2x2"] {
 					grid-column: span 2;
 					grid-row: span 2;
+
 					--grid-aspect: square;
 				}
 
 				&[data-grid-size="3x1"] {
 					grid-column: span 3;
 					grid-row: span 1;
+
 					--grid-aspect: wide;
 				}
 
@@ -1811,13 +1838,13 @@
 								h4 {
 									display: flex;
 									padding: 3px 6px;
-									background: rgba(0, 0, 0, 0.15);
+									background: rgb(0 0 0 / 15%);
 									border-radius: 6px;
 									color: white;
 									font-size: 14px;
 									font-weight: 600;
 									margin: 0;
-									text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
 								}
 
 								p {
@@ -1827,9 +1854,9 @@
 
 							.external-icon {
 								color: white;
-								background: rgba(255, 255, 255, 0.2);
-								border: 1px solid rgba(255, 255, 255, 0.3);
-								-webkit-backdrop-filter: blur(10px);
+								background: rgb(255 255 255 / 20%);
+								border: 1px solid rgb(255 255 255 / 30%);
+								backdrop-filter: blur(10px);
 								backdrop-filter: blur(10px);
 							}
 						}
@@ -1837,7 +1864,6 @@
 
 					/* Hover effects */
 					&:hover {
-
 						.portfolio-image img,
 						.portfolio-image video {
 							transform: scale(1.05);
@@ -1869,7 +1895,7 @@
 }
 
 /* --- UNIVERSAL PROJECT GALLERY CAROUSEL FIX (prevents overlap on all breakpoints) --- */
-@media (min-width: 784px) and (max-width: 1024px) {
+@media (width >= 784px) and (width <= 1024px) {
 	.project-gallery .carousel {
 		width: 100% !important;
 		max-width: 100% !important;
@@ -1879,10 +1905,8 @@
 		max-height: none !important;
 		flex: none !important;
 		position: relative !important;
-		top: 0 !important;
-		left: 0 !important;
-		right: 0 !important;
-		bottom: 0 !important;
+		inset: 0 !important;
+
 		/* Remove any sticky, row, or flex constraints */
 		display: block !important;
 		overflow: hidden !important;
@@ -1904,10 +1928,7 @@
 		min-height: 0 !important;
 		max-height: none !important;
 		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
+		inset: 0;
 		display: flex !important;
 		align-items: center !important;
 		justify-content: center !important;

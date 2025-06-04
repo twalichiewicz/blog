@@ -9,9 +9,9 @@
 	--propel-green-light-rgb: 42, 183, 126;
 	--propel-text: #1D1D1F;
 	--propel-text-secondary: #86868B;
-	--propel-bg: #FFFFFF;
+	--propel-bg: #FFF;
 	--propel-bg-alt: #F5F5F7;
-	--propel-border: rgba(0, 0, 0, 0.1);
+	--propel-border: rgb(0 0 0 / 10%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,11 +20,11 @@
 		--propel-green-rgb: 42, 183, 126;
 		--propel-green-light: #00A862;
 		--propel-green-light-rgb: 0, 168, 98;
-		--propel-text: #FFFFFF;
-		--propel-text-secondary: rgba(255, 255, 255, 0.8);
+		--propel-text: #FFF;
+		--propel-text-secondary: rgb(255 255 255 / 80%);
 		--propel-bg: #1D1D1F;
 		--propel-bg-alt: #2A2A2C;
-		--propel-border: rgba(255, 255, 255, 0.1);
+		--propel-border: rgb(255 255 255 / 10%);
 	}
 }
 
@@ -52,8 +52,7 @@ body {
 	// Container styles
 	position: relative;
 	height: 100vh;
-	overflow-y: auto;
-	overflow-x: hidden;
+	overflow: hidden auto;
 	scroll-snap-type: y mandatory;
 	scroll-behavior: smooth;
 	background: var(--propel-bg);
@@ -199,10 +198,7 @@ body {
 
 		.money-pattern {
 			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
+			inset: 0;
 			z-index: 1;
 			opacity: 0.1;
 			pointer-events: none;
@@ -430,7 +426,7 @@ body {
 				width: 100%;
 				height: auto;
 				border-radius: 1rem;
-				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+				box-shadow: 0 20px 40px rgb(0 0 0 / 10%);
 			}
 
 			.solution-details {
@@ -509,7 +505,7 @@ body {
 
 		p {
 			font-size: var(--font-body-large);
-			color: rgba(255, 255, 255, 0.9);
+			color: rgb(255 255 255 / 90%);
 			margin-bottom: 2rem;
 			font-weight: 500;
 		}
@@ -677,11 +673,11 @@ body {
 		height: auto;
 		border-radius: 0.75rem;
 		transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
 
 		&:hover {
 			transform: scale(1.02);
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+			box-shadow: 0 8px 24px rgb(0 0 0 / 15%);
 		}
 	}
 }
@@ -742,10 +738,10 @@ body {
 
 	.solution-images {
 		.solution-image {
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+			box-shadow: 0 4px 12px rgb(0 0 0 / 20%);
 
 			&:hover {
-				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+				box-shadow: 0 8px 24px rgb(0 0 0 / 30%);
 			}
 		}
 	}
@@ -759,7 +755,6 @@ body {
 	}
 
 	.propel-case-study {
-
 		.problem-section,
 		.solution-section,
 		.impact-section,
@@ -814,7 +809,7 @@ body {
 }
 
 // Responsive adjustments
-@media (max-width: 768px) {
+@media (width <= 768px) {
 	.propel-case-study {
 		.stats-section .stats-grid {
 			grid-template-columns: 1fr;

@@ -1,5 +1,6 @@
 @use "variables";
 @use "shared-components";
+
 // Note: Do not import theme-modes here to avoid circular dependencies
 
 // Note: All portfolio styling has been moved to _theme-modes.scss

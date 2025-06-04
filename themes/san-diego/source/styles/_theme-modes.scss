@@ -56,14 +56,14 @@
 @media (prefers-color-scheme: dark) {
 	.blog {
 		/* Set CSS variable for dark mode */
-		--bg-color: rgba(20, 20, 20, 0.7);
+		--bg-color: rgb(20 20 20 / 70%);
 
 		/* Dark mode for blog header */
 		&.blog .profile-header {
 			.profile-info {
 				.profile-name {
 					text-shadow:
-						0 1px 1px rgba(255, 255, 255, 0.2),
+						0 1px 1px rgb(255 255 255 / 20%),
 						0 -1px 1px rgba(variables.$black, 0.4);
 					color: variables.$white !important;
 				}
@@ -99,7 +99,7 @@
 					background: rgba(variables.$card-bg-dark, 0.7);
 					border-color: rgba(variables.$border-color-dark, 0.5);
 					color: variables.$text-color-dark;
-					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+					box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
 
 					&:hover {
 						background: rgba(variables.$link-color-dark, 0.2);
@@ -116,10 +116,8 @@
 				.contact-options {
 					background: rgba(variables.$card-bg-dark, 0.7);
 					border-color: rgba(variables.$border-color-dark, 0.5);
-					box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-					-webkit-backdrop-filter: blur(4px);
+					box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
 					backdrop-filter: blur(4px);
-					-webkit-backdrop-filter: blur(4px);
 					backdrop-filter: blur(4px);
 
 					.contact-option {
@@ -146,10 +144,8 @@
 				.contact-options {
 					background: rgba(variables.$card-bg-dark, 0.6);
 					border-color: rgba(variables.$border-color-dark, 0.4);
-					box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-					-webkit-backdrop-filter: blur(4px);
+					box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
 					backdrop-filter: blur(4px);
-					-webkit-backdrop-filter: blur(4px);
 					backdrop-filter: blur(4px);
 
 					.contact-option {
@@ -175,13 +171,12 @@
 
 		/* Global dark mode style for external-icon */
 		.external-icon {
-			background: rgba(255, 255, 255, 0.1);
-			border-color: rgba(255, 255, 255, 0.05);
+			background: rgb(255 255 255 / 10%);
+			border-color: rgb(255 255 255 / 5%);
 			color: variables.$white;
 
 			&:hover {
 				background: variables.$link-color-dark;
-
 				color: variables.$white;
 			}
 		}
@@ -189,28 +184,26 @@
 		/* Dark mode for blog header on mobile */
 		@media (max-width: variables.$mobile-breakpoint) {
 			.blog-header {
-				background: linear-gradient(to bottom right, hsl(28, 8%, 18%) 0%, hsl(28, 10%, 15%) 100%) !important;
-				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+				background: linear-gradient(to bottom right, hsl(28deg 8% 18%) 0%, hsl(28deg 10% 15%) 100%) !important;
+				box-shadow: 0 4px 12px rgb(0 0 0 / 25%) !important;
 			}
 		}
 
 		/* Dark mode for basic blog content */
 		.blog-content {
 			background-color: variables.$grey-dark;
-			box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
-			border: 1px solid rgba(255, 255, 255, 0.1);
+			box-shadow: 0 2px 15px rgb(0 0 0 / 15%);
+			border: 1px solid rgb(255 255 255 / 10%);
 
 			&::before {
-				background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+				background: linear-gradient(90deg, rgb(255 255 255 / 10%), rgb(255 255 255 / 20%));
 			}
 		}
 
 		/* Headings in dark mode - apply to all screen sizes */
 		.blog-content .content-wrapper {
-
 			#postsContent,
 			#projectsContent {
-
 				/* Headings in dark mode */
 				h1,
 				h2,
@@ -236,28 +229,28 @@
 			.blog-content {
 				/* Subtle gradient background for the blog content in dark mode */
 				background: linear-gradient(135deg,
-						hsl(28, 10%, 10%) 0%,
-						hsl(28, 8%, 15%) 100%);
+						hsl(28deg 10% 10%) 0%,
+						hsl(28deg 8% 15%) 100%);
 				box-shadow:
-					0 4px 20px rgba(0, 0, 0, 0.3),
+					0 4px 20px rgb(0 0 0 / 30%),
 					0 0 0 1px variables.$border-color-dark;
 
 				/* Content wrapper styling */
 				.content-wrapper {
 					/* Darker background with subtle gradient */
 					background: linear-gradient(to bottom right,
-							hsl(28, 8%, 18%) 0%,
-							hsl(28, 10%, 15%) 100%);
+							hsl(28deg 8% 18%) 0%,
+							hsl(28deg 10% 15%) 100%);
 					border-radius: 12px;
 					box-shadow: variables.$shadow-soft-dark;
 
 					&::-webkit-scrollbar-thumb {
-						background-color: rgba(255, 255, 255, 0.1);
+						background-color: rgb(255 255 255 / 10%);
 						border-radius: 3px;
 					}
 
 					&::-webkit-scrollbar-track {
-						background: rgba(0, 0, 0, 0.2);
+						background: rgb(0 0 0 / 20%);
 						border-radius: 3px;
 					}
 
@@ -313,7 +306,7 @@
 
 							.post-tags {
 								.tag {
-									background: rgba(255, 255, 255, 0.05);
+									background: rgb(255 255 255 / 5%);
 									border: 1px solid variables.$border-color-dark;
 									color: variables.$grey-dark;
 
@@ -330,7 +323,7 @@
 								transition: variables.$transition-standard;
 
 								&:hover {
-									background-color: rgba(30, 30, 30, 0.8);
+									background-color: rgb(30 30 30 / 80%);
 									transform: translateY(-2px);
 								}
 							}
@@ -339,7 +332,7 @@
 						/* Code blocks in dark mode */
 						pre,
 						code {
-							background: rgba(0, 0, 0, 0.3);
+							background: rgb(0 0 0 / 30%);
 							border: 1px solid variables.$border-color-dark;
 							color: variables.$grey-light;
 						}
@@ -379,8 +372,8 @@
 		/* Specific styles for tablet */
 		&.device-tablet .blog-content {
 			background: linear-gradient(135deg,
-					hsl(28, 10%, 12%) 0%,
-					hsl(28, 8%, 16%) 100%);
+					hsl(28deg 10% 12%) 0%,
+					hsl(28deg 8% 16%) 100%);
 
 			/* Tablet-specific content styling */
 			.content-wrapper {
@@ -400,10 +393,10 @@
 
 					/* Tablet-specific portfolio item styling */
 					.portfolio-item {
-						box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+						box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
 
 						&:hover {
-							box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25),
+							box-shadow: 0 4px 12px rgb(0 0 0 / 25%),
 								0 0 0 1px rgba(variables.$link-color-dark, 0.15);
 						}
 					}
@@ -417,7 +410,7 @@
 			}
 
 			::-webkit-scrollbar-track {
-				background: rgba(0, 0, 0, 0.2);
+				background: rgb(0 0 0 / 20%);
 				border-radius: 4px;
 			}
 
@@ -434,25 +427,22 @@
 		/* Specific styles for desktop */
 		&.device-desktop .blog-content {
 			background: linear-gradient(135deg,
-					hsl(28, 10%, 14%) 0%,
-					hsl(28, 8%, 10%) 100%);
-			-webkit-backdrop-filter: blur(5px);
+					hsl(28deg 10% 14%) 0%,
+					hsl(28deg 8% 10%) 100%);
 			backdrop-filter: blur(5px);
+			backdrop-filter: blur(5px);
+
 			/* Chrome fix: Ensure backdrop-filter doesn't interfere with scrolling */
 			transform: translateZ(0);
-			-webkit-transform: translateZ(0);
+			transform: translateZ(0);
 
 			/* Desktop-specific content styling */
 			.content-wrapper {
-
 				/* Add subtle grain texture */
 				&::before {
 					content: '';
 					position: absolute;
-					top: 0;
-					left: 0;
-					right: 0;
-					bottom: 0;
+					inset: 0;
 					background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 					opacity: 0.03;
 					pointer-events: none;
@@ -460,7 +450,7 @@
 				}
 
 				/* Enhanced shadow for desktop */
-				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2),
+				box-shadow: 0 4px 20px rgb(0 0 0 / 20%),
 				0 0 30px rgba(variables.$link-color-dark, 0.05);
 
 				/* Subtle border highlight */
@@ -472,7 +462,7 @@
 
 				&:hover {
 					box-shadow:
-						0 6px 25px rgba(0, 0, 0, 0.25),
+						0 6px 25px rgb(0 0 0 / 25%),
 						0 0 40px rgba(variables.$link-color-dark, 0.08);
 					transform: translateY(-2px);
 				}
@@ -507,7 +497,7 @@
 
 						/* Add subtle hover effect only to post-link items */
 						&.post-link:hover {
-							background-color: rgba(30, 30, 30, 0.8);
+							background-color: rgb(30 30 30 / 80%);
 							transform: translateY(-2px);
 
 							h3 {
@@ -518,29 +508,29 @@
 
 					/* Enhanced portfolio item styling for desktop */
 					.portfolio-item {
-						box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+						box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
+
 						/* Chrome rendering fix for scrollable content */
 						transform: translateZ(0);
-						-webkit-transform: translateZ(0);
+						transform: translateZ(0);
 
 						&:hover {
-							box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3),
+							box-shadow: 0 6px 16px rgb(0 0 0 / 30%),
 								0 0 0 1px rgba(variables.$link-color-dark, 0.2);
-							background-color: rgba(255, 255, 255, 0.1);
+							background-color: rgb(255 255 255 / 10%);
 						}
 
 						&.has-writeup {
-							background: rgba(20, 20, 20, 0.7);
-							-webkit-backdrop-filter: blur(5px);
+							background: rgb(20 20 20 / 70%);
 							backdrop-filter: blur(5px);
-							border: 1px solid rgba(255, 255, 255, 0.1);
+							backdrop-filter: blur(5px);
+							border: 1px solid rgb(255 255 255 / 10%);
 							color: variables.$text-color-dark;
 							box-shadow: variables.$shadow-soft-dark;
 
 							&:hover {
-								background-color: rgba(30, 30, 30, 0.8);
-
-								box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+								background-color: rgb(30 30 30 / 80%);
+								box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
 							}
 
 							/* Dark mode typography */
@@ -551,7 +541,7 @@
 
 							h3 {
 								font-size: 1rem;
-								margin: 0.25rem 0 0.1rem 0;
+								margin: 0.25rem 0 0.1rem;
 								line-height: 1.4;
 
 								a {
@@ -574,20 +564,19 @@
 
 							.external-icon {
 								/* Dark mode appearance only - structure comes from _components.scss */
-								background: rgba(255, 255, 255, 0.1);
-								border-color: rgba(255, 255, 255, 0.05);
+								background: rgb(255 255 255 / 10%);
+								border-color: rgb(255 255 255 / 5%);
 								color: variables.$white;
 
 								&:hover {
 									background: variables.$link-color-dark;
-
 									color: variables.$white;
 								}
 							}
 
 							/* Dark mode accordion */
 							.content-accordion {
-								border-top-color: rgba(255, 255, 255, 0.05);
+								border-top-color: rgb(255 255 255 / 5%);
 
 								summary {
 									color: variables.$grey-dark;
@@ -599,7 +588,7 @@
 
 								.accordion-content {
 									color: variables.$grey-dark;
-									background: rgba(255, 255, 255, 0.03);
+									background: rgb(255 255 255 / 3%);
 								}
 							}
 						}
@@ -607,7 +596,7 @@
 						&:not(.has-writeup):hover {
 							transform: none;
 							box-shadow: none;
-							background: hsl(35, 10%, 75%);
+							background: hsl(35deg 10% 75%);
 						}
 					}
 
@@ -617,7 +606,7 @@
 					}
 
 					&::-webkit-scrollbar-track {
-						background: rgba(0, 0, 0, 0.2);
+						background: rgb(0 0 0 / 20%);
 						border-radius: 4px;
 					}
 
@@ -639,7 +628,7 @@
 			}
 
 			::-webkit-scrollbar-track {
-				background: rgba(0, 0, 0, 0.2);
+				background: rgb(0 0 0 / 20%);
 				border-radius: 4px;
 			}
 
@@ -701,10 +690,10 @@
 
 			/* Dark mode styling for the separator */
 			&.post-link {
-				background: rgba(20, 20, 20, 0.7);
-				-webkit-backdrop-filter: blur(5px);
+				background: rgb(20 20 20 / 70%);
 				backdrop-filter: blur(5px);
-				border: 1px solid rgba(255, 255, 255, 0.1);
+				backdrop-filter: blur(5px);
+				border: 1px solid rgb(255 255 255 / 10%);
 				color: variables.$text-color-dark;
 
 				.link-share {
@@ -727,7 +716,7 @@
 					}
 
 					.link-source {
-						border-top-color: rgba(255, 255, 255, 0.05);
+						border-top-color: rgb(255 255 255 / 5%);
 
 						.link-url {
 							color: variables.$grey-dark;
@@ -737,7 +726,7 @@
 				}
 
 				.content-accordion {
-					border-top-color: rgba(255, 255, 255, 0.05);
+					border-top-color: rgb(255 255 255 / 5%);
 
 					summary {
 						color: variables.$grey-dark;
@@ -757,7 +746,7 @@
 
 					.accordion-content {
 						color: variables.$grey-dark;
-						background: rgba(255, 255, 255, 0.03);
+						background: rgb(255 255 255 / 3%);
 					}
 				}
 			}
@@ -796,10 +785,10 @@
 		}
 
 		.view-toggle {
-			background-color: hsl(28, 10%, 12%);
+			background-color: hsl(28deg 10% 12%);
 
 			.segmented-button {
-				background: rgba(0, 0, 0, 0.3);
+				background: rgb(0 0 0 / 30%);
 
 				button.active {
 					background: variables.$link-color-dark;
@@ -817,13 +806,13 @@
 		.profile-header {
 			.profile-photo {
 				box-shadow:
-					0 0 0 1px rgba(255, 255, 255, 0.2),
-					0 0 0 2px rgba(0, 0, 0, 0.3),
-					inset 0 2px 8px rgba(0, 0, 0, 0.6),
-					inset 0 -4px 8px rgba(255, 255, 255, 0.1);
+					0 0 0 1px rgb(255 255 255 / 20%),
+					0 0 0 2px rgb(0 0 0 / 30%),
+					inset 0 2px 8px rgb(0 0 0 / 60%),
+					inset 0 -4px 8px rgb(255 255 255 / 10%);
 				background: linear-gradient(145deg,
-						rgba(255, 255, 255, 0.05),
-						rgba(0, 0, 0, 0.2));
+						rgb(255 255 255 / 5%),
+						rgb(0 0 0 / 20%));
 			}
 		}
 
@@ -848,7 +837,7 @@
 			background: var(--bg-color, variables.$black);
 
 			.widget {
-				background: rgba(0, 0, 0, 0.8);
+				background: rgb(0 0 0 / 80%);
 				border: 1px solid variables.$border-color-dark;
 			}
 		}
@@ -875,16 +864,16 @@
 		/* Dark mode for portfolio item cards */
 		.portfolio-item {
 			/* Dark mode appearance - only affecting card styling */
-			background: rgba(20, 20, 20, 0.7);
-			-webkit-backdrop-filter: blur(5px);
+			background: rgb(20 20 20 / 70%);
 			backdrop-filter: blur(5px);
-			border: 1px solid rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(5px);
+			border: 1px solid rgb(255 255 255 / 10%);
 			color: variables.$text-color-dark;
 			box-shadow: variables.$shadow-soft-dark;
 
 			&:hover {
-				background-color: rgba(30, 30, 30, 0.8);
-				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+				background-color: rgb(30 30 30 / 80%);
+				box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
 
 				.title-row h4 {
 					// Remove hover effect
@@ -899,13 +888,12 @@
 
 			/* Dark mode external icon - to indicate clickability */
 			.external-icon {
-				background: rgba(255, 255, 255, 0.1);
-				border-color: rgba(255, 255, 255, 0.05);
+				background: rgb(255 255 255 / 10%);
+				border-color: rgb(255 255 255 / 5%);
 				color: variables.$white;
 
 				&:hover {
 					background: variables.$link-color-dark;
-
 					color: variables.$white;
 				}
 			}
@@ -913,16 +901,16 @@
 			/* Muted text colors for non-clickable items in dark mode */
 			&:not(.has-writeup) {
 				background: transparent; // Explicit for dark non-hover
-				border: 1px solid rgba(255, 255, 255, 0.1); // Better dark mode border
-				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); // Minimal dark shadow
+				border: 1px solid rgb(255 255 255 / 10%); // Better dark mode border
+				box-shadow: 0 1px 2px rgb(0 0 0 / 3%); // Minimal dark shadow
 
 				h4 {
-					color: hsl(0, 0%, 65%);
+					color: hsl(0deg 0% 65%);
 					opacity: 0.9;
 				}
 
 				p {
-					color: hsl(0, 0%, 60%);
+					color: hsl(0deg 0% 60%);
 					opacity: 0.8;
 				}
 
@@ -960,18 +948,19 @@
 		.carousel .carousel-button,
 		.spotlight .carousel-button,
 		.spotlight .spotlight-nav-button {
-			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2),
-				0 1px 2px rgba(0, 0, 0, 0.12),
-				inset 0 2px 4px rgba(0, 0, 0, 0.2),
-				inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+			box-shadow: 0 1px 3px rgb(0 0 0 / 20%),
+				0 1px 2px rgb(0 0 0 / 12%),
+				inset 0 2px 4px rgb(0 0 0 / 20%),
+				inset 0 -1px 2px rgb(255 255 255 / 5%);
 		}
 
 		/* Dark mode for blockquotes */
 		blockquote {
-			--bg-color: rgba(255, 255, 255, 0.03);
-			background-color: rgba(255, 255, 255, 0.03) !important;
-			background: rgba(255, 255, 255, 0.03) !important;
-			border-left-color: rgba(255, 255, 255, 0.05);
+			--bg-color: rgb(255 255 255 / 3%);
+
+			background-color: rgb(255 255 255 / 3%) !important;
+			background: rgb(255 255 255 / 3%) !important;
+			border-left-color: rgb(255 255 255 / 5%);
 			color: variables.$text-color-dark !important;
 
 			p {
@@ -994,13 +983,12 @@
 
 	.title-row {
 		.external-icon {
-			background: rgba(255, 255, 255, 0.1);
-			border-color: rgba(255, 255, 255, 0.05);
+			background: rgb(255 255 255 / 10%);
+			border-color: rgb(255 255 255 / 5%);
 			color: variables.$white;
 
 			&:hover {
 				background: variables.$link-color-dark;
-
 				color: variables.$white;
 			}
 		}
@@ -1019,16 +1007,16 @@
 		/* Muted text colors for non-clickable items in dark mode */
 		&:not(.has-writeup) {
 			background: transparent; // Explicit for dark non-hover
-			border: 1px solid rgba(255, 255, 255, 0.1); // Better dark mode border
-			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); // Minimal dark shadow
+			border: 1px solid rgb(255 255 255 / 10%); // Better dark mode border
+			box-shadow: 0 1px 2px rgb(0 0 0 / 3%); // Minimal dark shadow
 
 			h4 {
-				color: hsl(0, 0%, 65%);
+				color: hsl(0deg 0% 65%);
 				opacity: 0.9;
 			}
 
 			p {
-				color: hsl(0, 0%, 60%);
+				color: hsl(0deg 0% 60%);
 				opacity: 0.8;
 			}
 
@@ -1050,16 +1038,16 @@
 
 	.portfolio-item.has-writeup {
 		/* Dark mode appearance - only affecting card styling */
-		background: rgba(20, 20, 20, 0.7);
-		-webkit-backdrop-filter: blur(5px);
+		background: rgb(20 20 20 / 70%);
 		backdrop-filter: blur(5px);
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(5px);
+		border: 1px solid rgb(255 255 255 / 10%);
 		color: variables.$text-color-dark;
 		box-shadow: variables.$shadow-soft-dark;
 
 		&:hover {
-			background-color: rgba(30, 30, 30, 0.8);
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			background-color: rgb(30 30 30 / 80%);
+			box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
 
 			.title-row h4 {
 				color: variables.$link-color-dark;
@@ -1074,20 +1062,19 @@
 
 		/* Dark mode external icon - to indicate clickability */
 		.external-icon {
-			background: rgba(255, 255, 255, 0.1);
-			border-color: rgba(255, 255, 255, 0.05);
+			background: rgb(255 255 255 / 10%);
+			border-color: rgb(255 255 255 / 5%);
 			color: variables.$white;
 
 			&:hover {
 				background: variables.$link-color-dark;
-
 				color: variables.$white;
 			}
 		}
 
 		/* Portfolio image dark mode specific styling */
 		.portfolio-image {
-			border: 1px solid rgba(255, 255, 255, 0.1);
+			border: 1px solid rgb(255 255 255 / 10%);
 		}
 
 		&:hover .portfolio-image img,
@@ -1097,6 +1084,7 @@
 	}
 
 	/* Dark mode mobile tabs styling - MOVED TO _components.scss */
+
 	/* Removing this section to avoid conflicts */
 }
 
@@ -1110,27 +1098,24 @@
 			.blog-content {
 				/* Subtle gradient background for the blog content */
 				background: linear-gradient(135deg,
-						hsl(35, 15%, 94%) 0%,
-						hsl(35, 10%, 98%) 100%);
+						hsl(35deg 15% 94%) 0%,
+						hsl(35deg 10% 98%) 100%);
 
 				/* Content wrapper styling */
 				.content-wrapper {
 					/* Premium off-white background with subtle warmth */
 					background: linear-gradient(to bottom right,
-							hsl(35, 20%, 98%) 0%,
-							hsl(35, 15%, 96%) 100%);
+							hsl(35deg 20% 98%) 0%,
+							hsl(35deg 15% 96%) 100%);
 					box-shadow:
-						0 2px 12px rgba(0, 0, 0, 0.03),
-						0 0 0 1px rgba(0, 0, 0, 0.02);
+						0 2px 12px rgb(0 0 0 / 3%),
+						0 0 0 1px rgb(0 0 0 / 2%);
 
 					/* Add subtle texture */
 					&::before {
 						content: '';
 						position: absolute;
-						top: 0;
-						left: 0;
-						right: 0;
-						bottom: 0;
+						inset: 0;
 						background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 						opacity: 0.02;
 						pointer-events: none;
@@ -1142,26 +1127,25 @@
 
 					&:hover {
 						box-shadow:
-							0 4px 16px rgba(0, 0, 0, 0.05),
-							0 0 0 1px rgba(0, 0, 0, 0.03);
+							0 4px 16px rgb(0 0 0 / 5%),
+							0 0 0 1px rgb(0 0 0 / 3%);
 					}
 
 					#postsContent,
 					#projectsContent {
 						.post-list-item {
-
 							/* Only apply hover effects to post-link items in light mode */
 							&.post-link {
 								transition: all 0.3s ease;
-								background: rgba(255, 255, 255, 0.7);
-								-webkit-backdrop-filter: blur(5px);
+								background: rgb(255 255 255 / 70%);
+								backdrop-filter: blur(5px);
 								backdrop-filter: blur(5px);
 								border: 1px solid rgba(variables.$text-color-secondary, 0.1);
 								box-shadow: variables.$shadow-soft;
 								color: variables.$text-color;
 
 								&:hover {
-									background-color: rgba(0, 0, 0, 0.02);
+									background-color: rgb(0 0 0 / 2%);
 								}
 							}
 						}
@@ -1173,8 +1157,8 @@
 		/* Specific styles for tablet in light mode */
 		&.device-tablet .blog-content {
 			background: linear-gradient(135deg,
-					hsl(35, 15%, 92%) 0%,
-					hsl(35, 10%, 98%) 100%);
+					hsl(35deg 15% 92%) 0%,
+					hsl(35deg 10% 98%) 100%);
 
 			.content-wrapper {
 				/* Subtle glow effect on content containers */
@@ -1190,9 +1174,9 @@
 		/* Specific styles for desktop in light mode */
 		&.device-desktop .blog-content {
 			background: linear-gradient(135deg,
-					hsl(35, 15%, 94%) 0%,
-					hsl(35, 10%, 98%) 100%);
-			-webkit-backdrop-filter: blur(5px);
+					hsl(35deg 15% 94%) 0%,
+					hsl(35deg 10% 98%) 100%);
+			backdrop-filter: blur(5px);
 			backdrop-filter: blur(5px);
 		}
 
@@ -1200,7 +1184,7 @@
 
 		/* Portfolio image light mode specific styling */
 		.portfolio-item .portfolio-image {
-			border: 1px solid rgba(0, 0, 0, 0.1);
+			border: 1px solid rgb(0 0 0 / 10%);
 		}
 	}
 }
@@ -1218,7 +1202,7 @@
 	font-weight: 600;
 	margin: 1.5rem 0 0.75rem;
 	padding-bottom: 0.5rem;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid rgb(0 0 0 / 10%);
 	color: variables.$text-color;
 	display: flex;
 	justify-content: space-between;
@@ -1255,7 +1239,7 @@
 
 	/* Base portfolio image styling for all modes */
 	.portfolio-image {
-		margin: 0 0 12px 0;
+		margin: 0 0 12px;
 		border-radius: 6px;
 		overflow: hidden;
 		max-height: 150px;
@@ -1275,6 +1259,7 @@
 	// Common styling for company-byline
 	.company-byline {
 		@extend .byline-base !optional;
+
 		margin-bottom: 6px;
 	}
 
@@ -1301,7 +1286,7 @@
 
 				h4 {
 					font-size: 1rem;
-					margin: 0 0 3px 0;
+					margin: 0 0 3px;
 					font-weight: 500;
 				}
 
@@ -1320,14 +1305,16 @@
 	// Portfolio image styling
 	.portfolio-image {
 		@extend .image-container !optional;
+
 		margin-bottom: 0.75rem;
 	}
 
 	// Styling for portfolio items with a linked write-up
 	&.has-writeup {
 		@extend .card-base !optional;
-		background: rgba(255, 255, 255, 0.7);
-		-webkit-backdrop-filter: blur(5px);
+
+		background: rgb(255 255 255 / 70%);
+		backdrop-filter: blur(5px);
 		backdrop-filter: blur(5px);
 		border: 1px solid rgba(variables.$text-color-secondary, 0.1);
 		box-shadow: variables.$shadow-soft;
@@ -1339,8 +1326,8 @@
 
 		// Only modify the external-icon styling to indicate clickability
 		.external-icon {
-			background: rgba(0, 0, 0, 0.05);
-			border-color: rgba(0, 0, 0, 0.05);
+			background: rgb(0 0 0 / 5%);
+			border-color: rgb(0 0 0 / 5%);
 			color: variables.$text-color-secondary;
 
 			&:hover {
@@ -1351,7 +1338,7 @@
 		}
 
 		&:hover {
-			background-color: rgba(0, 0, 0, 0.02);
+			background-color: rgb(0 0 0 / 2%);
 			text-decoration: none;
 
 			.title-row h4 {
@@ -1361,7 +1348,7 @@
 	}
 
 	&:hover {
-		background-color: rgba(0, 0, 0, 0.02);
+		background-color: rgb(0 0 0 / 2%);
 		text-decoration: none;
 
 		.title-row {
@@ -1375,8 +1362,8 @@
 /* Light mode portfolio item styles (outside of media query for default styling) */
 .portfolio-item.has-writeup {
 	/* Light mode appearance - default styling */
-	background: rgba(255, 255, 255, 0.7);
-	-webkit-backdrop-filter: blur(5px);
+	background: rgb(255 255 255 / 70%);
+	backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
 	border: 1px solid rgba(variables.$text-color-secondary, 0.1);
 	box-shadow: variables.$shadow-soft;
@@ -1385,11 +1372,11 @@
 
 	/* Portfolio image styling in light mode */
 	.portfolio-image {
-		margin: 0 0 12px 0;
+		margin: 0 0 12px;
 		border-radius: 6px;
 		overflow: hidden;
 		max-height: 150px;
-		border: 1px solid rgba(0, 0, 0, 0.05);
+		border: 1px solid rgb(0 0 0 / 5%);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -1403,7 +1390,7 @@
 	}
 
 	&:hover {
-		background-color: rgba(0, 0, 0, 0.02);
+		background-color: rgb(0 0 0 / 2%);
 		text-decoration: none;
 
 		.title-row h4 {
@@ -1439,7 +1426,7 @@
 	}
 
 	.content-accordion {
-		border-top-color: rgba(0, 0, 0, 0.05);
+		border-top-color: rgb(0 0 0 / 5%);
 
 		summary {
 			color: variables.$text-color-secondary;
@@ -1451,7 +1438,7 @@
 
 		.accordion-content {
 			color: variables.$text-color;
-			background: rgba(0, 0, 0, 0.02);
+			background: rgb(0 0 0 / 2%);
 		}
 	}
 }
@@ -1459,29 +1446,30 @@
 /* Light mode portfolio items without writeup */
 .portfolio-item:not(.has-writeup) {
 	background: transparent;
-	-webkit-backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
-	border: 1px solid rgba(0, 0, 0, 0.05);
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+	backdrop-filter: blur(5px);
+	border: 1px solid rgb(0 0 0 / 5%);
+	box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
 	cursor: default;
 	opacity: 0.75;
 
 	&:hover {
 		transform: none;
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+		box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
 		background: transparent;
 
 		h4 {
-			color: hsl(35, 10%, 35%);
+			color: hsl(35deg 10% 35%);
 			opacity: 0.8;
 		}
 
 		@media (prefers-color-scheme: dark) {
 			background: transparent;
+
 			// Use a more appropriate dark mode border color if it was different, otherwise keep transparent or non-hover.
 			// For now, assume the non-hover dark border is desired, or it will inherit.
-			border-color: rgba(255, 255, 255, 0.1);
-			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); // Keep minimal dark shadow
+			border-color: rgb(255 255 255 / 10%);
+			box-shadow: 0 1px 2px rgb(0 0 0 / 3%); // Keep minimal dark shadow
 			background-color: transparent !important; // Explicitly override any dark hover background
 
 			.portfolio-item.has-writeup h4 {
@@ -1492,14 +1480,14 @@
 
 	/* Muted text colors for non-clickable items */
 	h4 {
-		color: hsl(35, 10%, 30%);
+		color: hsl(35deg 10% 30%);
 		opacity: 0.7;
 	}
 
 	p {
 		margin: 0;
 		line-height: 1.3;
-		color: hsl(35, 10%, 35%);
+		color: hsl(35deg 10% 35%);
 		opacity: 0.6;
 	}
 }
@@ -1507,8 +1495,8 @@
 /* Light mode portfolio-items styles */
 .portfolio-items {
 	/* Light mode appearance - default styling */
-	background: rgba(255, 255, 255, 0.7);
-	-webkit-backdrop-filter: blur(5px);
+	background: rgb(255 255 255 / 70%);
+	backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
 	border: 1px solid rgba(variables.$text-color-secondary, 0.1);
 	box-shadow: variables.$shadow-soft;
@@ -1516,7 +1504,7 @@
 
 	h3 {
 		font-size: 1rem;
-		margin: 0.25rem 0 0.1rem 0;
+		margin: 0.25rem 0 0.1rem;
 		line-height: 1.4;
 
 		a {
@@ -1554,7 +1542,7 @@
 		font-size: 0.75rem;
 		margin-top: 0;
 		margin-bottom: 0;
-		border-top: 1px solid rgba(0, 0, 0, 0.05);
+		border-top: 1px solid rgb(0 0 0 / 5%);
 		padding-top: 0.25rem;
 
 		.link-url {
@@ -1578,16 +1566,16 @@
 @media (prefers-color-scheme: dark) {
 	.portfolio-item.has-writeup {
 		/* Dark mode appearance - only affecting card styling */
-		background: rgba(20, 20, 20, 0.7);
-		-webkit-backdrop-filter: blur(5px);
+		background: rgb(20 20 20 / 70%);
 		backdrop-filter: blur(5px);
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(5px);
+		border: 1px solid rgb(255 255 255 / 10%);
 		color: variables.$text-color-dark;
 		box-shadow: variables.$shadow-soft-dark;
 
 		&:hover {
-			background-color: rgba(30, 30, 30, 0.8);
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			background-color: rgb(30 30 30 / 80%);
+			box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
 
 			.title-row h4 {
 				color: variables.$link-color-dark;
@@ -1602,8 +1590,8 @@
 
 		/* Dark mode external icon - to indicate clickability */
 		.external-icon {
-			background: rgba(255, 255, 255, 0.1);
-			border-color: rgba(255, 255, 255, 0.05);
+			background: rgb(255 255 255 / 10%);
+			border-color: rgb(255 255 255 / 5%);
 			color: variables.$white;
 
 			&:hover {
@@ -1614,11 +1602,11 @@
 
 		/* Portfolio image styling in dark mode */
 		.portfolio-image {
-			margin: 0 0 12px 0;
+			margin: 0 0 12px;
 			border-radius: 6px;
 			overflow: hidden;
 			max-height: 150px;
-			border: 1px solid rgba(255, 255, 255, 0.1);
+			border: 1px solid rgb(255 255 255 / 10%);
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -1640,15 +1628,15 @@
 
 	/* Dark mode portfolio-items styles */
 	.portfolio-items {
-		background: rgba(20, 20, 20, 0.7);
-		-webkit-backdrop-filter: blur(5px);
+		background: rgb(20 20 20 / 70%);
 		backdrop-filter: blur(5px);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		backdrop-filter: blur(5px);
+		border: 1px solid rgb(255 255 255 / 10%);
+		box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
 
 		&:hover {
-			background-color: rgba(30, 30, 30, 0.8);
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			background-color: rgb(30 30 30 / 80%);
+			box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
 		}
 
 		h3 {
@@ -1674,7 +1662,7 @@
 		}
 
 		.link-source {
-			border-top-color: rgba(255, 255, 255, 0.05);
+			border-top-color: rgb(255 255 255 / 5%);
 
 			.link-url {
 				color: variables.$grey-dark;
@@ -1683,7 +1671,7 @@
 		}
 
 		.content-accordion {
-			border-top-color: rgba(255, 255, 255, 0.05);
+			border-top-color: rgb(255 255 255 / 5%);
 
 			summary {
 				color: variables.$grey-dark;
@@ -1695,13 +1683,13 @@
 
 			.accordion-content {
 				color: variables.$grey-dark;
-				background: rgba(255, 255, 255, 0.03);
+				background: rgb(255 255 255 / 3%);
 			}
 		}
 
 		.external-icon {
-			background: rgba(255, 255, 255, 0.1);
-			border-color: rgba(255, 255, 255, 0.05);
+			background: rgb(255 255 255 / 10%);
+			border-color: rgb(255 255 255 / 5%);
 			color: variables.$white;
 
 			&:hover {
@@ -1723,16 +1711,16 @@
 		/* Muted text colors for non-clickable items in dark mode */
 		&:not(.has-writeup) {
 			background: transparent; // Explicit for dark non-hover
-			border: 1px solid rgba(255, 255, 255, 0.1); // Better dark mode border
-			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); // Minimal dark shadow
+			border: 1px solid rgb(255 255 255 / 10%); // Better dark mode border
+			box-shadow: 0 1px 2px rgb(0 0 0 / 3%); // Minimal dark shadow
 
 			h4 {
-				color: hsl(0, 0%, 65%);
+				color: hsl(0deg 0% 65%);
 				opacity: 0.9;
 			}
 
 			p {
-				color: hsl(0, 0%, 60%);
+				color: hsl(0deg 0% 60%);
 				opacity: 0.8;
 			}
 
@@ -1761,8 +1749,8 @@
 		width: 24px;
 		height: 24px;
 		border-radius: 50%;
-		background: rgba(0, 0, 0, 0.05);
-		border: 1px solid rgba(0, 0, 0, 0.05);
+		background: rgb(0 0 0 / 5%);
+		border: 1px solid rgb(0 0 0 / 5%);
 		color: variables.$text-color-secondary;
 		font-size: 14px;
 		transition: all 0.2s ease;
@@ -1777,12 +1765,11 @@
 
 /* Post page dark mode styles */
 @media (prefers-color-scheme: dark) {
-
 	.post-navigation {
 		.profile-link {
 			.mini-profile-photo {
-				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2),
-					0 0 0 1px rgba(255, 255, 255, 0.1);
+				box-shadow: 0 2px 6px rgb(0 0 0 / 20%),
+					0 0 0 1px rgb(255 255 255 / 10%);
 
 				.placeholder-avatar {
 					background-color: variables.$accent-gold-dark;
@@ -1792,12 +1779,12 @@
 			.home-tooltip {
 				background-color: variables.$card-bg-dark;
 				color: variables.$text-color-dark;
-				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+				box-shadow: 0 2px 6px rgb(0 0 0 / 30%);
 			}
 
 			&:hover {
 				.mini-profile-photo {
-					box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3),
+					box-shadow: 0 4px 10px rgb(0 0 0 / 30%),
 						0 0 0 2px variables.$accent-gold-light;
 				}
 			}
@@ -1821,7 +1808,7 @@
 
 		.post-header-image {
 			.header-image-caption {
-				background: rgba(0, 0, 0, 0.8);
+				background: rgb(0 0 0 / 80%);
 				color: variables.$text-color-dark;
 			}
 
@@ -1877,10 +1864,11 @@
 		}
 
 		blockquote {
-			--bg-color: rgba(255, 255, 255, 0.03);
-			background-color: rgba(255, 255, 255, 0.03) !important;
-			background: rgba(255, 255, 255, 0.03) !important;
-			border-left-color: rgba(255, 255, 255, 0.05);
+			--bg-color: rgb(255 255 255 / 3%);
+
+			background-color: rgb(255 255 255 / 3%) !important;
+			background: rgb(255 255 255 / 3%) !important;
+			border-left-color: rgb(255 255 255 / 5%);
 			color: variables.$text-color-dark !important;
 
 			p {
@@ -1899,18 +1887,18 @@
 		table {
 			border-color: rgba(variables.$border-color-dark, 0.3);
 			box-shadow: variables.$shadow-soft-dark;
-			background-color: rgba(0, 0, 0, 0.2);
+			background-color: rgb(0 0 0 / 20%);
 
 			tr {
 				border-bottom-color: rgba(variables.$border-color-dark, 0.2);
 
 				&:nth-child(even) {
-					background-color: rgba(0, 0, 0, 0.15);
+					background-color: rgb(0 0 0 / 15%);
 				}
 			}
 
 			th {
-				background-color: rgba(255, 255, 255, 0.1);
+				background-color: rgb(255 255 255 / 10%);
 				color: variables.$text-color-dark;
 				border-right-color: rgba(variables.$border-color-dark, 0.2);
 			}
@@ -1922,7 +1910,7 @@
 
 			// Style for the "Updated" and "New" badges
 			th span {
-				background-color: rgba(255, 255, 255, 0.1);
+				background-color: rgb(255 255 255 / 10%);
 				color: variables.$text-color-dark;
 			}
 		}
@@ -1953,7 +1941,6 @@
 			}
 
 			.post-nav {
-
 				.prev a,
 				.next a {
 					.nav-label {
@@ -1978,18 +1965,18 @@
 	table {
 		border-color: rgba(variables.$border-color-dark, 0.3);
 		box-shadow: variables.$shadow-soft-dark;
-		background-color: rgba(0, 0, 0, 0.2);
+		background-color: rgb(0 0 0 / 20%);
 
 		tr {
 			border-bottom-color: rgba(variables.$border-color-dark, 0.2);
 
 			&:nth-child(even) {
-				background-color: rgba(0, 0, 0, 0.15);
+				background-color: rgb(0 0 0 / 15%);
 			}
 		}
 
 		th {
-			background-color: rgba(255, 255, 255, 0.1);
+			background-color: rgb(255 255 255 / 10%);
 			color: variables.$text-color-dark;
 			border-right-color: rgba(variables.$border-color-dark, 0.2);
 		}
@@ -2001,7 +1988,7 @@
 
 		// Style for the "Updated" and "New" badges
 		th span {
-			background-color: rgba(255, 255, 255, 0.1);
+			background-color: rgb(255 255 255 / 10%);
 			color: variables.$text-color-dark;
 		}
 	}
@@ -2010,23 +1997,23 @@
 /* Dark mode for tags */
 @media (prefers-color-scheme: dark) {
 	.tag {
-		background-color: rgba(255, 255, 255, 0.1);
-		border-color: rgba(255, 255, 255, 0.2);
+		background-color: rgb(255 255 255 / 10%);
+		border-color: rgb(255 255 255 / 20%);
 		color: variables.$text-color-dark;
 		box-shadow: variables.$shadow-soft-dark;
 
 		&:hover {
-			background-color: rgba(255, 255, 255, 0.15);
+			background-color: rgb(255 255 255 / 15%);
 			box-shadow: variables.$shadow-medium-dark;
 		}
 
 		&--new {
-			background-color: rgba(180, 83, 9, 0.2);
-			border-color: rgba(180, 83, 9, 0.3);
+			background-color: rgb(180 83 9 / 20%);
+			border-color: rgb(180 83 9 / 30%);
 			color: #fdba74;
 
 			&:hover {
-				background-color: rgba(180, 83, 9, 0.3);
+				background-color: rgb(180 83 9 / 30%);
 			}
 		}
 	}
@@ -2040,15 +2027,15 @@
 			border-color: variables.$border-color-dark;
 			color: variables.$text-color-dark;
 			box-shadow:
-				0 1px 2px rgba(0, 0, 0, 0.3),
-				0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+				0 1px 2px rgb(0 0 0 / 30%),
+				0 -1px 0 rgb(255 255 255 / 10%) inset;
 
 			&:focus {
 				border-color: variables.$link-color-dark;
 				box-shadow:
 					0 0 0 2px rgba(variables.$link-color-dark, 0.2),
-					0 1px 2px rgba(0, 0, 0, 0.3),
-					0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+					0 1px 2px rgb(0 0 0 / 30%),
+					0 -1px 0 rgb(255 255 255 / 10%) inset;
 				background-color: variables.$card-bg-dark;
 			}
 

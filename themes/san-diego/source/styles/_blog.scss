@@ -23,10 +23,10 @@
 	}
 
 	.blog-content {
-		border-radius: 15px 0 0 0;
+		border-radius: 15px 0 0;
 		background-color: variables.$white;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-		border: 1px solid rgba(0, 0, 0, 0.03);
+		box-shadow: 0 2px 10px rgb(0 0 0 / 5%);
+		border: 1px solid rgb(0 0 0 / 3%);
 		position: relative;
 		transition: opacity 0.3s ease-in-out;
 
@@ -142,7 +142,7 @@
 			margin: 1.5rem 0;
 
 			img {
-				margin: 0 0 0.5rem 0;
+				margin: 0 0 0.5rem;
 			}
 
 			figcaption {
@@ -196,7 +196,7 @@
 			width: 100%;
 			height: auto;
 			overflow: hidden;
-			background-color: hsl(24, 20%, 85%);
+			background-color: hsl(24deg 20% 85%);
 			margin-bottom: 9px;
 
 			&-track {
@@ -263,7 +263,7 @@
 				align-items: center;
 				gap: 8px;
 				z-index: 3;
-				background-color: rgba(0, 0, 0, 0.6);
+				background-color: rgb(0 0 0 / 60%);
 				padding: 6px;
 				border-radius: 12px;
 				margin-bottom: 60px;
@@ -272,7 +272,7 @@
 					width: 8px;
 					height: 8px;
 					border-radius: 50%;
-					background: rgba(255, 255, 255, 0.5);
+					background: rgb(255 255 255 / 50%);
 					border: none;
 					padding: 0;
 					cursor: pointer;
@@ -288,7 +288,7 @@
 					transform: none !important;
 					width: 16px !important;
 					height: 16px !important;
-					background: rgba(255, 255, 255, 0.5) !important;
+					background: rgb(255 255 255 / 50%) !important;
 					border-radius: 50% !important;
 					padding: 0 !important;
 					margin: 0 !important;
@@ -297,7 +297,7 @@
 					right: auto !important;
 
 					&:hover {
-						background: rgba(255, 255, 255, 0.8) !important;
+						background: rgb(255 255 255 / 80%) !important;
 						transform: scale(1.1) !important;
 					}
 
@@ -358,7 +358,7 @@
 			padding: 1rem 2.5rem;
 			text-decoration: none;
 			color: variables.$link-color-dark;
-			border: 1px solid currentColor;
+			border: 1px solid currentcolor;
 			text-transform: uppercase;
 			letter-spacing: 0.2em;
 			font-size: 0.8rem;
@@ -366,7 +366,7 @@
 			background-color: transparent;
 
 			&:hover {
-				background-color: currentColor;
+				background-color: currentcolor;
 				color: var(--bg-color, variables.$white);
 			}
 		}
@@ -380,7 +380,7 @@
 
 		button {
 			padding: 0.5rem 1rem;
-			border: 1px solid currentColor;
+			border: 1px solid currentcolor;
 			background: transparent;
 			cursor: pointer;
 			font-family: inherit;
@@ -388,7 +388,7 @@
 			color: variables.$link-color-dark;
 
 			&:hover {
-				background: currentColor;
+				background: currentcolor;
 				color: var(--bg-color, variables.$white);
 			}
 		}
@@ -443,7 +443,7 @@
 			}
 
 			p {
-				margin: 0 0 1.4em 0;
+				margin: 0 0 1.4em;
 				line-height: 1.5;
 				font-size: 14px;
 				color: variables.$text-color;
@@ -499,6 +499,7 @@
 
 		.post-list-item.post-link {
 			@extend .card-base;
+
 			margin-bottom: 1rem;
 
 			h3 {
@@ -622,7 +623,6 @@ p {
 
 // Blog post specific styling
 .post-list-item.blog {
-
 	// Reset base paragraph margins
 	>p {
 		margin: 1rem 0; // Default paragraph spacing
@@ -714,12 +714,12 @@ p {
 	}
 
 	&:hover {
-		background-color: rgba(0, 0, 0, 0.8);
+		background-color: rgb(0 0 0 / 80%);
 		color: white;
 	}
 
 	&:active {
-		background-color: rgba(0, 0, 0, 0.9);
+		background-color: rgb(0 0 0 / 90%);
 	}
 
 	&:focus {
@@ -733,12 +733,12 @@ p {
 		color: black;
 
 		&:hover {
-			background-color: rgba(255, 255, 255, 0.8);
+			background-color: rgb(255 255 255 / 80%);
 			color: black;
 		}
 
 		&:active {
-			background-color: rgba(255, 255, 255, 0.9);
+			background-color: rgb(255 255 255 / 90%);
 		}
 	}
 }
