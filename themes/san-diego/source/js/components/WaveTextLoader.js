@@ -15,32 +15,21 @@ const supportsFeature = (feature) => {
 	return false;
 };
 
-// Performance detection with more reliable mobile checks
-const isLowEndDevice = () => {
-	// Check if the device has limited resources
+// Performance detection based on hardware specs
+const isTrulyLowSpecDevice = () => {
 	const navigatorInfo = window.navigator;
-
-	// Check for low memory (if available)
-	if (navigatorInfo.deviceMemory && navigatorInfo.deviceMemory < 4) {
+	// Note: deviceMemory is in GB.
+	if (navigatorInfo.deviceMemory && navigatorInfo.deviceMemory < 4) { // Less than 4GB RAM
+		console.log('[WaveTextLoader] Device considered low-spec due to memory:', navigatorInfo.deviceMemory + 'GB');
 		return true;
 	}
-
-	// Check for slower CPUs via hardwareConcurrency
-	if (navigatorInfo.hardwareConcurrency && navigatorInfo.hardwareConcurrency < 4) {
+	if (navigatorInfo.hardwareConcurrency && navigatorInfo.hardwareConcurrency < 4) { // Less than 4 CPU cores
+		console.log('[WaveTextLoader] Device considered low-spec due to CPU cores:', navigatorInfo.hardwareConcurrency);
 		return true;
 	}
-
-	// More reliable mobile detection using multiple signals
-	const isMobile =
-		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigatorInfo.userAgent) ||
-		(window.innerWidth < 768) ||
-		(window.matchMedia && window.matchMedia('(max-width: 767px)').matches) ||
-		(navigatorInfo.maxTouchPoints && navigatorInfo.maxTouchPoints > 1); // Likely touch device
-
-	// If we're on iOS, it can have performance issues with complex animations
-	const isIOS = /iPad|iPhone|iPod/.test(navigatorInfo.userAgent) && !window.MSStream;
-
-	return isMobile || isIOS;
+	// Previous iOS check is removed to allow capable iOS devices to use CSS animations.
+	// If specific iOS versions/models show issues, more targeted checks could be added here.
+	return false;
 };
 
 // Check if reduced motion is preferred
@@ -136,7 +125,7 @@ export const createWaveText = (container, config = {}) => {
 
 	// If user prefers reduced motion, use the most lightweight implementation
 	if (reducedMotion) {
-		// Use CSS with static styling (animation is disabled in CSS for reduced motion)
+		console.log('[WaveTextLoader] Using CSS implementation (reduced motion preferred)');
 		const waveText = new CssWaveText(container, {
 			...normalizedConfig,
 			rows: 5, // Use fewer rows for reduced motion
@@ -146,39 +135,22 @@ export const createWaveText = (container, config = {}) => {
 		return waveText;
 	}
 
-	// Check browser capabilities
-	const hasModernFeatures = supportsFeature('css-grid') &&
-		supportsFeature('intersection-observer');
+	// Check browser capabilities and device performance
+	const supportsCssGrid = supportsFeature('css-grid');
+	const isLowSpec = isTrulyLowSpecDevice(); // Use the new hardware-focused check
 
-	// Check device performance
-	const isLowPerformance = isLowEndDevice();
+	console.log('[WaveTextLoader] Device/Feature Check:', { supportsCssGrid, isLowSpec });
 
-	// For debugging
-	console.log('Browser features:', { hasModernFeatures, isLowPerformance });
-
-	// Default to canvas implementation for mobile (better performance)
-	const isMobile = window.innerWidth < 768;
-
-	if (isMobile || isLowPerformance) {
-		// Use optimized canvas implementation for mobile or low-performance devices
-		console.log('Using Canvas implementation for mobile/low-performance device');
-
-		// First ensure we have a canvas element
-		let canvas = container.querySelector('canvas#waveCanvas');
-		if (!canvas) {
-			canvas = document.createElement('canvas');
-			canvas.id = 'waveCanvas';
-			container.appendChild(canvas);
-		}
-
-		return new OptimizedWaveAnimation(canvas, normalizedConfig);
-	} else if (hasModernFeatures) {
-		// Use CSS-based implementation for modern browsers on capable devices
-		console.log('Using CSS implementation');
+	if (supportsCssGrid && !isLowSpec) {
+		// Use CSS-based implementation for modern browsers on capable (non-low-spec) devices.
+		// This includes capable mobile devices that support CSS Grid.
+		console.log('[WaveTextLoader] Using CSS implementation (CSS Grid supported, not low-spec device)');
 		return new CssWaveText(container, normalizedConfig);
 	} else {
-		// Fall back to optimized canvas implementation for better compatibility
-		console.log('Using Canvas implementation for compatibility');
+		// Fallback to Optimized Canvas implementation for:
+		// 1. Low-spec devices (isLowSpec = true)
+		// 2. Browsers not supporting CSS Grid (supportsCssGrid = false)
+		console.log('[WaveTextLoader] Using Canvas implementation (low-spec device or no CSS Grid support)');
 
 		// First ensure we have a canvas element
 		let canvas = container.querySelector('canvas#waveCanvas');
@@ -187,7 +159,6 @@ export const createWaveText = (container, config = {}) => {
 			canvas.id = 'waveCanvas';
 			container.appendChild(canvas);
 		}
-
 		return new OptimizedWaveAnimation(canvas, normalizedConfig);
 	}
 }; 

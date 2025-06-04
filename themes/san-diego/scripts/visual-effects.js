@@ -8,20 +8,10 @@ hexo.extend.tag.register('wave_text', function (args) {
 			.replace(/:([^",}\s][^,}]*)/g, ':"$1"')
 		) : {};
 
-		return `<div class="visual-effects-wrapper wave-container">
-            <script type="module">
-                import { createWaveText } from '/js/components/WaveTextLoader.js';
-                
-                document.addEventListener('DOMContentLoaded', () => {
-                    const container = document.currentScript.parentElement;
-                    const waveText = createWaveText(container, ${JSON.stringify(config)});
-                    waveText.init();
-                });
-            </script>
-        </div>`;
+		return ''; // Disabled
 	} catch (error) {
-		console.error('Error rendering wave text:', error);
-		return '<div class="wave-error">Error loading wave effect</div>';
+		console.error('Error rendering wave text (tag disabled):', error);
+		return '<div class="wave-error">Wave effect disabled</div>';
 	}
 }, { ends: false });
 
@@ -61,13 +51,12 @@ hexo.extend.tag.register('visual_effects', function (args) {
 		) : {};
 
 		return `<div class="visuals-container">
-            <canvas id="waveCanvas"></canvas>
             <canvas id="skullCanvas"></canvas>
             <script type="module">
                 import { initHomeVisuals } from '/js/home.js';
                 document.addEventListener('DOMContentLoaded', () => {
                     initHomeVisuals({
-                        showWave: true,
+                        showWave: false,
                         showSkull: true,
                         ...${JSON.stringify(config)}
                     });

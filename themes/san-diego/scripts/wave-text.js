@@ -27,12 +27,13 @@ hexo.extend.tag.register('wave_text', function (args) {
 
 		const mergedConfig = { ...defaultConfig, ...config };
 
-		return hexo.render.renderSync({
-			path: 'themes/san-diego/layout/_partial/wave-text.ejs',
-			data: { config: mergedConfig }
-		});
+		// return hexo.render.renderSync({
+		// 	path: 'themes/san-diego/layout/_partial/wave-text.ejs',
+		// 	data: { config: mergedConfig }
+		// });
+		return ''; // Return empty string to disable the tag output
 	} catch (error) {
-		console.error('Error rendering wave text:', error);
-		return '<div class="wave-error">Error loading wave effect</div>';
+		console.error('Error rendering wave text (tag disabled):', error);
+		return '<div class="wave-error">Wave effect disabled</div>'; // Or return an empty string here too
 	}
 }, { ends: false }); 

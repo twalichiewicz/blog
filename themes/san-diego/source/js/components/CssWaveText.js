@@ -183,15 +183,14 @@ export class CssWaveText {
 				charSpan.className = classNames.join(' ');
 				charSpan.textContent = char;
 
-				// Set base delay as custom property for column offset
-				charSpan.style.setProperty('--base-delay', `${(row % 21) / 21 * 3}s`);
-
-				// Apply styles directly to ensure visibility
+				// Apply styles directly to ensure visibility and performance
 				charSpan.style.fontSize = `${this.config.font.size}px`;
 				charSpan.style.lineHeight = `${this.config.font.lineHeight}px`;
 				charSpan.style.display = 'flex';
 				charSpan.style.justifyContent = 'center';
 				charSpan.style.alignItems = 'center';
+				charSpan.style.fontWeight = '500'; // Adjusted from 600 to 500 for potentially lighter rendering
+				charSpan.style.position = 'relative';
 
 				// Calculate gradation based on position
 				let opacity;
@@ -207,13 +206,35 @@ export class CssWaveText {
 				charSpan.style.color = `${baseColor} ${opacity})`;
 				charSpan.style.textShadow = '0 0 1px rgba(0,0,0,0.1)';
 
-				// On mobile, reduce the performance impact of will-change
-				if (!isMobile) {
-					charSpan.style.willChange = 'transform, opacity';
+				if (!this.config.reducedMotion) {
+					// Aggressively hint for hardware acceleration to prevent flickering
+					charSpan.style.transform = 'translateZ(0)';
+					charSpan.style.backfaceVisibility = 'hidden';
+					// will-change is handled by SCSS, but direct application can be more forceful
+					// if (!isMobile) { // Retain conditional will-change for mobile if still desired
+					//  charSpan.style.willChange = 'transform, opacity';
+					// }
+				} else {
+					// Ensure no lingering transform styles in reduced motion
+					charSpan.style.transform = 'none';
 				}
 
-				charSpan.style.position = 'relative';
-				charSpan.style.fontWeight = '500';
+				// The existing conditional will-change from SCSS is generally good.
+				// We're adding translateZ and backface-visibility for more direct GPU hinting.
+				// The SCSS already has: .wave-char { will-change: transform, opacity; }
+				// and under mobile: .wave-char { will-change: none; }
+				// We can keep the original logic for `will-change` based on `isMobile` if it was intentional.
+				if (!isMobile && !this.config.reducedMotion) {
+					charSpan.style.willChange = 'transform, opacity';
+				} else if (isMobile && !this.config.reducedMotion) {
+					// On mobile, if animations are active, still good to have will-change opacity if opacity animates.
+					// If only transform animates, 'transform' would be enough.
+					// Given the animation also changes opacity, this is fine.
+					// However, _wave-text.scss seems to set will-change to none on mobile.
+					// Let's ensure our JS doesn't conflict if SCSS rule is more specific or later.
+					// For now, this JS application of will-change might be overridden by a more specific SCSS rule.
+					// The `transform: translateZ(0)` should still be beneficial.
+				}
 
 				rowDiv.appendChild(charSpan);
 				charCount++;
