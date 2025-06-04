@@ -125,7 +125,7 @@ class VideoAutoplayManager {
 			if (!state) return;
 
 			if (entry.isIntersecting) {
-				// Video is visible, try to play
+				// Video is visible, try to play (Reverted to original behavior)
 				this.attemptPlay(video);
 			} else {
 				// Video is not visible, pause it
