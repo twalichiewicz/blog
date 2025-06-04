@@ -39,36 +39,27 @@
 
 <main class="blog">
     <div class="blog-header" style="position: relative; min-height: 300px;">
-        <%- partial('_partial/wave-text', { 
-            config: {
-                baseString: "Design in Everything ",
-                wave: {
-                    frequency: 0.006,
-                    amplitude: 15,
-                    speed: 0.0002
-                },
-                font: {
-                    size: 18,
-                    lineHeight: 24,
-                    charWidth: 12
-                }
-            }
-        }) %>
-        
         <div class="profile-header" style="position: relative; z-index: 10; padding-top: 40px;">
-            <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
-            <!-- Contact wrapper for mobile, below profile image -->
-            <div class="contact-wrapper mobile-only">
-                <button class="contact-button" id="mobileContactBtn">@</button>
+            <div class="profile-photo-wrapper">
+                <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
+                <div class="contact-wrapper mobile-only">
+                    <a href="#" class="contact-option" id="mobileContactBtn">Contact</a>
+                </div>
             </div>
             <div class="profile-info">
-                <h1 class="profile-name">Thomas Walichiewicz</h1>
+                <h1 class="profile-name">
+                    <span class="desktop-only">Thomas<br/>Walichiewicz</span>
+                    <span class="mobile-only">Thomas Walichiewicz</span>
+                </h1>
+                <h2 class="profile-byline mobile-only">Designer, researcher, and relentless problem solver.</h2>
+                <div class="location-pill">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="location-icon">
+                        <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                    </svg>
+                    <span>San Diego, CA</span>
+                </div>
                 <p class="profile-bio">Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</p>
                 <div class="profile-stats">
-                    <div class="stat">
-                        <span class="number"><%= site.posts.length %></span>
-                        <span class="label">Posts</span>
-                    </div>
                     <div class="stat">
                         <span class="number">30+</span>
                         <span class="label">Projects led</span>

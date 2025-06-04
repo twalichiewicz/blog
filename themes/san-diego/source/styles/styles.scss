@@ -16,7 +16,6 @@
 @use 'footer';
 @use 'hero';
 @use 'foreground';
-@use 'wave-text';
 
 // Blog components
 @use 'blog';
@@ -40,6 +39,8 @@
 
 // Theme modes - importing the index file which manages all theme mode styles
 @use 'theme-modes/index' as theme-modes;
+@use 'theme-modes/light-mode';
+@use 'theme-modes/dark-mode';
 
 // Home page
 @use 'home';

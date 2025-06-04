@@ -36,7 +36,7 @@ button {
 	margin: auto;
 	padding: 0 16px;
 
-	@media screen and (width <= 1000px) {
+	@media screen and (width <=1000px) {
 		max-width: 800px;
 	}
 
@@ -44,7 +44,7 @@ button {
 		grid-template-columns: repeat(2, 1fr);
 	}
 
-	@media screen and (width <= 600px) {
+	@media screen and (width <=600px) {
 		display: block;
 	}
 }
@@ -257,6 +257,7 @@ blockquote {
 }
 
 @media (prefers-color-scheme: dark) {
+
 	.button,
 	button {
 		color: variables.$link-color-dark;
@@ -487,6 +488,7 @@ button {
 
 /* Additional dark mode styles for mobile-tabs with higher specificity */
 @media (prefers-color-scheme: dark) {
+
 	/* Mobile view */
 	.device-mobile .blog .blog-content .mobile-tabs {
 		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
@@ -623,59 +625,139 @@ button {
 	}
 }
 
+/* Profile Header Styles */
 .profile-header {
 	position: relative;
 	display: flex;
-	align-items: center;
-	gap: 0;
-	padding: 18px 24px 18px 48px;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 36px 24px 18px;
 	margin: 0 auto 32px;
 	max-width: 600px;
 	z-index: 1;
 	box-sizing: border-box;
 	width: 100%;
 
-	.profile-photo {
-		width: 120px;
-		height: 120px;
-		border-radius: 50%;
-		object-fit: cover;
-		flex-shrink: 0;
+	.profile-photo-wrapper {
 		position: relative;
-		box-shadow:
-			0 0 0 1px rgba(variables.$white, 0.7),
-			0 0 0 2px rgba(variables.$black, 0.1),
-			inset 0 2px 8px rgba(variables.$black, 0.4),
-			inset 0 -4px 8px rgba(variables.$white, 0.3);
-		padding: 4px;
-		background: linear-gradient(145deg,
-				rgba(variables.$white, 0.1),
-				rgba(variables.$black, 0.1));
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+
+		.profile-photo {
+			width: 90px;
+			height: 90px;
+			border-radius: 50%;
+			object-fit: cover;
+			flex-shrink: 0;
+			position: relative;
+			box-shadow:
+				0 0 0 1px rgba(variables.$white, 0.7),
+				0 0 0 2px rgba(variables.$black, 0.1),
+				inset 0 2px 8px rgba(variables.$black, 0.4),
+				inset 0 -4px 8px rgba(variables.$white, 0.3);
+			padding: 4px;
+			background: linear-gradient(145deg,
+					rgba(variables.$white, 0.1),
+					rgba(variables.$black, 0.1));
+		}
+
+		.contact-wrapper.mobile-only {
+			position: static;
+			margin: 0;
+			padding: 0;
+			width: auto;
+
+			.contact-button {
+				display: block;
+				padding: 8px 16px;
+				font-size: 12px;
+				font-weight: 500;
+				color: variables.$text-color;
+				text-decoration: none;
+				text-align: center;
+				transition: all 0.2s ease;
+				white-space: nowrap;
+				background: transparent;
+				border: 1px solid rgba(variables.$border-color, 0.6);
+				border-radius: 6px;
+				cursor: pointer;
+				width: 100%;
+
+				&:hover {
+					background: rgba(variables.$link-color, 0.1);
+					color: variables.$link-color;
+				}
+
+				&:active {
+					background: rgba(variables.$link-color, 0.2);
+				}
+			}
+		}
 	}
 
 	.profile-info {
+		text-align: left;
+		width: 100%;
+
 		.profile-name {
 			font-size: 24px;
 			font-weight: 600;
-			margin: 0;
+			margin: 0 0 9px 0;
+			line-height: 100%;
 			text-shadow:
 				0 1px 1px rgb(255 255 255 / 90%),
 				0 -1px 1px rgb(0 0 0 / 20%);
 			letter-spacing: 0.02em;
 		}
 
+		.profile-byline {
+			font-size: 14px;
+			font-weight: 500;
+			margin: 0 0 8px 0;
+			color: variables.$text-color-secondary;
+			line-height: 1.4;
+			display: none;
+		}
+
 		.profile-bio {
 			color: variables.$text-color-secondary;
-			margin-top: 3px;
-			margin-bottom: 16px;
+			margin: 0 0 16px 0;
 			font-size: 12px;
 			line-height: 1.4;
 			max-width: 450px;
 		}
 
+		.location-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 4px 12px;
+			background: rgba(variables.$black, 0.05);
+			border-radius: 20px;
+			margin-bottom: 9px;
+			font-size: 13px;
+			color: variables.$text-color-secondary;
+			transition: all 0.2s ease;
+
+			.location-icon {
+				width: 14px;
+				height: 14px;
+				opacity: 0.7;
+			}
+
+			&:hover {
+				background: rgba(variables.$black, 0.08);
+				color: variables.$text-color;
+			}
+		}
+
 		.profile-stats {
 			display: flex;
 			gap: variables.$spacing-inline-lg;
+			justify-content: flex-start;
 
 			.stat {
 				display: flex;
@@ -693,6 +775,27 @@ button {
 					color: variables.$text-color-secondary;
 					text-transform: uppercase;
 					letter-spacing: 0.05em;
+				}
+			}
+		}
+	}
+}
+
+/* Dark mode styles for location pill */
+@media (prefers-color-scheme: dark) {
+	.profile-header {
+		.profile-info {
+			.location-pill {
+				background: rgba(variables.$white, 0.1);
+				color: variables.$text-color-secondary-dark;
+
+				&:hover {
+					background: rgba(variables.$white, 0.15);
+					color: variables.$text-color-dark;
+				}
+
+				.location-icon {
+					color: variables.$text-color-secondary-dark;
 				}
 			}
 		}
@@ -870,6 +973,7 @@ button {
 /* Dark mode styles for contact wrapper */
 @media (prefers-color-scheme: dark) {
 	.contact-wrapper {
+
 		/* Mobile styles - active by default in dark mode */
 		@media screen and (max-width: variables.$mobile-breakpoint) {
 			.contact-button {
@@ -1785,6 +1889,7 @@ table {
 	}
 
 	.contact-modal-options {
+
 		button,
 		a {
 			height: auto;
@@ -1860,7 +1965,7 @@ table {
 }
 
 // Hide modal on tablet and desktop
-@media screen and (width >= 768px) {
+@media screen and (width >=768px) {
 	.contact-modal {
 		display: none !important;
 	}
@@ -1873,7 +1978,7 @@ table {
 }
 
 // Tablet fix: ensure inner wrapper is scrollable on tablet
-@media screen and (width >= 601px) and (width <= 1024px) {
+@media screen and (width >=601px) and (width <=1024px) {
 	.device-tablet .blog-content>.content-inner-wrapper {
 		height: 100%;
 		overflow: hidden auto;
@@ -1983,6 +2088,7 @@ table {
 	/* Grid mode - handle moves to right */
 	&[data-layout="grid"] {
 		.layout-toggle__switch {
+
 			/* Keep the same neutral background - no color change for either/or toggle */
 			&::after {
 				transform: translateX(15px);
@@ -2051,9 +2157,31 @@ table {
 		/* Grid mode in dark mode */
 		&[data-layout="grid"] {
 			.layout-toggle__switch {
+
 				/* Keep the same neutral background in dark mode - no color change needed for either/or toggle */
 				&::after {
 					transform: translateX(15px);
+				}
+			}
+		}
+	}
+}
+
+/* Dark mode styles for location pill */
+@media (prefers-color-scheme: dark) {
+	.profile-header {
+		.profile-info {
+			.location-pill {
+				background: rgba(variables.$white, 0.1);
+				color: variables.$text-color-secondary-dark;
+
+				&:hover {
+					background: rgba(variables.$white, 0.15);
+					color: variables.$text-color-dark;
+				}
+
+				.location-icon {
+					color: variables.$text-color-secondary-dark;
 				}
 			}
 		}
