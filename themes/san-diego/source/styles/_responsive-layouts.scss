@@ -269,7 +269,7 @@
 				backdrop-filter: blur(4px);
 
 				&:hover {
-					background: rgba(variables.$link-color, 0.9);
+					background: color.adjust(variables.$link-color, $lightness: -5%);
 					border-color: rgba(variables.$link-color, 0.8);
 					box-shadow:
 						0 2px 4px rgb(0 0 0 / 15%),
@@ -968,7 +968,7 @@
 					cursor: pointer;
 
 					&:hover {
-						background: variables.$link-color;
+						background: color.adjust(variables.$link-color, $lightness: -5%);
 						color: variables.$white;
 					}
 

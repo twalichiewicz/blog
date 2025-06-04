@@ -489,6 +489,41 @@
 	display: flex;
 	flex-direction: column;
 
+	// Add consistent typography for lists
+	ul,
+	ol {
+		font-size: 24px;
+		line-height: 1.6;
+		margin: 0 0 24px;
+		padding-left: 1.5em;
+		color: variables.$text-color;
+
+		li {
+			margin-bottom: 0.75em;
+			font-size: inherit;
+			line-height: inherit;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			// Nested lists should maintain the same size
+			ul,
+			ol {
+				margin-top: 0.75em;
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+
+		ul,
+		ol {
+			color: variables.$text-color-dark;
+		}
+	}
+
 	@media (max-width: variables.$tablet-breakpoint) {
 		width: 100%;
 		max-width: none;

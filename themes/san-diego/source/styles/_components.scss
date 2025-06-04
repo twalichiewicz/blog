@@ -2243,3 +2243,69 @@ table {
 		}
 	}
 }
+
+/* Project Stats
+   ========================================================================== */
+.project-impact-stats {
+	/* Changed from project-stats to avoid JS conflicts */
+	display: flex;
+	justify-content: space-between;
+	gap: variables.$space-xl;
+	margin: variables.$space-xl 0;
+	padding: variables.$space-xl;
+	background: var(--surface-color);
+	border-radius: 12px;
+	box-shadow: var(--shadow-sm);
+	opacity: 1;
+
+	.stat-item {
+		flex: 1;
+		text-align: center;
+		padding: variables.$space-lg;
+		background: var(--background-color);
+		border-radius: 8px;
+		opacity: 1;
+		transform: translateY(0);
+		transition: transform 0.2s ease;
+
+		&:hover {
+			transform: translateY(-2px);
+		}
+
+		.stat-value {
+			font-size: 3.5rem;
+			font-weight: 700;
+			line-height: 1.2;
+			color: var(--primary-color);
+			margin-bottom: variables.$space-xs;
+			font-feature-settings: "tnum";
+			font-variant-numeric: tabular-nums;
+			opacity: 1;
+		}
+
+		.stat-label {
+			font-size: 1.25rem;
+			color: var(--text-color-secondary);
+			font-weight: 500;
+			opacity: 1;
+		}
+	}
+
+	@media (max-width: variables.$tablet-breakpoint) {
+		flex-direction: column;
+		gap: variables.$space-md;
+		padding: variables.$space-lg;
+
+		.stat-item {
+			padding: variables.$space-md;
+
+			.stat-value {
+				font-size: 2.5rem;
+			}
+
+			.stat-label {
+				font-size: 1.125rem;
+			}
+		}
+	}
+}
