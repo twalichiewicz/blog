@@ -1,18 +1,16 @@
-import { WaveAnimation, SkullAnimation } from './HomeVisuals.js';
+import { SkullAnimation } from './HomeVisuals.js';
 
 export class VisualEffects {
 	constructor(config = {}) {
 		this.config = {
-			showWave: true,
 			showSkull: false,
-			waveConfig: {},
 			skullConfig: {},
 			...config
 		};
 		this.animations = [];
 	}
 
-	static createContainer(type = 'wave') {
+	static createContainer(type = 'skull') {
 		const container = document.createElement('div');
 		container.className = `${type}-container`;
 
@@ -28,18 +26,6 @@ export class VisualEffects {
 
 		// Clear existing content
 		targetElement.innerHTML = '';
-
-		// if (this.config.showWave) {
-		// 	const waveContainer = VisualEffects.createContainer('wave');
-		// 	targetElement.appendChild(waveContainer);
-
-		// 	const waveCanvas = waveContainer.querySelector('#waveCanvas');
-		// 	if (waveCanvas) {
-		// 		const waveAnimation = new WaveAnimation(waveCanvas, this.config.waveConfig);
-		// 		waveAnimation.init();
-		// 		this.animations.push(waveAnimation);
-		// 	}
-		// }
 
 		if (this.config.showSkull) {
 			const skullContainer = VisualEffects.createContainer('skull');

@@ -1,6 +1,7 @@
 @use 'variables';
 @use 'device-breakpoints';
 @use 'theme-modes';
+@use "sass:color";
 
 @mixin portfolio-grid-layout {
 	display: grid;
@@ -218,11 +219,7 @@
 		position: relative;
 		z-index: 2;
 
-		/* Ensure it's above the wave container */
-
 		.profile-photo {
-			width: 124px;
-			height: 124px;
 			margin-bottom: variables.$space-sm;
 		}
 
@@ -429,11 +426,6 @@
 			margin: variables.$space-lg 0;
 			gap: 33px;
 			padding: 24px 12px 0 24px;
-
-			.profile-photo {
-				width: 100px;
-				height: 100px;
-			}
 		}
 	}
 
@@ -611,18 +603,11 @@
 			}
 		}
 
-
-
 		.profile-header {
 			flex-direction: column;
 			margin: variables.$space-xl 0;
 			gap: 33px;
 			padding: 40px 12px 0 24px;
-
-			.profile-photo {
-				width: 120px;
-				height: 120px;
-			}
 		}
 	}
 
@@ -1007,6 +992,90 @@
 
 		.blog-header {
 			min-height: unset !important;
+		}
+	}
+
+	.device-mobile .blog .blog-header .profile-header {
+		flex-direction: row !important;
+		align-items: flex-start !important;
+		text-align: left !important;
+		gap: 16px !important;
+		padding: 12px 12px 9px !important;
+
+		.profile-photo-wrapper {
+			flex-shrink: 0;
+			width: 90px;
+			align-items: center !important;
+			gap: 0 !important;
+
+			.profile-photo {
+				margin-bottom: 0 !important;
+				margin-right: 0 !important;
+			}
+
+			.contact-wrapper.mobile-only {
+				margin-top: -9px !important;
+
+				.contact-option {
+					width: 100%;
+					margin-top: 0 !important;
+					padding: 3px 9px !important;
+					display: block;
+					font-size: 12px;
+					font-weight: 500;
+					color: variables.$text-color;
+					text-decoration: none;
+					text-align: center;
+					transition: all 0.2s ease;
+					white-space: nowrap;
+					background: variables.$card-bg !important;
+					border: 1px solid rgba(variables.$border-color, 0.6);
+					border-radius: 6px;
+					cursor: pointer;
+
+					&:hover {
+						background: variables.$link-color !important;
+						color: variables.$white !important;
+					}
+
+					&:active {
+						background: darken(variables.$link-color, 5%) !important;
+					}
+				}
+			}
+		}
+
+		.profile-info {
+			text-align: left !important;
+			flex: 1;
+
+			.profile-name {
+				margin-bottom: 3px !important;
+
+				.desktop-only {
+					display: none !important;
+				}
+
+				.mobile-only {
+					display: inline !important;
+				}
+			}
+
+			.profile-byline {
+				display: block !important;
+			}
+
+			.profile-bio {
+				display: none !important;
+			}
+
+			.profile-stats {
+				justify-content: flex-start !important;
+
+				.stat {
+					align-items: flex-start !important;
+				}
+			}
 		}
 	}
 }
@@ -1458,3 +1527,145 @@
 }
 
 /* --- END UNIVERSAL PROJECT GALLERY CAROUSEL FIX --- */
+
+/* Remove all device-specific profile header styles */
+.device-tablet .blog .blog-header .profile-header,
+.device-desktop .blog .blog-header .profile-header,
+.device-mobile .blog .blog-header .profile-header {
+	flex-direction: column;
+	align-items: flex-start;
+	text-align: left;
+	margin: 0 auto 32px;
+	padding: 36px 24px 18px;
+	gap: 12px;
+
+	.profile-info {
+		text-align: left;
+		width: 100%;
+
+		.profile-stats {
+			justify-content: flex-start;
+		}
+	}
+}
+
+/* Mobile-specific overrides */
+@media screen and (max-width: variables.$mobile-breakpoint) {
+	.device-mobile .blog .blog-header .profile-header {
+		flex-direction: row;
+		align-items: flex-start;
+		text-align: left;
+		gap: 16px;
+		padding: 12px 12px 9px;
+
+		.profile-photo-wrapper {
+			flex-shrink: 0;
+			width: 90px;
+			align-items: center;
+			gap: 0;
+
+			.profile-photo {
+				margin-bottom: 0;
+				margin-right: 0;
+			}
+
+			.contact-wrapper.mobile-only {
+				margin-top: -9px;
+
+				.contact-option {
+					width: 100%;
+					margin-top: 0;
+					padding: 3px 9px;
+					display: block;
+					font-size: 12px;
+					font-weight: 500;
+					color: variables.$text-color;
+					text-decoration: none;
+					text-align: center;
+					transition: all 0.2s ease;
+					white-space: nowrap;
+					background: variables.$card-bg;
+					border: 1px solid rgba(variables.$border-color, 0.6);
+					border-radius: 6px;
+					cursor: pointer;
+
+					&:hover {
+						background: variables.$link-color;
+						color: variables.$white;
+					}
+
+					&:active {
+						background: darken(variables.$link-color, 5%);
+					}
+				}
+			}
+		}
+
+		.profile-info {
+			text-align: left;
+			flex: 1;
+
+			.profile-name {
+				margin-bottom: 3px;
+
+				.desktop-only {
+					display: none;
+				}
+
+				.mobile-only {
+					display: inline;
+				}
+			}
+
+			.profile-byline {
+				display: block;
+			}
+
+			.profile-bio {
+				display: none;
+			}
+
+			.profile-stats {
+				justify-content: flex-start;
+
+				.stat {
+					align-items: flex-start;
+				}
+			}
+		}
+	}
+}
+
+/* Tablet and Desktop Styles */
+@media (min-width: variables.$tablet-breakpoint) {
+	.profile-header {
+		padding-top: 36px;
+		align-items: flex-start;
+		text-align: left;
+
+		.profile-info {
+			text-align: left;
+
+			.profile-stats {
+				justify-content: flex-start;
+			}
+		}
+	}
+}
+
+/* Mobile Styles */
+@media (max-width: #{variables.$tablet-breakpoint - 1}) {
+	.profile-header {
+		padding-top: 24px;
+		align-items: center;
+		text-align: center;
+
+		.profile-info {
+			text-align: center;
+
+			.profile-stats {
+				justify-content: center;
+			}
+		}
+	}
+}

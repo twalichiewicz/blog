@@ -372,144 +372,43 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 
 		window.addEventListener('popstate', async function (event) {
-			console.log('[blog.js popstate] Event triggered', event.state);
-			const state = event.state;
-			const currentFullUrl = window.location.pathname + window.location.search + window.location.hash;
+			if (event.state && event.state.page) {
+				const targetUrl = event.state.page;
+				console.log('[blog.js popstate] Navigating to:', targetUrl);
 
-			if (state && state.isDynamic) {
-				await fetchAndDisplayContent(state.path, false, state.isProject);
-			} else if (state && state.isInitial) {
-				if (blogContentElement && blogContentElement.innerHTML !== initialBlogContentHTML) {
-					// Before restoring HTML, cleanup any carousels in the current dynamic content
-					if (typeof cleanupCarouselInstances === 'function') {
-						console.log('[blog.js popstate] Cleaning up carousel instances from current dynamic content before restoring initial HTML');
-						cleanupCarouselInstances(blogContentElement);
-					}
-					await fadeOutElement(blogContentElement);
-					if (blogContentElement) {
-						console.log('[blog.js popstate] Restoring initial HTML...');
-						blogContentElement.innerHTML = initialBlogContentHTML;
-						// Ensure the restored content is ready for fadeInElement logic
-						const isDesktopOrTablet = window.innerWidth > 768;
-						const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
-						if (isDesktopOrTablet && innerWrapper) {
-							innerWrapper.style.opacity = '0'; // Prepare for fade-in
-						} else if (!isDesktopOrTablet) {
-							blogContentElement.style.opacity = '0'; // Prepare for fade-in on mobile
-						}
-						console.log('[blog.js popstate] HTML restored. Initializing features (delegates carousel)...');
-						initializeBlogFeatures(blogContentElement);
-						initializeLinkListeners(blogContentElement);
-						initializeMobileTabs();
-						// Initialize project tabs for dynamically loaded content
-						if (window.initializeProjectTabs) {
-							window.initializeProjectTabs(blogContentElement);
-						}
-						// Initialize project summary for dynamically loaded content
-						if (window.initializeProjectSummary) {
-							window.initializeProjectSummary(blogContentElement);
-						}
-						// Re-initialize sound effects for popstate navigation
-						if (window.initializeSoundEffects) {
-							console.log('[blog.js] Re-initializing sound effects for popstate navigation');
-							window.initializeSoundEffects();
-						}
-						console.log('[blog.js popstate] Features initialized. Waiting for waveTextReady...');
+				// Perform fade out
+				await fadeOutElement(blogContentElement);
 
-						// Wait for wave text to signal readiness
-						const waveContainer = document.querySelector('.wave-container');
-						const fadeInTimeoutDuration = 500; // Max wait time in ms
-						let fadeInTimer = null;
+				// Update URL without triggering a reload
+				window.history.replaceState({ page: targetUrl }, '', targetUrl);
 
-						const performFadeIn = async () => {
-							clearTimeout(fadeInTimer);
-							console.log('[blog.js popstate] Proceeding with fade-in.');
+				// Fetch the new page content
+				try {
+					const response = await fetch(targetUrl, {
+						headers: {
+							'X-Requested-With': 'XMLHttpRequest'
+						}
+					});
+
+					if (response.ok) {
+						const html = await response.text();
+						const parser = new DOMParser();
+						const doc = parser.parseFromString(html, 'text/html');
+
+						// Update the main content
+						const newContent = doc.querySelector('.blog');
+						if (newContent) {
+							blogContentElement.innerHTML = newContent.innerHTML;
+							// Initialize features on the new content
+							initializeBlogFeatures(blogContentElement);
+							// Fade in immediately
 							await fadeInElement(blogContentElement);
-							console.log('[blog.js popstate] Fade in complete.');
-						};
-
-						if (waveContainer) {
-							waveContainer.addEventListener('waveTextReady', function onWaveReady() {
-								console.log('[blog.js popstate] waveTextReady event received.');
-								performFadeIn();
-								// Note: No need to remove listener due to { once: true }
-							}, { once: true });
-
-							// Fallback timeout in case the event never fires
-							fadeInTimer = setTimeout(() => {
-								console.warn('[blog.js popstate] waveTextReady event timed out. Fading in anyway.');
-								performFadeIn();
-							}, fadeInTimeoutDuration);
-						} else {
-							console.warn('[blog.js popstate] Wave container not found for event listener. Fading in after short delay.');
-							// Fallback if no wave container exists on the page
-							await new Promise(resolve => setTimeout(resolve, 100)); // Keep small delay
-							await performFadeIn(); // Call the async function
 						}
 					}
-				}
-			} else if (!state && currentFullUrl === initialBlogContentURL) {
-				if (blogContentElement && blogContentElement.innerHTML !== initialBlogContentHTML) {
-					await fadeOutElement(blogContentElement);
-					if (blogContentElement) {
-						console.log('[blog.js popstate] Restoring initial HTML (no state fallback)...');
-						blogContentElement.innerHTML = initialBlogContentHTML;
-						// Ensure the restored content is ready for fadeInElement logic
-						const isDesktopOrTablet = window.innerWidth > 768;
-						const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
-						if (isDesktopOrTablet && innerWrapper) {
-							innerWrapper.style.opacity = '0'; // Prepare for fade-in
-						} else if (!isDesktopOrTablet) {
-							blogContentElement.style.opacity = '0'; // Prepare for fade-in on mobile
-						}
-						console.log('[blog.js popstate] HTML restored (no state fallback). Initializing features...');
-						initializeBlogFeatures(blogContentElement);
-						initializeLinkListeners(blogContentElement);
-						initializeMobileTabs();
-						// Initialize project tabs for dynamically loaded content
-						if (window.initializeProjectTabs) {
-							window.initializeProjectTabs(blogContentElement);
-						}
-						// Initialize project summary for dynamically loaded content
-						if (window.initializeProjectSummary) {
-							window.initializeProjectSummary(blogContentElement);
-						}
-						// Re-initialize sound effects for popstate navigation (no state fallback)
-						if (window.initializeSoundEffects) {
-							console.log('[blog.js] Re-initializing sound effects for popstate navigation (no state fallback)');
-							window.initializeSoundEffects();
-						}
-						console.log('[blog.js popstate] Features initialized (no state fallback). Waiting for waveTextReady...');
-
-						// Wait for wave text to signal readiness (duplicate logic for this branch)
-						const waveContainer = document.querySelector('.wave-container');
-						const fadeInTimeoutDuration = 500; // Max wait time in ms
-						let fadeInTimer = null;
-
-						const performFadeIn = async () => {
-							clearTimeout(fadeInTimer);
-							console.log('[blog.js popstate] Proceeding with fade-in (no state fallback).');
-							await fadeInElement(blogContentElement);
-							console.log('[blog.js popstate] Fade in complete (no state fallback).');
-						};
-
-						if (waveContainer) {
-							waveContainer.addEventListener('waveTextReady', function onWaveReady() {
-								console.log('[blog.js popstate] waveTextReady event received (no state fallback).');
-								performFadeIn();
-							}, { once: true });
-
-							// Fallback timeout
-							fadeInTimer = setTimeout(() => {
-								console.warn('[blog.js popstate] waveTextReady event timed out (no state fallback). Fading in anyway.');
-								performFadeIn();
-							}, fadeInTimeoutDuration);
-						} else {
-							console.warn('[blog.js popstate] Wave container not found (no state fallback). Fading in after short delay.');
-							await new Promise(resolve => setTimeout(resolve, 100)); // Keep small delay
-							await performFadeIn(); // Call the async function
-						}
-					}
+				} catch (error) {
+					console.error('[blog.js popstate] Error fetching page:', error);
+					// Fade in anyway to show current content
+					await fadeInElement(blogContentElement);
 				}
 			}
 		});
