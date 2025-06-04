@@ -9,8 +9,33 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Tue, 03 Jun 2025 07:05:13 GMT</pubDate>
+    <pubDate>Wed, 04 Jun 2025 03:59:10 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>desktop mode offline temporarily</title>
+      <link>https://twalichiewicz.github.io/2025/06/03/desktop-mode-offline-temporarily/</link>
+      <guid>https://twalichiewicz.github.io/2025/06/03/desktop-mode-offline-temporarily/</guid>
+      <pubDate>Tue, 03 Jun 2025 20:55:52 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;The fancy-shmancy desktop mode is disabled for now while I work out some Chrome bugs. 🪳🔨&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>The fancy-shmancy desktop mode is disabled for now while I work out some Chrome bugs. 🪳🔨</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/06/03/desktop-mode-offline-temporarily/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>macOS Tahoe Name Leaked Ahead of Apple&#39;s WWDC Event Next Week</title>
@@ -474,31 +499,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/03/27/Sora-redefining-designer-s-value/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>OpenAI Sora explore gallery</title>
-      <link>https://twalichiewicz.github.io/2025/03/27/Sora-Explore-gallery/</link>
-      <guid>https://twalichiewicz.github.io/2025/03/27/Sora-Explore-gallery/</guid>
-      <pubDate>Thu, 27 Mar 2025 15:32:51 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Some of these are staggering, and I keep finding more the longer I scroll through it.&lt;/p&gt;
-</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Some of these are staggering, and I keep finding more the longer I scroll through it.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/03/27/Sora-Explore-gallery/#disqus_thread</comments>
       
     </item>
     
