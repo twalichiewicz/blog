@@ -5,7 +5,6 @@
 // import ColorScheme from './components/ColorScheme.js'; // Commented out - file not found
 import { initNavigation } from './utils/navigation.js';
 import { initSectionAnimations, initColumnTitleScrollDetection } from './utils/animations.js';
-import { initializeDesktopWidgets, cleanupDesktopWidgetsInstance } from './desktop-widgets.js';
 import { initializeSoundEffects } from './utils/sound-effects.js';
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -137,7 +136,7 @@ function initLayoutToggle() {
 window.addEventListener('pageshow', (event) => {
 	if (event.persisted) {
 		console.log("[main.js pageshow] Start - bfcache");
-		// Desktop widgets initialization/cleanup is handled within its own module's pageshow
+		// Desktop widgets functionality removed
 		console.log("[main.js pageshow] End - bfcache");
 	}
 });

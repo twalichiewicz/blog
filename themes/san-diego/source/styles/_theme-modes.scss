@@ -202,8 +202,10 @@
 
 		/* Headings in dark mode - apply to all screen sizes */
 		.blog-content .content-wrapper {
+
 			#postsContent,
 			#projectsContent {
+
 				/* Headings in dark mode */
 				h1,
 				h2,
@@ -438,6 +440,7 @@
 
 			/* Desktop-specific content styling */
 			.content-wrapper {
+
 				/* Add subtle grain texture */
 				&::before {
 					content: '';
@@ -832,15 +835,7 @@
 			box-shadow: 0 0 1px rgba(variables.$border-color-dark, 0.05);
 		}
 
-		/* Dark mode for desktop widgets */
-		.desktop-widgets {
-			background: var(--bg-color, variables.$black);
-
-			.widget {
-				background: rgb(0 0 0 / 80%);
-				border: 1px solid variables.$border-color-dark;
-			}
-		}
+		/* Dark mode for desktop widgets - Removed */
 
 		/* Dark mode for blog header wave */
 		.blog-header-wave {
@@ -1134,6 +1129,7 @@
 					#postsContent,
 					#projectsContent {
 						.post-list-item {
+
 							/* Only apply hover effects to post-link items in light mode */
 							&.post-link {
 								transition: all 0.3s ease;
@@ -1941,6 +1937,7 @@
 			}
 
 			.post-nav {
+
 				.prev a,
 				.next a {
 					.nav-label {

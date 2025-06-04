@@ -13,10 +13,10 @@
 	// Add appropriate device class
 	if (width <= 767) { // Just below $mobile-breakpoint (768px)
 		body.classList.add('device-mobile');
-	} else if (width >= 768 && width <= 1023) { // Between $mobile-breakpoint and $tablet-breakpoint
+	} else if (width >= 768 && width <= 1199) { // Between $mobile-breakpoint and $desktop-small-min (1200px)
 		body.classList.add('device-tablet');
 	} else {
-		body.classList.add('device-tablet');
+		body.classList.add('device-desktop');
 	}
 
 	// Add orientation class
@@ -36,10 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			},
 			tablet: {
 				min: 768, // $mobile-breakpoint: 768px
-				max: 1023 // Just below $tablet-breakpoint (1024px)
+				max: 1199 // $tablet-landscape-max from _device-breakpoints.scss
 			},
 			desktop: {
-				min: 1024 // $tablet-breakpoint: 1024px
+				min: 1200 // $desktop-small-min from _device-breakpoints.scss
 			}
 		},
 
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			const currentDeviceType = this.getCurrentDeviceType();
 
 			// Remove existing device classes
-			body.classList.remove('device-mobile', 'device-tablet', 'device-tablet');
+			body.classList.remove('device-mobile', 'device-tablet', 'device-desktop');
 
 			// Add appropriate device class
 			if (width <= this.breakpoints.mobile.max) {
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			} else if (width >= this.breakpoints.tablet.min && width <= this.breakpoints.tablet.max) {
 				body.classList.add('device-tablet');
 			} else {
-				body.classList.add('device-tablet');
+				body.classList.add('device-desktop');
 			}
 
 			// Detect specific devices - using consistent breakpoints
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		 */
 		getCurrentDeviceType: function () {
 			const body = document.body;
-			if (body.classList.contains('device-tablet')) return 'desktop';
+			if (body.classList.contains('device-desktop')) return 'desktop';
 			if (body.classList.contains('device-tablet')) return 'tablet';
 			if (body.classList.contains('device-mobile')) return 'mobile';
 

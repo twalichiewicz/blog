@@ -2,6 +2,213 @@
 @use 'device-breakpoints';
 @use 'theme-modes';
 
+@mixin portfolio-grid-layout {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: minmax(120px, auto);
+	grid-auto-flow: row dense;
+	gap: 8px;
+
+	.portfolio-item {
+		margin: 0;
+
+		// Dynamic grid sizing
+		&[data-grid-size="1x1"] {
+			grid-column: span 1;
+			grid-row: span 1;
+			--grid-aspect: square;
+		}
+
+		&[data-grid-size="1x2"] {
+			grid-column: span 1;
+			grid-row: span 2;
+			--grid-aspect: tall;
+		}
+
+		&[data-grid-size="2x2"] {
+			grid-column: span 2;
+			grid-row: span 2;
+			--grid-aspect: square;
+		}
+
+		&[data-grid-size="3x1"] {
+			grid-column: span 3;
+			grid-row: span 1;
+			--grid-aspect: wide;
+		}
+
+		// Cover image styling
+		&[data-cover-image="true"] {
+			position: relative;
+			overflow: hidden;
+			padding: 0;
+
+			.portfolio-image {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				border-radius: 0;
+				border: none;
+				max-height: none;
+
+				img,
+				video {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					transition: transform 0.3s ease;
+				}
+
+				video[data-autoplay="true"] {
+					&:not([data-playing="true"]) {
+						background-color: rgb(0 0 0 / 10%);
+					}
+
+					&[data-loading="true"]::after {
+						content: '';
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						width: 20px;
+						height: 20px;
+						margin: -10px 0 0 -10px;
+						border: 2px solid rgb(255 255 255 / 30%);
+						border-top-color: rgb(255 255 255 / 80%);
+						border-radius: 50%;
+						animation: spin 1s linear infinite;
+						z-index: 1;
+					}
+
+					&[title*="Click to play"]::before {
+						content: '▶';
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						color: rgb(255 255 255 / 80%);
+						font-size: 24px;
+						text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+						z-index: 2;
+						opacity: 0;
+						transition: opacity 0.3s ease;
+					}
+
+					&[title*="Click to play"]:hover::before {
+						opacity: 1;
+					}
+				}
+			}
+
+			.portfolio-content {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: none;
+				color: white;
+				padding: 6px;
+				z-index: 2;
+
+				.company-byline {
+					display: none;
+				}
+
+				.title-row {
+					margin-bottom: 0;
+
+					.content-text {
+						flex: 0;
+
+						h4 {
+							display: flex;
+							padding: 3px 6px;
+							background: rgb(0 0 0 / 15%);
+							border-radius: 6px;
+							color: white;
+							font-size: 14px;
+							font-weight: 600;
+							margin: 0;
+							text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+						}
+
+						p {
+							display: none;
+						}
+					}
+
+					.external-icon {
+						color: white;
+						background: rgb(255 255 255 / 20%);
+						border: 1px solid rgb(255 255 255 / 30%);
+						backdrop-filter: blur(10px);
+					}
+				}
+			}
+		}
+
+		// Default styling for items without cover images
+		&:not([data-cover-image="true"]) {
+			.company-byline {
+				display: none;
+			}
+
+			.portfolio-content .title-row .content-text h4 {
+				display: initial;
+				padding: initial;
+				background: none;
+				border-radius: initial;
+				color: initial;
+				font-size: 12px;
+				font-weight: initial;
+				text-shadow: none;
+			}
+
+			.portfolio-content .title-row .content-text p {
+				display: none;
+			}
+
+			.portfolio-content .title-row {
+				margin-bottom: 0;
+			}
+		}
+
+		// Aspect ratio-based width/height adjustments
+		&[data-grid-size="1x1"] .portfolio-image,
+		&[data-grid-size="2x2"] .portfolio-image {
+
+			img,
+			video {
+				width: 100%;
+				height: auto;
+				min-height: 100%;
+			}
+		}
+
+		&[data-grid-size="1x2"] .portfolio-image {
+
+			img,
+			video {
+				width: auto;
+				height: 100%;
+				min-width: 100%;
+			}
+		}
+
+		&[data-grid-size="3x1"] .portfolio-image {
+
+			img,
+			video {
+				width: 100%;
+				height: auto;
+				min-height: 100%;
+			}
+		}
+	}
+}
+
 /* ==========================================================================
    Responsive Layouts
    
@@ -560,19 +767,16 @@
 				margin-bottom: 0;
 
 				/* Chrome rendering fix for scrollable content */
-				transform: translateZ(0);
-				transform: translateZ(0);
+				/* transform: translateZ(0); */
 
 				/* Prevent content shifting */
-				contain: layout;
+				/* contain: layout; */
 			}
 
 			/* Portfolio items optimization */
 			.portfolio-item {
 				/* Chrome rendering fix for scrollable content */
-				transform: translateZ(0);
-				transform: translateZ(0);
-				contain: layout;
+				/* transform: translateZ(0); */
 
 				/* Prevent layout thrashing */
 				will-change: auto;
@@ -581,9 +785,9 @@
 			/* Company groups optimization */
 			.company-group {
 				/* Chrome rendering fix */
-				transform: translateZ(0);
-				transform: translateZ(0);
-				contain: layout;
+				/* transform: translateZ(0); */
+
+				/* contain: layout; */
 			}
 		}
 
@@ -653,236 +857,13 @@
 
 	/* Portfolio list mobile layout - dynamic grid */
 	#projectsContent.portfolio-list .company-group .company-projects {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		grid-auto-rows: minmax(120px, auto);
-		grid-auto-flow: row dense;
-
-		/* Fill gaps automatically */
-		gap: 8px;
-
-		.portfolio-item {
-			margin: 0;
-
-			/* Dynamic grid sizing based on data-grid-size attribute */
-			&[data-grid-size="1x1"] {
-				grid-column: span 1;
-				grid-row: span 1;
-
-				--grid-aspect: square;
-			}
-
-			&[data-grid-size="1x2"] {
-				grid-column: span 1;
-				grid-row: span 2;
-
-				--grid-aspect: tall;
-			}
-
-			&[data-grid-size="2x2"] {
-				grid-column: span 2;
-				grid-row: span 2;
-
-				--grid-aspect: square;
-			}
-
-			&[data-grid-size="3x1"] {
-				grid-column: span 3;
-				grid-row: span 1;
-
-				--grid-aspect: wide;
-			}
-
-			/* Special styling for items with cover images */
-			&[data-cover-image="true"] {
-				position: relative;
-				overflow: hidden;
-				padding: 0;
-
-				.portfolio-image {
-					position: absolute;
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
-					margin: 0;
-					border-radius: 0;
-					border: none;
-					max-height: none;
-
-					img,
-					video {
-						width: 100%;
-						height: 100%;
-						object-fit: cover;
-						transition: transform 0.3s ease;
-					}
-
-					/* Video loading and play states */
-					video[data-autoplay="true"] {
-						&:not([data-playing="true"]) {
-							/* Show poster or first frame while loading */
-							background-color: rgb(0 0 0 / 10%);
-						}
-
-						/* Subtle loading indicator */
-						&[data-loading="true"]::after {
-							content: '';
-							position: absolute;
-							top: 50%;
-							left: 50%;
-							width: 20px;
-							height: 20px;
-							margin: -10px 0 0 -10px;
-							border: 2px solid rgb(255 255 255 / 30%);
-							border-top-color: rgb(255 255 255 / 80%);
-							border-radius: 50%;
-							animation: spin 1s linear infinite;
-							z-index: 1;
-						}
-
-						/* Subtle play indicator for click-to-play fallback */
-						&[title*="Click to play"]::before {
-							content: '▶';
-							position: absolute;
-							top: 50%;
-							left: 50%;
-							transform: translate(-50%, -50%);
-							color: rgb(255 255 255 / 80%);
-							font-size: 24px;
-							text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
-							z-index: 2;
-							opacity: 0;
-							transition: opacity 0.3s ease;
-						}
-
-						&[title*="Click to play"]:hover::before {
-							opacity: 1;
-						}
-					}
-				}
-
-
-			}
-
-			/* Default styling for items without cover images */
-			&:not([data-cover-image="true"]) {
-				.company-byline {
-					display: none;
-				}
-
-				.portfolio-content .title-row .content-text h4 {
-					display: initial;
-					padding: initial;
-					background: none;
-					border-radius: initial;
-					color: initial;
-					font-size: 12px;
-					font-weight: initial;
-					text-shadow: none;
-				}
-
-				.portfolio-content .title-row .content-text p {
-					display: none;
-				}
-
-				.portfolio-content .title-row {
-					margin-bottom: 0;
-				}
-			}
-
-			/* Aspect ratio-based width/height adjustments */
-			&[data-grid-size="1x1"] .portfolio-image,
-			&[data-grid-size="2x2"] .portfolio-image {
-				/* Square aspect ratio - prioritize width */
-				img,
-				video {
-					width: 100%;
-					height: auto;
-					min-height: 100%;
-				}
-			}
-
-			&[data-grid-size="1x2"] .portfolio-image {
-				/* Tall aspect ratio - prioritize height */
-				img,
-				video {
-					width: auto;
-					height: 100%;
-					min-width: 100%;
-				}
-			}
-
-			&[data-grid-size="3x1"] .portfolio-image {
-				/* Wide aspect ratio - prioritize width */
-				img,
-				video {
-					width: 100%;
-					height: auto;
-					min-height: 100%;
-				}
-			}
-
-			.portfolio-content {
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				background: none;
-				color: white;
-				padding: 6px;
-				z-index: 2;
-
-				.company-byline {
-					display: none;
-				}
-
-				.title-row {
-					margin-bottom: 0;
-
-					.content-text {
-						flex: 0;
-
-						h4 {
-							display: flex;
-							padding: 3px 6px;
-							background: rgb(0 0 0 / 15%);
-							border-radius: 6px;
-							color: white;
-							font-size: 14px;
-							font-weight: 600;
-							margin: 0;
-							text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
-						}
-
-						p {
-							display: none;
-						}
-					}
-
-					.external-icon {
-						color: white;
-						background: rgb(255 255 255 / 20%);
-						border: 1px solid rgb(255 255 255 / 30%);
-						backdrop-filter: blur(10px);
-						backdrop-filter: blur(10px);
-					}
-				}
-			}
-
-			/* Hover effects for cover image items */
-			&:hover {
-				.portfolio-image img,
-				.portfolio-image video {
-					transform: scale(1.05);
-				}
-			}
-		}
+		@include portfolio-grid-layout;
 	}
 
 	/* Mini Bio Mobile Adjustments */
 	.project-navigation,
 	.post-navigation {
+
 		.project-mini-bio,
 		.post-mini-bio {
 			// top: 9px !important;
@@ -1085,7 +1066,8 @@
 }
 
 /* Small mobile devices */
-@media (width <= 480px) {
+@media (width <=480px) {
+
 	/* Hide external icons in portfolio items on small mobile */
 	.portfolio-item .external-icon {
 		display: none !important;
@@ -1127,234 +1109,12 @@
 
 	/* Portfolio list in small screens - dynamic grid */
 	#projectsContent.portfolio-list .company-group .company-projects {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		grid-auto-rows: minmax(120px, auto);
-		grid-auto-flow: row dense;
-
-		/* Fill gaps automatically */
-		gap: 8px;
-
-		.portfolio-item {
-			margin: 0;
-
-			/* Dynamic grid sizing based on data-grid-size attribute */
-			&[data-grid-size="1x1"] {
-				grid-column: span 1;
-				grid-row: span 1;
-
-				--grid-aspect: square;
-			}
-
-			&[data-grid-size="1x2"] {
-				grid-column: span 1;
-				grid-row: span 2;
-
-				--grid-aspect: tall;
-			}
-
-			&[data-grid-size="2x2"] {
-				grid-column: span 2;
-				grid-row: span 2;
-
-				--grid-aspect: square;
-			}
-
-			&[data-grid-size="3x1"] {
-				grid-column: span 3;
-				grid-row: span 1;
-
-				--grid-aspect: wide;
-			}
-
-			/* Special styling for items with cover images */
-			&[data-cover-image="true"] {
-				position: relative;
-				overflow: hidden;
-				padding: 0;
-
-				.portfolio-image {
-					position: absolute;
-					top: 0;
-					left: 0;
-					width: 100%;
-					height: 100%;
-					margin: 0;
-					border-radius: 0;
-					border: none;
-					max-height: none;
-
-					img,
-					video {
-						width: 100%;
-						height: 100%;
-						object-fit: cover;
-						transition: transform 0.3s ease;
-					}
-
-					/* Video loading and play states */
-					video[data-autoplay="true"] {
-						&:not([data-playing="true"]) {
-							/* Show poster or first frame while loading */
-							background-color: rgb(0 0 0 / 10%);
-						}
-
-						/* Subtle loading indicator */
-						&[data-loading="true"]::after {
-							content: '';
-							position: absolute;
-							top: 50%;
-							left: 50%;
-							width: 20px;
-							height: 20px;
-							margin: -10px 0 0 -10px;
-							border: 2px solid rgb(255 255 255 / 30%);
-							border-top-color: rgb(255 255 255 / 80%);
-							border-radius: 50%;
-							animation: spin 1s linear infinite;
-							z-index: 1;
-						}
-
-						/* Subtle play indicator for click-to-play fallback */
-						&[title*="Click to play"]::before {
-							content: '▶';
-							position: absolute;
-							top: 50%;
-							left: 50%;
-							transform: translate(-50%, -50%);
-							color: rgb(255 255 255 / 80%);
-							font-size: 24px;
-							text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
-							z-index: 2;
-							opacity: 0;
-							transition: opacity 0.3s ease;
-						}
-
-						&[title*="Click to play"]:hover::before {
-							opacity: 1;
-						}
-					}
-				}
-
-				/* Aspect ratio-based width/height adjustments */
-				&[data-grid-size="1x1"] .portfolio-image,
-				&[data-grid-size="2x2"] .portfolio-image {
-					/* Square aspect ratio - prioritize width */
-					img,
-					video {
-						width: 100%;
-						height: auto;
-						min-height: 100%;
-					}
-				}
-
-				&[data-grid-size="1x2"] .portfolio-image {
-					/* Tall aspect ratio - prioritize height */
-					img,
-					video {
-						width: auto;
-						height: 100%;
-						min-width: 100%;
-					}
-				}
-
-				&[data-grid-size="3x1"] .portfolio-image {
-					/* Wide aspect ratio - prioritize width */
-					img,
-					video {
-						width: 100%;
-						height: auto;
-						min-height: 100%;
-					}
-				}
-
-				.portfolio-content {
-					position: absolute;
-					bottom: 0;
-					left: 0;
-					right: 0;
-					background: none;
-					color: white;
-					padding: 6px;
-					z-index: 2;
-
-					.company-byline {
-						display: none;
-					}
-
-					.title-row {
-						margin-bottom: 0;
-
-						.content-text {
-							flex: 0;
-
-							h4 {
-								display: flex;
-								padding: 3px 6px;
-								background: rgb(0 0 0 / 15%);
-								border-radius: 6px;
-								color: white;
-								font-size: 14px;
-								font-weight: 600;
-								margin: 0;
-								text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
-							}
-
-							p {
-								display: none;
-							}
-						}
-
-						.external-icon {
-							color: white;
-							background: rgb(255 255 255 / 20%);
-							border: 1px solid rgb(255 255 255 / 30%);
-							backdrop-filter: blur(10px);
-							backdrop-filter: blur(10px);
-						}
-					}
-				}
-
-				/* Hover effects for cover image items */
-				&:hover {
-					.portfolio-image img,
-					.portfolio-image video {
-						transform: scale(1.05);
-					}
-				}
-			}
-
-			/* Default styling for items without cover images */
-			&:not([data-cover-image="true"]) {
-				.company-byline {
-					display: none;
-				}
-
-				.portfolio-content .title-row .content-text h4 {
-					display: initial;
-					padding: initial;
-					background: none;
-					border-radius: initial;
-					color: initial;
-					font-size: 12px;
-					font-weight: initial;
-					text-shadow: none;
-				}
-
-				.portfolio-content .title-row .content-text p {
-					display: none;
-				}
-
-				.portfolio-content .title-row {
-					margin-bottom: 0;
-				}
-			}
-		}
+		@include portfolio-grid-layout;
 	}
 }
 
 /* Tablet and larger screens */
-@media (width >= 769px) {
+@media (width >=769px) {
 	.blog .post-list-item img:hover {
 		transform: scale(1.02);
 	}
@@ -1404,6 +1164,7 @@
 				}
 
 				.carousel-slide {
+
 					img,
 					video,
 					iframe {
@@ -1425,6 +1186,7 @@
 				/* Adjusted from 1rem, or match parent padding */
 
 				.project-description {
+
 					h2,
 					h3 {
 						margin-top: 1.5rem;
@@ -1459,80 +1221,9 @@
 /* Desktop-specific media queries */
 @media screen and (min-width: variables.$mobile-breakpoint) {
 	.blog {
-		/* Desktop widgets */
-		.desktop-widgets {
-			position: fixed;
-			inset: 0;
-			background: var(--bg-color, variables.$white);
-			padding: 20px;
-			overflow: hidden;
-
-			.widget {
-				position: absolute;
-				background: rgb(255 255 255 / 80%);
-				backdrop-filter: blur(10px);
-				backdrop-filter: blur(10px);
-				border-radius: 12px;
-				box-shadow: 0 2px 10px rgb(0 0 0 / 10%);
-				min-width: 300px;
-				min-height: 200px;
-				resize: both;
-				overflow: auto;
-
-				&.dragging {
-					cursor: move;
-					user-select: none;
-					opacity: 0.9;
-				}
-
-				.widget-header {
-					display: flex;
-					align-items: center;
-					padding: 8px 12px;
-					border-bottom: 1px solid variables.$border-color;
-					cursor: move;
-
-					.widget-title {
-						flex: 1;
-						font-weight: 500;
-						margin: 0;
-					}
-
-					.widget-controls {
-						display: flex;
-						gap: 8px;
-
-						button {
-							width: 12px;
-							height: 12px;
-							border-radius: 50%;
-							border: none;
-							padding: 0;
-
-							&.close {
-								background: #ff5f57;
-							}
-
-							&.minimize {
-								background: #febc2e;
-							}
-
-							&.maximize {
-								background: #28c840;
-							}
-						}
-					}
-				}
-
-				.widget-content {
-					padding: 16px;
-				}
-			}
-		}
 
 		/* Project Gallery Desktop Enhancements */
 		.project-gallery {
-			// padding-top: 3rem; // Add space for fixed navigation // This line is now commented out
 			display: flex;
 			flex-direction: column;
 			width: 100%;
@@ -1589,7 +1280,7 @@
 }
 
 /* Large desktop screens */
-@media screen and (width >= 1440px) {
+@media screen and (width >=1440px) {
 	.project-gallery {
 		.project-content {
 			max-width: 1800px;
@@ -1612,7 +1303,7 @@
 }
 
 /* Extra large desktop screens */
-@media screen and (width >= 1920px) {
+@media screen and (width >=1920px) {
 	.project-gallery {
 		.project-content {
 			max-width: 2000px;
@@ -1749,153 +1440,16 @@
 /* Grid layout when toggle is active - reuse existing mobile grid styles for desktop/tablet */
 .blog[data-layout="grid"] {
 	@media screen and (min-width: variables.$mobile-breakpoint) {
+
 		/* Apply the same grid layout that's used on mobile to desktop/tablet */
 		#projectsContent.portfolio-list .company-group .company-projects {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			grid-auto-rows: minmax(120px, auto);
-			grid-auto-flow: row dense;
-			gap: 8px;
-
-			.portfolio-item {
-				margin: 0;
-
-				/* Use the same grid sizing logic as mobile */
-				&[data-grid-size="1x1"] {
-					grid-column: span 1;
-					grid-row: span 1;
-
-					--grid-aspect: square;
-				}
-
-				&[data-grid-size="1x2"] {
-					grid-column: span 1;
-					grid-row: span 2;
-
-					--grid-aspect: tall;
-				}
-
-				&[data-grid-size="2x2"] {
-					grid-column: span 2;
-					grid-row: span 2;
-
-					--grid-aspect: square;
-				}
-
-				&[data-grid-size="3x1"] {
-					grid-column: span 3;
-					grid-row: span 1;
-
-					--grid-aspect: wide;
-				}
-
-				/* Apply mobile-style overlay content for items with cover images */
-				&[data-cover-image="true"] {
-					position: relative;
-					overflow: hidden;
-					padding: 0;
-
-					.portfolio-image {
-						position: absolute;
-						top: 0;
-						left: 0;
-						width: 100%;
-						height: 100%;
-						margin: 0;
-						border-radius: 0;
-						border: none;
-						max-height: none;
-
-						img,
-						video {
-							width: 100%;
-							height: 100%;
-							object-fit: cover;
-							transition: transform 0.3s ease;
-						}
-					}
-
-					.portfolio-content {
-						position: absolute;
-						bottom: 0;
-						left: 0;
-						right: 0;
-						background: none;
-						color: white;
-						padding: 6px;
-						z-index: 2;
-
-						.company-byline {
-							display: none;
-						}
-
-						.title-row {
-							margin-bottom: 0;
-
-							.content-text {
-								flex: 0;
-
-								h4 {
-									display: flex;
-									padding: 3px 6px;
-									background: rgb(0 0 0 / 15%);
-									border-radius: 6px;
-									color: white;
-									font-size: 14px;
-									font-weight: 600;
-									margin: 0;
-									text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
-								}
-
-								p {
-									display: none;
-								}
-							}
-
-							.external-icon {
-								color: white;
-								background: rgb(255 255 255 / 20%);
-								border: 1px solid rgb(255 255 255 / 30%);
-								backdrop-filter: blur(10px);
-								backdrop-filter: blur(10px);
-							}
-						}
-					}
-
-					/* Hover effects */
-					&:hover {
-						.portfolio-image img,
-						.portfolio-image video {
-							transform: scale(1.05);
-						}
-					}
-				}
-
-				/* Style for items without cover images in grid mode */
-				&:not([data-cover-image="true"]) {
-					.company-byline {
-						display: none;
-					}
-
-					.portfolio-content .title-row .content-text h4 {
-						font-size: 12px;
-					}
-
-					.portfolio-content .title-row .content-text p {
-						display: none;
-					}
-
-					.portfolio-content .title-row {
-						margin-bottom: 0;
-					}
-				}
-			}
+			@include portfolio-grid-layout;
 		}
 	}
 }
 
 /* --- UNIVERSAL PROJECT GALLERY CAROUSEL FIX (prevents overlap on all breakpoints) --- */
-@media (width >= 784px) and (width <= 1024px) {
+@media (width >=784px) and (width <=1024px) {
 	.project-gallery .carousel {
 		width: 100% !important;
 		max-width: 100% !important;
