@@ -2,7 +2,7 @@
 
 * {
 	transition: color 0.2s, background-color 0.2s;
-	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
 	box-sizing: border-box;
 }
 
@@ -35,7 +35,6 @@ body {
 }
 
 @media (prefers-color-scheme: light) {
-
 	a:link,
 	a:visited {
 		color: variables.$link-color;
@@ -71,7 +70,7 @@ a:visited {
 	hr {
 		border: 0;
 		height: 1px;
-		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+		background-image: linear-gradient(to right, rgb(0 0 0 / 0%), rgb(0 0 0 / 30%), rgb(0 0 0 / 0%));
 	}
 }
 
@@ -79,7 +78,7 @@ a:visited {
 	hr {
 		border: 0;
 		height: 1px;
-		background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+		background-image: linear-gradient(to right, rgb(255 255 255 / 0%), rgb(255 255 255 / 30%), rgb(255 255 255 / 0%));
 	}
 }
 

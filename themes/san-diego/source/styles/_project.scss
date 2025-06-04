@@ -13,7 +13,7 @@
 	flex-direction: column;
 	justify-content: start;
 	align-items: center;
-	padding: 32px 32px 0 32px;
+	padding: 32px 32px 0;
 	position: relative;
 	overflow: visible;
 	flex: 1;
@@ -45,17 +45,15 @@
 		height: auto;
 		max-height: none;
 		padding-top: 60px;
-		top: auto;
-		left: auto;
-		right: auto;
-		bottom: auto;
+		inset: auto;
+
 		// Ensure scrolling is enabled for the content itself on mobile when dynamic
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
 	}
 
 	// General scrollability for dynamically loaded content on larger screens
-	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+	@media (width >= calc(variables.$mobile-breakpoint + 1px)) {
 		overflow: auto;
 		min-height: 100vh; // Or adjust as needed for desktop/tablet
 		height: 100%; // Ensure it takes full height of parent container
@@ -114,14 +112,12 @@
 
 // Project Base
 .project-page {
-
 	html,
 	body {
 		overflow: auto;
 	}
 
 	@media (max-width: variables.$mobile-breakpoint) {
-
 		html,
 		body {
 			overflow: auto;
@@ -170,8 +166,8 @@
 		line-height: 1;
 		max-width: 14ch;
 		font-weight: 700;
-		background: linear-gradient(180deg, variables.$text-color 0%, rgba(29, 29, 31, 0.8) 100%);
-		-webkit-background-clip: text;
+		background: linear-gradient(180deg, variables.$text-color 0%, rgb(29 29 31 / 80%) 100%);
+		background-clip: text;
 		-webkit-text-fill-color: transparent;
 		position: relative;
 		z-index: 2;
@@ -201,7 +197,7 @@
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
 		font-weight: 600;
-		color: hsl(35, 0%, 62.5%);
+		color: hsl(35deg 0% 62.5%);
 		margin-bottom: 0;
 		display: block;
 	}
@@ -217,14 +213,14 @@
 		max-width: 20ch;
 
 		// Mobile styles to prevent overflow
-		@media (max-width: 768px) {
+		@media (width <= 768px) {
 			font-size: 60px;
 			line-height: 90%;
 			letter-spacing: -2%;
 		}
 
 		// Small mobile screens
-		@media (max-width: 480px) {
+		@media (width <= 480px) {
 			font-size: 45px;
 			line-height: 92%;
 			letter-spacing: -1%;
@@ -234,9 +230,9 @@
 	.metadata {
 		margin-top: 1rem;
 		padding: 1rem;
-		background: rgba(0, 0, 0, 0.02);
+		background: rgb(0 0 0 / 2%);
 		border-radius: 8px;
-		border: 1px solid rgba(0, 0, 0, 0.05);
+		border: 1px solid rgb(0 0 0 / 5%);
 
 		.metadata-list {
 			display: flex;
@@ -264,8 +260,8 @@
 		}
 
 		.metadata {
-			background: rgba(255, 255, 255, 0.05);
-			border-color: rgba(255, 255, 255, 0.1);
+			background: rgb(255 255 255 / 5%);
+			border-color: rgb(255 255 255 / 10%);
 		}
 	}
 }
@@ -358,7 +354,7 @@
 		font-weight: 500;
 		cursor: pointer;
 		transition: all 0.2s ease;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 
 		svg {
 			width: 20px;
@@ -367,7 +363,7 @@
 
 		&:hover {
 			transform: translateY(-2px);
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
 		}
 	}
 }
@@ -383,7 +379,6 @@
 
 // Generic Animation Keyframes
 @keyframes bounce-fade {
-
 	0%,
 	20%,
 	50%,
@@ -470,6 +465,7 @@
 		justify-content: center;
 		overflow: hidden;
 		aspect-ratio: 16 / 9;
+
 		// No explicit height or min-height
 		// Fallback for browsers without aspect-ratio handled in _carousel.scss
 	}
@@ -501,7 +497,7 @@
 		height: auto;
 		min-height: 0;
 		flex: 1;
-		margin-bottom: env(safe-area-inset-bottom, 0px);
+		margin-bottom: env(safe-area-inset-bottom, 0);
 		display: flex;
 		flex-direction: column;
 		box-shadow: none;
@@ -509,10 +505,10 @@
 	}
 
 	.project-details {
-		padding: 16px 16px 0 16px;
+		padding: 16px 16px 0;
 		padding-bottom: 0;
 		scrollbar-width: thin;
-		scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05);
+		scrollbar-color: rgb(0 0 0 / 20%) rgb(0 0 0 / 5%);
 
 		@media (max-width: variables.$tablet-breakpoint) {
 			height: auto;
@@ -539,20 +535,20 @@
 		}
 
 		&::-webkit-scrollbar-track {
-			background: rgba(0, 0, 0, 0.05);
+			background: rgb(0 0 0 / 5%);
 			border-radius: 4px;
 		}
 
 		&::-webkit-scrollbar-thumb {
-			background-color: rgba(0, 0, 0, 0.2);
+			background-color: rgb(0 0 0 / 20%);
 			border-radius: 4px;
 		}
 	}
 
 	@media (prefers-color-scheme: dark) {
 		background: variables.$card-bg-dark;
-		box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15),
-			0 0 0 1px rgba(255, 255, 255, 0.1);
+		box-shadow: 0 2px 15px rgb(0 0 0 / 15%),
+			0 0 0 1px rgb(255 255 255 / 10%);
 
 		/* &:hover {
 			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
@@ -560,18 +556,18 @@
 		} */
 
 		.project-details {
-			scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+			scrollbar-color: rgb(255 255 255 / 20%) rgb(255 255 255 / 5%);
 
 			&::-webkit-scrollbar-track {
-				background: rgba(255, 255, 255, 0.05);
+				background: rgb(255 255 255 / 5%);
 			}
 
 			&::-webkit-scrollbar-thumb {
-				background-color: rgba(255, 255, 255, 0.2);
+				background-color: rgb(255 255 255 / 20%);
 			}
 		}
 
-		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		@media (width >= calc(variables.$mobile-breakpoint + 1px)) {
 			background-color: transparent;
 			box-shadow: none;
 		}
@@ -589,17 +585,17 @@
 				background: variables.$card-bg-dark;
 
 				.carousel-button {
-					background: rgba(0, 0, 0, 0.7);
+					background: rgb(0 0 0 / 70%);
 					color: white;
 
 					&:hover {
-						background: rgba(0, 0, 0, 0.9);
+						background: rgb(0 0 0 / 90%);
 					}
 				}
 
 				.carousel-indicators {
 					.indicator {
-						background: rgba(255, 255, 255, 0.3);
+						background: rgb(255 255 255 / 30%);
 
 						&.active {
 							background: white;
@@ -610,11 +606,11 @@
 
 			.project-details {
 				.metadata {
-					background: rgba(255, 255, 255, 0.05);
-					border-color: rgba(255, 255, 255, 0.1);
+					background: rgb(255 255 255 / 5%);
+					border-color: rgb(255 255 255 / 10%);
 
 					&:hover {
-						background: rgba(255, 255, 255, 0.08);
+						background: rgb(255 255 255 / 8%);
 					}
 
 					.metadata-item {
@@ -637,7 +633,7 @@
 					}
 
 					h2 {
-						border-bottom-color: rgba(255, 255, 255, 0.1);
+						border-bottom-color: rgb(255 255 255 / 10%);
 					}
 
 					a {
@@ -649,7 +645,7 @@
 					}
 
 					blockquote {
-						background: rgba(255, 255, 255, 0.05);
+						background: rgb(255 255 255 / 5%);
 						border-left-color: variables.$primary-color-dark;
 
 						p {
@@ -659,7 +655,7 @@
 
 					pre,
 					code {
-						background: rgba(0, 0, 0, 0.3);
+						background: rgb(0 0 0 / 30%);
 					}
 				}
 			}
@@ -724,7 +720,6 @@
 
 // Add swinging motion
 @keyframes parachute-swing {
-
 	0%,
 	100% {
 		transform: translateX(0);
@@ -740,7 +735,7 @@
 	position: relative;
 	width: 100%;
 	max-width: var(--project-max-width, 1200px);
-	margin: 0 auto 0 auto;
+	margin: 0 auto;
 	pointer-events: none;
 
 	@media (max-width: variables.$mobile-breakpoint) {
@@ -783,13 +778,13 @@
 		justify-content: center;
 		position: relative;
 		box-shadow:
-			0 0 0 1px rgba(255, 255, 255, 0.7),
-			0 0 0 2px rgba(0, 0, 0, 0.1),
-			inset 0 2px 4px rgba(0, 0, 0, 0.4),
-			inset 0 -2px 4px rgba(255, 255, 255, 0.3);
+			0 0 0 1px rgb(255 255 255 / 70%),
+			0 0 0 2px rgb(0 0 0 / 10%),
+			inset 0 2px 4px rgb(0 0 0 / 40%),
+			inset 0 -2px 4px rgb(255 255 255 / 30%);
 		background: linear-gradient(145deg,
-				rgba(255, 255, 255, 0.1),
-				rgba(0, 0, 0, 0.1));
+				rgb(255 255 255 / 10%),
+				rgb(0 0 0 / 10%));
 
 		img {
 			width: 100%;
@@ -808,15 +803,15 @@
 	.project-mini-bio-name {
 		font-size: 13px;
 		font-weight: 500;
-		margin: 0 0 2px 0;
-		color: rgba(0, 0, 0, 0.8);
+		margin: 0 0 2px;
+		color: rgb(0 0 0 / 80%);
 	}
 
 	.project-mini-bio-text {
 		margin: 0;
 		font-size: 12px;
 		line-height: 1.4;
-		color: rgba(0, 0, 0, 0.6);
+		color: rgb(0 0 0 / 60%);
 		max-width: 75ch;
 	}
 
@@ -849,7 +844,7 @@
 			width: 16px;
 			height: 16px;
 			margin-right: 6px;
-			stroke: currentColor;
+			stroke: currentcolor;
 			flex-shrink: 0;
 		}
 
@@ -859,7 +854,7 @@
 
 		&:hover,
 		&:active {
-			background-color: rgba(0, 0, 0, 0.8);
+			background-color: rgb(0 0 0 / 80%);
 			color: white;
 		}
 	}
@@ -870,15 +865,15 @@
 		gap: 0;
 		padding: 4px 10px;
 		border-radius: 6px;
-		color: rgba(0, 0, 0, 0.7);
+		color: rgb(0 0 0 / 70%);
 		font-size: 12px;
 		font-weight: 500;
-		background: rgba(255, 255, 255, 0.8);
-		border: 1px solid rgba(0, 0, 0, 0.1);
+		background: rgb(255 255 255 / 80%);
+		border: 1px solid rgb(0 0 0 / 10%);
 		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.05),
-			0 1px 1px rgba(0, 0, 0, 0.03),
-			inset 0 1px 0 rgba(255, 255, 255, 0.8);
+			0 1px 2px rgb(0 0 0 / 5%),
+			0 1px 1px rgb(0 0 0 / 3%),
+			inset 0 1px 0 rgb(255 255 255 / 80%);
 		transition: all 0.2s ease;
 		cursor: pointer;
 		flex-shrink: 0;
@@ -897,18 +892,18 @@
 		}
 
 		&:hover {
-			background: rgba(255, 255, 255, 0.95);
+			background: rgb(255 255 255 / 95%);
 			box-shadow:
-				0 2px 4px rgba(0, 0, 0, 0.08),
-				0 1px 2px rgba(0, 0, 0, 0.05),
-				inset 0 1px 0 rgba(255, 255, 255, 1);
+				0 2px 4px rgb(0 0 0 / 8%),
+				0 1px 2px rgb(0 0 0 / 5%),
+				inset 0 1px 0 rgb(255 255 255 / 100%);
 		}
 
 		&:active {
-			background: rgba(240, 240, 240, 0.9);
+			background: rgb(240 240 240 / 90%);
 			box-shadow:
-				0 1px 1px rgba(0, 0, 0, 0.05),
-				inset 0 1px 3px rgba(0, 0, 0, 0.1);
+				0 1px 1px rgb(0 0 0 / 5%),
+				inset 0 1px 3px rgb(0 0 0 / 10%);
 		}
 	}
 
@@ -984,26 +979,26 @@
 
 	@media (prefers-color-scheme: dark) {
 		box-shadow: none;
-		-webkit-backdrop-filter: none;
+		backdrop-filter: none;
 		backdrop-filter: none;
 
 		.project-mini-bio-image {
 			box-shadow:
-				0 0 0 1px rgba(255, 255, 255, 0.2),
-				0 0 0 2px rgba(0, 0, 0, 0.3),
-				inset 0 2px 4px rgba(0, 0, 0, 0.6),
-				inset 0 -2px 4px rgba(255, 255, 255, 0.1);
+				0 0 0 1px rgb(255 255 255 / 20%),
+				0 0 0 2px rgb(0 0 0 / 30%),
+				inset 0 2px 4px rgb(0 0 0 / 60%),
+				inset 0 -2px 4px rgb(255 255 255 / 10%);
 			background: linear-gradient(145deg,
-					rgba(255, 255, 255, 0.05),
-					rgba(0, 0, 0, 0.2));
+					rgb(255 255 255 / 5%),
+					rgb(0 0 0 / 20%));
 		}
 
 		.project-mini-bio-name {
-			color: rgba(255, 255, 255, 0.9);
+			color: rgb(255 255 255 / 90%);
 		}
 
 		.project-mini-bio-text {
-			color: rgba(255, 255, 255, 0.6);
+			color: rgb(255 255 255 / 60%);
 		}
 
 		.project-home-button {
@@ -1013,12 +1008,12 @@
 			box-shadow: none;
 
 			&:hover {
-				background-color: rgba(255, 255, 255, 0.8);
+				background-color: rgb(255 255 255 / 80%);
 				color: black;
 			}
 
 			&:active {
-				background-color: rgba(255, 255, 255, 0.9);
+				background-color: rgb(255 255 255 / 90%);
 				color: black;
 			}
 		}
@@ -1039,10 +1034,10 @@
 	font-size: 1.1em;
 	color: variables.$text-color;
 	background: variables.$white;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 2px 10px rgb(0 0 0 / 5%);
 	border-radius: 16px;
-	border: 1px solid rgba(0, 0, 0, 0.03);
-	margin: 0 16px 24px 16px;
+	border: 1px solid rgb(0 0 0 / 3%);
+	margin: 0 16px 24px;
 	max-width: 800px;
 	padding: 32px;
 	box-sizing: border-box;
@@ -1050,7 +1045,7 @@
 	@media (prefers-color-scheme: dark) {
 		background: variables.$card-bg-dark;
 		color: variables.$text-color-dark;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
 		border-color: variables.$border-color-dark;
 	}
 
@@ -1071,9 +1066,9 @@
 	max-width: 900px;
 	margin-top: 0;
 	padding: 2rem 1rem;
-	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	border-top: 1px solid rgb(0 0 0 / 10%);
 
-	@media (max-width: 768px) {
+	@media (width <= 768px) {
 		margin-left: 18px !important;
 		margin-right: 18px !important;
 		padding: 1.5rem 1rem;
@@ -1086,7 +1081,7 @@
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		color: rgba(0, 0, 0, 0.5);
+		color: rgb(0 0 0 / 50%);
 		margin-bottom: 1rem;
 	}
 
@@ -1110,14 +1105,14 @@
 			.label {
 				font-size: 9px !important;
 				font-weight: 600 !important;
-				color: rgba(0, 0, 0, 0.7) !important;
+				color: rgb(0 0 0 / 70%) !important;
 				text-transform: uppercase;
 				letter-spacing: 0.3px;
 			}
 
 			.value {
 				font-size: 12px !important;
-				color: rgba(0, 0, 0, 0.5) !important;
+				color: rgb(0 0 0 / 50%) !important;
 				font-weight: 400;
 			}
 		}
@@ -1125,20 +1120,20 @@
 
 	// Dark mode
 	@media (prefers-color-scheme: dark) {
-		border-top-color: rgba(255, 255, 255, 0.1);
+		border-top-color: rgb(255 255 255 / 10%);
 
 		&::before {
-			color: rgba(255, 255, 255, 0.5);
+			color: rgb(255 255 255 / 50%);
 		}
 
 		.metadata {
 			.metadata-item {
 				.label {
-					color: rgba(255, 255, 255, 0.7) !important;
+					color: rgb(255 255 255 / 70%) !important;
 				}
 
 				.value {
-					color: rgba(255, 255, 255, 0.5) !important;
+					color: rgb(255 255 255 / 50%) !important;
 				}
 			}
 		}
@@ -1162,8 +1157,7 @@ body.loaded .project-wrapper {
 }
 
 // Mobile-specific styles for 768px breakpoint
-@media (max-width: 768px) {
-
+@media (width <= 768px) {
 	.project-wrapper,
 	.project-content,
 	.project-details {

@@ -9,6 +9,7 @@
 	justify-content: center;
 	align-items: center;
 	margin: 0 auto;
+
 	/* Center the image container */
 }
 
@@ -17,14 +18,18 @@
 	height: auto;
 	max-height: 300px;
 	object-fit: contain;
+
 	/* Maintain aspect ratio */
 	cursor: default;
+
 	/* Remove pointer cursor */
 	transition: transform 0.2s ease-in-out;
+
 	/* Add transition for smooth effect */
 }
 
 .image-container img:active {
 	transform: scale(1);
+
 	/* Prevent image from growing */
 }

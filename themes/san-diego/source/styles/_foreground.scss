@@ -87,7 +87,7 @@
 				svg {
 					width: variables.$space-md;
 					height: variables.$space-md;
-					fill: currentColor;
+					fill: currentcolor;
 					opacity: 0.5;
 				}
 			}
@@ -163,7 +163,7 @@
 			width: variables.$space-md;
 			height: variables.$space-md;
 			margin-right: variables.$space-sm;
-			fill: currentColor;
+			fill: currentcolor;
 		}
 	}
 }
@@ -205,7 +205,7 @@
 	gap: 2px;
 	border-radius: 4px;
 	overflow: hidden;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 
 	>* {
 		flex: 1 0 2.7%;
@@ -214,7 +214,7 @@
 
 		&:hover {
 			transform: translateY(-3px);
-			box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+			box-shadow: 0 6px 24px rgb(0 0 0 / 12%);
 			z-index: 2;
 		}
 	}
@@ -240,7 +240,6 @@ $red-colors: (
 	7: #F5B2B5,
 	8: #FAD8DA
 );
-
 $orange-colors: (
 	0: #4A1E01,
 	1: #773F04,
@@ -252,7 +251,6 @@ $orange-colors: (
 	7: #FDD9A0,
 	8: #FDECD2
 );
-
 $green-colors: (
 	0: #0B230C,
 	1: #1A421B,
@@ -264,7 +262,6 @@ $green-colors: (
 	7: #B7E4B9,
 	8: #DDFADE
 );
-
 $blue-colors: (
 	0: #102034,
 	1: #1E3C5F,
@@ -363,7 +360,6 @@ $blue-colors: (
 @media (prefers-color-scheme: dark) {
 	.foreground-project {
 		&-column {
-
 			&--content,
 			&--aside {}
 		}

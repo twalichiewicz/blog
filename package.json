@@ -10,7 +10,10 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
-    "analyze": "du -sh public/ && find public -name '*.js' -o -name '*.css' | xargs wc -c | tail -1"
+    "analyze": "du -sh public/ && find public -name '*.js' -o -name '*.css' | xargs wc -c | tail -1",
+    "lint:scss": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss",
+    "lint:scss:fix": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss --fix",
+    "lint:scss:report": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss --custom-formatter node_modules/stylelint-formatter-html --output-file stylelint-report.html"
   },
   "hexo": {
     "version": "6.3.0"
@@ -61,6 +64,9 @@
   "devDependencies": {
     "glob": "^10.3.10",
     "gray-matter": "^4.0.3",
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.2",
+    "stylelint": "^16.20.0",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-formatter-html": "^1.0.1"
   }
 }

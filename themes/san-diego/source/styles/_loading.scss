@@ -28,10 +28,7 @@ body.loaded {
 
 .loading-screen {
 	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	inset: 0;
 	background: #000;
 	display: flex;
 	align-items: center;
@@ -51,6 +48,7 @@ body.loaded {
 	height: 80px;
 	opacity: 0;
 	filter: invert(1);
+
 	/* Make skull white */
 	animation: fadeIn 0.3s ease-out forwards;
 	position: absolute;
@@ -72,11 +70,12 @@ body.loaded {
 	}
 
 	text {
-		fill: currentColor;
+		fill: currentcolor;
 		font-size: 8px;
 		text-transform: uppercase;
 		font-family: monospace;
 		letter-spacing: 8px;
+
 		/* Increased letter spacing for better distribution */
 	}
 
@@ -131,7 +130,7 @@ body.loaded {
 	animation: spin 10s linear infinite;
 
 	text {
-		fill: rgba(255, 255, 255, 0.4);
+		fill: rgb(255 255 255 / 40%);
 		font-size: 8px;
 		letter-spacing: 8px;
 		text-transform: uppercase;
