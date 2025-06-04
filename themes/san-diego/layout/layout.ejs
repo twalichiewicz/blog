@@ -9,7 +9,6 @@
 		<%- body %>
 
         <%- js('js/device-detection.js') %>
-        <script type="module" src="<%- url_for('js/responsive-ui.js') %>"></script>
         <script type="module" src="<%- url_for('js/main.js') %>"></script>
         <% if (theme.search == true && page.type == 'search') { %>
         <%- js('js/search.js') %>

@@ -29,17 +29,17 @@ export class VisualEffects {
 		// Clear existing content
 		targetElement.innerHTML = '';
 
-		if (this.config.showWave) {
-			const waveContainer = VisualEffects.createContainer('wave');
-			targetElement.appendChild(waveContainer);
+		// if (this.config.showWave) {
+		// 	const waveContainer = VisualEffects.createContainer('wave');
+		// 	targetElement.appendChild(waveContainer);
 
-			const waveCanvas = waveContainer.querySelector('#waveCanvas');
-			if (waveCanvas) {
-				const waveAnimation = new WaveAnimation(waveCanvas, this.config.waveConfig);
-				waveAnimation.init();
-				this.animations.push(waveAnimation);
-			}
-		}
+		// 	const waveCanvas = waveContainer.querySelector('#waveCanvas');
+		// 	if (waveCanvas) {
+		// 		const waveAnimation = new WaveAnimation(waveCanvas, this.config.waveConfig);
+		// 		waveAnimation.init();
+		// 		this.animations.push(waveAnimation);
+		// 	}
+		// }
 
 		if (this.config.showSkull) {
 			const skullContainer = VisualEffects.createContainer('skull');
