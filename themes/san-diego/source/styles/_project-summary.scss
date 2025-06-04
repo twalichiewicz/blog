@@ -92,8 +92,37 @@
 
 		// Mobile adjustments
 		@media (max-width: 768px) {
-			font-size: 12px;
-			align-items: center;
+			height: 44px !important;
+			min-height: 44px !important;
+			max-height: 44px !important;
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
+			padding-left: 8px !important;
+			padding-right: 8px !important;
+			line-height: 1.2 !important;
+			overflow: hidden !important;
+			white-space: nowrap !important;
+			text-overflow: ellipsis !important;
+			font-size: 13px !important;
+			font-weight: 500 !important;
+			box-sizing: border-box !important;
+			border-width: 1px !important;
+			margin: 0 2px !important;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: center !important;
+			transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+		}
+
+		&.active,
+		&:active,
+		&:hover {
+			height: 44px !important;
+			min-height: 44px !important;
+			max-height: 44px !important;
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
+			font-weight: 500 !important;
 		}
 
 		// LED indicator (off state)
