@@ -1,1 +1,0 @@
-!function(){"use strict";document.addEventListener("DOMContentLoaded",(function(){!function(){const t=()=>{const t=window.innerWidth<768;document.body.classList.toggle("is-mobile",t),document.body.classList.toggle("is-desktop",!t)};window.addEventListener("resize",t),t()}()}))}();
