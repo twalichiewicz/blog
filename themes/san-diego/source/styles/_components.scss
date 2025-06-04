@@ -632,7 +632,7 @@ button {
 	flex-direction: column;
 	align-items: flex-start;
 	gap: 12px;
-	padding: 36px 24px 18px;
+	padding: 36px 24px 9px;
 	margin: 0 auto 32px;
 	max-width: 600px;
 	z-index: 1;
@@ -662,39 +662,6 @@ button {
 			background: linear-gradient(145deg,
 					rgba(variables.$white, 0.1),
 					rgba(variables.$black, 0.1));
-		}
-
-		.contact-wrapper.mobile-only {
-			position: static;
-			margin: 0;
-			padding: 0;
-			width: auto;
-
-			.contact-button {
-				display: block;
-				padding: 8px 16px;
-				font-size: 12px;
-				font-weight: 500;
-				color: variables.$text-color;
-				text-decoration: none;
-				text-align: center;
-				transition: all 0.2s ease;
-				white-space: nowrap;
-				background: transparent;
-				border: 1px solid rgba(variables.$border-color, 0.6);
-				border-radius: 6px;
-				cursor: pointer;
-				width: 100%;
-
-				&:hover {
-					background: rgba(variables.$link-color, 0.1);
-					color: variables.$link-color;
-				}
-
-				&:active {
-					background: rgba(variables.$link-color, 0.2);
-				}
-			}
 		}
 	}
 
@@ -776,6 +743,43 @@ button {
 					text-transform: uppercase;
 					letter-spacing: 0.05em;
 				}
+			}
+		}
+	}
+
+	.contact-wrapper.mobile-only {
+		position: relative;
+		top: unset;
+		right: unset;
+		bottom: unset;
+		left: unset;
+		margin: unset;
+		padding: unset;
+		width: auto;
+
+		.contact-button {
+			display: block;
+			padding: 8px 16px;
+			font-size: 12px;
+			font-weight: 500;
+			color: variables.$text-color;
+			text-decoration: none;
+			text-align: center;
+			transition: all 0.2s ease;
+			white-space: nowrap;
+			background: transparent;
+			border: 1px solid rgba(variables.$border-color, 0.6);
+			border-radius: 6px;
+			cursor: pointer;
+			width: 100%;
+
+			&:hover {
+				background: rgba(variables.$link-color, 0.1);
+				color: variables.$link-color;
+			}
+
+			&:active {
+				background: rgba(variables.$link-color, 0.2);
 			}
 		}
 	}
@@ -1796,19 +1800,27 @@ table {
 		position: absolute;
 		inset: 0;
 		background: rgb(30 30 40 / 35%);
-		backdrop-filter: blur(0);
-		backdrop-filter: blur(0);
 		z-index: 1;
 		opacity: 0;
-		transition:
-			opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-			backdrop-filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: opacity 0.3s ease-out;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			backdrop-filter: blur(0);
+			opacity: 0;
+			transition: opacity 0.3s ease-out;
+		}
 	}
 
 	.contact-modal.active .contact-modal-backdrop {
 		opacity: 1;
-		backdrop-filter: blur(6px);
-		backdrop-filter: blur(6px);
+
+		&::before {
+			backdrop-filter: blur(6px);
+			opacity: 1;
+		}
 	}
 
 	.contact-modal-sheet {
@@ -1826,13 +1838,8 @@ table {
 		transform: scale(0.3) translateY(-20px);
 		opacity: 0;
 		transition:
-			transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-			opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-			background-color 0.3s ease,
-			border-color 0.3s ease,
-			backdrop-filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-		backdrop-filter: blur(2px) saturate(1.2);
-		backdrop-filter: blur(2px) saturate(1.2);
+			transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+			opacity 0.3s ease-out;
 		border: 1px solid rgb(200 200 220 / 10%);
 		display: flex;
 		flex-direction: column;
@@ -1840,14 +1847,27 @@ table {
 		min-height: 220px;
 		color: #ddd;
 		transform-origin: center center;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			backdrop-filter: blur(2px) saturate(1.2);
+			opacity: 0;
+			transition: opacity 0.3s ease-out;
+			border-radius: inherit;
+			z-index: -1;
+		}
 	}
 
 	.contact-modal.active .contact-modal-sheet {
 		transform: scale(1) translateY(0);
 		opacity: 1;
-		backdrop-filter: blur(20px) saturate(1.5);
-		backdrop-filter: blur(20px) saturate(1.5);
-		border: 1px solid rgb(200 200 220 / 30%);
+
+		&::before {
+			backdrop-filter: blur(20px) saturate(1.5);
+			opacity: 1;
+		}
 	}
 
 	.contact-modal-title {
@@ -2182,6 +2202,42 @@ table {
 
 				.location-icon {
 					color: variables.$text-color-secondary-dark;
+				}
+			}
+		}
+	}
+}
+
+.blog #projectsContent.portfolio-list {
+	.company-group {
+		.company-projects {
+			.portfolio-item[data-cover-image=true] {
+				.portfolio-content {
+					.title-row {
+						display: flex;
+						flex-direction: row;
+						margin-bottom: 0;
+
+						.content-text {
+							flex-grow: 1;
+
+							h4 {
+								display: flex;
+								padding: 3px 6px;
+								background: rgb(0 0 0 / 15%);
+								border-radius: 6px;
+								color: white;
+								font-size: 14px;
+								font-weight: 600;
+								margin: 0;
+								text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
+							}
+
+							p {
+								display: none;
+							}
+						}
+					}
 				}
 			}
 		}

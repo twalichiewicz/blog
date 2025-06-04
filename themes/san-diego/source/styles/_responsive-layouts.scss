@@ -215,7 +215,7 @@
 		text-align: center;
 		margin: 0 12px 12px;
 		flex-shrink: 0;
-		padding: variables.$spacing-card 0 12px 0;
+		padding: variables.$spacing-card 0 9px 0;
 		position: relative;
 		z-index: 2;
 
@@ -230,6 +230,60 @@
 
 			.profile-stats {
 				justify-content: start;
+			}
+		}
+	}
+
+	.profile-photo-wrapper {
+		position: relative;
+		width: 100%;
+
+		.contact-wrapper.mobile-only {
+			position: relative;
+			top: unset;
+			right: unset;
+			bottom: unset;
+			left: unset;
+			margin: unset;
+			padding: unset;
+			width: auto;
+			z-index: 10;
+
+			.contact-button {
+				display: block;
+				padding: 8px 16px;
+				font-size: 12px;
+				font-weight: 600;
+				color: variables.$white;
+				text-decoration: none;
+				text-align: center;
+				transition: all 0.2s ease;
+				white-space: nowrap;
+				background: rgba(variables.$link-color, 0.8);
+				border: 1px solid rgba(variables.$link-color, 0.6);
+				border-radius: 6px;
+				cursor: pointer;
+				box-shadow:
+					0 1px 2px rgb(0 0 0 / 10%),
+					0 1px 0 rgb(255 255 255 / 10%) inset;
+				backdrop-filter: blur(4px);
+
+				&:hover {
+					background: rgba(variables.$link-color, 0.9);
+					border-color: rgba(variables.$link-color, 0.8);
+					box-shadow:
+						0 2px 4px rgb(0 0 0 / 15%),
+						0 1px 0 rgb(255 255 255 / 20%) inset;
+				}
+
+				&:active {
+					background: rgba(variables.$link-color, 0.7);
+					border-color: rgba(variables.$link-color, 0.5);
+					box-shadow:
+						0 1px 1px rgb(0 0 0 / 10%),
+						0 1px 2px rgb(0 0 0 / 10%) inset;
+					transform: translateY(0);
+				}
 			}
 		}
 	}
@@ -382,7 +436,7 @@
 }
 
 /* ==========================================================================
-   Tablet Layout
+   Tablet Layout (with Desktop Header)
    ========================================================================== */
 .device-tablet .blog {
 	display: flex;
@@ -390,12 +444,9 @@
 	height: 100vh;
 	width: 100vw;
 	overflow: hidden;
-
-	/* Prevent body scrolling */
 	position: fixed;
 
-	/* Explicitly set fixed position for tablet */
-
+	/* Share desktop header styles */
 	.blog-header {
 		align-self: start;
 		justify-content: start;
@@ -404,22 +455,8 @@
 		position: relative;
 		padding-top: 0;
 		padding-bottom: 24px;
-
-		/* Added padding to bottom instead of margin on blog-content */
 		min-height: 300px;
-
-		/* Reset padding for tablet view */
 		overflow: visible;
-
-		/* Position contact wrapper for tablet */
-		.contact-wrapper {
-			position: static;
-			margin: 0 auto;
-			padding: 0 variables.$space-md;
-			width: 100%;
-			box-sizing: border-box;
-			margin-top: variables.$space-md;
-		}
 
 		.profile-header {
 			flex-direction: column;
@@ -438,8 +475,6 @@
 		display: flex;
 		flex-direction: column;
 		position: relative;
-
-		/* Relative to the fixed container */
 
 		.tabs-wrapper {
 			width: 100%;
@@ -488,15 +523,6 @@
 
 	/* Tablet Landscape adjustments */
 	&.orientation-landscape {
-		.blog-header {
-			width: 280px;
-
-			.profile-header .profile-photo {
-				width: 80px;
-				height: 80px;
-			}
-		}
-
 		.blog-content {
 			width: calc(100% - 304px);
 
@@ -508,14 +534,6 @@
 
 	/* iPad Pro specific adjustments */
 	&.device-ipad-pro {
-		.blog-header {
-			width: 320px;
-
-			.profile-header {
-				margin: variables.$space-xl 0;
-			}
-		}
-
 		.blog-content {
 			width: calc(100% - 344px);
 		}
@@ -543,13 +561,6 @@
 			}
 		}
 	}
-
-	/* Tablet Portrait adjustments (iPad portrait: 768px width) */
-	&.orientation-portrait {
-		.blog-header {
-			width: 768px;
-		}
-	}
 }
 
 /* ==========================================================================
@@ -563,51 +574,22 @@
 	overflow: hidden;
 	position: fixed;
 
-	/* Explicitly set fixed position for desktop */
-
 	.blog-header {
 		align-self: start;
 		justify-content: start;
 		width: 300px;
-		max-width: 300px;
 		flex-shrink: 0;
 		position: relative;
-		min-height: 300px;
+		padding-top: 0;
 		padding-bottom: 24px;
-
-		/* Added padding to bottom instead of margin on blog-content */
-
-		/* Relative to the fixed container */
-
-		/* Position contact wrapper for desktop */
-		.contact-wrapper {
-			position: static;
-			margin: 0 auto;
-			padding: 0 variables.$space-xl;
-			width: 100%;
-			box-sizing: border-box;
-			margin-top: variables.$space-md;
-
-			&.mobile-hide {
-				margin-top: 0;
-				padding-left: 24px;
-				padding-right: 24px;
-
-				.contact-options {
-					width: 100%;
-
-					.contact-option {
-						flex: 1;
-					}
-				}
-			}
-		}
+		min-height: 300px;
+		overflow: visible;
 
 		.profile-header {
 			flex-direction: column;
-			margin: variables.$space-xl 0;
+			margin: variables.$space-lg 0;
 			gap: 33px;
-			padding: 40px 12px 0 24px;
+			padding: 24px 12px 0 24px;
 		}
 	}
 
@@ -621,12 +603,8 @@
 		flex-direction: column;
 		position: relative;
 
-		/* Relative to the fixed container */
-
 		.tabs-wrapper {
 			display: none;
-
-			/* Hide tabs on desktop */
 		}
 
 		.content-wrapper {
@@ -644,7 +622,6 @@
 			padding: 0;
 			border-radius: 15px 0 0;
 
-			/* Chrome rendering fixes */
 			transform: translateZ(0);
 			transform: translateZ(0);
 			isolation: isolate;
@@ -661,13 +638,11 @@
 			margin: 0;
 			box-sizing: border-box;
 
-			/* Chrome-specific fixes for scrolling content rendering */
 			contain: layout style paint;
 			will-change: scroll-position;
 			transform: translateZ(0);
 			transform: translateZ(0);
 
-			/* Additional Chrome optimizations */
 			-webkit-overflow-scrolling: touch;
 			overflow-anchor: none;
 			scroll-behavior: auto;
@@ -685,49 +660,26 @@
 				border-radius: 3px;
 			}
 
-			/* Additional styles for column-title within content containers are now handled in the Column Titles section */
-
-			/* Add padding to the top to prevent content from being hidden under the floating header */
 			.company-group:first-of-type {
 				margin-top: 64px;
 			}
 
-			/* Remove top/bottom margins from post-list-items, rely on separator margins instead */
 			.post-list-item {
 				margin-top: 0;
 				margin-bottom: 0;
-
-				/* Chrome rendering fix for scrollable content */
-				/* transform: translateZ(0); */
-
-				/* Prevent content shifting */
-				/* contain: layout; */
 			}
 
-			/* Portfolio items optimization */
 			.portfolio-item {
-				/* Chrome rendering fix for scrollable content */
-				/* transform: translateZ(0); */
-
-				/* Prevent layout thrashing */
 				will-change: auto;
 			}
 
-			/* Company groups optimization */
-			.company-group {
-				/* Chrome rendering fix */
-				/* transform: translateZ(0); */
-
-				/* contain: layout; */
-			}
+			.company-group {}
 		}
 
-		/* Add specific padding-top for projectsContent */
 		#projectsContent {
 			padding-top: 64px;
 		}
 
-		/* Add specific padding-top for postsContent */
 		#postsContent {
 			padding-top: 75px;
 		}
@@ -737,7 +689,6 @@
 		}
 	}
 
-	/* Ensure both content sections are visible on desktop */
 	#postsContent,
 	#projectsContent {
 		display: block;
@@ -772,12 +723,6 @@
 		display: none !important;
 	}
 
-	/* Hide external icons in portfolio items on mobile */
-	.portfolio-item .external-icon {
-		display: none !important;
-	}
-
-	/* Company spacing on mobile */
 	.company-group {
 		margin-top: 24px;
 	}
@@ -786,20 +731,15 @@
 		margin-top: 0;
 	}
 
-	/* Portfolio list mobile layout - dynamic grid */
 	#projectsContent.portfolio-list .company-group .company-projects {
 		@include portfolio-grid-layout;
 	}
 
-	/* Mini Bio Mobile Adjustments */
 	.project-navigation,
 	.post-navigation {
 
 		.project-mini-bio,
-		.post-mini-bio {
-			// top: 9px !important;
-			// left: 9px !important;
-		}
+		.post-mini-bio {}
 	}
 
 	.blog {
@@ -812,7 +752,6 @@
 		overflow-x: hidden;
 		position: relative;
 
-		/* Reset all base styling for blog-content on mobile */
 		.blog-content {
 			width: 100%;
 			padding: 0;
@@ -826,7 +765,6 @@
 			align-items: center;
 			position: relative;
 
-			/* Negate the ::before pseudo-element styling */
 			&::before {
 				display: none !important;
 				content: none !important;
@@ -834,7 +772,6 @@
 			}
 		}
 
-		/* Content containers */
 		#postsContent,
 		#projectsContent {
 			width: 100%;
@@ -848,7 +785,6 @@
 			padding-right: 0;
 		}
 
-		/* Header elements - simplified */
 		.profile-header,
 		.view-toggle {
 			flex-shrink: 0;
@@ -857,10 +793,9 @@
 
 		.profile-header {
 			flex-direction: row !important;
-			padding: 12px 12px 24px !important;
+			padding: 12px 12px 9px !important;
 			align-items: flex-start;
 
-			/* Skeuomorphic styling similar to mobile-tabs */
 			background: hsl(33.33deg 27.08% 93.83%);
 			border-radius: 0 0 8px 8px;
 			box-shadow:
@@ -872,7 +807,6 @@
 			border-right: 1px solid rgb(0 0 0 / 10%);
 			border-bottom: 2px solid rgb(0 0 0 / 15%);
 
-			/* Dark mode skeuomorphic styling */
 			@media (prefers-color-scheme: dark) {
 				background: linear-gradient(to bottom, rgb(255 255 255 / 8%), variables.$card-bg-dark);
 				border-left-color: variables.$border-color-dark;
@@ -897,7 +831,6 @@
 			}
 		}
 
-		/* Blog header wave */
 		.blog-header-wave {
 			position: relative;
 			height: 200px;
@@ -905,7 +838,6 @@
 			width: 100%;
 		}
 
-		/* Content containers - ensure consistent max-width */
 		#postsContent,
 		#projectsContent {
 			max-width: 600px;
@@ -934,7 +866,6 @@
 			}
 		}
 
-		/* Blog list and items */
 		.blog-list {
 			padding: 0;
 
@@ -948,7 +879,6 @@
 			transform: none !important;
 		}
 
-		/* View toggle */
 		.view-toggle {
 			flex-direction: column;
 			gap: 1rem;
@@ -964,7 +894,6 @@
 			}
 		}
 
-		/* Project Gallery Mobile Overrides */
 		.project-gallery {
 			.project-content {
 				flex-direction: column;
@@ -993,570 +922,19 @@
 		.blog-header {
 			min-height: unset !important;
 		}
-	}
 
-	.device-mobile .blog .blog-header .profile-header {
-		flex-direction: row !important;
-		align-items: flex-start !important;
-		text-align: left !important;
-		gap: 16px !important;
-		padding: 12px 12px 9px !important;
-
-		.profile-photo-wrapper {
-			flex-shrink: 0;
-			width: 90px;
-			align-items: center !important;
-			gap: 0 !important;
-
-			.profile-photo {
-				margin-bottom: 0 !important;
-				margin-right: 0 !important;
-			}
-
-			.contact-wrapper.mobile-only {
-				margin-top: -9px !important;
-
-				.contact-option {
-					width: 100%;
-					margin-top: 0 !important;
-					padding: 3px 9px !important;
-					display: block;
-					font-size: 12px;
-					font-weight: 500;
-					color: variables.$text-color;
-					text-decoration: none;
-					text-align: center;
-					transition: all 0.2s ease;
-					white-space: nowrap;
-					background: variables.$card-bg !important;
-					border: 1px solid rgba(variables.$border-color, 0.6);
-					border-radius: 6px;
-					cursor: pointer;
-
-					&:hover {
-						background: variables.$link-color !important;
-						color: variables.$white !important;
-					}
-
-					&:active {
-						background: darken(variables.$link-color, 5%) !important;
-					}
-				}
-			}
-		}
-
-		.profile-info {
-			text-align: left !important;
-			flex: 1;
-
-			.profile-name {
-				margin-bottom: 3px !important;
-
-				.desktop-only {
-					display: none !important;
-				}
-
-				.mobile-only {
-					display: inline !important;
-				}
-			}
-
-			.profile-byline {
-				display: block !important;
-			}
-
-			.profile-bio {
-				display: none !important;
-			}
-
-			.profile-stats {
-				justify-content: flex-start !important;
-
-				.stat {
-					align-items: flex-start !important;
-				}
-			}
-		}
-	}
-}
-
-/* Small mobile devices */
-@media (width <=480px) {
-
-	/* Hide external icons in portfolio items on small mobile */
-	.portfolio-item .external-icon {
-		display: none !important;
-	}
-
-	/* Company spacing on small mobile */
-	.company-group {
-		margin-top: 24px;
-	}
-
-	.company-name {
-		margin-top: 0;
-	}
-
-	/* Container styles for phone frame */
-	.container {
-		max-width: 100% !important;
-		padding: 0 !important;
-		margin: 0 !important;
-	}
-
-	body {
-		margin: 0 !important;
-		padding: 0 !important;
-		overflow-x: hidden;
-	}
-
-	/* Ensure blog-content styling is completely reset for small devices */
-	.blog .blog-content {
-		background-color: transparent !important;
-		box-shadow: none !important;
-		border: none !important;
-		border-radius: 0 !important;
-
-		&::before {
-			display: none !important;
+		.device-mobile .blog .blog-header .profile-header {
+			padding-bottom: 9px;
 		}
 	}
 
-	/* Portfolio list in small screens - dynamic grid */
-	#projectsContent.portfolio-list .company-group .company-projects {
-		@include portfolio-grid-layout;
-	}
-}
-
-/* Tablet and larger screens */
-@media (width >=769px) {
-	.blog .post-list-item img:hover {
-		transform: scale(1.02);
-	}
-
-	/* Project Gallery Layout - Now Column by Default */
-	.project-gallery {
-		.project-content {
-			display: flex;
-			flex-direction: column;
-
-			/* Changed from row-reverse */
-			align-items: stretch;
-
-			/* Changed from flex-start, children will stretch */
-			gap: 1rem;
-
-			/* Adjusted or can be removed if margin handles spacing */
-			max-width: 1600px;
-
-			/* This can remain or be adjusted if needed */
-			margin: 0 auto;
-			padding: 0 1rem;
-
-			.carousel {
-				/* flex: 1; Removed */
-
-				/* position: sticky; Removed */
-
-				/* top: 2rem; Removed */
-				width: 100%;
-
-				/* Changed from max-width: 60% */
-				height: auto;
-
-				/* Changed from calc(100vh - 4rem), or set to e.g. 50vh */
-
-				/* max-height: 900px; This can be kept or adjusted */
-				transition: height 0.3s ease, width 0.3s ease;
-
-				/* Width transition might not be needed now */
-
-				.carousel-track {
-					min-height: 300px;
-
-					/* Adjusted from 400px, or make it more flexible */
-					max-height: 100%;
-				}
-
-				.carousel-slide {
-
-					img,
-					video,
-					iframe {
-						object-fit: contain;
-						max-height: 70vh;
-
-						/* Adjusted from calc(100vh - 8rem) */
-					}
-				}
-			}
-
-			.project-details {
-				/* flex: 1; Removed */
-				width: 100%;
-
-				/* Changed from max-width: 40% */
-				padding-right: 0;
-
-				/* Adjusted from 1rem, or match parent padding */
-
-				.project-description {
-
-					h2,
-					h3 {
-						margin-top: 1.5rem;
-					}
-				}
-			}
-		}
-	}
-}
-
-/* Medium screens - transitional layout - Commented out as base 769px+ is now column */
-
-/*
-@media (min-width: 769px) and (max-width: 1024px) {
-	.project-gallery {
-		.project-content {
-			gap: 1rem;
-
-			.carousel {
-				max-width: 45%;
-				height: calc(100vh - 6rem);
-			}
-
-			.project-details {
-				max-width: 55%;
-			}
-		}
-	}
-}
-*/
-
-/* Desktop-specific media queries */
-@media screen and (min-width: variables.$mobile-breakpoint) {
-	.blog {
-
-		/* Project Gallery Desktop Enhancements */
-		.project-gallery {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			height: 50%;
-
-			/* Note: Effective height depends on parent container's height */
-			margin-bottom: 16px;
-
-			.project-content {
-				padding: 0 2rem;
-
-				/* Ensure content is properly spaced */
-				.project-details {
-					.project-title {
-						margin-top: 0;
-
-						summary {
-							cursor: pointer;
-
-							&:hover {
-								h2 {
-									color: variables.$primary-color;
-								}
-							}
-						}
-					}
-
-					/* Improve accordion sections in project description */
-					.project-description {
-						details {
-							margin: 1.5rem 0;
-							border-radius: 8px;
-							overflow: hidden;
-
-							summary {
-								cursor: pointer;
-								padding: 1rem;
-								background-color: rgb(0 0 0 / 2%);
-
-								&:hover {
-									background-color: rgb(0 0 0 / 4%);
-								}
-							}
-
-							&[open] summary {
-								border-bottom: 1px solid rgb(0 0 0 / 5%);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-/* Large desktop screens */
-@media screen and (width >=1440px) {
-	.project-gallery {
-		.project-content {
-			max-width: 1800px;
-			gap: 4rem;
-
-			.carousel {
-				max-width: 65%;
-				max-height: 1000px;
-				top: 5rem;
-
-				/* Adjust sticky position to account for navigation */
-			}
-
-			.project-details {
-				max-width: 35%;
-				padding-right: 2rem;
-			}
-		}
-	}
-}
-
-/* Extra large desktop screens */
-@media screen and (width >=1920px) {
-	.project-gallery {
-		.project-content {
-			max-width: 2000px;
-			gap: 5rem;
-
-			.carousel {
-				max-width: 70%;
-				max-height: 1200px;
-				top: 6rem;
-
-				/* Further adjust sticky position */
-			}
-
-			.project-details {
-				max-width: 30%;
-				padding-right: 3rem;
-			}
-		}
-	}
-}
-
-/* ==========================================================================
-   Portfolio Content - Device-specific Rules
-   ========================================================================== */
-
-/* Hide company-byline in portfolio content on desktop and tablet */
-.device-desktop .portfolio-content .company-byline,
-.device-tablet .portfolio-content .company-byline {
-	display: none !important;
-}
-
-/* ==========================================================================
-   Column Titles - Responsive Behavior
-   ========================================================================== */
-
-/* Base styles for column titles - hidden by default */
-.column-title {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 100;
-
-	/* Higher z-index to ensure it stays on top */
-	padding: variables.$space-md;
-	font-size: 24px;
-	font-weight: 600;
-	letter-spacing: normal;
-	text-transform: none;
-	background: transparent;
-	border: none;
-	box-shadow: none;
-	margin-bottom: variables.$space-sm;
-	text-align: left;
-	transition: all 0.2s ease;
-	width: 100%;
-	max-width: 600px;
-
-	/* Ensure full width */
-	box-sizing: border-box;
-
-	/* Include padding in width calculation */
-
-	/* Dark mode adjustments */
-	@media (prefers-color-scheme: dark) {
-		background-color: transparent;
-		border-bottom: none;
-		box-shadow: none;
-	}
-
-	/* Subtle animation when scrolling starts */
-	.is-scrolling & {
-		box-shadow: none;
-		opacity: 1;
-	}
-}
-
-/* Blog column title specific styles */
-.blog-column-title {
-	color: variables.$text-color;
-
-	@media (prefers-color-scheme: dark) {
-		color: variables.$text-color-dark;
-	}
-}
-
-/* Portfolio column title specific styles */
-.portfolio-column-title {
-	color: variables.$text-color;
-
-	@media (prefers-color-scheme: dark) {
-		color: variables.$text-color-dark;
-	}
-}
-
-/* Desktop styles for column titles */
-@media screen and (min-width: variables.$tablet-breakpoint) {
-	.column-title {
-		display: block;
-
-		/* Desktop-specific adjustments */
-		width: 100%;
-		box-sizing: border-box;
-		border-radius: 0;
-		margin-left: 0;
-		margin-right: 0;
-		padding-top: variables.$space-md;
-		padding-bottom: variables.$space-xs;
-	}
-}
-
-/* Tablet and mobile styles - ensure column titles are hidden */
-@media screen and (max-width: variables.$tablet-breakpoint) {
-	.column-title {
-		display: none !important;
-	}
-}
-
-/* Device-specific classes for additional control */
-.device-desktop .column-title {
-	display: block;
-}
-
-.device-tablet .column-title,
-.device-mobile .column-title {
-	display: none !important;
-}
-
-/* ==========================================================================
-   Layout Toggle - Column vs Grid Layout Switch for Desktop/Tablet
-   ========================================================================== */
-
-/* Grid layout when toggle is active - reuse existing mobile grid styles for desktop/tablet */
-.blog[data-layout="grid"] {
-	@media screen and (min-width: variables.$mobile-breakpoint) {
-
-		/* Apply the same grid layout that's used on mobile to desktop/tablet */
-		#projectsContent.portfolio-list .company-group .company-projects {
-			@include portfolio-grid-layout;
-		}
-	}
-}
-
-/* Always use grid layout for all screen sizes */
-.blog {
-	#projectsContent.portfolio-list .company-group .company-projects {
-		@include portfolio-grid-layout;
-	}
-}
-
-/* --- UNIVERSAL PROJECT GALLERY CAROUSEL FIX (prevents overlap on all breakpoints) --- */
-@media (width >=784px) and (width <=1024px) {
-	.project-gallery .carousel {
-		width: 100% !important;
-		max-width: 100% !important;
-		height: auto !important;
-		aspect-ratio: 16/9 !important;
-		min-height: 0 !important;
-		max-height: none !important;
-		flex: none !important;
-		position: relative !important;
-		inset: 0 !important;
-
-		/* Remove any sticky, row, or flex constraints */
-		display: block !important;
-		overflow: hidden !important;
-
-		/* Fallback for browsers without aspect-ratio */
-		@supports not (aspect-ratio: 16/9) {
-			&::before {
-				content: '';
-				display: block;
-				padding-top: 56.25%;
-			}
-		}
-	}
-
-	.project-gallery .carousel-track,
-	.project-gallery .carousel-slide {
-		width: 100% !important;
-		height: 100% !important;
-		min-height: 0 !important;
-		max-height: none !important;
-		position: absolute;
-		inset: 0;
-		display: flex !important;
-		align-items: center !important;
-		justify-content: center !important;
-	}
-
-	.project-gallery .carousel-slide img,
-	.project-gallery .carousel-slide video,
-	.project-gallery .carousel-slide iframe {
-		width: 100% !important;
-		height: 100% !important;
-		max-width: 100% !important;
-		max-height: 100% !important;
-		object-fit: contain !important;
-		display: block !important;
-		margin: auto !important;
-		background: #111 !important;
-		border-radius: 0 !important;
-		box-sizing: border-box !important;
-	}
-}
-
-/* --- END UNIVERSAL PROJECT GALLERY CAROUSEL FIX --- */
-
-/* Remove all device-specific profile header styles */
-.device-tablet .blog .blog-header .profile-header,
-.device-desktop .blog .blog-header .profile-header,
-.device-mobile .blog .blog-header .profile-header {
-	flex-direction: column;
-	align-items: flex-start;
-	text-align: left;
-	margin: 0 auto 32px;
-	padding: 36px 24px 18px;
-	gap: 12px;
-
-	.profile-info {
-		text-align: left;
-		width: 100%;
-
-		.profile-stats {
-			justify-content: flex-start;
-		}
-	}
-}
-
-/* Mobile-specific overrides */
-@media screen and (max-width: variables.$mobile-breakpoint) {
 	.device-mobile .blog .blog-header .profile-header {
 		flex-direction: row;
 		align-items: flex-start;
 		text-align: left;
 		gap: 16px;
 		padding: 12px 12px 9px;
+		margin-bottom: 12px;
 
 		.profile-photo-wrapper {
 			flex-shrink: 0;
@@ -1636,15 +1014,435 @@
 	}
 }
 
-/* Tablet and Desktop Styles */
-@media (min-width: variables.$tablet-breakpoint) {
+/* Small mobile devices */
+@media (width <=480px) {
+	.company-group {
+		margin-top: 24px;
+	}
+
+	.company-name {
+		margin-top: 0;
+	}
+
+	.container {
+		max-width: 100% !important;
+		padding: 0 !important;
+		margin: 0 !important;
+	}
+
+	body {
+		margin: 0 !important;
+		padding: 0 !important;
+		overflow-x: hidden;
+	}
+
+	.blog .blog-content {
+		background-color: transparent !important;
+		box-shadow: none !important;
+		border: none !important;
+		border-radius: 0 !important;
+
+		&::before {
+			display: none !important;
+		}
+	}
+
+	#projectsContent.portfolio-list .company-group .company-projects {
+		@include portfolio-grid-layout;
+	}
+}
+
+/* Tablet and larger screens */
+@media (width >=769px) {
+	.blog .post-list-item img:hover {
+		transform: scale(1.02);
+	}
+
+	.project-gallery {
+		.project-content {
+			display: flex;
+			flex-direction: column;
+
+			align-items: stretch;
+
+			gap: 1rem;
+
+			max-width: 1600px;
+
+			margin: 0 auto;
+			padding: 0 1rem;
+
+			.carousel {
+				width: 100%;
+				height: auto;
+
+				transition: height 0.3s ease, width 0.3s ease;
+
+				.carousel-track {
+					min-height: 300px;
+					max-height: 100%;
+				}
+
+				.carousel-slide {
+
+					img,
+					video,
+					iframe {
+						object-fit: contain;
+						max-height: 70vh;
+					}
+				}
+			}
+
+			.project-details {
+				width: 100%;
+				padding-right: 0;
+
+				.project-description {
+
+					h2,
+					h3 {
+						margin-top: 1.5rem;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* Medium screens - transitional layout - Commented out as base 769px+ is now column */
+
+/*
+@media (min-width: 769px) and (max-width: 1024px) {
+	.project-gallery {
+		.project-content {
+			gap: 1rem;
+
+			.carousel {
+				max-width: 45%;
+				height: calc(100vh - 6rem);
+			}
+
+			.project-details {
+				max-width: 55%;
+			}
+		}
+	}
+}
+*/
+
+/* Desktop-specific media queries */
+@media screen and (min-width: variables.$mobile-breakpoint) {
+	.blog {
+		.project-gallery {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			height: 50%;
+
+			margin-bottom: 16px;
+
+			.project-content {
+				padding: 0 2rem;
+
+				.project-details {
+					.project-title {
+						margin-top: 0;
+
+						summary {
+							cursor: pointer;
+
+							&:hover {
+								h2 {
+									color: variables.$primary-color;
+								}
+							}
+						}
+					}
+
+					.project-description {
+						details {
+							margin: 1.5rem 0;
+							border-radius: 8px;
+							overflow: hidden;
+
+							summary {
+								cursor: pointer;
+								padding: 1rem;
+								background-color: rgb(0 0 0 / 2%);
+
+								&:hover {
+									background-color: rgb(0 0 0 / 4%);
+								}
+							}
+
+							&[open] summary {
+								border-bottom: 1px solid rgb(0 0 0 / 5%);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/* Large desktop screens */
+@media screen and (width >=1440px) {
+	.project-gallery {
+		.project-content {
+			max-width: 1800px;
+			gap: 4rem;
+
+			.carousel {
+				max-width: 65%;
+				max-height: 1000px;
+				top: 5rem;
+			}
+
+			.project-details {
+				max-width: 35%;
+				padding-right: 2rem;
+			}
+		}
+	}
+}
+
+/* Extra large desktop screens */
+@media screen and (width >=1920px) {
+	.project-gallery {
+		.project-content {
+			max-width: 2000px;
+			gap: 5rem;
+
+			.carousel {
+				max-width: 70%;
+				max-height: 1200px;
+				top: 6rem;
+			}
+
+			.project-details {
+				max-width: 30%;
+				padding-right: 3rem;
+			}
+		}
+	}
+}
+
+/* ==========================================================================
+   Portfolio Content - Device-specific Rules
+   ========================================================================== */
+
+.device-desktop .portfolio-content .company-byline,
+.device-tablet .portfolio-content .company-byline {
+	display: none !important;
+}
+
+/* ==========================================================================
+   Column Titles - Responsive Behavior
+   ========================================================================== */
+
+/* Base styles for column titles - hidden by default */
+.column-title {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+
+	padding: variables.$space-md;
+	font-size: 24px;
+	font-weight: 600;
+	letter-spacing: normal;
+	text-transform: none;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	margin-bottom: variables.$space-sm;
+	text-align: left;
+	transition: all 0.2s ease;
+	width: 100%;
+	max-width: 600px;
+
+	box-sizing: border-box;
+
+	@media (prefers-color-scheme: dark) {
+		background-color: transparent;
+		border-bottom: none;
+		box-shadow: none;
+	}
+
+	.is-scrolling & {
+		box-shadow: none;
+		opacity: 1;
+	}
+}
+
+/* Blog column title specific styles */
+.blog-column-title {
+	color: variables.$text-color;
+
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+	}
+}
+
+/* Portfolio column title specific styles */
+.portfolio-column-title {
+	color: variables.$text-color;
+
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+	}
+}
+
+/* Desktop styles for column titles */
+@media screen and (min-width: variables.$tablet-breakpoint) {
+	.column-title {
+		display: block;
+
+		width: 100%;
+		box-sizing: border-box;
+		border-radius: 0;
+		margin-left: 0;
+		margin-right: 0;
+		padding-top: variables.$space-md;
+		padding-bottom: variables.$space-xs;
+	}
+}
+
+/* Tablet and mobile styles - ensure column titles are hidden */
+@media screen and (max-width: variables.$tablet-breakpoint) {
+	.column-title {
+		display: none !important;
+	}
+}
+
+/* Device-specific classes for additional control */
+.device-desktop .column-title {
+	display: block;
+}
+
+.device-tablet .column-title,
+.device-mobile .column-title {
+	display: none !important;
+}
+
+/* ==========================================================================
+   Layout Toggle - Column vs Grid Layout Switch for Desktop/Tablet
+   ========================================================================== */
+
+/* Grid layout when toggle is active - reuse existing mobile grid styles for desktop/tablet */
+.blog[data-layout="grid"] {
+	@media screen and (min-width: variables.$mobile-breakpoint) {
+		#projectsContent.portfolio-list .company-group .company-projects {
+			@include portfolio-grid-layout;
+		}
+	}
+}
+
+/* Always use grid layout for all screen sizes */
+.blog {
+	#projectsContent.portfolio-list .company-group .company-projects {
+		@include portfolio-grid-layout;
+	}
+}
+
+/* --- UNIVERSAL PROJECT GALLERY CAROUSEL FIX (prevents overlap on all breakpoints) --- */
+@media (width >=784px) and (width <=1024px) {
+	.project-gallery .carousel {
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		aspect-ratio: 16/9 !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		flex: none !important;
+		position: relative !important;
+		inset: 0 !important;
+
+		display: block !important;
+		overflow: hidden !important;
+
+		@supports not (aspect-ratio: 16/9) {
+			&::before {
+				content: '';
+				display: block;
+				padding-top: 56.25%;
+			}
+		}
+	}
+
+	.project-gallery .carousel-track,
+	.project-gallery .carousel-slide {
+		width: 100% !important;
+		height: 100% !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		position: absolute;
+		inset: 0;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+	}
+
+	.project-gallery .carousel-slide img,
+	.project-gallery .carousel-slide video,
+	.project-gallery .carousel-slide iframe {
+		width: 100% !important;
+		height: 100% !important;
+		max-width: 100% !important;
+		max-height: 100% !important;
+		object-fit: contain !important;
+		display: block !important;
+		margin: auto !important;
+		background: #111 !important;
+		border-radius: 0 !important;
+		box-sizing: border-box !important;
+	}
+}
+
+/* --- END UNIVERSAL PROJECT GALLERY CAROUSEL FIX --- */
+
+/* Mobile Layout Profile Header Styles */
+.device-mobile .blog {
 	.profile-header {
-		padding-top: 36px;
+		flex-direction: column;
 		align-items: flex-start;
-		text-align: left;
+		text-align: center;
+		margin: 0 12px 12px;
+		flex-shrink: 0;
+		padding: variables.$spacing-card 0 9px 0;
+		position: relative;
+		z-index: 2;
+
+		.profile-photo {
+			margin-bottom: variables.$space-sm;
+		}
 
 		.profile-info {
+			margin-left: 0;
+			padding-left: variables.$space-sm;
+			padding-right: variables.$space-sm;
+
+			.profile-stats {
+				justify-content: start;
+			}
+		}
+	}
+
+	/* Mobile Landscape adjustments */
+	&.orientation-landscape {
+		.profile-header {
+			flex-direction: row;
 			text-align: left;
+			align-items: flex-start;
+
+			.profile-photo {
+				margin-bottom: 0;
+				margin-right: variables.$space-md;
+			}
 
 			.profile-stats {
 				justify-content: flex-start;
@@ -1653,19 +1451,33 @@
 	}
 }
 
-/* Mobile Styles */
-@media (max-width: #{variables.$tablet-breakpoint - 1}) {
-	.profile-header {
-		padding-top: 24px;
-		align-items: center;
-		text-align: center;
+/* Tablet Layout Profile Header Styles */
+.device-tablet .blog {
+	.blog-header .profile-header {
+		width: 100%;
+		padding: variables.$spacing-card;
+		margin: 0;
+		max-width: none;
+	}
+}
 
-		.profile-info {
-			text-align: center;
+/* Desktop Layout Profile Header Styles */
+.device-desktop .blog {
+	.blog-header .profile-header {
+		width: 100%;
+		padding: variables.$spacing-card;
+		margin: 0;
+		max-width: none;
+	}
+}
 
-			.profile-stats {
-				justify-content: center;
-			}
+/* Common Device Styles */
+.device-tablet .blog .blog-header .profile-header,
+.device-desktop .blog .blog-header .profile-header,
+.device-mobile .blog .blog-header .profile-header {
+	.profile-info {
+		.profile-byline {
+			display: block;
 		}
 	}
 }
