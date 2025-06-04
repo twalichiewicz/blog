@@ -4,7 +4,7 @@ layout: project_gallery
 company: Human Interest
 byline: Created a streamlined 401(k) setup experience that reduces friction and increases completion rates through research-driven design
 date: 2017-01-01 20:52:01
-cover_image: /2017/01/01/Human-Interest-onboarding-tool/onboarding-tool-simple.mp4
+cover_image: /2017/01/01/Human-Interest-onboarding-tool/onboarding-tool_poster.jpg
 cover_video_poster: /2017/01/01/Human-Interest-onboarding-tool/onboarding-tool_poster.jpg
 tags: [portfolio]
 has_writeup: true
