@@ -4,6 +4,7 @@
       <p>No media content available</p>
     </div>
   <% } else { %>
+    <div class="aspect-ratio-fallback"></div>
     <div class="carousel-track">
       <% images.forEach((item, index) => { %>
         <div class="carousel-slide <%= index === 0 ? 'active' : '' %>" 

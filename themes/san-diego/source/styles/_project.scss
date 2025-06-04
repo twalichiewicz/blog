@@ -451,38 +451,16 @@
 
 // Project Gallery
 .project-gallery {
-	width: 65%;
-	height: 100%;
-	margin: 0;
+	width: 100%;
+	margin-bottom: 2rem;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	position: relative;
 
-	@media (max-width: 1200px) {
-		flex-direction: column;
-	}
-
-	@media (max-width: variables.$tablet-breakpoint) {
-		flex-direction: column;
-		width: 100%;
-		height: 50%;
-		margin-bottom: 16px;
-	}
-
-	@media (max-width: variables.$mobile-breakpoint) {
-		flex-direction: column;
-		height: 40%;
-		min-height: 250px;
-		flex-shrink: 0;
-		margin-bottom: 16px;
-	}
-
 	.carousel {
-		flex: 1;
 		width: 100%;
-		height: 100%;
-		margin: 0;
-		border-radius: 15px;
+		margin: 0 auto;
+		border-radius: 15px 15px 0 0;
 		background: variables.$black;
 		border: none;
 		position: relative;
@@ -491,26 +469,9 @@
 		align-items: center;
 		justify-content: center;
 		overflow: hidden;
-
-		.carousel-empty {
-			text-align: center;
-			padding: 2rem;
-			color: rgba(255, 255, 255, 0.7);
-			font-size: 0.9rem;
-
-			p {
-				margin: 0;
-			}
-		}
-
-		@media (max-width: variables.$tablet-breakpoint) {
-			border-radius: 12px;
-		}
-
-		@media (max-width: variables.$mobile-breakpoint) {
-			border-radius: 12px 12px 0 0;
-			min-height: 250px;
-		}
+		aspect-ratio: 16 / 9;
+		// No explicit height or min-height
+		// Fallback for browsers without aspect-ratio handled in _carousel.scss
 	}
 }
 
@@ -1024,7 +985,7 @@
 	@media (prefers-color-scheme: dark) {
 		box-shadow: none;
 		-webkit-backdrop-filter: none;
-                    backdrop-filter: none;
+		backdrop-filter: none;
 
 		.project-mini-bio-image {
 			box-shadow:
@@ -1192,32 +1153,7 @@
 
 // Ensure dynamically loaded project wrapper has proper height
 .project-wrapper.dynamic-loaded {
-	height: auto;
-	min-height: auto;
-	display: flex;
-	flex-direction: column;
-
-	.project-content {
-		height: auto;
-		min-height: auto;
-		flex: none;
-
-		.project-details {
-			height: auto;
-			min-height: auto;
-			overflow: visible;
-		}
-	}
-
-	@media (max-width: variables.$mobile-breakpoint) {
-		height: auto;
-		min-height: auto;
-	}
-
-	// Reduced font size for project writeup paragraphs in dynamically loaded projects
-	.project-writeup .writeup-content p {
-		font-size: 18px;
-	}
+	// No display: flex, no flex-direction, no height/min-height/overflow overrides
 }
 
 // Ensure project wrapper has full height when body is loaded
@@ -1227,6 +1163,15 @@ body.loaded .project-wrapper {
 
 // Mobile-specific styles for 768px breakpoint
 @media (max-width: 768px) {
+
+	.project-wrapper,
+	.project-content,
+	.project-details {
+		height: auto !important;
+		min-height: auto !important;
+		overflow: visible !important;
+	}
+
 	.project-content {
 		// Remove background linear-gradient (already removed above)
 	}
@@ -1246,4 +1191,8 @@ body.loaded .project-wrapper {
 		margin-right: 18px !important;
 		margin-top: 18px !important; // Override the 3rem top margin
 	}
+}
+
+.project-wrapper.dynamic-loaded .project-gallery {
+	margin-bottom: 2rem;
 }
