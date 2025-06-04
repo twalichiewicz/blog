@@ -26,8 +26,6 @@
 
 // Make .post match .project-description for content area
 .post {
-	@include project.content-area-styles;
-
 	margin: 0 auto 24px;
 	max-width: 800px;
 	padding: 32px;
@@ -37,6 +35,8 @@
 	box-shadow: variables.$shadow-medium;
 	border-radius: 20px;
 	border: 1px solid rgb(0 0 0 / 3%);
+
+	@include project.content-area-styles;
 
 	@media (prefers-color-scheme: dark) {
 		background-color: variables.$card-bg-dark;
@@ -87,7 +87,7 @@
 			font-size: 0.85rem;
 			font-style: italic;
 			backdrop-filter: blur(5px);
-                    backdrop-filter: blur(5px);
+			backdrop-filter: blur(5px);
 
 			@media (prefers-color-scheme: dark) {
 				background: rgb(0 0 0 / 80%);
