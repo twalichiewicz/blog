@@ -10,7 +10,7 @@ gallery_images:
   - url: /2019/06/30/Project-Wingman/wingmanInstaller.mp4
     type: video
     poster: /2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg
-cover_image: /2019/06/30/Project-Wingman/wingmanInstaller.mp4
+cover_image: /2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg
 cover_video_poster: /2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg
 summary:
   problem:
