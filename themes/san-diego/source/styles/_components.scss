@@ -443,7 +443,8 @@ button {
 
 	@media screen and (max-width: variables.$mobile-breakpoint) {
 		.tab-button {
-			padding: 8px 12px;
+			padding: 6px 0; // New padding: 6px top/bottom, 0 left/right
+			font-size: 12px; // New font-size
 		}
 	}
 
