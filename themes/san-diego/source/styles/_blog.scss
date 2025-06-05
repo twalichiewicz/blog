@@ -8,6 +8,7 @@
 	height: auto;
 	overflow-x: hidden;
 	position: relative;
+	margin-top: 12px;
 
 	.blog-header {
 		height: 100vh;
@@ -16,6 +17,7 @@
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
+		margin-top: 12px;
 
 		@media (max-width: variables.$mobile-breakpoint) {
 			height: 100%;
@@ -29,13 +31,14 @@
 		border: 1px solid rgb(0 0 0 / 3%);
 		position: relative;
 		transition: opacity 0.3s ease-in-out;
-		height: 100vh;
+		margin-top: 12px;
+		height: calc(100vh - 12px);
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
 
 		&.has-dynamic-content {
 			overflow-y: auto;
-			height: 100vh;
+			height: calc(100vh - 12px);
 			position: relative;
 		}
 
