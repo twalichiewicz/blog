@@ -145,12 +145,56 @@ export default class MobileTabs {
 				this.projectsContent.style.opacity = '1';
 				this.postsContent.style.display = 'block';
 				this.projectsContent.style.display = 'block';
+
+				// Add desktop content rendering check with delay to allow for layout
+				setTimeout(() => {
+					this.checkDesktopContentRendering();
+				}, 1000);
 			}
 
 			// Hide tabs wrapper on desktop
 			if (this.tabsWrapper) {
 				this.tabsWrapper.style.display = 'none';
 			}
+		}
+	}
+
+	/**
+ * Check if desktop content is rendering properly and log debugging info
+ */
+	checkDesktopContentRendering() {
+		if (this.currentDeviceType !== 'desktop') return;
+
+		const postsItems = this.postsContent?.querySelectorAll('.post-list-item') || [];
+		const projectItems = this.projectsContent?.querySelectorAll('.portfolio-item') || [];
+
+		console.log('[MobileTabs] Desktop content check:', {
+			postsItems: postsItems.length,
+			projectItems: projectItems.length,
+			postsVisible: this.postsContent?.style.display !== 'none',
+			projectsVisible: this.projectsContent?.style.display !== 'none',
+			postsOpacity: this.postsContent?.style.opacity,
+			projectsOpacity: this.projectsContent?.style.opacity,
+			postsHeight: this.postsContent?.offsetHeight,
+			projectsHeight: this.projectsContent?.offsetHeight
+		});
+
+		// Check for empty content areas that should have items
+		if (postsItems.length === 0 && this.postsContent) {
+			console.warn('[MobileTabs] Posts content appears empty on desktop - attempting recovery');
+			// Try to force re-render
+			this.postsContent.style.display = 'none';
+			setTimeout(() => {
+				this.postsContent.style.display = 'block';
+			}, 100);
+		}
+		if (projectItems.length === 0 && this.projectsContent) {
+			console.warn('[MobileTabs] Projects content appears empty on desktop - attempting recovery');
+			// Try to force re-render
+			this.projectsContent.style.display = 'none';
+			setTimeout(() => {
+				this.projectsContent.style.display = 'block';
+			}, 100);
 		}
 	}
 
@@ -297,8 +341,8 @@ export default class MobileTabs {
 		this.postsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
 		this.projectsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
 
-		// On desktop, both sections are visible
-		if (document.body.classList.contains('device-desktop')) {
+		// EMERGENCY FIX: Device-desktop class no longer exists, check by device type instead
+		if (this.currentDeviceType === 'desktop') {
 			this.postsContent.style.opacity = '1';
 			this.projectsContent.style.opacity = '1';
 			this.postsContent.style.display = 'block';
@@ -398,8 +442,12 @@ export default class MobileTabs {
 	getDeviceType() {
 		const width = window.innerWidth;
 		if (width < 600) return 'mobile';
-		if (width < 1024) return 'tablet';
-		return 'desktop';
+		// EMERGENCY FIX: Force tablet mode instead of desktop due to Chrome rendering issues
+		// Desktop mode causes: flickering, broken rendering, project items not displaying
+		// TODO: Re-enable after fixing backdrop-filter, contain, and transform issues
+		// if (width < 1024) return 'tablet';
+		// return 'desktop';
+		return 'tablet'; // Temporarily disable desktop mode
 	}
 
 	/**

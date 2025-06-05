@@ -11,12 +11,12 @@
 	const body = document.body;
 
 	// Add appropriate device class
+	// EMERGENCY FIX: Force tablet mode to avoid Chrome rendering issues
 	if (width <= 767) { // Just below $mobile-breakpoint (768px)
 		body.classList.add('device-mobile');
-	} else if (width >= 768 && width <= 1199) { // Between $mobile-breakpoint and $desktop-small-min (1200px)
-		body.classList.add('device-tablet');
 	} else {
-		body.classList.add('device-desktop');
+		// Force tablet mode for all larger screens (was: desktop for width >= 1200)
+		body.classList.add('device-tablet');
 	}
 
 	// Add orientation class
@@ -67,12 +67,12 @@ document.addEventListener('DOMContentLoaded', function () {
 			body.classList.remove('device-mobile', 'device-tablet', 'device-desktop');
 
 			// Add appropriate device class
+			// EMERGENCY FIX: Force tablet mode to avoid Chrome rendering issues
 			if (width <= this.breakpoints.mobile.max) {
 				body.classList.add('device-mobile');
-			} else if (width >= this.breakpoints.tablet.min && width <= this.breakpoints.tablet.max) {
-				body.classList.add('device-tablet');
 			} else {
-				body.classList.add('device-desktop');
+				// Force tablet mode for all larger screens (was: desktop for width >= desktop.min)
+				body.classList.add('device-tablet');
 			}
 
 			// Detect specific devices - using consistent breakpoints
@@ -91,13 +91,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		 */
 		getCurrentDeviceType: function () {
 			const body = document.body;
-			if (body.classList.contains('device-desktop')) return 'desktop';
+			// EMERGENCY FIX: No more device-desktop class, always return tablet for larger screens
 			if (body.classList.contains('device-tablet')) return 'tablet';
 			if (body.classList.contains('device-mobile')) return 'mobile';
 
 			// Fallback based on width if classes not set yet
 			const width = window.innerWidth;
-			if (width >= this.breakpoints.desktop.min) return 'desktop';
 			if (width >= this.breakpoints.tablet.min) return 'tablet';
 			return 'mobile';
 		},
