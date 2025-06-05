@@ -255,6 +255,9 @@ document.addEventListener('DOMContentLoaded', function () {
 				cleanupCarouselInstances(blogContentElement);
 			}
 
+			// Add has-dynamic-content class to enable proper scrolling
+			blogContentElement.classList.add('has-dynamic-content');
+
 			await fadeOutElement(blogContentElement);
 			blogContentElement.innerHTML = ''; // Clear content AFTER fade out of inner (or whole)
 
