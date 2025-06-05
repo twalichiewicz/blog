@@ -3,7 +3,6 @@
  * Import and initialize all modules
  */
 // import ColorScheme from './components/ColorScheme.js'; // Commented out - file not found
-import { initNavigation } from './utils/navigation.js';
 import { initSectionAnimations, initColumnTitleScrollDetection } from './utils/animations.js';
 import { initializeSoundEffects } from './utils/sound-effects.js';
 
@@ -12,12 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Initialize sound effects first
 		initializeSoundEffects();
 
-		// Initialize navigation functionality
-		initNavigation({
-			navSelector: '#theme-nav',
-			titleSelector: '.nav-title',
-			mobileBreakpoint: 600
-		});
+		// Navigation functionality removed - using project-specific navigation instead
 
 		// Initialize color scheme functionality
 		initColorScheme();

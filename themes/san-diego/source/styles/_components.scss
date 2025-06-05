@@ -785,10 +785,14 @@ button {
 	}
 }
 
-/* Dark mode styles for location pill */
+/* Dark mode styles for location pill and profile byline */
 @media (prefers-color-scheme: dark) {
 	.profile-header {
 		.profile-info {
+			.profile-byline {
+				color: variables.$text-color-secondary-dark;
+			}
+
 			.location-pill {
 				background: rgba(variables.$white, 0.1);
 				color: variables.$text-color-secondary-dark;
@@ -1745,14 +1749,24 @@ table {
 
 // Utility class for mobile-only display
 .mobile-only {
-	display: none;
+	display: none !important;
 }
 
+// Show mobile-only elements only on mobile (768px and below)
 @media screen and (max-width: variables.$mobile-breakpoint) {
 	.mobile-only {
 		display: block !important;
 	}
+}
 
+// Ensure mobile-only is hidden on tablet and desktop
+@media screen and (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+	.mobile-only {
+		display: none !important;
+	}
+}
+
+@media screen and (max-width: variables.$mobile-breakpoint) {
 	.mobile-hide {
 		display: none !important;
 	}
@@ -2292,7 +2306,7 @@ table {
 	}
 
 	@media (max-width: variables.$tablet-breakpoint) {
-		flex-direction: column;
+		flex-direction: row; // Always keep row direction
 		gap: variables.$space-md;
 		padding: variables.$space-lg;
 
