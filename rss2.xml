@@ -9,8 +9,34 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Thu, 05 Jun 2025 17:36:57 GMT</pubDate>
+    <pubDate>Thu, 05 Jun 2025 19:01:12 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>sharing claude max passwords</title>
+      <link>https://twalichiewicz.github.io/2025/06/05/sharing-claude-max-passwords/</link>
+      <guid>https://twalichiewicz.github.io/2025/06/05/sharing-claude-max-passwords/</guid>
+      <pubDate>Thu, 05 Jun 2025 11:54:46 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Old and busted: sharing Netflix credentials&lt;/p&gt;
+&lt;p&gt;New hotness: sharing Claude Max keys&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Old and busted: sharing Netflix credentials</p><p>New hotness: sharing Claude Max keys</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/06/05/sharing-claude-max-passwords/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>desktop mode offline temporarily</title>
@@ -477,30 +503,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/04/03/Full-stack-product-designers-in-2025/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>The best new game of 2025 is Sora</title>
-      <link>https://twalichiewicz.github.io/2025/04/01/The-best-new-game-of-2025-is-Sora/</link>
-      <guid>https://twalichiewicz.github.io/2025/04/01/The-best-new-game-of-2025-is-Sora/</guid>
-      <pubDate>Tue, 01 Apr 2025 19:06:07 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;The best new game of 2025 is &lt;a href=&quot;https://www.sora.com/&quot;&gt;Sora&lt;/a&gt;. I find myself constantly coming back to try and create some weird </description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>The best new game of 2025 is <a href="https://www.sora.com/">Sora</a>. I find myself constantly coming back to try and create some weird idea or remix some of the fun stuff in the Explore feed.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/04/01/The-best-new-game-of-2025-is-Sora/#disqus_thread</comments>
       
     </item>
     
