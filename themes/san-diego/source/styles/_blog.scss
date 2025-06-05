@@ -29,6 +29,15 @@
 		border: 1px solid rgb(0 0 0 / 3%);
 		position: relative;
 		transition: opacity 0.3s ease-in-out;
+		height: 100vh;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+
+		&.has-dynamic-content {
+			overflow-y: auto;
+			height: 100vh;
+			position: relative;
+		}
 
 		// Dark mode styles moved to _theme-modes.scss
 	}
@@ -623,6 +632,7 @@ p {
 
 // Blog post specific styling
 .post-list-item.blog {
+
 	// Reset base paragraph margins
 	>p {
 		margin: 1rem 0; // Default paragraph spacing
