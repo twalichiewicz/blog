@@ -67,6 +67,25 @@ document.addEventListener('DOMContentLoaded', function () {
 	const isMobile = window.innerWidth <= 768;
 	const isDesktop = document.body.classList.contains('device-desktop');
 
+	// Global scroll function available for both standalone and dynamic contexts
+	function scrollToFullStory() {
+		console.log('Scroll button clicked!');
+		const fullStoryElement = document.getElementById('full-story');
+		if (!fullStoryElement) {
+			console.error('Full story element not found');
+			return;
+		}
+
+		// Simple scroll with smooth behavior
+		fullStoryElement.scrollIntoView({
+			behavior: 'smooth',
+			block: 'start'
+		});
+	}
+
+	// Make function globally available immediately
+	window.scrollToFullStory = scrollToFullStory;
+
 	// === Dynamic Content Loader for Blog Posts/Projects ===
 	function setupDynamicBlogNavigation() {
 		const blogContentElement = document.querySelector('.blog-content');
@@ -80,7 +99,18 @@ document.addEventListener('DOMContentLoaded', function () {
 		async function fadeOutElement(element, duration = 300) {
 			if (!element) return;
 
-			// Determine the target for the fade based on screen size
+			// Check if we have a project-edge-wrapper (don't apply inner wrapper fade logic)
+			const hasProjectEdgeWrapper = element.querySelector('.project-edge-wrapper');
+			if (hasProjectEdgeWrapper) {
+				console.log('FadeOut: Project edge wrapper detected, fading directly');
+				hasProjectEdgeWrapper.style.opacity = '1';
+				hasProjectEdgeWrapper.style.transition = `opacity ${duration}ms ease-in-out`;
+				hasProjectEdgeWrapper.style.opacity = '0';
+				await new Promise(resolve => setTimeout(resolve, duration));
+				return;
+			}
+
+			// Determine the target for the fade based on screen size (for regular content)
 			const isDesktopOrTablet = window.innerWidth > 768;
 			let targetElement = element;
 			if (isDesktopOrTablet && element === blogContentElement) {
@@ -105,7 +135,29 @@ document.addEventListener('DOMContentLoaded', function () {
 		async function fadeInElement(element, duration = 300) {
 			if (!element) return;
 
-			// Determine the target for the fade based on screen size
+			// Check if we have a project-edge-wrapper (don't apply inner wrapper fade logic)
+			const hasProjectEdgeWrapper = element.querySelector('.project-edge-wrapper');
+			if (hasProjectEdgeWrapper) {
+				console.log('FadeIn: Project edge wrapper detected, fading directly');
+				// Force layout to prevent Chrome rendering issues
+				hasProjectEdgeWrapper.style.transform = 'translateZ(0)';
+				hasProjectEdgeWrapper.style.willChange = 'opacity';
+				hasProjectEdgeWrapper.style.opacity = '0';
+				hasProjectEdgeWrapper.style.transition = `opacity ${duration}ms ease-in-out`;
+
+				// Force repaint
+				hasProjectEdgeWrapper.offsetHeight;
+
+				await new Promise(resolve => setTimeout(resolve, 20)); // Small delay for style application
+				hasProjectEdgeWrapper.style.opacity = '1';
+				await new Promise(resolve => setTimeout(resolve, duration));
+
+				// Clean up will-change for performance
+				hasProjectEdgeWrapper.style.willChange = 'auto';
+				return;
+			}
+
+			// Determine the target for the fade based on screen size (for regular content)
 			const isDesktopOrTablet = window.innerWidth > 768;
 			let targetElement = element;
 			if (isDesktopOrTablet && element === blogContentElement) {
@@ -140,6 +192,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		function addOrUpdateBackButton() {
 			if (!blogContentElement) return null;
+
+			// Check if we're loading a project-edge-wrapper which already has its own navigation
+			const hasProjectEdgeWrapper = blogContentElement.querySelector('.project-edge-wrapper') ||
+				blogContentElement.innerHTML.includes('project-edge-wrapper');
+			if (hasProjectEdgeWrapper) {
+				console.log('[blog.js] Project edge wrapper detected, skipping back button creation');
+				return null;
+			}
+
 			let backButton = blogContentElement.querySelector('.dynamic-back-button');
 			if (!backButton) {
 				backButton = document.createElement('button');
@@ -206,64 +267,101 @@ document.addEventListener('DOMContentLoaded', function () {
 				const parser = new DOMParser();
 				const doc = parser.parseFromString(htmlText, 'text/html');
 
-				const contentToExtractSelector = isProject ? 'div.project-wrapper' : 'article.post';
+				let contentToExtractSelector = isProject ? 'div.project-edge-wrapper' : 'article.post';
 				let newContentContainer = doc.querySelector(contentToExtractSelector);
+
+				console.log('[blog.js] Initial selector:', contentToExtractSelector);
+				console.log('[blog.js] Found content container:', newContentContainer);
+
+				// Fallback for projects: if project-edge-wrapper is not found, try project-wrapper
+				if (!newContentContainer && isProject) {
+					contentToExtractSelector = 'div.project-wrapper';
+					newContentContainer = doc.querySelector(contentToExtractSelector);
+					console.log('[blog.js] Fallback selector:', contentToExtractSelector);
+					console.log('[blog.js] Fallback content container:', newContentContainer);
+				}
 
 				// Fallback: if loading a post and article.post is not found, try div.project-wrapper
 				if (!newContentContainer && !isProject) {
 					newContentContainer = doc.querySelector('div.project-wrapper');
+					console.log('[blog.js] Post fallback to project-wrapper:', newContentContainer);
 				}
 
 				const backButton = addOrUpdateBackButton();
+				console.log('[blog.js] Back button created:', backButton);
 
 				if (newContentContainer) {
+					console.log('[blog.js] Content container found, proceeding with insertion');
+					console.log('[blog.js] Container classes:', newContentContainer.className);
+					console.log('[blog.js] Container HTML preview:', newContentContainer.outerHTML.substring(0, 200) + '...');
+
 					const contentFragment = document.createDocumentFragment();
-					// Add the inner wrapper conditionally for desktop/tablet
-					const isDesktopOrTablet = window.innerWidth > 768;
-					if (isDesktopOrTablet) {
-						const innerWrapper = document.createElement('div');
-						innerWrapper.className = 'content-inner-wrapper';
-						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
 
-						// Ensure newContentContainer itself gets dynamic-loaded if it's the project-wrapper
-						// or find the project-wrapper within it.
-						let projectWrapperInstance = null;
-						if (newContentContainer.classList.contains('project-wrapper')) {
-							projectWrapperInstance = newContentContainer;
-						} else {
-							projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
-						}
+					// Special handling for project-edge-wrapper: don't add extra wrappers
+					if (newContentContainer.classList.contains('project-edge-wrapper')) {
+						console.log('[blog.js] Project edge wrapper detected, inserting without extra wrappers');
 
+						// Find and mark project-wrapper inside edge-wrapper with dynamic-loaded
+						const projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
 						if (projectWrapperInstance) {
 							projectWrapperInstance.classList.add('dynamic-loaded');
-							console.log('Added dynamic-loaded to:', projectWrapperInstance);
-						}
-
-						innerWrapper.appendChild(newContentContainer.cloneNode(true));
-						contentFragment.appendChild(innerWrapper);
-					} else {
-						// Mobile: Add dynamic-loaded class to .project-wrapper if present
-						let projectWrapperInstance = null;
-						if (newContentContainer.classList.contains('project-wrapper')) {
-							projectWrapperInstance = newContentContainer;
-						} else {
-							projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
-						}
-
-						if (projectWrapperInstance) {
-							projectWrapperInstance.classList.add('dynamic-loaded');
-							console.log('Added dynamic-loaded to (mobile):', projectWrapperInstance);
+							console.log('Added dynamic-loaded to project-wrapper inside edge-wrapper:', projectWrapperInstance);
 						}
 
 						const clonedContent = newContentContainer.cloneNode(true);
 						contentFragment.appendChild(clonedContent);
+					} else {
+						// Regular content: Add the inner wrapper conditionally for desktop/tablet
+						const isDesktopOrTablet = window.innerWidth > 768;
+						console.log('[blog.js] Is desktop/tablet:', isDesktopOrTablet);
+						if (isDesktopOrTablet) {
+							const innerWrapper = document.createElement('div');
+							innerWrapper.className = 'content-inner-wrapper';
+							innerWrapper.style.opacity = '0'; // Start transparent for fade-in
+
+							// Handle project-wrapper inside regular content
+							let projectWrapperInstance = null;
+							if (newContentContainer.classList.contains('project-wrapper')) {
+								projectWrapperInstance = newContentContainer;
+							} else {
+								projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
+							}
+
+							if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
+								projectWrapperInstance.classList.add('dynamic-loaded');
+								console.log('Added dynamic-loaded to:', projectWrapperInstance);
+							}
+
+							innerWrapper.appendChild(newContentContainer.cloneNode(true));
+							contentFragment.appendChild(innerWrapper);
+						} else {
+							// Mobile: Add dynamic-loaded class to .project-wrapper if present
+							let projectWrapperInstance = null;
+							if (newContentContainer.classList.contains('project-wrapper')) {
+								projectWrapperInstance = newContentContainer;
+							} else {
+								projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
+							}
+
+							if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
+								projectWrapperInstance.classList.add('dynamic-loaded');
+								console.log('Added dynamic-loaded to (mobile):', projectWrapperInstance);
+							}
+
+							const clonedContent = newContentContainer.cloneNode(true);
+							contentFragment.appendChild(clonedContent);
+						}
 					}
 
 					if (backButton) {
+						console.log('[blog.js] Inserting content after back button');
 						backButton.after(contentFragment);
 					} else {
+						console.log('[blog.js] Appending content directly to blog element');
 						blogContentElement.appendChild(contentFragment);
 					}
+
+					console.log('[blog.js] Content inserted, blog element children count:', blogContentElement.children.length);
 					initializeBlogFeatures(blogContentElement); // This will now delegate carousel init
 					// Initialize project tabs for dynamically loaded content
 					if (window.initializeProjectTabs) {
@@ -286,7 +384,49 @@ document.addEventListener('DOMContentLoaded', function () {
 							}
 						}, 100);
 					}
+
+					// Set up scroll button for dynamic content - multiple attempts
+					function setupDynamicScrollButton() {
+						const scrollButton = blogContentElement.querySelector('.read-story-button') ||
+							blogContentElement.querySelector('#scrollToFullStoryBtn');
+
+						if (scrollButton) {
+							console.log('[blog.js] Found scroll button for dynamic content:', scrollButton);
+
+							// Remove any existing handlers
+							scrollButton.onclick = null;
+
+							// Add new handler
+							scrollButton.onclick = function (e) {
+								e.preventDefault();
+								console.log('[blog.js] Dynamic scroll button clicked');
+								if (window.scrollToFullStory) {
+									window.scrollToFullStory();
+								} else {
+									console.error('[blog.js] scrollToFullStory function not available');
+								}
+							};
+
+							console.log('[blog.js] Dynamic scroll button handler attached');
+							return true;
+						} else {
+							console.log('[blog.js] Scroll button not found yet for dynamic content');
+							return false;
+						}
+					}
+
+					// Try multiple times with increasing delays
+					if (!setupDynamicScrollButton()) {
+						setTimeout(setupDynamicScrollButton, 100);
+						setTimeout(setupDynamicScrollButton, 300);
+						setTimeout(setupDynamicScrollButton, 500);
+					}
 				} else {
+					console.log('[blog.js] ERROR: No content container found!');
+					console.log('[blog.js] Available elements in doc:', doc.querySelector('body').children);
+					console.log('[blog.js] isProject:', isProject);
+					console.log('[blog.js] URL:', url);
+
 					const errorMsg = document.createElement('p');
 					errorMsg.textContent = 'Sorry, the content could not be loaded.';
 					// Add the inner wrapper conditionally here too if needed, or just append directly?

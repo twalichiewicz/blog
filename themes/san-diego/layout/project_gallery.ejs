@@ -3,122 +3,160 @@
 <%- partial('_partial/head') %>
 <body class="project-page">
 	<div class="page-transition-overlay"></div>
-	<div class="project-wrapper">
-		<div class="project-navigation">
-			<div class="project-mini-bio">
-				<div class="button-stack">
-					<a href="<%= url_for('/') %>" class="project-home-button" title="Home">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-							<path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
-							<path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
-						</svg>
-						<span>Home</span>
-					</a>
+	<!-- Edge-to-edge wrapper -->
+	<div class="project-edge-wrapper">
+				<!-- Above the fold preview - 100vh -->
+		<div class="above-the-fold-preview">
+			<!-- Project navigation positioned absolutely -->
+			<div class="project-navigation">
+				<div class="project-mini-bio">
+					<div class="button-stack">
+						<a href="<%= url_for('/') %>" class="project-home-button" title="Home">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+								<path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+							</svg>
+							<span>Home</span>
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="project-title">
-			<span class="project-category"><%- page.company %></span>
-			<h2><%- page.title %></h2>
-		</div>
-		<div class="project-gallery<%= !page.gallery_images || page.gallery_images.length === 0 ? ' hidden' : '' %>">
-			<div class="carousel" aria-label="Media carousel">
-				<div class="carousel-track">
-					<% if (page.gallery_images && page.gallery_images.length > 0) { %>
-						<% page.gallery_images.forEach((item, index) => { %>
-							<div class="carousel-slide <%= index === 0 ? 'active' : '' %>" aria-hidden="<%= index === 0 ? 'false' : 'true' %>">
-								<% if (item.type === 'video') { %>
-									<% 
-									const autoplay = item.autoplay !== false;
-									const loop = item.loop !== false;
-									const muted = item.muted !== false;
-                                    
-                                    let rawPosterPath = item.poster;
-                                    if (rawPosterPath && rawPosterPath.length > 1 && rawPosterPath.startsWith('"') && rawPosterPath.endsWith('"')) {
-                                        rawPosterPath = rawPosterPath.substring(1, rawPosterPath.length - 1);
-                                    }
+			<!-- Edge-to-edge project gallery -->
+			<div class="project-gallery-hero<%= !page.gallery_images || page.gallery_images.length === 0 ? ' hidden' : '' %>">
+				<div class="carousel" aria-label="Media carousel">
+					<div class="carousel-track">
+						<% if (page.gallery_images && page.gallery_images.length > 0) { %>
+							<% page.gallery_images.forEach((item, index) => { %>
+								<div class="carousel-slide <%= index === 0 ? 'active' : '' %>" aria-hidden="<%= index === 0 ? 'false' : 'true' %>">
+									<% if (item.type === 'video') { %>
+										<% 
+										const autoplay = item.autoplay !== false;
+										const loop = item.loop !== false;
+										const muted = item.muted !== false;
+		                                
+		                                let rawPosterPath = item.poster;
+		                                if (rawPosterPath && rawPosterPath.length > 1 && rawPosterPath.startsWith('"') && rawPosterPath.endsWith('"')) {
+		                                    rawPosterPath = rawPosterPath.substring(1, rawPosterPath.length - 1);
+		                                }
 
-                                    let galleryItemPosterPath = rawPosterPath;
-                                    if (rawPosterPath && !rawPosterPath.startsWith('/') && !rawPosterPath.startsWith('http')) {
-                                        galleryItemPosterPath = page.path + rawPosterPath;
-                                    }
-                                    const finalPosterSrc = galleryItemPosterPath ? url_for(galleryItemPosterPath) : '';
-									%>
-									<video controls preload="metadata" playsinline crossorigin="anonymous" <%= finalPosterSrc ? `poster="${finalPosterSrc}"` : '' %> <%= autoplay ? 'autoplay' : '' %> <%= loop ? 'loop' : '' %> <%= muted ? 'muted' : '' %>>
-										<% if (item.url && item.url.endsWith('.mp4')) { %>
-											<% 
-											let videoGalleryFileToProcess = item.url;
-                                            if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
-                                                videoGalleryFileToProcess = page.path + item.url;
-                                            }
-                                            const resolvedGalleryVideoPath = url_for(videoGalleryFileToProcess);
-                                            const baseGalleryVideoPathForVariants = resolvedGalleryVideoPath.replace(/\.(mp4|webm|ogg|mov)$/i, '');
-                                            const webmGalleryVariant = baseGalleryVideoPathForVariants.replace('-simple', '-compatible') + '.webm';
-                                            const mp4GalleryVariant = baseGalleryVideoPathForVariants.replace('-simple', '-compatible') + '.mp4';
-											%>
-											<source src="<%- webmGalleryVariant %>" type="video/webm">
-											<source src="<%- mp4GalleryVariant %>" type="video/mp4">
-											<source src="<%- resolvedGalleryVideoPath %>" type="video/mp4">
-										<% } else if (item.url) { 
-                                            let otherVideoPath = item.url;
-                                            if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
-                                                otherVideoPath = page.path + item.url;
-                                            }
-                                        %>
-											<source src="<%- url_for(otherVideoPath) %>" type="<%= item.videoType || 'video/mp4' %>">
-										<% } %>
+		                                let galleryItemPosterPath = rawPosterPath;
+		                                if (rawPosterPath && !rawPosterPath.startsWith('/') && !rawPosterPath.startsWith('http')) {
+		                                    galleryItemPosterPath = page.path + rawPosterPath;
+		                                }
+		                                const finalPosterSrc = galleryItemPosterPath ? url_for(galleryItemPosterPath) : '';
+										%>
+										<video controls preload="metadata" playsinline crossorigin="anonymous" <%= finalPosterSrc ? `poster="${finalPosterSrc}"` : '' %> <%= autoplay ? 'autoplay' : '' %> <%= loop ? 'loop' : '' %> <%= muted ? 'muted' : '' %>>
+											<% if (item.url && item.url.endsWith('.mp4')) { %>
+												<% 
+												let videoGalleryFileToProcess = item.url;
+		                                        if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
+		                                            videoGalleryFileToProcess = page.path + item.url;
+		                                        }
+		                                        const resolvedGalleryVideoPath = url_for(videoGalleryFileToProcess);
+		                                        const baseGalleryVideoPathForVariants = resolvedGalleryVideoPath.replace(/\.(mp4|webm|ogg|mov)$/i, '');
+		                                        const webmGalleryVariant = baseGalleryVideoPathForVariants.replace('-simple', '-compatible') + '.webm';
+		                                        const mp4GalleryVariant = baseGalleryVideoPathForVariants.replace('-simple', '-compatible') + '.mp4';
+												%>
+												<source src="<%- webmGalleryVariant %>" type="video/webm">
+												<source src="<%- mp4GalleryVariant %>" type="video/mp4">
+												<source src="<%- resolvedGalleryVideoPath %>" type="video/mp4">
+											<% } else if (item.url) { 
+		                                        let otherVideoPath = item.url;
+		                                        if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
+		                                            otherVideoPath = page.path + item.url;
+		                                        }
+		                                    %>
+												<source src="<%- url_for(otherVideoPath) %>" type="<%= item.videoType || 'video/mp4' %>">
+											<% } %>
+											<%
+		                                    let downloadVideoPath = item.url;
+		                                    if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
+		                                        downloadVideoPath = page.path + item.url;
+		                                    }
+		                                    %>
+											<p>Your browser does not support the video tag. <a href="<%- url_for(downloadVideoPath) %>" target="_blank">Download the video</a> instead.</p>
+										</video>
+									<% } else if (item.type === 'iframe') { %>
+										<iframe src="<%= item.url %>" 
+											frameborder="0"
+											allowfullscreen
+											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+											loading="lazy"
+											style="width: 100%; height: 100%; border: none;"
+											title="<%= item.caption || 'Embedded content' %>">
+										</iframe>
+									<% } else { // Image type %>
 										<%
-                                        let downloadVideoPath = item.url;
-                                        if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
-                                            downloadVideoPath = page.path + item.url;
-                                        }
-                                        %>
-										<p>Your browser does not support the video tag. <a href="<%- url_for(downloadVideoPath) %>" target="_blank">Download the video</a> instead.</p>
-									</video>
-								<% } else if (item.type === 'iframe') { %>
-									<iframe src="<%= item.url %>" 
-										frameborder="0"
-										allowfullscreen
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-										loading="lazy"
-										style="width: 100%; height: 100%; border: none;"
-										title="<%= item.caption || 'Embedded content' %>">
-									</iframe>
-								<% } else { // Image type %>
-									<%
-                                    let galleryImagePath = item.url || item.src;
-                                    if (galleryImagePath && !galleryImagePath.startsWith('/') && !galleryImagePath.startsWith('http')) {
-                                        galleryImagePath = page.path + galleryImagePath;
-                                    }
-                                    %>
-									<img src="<%- url_for(galleryImagePath) %>" 
-										alt="<%= item.caption || item.alt || '' %>"
-										loading="lazy"
-										decoding="async">
-								<% } %>
-								<% if (item.caption) { %>
-									<div class="carousel-caption"><%= item.caption %></div>
-								<% } %>
-							</div>
-						<% }); %>
-						<% if (page.gallery_images.length > 1) { %>
-							<div class="carousel-indicators">
-								<button class="carousel-button prev" aria-label="Previous slide"></button>
-								<% page.gallery_images.forEach((_, index) => { %>
-									<button class="indicator <%= index === 0 ? 'active' : '' %>" aria-label="Go to slide <%= index + 1 %>"></button>
-								<% }); %>
-								<button class="carousel-button next" aria-label="Next slide"></button>
+		                                let galleryImagePath = item.url || item.src;
+		                                if (galleryImagePath && !galleryImagePath.startsWith('/') && !galleryImagePath.startsWith('http')) {
+		                                    galleryImagePath = page.path + galleryImagePath;
+		                                }
+		                                %>
+										<img src="<%- url_for(galleryImagePath) %>" 
+											alt="<%= item.caption || item.alt || '' %>"
+											loading="lazy"
+											decoding="async">
+									<% } %>
+									<% if (item.caption) { %>
+										<div class="carousel-caption"><%= item.caption %></div>
+									<% } %>
+								</div>
+							<% }); %>
+							<% if (page.gallery_images.length > 1) { %>
+								<div class="carousel-indicators">
+									<button class="carousel-button prev" aria-label="Previous slide"></button>
+									<% page.gallery_images.forEach((_, index) => { %>
+										<button class="indicator <%= index === 0 ? 'active' : '' %>" aria-label="Go to slide <%= index + 1 %>"></button>
+									<% }); %>
+									<button class="carousel-button next" aria-label="Next slide"></button>
+								</div>
+							<% } %>
+						<% } else { %>
+							<div class="carousel-empty">
+								<p>No media content available</p>
 							</div>
 						<% } %>
-					<% } else { %>
-						<div class="carousel-empty">
-							<p>No media content available</p>
-						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Above the fold content wrapper -->
+			<div class="above-fold-content-wrapper">
+				<!-- Project title -->
+				<div class="project-title">
+					<span class="project-category"><%- page.company %></span>
+					<h2><%- page.title %></h2>
+					<% if (page.byline) { %>
+						<p class="project-byline"><%- page.byline %></p>
 					<% } %>
+				</div>
+				
+				<!-- Project impact stats -->
+				<% if (page.stats && page.stats.length > 0) { %>
+					<div class="project-impact-stats">
+						<% page.stats.forEach(function(stat) { %>
+							<div class="stat-item">
+								<div class="stat-value"><%- stat.value %></div>
+								<div class="stat-label"><%- stat.label %></div>
+							</div>
+						<% }); %>
+					</div>
+				<% } %>
+				
+				<!-- Read full story button -->
+				<div class="read-story-button-container">
+					<button class="read-story-button" id="scrollToFullStoryBtn">
+						Read the full story below
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M12 16.5l-6-6h12l-6 6z"/>
+						</svg>
+					</button>
 				</div>
 			</div>
 		</div>
 		
+		<!-- Full story content -->
+		<div class="project-wrapper" id="full-story">
 		<div class="project-content">
 			<div class="project-details">
 				<%- partial('_partial/project-tabs') %>
@@ -152,103 +190,112 @@
 			</div>
 		</div>
 		<% } %>
-
-		<style>
-			/* Fade-in animation styles */
-			.page-transition-overlay {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background-color: #000;
-				z-index: 9999;
-				opacity: 1;
-				transition: opacity 1s ease-out;
-			}
-			
-			.page-transition-overlay.fade-out {
-				opacity: 0;
-			}
-			
-			html, body {
-				height: 100%;
-				margin: 0;
-				padding: 0;
-				overflow: auto;
-				-webkit-overflow-scrolling: touch;
-			}
-			
-			body {
-				opacity: 0;
-				transition: opacity 0.5s ease-in;
-			}
-			
-			body.loaded {
-				opacity: 1;
-			}
-			
-			.project-wrapper {
-				min-height: auto;
-				transform: translateY(20px);
-				transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-							opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-				opacity: 0;
-			}
-			
-			/* Mobile-specific styles to ensure proper scrolling */
-			@media (max-width: 768px) {
-				html, body {
-					overflow: auto !important;
-					-webkit-overflow-scrolling: touch !important;
-					height: auto !important;
-				}
-				
-				.project-wrapper {
-					min-height: auto !important;
-					height: auto !important;
-					overflow: visible !important;
-				}
-				
-				.project-content {
-					overflow: visible !important;
-					height: auto !important;
-				}
-				
-				.project-details {
-					overflow: visible !important;
-					height: auto !important;
-				}
-			}
-			
-			body.loaded .project-wrapper {
-				transform: translateY(0);
-				opacity: 1;
-			}
-			
-			.project-navigation {
-				transform: translateY(-10px);
-				transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
-							opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-				opacity: 0;
-			}
-			
-			body.loaded .project-navigation {
-				transform: translateY(0);
-				opacity: 1;
-			}
-			
-			/* Rule removed, will be added to global SCSS */
-			/* .project-wrapper.dynamic-loaded .project-navigation {
-				display: none !important;
-			} */
-			.project-gallery.hidden {
-				display: none;
-			}
-		</style>
+	</div>
 	</div>
 
+	<style>
+		/* Page fade-in animation styles */
+		.page-transition-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #000;
+			z-index: 9999;
+			opacity: 1;
+			transition: opacity 1s ease-out;
+		}
+		
+		.page-transition-overlay.fade-out {
+			opacity: 0;
+		}
+		
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+		
+		body {
+			opacity: 0;
+			transition: opacity 0.5s ease-in;
+		}
+		
+		body.loaded {
+			opacity: 1;
+		}
+		
+		.project-wrapper {
+			min-height: auto;
+			transform: translateY(20px);
+			transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+						opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+			opacity: 0;
+		}
+		
+		body.loaded .project-wrapper {
+			transform: translateY(0);
+			opacity: 1;
+		}
+		
+		.project-navigation {
+			transform: translateY(-10px);
+			transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+						opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+			opacity: 0;
+		}
+		
+		body.loaded .project-navigation {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	</style>
+
 	<script>
+		// Define scroll function for standalone pages (fallback if blog.js not loaded)
+		function scrollToFullStory() {
+			console.log('[template] Scroll button clicked!');
+			const fullStoryElement = document.getElementById('full-story');
+			if (!fullStoryElement) {
+				console.error('[template] Full story element not found');
+				return;
+			}
+			
+			// Simple scroll with smooth behavior
+			fullStoryElement.scrollIntoView({ 
+				behavior: 'smooth', 
+				block: 'start' 
+			});
+		}
+
+		// Make function globally available (for both standalone and dynamic contexts)
+		if (!window.scrollToFullStory) {
+			window.scrollToFullStory = scrollToFullStory;
+		}
+
+		// Set up scroll button for standalone pages
+		function setupStandaloneScrollButton() {
+			const button = document.getElementById('scrollToFullStoryBtn');
+			if (button) {
+				console.log('[template] Setting up standalone scroll button');
+				button.onclick = function(e) {
+					e.preventDefault();
+					console.log('[template] Standalone scroll button clicked');
+					window.scrollToFullStory();
+				};
+			}
+		}
+
+		// Set up immediately or on DOM ready
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupStandaloneScrollButton);
+		} else {
+			setupStandaloneScrollButton();
+		}
+
 		// Page fade-in animation
 		document.addEventListener('DOMContentLoaded', function() {
 			// Wait for images to load

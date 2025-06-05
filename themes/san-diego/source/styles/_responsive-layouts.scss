@@ -564,9 +564,9 @@
 }
 
 /* ==========================================================================
-   Desktop Layout
+   Desktop Layout - TEMPORARILY DISABLED DUE TO CHROME RENDERING ISSUES
    ========================================================================== */
-.device-desktop .blog {
+.device-desktop-DISABLED .blog {
 	display: flex;
 	flex-direction: row;
 	height: 100vh;
@@ -622,9 +622,7 @@
 			padding: 0;
 			border-radius: 15px 0 0;
 
-			transform: translateZ(0);
-			transform: translateZ(0);
-			isolation: isolate;
+			/* Removed duplicate transforms that can cause Chrome rendering issues */
 		}
 
 		#postsContent,
@@ -638,14 +636,10 @@
 			margin: 0;
 			box-sizing: border-box;
 
-			contain: layout style paint;
-			will-change: scroll-position;
-			transform: translateZ(0);
-			transform: translateZ(0);
-
+			/* Simplified performance properties to reduce Chrome rendering issues */
+			contain: layout;
 			-webkit-overflow-scrolling: touch;
-			overflow-anchor: none;
-			scroll-behavior: auto;
+			scroll-behavior: smooth;
 
 			&::-webkit-scrollbar {
 				width: 6px;
@@ -670,7 +664,7 @@
 			}
 
 			.portfolio-item {
-				will-change: auto;
+				/* Removed will-change to reduce rendering overhead */
 			}
 
 			.company-group {}
@@ -1481,5 +1475,15 @@
 		.profile-byline {
 			display: block;
 		}
+	}
+}
+
+/* Dark mode styles for device-specific profile byline */
+@media (prefers-color-scheme: dark) {
+
+	.device-tablet .blog .blog-header .profile-header .profile-info .profile-byline,
+	.device-desktop .blog .blog-header .profile-header .profile-info .profile-byline,
+	.device-mobile .blog .blog-header .profile-header .profile-info .profile-byline {
+		color: variables.$text-color-secondary-dark;
 	}
 }

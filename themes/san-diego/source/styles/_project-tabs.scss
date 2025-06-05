@@ -162,6 +162,7 @@
 			}
 
 			.tab-panel-content {
+
 				h2,
 				h3 {
 					margin-top: 0;
@@ -276,8 +277,8 @@
 		}
 
 		p {
-			// Desktop styles
-			font-size: 24px;
+			// Updated to 18px for both desktop and all contexts
+			font-size: 18px;
 			margin: 0 0 24px;
 			line-height: 1.6;
 
@@ -288,7 +289,6 @@
 
 			// Mobile styles
 			@media (max-width: variables.$mobile-breakpoint) {
-				font-size: 18px;
 				margin: 0 0 16px;
 			}
 		}
