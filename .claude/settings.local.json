@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run build:*)",
+      "Bash(rg:*)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg \"figure.*hover|hover.*figure\" /Users/waliwalu/Documents/GitHub/blog --type scss)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg \"figure.*hover|hover.*figure\" /Users/waliwalu/Documents/GitHub/blog --glob \"*.scss\")",
+      "Bash(npm run server:*)",
+      "Bash(hexo server:*)",
+      "Bash(hexo clean:*)",
+      "Bash(pkill:*)",
+      "Bash(rm:*)",
+      "Bash(hexo generate:*)",
+      "Bash(git checkout:*)",
+      "Bash(sed:*)"
+    ],
+    "deny": []
+  }
+}
