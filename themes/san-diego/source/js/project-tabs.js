@@ -33,6 +33,22 @@ function initializeProjectTabs(container = document) {
 		const activePanel = projectTabs.querySelector(`#${targetTab}`);
 		if (activePanel) {
 			activePanel.classList.add('active');
+			
+			// Optimize Projects tab loading - only initialize once
+			if (targetTab === 'projectsContent' && !activePanel.dataset.initialized) {
+				requestAnimationFrame(() => {
+					initializeProjectsLazyLoading(activePanel);
+					activePanel.dataset.initialized = 'true';
+				});
+			}
+		}
+	}
+
+	function initializeProjectsLazyLoading(projectsPanel) {
+		// The browser's native lazy loading is actually more efficient
+		// Just ensure all videos are properly initialized for the video autoplay manager
+		if (window.videoAutoplayManager && typeof window.videoAutoplayManager.refresh === 'function') {
+			window.videoAutoplayManager.refresh();
 		}
 	}
 

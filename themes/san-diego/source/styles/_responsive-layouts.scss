@@ -187,7 +187,7 @@
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	overflow: hidden auto;
+	overflow: unset;
 	position: relative;
 
 	.blog-header {
@@ -1035,6 +1035,7 @@
 		box-shadow: none !important;
 		border: none !important;
 		border-radius: 0 !important;
+		overflow: unset;
 
 		&::before {
 			display: none !important;

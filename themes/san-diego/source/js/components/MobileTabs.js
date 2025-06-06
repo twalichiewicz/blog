@@ -300,8 +300,28 @@ export default class MobileTabs {
 			// Fallback to data-active-tab if no user selection (e.g. from previous state or HTML)
 			targetTabType = this.tabContainer.dataset.activeTab;
 		} else if (!targetTabType) {
-			// If still no target, default to 'blog'
-			targetTabType = 'blog';
+			// Check URL parameter first
+			const urlParams = new URLSearchParams(window.location.search);
+			const tabParam = urlParams.get('tab');
+			
+			if (tabParam && (tabParam === 'portfolio' || tabParam === 'blog')) {
+				targetTabType = tabParam;
+				console.log('[MobileTabs] Using URL parameter tab:', targetTabType);
+			} else {
+				// Fallback to referrer check
+				const referrer = document.referrer;
+				const isFromProject = referrer && (
+					referrer.includes('/20') && // matches year-based URLs like /2023/01/01/project-name
+					!referrer.includes('#') && // not an anchor link
+					referrer !== window.location.href // not the same page
+				);
+				
+				console.log('[MobileTabs] Referrer detection:', { referrer, isFromProject });
+				
+				// If coming from a project, default to 'portfolio', otherwise 'blog'
+				targetTabType = isFromProject ? 'portfolio' : 'blog';
+				console.log('[MobileTabs] Setting default tab to:', targetTabType);
+			}
 		}
 
 		const targetButton = Array.from(this.tabButtons).find(
@@ -412,8 +432,9 @@ export default class MobileTabs {
 		// Show appropriate content
 		this.showContent(type);
 
-		// Update slider position
-		this.updateSlider();
+		// Update slider position with debouncing
+		if (this.sliderUpdateTimeout) clearTimeout(this.sliderUpdateTimeout);
+		this.sliderUpdateTimeout = setTimeout(() => this.updateSlider(), 16);
 	}
 
 	/**
