@@ -1,7 +1,7 @@
-@use 'variables';
+@use "sass:color";
+@use "variables" as variables;
 @use 'device-breakpoints';
 @use 'theme-modes';
-@use "sass:color";
 
 @mixin portfolio-grid-layout {
 	display: grid;
@@ -259,7 +259,7 @@
 				text-align: center;
 				transition: all 0.2s ease;
 				white-space: nowrap;
-				background: rgba(variables.$link-color, 0.8);
+				background: color.adjust(variables.$link-color, $lightness: -5%);
 				border: 1px solid rgba(variables.$link-color, 0.6);
 				border-radius: 6px;
 				cursor: pointer;
