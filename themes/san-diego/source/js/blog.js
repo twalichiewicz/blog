@@ -241,10 +241,14 @@ document.addEventListener('DOMContentLoaded', function () {
 						}
 					}, 50);
 				} else {
-					// Coming from a blog post, show blog tab (default)
+					// Coming from a blog post, show blog tab and clean URL
 					setTimeout(() => {
 						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
 							window.mobileTabs.switchTab('blog', true);
+						}
+						// Clean up URL parameter if coming from blog post
+						if (window.location.search.includes('tab=portfolio')) {
+							history.replaceState({ path: '/', isInitial: true, isDynamic: false }, '', '/');
 						}
 					}, 50);
 				}

@@ -411,6 +411,11 @@ export default class MobileTabs {
 	switchTab(type, isUserAction = false) {
 		if (isUserAction) {
 			this.userSelectedTab = type; // Remember user's choice
+			
+			// Clean up URL parameter when user manually switches to blog tab
+			if (type === 'blog' && window.location.search.includes('tab=portfolio')) {
+				history.replaceState({ path: '/', isInitial: true, isDynamic: false }, '', '/');
+			}
 		}
 
 		// Remove active class from all buttons
