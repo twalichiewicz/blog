@@ -43,8 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			console.warn('[blog.js] initializeCarousels not found!');
 		}
 
-		// --- Video Autoplay ---
-		if (videoAutoplayManager && typeof videoAutoplayManager.refresh === 'function') {
+		// --- Video Autoplay --- Only refresh if there are videos in the container
+		const hasVideos = container.querySelector('video[data-autoplay="true"]');
+		if (hasVideos && videoAutoplayManager && typeof videoAutoplayManager.refresh === 'function') {
 			console.log('[blog.js] Refreshing video autoplay manager for container:', container);
 			videoAutoplayManager.refresh();
 		}
@@ -216,11 +217,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			const backButtonClickHandler = async function (event) {
 				event.preventDefault();
+				
+				// Determine what type of content we're returning from
+				const currentHistoryState = history.state;
+				const isReturningFromProject = currentHistoryState && currentHistoryState.isProject === true;
+				
+				console.log('[blog.js] Back button clicked, returning from project:', isReturningFromProject);
+				
 				await fadeOutElement(blogContentElement);
 				blogContentElement.innerHTML = initialBlogContentHTML;
 				initializeBlogFeatures(blogContentElement);
 				initializeLinkListeners(blogContentElement);
+				
+				// Initialize mobile tabs
 				initializeMobileTabs();
+				
+				// Set the appropriate tab based on content type
+				if (isReturningFromProject) {
+					// Coming from a project, show portfolio tab
+					setTimeout(() => {
+						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+							window.mobileTabs.switchTab('portfolio', true);
+						}
+					}, 50);
+				} else {
+					// Coming from a blog post, show blog tab (default)
+					setTimeout(() => {
+						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+							window.mobileTabs.switchTab('blog', true);
+						}
+					}, 50);
+				}
+				
 				// Re-initialize sound effects when returning to home page
 				if (window.initializeSoundEffects) {
 					console.log('[blog.js] Re-initializing sound effects for back navigation');

@@ -2,6 +2,15 @@
 @use 'sass:color';
 @use 'propel';
 
+// Hidden tab content optimization
+.tab-panel:not(.active) {
+	.portfolio-item {
+		img, video {
+			visibility: hidden;
+		}
+	}
+}
+
 // Project edge wrapper styles
 body .project-edge-wrapper {
 	.above-fold-content-wrapper {
