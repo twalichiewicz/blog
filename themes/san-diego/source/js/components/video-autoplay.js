@@ -56,18 +56,31 @@ class VideoAutoplayManager {
 	}
 
 	setupVideo(video) {
+		// Check if this is a trailer video
+		const isTrailer = video.closest('.project-trailer-hero') !== null;
+		
 		// Store video state
 		this.videos.set(video, {
 			isPlaying: false,
 			hasPlayedOnce: false,
-			playPromise: null
+			playPromise: null,
+			isTrailer: isTrailer
 		});
 
 		// Ensure video is properly configured
 		video.muted = true;
 		video.playsInline = true;
 		video.loop = true;
-		video.preload = 'metadata';
+		
+		// Different preload strategy for trailers vs gallery videos
+		video.preload = isTrailer ? 'auto' : 'metadata';
+		
+		// For trailer videos, disable user interaction
+		if (isTrailer) {
+			video.style.pointerEvents = 'none';
+			video.setAttribute('disablePictureInPicture', 'true');
+			video.setAttribute('controlsList', 'nodownload nofullscreen noremoteplayback');
+		}
 
 		// Add loading state
 		video.setAttribute('data-loading', 'true');
@@ -125,11 +138,17 @@ class VideoAutoplayManager {
 			if (!state) return;
 
 			if (entry.isIntersecting) {
-				// Video is visible, try to play (Reverted to original behavior)
+				// Video is visible, try to play
 				this.attemptPlay(video);
 			} else {
-				// Video is not visible, pause it
-				this.pauseVideo(video);
+				// Video is not visible, pause it (but be more aggressive for trailers)
+				if (state.isTrailer) {
+					// Trailers should pause immediately when out of view
+					this.pauseVideo(video);
+				} else {
+					// Gallery videos can have a small delay
+					this.pauseVideo(video);
+				}
 			}
 		});
 	}
@@ -211,6 +230,14 @@ class VideoAutoplayManager {
 	}
 
 	setupUserInteractionFallback(video) {
+		const state = this.videos.get(video);
+		
+		// Don't add interaction fallback for trailer videos
+		if (state && state.isTrailer) {
+			console.log('Trailer video autoplay failed - no user interaction fallback');
+			return;
+		}
+		
 		// Add a subtle play button overlay or handle click to play
 		const container = video.closest('.portfolio-image');
 		if (!container) return;

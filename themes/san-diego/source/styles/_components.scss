@@ -2260,65 +2260,183 @@ table {
 
 /* Project Stats
    ========================================================================== */
+
+// CSS custom property for animated border
+@property --angle {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: false;
+}
+
+// Keyframes for border rotation
+@keyframes rotate {
+	0% {
+		--angle: 0deg;
+	}
+	100% {
+		--angle: 360deg;
+	}
+}
+
 .project-impact-stats {
 	/* Changed from project-stats to avoid JS conflicts */
 	display: flex;
-	justify-content: space-between;
-	gap: variables.$space-xl;
-	margin: variables.$space-xl 0;
-	padding: variables.$space-xl;
-	background: var(--surface-color);
-	border-radius: 12px;
-	box-shadow: var(--shadow-sm);
+	justify-content: flex-start;
+	gap: clamp(0.75rem, 2vw, 1.5rem);
+	margin: 0;
+	padding: 0;
+	background: none;
+	border-radius: 0;
+	box-shadow: none;
 	opacity: 1;
+	flex-wrap: wrap;
+
+	.stat-item-wrapper {
+		position: relative;
+		flex-shrink: 0;
+		
+		// Default solid gradient border
+		&::before {
+			content: '';
+			position: absolute;
+			inset: -1px;
+			background: linear-gradient(135deg, 
+				rgba(156, 163, 175, 0.3) 0%, 
+				rgba(156, 163, 175, 0.1) 50%, 
+				rgba(156, 163, 175, 0.3) 100%
+			);
+			border-radius: 12px;
+			z-index: -1;
+			opacity: 1;
+			transition: all 0.4s ease;
+			animation: none;
+		}
+		
+		// Animated border effect on hover
+		&::after {
+			content: '';
+			position: absolute;
+			inset: -1px;
+			background: conic-gradient(
+				from var(--angle),
+				transparent 70%,
+				rgba(156, 163, 175, 0.6) 80%,
+				rgba(156, 163, 175, 0.8) 90%,
+				rgba(156, 163, 175, 0.6) 100%
+			);
+			border-radius: 12px;
+			z-index: -1;
+			opacity: 0;
+			transition: opacity 0.4s ease;
+			animation: none;
+		}
+		
+		&:hover::after {
+			opacity: 1;
+			animation: rotate 12s linear infinite;
+		}
+	}
 
 	.stat-item {
-		flex: 1;
+		position: relative;
+		flex: none;
 		text-align: center;
-		padding: variables.$space-lg;
-		background: var(--background-color);
-		border-radius: 8px;
+		padding: clamp(0.75rem, 1.5vh, 1.25rem) clamp(1rem, 2vh, 1.5rem);
+		background: rgba(255, 255, 255, 0.08);
+		backdrop-filter: blur(30px);
+		-webkit-backdrop-filter: blur(30px);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		border-radius: 11px;
+		overflow: hidden;
 		opacity: 1;
 		transform: translateY(0);
-		transition: transform 0.2s ease;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		min-width: 120px;
+		
+		// Enhanced glassmorphism shadow - using hover as default
+		box-shadow: 
+			0 8px 30px rgba(0, 0, 0, 0.2),
+			inset 0 1px 1px rgba(255, 255, 255, 0.15);
 
 		&:hover {
-			transform: translateY(-2px);
+			transform: translateY(-5px);
+			background: rgba(255, 255, 255, 0.05);
+			border-color: rgba(255, 255, 255, 0.2);
+			box-shadow: 
+				0 12px 40px rgba(0, 0, 0, 0.25),
+				inset 0 1px 1px rgba(255, 255, 255, 0.2);
 		}
 
 		.stat-value {
-			font-size: 3.5rem;
+			font-size: clamp(1.75rem, 3vh, 2.25rem);
 			font-weight: 700;
-			line-height: 1.2;
-			color: var(--primary-color);
-			margin-bottom: variables.$space-xs;
+			line-height: 1.1;
+			color: #fff;
+			margin-bottom: clamp(0.25rem, 0.5vh, 0.5rem);
 			font-feature-settings: "tnum";
 			font-variant-numeric: tabular-nums;
 			opacity: 1;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 		}
 
 		.stat-label {
-			font-size: 1.25rem;
-			color: var(--text-color-secondary);
+			font-size: clamp(0.75rem, 1.2vh, 0.875rem);
+			color: rgba(255, 255, 255, 0.8);
 			font-weight: 500;
 			opacity: 1;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
 		}
 	}
 
 	@media (max-width: variables.$tablet-breakpoint) {
-		flex-direction: row; // Always keep row direction
-		gap: variables.$space-md;
-		padding: variables.$space-lg;
+		gap: clamp(0.5rem, 1.5vw, 1rem);
 
 		.stat-item {
-			padding: variables.$space-md;
+			min-width: 100px;
+			padding: clamp(0.5rem, 1vh, 0.75rem) clamp(0.75rem, 1.5vh, 1rem);
 
 			.stat-value {
-				font-size: 2.5rem;
+				font-size: clamp(1.5rem, 2.5vh, 2rem);
 			}
 
 			.stat-label {
-				font-size: 1.125rem;
+				font-size: clamp(0.625rem, 1vh, 0.75rem);
+			}
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.stat-item-wrapper {
+			// Default solid gradient border for dark mode
+			&::before {
+				background: linear-gradient(135deg, 
+					rgba(229, 231, 235, 0.3) 0%, 
+					rgba(229, 231, 235, 0.1) 50%, 
+					rgba(229, 231, 235, 0.3) 100%
+				);
+			}
+			
+			// Animated border effect for dark mode
+			&::after {
+				background: conic-gradient(
+					from var(--angle),
+					transparent 70%,
+					rgba(229, 231, 235, 0.6) 80%,
+					rgba(229, 231, 235, 0.8) 90%,
+					rgba(229, 231, 235, 0.6) 100%
+				);
+			}
+		}
+		
+		.stat-item {
+			background: rgba(20, 20, 20, 0.9);
+			border-color: rgba(255, 255, 255, 0.15);
+
+			&:hover {
+				background: rgba(30, 30, 30, 0.9);
+				border-color: rgba(255, 255, 255, 0.2);
 			}
 		}
 	}

@@ -810,14 +810,6 @@
 			}
 		}
 
-		.post-separator {
-			background: linear-gradient(to right,
-					transparent,
-					rgba(variables.$border-color-dark, 0.3),
-					transparent);
-			box-shadow: 0 0 1px rgba(variables.$border-color-dark, 0.05);
-		}
-
 		.project-separator {
 			background: linear-gradient(to right,
 					transparent,

@@ -34,11 +34,6 @@
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
 
-		&.has-dynamic-content {
-			overflow-y: auto;
-			height: calc(100vh - 12px);
-			position: relative;
-		}
 
 		// Dark mode styles moved to _theme-modes.scss
 	}
@@ -339,12 +334,9 @@
 	.post-separator {
 		border: none;
 		height: 1px;
-		background: linear-gradient(to right,
-				transparent,
-				rgba(variables.$border-color, 0.3),
-				transparent);
+		background: #e8e8e8;
 		margin: 1.5rem auto;
-		width: 90%;
+		width: 100%;
 		box-shadow: 0 0 1px rgba(variables.$border-color, 0.05);
 	}
 
