@@ -259,38 +259,12 @@
                                         return new Date(b.date).getTime() - new Date(a.date).getTime();
                                     });
                                     
-                                    // Define grid sizes in a quasi-random pattern
-                                    const gridSizes = ['2x2', '1x1', '1x2', '3x1', '1x1', '2x2', '1x2', '1x1', '3x1', '1x1'];
-                                    %>
-                                    <% 
-                                    // Track grid usage to avoid too many large items in sequence
-                                    let gridCounter = 0;
                                     %>
                                     <% sortedProjects.forEach(function(post, index) { %>
-                                        <% 
-                                        // Assign grid size based on priority and smart distribution
-                                        let gridSize = '1x1'; // default
-                                        
-                                        if (post.has_writeup !== false && post.cover_image) {
-                                            // Priority 1: Use larger sizes more often, but distribute smartly
-                                            const priority1Sizes = ['2x2', '1x2', '3x1', '1x2', '2x2', '1x1'];
-                                            gridSize = priority1Sizes[gridCounter % priority1Sizes.length];
-                                        } else if (post.has_writeup !== false) {
-                                            // Priority 2: Mix of medium and small sizes
-                                            const priority2Sizes = ['1x2', '1x1', '1x1', '3x1', '1x1', '1x2'];
-                                            gridSize = priority2Sizes[gridCounter % priority2Sizes.length];
-                                        } else {
-                                            // Priority 3: Mostly small sizes with occasional medium
-                                            const priority3Sizes = ['1x1', '1x1', '1x1', '1x2', '1x1', '1x1'];
-                                            gridSize = priority3Sizes[gridCounter % priority3Sizes.length];
-                                        }
-                                        
-                                        gridCounter++;
-                                        %>
                                         <% if (post.has_writeup !== false) { %>
-                                            <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup" data-cover-image="<%= post.cover_image ? 'true' : 'false' %>" data-grid-size="<%= gridSize %>">
+                                            <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup" data-cover-image="<%= post.cover_image ? 'true' : 'false' %>">
                                         <% } else { %>
-                                            <div class="portfolio-item" data-cover-image="<%= post.cover_image && post.has_writeup !== false ? 'true' : 'false' %>" data-grid-size="<%= gridSize %>">
+                                            <div class="portfolio-item" data-cover-image="<%= post.cover_image && post.has_writeup !== false ? 'true' : 'false' %>">
                                         <% } %>
                                         <% if (post.cover_image && post.has_writeup !== false) { %>    
                                         <div class="portfolio-image">
