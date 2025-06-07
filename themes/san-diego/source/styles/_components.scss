@@ -1025,6 +1025,32 @@ button {
 						0 -1px 0 rgb(0 0 0 / 15%) inset;
 				}
 			}
+
+			/* Mobile-specific dark mode styles for contact options */
+			.contact-options {
+				background: rgba(variables.$card-bg-dark, 0.9);
+				border-color: rgba(variables.$border-color-dark, 0.6);
+				box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
+				backdrop-filter: blur(4px);
+
+				.contact-option {
+					color: variables.$text-color-dark;
+					background: transparent;
+
+					&:hover {
+						background: rgba(variables.$link-color-dark, 0.2);
+						color: variables.$link-color-dark;
+					}
+
+					&:active {
+						background: rgba(variables.$link-color-dark, 0.3);
+					}
+
+					&:not(:last-child) {
+						border-bottom-color: rgba(variables.$border-color-dark, 0.4);
+					}
+				}
+			}
 		}
 
 		/* Desktop/tablet styles remain unchanged for dark mode */

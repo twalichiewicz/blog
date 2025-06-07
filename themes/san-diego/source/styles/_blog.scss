@@ -30,9 +30,19 @@
 		position: relative;
 		transition: opacity 0.3s ease-in-out;
 		margin-top: 12px;
-		height: calc(100vh - 12px);
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
+		
+		// Desktop/tablet: fixed height with scroll
+		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			height: calc(100vh - 12px);
+			overflow-y: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+		
+		// Mobile: no fixed height, no scroll container - just normal flow
+		@media (max-width: variables.$mobile-breakpoint) {
+			height: auto;
+			overflow: visible;
+		}
 
 
 		// Dark mode styles moved to _theme-modes.scss
