@@ -30,46 +30,8 @@ stats:
     label: "Faster Deployments"
   - value: "85%"
     label: "Fewer Support Tickets"
-summary:
-  problem:
-    content: "Autodesk's 100+ products each maintained their own custom installer with advanced configuration options. Enterprise customers had to download massive installer files, store them on local servers, and manually manage complex deployment sequences across multiple products. The company was burning millions on duplicate development work while customers struggled with fragmented, offline-only installation processes."
-  solution:
-    content: "I designed a unified web platform that dynamically generates custom installation interfaces from simple XML files. Product teams define their configuration needs in XML, and the system automatically builds the appropriate UI—no custom development required. The web-based approach eliminated the need for customers to store gigabyte-sized installers locally."
-  innovation:
-    title: "Dynamic Multi-Product Configuration System"
-    bullets:
-      - "<strong>Web-Based Accessibility:</strong> Eliminated need for local installer storage—configs live in the cloud and generate installers on-demand"
-      - "<strong>XML-Driven UI Generation:</strong> Product teams maintain simple XML files, system builds custom interfaces automatically"
-      - "<strong>Multi-Product Intelligence:</strong> System knows correct installation sequences and dependencies across multiple applications"
-      - "<strong>Shared Configuration Library:</strong> Save, duplicate, and share installation packages across teams and regions"
-      - "<strong>Dynamic Generation:</strong> Any configuration combination instantly generates a downloadable installer"
-      - "<strong>Deployment Flexibility:</strong> Create both standalone installers and enterprise deployment packages"
-      - "<strong>Multi-Language Support:</strong> Quickly generate region-specific versions with localized interfaces"
-      - "<strong>Lightweight Storage:</strong> CAD/BIM managers store tiny config files instead of massive GB installers"
-  impact:
-    bullets:
-      - "Eliminated separate installer maintenance efforts across all product teams"
-      - "Reduced enterprise deployment time from hours to minutes"
-      - "Freed up terabytes of local server storage by moving configs to cloud-based library"
-      - "Enabled complex multi-product installations with automatic dependency management"
-      - "Launched just before COVID-19, providing critical remote accessibility when teams went distributed"
-      - "Saved millions in duplicate development costs by consolidating fragmented systems"
 ---
-<!-- 
-<div class="project-impact-stats">
-  <div class="stat-item">
-    <div class="stat-value">$3-5M</div>
-    <div class="stat-label">Annual Savings</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-value">90%</div>
-    <div class="stat-label">Faster Deployments</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-value">85%</div>
-    <div class="stat-label">Fewer Support Tickets</div>
-  </div>
-</div> -->
+
 
 ## The Problem
 

@@ -6,7 +6,12 @@ byline: Empowered administrators to provision new cloud hubs instantly with a gu
 tags: [portfolio]
 has_writeup: true
 layout: project_gallery
-cover_image: 
+cover_image: selfServiceHubProv_000.png 
+stats:
+  - value: "Days → Minutes"
+    label: "Deployment Time"
+  - value: "90%"
+    label: "Self-Service Rate"
 gallery_images:
   - url: selfServiceHubProv_000.png
     type: image
@@ -16,39 +21,19 @@ gallery_images:
     type: image
   - url: selfServiceHubProv_003.png
     type: image
-summary:
-  problem:
-    content: "Enterprise customers couldn't deploy new instances of Autodesk's web products without contacting customer support. Every new project, team, or deployment required a support ticket, manual provisioning by Autodesk staff, and days of waiting. This created massive friction for customers trying to scale their operations and overwhelmed support teams with routine infrastructure requests."
-  solution:
-    content: "I designed a self-service provisioning system that allows administrators to instantly generate and manage cloud instances of any Autodesk web product. What previously required support tickets and manual intervention now happens in minutes through an automated wizard interface."
-  innovation:
-    title: "Infrastructure-as-a-Service for Enterprise Software"
-    bullets:
-      - "<strong>Universal Provisioning Engine:</strong> Single interface can generate instances of any Autodesk web product"
-      - "<strong>Guided Setup Wizard:</strong> Complex cloud infrastructure deployment simplified to step-by-step forms"
-      - "<strong>Instant Deployment:</strong> Hub instances provision automatically without human intervention"
-      - "<strong>Integrated Management Dashboard:</strong> Administrators can monitor, configure, and maintain all instances from one interface"
-      - "<strong>Standardized Architecture:</strong> Unified provisioning process across Autodesk's entire web product ecosystem"
-  impact:
-    bullets:
-      - "Eliminated support ticket dependency for infrastructure provisioning"
-      - "Reduced deployment time from days to minutes for enterprise customers"
-      - "Freed customer support teams from routine provisioning requests"
-      - "Enabled instant scalability for enterprise customers managing multiple projects"
-      - "Standardized cloud infrastructure management across all Autodesk web products"
-  credits:
-    - role: Role
-      name: Lead Product Designer, Cloud Hubs
-    - role: Timeline
-      name: 12 months
-    - role: Cross-functional partners
-      name: Cloud Platform Engineering, Customer Support, Product Management
-    - role: User research
-      name: Project owners, hub managers, construction professionals
-    - role: Technical scope
-      name: Cloud instance provisioning, team management, multi-product configuration
-    - role: Business impact
-      name: Eliminated support dependency for infrastructure deployment, enabled instant project scalability
+credits:
+- role: Role
+	name: Lead Product Designer, Cloud Hubs
+- role: Timeline
+	name: 12 months
+- role: Cross-functional partners
+	name: Cloud Platform Engineering, Customer Support, Product Management
+- role: User research
+	name: Project owners, hub managers, construction professionals
+- role: Technical scope
+	name: Cloud instance provisioning, team management, multi-product configuration
+- role: Business impact
+	name: Eliminated support dependency for infrastructure deployment, enabled instant project scalability
 ---
 
 ## Trapped by Support Tickets

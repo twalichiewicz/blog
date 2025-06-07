@@ -11,8 +11,15 @@ year: 2016
 credits:
   - role: Design & Brand Lead
     name: Thomas Walichiewicz
+trailer:
+  type: video
+  url: introVideo.webm
+  poster: cclBrand-preview.png
+  autoplay: true
+  loop: true
+  muted: true
 gallery_images:
-  - url: /2016/01/01/Common-Cents-Lab-brand/introVideo.mp4
+  - url: /2016/01/01/Common-Cents-Lab-brand/introVideo.webm
     caption: Common Cents Lab logo animation.
     type: video
   - url: /2016/01/01/Common-Cents-Lab-brand/ccPayableWebinar.png

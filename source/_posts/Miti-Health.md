@@ -1,66 +1,49 @@
 ---
-title: Mobile pharmacy app
+title: Remote pharmacy
 company: Maisha Meds
 byline: Digital platform connecting rural Kenyan pharmacies with suppliers while ensuring medication quality and inventory management
 date: 2014-01-01 14:57:27
-cover_image: 2014/01/01/Miti-Health/mitiHealth-preview.jpg
+cover_image: mitiHealth-preview.jpg
 tags: [portfolio]
 has_writeup: true
 layout: project_gallery
+stats:
+  - value: "Rural Kenya"
+    label: "Target Market"
 gallery_images:
-  - url: /2014/01/01/Miti-Health/000_mitiHealth.png
+  - url: 000_mitiHealth.png
     caption: Miti Health app interface
     type: image
-  - url: /2014/01/01/Miti-Health/010_mitiHealth.png
+  - url: 010_mitiHealth.png
     caption: Miti Health app interface
     type: image
-  - url: /2014/01/01/Miti-Health/011_mitiHealth.png
+  - url: 011_mitiHealth.png
     caption: Miti Health app interface
     type: image
-  - url: /2014/01/01/Miti-Health/012_mitiHealth.png
+  - url: 012_mitiHealth.png
     caption: Miti Health app interface
     type: image
-  - url: /2014/01/01/Miti-Health/012A_mitiHealth.png
+  - url: 012A_mitiHealth.png
     caption: Miti Health app interface
     type: image
-  - url: /2014/01/01/Miti-Health/013_mitiHealth.png
+  - url: 013_mitiHealth.png
     caption: Miti Health app interface
     type: image
-  - url: /2014/01/01/Miti-Health/014_mitiHealth.png
+  - url: 014_mitiHealth.png
     caption: Miti Health app interface
     type: image
-  - url: /2014/01/01/Miti-Health/014A_mitiHealth.png
+  - url: 014A_mitiHealth.png
     caption: Miti Health app interface
     type: image
-  - url: /2014/01/01/Miti-Health/020_mitiHealth.png
+  - url: 020_mitiHealth.png
     caption: Miti Health app interface
     type: image
-  - url: /2014/01/01/Miti-Health/021_mitiHealth.png
+  - url: 021_mitiHealth.png
     caption: Miti Health app interface
     type: image
-  - url: /2014/01/01/Miti-Health/022_mitiHealth.png
+  - url: 022_mitiHealth.png
     caption: Miti Health app interface
     type: image
-summary:
-  problem:
-    content: "Rural Kenyan pharmacies relied on Android-based software that felt disconnected from their paper-based workflows. Pharmacists worked at desks with familiar paper records, but the digital interface didn't reflect these everyday realities. The existing system created friction and resistance to adoption because it failed to mirror the logical flow of their daily tasks."
-  solution:
-    content: "I redesigned the interface to bridge the gap between digital and physical workflows by creating a system that mirrored the structure and feel of paper-based operations. The new design made the digital environment feel like a logical extension of their current desk-based processes."
-  innovation:
-    title: "Paper-to-Digital Workflow Translation"
-    bullets:
-      - "<strong>Contextual Interface Design:</strong> Interface mirrored paper-based systems to reduce adaptation friction"
-      - "<strong>Simplified Navigation:</strong> Streamlined key tasks like inventory management and record-keeping following natural desk workflow"
-      - "<strong>Familiar Visual Cues:</strong> Design elements reminiscent of traditional paper forms and organized desk environments"
-      - "<strong>Workflow Alignment:</strong> Digital experience that felt natural and intuitive to pharmacists accustomed to paper"
-      - "<strong>Tactile Feel Translation:</strong> UI components captured the tactile feel of paper-based systems while leveraging digital efficiency"
-  impact:
-    bullets:
-      - "Pharmacy staff noted the interface felt familiar and intuitive"
-      - "Easier transition from traditional methods to digital solution"
-      - "Reduced resistance to technology adoption in rural healthcare settings"
-      - "Established foundation for user-centric innovations in rural healthcare"
-      - "Ensured technology served the way people actually worked"
 ---
 
 ## Research & Cultural Understanding
