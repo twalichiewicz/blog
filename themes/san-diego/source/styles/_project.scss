@@ -594,6 +594,11 @@ body.loaded .project-wrapper {
 			padding-bottom: 3rem;
 		}
 
+		.project-gallery-section {
+			margin-left: 18px;
+			margin-right: 18px;
+		}
+
 		@media (max-width: variables.$mobile-breakpoint) {
 			padding: 0;
 			padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
@@ -1542,7 +1547,6 @@ body.loaded .project-wrapper {
 	// Responsive adjustments
 	@media (max-width: 768px) {
 		gap: clamp(1.5rem, 4vw, 2rem);
-		margin-top: 1.5rem;
 		
 		.stat-item-wrapper .stat-item {
 			padding: 14px 18px;
