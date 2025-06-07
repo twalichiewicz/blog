@@ -3,107 +3,107 @@
 const hasSummary = page.summary && Object.keys(page.summary).length > 0;
 %>
 
-<% if (hasSummary) { %>
-  <!-- Use new Summary component. HIDING MY BABY BOY FOR NOW -TW -->
-  <!-- <%- partial('project-summary') %> -->
-  
-  <!-- Gallery section -->
-  <% if (page.gallery_images && page.gallery_images.length > 0) { %>
-    <div class="project-gallery-section">
-      <h2>Gallery</h2>
-      <div class="project-gallery-full">
-        <div class="carousel" aria-label="Project gallery">
-          <div class="carousel-track">
-            <% page.gallery_images.forEach((item, index) => { %>
-              <div class="carousel-slide <%= index === 0 ? 'active' : '' %>" aria-hidden="<%= index === 0 ? 'false' : 'true' %>">
-                <% if (item.type === 'video') { %>
-                  <% 
-                  const autoplay = item.autoplay !== false;
-                  const loop = item.loop !== false;
-                  const muted = item.muted !== false;
-                  
-                  let rawPosterPath = item.poster;
-                  if (rawPosterPath && rawPosterPath.length > 1 && rawPosterPath.startsWith('"') && rawPosterPath.endsWith('"')) {
-                      rawPosterPath = rawPosterPath.substring(1, rawPosterPath.length - 1);
-                  }
+<!-- Gallery section - always render if gallery_images exist, regardless of summary -->
+<% if (page.gallery_images && page.gallery_images.length > 0) { %>
+  <div class="project-gallery-section">
+    <h2>Gallery</h2>
+    <div class="project-gallery-full">
+      <div class="carousel" aria-label="Project gallery">
+        <div class="carousel-track">
+          <% page.gallery_images.forEach((item, index) => { %>
+            <div class="carousel-slide <%= index === 0 ? 'active' : '' %>" aria-hidden="<%= index === 0 ? 'false' : 'true' %>">
+              <% if (item.type === 'video') { %>
+                <% 
+                const autoplay = item.autoplay !== false;
+                const loop = item.loop !== false;
+                const muted = item.muted !== false;
+                
+                let rawPosterPath = item.poster;
+                if (rawPosterPath && rawPosterPath.length > 1 && rawPosterPath.startsWith('"') && rawPosterPath.endsWith('"')) {
+                    rawPosterPath = rawPosterPath.substring(1, rawPosterPath.length - 1);
+                }
 
-                  let galleryItemPosterPath = rawPosterPath;
-                  if (rawPosterPath && !rawPosterPath.startsWith('/') && !rawPosterPath.startsWith('http')) {
-                      galleryItemPosterPath = page.path + rawPosterPath;
-                  }
-                  const finalPosterSrc = galleryItemPosterPath ? url_for(galleryItemPosterPath) : '';
-                  %>
-                  <video controls preload="metadata" playsinline crossorigin="anonymous" <%= finalPosterSrc ? `poster="${finalPosterSrc}"` : '' %> <%= autoplay ? 'autoplay' : '' %> <%= loop ? 'loop' : '' %> <%= muted ? 'muted' : '' %>>
-                    <% if (item.url && item.url.endsWith('.mp4')) { %>
-                      <% 
-                      let videoGalleryFileToProcess = item.url;
-                      if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
-                          videoGalleryFileToProcess = page.path + item.url;
-                      }
-                      const resolvedGalleryVideoPath = url_for(videoGalleryFileToProcess);
-                      const baseGalleryVideoPathForVariants = resolvedGalleryVideoPath.replace(/\.(mp4|webm|ogg|mov)$/i, '');
-                      const webmGalleryVariant = baseGalleryVideoPathForVariants.replace('-simple', '-compatible') + '.webm';
-                      const mp4GalleryVariant = baseGalleryVideoPathForVariants.replace('-simple', '-compatible') + '.mp4';
-                      %>
-                      <source src="<%- webmGalleryVariant %>" type="video/webm">
-                      <source src="<%- mp4GalleryVariant %>" type="video/mp4">
-                      <source src="<%- resolvedGalleryVideoPath %>" type="video/mp4">
-                    <% } else if (item.url) { 
-                      let otherVideoPath = item.url;
-                      if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
-                          otherVideoPath = page.path + item.url;
-                      }
-                    %>
-                      <source src="<%- url_for(otherVideoPath) %>" type="<%= item.videoType || 'video/mp4' %>">
-                    <% } %>
-                    <%
-                    let downloadVideoPath = item.url;
+                let galleryItemPosterPath = rawPosterPath;
+                if (rawPosterPath && !rawPosterPath.startsWith('/') && !rawPosterPath.startsWith('http')) {
+                    galleryItemPosterPath = page.path + rawPosterPath;
+                }
+                const finalPosterSrc = galleryItemPosterPath ? url_for(galleryItemPosterPath) : '';
+                %>
+                <video controls preload="metadata" playsinline crossorigin="anonymous" <%= finalPosterSrc ? `poster="${finalPosterSrc}"` : '' %> <%= autoplay ? 'autoplay' : '' %> <%= loop ? 'loop' : '' %> <%= muted ? 'muted' : '' %>>
+                  <% if (item.url && item.url.endsWith('.mp4')) { %>
+                    <% 
+                    let videoGalleryFileToProcess = item.url;
                     if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
-                        downloadVideoPath = page.path + item.url;
+                        videoGalleryFileToProcess = page.path + item.url;
                     }
+                    const resolvedGalleryVideoPath = url_for(videoGalleryFileToProcess);
+                    const baseGalleryVideoPathForVariants = resolvedGalleryVideoPath.replace(/\.(mp4|webm|ogg|mov)$/i, '');
+                    const webmGalleryVariant = baseGalleryVideoPathForVariants.replace('-simple', '-compatible') + '.webm';
+                    const mp4GalleryVariant = baseGalleryVideoPathForVariants.replace('-simple', '-compatible') + '.mp4';
                     %>
-                    <p>Your browser does not support the video tag. <a href="<%- url_for(downloadVideoPath) %>" target="_blank">Download the video</a> instead.</p>
-                  </video>
-                <% } else if (item.type === 'iframe') { %>
-                  <iframe src="<%= item.url %>" 
-                    frameborder="0"
-                    allowfullscreen
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    loading="lazy"
-                    style="width: 100%; height: 100%; border: none;"
-                    title="<%= item.caption || 'Embedded content' %>">
-                  </iframe>
-                <% } else { // Image type %>
+                    <source src="<%- webmGalleryVariant %>" type="video/webm">
+                    <source src="<%- mp4GalleryVariant %>" type="video/mp4">
+                    <source src="<%- resolvedGalleryVideoPath %>" type="video/mp4">
+                  <% } else if (item.url) { 
+                    let otherVideoPath = item.url;
+                    if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
+                        otherVideoPath = page.path + item.url;
+                    }
+                  %>
+                    <source src="<%- url_for(otherVideoPath) %>" type="<%= item.videoType || 'video/mp4' %>">
+                  <% } %>
                   <%
-                  let galleryImagePath = item.url || item.src;
-                  if (galleryImagePath && !galleryImagePath.startsWith('/') && !galleryImagePath.startsWith('http')) {
-                      galleryImagePath = page.path + galleryImagePath;
+                  let downloadVideoPath = item.url;
+                  if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
+                      downloadVideoPath = page.path + item.url;
                   }
                   %>
-                  <img src="<%- url_for(galleryImagePath) %>" 
-                    alt="<%= item.caption || item.alt || '' %>"
-                    loading="lazy"
-                    decoding="async">
-                <% } %>
-                <% if (item.caption) { %>
-                  <div class="carousel-caption"><%= item.caption %></div>
-                <% } %>
-              </div>
-            <% }); %>
-            <% if (page.gallery_images.length > 1) { %>
-              <div class="carousel-indicators">
-                <button class="carousel-button prev" aria-label="Previous slide"></button>
-                <% page.gallery_images.forEach((_, index) => { %>
-                  <button class="indicator <%= index === 0 ? 'active' : '' %>" aria-label="Go to slide <%= index + 1 %>"></button>
-                <% }); %>
-                <button class="carousel-button next" aria-label="Next slide"></button>
-              </div>
-            <% } %>
-          </div>
+                  <p>Your browser does not support the video tag. <a href="<%- url_for(downloadVideoPath) %>" target="_blank">Download the video</a> instead.</p>
+                </video>
+              <% } else if (item.type === 'iframe') { %>
+                <iframe src="<%= item.url %>" 
+                  frameborder="0"
+                  allowfullscreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  loading="lazy"
+                  style="width: 100%; height: 100%; border: none;"
+                  title="<%= item.caption || 'Embedded content' %>">
+                </iframe>
+              <% } else { // Image type %>
+                <%
+                let galleryImagePath = item.url || item.src;
+                if (galleryImagePath && !galleryImagePath.startsWith('/') && !galleryImagePath.startsWith('http')) {
+                    galleryImagePath = page.path + galleryImagePath;
+                }
+                %>
+                <img src="<%- url_for(galleryImagePath) %>" 
+                  alt="<%= item.caption || item.alt || '' %>"
+                  loading="lazy"
+                  decoding="async">
+              <% } %>
+              <% if (item.caption) { %>
+                <div class="carousel-caption"><%= item.caption %></div>
+              <% } %>
+            </div>
+          <% }); %>
+          <% if (page.gallery_images.length > 1) { %>
+            <div class="carousel-indicators">
+              <button class="carousel-button prev" aria-label="Previous slide"></button>
+              <% page.gallery_images.forEach((_, index) => { %>
+                <button class="indicator <%= index === 0 ? 'active' : '' %>" aria-label="Go to slide <%= index + 1 %>"></button>
+              <% }); %>
+              <button class="carousel-button next" aria-label="Next slide"></button>
+            </div>
+          <% } %>
         </div>
       </div>
     </div>
-  <% } %>
+  </div>
+<% } %>
+
+<% if (hasSummary) { %>
+  <!-- Use new Summary component. HIDING MY BABY BOY FOR NOW -TW -->
+  <!-- <%- partial('project-summary') %> -->
   
   <!-- Render the main content after the summary -->
   <% if (page.content) { %>
