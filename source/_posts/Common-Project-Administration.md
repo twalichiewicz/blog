@@ -8,6 +8,11 @@ tags:
   - portfolio
 layout: project_gallery
 has_writeup: true
+stats:
+  - value: "100+"
+    label: "Products Unified"
+  - value: "10000+"
+    label: "Administrators"
 gallery_images:
   - url: 000_cpa.png
     type: image
