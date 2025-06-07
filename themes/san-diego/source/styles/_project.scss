@@ -18,11 +18,17 @@ body .project-edge-wrapper {
 			.project-byline {
 				font-size: 15px;
 				line-height: 120%;
-				margin-top: 2rem;
+				margin-top: 1rem; // Reduce from 2rem
 				margin-bottom: 0;
 				max-width: 600px;
 				margin-left: 0;
 				margin-right: 0;
+				
+				// Mobile-specific adjustments
+				@media (max-width: variables.$mobile-breakpoint) {
+					margin-top: 0.5rem;
+					font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+				}
 			}
 		}
 	}
@@ -1459,9 +1465,14 @@ body.loaded .project-wrapper {
 // Project impact stats in above-fold content - clean minimal design
 .project-edge-wrapper .above-fold-content-wrapper .project-impact-stats {
 	display: flex;
-	gap: clamp(2rem, 5vw, 3rem);
-	margin-top: clamp(1.5rem, 3vw, 2rem);
+	gap: clamp(1rem, 3vw, 2rem); // Reduce gap for mobile
+	margin-top: 0; // Remove margin - using flexbox gap instead
 	align-items: flex-start;
+	
+	// Mobile-specific gap reduction
+	@media (max-width: variables.$mobile-breakpoint) {
+		gap: 0.75rem;
+	}
 	
 	.stat-item-wrapper .stat-item {
 		display: flex;
@@ -1565,8 +1576,13 @@ body.loaded .project-wrapper {
 
 // Read story button container - inline positioning within content flow
 .read-story-button-container {
-	margin-top: clamp(1.5rem, 3vh, 2.5rem);
+	margin-top: clamp(1rem, 2vh, 1.5rem); // Reduce margin significantly
 	z-index: 10;
+	
+	// Mobile-specific margin reduction
+	@media (max-width: variables.$mobile-breakpoint) {
+		margin-top: 0; // Remove margin on mobile - using flexbox gap
+	}
 }
 
 // SHARED MIXINS FOR CONSISTENCY
@@ -1757,6 +1773,11 @@ body.loaded .project-wrapper {
 		height: calc(100vh - 24px);
 		margin-top: 0;
 		padding-top: 0;
+		
+		// Mobile-specific fixes for dynamic loading
+		@media (max-width: variables.$mobile-breakpoint) {
+			height: 100vh;
+		}
 	}
 
 	.project-trailer-hero {
@@ -1782,11 +1803,21 @@ body.loaded .project-wrapper {
 		}
 		
 		@media (max-width: 768px) {
-			padding: clamp(2rem, 4vh, 4rem) 24px 24px 24px;
+			padding: clamp(1.5rem, 3vh, 3rem) 24px 20px 24px; // Reduce bottom padding significantly
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			gap: 0.75rem;
 		}
 		
 		@media (max-width: 480px) {
-			padding: 2rem 20px 20px 20px;
+			padding: 1rem 20px 20px 20px; // Reduce bottom padding significantly  
+			height: auto; // Remove fixed height constraint
+			max-height: 50vh; // Prevent overflow while allowing flexibility
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			gap: 0.75rem;
 		}
 	}
 }
@@ -1824,36 +1855,71 @@ body.loaded .project-wrapper {
 	}
 
 	.project-gallery-hero {
-		height: 50vh;
+		height: 55vh; // Increase to give more space for content
 	}
 
 	.above-fold-content-wrapper {
-		height: 50vh;
-		padding: 30px clamp(0.75rem, 2.5vw, 1.5rem) 45px;
+		height: auto; // Remove fixed height constraint
+		max-height: 50vh; // Prevent overflow while allowing flexibility
+		padding: 16px clamp(0.75rem, 2.5vw, 1.5rem) 20px; // Reduce bottom padding dramatically
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end; // Align content to bottom
+		gap: 0.75rem; // Control spacing between all child elements
 
 		.project-title {
 			max-width: 95%;
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem; // Control spacing between title elements
 
 			h2 {
 				font-size: clamp(1.75rem, 6vw, 2.5rem);
+				margin: 0; // Remove default margins
 			}
 
 			.project-byline {
-				font-size: clamp(0.85rem, 2vw, 1rem);
-				margin-top: 0.75rem;
+				font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+				margin: 0; // Remove all margins - using gap instead
+				line-height: 1.3;
+			}
+		}
+
+		// Fix stats scaling and spacing on mobile
+		.project-impact-stats {
+			margin: 0; // Remove margin - using gap instead
+			gap: 1rem; // Reduce gap between stats
+			
+			.stat-item {
+				padding: 8px 12px; // Reduce padding
+				
+				.stat-value {
+					font-size: clamp(1.1rem, 3.5vw, 1.5rem); // Smaller and more controlled
+					margin: 0; // Remove margins
+				}
+				
+				.stat-label {
+					font-size: clamp(0.75rem, 1.8vw, 0.9rem); // Smaller and more controlled
+					margin: 0; // Remove margins
+				}
 			}
 		}
 	}
 
 	.read-story-button {
-		padding: 3px 9px;
-		font-size: 12px;
-		bottom: 8px;
+		padding: 8px 16px; // More padding for better touch targets
+		font-size: 14px; // Slightly larger text
+		bottom: 20px; // Move up from edge
 
 		svg {
-			width: 12px;
-			height: 12px;
+			width: 14px;
+			height: 14px;
 		}
+	}
+
+	// Fix the read story button container positioning
+	.read-story-button-container {
+		margin: 0; // Remove all margins - using flexbox gap instead
 	}
 }
 
