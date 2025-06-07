@@ -691,11 +691,10 @@
 				color: variables.$text-color-dark;
 			}
 
-			/* Dark mode styling for the separator */
+			/* Dark mode styling for post-link - should have no background or border */
 			&.post-link {
-				background: rgb(20 20 20 / 70%);
-				/* Removed backdrop-filter for Chrome performance */
-				border: 1px solid rgb(255 255 255 / 10%);
+				background: none;
+				border: none;
 				color: variables.$text-color-dark;
 
 				.link-share {
