@@ -318,8 +318,8 @@
 								}
 							}
 
-							/* Only apply hover effects to post-link items */
-							&.post-link {
+							/* Only apply hover effects to post-long items */
+							&.post-long {
 								transition: variables.$transition-standard;
 
 								&:hover {
@@ -493,8 +493,8 @@
 							display: none;
 						}
 
-						/* Add subtle hover effect only to post-link items */
-						&.post-link:hover {
+						/* Add subtle hover effect only to post-long items */
+						&.post-long:hover {
 							background-color: rgb(30 30 30 / 80%);
 							transform: translateY(-2px);
 
@@ -683,6 +683,14 @@
 				}
 			}
 
+			/* Dark mode styling for post-long */
+			&.post-long {
+				background: rgb(20 20 20 / 70%);
+				/* Removed backdrop-filter for Chrome performance */
+				border: 1px solid rgb(255 255 255 / 10%);
+				color: variables.$text-color-dark;
+			}
+
 			/* Dark mode styling for the separator */
 			&.post-link {
 				background: rgb(20 20 20 / 70%);
@@ -691,7 +699,7 @@
 				color: variables.$text-color-dark;
 
 				.link-share {
-					h3 {
+					.post-link-wrapper.post-long {
 						color: variables.$white;
 						text-decoration: none;
 
@@ -1113,8 +1121,8 @@
 					#projectsContent {
 						.post-list-item {
 
-							/* Only apply hover effects to post-link items in light mode */
-							&.post-link {
+							/* Only apply hover effects to post-long items in light mode */
+							&.post-long {
 								transition: all 0.3s ease;
 								background: rgb(255 255 255 / 70%);
 								backdrop-filter: blur(5px);

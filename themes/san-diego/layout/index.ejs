@@ -120,17 +120,32 @@
                     
                     <% if (blogPosts.length > 0) { %>
                         <% blogPosts.forEach(function(post, index) { %>
-                            <% if (post.type === 'link') { %>
-                                <a href="<%= post.url %>" target="_blank" rel="noopener" class="post-link-wrapper">
+                            <% 
+                            // Determine if this is a long-form post (has <a> in h3 and long: true)
+                            const isLongPost = post.long === true && !post.type;
+                            const classNames = [];
+                            if (post.type === 'link') {
+                                classNames.push('post-link');
+                            }
+                            if (isLongPost) {
+                                classNames.push('post-long');
+                            }
+                            %>
+                            <% if (isLongPost) { %>
+                                <a href="<%- url_for(post.path) %>" class="post-link-wrapper">
                             <% } %>
-                            <article class="post-list-item <%= post.type === 'link' ? 'post-link' : '' %>">
+                            <article class="post-list-item <%= classNames.join(' ') %>">
                                 <div class="post-byline">
                                     <%= date(post.date, 'MMMM D, YYYY') %> • 
                                     <%= post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post') %>
                                 </div>
                                 <% if (post.type === 'link') { %>
                                     <div class="link-share">
-                                        <h3>
+                                        <% if (post.content) { %>
+                                            <p><%- post.content %></p>
+                                        <% } %>
+                                        
+                                        <a href="<%= post.url %>" target="_blank" rel="noopener" class="post-list-item post-long post-link-wrapper">
                                             <div class="link-text-group">
                                                 <%= post.title %>
                                                 <div class="link-source">
@@ -138,16 +153,7 @@
                                                 </div>
                                             </div>
                                             <span class="external-icon">↗</span>
-                                        </h3>
-                                        
-                                        <% if (post.content) { %>
-                                            <details class="content-accordion">
-                                                <summary>Thoughts</summary>
-                                                <div class="accordion-content">
-                                                    <%- post.content %>
-                                                </div>
-                                            </details>
-                                        <% } %>
+                                        </a>
                                     </div>
                                 <% } else if (post.short) { %>
                                     <%- post.content %>
@@ -158,7 +164,7 @@
                                     <% } %>
                                 <% } %>
                             </article>
-                            <% if (post.type === 'link') { %>
+                            <% if (isLongPost) { %>
                                 </a>
                             <% } %>
                             <% if (index < blogPosts.length - 1) { %>
