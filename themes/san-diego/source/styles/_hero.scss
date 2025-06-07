@@ -1,7 +1,7 @@
 @use 'variables';
 
 .hero {
-    height: calc(100vh - 56px);
+    height: calc(100dvh - 56px);
     display: grid;
     place-items: center;
 
