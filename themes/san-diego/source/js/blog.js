@@ -13,7 +13,7 @@ import videoAutoplayManager from './components/video-autoplay.js';
 document.addEventListener('DOMContentLoaded', function () {
 	// --- Refactored Initialization Function ---
 	function initializeBlogFeatures(container) {
-		console.log('[blog.js] initializeBlogFeatures Start');
+		// Initializing blog features
 		// Cache DOM elements within the container
 		const elements = {
 			searchInput: container.querySelector('#postSearch'),
@@ -37,16 +37,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// --- Carousels (Delegate to global carousel.js initializer) ---
 		if (typeof initializeCarousels === 'function') {
-			console.log('[blog.js] Delegating carousel initialization to initializeCarousels for container:', container);
+			// Delegating carousel initialization to carousel.js
 			initializeCarousels(container);
 		} else {
-			console.warn('[blog.js] initializeCarousels not found!');
+			// initializeCarousels not found
 		}
 
 		// --- Video Autoplay --- Only refresh if there are videos in the container
 		const hasVideos = container.querySelector('video[data-autoplay="true"]');
 		if (hasVideos && videoAutoplayManager && typeof videoAutoplayManager.refresh === 'function') {
-			console.log('[blog.js] Refreshing video autoplay manager for container:', container);
+			// Refreshing video autoplay manager
 			videoAutoplayManager.refresh();
 		}
 
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		// 	adaptiveVideoManager.refresh();
 		// }
 
-		console.log('[blog.js] initializeBlogFeatures End');
+		// Blog features initialized
 	}
 	// --- End of Refactored Initialization Function ---
 
@@ -70,10 +70,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Global scroll function available for both standalone and dynamic contexts
 	function scrollToFullStory() {
-		console.log('Scroll button clicked!');
+		// Scroll button clicked
 		const fullStoryElement = document.getElementById('full-story');
 		if (!fullStoryElement) {
-			console.error('Full story element not found');
+			// Full story element not found
 			return;
 		}
 
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Check if we have a project-edge-wrapper (don't apply inner wrapper fade logic)
 			const hasProjectEdgeWrapper = element.querySelector('.project-edge-wrapper');
 			if (hasProjectEdgeWrapper) {
-				console.log('FadeOut: Project edge wrapper detected, fading directly');
+				// Project edge wrapper detected, fading directly
 				hasProjectEdgeWrapper.style.opacity = '1';
 				hasProjectEdgeWrapper.style.transition = `opacity ${duration}ms ease-in-out`;
 				hasProjectEdgeWrapper.style.opacity = '0';
@@ -117,13 +117,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (isDesktopOrTablet && element === blogContentElement) {
 				targetElement = element.querySelector('.content-inner-wrapper');
 				if (!targetElement) {
-					console.warn('FadeOut: .content-inner-wrapper not found, fading blog-content instead.');
+					// .content-inner-wrapper not found, fading blog-content instead
 					targetElement = element; // Fallback
 				}
 			}
 
 			if (!targetElement) {
-				console.error('FadeOut: No valid target element found.');
+				// No valid target element found
 				return;
 			}
 
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Check if we have a project-edge-wrapper (don't apply inner wrapper fade logic)
 			const hasProjectEdgeWrapper = element.querySelector('.project-edge-wrapper');
 			if (hasProjectEdgeWrapper) {
-				console.log('FadeIn: Project edge wrapper detected, fading directly');
+				// Project edge wrapper detected, fading directly
 				// Force layout to prevent Chrome rendering issues
 				hasProjectEdgeWrapper.style.transform = 'translateZ(0)';
 				hasProjectEdgeWrapper.style.willChange = 'opacity';
@@ -164,13 +164,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (isDesktopOrTablet && element === blogContentElement) {
 				targetElement = element.querySelector('.content-inner-wrapper');
 				if (!targetElement) {
-					console.warn('FadeIn: .content-inner-wrapper not found, fading blog-content instead.');
+					// .content-inner-wrapper not found, fading blog-content instead
 					targetElement = element; // Fallback
 				}
 			}
 
 			if (!targetElement) {
-				console.error('FadeIn: No valid target element found.');
+				// No valid target element found
 				return;
 			}
 
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			const hasProjectEdgeWrapper = blogContentElement.querySelector('.project-edge-wrapper') ||
 				blogContentElement.innerHTML.includes('project-edge-wrapper');
 			if (hasProjectEdgeWrapper) {
-				console.log('[blog.js] Project edge wrapper detected, skipping back button creation');
+				// Project edge wrapper detected, skipping back button creation
 				return null;
 			}
 
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				const currentHistoryState = history.state;
 				const isReturningFromProject = currentHistoryState && currentHistoryState.isProject === true;
 				
-				console.log('[blog.js] Back button clicked, returning from project:', isReturningFromProject);
+				// Back button clicked, returning from project
 				
 				await fadeOutElement(blogContentElement);
 				blogContentElement.innerHTML = initialBlogContentHTML;
@@ -255,13 +255,13 @@ document.addEventListener('DOMContentLoaded', function () {
 				
 				// Re-initialize sound effects when returning to home page
 				if (window.initializeSoundEffects) {
-					console.log('[blog.js] Re-initializing sound effects for back navigation');
+					// Re-initializing sound effects for back navigation
 					window.initializeSoundEffects();
 				} else {
 					// Fallback: try again after a short delay in case sound effects script is still loading
 					setTimeout(() => {
 						if (window.initializeSoundEffects) {
-							console.log('[blog.js] Re-initializing sound effects for back navigation (delayed)');
+							// Re-initializing sound effects for back navigation (delayed)
 							window.initializeSoundEffects();
 						}
 					}, 100);
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			// Before clearing content, cleanup any carousel instances managed by carousel.js
 			if (typeof cleanupCarouselInstances === 'function') {
-				console.log('[blog.js fetchAndDisplayContent] Cleaning up carousel instances from blogContentElement');
+				// Cleaning up carousel instances from blogContentElement
 				cleanupCarouselInstances(blogContentElement);
 			}
 
@@ -305,42 +305,42 @@ document.addEventListener('DOMContentLoaded', function () {
 				let contentToExtractSelector = isProject ? 'div.project-edge-wrapper' : 'article.post';
 				let newContentContainer = doc.querySelector(contentToExtractSelector);
 
-				console.log('[blog.js] Initial selector:', contentToExtractSelector);
-				console.log('[blog.js] Found content container:', newContentContainer);
+				// Initial selector determined
+				// Found content container
 
 				// Fallback for projects: if project-edge-wrapper is not found, try project-wrapper
 				if (!newContentContainer && isProject) {
 					contentToExtractSelector = 'div.project-wrapper';
 					newContentContainer = doc.querySelector(contentToExtractSelector);
-					console.log('[blog.js] Fallback selector:', contentToExtractSelector);
-					console.log('[blog.js] Fallback content container:', newContentContainer);
+					// Fallback selector
+					// Fallback content container
 				}
 
 				// Fallback: if loading a post and article.post is not found, try div.project-wrapper
 				if (!newContentContainer && !isProject) {
 					newContentContainer = doc.querySelector('div.project-wrapper');
-					console.log('[blog.js] Post fallback to project-wrapper:', newContentContainer);
+					// Post fallback to project-wrapper
 				}
 
 				const backButton = addOrUpdateBackButton();
-				console.log('[blog.js] Back button created:', backButton);
+				// Back button created
 
 				if (newContentContainer) {
-					console.log('[blog.js] Content container found, proceeding with insertion');
-					console.log('[blog.js] Container classes:', newContentContainer.className);
-					console.log('[blog.js] Container HTML preview:', newContentContainer.outerHTML.substring(0, 200) + '...');
+					// Content container found, proceeding with insertion
+					// Container classes logged
+					// Container HTML preview logged
 
 					const contentFragment = document.createDocumentFragment();
 
 					// Special handling for project-edge-wrapper: don't add extra wrappers
 					if (newContentContainer.classList.contains('project-edge-wrapper')) {
-						console.log('[blog.js] Project edge wrapper detected, inserting without extra wrappers');
+						// Project edge wrapper detected, inserting without extra wrappers
 
 						// Find and mark project-wrapper inside edge-wrapper with dynamic-loaded
 						const projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
 						if (projectWrapperInstance) {
 							projectWrapperInstance.classList.add('dynamic-loaded');
-							console.log('Added dynamic-loaded to project-wrapper inside edge-wrapper:', projectWrapperInstance);
+							// Added dynamic-loaded to project-wrapper inside edge-wrapper
 						}
 
 						const clonedContent = newContentContainer.cloneNode(true);
@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					} else {
 						// Regular content: Add the inner wrapper conditionally for desktop/tablet
 						const isDesktopOrTablet = window.innerWidth > 768;
-						console.log('[blog.js] Is desktop/tablet:', isDesktopOrTablet);
+						// Desktop/tablet mode detected
 						if (isDesktopOrTablet) {
 							const innerWrapper = document.createElement('div');
 							innerWrapper.className = 'content-inner-wrapper';
@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 							if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
 								projectWrapperInstance.classList.add('dynamic-loaded');
-								console.log('Added dynamic-loaded to:', projectWrapperInstance);
+								// Added dynamic-loaded to project wrapper
 							}
 
 							innerWrapper.appendChild(newContentContainer.cloneNode(true));
@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 							if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
 								projectWrapperInstance.classList.add('dynamic-loaded');
-								console.log('Added dynamic-loaded to (mobile):', projectWrapperInstance);
+								// Added dynamic-loaded to project wrapper (mobile)
 							}
 
 							const clonedContent = newContentContainer.cloneNode(true);
@@ -389,14 +389,14 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 
 					if (backButton) {
-						console.log('[blog.js] Inserting content after back button');
+						// Inserting content after back button
 						backButton.after(contentFragment);
 					} else {
-						console.log('[blog.js] Appending content directly to blog element');
+						// Appending content directly to blog element
 						blogContentElement.appendChild(contentFragment);
 					}
 
-					console.log('[blog.js] Content inserted, blog element children count:', blogContentElement.children.length);
+					// Content inserted successfully
 					initializeBlogFeatures(blogContentElement); // This will now delegate carousel init
 					// Initialize project tabs for dynamically loaded content
 					if (window.initializeProjectTabs) {
@@ -408,13 +408,13 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 					// Re-initialize sound effects for dynamically loaded content
 					if (window.initializeSoundEffects) {
-						console.log('[blog.js] Re-initializing sound effects for dynamically loaded content');
+						// Re-initializing sound effects for dynamically loaded content
 						window.initializeSoundEffects();
 					} else {
 						// Fallback: try again after a short delay in case sound effects script is still loading
 						setTimeout(() => {
 							if (window.initializeSoundEffects) {
-								console.log('[blog.js] Re-initializing sound effects for dynamically loaded content (delayed)');
+								// Re-initializing sound effects for dynamically loaded content (delayed)
 								window.initializeSoundEffects();
 							}
 						}, 100);
@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							blogContentElement.querySelector('#scrollToFullStoryBtn');
 
 						if (scrollButton) {
-							console.log('[blog.js] Found scroll button for dynamic content:', scrollButton);
+							// Found scroll button for dynamic content
 
 							// Remove any existing handlers
 							scrollButton.onclick = null;
@@ -434,18 +434,18 @@ document.addEventListener('DOMContentLoaded', function () {
 							// Add new handler
 							scrollButton.onclick = function (e) {
 								e.preventDefault();
-								console.log('[blog.js] Dynamic scroll button clicked');
+								// Dynamic scroll button clicked
 								if (window.scrollToFullStory) {
 									window.scrollToFullStory();
 								} else {
-									console.error('[blog.js] scrollToFullStory function not available');
+									// scrollToFullStory function not available
 								}
 							};
 
-							console.log('[blog.js] Dynamic scroll button handler attached');
+							// Dynamic scroll button handler attached
 							return true;
 						} else {
-							console.log('[blog.js] Scroll button not found yet for dynamic content');
+							// Scroll button not found yet for dynamic content
 							return false;
 						}
 					}
@@ -457,10 +457,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						setTimeout(setupDynamicScrollButton, 500);
 					}
 				} else {
-					console.log('[blog.js] ERROR: No content container found!');
-					console.log('[blog.js] Available elements in doc:', doc.querySelector('body').children);
-					console.log('[blog.js] isProject:', isProject);
-					console.log('[blog.js] URL:', url);
+					// ERROR: No content container found
+					// Available elements in doc logged
+					// isProject flag logged
+					// URL logged
 
 					const errorMsg = document.createElement('p');
 					errorMsg.textContent = 'Sorry, the content could not be loaded.';
@@ -473,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					history.pushState({ path: url, isProject: isProject, isDynamic: true }, '', url);
 				}
 			} catch (error) {
-				console.error('Error fetching or displaying content:', error);
+				// Error fetching or displaying content
 				const errorTechnical = document.createElement('p');
 				errorTechnical.textContent = 'There was an error loading the page.';
 				let backBtn = blogContentElement.querySelector('.dynamic-back-button');
@@ -539,7 +539,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					const currentUrl = window.location.pathname + window.location.search + window.location.hash;
 					// Only redirect if we're not already on the initial blog URL
 					if (currentUrl !== initialBlogContentURL) {
-						console.log('[blog.js] Redirecting to actual page due to mobile resize:', currentUrl);
+						// Redirecting to actual page due to mobile resize
 						window.location.href = currentUrl;
 					}
 				}
@@ -549,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		window.addEventListener('popstate', async function (event) {
 			if (event.state && event.state.page) {
 				const targetUrl = event.state.page;
-				console.log('[blog.js popstate] Navigating to:', targetUrl);
+				// Navigating to target URL
 
 				// Perform fade out
 				await fadeOutElement(blogContentElement);
@@ -581,7 +581,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						}
 					}
 				} catch (error) {
-					console.error('[blog.js popstate] Error fetching page:', error);
+					// Error fetching page
 					// Fade in anyway to show current content
 					await fadeInElement(blogContentElement);
 				}

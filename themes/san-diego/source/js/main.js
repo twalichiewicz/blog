@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			projectsContentId: 'projectsContent'
 		});
 
-		console.log('San Diego theme initialized successfully');
+		// San Diego theme initialized successfully
 	} catch (error) {
-		console.error('Error initializing theme:', error);
+		// Error initializing theme
 	}
 });
 
@@ -73,7 +73,7 @@ function initColorScheme() {
 			});
 		}
 	} catch (error) {
-		console.error('Error initializing color scheme:', error);
+		// Error initializing color scheme
 	}
 }
 
@@ -95,14 +95,14 @@ function initLayoutToggle() {
 		blogElement.setAttribute('data-layout', layout);
 	}
 
-	console.log('Layout set to grid by default');
+	// Layout set to grid by default
 }
 
 // Handle bfcache for widgets (or remove if module handles it)
 window.addEventListener('pageshow', (event) => {
 	if (event.persisted) {
-		console.log("[main.js pageshow] Start - bfcache");
+		// main.js pageshow Start - bfcache
 		// Desktop widgets functionality removed
-		console.log("[main.js pageshow] End - bfcache");
+		// main.js pageshow End - bfcache
 	}
 });

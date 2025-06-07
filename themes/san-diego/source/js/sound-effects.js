@@ -60,17 +60,7 @@
 
 	// Function to initialize or re-initialize sound effect listeners
 	function initializeSoundEffects() {
-		console.log('[sound-effects.js] initializeSoundEffects Start');
-		console.log('[sound-effects.js] Current page URL:', window.location.href);
-		console.log('[sound-effects.js] Available buttons:', {
-			contactButton: !!document.querySelector('.contact-button'),
-			mobileTabButtons: document.querySelectorAll('.mobile-tabs .tab-button').length,
-			otherTabButtons: document.querySelectorAll('.tab-button:not(.mobile-tabs .tab-button)').length,
-			summaryTabButtons: document.querySelectorAll('.summary-tab-button').length,
-			carouselButtons: document.querySelectorAll('.carousel-button').length,
-			spotlightButtons: document.querySelectorAll('.spotlight-nav-button').length,
-			contactOptions: document.querySelectorAll('.contact-option').length
-		});
+		// Initialize sound effects for all interactive elements
 		// Remove existing listeners first
 
 		// Contact button
@@ -120,7 +110,7 @@
 				button.addEventListener('click', handlers.defaultButtonSoundHandler); // Changed to default sound
 			});
 		});
-		console.log('[sound-effects.js] initializeSoundEffects End');
+		// Sound effects initialization complete
 	}
 
 	// Initial setup on DOMContentLoaded
@@ -129,9 +119,8 @@
 	// Re-initialize if loaded from bfcache
 	window.addEventListener('pageshow', function (event) {
 		if (event.persisted) {
-			console.log('[sound-effects.js pageshow] Start - bfcache');
+			// Reinitialize sound effects after bfcache restore
 			initializeSoundEffects();
-			console.log('[sound-effects.js pageshow] End - bfcache');
 		}
 	});
 

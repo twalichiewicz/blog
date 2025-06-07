@@ -6,36 +6,36 @@
 
 class VideoAutoplayManager {
 	constructor() {
-		console.log('[VideoAutoplayManager] Initializing...');
+		// Initializing VideoAutoplayManager
 		this.videos = new Map();
 		this.observer = null;
 		this.init();
 	}
 
 	init() {
-		console.log('[VideoAutoplayManager] Init called');
+		// Init called
 		// Wait for DOM to be ready
 		if (document.readyState === 'loading') {
-			console.log('[VideoAutoplayManager] DOM loading, waiting for DOMContentLoaded');
+			// DOM loading, waiting for DOMContentLoaded
 			document.addEventListener('DOMContentLoaded', () => this.setup());
 		} else {
-			console.log('[VideoAutoplayManager] DOM ready, calling setup immediately');
+			// DOM ready, calling setup immediately
 			this.setup();
 		}
 	}
 
 	setup() {
-		console.log('[VideoAutoplayManager] Setup called');
+		// Setup called
 		// Find all videos with autoplay data attribute
 		const autoplayVideos = document.querySelectorAll('video[data-autoplay="true"]');
 
-		console.log('[VideoAutoplayManager] Found videos:', autoplayVideos.length);
+		// Found autoplay videos
 		autoplayVideos.forEach((video, index) => {
-			console.log(`[VideoAutoplayManager] Video ${index + 1}:`, video.src);
+			// Video logged
 		});
 
 		if (autoplayVideos.length === 0) {
-			console.log('[VideoAutoplayManager] No autoplay videos found, exiting');
+			// No autoplay videos found, exiting
 			return;
 		}
 
@@ -49,7 +49,7 @@ class VideoAutoplayManager {
 			}
 		);
 
-		console.log('[VideoAutoplayManager] Created intersection observer');
+		// Created intersection observer
 
 		// Setup each video
 		autoplayVideos.forEach(video => this.setupVideo(video));
@@ -87,12 +87,12 @@ class VideoAutoplayManager {
 
 		// Add event listeners
 		video.addEventListener('loadedmetadata', () => {
-			console.log('Video metadata loaded:', video.src);
+			// Video metadata loaded
 			video.removeAttribute('data-loading');
 		});
 
 		video.addEventListener('canplay', () => {
-			console.log('Video can play:', video.src);
+			// Video can play
 			video.removeAttribute('data-loading');
 		});
 
@@ -157,18 +157,18 @@ class VideoAutoplayManager {
 		const state = this.videos.get(video);
 		if (!state || state.isPlaying) return;
 
-		console.log('Attempting to play video:', video.src);
-		console.log('Video readyState:', video.readyState);
-		console.log('Video networkState:', video.networkState);
+		// Attempting to play video
+		// Video readyState logged
+		// Video networkState logged
 
 		try {
 			// Ensure video is ready
 			if (video.readyState < 3) {
-				console.log('Video not ready, waiting for canplay event...');
+				// Video not ready, waiting for canplay event
 				// Wait for video to be ready
 				await new Promise((resolve) => {
 					const onCanPlay = () => {
-						console.log('Video canplay event fired');
+						// Video canplay event fired
 						video.removeEventListener('canplay', onCanPlay);
 						resolve();
 					};
@@ -176,7 +176,7 @@ class VideoAutoplayManager {
 
 					// Fallback timeout
 					setTimeout(() => {
-						console.log('Video canplay timeout, proceeding anyway');
+						// Video canplay timeout, proceeding anyway
 						video.removeEventListener('canplay', onCanPlay);
 						resolve();
 					}, 2000);
@@ -184,25 +184,25 @@ class VideoAutoplayManager {
 			}
 
 			// Attempt to play
-			console.log('Starting video play...');
+			// Starting video play
 			state.playPromise = video.play();
 			await state.playPromise;
 
-			console.log('Video playing successfully:', video.src);
+			// Video playing successfully
 
 		} catch (error) {
-			console.log('Video autoplay failed:', error.name, error.message);
-			console.log('Error details:', error);
+			// Video autoplay failed
+			// Error details logged
 
 			// If autoplay fails, we can still show the poster/first frame
 			if (error.name === 'NotAllowedError') {
-				console.log('Autoplay not allowed - setting up user interaction fallback');
+				// Autoplay not allowed - setting up user interaction fallback
 				// User interaction required - this is expected behavior
 				this.setupUserInteractionFallback(video);
 			} else if (error.name === 'AbortError') {
-				console.log('Video play was aborted - this is normal during rapid navigation');
+				// Video play was aborted - this is normal during rapid navigation
 			} else {
-				console.log('Unexpected video error:', error);
+				// Unexpected video error
 			}
 		}
 	}
@@ -225,7 +225,7 @@ class VideoAutoplayManager {
 				video.pause();
 			}
 		} catch (error) {
-			console.log('Error pausing video:', error);
+			// Error pausing video
 		}
 	}
 
@@ -234,7 +234,7 @@ class VideoAutoplayManager {
 		
 		// Don't add interaction fallback for trailer videos
 		if (state && state.isTrailer) {
-			console.log('Trailer video autoplay failed - no user interaction fallback');
+			// Trailer video autoplay failed - no user interaction fallback
 			return;
 		}
 		
@@ -248,7 +248,7 @@ class VideoAutoplayManager {
 				await video.play();
 				container.removeEventListener('click', clickHandler);
 			} catch (error) {
-				console.log('Manual play failed:', error);
+				// Manual play failed
 			}
 		};
 

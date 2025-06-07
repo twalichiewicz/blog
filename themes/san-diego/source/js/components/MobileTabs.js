@@ -168,20 +168,11 @@ export default class MobileTabs {
 		const postsItems = this.postsContent?.querySelectorAll('.post-list-item') || [];
 		const projectItems = this.projectsContent?.querySelectorAll('.portfolio-item') || [];
 
-		console.log('[MobileTabs] Desktop content check:', {
-			postsItems: postsItems.length,
-			projectItems: projectItems.length,
-			postsVisible: this.postsContent?.style.display !== 'none',
-			projectsVisible: this.projectsContent?.style.display !== 'none',
-			postsOpacity: this.postsContent?.style.opacity,
-			projectsOpacity: this.projectsContent?.style.opacity,
-			postsHeight: this.postsContent?.offsetHeight,
-			projectsHeight: this.projectsContent?.offsetHeight
-		});
+		// Desktop content validation complete
 
 		// Check for empty content areas that should have items
 		if (postsItems.length === 0 && this.postsContent) {
-			console.warn('[MobileTabs] Posts content appears empty on desktop - attempting recovery');
+			// Posts content appears empty on desktop - attempting recovery
 			// Try to force re-render
 			this.postsContent.style.display = 'none';
 			setTimeout(() => {
@@ -189,7 +180,7 @@ export default class MobileTabs {
 			}, 100);
 		}
 		if (projectItems.length === 0 && this.projectsContent) {
-			console.warn('[MobileTabs] Projects content appears empty on desktop - attempting recovery');
+			// Projects content appears empty on desktop - attempting recovery
 			// Try to force re-render
 			this.projectsContent.style.display = 'none';
 			setTimeout(() => {
@@ -209,7 +200,7 @@ export default class MobileTabs {
 
 		// If slider doesn't exist, create it
 		if (!slider) {
-			console.log('[MobileTabs] Slider element not found, creating it.');
+			// Slider element not found, creating it.
 			slider = document.createElement('div');
 			slider.className = 'mobile-tabs-slider';
 			this.tabContainer.appendChild(slider);
@@ -265,7 +256,7 @@ export default class MobileTabs {
 			slider.style.top = `${containerPadding}px`;
 			slider.style.height = `calc(100% - ${containerPadding * 2}px)`;
 		} catch (error) {
-			console.error('Error updating slider:', error);
+			// Error updating slider
 		}
 	}
 
@@ -306,7 +297,7 @@ export default class MobileTabs {
 			
 			if (tabParam && (tabParam === 'portfolio' || tabParam === 'blog')) {
 				targetTabType = tabParam;
-				console.log('[MobileTabs] Using URL parameter tab:', targetTabType);
+				// Using URL parameter tab
 			} else {
 				// Fallback to referrer check
 				const referrer = document.referrer;
@@ -316,11 +307,11 @@ export default class MobileTabs {
 					referrer !== window.location.href // not the same page
 				);
 				
-				console.log('[MobileTabs] Referrer detection:', { referrer, isFromProject });
+				// Referrer detection complete
 				
 				// If coming from a project, default to 'portfolio', otherwise 'blog'
 				targetTabType = isFromProject ? 'portfolio' : 'blog';
-				console.log('[MobileTabs] Setting default tab to:', targetTabType);
+				// Setting default tab
 			}
 		}
 

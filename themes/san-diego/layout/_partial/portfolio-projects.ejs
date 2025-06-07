@@ -1,0 +1,202 @@
+<div id="projectsContent" class="portfolio-list" role="tabpanel" aria-labelledby="tab-portfolio">
+    <div class="column-title portfolio-column-title">Projects</div>
+    
+    <% if (projectPosts.length > 0) { %>
+        <% 
+        // Group posts by company
+        const projectsByCompany = {};
+        projectPosts.forEach(function(post) {
+            if (!post.draft) {
+                const company = post.company || 'Other Projects';
+                if (!projectsByCompany[company]) {
+                    projectsByCompany[company] = [];
+                }
+                projectsByCompany[company].push(post);
+            }
+        });
+
+        // Get company configuration from _config.yml
+        const companyOrder = config.portfolio?.companies?.order || [
+            'Autodesk',
+            'Human Interest', 
+            'Common Cents Lab',
+            'Lyra Health',
+            'Maisha Meds',
+            'Other Projects'
+        ];
+
+        const companyYears = config.portfolio?.companies?.years || {
+            'Autodesk': '2019—Present',
+            'Human Interest': '2017—2019',
+            'Common Cents Lab': '2016—2017',
+            'Lyra Health': '2015',
+            'Maisha Meds': '2013-2014'
+        };
+        
+        const sortedCompanies = Object.keys(projectsByCompany).sort((a, b) => {
+            const indexA = companyOrder.indexOf(a);
+            const indexB = companyOrder.indexOf(b);
+            
+            // If both companies are in our order list, use that order
+            if (indexA !== -1 && indexB !== -1) {
+                return indexA - indexB;
+            }
+            
+            // If only one company is in our list, prioritize it
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+            
+            // For companies not in our list, sort alphabetically
+            // but keep "Other Projects" at the end
+            if (a === 'Other Projects') return 1;
+            if (b === 'Other Projects') return -1;
+            return a.localeCompare(b);
+        });
+        %>
+
+        <% sortedCompanies.forEach(function(company) { %>
+            <div class="company-group">
+                <h2 class="company-name">
+                    <%= company %>
+                    <% if (companyYears[company]) { %>
+                        <span class="company-years"><%= companyYears[company] %></span>
+                    <% } %>
+                </h2>
+                <div class="company-projects">
+                    <% 
+                    // Sort projects within each company by priority and date
+                    const sortedProjects = projectsByCompany[company].sort((a, b) => {
+                        // Priority 1: has_writeup !== false AND cover_image
+                        const aPriority1 = (a.has_writeup !== false && a.cover_image) ? 1 : 0;
+                        const bPriority1 = (b.has_writeup !== false && b.cover_image) ? 1 : 0;
+                        
+                        // Priority 2: has_writeup !== false (without cover_image)
+                        const aPriority2 = (a.has_writeup !== false && !a.cover_image) ? 1 : 0;
+                        const bPriority2 = (b.has_writeup !== false && !b.cover_image) ? 1 : 0;
+                        
+                        // Priority 3: everything else
+                        const aPriority3 = (a.has_writeup === false || !a.has_writeup) ? 1 : 0;
+                        const bPriority3 = (b.has_writeup === false || !b.has_writeup) ? 1 : 0;
+                        
+                        // Compare priorities
+                        if (aPriority1 !== bPriority1) return bPriority1 - aPriority1;
+                        if (aPriority2 !== bPriority2) return bPriority2 - aPriority2;
+                        if (aPriority3 !== bPriority3) return bPriority3 - aPriority3;
+                        
+                        // Within same priority, sort by date (most recent first)
+                        return new Date(b.date).getTime() - new Date(a.date).getTime();
+                    });
+                    
+                    %>
+                    <% sortedProjects.forEach(function(post, index) { %>
+                        <% if (post.has_writeup !== false) { %>
+                            <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup" data-cover-image="<%= post.cover_image ? 'true' : 'false' %>">
+                        <% } else { %>
+                            <div class="portfolio-item" data-cover-image="<%= post.cover_image && post.has_writeup !== false ? 'true' : 'false' %>">
+                        <% } %>
+                        <% if (post.cover_image && post.has_writeup !== false) { %>    
+                        <div class="portfolio-image">
+                            <% 
+                            const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(post.cover_image);
+                            %>
+                            <% if (isVideo) { %>
+                                <% 
+                                let coverVideoPosterPath = post.cover_video_poster;
+                                if (coverVideoPosterPath) {
+                                    if (!coverVideoPosterPath.startsWith('/') && !coverVideoPosterPath.startsWith('http')) {
+                                        if (/^\d{4}\/\d{2}\/\d{2}\//.test(coverVideoPosterPath)) {
+                                            coverVideoPosterPath = '/' + coverVideoPosterPath;
+                                        } else {
+                                            coverVideoPosterPath = post.path + coverVideoPosterPath;
+                                        }
+                                    }
+                                }
+                                const finalCoverVideoPosterSrc = coverVideoPosterPath ? url_for(coverVideoPosterPath) : '';
+
+                                let videoSrcToProcess = post.cover_image;
+                                if (videoSrcToProcess) {
+                                    if (!videoSrcToProcess.startsWith('/') && !videoSrcToProcess.startsWith('http')) {
+                                        if (/^\d{4}\/\d{2}\/\d{2}\//.test(videoSrcToProcess)) {
+                                            videoSrcToProcess = '/' + videoSrcToProcess;
+                                        } else {
+                                            videoSrcToProcess = post.path + videoSrcToProcess;
+                                        }
+                                    }
+                                }
+                                const resolvedOriginalVideoPath = videoSrcToProcess ? url_for(videoSrcToProcess) : '';
+                                const baseVideoPathForVariants = resolvedOriginalVideoPath ? resolvedOriginalVideoPath.replace(/\.(mp4|webm|ogg|mov)$/i, '') : '';
+                                const webmVariant = baseVideoPathForVariants ? baseVideoPathForVariants.replace('-simple', '-compatible') + '.webm' : '';
+                                const mp4Variant = baseVideoPathForVariants ? baseVideoPathForVariants.replace('-simple', '-compatible') + '.mp4' : '';
+                                %>
+                                <video 
+                                    autoplay 
+                                    loop 
+                                    muted 
+                                    playsinline
+                                    preload="metadata"
+                                    data-autoplay="true"
+                                    <%= finalCoverVideoPosterSrc ? `poster="${finalCoverVideoPosterSrc}"` : '' %>
+                                    alt="<%- post.title %>"
+                                    loading="lazy"
+                                >
+                                    <source src="<%- webmVariant %>" type="video/webm">
+                                    <source src="<%- mp4Variant %>" type="video/mp4">
+                                    <source src="<%- resolvedOriginalVideoPath %>" type="video/mp4">
+                                </video>
+                            <% } else { %>
+                                <% 
+                                let coverImagePath = post.cover_image;
+                                if (coverImagePath) {
+                                    if (!coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
+                                        if (/^\d{4}\/\d{2}\/\d{2}\//.test(coverImagePath)) {
+                                            coverImagePath = '/' + coverImagePath;
+                                        } else {
+                                            coverImagePath = post.path + coverImagePath;
+                                        }
+                                    }
+                                }
+                                %>
+                                <img 
+                                    src="<%- coverImagePath ? url_for(coverImagePath) : '' %>" 
+                                    alt="<%- post.title %>"
+                                    loading="lazy"
+                                >
+                            <% } %>
+                        </div>
+                        <% } %>
+                        <div class="portfolio-content">
+                            <% if (post.company) { %>
+                                <div class="company-byline"><%= post.company %></div>
+                            <% } %>
+                            
+                            <div class="title-row">
+                                <div class="content-text">
+                                    <h4><%- post.title %></h4>
+                                    <% if (post.byline) { %>
+                                        <p><%- post.byline %></p>
+                                    <% } %>
+                                    
+                                    <% if (post.has_writeup !== false && post.excerpt) { %>
+                                        <details class="content-accordion">
+                                            <summary>View details</summary>
+                                            <div class="accordion-content">
+                                                <%- post.excerpt %>
+                                            </div>
+                                        </details>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <% if (post.has_writeup !== false) { %>
+                            </a>
+                        <% } else { %>
+                            </div>
+                        <% } %>
+                    <% }) %>
+                </div>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <%- partial('_partial/loading-skull') %>
+    <% } %>
+</div>

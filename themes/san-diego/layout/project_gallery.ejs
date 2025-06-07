@@ -241,10 +241,10 @@
 	<script>
 		// Define scroll function for standalone pages (fallback if blog.js not loaded)
 		function scrollToFullStory() {
-			console.log('[template] Scroll button clicked!');
+			// Scroll button clicked
 			const fullStoryElement = document.getElementById('full-story');
 			if (!fullStoryElement) {
-				console.error('[template] Full story element not found');
+				// Full story element not found
 				return;
 			}
 			
@@ -264,10 +264,10 @@
 		function setupStandaloneScrollButton() {
 			const button = document.getElementById('scrollToFullStoryBtn');
 			if (button) {
-				console.log('[template] Setting up standalone scroll button');
+				// Setting up standalone scroll button
 				button.onclick = function(e) {
 					e.preventDefault();
-					console.log('[template] Standalone scroll button clicked');
+					// Standalone scroll button clicked
 					window.scrollToFullStory();
 				};
 			}
