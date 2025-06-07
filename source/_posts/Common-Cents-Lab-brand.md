@@ -30,10 +30,10 @@ gallery_images:
     type: image
 ---
 
-### Opportunity
+## Opportunity
 
 As the inaugural designer for Common Cents Lab—a nonprofit at the forefront of advancing behavioral science research and education—I faced the unique challenge of rapidly establishing a brand identity from scratch. With no pre-existing visual framework, my task was to craft a cohesive and compelling visual language that seamlessly extended across the website, social media channels, and print materials. This foundational work was designed not only to encapsulate the organization's mission but also to deepen the audience's understanding of the financial challenges it seeks to address.
 
-### Design & Execution
+## Design & Execution
 
 Working independently, I anchored the brand identity around a single, powerful metaphor: a lens. This symbol of clarity and focus invites viewers to zoom in on the nuances of financial behavior. Each design choice—from typography to color palette—was purposefully crafted to reinforce this idea. The result is a streamlined, engaging brand system that transforms complex data into an accessible narrative, seamlessly bridging digital and print mediums.

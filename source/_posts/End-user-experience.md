@@ -48,11 +48,11 @@ tags:
 
 ---
 
-### Opportunity
+## Opportunity
 
 As Lyra began its journey in transforming mental healthcare access, the need was clear: simplify the experience for users seeking support. This project covers the end-user experience—making it effortless for users to schedule appointments with their case managers or doctors, seamlessly accept calls, and navigate sensitive topics through a positive, reassuring visual approach. The challenge was to create an interface that demystifies the process and instills clarity and empathy from the very first interaction.
 
-### Process & Key Findings
+## Process & Key Findings
 
 Working closely with Lyra's leadership, I dove into competitive analysis and conducted user interviews and feedback sessions. These efforts uncovered some crucial insights:
 
@@ -60,7 +60,7 @@ Working closely with Lyra's leadership, I dove into competitive analysis and con
 - **Streamlined Onboarding:** Feedback pointed to the frustration of finding the right provider, underlining the need for a seamless, guided onboarding experience.
 - **Emotional Tone:** The design had to balance warmth and professionalism, ensuring that the platform felt both inviting and trustworthy.
 
-### Design & Execution
+## Design & Execution
 
 Guided by these insights and early leadership input, I developed a prototype focused exclusively on the end-user experience. The design was crafted to simplify interactions and foster a supportive, reassuring atmosphere. Key elements included:
 
@@ -68,13 +68,13 @@ Guided by these insights and early leadership input, I developed a prototype foc
 - **Positive Visual Approach:** Recognizing that mental health topics can be distressing, I employed a calming visual language with soft color palettes and thoughtful typography to help maintain a positive, reassuring ambiance.
 - **User-Centered Interactions:** Every element was designed with the user in mind, from clear call-to-action buttons to logical navigation, making it easy for users to access the care they need when they need it.
 
-#### Key Deliverables
+## Key Deliverables
 
 - **High-Fidelity Wireframes & Interactive Prototypes:** Detailed deliverables that mapped the complete user journey, from initial sign-up to accessing mental health resources. These prototypes were essential for usability testing and stakeholder alignment.
 - **Responsive Design Implementation:** Ensured that every aspect of the user interface delivered a consistent and intuitive experience across all devices.
 - **End-to-End User Flow Documentation:** Comprehensive flow maps outlining every user touchpoint—from streamlined onboarding to appointment scheduling and content exploration.
 
-#### Outcomes
+## Outcomes
 
 - **Positive Qualitative Feedback:** Usability testing and stakeholder reviews underscored the intuitive layout and clear design approach.
 - **Validation of the Approach:** Early prototype evaluations confirmed that the streamlined onboarding and calming visual language were effective in addressing user needs.
