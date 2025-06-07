@@ -1,0 +1,71 @@
+<div id="postsContent" class="blog-list" role="tabpanel" aria-labelledby="tab-blog">
+    <div class="column-title blog-column-title">Posts</div>
+    
+    <!-- Add search bar -->
+    <div class="search-container">
+        <div class="search-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 21l-4.35-4.35"/>
+                <path d="M15.5 10.5a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"/>
+            </svg>
+        </div>
+        <input type="text" id="postSearch" placeholder="Search posts..." class="search-input">
+    </div>
+    
+    <% if (blogPosts.length > 0) { %>
+        <% blogPosts.forEach(function(post, index) { %>
+            <% 
+            // Determine if this is a long-form post (has <a> in h3 and long: true)
+            const isLongPost = post.long === true && !post.type;
+            const classNames = [];
+            if (post.type === 'link') {
+                classNames.push('post-link');
+            }
+            if (isLongPost) {
+                classNames.push('post-long');
+            }
+            %>
+            <% if (isLongPost) { %>
+                <a href="<%- url_for(post.path) %>" class="post-link-wrapper">
+            <% } %>
+            <article class="post-list-item <%= classNames.join(' ') %>">
+                <div class="post-byline">
+                    <%= date(post.date, 'MMMM D, YYYY') %> • 
+                    <%= post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post') %>
+                </div>
+                <% if (post.type === 'link') { %>
+                    <div class="link-share">
+                        <% if (post.content) { %>
+                            <p><%- post.content %></p>
+                        <% } %>
+                        
+                        <a href="<%= post.url %>" target="_blank" rel="noopener" class="post-list-item post-long post-link-wrapper">
+                            <div class="link-text-group">
+                                <%= post.title %>
+                                <div class="link-source">
+                                    <span class="link-url"><%= new URL(post.url).hostname %></span>
+                                </div>
+                            </div>
+                            <span class="external-icon">↗</span>
+                        </a>
+                    </div>
+                <% } else if (post.short) { %>
+                    <%- post.content %>
+                <% } else { %>
+                    <h3><a href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+                    <% if (post.excerpt) { %>
+                        <p><%- post.excerpt %></p>
+                    <% } %>
+                <% } %>
+            </article>
+            <% if (isLongPost) { %>
+                </a>
+            <% } %>
+            <% if (index < blogPosts.length - 1) { %>
+                <hr class="post-separator">
+            <% } %>
+        <% }) %>
+    <% } else { %>
+        <%- partial('_partial/loading-skull') %>
+    <% } %>
+</div>

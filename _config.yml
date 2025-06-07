@@ -138,3 +138,20 @@ search:
   path: search.xml
   field: post
   content: true
+
+# Portfolio Company Configuration
+portfolio:
+  companies:
+    order:
+      - 'Autodesk'
+      - 'Human Interest'
+      - 'Common Cents Lab'
+      - 'Lyra Health'
+      - 'Maisha Meds'
+      - 'Other Projects'
+    years:
+      'Autodesk': '2019—Present'
+      'Human Interest': '2017—2019'
+      'Common Cents Lab': '2016—2017'
+      'Lyra Health': '2015'
+      'Maisha Meds': '2013-2014'
