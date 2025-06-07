@@ -6,6 +6,7 @@ date: 2017-01-01 20:52:01
 cover_image: /2017/01/01/End-user-experience/lyra-preview.png
 has_writeup: true
 layout: project_gallery
+stats:
 credits:
   - role: User Experience Lead
     name: Thomas Walichiewicz

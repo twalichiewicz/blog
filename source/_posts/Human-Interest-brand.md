@@ -8,6 +8,9 @@ cover_image: /2017/09/11/Human-Interest-brand/humanInterestBrand-preview.png
 date: 2017-09-11 00:00:00
 type: project_gallery
 year: 2017
+stats:
+  - value: "360°"
+    label: "Brand Touchpoints"
 credits:
   - role: Design & Brand Lead
     name: Thomas Walichiewicz
@@ -38,26 +41,6 @@ gallery_images:
     type: iframe
 tags:
   - portfolio
-summary:
-  problem:
-    content: "Human Interest needed a modern brand identity to reflect its innovative 401(k) offerings and resonate with a contemporary audience. The existing visuals felt outdated, causing a disconnect with potential clients and undermining the company's forward-thinking reputation. Market research revealed that customers sought a cohesive, trustworthy brand experience."
-  solution:
-    content: "I led a comprehensive rebranding initiative that overhauled every touchpoint—from logo and typography to product interfaces and environmental graphics. The new visual identity created a unified language that established trust and aligned with the company's innovative positioning in the 401(k) space."
-  innovation:
-    title: "360-Degree Brand Ecosystem"
-    bullets:
-      - "<strong>Comprehensive Identity System:</strong> Logo, color palette, and typography creating unified visual language across all channels"
-      - "<strong>Product Interface Integration:</strong> Redesigned admin, user, and internal platforms to align with new brand identity"
-      - "<strong>Complete Digital Presence:</strong> End-to-end website redesign and implementation ensuring intuitive user experience"
-      - "<strong>Environmental Brand Expression:</strong> Workplace design including retirement destination-themed conference rooms with precision typographic installations"
-      - "<strong>Integrated Marketing Ecosystem:</strong> Unified design system across print, digital, trade show materials, and corporate merchandise"
-  impact:
-    bullets:
-      - "Enhanced brand recognition and customer engagement through cohesive visual identity"
-      - "Streamlined marketing materials reducing design inconsistencies"
-      - "Improved user experience across all platforms cultivating trust and loyalty"
-      - "Increased employee morale and company pride around modern, unified brand"
-      - "Established competitive advantage in the 401(k) industry through professional brand presence"
 ---
 
 ## Strategic Brand Development

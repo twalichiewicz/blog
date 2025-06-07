@@ -8,6 +8,11 @@ cover_image: foreground-preview.jpg
 cover_video_poster: 
 has_writeup: true
 tags: [portfolio]
+stats:
+  - value: "90%"
+    label: "Fewer Support Calls"
+  - value: "50%→10%"
+    label: "Implementation Time"
 gallery_images:
   - url: Color-scheme.jpg
     type: image
@@ -19,39 +24,6 @@ gallery_images:
     type: image
   - url: Typography.jpg
     type: image
-summary:
-  problem:
-    content: "Human Interest needed to serve three distinct user groups—plan administrators, employees, and internal operations teams—through disconnected interfaces that didn't match their workflow needs. Over 50% of engineering time was spent customizing old components to match new branding, while each audience struggled with fragmented experiences that created support burden and operational inefficiency."
-  solution:
-    content: "I designed the 'Foreground' design system—a unified platform ecosystem using consistent patterns adapted for each audience's complexity needs. Plan administrators got sophisticated compliance tools, employees got simplified retirement visualization, and operations teams got mission-critical infrastructure for managing all plans."
-  innovation:
-    title: "Multi-Audience Design Infrastructure"
-    bullets:
-      - "<strong>The 'Fauxdal' Pattern:</strong> Full-screen guided experience that transforms complex 401(k) paperwork into progressive digital workflows"
-      - "<strong>Custom Financial Iconography:</strong> Purpose-built icon system for complex 401(k) concepts that lack standard visual representation"
-      - "<strong>Adaptive Complexity:</strong> Same components adapt from consumer-simple to Bloomberg Terminal-complex based on user expertise"
-      - "<strong>Autonomous Implementation:</strong> Component architecture enables engineers to implement designs without designer handoff"
-      - "<strong>Nested Technical Architecture:</strong> Variable system enables wide-reaching changes through centralized updates"
-  impact:
-    bullets:
-      - "Eliminated 90% of UI confusion support calls while reducing engineering implementation time from 50% to 10%"
-      - "Created the 'fauxdal' pattern now used across all complex financial workflows company-wide"
-      - "Enabled autonomous design workflow where engineers implement solutions with minimal designer guidance"
-      - "Featured on Brand New - Under Consideration for cohesive financial services brand design"
-      - "Established scalable foundation that supported company growth without proportional design team expansion"
-credits:
-  - role: Role
-    name: Lead Product Designer, Design Systems Architect
-  - role: Timeline
-    name: 18 months (ongoing iteration)
-  - role: Team structure
-    name: 1 designer, 2 PMs, 50 engineers
-  - role: System scope
-    name: Admin portal, employee dashboard, internal operations tools
-  - role: Technical architecture
-    name: Component library, LESS variables, custom iconography, fauxdal pattern
-  - role: Business impact
-    name: 90% reduction in UI support calls, 50%→10% engineering implementation time
 ---
 
 ## Building Components for Financial Complexity
