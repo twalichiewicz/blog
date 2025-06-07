@@ -24,7 +24,8 @@
       "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -n -A 10 \"\\.project-writeup.*\\.writeup-content.*p\" themes/san-diego/source/styles/)",
       "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -n -A 15 \"\\.project-writeup\" themes/san-diego/source/styles/_project.scss)",
       "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -n -A 20 \"writeup-content\" themes/san-diego/source/styles/_project.scss)",
-      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -n \"writeup-content\" themes/san-diego/source/styles/)"
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -n \"writeup-content\" themes/san-diego/source/styles/)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -n -B 5 -A 15 \"writeup-content.*p\\|writeup-content.*ul\\|writeup-content.*ol\" themes/san-diego/source/styles/_project-tabs.scss)"
     ],
     "deny": []
   }
