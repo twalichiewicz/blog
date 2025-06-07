@@ -670,7 +670,7 @@
 // Responsive styles
 @media (max-width: variables.$mobile-breakpoint) {
 	.project-navigation {
-		position: relative;
+		position: absolute;
 	}
 
 	.post {
