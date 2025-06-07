@@ -22,39 +22,6 @@ gallery_images:
     type: image
   - url: 011_cpa.png
     type: image
-summary:
-  problem:
-    content: "With Autodesk's pivot to cloud-based products, administrators faced a fragmented experience managing multiple web instances or 'hubs' across different products. Each product required manual setup and management in separate locations, forcing administrators to navigate disparate systems that didn't align with their mental model of unified project management."
-  solution:
-    content: "I designed a centralized administration portal within the Autodesk Account tool that consolidates all web instance management into a single, unified interface. The system standardizes project administration across all Autodesk cloud products while respecting how administrators naturally think about project management."
-  innovation:
-    title: "Unified Hub Administration System"
-    bullets:
-      - "<strong>Centralized Management Portal:</strong> Single interface for managing instances, roles, permissions, and memberships across all cloud products"
-      - "<strong>Standardized Workflows:</strong> Consistent administrative patterns that work across diverse product ecosystems"
-      - "<strong>Mental Model Alignment:</strong> Interface design that mirrors real-world administrative thinking and processes"
-      - "<strong>Cross-Product Integration:</strong> Unified permissions and role management that works seamlessly across different Autodesk tools"
-      - "<strong>Streamlined Setup:</strong> Automated configuration processes that eliminate manual, product-by-product administration"
-  impact:
-    bullets:
-      - "Eliminated fragmented administration experience across multiple product hubs"
-      - "Reduced administrative overhead and minimized configuration errors"
-      - "Created consistent user experience for enterprise customers managing complex environments"
-      - "Established new standard for cloud-based administration within Autodesk"
-      - "Improved adoption rates among enterprise customers through intuitive, unified workflows"
-credits:
-  - role: Role
-    name: Lead Product Designer, Platform Services - Analytics & Data
-  - role: Timeline
-    name: 8 months
-  - role: Cross-functional partners
-    name: 15 product teams, Platform Engineering
-  - role: Users impacted
-    name: 2,000+ enterprise administrators across 500+ organizations
-  - role: Technical scope
-    name: Unified permissions across 15 cloud products
-  - role: Current status
-    name: Foundation for all Autodesk cloud administration
 ---
 
 ## Understanding Administrative Mental Models
