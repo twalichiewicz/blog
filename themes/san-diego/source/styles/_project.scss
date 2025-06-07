@@ -1247,7 +1247,7 @@ body.loaded .project-wrapper {
 
 // Above the fold preview - 100vh container with Apple TV+ cinematic styling
 .above-the-fold-preview {
-	height: 100vh;
+	height: 100dvh;
 	width: 100%;
 	position: relative;
 	display: flex;
@@ -1774,7 +1774,7 @@ body.loaded .project-wrapper {
 	
 	// Reset inherited blog-content styles that interfere with project layout
 	.above-the-fold-preview {
-		height: calc(100vh - 24px);
+		height: calc(100dvh - 24px);
 		margin-top: 0;
 		padding-top: 0;
 		
@@ -1855,7 +1855,7 @@ body.loaded .project-wrapper {
 
 @media (max-width: variables.$mobile-breakpoint) {
 	.above-the-fold-preview {
-		height: 100vh;
+		height: 100dvh;
 	}
 
 	.project-gallery-hero {

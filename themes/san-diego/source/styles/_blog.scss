@@ -10,7 +10,7 @@
 	position: relative;
 
 	.blog-header {
-		height: 100vh;
+		height: 100dvh;
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -33,7 +33,7 @@
 		
 		// Desktop/tablet: fixed height with scroll
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-			height: calc(100vh - 12px);
+			height: calc(100dvh - 12px);
 			overflow-y: auto;
 			-webkit-overflow-scrolling: touch;
 		}
