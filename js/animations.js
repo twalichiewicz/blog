@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",(function(){const e=document.querySelectorAll(".section"),t=new IntersectionObserver((e=>{e.forEach((e=>{e.isIntersecting&&e.target.classList.add("is-visible")}))}),{threshold:.1});e.forEach((e=>t.observe(e)))}));
