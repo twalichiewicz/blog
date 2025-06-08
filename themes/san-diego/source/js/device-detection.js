@@ -1,8 +1,7 @@
 /**
  * Device Detection and Responsive Behavior
  * 
- * This script handles device detection and applies appropriate classes to the body
- * for device-specific styling and behavior.
+ * Simplified device detection - mobile vs tablet only
  */
 
 // Run device detection immediately to ensure device classes are set before DOM is fully loaded
@@ -10,12 +9,10 @@
 	const width = window.innerWidth;
 	const body = document.body;
 
-	// Add appropriate device class
-	// EMERGENCY FIX: Force tablet mode to avoid Chrome rendering issues
-	if (width <= 767) { // Just below $mobile-breakpoint (768px)
+	// Add appropriate device class (mobile or tablet only)
+	if (width <= 767) {
 		body.classList.add('device-mobile');
 	} else {
-		// Force tablet mode for all larger screens (was: desktop for width >= 1200)
 		body.classList.add('device-tablet');
 	}
 
@@ -29,19 +26,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 	const DeviceDetection = {
-		// Breakpoints matching our SCSS definitions
-		breakpoints: {
-			mobile: {
-				max: 767  // Just below $mobile-breakpoint (768px)
-			},
-			tablet: {
-				min: 768, // $mobile-breakpoint: 768px
-				max: 1199 // $tablet-landscape-max from _device-breakpoints.scss
-			},
-			desktop: {
-				min: 1200 // $desktop-small-min from _device-breakpoints.scss
-			}
-		},
+		// Mobile breakpoint
+		mobileBreakpoint: 767,
 
 		/**
 		 * Initialize device detection
@@ -64,22 +50,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			const currentDeviceType = this.getCurrentDeviceType();
 
 			// Remove existing device classes
-			body.classList.remove('device-mobile', 'device-tablet', 'device-desktop');
+			body.classList.remove('device-mobile', 'device-tablet');
 
-			// Add appropriate device class
-			// EMERGENCY FIX: Force tablet mode to avoid Chrome rendering issues
-			if (width <= this.breakpoints.mobile.max) {
+			// Add appropriate device class (mobile or tablet only)
+			if (width <= this.mobileBreakpoint) {
 				body.classList.add('device-mobile');
 			} else {
-				// Force tablet mode for all larger screens (was: desktop for width >= desktop.min)
 				body.classList.add('device-tablet');
-			}
-
-			// Detect specific devices - using consistent breakpoints
-			if (width >= 1024 && width <= 1366 &&
-				(navigator.userAgent.includes('iPad') ||
-					(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))) {
-				body.classList.add('device-ipad-pro');
 			}
 
 			// Return whether device type changed
@@ -91,14 +68,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		 */
 		getCurrentDeviceType: function () {
 			const body = document.body;
-			// EMERGENCY FIX: No more device-desktop class, always return tablet for larger screens
 			if (body.classList.contains('device-tablet')) return 'tablet';
 			if (body.classList.contains('device-mobile')) return 'mobile';
 
 			// Fallback based on width if classes not set yet
 			const width = window.innerWidth;
-			if (width >= this.breakpoints.tablet.min) return 'tablet';
-			return 'mobile';
+			return width > this.mobileBreakpoint ? 'tablet' : 'mobile';
 		},
 
 		/**
@@ -150,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					clearTimeout(resizeTimeout);
 				}
 
-				// Use a consistent 100ms timeout for responsive behavior
+				// Use a 100ms timeout for responsive behavior
 				resizeTimeout = setTimeout(() => {
 					this.detectDevice();
 					this.detectOrientation();
@@ -159,10 +134,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			// Orientation change handler
 			window.addEventListener('orientationchange', () => {
-				// Detect changes with consistent timing
 				setTimeout(() => {
 					this.detectOrientation();
-				}, 50); // Consistent 50ms timeout for orientation changes
+				}, 50);
 			});
 		}
 	};
