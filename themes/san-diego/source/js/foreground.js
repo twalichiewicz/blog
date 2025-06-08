@@ -264,7 +264,6 @@ window.addEventListener('load', () => {
 	setTimeout(() => {
 		if (!document.body.classList.contains('loaded')) {
 			document.body.classList.add('loaded');
-			console.warn('ForegroundProject may not have initialized properly, applying fallback visibility.');
 		}
 	}, 1000);
 });
