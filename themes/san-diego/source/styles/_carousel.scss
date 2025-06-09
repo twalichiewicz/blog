@@ -377,14 +377,14 @@
 
 	img {
 		max-width: 90vw;
-		max-height: 90vh;
+		max-height: 90dvh;
 		width: auto;
 		height: auto;
 		object-fit: contain;
 
 		@media (max-width: variables.$mobile-breakpoint) {
 			max-width: 95vw;
-			max-height: 80vh;
+			max-height: 80dvh;
 		}
 	}
 

@@ -60,10 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	// --- End of Refactored Initialization Function ---
 
-	// Initial setup on page load
-	initializeBlogFeatures(document);
-	initializeMobileTabs();
-
 	// Device detection (usually needed only once)
 	const isMobile = window.innerWidth <= 768;
 	const isDesktop = document.body.classList.contains('device-desktop');
@@ -111,10 +107,9 @@ document.addEventListener('DOMContentLoaded', function () {
 				return;
 			}
 
-			// Determine the target for the fade based on screen size (for regular content)
-			const isDesktopOrTablet = window.innerWidth > 768;
+			// Always look for content-inner-wrapper when fading blog content
 			let targetElement = element;
-			if (isDesktopOrTablet && element === blogContentElement) {
+			if (element === blogContentElement) {
 				targetElement = element.querySelector('.content-inner-wrapper');
 				if (!targetElement) {
 					// .content-inner-wrapper not found, fading blog-content instead
@@ -158,10 +153,9 @@ document.addEventListener('DOMContentLoaded', function () {
 				return;
 			}
 
-			// Determine the target for the fade based on screen size (for regular content)
-			const isDesktopOrTablet = window.innerWidth > 768;
+			// Always look for content-inner-wrapper when fading blog content
 			let targetElement = element;
-			if (isDesktopOrTablet && element === blogContentElement) {
+			if (element === blogContentElement) {
 				targetElement = element.querySelector('.content-inner-wrapper');
 				if (!targetElement) {
 					// .content-inner-wrapper not found, fading blog-content instead
@@ -208,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				backButton.textContent = '← Back';
 				backButton.className = 'dynamic-back-button';
 
+				// Consistent placement for all devices
 				if (blogContentElement.firstChild) {
 					blogContentElement.insertBefore(backButton, blogContentElement.firstChild);
 				} else {
@@ -231,6 +226,18 @@ document.addEventListener('DOMContentLoaded', function () {
 				
 				// Initialize mobile tabs
 				initializeMobileTabs();
+				
+				// Re-initialize toggles
+				initializeProjectToggle();
+				initializePostsOnlyButton();
+				
+				// Ensure tabs are visible again on mobile
+				if (window.innerWidth <= 768) {
+					const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
+					if (tabsWrapper) {
+						tabsWrapper.style.display = '';
+					}
+				}
 				
 				// Set the appropriate tab based on content type
 				if (isReturningFromProject) {
@@ -290,8 +297,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Add has-dynamic-content class to enable proper scrolling
 			blogContentElement.classList.add('has-dynamic-content');
 
+			// No longer preserving tab structure for mobile - treat all devices the same
+
+			// Use consistent fade out/clear approach for all devices
 			await fadeOutElement(blogContentElement);
-			blogContentElement.innerHTML = ''; // Clear content AFTER fade out of inner (or whole)
+			blogContentElement.innerHTML = '';
 
 			try {
 				const response = await fetch(url);
@@ -302,7 +312,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				const parser = new DOMParser();
 				const doc = parser.parseFromString(htmlText, 'text/html');
 
-				let contentToExtractSelector = isProject ? 'div.project-edge-wrapper' : 'article.post';
+				// Updated selector to handle new Substack-style posts
+					let contentToExtractSelector = isProject ? 'div.project-edge-wrapper' : 'div.post-wrapper';
 				let newContentContainer = doc.querySelector(contentToExtractSelector);
 
 				// Initial selector determined
@@ -346,48 +357,29 @@ document.addEventListener('DOMContentLoaded', function () {
 						const clonedContent = newContentContainer.cloneNode(true);
 						contentFragment.appendChild(clonedContent);
 					} else {
-						// Regular content: Add the inner wrapper conditionally for desktop/tablet
-						const isDesktopOrTablet = window.innerWidth > 768;
-						// Desktop/tablet mode detected
-						if (isDesktopOrTablet) {
-							const innerWrapper = document.createElement('div');
-							innerWrapper.className = 'content-inner-wrapper';
-							innerWrapper.style.opacity = '0'; // Start transparent for fade-in
+						// Regular content handling - Use same simple structure for all devices
+						const innerWrapper = document.createElement('div');
+						innerWrapper.className = 'content-inner-wrapper';
+						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
 
-							// Handle project-wrapper inside regular content
-							let projectWrapperInstance = null;
-							if (newContentContainer.classList.contains('project-wrapper')) {
-								projectWrapperInstance = newContentContainer;
-							} else {
-								projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
-							}
-
-							if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
-								projectWrapperInstance.classList.add('dynamic-loaded');
-								// Added dynamic-loaded to project wrapper
-							}
-
-							innerWrapper.appendChild(newContentContainer.cloneNode(true));
-							contentFragment.appendChild(innerWrapper);
+						// Handle project-wrapper inside regular content
+						let projectWrapperInstance = null;
+						if (newContentContainer.classList.contains('project-wrapper')) {
+							projectWrapperInstance = newContentContainer;
 						} else {
-							// Mobile: Add dynamic-loaded class to .project-wrapper if present
-							let projectWrapperInstance = null;
-							if (newContentContainer.classList.contains('project-wrapper')) {
-								projectWrapperInstance = newContentContainer;
-							} else {
-								projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
-							}
-
-							if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
-								projectWrapperInstance.classList.add('dynamic-loaded');
-								// Added dynamic-loaded to project wrapper (mobile)
-							}
-
-							const clonedContent = newContentContainer.cloneNode(true);
-							contentFragment.appendChild(clonedContent);
+							projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
 						}
+
+						if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
+							projectWrapperInstance.classList.add('dynamic-loaded');
+							// Added dynamic-loaded to project wrapper
+						}
+
+						innerWrapper.appendChild(newContentContainer.cloneNode(true));
+						contentFragment.appendChild(innerWrapper);
 					}
 
+					// Insert content consistently for all devices
 					if (backButton) {
 						// Inserting content after back button
 						backButton.after(contentFragment);
@@ -398,6 +390,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 					// Content inserted successfully
 					initializeBlogFeatures(blogContentElement); // This will now delegate carousel init
+					
 					// Initialize project tabs for dynamically loaded content
 					if (window.initializeProjectTabs) {
 						window.initializeProjectTabs(blogContentElement);
@@ -480,7 +473,9 @@ document.addEventListener('DOMContentLoaded', function () {
 				if (!backBtn) backBtn = addOrUpdateBackButton();
 				if (backBtn) { backBtn.after(errorTechnical); } else { blogContentElement.appendChild(errorTechnical); }
 			}
+			// Fade in blog content for all devices
 			await fadeInElement(blogContentElement);
+			// Scroll into view for all devices
 			blogContentElement.scrollIntoView({ behavior: 'smooth' });
 		}
 
@@ -491,21 +486,14 @@ document.addEventListener('DOMContentLoaded', function () {
 				(link.protocol === "http:" || link.protocol === "https:") &&
 				!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey
 			) {
-				const isPostLink = link.closest('article.post-list-item:not(.post-link)') && link.matches('h3 a');
+				// Updated selectors for post previews
+				const isPostLink = link.classList.contains('post-link-wrapper');
 				const isProjectLink = link.matches('a.portfolio-item.has-writeup');
 
-				// Check if it's a mobile device (e.g., screen width less than 768px)
-				const isMobileView = window.innerWidth < 768;
-
-				if ((isPostLink || isProjectLink) && !isMobileView) { // Only proceed with dynamic loading if not mobile
+				if (isPostLink || isProjectLink) {
 					event.preventDefault();
 					const url = link.href;
 					fetchAndDisplayContent(url, true, isProjectLink);
-				} else if (isPostLink || isProjectLink) {
-					// On mobile, allow default link behavior (i.e., navigate to the page)
-					// No event.preventDefault() here
-					// Optional: you might want to explicitly set target for clarity or specific mobile behavior
-					// link.target = '_self'; // or '_blank' if you prefer new tab on mobile for some reason
 				}
 			}
 		}
@@ -513,7 +501,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		function initializeLinkListeners(parentElement) {
 			if (!parentElement) return;
 			const linksToProcess = parentElement.querySelectorAll(
-				'article.post-list-item:not(.post-link) h3 a, a.portfolio-item.has-writeup'
+				'a.post-link-wrapper, ' +
+				'a.portfolio-item.has-writeup'
 			);
 
 			linksToProcess.forEach(link => {
@@ -524,27 +513,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		initializeLinkListeners(blogContentElement);
 
-		// Add resize listener to handle desktop-to-mobile transitions for dynamic content
-		let resizeTimeout;
-		window.addEventListener('resize', function () {
-			clearTimeout(resizeTimeout);
-			resizeTimeout = setTimeout(function () {
-				const isMobileView = window.innerWidth <= 768;
-				const isDynamicContentLoaded = blogContentElement &&
-					(blogContentElement.querySelector('.project-wrapper.dynamic-loaded') ||
-						blogContentElement.querySelector('.dynamic-back-button'));
-
-				// If user resized to mobile while viewing dynamic content, redirect to actual page
-				if (isMobileView && isDynamicContentLoaded) {
-					const currentUrl = window.location.pathname + window.location.search + window.location.hash;
-					// Only redirect if we're not already on the initial blog URL
-					if (currentUrl !== initialBlogContentURL) {
-						// Redirecting to actual page due to mobile resize
-						window.location.href = currentUrl;
-					}
-				}
-			}, 150); // Debounce resize events
-		});
+		// Resize listener removed - dynamic content now works on all screen sizes
 
 		window.addEventListener('popstate', async function (event) {
 			if (event.state && event.state.page) {
@@ -588,6 +557,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 
+		// Expose fetchAndDisplayContent globally for direct navigation
+		window.fetchAndDisplayContent = fetchAndDisplayContent;
+
 		if (!history.state || (!history.state.isDynamic && !history.state.isInitial)) {
 			history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
 		}
@@ -606,6 +578,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		const posts = blogContent.querySelectorAll('.post-list-item');
 		const postSeparators = blogContent.querySelectorAll('.post-separator');
 		const noResultsMessage = blogContent.querySelector('.no-results-message');
+		const postsOnlyButton = blogContent.querySelector('.posts-only-button');
+		const isPostsOnly = postsOnlyButton && postsOnlyButton.classList.contains('active');
 
 		let visibleCount = 0;
 		const visiblePosts = [];
@@ -614,8 +588,16 @@ document.addEventListener('DOMContentLoaded', function () {
 			const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
 			const content = post.textContent.toLowerCase();
 			const isMatch = title.includes(query) || content.includes(query);
+			
+			// Check if it's specifically a "post-long post-preview-card" type
+			// Look for the preview card either on the post itself OR nested inside
+			const hasPreviewCard = post.querySelector('.post-long.post-preview-card') || 
+								  (post.classList.contains('post-long') && post.classList.contains('post-preview-card'));
+			
+			// It's a regular post if it has the preview card structure
+			const isPostType = hasPreviewCard;
 
-			if (isMatch) {
+			if (isMatch && (!isPostsOnly || isPostType)) {
 				post.style.display = '';
 				visibleCount++;
 				visiblePosts.push(post);
@@ -642,6 +624,26 @@ document.addEventListener('DOMContentLoaded', function () {
 			noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
 		}
 	}
+	
+	// Initialize posts only button
+	function initializePostsOnlyButton() {
+		const postsOnlyButton = document.querySelector('.posts-only-button');
+		if (!postsOnlyButton) return;
+		
+		// Remove existing listener if any
+		postsOnlyButton.removeEventListener('click', handlePostsOnlyClick);
+		// Add new listener
+		postsOnlyButton.addEventListener('click', handlePostsOnlyClick);
+	}
+	
+	function handlePostsOnlyClick(event) {
+		const button = event.currentTarget;
+		button.classList.toggle('active');
+		const searchInput = document.querySelector('#postSearch');
+		if (searchInput) {
+			handleSearch({ target: searchInput });
+		}
+	}
 
 	// Toggle search visibility
 	function toggleSearch() {
@@ -652,6 +654,101 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (searchContainer.classList.contains('active') && searchInput) {
 				searchInput.focus();
 			}
+		}
+	}
+
+	// Initialize project filter functionality with checkboxes
+	let activeProjectFilters = new Set(['professional', 'personal']); // Both checked by default
+	
+	function handleProjectFilterChange(event) {
+		const checkbox = event.currentTarget;
+		const filterType = checkbox.closest('.filter-checkbox').getAttribute('data-type');
+		
+		if (checkbox.checked) {
+			activeProjectFilters.add(filterType);
+		} else {
+			activeProjectFilters.delete(filterType);
+		}
+		
+		applyProjectFilters();
+	}
+	
+	function initializeProjectToggle() {
+		const filterCheckboxes = document.querySelectorAll('.project-filter-container .filter-input');
+		const projectsContent = document.querySelector('#projectsContent');
+		
+		// If old toggle container exists, ignore it
+		const oldToggleContainer = document.querySelector('.project-toggle-container');
+		if (oldToggleContainer && !filterCheckboxes.length) {
+			return; // Old implementation, skip
+		}
+		
+		if (!filterCheckboxes.length || !projectsContent) return;
+		
+		// Initialize checkboxes based on current state
+		filterCheckboxes.forEach(checkbox => {
+			const filterType = checkbox.closest('.filter-checkbox').getAttribute('data-type');
+			checkbox.checked = activeProjectFilters.has(filterType);
+			
+			// Remove any existing listeners
+			checkbox.removeEventListener('change', handleProjectFilterChange);
+			// Add new listener
+			checkbox.addEventListener('change', handleProjectFilterChange);
+		});
+		
+		// Apply the current filters
+		applyProjectFilters();
+	}
+	
+	function applyProjectFilters() {
+		const projectsContent = document.querySelector('#projectsContent');
+		if (!projectsContent) return;
+		
+		const companyGroups = projectsContent.querySelectorAll('.company-group');
+		const projectItems = projectsContent.querySelectorAll('.portfolio-item');
+		let hasVisibleProjects = false;
+		
+		// Show/hide company groups based on active filters
+		companyGroups.forEach(group => {
+			const groupType = group.getAttribute('data-project-type');
+			const shouldShow = activeProjectFilters.has(groupType);
+			group.style.display = shouldShow ? '' : 'none';
+			if (shouldShow) hasVisibleProjects = true;
+		});
+		
+		// Show/hide individual project items based on active filters
+		projectItems.forEach(item => {
+			const itemType = item.getAttribute('data-project-type');
+			const shouldShow = activeProjectFilters.has(itemType);
+			item.style.display = shouldShow ? '' : 'none';
+		});
+		
+		// Handle no results message
+		let noResultsMsg = projectsContent.querySelector('.no-projects-message');
+		
+		if (!hasVisibleProjects && activeProjectFilters.size === 0) {
+			if (!noResultsMsg) {
+				noResultsMsg = document.createElement('div');
+				noResultsMsg.className = 'no-projects-message';
+				noResultsMsg.style.textAlign = 'center';
+				noResultsMsg.style.padding = '3rem 2rem';
+				noResultsMsg.style.color = 'var(--text-color-secondary)';
+				projectsContent.appendChild(noResultsMsg);
+			}
+			noResultsMsg.textContent = 'Please select at least one project type to display.';
+		} else if (!hasVisibleProjects) {
+			if (!noResultsMsg) {
+				noResultsMsg = document.createElement('div');
+				noResultsMsg.className = 'no-projects-message';
+				noResultsMsg.style.textAlign = 'center';
+				noResultsMsg.style.padding = '3rem 2rem';
+				noResultsMsg.style.color = 'var(--text-color-secondary)';
+				projectsContent.appendChild(noResultsMsg);
+			}
+			const filterNames = Array.from(activeProjectFilters).join(' or ');
+			noResultsMsg.textContent = `No ${filterNames} projects to display.`;
+		} else if (noResultsMsg) {
+			noResultsMsg.remove();
 		}
 	}
 
@@ -686,5 +783,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	let allSpotlightSlides = []; 
 	function openSpotlight(initialSrc, slidesArray, initialIndex) { ... }
 	*/
+
+	// Make initialization functions globally available for mobile tabs
+	window.initializeProjectToggle = initializeProjectToggle;
+	window.initializePostsOnlyButton = initializePostsOnlyButton;
+
+	// Initial setup on page load - moved to end after all functions are defined
+	initializeBlogFeatures(document);
+	initializeMobileTabs();
+	initializeProjectToggle();
+	initializePostsOnlyButton();
 
 }); 
