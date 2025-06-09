@@ -26,7 +26,13 @@
       "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -n -A 20 \"writeup-content\" themes/san-diego/source/styles/_project.scss)",
       "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -n \"writeup-content\" themes/san-diego/source/styles/)",
       "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -n -B 5 -A 15 \"writeup-content.*p\\|writeup-content.*ul\\|writeup-content.*ol\" themes/san-diego/source/styles/_project-tabs.scss)",
-      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -r \"console\\.\" themes/san-diego/source/js/)"
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -r \"console\\.\" themes/san-diego/source/js/)",
+      "WebFetch(domain:substack.com)",
+      "Bash(timeout 30 npm run build:*)",
+      "Bash(awk:*)",
+      "Bash(lsof:*)",
+      "Bash(node:*)",
+      "Bash(npx sass:*)"
     ],
     "deny": []
   }
