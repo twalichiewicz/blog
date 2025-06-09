@@ -1,0 +1,210 @@
+@use 'variables';
+
+// Post preview card component - Used in blog listing
+.post-preview-card {
+	background: variables.$white;
+	border-radius: 12px;
+	overflow: hidden;
+	margin-bottom: 24px;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	border: 1px solid variables.$border-color;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	
+	// When combined with post-list-item and post-long, remove padding
+	&.post-list-item.post-long {
+		padding: 0 !important;
+	}
+	
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+		
+		.preview-cover-image img {
+			transform: scale(1.05);
+		}
+	}
+	
+	// Cover image container
+	.preview-cover-image {
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+		background-color: variables.$card-bg;
+		
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.3s ease;
+			margin: 0;
+			border-radius: 0;
+		}
+		
+		// Placeholder for posts without images
+		&:empty {
+			display: none;
+		}
+	}
+	
+	// Content container
+	.preview-content {
+		padding: 12px;
+		
+		.preview-title {
+			margin: 0 0 8px 0;
+			font-size: 22px;
+			line-height: 1.3;
+			font-weight: 700;
+			
+			a {
+				color: variables.$text-color;
+				text-decoration: none;
+				transition: color 0.2s ease;
+				
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+		
+		.preview-excerpt {
+			margin: 0 0 6px 0;
+			font-size: 14px;
+			line-height: 1.3;
+			color: variables.$text-color-secondary;			
+			// Truncate to 3 lines
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		
+		.preview-metadata {
+			display: flex;
+			align-items: center;
+			font-size: 13px;
+			color: variables.$text-color-secondary;
+			gap: 8px;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+			
+			.preview-date {
+				white-space: nowrap;
+			}
+			
+			.preview-separator {
+				color: variables.$text-color-secondary;
+			}
+			
+			.preview-reading-time {
+				white-space: nowrap;
+				font-size: 9px;
+			}
+		}
+	}
+	
+	// Dark mode styles
+	@media (prefers-color-scheme: dark) {
+		background-color: variables.$card-bg-dark;
+		border-color: variables.$border-color-dark;
+		
+		.preview-cover-image {
+			background-color: variables.$card-bg-dark;
+		}
+		
+		.preview-title a {
+			color: variables.$text-color-dark;
+		}
+		
+		.preview-excerpt {
+			color: variables.$text-color-secondary-dark;
+		}
+		
+		.preview-metadata {
+			color: variables.$text-color-secondary-dark;
+			
+			.preview-separator {
+				color: variables.$text-color-secondary-dark;
+			}
+		}
+	}
+	
+	// Forced dark theme
+	[data-theme="dark"] & {
+		background-color: variables.$card-bg-dark;
+		border-color: variables.$border-color-dark;
+		
+		.preview-cover-image {
+			background-color: variables.$card-bg-dark;
+		}
+		
+		.preview-title a {
+			color: variables.$text-color-dark;
+		}
+		
+		.preview-excerpt {
+			color: variables.$text-color-secondary-dark;
+		}
+		
+		.preview-metadata {
+			color: variables.$text-color-secondary-dark;
+			
+			.preview-separator {
+				color: variables.$text-color-secondary-dark;
+			}
+		}
+	}
+	
+	// Mobile adjustments
+	@media (max-width: variables.$mobile-breakpoint) {
+		margin-bottom: 16px;
+		
+		.preview-cover-image {
+			height: 150px;
+		}
+		
+		.preview-content {
+			padding: 16px;
+			
+			.preview-title {
+				font-size: 18px;
+			}
+			
+			.preview-excerpt {
+				font-size: 14px;
+				-webkit-line-clamp: 2; // Show only 2 lines on mobile
+			}
+			
+			.preview-metadata {
+				font-size: 12px;
+				gap: 6px;
+			}
+		}
+	}
+	
+	// Compact variant for sidebar or smaller displays
+	&.compact {
+		.preview-cover-image {
+			height: 120px;
+		}
+		
+		.preview-content {
+			padding: 16px;
+			
+			.preview-title {
+				font-size: 18px;
+				margin-bottom: 4px;
+			}
+			
+			.preview-excerpt {
+				font-size: 14px;
+				margin-bottom: 12px;
+				-webkit-line-clamp: 2;
+			}
+			
+			.preview-metadata {
+				font-size: 12px;
+			}
+		}
+	}
+}

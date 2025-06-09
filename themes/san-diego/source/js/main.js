@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Initialize color scheme functionality
 	initColorScheme();
 
+	// Initialize mobile expandable header
+	initMobileExpandableHeader();
+
 	// Initialize animations for sections
 	initSectionAnimations({
 		sectionSelector: '.section',
@@ -56,4 +59,50 @@ function initColorScheme() {
 			}
 		});
 	}
+}
+
+/**
+ * Initialize mobile expandable header functionality
+ */
+function initMobileExpandableHeader() {
+	const expandButton = document.querySelector('.mobile-expand-button');
+	const profileHeader = document.querySelector('.profile-header');
+	const expandableContent = document.querySelector('.mobile-expandable-content');
+	const blogContent = document.querySelector('.blog-content');
+	
+	if (!expandButton || !profileHeader || !expandableContent) return;
+	
+	// Add click event listener to the expand button
+	expandButton.addEventListener('click', function() {
+		const isExpanded = profileHeader.getAttribute('data-expanded') === 'true';
+		
+		// Toggle expanded state
+		profileHeader.setAttribute('data-expanded', !isExpanded);
+		expandButton.setAttribute('aria-expanded', !isExpanded);
+		
+		// Add sliding animation to blog content
+		if (!isExpanded && blogContent) {
+			blogContent.style.transition = 'transform 0.3s ease';
+			blogContent.style.transform = 'translateY(0)';
+			// Reset after animation
+			setTimeout(() => {
+				blogContent.style.transition = '';
+				blogContent.style.transform = '';
+			}, 300);
+		}
+		
+		// Trigger sound effect if available
+		if (window.playButtonSound) {
+			window.playButtonSound();
+		}
+	});
+	
+	// Close on outside click
+	document.addEventListener('click', function(event) {
+		const isExpanded = profileHeader.getAttribute('data-expanded') === 'true';
+		if (isExpanded && !profileHeader.contains(event.target)) {
+			profileHeader.setAttribute('data-expanded', 'false');
+			expandButton.setAttribute('aria-expanded', 'false');
+		}
+	});
 }

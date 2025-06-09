@@ -11,7 +11,7 @@ body {
 	color: variables.$text-color;
 	background-color: variables.$body-bg;
 	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-	min-height: 100vh;
+	min-height: 100dvh;
 	min-height: -webkit-fill-available;
 }
 
@@ -31,6 +31,26 @@ body {
 	a:link,
 	a:visited {
 		color: variables.$link-color-dark;
+	}
+}
+
+// Mobile-specific body styling to match tablet
+@media (max-width: variables.$mobile-breakpoint) {
+	body {
+		background-color: hsl(35deg 15% 88%); // Same as default body-bg
+	}
+	
+	@media (prefers-color-scheme: dark) {
+		body {
+			background-color: hsl(28deg 8% 12%); // Match tablet dark background
+		}
+	}
+}
+
+// Manual dark theme on mobile
+[data-theme="dark"] body {
+	@media (max-width: variables.$mobile-breakpoint) {
+		background-color: hsl(28deg 8% 12%);
 	}
 }
 

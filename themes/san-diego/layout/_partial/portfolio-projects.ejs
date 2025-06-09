@@ -1,6 +1,46 @@
 <div id="projectsContent" class="portfolio-list" role="tabpanel" aria-labelledby="tab-portfolio">
     <div class="column-title portfolio-column-title">Projects</div>
     
+    <!-- Project Type Toggle -->
+    <% 
+    // Check if there are any personal projects
+    let hasPersonalProjects = false;
+    const personalCompanies = ['Other Projects']; // Only "Other Projects" is personal now
+    
+    projectPosts.forEach(function(post) {
+        if (!post.draft) {
+            const company = post.company || 'Other Projects';
+            if (personalCompanies.includes(company)) {
+                hasPersonalProjects = true;
+            }
+        }
+    });
+    %>
+    <% if (hasPersonalProjects) { %>
+    <div class="project-filter-container">
+        <div class="filter-group">
+            <label class="filter-checkbox" data-type="professional">
+                <input type="checkbox" class="filter-input" checked>
+                <span class="checkbox-indicator">
+                    <svg class="checkmark" viewBox="0 0 24 24">
+                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+                    </svg>
+                </span>
+                <span class="filter-label">Professional</span>
+            </label>
+            <label class="filter-checkbox" data-type="personal">
+                <input type="checkbox" class="filter-input" checked>
+                <span class="checkbox-indicator">
+                    <svg class="checkmark" viewBox="0 0 24 24">
+                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+                    </svg>
+                </span>
+                <span class="filter-label">Personal</span>
+            </label>
+        </div>
+    </div>
+    <% } %>
+
     <% if (projectPosts.length > 0) { %>
         <% 
         // Group posts by company
@@ -55,7 +95,12 @@
         %>
 
         <% sortedCompanies.forEach(function(company) { %>
-            <div class="company-group">
+            <% 
+            // Determine if this company group is personal or professional
+            const personalCompanies = ['Other Projects']; // Only "Other Projects" is personal now
+            const groupType = personalCompanies.includes(company) ? 'personal' : 'professional';
+            %>
+            <div class="company-group" data-project-type="<%= groupType %>">
                 <h2 class="company-name">
                     <%= company %>
                     <% if (companyYears[company]) { %>
@@ -89,10 +134,15 @@
                     
                     %>
                     <% sortedProjects.forEach(function(post, index) { %>
+                        <% 
+                        // Determine project type - personal companies or projects without a company are personal
+                        const personalCompanies = ['Other Projects']; // Only "Other Projects" is personal now
+                        const projectType = personalCompanies.includes(company) || !post.company ? 'personal' : 'professional';
+                        %>
                         <% if (post.has_writeup !== false) { %>
-                            <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup" data-cover-image="<%= post.cover_image ? 'true' : 'false' %>">
+                            <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup" data-cover-image="<%= post.cover_image ? 'true' : 'false' %>" data-project-type="<%= projectType %>">
                         <% } else { %>
-                            <div class="portfolio-item" data-cover-image="<%= post.cover_image && post.has_writeup !== false ? 'true' : 'false' %>">
+                            <div class="portfolio-item" data-cover-image="<%= post.cover_image && post.has_writeup !== false ? 'true' : 'false' %>" data-project-type="<%= projectType %>">
                         <% } %>
                         <% if (post.cover_image && post.has_writeup !== false) { %>    
                         <div class="portfolio-image">

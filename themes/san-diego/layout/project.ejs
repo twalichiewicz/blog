@@ -2,6 +2,21 @@
 <html>
 <%- partial('_partial/head') %>
 <body class="project-page">
+	<script>
+		// Redirect to homepage with project path
+		(function() {
+			const currentPath = window.location.pathname;
+			const isDirectAccess = !document.referrer || !document.referrer.includes(window.location.origin);
+			const isRefresh = window.performance && window.performance.navigation && window.performance.navigation.type === 1;
+			
+			// Redirect if accessing directly OR on refresh (not from within the site)
+			if ((isDirectAccess || isRefresh) && currentPath !== '/') {
+				// Redirect to homepage with project parameter
+				window.location.href = '/?project=' + encodeURIComponent(currentPath) + '&tab=portfolio';
+			}
+		})();
+	</script>
+	
 	<div class="page-transition-overlay"></div>
 	
 	<div class="project-wrapper">
