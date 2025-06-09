@@ -1,7 +1,9 @@
 ---
 title: {{ title }}
+subtitle: 
+cover_image: 
 date: {{ date }}
-short: true
+author: Thomas Walichiewicz
 tags:
   - blog
 ---
