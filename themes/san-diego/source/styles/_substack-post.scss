@@ -1,0 +1,499 @@
+@use 'variables';
+
+// Substack-style post layout - unified styles for both preview and full post
+// This file provides consistent styling across the blog
+
+// Base post styles used in both contexts
+%substack-base {
+	color: variables.$text-color;
+	
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+	}
+	
+	[data-theme="dark"] & {
+		color: variables.$text-color-dark;
+	}
+}
+
+// Typography mixins
+@mixin substack-title {
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	color: variables.$text-color;
+	
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+	}
+	
+	[data-theme="dark"] & {
+		color: variables.$text-color-dark;
+	}
+}
+
+@mixin substack-metadata {
+	color: variables.$text-color-secondary;
+	
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-secondary-dark;
+	}
+	
+	[data-theme="dark"] & {
+		color: variables.$text-color-secondary-dark;
+	}
+}
+
+// Shared styles for Substack posts
+.substack-post {
+	@extend %substack-base;
+	margin: 0;
+	
+	// Cover image styles
+	.post-cover-image {
+		width: 100%;
+		overflow: hidden;
+		border: 1px solid #ccc;
+		border-radius: 12px;
+		margin: 0;
+		
+		// Mobile margins
+		@media (max-width: variables.$mobile-breakpoint) {
+			margin: 0;
+			width: 100%;
+			border-radius: 8px;
+		}
+		
+		img {
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+			display: block;
+		}
+	}
+	
+	// Header styles
+	.post-header {
+		.post-title {
+			@include substack-title;
+			margin: 0 0 16px 0;
+			line-height: 1.2;
+		}
+		
+		.post-subtitle {
+			font-size: 18px;
+			line-height: 1.4;
+			color: variables.$text-color-secondary;
+			margin-bottom: 24px;
+			font-weight: 400;
+				
+			@media (prefers-color-scheme: dark) {
+				color: variables.$text-color-secondary-dark;
+			}
+			
+			[data-theme="dark"] & {
+				color: variables.$text-color-secondary-dark;
+			}
+		}
+	}
+	
+	// Author byline
+	.post-byline {
+		padding-top: 12px;
+		padding-bottom: 12px;
+		border-top: solid 1px #ccc;
+		border-bottom: solid 1px #ccc;
+		
+		@media (prefers-color-scheme: dark) {
+			border-top-color: #444;
+			border-bottom-color: #444;
+		}
+		.author-info {
+			display: flex;
+			align-items: center;
+		}
+		
+		.author-avatar {
+			border-radius: 50%;
+			object-fit: cover;
+		}
+		
+		.author-name {
+			@include substack-metadata;
+			font-weight: 500;
+			color: variables.$text-color;
+			
+			@media (prefers-color-scheme: dark) {
+				color: variables.$text-color-dark;
+			}
+			
+			[data-theme="dark"] & {
+				color: variables.$text-color-dark;
+			}
+		}
+		
+		.post-metadata {
+			@include substack-metadata;
+			display: flex;
+			align-items: center;
+			
+			.reading-time-separator,
+			.preview-separator {
+				margin: 0 6px;
+			}
+		}
+	}
+	
+	// Content styles
+	.post-content {
+		line-height: 1.7;
+		color: variables.$text-color;
+		
+		@media (prefers-color-scheme: dark) {
+			color: variables.$text-color-dark;
+		}
+		
+		[data-theme="dark"] & {
+			color: variables.$text-color-dark;
+		}
+		
+		p {
+			margin: 20px 0;
+			line-height: 1.7;
+		}
+		
+		h1, h2, h3, h4, h5, h6 {
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+			font-weight: 600;
+			margin-top: 32px;
+			margin-bottom: 16px;
+			color: variables.$text-color;
+			
+			@media (prefers-color-scheme: dark) {
+				color: variables.$text-color-dark;
+			}
+			
+			[data-theme="dark"] & {
+				color: variables.$text-color-dark;
+			}
+		}
+		
+		h1 { font-size: 28px; }
+		h2 { font-size: 24px; }
+		h3 { font-size: 20px; }
+		h4 { font-size: 18px; }
+		
+		blockquote {
+			margin: 24px 0;
+			padding-left: 20px;
+			border-left: 3px solid variables.$border-color;
+			font-style: italic;
+			color: variables.$text-color-secondary;
+			
+			@media (prefers-color-scheme: dark) {
+				border-left-color: variables.$border-color-dark;
+				color: variables.$text-color-secondary-dark;
+			}
+			
+			[data-theme="dark"] & {
+				border-left-color: variables.$border-color-dark;
+				color: variables.$text-color-secondary-dark;
+			}
+		}
+		
+		img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 4px;
+			margin: 20px 0;
+		}
+		
+		a {
+			color: variables.$link-color;
+			text-decoration: underline;
+			text-decoration-color: rgba(variables.$link-color, 0.3);
+			transition: text-decoration-color 0.2s ease;
+			border-bottom: none;
+			
+			&:hover {
+				text-decoration-color: rgba(variables.$link-color, 1);
+			}
+			
+			@media (prefers-color-scheme: dark) {
+				color: variables.$link-color-dark;
+				text-decoration-color: rgba(variables.$link-color-dark, 0.3);
+				
+				&:hover {
+					text-decoration-color: rgba(variables.$link-color-dark, 1);
+				}
+			}
+			
+			[data-theme="dark"] & {
+				color: variables.$link-color-dark;
+				text-decoration-color: rgba(variables.$link-color-dark, 0.3);
+				
+				&:hover {
+					text-decoration-color: rgba(variables.$link-color-dark, 1);
+				}
+			}
+		}
+		
+		code {
+			background-color: variables.$card-bg;
+			padding: 2px 6px;
+			border-radius: 3px;
+			font-size: 0.85em;
+			
+			@media (prefers-color-scheme: dark) {
+				background-color: variables.$card-bg-dark;
+			}
+			
+			[data-theme="dark"] & {
+				background-color: variables.$card-bg-dark;
+			}
+		}
+		
+		pre {
+			background-color: variables.$card-bg;
+			padding: 16px;
+			border-radius: 6px;
+			overflow-x: auto;
+			margin: 24px 0;
+			
+			@media (prefers-color-scheme: dark) {
+				background-color: variables.$card-bg-dark;
+			}
+			
+			[data-theme="dark"] & {
+				background-color: variables.$card-bg-dark;
+			}
+			
+			code {
+				background: none;
+				padding: 0;
+				font-size: 14px;
+			}
+		}
+		
+		ul, ol {
+			margin: 20px 0;
+			padding-left: 30px;
+			
+			li {
+				margin-bottom: 8px;
+				line-height: 1.7;
+			}
+		}
+	}
+}
+
+// Full post specific styles
+.post-wrapper.dynamic-loaded {
+	margin-top: 64px;
+}
+
+.post-wrapper.dynamic-loaded .substack-post {
+	max-width: 680px;
+	margin: 0 auto;
+	padding: 0;
+	background: transparent;
+	box-shadow: none;
+	border: none;
+	border-radius: 0;
+	
+	.post-cover-image {
+		margin: 0 0 40px 0;
+		border-radius: 12px;
+		height: auto;
+		max-height: 400px;
+		
+		// Mobile margins
+		@media (max-width: variables.$mobile-breakpoint) {
+			margin: 0 15px 40px 15px;
+			width: calc(100% - 30px);
+		}
+		
+		img {
+			border-radius: 12px;
+			max-height: 400px;
+		}
+	}
+	
+	.post-header {
+		padding: 0 24px;
+		margin-bottom: 32px;
+		
+		.post-title {
+			font-size: 32px;
+		}
+	}
+	
+	.post-byline {
+		margin-top: 24px;
+		
+		.author-avatar {
+			width: 40px;
+			height: 40px;
+			margin-right: 12px;
+		}
+		
+		.author-name {
+			font-size: 14px;
+			margin-bottom: 2px;
+		}
+		
+		.post-metadata {
+			font-size: 13px;
+		}
+	}
+	
+	.post-content-container {
+		padding: 0 24px;
+		
+		.post-content {
+			font-size: 16px;
+			
+			p {
+				font-size: 16px;
+			}
+		}
+	}
+	
+	.post-footer {
+		margin: 60px 0 0 0;
+		padding: 0 24px 24px;
+		border-top: 1px solid variables.$border-color;
+		
+		// Hide on tablet and desktop
+		@media (min-width: variables.$tablet-breakpoint) {
+			display: none;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			border-top-color: variables.$border-color-dark;
+		}
+		
+		[data-theme="dark"] & {
+			border-top-color: variables.$border-color-dark;
+		}
+		
+		.author-card {
+			display: flex;
+			padding: 20px;
+			background-color: variables.$card-bg;
+			border-radius: 8px;
+			margin-top: 24px;
+			align-items: flex-start;
+			border: 1px solid variables.$border-color;
+			
+			@media (prefers-color-scheme: dark) {
+				background-color: variables.$card-bg-dark;
+				border-color: variables.$border-color-dark;
+			}
+			
+			[data-theme="dark"] & {
+				background-color: variables.$card-bg-dark;
+				border-color: variables.$border-color-dark;
+			}
+			
+			.author-card-avatar {
+				width: 56px;
+				height: 56px;
+				border-radius: 50%;
+				margin-right: 16px;
+				object-fit: cover;
+				flex-shrink: 0;
+			}
+			
+			.author-card-name {
+				font-size: 16px;
+				font-weight: 600;
+				margin: 0 0 8px 0;
+				color: variables.$text-color;
+				
+				@media (prefers-color-scheme: dark) {
+					color: variables.$text-color-dark;
+				}
+				
+				[data-theme="dark"] & {
+					color: variables.$text-color-dark;
+				}
+			}
+			
+			.author-card-bio {
+				font-size: 14px;
+				line-height: 1.5;
+				color: variables.$text-color-secondary;
+				margin: 0 0 12px 0;
+				
+				@media (prefers-color-scheme: dark) {
+					color: variables.$text-color-secondary-dark;
+				}
+				
+				[data-theme="dark"] & {
+					color: variables.$text-color-secondary-dark;
+				}
+			}
+			
+			.author-card-link {
+				font-size: 13px;
+				color: variables.$link-color;
+				text-decoration: none;
+				font-weight: 500;
+				
+				&:hover {
+					text-decoration: underline;
+				}
+				
+				@media (prefers-color-scheme: dark) {
+					color: variables.$link-color-dark;
+				}
+				
+				[data-theme="dark"] & {
+					color: variables.$link-color-dark;
+				}
+			}
+		}
+	}
+	
+	// Mobile adjustments
+	@media (max-width: variables.$mobile-breakpoint) {
+		.post-header {
+			padding: 0 16px;
+			margin-bottom: 24px;
+			
+			.post-title {
+				font-size: 28px;
+			}
+			
+			.post-subtitle {
+				font-size: 16px;
+			}
+		}
+		
+		.post-content-container {
+			padding: 0 16px;
+			
+			.post-content {
+				font-size: 15px;
+				
+				p {
+					font-size: 15px;
+				}
+			}
+		}
+		
+		.post-footer {
+			padding: 0 16px 16px;
+			margin: 48px 0 0 0;
+			
+			.author-card {
+				flex-direction: column;
+				text-align: center;
+				
+				.author-card-avatar {
+					margin: 0 auto 16px auto;
+				}
+			}
+		}
+	}
+}

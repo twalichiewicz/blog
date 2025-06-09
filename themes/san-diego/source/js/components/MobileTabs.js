@@ -380,6 +380,11 @@ export default class MobileTabs {
 			}, this.config.transitionDuration);
 
 			if (this.searchBar) this.searchBar.style.display = 'block';
+			
+			// Initialize posts only button when blog tab is shown
+			if (window.initializePostsOnlyButton) {
+				window.initializePostsOnlyButton();
+			}
 		} else if (type === 'portfolio') {
 			this.postsContent.style.opacity = '0';
 			this.projectsContent.style.opacity = '1';
@@ -391,6 +396,11 @@ export default class MobileTabs {
 			}, this.config.transitionDuration);
 
 			if (this.searchBar) this.searchBar.style.display = 'none';
+			
+			// Initialize project toggle when portfolio tab is shown
+			if (window.initializeProjectToggle) {
+				window.initializeProjectToggle();
+			}
 		}
 	}
 

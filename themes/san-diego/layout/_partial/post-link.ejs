@@ -1,18 +1,49 @@
-<article class="<%= post.layout === 'link' ? 'post-link' : '' %>">
-    <h2><a href="<%- url_for(post.path) %>"><%= post.title %></a></h2>
-    <% if (post.excerpt) { %>
-        <div class="post-excerpt">
-            <%- post.excerpt %>
-        </div>
-    <% } %>
-    <div class="post-meta">
-        <span class="post-date"><%= date(post.date, 'MMMM D, YYYY') %></span>
-        <% if (post.categories && post.categories.length) { %>
-            <span class="post-categories">
-                <% post.categories.forEach(function(cat) { %>
-                    <a href="<%- url_for(cat.path) %>"><%= cat.name %></a>
-                <% }) %>
-            </span>
-        <% } %>
-    </div>
-</article> 
+<article class="post-list-item">
+	<div class="post-byline">
+		<%= date(post.date, 'MMMM D, YYYY') %> • 
+		<%= post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post') %>
+	</div>
+	<a href="<%- url_for(post.path) %>" class="post-link-wrapper">
+		<div class="post-list-item post-long post-preview-card">
+			<% 
+			// Handle cover image
+			let coverImagePath = post.cover_image || post.header_image;
+			if (coverImagePath && !coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
+				coverImagePath = post.path + coverImagePath;
+			}
+			// Use fallback cover image if no cover image is specified
+			if (!coverImagePath) {
+				coverImagePath = '/img/blogPostDefaultCover.png';
+			}
+			%>
+			<div class="preview-cover-image">
+				<img src="<%- url_for(coverImagePath) %>" alt="<%= post.title %>" loading="lazy" />
+			</div>
+			<div class="preview-content">
+				<h3 class="preview-title">
+					<%= post.title %>
+				</h3>
+				<% if (post.subtitle || post.excerpt) { %>
+				<div class="preview-excerpt">
+					<%- post.subtitle || post.excerpt %>
+				</div>
+				<% } %>
+
+				<div class="preview-metadata">
+					<% 
+					// Calculate reading time
+					let wordCount = 0;
+					if (post._content) {
+						const content = post._content.replace(/<\/?[^>]+(>|$)/g, '');
+						wordCount = content.split(/\s+/).filter(word => word.length > 0).length;
+					}
+					const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+					%>
+					<span class="preview-reading-time">
+						<%= readingTime %> min read
+					</span>
+				</div>
+			</div>
+		</div>
+	</a> 
+</article>

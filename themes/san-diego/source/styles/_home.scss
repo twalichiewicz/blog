@@ -6,7 +6,7 @@
 	top: 0;
 	left: 0;
 	width: 100vw;
-	height: 100vh;
+	height: 100dvh;
 	z-index: -1;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .home {
-	height: calc(100vh - var(--nav-height));
+	height: calc(100dvh - var(--nav-height));
 	margin: 0;
 	padding: 0;
 	overflow: hidden;

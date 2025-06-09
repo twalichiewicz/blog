@@ -1,0 +1,665 @@
+// =============================================================================
+// FORM MOLECULES
+// =============================================================================
+// Complex form patterns that combine atomic components (inputs, buttons, typography)
+
+@use '../../utilities/mixins' as mixins;
+@use '../../utilities/functions' as fn;
+
+// =============================================================================
+// BASIC FORM MOLECULES
+// =============================================================================
+
+// Form group - combines label, input, and help text
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: fn.space('xs');
+  margin-bottom: fn.space('lg');
+  
+  .form-label {
+    @extend .label;
+    margin-bottom: 0;
+  }
+  
+  .form-input {
+    @extend .input;
+  }
+  
+  .form-help {
+    @extend .text;
+    @extend .text--xs;
+    @extend .text--secondary;
+    margin: 0;
+  }
+  
+  .form-error {
+    @extend .text;
+    @extend .text--xs;
+    @extend .text--error;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: fn.space('xs');
+    
+    &::before {
+      content: '⚠';
+      font-size: fn.font-size('sm');
+    }
+  }
+  
+  .form-success {
+    @extend .text;
+    @extend .text--xs;
+    @extend .text--success;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: fn.space('xs');
+    
+    &::before {
+      content: '✓';
+      font-size: fn.font-size('sm');
+    }
+  }
+  
+  // Error state
+  &--error {
+    .form-input {
+      @extend .input--error;
+    }
+  }
+  
+  // Success state
+  &--success {
+    .form-input {
+      @extend .input--success;
+    }
+  }
+  
+  // Required field indicator
+  &--required {
+    .form-label::after {
+      content: ' *';
+      color: var(--semantic-error);
+    }
+  }
+}
+
+// Inline form group - label and input side by side
+.form-group--inline {
+  @extend .form-group;
+  flex-direction: row;
+  align-items: center;
+  gap: fn.space('md');
+  
+  .form-label {
+    flex-shrink: 0;
+    margin-bottom: 0;
+    width: 120px;
+  }
+  
+  .form-input {
+    flex: 1;
+  }
+  
+  .form-help,
+  .form-error,
+  .form-success {
+    flex-basis: 100%;
+    margin-left: 136px; // Account for label width + gap
+  }
+  
+  @include mixins.mobile {
+    flex-direction: column;
+    align-items: stretch;
+    
+    .form-label {
+      width: auto;
+    }
+    
+    .form-help,
+    .form-error,
+    .form-success {
+      margin-left: 0;
+    }
+  }
+}
+
+// =============================================================================
+// SEARCH FORM MOLECULES
+// =============================================================================
+
+// Search form with input and button
+.search-form {
+  display: flex;
+  gap: fn.space('sm');
+  width: 100%;
+  
+  .search-input {
+    @extend .input-search;
+    flex: 1;
+  }
+  
+  .search-button {
+    @extend .btn;
+    @extend .btn--primary;
+    flex-shrink: 0;
+  }
+  
+  // Compact variant
+  &--compact {
+    .search-input {
+      @extend .input--sm;
+    }
+    
+    .search-button {
+      @extend .btn--sm;
+    }
+  }
+  
+  // Full width variant
+  &--full {
+    width: 100%;
+  }
+  
+  @include mixins.mobile {
+    flex-direction: column;
+    
+    .search-button {
+      width: 100%;
+    }
+  }
+}
+
+// Search with filters
+.search-form--advanced {
+  @extend .search-form;
+  flex-direction: column;
+  gap: fn.space('md');
+  
+  .search-row {
+    display: flex;
+    gap: fn.space('sm');
+    
+    @include mixins.mobile {
+      flex-direction: column;
+    }
+  }
+  
+  .search-filters {
+    display: flex;
+    gap: fn.space('md');
+    flex-wrap: wrap;
+    
+    .select {
+      min-width: 120px;
+    }
+    
+    @include mixins.mobile {
+      flex-direction: column;
+      
+      .select {
+        min-width: auto;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// CONTACT FORM MOLECULES
+// =============================================================================
+
+// Contact form layout
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: fn.space('lg');
+  max-width: 600px;
+  
+  .form-row {
+    display: flex;
+    gap: fn.space('md');
+    
+    .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    
+    @include mixins.mobile {
+      flex-direction: column;
+      gap: fn.space('sm');
+    }
+  }
+  
+  .form-actions {
+    @extend .card__actions;
+    margin-top: fn.space('md');
+    
+    .btn {
+      min-width: 120px;
+    }
+  }
+}
+
+// Newsletter signup form
+.newsletter-form {
+  display: flex;
+  gap: fn.space('sm');
+  max-width: 400px;
+  
+  .email-input {
+    @extend .input;
+    flex: 1;
+    
+    &::placeholder {
+      content: 'Enter your email';
+    }
+  }
+  
+  .subscribe-btn {
+    @extend .btn;
+    @extend .btn--primary;
+    flex-shrink: 0;
+  }
+  
+  // Stacked variant for mobile
+  &--stacked {
+    flex-direction: column;
+    
+    .subscribe-btn {
+      width: 100%;
+    }
+  }
+  
+  @include mixins.mobile {
+    flex-direction: column;
+    
+    .subscribe-btn {
+      width: 100%;
+    }
+  }
+}
+
+// =============================================================================
+// LOGIN/AUTHENTICATION FORM MOLECULES
+// =============================================================================
+
+// Login form
+.login-form {
+  @extend .contact-form;
+  max-width: 400px;
+  
+  .password-field {
+    position: relative;
+    
+    .password-toggle {
+      position: absolute;
+      right: fn.space('sm');
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: fn.space('xs');
+      
+      &:hover {
+        color: var(--text-primary);
+      }
+    }
+    
+    .password-input {
+      padding-right: fn.space('3xl');
+    }
+  }
+  
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: fn.space('md');
+    margin: fn.space('md') 0;
+    
+    .remember-me {
+      @extend .checkbox;
+    }
+    
+    .forgot-password {
+      @extend .link;
+      @extend .link--muted;
+      font-size: fn.font-size('sm');
+    }
+    
+    @include mixins.mobile {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+  }
+}
+
+// =============================================================================
+// SPECIALIZED FORM MOLECULES
+// =============================================================================
+
+// File upload form
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: fn.space('md');
+  
+  .upload-area {
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: fn.space('2xl');
+    text-align: center;
+    background: var(--bg-secondary);
+    transition: fn.transition('base');
+    cursor: pointer;
+    
+    &:hover,
+    &.dragover {
+      border-color: var(--brand-primary);
+      background: rgba(var(--brand-primary), 0.05);
+    }
+    
+    .upload-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto fn.space('md') auto;
+      color: var(--text-secondary);
+    }
+    
+    .upload-text {
+      @extend .text;
+      @extend .text--lg;
+      margin-bottom: fn.space('sm');
+    }
+    
+    .upload-hint {
+      @extend .text;
+      @extend .text--sm;
+      @extend .text--secondary;
+    }
+    
+    input[type="file"] {
+      display: none;
+    }
+  }
+  
+  .file-list {
+    display: flex;
+    flex-direction: column;
+    gap: fn.space('sm');
+    
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: fn.space('sm');
+      background: var(--bg-secondary);
+      border-radius: 6px;
+      
+      .file-info {
+        display: flex;
+        align-items: center;
+        gap: fn.space('sm');
+        
+        .file-icon {
+          width: 20px;
+          height: 20px;
+          color: var(--text-secondary);
+        }
+        
+        .file-name {
+          @extend .text;
+          @extend .text--sm;
+        }
+        
+        .file-size {
+          @extend .text;
+          @extend .text--xs;
+          @extend .text--secondary;
+        }
+      }
+      
+      .file-remove {
+        @extend .btn-icon;
+        color: var(--semantic-error);
+        
+        &:hover {
+          background: rgba(var(--semantic-error), 0.1);
+        }
+      }
+    }
+  }
+}
+
+// Rating/feedback form
+.rating-form {
+  display: flex;
+  flex-direction: column;
+  gap: fn.space('lg');
+  
+  .rating-input {
+    display: flex;
+    flex-direction: column;
+    gap: fn.space('sm');
+    
+    .rating-label {
+      @extend .label;
+    }
+    
+    .rating-stars {
+      display: flex;
+      gap: fn.space('xs');
+      
+      .star {
+        width: 24px;
+        height: 24px;
+        color: var(--border-color);
+        cursor: pointer;
+        transition: fn.transition('colors');
+        
+        &:hover,
+        &.active {
+          color: var(--semantic-warning);
+        }
+      }
+    }
+  }
+  
+  .feedback-text {
+    .textarea {
+      min-height: 120px;
+    }
+  }
+}
+
+// =============================================================================
+// FORM LAYOUTS & CONTAINERS
+// =============================================================================
+
+// Form section with header
+.form-section {
+  margin-bottom: fn.space('2xl');
+  
+  .section-header {
+    margin-bottom: fn.space('lg');
+    padding-bottom: fn.space('md');
+    border-bottom: 1px solid var(--border-color);
+    
+    .section-title {
+      @extend .heading;
+      @extend .heading--h3;
+      margin-bottom: fn.space('xs');
+    }
+    
+    .section-description {
+      @extend .text;
+      @extend .text--secondary;
+      margin: 0;
+    }
+  }
+}
+
+// Multi-step form container
+.form-stepper {
+  .step-indicator {
+    display: flex;
+    justify-content: center;
+    gap: fn.space('md');
+    margin-bottom: fn.space('2xl');
+    
+    .step {
+      display: flex;
+      align-items: center;
+      gap: fn.space('sm');
+      
+      .step-number {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: fn.font-size('sm');
+        
+        &.active {
+          background: var(--brand-primary);
+          color: var(--color-white);
+        }
+        
+        &.completed {
+          background: var(--semantic-success);
+          color: var(--color-white);
+          
+          &::after {
+            content: '✓';
+          }
+        }
+      }
+      
+      .step-label {
+        @extend .text;
+        @extend .text--sm;
+        @extend .text--medium;
+        
+        &.active {
+          color: var(--brand-primary);
+        }
+      }
+      
+      &:not(:last-child)::after {
+        content: '';
+        width: 40px;
+        height: 2px;
+        background: var(--border-color);
+        margin-left: fn.space('md');
+      }
+    }
+    
+    @include mixins.mobile {
+      .step-label {
+        display: none;
+      }
+      
+      .step:not(:last-child)::after {
+        width: 20px;
+        margin-left: fn.space('sm');
+      }
+    }
+  }
+  
+  .step-content {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+}
+
+// Form with sidebar layout
+.form-with-sidebar {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: fn.space('2xl');
+  
+  .form-main {
+    // Main form content
+  }
+  
+  .form-sidebar {
+    .sidebar-section {
+      @extend .card;
+      @extend .card--md;
+      margin-bottom: fn.space('lg');
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  @include mixins.tablet {
+    grid-template-columns: 1fr;
+    
+    .form-sidebar {
+      order: -1;
+    }
+  }
+}
+
+// =============================================================================
+// FORM ANIMATIONS & INTERACTIONS
+// =============================================================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+// Form validation animations
+.form-group {
+  &.error {
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  &.success {
+    .form-input {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+  }
+}
+
+// =============================================================================
+// LEGACY FORM SUPPORT
+// =============================================================================
+// Support for existing form patterns during migration
+
+.contact-option {
+  // Existing contact form styling preserved
+  // Will be gradually migrated to use new form molecules
+}
+
+.search-container {
+  @extend .search-form;
+}
+
+// Newsletter signup compatibility
+.newsletter-signup {
+  @extend .newsletter-form;
+}

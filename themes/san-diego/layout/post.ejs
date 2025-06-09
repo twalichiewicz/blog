@@ -2,382 +2,99 @@
 <html>
     <%- partial('_partial/head') %>
     <body>
+        <script>
+            // Redirect to homepage with post path
+            (function() {
+                const currentPath = window.location.pathname;
+                const isDirectAccess = !document.referrer || !document.referrer.includes(window.location.origin);
+                const isRefresh = window.performance && window.performance.navigation && window.performance.navigation.type === 1;
+                
+                // Redirect if accessing directly OR on refresh (not from within the site)
+                if ((isDirectAccess || isRefresh) && currentPath !== '/') {
+                    // Redirect to homepage with post parameter
+                    window.location.href = '/?post=' + encodeURIComponent(currentPath);
+                }
+            })();
+        </script>
+        
         <div class="page-transition-overlay"></div>
         
-        <div class="project-navigation">
-            <div class="project-mini-bio">
-                <div class="project-mini-bio-image">
-                    <img src="/img/profilePhoto.jpeg" alt="Profile Photo" class="profile-photo">
+        <div class="post-wrapper dynamic-loaded">
+            <!-- Dynamic content will extract this wrapper -->
+            <div class="post-content-wrapper">
+                <% if (page) { %>
+                <article class="substack-post">
+            <!-- Post header content -->
+            <header class="post-header">
+                <div class="post-header-container">
+                    <!-- Title -->
+                    <h1 class="post-title"><%= page.title %></h1>
+                    
+                    <!-- Subtitle/excerpt if available -->
+                    <% if (page.subtitle || page.excerpt) { %>
+                    <div class="post-subtitle">
+                        <%- page.subtitle || page.excerpt %>
+                    </div>
+                    <% } %>
+                    
+                    <!-- Author info and metadata -->
+                    <div class="post-byline">
+                        <div class="author-info">
+                            <div class="author-details">
+                                <div class="post-metadata">
+                                    <% if (page.date) { %>
+                                    <time class="post-date" datetime="<%= page.date.format('YYYY-MM-DD') %>">
+                                        <%= page.date.format('MMM D, YYYY') %>
+                                    </time>
+                                    <% } %>
+                                    
+                                    <% 
+                                    // Calculate reading time
+                                    let wordCount = 0;
+                                    if (page._content) {
+                                        const content = page._content.replace(/<\/?[^>]+(>|$)/g, '');
+                                        wordCount = content.split(/\s+/).filter(word => word.length > 0).length;
+                                    }
+                                    const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+                                    %>
+                                    
+                                    <span class="reading-time-separator">·</span>
+                                    <span class="post-reading-time">
+                                        <%= readingTime %> min read
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="project-mini-bio-content">
-                    <h4 class="project-mini-bio-name">Blog Post</h4>
-                    <p class="project-mini-bio-text">Thanks for reading! More posts are available from the home page.</p>
-                </div>
-                <div class="button-stack">
-                    <a href="<%= url_for('/') %>" class="project-home-button" title="Home">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
-                            <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
-                        </svg>
-                        <span>Home</span>
-                    </a>
-                    <button class="project-collapse-button" aria-label="Toggle navigation">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="15 18 9 12 15 6"></polyline>
-                        </svg>
-                        <span>Collapse</span>
-                    </button>
+            </header>
+            
+            <!-- Cover image section -->
+            <% 
+            let coverImagePath = page.cover_image || page.header_image;
+            if (coverImagePath && !coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
+                coverImagePath = page.path + coverImagePath;
+            }
+            // Use fallback cover image if no cover image is specified
+            if (!coverImagePath) {
+                coverImagePath = '/img/blogPostDefaultCover.png';
+            }
+            %>
+            <div class="post-cover-image">
+                <img src="<%- url_for(coverImagePath) %>" alt="<%= page.title %>" loading="eager" />
+            </div>
+            
+            <!-- Post content -->
+            <div class="post-content-container">
+                <div class="post-content">
+                    <%- page.content %>
                 </div>
             </div>
-        </div>
+                </article>
+                <% } %>
+            </div><!-- .post-content-wrapper -->
+        </div><!-- .post-wrapper -->
         
-        <% if (page) { %>
-        <article class="post <%= page.type ? 'post-' + page.type : '' %> <%= page.short ? 'short-post' : '' %>">
-            <% if (page.header_image) { %>
-            	<% 
-                let headerImagePath = page.header_image;
-                if (page.header_image && !page.header_image.startsWith('/') && !page.header_image.startsWith('http')) {
-                    headerImagePath = page.path + page.header_image; // page.path should provide the base for this single post page
-                }
-                %>
-            <div class="post-header-image">
-                <img src="<%- url_for(headerImagePath) %>" alt="<%= page.title %>" />
-                <% if (page.image_caption) { %>
-                <div class="header-image-caption"><%= page.image_caption %></div>
-                <% } %>
-            </div>
-            <% } %>
-            
-            <% if (page.categories && page.categories.length) { %>
-            <div class="post-section-indicator">
-                <a href="<%= url_for(page.categories.toArray()[0].path) %>"><%= page.categories.toArray()[0].name %></a>
-            </div>
-            <% } %>
-            
-            <% if (page.type === 'link') { %>
-                <div class="post-header">
-                    <h2 class="post-title">
-                        <a href="<%= page.url %>" target="_blank" rel="noopener">
-                            <%= page.url_label || page.title %>
-                        </a>
-                    </h2>
-                </div>
-            <% } else { %>
-                <h1 class="post-title"><%= page.title %></h1>
-            <% } %>
-            
-            <div class="post-metadata">
-                <% if (page.date) { %>
-                <span class="post-date">
-                    <%= page.date.format('MMMM D, YYYY') %>
-                </span>
-                <% } %>
-                
-                <% if (theme.author || config.author || page.author) { %>
-                <span class="post-author">
-                    by <%= page.author || theme.author || config.author %>
-                </span>
-                <% } %>
-                
-                <% 
-                // Calculate reading time
-                let wordCount = 0;
-                if (page._content) {
-                    // Strip HTML tags and count words
-                    const content = page._content.replace(/<\/?[^>]+(>|$)/g, '');
-                    wordCount = content.split(/\s+/).length;
-                }
-                const readingTime = Math.max(1, Math.ceil(wordCount / 200)); // Assuming 200 words per minute
-                %>
-                
-                <span class="post-reading-time">
-                    <%= readingTime %> min read
-                </span>
-            </div>
-            
-            <div class="post-content">
-                <%- page.content %>
-            </div>
-            
-        </article>
-        <% } %>
-        
-        <style>
-            /* Fade-in animation styles */
-            .page-transition-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: #000;
-                z-index: 9999;
-                opacity: 1;
-                transition: opacity 1s ease-out;
-            }
-            
-            .page-transition-overlay.fade-out {
-                opacity: 0;
-            }
-            
-            body {
-                opacity: 0;
-                transition: opacity 0.5s ease-in;
-                min-height: 100dvh;
-                margin: 0;
-                padding: 0;
-                overflow-y: auto;
-            }
-            
-            body.loaded {
-                opacity: 1;
-            }
-            
-            .post {
-                transform: translateY(20px);
-                transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                            margin-top 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-                opacity: 0;
-                margin-top: 3rem;
-                border-radius: 16px;
-                position: relative;
-                max-width: 800px;
-                margin-left: auto;
-                margin-right: auto;
-                padding: 1.5rem;
-                min-height: calc(100dvh - 5rem);
-                box-sizing: border-box;
-                background-color: #fff;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-                border: 1px solid rgba(0, 0, 0, 0.03);
-            }
-            
-            @media (min-width: 768px) {
-                .post {
-                    margin-top: 2rem;
-                    min-height: calc(100dvh - 3rem);
-                }
-            }
-            
-            body.loaded .post {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            
-            .project-navigation {
-                transform: translateY(-10px);
-                transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
-                            opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-                opacity: 0;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                z-index: 100;
-                pointer-events: none;
-            }
-            
-            .project-navigation > * {
-                pointer-events: auto;
-            }
-            
-            body.loaded .project-navigation {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            
-            .project-navigation .mini-profile-photo {
-                width: 40px;
-                height: 40px;
-                border-radius: 8px;
-                overflow: hidden;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: rgba(0, 0, 0, 0.08);
-                color: rgba(0, 0, 0, 0.7);
-                transition: all 0.2s ease;
-            }
-            
-            .project-navigation .mini-profile-photo:hover {
-                background-color: rgba(0, 0, 0, 0.12);
-                color: rgba(0, 0, 0, 0.9);
-            }
-            
-            .project-navigation .home-icon {
-                width: 20px;
-                height: 20px;
-            }
-            
-            @media (prefers-color-scheme: dark) {
-                .project-navigation .mini-profile-photo {
-                    background-color: rgba(255, 255, 255, 0.15);
-                    color: rgba(255, 255, 255, 0.8);
-                }
-                
-                .project-navigation .mini-profile-photo:hover {
-                    background-color: rgba(255, 255, 255, 0.2);
-                    color: rgba(255, 255, 255, 1);
-                }
-            }
-            
-            /* Post metadata styles */
-            .post-metadata {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-                font-size: 0.875rem;
-                margin-bottom: 1rem;
-                color: rgba(0, 0, 0, 0.6);
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            }
-            
-            .post-metadata span:not(:last-child)::after {
-                content: "•";
-                margin-left: 0.375rem;
-            }
-            
-            /* Post title styles */
-            .post-title {
-                margin-bottom: 0.5rem;
-                font-size: 1.5rem;
-                line-height: 1.3;
-                font-weight: 600;
-            }
-            
-            /* Author mini-bio styles */
-            .author-mini-bio {
-                display: flex;
-                padding: 1rem;
-                margin: 2rem 0 1rem;
-                border-radius: 8px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-                background: rgba(0, 0, 0, 0.01);
-                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.01), 0 2px 8px rgba(0, 0, 0, 0.01);
-                align-items: center;
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .author-mini-bio-name {
-                margin: 0 0 2px;
-                font-size: 0.875rem;
-                font-weight: 600;
-                letter-spacing: -0.01em;
-                color: rgba(0, 0, 0, 0.85);
-            }
-            
-            .author-mini-bio .author-mini-bio-content .author-mini-bio-text {
-                margin: 0;
-                font-size: 0.875rem;
-                line-height: 1.4;
-                color: rgba(0, 0, 0, 0.6);
-                max-width: 75ch;
-            }
-            
-            /* Post content styles */
-            .post-content {
-                font-size: 14px;
-                line-height: 1.6;
-                color: rgba(0, 0, 0, 0.8);
-            }
-            
-            .post-content p {
-                margin: 1rem 0;
-                font-size: 14px;
-            }
-            
-            .post-content h1 {
-                font-size: 24px;
-                margin: 2rem 0 1rem;
-            }
-            
-            .post-content h2 {
-                font-size: 20px;
-                margin: 1.75rem 0 0.75rem;
-            }
-            
-            .post-content h3 {
-                font-size: 18px;
-                margin: 1.5rem 0 0.5rem;
-            }
-            
-            .post-content h4 {
-                font-size: 16px;
-                margin: 1.25rem 0 0.5rem;
-            }
-            
-            .post-content h5 {
-                font-size: 14px;
-                margin: 1rem 0 0.5rem;
-            }
-            
-            .post-content h6 {
-                font-size: 12px;
-                margin: 0.75rem 0 0.5rem;
-            }
-            
-            /* Dark mode styles */
-            @media (prefers-color-scheme: dark) {
-                .post {
-                    background-color: #1a1a1a;
-                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-                    border-color: rgba(255, 255, 255, 0.1);
-                }
-                
-                .post-metadata {
-                    color: rgba(255, 255, 255, 0.6);
-                }
-                
-                .post-title {
-                    color: rgba(255, 255, 255, 0.9);
-                }
-                
-                .author-mini-bio {
-                    background: rgba(255, 255, 255, 0.05);
-                }
-                
-                .author-mini-bio-name {
-                    color: rgba(255, 255, 255, 0.9);
-                }
-                
-                .author-mini-bio .author-mini-bio-content .author-mini-bio-text {
-                    color: rgba(255, 255, 255, 0.6);
-                }
-                
-                .post-content {
-                    color: rgba(255, 255, 255, 0.8);
-                }
-            }
-            
-            /* Post footer with skully icon */
-            .post-footer {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin: 3rem 0 1rem;
-            }
-            
-            .skully-icon {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            
-            .skully-icon img {
-                width: 24px;
-                height: 24px;
-                filter: opacity(0.4);
-            }
-            
-            /* Dark mode support */
-            @media (prefers-color-scheme: dark) {
-                .skully-icon img {
-                    filter: opacity(0.3);
-                }
-            }
-        </style>
         
         <script>
             // Handle page transition overlay
@@ -395,26 +112,6 @@
                         overlay.remove();
                     }, 1000);
                 }, 100);
-            });
-
-            // Handle mini bio collapse/expand
-            document.addEventListener('DOMContentLoaded', function() {
-                const miniBio = document.querySelector('.project-mini-bio');
-                const collapseButton = document.querySelector('.project-collapse-button');
-                
-                if (collapseButton && miniBio) {
-                    collapseButton.addEventListener('click', function() {
-                        miniBio.classList.toggle('collapsed');
-                        
-                        // Update button text and aria-label
-                        const isCollapsed = miniBio.classList.contains('collapsed');
-                        const buttonText = collapseButton.querySelector('span');
-                        if (buttonText) {
-                            buttonText.textContent = isCollapsed ? 'Expand' : 'Collapse';
-                        }
-                        collapseButton.setAttribute('aria-label', `${isCollapsed ? 'Expand' : 'Collapse'} navigation`);
-                    });
-                }
             });
         </script>
     </body>

@@ -1,6 +1,18 @@
 @use 'variables';
 @use 'shared-components';
 
+// Unified separator mixin for consistent styling across all separators
+@mixin post-separator-base {
+	border: none;
+	height: 1px;
+	background: #e8e8e8;
+	box-shadow: 0 0 1px rgba(variables.$border-color, 0.05);
+	
+	@media (prefers-color-scheme: dark) {
+		background: #333;
+	}
+}
+
 // Core blog layout styles
 .blog {
 	width: 100%;
@@ -60,6 +72,11 @@
 		margin-left: auto;
 		margin-right: auto;
 		transition: variables.$transition-standard;
+		
+		// Override padding when used with post-preview-card
+		&.post-preview-card {
+			padding: 0;
+		}
 
 		.post-byline {
 			@extend .byline-base;
@@ -342,12 +359,9 @@
 	}
 
 	.post-separator {
-		border: none;
-		height: 1px;
-		background: #e8e8e8;
-		margin: 1.5rem auto;
+		margin: 1.5rem 0;
 		width: 100%;
-		box-shadow: 0 0 1px rgba(variables.$border-color, 0.05);
+		@include post-separator-base;
 	}
 
 	.project-separator {
@@ -357,8 +371,8 @@
 				transparent,
 				rgba(variables.$border-color, 0.2),
 				transparent);
-		margin: 1.5rem auto;
-		width: 80%;
+		margin: 1.5rem 15px;
+		width: calc(100% - 30px);
 		box-shadow: 0 0 1px rgba(variables.$border-color, 0.05);
 	}
 
@@ -501,6 +515,19 @@
 			text-decoration: none;
 			color: inherit;
 			display: block;
+			margin-bottom: 1.5rem;
+			position: relative;
+			
+			// Add visual separator after each post-link-wrapper item
+			&:not(:last-child)::after {
+				content: '';
+				position: absolute;
+				bottom: -0.75rem;
+				left: 0;
+				right: 0;
+				width: 100%;
+				@include post-separator-base;
+			}
 
 			&:hover {
 				.post-list-item.post-long {
@@ -519,7 +546,18 @@
 		.post-list-item.post-long {
 			@extend .card-base;
 
-			margin-bottom: 1rem;
+			margin-bottom: 1.5rem;
+			position: relative;
+			
+			// Add visual separator after each post-long item
+			&:not(:last-child)::after {
+				content: '';
+				position: absolute;
+				bottom: -0.75rem;
+				left: 0;
+				right: 0;
+				@include post-separator-base;
+			}
 
 			h3 {
 				font-size: 1rem;
@@ -765,3 +803,4 @@ p {
 		}
 	}
 }
+// Post preview card styles are in _post-preview-card.scss
