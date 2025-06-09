@@ -220,6 +220,10 @@ document.addEventListener('DOMContentLoaded', function () {
 				// Back button clicked, returning from project
 				
 				await fadeOutElement(blogContentElement);
+				
+				// Remove has-dynamic-content class to restore scroll behavior
+				blogContentElement.classList.remove('has-dynamic-content');
+				
 				blogContentElement.innerHTML = initialBlogContentHTML;
 				initializeBlogFeatures(blogContentElement);
 				initializeLinkListeners(blogContentElement);
