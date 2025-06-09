@@ -1,0 +1,279 @@
+// Layout fixes for content wrapper and posts content
+@use 'variables';
+
+// Ensure proper layout for all screen sizes
+.blog {
+  // Blog should fill viewport
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  
+  .blog-header {
+    flex-shrink: 0;
+  }
+  
+  // Blog content should be scrollable
+  .blog-content {
+    flex: 1;
+    overflow: hidden !important; // Changed: blog-content doesn't scroll
+    height: 100%;
+    position: relative; // For absolute positioned back button
+    
+    // Desktop/tablet: content-wrapper handles the scroll
+    @media (min-width: variables.$tablet-breakpoint) {
+      // Default state - content-wrapper scrolls
+      &:not(.has-dynamic-content) {
+        .content-wrapper {
+          height: 100%;
+          overflow-y: auto !important;
+          overflow-x: hidden !important;
+          -webkit-overflow-scrolling: touch;
+          
+          &::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: transparent;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: rgb(0 0 0 / 20%);
+            border-radius: 3px;
+          }
+        }
+        
+        .content-inner-wrapper {
+          overflow: hidden !important;
+          height: auto;
+          min-height: 100%;
+        }
+      }
+    }
+  }
+}
+
+// Fix #postsContent and #projectsContent width constraints
+#postsContent,
+#projectsContent {
+  // Desktop/tablet styles
+  @media (min-width: variables.$tablet-breakpoint) {
+    // Let the containers fill the width
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    // Remove individual scroll - let content-wrapper handle it
+    overflow: visible !important;
+    height: auto !important;
+  }
+  
+  // Mobile preserves existing styles
+  @media (max-width: variables.$mobile-breakpoint) {
+    // Don't override mobile styles
+  }
+  
+  // Apply max-width to individual items instead
+  .post-list-item {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    // Ensure proper spacing
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+  }
+  
+  // Ensure separators span full width
+  .post-separator {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+// Ensure projectsContent portfolio items don't constrain width
+#projectsContent {
+  .portfolio-list {
+    width: 100%;
+    
+    .company-group {
+      width: 100%;
+      max-width: none;
+    }
+  }
+}
+
+// Desktop and tablet specific fixes
+@media (min-width: variables.$tablet-breakpoint) {
+  .blog {
+    display: flex;
+    flex-direction: row;
+    height: 100dvh;
+    position: fixed;
+    width: 100vw;
+    
+    .blog-header {
+      width: 300px;
+      flex-shrink: 0;
+    }
+    
+    .blog-content {
+      flex: 1;
+      height: calc(100dvh - 24px);
+      overflow: hidden !important;
+    }
+  }
+  
+  // Fix cutoff at bottom for both Words and Works
+  .content-wrapper {
+    padding-bottom: 24px; // Add padding to wrapper to show bottom content
+  }
+  
+  #postsContent {
+    padding-bottom: 48px !important; // Extra padding for posts
+  }
+  
+  #projectsContent {
+    padding-bottom: 48px !important; // Extra padding for projects
+  }
+}
+
+// Mobile-specific fixes
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog,
+  .device-mobile .blog {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important; // Changed from 100dvh to auto
+    min-height: 100dvh !important;
+    overflow: visible !important; // Changed from hidden
+    
+    .blog-header {
+      flex-shrink: 0;
+      height: auto;
+    }
+    
+    .blog-content {
+      flex: 1 1 auto !important;
+      overflow: visible !important; // Changed from auto
+      min-height: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      
+      .content-wrapper {
+        overflow: visible !important;
+        height: auto !important;
+        min-height: 100%;
+        flex: 1 1 auto;
+      }
+      
+      .content-inner-wrapper {
+        overflow: visible !important;
+        height: auto !important;
+        min-height: 100%;
+        // Ensure it expands to fit content
+        display: flex;
+        flex-direction: column;
+        
+        // When dynamic content exists
+        &:has(.post-wrapper.dynamic-loaded),
+        &:has(.project-wrapper.dynamic-loaded) {
+          min-height: auto;
+          height: auto;
+        }
+      }
+    }
+  }
+}
+
+// Ensure compatibility with dynamically loaded content
+.post-wrapper,
+.project-wrapper {
+  &.dynamic-loaded {
+    // Ensure proper width
+    width: 100%;
+    max-width: none;
+    
+    // Apply constraints to content inside
+    .post-content,
+    .project-content {
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 1rem;
+    }
+  }
+}
+
+// When dynamic content is loaded, make content-inner-wrapper scrollable
+.blog-content.has-dynamic-content {
+  @media (min-width: variables.$tablet-breakpoint) {
+    .content-wrapper {
+      overflow: hidden !important; // Wrapper doesn't scroll
+      height: 100%;
+    }
+    
+    .content-inner-wrapper {
+      overflow-y: scroll !important; // Inner wrapper handles scroll for dynamic content
+      overflow-x: hidden !important;
+      height: 100%;
+    }
+  }
+}
+
+// Specific rules for substack posts on tablet/desktop
+.device-tablet .blog .blog-content.has-dynamic-content .content-inner-wrapper,
+.device-desktop .blog .blog-content.has-dynamic-content .content-inner-wrapper {
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  height: 100% !important;
+}
+
+// Even more specific for when post-wrapper is present
+.device-tablet .blog .blog-content .content-inner-wrapper:has(.post-wrapper.dynamic-loaded),
+.device-desktop .blog .blog-content .content-inner-wrapper:has(.post-wrapper.dynamic-loaded) {
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  height: 100% !important;
+}
+
+// Fix for project pages
+.project-edge-wrapper {
+  .content-wrapper {
+    overflow-y: auto !important;
+  }
+}
+
+// Dynamic back button positioning fix
+.dynamic-back-button {
+  @media (min-width: variables.$tablet-breakpoint) {
+    position: fixed !important;
+    top: 30px !important;
+    left: 306px !important; // Positioned after the 300px blog-header + 6px padding
+    z-index: 1000;
+  }
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    position: absolute !important;
+    top: 6px !important;
+    left: 6px !important;
+    z-index: 1000;
+  }
+}
+
+// Force scroll on content-inner-wrapper when dynamic content is present - highest specificity
+@media (min-width: variables.$tablet-breakpoint) {
+  body .blog.device-tablet .blog-content .content-inner-wrapper:has(.post-wrapper.dynamic-loaded),
+  body .blog.device-desktop .blog-content .content-inner-wrapper:has(.post-wrapper.dynamic-loaded) {
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+}

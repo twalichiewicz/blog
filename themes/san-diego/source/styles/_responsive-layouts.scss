@@ -499,18 +499,27 @@
 		.content-wrapper {
 			position: relative;
 			flex: 1;
-			height: 100%;
-			overflow: hidden auto;
+			height: calc(100dvh - 64px); // Fix for tablet to prevent cutoff
+			overflow-y: auto;
+			overflow-x: hidden;
 			display: flex;
 			flex-direction: column;
+			-webkit-overflow-scrolling: touch;
+			padding-bottom: 64px; // Extra padding at bottom
+		}
+		
+		.content-inner-wrapper {
+			overflow: hidden;
+			height: auto;
+			min-height: 100%;
 		}
 
 		#postsContent,
 		#projectsContent {
 			flex: 1;
-			height: 100%;
+			height: auto;
 			padding: variables.$space-md variables.$space-md;
-			overflow: hidden auto;
+			overflow: visible;
 			box-sizing: border-box;
 			width: 100%;
 		}
@@ -518,6 +527,11 @@
 		#postsContent {
 			max-width: 600px;
 			margin: 0 auto;
+			padding-bottom: 48px; // Extra padding to prevent cutoff
+		}
+		
+		#projectsContent {
+			padding-bottom: 48px; // Extra padding to prevent cutoff
 		}
 		
 		#postsContent,
@@ -584,9 +598,9 @@
 }
 
 /* ==========================================================================
-   Desktop Layout - TEMPORARILY DISABLED DUE TO CHROME RENDERING ISSUES
+   Desktop Layout
    ========================================================================== */
-.device-desktop-DISABLED .blog {
+.device-desktop .blog {
 	display: flex;
 	flex-direction: row;
 	height: 100dvh;
@@ -632,28 +646,35 @@
 			top: 0;
 			left: 0;
 			width: 100%;
-			height: 100%;
+			height: calc(100dvh - 64px); // Match tablet height fix
 			min-height: 0;
-			overflow: hidden;
+			overflow-y: auto;
+			overflow-x: hidden;
 			display: flex;
-			flex-direction: row;
-			justify-content: center;
+			flex-direction: column;
+			justify-content: flex-start;
 			gap: variables.$space-sm;
 			padding: 0;
+			padding-bottom: 64px; // Extra padding at bottom
 			border-radius: 15px 0 0;
-
-			/* Removed duplicate transforms that can cause Chrome rendering issues */
+			-webkit-overflow-scrolling: touch;
+		}
+		
+		.content-inner-wrapper {
+			overflow: hidden;
+			height: auto;
+			min-height: 100%;
 		}
 
 		#postsContent,
 		#projectsContent {
 			max-width: 600px;
 			padding: variables.$space-md variables.$space-md;
-			height: 100%;
+			height: auto;
 			min-height: 0;
-			overflow: hidden auto;
+			overflow: visible;
 			position: relative;
-			margin: 0;
+			margin: 0 auto;
 			box-sizing: border-box;
 
 			/* Simplified performance properties to reduce Chrome rendering issues */
