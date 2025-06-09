@@ -1,11 +1,11 @@
 ---
 title: "Design Systems: Expectations & Realities"
+layout: blog_post
 show_title: true
 cover_image: https://res.cloudinary.com/bornfight-studio/image/upload/v1678372951/bornfight-web-2022/https_lh4_googleusercontent_ce39fbc90f.png
 date: 2023-05-05 12:00:00
 reading_time: 15 minutes
 long: true
-layout: project_gallery
 excerpt: Have you ever wondered what it takes to build a successful design system library? In 2019, I embarked on this journey and created my own library. Now, I'm excited to share the insights I've gained after working on this project, as well as others. In this post, I'll cover the myths and realities of design systems, and how they can be implemented successfully in your own organization.
 draft: true
 tags:
@@ -61,95 +61,3 @@ Additionally, design systems are often created to serve a broad range of product
 
 3. **The strict adherence to a design system can make it difficult to accommodate unique user needs and preferences.**
    Yes, it's true that a lot of patterns solve a user's problem _most_ of the way. Bt how much more could you have solved it had you not decided to end your solution-seeking short by sticking to an existing pattern?
-
----
-
-## foreground Figma
-
-<figure class="video_container">
-  <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F8sbt0LsFyBu9u5arocXqBu%2Fbehance-pages%3Fnode-id%3D1%253A913%26t%3DlHLlKVsECgi8R0l0-1" allowfullscreen></iframe>
-</figure>
-
-As a company and product matures, it becomes necessary to switch over from stock styling components and paradigms and begin to build out a system personalized for your business and your users. My solution, presented here, is **foreground**.
-
-<figure class="video_container">
-  <details><summary>User interface guidelines</summary>
-  Enter text here
-  </details>
-  <details><summary>Design values</summary>
-  - Modular
-  - Simple to implement
-  - Meticulously crafted
-  </details>
-  <details><summary>Iconography</summary>
-  Enter text here
-  </details>
-  <details><summary>Components</summary>
-  Enter text here
-  </details>
-</figure>
-
-<figure class="video_container">
-  <details><summary>Color system</summary>
-  Enter text here
-  </details>
-  <details><summary>Typography</summary>
-  Enter text here
-  </details>
-  <details><summary>Iconography</summary>
-  Enter text here
-  </details>
-  <details><summary>Components</summary>
-  Enter text here
-  </details>
-</figure>
-<!--
-#### Color system
-
-Human Interest is all about provide in otherwise restrictive services in a white-glove, personable way. This personality informed the premium feel of the color system, with bright colors used to accent generous whitespace. Standardizing around a set of colors also created a common language between designers and engineers, making hand-offs between the teams significantly simpler.
-
-#### Typography
-
-Typography makes or breaks every design syste. When you consider that financial products demand even more of their typefaces (lots of numbers with tight spacing, usage of line-breaking financial glyphs, usability across multiple screen sizes, on to mention getting across the brand's look and feel) the typeface that is ultimately selected must truly be robust.
-
-Utimately, this led us to **Inter**. Not only because it is a beautifully designed font with great usability considerations, but also because of its ability to handle otherwise mundane pieces of information and make them look stunning.
-
-#### Icons
-
-Part of the challenge of working in a regulated, and non-matreial idustry is the lack of appropriate visualizations to explian complicated financial terms. And when taking into account the fact that most users are only spending fractions of a second to process a page of an applicatoin, clear, concise imagrey is paramount ot ensuring your users are confident and knowledgalble about eh decisions thy're making.
-
-#### Components
-
-The most intensive part of this project, the components ended up being both passion project and source of countless revisions as I tried to craft the perfect interactive components for Human Interest's suite of products.
-
-#### Architecture
-
-One of my major goals for the design system was to make the transition from design mockup to product code seamless. Components are built in such a way that engineers would be able to mimic all of the changes designers could make. Styles are simple to update, thanks to a nested LESS architecture which makes wide-reaching changes easy.
-
-#### Usability
-
-Every interaction with your product matters. Smallest frustrations or issues head up rapidly, and can we be wondering why are users are excited about being champions of your product. Keeping in mind the mantra, "don't make me think", All the components for design with an eye for comprehension and ease of use.
-
-###### Fitt's law compliant
-
-Buttons are more vertically pad for decreased acquisition time.
-
-###### Affordance available
-
-In order to give a Ford and throw the product, special Starling is only a flight interactive elements.
-
-###### Interactive by nature
-
-Components react to user input in a multitude of ways to make a product feel more responsive.
-
-#### Breadth
-
-A large part of what makes a design system use for a shared language of components of what is the necessity of reinventing the wheel every time a new project begins. 20 minute time to develop a system like this is always constrain, I performed an analysis of all of our products are turning which elements are the most frequently used, as well as those which had the most glaring need an update.
-
-#### Delightful
-
-The final challenge revolved around making a user experience with each component a pleasure to use. I feel that this is often overlooked (particularly in the financial industry), so to make your interest feel more personable, small animations and transitions were added to every interaction
-
-### Usage in product
-
-System really comes into its own when you start using it to build interfaces. All the previous consideration as I need to component come together and create a cohesive experience, is abuse case Ashley because of the flexibility on how the compressor belt all these pages become your drag-and-drop simple to implement in production. -->
