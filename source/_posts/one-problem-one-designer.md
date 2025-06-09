@@ -1,7 +1,7 @@
 ---
 title: One problem, one designer
 long: true
-layout: project_gallery
+layout: blog_post
 excerpt: A single, competent designer is the most effective way to deliver quality products
 tags:
   - blog

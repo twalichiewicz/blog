@@ -1,6 +1,8 @@
 ---
 title: Welcome to the new age of concept generation
+layout: blog_post
 long: true
+cover_image: words->works.png
 excerpt: No mockups, no wireframes, and no hours of pixel pushing. Just a ~200-word prompt, and Sora generated everything.
 tags:
   - blog

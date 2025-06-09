@@ -1,7 +1,8 @@
 ---
 title: Gut-check before opening Figma
 long: true
-layout: project_gallery
+layout: blog_post
+cover_image: 
 excerpt: There’s a familiar rush that comes from opening Figma right away. But good design doesn’t move fast. It moves with purpose. And it always starts with clarity.
 tags:
   - blog

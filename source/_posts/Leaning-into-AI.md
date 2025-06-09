@@ -1,8 +1,8 @@
 ---
 title: Leaning into AI
 long: true
-layout: project_gallery
-cover_image: leaningIntoAI.png
+layout: blog_post
+cover_image: 
 excerpt: I see a ton of nothingburger articles about AI and design every day, so I figured I'd throw my two cents into the void.
 tags:
   - blog
