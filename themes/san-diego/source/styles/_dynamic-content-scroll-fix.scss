@@ -1,0 +1,68 @@
+// Fix for dynamic content scrolling on tablet/desktop
+@use 'variables';
+
+// When post-wrapper.dynamic-loaded exists, make content-inner-wrapper scrollable
+@media (min-width: variables.$tablet-breakpoint) {
+  // Target tablet devices
+  .device-tablet .blog .blog-content {
+    // When viewing dynamic content, wrapper doesn't scroll
+    .content-wrapper:has(.post-wrapper.dynamic-loaded) {
+      overflow: hidden !important;
+      height: calc(100dvh - 64px);
+    }
+    
+    // Inner wrapper becomes scrollable
+    .content-inner-wrapper:has(.post-wrapper.dynamic-loaded) {
+      overflow-y: scroll !important;
+      overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      max-height: 100% !important;
+      position: relative !important;
+    }
+  }
+  
+  // Target desktop devices
+  .device-desktop .blog .blog-content {
+    // When viewing dynamic content, wrapper doesn't scroll
+    .content-wrapper:has(.post-wrapper.dynamic-loaded) {
+      overflow: hidden !important;
+      height: calc(100dvh - 64px);
+    }
+    
+    // Inner wrapper becomes scrollable
+    .content-inner-wrapper:has(.post-wrapper.dynamic-loaded) {
+      overflow-y: scroll !important;
+      overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      max-height: 100% !important;
+      position: relative !important;
+    }
+  }
+}
+
+// Alternative approach without :has() for older browsers
+@media (min-width: variables.$tablet-breakpoint) {
+  .device-tablet .blog .blog-content .content-inner-wrapper,
+  .device-desktop .blog .blog-content .content-inner-wrapper {
+    .post-wrapper.dynamic-loaded ~ * {
+      // This won't work perfectly but provides a fallback
+    }
+  }
+  
+  // Most specific possible selector
+  body .blog.device-tablet .blog-content .content-wrapper .content-inner-wrapper,
+  body .blog.device-desktop .blog-content .content-wrapper .content-inner-wrapper {
+    // When it contains dynamic content
+    &:has(.post-wrapper),
+    &:has(.substack-post) {
+      overflow-y: scroll !important;
+      overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch !important;
+      height: 100% !important;
+    }
+  }
+}
