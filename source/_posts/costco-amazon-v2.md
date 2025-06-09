@@ -2,7 +2,7 @@
 title: 'Costco: Amazon v2?'
 date: 2024-11-17 21:06:38
 long: true
-layout: project_gallery
+layout: blog_post
 excerpt: "Costco has long been the king of bulk buying and private-label loyalty. Its warehouses, stocked with pallets of everything from giant bags of coffee beans to surprisingly great Kirkland-brand dress shirts, have earned it an incredibly loyal membership base. But in the age of e-commerce, does Costco have what it takes to evolve into something like an Amazon competitor?"
 tags:
   - blog
