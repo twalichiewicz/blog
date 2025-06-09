@@ -1,7 +1,8 @@
 ---
 title: Full-stack product designers in 2025
 long: true
-layout: project_gallery
+layout: blog_post
+cover_image: 
 excerpt: Full-stack product designers. The role sounds like a dream, but most teams don't know how to actually use it.
 tags:
   - blog

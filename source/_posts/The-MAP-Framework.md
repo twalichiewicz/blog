@@ -1,6 +1,7 @@
 ---
-layout: project_gallery
 title: "The MAP Framework: A New Direction for Product Development"
+layout: blog_post
+cover_image: MAPpreview.png
 date: 2025-03-17 18:36:53
 long: true
 excerpt: "After years of watching talented teams build disjointed products, I've developed the MAP Framework—a process that fundamentally reorders how we create digital experiences. By placing design Mapping before product Assessment and engineering Production, teams can explore comprehensive solutions before committing to implementation paths. This approach leads to more coherent user experiences, fewer expensive pivots, and products that genuinely resonate with users."
@@ -12,13 +13,6 @@ credits:
   - role: Year
     name: 2025
 ---
-
-<div class="md-image-container">
-  <img src="MAP_model.jpg" alt="Sample image">
-  <div class="accordion-caption">
-    <p>Not all who wander are lost... but teams without a MAP definitely are.</p>
-  </div>
-</div>
 
 In traditional product development, we see a familiar sequence: product managers identify requirements, designers make them usable, and engineers build them. This approach has served us for decades, but increasingly leads to fragmented experiences, costly pivots, and organizational friction. This proposal is my attempt to share what I've seen work best in both large and small organizations.
 

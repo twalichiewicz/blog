@@ -1,7 +1,8 @@
 ---
 title: On AI agent portability
 long: true
-layout: project_gallery
+layout: blog_post
+cover_image: aiAgentsPreview.png
 excerpt: AI agents should function like CarPlay – a consistent experience that follows you everywhere, adapting to your context.
 tags:
   - blog
