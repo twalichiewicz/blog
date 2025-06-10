@@ -9,8 +9,32 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Tue, 10 Jun 2025 09:16:25 GMT</pubDate>
+    <pubDate>Tue, 10 Jun 2025 22:24:54 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Rethinking mobile hardware interaction patterns</title>
+      <link>https://twalichiewicz.github.io/2025/06/10/iOS-monobutton/</link>
+      <guid>https://twalichiewicz.github.io/2025/06/10/iOS-monobutton/</guid>
+      <pubDate>Tue, 10 Jun 2025 12:26:46 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Gaming handhelds are exploding, cars are bringing back physical knobs. Meanwhile iOS 26 simulates depth and physics on flat glass while e</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Gaming handhelds are exploding, cars are bringing back physical knobs. Meanwhile iOS 26 simulates depth and physics on flat glass while every app converges on identical patterns: bottom nav, 3-4 actions, one primary control.</p><p>If “People who are really serious about software should make their own hardware.” still holds true, my mockup would show how you might invent the next interaction paradigm. </p><div class="carousel" aria-label="Media carousel">      <div class="carousel-track">        <div class="carousel-slide active"                       aria-hidden="false">            <img src="/2025/06/10/iOS-monobutton/monoPhone.png"                                alt="Physical hardware meets digital interface"                               loading="lazy"                               decoding="async">            <div class="carousel-caption">Physical hardware meets digital interface</div>          </div><div class="carousel-slide "                       aria-hidden="true">            <img src="/2025/06/10/iOS-monobutton/monoPhoneSiri.png"                                alt="Camera passthrough with UI overlay"                               loading="lazy"                               decoding="async">            <div class="carousel-caption">Camera passthrough with UI overlay</div>          </div>      </div>              <div class="carousel-indicators">          <button class="carousel-button prev" aria-label="Previous slide"></button>                      <button class="indicator active"                     aria-label="Go to slide 1"></button>                      <button class="indicator "                     aria-label="Go to slide 2"></button>                    <button class="carousel-button next" aria-label="Next slide"></button>        </div>          </div><p>One pressure-sensitive nub that:</p><ul><li>Becomes your primary action (whatever the app needs)</li><li>Provides actual texture for gesture control</li><li>Gives precise navigation without covering the screen</li><li>Press and hold and the camera passthrough with UI overlay opens a window to the world</li></ul><p>That perimeter edge? Not decoration. It’s the boundary between digital and physical, and your finger is the bridge.</p><p>This is the iPod wheel for the spatial computing age.</p><p>Steam Deck sales proved we’ll carry bigger devices for better controls. Teenage Engineering gets it. Spotify Thing gets it. Even Apple gets it—why else make everything look so touchable?</p><p>Sometimes the best interface innovation is admitting that software patterns aren’t just design decisions, they’re hardware opportunities waiting to be built.</p><p>Home button is back, baby. Just this time, we’re stepping out rather than in.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/06/10/iOS-monobutton/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>macOS + spatialOS = ?</title>
@@ -480,31 +504,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/04/11/Leaning-into-AI/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Sora horny</title>
-      <link>https://twalichiewicz.github.io/2025/04/09/Sora-horny/</link>
-      <guid>https://twalichiewicz.github.io/2025/04/09/Sora-horny/</guid>
-      <pubDate>Wed, 09 Apr 2025 15:10:09 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Boy, the generated work on Sora sure has gotten… horny.&lt;/p&gt;
-</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Boy, the generated work on Sora sure has gotten… horny.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/04/09/Sora-horny/#disqus_thread</comments>
       
     </item>
     
