@@ -1,0 +1,243 @@
+// Refactored Blog Component
+// This demonstrates how the new system simplifies the existing blog.scss
+// Original: 800+ lines with many !important flags
+// Refactored: ~200 lines with zero !important flags
+
+@use 'design-tokens' as *;
+@use 'color-system' as *;
+@use 'utilities' as *;
+@use 'components' as *;
+
+// === BLOG CONTAINER ===
+.blog {
+  // All colors and transitions handled by CSS custom properties
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition: background-color var(--transition-base), color var(--transition-base);
+  
+  // === BLOG HEADER ===
+  &__header {
+    background: var(--color-bg-secondary);
+    padding: var(--space-6) 0;
+    border-bottom: 1px solid var(--color-border);
+    
+    @include mobile-only {
+      padding: var(--space-4) 0;
+    }
+  }
+  
+  // === BLOG CONTENT ===
+  &__content {
+    @extend .container;
+    display: grid;
+    gap: var(--space-6);
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-8);
+    
+    @include tablet-up {
+      grid-template-columns: 1fr 3fr;
+      gap: var(--space-8);
+    }
+  }
+  
+  // === SIDEBAR ===
+  &__sidebar {
+    @include mobile-only {
+      order: 2; // Move below main content on mobile
+    }
+  }
+  
+  // === MAIN CONTENT ===
+  &__main {
+    min-width: 0; // Prevent overflow
+  }
+}
+
+// === BLOG LIST ===
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  
+  &__item {
+    @extend .card; // Inherits all card styles
+    
+    // Modifier for link posts
+    &--link {
+      .link-wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-3);
+      }
+      
+      .link-icon {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        color: var(--color-accent);
+      }
+    }
+    
+    // Modifier for long posts
+    &--long {
+      .cover-image {
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        border-radius: var(--radius-md);
+        margin-bottom: var(--space-3);
+      }
+    }
+  }
+  
+  &__meta {
+    @extend .text-meta; // From typography utilities
+    margin-bottom: var(--space-2);
+  }
+  
+  &__title {
+    @extend .heading--4;
+    margin-bottom: var(--space-2);
+    
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+      
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
+  }
+  
+  &__excerpt {
+    @extend .text-secondary;
+    line-height: var(--leading-relaxed);
+    
+    // Truncate after 3 lines
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+}
+
+// === PROFILE COMPONENT ===
+.profile {
+  @extend .card;
+  text-align: center;
+  
+  &__photo {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--radius-full);
+    margin: 0 auto var(--space-4);
+    box-shadow: var(--shadow-md);
+  }
+  
+  &__name {
+    @extend .heading--3;
+    margin-bottom: var(--space-2);
+  }
+  
+  &__bio {
+    @extend .text-secondary;
+    margin-bottom: var(--space-4);
+  }
+  
+  &__stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-5);
+    
+    .stat {
+      text-align: center;
+      
+      &__number {
+        @extend .heading--4;
+        display: block;
+      }
+      
+      &__label {
+        @extend .text-meta;
+      }
+    }
+  }
+}
+
+// === CONTACT BUTTON ===
+.contact {
+  position: relative;
+  margin-top: var(--space-4);
+  
+  &__button {
+    @extend .btn;
+    @extend .btn--secondary;
+    width: 100%;
+  }
+  
+  &__dropdown {
+    @extend .dropdown; // From components
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-fast);
+    
+    &--active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+  
+  &__option {
+    @extend .dropdown__item;
+    
+    &:hover {
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+    }
+  }
+}
+
+// === PAGINATION ===
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-8);
+  
+  &__item {
+    @extend .btn;
+    @extend .btn--secondary;
+    min-width: 40px;
+    height: 40px;
+    padding: 0;
+    
+    &--active {
+      background: var(--color-accent);
+      color: var(--color-text-inverse);
+      border-color: var(--color-accent);
+    }
+    
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// === NO LAYOUT FIXES NEEDED! ===
+// The proper structure eliminates the need for any !important overrides

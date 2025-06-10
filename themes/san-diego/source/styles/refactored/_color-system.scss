@@ -1,0 +1,100 @@
+// Color System - Automatic light/dark mode support
+// This replaces scattered dark mode implementations
+
+:root {
+  // === LIGHT MODE COLORS (Default) ===
+  
+  // Background colors
+  --color-bg-primary: hsl(0, 0%, 100%);           // Pure white
+  --color-bg-secondary: hsl(0, 0%, 98%);          // Off white
+  --color-bg-tertiary: hsl(0, 0%, 96%);           // Light gray
+  --color-bg-elevated: hsla(0, 0%, 100%, 0.7);    // Translucent white
+  --color-bg-overlay: hsla(0, 0%, 0%, 0.5);       // Dark overlay
+  
+  // Text colors
+  --color-text-primary: hsl(35, 15%, 35%);        // Dark brown (#5b5856)
+  --color-text-secondary: hsl(35, 10%, 40%);      // Medium brown
+  --color-text-muted: hsl(35, 10%, 50%);          // Light brown
+  --color-text-inverse: hsl(0, 0%, 100%);         // White text
+  
+  // Border colors
+  --color-border-light: hsla(35, 15%, 30%, 0.1);  // Very light border
+  --color-border: hsla(35, 15%, 30%, 0.2);        // Default border
+  --color-border-dark: hsla(35, 15%, 30%, 0.3);   // Darker border
+  
+  // Brand colors
+  --color-accent: hsl(16, 63%, 40%);              // Orange (#ad421e)
+  --color-accent-hover: hsl(16, 63%, 35%);        // Darker orange
+  --color-accent-light: hsla(16, 63%, 40%, 0.1);  // Light orange bg
+  
+  // Semantic colors
+  --color-success: hsl(142, 71%, 45%);
+  --color-warning: hsl(38, 92%, 50%);
+  --color-error: hsl(0, 65%, 51%);
+  --color-info: hsl(201, 90%, 47%);
+  
+  // Shadows
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+  // Special effects
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 16px;
+}
+
+// === DARK MODE COLORS ===
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Background colors
+    --color-bg-primary: hsl(0, 0%, 8%);             // Very dark gray
+    --color-bg-secondary: hsl(0, 0%, 12%);          // Dark gray
+    --color-bg-tertiary: hsl(0, 0%, 16%);           // Medium dark gray
+    --color-bg-elevated: rgba(0, 0, 0, 0.5);        // Translucent black
+    --color-bg-overlay: hsla(0, 0%, 0%, 0.7);       // Darker overlay
+    
+    // Text colors
+    --color-text-primary: hsl(0, 0%, 95%);          // Almost white
+    --color-text-secondary: hsl(0, 0%, 75%);        // Light gray (#bfbfbf)
+    --color-text-muted: hsl(0, 0%, 60%);            // Medium gray
+    --color-text-inverse: hsl(0, 0%, 8%);           // Dark text
+    
+    // Border colors
+    --color-border-light: hsla(0, 0%, 100%, 0.05);  // Very faint white
+    --color-border: hsla(0, 0%, 100%, 0.1);         // Faint white
+    --color-border-dark: hsla(0, 0%, 100%, 0.15);   // Light white
+    
+    // Brand colors
+    --color-accent: hsl(40, 90%, 60%);              // Gold (#f4b73d)
+    --color-accent-hover: hsl(40, 90%, 65%);        // Lighter gold
+    --color-accent-light: hsla(40, 90%, 60%, 0.1);  // Light gold bg
+    
+    // Semantic colors (adjusted for dark mode)
+    --color-success: hsl(142, 60%, 40%);
+    --color-warning: hsl(38, 80%, 45%);
+    --color-error: hsl(0, 60%, 45%);
+    --color-info: hsl(201, 80%, 40%);
+    
+    // Shadows (stronger in dark mode)
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+}
+
+// === FORCED THEME OVERRIDES ===
+// For manual theme switching
+[data-theme="light"] {
+  // Copy all light mode values here
+  // (Same as default :root values)
+}
+
+[data-theme="dark"] {
+  // Copy all dark mode values here
+  // (Same as @media (prefers-color-scheme: dark) values)
+}
