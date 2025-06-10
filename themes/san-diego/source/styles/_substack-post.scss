@@ -74,9 +74,9 @@
 	// Header styles
 	.post-header {
 		.post-title {
-			@include substack-title;
 			margin: 0 0 16px 0;
 			line-height: 1.2;
+			@include substack-title;
 		}
 		
 		.post-subtitle {
@@ -289,6 +289,7 @@
 // Full post specific styles
 .post-wrapper.dynamic-loaded {
 	margin-top: 64px;
+	margin-bottom: 128px;
 }
 
 .post-wrapper.dynamic-loaded .substack-post {
