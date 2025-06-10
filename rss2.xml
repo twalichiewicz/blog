@@ -9,8 +9,53 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Tue, 10 Jun 2025 01:37:15 GMT</pubDate>
+    <pubDate>Tue, 10 Jun 2025 09:09:42 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>macOS + spatialOS = ?</title>
+      <link>https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/</link>
+      <guid>https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/</guid>
+      <pubDate>Mon, 09 Jun 2025 22:22:14 GMT</pubDate>
+      
+      <description>Apple bringing 3D window management from SpatialOS to macOS has me thinking, why not add a z-axis to desktop interactions?</description>
+      
+      
+      
+      <content:encoded><![CDATA[<p>Apple bringing 3D window management from SpatialOS to macOS has me thinking: why not add a z-axis to desktop interactions?</p><p>The current 2D window stack feels increasingly limiting. We’re managing dozens of apps, countless browser tabs, and multiple workspaces (all constrained to x and y coordinates). Meanwhile, our spatial reasoning capabilities remain largely untapped.</p><p>Imagine grabbing a window by its title bar and pushing it “back” into space, where it scales down and slides behind your active work. Not hidden, not minimized (just contextually receded). Designers could keep inspiration boards floating behind their canvas. Developers could layer documentation behind their IDE.</p><div class="video-container">  <video controls playsinline style="width: 100%; height: auto; margin: 24px 0;" autoplay loop muted>        <source src="macOS26_spatialOS26.webm" type="video/webm">    <source src="macOS26_spatialOS26.mp4" type="video/mp4">    Your browser does not support the video tag.  </video></div><p style="text-align: center; color: #666; font-size: 0.9em; margin-top: -16px;">A window being dragged "into" the screen, shrinking as it moves behind other windows on the z-axis</p><p>Here’s where it gets interesting: with shared spatial metadata between macOS and SpatialOS, your window arrangements could persist across devices. And if they leverage their foveated rendering tech, we could get natural parallax effects as you move your cursor (or your head in Vision Pro). Mission Control transforms from a flat grid into a truly spatial command center.</p><h2 id="The-clever-bits"><a href="#The-clever-bits" class="headerlink" title="The clever bits"></a>The <span style="background: linear-gradient(90deg, #9D00FF 0%, #FF00F5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">clever</span> bits</h2><ul><li>Window depth as process priority: That Gmail tab five layers back becomes a literal background process. macOS could throttle CPU cycles based on z-position.</li><li>Eye tracking and foveated rendering mean that peripheral windows could render at lower resolution so your computer stops wasting resources on things you’re not looking at</li><li>Ultra Wideband positioning could make window arrangements location-aware. Walk into the kitchen with your laptop, and your cooking videos and recipe tabs automatically move forward. Head to the office, and work documents take focus. The z-axis becomes context-aware.</li></ul><p>I’m starting to think we’ve been stuck in flatland for too long.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>ios 26 photoss app design paradigm</title>
+      <link>https://twalichiewicz.github.io/2025/06/09/ios-26-photoss-app-design-paradigm/</link>
+      <guid>https://twalichiewicz.github.io/2025/06/09/ios-26-photoss-app-design-paradigm/</guid>
+      <pubDate>Mon, 09 Jun 2025 20:32:30 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Looks like Apple is ending the iOS Photos.app interaction paradigm experiment with bimodal swipe-to-switch state. I get why they tried it</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Looks like Apple is ending the iOS Photos.app interaction paradigm experiment with bimodal swipe-to-switch state. I get why they tried it—a navigation bar for only 2 modes feels like overkill. But a hidden gesture was probably too subtle.</p><p>The eternal UI challenge: when you have exactly two modes, every solution feels wrong. Too few for a nav bar, too important for a buried gesture. It’s like the dropdown rule—you need 3+ options to justify the pattern.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/06/09/ios-26-photoss-app-design-paradigm/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>sharing claude max passwords</title>
@@ -427,7 +472,7 @@
       
       
       
-      <content:encoded><![CDATA[<p>I see a ton of nothingburger articles about AI and design every day, so I figured I’d throw my two cents into the void.</p><p>Lately, I’ve been deep in the weeds building enterprise systems to automate complicated, laborious, mission-critical work:</p><ul><li>AI&#x2F;ML tooling pipelines  </li><li>Product instance generators  </li><li>Standardized installers across 60+ enterprise tools</li></ul><p><em>(Sexy stuff, I know.)</em></p><p>At their core, each of these projects solved a human-level problem: eliminate waste and free people from repetitive tasks so they can focus on decisions that actually matter.</p><p>In that same spirit, I turned the lens on myself—and put together real-life release notes for the latest version of me:</p><table> <tr>  <td><p><b>Product Designer 2.5 - Release Notes</b></p></td> </tr>  <tr>    <th style="max-width: 175px;"><span class="tag">Updated</span>I explore more broadly</th>    <td>I use AI to spin up multiple design directions and pressure-test concepts early—less about "more options," more about sharpening judgment on why one direction wins.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag">Updated</span>I automate repetitive work</th>    <td>Instead of hand-coding elements or rewriting copy for every variant, I script reusable components and use LLMs to translate content across use cases. That lets me stay focused on systems, not scaffolding.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag">Updated</span>I get to clarity faster</th>    <td>AI helps me burn through early noise so I hit friction points sooner. That's where meaningful design decisions actually begin.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I redefine the problem space and embed earlier</th>    <td>With less time spent in production, I go upstream—reframing what should even exist. I dig into overlooked workflows, unmet needs, and the ripple effects of product decisions. The best design isn't always a better UI. Sometimes it's changing the brief entirely.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I design for second- and third-order effects</th>    <td>I think more about scale, team ops, and behavior. What happens when this pattern gets reused 10,000 times? What kind of culture are we shaping? It's not just usability anymore—it's long-term coherence and trust.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I shape vision through prototypes, not slides</th>    <td>Fully interactive prototypes in hours. I use them to pitch bolder, more abstract ideas—the kind that usually get dismissed for being "too big" or "too early." Now I can show, not just tell.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I create reusable thinking, not just reusable components</th>    <td>Beyond design systems, I document principles, tradeoffs, and mental models—so others (not just designers) can make smarter decisions without reinventing the wheel.</td>  </tr></table>]]></content:encoded>
+      <content:encoded><![CDATA[<p>I see a ton of nothingburger articles about AI and design every day, so I figured I’d throw my two cents into the void.</p><p>Lately, I’ve been deep in the weeds building enterprise systems to automate complicated, laborious, mission-critical work:</p><ul><li>AI&#x2F;ML tooling pipelines  </li><li>Product instance generators  </li><li>Standardized installers across 60+ enterprise tools</li></ul><p><em>(Sexy stuff, I know.)</em></p><p>At their core, each of these projects solved a human-level problem: eliminate waste and free people from repetitive tasks so they can focus on decisions that actually matter.</p><p>In that same spirit, I turned the lens on myself—and put together real-life release notes for the latest version of me:</p><table> <tr>  <td><p><b>Product Designer 2.5 - Release Notes</b></p></td> </tr>  <tr>    <th style="max-width: 175px;"><span class="tag">Updated</span>I explore more broadly</th>    <td>I use AI to spin up multiple design directions and pressure-test concepts early—less about "more options," more about sharpening judgment on why one direction wins.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag">Updated</span>I automate repetitive work</th>    <td>Instead of hand-coding elements or rewriting copy for every variant, I script reusable components and use LLMs to translate content across use cases. That lets me stay focused on systems, not scaffolding.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag">Updated</span>I get to clarity faster</th>    <td>AI helps me burn through early noise so I hit friction points sooner. That's where meaningful design decisions actually begin.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I redefine the problem space and embed earlier</th>    <td>With less time spent in production, I go upstream—reframing what should even exist. I dig into overlooked workflows, unmet needs, and the ripple effects of product decisions. The best design isn't always a better UI. Sometimes it's changing the brief entirely.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I design for second- and third-order effects</th>    <td>I think more about scale, team ops, and behavior. What happens when this pattern gets reused 10,000 times? What kind of culture are we shaping? It's not just usability anymore—it's long-term coherence and trust.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I shape vision through prototypes, not slides</th>    <td>Fully interactive prototypes in hours. I use them to pitch bolder, more abstract ideas—the kind that usually get dismissed for being "too big" or "too early." Now I can show, not just tell.</td>  </tr>  <tr>    <th style="max-width: 175px;"><span class="tag tag--new">New</span>I create reusable thinking, not just reusable components</th>    <td>Beyond design systems, I document principles, tradeoffs, and mental models—so others (not just designers) can make smarter decisions without reinventing the wheel.</td>  </tr></table><h2 id="Real-AI-Workflows-in-Practice"><a href="#Real-AI-Workflows-in-Practice" class="headerlink" title="Real AI Workflows in Practice"></a>Real AI Workflows in Practice</h2><p>Here are specific ways I’m using AI tools today:</p><h3 id="Rapid-Concept-Validation"><a href="#Rapid-Concept-Validation" class="headerlink" title="Rapid Concept Validation"></a>Rapid Concept Validation</h3><ul><li><strong>Tool</strong>: Claude + Figma</li><li><strong>Workflow</strong>: Feed existing designs into Claude → Generate 5 conceptual variations → Import as wireframes → Test with users in &lt;2 hours</li><li><strong>Impact</strong>: What used to take 2 days now takes 2 hours</li></ul><h3 id="Component-Documentation"><a href="#Component-Documentation" class="headerlink" title="Component Documentation"></a>Component Documentation</h3><ul><li><strong>Tool</strong>: GitHub Copilot + Custom Scripts</li><li><strong>Workflow</strong>: Write component specs in natural language → Auto-generate JSDoc comments → Create usage examples → Update design system docs</li><li><strong>Impact</strong>: 80% reduction in documentation time</li></ul><h3 id="User-Research-Synthesis"><a href="#User-Research-Synthesis" class="headerlink" title="User Research Synthesis"></a>User Research Synthesis</h3><ul><li><strong>Tool</strong>: GPT-4 + Notion</li><li><strong>Workflow</strong>: Transcribe interviews → Extract themes → Map to existing personas → Generate insight reports with quotes</li><li><strong>Impact</strong>: Turn 20 hours of interviews into actionable insights in 30 minutes</li></ul><h3 id="Design-QA-Automation"><a href="#Design-QA-Automation" class="headerlink" title="Design QA Automation"></a>Design QA Automation</h3><ul><li><strong>Tool</strong>: Custom Python scripts + Vision APIs</li><li><strong>Workflow</strong>: Screenshot implementations → Compare to design files → Flag spacing&#x2F;color&#x2F;typography mismatches → Generate fix tickets</li><li><strong>Impact</strong>: Catch 95% of visual bugs before they ship</li></ul><h3 id="Accessibility-Testing"><a href="#Accessibility-Testing" class="headerlink" title="Accessibility Testing"></a>Accessibility Testing</h3><ul><li><strong>Tool</strong>: AI-powered browser extensions</li><li><strong>Workflow</strong>: Run designs through contrast checkers → Generate ARIA labels → Suggest keyboard navigation improvements</li><li><strong>Impact</strong>: Ship more accessible products without manual audits</li></ul><h2 id="Key-Takeaways"><a href="#Key-Takeaways" class="headerlink" title="Key Takeaways"></a>Key Takeaways</h2><ol><li><p><strong>AI amplifies judgment, not just output</strong> - The value isn’t in generating more options, but in reaching meaningful design decisions faster</p></li><li><p><strong>Automation creates space for strategy</strong> - Less time on production means more time understanding second-order effects and long-term impact</p></li><li><p><strong>Show, don’t tell becomes scalable</strong> - Interactive prototypes in hours means bolder ideas get real consideration instead of dying in committee</p></li></ol>]]></content:encoded>
       
       
       
@@ -460,48 +505,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/04/09/Sora-horny/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Gut-check before opening Figma</title>
-      <link>https://twalichiewicz.github.io/2025/04/07/Gut-check-before-opening-Figma/</link>
-      <guid>https://twalichiewicz.github.io/2025/04/07/Gut-check-before-opening-Figma/</guid>
-      <pubDate>Mon, 07 Apr 2025 12:46:52 GMT</pubDate>
-      
-      <description>There’s a familiar rush that comes from opening Figma right away. But good design doesn’t move fast. It moves with purpose. And it always starts with clarity.</description>
-      
-      
-      
-      <content:encoded><![CDATA[<p>There’s a familiar rush that comes from opening Figma right away. You drop in some frames, start sketching flows, and before long, the canvas is full of ideas. It feels like momentum. Like progress. Like designing. But if you watched my process, you’d mostly see Post-Its, notebooks, and long moments of quiet thinking. I spend a surprising amount of time just trying to understand what life really looks like for the people I’m designing for. I review my assumptions, draw rough ideas by hand, and then go back—again and again—until something clicks.</p><p>This slower front-end of the process is the reason projects I lead tend to ship on time and get built right. It’s why users often tell us, “This is so much better.” It’s how we move the metrics that actually matter. The truth is, design isn’t about moving fast or making things look cool. It’s not about trends, or gimmicks, or the next shiny idea. Good design is about certainty—certainty that you’re solving the right problem, that you understand the user’s world, and that what you’re building will have a meaningful impact.</p><p>Here’s a rough idea of my self-limiter, <strong>The Figma Gut-Check</strong>:</p><ol><li>Can I describe the user’s world so clearly they’d say, “That’s me”?<br> → If not, I haven’t earned the right to design for them.</li><li>Can I write the problem in a single sentence, without buzzwords?<br> → If not, I don’t understand it deeply enough.</li><li>Can I explain how this work connects to product or business goals?<br> → If not, it’s just surface-level polish.</li><li>Can I tell the story of how this design helps—without showing a screen?<br> → If not, the pixels won’t land.</li></ol><p>If I can’t answer these with clarity, I’m not ready to start pixel pushing.</p><p>It’s easy to look like you’re moving fast when you rush into Figma, but more often than not, that speed masks confusion. Slowing down—taking time to think, to understand, to align—creates a foundation for speed later. You make sharper decisions because they’re rooted in clarity. You stay close to your user’s evolving experience. And in that closeness, insights surface more naturally, more often. That’s the secret: good design doesn’t move fast. It moves with purpose. And it always starts with clarity.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/04/07/Gut-check-before-opening-Figma/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Full-stack product designers in 2025</title>
-      <link>https://twalichiewicz.github.io/2025/04/03/Full-stack-product-designers-in-2025/</link>
-      <guid>https://twalichiewicz.github.io/2025/04/03/Full-stack-product-designers-in-2025/</guid>
-      <pubDate>Thu, 03 Apr 2025 10:45:42 GMT</pubDate>
-      
-      <description>Full-stack product designers. The role sounds like a dream, but most teams don&#39;t know how to actually use it.</description>
-      
-      
-      
-      <content:encoded><![CDATA[<p><strong>Full-stack product designers:</strong><br>Strategy, UX, UI, prototyping, maybe even shipping code. The role sounds like a dream, but most teams don’t know how to actually use it.</p><p>I’ve often been brought on because I work this way— across product strategy, cross-product systems, AI tooling, and UX design. The job is about seeing the big picture, stitching together product intent, and making sure the execution supports it end to end.</p><p>But here’s what I’ve learned:<br>Full-stack doesn’t mean “do everything.”<br>It means “connect everything.”</p><p>Too often, companies hire this kind of designer… then unintentionally limit their impact. They get stuck in handoff loops, vague ownership zones, or left out of key product decisions entirely.</p><p>If you’re hiring for a designer who can go end-to-end, here’s what actually sets them up for success:<br> • Involve them early in framing the problem, not just shaping the UI<br> • Give them access to context, not just tasks<br> • Trust them to lead cross-functionally, not just design individually<br> • Let them define what done looks like, not just what pretty looks like</p><p>When done well, this role becomes a force multiplier. Not just for speed but for clarity, alignment, and momentum. The orgs that recognize that (and build the structure to support it) will attract and retain a different caliber of designer.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/04/03/Full-stack-product-designers-in-2025/#disqus_thread</comments>
       
     </item>
     
