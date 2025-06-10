@@ -37,6 +37,31 @@
 	border: 1px solid rgb(0 0 0 / 3%);
 
 	@include project.content-area-styles;
+	
+	// Video container styling
+	.video-container {
+		margin: 24px 0;
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: variables.$shadow-soft;
+		border: 1px solid #ccc;
+		
+		video {
+			display: block;
+			width: 100%;
+			height: auto;
+			background: variables.$body-bg;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			box-shadow: variables.$shadow-soft-dark;
+			border-color: variables.$border-color-dark;
+			
+			video {
+				background: variables.$body-bg-dark;
+			}
+		}
+	}
 
 	@media (prefers-color-scheme: dark) {
 		background-color: variables.$card-bg-dark;
