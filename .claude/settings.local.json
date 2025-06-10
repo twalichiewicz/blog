@@ -32,7 +32,10 @@
       "Bash(awk:*)",
       "Bash(lsof:*)",
       "Bash(node:*)",
-      "Bash(npx sass:*)"
+      "Bash(npx sass:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(ffmpeg:*)"
     ],
     "deny": []
   }
