@@ -1809,8 +1809,8 @@ body.loaded .project-wrapper {
 
 			.stat-value {
 				@include stat-value-base;
-				@include stat-value-scaling;
 				font-size: 2.5rem;
+				@include stat-value-scaling;
 			}
 
 			.stat-label {
