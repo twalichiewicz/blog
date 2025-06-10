@@ -61,3 +61,40 @@ In that same spirit, I turned the lens on myself—and put together real-life re
     <td>Beyond design systems, I document principles, tradeoffs, and mental models—so others (not just designers) can make smarter decisions without reinventing the wheel.</td>
   </tr>
 </table>
+
+## Real AI Workflows in Practice
+
+Here are specific ways I'm using AI tools today:
+
+### Rapid Concept Validation
+- **Tool**: Claude + Figma
+- **Workflow**: Feed existing designs into Claude → Generate 5 conceptual variations → Import as wireframes → Test with users in <2 hours
+- **Impact**: What used to take 2 days now takes 2 hours
+
+### Component Documentation
+- **Tool**: GitHub Copilot + Custom Scripts
+- **Workflow**: Write component specs in natural language → Auto-generate JSDoc comments → Create usage examples → Update design system docs
+- **Impact**: 80% reduction in documentation time
+
+### User Research Synthesis
+- **Tool**: GPT-4 + Notion
+- **Workflow**: Transcribe interviews → Extract themes → Map to existing personas → Generate insight reports with quotes
+- **Impact**: Turn 20 hours of interviews into actionable insights in 30 minutes
+
+### Design QA Automation
+- **Tool**: Custom Python scripts + Vision APIs
+- **Workflow**: Screenshot implementations → Compare to design files → Flag spacing/color/typography mismatches → Generate fix tickets
+- **Impact**: Catch 95% of visual bugs before they ship
+
+### Accessibility Testing
+- **Tool**: AI-powered browser extensions
+- **Workflow**: Run designs through contrast checkers → Generate ARIA labels → Suggest keyboard navigation improvements
+- **Impact**: Ship more accessible products without manual audits
+
+## Key Takeaways
+
+1. **AI amplifies judgment, not just output** - The value isn't in generating more options, but in reaching meaningful design decisions faster
+
+2. **Automation creates space for strategy** - Less time on production means more time understanding second-order effects and long-term impact
+
+3. **Show, don't tell becomes scalable** - Interactive prototypes in hours means bolder ideas get real consideration instead of dying in committee
