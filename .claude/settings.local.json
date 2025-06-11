@@ -35,7 +35,23 @@
       "Bash(npx sass:*)",
       "Bash(mkdir:*)",
       "Bash(mv:*)",
-      "Bash(ffmpeg:*)"
+      "Bash(ffmpeg:*)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -U \"table\" themes/san-diego/source/styles --type scss -A 5 -B 2)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg -U \"table\" themes/san-diego/source/styles --glob \"*.scss\" -A 5 -B 2)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg \"// Tables - Claude.ai inspired\" themes/san-diego/source/styles/_components.scss -A 50 -B 5)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg \"table\" themes/san-diego/source/styles/_post.scss -A 20 -B 2)",
+      "Bash(ls:*)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg \"\\.substack-post.*table\" themes/san-diego/source/css/styles.css -A 10 -B 2)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg \"table.*{\" themes/san-diego/source/css/styles.css -A 20)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg \"^table\" themes/san-diego/source/css/styles.css -A 20)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg \"display:\\s*flex\" themes/san-diego/source/styles/_components.scss -B 5 -A 2)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg \"// Tables - Claude.ai inspired\" themes/san-diego/source/styles/_components.scss -A 100)",
+      "Bash(/Users/waliwalu/.nvm/versions/node/v23.5.0/lib/node_modules/@anthropic-ai/claude-code/vendor/ripgrep/x64-darwin/rg \"// Table styles for consistent column widths\" themes/san-diego/source/styles/_substack-post.scss -A 2 -B 2)",
+      "Bash(pdftotext:*)",
+      "Bash(python3:*)",
+      "Bash(textutil:*)",
+      "Bash(curl:*)",
+      "Bash(npx hexo generate:*)"
     ],
     "deny": []
   }
