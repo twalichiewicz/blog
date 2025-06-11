@@ -1189,6 +1189,339 @@ blockquote.pullquote {
 		border-radius: 8px;
 	}
 
+	// Table styles
+	.table-wrapper {
+		margin: 24px 0;
+		position: relative;
+		border-radius: 12px;
+		box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+		overflow: hidden; // Contain the scroll container
+		
+		// Optional caption
+		.table-caption {
+			font-size: 0.9em;
+			color: variables.$text-color-secondary;
+			margin-bottom: 12px;
+			font-weight: 500;
+			text-align: center;
+			padding: 0 16px;
+		}
+		
+		// Table scroll container
+		.table-scroll-container {
+			overflow-x: auto;
+			overflow-y: visible; // Don't clip vertically
+			-webkit-overflow-scrolling: touch;
+			overscroll-behavior-x: contain;
+			position: relative;
+			width: 100%;
+			max-width: 100%;
+			
+			// Scroll indicators
+			&::before,
+			&::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				width: 20px;
+				pointer-events: none;
+				z-index: 1;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			}
+			
+			&::before {
+				left: 0;
+				background: linear-gradient(to right, variables.$white 0%, transparent 100%);
+			}
+			
+			&::after {
+				right: 0;
+				background: linear-gradient(to left, variables.$white 0%, transparent 100%);
+			}
+			
+			// Show indicators when scrollable
+			&.has-scroll {
+				&::after {
+					opacity: 1;
+				}
+				
+				&.scrolled::before {
+					opacity: 1;
+				}
+				
+				&.at-end::after {
+					opacity: 0;
+				}
+			}
+			
+			// Focus state for keyboard navigation
+			&:focus {
+				outline: 2px solid variables.$accent-gold;
+				outline-offset: 2px;
+				border-radius: 12px;
+				
+				@media (prefers-color-scheme: dark) {
+					outline-color: variables.$accent-gold-dark;
+				}
+			}
+			
+			// Touch scrolling indicator
+			&.touch-scrolling::before,
+			&.touch-scrolling::after {
+				opacity: 0.8 !important;
+			}
+			
+			// Focused state - enhance scroll indicators
+			&.focused.has-scroll {
+				&::before,
+				&::after {
+					height: 3px;
+					bottom: 0;
+					top: auto;
+					background: variables.$accent-gold;
+					opacity: 0.6;
+				}
+				
+				@media (prefers-color-scheme: dark) {
+					&::before,
+					&::after {
+						background: variables.$accent-gold-dark;
+					}
+				}
+			}
+		}
+		
+		// Ensure tables inside scroll containers maintain their layout
+		.table-scroll-container table {
+			width: auto; // Let table size based on content
+			min-width: 100%; // But ensure it fills container if content is smaller
+		}
+		
+		// Skills matrix specific styling
+		&.skills-matrix {
+			.table-scroll-container {
+				// Only apply sticky positioning on larger screens
+				@media (min-width: variables.$tablet-breakpoint) {
+					table {
+						th:first-child,
+						td:first-child {
+							position: sticky;
+							left: 0;
+							z-index: 2;
+							background: variables.$white;
+							box-shadow: 2px 0 4px rgb(0 0 0 / 5%);
+							
+							@media (prefers-color-scheme: dark) {
+								background: variables.$card-bg-dark;
+							}
+						}
+						
+						th:first-child {
+							z-index: 3;
+							background: rgba(variables.$accent-gold, 0.05);
+							
+							@media (prefers-color-scheme: dark) {
+								background: rgba(variables.$accent-gold-dark, 0.1);
+							}
+						}
+					}
+				}
+				
+				table {
+					th:first-child {
+						width: 30%;
+						min-width: 120px;
+						text-align: left;
+					}
+				}
+			}
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+			
+			.table-caption {
+				color: variables.$text-color-secondary-dark;
+			}
+			
+			.table-scroll-container {
+				&::before {
+					background: linear-gradient(to right, variables.$card-bg-dark 0%, transparent 100%);
+				}
+				
+				&::after {
+					background: linear-gradient(to left, variables.$card-bg-dark 0%, transparent 100%);
+				}
+			}
+		}
+		
+		// Mobile optimizations
+		@media (max-width: variables.$mobile-breakpoint) {
+			margin: 16px -16px; // Extend to edge of container
+			border-radius: 0;
+			
+			.table-caption {
+				font-size: 0.85em;
+				margin-bottom: 8px;
+			}
+		}
+	}
+	
+	table {
+		border-collapse: collapse;
+		background: variables.$white;
+		border: 1px solid rgba(variables.$border-color, 0.3);
+		border-radius: 8px;
+		overflow: hidden;
+		font-size: 0.95em;
+		display: table; // Ensure proper table display
+		width: 100%; // Always fill container
+		table-layout: auto; // Allow automatic column sizing based on content
+		
+		// For consistent column widths across all cells
+		// The browser will calculate optimal widths based on all content
+		word-break: break-word; // Allow breaking long words if needed
+		
+		thead {
+			background: rgba(variables.$accent-gold, 0.05);
+			border-bottom: 2px solid rgba(variables.$accent-gold, 0.2);
+		}
+		
+		th {
+			padding: 12px 16px;
+			text-align: center;
+			font-weight: 600;
+			color: variables.$text-color;
+			letter-spacing: 0.02em;
+			white-space: nowrap;
+			min-width: min-content; // Ensure minimum width based on content
+			
+			// Mobile adjustments
+			@media (max-width: variables.$mobile-breakpoint) {
+				padding: 10px 12px;
+				font-size: 0.85em;
+				white-space: normal; // Allow wrapping on mobile
+				word-break: break-word;
+			}
+		}
+		
+		td {
+			padding: 12px 16px;
+			text-align: center;
+			color: variables.$text-color;
+			border-bottom: 1px solid rgba(variables.$border-color, 0.2);
+			white-space: nowrap; // Prevent wrapping for consistent column widths
+			
+			// Support for bold text
+			strong {
+				font-weight: 600;
+				color: variables.$text-color;
+			}
+			
+			// Mobile adjustments
+			@media (max-width: variables.$mobile-breakpoint) {
+				padding: 10px 12px;
+				font-size: 0.9em;
+				white-space: normal; // Override the nowrap to allow wrapping on mobile
+				word-break: break-word;
+				hyphens: auto;
+			}
+		}
+		
+		// First column adjustments for skills matrix
+		.skills-matrix & {
+			td:first-child,
+			th:first-child {
+				text-align: left;
+				font-weight: 600;
+			}
+		}
+		
+		tbody tr {
+			transition: background-color 0.2s ease;
+			
+			&:hover {
+				background: rgba(variables.$accent-gold, 0.02);
+			}
+			
+			&:last-child td {
+				border-bottom: none;
+			}
+		}
+		
+		// Zebra striping
+		tbody tr:nth-child(even) {
+			background: rgba(variables.$grey-light, 0.05);
+		}
+		
+		// Responsive font sizing with zoom support
+		@media (max-width: variables.$tablet-breakpoint) {
+			font-size: 0.9em;
+		}
+		
+		@media (max-width: variables.$mobile-breakpoint) {
+			font-size: 0.85em;
+			// Allow table to scroll horizontally if needed
+			display: block;
+			overflow-x: auto;
+			white-space: nowrap;
+		}
+		
+		// Support for browser zoom
+		@media (min-resolution: 2dppx) {
+			// Slightly larger fonts for high DPI displays
+			font-size: 1em;
+			
+			@media (max-width: variables.$mobile-breakpoint) {
+				font-size: 0.9em;
+			}
+		}
+		
+		// Dark mode styles for tables
+		@media (prefers-color-scheme: dark) {
+			background: variables.$card-bg-dark;
+			border-color: rgba(variables.$border-color-dark, 0.3);
+			
+			thead {
+				background: rgba(variables.$accent-gold-dark, 0.1);
+				border-bottom-color: rgba(variables.$accent-gold-dark, 0.3);
+			}
+			
+			th {
+				color: variables.$text-color-dark;
+			}
+			
+			td {
+				color: variables.$text-color-dark;
+				border-bottom-color: rgba(variables.$border-color-dark, 0.2);
+				
+				strong {
+					color: variables.$text-color-dark;
+				}
+			}
+			
+			tbody tr {
+				&:hover {
+					background: rgba(variables.$accent-gold-dark, 0.05);
+				}
+			}
+			
+			tbody tr:nth-child(even) {
+				background: rgba(255, 255, 255, 0.02);
+			}
+			
+			// Sticky column backgrounds in dark mode
+			.skills-matrix & {
+				td:first-child,
+				th:first-child {
+					background: variables.$card-bg-dark;
+				}
+			}
+		}
+	}
+
 	@media (prefers-color-scheme: dark) {
 		background: variables.$card-bg-dark;
 		color: variables.$text-color-dark;
@@ -1324,8 +1657,8 @@ body.loaded .project-wrapper {
 	}
 
 	.project-writeup {
-		margin-left: 18px !important;
-		margin-right: 18px !important;
+		margin-left: 0;
+		margin-right: 0;
 		margin-top: 18px !important; // Override the 3rem top margin
 	}
 }
@@ -1808,8 +2141,8 @@ body.loaded .project-wrapper {
 			padding: 3px;
 
 			.stat-value {
-				@include stat-value-base;
 				font-size: 2.5rem;
+				@include stat-value-base;
 				@include stat-value-scaling;
 			}
 

@@ -16,17 +16,24 @@
                 <span>San Diego, CA</span>
             </div>
             <h2 class="profile-byline">Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</h2>
-            <!-- Mobile expandable contact button -->
-            <button class="mobile-expand-button" aria-expanded="false" aria-controls="mobile-expandable-content">
-                <span class="button-text">Get in touch</span>
-                <svg class="expand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-            </button>
+            <!-- Mobile buttons container -->
+            <div class="mobile-buttons-container">
+                <!-- Impact Report button -->
+                <button class="mobile-impact-button" onclick="openImpactModal()" aria-label="View impact report">
+                    <span class="button-text">Impact report</span>
+                </button>
+                <!-- Mobile expandable contact button -->
+                <button class="mobile-expand-button" aria-expanded="false" aria-controls="mobile-expandable-content">
+                    <span class="button-text">Get in touch</span>
+                    <svg class="expand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
         </div>
         <!-- Mobile expandable content -->
         <div id="mobile-expandable-content" class="mobile-expandable-content mobile-only">
-            <div class="profile-stats">
+            <div class="profile-stats" onclick="openImpactModal()" role="button" tabindex="0" aria-label="View impact report">
                 <div class="stat">
                     <span class="number">12</span>
                     <span class="label">Years pro</span>
@@ -36,9 +43,10 @@
                     <span class="label">Projects led</span>
                 </div>
                 <div class="stat">
-                    <span class="number">20,000,000+</span>
+                    <span class="number">40,000,000+</span>
                     <span class="label">Users impacted</span>
                 </div>
+                <button class="impact-report-btn" onclick="openImpactModal(event)" aria-label="View full impact report">Impact report</button>
             </div>
             <div class="contact-options">
                 <a href="mailto:hey@thomas.design" class="contact-option email">Email</a>
@@ -55,7 +63,7 @@
                 <span>San Diego, CA</span>
             </div>
             <p class="profile-bio">Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</p>
-            <div class="profile-stats">
+            <div class="profile-stats" onclick="openImpactModal()" role="button" tabindex="0" aria-label="View impact report">
                 <div class="stat">
                     <span class="number">12</span>
                     <span class="label">Years pro</span>
@@ -65,9 +73,10 @@
                     <span class="label">Projects led</span>
                 </div>
                 <div class="stat">
-                    <span class="number">20,000,000+</span>
+                    <span class="number">40,000,000+</span>
                     <span class="label">Users impacted</span>
                 </div>
+                <button class="impact-report-btn" onclick="openImpactModal(event)" aria-label="View full impact report">Impact report</button>
             </div>
         </div>
     </div>

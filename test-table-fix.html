@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Fix Test</title>
+    <style>
+        /* Global table styles that cause the problem */
+        table {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: collapse;
+            font-size: 12px;
+            line-height: 1.4;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 1px 1px rgb(0 0 0 / 3%);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        table tr {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        table th {
+            text-align: left;
+            padding: 0.75em 1em;
+            background-color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            vertical-align: top;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            box-sizing: border-box;
+            align-self: stretch;
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        table td {
+            padding: 0.75em 1em;
+            vertical-align: top;
+            width: 100%;
+            align-self: stretch;
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        /* Substack post table styles with fixes */
+        .substack-post table {
+            display: table !important;
+        }
+
+        .substack-post table tr {
+            display: table-row !important;
+            width: auto !important;
+            align-items: inherit !important;
+        }
+
+        .substack-post table th,
+        .substack-post table td {
+            display: table-cell !important;
+            width: auto !important;
+            flex: none !important;
+            flex-direction: inherit !important;
+            border-right: none !important;
+            vertical-align: middle;
+        }
+
+        /* Demo styling */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        h1, h2 {
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            color: #666;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Table Column Alignment Fix</h1>
+    
+    <div class="container">
+        <h2>Before Fix (with global flex styles):</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Old</th>
+                <th>Updated</th>
+                <th>New</th>
+            </tr>
+            <tr>
+                <td>Improved dashboard performance</td>
+                <td>★★★★★</td>
+                <td>✔</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Real-time analytics</td>
+                <td>★★★</td>
+                <td></td>
+                <td>✔</td>
+            </tr>
+            <tr>
+                <td>Customizable reporting templates</td>
+                <td>★★★★</td>
+                <td>✔</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container substack-post">
+        <h2>After Fix (with substack-post overrides):</h2>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Old</th>
+                <th>Updated</th>
+                <th>New</th>
+            </tr>
+            <tr>
+                <td>Improved dashboard performance</td>
+                <td>★★★★★</td>
+                <td>✔</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Real-time analytics</td>
+                <td>★★★</td>
+                <td></td>
+                <td>✔</td>
+            </tr>
+            <tr>
+                <td>Customizable reporting templates</td>
+                <td>★★★★</td>
+                <td>✔</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <p>Notice how in the "After Fix" table, the columns are properly aligned and maintain their natural widths, while the "Before Fix" table has all columns stretched to equal width due to the flex display.</p>
+</body>
+</html>

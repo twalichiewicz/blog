@@ -1,0 +1,254 @@
+<!-- Impact Modal -->
+<div id="impact-modal" class="impact-modal" style="display: none;">
+    <div class="impact-modal-backdrop" onclick="closeImpactModal()"></div>
+    <div class="impact-modal-sheet">
+        <div class="impact-modal-header">
+            <button class="impact-modal-close minimal-close" onclick="closeImpactModal()" aria-label="Close impact report">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M5 10h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M10 5l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="impact-modal-title">Design Impact Report 2025</div>
+            <button class="impact-modal-contact minimal-button" onclick="window.location.href='mailto:hey@thomas.design'" aria-label="Contact Thomas">
+                Get in touch
+            </button>
+        </div>
+        <div class="impact-grid">
+            <!-- FINANCIAL IMPACT Section -->
+            <div class="impact-section" data-section="financial">
+                <div class="section-label">FINANCIAL IMPACT</div>
+                
+                <!-- Total Impact - Large tile spanning 3x2 -->
+                <div class="impact-tile tile-large tile-revenue" data-animate="counter" style="grid-column: span 3; grid-row: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">
+									<span class="unit">$</span>
+                                    <span class="counter" data-target="30">0</span>
+                                    <span class="unit">M+</span>
+                                </div>
+                                <div class="tile-label">Revenue Created</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Saved at-risk revenue + new recurring revenue</div>
+                    </div>
+                </div>
+
+                <!-- Annual Savings - Medium tile -->
+                <div class="impact-tile tile-medium tile-savings" data-animate="counter" style="grid-column: span 3;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">
+                                    <span class="unit">$</span>
+                                    <span class="counter" data-target="8">0</span>
+                                    <span class="unit">M/yr</span>
+                                </div>
+                                <div class="tile-label">Yearly Savings Delivered</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Engineering & operational efficiency</div>
+                    </div>
+                </div>
+
+                <!-- Engineering Hours Saved - Small tile -->
+                <div class="impact-tile tile-medium tile-hours" data-animate="counter" style="grid-column: span 3;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">
+                                    <span class="unit">$</span>
+                                    <span class="counter" data-target="1.2">0</span>
+                                    <span class="unit">M/yr</span>
+                                </div>
+                                <div class="tile-label">Engineering Productivity Impact</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Design system & tooling efficiency</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EFFICIENCY GAINS Section -->
+            <div class="impact-section" data-section="efficiency">
+                <div class="section-label">EFFICIENCY GAINS</div>
+                
+                <!-- Process Acceleration - Medium tile -->
+                <div class="impact-tile tile-medium tile-efficiency" data-animate="flip" style="grid-column: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-front">
+                            <div class="tile-mobile-wrapper">
+                                <div class="tile-mobile-content">
+                                    <div class="tile-value">250×</div>
+                                    <div class="tile-label">Speed Improvement</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tile-back">
+                            <div class="tile-detail">Content publishing: weeks to hours</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Reduction - Large tile -->
+                <div class="impact-tile tile-large tile-support" data-animate="wave" style="grid-column: span 2; grid-row: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">85%</div>
+                                <div class="tile-label">Support Tickets Reduced</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">From 1,200 to 180 per month</div>
+                    </div>
+                </div>
+
+                <!-- UI Ticket Reduction - Small tile -->
+                <div class="impact-tile tile-small tile-tickets" data-animate="grow">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">90%</div>
+                                <div class="tile-label">Design Issues Prevented</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deployment Time - Small tile -->
+                <div class="impact-tile tile-small tile-deployment" data-animate="race">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">90%</div>
+                                <div class="tile-label">Deployment Speed</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">From 8 hours to 45 minutes</div>
+                    </div>
+                </div>
+                <!-- Infrastructure Reduction - Medium tile -->
+                <div class="impact-tile tile-medium tile-infra" data-animate="scale" style="grid-column: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">95%</div>
+                                <div class="tile-label">System Issues Eliminated</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Automated away most problems</div>
+                    </div>
+                </div>
+                <!-- Dev Velocity - Small tile -->
+                <div class="impact-tile tile-small tile-velocity" data-animate="grow">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">5×</div>
+                                <div class="tile-label">Developer Speed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- PLATFORM SCALE Section -->
+            <div class="impact-section" data-section="scale">
+                <div class="section-label">PLATFORM SCALE</div>
+                <!-- Products Unified - Large tile -->
+                <div class="impact-tile tile-large tile-systems" data-animate="stack" style="grid-column: span 6;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">100+</div>
+                                <div class="tile-label">Products Modernized</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Unified under one system</div>
+                    </div>
+                </div>
+
+                <!-- Storage Eliminated - Medium tile -->
+                <div class="impact-tile tile-medium tile-storage" data-animate="shine" style="grid-column: span 3;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">12TB</div>
+                                <div class="tile-label">Customer Storage Saved</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Reduced redundancy</div>
+                    </div>
+                </div>
+				<!-- Platform Adoption - Medium tile -->
+			<div class="impact-tile tile-medium tile-adoption" data-animate="counter" style="grid-column: span 3;">
+				<div class="tile-inner">
+					<div class="tile-mobile-wrapper">
+						<div class="tile-mobile-content">
+							<div class="tile-value">
+								<span class="counter" data-target="45000">0</span>
+							</div>
+							<div class="tile-label">Admin tool uses</div>
+						</div>
+					</div>
+					<div class="tile-detail">First 3 months of launch</div>
+				</div>
+			</div>
+            </div>
+            <!-- BEHAVIORAL IMPACT Section -->
+            <div class="impact-section" data-section="behavioral">
+                <div class="section-label">BEHAVIORAL IMPACT</div>
+                
+                <!-- Conversion Rate - Large tile -->
+                <div class="impact-tile tile-large tile-conversion" data-animate="wave" style="grid-column: span 2; grid-row: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">22%</div>
+                                <div class="tile-label">Conversion to Savings</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Nearly 2x industry average</div>
+                    </div>
+                </div>
+
+                <!-- Borrower Savings - Large tile -->
+                <div class="impact-tile tile-large tile-borrower" data-animate="shine" style="grid-column: span 2; grid-row: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">$1.3M</div>
+                                <div class="tile-label">Total saved for families</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTR Increase - Medium tile -->
+                <div class="impact-tile tile-medium tile-ctr" data-animate="spark" style="grid-column: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">75%</div>
+                                <div class="tile-label">Avg Click Rate Improvement</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Retention - Medium tile -->
+                <div class="impact-tile tile-medium tile-retention" data-animate="pulse" style="grid-column: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">85%</div>
+                                <div class="tile-label">User Retention Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

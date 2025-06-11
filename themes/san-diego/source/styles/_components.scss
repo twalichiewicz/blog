@@ -826,12 +826,29 @@ button {
 
 		.profile-stats {
 			display: flex;
-			gap: variables.$spacing-inline-lg;
+			flex-direction: column;
+			gap: 9px;
+			padding-top: 36px;
+			padding-bottom: 9px;
 			justify-content: flex-start;
+			padding: 9px;
+			border: 1px solid #ccc;
+			border-radius: 9px;
+			position: relative;
+			cursor: pointer;
+			transition: all 0.2s ease;
 			
-			@media (min-width: variables.$tablet-breakpoint) {
-				flex-direction: column;
-				gap: 9px;
+			@media (max-width: variables.$mobile-breakpoint) {
+				flex-wrap: wrap;
+			}
+
+			&:hover {
+				background: rgba(variables.$black, 0.02);
+				border-color: rgba(variables.$border-color, 0.8);
+			}
+
+			&:active {
+				background: rgba(variables.$black, 0.04);
 			}
 
 			.stat {
@@ -850,6 +867,44 @@ button {
 					color: variables.$text-color-secondary;
 					text-transform: uppercase;
 					letter-spacing: 0.05em;
+				}
+			}
+
+			.impact-report-btn {
+				position: absolute;
+				bottom: 6px;
+				right: 6px;
+				font-size: 9px;
+				padding: 4px 8px;
+				// Consistent matte black styling for all screen sizes
+				background: variables.$black;
+				border: 1px solid variables.$black;
+				color: variables.$white;
+				border-radius: 4px;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				cursor: pointer;
+				transition: all 0.2s ease;
+				font-weight: 500;
+
+				&:hover {
+					background: color.scale(variables.$black, $lightness: 10%);
+					border-color: color.scale(variables.$black, $lightness: 10%);
+					color: variables.$white;
+				}
+
+				&:active {
+					background: color.scale(variables.$black, $lightness: 5%);
+					border-color: color.scale(variables.$black, $lightness: 5%);
+				}
+				
+				// Desktop/tablet positioning and sizing
+				@media (min-width: variables.$tablet-breakpoint) {
+					top: 6px;
+					right: 6px;
+					bottom: auto;
+					padding: 6px 12px;
+					font-size: 10px;
 				}
 			}
 		}
@@ -914,6 +969,26 @@ button {
 					color: variables.$text-color-secondary-dark;
 				}
 			}
+
+			.profile-stats {
+				border-color: rgba(variables.$border-color-dark, 0.8);
+				
+				&:hover {
+					background: rgba(variables.$white, 0.02);
+					border-color: variables.$border-color-dark;
+				}
+
+				&:active {
+					background: rgba(variables.$white, 0.04);
+				}
+
+				.stat {
+					.label {
+						color: variables.$text-color-secondary-dark;
+					}
+				}
+
+			}
 		}
 	}
 }
@@ -945,6 +1020,13 @@ button {
 			}
 		}
 		
+		.mobile-buttons-container {
+			display: flex;
+			gap: 8px;
+			margin-top: 12px;
+		}
+		
+		.mobile-impact-button,
 		.mobile-expand-button {
 			display: inline-flex;
 			align-items: center;
@@ -1081,6 +1163,40 @@ button {
 				.expand-icon {
 					transform: rotate(180deg);
 				}
+			}
+		}
+		
+		// Specific styles for mobile-impact-button - match desktop/tablet styling
+		.mobile-impact-button {
+			// Light mode - matte black like desktop
+			background: variables.$black;
+			border: 1px solid variables.$black;
+			color: variables.$white;
+			backdrop-filter: none;
+			-webkit-backdrop-filter: none;
+			box-shadow: none;
+			
+			.button-text {
+				color: variables.$white;
+			}
+			
+			&::before,
+			&::after {
+				display: none; // Remove glassmorphism effects
+			}
+			
+			&:hover {
+				background: color.scale(variables.$black, $lightness: 10%);
+				border-color: color.scale(variables.$black, $lightness: 10%);
+				
+				.button-text {
+					color: variables.$white;
+				}
+			}
+			
+			&:active {
+				background: color.scale(variables.$black, $lightness: 5%);
+				border-color: color.scale(variables.$black, $lightness: 5%);
 			}
 		}
 		
@@ -1242,6 +1358,12 @@ button {
 				}
 			}
 			
+			.mobile-buttons-container {
+				display: flex;
+				gap: 8px;
+				margin-top: 12px;
+			}
+			
 			.mobile-expand-button {
 				color: variables.$text-color-dark;
 				background: linear-gradient(
@@ -1302,6 +1424,39 @@ button {
 						0 4px 8px rgba(0, 0, 0, 0.25),
 						0 2px 4px rgba(0, 0, 0, 0.15),
 						0 0 20px rgba(hsl(40, 90%, 50%), 0.1);
+				}
+			}
+			
+			// Mobile impact button - white styling to match desktop in dark mode
+			.mobile-impact-button {
+				background: variables.$white;
+				border: 1px solid variables.$white;
+				color: variables.$black;
+				box-shadow: 0 2px 12px rgba(255, 255, 255, 0.1);
+				
+				.button-text {
+					color: variables.$black;
+				}
+				
+				&::before,
+				&::after {
+					display: none; // Remove glassmorphism effects
+				}
+				
+				&:hover {
+					background: color.scale(variables.$white, $lightness: -5%);
+					border-color: color.scale(variables.$white, $lightness: -5%);
+					box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+					
+					.button-text {
+						color: variables.$black;
+					}
+				}
+				
+				&:active {
+					background: color.scale(variables.$white, $lightness: -10%);
+					border-color: color.scale(variables.$white, $lightness: -10%);
+					box-shadow: 0 1px 8px rgba(255, 255, 255, 0.1);
 				}
 			}
 			
@@ -3071,6 +3226,302 @@ table {
 				background: rgba(30, 30, 30, 0.9);
 				border-color: rgba(255, 255, 255, 0.2);
 			}
+		}
+	}
+}
+
+// Impact Modal Styles
+.impact-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+
+	.impact-modal-backdrop {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.8);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+		cursor: pointer;
+	}
+
+	.impact-modal-sheet {
+		position: relative;
+		background: hsl(0, 0.5%, 9.95%);
+		border-radius: 16px;
+		max-width: 800px;
+		width: 100%;
+		max-height: 90vh;
+		overflow-y: auto;
+		box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 
+		            0 10px 10px -5px rgba(0, 0, 0, 0.4);
+		animation: slideUpModal 0.3s ease-out;
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			max-height: 95vh;
+			margin: 0;
+		}
+	}
+
+	.impact-modal-close {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		width: 32px;
+		height: 32px;
+		border: none;
+		background: rgba(variables.$black, 0.05);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		color: variables.$text-color;
+		z-index: 10;
+
+		&:hover {
+			background: rgba(variables.$black, 0.1);
+			transform: scale(1.05);
+		}
+
+		svg {
+			width: 16px;
+			height: 16px;
+		}
+	}
+
+	.impact-modal-title {
+		font-size: 15px;
+		font-weight: 500;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		color: white;
+	}
+
+	.impact-modal-content {
+		padding: 0 40px 40px;
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			padding: 0 24px 32px;
+		}
+	}
+
+	.impact-section {
+		margin-bottom: 0;
+
+		&:first-child {
+			margin-top: 24px;
+		}
+
+		h3 {
+			font-size: 20px;
+			font-weight: 600;
+			margin-bottom: 20px;
+			color: variables.$text-color;
+		}
+	}
+
+	.impact-stats-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 20px;
+		margin-bottom: 32px;
+	}
+
+	.impact-stat-card {
+		background: rgba(variables.$black, 0.03);
+		padding: 24px;
+		border-radius: 12px;
+		text-align: center;
+		transition: all 0.2s ease;
+
+		&:hover {
+			background: rgba(variables.$black, 0.05);
+			transform: translateY(-2px);
+		}
+
+		.impact-number {
+			display: block;
+			font-size: 36px;
+			font-weight: 700;
+			color: variables.$link-color;
+			margin-bottom: 8px;
+		}
+
+		.impact-label {
+			display: block;
+			font-size: 14px;
+			font-weight: 600;
+			margin-bottom: 8px;
+			color: variables.$text-color;
+		}
+
+		.impact-description {
+			font-size: 12px;
+			color: variables.$text-color-secondary;
+			margin: 0;
+		}
+	}
+
+	.impact-achievements {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+
+		li {
+			position: relative;
+			padding-left: 24px;
+			margin-bottom: 12px;
+			font-size: 14px;
+			line-height: 1.6;
+			color: variables.$text-color;
+
+			&:before {
+				content: "•";
+				position: absolute;
+				left: 8px;
+				color: variables.$link-color;
+				font-weight: bold;
+			}
+		}
+	}
+
+	.impact-industries {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		gap: 16px;
+	}
+
+	.industry-card {
+		background: rgba(variables.$black, 0.03);
+		padding: 20px;
+		border-radius: 8px;
+		transition: all 0.2s ease;
+
+		&:hover {
+			background: rgba(variables.$black, 0.05);
+		}
+
+		h4 {
+			font-size: 16px;
+			font-weight: 600;
+			margin: 0 0 8px 0;
+			color: variables.$text-color;
+		}
+
+		p {
+			font-size: 12px;
+			color: variables.$text-color-secondary;
+			margin: 0;
+		}
+	}
+
+	.impact-philosophy {
+		font-size: 16px;
+		line-height: 1.8;
+		color: variables.$text-color;
+		font-style: italic;
+		background: rgba(variables.$black, 0.02);
+		padding: 24px;
+		border-radius: 8px;
+		margin: 0;
+	}
+}
+
+@keyframes slideUpModal {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+// Dark mode for impact modal
+@media (prefers-color-scheme: dark) {
+	.impact-modal {
+		.impact-modal-sheet {
+			background: hsl(0, 0.5%, 9.95%);
+		}
+
+		.impact-modal-close {
+			background: rgba(variables.$white, 0.1);
+			color: variables.$text-color-dark;
+
+			&:hover {
+				background: rgba(variables.$white, 0.15);
+			}
+		}
+
+		.impact-modal-title {
+			color: variables.$text-color-dark;
+		}
+
+		.impact-section h3 {
+			color: variables.$text-color-dark;
+		}
+
+		.impact-stat-card {
+			background: rgba(variables.$white, 0.05);
+
+			&:hover {
+				background: rgba(variables.$white, 0.08);
+			}
+
+			.impact-number {
+				color: variables.$link-color-dark;
+			}
+
+			.impact-label {
+				color: variables.$text-color-dark;
+			}
+
+			.impact-description {
+				color: variables.$text-color-secondary-dark;
+			}
+		}
+
+		.impact-achievements li {
+			color: variables.$text-color-dark;
+
+			&:before {
+				color: variables.$link-color-dark;
+			}
+		}
+
+		.industry-card {
+			background: rgba(variables.$white, 0.05);
+
+			&:hover {
+				background: rgba(variables.$white, 0.08);
+			}
+
+			h4 {
+				color: variables.$text-color-dark;
+			}
+
+			p {
+				color: variables.$text-color-secondary-dark;
+			}
+		}
+
+		.impact-philosophy {
+			background: rgba(variables.$white, 0.03);
+			color: variables.$text-color-dark;
 		}
 	}
 }
