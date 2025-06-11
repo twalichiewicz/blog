@@ -155,6 +155,50 @@ function handleImpactModalKeydown(event) {
 window.openImpactModal = openImpactModal;
 window.closeImpactModal = closeImpactModal;
 
+// Contact Modal functionality
+function openContactModal(event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    const modal = document.getElementById('contact-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Add keyboard support
+        document.addEventListener('keydown', handleContactModalKeydown);
+        
+        // Trigger animation
+        setTimeout(() => {
+            modal.classList.add('active');
+        }, 10);
+    }
+}
+
+function closeContactModal() {
+    const modal = document.getElementById('contact-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+        
+        // Remove keyboard listener
+        document.removeEventListener('keydown', handleContactModalKeydown);
+    }
+}
+
+function handleContactModalKeydown(event) {
+    if (event.key === 'Escape') {
+        closeContactModal();
+    }
+}
+
+// Make contact modal functions globally accessible
+window.openContactModal = openContactModal;
+window.closeContactModal = closeContactModal;
+
 // Impact Grid Animations
 function initImpactGridAnimations() {
     const tiles = document.querySelectorAll('.impact-tile');

@@ -224,47 +224,7 @@
     //     });
     // });
 
-(function() {
-  // Only run on mobile (up to tablet breakpoint)
-  function isMobile() {
-    return window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
-  }
-  var contactBtn = document.getElementById('mobileContactBtn');
-  var modal = document.getElementById('contactModal');
-  var backdrop = document.getElementById('contactModalBackdrop');
-  var html = document.documentElement;
-
-  function openModal() {
-    if (!isMobile()) return;
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    html.style.overflow = 'hidden';
-  }
-  function closeModal() {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-    html.style.overflow = '';
-  }
-
-  if (contactBtn) {
-    contactBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      openModal();
-    });
-  }
-  if (backdrop) {
-    backdrop.addEventListener('click', function(e) {
-      e.preventDefault();
-      closeModal();
-    });
-  }
-  // Optional: close on ESC key
-  document.addEventListener('keydown', function(e) {
-    if (modal.classList.contains('active') && (e.key === 'Escape' || e.keyCode === 27)) {
-      closeModal();
-    }
-  });
-})();
+// Contact modal functionality is now handled in main.js
 
 // Handle direct navigation to blog posts and projects via URL parameter
 document.addEventListener('DOMContentLoaded', function() {
