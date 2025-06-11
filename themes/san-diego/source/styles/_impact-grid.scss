@@ -1,0 +1,1051 @@
+@use 'variables' as *;
+@use 'sass:color';
+
+// Impact Grid Layout - Modern animated grid with skeuomorphic effects
+.impact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-height: calc(90vh - 60px); // Account for header and padding
+    overflow-y: auto;
+    padding: 15px;
+    
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 4px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        gap: 16px;
+        max-height: none;
+        overflow-y: visible;
+        padding: 15px;
+    }
+}
+
+// Impact Section Container
+.impact-section {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(140px, 1fr);
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    position: relative;
+    margin-bottom: 0;
+    
+    // First tile after section label starts at grid position
+    .section-label + .impact-tile {
+        grid-column-start: 1;
+    }
+    
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: minmax(130px, 1fr);
+        gap: 14px;
+        padding: 16px;
+    }
+    
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: auto;
+        gap: 8px;
+        padding: 12px;
+        border-radius: 12px;
+    }
+}
+
+// Section Label
+.section-label {
+    position: absolute;
+    top: -9px;
+    left: 20px;
+    background: hsl(0, 0.5%, 9.95%);
+    padding: 0 8px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'SF Pro Text', -apple-system, sans-serif;
+    z-index: 1;
+    
+    @media (max-width: 768px) {
+        font-size: 8px;
+        left: 12px;
+        top: -8px;
+    }
+}
+
+// Impact Tile Base Styles
+.impact-tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    
+    // Subtle depth with glow
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.2),
+        0 4px 8px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    
+    // Mobile tiny card style
+    @media (max-width: 768px) {
+        border-radius: 8px;
+        height: 60px !important;
+        display: flex;
+        align-items: center;
+        
+        &.tile-small,
+        &.tile-medium,
+        &.tile-large {
+            grid-column: span 1;
+            grid-row: span 1;
+        }
+    }
+    
+    &:hover {
+        transform: translateY(-4px) scale(1.02);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 
+            0 8px 16px rgba(0, 0, 0, 0.3),
+            0 12px 32px rgba(0, 0, 0, 0.2),
+            0 0 40px -10px var(--accent-color),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        
+        .tile-hover-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .tile-value {
+            // Enhanced neon glow on hover
+            text-shadow: 
+                // Inner glass highlight (brighter)
+                0 -1px 0 rgba(255, 255, 255, 0.5),
+                // Glass tube depth
+                0 1px 2px rgba(0, 0, 0, 0.9),
+                // Inner neon glow (stronger)
+                inset 0 0 15px var(--accent-color),
+                // Outer glow (more intense)
+                0 0 12px var(--accent-color),
+                0 0 20px var(--accent-color);
+            filter: contrast(1.3) brightness(1.2);
+        }
+        
+        .counter {
+            // Enhanced neon glow on hover
+            text-shadow: 
+                // Inner glass highlight (brighter)
+                0 -1px 0 rgba(255, 255, 255, 0.5),
+                // Glass tube depth
+                0 1px 2px rgba(0, 0, 0, 0.9),
+                // Inner neon glow (stronger)
+                inset 0 0 15px var(--accent-color),
+                // Outer glow (more intense)
+                0 0 12px var(--accent-color),
+                0 0 20px var(--accent-color);
+            filter: contrast(1.3) brightness(1.2);
+        }
+    }
+    
+    &:active {
+        transform: translateY(-2px) scale(1.01);
+    }
+    
+    // Size variants
+    &.tile-small {
+        grid-column: span 1;
+        grid-row: span 1;
+        
+        @media (max-width: 768px) {
+            grid-column: span 1;
+        }
+    }
+    
+    &.tile-medium {
+        grid-column: span 2;
+        grid-row: span 1;
+        
+        @media (max-width: 768px) {
+            grid-column: span 2;
+        }
+    }
+    
+    &.tile-large {
+        grid-column: span 3;
+        grid-row: span 2;
+        
+        @media (max-width: 1024px) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        @media (max-width: 768px) {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+    }
+}
+
+.tile-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: clamp(20px, 2.5vw, 32px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: visible;
+    
+    // Ensure minimum padding on all sides
+    box-sizing: border-box;
+    min-height: 120px;
+    
+    @media (max-width: 768px) {
+        padding: 6px 10px;
+        min-height: 60px;
+        height: 60px;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        text-align: left;
+    }
+}
+
+.tile-icon {
+    margin-bottom: clamp(6px, 1vw, 12px);
+    color: var(--accent-color);
+    filter: drop-shadow(0 0 6px var(--accent-color));
+    
+    svg {
+        width: clamp(24px, 4vw, 32px);
+        height: clamp(24px, 4vw, 32px);
+    }
+    
+    @media (max-width: 768px) {
+        margin-bottom: 0;
+        flex-shrink: 0;
+        margin-right: 6px;
+        
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+.tile-value {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--accent-color);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-family: 'SF Pro Display', -apple-system, sans-serif;
+    letter-spacing: -0.02em;
+    // Photorealistic neon glass tube effect
+    text-shadow: 
+        // Inner glass highlight
+        0 -1px 0 rgba(255, 255, 255, 0.3),
+        // Glass tube depth
+        0 1px 2px rgba(0, 0, 0, 0.8),
+        // Inner neon glow
+        inset 0 0 10px var(--accent-color),
+        // Subtle outer glow (reduced)
+        0 0 6px var(--accent-color);
+    // Glass-like properties
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+    filter: contrast(1.2) brightness(1.1);
+    position: relative;
+    
+    // Glass tube reflection
+    &::before {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: transparent;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.15) 0%,
+            transparent 50%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        pointer-events: none;
+    }
+    
+    // Ensure value fits in small tiles
+    .tile-small & {
+        font-size: 26px;
+    }
+    
+    .unit {
+        font-size: 0.6em;
+        margin-left: 2px;
+        color: var(--accent-color);
+        font-weight: 600;
+        opacity: 0.8;
+    }
+    
+    @media (max-width: 768px) {
+        font-size: 14px;
+        margin-bottom: 0;
+        // Subtle neon effect for mobile
+        text-shadow: 
+            0 -0.5px 0 rgba(255, 255, 255, 0.2),
+            0 0.5px 1px rgba(0, 0, 0, 0.6),
+            0 0 4px var(--accent-color);
+        line-height: 1;
+        justify-content: flex-start;
+        -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.08);
+        
+        .tile-small &,
+        .tile-medium &,
+        .tile-large & {
+            font-size: 14px;
+        }
+        
+        .unit {
+            font-size: 0.8em;
+        }
+    }
+}
+
+.tile-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2px;
+    font-family: 'SF Pro Text', -apple-system, sans-serif;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    opacity: 0.9;
+    line-height: 1.2;
+    
+    // Smaller in small tiles
+    .tile-small & {
+        font-size: 13px;
+    }
+    
+    @media (max-width: 768px) {
+        font-size: 9px;
+        text-transform: none;
+        letter-spacing: 0;
+        margin-bottom: 0;
+        flex: 0 1 auto;
+        line-height: 1.2;
+        white-space: nowrap;
+        
+        .tile-small &,
+        .tile-medium &,
+        .tile-large & {
+            font-size: 9px;
+        }
+    }
+}
+
+.tile-detail {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.3;
+    
+    // Even smaller in small tiles
+    .tile-small & {
+        font-size: 9px;
+    }
+    
+    @media (max-width: 1024px) {
+        font-size: 9px;
+    }
+    
+    @media (max-width: 768px) {
+        font-size: 8px;
+        display: none; // Hide detail text on mobile for space
+    }
+}
+
+.tile-hover-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(20px);
+    padding: clamp(12px, 1.5vw, 16px);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    border-radius: 0 0 16px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    
+    p {
+        font-size: clamp(11px, 1.1vw, 13px);
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+        line-height: 1.4;
+        font-family: 'SF Pro Text', -apple-system, sans-serif;
+    }
+    
+    @media (max-width: 768px) {
+        display: none; // No hover content on mobile
+    }
+}
+
+// Animation specific styles
+.counter {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-color);
+    // Photorealistic neon glass tube effect
+    text-shadow: 
+        // Inner glass highlight
+        0 -1px 0 rgba(255, 255, 255, 0.3),
+        // Glass tube depth
+        0 1px 2px rgba(0, 0, 0, 0.8),
+        // Inner neon glow
+        inset 0 0 10px var(--accent-color),
+        // Subtle outer glow (reduced)
+        0 0 6px var(--accent-color);
+    // Glass-like properties
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+    filter: contrast(1.2) brightness(1.1);
+}
+
+// Progress bar
+.tile-progress {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 12px;
+    
+    .progress-bar {
+        height: 100%;
+        background: var(--accent-color);
+        border-radius: 4px;
+        width: 0;
+        transition: width 1.5s ease-out;
+        box-shadow: 0 0 6px var(--accent-color);
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Donut chart
+.chart-container {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 3px;
+    flex-shrink: 0;
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Show mobile value instead of desktop value on mobile
+@media (max-width: 768px) {
+    .tile-mobile-wrapper .tile-value {
+        display: block !important;
+    }
+    
+    .tile-inner > .tile-value,
+    .tile-inner > .tile-label {
+        display: none;
+    }
+}
+
+.donut-chart {
+    width: 100%;
+    height: 100%;
+}
+
+.donut {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.donut-segment {
+    transition: stroke-dasharray 1.5s ease-out;
+}
+
+.chart-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    .chart-number {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--accent-color);
+        text-shadow: 0 0 20px var(--accent-color);
+    }
+}
+
+// Stack visual
+.stack-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 8px;
+    width: 100%;
+    max-width: 40px;
+    align-self: center;
+    
+    .stack-item {
+        width: 100%;
+        height: clamp(6px, 1vw, 10px);
+        background: var(--accent-color);
+        border-radius: 3px;
+        opacity: 0;
+        transform: translateX(-20px);
+        box-shadow: 0 0 6px var(--accent-color);
+        
+        &:nth-child(2) {
+            width: 80%;
+            margin-left: 10%;
+        }
+        
+        &:nth-child(3) {
+            width: 60%;
+            margin-left: 20%;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Year rings
+.year-rings {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 8px;
+    
+    .ring {
+        position: absolute;
+        border: 2px solid var(--accent-color);
+        border-radius: 50%;
+        opacity: 0;
+        filter: drop-shadow(0 0 5px var(--accent-color));
+        
+        &.ring-1 {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        &.ring-2 {
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+            opacity: 0.7;
+        }
+        
+        &.ring-3 {
+            width: 40%;
+            height: 40%;
+            top: 30%;
+            left: 30%;
+            opacity: 0.4;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Growth visual
+.growth-visual {
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(3px, 0.5vw, 6px);
+    margin-bottom: clamp(8px, 1vw, 16px);
+    height: clamp(35px, 5vw, 50px);
+    width: 100%;
+    max-width: clamp(60px, 10vw, 100px);
+    align-self: center;
+    
+    .growth-stage {
+        flex: 1;
+        background: var(--accent-color);
+        border-radius: 3px 3px 0 0;
+        position: relative;
+        transform: scaleY(0);
+        transform-origin: bottom;
+        box-shadow: 0 0 6px var(--accent-color);
+        
+        &.stage-1 { height: 35%; }
+        &.stage-2 { height: 65%; }
+        &.stage-3 { height: 100%; }
+        
+        &::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.5);
+            white-space: nowrap;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Calendar visual
+.calendar-visual {
+    width: 100%;
+    max-width: 60px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    align-self: center;
+    
+    .calendar-bar {
+        height: 100%;
+        background: var(--accent-color);
+        width: 0;
+        border-radius: 6px;
+        position: relative;
+        box-shadow: 0 0 6px var(--accent-color);
+        
+        &::after {
+            content: "+3 days";
+            position: absolute;
+            right: -38px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 9px;
+            color: var(--accent-color);
+            opacity: 0;
+            white-space: nowrap;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Velocity chart
+.velocity-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 16px;
+    height: 70px;
+    width: 100%;
+    max-width: 120px;
+    align-self: center;
+    
+    .velocity-before,
+    .velocity-after {
+        flex: 1;
+        max-width: 40px;
+    }
+    
+    .velocity-bar {
+        width: 100%;
+        background: var(--accent-color);
+        border-radius: 3px 3px 0 0;
+        position: relative;
+        transform: scaleY(0);
+        transform-origin: bottom;
+        box-shadow: 0 0 6px var(--accent-color);
+        
+        &[data-value="10"] { height: 15%; opacity: 0.5; }
+        &[data-value="50"] { height: 85%; background: var(--success-color); }
+        
+        &::before {
+            content: attr(data-label);
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(9px, 1vw, 11px);
+            color: rgba(255, 255, 255, 0.6);
+            white-space: nowrap;
+        }
+        
+        &::after {
+            content: attr(data-value) "%";
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(10px, 1.2vw, 12px);
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            opacity: 0;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Innovation icons
+.innovation-icons {
+    display: flex;
+    gap: clamp(6px, 1vw, 10px);
+    margin-bottom: clamp(8px, 1vw, 16px);
+    justify-content: center;
+    
+    .innovation-item {
+        width: clamp(28px, 4vw, 36px);
+        height: clamp(28px, 4vw, 36px);
+        background: var(--accent-color);
+        border-radius: 6px;
+        position: relative;
+        transform: scale(0);
+        box-shadow: 0 0 6px var(--accent-color);
+        
+        &::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            white-space: nowrap;
+            opacity: 0;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Globe visual
+.globe-visual {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 8px;
+    
+    .globe {
+        width: 100%;
+        height: 100%;
+        border: 2px solid var(--accent-color);
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 15px var(--accent-color);
+        
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            border: 1px solid var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        
+        &::before {
+            width: 100%;
+            height: 40%;
+            top: 30%;
+            left: 0;
+        }
+        
+        &::after {
+            width: 40%;
+            height: 100%;
+            top: 0;
+            left: 30%;
+        }
+    }
+    
+    .globe-dots {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        animation: rotateGlobe 20s linear infinite;
+        
+        .dot {
+            position: absolute;
+            width: clamp(4px, 0.6vw, 6px);
+            height: clamp(4px, 0.6vw, 6px);
+            background: var(--accent-color);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 6px var(--accent-color);
+            
+            &:nth-child(1) { top: 30%; left: 70%; }
+            &:nth-child(2) { top: 40%; left: 20%; }
+            &:nth-child(3) { top: 20%; left: 50%; }
+            &:nth-child(4) { top: 60%; left: 80%; }
+        }
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Flip animation
+.tile-small.tile-efficiency {
+    .tile-inner {
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+    }
+    
+    &:hover .tile-inner {
+        transform: rotateY(180deg);
+    }
+    
+    .tile-front,
+    .tile-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(16px, 2vw, 24px);
+        box-sizing: border-box;
+    }
+    
+    .tile-back {
+        transform: rotateY(180deg);
+    }
+}
+
+// Bright glowing color variants
+.tile-revenue {
+    --accent-color: #7DFFB3; // Bright mint
+}
+
+.tile-savings {
+    --accent-color: #80FFE5; // Bright teal
+}
+
+.tile-hours {
+    --accent-color: #B3E5FF; // Bright sky
+}
+
+.tile-borrower {
+    --accent-color: #FFE580; // Bright yellow
+}
+
+.tile-pilot {
+    --accent-color: #FFB3E6; // Bright pink
+}
+
+.tile-efficiency {
+    --accent-color: #FFB380; // Bright peach
+}
+
+.tile-support {
+    --accent-color: #FF7D7D; // Bright coral
+}
+
+.tile-tickets {
+    --accent-color: #80FFCC; // Bright mint green
+}
+
+.tile-deployment {
+    --accent-color: #E680FF; // Bright purple
+}
+
+.tile-infra {
+    --accent-color: #FF80B3; // Bright magenta
+}
+
+.tile-velocity {
+    --accent-color: #80FFB3; // Bright green
+    --success-color: #7DFFB3;
+}
+
+.tile-fte {
+    --accent-color: #FFB3CC; // Bright rose
+}
+
+.tile-systems {
+    --accent-color: #FF99CC; // Bright pink
+}
+
+.tile-adoption {
+    --accent-color: #B3BBFF; // Bright periwinkle
+}
+
+.tile-storage {
+    --accent-color: #FFD97D; // Bright gold
+}
+
+.tile-users {
+    --accent-color: #80E5FF; // Bright cyan
+}
+
+.tile-teams {
+    --accent-color: #CC99FF; // Bright lavender
+}
+
+.tile-conversion {
+    --accent-color: #7DFFCC; // Bright seafoam
+}
+
+.tile-ctr {
+    --accent-color: #FFB3D9; // Bright rose
+}
+
+.tile-savings-per {
+    --accent-color: #80FF99; // Bright lime
+}
+
+.tile-satisfaction {
+    --accent-color: #80E5FF; // Bright cyan
+}
+
+.tile-retention {
+    --accent-color: #FFB3D9; // Bright rose
+}
+
+.tile-cash {
+    --accent-color: #FFE6B3; // Bright cream
+}
+
+.tile-covid {
+    --accent-color: #FF9999; // Bright red
+}
+
+.tile-legacy {
+    --accent-color: #FFD700; // Gold
+}
+
+// Mobile wrapper for horizontal layout
+.tile-mobile-wrapper {
+    display: contents; // Normal flow on desktop
+    
+    @media (max-width: 768px) {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.tile-mobile-content {
+    display: contents; // Normal flow on desktop
+    
+    @media (max-width: 768px) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        flex: 1;
+        gap: 6px;
+        height: 100%;
+        text-align: left;
+    }
+}
+
+// Scrollbar styling
+.impact-grid {
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+// Animations
+@keyframes rotateGlobe {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes shine {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+// Award icon
+.award-icon {
+    margin-bottom: clamp(6px, 1vw, 12px);
+    
+    svg {
+        width: clamp(30px, 5vw, 40px);
+        height: clamp(30px, 5vw, 40px);
+        color: var(--accent-color);
+        filter: drop-shadow(0 0 8px var(--accent-color));
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Add shimmer effect for recognition tile
+.tile-recognition {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.03) 0%,
+        rgba(255, 255, 255, 0.03) 40%,
+        rgba(255, 215, 0, 0.1) 50%,
+        rgba(255, 255, 255, 0.03) 60%,
+        rgba(255, 255, 255, 0.03) 100%
+    );
+    background-size: 200% 100%;
+    background-position: -200% center;
+}
