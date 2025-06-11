@@ -1,0 +1,732 @@
+@use 'variables' as *;
+@use 'sass:color';
+
+// Impact Modal Specific Styles
+.impact-modal {
+    &-sheet {
+        width: 95%;
+        max-width: 1400px;
+        height: 90vh;
+        max-height: 900px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        background: hsl(0, 0.5%, 9.95%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 
+                    0 0 0 1px rgba(255, 255, 255, 0.05);
+        
+        @media (max-width: 768px) {
+            width: 100%;
+            height: 100vh;
+            max-height: 100vh;
+            border-radius: 0;
+            padding: 0;
+            background: hsl(0, 0.5%, 9.95%);
+        }
+    }
+    
+    // Minimal close button - smaller macOS style
+    &-close.minimal-close {
+        position: relative;
+        top: unset;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        width: 24px;
+        height: 24px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        z-index: 10;
+        padding: 0;
+        flex-shrink: 0;
+        
+        svg {
+            width: 12px;
+            height: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: transform 0.2s ease;
+        }
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+            
+            svg {
+                transform: translateX(-1px);
+                color: rgba(255, 255, 255, 0.9);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            width: 24px;
+            height: 24px;
+            
+            svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
+    
+    // Dynamic header - minimal macOS style
+    &-header {
+        display: flex;
+        width: 100%;
+        padding: 9px;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        
+        @media (max-width: 768px) {
+            padding: 9px;
+        }
+    }
+    
+    // Contact button - active styling like slider tabs
+    &-contact.minimal-button {
+        position: absolute;
+        right: 9px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 28px;
+        padding: 0 16px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 13px;
+        font-weight: 600;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+        white-space: nowrap;
+        letter-spacing: 0.02em;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1),
+                    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            transform: translateY(-50%) scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15),
+                        0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+                        0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+        &:active {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-50%) scale(0.98);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1),
+                        0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+        }
+        
+        // Subtle glow effect
+        &::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                transparent 50%,
+                rgba(255, 255, 255, 0.1) 100%);
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        &:hover::before {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            font-size: 12px;
+            padding: 0 14px;
+            height: 26px;
+        }
+    }
+    
+    &-title {
+        padding: 0;
+        font-size: 18px;
+        color: white;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        width: 100%;
+        text-align: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+        margin: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        pointer-events: none;
+        
+        @media (max-width: 768px) {
+            font-size: 16px;
+        }
+    }
+}
+
+
+// Tile styles with dark background and glowing text
+.impact-tile {
+    position: relative;
+    overflow: visible;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+	cursor: default;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(135deg, 
+            var(--accent-color) 0%, 
+            transparent 100%);
+        border-radius: 18px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+        filter: blur(20px);
+    }
+    
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3),
+                    0 0 30px -5px var(--accent-color);
+        
+        &::before {
+            opacity: 0.3;
+        }
+    }
+    
+    // Inner content styling
+    .tile-inner {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 24px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    // Value styling with glow
+    .tile-value {
+        font-size: 48px;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 8px;
+        color: var(--accent-color);
+        // Photorealistic neon glass tube effect
+        text-shadow: 
+            0 -1px 0 rgba(255, 255, 255, 0.3),
+            0 1px 2px rgba(0, 0, 0, 0.8),
+            inset 0 0 10px var(--accent-color),
+            0 0 6px var(--accent-color);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+        filter: contrast(1.2) brightness(1.1);
+        
+        .counter {
+            display: inline-block;
+        }
+        
+        .unit {
+            font-size: 0.7em;
+            font-weight: 600;
+            margin-left: 2px;
+            opacity: 0.8;
+        }
+    }
+    
+    // Label styling
+    .tile-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 4px;
+        letter-spacing: 0.5px;
+    }
+    
+    // Detail styling
+    .tile-detail {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.4;
+    }
+    
+    // Icon styling
+    .tile-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+        
+        svg {
+            width: 100%;
+            height: 100%;
+            color: var(--accent-color);
+            filter: drop-shadow(0 0 6px var(--accent-color));
+        }
+    }
+    
+    // Tile-specific colors are now defined in _impact-grid.scss using --accent-color
+}
+
+// Special tile variations
+.impact-tile {
+    // Small tiles
+    &.tile-small {
+        .tile-value {
+            font-size: 36px;
+        }
+        
+        .tile-label {
+            font-size: 14px;
+        }
+    }
+    
+    // Large tiles
+    &.tile-large {
+        .tile-value {
+            font-size: 56px;
+        }
+        
+        .tile-hover-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            
+            p {
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.7);
+                line-height: 1.5;
+                margin: 0;
+            }
+        }
+        
+        &:hover .tile-hover-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    // Chart containers
+    .chart-container {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        margin-bottom: 16px;
+        
+        .donut-chart {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            
+            .donut-segment {
+                stroke: var(--accent-color);
+                filter: drop-shadow(0 0 6px var(--accent-color));
+                transition: stroke-dasharray 1s ease;
+            }
+            
+            .donut-ring {
+                stroke: rgba(255, 255, 255, 0.1);
+            }
+        }
+        
+        .chart-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            .chart-number {
+                font-size: 28px;
+                font-weight: 700;
+                color: var(--accent-color);
+                text-shadow: 0 0 10px var(--accent-color);
+            }
+        }
+    }
+    
+    // Progress bars
+    .tile-progress {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-top: 12px;
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-color);
+            box-shadow: 0 0 6px var(--accent-color);
+            width: 0;
+            transition: width 1.5s ease;
+            
+            &[data-percent="100"] {
+                width: 100%;
+            }
+        }
+    }
+    
+    // Visual elements
+    .stack-visual {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 16px;
+        
+        .stack-item {
+            width: 60px;
+            height: 12px;
+            background: var(--accent-color);
+            border-radius: 2px;
+            opacity: 0.6;
+            box-shadow: 0 0 6px var(--accent-color);
+            
+            &:nth-child(2) {
+                width: 48px;
+                opacity: 0.4;
+            }
+            
+            &:nth-child(3) {
+                width: 36px;
+                opacity: 0.2;
+            }
+        }
+    }
+    
+    .year-rings {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin-bottom: 16px;
+        
+        .ring {
+            position: absolute;
+            border: 3px solid var(--accent-color);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            &.ring-1 {
+                width: 100%;
+                height: 100%;
+                opacity: 0.3;
+                filter: drop-shadow(0 0 6px var(--accent-color));
+            }
+            
+            &.ring-2 {
+                width: 65%;
+                height: 65%;
+                opacity: 0.5;
+            }
+            
+            &.ring-3 {
+                width: 30%;
+                height: 30%;
+                opacity: 0.8;
+            }
+        }
+    }
+    
+    .growth-visual {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+        align-items: flex-end;
+        
+        .growth-stage {
+            flex: 1;
+            background: var(--accent-color);
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 0 0 6px var(--accent-color);
+            
+            &::after {
+                content: attr(data-label);
+                position: absolute;
+                bottom: -24px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.5);
+                white-space: nowrap;
+            }
+            
+            &.stage-1 {
+                height: 30px;
+                opacity: 0.3;
+            }
+            
+            &.stage-2 {
+                height: 50px;
+                opacity: 0.6;
+            }
+            
+            &.stage-3 {
+                height: 70px;
+                opacity: 0.9;
+            }
+        }
+    }
+    
+    .calendar-visual {
+        width: 80px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
+        position: relative;
+        margin-bottom: 16px;
+        overflow: hidden;
+        
+        .calendar-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--accent-color);
+            transition: height 1s ease;
+            box-shadow: 0 0 6px var(--accent-color);
+            
+            &[data-days="3"] {
+                height: 30%;
+            }
+        }
+    }
+    
+    .velocity-chart {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 16px;
+        align-items: flex-end;
+        justify-content: center;
+        
+        .velocity-before,
+        .velocity-after {
+            position: relative;
+            
+            .velocity-bar {
+                width: 80px;
+                background: var(--accent-color);
+                border-radius: 4px 4px 0 0;
+                position: relative;
+                box-shadow: 0 0 6px var(--accent-color);
+                transition: height 1s ease;
+                
+                &::after {
+                    content: attr(data-label);
+                    position: absolute;
+                    bottom: -24px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.6);
+                }
+                
+                &[data-value="50"] {
+                    height: 100px;
+                    opacity: 0.5;
+                }
+                
+                &[data-value="10"] {
+                    height: 20px;
+                    opacity: 0.9;
+                }
+            }
+        }
+    }
+    
+    .innovation-icons {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+        
+        .innovation-item {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-color);
+            border-radius: 8px;
+            position: relative;
+            opacity: 0.7;
+            box-shadow: 0 0 6px var(--accent-color);
+            
+            &::after {
+                content: attr(data-label);
+                position: absolute;
+                bottom: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 9px;
+                color: rgba(255, 255, 255, 0.4);
+                white-space: nowrap;
+                text-align: center;
+                width: 60px;
+            }
+        }
+    }
+    
+    .award-icon {
+        margin-bottom: 16px;
+        
+        svg {
+            color: var(--accent-color);
+            filter: drop-shadow(0 0 8px var(--accent-color));
+        }
+    }
+    
+    .globe-visual {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin-bottom: 16px;
+        
+        .globe {
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px var(--accent-color);
+            
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                border: 1px solid var(--accent-color);
+                border-radius: 50%;
+                opacity: 0.3;
+            }
+            
+            &::before {
+                width: 100%;
+                height: 50%;
+                top: 25%;
+                left: 0;
+            }
+            
+            &::after {
+                width: 50%;
+                height: 100%;
+                top: 0;
+                left: 25%;
+            }
+        }
+        
+        .globe-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            .dot {
+                position: absolute;
+                width: 6px;
+                height: 6px;
+                background: var(--accent-color);
+                border-radius: 50%;
+                box-shadow: 0 0 6px var(--accent-color);
+                animation: pulseDot 2s ease-in-out infinite;
+                
+                &:nth-child(2) { animation-delay: 0.5s; }
+                &:nth-child(3) { animation-delay: 1s; }
+                &:nth-child(4) { animation-delay: 1.5s; }
+            }
+        }
+    }
+    
+    // Flip animation for efficiency tile
+    .tile-efficiency .tile-inner {
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+        
+        @media (max-width: 768px) {
+            // Disable flip on mobile and show as normal tile
+            transform-style: flat;
+            
+            &:hover {
+                transform: none;
+            }
+            
+            .tile-front {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 6px 10px;
+                text-align: left;
+            }
+            
+            .tile-back {
+                display: none;
+            }
+        }
+        
+        &:hover {
+            transform: rotateY(180deg);
+        }
+        
+        .tile-front,
+        .tile-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+        
+        .tile-back {
+            transform: rotateY(180deg);
+        }
+    }
+}
+
+// Animations
+@keyframes pulseDot {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+}

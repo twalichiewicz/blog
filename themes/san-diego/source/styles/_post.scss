@@ -381,6 +381,7 @@
 		margin: 2rem 0;
 		font-size: 14px;
 		line-height: 1.6;
+		table-layout: auto; // Allow automatic column sizing based on content
 
 		th {
 			text-align: left;
@@ -762,11 +763,6 @@
 		}
 	}
 
-	.post .post-content {
-		padding-left: 0;
-		padding-right: 0;
-	}
-
 	.post-navigation {
 		top: 1rem;
 		left: 1rem;
@@ -857,11 +853,11 @@
 				line-height: 1.2;
 				font-weight: 700;
 				margin: 0 0 16px 0;
-				color: variables.$text-color;
+				color: #000;
 				letter-spacing: -0.02em;
 				
 				@media (prefers-color-scheme: dark) {
-					color: variables.$text-color-dark;
+					color: #fff;
 				}
 			}
 			
@@ -926,7 +922,7 @@
 				padding: 0 24px;
 				
 				.post-content {
-					font-size: 16px;
+					font-size: 15px;
 					line-height: 1.7;
 					color: variables.$text-color;
 					
