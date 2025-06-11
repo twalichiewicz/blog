@@ -1,0 +1,268 @@
+@use 'variables' as *;
+@use 'sass:color';
+
+// Contact Modal - Matching Impact Modal styles
+.contact-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        cursor: pointer;
+        z-index: 1;
+    }
+    
+    &-sheet {
+        position: relative;
+        z-index: 2;
+        background: hsl(0, 0.5%, 9.95%);
+        border-radius: 20px;
+        overflow: hidden;
+        max-width: 480px;
+        width: 90%;
+        padding: 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 
+                    0 0 0 1px rgba(255, 255, 255, 0.05);
+        
+        @media (max-width: 768px) {
+            width: calc(100% - 40px);
+            margin: 0 20px;
+        }
+    }
+    
+    // Dynamic header - minimal macOS style (matching impact modal)
+    &-header {
+        display: flex;
+        width: 100%;
+        padding: 9px;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        
+        @media (max-width: 768px) {
+            padding: 9px;
+        }
+    }
+    
+    // Minimal close button - smaller macOS style (matching impact modal)
+    &-close.minimal-close {
+        position: relative;
+        top: unset;
+        left: unset;
+        right: unset;
+        bottom: unset;
+        width: 24px;
+        height: 24px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        z-index: 10;
+        padding: 0;
+        flex-shrink: 0;
+        
+        svg {
+            width: 12px;
+            height: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: transform 0.2s ease;
+        }
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+            
+            svg {
+                transform: scale(1.1);
+                color: rgba(255, 255, 255, 0.9);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            width: 24px;
+            height: 24px;
+            
+            svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
+    
+    &-title {
+        padding: 0;
+        font-size: 18px;
+        color: white;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        width: 100%;
+        text-align: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+        margin: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        pointer-events: none;
+        
+        @media (max-width: 768px) {
+            font-size: 16px;
+        }
+    }
+    
+    // Contact options container
+    &-options {
+        padding: 24px;
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        
+        @media (max-width: 768px) {
+            flex-direction: row;
+            gap: 8px;
+            padding: 16px;
+        }
+        
+        .contact-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 20px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-align: center;
+            
+            @media (max-width: 768px) {
+                padding: 16px 8px;
+            }
+            
+            &:hover {
+                background: rgba(255, 255, 255, 0.06);
+                border-color: rgba(255, 255, 255, 0.15);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+            
+            &:active {
+                transform: translateY(0);
+            }
+            
+            .contact-icon {
+                width: 48px;
+                height: 48px;
+                margin-bottom: 12px;
+                filter: brightness(0.9);
+                transition: filter 0.2s ease;
+                
+                @media (max-width: 768px) {
+                    width: 40px;
+                    height: 40px;
+                    margin-bottom: 8px;
+                }
+            }
+            
+            &:hover .contact-icon {
+                filter: brightness(1.1);
+            }
+            
+            .contact-label {
+                font-size: 14px;
+                font-weight: 600;
+                color: rgba(255, 255, 255, 0.9);
+                display: block;
+                margin-bottom: 4px;
+                font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+                
+                @media (max-width: 768px) {
+                    font-size: 12px;
+                    margin-bottom: 2px;
+                }
+            }
+            
+            .contact-sublabel {
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.5);
+                display: block;
+                font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+                
+                @media (max-width: 768px) {
+                    font-size: 10px;
+                }
+            }
+            
+            // Option-specific colors
+            &.email {
+                --accent-color: #80FFE5;
+                
+                &:hover {
+                    border-color: var(--accent-color);
+                    box-shadow: 0 4px 12px rgba(128, 255, 229, 0.2);
+                }
+            }
+            
+            &.linkedin {
+                --accent-color: #80B3FF;
+                
+                &:hover {
+                    border-color: var(--accent-color);
+                    box-shadow: 0 4px 12px rgba(128, 179, 255, 0.2);
+                }
+            }
+            
+            &.resume {
+                --accent-color: #FFB380;
+                
+                &:hover {
+                    border-color: var(--accent-color);
+                    box-shadow: 0 4px 12px rgba(255, 179, 128, 0.2);
+                }
+            }
+        }
+    }
+}
+
+// Animation states
+.contact-modal {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    
+    .contact-modal-sheet {
+        transform: scale(0.95) translateY(20px);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    &.active {
+        opacity: 1;
+        
+        .contact-modal-sheet {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+    }
+}

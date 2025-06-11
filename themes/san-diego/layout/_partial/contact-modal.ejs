@@ -1,20 +1,30 @@
-<!-- Mobile Contact Modal -->
-<div class="contact-modal" id="contactModal">
-    <div class="contact-modal-backdrop" id="contactModalBackdrop"></div>
+<!-- Contact Modal -->
+<div id="contact-modal" class="contact-modal" style="display: none;">
+    <div class="contact-modal-backdrop" onclick="closeContactModal()"></div>
     <div class="contact-modal-sheet">
-        <div class="contact-modal-title">Contact</div>
+        <div class="contact-modal-header">
+            <button class="contact-modal-close minimal-close" onclick="closeContactModal()" aria-label="Close contact">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="contact-modal-title">Get in touch</div>
+        </div>
         <div class="contact-modal-options">
             <a href="mailto:hey@thomas.design" class="contact-option email">
                 <img src="/img/email.png" alt="Email" class="contact-icon">
                 <span class="contact-label">Email</span>
+                <span class="contact-sublabel">hey@thomas.design</span>
             </a>
             <a href="https://linkedin.com/in/twalichiewicz" target="_blank" class="contact-option linkedin">
                 <img src="/img/linkedin.png" alt="LinkedIn" class="contact-icon">
                 <span class="contact-label">LinkedIn</span>
+                <span class="contact-sublabel">twalichiewicz</span>
             </a>
             <a href="/docs/Thomas Walichiewicz CV Q2 2025.pdf" target="_blank" class="contact-option resume">
                 <img src="/img/resume.png" alt="Resume" class="contact-icon">
                 <span class="contact-label">Resume</span>
+                <span class="contact-sublabel">PDF Download</span>
             </a>
         </div>
     </div>

@@ -1027,20 +1027,22 @@ button {
 		}
 		
 		.mobile-impact-button,
+		.mobile-contact-button,
 		.mobile-expand-button {
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
 			gap: 4px;
-			padding: 6px 12px;
+			padding: 8px 16px;
 			margin: 6px 0 0 0;
 			position: relative;
-			font-size: 11px;
+			font-size: 13px;
 			font-weight: 600;
 			color: variables.$text-color;
 			cursor: pointer;
 			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 			text-decoration: none;
+			border-radius: 8px;
 			
 			// Glassmorphism base
 			background: linear-gradient(
@@ -1166,8 +1168,9 @@ button {
 			}
 		}
 		
-		// Specific styles for mobile-impact-button - match desktop/tablet styling
-		.mobile-impact-button {
+		// Specific styles for both mobile action buttons - identical styling
+		.mobile-impact-button,
+		.mobile-contact-button {
 			// Light mode - matte black like desktop
 			background: variables.$black;
 			border: 1px solid variables.$black;
@@ -1427,8 +1430,9 @@ button {
 				}
 			}
 			
-			// Mobile impact button - white styling to match desktop in dark mode
-			.mobile-impact-button {
+			// Both mobile action buttons - white styling to match desktop in dark mode
+			.mobile-impact-button,
+			.mobile-contact-button {
 				background: variables.$white;
 				border: 1px solid variables.$white;
 				color: variables.$black;
