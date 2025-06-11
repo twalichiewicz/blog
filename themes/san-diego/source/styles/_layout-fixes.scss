@@ -197,10 +197,9 @@
     width: 100%;
     max-width: none;
     
-    // Apply constraints to content inside
+    // Remove constraints from content containers
     .post-content,
     .project-content {
-      max-width: 720px;
       margin-left: auto;
       margin-right: auto;
       padding: 0 1rem;

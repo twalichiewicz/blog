@@ -51,15 +51,17 @@
 	// Cover image styles
 	.post-cover-image {
 		width: 100%;
+		max-width: 720px;
+		margin: 0 auto;
 		overflow: hidden;
 		border: 1px solid #ccc;
 		border-radius: 12px;
-		margin: 0;
 		
 		// Mobile margins
 		@media (max-width: variables.$mobile-breakpoint) {
 			margin: 0;
 			width: 100%;
+			max-width: 100%;
 			border-radius: 8px;
 		}
 		
@@ -73,8 +75,15 @@
 	
 	// Header styles
 	.post-header {
+		.post-title,
+		.post-subtitle {
+			max-width: 720px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
 		.post-title {
-			margin: 0 0 16px 0;
+			margin: 0 auto 16px auto;
 			line-height: 1.2;
 			@include substack-title;
 		}
@@ -98,6 +107,8 @@
 	
 	// Author byline
 	.post-byline {
+		max-width: 720px;
+		margin: 0 auto;
 		padding-top: 12px;
 		padding-bottom: 12px;
 		border-top: solid 1px #ccc;
@@ -342,7 +353,9 @@
 				font-size: 13px;
 				text-transform: uppercase;
 				letter-spacing: 0.05em;
-				white-space: nowrap; // Prevent header wrapping
+				white-space: normal; // Allow header wrapping
+				word-wrap: break-word;
+				overflow-wrap: break-word;
 				
 				@media (prefers-color-scheme: dark) {
 					background: var(--table-header-bg-dark, rgba(255, 255, 255, 0.05));
@@ -357,8 +370,10 @@
 			
 			td {
 				color: variables.$text-color;
-				// Ensure consistent column widths by preventing unnecessary wrapping
-				white-space: nowrap;
+				// Allow text wrapping in cells
+				white-space: normal;
+				word-wrap: break-word;
+				overflow-wrap: break-word;
 				
 				@media (prefers-color-scheme: dark) {
 					color: variables.$text-color-dark;
@@ -408,13 +423,70 @@
 		}
 		
 		// Table wrapper for horizontal scrolling
-		.table-wrapper {
+		.table-wrapper,
+		.table-scroll-container {
 			overflow-x: auto;
 			margin: 24px 0;
 			-webkit-overflow-scrolling: touch;
+			max-width: 100%;
+			position: relative;
+			
+			// Add subtle shadows to indicate scrollability
+			&::before,
+			&::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				width: 20px;
+				pointer-events: none;
+				z-index: 1;
+				opacity: 0;
+				transition: opacity 0.3s;
+			}
+			
+			&::before {
+				left: 0;
+				background: linear-gradient(to right, rgba(255,255,255,0.9), transparent);
+				
+				@media (prefers-color-scheme: dark) {
+					background: linear-gradient(to right, rgba(0,0,0,0.9), transparent);
+				}
+			}
+			
+			&::after {
+				right: 0;
+				background: linear-gradient(to left, rgba(255,255,255,0.9), transparent);
+				
+				@media (prefers-color-scheme: dark) {
+					background: linear-gradient(to left, rgba(0,0,0,0.9), transparent);
+				}
+			}
+			
+			// Show shadows when scrollable
+			&.scrollable-left::before {
+				opacity: 1;
+			}
+			
+			&.scrollable-right::after {
+				opacity: 1;
+			}
 			
 			table {
 				margin: 0;
+				min-width: 100%;
+			}
+		}
+		
+		// Handle standalone tables (not wrapped) - wrap in scrollable container
+		> table {
+			// Create a scrollable wrapper for the table
+			margin-left: -24px;
+			margin-right: -24px;
+			
+			@media (min-width: variables.$tablet-breakpoint) {
+				margin-left: 0;
+				margin-right: 0;
 			}
 		}
 	}
@@ -427,7 +499,6 @@
 }
 
 .post-wrapper.dynamic-loaded .substack-post {
-	max-width: 680px;
 	margin: 0 auto;
 	padding: 0;
 	background: transparent;
@@ -436,7 +507,8 @@
 	border-radius: 0;
 	
 	.post-cover-image {
-		margin: 0 0 40px 0;
+		max-width: 720px;
+		margin: 0 auto 40px auto;
 		border-radius: 12px;
 		height: auto;
 		max-height: 400px;
@@ -445,6 +517,7 @@
 		@media (max-width: variables.$mobile-breakpoint) {
 			margin: 0 15px 40px 15px;
 			width: calc(100% - 30px);
+			max-width: 100%;
 		}
 		
 		img {
@@ -457,13 +530,22 @@
 		padding: 0 24px;
 		margin-bottom: 32px;
 		
+		.post-title,
+		.post-subtitle {
+			max-width: 720px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
 		.post-title {
 			font-size: 32px;
 		}
 	}
 	
 	.post-byline {
-		margin-top: 24px;
+		max-width: 720px;
+		margin: 24px auto 0 auto;
+		padding: 12px 0;
 		
 		.author-avatar {
 			width: 40px;
@@ -487,8 +569,45 @@
 		.post-content {
 			font-size: 16px;
 			
+			// Apply max-width to text elements
+			p, 
+			h1, h2, h3, h4, h5, h6,
+			blockquote,
+			ul, ol,
+			pre {
+				max-width: 720px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			
 			p {
 				font-size: 16px;
+			}
+			
+			// Allow tables to expand beyond text width
+			table,
+			.table-wrapper {
+				max-width: 100%;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			
+			// Images - default behavior is to follow text width
+			img {
+				max-width: 720px;
+				margin-left: auto;
+				margin-right: auto;
+				display: block;
+				
+				// Full-width images with a special class
+				&.full-width {
+					max-width: 100%;
+				}
+			}
+			
+			// Code blocks within pre should follow parent width
+			pre code {
+				max-width: none;
 			}
 		}
 	}
@@ -612,6 +731,16 @@
 				font-size: 15px;
 				padding-left: 0;
 				padding-right: 0;
+				
+				// Override max-width for mobile
+				p, 
+				h1, h2, h3, h4, h5, h6,
+				blockquote,
+				ul, ol,
+				pre,
+				img {
+					max-width: 100%;
+				}
 				
 				p {
 					font-size: 15px;

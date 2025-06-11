@@ -27,7 +27,6 @@
 // Make .post match .project-description for content area
 .post {
 	margin: 0 auto 24px;
-	max-width: 800px;
 	padding: 32px;
 	background: variables.$white;
 	background-color: variables.$white;
@@ -389,6 +388,9 @@
 			background-color: rgb(0 0 0 / 3%);
 			font-weight: 600;
 			border-bottom: 2px solid rgb(0 0 0 / 10%);
+			white-space: normal;
+			word-wrap: break-word;
+			overflow-wrap: break-word;
 
 			@media (prefers-color-scheme: dark) {
 				background-color: rgb(255 255 255 / 5%);
@@ -399,6 +401,9 @@
 		td {
 			padding: 1rem;
 			border-bottom: 1px solid rgb(0 0 0 / 5%);
+			white-space: normal;
+			word-wrap: break-word;
+			overflow-wrap: break-word;
 
 			@media (prefers-color-scheme: dark) {
 				border-bottom-color: rgb(255 255 255 / 5%);
@@ -408,6 +413,28 @@
 		tr:last-child td {
 			border-bottom: none;
 		}
+	}
+	
+	// Table wrapper for horizontal scrolling
+	.table-wrapper {
+		overflow-x: auto;
+		margin: 2rem 0;
+		-webkit-overflow-scrolling: touch;
+		max-width: 100%;
+		position: relative;
+		
+		table {
+			margin: 0;
+			min-width: 100%;
+		}
+	}
+	
+	// Make standalone tables scrollable without breaking layout
+	> table {
+		// Tables will be wrapped in a scrollable container by JavaScript
+		// or use .table-wrapper class
+		width: 100%;
+		max-width: 100%;
 	}
 
 	// Post metadata (hidden by default, can be enabled with .show-meta class)
@@ -522,8 +549,6 @@
 
 	// Short posts
 	&.short-post {
-		max-width: 650px;
-
 		p {
 			font-size: 0.95rem;
 			line-height: 1.6;
@@ -686,7 +711,6 @@
 
 	// Blog post tables
 	.post-content {
-		max-width: 800px;
 		margin: 0 auto;
 		padding: 0 variables.$space-md;
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -825,7 +849,6 @@
 	&.dynamic-loaded {
 		// When loaded dynamically in blog content
 		.substack-post {
-			max-width: 680px;
 			margin: 0 auto;
 			padding: 0;
 			background: transparent;
@@ -834,7 +857,8 @@
 			border-radius: 0;
 			
 			.post-cover-image {
-				margin: -24px -24px 40px -24px; // Negative margins to extend full width
+				max-width: 720px;
+				margin: 0 auto 40px auto;
 				border-radius: 0;
 				
 				img {
@@ -848,11 +872,19 @@
 				margin-bottom: 32px;
 			}
 			
+			.post-title,
+			.post-subtitle {
+				max-width: 720px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			
 			.post-title {
 				font-size: 32px;
 				line-height: 1.2;
 				font-weight: 700;
-				margin: 0 0 16px 0;
+				margin-top: 0;
+				margin-bottom: 16px;
 				color: #000;
 				letter-spacing: -0.02em;
 				
@@ -874,7 +906,9 @@
 			}
 			
 			.post-byline {
-				margin-top: 24px;
+				max-width: 720px;
+				margin: 24px auto 0 auto;
+				padding: 12px 0;
 				
 				.author-info {
 					display: flex;

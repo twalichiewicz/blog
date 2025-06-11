@@ -37,7 +37,6 @@ body .project-edge-wrapper {
 // Project wrapper container - matching Substack layout
 .project-wrapper {
 	width: 100%;
-	max-width: var(--project-max-width, 680px);
 	margin: 0 auto;
 	min-height: auto;
 	box-sizing: border-box;
@@ -533,7 +532,6 @@ body.loaded .project-wrapper {
 
 .project-content {
 	width: 100%;
-	max-width: 680px;
 	height: auto;
 	margin-left: auto;
 	margin-right: auto;
@@ -735,12 +733,22 @@ body.loaded .project-wrapper {
 	font-size: 16px;
 	line-height: 1.7;
 	color: variables.$text-color;
-	max-width: 680px;
 	margin: 0 auto;
 	padding: 0 24px;
 
 	@media (prefers-color-scheme: dark) {
 		color: variables.$text-color-dark;
+	}
+
+	// Apply max-width to text elements
+	p,
+	h1, h2, h3, h4, h5, h6,
+	blockquote,
+	ul, ol,
+	pre {
+		max-width: 720px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	p {
@@ -778,12 +786,27 @@ body.loaded .project-wrapper {
 			color: variables.$text-color-secondary-dark;
 		}
 	}
-
-	img {
+	
+	// Allow tables to expand beyond text width
+	table,
+	.table-wrapper {
 		max-width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	// Images - default behavior is to follow text width
+	img {
+		max-width: 720px;
 		height: auto;
+		margin: 20px auto;
+		display: block;
 		border-radius: 4px;
-		margin: 20px 0;
+		
+		// Full-width images with a special class
+		&.full-width {
+			max-width: 100%;
+		}
 	}
 
 	a {
@@ -843,6 +866,19 @@ body.loaded .project-wrapper {
 		li {
 			margin-bottom: 8px;
 			line-height: 1.7;
+		}
+	}
+	
+	// Mobile overrides for text max-width  
+	@media (max-width: variables.$mobile-breakpoint) {
+		// Override max-width for all text elements on mobile
+		p,
+		h1, h2, h3, h4, h5, h6,
+		blockquote,
+		ul, ol,
+		pre,
+		img {
+			max-width: 100%;
 		}
 	}
 }
@@ -1369,6 +1405,13 @@ blockquote.pullquote {
 		}
 	}
 	
+	// Handle standalone tables (not wrapped)
+	.project-description > table {
+		max-width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
 	table {
 		border-collapse: collapse;
 		background: variables.$white;
@@ -1395,7 +1438,9 @@ blockquote.pullquote {
 			font-weight: 600;
 			color: variables.$text-color;
 			letter-spacing: 0.02em;
-			white-space: nowrap;
+			white-space: normal;
+			word-wrap: break-word;
+			overflow-wrap: break-word;
 			min-width: min-content; // Ensure minimum width based on content
 			
 			// Mobile adjustments
@@ -1412,7 +1457,9 @@ blockquote.pullquote {
 			text-align: center;
 			color: variables.$text-color;
 			border-bottom: 1px solid rgba(variables.$border-color, 0.2);
-			white-space: nowrap; // Prevent wrapping for consistent column widths
+			white-space: normal; // Allow wrapping
+			word-wrap: break-word;
+			overflow-wrap: break-word;
 			
 			// Support for bold text
 			strong {
