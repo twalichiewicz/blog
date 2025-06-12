@@ -1,0 +1,422 @@
+// Alert/Message Component
+// Linear/Raycast-inspired design system
+
+.alert-message {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 720px;
+  margin: 32px auto;
+  padding: 20px 24px;
+  border-radius: 12px;
+  background: hsl(15, 70%, 40%);
+  border: 1px solid hsla(15, 70%, 35%, 0.3);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    0 4px 8px -2px rgba(0, 0, 0, 0.08),
+    0 12px 24px -8px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  
+  // Subtle gradient overlay like Linear
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.2) 50%, 
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+  
+  // Dark mode
+  @media (prefers-color-scheme: dark) {
+    background: #1a1a1a;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    box-shadow: 
+      0 1px 2px rgba(0, 0, 0, 0.1),
+      0 4px 8px -2px rgba(0, 0, 0, 0.1),
+      0 12px 24px -8px rgba(0, 0, 0, 0.05),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    
+    &::before {
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.05) 50%, 
+        transparent 100%
+      );
+    }
+  }
+  
+  [data-theme="dark"] & {
+    background: #1a1a1a;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    box-shadow: 
+      0 1px 2px rgba(0, 0, 0, 0.1),
+      0 4px 8px -2px rgba(0, 0, 0, 0.1),
+      0 12px 24px -8px rgba(0, 0, 0, 0.05),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    
+    &::before {
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.05) 50%, 
+        transparent 100%
+      );
+    }
+  }
+  
+  // Ensure no underlines on any child elements
+  &,
+  *,
+  &:hover,
+  &:focus,
+  &:active,
+  &:visited {
+    text-decoration: none;
+  }
+  
+  .alert-title,
+  .alert-description {
+    text-decoration: none;
+  }
+  
+  // Link variant
+  &.alert-link {
+    cursor: pointer;
+    text-decoration: none;
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.05),
+        0 6px 12px -2px rgba(0, 0, 0, 0.08),
+        0 16px 32px -8px rgba(0, 0, 0, 0.06);
+      border-color: hsla(15, 70%, 30%, 0.4);
+      
+      @media (prefers-color-scheme: dark) {
+        box-shadow: 
+          0 1px 3px rgba(0, 0, 0, 0.15),
+          0 6px 12px -2px rgba(0, 0, 0, 0.2),
+          0 16px 32px -8px rgba(0, 0, 0, 0.1),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+      
+      [data-theme="dark"] & {
+        box-shadow: 
+          0 1px 3px rgba(0, 0, 0, 0.15),
+          0 6px 12px -2px rgba(0, 0, 0, 0.2),
+          0 16px 32px -8px rgba(0, 0, 0, 0.1),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+      
+      .alert-icon {
+        transform: scale(1.05);
+      }
+    }
+    
+    &:active {
+      transform: translateY(0);
+      box-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    }
+  }
+  
+  // Content wrapper
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  // Title
+  .alert-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 2px 0;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+    text-decoration: none;
+    
+    // External indicator
+    &.external::after {
+      content: '↗';
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 13px;
+      opacity: 0.9;
+      transition: all 0.2s ease;
+    }
+    
+    .alert-link:hover &.external::after {
+      opacity: 1;
+      transform: translate(1px, -1px);
+    }
+  }
+  
+  // Description
+  .alert-description {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    color: #ffffff;
+    opacity: 0.85;
+    letter-spacing: -0.005em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+    text-decoration: none;
+  }
+  
+  // Icon
+  .alert-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+    flex-shrink: 0;
+    font-size: 20px;
+    transition: all 0.2s ease;
+    
+    @media (prefers-color-scheme: dark) {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    [data-theme="dark"] & {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    // Default arrow icon
+    &::before {
+      content: '→';
+      font-weight: 400;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+  }
+  
+  // Info variant (default)
+  &.alert-info {
+    .alert-icon {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      
+      @media (prefers-color-scheme: dark) {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      [data-theme="dark"] & {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+  
+  // Success variant
+  &.alert-success {
+    .alert-icon {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      
+      &::before {
+        content: '✓';
+        font-weight: 700;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      [data-theme="dark"] & {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+  
+  // Warning variant
+  &.alert-warning {
+    .alert-icon {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      
+      &::before {
+        content: '!';
+        font-weight: 700;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      [data-theme="dark"] & {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+  
+  // Error variant
+  &.alert-error {
+    .alert-icon {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      
+      &::before {
+        content: '×';
+        font-weight: 400;
+        font-size: 24px;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.8);
+      }
+      
+      [data-theme="dark"] & {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+  
+  // Compact variant
+  &.alert-compact {
+    padding: 16px 20px;
+    gap: 12px;
+    
+    .alert-title {
+      font-size: 14px;
+    }
+    
+    .alert-description {
+      font-size: 13px;
+    }
+    
+    .alert-icon {
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+    }
+  }
+  
+  // Mobile adjustments
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin: 24px auto;
+    padding: 16px 20px;
+    gap: 12px;
+    border-radius: 10px;
+    
+    .alert-title {
+      font-size: 14px;
+    }
+    
+    .alert-description {
+      font-size: 13px;
+    }
+    
+    .alert-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+  }
+}
+
+// Post alerts container
+.post-alerts {
+  margin-bottom: 40px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 32px;
+  }
+  
+  // Remove top margin from first alert
+  .alert-message:first-child {
+    margin-top: 0;
+  }
+  
+  // Remove bottom margin from last alert
+  .alert-message:last-child {
+    margin-bottom: 0;
+  }
+  
+  // Multiple alerts spacing
+  .alert-message + .alert-message {
+    margin-top: 16px;
+  }
+}
+
+// Override any global link styles for alerts
+.post-content .alert-message,
+.post-content .alert-message.alert-link,
+.post-content a.alert-message,
+.post-content a.alert-message.alert-link,
+.substack-post .alert-message,
+.substack-post .alert-message.alert-link,
+.substack-post a.alert-message,
+.substack-post a.alert-message.alert-link,
+a.alert-message,
+a.alert-message.alert-link {
+  text-decoration: none;
+  border-bottom: none;
+  
+  &,
+  *,
+  .alert-title,
+  .alert-description {
+    text-decoration: none;
+  }
+  
+  &:hover,
+  &:focus,
+  &:active,
+  &:visited {
+    text-decoration: none;
+    border-bottom: none;
+  }
+}
+
+// Ensure alerts in posts have proper spacing
+.substack-post .post-alerts,
+.project-description .post-alerts {
+  // First alert after header should have some space
+  margin-top: 40px;
+  
+  @media (max-width: 768px) {
+    margin-top: 32px;
+  }
+  
+  // Override link styles within post alerts
+  a.alert-message {
+    text-decoration: none;
+    border-bottom: none;
+    
+    &:hover {
+      text-decoration: none;
+      border-bottom: none;
+    }
+  }
+}
