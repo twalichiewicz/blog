@@ -51,7 +51,8 @@
       "Bash(python3:*)",
       "Bash(textutil:*)",
       "Bash(curl:*)",
-      "Bash(npx hexo generate:*)"
+      "Bash(npx hexo generate:*)",
+      "Bash(hexo new:*)"
     ],
     "deny": []
   }
