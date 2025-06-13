@@ -16,6 +16,9 @@
     <% if (blogPosts.length > 0) { %>
         <% blogPosts.forEach(function(post, index) { %>
             <% 
+            // Generate unique post ID from title or use index
+            const postId = 'post-' + (post.slug || post.title.toLowerCase().replace(/[^\w]+/g, '-') || index);
+            
             // Determine if this is a long-form post (has <a> in h3 and long: true)
             const isLongPost = post.long === true && !post.type;
             const classNames = [];
@@ -39,7 +42,7 @@
                 <% if (isLongPost) { %>
                     <a href="<%- url_for(post.path) %>" class="post-link-wrapper">
                 <% } %>
-                <article class="post-list-item <%= classNames.join(' ') %>">
+                <article class="post-list-item <%= classNames.join(' ') %>" id="<%= postId %>">
                     <div class="post-byline">
                         <%= date(post.date, 'MMMM D, YYYY') %> • 
                         <%= post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post') %>
