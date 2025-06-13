@@ -1,0 +1,207 @@
+// Emoji Styles
+// Handles both unicode and custom image emojis
+
+.emoji {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  
+  // Standard unicode emoji
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.2em;
+  margin: 0 0.1em;
+  
+  // Prevent emoji from being affected by text styles
+  text-decoration: none !important;
+  text-transform: none !important;
+  
+  // Custom image emoji
+  &.emoji-custom {
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0 0.15em;
+    vertical-align: -0.3em;
+    object-fit: contain;
+    
+    // Smooth animation on hover
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Emoji in different contexts
+h1, h2, h3, h4, h5, h6 {
+  .emoji {
+    font-size: 1em;
+    
+    &.emoji-custom {
+      width: 1.2em;
+      height: 1.2em;
+      vertical-align: -0.2em;
+    }
+  }
+}
+
+// Emoji in post content
+.post-content,
+.project-content,
+article {
+  .emoji {
+    // Ensure emojis don't break text flow
+    display: inline;
+    white-space: nowrap;
+  }
+}
+
+// Emoji in code blocks should be plain text
+pre, code {
+  .emoji {
+    font-size: inherit;
+    margin: 0;
+    
+    &.emoji-custom {
+      display: none;
+    }
+  }
+}
+
+// Dark mode adjustments
+[data-theme="dark"] {
+  .emoji.emoji-custom {
+    // Add subtle glow for better visibility
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.1));
+  }
+}
+
+// Emoji picker styles (for future implementation)
+.emoji-picker {
+  position: absolute;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 320px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000;
+  
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0.5rem;
+  }
+  
+  &-item {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: var(--hover-color);
+    }
+    
+    .emoji {
+      font-size: 1.5em;
+      margin: 0;
+    }
+  }
+  
+  &-search {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--input-background);
+    color: var(--text-color);
+    
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+  }
+  
+  &-category {
+    margin-bottom: 1rem;
+    
+    h4 {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      color: var(--text-color-secondary);
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+// Animated emoji support
+@keyframes emojiPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.emoji-animated {
+  animation: emojiPulse 0.6s ease-in-out;
+}
+
+// Loading state for custom emojis
+.emoji-custom {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: emojiLoading 1.5s infinite;
+  
+  &[src] {
+    background: none;
+    animation: none;
+  }
+}
+
+@keyframes emojiLoading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// Emoji tooltips
+.emoji-tooltip {
+  position: relative;
+  
+  &::after {
+    content: attr(data-emoji-name);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+// Responsive emoji sizes
+@media (max-width: 768px) {
+  .emoji {
+    font-size: 1.1em;
+    
+    &.emoji-custom {
+      width: 1.3em;
+      height: 1.3em;
+    }
+  }
+}
