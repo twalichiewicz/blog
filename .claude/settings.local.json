@@ -57,7 +57,9 @@
       "Bash(npm uninstall:*)",
       "Bash(npm install)",
       "Bash(git add:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(true)",
+      "Bash(cp:*)"
     ],
     "deny": []
   }
