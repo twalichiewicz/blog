@@ -1,4 +1,8 @@
-<article class="post-list-item">
+<% 
+// Generate unique post ID from title or use slug
+const postId = 'post-' + (post.slug || post.title.toLowerCase().replace(/[^\w]+/g, '-'));
+%>
+<article class="post-list-item" id="<%= postId %>">
 	<div class="post-byline">
 		<%= date(post.date, 'MMMM D, YYYY') %> • 
 		<%= post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post') %>
