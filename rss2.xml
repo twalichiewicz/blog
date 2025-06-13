@@ -9,7 +9,7 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Wed, 11 Jun 2025 19:05:38 GMT</pubDate>
+    <pubDate>Fri, 13 Jun 2025 03:24:12 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -139,13 +139,13 @@
       
         
         
-      <description>&lt;p&gt;Called it.&lt;/p&gt;
+      <description>&lt;p&gt;&lt;a href=&quot;#post-Apple-Tahoe&quot;&gt;Called it&lt;/a&gt;.&lt;/p&gt;
 </description>
         
       
       
       
-      <content:encoded><![CDATA[<p>Called it.</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><a href="#post-Apple-Tahoe">Called it</a>.</p>]]></content:encoded>
       
       
       
