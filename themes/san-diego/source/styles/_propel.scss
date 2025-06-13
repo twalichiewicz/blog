@@ -54,7 +54,7 @@ body {
 	height: 100dvh;
 	overflow: hidden auto;
 	scroll-snap-type: y mandatory;
-	scroll-behavior: smooth;
+	// scroll-behavior: smooth; // Disabled to allow custom JS scrolling
 	background: var(--propel-bg);
 	color: var(--propel-text);
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
