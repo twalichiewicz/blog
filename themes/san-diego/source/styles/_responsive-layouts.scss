@@ -679,7 +679,7 @@
 			/* Simplified performance properties to reduce Chrome rendering issues */
 			contain: layout;
 			-webkit-overflow-scrolling: touch;
-			scroll-behavior: smooth;
+			// scroll-behavior: smooth; // Disabled to allow custom JS scrolling
 
 			&::-webkit-scrollbar {
 				width: 6px;
