@@ -2,6 +2,7 @@
 layout: project_gallery
 title: Monophone Navigation
 date: 2025-01-06
+draft: true
 tags:
   - portfolio
   - interaction-design
