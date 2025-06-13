@@ -27,3 +27,10 @@ Steam Deck sales proved we'll carry bigger devices for better controls. Teenage 
 Sometimes the best interface innovation is admitting that software patterns aren't just design decisions, they're hardware opportunities waiting to be built.
 
 Home button is back, baby. Just this time, we're stepping out rather than in.
+
+---
+
+<a href="https://twalichiewicz.github.io/monophone-demo/" target="_blank" rel="noopener" class="alert-message alert-link alert-info">
+  <div class="alert-title external">Try the Monophone Demo</div>
+  <div class="alert-description">Interactive prototype demonstrating thumb-first navigation</div>
+</a>
