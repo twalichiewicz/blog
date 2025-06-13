@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Jim placeholder emoji - replace with actual image -->
+  <rect width="128" height="128" fill="#f0f0f0" rx="8"/>
+  <text x="64" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" fill="#333">J</text>
+  <text x="64" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">jim</text>
+</svg>
