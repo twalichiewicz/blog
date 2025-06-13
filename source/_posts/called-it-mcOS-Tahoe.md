@@ -8,4 +8,4 @@ tags:
   - blog
 date: 2025-06-01 20:25:48
 ---
-Called it.
+[Called it](#post-Apple-Tahoe).

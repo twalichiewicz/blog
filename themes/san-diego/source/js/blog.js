@@ -55,6 +55,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		// 	console.log('[blog.js] Refreshing adaptive video manager for container:', container);
 		// 	adaptiveVideoManager.refresh();
 		// }
+		
+		// --- Anchor Links ---
+		if (window.initializeAnchorLinks) {
+			window.initializeAnchorLinks();
+		}
 
 		// Blog features initialized
 	}
@@ -792,10 +797,231 @@ document.addEventListener('DOMContentLoaded', function () {
 	window.initializeProjectToggle = initializeProjectToggle;
 	window.initializePostsOnlyButton = initializePostsOnlyButton;
 
+	// Anchor link functionality for smooth scrolling and glow effect
+	function initializeAnchorLinks() {
+		// Custom smooth scroll function with adjustable duration
+		function smoothScrollTo(element, target, duration) {
+			const start = element.scrollTop;
+			const change = target - start;
+			const startTime = performance.now();
+			
+			function animateScroll(currentTime) {
+				const elapsed = currentTime - startTime;
+				const progress = Math.min(elapsed / duration, 1);
+				
+				// Easing function for smooth acceleration/deceleration
+				const easeInOutCubic = progress < 0.5
+					? 4 * progress * progress * progress
+					: 1 - Math.pow(-2 * progress + 2, 3) / 2;
+				
+				element.scrollTop = start + (change * easeInOutCubic);
+				
+				if (progress < 1) {
+					requestAnimationFrame(animateScroll);
+				}
+			}
+			
+			requestAnimationFrame(animateScroll);
+		}
+		
+		// Function to scroll to an element with glow effect
+		function scrollToElementWithGlow(targetId, clickedElement) {
+			console.log('Looking for element with ID:', targetId);
+			const targetElement = document.getElementById(targetId);
+			
+			if (targetElement) {
+				console.log('Found target element:', targetElement);
+				
+				// Start glow effect immediately
+				targetElement.classList.add('anchor-glow');
+				
+				// Get the blog content container
+				const blogContent = document.querySelector('.blog-content');
+				
+				// If we're in the blog content container, scroll within it
+				if (blogContent) {
+					// Get the position of the element relative to the blog content
+					const rect = targetElement.getBoundingClientRect();
+					const containerRect = blogContent.getBoundingClientRect();
+					const scrollTop = blogContent.scrollTop;
+					
+					// Calculate the element's height and container's visible height
+					const elementHeight = rect.height;
+					const containerHeight = containerRect.height;
+					
+					let targetScrollPosition;
+					
+					// If the element is shorter than the container, center it
+					if (elementHeight < containerHeight) {
+						targetScrollPosition = scrollTop + rect.top - containerRect.top - (containerHeight / 2) + (elementHeight / 2);
+					} else {
+						// If element is taller, align the top with some padding
+						targetScrollPosition = scrollTop + rect.top - containerRect.top - 20; // 20px padding from top
+					}
+					
+					// Calculate distance-based duration
+					const currentScrollPosition = scrollTop;
+					const distance = Math.abs(targetScrollPosition - currentScrollPosition);
+					
+					// Duration calculation: slower scrolling
+					// Minimum 800ms, maximum 3000ms
+					// Approximately 1.5ms per pixel of distance
+					const baseDuration = 800;
+					const distanceFactor = 1.5; // Increased for slower scrolling
+					const calculatedDuration = Math.min(Math.max(baseDuration + (distance * distanceFactor), 800), 3000);
+					
+					console.log(`Scroll distance: ${distance}px, Duration: ${calculatedDuration}ms`);
+					
+					// Use custom smooth scroll with calculated duration
+					smoothScrollTo(blogContent, targetScrollPosition, calculatedDuration);
+					
+					// Remove glow after animation completes
+					setTimeout(() => {
+						targetElement.classList.remove('anchor-glow');
+					}, 3000); // 3 seconds total for glow animation
+				} else {
+					// Fallback to standard scroll
+					targetElement.scrollIntoView({
+						behavior: 'smooth',
+						block: 'center'
+					});
+					
+					// Remove glow after animation completes
+					setTimeout(() => {
+						targetElement.classList.remove('anchor-glow');
+					}, 3000);
+				}
+			}
+		}
+		
+		// Function to handle anchor link clicks
+		function handleAnchorClick(event) {
+			const link = event.currentTarget;
+			const href = link.getAttribute('href');
+			
+			// Check if it's an internal anchor link
+			if (href && href.startsWith('#')) {
+				event.preventDefault();
+				const targetId = href.substring(1);
+				scrollToElementWithGlow(targetId);
+			}
+		}
+		
+		// Use event delegation for better handling of dynamic content
+		document.addEventListener('click', function(event) {
+			// Find the closest anchor tag
+			const link = event.target.closest('a[href^="#"]');
+			if (link) {
+				event.preventDefault();
+				const href = link.getAttribute('href');
+				const targetId = href.substring(1);
+				console.log('Anchor link clicked:', href, 'Target ID:', targetId);
+				scrollToElementWithGlow(targetId, link);
+			}
+		});
+		
+		// Handle anchor on page load
+		if (window.location.hash) {
+			const targetId = window.location.hash.substring(1);
+			// Wait for page to fully load and render
+			setTimeout(() => {
+				scrollToElementWithGlow(targetId);
+			}, 500);
+		}
+	}
+
 	// Initial setup on page load - moved to end after all functions are defined
 	initializeBlogFeatures(document);
 	initializeMobileTabs();
 	initializeProjectToggle();
 	initializePostsOnlyButton();
+	initializeAnchorLinks();
+	
+	// Make anchor link initialization available globally for dynamic content
+	window.initializeAnchorLinks = initializeAnchorLinks;
+	
+	// Also expose the scroll function for testing
+	window.scrollToElementWithGlow = function(targetId, clickedElement) {
+		// Custom smooth scroll function
+		function smoothScrollTo(element, target, duration) {
+			const start = element.scrollTop;
+			const change = target - start;
+			const startTime = performance.now();
+			
+			function animateScroll(currentTime) {
+				const elapsed = currentTime - startTime;
+				const progress = Math.min(elapsed / duration, 1);
+				
+				// Easing function for smooth acceleration/deceleration
+				const easeInOutCubic = progress < 0.5
+					? 4 * progress * progress * progress
+					: 1 - Math.pow(-2 * progress + 2, 3) / 2;
+				
+				element.scrollTop = start + (change * easeInOutCubic);
+				
+				if (progress < 1) {
+					requestAnimationFrame(animateScroll);
+				}
+			}
+			
+			requestAnimationFrame(animateScroll);
+		}
+		
+		const targetElement = document.getElementById(targetId);
+		if (targetElement) {
+			// Start glow effect immediately
+			targetElement.classList.add('anchor-glow');
+			
+			const blogContent = document.querySelector('.blog-content');
+			if (blogContent) {
+				const rect = targetElement.getBoundingClientRect();
+				const containerRect = blogContent.getBoundingClientRect();
+				const scrollTop = blogContent.scrollTop;
+				
+				// Calculate the element's height and container's visible height
+				const elementHeight = rect.height;
+				const containerHeight = containerRect.height;
+				
+				let targetScrollPosition;
+				
+				// If the element is shorter than the container, center it
+				if (elementHeight < containerHeight) {
+					targetScrollPosition = scrollTop + rect.top - containerRect.top - (containerHeight / 2) + (elementHeight / 2);
+				} else {
+					// If element is taller, align the top with some padding
+					targetScrollPosition = scrollTop + rect.top - containerRect.top - 20; // 20px padding from top
+				}
+				
+				// Calculate distance-based duration
+				const currentScrollPosition = scrollTop;
+				const distance = Math.abs(targetScrollPosition - currentScrollPosition);
+				
+				// Duration calculation: slower scrolling
+				// Minimum 800ms, maximum 3000ms
+				const baseDuration = 800;
+				const distanceFactor = 1.5;
+				const calculatedDuration = Math.min(Math.max(baseDuration + (distance * distanceFactor), 800), 3000);
+				
+				console.log(`Scroll distance: ${distance}px, Duration: ${calculatedDuration}ms`);
+				
+				// Use custom smooth scroll with calculated duration
+				smoothScrollTo(blogContent, targetScrollPosition, calculatedDuration);
+				
+				// Remove glow after animation completes
+				setTimeout(() => {
+					targetElement.classList.remove('anchor-glow');
+				}, 3000); // 3 seconds total for glow animation
+			} else {
+				targetElement.scrollIntoView({
+					behavior: 'smooth',
+					block: 'center'
+				});
+				// Remove glow after animation completes
+				setTimeout(() => {
+					targetElement.classList.remove('anchor-glow');
+				}, 3000);
+			}
+		}
+	};
 
 }); 
