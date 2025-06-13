@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Prevent scroll chaining/bouncing on iOS
   document.body.style.overscrollBehavior = 'none';
   
-  // Smooth scroll to anchors
+  // Smooth scroll to anchors - DISABLED to allow blog.js to handle anchor links
+  // The blog page has its own custom anchor link handler with glow effects
+  /*
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
@@ -16,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+  */
 
   // Handle fixed header offset for anchor links
   function adjustScrollPosition() {
