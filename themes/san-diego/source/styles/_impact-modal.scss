@@ -186,6 +186,36 @@
     }
 }
 
+// Subtitle styling for clarification text
+.impact-modal-subtitle {
+    padding: 20px 30px 15px;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    
+    // Subtle glow effect for emphasis
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    
+    // Highlight the key message
+    strong {
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+    }
+    
+    @media (max-width: 768px) {
+        font-size: 12px;
+        padding: 15px 20px 12px;
+        line-height: 1.4;
+        letter-spacing: 0.01em;
+    }
+}
 
 // Tile styles with dark background and glowing text
 .impact-tile {
