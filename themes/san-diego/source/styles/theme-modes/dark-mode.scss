@@ -185,5 +185,38 @@
 			background: #4a4a4a;
 			box-shadow: 0 0 1px rgba(variables.$border-color-dark, 0.05);
 		}
+		
+	}
+	
+	/* Desktop contact buttons dark mode */
+	.blog .blog-header .desktop-contact-buttons {
+		.contact-circle-btn {
+			.contact-icon {
+				background-color: rgba(255, 255, 255, 0.15);
+				
+				svg {
+					color: rgba(207, 207, 207, 0.9);
+				}
+			}
+			
+			.contact-label {
+				color: rgba(255, 255, 255, 0.8);
+			}
+			
+			&:hover {
+				.contact-icon {
+					background-color: rgba(variables.$link-color-dark, 0.25);
+					box-shadow: 0 0 12px rgba(variables.$link-color-dark, 0.3);
+					
+					svg {
+						color: variables.$link-color-dark;
+					}
+				}
+				
+				.contact-label {
+					color: variables.$link-color-dark;
+				}
+			}
+		}
 	}
 }
