@@ -241,12 +241,12 @@
     min-height: 120px;
     
     @media (max-width: 768px) {
-        padding: 6px 10px;
+        padding: 9px 10px;
         min-height: 60px;
         height: 60px;
         flex-direction: row;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
         gap: 0;
         text-align: left;
     }
@@ -330,7 +330,7 @@
     }
     
     @media (max-width: 768px) {
-        font-size: 14px;
+        font-size: 24px;
         margin-bottom: 0;
         // Subtle neon effect for mobile
         text-shadow: 
@@ -344,7 +344,7 @@
         .tile-small &,
         .tile-medium &,
         .tile-large & {
-            font-size: 14px;
+            font-size: 24px;
         }
         
         .unit {
@@ -370,7 +370,8 @@
     }
     
     @media (max-width: 768px) {
-        font-size: 9px;
+        font-size: 15px;
+        font-weight: 300;
         text-transform: none;
         letter-spacing: 0;
         margin-bottom: 0;
@@ -381,7 +382,8 @@
         .tile-small &,
         .tile-medium &,
         .tile-large & {
-            font-size: 9px;
+            font-size: 15px;
+            font-weight: 300;
         }
     }
 }
@@ -1003,7 +1005,7 @@
         align-items: center;
         justify-content: flex-start;
         flex: 1;
-        gap: 6px;
+        gap: 12px;
         height: 100%;
         text-align: left;
     }
