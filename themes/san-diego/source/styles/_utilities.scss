@@ -1,5 +1,10 @@
 /* Utility classes */
 
+// Enable smooth scrolling globally
+html {
+	scroll-behavior: smooth;
+}
+
 // Visually hidden but accessible to screen readers
 .visually-hidden {
 	position: absolute;
