@@ -9,3 +9,6 @@ public/
 _multiconfig.yml
 # Cursor editor files
 *.mdc
+
+# Claude AI files
+.claude/
