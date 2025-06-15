@@ -13,6 +13,8 @@ jobs:
       contents: write
       pages: write
       id-token: write
+      deployments: write
+      pull-requests: write
     
     steps:
     - name: Checkout
@@ -53,5 +55,28 @@ jobs:
         
     - name: Create deployment status for PR
       if: github.event_name == 'pull_request'
-      run: |
-        echo "Skipping deployment for pull request. Build completed successfully." 
+      uses: actions/github-script@v7
+      with:
+        script: |
+          // Create a deployment for the PR
+          const deployment = await github.rest.repos.createDeployment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: context.payload.pull_request.head.sha,
+            task: 'deploy',
+            auto_merge: false,
+            required_contexts: [],
+            environment: 'github-pages',
+            description: 'PR Preview Build'
+          });
+          
+          // Create a successful deployment status
+          await github.rest.repos.createDeploymentStatus({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            deployment_id: deployment.data.id,
+            state: 'success',
+            environment_url: `https://${context.repo.owner}.github.io/${context.repo.repo}/`,
+            description: 'PR build completed successfully (no deployment)',
+            auto_inactive: false
+          }); 
