@@ -1,6 +1,5 @@
 ---
 title: Play Next
-draft: true
 short: true
 tags:
   - blog

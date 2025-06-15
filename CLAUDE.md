@@ -88,3 +88,55 @@ hexo new portfolio-post "Project Name"
 - HTML/CSS/JS are minified in production builds
 - Lazy loading is implemented for images and videos
 - Font loading is optimized with font-display: swap
+
+## Anchor Links Implementation
+
+### How Anchor Links Work
+- Anchor links allow navigation to specific posts using hash fragments (e.g., `#post-Play-Next`)
+- The anchor link handler is in `themes/san-diego/source/js/anchor-links-simple.js`
+- Uses native `scrollIntoView()` method for smooth scrolling
+- Automatically switches between blog/portfolio tabs if needed
+
+### Creating Anchor Links
+- Post IDs are generated from the filename: `Post-Name.md` becomes `#post-Post-Name`
+- Link format in Markdown: `[Link text](#post-Post-Name)`
+- The ID is case-sensitive and must match the filename exactly
+
+### Important Notes
+- Posts marked with `draft: true` won't be published and anchor links to them will fail
+- Link posts with `short: true` are rendered inline on the homepage
+- The script handles both mobile and desktop scrolling contexts
+
+## Known Technical Debt
+
+### 1. HTML Size Limitation
+- **Issue**: When too many posts have `short: true`, the generated index.html can become very large
+- **Impact**: Previously caused HTML truncation at ~138KB, breaking functionality
+- **Current Fix**: Strip script/style tags from inline post content in `blog-posts.ejs`
+- **Proper Solution**: Implement pagination (change `per_page: 0` to a reasonable number in `_config.yml`)
+
+### 2. Duplicate Scroll Implementations
+- **Issue**: Multiple files implement similar scroll functionality
+- **Files**: `scroll.js`, `blog.js`, and `anchor-links-simple.js`
+- **Impact**: Potential conflicts and maintenance overhead
+- **Solution**: Consolidate scroll logic into a single utility module
+
+### 3. Event Handler Conflicts
+- **Issue**: Multiple scripts attach click handlers to anchor links
+- **Current Fix**: Use capture phase in anchor-links-simple.js to intercept first
+- **Proper Solution**: Implement a central event delegation system
+
+### 4. Script Loading Order Dependencies
+- **Issue**: Some scripts depend on others being loaded first (e.g., mobileTabs)
+- **Impact**: Race conditions can cause features to fail intermittently
+- **Solution**: Implement proper module system or use dynamic imports
+
+### 5. Deprecated Sass API Warnings
+- **Issue**: Build process shows "legacy-js-api" deprecation warnings
+- **Impact**: Will break when Dart Sass 2.0.0 is released
+- **Solution**: Update build configuration to use modern Sass API
+
+### 6. Missing Error Handling
+- **Issue**: Many scripts don't handle edge cases (missing elements, network failures)
+- **Impact**: Silent failures that are hard to debug
+- **Solution**: Add comprehensive error handling and user feedback
