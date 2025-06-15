@@ -1,11 +1,14 @@
 <head>
   <title><% if (page.layout === 'blog') { %>Newest at the Top - Design in Everything<% } else if (page.layout === 'project_gallery') { %><%= page.title %> | <%= page.company %> - Design in Everything<% } else if (page.layout === 'about') { %>About - Design in Everything<% } else if (page.title && page.layout === 'post') { %><%= page.title %> | Design in Everything<% } else { %>Design in Everything - by Thomas Walichiewicz<% } %></title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'><%= theme.favicon_emoji %></text></svg>">
+  <link rel="icon" type="image/png" href="<%- url_for('favicon.png') %>">
+  <link rel="apple-touch-icon" href="<%- url_for('favicon.png') %>">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
+  <meta property="og:image" content="<%- url_for('favicon.png') %>">
+  <meta name="twitter:image" content="<%- url_for('favicon.png') %>">
   <link rel="stylesheet" href="<%- url_for('styles/styles.css') %>">
   <% if (page.layout === 'project') { %>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
