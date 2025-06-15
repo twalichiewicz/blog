@@ -1,0 +1,26 @@
+<div class="wave-container">
+    <script type="module">
+        import { createWaveText } from '/js/components/WaveTextLoader.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const container = document.querySelector('.wave-container');
+                console.log('Wave container:', container);
+                
+                if (container) {
+                    // Pass the server-rendered config
+                    const config = <%- JSON.stringify(config || {}) %>;
+                    console.log('Server config:', config);
+                    
+                    const waveText = createWaveText(container, config);
+                    waveText.init();
+                    console.log('Wave text initialized');
+                } else {
+                    console.error('Wave container not found');
+                }
+            } catch (error) {
+                console.error('Error initializing wave text:', error);
+            }
+        });
+    </script>
+</div> 
