@@ -41,7 +41,7 @@
 <li>Dark mode utilities</li>
 </ul>
 <h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><h3 id="Variables-and-Custom-Properties"><a href="#Variables-and-Custom-Properties" class="headerlink" title="Variables and Custom Properties"></a>Variables and Custom Properties</h3><p>The theme uses both SCSS variables and CSS custom properties:</p>
-<pre><code class="scss">// SCSS Variables (in base.scss)
+<pre><code class="language-scss">// SCSS Variables (in base.scss)
 $space-md: 1rem;
 $mobile-breakpoint: 768px;
 
@@ -52,14 +52,14 @@ $mobile-breakpoint: 768px;
 }
 </code></pre>
 <h3 id="Responsive-Design"><a href="#Responsive-Design" class="headerlink" title="Responsive Design"></a>Responsive Design</h3><p>The theme includes several responsive mixins:</p>
-<pre><code class="scss">@include mobile { ... }        // &lt; 768px
+<pre><code class="language-scss">@include mobile { ... }        // &lt; 768px
 @include tablet { ... }        // 768px - 1023px
 @include desktop { ... }       // &gt;= 1024px
 @include tablet-and-up { ... } // &gt;= 768px
 @include dark-mode { ... }     // Dark mode styles
 </code></pre>
 <h3 id="Utility-Classes"><a href="#Utility-Classes" class="headerlink" title="Utility Classes"></a>Utility Classes</h3><p>Common utility classes follow a consistent naming pattern:</p>
-<pre><code class="scss">// Display
+<pre><code class="language-scss">// Display
 .d-none, .d-block, .d-flex
 
 // Spacing
@@ -73,7 +73,7 @@ $mobile-breakpoint: 768px;
 .fade-in, .slide-in
 </code></pre>
 <h2 id="Development"><a href="#Development" class="headerlink" title="Development"></a>Development</h2><h3 id="Building-Styles"><a href="#Building-Styles" class="headerlink" title="Building Styles"></a>Building Styles</h3><p>The styles are processed using Sass. To build:</p>
-<pre><code class="bash">npm run build:css     # Build styles
+<pre><code class="language-bash">npm run build:css     # Build styles
 npm run watch:css     # Watch for changes
 </code></pre>
 <h3 id="Adding-New-Styles"><a href="#Adding-New-Styles" class="headerlink" title="Adding New Styles"></a>Adding New Styles</h3><ol>

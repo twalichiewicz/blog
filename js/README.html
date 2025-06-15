@@ -48,7 +48,7 @@
 <li>Add error handling</li>
 <li>Test on mobile and desktop</li>
 </ol>
-<h3 id="Event-Handling"><a href="#Event-Handling" class="headerlink" title="Event Handling"></a>Event Handling</h3><pre><code class="javascript">// Good: Remove old handlers
+<h3 id="Event-Handling"><a href="#Event-Handling" class="headerlink" title="Event Handling"></a>Event Handling</h3><pre><code class="language-javascript">// Good: Remove old handlers
 if (element._handler) {
   element.removeEventListener(&#39;click&#39;, element._handler);
 }
@@ -62,7 +62,7 @@ document.addEventListener(&#39;click&#39;, (e) =&gt; {
   }
 });
 </code></pre>
-<h3 id="Error-Handling"><a href="#Error-Handling" class="headerlink" title="Error Handling"></a>Error Handling</h3><pre><code class="javascript">// Always check elements exist
+<h3 id="Error-Handling"><a href="#Error-Handling" class="headerlink" title="Error Handling"></a>Error Handling</h3><pre><code class="language-javascript">// Always check elements exist
 const element = document.querySelector(&#39;.my-element&#39;);
 if (!element) {
   console.warn(&#39;Element not found: .my-element&#39;);
