@@ -9,7 +9,7 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Sat, 14 Jun 2025 22:15:44 GMT</pubDate>
+    <pubDate>Sun, 15 Jun 2025 06:08:37 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -255,6 +255,30 @@
     </item>
     
     <item>
+      <title>Play Next</title>
+      <link>https://twalichiewicz.github.io/2025/05/25/Play-Next/</link>
+      <guid>https://twalichiewicz.github.io/2025/05/25/Play-Next/</guid>
+      <pubDate>Sun, 25 May 2025 16:10:05 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Is it too much to ask for music players to finally get dynamic transitions between songs? No more jarring stop-and-start. Just have a min</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Is it too much to ask for music players to finally get dynamic transitions between songs? No more jarring stop-and-start. Just have a mini LLM generate seamless transitions using the stems of each track.</p><p>The functionality could work as dip-in, dip-out—when you stop adding to your Play Next queue, a station forms dynamically. You can take control back whenever it veers off or you want something specific.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/05/25/Play-Next/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>Blog updated</title>
       <link>https://twalichiewicz.github.io/2025/05/20/Blog-updated-1/</link>
       <guid>https://twalichiewicz.github.io/2025/05/20/Blog-updated-1/</guid>
@@ -484,30 +508,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/04/18/Command-minus-minus/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Apple Tahoe</title>
-      <link>https://twalichiewicz.github.io/2025/04/13/Apple-Tahoe/</link>
-      <guid>https://twalichiewicz.github.io/2025/04/13/Apple-Tahoe/</guid>
-      <pubDate>Sun, 13 Apr 2025 16:53:53 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;If Apple’s gearing up for another Snow Leopard moment (macOS Tahoe?), I’d love to see it go beyond under-the-hood refinements and embrace</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>If Apple’s gearing up for another Snow Leopard moment (macOS Tahoe?), I’d love to see it go beyond under-the-hood refinements and embrace a real paradigm shift — one centered on productivity, window management, and collaboration. It’s time to reexamine the windowed, compartmentalized model we’ve relied on for decades and ask where software interaction is truly headed next.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/04/13/Apple-Tahoe/#disqus_thread</comments>
       
     </item>
     
