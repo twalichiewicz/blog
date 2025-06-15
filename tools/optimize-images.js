@@ -39,7 +39,8 @@ class ImageOptimizer {
 
 	async findImages() {
 		try {
-			return await glob(`${this.sourceDir}/**/*.{jpg,jpeg,png,gif}`);
+			// Skip GIF files as they're not optimized by sharp and can be very large
+			return await glob(`${this.sourceDir}/**/*.{jpg,jpeg,png}`);
 		} catch (error) {
 			throw new Error(`Error finding images: ${error.message}`);
 		}
