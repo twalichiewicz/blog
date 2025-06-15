@@ -9,6 +9,10 @@ on:
 jobs:
   optimize-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
     
     steps:
     - name: Checkout
@@ -45,4 +49,9 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
-        cname: thomas.design 
+        cname: thomas.design
+        
+    - name: Create deployment status for PR
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "Skipping deployment for pull request. Build completed successfully." 
