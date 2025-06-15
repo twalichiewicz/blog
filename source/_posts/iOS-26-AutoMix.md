@@ -8,4 +8,4 @@ date: 2025-06-13 20:00:33
 subtitle:
 cover_image:
 ---
-[Thank you Apple Music design team.](#post-Play-Next)
+[Thank you Apple Music design (& engineering) team.](#post-Play-Next)
