@@ -12,3 +12,23 @@ _multiconfig.yml
 
 # Claude AI files
 .claude/
+
+# VS Code settings
+.vscode/
+
+# Cursor editor files  
+.cursor/
+*.mdc
+
+# Temporary database files
+db [0-9].json
+db [0-9]*.json
+
+# Scripts (optional - depends if you want these versioned)
+# *.sh
+
+# macOS files
+.DS_Store
+
+# Deploy directories
+.deploy_git/
