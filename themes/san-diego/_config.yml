@@ -2,8 +2,7 @@
 
 # the path to your blog's icon:
 # UPDATE: located in _partial/head.ejs
-favicon_emoji: "😀"
-favicon: https://thomas.design/media/favicon.ico
+favicon: /favicon.png
 
 # the path to manifest.json
 manifest: https://thomas.design/media/site.webmanifest
