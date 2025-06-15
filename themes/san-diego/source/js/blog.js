@@ -528,6 +528,27 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Resize listener removed - dynamic content now works on all screen sizes
 
 		window.addEventListener('popstate', async function (event) {
+			// If we're returning to the home page (no state or initial state)
+			if (!event.state || event.state.isInitial) {
+				// Ensure the page is visible
+				document.body.style.opacity = '1';
+				document.body.classList.add('loaded');
+				const overlay = document.querySelector('.page-transition-overlay');
+				if (overlay) {
+					overlay.style.display = 'none';
+				}
+				
+				// If blog content was hidden, show it
+				if (blogContentElement) {
+					blogContentElement.style.opacity = '1';
+					const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+					if (innerWrapper) {
+						innerWrapper.style.opacity = '1';
+					}
+				}
+				return;
+			}
+			
 			if (event.state && event.state.page) {
 				const targetUrl = event.state.page;
 				// Navigating to target URL

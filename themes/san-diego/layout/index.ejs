@@ -76,6 +76,7 @@
 <script type="module" src="<%- url_for('js/blog.js') %>"></script>
 <script src="<%- url_for('js/blog-init.js') %>"></script>
 <script src="<%- url_for('js/anchor-links-simple.js') %>"></script>
+<script src="<%- url_for('js/visibility-debug.js') %>"></script>
 
 <script>
 	// Page fade-in animation
@@ -117,6 +118,16 @@
 		
 		// Fallback in case load event doesn't fire or is too slow
 		setTimeout(completeAnimation, 3000); // Increased timeout
+		
+		// Additional safeguard - ensure content is visible after max wait time
+		setTimeout(function() {
+			document.body.style.opacity = '1';
+			document.body.classList.add('loaded');
+			const overlay = document.querySelector('.page-transition-overlay');
+			if (overlay) {
+				overlay.style.display = 'none';
+			}
+		}, 4000);
 	}
 
 	document.addEventListener('DOMContentLoaded', function() {
@@ -125,20 +136,23 @@
 
 	window.addEventListener('pageshow', function(event) {
 		if (event.persisted) {
-            // Page is loaded from bfcache - reset animation state
-			document.body.style.opacity = '0'; 
-			document.body.classList.remove('loaded');
-			document.body.classList.remove('fade-in-initialized'); // Allow re-initialization
+            // Page is loaded from bfcache - ensure content is visible immediately
+			document.body.style.opacity = '1';
+			document.body.classList.add('loaded');
+			document.body.classList.add('fade-in-initialized');
 
-			// Ensure overlay is visible again for the animation
+			// Hide the overlay immediately
 			const overlay = document.querySelector('.page-transition-overlay');
 			if (overlay) {
-				overlay.style.display = 'block'; // Make it block first
-				overlay.style.opacity = '1';     // Reset its opacity
-				overlay.classList.remove('fade-out');
+				overlay.style.display = 'none';
+				overlay.style.opacity = '0';
+				overlay.classList.add('fade-out');
 			}
-			
-			initiatePageFadeIn();
+		} else {
+			// Normal page load - ensure fade-in happens
+			if (!document.body.classList.contains('fade-in-initialized')) {
+				initiatePageFadeIn();
+			}
 		}
 	});
 
