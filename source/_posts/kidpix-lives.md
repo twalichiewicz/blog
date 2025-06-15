@@ -4,7 +4,6 @@ date: 2024-06-18 22:29:51
 type: link
 url: https://kidpix.app
 url_label: via kidpix.app
-short: true
 tags:
   - blog
 ---
