@@ -2,19 +2,55 @@ class Carousel {
 	static activeSpotlightCarousel = null; // Static property to track active carousel
 
 	updateCarouselImages() {
-		// Update the carousel images array - this can be called to refresh the image list
-		this.carouselImages = Array.from(this.carousel.querySelectorAll('.carousel-slide img'));
+		// Update the carousel media array - this now includes both images AND videos
+		const slides = this.carousel.querySelectorAll('.carousel-slide');
+		console.log('[Carousel] updateCarouselImages - Found slides:', slides.length);
 		
-		// For project galleries, also check if images might be lazy-loaded or not yet rendered
-		if (this.carousel.closest('.project-gallery-section')) {
-			console.log('[Carousel] Updating images for project gallery');
+		// Clear the array
+		this.carouselImages = [];
+		
+		// Collect all media elements (images and videos)
+		slides.forEach((slide, index) => {
+			const img = slide.querySelector('img');
+			const video = slide.querySelector('video');
 			
-			// If no images found, check if there are video posters we should consider
-			if (this.carouselImages.length === 0) {
-				const videos = this.carousel.querySelectorAll('.carousel-slide video[poster]');
-				console.log('[Carousel] No images found, checking for video posters:', videos.length);
+			if (img) {
+				this.carouselImages.push({
+					type: 'image',
+					element: img,
+					src: img.src,
+					alt: img.alt || '',
+					slideIndex: index
+				});
+			} else if (video) {
+				// For videos, we need a thumbnail for spotlight
+				let thumbnailSrc = '';
+				
+				if (video.poster) {
+					// Use poster if available
+					thumbnailSrc = video.poster;
+				} else {
+					// No poster - we'll handle this in spotlight by showing video controls
+					thumbnailSrc = 'video-no-poster';
+				}
+				
+				this.carouselImages.push({
+					type: 'video',
+					element: video,
+					src: thumbnailSrc,
+					alt: 'Video',
+					slideIndex: index,
+					videoSrc: video.src || video.querySelector('source')?.src || ''
+				});
 			}
-		}
+		});
+		
+		console.log('[Carousel] updateCarouselImages - Found media items:', this.carouselImages.length);
+		console.log('[Carousel] Media breakdown:', this.carouselImages.map(item => ({
+			type: item.type,
+			slideIndex: item.slideIndex,
+			src: item.src
+		})));
 		
 		return this.carouselImages;
 	}
@@ -162,17 +198,29 @@ class Carousel {
 			this.carousel.addEventListener('touchend', this.boundTouchEnd, { passive: true });
 		}
 
-		// Add click handlers for images
+		// Add click handlers for media (images and videos)
 		this.slides.forEach((slide, slideIndex) => {
 			const img = slide.querySelector('img');
+			const video = slide.querySelector('video');
+			
 			if (img) {
 				img.style.cursor = 'nesw-resize';
-				// Find the index of this image in carouselImages array
-				const imgIndex = this.carouselImages.findIndex(carouselImg => carouselImg.src === img.src);
-				console.log(`[Carousel] Setting up click handler for slide ${slideIndex}, img src: ${img.src}, found at index: ${imgIndex}`);
-				const handler = () => this.openSpotlight(img.src, img.alt, imgIndex);
+				const handler = () => {
+					console.log(`[Carousel] Image clicked in slide ${slideIndex}`);
+					this.openSpotlight(img.src, img.alt, slideIndex);
+				};
 				this.imageClickHandlers.set(img, handler);
 				img.addEventListener('click', handler);
+			} else if (video) {
+				// Make all videos clickable
+				video.style.cursor = 'nesw-resize';
+				const handler = () => {
+					console.log(`[Carousel] Video clicked in slide ${slideIndex}`);
+					// Pass slideIndex to know which media to show
+					this.openSpotlight(null, 'Video', slideIndex);
+				};
+				this.imageClickHandlers.set(video, handler);
+				video.addEventListener('click', handler);
 			}
 		});
 
@@ -199,6 +247,15 @@ class Carousel {
 
 		// Add video error handling
 		this.setupVideoErrorHandling();
+		
+		// For project galleries, also try updating images after a delay
+		// This handles cases where images are dynamically loaded
+		if (this.carousel.closest('.project-gallery-section')) {
+			setTimeout(() => {
+				console.log('[Carousel] Delayed image update for project gallery');
+				this.updateCarouselImages();
+			}, 500);
+		}
 	}
 
 	handleSwipe(deltaX, duration) {
@@ -262,6 +319,17 @@ class Carousel {
 		const isProjectCarousel = this.carousel.closest('.project-gallery-section') !== null;
 		console.log('[Carousel] Is project carousel:', isProjectCarousel);
 		
+		// FORCE CHECK: If we have 1 or fewer media items but multiple slides, re-scan
+		// This handles the case where only the current media was found
+		if (this.carouselImages.length <= 1 && this.slides.length > 1) {
+			console.warn(`[Carousel] Only ${this.carouselImages.length} media items found but ${this.slides.length} slides exist! Forcing re-scan...`);
+			
+			// Force update to rebuild the media array
+			this.updateCarouselImages();
+			
+			console.log('[Carousel] After forced re-scan, total media items:', this.carouselImages.length);
+		}
+		
 		// Debug: Log all carousel images
 		if (this.carouselImages.length > 0) {
 			console.log('[Carousel] All carousel images:');
@@ -282,8 +350,8 @@ class Carousel {
 			this.currentSpotlightIndex = imageIndex;
 			console.log('[Carousel] Using provided imageIndex:', imageIndex);
 		} else {
-			// Fallback: try to find the image index by src
-			const foundIndex = this.carouselImages.findIndex(img => img.src === src);
+			// Fallback: try to find the media index by src
+			const foundIndex = this.carouselImages.findIndex(media => media.src === src);
 			this.currentSpotlightIndex = foundIndex >= 0 ? foundIndex : 0;
 			console.log('[Carousel] Using found index:', this.currentSpotlightIndex, 'for src:', src);
 		}
@@ -292,12 +360,37 @@ class Carousel {
 		const hasMultipleImages = this.carouselImages.length > 1;
 		console.log('[Carousel] Has multiple images:', hasMultipleImages);
 
+		// Get the current media item
+		const currentMedia = this.carouselImages[this.currentSpotlightIndex];
+		let mediaHTML = '';
+		
+		if (currentMedia && currentMedia.type === 'video') {
+			// Create video element for spotlight
+			const videoElement = currentMedia.element;
+			mediaHTML = `<video controls autoplay style="max-width: 100%; max-height: 90vh;">`;
+			
+			// Copy video sources
+			const sources = videoElement.querySelectorAll('source');
+			if (sources.length > 0) {
+				sources.forEach(source => {
+					mediaHTML += `<source src="${source.src}" type="${source.type}">`;
+				});
+			} else if (videoElement.src) {
+				mediaHTML += `<source src="${videoElement.src}">`;
+			}
+			
+			mediaHTML += `</video>`;
+		} else {
+			// Regular image
+			mediaHTML = `<img src="${src}" alt="${alt}">`;
+		}
+		
 		if (!modal) {
 			modal = document.createElement('div');
 			modal.className = 'spotlight-modal';
 			modal.innerHTML = `
 				<button class="spotlight-modal-close" aria-label="Close spotlight"></button>
-				<img src="${src}" alt="${alt}">
+				${mediaHTML}
 				${hasMultipleImages ? `
 					<div class="carousel-indicators">
 						<button class="carousel-button prev" aria-label="Previous image"></button>
@@ -314,7 +407,7 @@ class Carousel {
 			// Update existing modal content
 			modal.innerHTML = `
 				<button class="spotlight-modal-close" aria-label="Close spotlight"></button>
-				<img src="${src}" alt="${alt}">
+				${mediaHTML}
 				${hasMultipleImages ? `
 					<div class="carousel-indicators">
 						<button class="carousel-button prev" aria-label="Previous image"></button>
@@ -533,15 +626,10 @@ class Carousel {
 		indicators.forEach((indicator, index) => {
 			indicator.onclick = () => {
 				self.currentSpotlightIndex = index;
-				const targetImage = self.carouselImages[index];
-				if (targetImage) {
-					const modalImg = modal.querySelector('img');
-					if (modalImg) {
-						modalImg.src = targetImage.src;
-						modalImg.alt = targetImage.alt || `Image ${index + 1}`;
-					}
-					self.updateSpotlightIndicators();
-				}
+				// Need to rebuild the media content when switching
+				self.updateSpotlightContent(modal);
+				self.updateSpotlightIndicators();
+				
 				// Play small click sound
 				if (window.playSmallClickSound) {
 					window.playSmallClickSound();
@@ -595,9 +683,9 @@ class Carousel {
 			return;
 		}
 
-		const modalImg = document.querySelector('.spotlight-modal img');
-		if (!modalImg) {
-			console.log('[Carousel] navigateSpotlight: No modal image found');
+		const modal = document.querySelector('.spotlight-modal');
+		if (!modal) {
+			console.log('[Carousel] navigateSpotlight: No modal found');
 			return;
 		}
 
@@ -607,16 +695,52 @@ class Carousel {
 			? (this.currentSpotlightIndex + 1) % this.carouselImages.length
 			: (this.currentSpotlightIndex - 1 + this.carouselImages.length) % this.carouselImages.length;
 
-		const nextImage = this.carouselImages[this.currentSpotlightIndex];
-		if (nextImage) {
-			modalImg.src = nextImage.src;
-			modalImg.alt = nextImage.alt;
-			console.log('[Carousel] navigateSpotlight: Updated to index', this.currentSpotlightIndex);
-		} else {
-			console.error('[Carousel] navigateSpotlight: No image found at index', this.currentSpotlightIndex);
-		}
+		console.log('[Carousel] navigateSpotlight: New index:', this.currentSpotlightIndex);
 
+		// Update the spotlight content with new media
+		this.updateSpotlightContent(modal);
 		this.updateSpotlightIndicators();
+	}
+
+	updateSpotlightContent(modal) {
+		const currentMedia = this.carouselImages[this.currentSpotlightIndex];
+		if (!currentMedia || !modal) return;
+		
+		// Find the media container (img or video)
+		const existingMedia = modal.querySelector('img, video');
+		if (!existingMedia) return;
+		
+		let newMediaHTML = '';
+		
+		if (currentMedia.type === 'video') {
+			// Create video element
+			const videoElement = currentMedia.element;
+			newMediaHTML = `<video controls autoplay style="max-width: 100%; max-height: 90vh;">`;
+			
+			// Copy video sources
+			const sources = videoElement.querySelectorAll('source');
+			if (sources.length > 0) {
+				sources.forEach(source => {
+					newMediaHTML += `<source src="${source.src}" type="${source.type}">`;
+				});
+			} else if (videoElement.src) {
+				newMediaHTML += `<source src="${videoElement.src}">`;
+			}
+			
+			newMediaHTML += `</video>`;
+		} else {
+			// Regular image
+			newMediaHTML = `<img src="${currentMedia.src}" alt="${currentMedia.alt || `Slide ${this.currentSpotlightIndex + 1}`}">`;
+		}
+		
+		// Replace the media element
+		const tempDiv = document.createElement('div');
+		tempDiv.innerHTML = newMediaHTML;
+		const newMedia = tempDiv.firstChild;
+		
+		existingMedia.parentNode.replaceChild(newMedia, existingMedia);
+		
+		console.log('[Carousel] Updated spotlight content to:', currentMedia.type, 'at index', this.currentSpotlightIndex);
 	}
 
 	updateSpotlightIndicators() {
