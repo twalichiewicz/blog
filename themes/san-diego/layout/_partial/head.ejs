@@ -1,15 +1,119 @@
 <head>
+  <%
+  // Helper function to get page description
+  function getPageDescription() {
+    // For posts, use excerpt or custom description
+    if (page.layout === 'post' && page.excerpt) {
+      return page.excerpt.replace(/<[^>]*>/g, '').substring(0, 150).trim() + '...';
+    }
+    if (page.description) {
+      return page.description;
+    }
+    // Fallback descriptions by page type
+    if (page.layout === 'project_gallery') {
+      return page.byline || `Portfolio project at ${page.company} by Thomas Walichiewicz`;
+    }
+    if (page.layout === 'about') {
+      return 'Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.';
+    }
+    // Default site description
+    return config.description || 'Thomas Walichiewicz - Designer, Developer, Thinker';
+  }
+
+  // Helper function to get canonical URL
+  function getCanonicalUrl() {
+    if (page.canonical_path) {
+      return config.url + '/' + page.canonical_path;
+    }
+    if (page.path) {
+      return config.url + '/' + page.path;
+    }
+    return config.url;
+  }
+
+  // Get page-specific metadata
+  const pageTitle = page.title || config.title;
+  const siteTitle = config.title;
+  const pageDescription = getPageDescription();
+  const canonicalUrl = getCanonicalUrl();
+  const ogType = page.layout === 'post' || page.layout === 'project_gallery' ? 'article' : 'website';
+  
+  // Determine the appropriate image
+  let ogImage = config.url + '/favicon.png';
+  if (page.cover_image) {
+    // Handle relative paths for cover images
+    if (page.cover_image.startsWith('/')) {
+      ogImage = config.url + page.cover_image;
+    } else if (!page.cover_image.startsWith('http')) {
+      ogImage = config.url + '/' + page.path + page.cover_image;
+    } else {
+      ogImage = page.cover_image;
+    }
+  }
+  %>
+  
+  <!-- Primary Meta Tags -->
   <title><% if (page.layout === 'blog') { %>Newest at the Top - Design in Everything<% } else if (page.layout === 'project_gallery') { %><%= page.title %> | <%= page.company %> - Design in Everything<% } else if (page.layout === 'about') { %>About - Design in Everything<% } else if (page.title && page.layout === 'post') { %><%= page.title %> | Design in Everything<% } else { %>Design in Everything - by Thomas Walichiewicz<% } %></title>
-  <link rel="icon" type="image/png" href="<%- url_for('favicon.png') %>">
-  <link rel="apple-touch-icon" href="<%- url_for('favicon.png') %>">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<%= pageDescription %>">
+  <meta name="author" content="<%= config.author || 'Thomas Walichiewicz' %>">
+  <% if (config.keywords && config.keywords.length > 0) { %>
+  <meta name="keywords" content="<%= config.keywords.join(', ') %>">
+  <% } %>
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="<%= canonicalUrl %>">
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/png" href="<%- url_for('favicon.png') %>">
+  <link rel="apple-touch-icon" href="<%- url_for('favicon.png') %>">
+  
+  <!-- Theme and Color -->
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
-  <meta property="og:image" content="<%- url_for('favicon.png') %>">
-  <meta name="twitter:image" content="<%- url_for('favicon.png') %>">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="<%= ogType %>">
+  <meta property="og:url" content="<%= canonicalUrl %>">
+  <meta property="og:title" content="<%= pageTitle %>">
+  <meta property="og:description" content="<%= pageDescription %>">
+  <meta property="og:image" content="<%= ogImage %>">
+  <meta property="og:site_name" content="<%= siteTitle %>">
+  <% if (page.layout === 'post' || page.layout === 'project_gallery') { %>
+  <meta property="article:author" content="<%= config.author || 'Thomas Walichiewicz' %>">
+  <meta property="article:published_time" content="<%= page.date ? new Date(page.date).toISOString() : '' %>">
+  <% if (page.updated) { %>
+  <meta property="article:modified_time" content="<%= new Date(page.updated).toISOString() %>">
+  <% } %>
+  <% } %>
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="<%= canonicalUrl %>">
+  <meta name="twitter:title" content="<%= pageTitle %>">
+  <meta name="twitter:description" content="<%= pageDescription %>">
+  <meta name="twitter:image" content="<%= ogImage %>">
+  <% if (config.twitter_username) { %>
+  <meta name="twitter:creator" content="@<%= config.twitter_username %>">
+  <% } %>
+  
+  <!-- Security Headers (Meta Tag Equivalents) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+  
+  <!-- Robots Meta -->
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="<%- url_for('styles/styles.css') %>">
+  
+  <!-- Project-specific Scripts -->
   <% if (page.layout === 'project') { %>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
@@ -23,6 +127,8 @@
     });
   </script>
   <% } %>
+  
+  <!-- Theme Initialization -->
   <script>
     if (typeof window.themeInitialized === 'undefined') {
       const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -30,8 +136,6 @@
       window.themeInitialized = true;
     }
   </script>
-  <!-- Core Libraries -->
-  <!-- <script src="<%- url_for('js/lib/moment.min.js') %>"></script> -->
 
   <!-- Import Map -->
   <script type="importmap">
@@ -45,6 +149,7 @@
   }
   </script>
 
+  <!-- Core Scripts -->
   <script type="module" src="<%- url_for('js/main.js') %>"></script>
   <script type="module" src="<%- url_for('js/components/HomeVisuals.js') %>"></script>
   <script type="module" src="<%- url_for('js/mobile-tabs.js') %>"></script>
@@ -54,4 +159,38 @@
   <script src="<%- url_for('js/project-summary.js') %>"></script>
   <script src="<%- url_for('js/scroll.js') %>"></script>
   <script src="<%- url_for('js/sound-effects.js') %>"></script>
+  
+  <!-- Structured Data -->
+  <% if (page.layout === 'post' || page.layout === 'project_gallery') { %>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "<%= pageTitle %>",
+    "description": "<%= pageDescription %>",
+    "image": "<%= ogImage %>",
+    "author": {
+      "@type": "Person",
+      "name": "<%= config.author || 'Thomas Walichiewicz' %>"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "<%= config.author || 'Thomas Walichiewicz' %>"
+    },
+    "datePublished": "<%= page.date ? new Date(page.date).toISOString() : '' %>",
+    <% if (page.updated) { %>
+    "dateModified": "<%= new Date(page.updated).toISOString() %>",
+    <% } %>
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "<%= canonicalUrl %>"
+    }
+  }
+  </script>
+  <% } %>
+  
+  <!-- RSS Feed -->
+  <% if (config.feed && config.feed.path) { %>
+  <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for(config.feed.path) %>">
+  <% } %>
 </head>

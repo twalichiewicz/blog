@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- partial('_partial/head', { page: { title: '404 - Page Not Found', layout: '404' } }) %>
+  <style>
+    .error-404 {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: var(--background-color);
+    }
+    
+    .error-404-content {
+      text-align: center;
+      max-width: 600px;
+    }
+    
+    .error-404-emoji {
+      font-size: 80px;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .error-404-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+    
+    .error-404-subtitle {
+      font-size: 1.5rem;
+      color: var(--text-color-secondary);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    
+    .error-404-text {
+      font-size: 1.1rem;
+      color: var(--text-color-secondary);
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+    
+    .error-404-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .error-404-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--text-color);
+      color: var(--background-color);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .error-404-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .error-404-button-secondary {
+      background: transparent;
+      color: var(--text-color);
+      border: 2px solid var(--text-color);
+    }
+    
+    .error-404-search {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .error-404-search-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--background-color);
+      color: var(--text-color);
+      font-size: 1rem;
+    }
+    
+    .error-404-search-input:focus {
+      outline: none;
+      border-color: var(--text-color);
+    }
+    
+    .error-404-search-button {
+      padding: 0.75rem 1.5rem;
+      background: var(--text-color);
+      color: var(--background-color);
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .error-404-search-button:hover {
+      transform: translateY(-2px);
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+    
+    /* Dark mode adjustments */
+    [data-theme="dark"] .error-404 {
+      background: #000;
+    }
+    
+    [data-theme="dark"] .error-404-button {
+      background: #fff;
+      color: #000;
+    }
+    
+    [data-theme="dark"] .error-404-button-secondary {
+      background: transparent;
+      color: #fff;
+      border-color: #fff;
+    }
+    
+    @media (max-width: 480px) {
+      .error-404-title {
+        font-size: 2rem;
+      }
+      
+      .error-404-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .error-404-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .error-404-button {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="error-404">
+    <div class="error-404-content">
+      <div class="error-404-emoji">🔍</div>
+      <h1 class="error-404-title">404</h1>
+      <h2 class="error-404-subtitle">Page Not Found</h2>
+      <p class="error-404-text">
+        Looks like this page went on a design sprint and never came back. 
+        It might have been archived, moved, or perhaps it's still in the wireframe stage.
+      </p>
+      
+      <div class="error-404-actions">
+        <a href="/" class="error-404-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Back to Home
+        </a>
+        <a href="/?tab=portfolio" class="error-404-button error-404-button-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          View Portfolio
+        </a>
+      </div>
+      
+      <form class="error-404-search" onsubmit="handleSearch(event)">
+        <input 
+          type="text" 
+          class="error-404-search-input" 
+          placeholder="Search for something..." 
+          id="error-search-input"
+        >
+        <button type="submit" class="error-404-search-button">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function handleSearch(event) {
+      event.preventDefault();
+      const searchTerm = document.getElementById('error-search-input').value.trim();
+      if (searchTerm) {
+        // Navigate to home page with search term as URL parameter
+        window.location.href = '/?search=' + encodeURIComponent(searchTerm);
+      }
+    }
+    
+    // Add some personality with random messages
+    const messages = [
+      "Looks like this page went on a design sprint and never came back.",
+      "This page is in stealth mode. Even we can't find it.",
+      "404: The pixels you're looking for have been reallocated.",
+      "This page is experiencing an existential crisis.",
+      "Oops! This page is still in the ideation phase."
+    ];
+    
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    document.querySelector('.error-404-text').textContent = randomMessage;
+  </script>
+</body>
+</html>

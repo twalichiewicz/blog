@@ -1,0 +1,154 @@
+# robots.txt for https://twalichiewicz.github.io/blog/
+# Thomas Walichiewicz - Design Portfolio & Blog
+
+# Sitemap location
+Sitemap: https://twalichiewicz.github.io/blog/sitemap.xml
+
+# Default crawler settings
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /source/
+Disallow: /themes/san-diego/source/js/lib/
+Crawl-delay: 1
+
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# AI Crawler Restrictions
+# These bots are blocked from scraping content for AI training purposes
+
+# OpenAI GPT
+User-agent: GPTBot
+Disallow: /
+
+# OpenAI ChatGPT Plugin
+User-agent: ChatGPT-User
+Disallow: /
+
+# Common Crawl (used by many AI companies)
+User-agent: CCBot
+Disallow: /
+
+# Facebook/Meta AI
+User-agent: FacebookBot
+Allow: /
+Disallow: /api/
+
+# Anthropic Claude
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+# Google Bard/Gemini
+User-agent: Google-Extended
+Disallow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Disallow: /
+
+# Amazon Alexa
+User-agent: Amazonbot
+Disallow: /
+
+# Apple AI/Siri
+User-agent: Applebot-Extended
+Disallow: /
+
+# ByteDance (TikTok parent company)
+User-agent: Bytespider
+Disallow: /
+
+# Diffbot
+User-agent: Diffbot
+Disallow: /
+
+# DataForSeo
+User-agent: DataForSeoBot
+Disallow: /
+
+# AHrefs (SEO crawler that may be used for AI)
+User-agent: AhrefsBot
+Disallow: /
+
+# SemRush (SEO crawler that may be used for AI)
+User-agent: SemrushBot
+Disallow: /
+
+# Neeva AI
+User-agent: Neevabot
+Disallow: /
+
+# YouBot (You.com)
+User-agent: YouBot
+Disallow: /
+
+# Writesonic
+User-agent: WriteSonic
+Disallow: /
+
+# Character.AI
+User-agent: Character-AI
+Disallow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Disallow: /
+
+# Generic AI crawlers
+User-agent: AI2Bot
+Disallow: /
+
+User-agent: ai-bot
+Disallow: /
+
+User-agent: AIBot
+Disallow: /
+
+# Archive.org is allowed (preservation is important)
+User-agent: ia_archiver
+Allow: /
+
+# Social media preview crawlers are allowed
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+# Development and monitoring tools
+User-agent: Screaming Frog SEO Spider
+Allow: /
+Crawl-delay: 2
+
+# Block bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SlySearch
+Disallow: /
+
+User-agent: proximic
+Disallow: /
