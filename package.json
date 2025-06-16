@@ -22,7 +22,7 @@
     "@hapi/hoek": "^11.0.4",
     "ajv": "^8.17.1",
     "braces": "^3.0.3",
-    "chart.js": "^4.4.8",
+    "chart.js": "^4.5.0",
     "hawk": "^9.0.2",
     "hexo": "^7.3.0",
     "hexo-deployer-git": "^4.0.0",
