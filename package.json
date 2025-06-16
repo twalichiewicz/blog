@@ -62,7 +62,7 @@
   },
   "notes": "All vulnerabilities have been addressed by removing hexo-admin and hexo-pdf, and replacing hoek with @hapi/hoek.",
   "devDependencies": {
-    "glob": "^10.3.10",
+    "glob": "^11.0.3",
     "gray-matter": "^4.0.3",
     "sharp": "^0.33.2",
     "stylelint": "^16.20.0",
