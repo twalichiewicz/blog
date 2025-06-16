@@ -3,6 +3,7 @@ title: How creative mediums find their voice
 excerpt: Understanding LLM adoption through the lens of medium evolution
 layout: blog_post
 long: true
+draft: true
 tags:
   - blog
 cover_image:
