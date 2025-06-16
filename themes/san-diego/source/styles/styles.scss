@@ -43,6 +43,8 @@
 @use 'loading';
 @use 'code-highlighting';
 @use 'emoji';
+@use 'interactive-quote';
+@use 'references';
 
 // Theme modes - importing the index file which manages all theme mode styles
 @use 'theme-modes/index' as theme-modes;

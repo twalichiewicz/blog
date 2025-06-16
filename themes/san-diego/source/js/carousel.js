@@ -1,6 +1,24 @@
 class Carousel {
 	static activeSpotlightCarousel = null; // Static property to track active carousel
 
+	updateCarouselImages() {
+		// Update the carousel images array - this can be called to refresh the image list
+		this.carouselImages = Array.from(this.carousel.querySelectorAll('.carousel-slide img'));
+		
+		// For project galleries, also check if images might be lazy-loaded or not yet rendered
+		if (this.carousel.closest('.project-gallery-section')) {
+			console.log('[Carousel] Updating images for project gallery');
+			
+			// If no images found, check if there are video posters we should consider
+			if (this.carouselImages.length === 0) {
+				const videos = this.carousel.querySelectorAll('.carousel-slide video[poster]');
+				console.log('[Carousel] No images found, checking for video posters:', videos.length);
+			}
+		}
+		
+		return this.carouselImages;
+	}
+
 	constructor(element) {
 		console.log('[Carousel] Constructor called for:', element);
 		this.carousel = element;
@@ -17,7 +35,17 @@ class Carousel {
 		this.activeMedia = null;
 
 		this.currentSpotlightIndex = 0;
-		this.carouselImages = Array.from(this.carousel.querySelectorAll('img')); // Store images for this specific carousel
+		// Store images for this specific carousel - only from carousel slides
+		this.updateCarouselImages();
+		console.log('[Carousel] Found', this.carouselImages.length, 'images in carousel slides');
+		
+		// Debug: Log details about each image found
+		if (this.carouselImages.length > 0) {
+			console.log('[Carousel] Image details:');
+			this.carouselImages.forEach((img, index) => {
+				console.log(`  ${index}: src="${img.src}", alt="${img.alt || 'no alt'}"`);
+			});
+		}
 
 		// Add touch handling properties for both carousel and spotlight
 		this.touchStartX = 0;
@@ -41,6 +69,11 @@ class Carousel {
 
 	init() {
 		console.log('[Carousel init()] Called for:', this.carousel);
+		
+		// Refresh carousel images in case they weren't loaded during construction
+		this.updateCarouselImages();
+		console.log('[Carousel init()] Refreshed image count:', this.carouselImages.length);
+		
 		// Store bound versions of handlers for easy removal
 		this.boundPrev = this.prev.bind(this);
 		this.boundNext = this.next.bind(this);
@@ -130,11 +163,14 @@ class Carousel {
 		}
 
 		// Add click handlers for images
-		this.slides.forEach(slide => {
+		this.slides.forEach((slide, slideIndex) => {
 			const img = slide.querySelector('img');
 			if (img) {
 				img.style.cursor = 'nesw-resize';
-				const handler = () => this.openSpotlight(img.src, img.alt);
+				// Find the index of this image in carouselImages array
+				const imgIndex = this.carouselImages.findIndex(carouselImg => carouselImg.src === img.src);
+				console.log(`[Carousel] Setting up click handler for slide ${slideIndex}, img src: ${img.src}, found at index: ${imgIndex}`);
+				const handler = () => this.openSpotlight(img.src, img.alt, imgIndex);
 				this.imageClickHandlers.set(img, handler);
 				img.addEventListener('click', handler);
 			}
@@ -216,10 +252,45 @@ class Carousel {
 		this.goToSlide(prevIndex);
 	}
 
-	openSpotlight(src, alt) {
+	openSpotlight(src, alt, imageIndex = -1) {
+		// Refresh carousel images one more time to ensure we have all loaded images
+		this.updateCarouselImages();
+		
+		console.log('[Carousel] openSpotlight called. src:', src, 'imageIndex:', imageIndex, 'Total images:', this.carouselImages.length);
+		
+		// Debug: Check if this is a project carousel
+		const isProjectCarousel = this.carousel.closest('.project-gallery-section') !== null;
+		console.log('[Carousel] Is project carousel:', isProjectCarousel);
+		
+		// Debug: Log all carousel images
+		if (this.carouselImages.length > 0) {
+			console.log('[Carousel] All carousel images:');
+			this.carouselImages.forEach((img, idx) => {
+				console.log(`  ${idx}: ${img.src}`);
+			});
+		} else {
+			console.log('[Carousel] WARNING: No images found in carouselImages array!');
+			// Try one more time with a different selector as fallback
+			const allImages = Array.from(this.carousel.querySelectorAll('img'));
+			console.log('[Carousel] Fallback: Found', allImages.length, 'total images in carousel');
+		}
+		
 		Carousel.activeSpotlightCarousel = this;
+		
+		// Set the current spotlight index to the clicked image's index
+		if (imageIndex >= 0 && imageIndex < this.carouselImages.length) {
+			this.currentSpotlightIndex = imageIndex;
+			console.log('[Carousel] Using provided imageIndex:', imageIndex);
+		} else {
+			// Fallback: try to find the image index by src
+			const foundIndex = this.carouselImages.findIndex(img => img.src === src);
+			this.currentSpotlightIndex = foundIndex >= 0 ? foundIndex : 0;
+			console.log('[Carousel] Using found index:', this.currentSpotlightIndex, 'for src:', src);
+		}
+		
 		let modal = document.querySelector('.spotlight-modal');
 		const hasMultipleImages = this.carouselImages.length > 1;
+		console.log('[Carousel] Has multiple images:', hasMultipleImages);
 
 		if (!modal) {
 			modal = document.createElement('div');
@@ -400,15 +471,23 @@ class Carousel {
 	}
 
 	setupImageHandlers() {
+		// Only process images that are not already handled by the carousel slide click handlers
 		const images = this.carousel.querySelectorAll('img');
 		images.forEach(img => {
+			// Skip if this image is already in a carousel slide (handled in init())
+			if (img.closest('.carousel-slide')) {
+				return;
+			}
+			
 			// Check if this is a large content image
 			if (img.naturalWidth > 800 || img.naturalHeight > 800) {
 				img.classList.add('large-image');
 
 				// Add click handler for zoom
 				img.addEventListener('click', () => {
-					this.openSpotlight(img.src, img.alt);
+					// Find the index of this image in carouselImages array
+					const imgIndex = this.carouselImages.findIndex(carouselImg => carouselImg.src === img.src);
+					this.openSpotlight(img.src, img.alt, imgIndex);
 				});
 				img.style.cursor = 'nesw-resize';
 			}
@@ -448,6 +527,27 @@ class Carousel {
 				}
 			};
 		}
+
+		// Add click handlers for indicators
+		const indicators = modal.querySelectorAll('.carousel-indicators .indicator');
+		indicators.forEach((indicator, index) => {
+			indicator.onclick = () => {
+				self.currentSpotlightIndex = index;
+				const targetImage = self.carouselImages[index];
+				if (targetImage) {
+					const modalImg = modal.querySelector('img');
+					if (modalImg) {
+						modalImg.src = targetImage.src;
+						modalImg.alt = targetImage.alt || `Image ${index + 1}`;
+					}
+					self.updateSpotlightIndicators();
+				}
+				// Play small click sound
+				if (window.playSmallClickSound) {
+					window.playSmallClickSound();
+				}
+			};
+		});
 
 		// Close on background click
 		modal.addEventListener('click', (e) => {
@@ -490,18 +590,31 @@ class Carousel {
 
 	navigateSpotlight(direction) {
 		// Only navigate if this carousel owns the spotlight
-		if (Carousel.activeSpotlightCarousel !== this) return;
+		if (Carousel.activeSpotlightCarousel !== this) {
+			console.log('[Carousel] navigateSpotlight: Not the active carousel');
+			return;
+		}
 
 		const modalImg = document.querySelector('.spotlight-modal img');
-		if (!modalImg) return;
+		if (!modalImg) {
+			console.log('[Carousel] navigateSpotlight: No modal image found');
+			return;
+		}
+
+		console.log('[Carousel] navigateSpotlight:', direction, 'Current index:', this.currentSpotlightIndex, 'Total images:', this.carouselImages.length);
 
 		this.currentSpotlightIndex = direction === 'next'
 			? (this.currentSpotlightIndex + 1) % this.carouselImages.length
 			: (this.currentSpotlightIndex - 1 + this.carouselImages.length) % this.carouselImages.length;
 
 		const nextImage = this.carouselImages[this.currentSpotlightIndex];
-		modalImg.src = nextImage.src;
-		modalImg.alt = nextImage.alt;
+		if (nextImage) {
+			modalImg.src = nextImage.src;
+			modalImg.alt = nextImage.alt;
+			console.log('[Carousel] navigateSpotlight: Updated to index', this.currentSpotlightIndex);
+		} else {
+			console.error('[Carousel] navigateSpotlight: No image found at index', this.currentSpotlightIndex);
+		}
 
 		this.updateSpotlightIndicators();
 	}

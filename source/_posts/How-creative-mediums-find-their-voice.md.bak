@@ -344,7 +344,7 @@ credits:
 
 When photography was invented in 1839, early practitioners pointed their cameras at the same subjects painters had captured for centuries—formal portraits, still lifes, pastoral landscapes. They used soft focus and hand-tinting to make photographs look like paintings. It took nearly 50 years before photographers like Alfred Stieglitz proclaimed that it was "high time that the stupidity and sham in pictorial photography be struck a solarplexus blow." The medium needed to find its own voice.
 
-This pattern—new creative mediums initially imitating their predecessors before discovering unique capabilities—appears throughout history. Cinema spent its first decades as "filmed theater" with static cameras. Early web design mimicked print layouts. Today, we're witnessing the same phenomenon with Large Language Models in design, where <span class="stat-container"><span class="stat-number" data-value="89">89%</span> of designers report using AI</span> in their workflows¹, yet most applications simply replicate existing creative processes. Understanding this historical pattern offers crucial insights into where AI-assisted design might evolve.
+This pattern—new creative mediums initially imitating their predecessors before discovering unique capabilities—appears throughout history. Cinema spent its first decades as "filmed theater" with static cameras. Early web design mimicked print layouts. Today, we're witnessing the same phenomenon with Large Language Models in design, where <span class="stat-container"><span class="stat-number" data-value="89">89%</span> of designers report using AI</span> in their workflows¹³, yet most applications simply replicate existing creative processes. Understanding this historical pattern offers crucial insights into where AI-assisted design might evolve.
 
 ## The predictable arc of creative medium evolution
 
@@ -470,14 +470,14 @@ Consider the parallels: responsive design succeeded not by making better magazin
 
 ## Where LLMs stand today: The awkward adolescence of AI-assisted design
 
-Current data reveals we're squarely in Phase 1 of LLM evolution in design. While adoption is nearly universal—<span class="stat-container"><span class="stat-number" data-value="78">78%</span> of designers report AI significantly enhances work efficiency</span>¹—the applications remain largely imitative:
+Current data reveals we're squarely in Phase 1 of LLM evolution in design. While adoption is nearly universal—<span class="stat-container"><span class="stat-number" data-value="78">78%</span> of designers report AI significantly enhances work efficiency</span>¹³—the applications remain largely imitative:
 
 - Using ChatGPT for copywriting tasks humans previously handled
 - Generating mood boards with Midjourney instead of searching stock photos  
 - Creating "first drafts" that require extensive human refinement
 - Treating AI as a faster version of existing tools rather than something fundamentally new
 
-The numbers tell a revealing story: <span class="stat-container"><span class="stat-number" data-value="84">84%</span> of designers find AI helpful in the exploration phase</span>, but only <span class="stat-container"><span class="stat-number" data-value="39">39%</span> find it useful in final delivery</span>¹. This mirrors early photography's struggle—the tools are powerful, but we're using them to replicate familiar workflows rather than discovering unique capabilities.
+The numbers tell a revealing story: <span class="stat-container"><span class="stat-number" data-value="84">84%</span> of designers find AI helpful in the exploration phase</span>, but only <span class="stat-container"><span class="stat-number" data-value="39">39%</span> find it useful in final delivery</span>¹³. This mirrors early photography's struggle—the tools are powerful, but we're using them to replicate familiar workflows rather than discovering unique capabilities.
 
 More telling is the emergence of "AI feature fatigue." Research shows only one-third of builders are proud of their shipped AI features, with 72% saying AI plays a minor or non-essential role in their products¹⁵. We're adding AI because we can, not because we've discovered what it uniquely enables. We're squarely in Phase 1, only beginning to explore the capabilities we discovered.
 
@@ -722,7 +722,7 @@ This timeline aligns with Manovich's principles of new media evolution. We're cu
 
 ## What this means for designers navigating the transition
 
-Understanding medium evolution offers practical insights for today's designers. First, current frustrations with AI tools aren't failures—they're predictable growing pains. When <span class="stat-container"><span class="stat-number" data-value="96">96%</span> of designers report being self-taught in AI skills</span>¹, we're collectively fumbling toward the medium's potential without established best practices.
+Understanding medium evolution offers practical insights for today's designers. First, current frustrations with AI tools aren't failures—they're predictable growing pains. When <span class="stat-container"><span class="stat-number" data-value="96">96%</span> of designers report being self-taught in AI skills</span>¹³, we're collectively fumbling toward the medium's potential without established best practices.
 
 Second, the most valuable explorations likely won't come from making AI better at existing tasks but from discovering what it uniquely enables. Photography found its voice not by better imitating paintings but by embracing infinite depth of field and decisive moments. Cinema discovered montage, not better filmed theater. The web found responsive design, not better print layouts.
 
@@ -746,7 +746,6 @@ But history also suggests inevitability. Every major creative medium eventually 
 
 <div class="references-list">
 <ol>
-<li>Figma. (2024). "State of Design & AI Report 2024." <em>Figma Research</em>.</li>
 <li>Marcotte, E. (2010). "Responsive Web Design." <em>A List Apart</em>, Issue 306.</li>
 <li>Lomas, A., et al. (2024). "DesignAID: Using Generative AI and Semantic Diversity for Design Inspiration." <em>MIT Sloan School of Management</em>.</li>
 <li>Ibid.</li>
@@ -759,6 +758,7 @@ But history also suggests inevitability. Every major creative medium eventually 
 <li>Moore, G. A. (2014). <em>Crossing the Chasm</em> (3rd ed.). HarperBusiness.</li>
 <li>Bolter, J. D., & Grusin, R. (1999). <em>Remediation: Understanding New Media</em>. MIT Press.</li>
 <li>Manovich, L. (2001). <em>The Language of New Media</em>. MIT Press.</li>
+<li>Figma. (2024). "State of Design & AI Report 2024." <em>Figma Research</em>.</li>
 <li>Martindale, C. (1990). <em>The Clockwork Muse: The Predictability of Artistic Change</em>. Basic Books.</li>
 <li>Sequoia Capital. (2024). "The State of AI in Product Development." <em>Sequoia Insights</em>.</li>
 </ol>
