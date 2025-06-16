@@ -1,0 +1,113 @@
+// References Component
+// Academic-style references with monospaced typography
+
+.references-section {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color, #e0e0e0);
+  
+  @media (prefers-color-scheme: dark) {
+    border-top-color: var(--border-color-dark, #333);
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+}
+
+.references-list {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--text-secondary, #666);
+  
+  @media (prefers-color-scheme: dark) {
+    color: var(--text-secondary-dark, #999);
+  }
+  
+  // Ordered list styling
+  ol {
+    padding-left: 0;
+    margin: 0;
+    list-style-position: inside;
+    
+    li {
+      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      font-size: 9px;
+      position: relative;
+      list-style-position: outside;
+      margin-left: 1rem;
+      
+      // Reference number styling
+      &::marker {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+    }
+  }
+  
+  // Italic titles
+  em {
+    font-style: italic;
+    opacity: 0.9;
+  }
+  
+  // Links in references
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 2px;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      color: var(--link-color, hsl(15deg 70% 40%));
+      text-decoration-style: solid;
+    }
+  }
+}
+
+// Inline superscript citations
+sup {
+  font-size: 0.75em;
+  vertical-align: super;
+  line-height: 0;
+  position: relative;
+  top: -0.5em;
+  
+  a {
+    text-decoration: none;
+    color: var(--link-color, hsl(15deg 70% 40%));
+    font-weight: 500;
+    padding: 0 0.1em;
+    
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 1px;
+    }
+  }
+}
+
+// Alternative minimal style
+.references-list--minimal {
+  font-size: 8px;
+  color: var(--text-tertiary, #999);
+  
+  ol li {
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .references-list {
+    font-size: 8px;
+    
+    ol {
+      padding-left: 1.5rem;
+    }
+  }
+}

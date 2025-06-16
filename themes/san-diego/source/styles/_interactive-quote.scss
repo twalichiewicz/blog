@@ -1,0 +1,248 @@
+// ============================================
+// Interactive Quote Component
+// A museum-style typographic quote component
+// ============================================
+
+// Design tokens - single source of truth
+$quote-transitions: (
+  duration: 0.4s,
+  easing: cubic-bezier(0.4, 0, 0.2, 1)
+);
+
+// Mixins for DRY dark mode
+@mixin quote-light-theme {
+  --quote-bg: #000;
+  --quote-text: #fff;
+  --quote-accent: hsl(43deg 70% 50%);
+  --quote-hover-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+@mixin quote-dark-theme {
+  --quote-bg: #1a1a1a;
+  --quote-text: #fff;
+  --quote-accent: hsl(40deg 90% 60%);
+  --quote-hover-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+// Base component
+.interactive-quote {
+  // CSS Custom Properties with defaults
+  @include quote-light-theme;
+  
+  // Core styles
+  position: relative;
+  padding: 4rem 3rem;
+  margin: 4rem -1rem;
+  background: var(--quote-bg);
+  color: var(--quote-text);
+  overflow: hidden;
+  
+  // Remove specificity issues by containing styles
+  isolation: isolate;
+  
+  // Accessibility
+  &:focus-visible {
+    outline: 3px solid var(--quote-accent);
+    outline-offset: 3px;
+  }
+  
+  // Transitions - respecting user preferences
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 
+      transform map-get($quote-transitions, duration) map-get($quote-transitions, easing),
+      box-shadow map-get($quote-transitions, duration) map-get($quote-transitions, easing);
+  }
+  
+  // Responsive spacing
+  @media (min-width: 768px) {
+    margin: 5rem -2rem;
+    padding: 5rem 4rem;
+  }
+  
+  @media (min-width: 1024px) {
+    margin: 6rem -3rem;
+    padding: 6rem 5rem;
+  }
+  
+  // Accent line
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--quote-accent);
+    transition: inherit;
+  }
+  
+  // Hover state
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: var(--quote-hover-shadow);
+      
+      &::before {
+        width: 10px;
+      }
+      
+      .quote-text {
+        transform: translateX(6px);
+      }
+    }
+  }
+  
+  // Keyboard focus state - same as hover for consistency
+  &.keyboard-focus {
+    transform: scale(1.02);
+    box-shadow: var(--quote-hover-shadow);
+    
+    &::before {
+      width: 10px;
+    }
+    
+    .quote-text {
+      transform: translateX(6px);
+    }
+  }
+}
+
+// Quote text - no more !important needed
+.interactive-quote .quote-text {
+  margin: 0;
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  
+  // Smooth text rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform map-get($quote-transitions, duration) map-get($quote-transitions, easing);
+  }
+}
+
+// Citation
+.interactive-quote .quote-citation {
+  display: block;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: right;
+  opacity: 0.7;
+  
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 0.3s ease;
+  }
+}
+
+.interactive-quote:hover .quote-citation {
+  opacity: 0.9;
+}
+
+// Dark mode - DRY approach
+[data-theme="dark"] .interactive-quote,
+.theme-dark .interactive-quote {
+  @include quote-dark-theme;
+}
+
+@media (prefers-color-scheme: dark) {
+  .interactive-quote {
+    @include quote-dark-theme;
+  }
+}
+
+// ============================================
+// Variants - using data attributes for clarity
+// ============================================
+
+// Minimal variant
+.interactive-quote[data-variant="minimal"] {
+  background: transparent;
+  color: var(--text-primary);
+  border: 2px solid var(--quote-accent);
+  
+  &::before {
+    display: none;
+  }
+  
+  @media (hover: hover) {
+    &:hover {
+      background: var(--quote-accent);
+      color: var(--quote-bg);
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+// Centered variant
+.interactive-quote[data-variant="centered"] {
+  text-align: center;
+  
+  &::before {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    bottom: auto;
+    width: 60px;
+    height: 4px;
+  }
+  
+  .quote-text {
+    text-align: center;
+  }
+  
+  .quote-citation {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+}
+
+// Decorated variant (can be combined with others)
+.interactive-quote[data-decorated="true"] {
+  &::after {
+    content: '"';
+    position: absolute;
+    right: 2rem;
+    bottom: 1rem;
+    font-size: 10rem;
+    font-weight: 900;
+    line-height: 1;
+    opacity: 0.1;
+    font-family: Georgia, serif;
+    pointer-events: none;
+    color: var(--quote-text);
+  }
+}
+
+// Minimal + Centered combination
+.interactive-quote[data-variant="minimal"][data-variant="centered"] {
+  border-width: 2px 0;
+  border-radius: 0;
+}
+
+// ============================================
+// Animation states
+// ============================================
+
+.interactive-quote.fade-in-up {
+  @media (prefers-reduced-motion: no-preference) {
+    opacity: 0;
+    transform: translateY(20px);
+    
+    &.in-view {
+      opacity: 1;
+      transform: translateY(0);
+      transition: 
+        opacity 0.8s map-get($quote-transitions, easing),
+        transform 0.8s map-get($quote-transitions, easing);
+    }
+  }
+}

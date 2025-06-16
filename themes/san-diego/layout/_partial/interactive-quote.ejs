@@ -1,0 +1,140 @@
+<%
+/**
+ * Interactive Quote Component
+ * 
+ * A reusable, accessible quote component with modern museum-style typography
+ * 
+ * Parameters:
+ * - text (required): The quote text
+ * - author (optional): The author/citation
+ * - year (optional): Year to append to citation
+ * - variant (optional): 'minimal' | 'centered' - Style variant
+ * - decorated (optional): Add decorative quote mark (boolean)
+ * - animate (optional): Add fade-in animation (boolean, default: true)
+ * - id (optional): Unique ID for accessibility
+ * - lang (optional): Language code for the quote
+ */
+
+// Error boundary and parameter validation
+try {
+  // Ensure locals exists
+  if (typeof locals === 'undefined') {
+    locals = {};
+  }
+
+  // Extract and validate parameters
+  const quoteText = (locals.text || '').trim();
+  const quoteAuthor = (locals.author || '').trim();
+  const quoteYear = (locals.year || '').toString().trim();
+  const variant = locals.variant || null;
+  const decorated = Boolean(locals.decorated);
+  const animate = locals.animate !== false;
+  const quoteId = locals.id || 'quote-' + Math.random().toString(36).substr(2, 9);
+  const quoteLang = locals.lang || null;
+
+  // Don't render if no text
+  if (!quoteText) {
+    throw new Error('Interactive quote requires text content');
+  }
+
+  // Build citation
+  let citation = '';
+  if (quoteAuthor) {
+    citation = '— ' + quoteAuthor;
+    if (quoteYear) {
+      citation += ', ' + quoteYear;
+    }
+  }
+
+  // Build data attributes
+  const dataAttrs = [];
+  if (variant) {
+    dataAttrs.push(`data-variant="${variant}"`);
+  }
+  if (decorated) {
+    dataAttrs.push('data-decorated="true"');
+  }
+
+  // Build class list
+  const classList = ['interactive-quote'];
+  if (animate) {
+    classList.push('fade-in-up');
+  }
+
+  // Language attribute
+  const langAttr = quoteLang ? `lang="${quoteLang}"` : '';
+%>
+
+<figure 
+  class="<%= classList.join(' ') %>"
+  <%= dataAttrs.join(' ') %>
+  role="blockquote"
+  aria-labelledby="<%= quoteId %>-text"
+  <% if (citation) { %>aria-describedby="<%= quoteId %>-citation"<% } %>
+  tabindex="0"
+>
+  <blockquote 
+    id="<%= quoteId %>-text" 
+    class="quote-text"
+    <%= langAttr %>
+  >
+    <%= quoteText %>
+  </blockquote>
+  
+  <% if (citation) { %>
+  <figcaption 
+    id="<%= quoteId %>-citation" 
+    class="quote-citation"
+  >
+    <cite><%= citation %></cite>
+  </figcaption>
+  <% } %>
+  
+  <%# Screen reader only context %>
+  <span class="sr-only">End of quote</span>
+</figure>
+
+<% } catch (error) { %>
+  <%# Error fallback - render basic quote %>
+  <blockquote class="interactive-quote-fallback">
+    <% if (locals && locals.text) { %>
+      <p><%= locals.text %></p>
+      <% if (locals.author) { %>
+        <cite>— <%= locals.author %><%= locals.year ? ', ' + locals.year : '' %></cite>
+      <% } %>
+    <% } else { %>
+      <p>[Quote component error: <%= error.message %>]</p>
+    <% } %>
+  </blockquote>
+<% } %>
+
+<style>
+/* Fallback styles for error state */
+.interactive-quote-fallback {
+  margin: 2rem 0;
+  padding: 2rem;
+  border-left: 4px solid #ccc;
+  font-style: italic;
+}
+
+.interactive-quote-fallback cite {
+  display: block;
+  margin-top: 1rem;
+  font-style: normal;
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>
