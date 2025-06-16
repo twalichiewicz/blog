@@ -107,6 +107,35 @@ hexo new portfolio-post "Project Name"
 - Link posts with `short: true` are rendered inline on the homepage
 - The script handles both mobile and desktop scrolling contexts
 
+## Carousel & Spotlight Feature
+
+### Overview
+The carousel component supports both images and videos, with an integrated spotlight modal for full-screen viewing. When users click on any carousel media, it opens in a spotlight modal with navigation controls.
+
+### Key Features
+- **Mixed Media Support**: Carousels can contain both images and videos
+- **Spotlight Modal**: Click any carousel item to view it full-screen
+- **Navigation Controls**: Previous/next buttons and keyboard navigation (arrow keys, escape)
+- **Indicator Dots**: Visual indicators showing current position and allowing direct navigation
+- **Video Support**: Videos are displayed with controls in spotlight mode
+- **Touch Support**: Swipe gestures on mobile devices
+
+### Implementation Details
+The carousel system (`themes/san-diego/source/js/carousel.js`) tracks all media items in a `carouselImages` array that includes:
+- Images: stored with their src, alt text, and slide index
+- Videos: stored with their poster image (if available) or a placeholder
+
+When opening spotlight mode:
+1. The current media item is displayed (image or video with controls)
+2. Navigation indicators appear if there are multiple items
+3. Users can navigate using buttons, indicators, keyboard, or swipe gestures
+4. Videos autoplay with controls visible
+
+### Common Issues & Solutions
+- **Missing Indicators**: Usually caused by the carousel not detecting all media items. The system now automatically re-scans for media when opening spotlight
+- **Mixed Media**: Carousels with both videos and images now correctly count all items for navigation
+- **Dynamic Content**: Project galleries loaded via AJAX are handled with delayed initialization
+
 ## Known Technical Debt
 
 ### 1. HTML Size Limitation
