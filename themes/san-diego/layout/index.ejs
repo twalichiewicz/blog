@@ -54,11 +54,11 @@
             // Separate posts and projects
             const allPosts = site.posts.toArray();
             const blogPosts = allPosts.filter(post => 
-                post.tags && post.tags.toArray().some(tag => tag.name === 'blog')
+                post.tags && post.tags.toArray().some(tag => tag.name === 'blog') && !post.draft
             ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
             const projectPosts = allPosts.filter(post => 
-                post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio')
+                post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio') && !post.draft
             ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
             %>
 
