@@ -1,0 +1,187 @@
+// Print Stylesheet
+// Optimizes content for printing
+
+@media print {
+  // Reset page margins
+  @page {
+    margin: 0.75in;
+    size: auto;
+  }
+  
+  // Hide non-essential elements
+  .page-transition-overlay,
+  .skip-nav-link,
+  .mobile-tabs,
+  .tabs-wrapper,
+  .project-navigation,
+  .project-home-button,
+  .project-collapse-button,
+  .read-story-button,
+  .scroll-to-top,
+  .contact-modal,
+  .impact-modal,
+  .theme-toggle,
+  .external-link::after,
+  video,
+  iframe,
+  .no-print {
+    display: none !important;
+  }
+  
+  // General resets
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  // Body and HTML
+  html, body {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+  
+  // Headings
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+  
+  h1 { font-size: 20pt; }
+  h2 { font-size: 18pt; }
+  h3 { font-size: 16pt; }
+  h4 { font-size: 14pt; }
+  h5, h6 { font-size: 12pt; }
+  
+  // Content elements
+  p, blockquote, pre, ul, ol, dl {
+    page-break-inside: avoid;
+    margin-bottom: 1em;
+  }
+  
+  // Links
+  a {
+    text-decoration: underline;
+    color: #000 !important;
+    
+    // Show URLs for external links
+    &[href^="http"]:not([href*="twalichiewicz.github.io"])::after {
+      content: " (" attr(href) ")";
+      font-size: 0.8em;
+      word-break: break-all;
+    }
+  }
+  
+  // Images
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+    display: block;
+    margin: 1em 0;
+  }
+  
+  // Code blocks
+  pre, code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11pt;
+    border: 1px solid #999;
+    padding: 0.5em;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  // Tables
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    page-break-inside: avoid;
+  }
+  
+  th, td {
+    border: 1px solid #999;
+    padding: 0.5em;
+    text-align: left;
+  }
+  
+  th {
+    font-weight: bold;
+    background-color: #f0f0f0 !important;
+  }
+  
+  // Blog specific
+  .blog-header {
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 2pt solid #000;
+  }
+  
+  .post-list-item {
+    page-break-inside: avoid;
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1pt solid #ccc;
+  }
+  
+  // Project gallery specific
+  .project-title {
+    text-align: center;
+    margin-bottom: 2em;
+  }
+  
+  .project-metadata {
+    margin-bottom: 2em;
+    padding: 1em;
+    border: 1pt solid #999;
+  }
+  
+  .project-impact-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 2em 0;
+    page-break-inside: avoid;
+  }
+  
+  .stat-item {
+    text-align: center;
+    margin: 0.5em;
+  }
+  
+  // Ensure content visibility
+  .post-content,
+  .project-content,
+  article {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  // Page breaks
+  .page-break {
+    page-break-after: always;
+  }
+  
+  .avoid-break {
+    page-break-inside: avoid;
+  }
+  
+  // Footer info for printed pages
+  footer::after {
+    content: "Printed from twalichiewicz.github.io/blog";
+    display: block;
+    text-align: center;
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1pt solid #000;
+    font-size: 10pt;
+  }
+}

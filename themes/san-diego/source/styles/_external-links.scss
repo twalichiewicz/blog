@@ -1,0 +1,36 @@
+// External Links Styles
+// Optional visual indicators for external links
+
+.external-link {
+  position: relative;
+  
+  // Optional: Add a small icon after external links
+  &::after {
+    content: '\2197'; // Unicode arrow pointing up-right
+    font-size: 0.8em;
+    margin-left: 0.2em;
+    opacity: 0.6;
+    display: inline-block;
+    transition: opacity 0.2s ease;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+// For specific contexts where external link indicators might be distracting
+.no-external-indicators {
+  .external-link::after {
+    display: none;
+  }
+}
+
+// Navigation and UI links shouldn't show external indicators
+nav .external-link::after,
+.navigation .external-link::after,
+.nav-link.external-link::after,
+.button.external-link::after,
+.btn.external-link::after {
+  display: none;
+}

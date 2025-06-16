@@ -1,0 +1,48 @@
+<!-- Skip Navigation Links for Accessibility -->
+<a href="#main-content" class="skip-nav-link">Skip to main content</a>
+<% if (typeof page !== 'undefined' && page.layout === 'index') { %>
+<a href="#tab-blog" class="skip-nav-link">Skip to blog posts</a>
+<a href="#tab-portfolio" class="skip-nav-link">Skip to portfolio</a>
+<% } else if (typeof page !== 'undefined' && (page.layout === 'post' || page.layout === 'project_gallery')) { %>
+<a href="#post-content" class="skip-nav-link">Skip to article content</a>
+<% } %>
+
+<style>
+.skip-nav-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--text-color, #000);
+  color: var(--background-color, #fff);
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 100;
+  font-weight: 500;
+  font-size: 14px;
+  transition: top 0.2s ease;
+}
+
+.skip-nav-link:focus {
+  top: 0;
+  outline: 2px solid var(--accent-color, #f0b90b);
+  outline-offset: 2px;
+}
+
+/* Ensure links are visible when using keyboard navigation */
+.skip-nav-link:focus-visible {
+  top: 0;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .skip-nav-link {
+  background: #fff;
+  color: #000;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skip-nav-link {
+    transition: top 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+</style>

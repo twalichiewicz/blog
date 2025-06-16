@@ -169,3 +169,56 @@ When opening spotlight mode:
 - **Issue**: Many scripts don't handle edge cases (missing elements, network failures)
 - **Impact**: Silent failures that are hard to debug
 - **Solution**: Add comprehensive error handling and user feedback
+
+## Recent Front-End Improvements (June 2025)
+
+### Accessibility Enhancements
+- **Skip Navigation Links**: Added skip links at the top of all pages for keyboard navigation
+  - Skip to main content
+  - Skip to blog posts (index page)
+  - Skip to portfolio (index page)
+  - Skip to article content (post/project pages)
+  - Implementation: `themes/san-diego/layout/_partial/skip-navigation.ejs`
+
+### Security Improvements
+- **External Links**: Automatic addition of `rel="noopener noreferrer"` to all external links
+  - Prevents window.opener attacks
+  - Adds visual indicators for external links
+  - Implementation: `themes/san-diego/source/js/external-links.js`
+
+### Performance Optimizations
+- **Resource Hints**: Added DNS prefetch and preconnect for external resources
+  - CDN resources (jsdelivr, unpkg, cdnjs)
+  - Reduces connection latency
+  - Preloads critical CSS
+- **Print Stylesheet**: Optimized layout for printing
+  - Hides non-essential elements
+  - Shows URLs for external links
+  - Improves readability with proper page breaks
+  - Implementation: `themes/san-diego/source/styles/_print.scss`
+
+### SEO & Structured Data
+- **Enhanced Schema.org Implementation**:
+  - WebSite schema with publisher information
+  - Person schema with social links
+  - Article schema for posts and projects
+  - BreadcrumbList for better navigation understanding
+  - CollectionPage for the homepage
+  - Uses @graph for proper entity relationships
+
+### Testing These Features
+```bash
+# Test skip navigation
+# Press Tab key after page loads - skip links should appear
+
+# Test external links
+# Check browser console for processed links:
+# window.processExternalLinks()
+
+# Test print styles
+# Use browser print preview (Cmd+P or Ctrl+P)
+
+# Test structured data
+# Use Google's Rich Results Test: https://search.google.com/test/rich-results
+# Or Schema.org validator: https://validator.schema.org/
+```

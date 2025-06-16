@@ -65,6 +65,13 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="<%= canonicalUrl %>">
   
+  <!-- Resource Hints for Performance -->
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  
   <!-- Favicon and App Icons -->
   <link rel="icon" type="image/png" href="<%- url_for('favicon.png') %>">
   <link rel="apple-touch-icon" href="<%- url_for('favicon.png') %>">
@@ -111,6 +118,7 @@
   <meta name="googlebot" content="index, follow">
   
   <!-- Stylesheets -->
+  <link rel="preload" href="<%- url_for('styles/styles.css') %>" as="style">
   <link rel="stylesheet" href="<%- url_for('styles/styles.css') %>">
   
   <!-- Project-specific Scripts -->
@@ -159,35 +167,100 @@
   <script src="<%- url_for('js/project-summary.js') %>"></script>
   <script src="<%- url_for('js/scroll.js') %>"></script>
   <script src="<%- url_for('js/sound-effects.js') %>"></script>
+  <script src="<%- url_for('js/external-links.js') %>"></script>
   
   <!-- Structured Data -->
-  <% if (page.layout === 'post' || page.layout === 'project_gallery') { %>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "<%= pageTitle %>",
-    "description": "<%= pageDescription %>",
-    "image": "<%= ogImage %>",
-    "author": {
-      "@type": "Person",
-      "name": "<%= config.author || 'Thomas Walichiewicz' %>"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "<%= config.author || 'Thomas Walichiewicz' %>"
-    },
-    "datePublished": "<%= page.date ? new Date(page.date).toISOString() : '' %>",
-    <% if (page.updated) { %>
-    "dateModified": "<%= new Date(page.updated).toISOString() %>",
-    <% } %>
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "<%= canonicalUrl %>"
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "<%= config.url %>/#website",
+        "url": "<%= config.url %>",
+        "name": "<%= config.title %>",
+        "description": "<%= config.description %>",
+        "publisher": {
+          "@id": "<%= config.url %>/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "<%= config.url %>/#person",
+        "name": "<%= config.author || 'Thomas Walichiewicz' %>",
+        "url": "<%= config.url %>",
+        "sameAs": [
+          <% if (config.social_links && config.social_links.twitter) { %>"https://twitter.com/<%= config.social_links.twitter %>",<% } %>
+          <% if (config.social_links && config.social_links.github) { %>"https://github.com/<%= config.social_links.github %>",<% } %>
+          <% if (config.social_links && config.social_links.linkedin) { %>"https://linkedin.com/in/<%= config.social_links.linkedin %>"<% } %>
+        ],
+        "jobTitle": "Designer & Developer",
+        "description": "Designer, researcher, and relentless problem solver"
+      }<% if (page.layout === 'post' || page.layout === 'project_gallery') { %>,
+      {
+        "@type": "Article",
+        "@id": "<%= canonicalUrl %>#article",
+        "isPartOf": {
+          "@id": "<%= config.url %>/#website"
+        },
+        "author": {
+          "@id": "<%= config.url %>/#person"
+        },
+        "headline": "<%= pageTitle %>",
+        "description": "<%= pageDescription %>",
+        "image": "<%= ogImage %>",
+        "datePublished": "<%= page.date ? new Date(page.date).toISOString() : '' %>",
+        <% if (page.updated) { %>
+        "dateModified": "<%= new Date(page.updated).toISOString() %>",
+        <% } %>
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "<%= canonicalUrl %>"
+        },
+        "publisher": {
+          "@id": "<%= config.url %>/#person"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "<%= canonicalUrl %>#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "<%= config.url %>"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "<%= page.layout === 'project_gallery' ? 'Portfolio' : 'Blog' %>",
+            "item": "<%= config.url %>/?tab=<%= page.layout === 'project_gallery' ? 'portfolio' : 'blog' %>"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "<%= pageTitle %>",
+            "item": "<%= canonicalUrl %>"
+          }
+        ]
+      }<% } else if (page.layout === 'index') { %>,
+      {
+        "@type": "CollectionPage",
+        "@id": "<%= config.url %>/#webpage",
+        "url": "<%= config.url %>",
+        "name": "<%= config.title %>",
+        "isPartOf": {
+          "@id": "<%= config.url %>/#website"
+        },
+        "about": {
+          "@id": "<%= config.url %>/#person"
+        },
+        "description": "<%= pageDescription %>"
+      }<% } %>
+    ]
   }
   </script>
-  <% } %>
   
   <!-- RSS Feed -->
   <% if (config.feed && config.feed.path) { %>
