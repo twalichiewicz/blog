@@ -1,6 +1,6 @@
 ---
 title: Overlay
-date: 2020-02-13
+date: 2024-06-01
 company: Autodesk
 byline: Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage
 tags: [portfolio]
