@@ -33,3 +33,12 @@ db [0-9]*.json
 # Deploy directories
 .deploy_git/
 .env
+start-server.sh
+.gitignore
+mcp-dev-server/package-lock.json
+mcp-dev-server/package.json
+mcp-dev-server/setup.sh
+mcp-dev-server/tsconfig.json
+mcp-dev-server/build/index.d.ts
+mcp-dev-server/build/index.js
+mcp-dev-server/src/index.ts
