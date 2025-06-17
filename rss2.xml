@@ -9,8 +9,32 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Tue, 17 Jun 2025 08:06:27 GMT</pubDate>
+    <pubDate>Tue, 17 Jun 2025 09:04:32 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>agency-first tooling</title>
+      <link>https://twalichiewicz.github.io/2025/06/17/agency-first-tooling/</link>
+      <guid>https://twalichiewicz.github.io/2025/06/17/agency-first-tooling/</guid>
+      <pubDate>Tue, 17 Jun 2025 02:03:12 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;You’ll know a tool is agency-first when your first keystroke is a question—and the canvas answers while legacy controls watch from the ma</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>You’ll know a tool is agency-first when your first keystroke is a question—and the canvas answers while legacy controls watch from the margins.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/06/17/agency-first-tooling/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Preview of AI tooling post leaked</title>
@@ -483,31 +507,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/04/30/3d-Skull-model/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>You Can Be a Great Designer and Be Completely Unknown</title>
-      <link>https://twalichiewicz.github.io/2025/04/25/You-Can-Be-a-Great-Designer-and-Be-Completely-Unknown/</link>
-      <guid>https://twalichiewicz.github.io/2025/04/25/You-Can-Be-a-Great-Designer-and-Be-Completely-Unknown/</guid>
-      <pubDate>Fri, 25 Apr 2025 11:07:51 GMT</pubDate>
-      
-        
-        
-      <description>&lt;blockquote&gt;
-&lt;p&gt;“My name is Ozymandias, King of Kings;&lt;br&gt;Look on my Works, ye Mighty, and despair!”&lt;br&gt;Nothing beside remains. Round the de</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<blockquote><p>“My name is Ozymandias, King of Kings;<br>Look on my Works, ye Mighty, and despair!”<br>Nothing beside remains. Round the decay<br>Of that colossal Wreck, boundless and bare<br>The lone and level sands stretch far away.</p><p>— Percy Bysshe Shelley, “Ozymandias” (1818)</p></blockquote><p>Fame fades. Usefulness lasts.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/04/25/You-Can-Be-a-Great-Designer-and-Be-Completely-Unknown/#disqus_thread</comments>
       
     </item>
     
