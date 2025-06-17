@@ -32,3 +32,4 @@ db [0-9]*.json
 
 # Deploy directories
 .deploy_git/
+.env
