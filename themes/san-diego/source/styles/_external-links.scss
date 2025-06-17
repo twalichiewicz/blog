@@ -26,6 +26,16 @@
   }
 }
 
+// Allow the class to work on any element without breaking layout
+body.no-external-indicators .external-link::after,
+main.no-external-indicators .external-link::after,
+article.no-external-indicators .external-link::after,
+section.no-external-indicators .external-link::after,
+.post.no-external-indicators .external-link::after,
+.content.no-external-indicators .external-link::after {
+  display: none;
+}
+
 // Navigation and UI links shouldn't show external indicators
 nav .external-link::after,
 .navigation .external-link::after,
