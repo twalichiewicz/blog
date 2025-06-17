@@ -40,7 +40,7 @@
             <% } else { %>
                 <%# Keep existing rendering for link posts and short posts %>
                 <% if (isLongPost) { %>
-                    <a href="<%- url_for(post.path) %>" class="post-link-wrapper">
+                    <a href="<%- url_for(post.path) %>" class="post-link-wrapper no-external-indicators">
                 <% } %>
                 <article class="post-list-item <%= classNames.join(' ') %>" id="<%= postId %>">
                     <div class="post-byline">
@@ -48,7 +48,7 @@
                         <%= post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post') %>
                     </div>
                     <% if (post.type === 'link') { %>
-                        <div class="link-share">
+                        <div class="link-share no-external-indicators">
                             <% if (post.content) { %>
                                 <% 
                                 // Strip script tags from link post content to prevent HTML breaking
