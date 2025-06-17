@@ -141,6 +141,9 @@
             this.loadSound('buttonUp', '/media/button-press-up', ['mp3', 'm4a']);
             this.loadSound('smallClick', '/media/smallClick', ['mp3']);
             
+            // Load slider sound for tab switching
+            this.loadSound('slider', '/media/slider', ['mp3']);
+            
             console.log('Sound effects preloaded');
         }
     }

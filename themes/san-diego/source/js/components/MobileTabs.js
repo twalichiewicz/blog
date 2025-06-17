@@ -413,6 +413,11 @@ export default class MobileTabs {
 		if (isUserAction) {
 			this.userSelectedTab = type; // Remember user's choice
 			
+			// Play slider sound effect when user switches tabs
+			if (window.soundEffects && window.soundEffects.isEnabled()) {
+				window.soundEffects.play('slider');
+			}
+			
 			// Clean up URL parameter when user manually switches tabs
 			const urlParams = new URLSearchParams(window.location.search);
 			if (urlParams.has('tab')) {
