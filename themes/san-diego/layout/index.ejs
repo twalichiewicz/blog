@@ -157,103 +157,16 @@
 			}
 		}
 	});
+	// Handle direct navigation to blog posts and projects via URL parameter
+	document.addEventListener('DOMContentLoaded', function() {
+	    // Check if we have a post or project parameter
+	    const urlParams = new URLSearchParams(window.location.search);
+	    const postPath = urlParams.get('post');
+	    const projectPath = urlParams.get('project');
 
-    // Glassmorphic effect for services promo
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const servicesPromo = document.querySelector('.services-promo');
-        
-    //     if (servicesPromo) {
-    //         servicesPromo.addEventListener('mousemove', (e) => {
-    //             const rect = servicesPromo.getBoundingClientRect();
-    //             const x = e.clientX - rect.left;
-    //             const y = e.clientY - rect.top;
-                
-    //             servicesPromo.style.setProperty('--mouse-x', `${x}px`);
-    //             servicesPromo.style.setProperty('--mouse-y', `${y}px`);
-    //         });
-
-    //         // Make the entire promo clickable
-    //         servicesPromo.addEventListener('click', (e) => {
-    //             const link = servicesPromo.querySelector('.services-link');
-    //             if (link && !e.target.closest('.services-link')) {
-    //                 link.click();
-    //             }
-    //         });
-
-    //         // Remove mouse position when leaving the element
-    //         servicesPromo.addEventListener('mouseleave', () => {
-    //             servicesPromo.style.setProperty('--mouse-x', '50%');
-    //             servicesPromo.style.setProperty('--mouse-y', '50%');
-    //         });
-    //     }
-    // });
-
-    // Add search functionality
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const searchInput = document.getElementById('postSearch');
-    //     const postItems = document.querySelectorAll('.post-list-item');
-    //     const blogList = document.getElementById('postsContent');
-        
-    //     // Create no results message element
-    //     const noResultsMessage = document.createElement('div');
-    //     noResultsMessage.className = 'no-results-message';
-    //     noResultsMessage.textContent = "Haven't written about that yet!";
-    //     noResultsMessage.style.display = 'none';
-    //     blogList.appendChild(noResultsMessage);
-        
-    //     searchInput.addEventListener('input', function(e) {
-    //         const searchTerm = e.target.value.toLowerCase();
-    //         let visibleCount = 0;
-    //         const visiblePosts = [];
-            
-    //         // First, hide all separators
-    //         const separators = document.querySelectorAll('.post-separator');
-    //         separators.forEach(separator => separator.style.display = 'none');
-            
-    //         // Process posts and track visible ones
-    //         postItems.forEach(function(post) {
-    //             const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
-    //             const content = post.textContent.toLowerCase();
-    //             const excerpt = post.querySelector('p')?.textContent.toLowerCase() || '';
-                
-    //             if (title.includes(searchTerm) || content.includes(searchTerm) || excerpt.includes(searchTerm)) {
-    //                 post.style.display = '';
-    //                 visibleCount++;
-    //                 visiblePosts.push(post);
-    //             } else {
-    //                 post.style.display = 'none';
-    //             }
-    //         });
-            
-    //         // Show/hide no results message
-    //         noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
-            
-    //         // Add separators between visible posts
-    //         if (visibleCount > 0) {
-    //             visiblePosts.forEach((post, index) => {
-    //                 if (index < visiblePosts.length - 1) {
-    //                     const separator = post.nextElementSibling;
-    //                     if (separator && separator.classList.contains('post-separator')) {
-    //                         separator.style.display = '';
-    //                     }
-    //                 }
-    //             });
-    //         }
-    //     });
-    // });
-
-// Contact modal functionality is now handled in main.js
-
-// Handle direct navigation to blog posts and projects via URL parameter
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if we have a post or project parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const postPath = urlParams.get('post');
-    const projectPath = urlParams.get('project');
-    
-    if (postPath || projectPath) {
-        const path = postPath || projectPath;
-        const isProject = !!projectPath;
+	    if (postPath || projectPath) {
+	        const path = postPath || projectPath;
+	        const isProject = !!projectPath;
         
         // Load the content
         setTimeout(function() {
