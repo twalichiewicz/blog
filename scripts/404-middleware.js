@@ -19,9 +19,11 @@ hexo.extend.filter.register('server_middleware', function(app) {
     fs.readFile(notFoundPath, 'utf8', function(err, data) {
       if (err) {
         // Fallback to default 404 if our custom page doesn't exist
-        res.status(404).send('Cannot GET ' + req.url);
+        res.writeHead(404, {'Content-Type': 'text/html'});
+        res.end('Cannot GET ' + req.url);
       } else {
-        res.status(404).send(data);
+        res.writeHead(404, {'Content-Type': 'text/html'});
+        res.end(data);
       }
     });
   });
