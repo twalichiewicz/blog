@@ -413,9 +413,12 @@ export default class MobileTabs {
 		if (isUserAction) {
 			this.userSelectedTab = type; // Remember user's choice
 			
-			// Clean up URL parameter when user manually switches to blog tab
-			if (type === 'blog' && window.location.search.includes('tab=portfolio')) {
-				history.replaceState({ path: '/', isInitial: true, isDynamic: false }, '', '/');
+			// Clean up URL parameter when user manually switches tabs
+			const urlParams = new URLSearchParams(window.location.search);
+			if (urlParams.has('tab')) {
+				urlParams.delete('tab');
+				const newUrl = urlParams.toString() ? '?' + urlParams.toString() : '/';
+				history.replaceState({ path: newUrl, isInitial: true, isDynamic: false }, '', newUrl);
 			}
 		}
 

@@ -28,6 +28,18 @@ export function initializeMobileTabs() {
 
 		// Store the new tabs instance in window for potential external access
 		window.mobileTabs = tabs;
+
+		// Check URL parameters for initial tab selection
+		const urlParams = new URLSearchParams(window.location.search);
+		const tabParam = urlParams.get('tab');
+		
+		if (tabParam === 'portfolio' || tabParam === 'works') {
+			// Switch to Works tab
+			tabs.switchTab('portfolio', false);
+		} else if (tabParam === 'blog' || tabParam === 'words') {
+			// Switch to Words tab
+			tabs.switchTab('blog', false);
+		}
 	} catch (error) {
 	}
 }
