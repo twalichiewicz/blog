@@ -32,7 +32,8 @@ main.no-external-indicators .external-link::after,
 article.no-external-indicators .external-link::after,
 section.no-external-indicators .external-link::after,
 .post.no-external-indicators .external-link::after,
-.content.no-external-indicators .external-link::after {
+.content.no-external-indicators .external-link::after,
+.post-alerts.no-external-indicators .external-link::after {
   display: none;
 }
 
