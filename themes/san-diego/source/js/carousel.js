@@ -113,6 +113,20 @@ class Carousel {
 		// Store bound versions of handlers for easy removal
 		this.boundPrev = this.prev.bind(this);
 		this.boundNext = this.next.bind(this);
+		this.boundPrevWithSound = (e) => {
+			this.boundPrev(e);
+			// Play small click sound
+			if (window.playSmallClickSound) {
+				window.playSmallClickSound();
+			}
+		};
+		this.boundNextWithSound = (e) => {
+			this.boundNext(e);
+			// Play small click sound
+			if (window.playSmallClickSound) {
+				window.playSmallClickSound();
+			}
+		};
 		this.indicatorHandlers = new Map();
 		this.imageClickHandlers = new Map();
 		this.boundTouchStart = this.handleTouchStart.bind(this);
@@ -121,8 +135,8 @@ class Carousel {
 
 		// Remove any listeners potentially added by previous instances/calls
 		// (Note: this is somewhat redundant if destroy() is called reliably before re-init)
-		this.prevButton?.removeEventListener('click', this.boundPrev);
-		this.nextButton?.removeEventListener('click', this.boundNext);
+		this.prevButton?.removeEventListener('click', this.boundPrevWithSound);
+		this.nextButton?.removeEventListener('click', this.boundNextWithSound);
 		this.indicators.forEach((indicator, index) => {
 			const handler = this.indicatorHandlers.get(indicator);
 			if (handler) {
@@ -183,11 +197,17 @@ class Carousel {
 		  </svg>
 		`;
 
-			this.prevButton?.addEventListener('click', this.boundPrev);
-			this.nextButton?.addEventListener('click', this.boundNext);
+			this.prevButton?.addEventListener('click', this.boundPrevWithSound);
+			this.nextButton?.addEventListener('click', this.boundNextWithSound);
 
 			this.indicators.forEach((indicator, index) => {
-				const handler = () => this.goToSlide(index);
+				const handler = () => {
+					this.goToSlide(index);
+					// Play small click sound
+					if (window.playSmallClickSound) {
+						window.playSmallClickSound();
+					}
+				};
 				this.indicatorHandlers.set(indicator, handler); // Store handler
 				indicator.addEventListener('click', handler);
 			});
@@ -769,8 +789,8 @@ class Carousel {
 	destroy() {
 		console.log('[Carousel destroy()] Called for:', this.carousel);
 		// Remove event listeners added in init()
-		this.prevButton?.removeEventListener('click', this.boundPrev);
-		this.nextButton?.removeEventListener('click', this.boundNext);
+		this.prevButton?.removeEventListener('click', this.boundPrevWithSound);
+		this.nextButton?.removeEventListener('click', this.boundNextWithSound);
 
 		this.indicators.forEach((indicator, index) => {
 			const handler = this.indicatorHandlers?.get(indicator);
@@ -785,12 +805,22 @@ class Carousel {
 		if (this.boundTouchMove) this.carousel.removeEventListener('touchmove', this.boundTouchMove);
 		if (this.boundTouchEnd) this.carousel.removeEventListener('touchend', this.boundTouchEnd);
 
-		// Remove image click listeners
+		// Remove image and video click listeners
 		this.slides.forEach(slide => {
 			const img = slide.querySelector('img');
-			const handler = this.imageClickHandlers?.get(img);
-			if (img && handler) {
-				img.removeEventListener('click', handler);
+			const video = slide.querySelector('video');
+			
+			if (img) {
+				const handler = this.imageClickHandlers?.get(img);
+				if (handler) {
+					img.removeEventListener('click', handler);
+				}
+			}
+			if (video) {
+				const handler = this.imageClickHandlers?.get(video);
+				if (handler) {
+					video.removeEventListener('click', handler);
+				}
 			}
 		});
 		this.imageClickHandlers?.clear();
