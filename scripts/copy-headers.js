@@ -11,6 +11,10 @@ hexo.extend.filter.register('after_generate', function() {
   
   if (fs.existsSync(sourcePath)) {
     try {
+      // Ensure the public directory exists
+      if (!fs.existsSync(hexo.public_dir)) {
+        fs.mkdirSync(hexo.public_dir, { recursive: true });
+      }
       fs.copyFileSync(sourcePath, destPath);
       hexo.log.info('Copied _headers file to public directory');
     } catch (err) {
