@@ -130,8 +130,13 @@ class SoundEffects {
 	 * Preload commonly used sounds
 	 */
 	preloadCommonSounds() {
-		// Load toggle sound with multiple format fallbacks
+		// Load all available UI sounds
 		this.loadSound('toggle', '/media/toggleSound', ['mp3', 'ogg', 'm4a']);
+		this.loadSound('buttonDown', '/media/button-press-down', ['mp3', 'm4a']);
+		this.loadSound('buttonUp', '/media/button-press-up', ['mp3', 'm4a']);
+		this.loadSound('smallClick', '/media/smallClick', ['mp3']);
+		this.loadSound('slider', '/media/slider', ['mp3']);
+		this.loadSound('wavey', '/media/wavey', ['mp3']);
 
 		console.log('Sound effects preloaded');
 	}
@@ -149,6 +154,23 @@ function initializeSoundEffects() {
 	// Make it globally available for other modules
 	window.soundEffects = soundEffects;
 	window.initializeSoundEffects = initializeSoundEffects;
+
+	// Add convenient global functions for common sounds
+	window.playButtonSound = function() {
+		soundEffects.play('smallClick');
+	};
+
+	window.playSmallClickSound = function() {
+		soundEffects.play('smallClick');
+	};
+
+	window.playToggleSound = function() {
+		soundEffects.play('toggle');
+	};
+
+	window.playSliderSound = function() {
+		soundEffects.play('slider');
+	};
 
 	console.log('Sound effects initialized');
 }

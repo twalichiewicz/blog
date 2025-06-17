@@ -61,6 +61,10 @@ function initColorScheme() {
 			for (const o of options) {
 				o.checked = (o.value === value);
 			}
+			// Play toggle sound
+			if (window.soundEffects) {
+				window.soundEffects.play('toggle');
+			}
 		});
 	}
 }
