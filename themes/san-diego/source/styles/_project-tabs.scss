@@ -217,9 +217,10 @@
 }
 
 .project-writeup {
-	margin: 3rem 0 0;
+	margin: 3rem auto 0;
 	padding: 2rem 0 0;
 	border-top: 1px solid rgb(0 0 0 / 8%);
+	max-width: 720px;
 
 	// Desktop padding-bottom
 	padding-bottom: 128px;
@@ -236,30 +237,30 @@
 
 	.writeup-content {
 		h2 {
-			// Desktop styles (39px)
-			font-size: 39px;
+			// Desktop styles (30px)
+			font-size: 30px;
 			font-weight: 600;
 			padding: 0;
 			border: none;
-			margin: 24px 0;
+			margin: 48px 0 16px;  // Larger top margin, smaller bottom
 			color: #151515;
 
 			// Tablet styles (~80% of desktop)
 			@media (max-width: variables.$desktop-breakpoint) {
-				font-size: 31px;
-				margin: 48px 0 20px;
+				font-size: 24px;
+				margin: 40px 0 12px;  // Proportionally scaled
 			}
 
 			// Mobile styles (~70% of desktop)
 			@media (max-width: variables.$mobile-breakpoint) {
-				font-size: 27px;
-				margin: 40px 0 16px;
+				font-size: 21px;
+				margin: 32px 0 10px;  // Proportionally scaled
 			}
 		}
 
 		h3 {
-			// Desktop styles (24px)
-			font-size: 24px;
+			// Desktop styles (18px)
+			font-size: 18px;
 			font-weight: 500;
 			padding: 0;
 			margin: 0;
@@ -267,12 +268,12 @@
 
 			// Tablet styles (~80% of desktop)
 			@media (max-width: variables.$desktop-breakpoint) {
-				font-size: 19px;
+				font-size: 15px;
 			}
 
 			// Mobile styles (~70% of desktop)
 			@media (max-width: variables.$mobile-breakpoint) {
-				font-size: 17px;
+				font-size: 13px;
 			}
 		}
 
