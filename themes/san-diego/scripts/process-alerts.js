@@ -44,7 +44,7 @@ hexo.extend.filter.register('after_post_render', function(data) {
   content = content.replace(/<hr\s*\/?>\s*$/gi, '').trim();
   
   // Create alerts container at the top
-  const alertsHtml = `<div class="post-alerts">${alerts.join('')}</div>`;
+  const alertsHtml = `<div class="post-alerts no-external-indicators">${alerts.join('')}</div>`;
   
   // Add alerts to the beginning of content
   data.content = alertsHtml + content;
