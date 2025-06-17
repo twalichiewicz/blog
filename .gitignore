@@ -42,3 +42,24 @@ mcp-dev-server/tsconfig.json
 mcp-dev-server/build/index.d.ts
 mcp-dev-server/build/index.js
 mcp-dev-server/src/index.ts
+
+# Backup files
+*.bak
+*~
+
+# Additional environment files
+.env.*
+!.env.example
+
+# ESLint cache
+.eslintcache
+
+# IDE files (in case they appear in root)
+.idea/
+
+# npm cache
+.npm
+
+# Yarn specific (if using yarn)
+yarn-error.log
+yarn-debug.log*
