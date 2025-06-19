@@ -63,3 +63,6 @@ mcp-dev-server/src/index.ts
 # Yarn specific (if using yarn)
 yarn-error.log
 yarn-debug.log*
+
+# Internal documentation
+ARTICLE_EDITING_PLAYBOOK.md
