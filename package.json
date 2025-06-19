@@ -5,8 +5,9 @@
   "scripts": {
     "build": "hexo clean && hexo generate",
     "build:prod": "hexo clean && hexo generate && npm run optimize",
-    "optimize": "npm run optimize:images",
+    "optimize": "npm run optimize:images && npm run minify",
     "optimize:images": "node tools/optimize-images.js",
+    "minify": "node scripts/minify-assets.js",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
@@ -16,7 +17,7 @@
     "lint:scss:report": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss --custom-formatter node_modules/stylelint-formatter-html --output-file stylelint-report.html"
   },
   "hexo": {
-    "version": "6.3.0"
+    "version": "7.3.0"
   },
   "dependencies": {
     "@hapi/hoek": "^11.0.4",
@@ -35,7 +36,6 @@
     "hexo-generator-tag": "^2.0.0",
     "hexo-lazyload-image": "^1.0.9",
     "hexo-math": "^5.0.0",
-    "hexo-minify": "^1.8.1",
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-marked": "^7.0.1",
     "hexo-renderer-sass": "^0.5.0",
@@ -62,11 +62,14 @@
   },
   "notes": "All vulnerabilities have been addressed by removing hexo-admin and hexo-pdf, and replacing hoek with @hapi/hoek.",
   "devDependencies": {
+    "clean-css": "^5.3.3",
     "glob": "^11.0.3",
     "gray-matter": "^4.0.3",
+    "html-minifier-terser": "^7.2.0",
     "sharp": "^0.34.2",
     "stylelint": "^16.20.0",
     "stylelint-config-standard-scss": "^15.0.1",
-    "stylelint-formatter-html": "^1.0.1"
+    "stylelint-formatter-html": "^1.0.1",
+    "terser": "^5.43.0"
   }
 }
