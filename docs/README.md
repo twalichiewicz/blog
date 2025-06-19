@@ -1,18 +1,29 @@
-# Blog Documentation
+# Documentation Index
 
-This directory contains documentation for the blog's features and systems.
+Welcome to the thomas.design blog documentation. This directory contains comprehensive technical documentation for developers, maintainers, and contributors.
 
-## 📁 Documentation Index
+## 📚 Core Documentation
 
-### Video Systems
+### Architecture & Development
+- **[DEVELOPMENT.md](./DEVELOPMENT.md)** - Complete developer guide with setup, workflow, and best practices
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Deployment procedures and CI/CD pipeline details
+- **[THEME_ARCHITECTURE.md](./THEME_ARCHITECTURE.md)** - Deep dive into the san-diego theme structure
+- **[PERFORMANCE.md](./PERFORMANCE.md)** - Performance optimization strategies and metrics
+- **[TECH_DEBT.md](./TECH_DEBT.md)** - Technical debt tracking and remediation plans
 
-- **[Adaptive Video System](./README-adaptive-videos.md)** - Automatically serves optimal video versions based on grid layout
+### Feature Documentation
+- **[Adaptive Video System](./README-adaptive-videos.md)** - Dynamic video serving based on layout
+- **[Anchor Links](./ANCHOR_LINKS.md)** - Internal navigation system documentation
+- **[Carousel Component](./carousel-component.md)** - Media carousel implementation details
+- **[Alert Messages](./alert-message-component.md)** - Alert/notification system
+- **[Project Summary](./project-summary-component.md)** - Portfolio project summaries
+- **[Impact Report](./impact-report-system.md)** - Data visualization system
 
-### Features
-
-- **Video Autoplay** - Apple-style background video autoplay with intersection observer
-- **Dynamic Grid Layout** - Responsive portfolio grid with multiple sizes (1x1, 2x2, 3x1, 1x2)
-- **Mobile Optimization** - Touch-friendly interface with adaptive layouts
+### Implementation Guides
+- **[Video Conversion Guide](./video-conversion-guide.md)** - Converting and optimizing video assets
+- **[CSS Refactoring](./css-refactoring-plan.md)** - SCSS architecture improvements
+- **[JS Refactoring](./js-refactoring-plan.md)** - JavaScript modernization plans
+- **[Editorial Design Library](./editorial-design-library.md)** - Design system documentation
 
 ## 🎯 Quick Start
 
@@ -86,28 +97,56 @@ hexo server --port 4001
 - **Main site**: `http://localhost:4001`
 - **Test page**: `http://localhost:4001/test-adaptive-video.html`
 
-### File Optimization
+## 🚀 Key Features
 
-The system is optimized for minimal file sizes:
+### Performance
+- **Build-time optimization** with Sharp.js and hexo-minify
+- **Lazy loading** for images and videos
+- **Progressive enhancement** approach
+- **Automated CI/CD** with GitHub Actions
 
-- WebM for modern browsers (best compression)
-- MP4 for maximum compatibility
-- Automatic fallbacks for missing versions
+### Content Management
+- **222+ posts** with rich media support
+- **Multiple post types** (blog, portfolio, link)
+- **Advanced galleries** with video support
+- **Dark/light theme modes**
 
-## 📊 Performance
+### Developer Experience
+- **Hot reload** development server
+- **SCSS with design tokens**
+- **ES6 modules** architecture
+- **Comprehensive documentation**
 
-### File Size Targets
+## 📋 Quick Reference
 
-- **Square videos**: ~180-300KB
-- **Wide videos**: ~180-230KB  
-- **Total per project**: ~1.5MB (all versions)
+### Common Tasks
+```bash
+# Start development
+npm run server
 
-### Browser Support
+# Create new content
+hexo new blog-post "Title"
+hexo new portfolio-post "Project"
 
-- **WebM**: Chrome, Firefox, Edge
-- **MP4**: Universal support
-- **Autoplay**: All modern browsers (muted videos only)
+# Build for production
+npm run build:prod
+
+# Deploy to GitHub Pages
+npm run deploy
+```
+
+### File Locations
+- **Content**: `source/_posts/`
+- **Theme**: `themes/san-diego/`
+- **Config**: `_config.yml`
+- **Build tools**: `tools/`, `scripts/`
+
+### Important Links
+- **Production**: [thomas.design](https://thomas.design)
+- **Repository**: [GitHub](https://github.com/twalichiewicz/blog)
+- **Main README**: [../README.md](../README.md)
+- **Architecture**: [../ARCHITECTURE.md](../ARCHITECTURE.md)
 
 ---
 
-*Last updated: May 27, 2025*
+*Documentation last updated: June 2025*

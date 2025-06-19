@@ -1,6 +1,6 @@
 # Technical Debt Tracker
 
-This file tracks known technical debt and planned improvements for the blog codebase.
+This document tracks known technical debt, architectural issues, and planned improvements for the thomas.design blog codebase. Last comprehensive review: June 2025.
 
 ## Priority 1 - Critical Issues
 
@@ -111,6 +111,30 @@ This file tracks known technical debt and planned improvements for the blog code
 5. **Module system** - Better architecture for future
 6. **Performance optimizations** - Better user experience
 
+## Priority 5 - Future Improvements
+
+### Modern Framework Migration
+- **Issue**: Hexo is aging, limited ecosystem
+- **Options**: 
+  - Astro (good for content sites)
+  - Next.js (full-stack capabilities)
+  - Nuxt (Vue ecosystem)
+- **Benefits**: Better DX, modern features, edge functions
+- **Effort**: Very High
+
+### Component Library Extraction
+- **Issue**: Theme components tightly coupled
+- **Solution**: Extract to standalone package
+- **Benefits**: Reusability, testing, documentation
+
+### Automated Testing
+- **Issue**: No test coverage
+- **Needed**:
+  - Unit tests for utilities
+  - Integration tests for build
+  - Visual regression tests
+  - Accessibility tests
+
 ## Tracking
 
 | Issue | Priority | Effort | Status | Owner | Date |
@@ -119,5 +143,40 @@ This file tracks known technical debt and planned improvements for the blog code
 | Sass Deprecation | P1 | Low | Not started | - | - |
 | Duplicate Scrolling | P2 | Medium | Not started | - | - |
 | Global Variables | P2 | High | Not started | - | - |
+| Event Handler Leaks | P2 | Medium | Not started | - | - |
 | Error Handling | P3 | Medium | Not started | - | - |
+| Script Race Conditions | P3 | Medium | Not started | - | - |
 | Console Logs | P3 | Low | Not started | - | - |
+| Code Splitting | P4 | High | Not started | - | - |
+| Asset Lazy Loading | P4 | Medium | Not started | - | - |
+| Framework Migration | P5 | Very High | Research phase | - | - |
+| Component Library | P5 | High | Not started | - | - |
+| Test Coverage | P5 | High | Not started | - | - |
+
+## Resolution Guidelines
+
+### For Contributors
+1. Pick an issue matching your skill level
+2. Create a feature branch
+3. Implement fix with tests (when applicable)
+4. Update documentation
+5. Submit PR with clear description
+
+### For Maintainers
+1. Review quarterly
+2. Adjust priorities based on impact
+3. Balance debt reduction with features
+4. Document decisions in ADRs
+
+## Debt Metrics
+
+### Current State (June 2025)
+- **Critical Issues**: 2 (1 mitigated)
+- **Total Issues**: 13
+- **Estimated Effort**: ~3-4 months
+- **Risk Level**: Medium
+
+### Goals
+- **Q3 2025**: Resolve all P1 issues
+- **Q4 2025**: Address P2 architecture issues
+- **2026**: Consider framework migration

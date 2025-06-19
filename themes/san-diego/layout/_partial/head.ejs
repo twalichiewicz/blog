@@ -123,8 +123,12 @@
   
   <!-- Project-specific Scripts -->
   <% if (page.layout === 'project') { %>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" 
+          integrity="sha384-i5Gz6hhH6lJpF7iJ1Y6BSIqd3ZTYPZCcQPDQ2R8+e6ynuf/QR721glR/gLLKkFGB" 
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js" 
+          integrity="sha512-D9pUm3+gWPkv/Wl29HkCTR1LwFyEXFLAKqC3WFKP9/+D7JjEKcZOmI8dNjLY7NFWI2JvLgf2fdZ4vMdN2gabxg==" 
+          crossorigin="anonymous"></script>
   <script src="<%- url_for('js/propel-visualizations.js') %>"></script>
   <script src="<%- url_for('js/project-components.js') %>"></script>
   <script>

@@ -10,11 +10,11 @@ jobs:
   optimize-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write  # Required for peaceiris/actions-gh-pages
       pages: write
       id-token: write
-      deployments: write
-      pull-requests: write
+      deployments: write  # Required for deployment status
+      pull-requests: write  # Required for PR comments
     
     steps:
     - name: Checkout

@@ -1,68 +1,110 @@
 # thomas.design Blog
 
-A fast, modern, and highly optimized Hexo-powered blog for Thomas Walichiewicz. This repository includes advanced performance optimizations, automated image compression, asset minification, lazy loading, SEO enhancements, and a robust CI/CD pipeline.
+A sophisticated Hexo-powered portfolio and blog for Thomas Walichiewicz, featuring a custom theme with advanced performance optimizations, rich media galleries, and professional content management capabilities.
 
 ---
 
-## 🚀 Features & Optimizations
+## 🚀 Overview
 
-- **Automated Image Optimization** (Sharp.js)
-- **HTML, CSS, JS Minification** (`hexo-minify`)
-- **Image Lazy Loading** (SVG placeholders)
-- **SEO Enhancements** (sitemap, search index)
-- **Automated Build & Deployment** (GitHub Actions)
-- **Modern Hexo Plugins** (no deprecated dependencies)
-- **Comprehensive Performance Monitoring**
+This is a **static site generator (SSG)** built on Hexo 7.3.0 with a custom "san-diego" theme. It serves as both a personal blog and professional portfolio, featuring:
+
+- **222+ blog posts and portfolio projects**
+- **Custom theme with dark/light modes**
+- **Advanced media galleries with video support**
+- **Automated performance optimizations**
+- **CI/CD pipeline with GitHub Actions**
+- **Responsive, accessible, and SEO-optimized**
+
+---
+
+## 🏗️ Architecture
+
+- **Core Framework**: Hexo 7.3.0 (Static Site Generator)
+- **Theme**: Custom "san-diego" theme with modular EJS templates
+- **Styling**: SCSS with atomic design principles
+- **JavaScript**: ES6 modules with component-based architecture
+- **Build Tools**: Sharp.js for images, hexo-minify for assets
+- **Deployment**: GitHub Actions → GitHub Pages
+
+For detailed technical documentation, see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ---
 
 ## 📦 Project Structure
 
-- `source/` — Blog content, posts, and assets
-- `themes/` — Custom theme (san-diego)
-- `tools/optimize-images.js` — Image optimization script
-- `.github/workflows/optimize-and-deploy.yml` — CI/CD pipeline
-- `_config.yml` — Main Hexo and plugin configuration
-- `PERFORMANCE_OPTIMIZATION.md` — In-depth optimization guide
+```
+blog/
+├── source/              # Content (Markdown posts, images, assets)
+│   ├── _posts/         # Blog posts and portfolio projects (222 files)
+│   ├── img/            # Site-wide images
+│   └── media/          # Audio/video assets
+├── themes/san-diego/    # Custom theme
+│   ├── layout/         # EJS templates
+│   ├── source/         # Theme assets (JS, SCSS, images)
+│   └── scripts/        # Build-time processors
+├── scripts/            # Hexo plugins and generators
+├── tools/              # Build optimization scripts
+├── docs/               # Documentation
+├── _config.yml         # Hexo configuration
+└── package.json        # Dependencies
 
 ---
 
-## 🛠️ Usage & Development
+## 🛠️ Quick Start
 
-### 1. Install Dependencies
+### Prerequisites
+- Node.js 18+ (LTS recommended)
+- npm or yarn
+- Git
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/twalichiewicz/blog.git
+cd blog
+
+# Install dependencies
 npm install
 ```
 
-### 2. Local Development
+### Development Commands
 
 ```bash
+# Start local development server (http://localhost:4000)
 npm run server
-```
 
-### 3. Clean Build
+# Build the site
+npm run build
 
-```bash
-npm run clean && npm run build
-```
-
-### 4. Production Build (with all optimizations)
-
-```bash
+# Production build with optimizations
 npm run build:prod
-```
 
-### 5. Image Optimization Only
+# Deploy to GitHub Pages
+npm run deploy
 
-```bash
+# Optimize images only
 npm run optimize:images
+
+# Analyze build size
+npm run analyze
+
+# Lint SCSS files
+npm run lint:scss
+npm run lint:scss:fix
 ```
 
-### 6. Analyze Build Size
+### Creating Content
 
 ```bash
-npm run analyze
+# Create a new blog post
+hexo new blog-post "My New Post"
+
+# Create a portfolio project
+hexo new portfolio-post "Project Name"
+
+# Create a draft
+hexo new draft "Work in Progress"
 ```
 
 ---
@@ -176,23 +218,56 @@ search:
 
 ---
 
-## 📚 More Documentation
+## 🔒 Security
 
-- [PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md) — Full technical guide
-- [Hexo Docs](https://hexo.io/docs/)
+- External links automatically get `rel="noopener noreferrer"`
+- Content Security Policy via `_headers`
+- No user-generated content (static site)
+- GitHub Actions with minimal permissions
+- Regular dependency updates
+
+---
+
+## ⚠️ Known Issues
+
+See [docs/TECH_DEBT.md](./docs/TECH_DEBT.md) for detailed technical debt tracking.
+
+### Critical Issues:
+1. **HTML Size Limit**: Large index.html files due to inline post rendering
+   - **Temporary Fix**: Applied in `blog-posts.ejs`
+   - **Proper Fix**: Set `per_page: 20` in `_config.yml`
+
+2. **Sass Deprecation**: Legacy JS API will break with Dart Sass 2.0
+   - **Action Required**: Update build configuration
+
+---
+
+## 📚 Documentation
+
+- [ARCHITECTURE.md](./ARCHITECTURE.md) — Technical architecture overview
+- [docs/](./docs/) — All documentation
+  - [DEVELOPMENT.md](./docs/DEVELOPMENT.md) — Developer guide
+  - [DEPLOYMENT.md](./docs/DEPLOYMENT.md) — Deployment procedures
+  - [PERFORMANCE.md](./docs/PERFORMANCE.md) — Performance optimization
+  - [TECH_DEBT.md](./docs/TECH_DEBT.md) — Technical debt tracker
+  - [THEME_ARCHITECTURE.md](./docs/THEME_ARCHITECTURE.md) — Theme documentation
+- [CLAUDE.md](./CLAUDE.md) — AI assistant instructions
+
+### External Resources:
+- [Hexo Documentation](https://hexo.io/docs/)
 - [hexo-minify](https://github.com/Lete114/hexo-minify)
-- [sharp](https://sharp.pixelplumbing.com/)
+- [Sharp.js](https://sharp.pixelplumbing.com/)
 
 ---
 
-## 🏆 Credits
+## 👤 Author
 
-- **Thomas Walichiewicz** — Design, content, and development
-- **Hexo** — Static site generator
-- **Open Source Plugins** — See `package.json`
+**Thomas Walichiewicz**
+- Website: [thomas.design](https://thomas.design)
+- GitHub: [@twalichiewicz](https://github.com/twalichiewicz)
 
 ---
 
-## License
+## 📄 License
 
-MIT
+This project is MIT licensed. See [LICENSE](./LICENSE) for details.
