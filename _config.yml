@@ -57,10 +57,7 @@ pagination_dir: page
 
 # Extensions
 theme: san-diego  # Ensure this matches the theme directory name
-admin:
-  username: twalichiewicz
-  password_hash: $2a$10$7vYp2Wx1h3bf8LuNGTbSb.Zavzfp1xVThMXOnZuG9yIPCGCUtHkcq  # Ensure this is correct
-  secret: secret-key  # Ensure this is correct
+# Admin configuration removed - store in environment variables instead
 
 # Deployment - Using GitHub Actions instead of git deployment
 # deploy:
@@ -117,7 +114,7 @@ minify:
       collapseWhitespace: true # Delete any extra space
       removeAttributeQuotes: true # Delete attribute quotes
   image:
-    enable: true # Set to false if image optimization is handled *only* by the separate script
+    enable: false # Disabled - using separate Sharp.js optimization script instead
     options: {}
 
 # Lazy Load Images
