@@ -930,7 +930,8 @@ p {
 @media screen and (min-width: 768px) {
 	.blog .blog-content .content-wrapper {
 		#postsContent .post-list-item.post-long,
-		#projectsContent .post-list-item.post-long {
+		#projectsContent .post-list-item.post-long,
+		#projectsContent .portfolio-item.has-writeup {
 			// Ensure border color is always defined
 			@media (prefers-color-scheme: light) {
 				border-color: rgba(variables.$text-color-secondary, 0.1);
