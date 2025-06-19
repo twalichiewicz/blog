@@ -925,3 +925,20 @@ p {
 		background-color: rgba(variables.$primary-color, 0);
 	}
 }
+
+// Fix for missing border color in production build
+@media screen and (min-width: 768px) {
+	.blog .blog-content .content-wrapper {
+		#postsContent .post-list-item.post-long,
+		#projectsContent .post-list-item.post-long {
+			// Ensure border color is always defined
+			@media (prefers-color-scheme: light) {
+				border-color: rgba(variables.$text-color-secondary, 0.1);
+			}
+			
+			@media (prefers-color-scheme: dark) {
+				border-color: rgb(255 255 255 / 10%);
+			}
+		}
+	}
+}

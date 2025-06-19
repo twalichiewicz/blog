@@ -1,68 +1,66 @@
+# OS-specific files
 .DS_Store
 Thumbs.db
+
+# Hexo files
 db.json
 db*.json
-*.log
-node_modules/
+db [0-9].json
+db [0-9]*.json
 public/
 .deploy*/
 _multiconfig.yml
-# Cursor editor files
-*.mdc
+_drafts/
 
-# Claude AI files
-.claude/
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# VS Code settings
+# Dependencies
+node_modules/
+.npm
+
+# IDE and editor files
 .vscode/
-
-# Cursor editor files  
+.idea/
 .cursor/
 *.mdc
-
-# Temporary database files
-db [0-9].json
-db [0-9]*.json
-
-# Scripts (optional - depends if you want these versioned)
-# *.sh
-
-# macOS files
-.DS_Store
-
-# Deploy directories
-.deploy_git/
-.env
-start-server.sh
-.gitignore
-mcp-dev-server/package-lock.json
-mcp-dev-server/package.json
-mcp-dev-server/setup.sh
-mcp-dev-server/tsconfig.json
-mcp-dev-server/build/index.d.ts
-mcp-dev-server/build/index.js
-mcp-dev-server/src/index.ts
-
-# Backup files
-*.bak
+*.swp
+*.swo
 *~
+*.orig
 
-# Additional environment files
+# Environment files
+.env
 .env.*
 !.env.example
 
-# ESLint cache
+# Build and deploy
+.deploy_git/
 .eslintcache
 
-# IDE files (in case they appear in root)
-.idea/
+# Temporary files
+*.tmp
+*.bak
+temp/
+tmp/
 
-# npm cache
-.npm
+# Test coverage
+coverage/
+.nyc_output/
 
-# Yarn specific (if using yarn)
-yarn-error.log
-yarn-debug.log*
+# Development tools
+mcp-dev-server/
+
+# Shell scripts (optional - uncomment if needed)
+# *.sh
+start-server.sh
 
 # Internal documentation
 ARTICLE_EDITING_PLAYBOOK.md
+
+# Claude AI files
+.claude/

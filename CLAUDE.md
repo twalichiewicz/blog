@@ -34,6 +34,8 @@ npm run analyze        # Analyze build size
   - `blog-post.md` - Standard blog post
   - `portfolio-post.md` - Portfolio project with gallery
   - `draft.md` - Unpublished draft
+  - `case-study.md` - Detailed case studies
+  - `page.md` - Static pages
 
 ### Theme System
 The custom "san-diego" theme (`themes/san-diego/`) consists of:
@@ -42,19 +44,26 @@ The custom "san-diego" theme (`themes/san-diego/`) consists of:
 - **JavaScript**: Modular JS in `source/js/` for interactions
 - **Scripts**: Build-time scripts in `scripts/` for processing
 
+### Build Pipeline
+1. **Hexo Generation**: Converts Markdown to HTML
+2. **Asset Processing**: Custom minification script (`scripts/minify-assets.js`)
+3. **Image Optimization**: Sharp.js processes images (`tools/optimize-images.js`)
+4. **Deployment**: GitHub Actions workflow to GitHub Pages
+
 ### Key Features Implementation
 1. **Project Gallery**: Uses `project_gallery.ejs` with multiple layout modes
 2. **Adaptive Videos**: Automatic video format conversion for web compatibility
 3. **Image Optimization**: Sharp.js processes images on build
 4. **Dark/Light Mode**: CSS custom properties with JavaScript toggle
 5. **Performance**: Lazy loading, minification, and caching strategies
+6. **Remote Editor**: Secure blog editor in `tools/blog-editor/` with GitHub OAuth
 
 ### Deployment Pipeline
 GitHub Actions workflow (`.github/workflows/optimize-and-deploy.yml`):
 1. Triggers on push to main
 2. Runs image optimization
 3. Builds production site
-4. Deploys to GitHub Pages
+4. Deploys to GitHub Pages with custom domain (thomas.design)
 
 ## Important Patterns
 
@@ -65,17 +74,22 @@ hexo new blog-post "Post Title"
 
 # New portfolio project
 hexo new portfolio-post "Project Name"
+
+# New case study
+hexo new case-study "Study Title"
 ```
 
 ### Working with Images
 - Place images in post folders: `source/_posts/post-name/`
 - Use relative paths in Markdown: `![Alt text](./image.jpg)`
 - Images are automatically optimized during build
+- Small files (<10KB) are skipped from optimization
 
 ### Video Guidelines
 - Supported formats: MP4, WebM
 - Place in post folders alongside images
 - Use adaptive video component for responsive playback
+- Different aspect ratios for various grid layouts
 
 ### SCSS Architecture
 - Variables in `_variables.scss`
@@ -88,6 +102,7 @@ hexo new portfolio-post "Project Name"
 - HTML/CSS/JS are minified in production builds
 - Lazy loading is implemented for images and videos
 - Font loading is optimized with font-display: swap
+- Build size analysis available via `npm run analyze`
 
 ## Anchor Links Implementation
 
@@ -185,6 +200,8 @@ When opening spotlight mode:
   - Prevents window.opener attacks
   - Adds visual indicators for external links
   - Implementation: `themes/san-diego/source/js/external-links.js`
+- **Removed Vulnerable Packages**: `hexo-admin` and `hexo-pdf` removed
+- **NPM Overrides**: Force secure versions of dependencies
 
 ### Performance Optimizations
 - **Resource Hints**: Added DNS prefetch and preconnect for external resources
@@ -206,7 +223,17 @@ When opening spotlight mode:
   - CollectionPage for the homepage
   - Uses @graph for proper entity relationships
 
-### Testing These Features
+## Custom Hexo Tag Plugins
+
+The theme includes several custom tag plugins in `themes/san-diego/scripts/`:
+- **video**: Multi-format video embedding with fallbacks
+- **carousel**: Image/video carousel generation
+- **image-caption**: Automatic image captions from alt text
+- **process-alerts**: Alert/callout boxes (info, warning, success, danger)
+- **wave-text**: Animated text effects
+- **emoji-processor**: Enhanced emoji handling
+
+## Testing Features
 ```bash
 # Test skip navigation
 # Press Tab key after page loads - skip links should appear
@@ -221,4 +248,20 @@ When opening spotlight mode:
 # Test structured data
 # Use Google's Rich Results Test: https://search.google.com/test/rich-results
 # Or Schema.org validator: https://validator.schema.org/
+
+# Analyze build size
+npm run analyze
 ```
+
+## Environment Configuration
+
+Two `.env.example` files show expected configurations:
+- **Root level**: API keys, admin config, analytics
+- **Blog editor** (`tools/blog-editor/.env.example`): GitHub OAuth, session secrets, paths
+
+## Portfolio Organization
+
+The `_config.yml` includes:
+- Company ordering for portfolio grouping
+- Year ranges for chronological organization
+- Allows both company-based and time-based project views

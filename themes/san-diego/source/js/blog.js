@@ -221,6 +221,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			const backButtonClickHandler = async function (event) {
 				event.preventDefault();
 				
+				// Play button press sound effect
+				if (window.soundEffects && window.soundEffects.playButtonPress) {
+					window.soundEffects.playButtonPress();
+				}
+				
 				// Determine what type of content we're returning from
 				const currentHistoryState = history.state;
 				const isReturningFromProject = currentHistoryState && currentHistoryState.isProject === true;
@@ -256,14 +261,14 @@ document.addEventListener('DOMContentLoaded', function () {
 					// Coming from a project, show portfolio tab
 					setTimeout(() => {
 						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-							window.mobileTabs.switchTab('portfolio', true);
+							window.mobileTabs.switchTab('portfolio', false);
 						}
 					}, 50);
 				} else {
 					// Coming from a blog post, show blog tab and clean URL
 					setTimeout(() => {
 						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-							window.mobileTabs.switchTab('blog', true);
+							window.mobileTabs.switchTab('blog', false);
 						}
 						// Clean up URL parameter if coming from blog post
 						if (window.location.search.includes('tab=portfolio')) {
