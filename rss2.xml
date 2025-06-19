@@ -9,7 +9,7 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Thu, 19 Jun 2025 08:23:23 GMT</pubDate>
+    <pubDate>Thu, 19 Jun 2025 09:11:26 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -41,13 +41,13 @@
       
         
         
-      <description>&lt;p&gt;&lt;a href=&quot;#post-iOS-26-AutoMix&quot;&gt;Now that we have AutoMix&lt;/a&gt;, can I have it trigger when I hit the “Next” button? &lt;/p&gt;
-&lt;p&gt;Don’t punish me </description>
+      <description>&lt;p&gt;&lt;a href=&quot;#post-iOS-26-AutoMix&quot;&gt;Now that we have AutoMix&lt;/a&gt;, can I have it trigger when I hit the &lt;strong&gt;Next&lt;/strong&gt; button? &lt;/p&gt;
+&lt;p&gt;D</description>
         
       
       
       
-      <content:encoded><![CDATA[<p><a href="#post-iOS-26-AutoMix">Now that we have AutoMix</a>, can I have it trigger when I hit the “Next” button? </p><p>Don’t punish me with an abrupt stop&#x2F;start between songs, queue up the next song in the background and then immediately start blending into the next song. If you still want to retain the current functionality just make a double-tap of the Next button expedite the transition to the next song (maybe even throw in a recordscratch sound for good measure).</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><a href="#post-iOS-26-AutoMix">Now that we have AutoMix</a>, can I have it trigger when I hit the <strong>Next</strong> button? </p><p>Don’t punish me with an abrupt stop&#x2F;start between songs, queue up the next song in the background and then immediately start blending into the next song. If you still want to retain the current functionality just make a double-tap of the <strong>Next</strong> button expedite the transition to the next song (maybe even throw in a record-scratch sfx for good measure).</p>]]></content:encoded>
       
       
       
