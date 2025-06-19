@@ -9,7 +9,7 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Thu, 19 Jun 2025 06:17:49 GMT</pubDate>
+    <pubDate>Thu, 19 Jun 2025 06:49:13 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -30,6 +30,31 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/06/19/How-creative-mediums-find-their-voice/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>AutoMix expanded</title>
+      <link>https://twalichiewicz.github.io/2025/06/18/AutoMix-expanded/</link>
+      <guid>https://twalichiewicz.github.io/2025/06/18/AutoMix-expanded/</guid>
+      <pubDate>Wed, 18 Jun 2025 21:48:20 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;a href=&quot;#post-iOS-26-AutoMix&quot;&gt;Now that we have AutoMix&lt;/a&gt;, can I have it trigger when I hit the “Next” button? &lt;/p&gt;
+&lt;p&gt;Don’t punish me </description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><a href="#post-iOS-26-AutoMix">Now that we have AutoMix</a>, can I have it trigger when I hit the “Next” button? </p><p>Don’t punish me with an abrupt stop&#x2F;start between songs, queue up the next song in the background and then immediately start blending into the next song. If you still want to retain the current functionality just make a double-tap of the Next button expedite the transition to the next song (maybe even throw in a recordscratch sound for good measure).</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/06/18/AutoMix-expanded/#disqus_thread</comments>
       
     </item>
     
@@ -471,32 +496,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/05/04/Finding-errors-after-sharing-portfolio/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Per-season TV show rentals</title>
-      <link>https://twalichiewicz.github.io/2025/05/03/Temporary-tv-subscriptions/</link>
-      <guid>https://twalichiewicz.github.io/2025/05/03/Temporary-tv-subscriptions/</guid>
-      <pubDate>Sat, 03 May 2025 10:59:01 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Why can’t I rent a TV season? Subscribing for a single series or buying an entire season sight‑unseen is overkill.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Give me a</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Why can’t I rent a TV season? Subscribing for a single series or buying an entire season sight‑unseen is overkill.</p><ul><li>Give me a season-length rental cut stitched into one file.<br><em>or</em></li><li>Treat each episode like a mini movie rental. One watch, time limit once started.</li></ul><p><img src="/2025/05/03/Temporary-tv-subscriptions/rentableTV.jpeg" alt="A screenshot of the Apple TV UI with an added option to rent a season of the TV show"></p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/05/03/Temporary-tv-subscriptions/#disqus_thread</comments>
       
     </item>
     
