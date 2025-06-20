@@ -70,6 +70,56 @@
 	}
 }
 
+// Reusable bordered button mixin (no background fill)
+@mixin reusable-button-bordered {
+	padding: 8px 16px;
+	font-size: 12px;
+	font-weight: 500;
+	color: variables.$text-color;
+	background: transparent;
+	border: 1px solid variables.$border-color;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: none;
+	white-space: nowrap;
+	text-decoration: none;
+	display: inline-block;
+	
+	&:hover {
+		border-color: variables.$link-color;
+		color: variables.$link-color;
+		background: rgba(variables.$link-color, 0.05);
+		transform: translateY(-1px);
+		box-shadow: 0 2px 4px rgba(variables.$link-color, 0.1);
+	}
+	
+	&.active {
+		background: variables.$link-color;
+		color: variables.$white;
+		border-color: variables.$link-color;
+	}
+	
+	// Dark mode styles
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+		border-color: rgba(variables.$border-color-dark, 0.5);
+		
+		&:hover {
+			border-color: variables.$link-color-dark;
+			color: variables.$link-color-dark;
+			background: rgba(variables.$link-color-dark, 0.1);
+			box-shadow: 0 2px 4px rgba(variables.$link-color-dark, 0.15);
+		}
+		
+		&.active {
+			background: variables.$link-color-dark;
+			color: variables.$black;
+			border-color: variables.$link-color-dark;
+		}
+	}
+}
+
 // Old button mixin (keeping for backward compatibility)
 @mixin button-styles {
 	padding: 0.5rem 1rem;
@@ -1096,43 +1146,9 @@ button {
 			}
 		}
 		
-		// Custom emphasis for View impact report button
+		// Apply bordered button style to View impact report
 		.mobile-impact-button.btn--default {
-			color: variables.$link-color;
-			background: linear-gradient(to bottom,
-					color.adjust(variables.$accent-gold-light, $lightness: 10%),
-					variables.$accent-gold-light);
-			border-color: rgba(variables.$accent-gold, 0.3);
-			
-			&:hover {
-				background: linear-gradient(to bottom,
-						color.adjust(variables.$accent-gold-light, $lightness: 5%),
-						color.adjust(variables.$accent-gold-light, $lightness: -5%));
-				border-color: rgba(variables.$accent-gold, 0.5);
-				color: color.scale(variables.$link-color, $lightness: -10%);
-				box-shadow:
-					0 3px 6px rgba(variables.$accent-gold-dark, 0.15),
-					0 2px 4px rgba(variables.$accent-gold-dark, 0.1);
-			}
-			
-			@media (prefers-color-scheme: dark) {
-				color: variables.$accent-gold-light;
-				background: linear-gradient(to bottom,
-						color.adjust(variables.$accent-gold-dark, $lightness: -10%),
-						color.adjust(variables.$accent-gold-dark, $lightness: -15%));
-				border-color: rgba(variables.$accent-gold, 0.4);
-				
-				&:hover {
-					background: linear-gradient(to bottom,
-							color.adjust(variables.$accent-gold-dark, $lightness: -5%),
-							color.adjust(variables.$accent-gold-dark, $lightness: -10%));
-					border-color: rgba(variables.$accent-gold, 0.6);
-					color: variables.$accent-gold-light;
-					box-shadow:
-						0 3px 6px rgba(0, 0, 0, 0.3),
-						0 2px 4px rgba(0, 0, 0, 0.2);
-				}
-			}
+			@include reusable-button-bordered;
 		}
 		
 		// Custom emphasis for Get in touch button
@@ -2499,6 +2515,11 @@ table {
 	
 	.posts-only-button {
 		@include reusable-button;
+	}
+	
+	// Reusable bordered button class
+	.button-bordered {
+		@include reusable-button-bordered;
 	}
 }
 
