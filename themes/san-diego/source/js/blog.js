@@ -5,6 +5,7 @@
 import { initializeCarousels, cleanupCarouselInstances } from './carousel.js';
 import { initializeMobileTabs } from './mobile-tabs.js';
 import videoAutoplayManager from './components/video-autoplay.js';
+import ScrollUtility from './utils/scroll-utility.js';
 // import AdaptiveVideoManager from './components/adaptive-video.js';
 
 // Initialize adaptive video manager
@@ -58,9 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		// }
 		
 		// --- Anchor Links ---
-		if (window.initializeAnchorLinks) {
-			window.initializeAnchorLinks();
-		}
+		// Now handled by ScrollUtility which auto-initializes
 
 		// Blog features initialized
 	}
@@ -79,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			return;
 		}
 
-		// Simple scroll with smooth behavior
-		fullStoryElement.scrollIntoView({
+		// Use ScrollUtility for consistent scrolling
+		ScrollUtility.scrollToElement(fullStoryElement, {
 			behavior: 'smooth',
 			block: 'start'
 		});
@@ -490,8 +489,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 			// Fade in blog content for all devices
 			await fadeInElement(blogContentElement);
-			// Scroll into view for all devices
-			blogContentElement.scrollIntoView({ behavior: 'smooth' });
+			// Scroll into view for all devices using ScrollUtility
+			ScrollUtility.scrollToElement(blogContentElement, {
+				behavior: 'smooth',
+				block: 'start'
+			});
 		}
 
 		function handleLinkClick(event) {

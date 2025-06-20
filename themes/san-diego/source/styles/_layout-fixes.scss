@@ -167,7 +167,14 @@
         overflow: visible !important;
         height: auto !important;
         min-height: 100%;
+        min-height: calc(100dvh - var(--blog-header-height, 100vh));
         flex: 1 1 auto;
+        background-color: variables.$white; // Ensure background extends
+        
+        // Dark mode background
+        @media (prefers-color-scheme: dark) {
+          background-color: variables.$white-dark;
+        }
       }
       
       .content-inner-wrapper {
