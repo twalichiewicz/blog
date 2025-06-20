@@ -1096,6 +1096,85 @@ button {
 			}
 		}
 		
+		// Custom emphasis for View impact report button
+		.mobile-impact-button.btn--default {
+			color: variables.$link-color;
+			background: linear-gradient(to bottom,
+					color.adjust(variables.$accent-gold-light, $lightness: 10%),
+					variables.$accent-gold-light);
+			border-color: rgba(variables.$accent-gold, 0.3);
+			
+			&:hover {
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$accent-gold-light, $lightness: 5%),
+						color.adjust(variables.$accent-gold-light, $lightness: -5%));
+				border-color: rgba(variables.$accent-gold, 0.5);
+				color: color.scale(variables.$link-color, $lightness: -10%);
+				box-shadow:
+					0 3px 6px rgba(variables.$accent-gold-dark, 0.15),
+					0 2px 4px rgba(variables.$accent-gold-dark, 0.1);
+			}
+			
+			@media (prefers-color-scheme: dark) {
+				color: variables.$accent-gold-light;
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$accent-gold-dark, $lightness: -10%),
+						color.adjust(variables.$accent-gold-dark, $lightness: -15%));
+				border-color: rgba(variables.$accent-gold, 0.4);
+				
+				&:hover {
+					background: linear-gradient(to bottom,
+							color.adjust(variables.$accent-gold-dark, $lightness: -5%),
+							color.adjust(variables.$accent-gold-dark, $lightness: -10%));
+					border-color: rgba(variables.$accent-gold, 0.6);
+					color: variables.$accent-gold-light;
+					box-shadow:
+						0 3px 6px rgba(0, 0, 0, 0.3),
+						0 2px 4px rgba(0, 0, 0, 0.2);
+				}
+			}
+		}
+		
+		// Custom emphasis for Get in touch button
+		.mobile-contact-button.btn--default {
+			color: variables.$white;
+			background: linear-gradient(to bottom,
+					color.adjust(variables.$link-color, $lightness: 5%),
+					variables.$link-color);
+			border-color: variables.$link-color;
+			
+			&:hover {
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$link-color, $lightness: 10%),
+						color.adjust(variables.$link-color, $lightness: 5%));
+				border-color: color.scale(variables.$link-color, $lightness: 10%);
+				color: variables.$white;
+				box-shadow:
+					0 4px 8px rgba(variables.$link-color, 0.25),
+					0 2px 4px rgba(variables.$link-color, 0.15);
+				transform: translateY(-2px);
+			}
+			
+			@media (prefers-color-scheme: dark) {
+				color: variables.$black;
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$link-color-dark, $lightness: 5%),
+						variables.$link-color-dark);
+				border-color: variables.$link-color-dark;
+				
+				&:hover {
+					background: linear-gradient(to bottom,
+							color.adjust(variables.$link-color-dark, $lightness: 10%),
+							color.adjust(variables.$link-color-dark, $lightness: 5%));
+					border-color: color.scale(variables.$link-color-dark, $lightness: 10%);
+					color: variables.$black;
+					box-shadow:
+						0 4px 8px rgba(variables.$link-color-dark, 0.3),
+						0 2px 4px rgba(variables.$link-color-dark, 0.2);
+				}
+			}
+		}
+		
 		.mobile-expand-button {
 			display: inline-flex;
 			align-items: center;
