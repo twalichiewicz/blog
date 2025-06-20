@@ -420,3 +420,57 @@ The `_config.yml` includes:
 - Company ordering for portfolio grouping
 - Year ranges for chronological organization
 - Allows both company-based and time-based project views
+
+## Working Patterns & Best Practices
+
+### Visual Development Workflow
+When working on UI changes:
+1. **ALWAYS** take screenshots before making changes (Cmd+Ctrl+Shift+4 on Mac)
+2. Use the visual-testing protocols in `docs/02-development/visual-testing-guide.md`
+3. Iterate on designs by comparing screenshots
+4. For major changes, use `/project:visual-compare [component]` command
+
+### Portfolio Improvement Checklist
+When improving portfolio projects, ensure:
+- ✓ Clear problem statement and context
+- ✓ Research and insights documented  
+- ✓ Design process shown (sketches → wireframes → final)
+- ✓ Mobile designs included with responsive behavior
+- ✓ Metrics and measurable outcomes stated
+- ✓ Your specific role clarified vs team contributions
+- ✓ Technical implementation details where relevant
+- ✓ Lessons learned or reflections
+
+### Performance First Approach
+- Run `npm run analyze` after significant changes
+- Check that images are optimized before committing
+- Verify lazy loading works for new content  
+- Monitor bundle sizes with each feature addition
+- Use `/project:performance-audit [target]` for detailed analysis
+
+### Git Workflow Best Practices
+- Let Claude write detailed commit messages based on changes
+- **ALWAYS** run `npm run build` before committing (no exceptions)
+- Create PRs for significant changes using `gh pr create`
+- Reference issues in commits: `fixes #123` or `relates to #456`
+- Use conventional commits: `feat:`, `fix:`, `docs:`, `chore:`
+
+### Quick Commands Reference
+Custom commands available via `/project:`:
+- `portfolio-improve [project-name]` - Enhance a portfolio case study
+- `performance-audit [target]` - Run performance analysis
+- `fix-tech-debt [issue]` - Address technical debt items
+- `visual-compare [component]` - Create visual regression comparison
+
+### Screenshot Tips
+- **Mac screenshot to clipboard**: Cmd+Ctrl+Shift+4
+- **Paste into Claude**: Ctrl+V (NOT Cmd+V)
+- **Full page screenshot**: Browser DevTools → Cmd+Shift+P → "Capture full size screenshot"
+- **Multiple viewport testing**: Use browser responsive mode
+
+### Effective Claude Usage Patterns
+1. **Research First**: Ask Claude to explore and understand before coding
+2. **Plan Before Implementation**: Request a plan, review it, then execute
+3. **Iterate Visually**: Use screenshots for UI work
+4. **Clear Context**: Use `/clear` between major task switches
+5. **Leverage Subagents**: For complex research or verification tasks
