@@ -77,9 +77,13 @@ class SoundEffects {
 			// Handle play promise for browsers that support it
 			if (playPromise !== undefined) {
 				playPromise.catch(error => {
+					// Audio playback failed - likely due to browser autoplay policy
+					// This is expected behavior, no action needed
 				});
 			}
 		} catch (error) {
+			// Sound playback error - non-critical feature
+			// Silently fail as sounds are optional enhancement
 		}
 	}
 

@@ -235,7 +235,6 @@ export class BlogModule extends Component {
         button.style.display = 'none';
       }
     } catch (error) {
-      console.error('Failed to load more posts:', error);
       button.textContent = 'Error - Try Again';
     } finally {
       button.disabled = false;

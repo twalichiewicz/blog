@@ -14,14 +14,12 @@
         
         // If body is invisible but should be visible
         if (body && (body.style.opacity === '0' || getComputedStyle(body).opacity === '0')) {
-            console.warn('Body is invisible, fixing...');
             body.style.opacity = '1';
             body.classList.add('loaded');
         }
         
         // If blog content is invisible
         if (blogContent && (blogContent.style.opacity === '0' || getComputedStyle(blogContent).opacity === '0')) {
-            console.warn('Blog content is invisible, fixing...');
             blogContent.style.opacity = '1';
             
             const innerWrapper = blogContent.querySelector('.content-inner-wrapper');
@@ -36,7 +34,6 @@
                               (performance.now() > 5000); // Hide after 5 seconds regardless
             
             if (shouldHide) {
-                console.warn('Overlay is blocking content, hiding...');
                 overlay.style.display = 'none';
                 overlay.style.opacity = '0';
             }

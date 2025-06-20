@@ -1,5 +1,5 @@
 // Add this new file to handle all scroll-related behaviors
-document.addEventListener('DOMContentLoaded', function() {
+const initScrollBehaviors = function() {
   // Prevent scroll chaining/bouncing on iOS
   document.body.style.overscrollBehavior = 'none';
   
@@ -36,4 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Adjust scroll position after page load
   window.addEventListener('load', adjustScrollPosition);
-}); 
+  
+  // Store handler for cleanup
+  window._scrollAdjustHandler = adjustScrollPosition;
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initScrollBehaviors);
+} else {
+  initScrollBehaviors();
+} 

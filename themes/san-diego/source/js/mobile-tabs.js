@@ -12,6 +12,10 @@ export function initializeMobileTabs() {
 		try {
 			window.mobileTabs.destroy();
 		} catch (error) {
+			// Error handling tabs - non-critical UI component
+			if (window.DEBUG_MODE) {
+				console.error('MobileTabs error:', error);
+			}
 		}
 	}
 
