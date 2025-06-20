@@ -50,11 +50,9 @@
 
 // Theme modes - importing the index file which manages all theme mode styles
 @use 'theme-modes/index' as theme-modes;
-@use 'theme-modes/light-mode';
 
 // Print styles
 @use 'print';
-@use 'theme-modes/dark-mode';
 
 // Home page
 @use 'home';
