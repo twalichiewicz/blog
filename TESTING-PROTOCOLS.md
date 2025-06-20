@@ -1,5 +1,14 @@
 # Testing Protocols & Quality Assurance
 
+## 🚨 CRITICAL RULE - DEPLOYMENT BLOCKER 🚨
+```bash
+# MANDATORY before EVERY commit:
+npm run build
+
+# If this fails → STOP. Do not commit. Do not push.
+# Fix all errors first.
+```
+
 ## Overview
 This document establishes testing protocols to ensure code quality and design consistency. Like a professional kitchen, we need systematic checks before changes "go out to the dining room."
 
@@ -37,6 +46,15 @@ This document establishes testing protocols to ensure code quality and design co
 - [ ] Classify the change (🟢/🟡/🔴)
 - [ ] If 🔴, document what visual changes will occur
 - [ ] Take "before" screenshots if visual changes
+```
+
+### 🚨 DEPLOYMENT BLOCKER - MANDATORY BEFORE EVERY COMMIT 🚨
+```bash
+# THIS IS NON-NEGOTIABLE - Run before EVERY commit:
+npm run build
+
+# If build fails, DO NOT COMMIT OR PUSH
+# Fix all errors first
 ```
 
 ### Implementation Phase

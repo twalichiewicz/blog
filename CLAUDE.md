@@ -75,6 +75,13 @@ Before making changes, consult `TESTING-PROTOCOLS.md` for:
 
 **Key principle**: Like a professional kitchen, all visual changes above a certain threshold need chef review before going out.
 
+### 🚨 CRITICAL DEPLOYMENT RULE 🚨
+**ALWAYS run `npm run build` before committing ANY changes**
+- If build fails → DO NOT commit or push
+- Fix all errors first
+- This is a hard blocker - no exceptions
+- Test locally before deployment
+
 ## Important Patterns
 
 ### Creating New Content
