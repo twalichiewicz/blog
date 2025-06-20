@@ -1018,7 +1018,15 @@ button {
 		}
 		
 		.mobile-impact-button,
-		.mobile-contact-button,
+		.mobile-contact-button {
+			// Override component library default button styles for consistency
+			&.btn--default {
+				height: auto !important; // Override fixed height
+				padding: 8px 16px !important; // Match "Posts only" button padding
+				font-size: 16px !important; // Use component library font size
+			}
+		}
+		
 		.mobile-expand-button {
 			display: inline-flex;
 			align-items: center;
@@ -1027,7 +1035,7 @@ button {
 			padding: 8px 16px;
 			margin: 6px 0 0 0;
 			position: relative;
-			font-size: 13px;
+			font-size: 16px; // Updated to match
 			font-weight: 600;
 			color: variables.$text-color;
 			cursor: pointer;
@@ -2343,7 +2351,7 @@ table {
 	
 	.posts-only-button {
 		padding: 8px 16px;
-		font-size: 14px;
+		font-size: 16px;
 		font-weight: 500;
 		color: variables.$text-color-secondary;
 		background: linear-gradient(to bottom,
