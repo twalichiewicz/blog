@@ -1,0 +1,167 @@
+<%# Button Component Template %>
+<%# 
+  Options:
+  - tag: 'button' | 'a' | 'input' (default: 'button')
+  - variant: 'default' | 'primary' | 'secondary' | 'ghost' | 'soft' (default: 'default')
+  - size: 'sm' | 'md' | 'lg' (default: 'md')
+  - type: 'button' | 'submit' | 'reset' (default: 'button', only for button tag)
+  - href: URL for link buttons
+  - icon: HTML/SVG string for icon
+  - iconPosition: 'start' | 'end' (default: 'start')
+  - loading: boolean (default: false)
+  - disabled: boolean (default: false)
+  - fullWidth: boolean (default: false)
+  - pill: boolean (default: false)
+  - iconOnly: boolean (default: false)
+  - ripple: boolean (default: true)
+  - soundEffect: boolean (default: true)
+  - loadingText: string (default: 'Loading...')
+  - ariaLabel: string (accessibility label)
+  - ariaPressed: boolean (for toggle buttons)
+  - ariaExpanded: boolean (for dropdown triggers)
+  - attributes: object of additional HTML attributes
+  - dataComponent: boolean (default: true) - auto-initialize with JS
+  - componentOptions: object - options to pass to JS component
+  - className: string - additional CSS classes
+  - id: string - element ID
+  - text: string - button text (can also use 'children' or content between tags)
+%>
+
+<% 
+  // Default options
+  const defaults = {
+    tag: 'button',
+    variant: 'default',
+    size: 'md',
+    type: 'button',
+    href: null,
+    icon: null,
+    iconPosition: 'start',
+    loading: false,
+    disabled: false,
+    fullWidth: false,
+    pill: false,
+    iconOnly: false,
+    ripple: true,
+    soundEffect: true,
+    loadingText: 'Loading...',
+    ariaLabel: null,
+    ariaPressed: null,
+    ariaExpanded: null,
+    attributes: {},
+    dataComponent: true,
+    componentOptions: {},
+    className: '',
+    id: null,
+    text: ''
+  };
+  
+  // Merge with provided options
+  const props = { ...defaults, ...locals };
+  
+  // Determine tag to use
+  const Tag = props.href ? 'a' : props.tag;
+  const isLink = Tag === 'a';
+  const isInput = Tag === 'input';
+  
+  // Build class list
+  const classes = [
+    'btn',
+    `btn--${props.variant}`,
+    `btn--${props.size}`,
+    props.fullWidth && 'btn--full',
+    props.pill && 'btn--pill',
+    props.iconOnly && 'btn--icon-only',
+    props.ripple && 'btn--ripple',
+    props.loading && 'is-loading',
+    props.disabled && 'is-disabled',
+    props.className
+  ].filter(Boolean).join(' ');
+  
+  // Build component options
+  const componentOptions = {
+    variant: props.variant,
+    size: props.size,
+    ripple: props.ripple,
+    loadingText: props.loadingText,
+    soundEffect: props.soundEffect,
+    ...props.componentOptions
+  };
+  
+  // Get button content
+  const content = props.text || props.children || '';
+%>
+
+<% if (isInput) { %>
+  <%# Input button %>
+  <input
+    type="<%= props.type %>"
+    class="<%= classes %>"
+    <% if (props.id) { %>id="<%= props.id %>"<% } %>
+    <% if (props.disabled) { %>disabled<% } %>
+    <% if (props.ariaLabel) { %>aria-label="<%= props.ariaLabel %>"<% } %>
+    <% if (props.loading) { %>aria-busy="true"<% } %>
+    <% if (props.dataComponent) { %>
+      data-component="button"
+      data-button-options='<%= JSON.stringify(componentOptions) %>'
+    <% } %>
+    value="<%= content %>"
+    <% Object.entries(props.attributes).forEach(([key, value]) => { %>
+      <%= key %>="<%= value %>"
+    <% }) %>
+  />
+<% } else { %>
+  <%# Button or Link %>
+  <<%= Tag %>
+    <% if (!isLink) { %>type="<%= props.type %>"<% } %>
+    class="<%= classes %>"
+    <% if (props.id) { %>id="<%= props.id %>"<% } %>
+    <% if (props.href) { %>href="<%= props.href %>"<% } %>
+    <% if (props.disabled && !isLink) { %>disabled<% } %>
+    <% if (props.disabled && isLink) { %>aria-disabled="true"<% } %>
+    <% if (props.ariaLabel || (props.iconOnly && !props.ariaLabel)) { %>
+      aria-label="<%= props.ariaLabel || content %>"
+    <% } %>
+    <% if (props.ariaPressed !== null) { %>aria-pressed="<%= props.ariaPressed %>"<% } %>
+    <% if (props.ariaExpanded !== null) { %>aria-expanded="<%= props.ariaExpanded %>"<% } %>
+    <% if (props.loading) { %>aria-busy="true"<% } %>
+    <% if (props.dataComponent) { %>
+      data-component="button"
+      data-button-options='<%= JSON.stringify(componentOptions) %>'
+    <% } %>
+    <% Object.entries(props.attributes).forEach(([key, value]) => { %>
+      <%= key %>="<%= value %>"
+    <% }) %>
+  >
+    <% if (!props.iconOnly) { %>
+      <%# Icon at start %>
+      <% if (props.icon && props.iconPosition === 'start') { %>
+        <span class="btn__icon btn__icon--start" aria-hidden="true">
+          <%- props.icon %>
+        </span>
+      <% } %>
+      
+      <%# Button text %>
+      <span class="btn__text">
+        <%= props.loading && props.loadingText ? props.loadingText : content %>
+      </span>
+      
+      <%# Icon at end %>
+      <% if (props.icon && props.iconPosition === 'end') { %>
+        <span class="btn__icon btn__icon--end" aria-hidden="true">
+          <%- props.icon %>
+        </span>
+      <% } %>
+    <% } else { %>
+      <%# Icon only button %>
+      <span class="btn__icon" aria-hidden="true">
+        <%- props.icon %>
+      </span>
+    <% } %>
+    
+    <%# Loading spinner %>
+    <% if (props.loading || props.dataComponent) { %>
+      <span class="btn__spinner" aria-hidden="true"></span>
+    <% } %>
+  </<%= Tag %>>
+<% } %>

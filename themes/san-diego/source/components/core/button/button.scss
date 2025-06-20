@@ -1,0 +1,461 @@
+// Button Component Styles
+@use 'sass:color';
+@use '../../tokens/design-tokens' as *;
+@use '../../../styles/variables' as *;
+
+// ============================================
+// Button Base Styles
+// ============================================
+
+.btn {
+  // Reset and base styles
+  @include button-reset;
+  @include focus-visible;
+  
+  // Layout
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: space('sm');
+  position: relative;
+  overflow: hidden;
+  
+  // Typography
+  font-family: inherit;
+  font-weight: map-get($component-font-weights, 'medium');
+  text-align: center;
+  white-space: nowrap;
+  
+  // Transitions
+  transition: 
+    background-color transition('base'),
+    border-color transition('base'),
+    color transition('base'),
+    transform transition('fast'),
+    box-shadow transition('base');
+  
+  // Prevent text selection on double click
+  user-select: none;
+  
+  // ==========================================
+  // Size Variants
+  // ==========================================
+  
+  &--sm {
+    height: map-get($component-heights, 'sm');
+    padding: 0 space('md');
+    font-size: map-get($component-font-sizes, 'sm');
+    border-radius: radius('md');
+    
+    .btn__icon {
+      width: map-get($icon-sizes, 'sm');
+      height: map-get($icon-sizes, 'sm');
+    }
+  }
+  
+  &--md {
+    height: map-get($component-heights, 'md');
+    padding: 0 space('lg');
+    font-size: map-get($component-font-sizes, 'base');
+    border-radius: radius('lg');
+    
+    .btn__icon {
+      width: map-get($icon-sizes, 'md');
+      height: map-get($icon-sizes, 'md');
+    }
+  }
+  
+  &--lg {
+    height: map-get($component-heights, 'lg');
+    padding: 0 space('xl');
+    font-size: map-get($component-font-sizes, 'lg');
+    border-radius: radius('lg');
+    
+    .btn__icon {
+      width: map-get($icon-sizes, 'lg');
+      height: map-get($icon-sizes, 'lg');
+    }
+  }
+  
+  // ==========================================
+  // Style Variants
+  // ==========================================
+  
+  // Default button (subtle, secondary action)
+  &--default {
+    background: rgba($white, 0.7);
+    border: 1px solid rgba($black, 0.06);
+    color: $text-color;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: shadow('sm');
+    
+    &:hover:not(:disabled) {
+      background: rgba($white, 0.85);
+      border-color: rgba($black, 0.12);
+      color: $text-color;
+      transform: translateY(-1px);
+      box-shadow: shadow('md');
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: shadow('xs');
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      background: rgba($white, 0.1);
+      border-color: rgba($white, 0.15);
+      color: $text-color-dark;
+      
+      &:hover:not(:disabled) {
+        background: rgba($white, 0.15);
+        border-color: rgba($white, 0.25);
+        color: $text-color-dark;
+        transform: translateY(-1px);
+        box-shadow: shadow('md');
+      }
+    }
+  }
+  
+  // Primary button (main action)
+  &--primary {
+    background: $link-color;
+    border: 1px solid $link-color;
+    color: $white;
+    box-shadow: shadow('md');
+    
+    &:hover:not(:disabled) {
+      background: color.scale($link-color, $lightness: -10%);
+      border-color: color.scale($link-color, $lightness: -10%);
+      transform: translateY(-1px);
+      box-shadow: shadow('lg');
+    }
+    
+    &:active:not(:disabled) {
+      background: color.scale($link-color, $lightness: -15%);
+      border-color: color.scale($link-color, $lightness: -15%);
+      transform: translateY(0);
+      box-shadow: shadow('sm');
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      background: $link-color-dark;
+      border-color: $link-color-dark;
+      color: $black;
+      
+      &:hover:not(:disabled) {
+        background: color.scale($link-color-dark, $lightness: 10%);
+        border-color: color.scale($link-color-dark, $lightness: 10%);
+      }
+      
+      &:active:not(:disabled) {
+        background: color.scale($link-color-dark, $lightness: -5%);
+        border-color: color.scale($link-color-dark, $lightness: -5%);
+      }
+    }
+  }
+  
+  // Secondary button (bordered)
+  &--secondary {
+    background: transparent;
+    border: 1px solid $border-color;
+    color: $text-color;
+    
+    &:hover:not(:disabled) {
+      background: rgba($link-color, 0.1);
+      border-color: $link-color;
+      color: $link-color;
+      transform: translateY(-1px);
+    }
+    
+    &:active:not(:disabled) {
+      background: rgba($link-color, 0.15);
+      transform: translateY(0);
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      border-color: $border-color-dark;
+      color: $text-color-dark;
+      
+      &:hover:not(:disabled) {
+        background: rgba($link-color-dark, 0.15);
+        border-color: $link-color-dark;
+        color: $link-color-dark;
+      }
+      
+      &:active:not(:disabled) {
+        background: rgba($link-color-dark, 0.2);
+      }
+    }
+  }
+  
+  // Ghost button (minimal)
+  &--ghost {
+    background: transparent;
+    border: 1px solid transparent;
+    color: $text-color;
+    padding: 0 space('md');
+    
+    &:hover:not(:disabled) {
+      background: rgba($black, 0.05);
+      color: $link-color;
+    }
+    
+    &:active:not(:disabled) {
+      background: rgba($black, 0.08);
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      color: $text-color-dark;
+      
+      &:hover:not(:disabled) {
+        background: rgba($white, 0.08);
+        color: $link-color-dark;
+      }
+      
+      &:active:not(:disabled) {
+        background: rgba($white, 0.12);
+      }
+    }
+  }
+  
+  // Soft button (muted primary)
+  &--soft {
+    background: rgba($link-color, 0.1);
+    border: 1px solid rgba($link-color, 0.2);
+    color: $link-color;
+    
+    &:hover:not(:disabled) {
+      background: rgba($link-color, 0.15);
+      border-color: rgba($link-color, 0.3);
+      transform: translateY(-1px);
+      box-shadow: shadow('sm');
+    }
+    
+    &:active:not(:disabled) {
+      background: rgba($link-color, 0.2);
+      transform: translateY(0);
+      box-shadow: none;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      background: rgba($link-color-dark, 0.15);
+      border-color: rgba($link-color-dark, 0.25);
+      color: $link-color-dark;
+      
+      &:hover:not(:disabled) {
+        background: rgba($link-color-dark, 0.2);
+        border-color: rgba($link-color-dark, 0.35);
+      }
+      
+      &:active:not(:disabled) {
+        background: rgba($link-color-dark, 0.25);
+      }
+    }
+  }
+  
+  // ==========================================
+  // State Classes
+  // ==========================================
+  
+  // Loading state
+  &.is-loading {
+    @include loading-state;
+    color: transparent;
+    
+    .btn__text,
+    .btn__icon {
+      opacity: 0;
+    }
+    
+    .btn__spinner {
+      opacity: 1;
+    }
+  }
+  
+  // Disabled state
+  &:disabled,
+  &.is-disabled {
+    @include disabled-state;
+  }
+  
+  // Pressed state (for touch feedback)
+  &.is-pressed {
+    transform: scale(0.98);
+  }
+  
+  // ==========================================
+  // Button Elements
+  // ==========================================
+  
+  // Text wrapper
+  &__text {
+    position: relative;
+    z-index: 1;
+  }
+  
+  // Icon wrapper
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+    
+    &--start {
+      margin-right: space('xs');
+    }
+    
+    &--end {
+      margin-left: space('xs');
+    }
+  }
+  
+  // Loading spinner
+  &__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transition: opacity transition('fast');
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: btn-spin 0.75s linear infinite;
+    }
+  }
+  
+  // Ripple effect
+  &--ripple {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  &__ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba($white, 0.5);
+    transform: scale(0);
+    animation: btn-ripple 0.6s ease-out;
+    pointer-events: none;
+    
+    @media (prefers-color-scheme: dark) {
+      background: rgba($white, 0.2);
+    }
+  }
+  
+  // ==========================================
+  // Modifiers
+  // ==========================================
+  
+  // Full width button
+  &--full {
+    width: 100%;
+  }
+  
+  // Pill shaped button
+  &--pill {
+    border-radius: radius('pill');
+  }
+  
+  // Icon-only button
+  &--icon-only {
+    padding: 0;
+    width: map-get($component-heights, 'md');
+    
+    &.btn--sm {
+      width: map-get($component-heights, 'sm');
+    }
+    
+    &.btn--lg {
+      width: map-get($component-heights, 'lg');
+    }
+    
+    .btn__icon {
+      margin: 0;
+    }
+  }
+}
+
+// ============================================
+// Animations
+// ============================================
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes btn-ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+// ============================================
+// Button Group
+// ============================================
+
+.btn-group {
+  display: inline-flex;
+  gap: space('sm');
+  
+  &--attached {
+    gap: 0;
+    
+    .btn {
+      border-radius: 0;
+      
+      &:first-child {
+        border-radius: radius('lg') 0 0 radius('lg');
+      }
+      
+      &:last-child {
+        border-radius: 0 radius('lg') radius('lg') 0;
+      }
+      
+      &:not(:first-child) {
+        margin-left: -1px;
+      }
+    }
+  }
+  
+  &--vertical {
+    flex-direction: column;
+    
+    &.btn-group--attached {
+      .btn {
+        &:first-child {
+          border-radius: radius('lg') radius('lg') 0 0;
+        }
+        
+        &:last-child {
+          border-radius: 0 0 radius('lg') radius('lg');
+        }
+        
+        &:not(:first-child) {
+          margin-top: -1px;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}

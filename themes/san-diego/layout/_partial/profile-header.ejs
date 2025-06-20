@@ -19,13 +19,27 @@
             <!-- Mobile buttons container -->
             <div class="mobile-buttons-container">
                 <!-- Impact Report button -->
-                <button class="mobile-impact-button" onclick="openImpactModal()" aria-label="View impact report">
-                    <span class="button-text">View Impact report</span>
-                </button>
+                <%- include('../../source/components/core/button/button', {
+                    text: 'View Impact report',
+                    variant: 'default',
+                    size: 'md',
+                    className: 'mobile-impact-button',
+                    attributes: {
+                        onclick: 'openImpactModal()'
+                    },
+                    dataComponent: false // Don't auto-initialize since we have onclick
+                }) %>
                 <!-- Mobile contact button -->
-                <button class="mobile-contact-button" onclick="openContactModal()" aria-label="Get in touch">
-                    <span class="button-text">Get in touch</span>
-                </button>
+                <%- include('../../source/components/core/button/button', {
+                    text: 'Get in touch',
+                    variant: 'default',
+                    size: 'md',
+                    className: 'mobile-contact-button',
+                    attributes: {
+                        onclick: 'openContactModal()'
+                    },
+                    dataComponent: false // Don't auto-initialize since we have onclick
+                }) %>
             </div>
         </div>
         <!-- Desktop/tablet content (always visible) -->

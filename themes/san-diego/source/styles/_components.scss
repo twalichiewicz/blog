@@ -1159,39 +1159,11 @@ button {
 			}
 		}
 		
-		// Specific styles for both mobile action buttons - identical styling
+		// Mobile action buttons now use the component library
+		// Additional styles can be added here if needed
 		.mobile-impact-button,
 		.mobile-contact-button {
-			// Light mode - matte black like desktop
-			background: variables.$black;
-			border: 1px solid variables.$black;
-			color: variables.$white;
-			backdrop-filter: none;
-			-webkit-backdrop-filter: none;
-			box-shadow: none;
-			
-			.button-text {
-				color: variables.$white;
-			}
-			
-			&::before,
-			&::after {
-				display: none; // Remove glassmorphism effects
-			}
-			
-			&:hover {
-				background: color.scale(variables.$black, $lightness: 10%);
-				border-color: color.scale(variables.$black, $lightness: 10%);
-				
-				.button-text {
-					color: variables.$white;
-				}
-			}
-			
-			&:active {
-				background: color.scale(variables.$black, $lightness: 5%);
-				border-color: color.scale(variables.$black, $lightness: 5%);
-			}
+			flex: 1; // Make buttons equal width in container
 		}
 		
 		@keyframes borderRotate {
@@ -1421,39 +1393,6 @@ button {
 				}
 			}
 			
-			// Both mobile action buttons - white styling to match desktop in dark mode
-			.mobile-impact-button,
-			.mobile-contact-button {
-				background: variables.$white;
-				border: 1px solid variables.$white;
-				color: variables.$black;
-				box-shadow: 0 2px 12px rgba(255, 255, 255, 0.1);
-				
-				.button-text {
-					color: variables.$black;
-				}
-				
-				&::before,
-				&::after {
-					display: none; // Remove glassmorphism effects
-				}
-				
-				&:hover {
-					background: color.scale(variables.$white, $lightness: -5%);
-					border-color: color.scale(variables.$white, $lightness: -5%);
-					box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
-					
-					.button-text {
-						color: variables.$black;
-					}
-				}
-				
-				&:active {
-					background: color.scale(variables.$white, $lightness: -10%);
-					border-color: color.scale(variables.$white, $lightness: -10%);
-					box-shadow: 0 1px 8px rgba(255, 255, 255, 0.1);
-				}
-			}
 			
 			.mobile-expandable-content {
 				.profile-byline {
@@ -2421,10 +2360,14 @@ table {
 		
 		&:hover {
 			background: linear-gradient(to bottom,
-					color.adjust(variables.$card-bg, $lightness: 3%),
-					color.adjust(variables.$card-bg, $lightness: 1%));
-			border-color: rgb(255 255 255 / 15%);
+					color.adjust(variables.$card-bg, $lightness: 5%),
+					color.adjust(variables.$card-bg, $lightness: 3%));
+			border-color: rgba(variables.$border-color, 0.3);
 			color: variables.$text-color;
+			box-shadow:
+				0 2px 4px rgb(0 0 0 / 12%),
+				0 1px 3px rgb(0 0 0 / 8%);
+			transform: translateY(-1px);
 		}
 		
 		&.active {
@@ -2502,10 +2445,14 @@ table {
 			
 			&:hover {
 				background: linear-gradient(to bottom,
-						color.adjust(variables.$card-bg-dark, $lightness: 4%),
-						color.adjust(variables.$card-bg-dark, $lightness: 2%));
-				border-color: rgb(255 255 255 / 15%);
+						color.adjust(variables.$card-bg-dark, $lightness: 6%),
+						color.adjust(variables.$card-bg-dark, $lightness: 4%));
+				border-color: rgba(variables.$border-color-dark, 0.4);
 				color: variables.$text-color-dark;
+				box-shadow:
+					0 2px 4px rgb(0 0 0 / 25%),
+					0 -1px 0 rgb(255 255 255 / 8%) inset;
+				transform: translateY(-1px);
 			}
 			
 			&.active {

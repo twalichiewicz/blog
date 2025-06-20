@@ -185,7 +185,7 @@ When opening spotlight mode:
 - **Impact**: Silent failures that are hard to debug
 - **Solution**: Add comprehensive error handling and user feedback
 
-## Recent Front-End Improvements (June 2025)
+## Recent Front-End Improvements & Fixes (June 2025)
 
 ### Accessibility Enhancements
 - **Skip Navigation Links**: Added skip links at the top of all pages for keyboard navigation
@@ -223,6 +223,29 @@ When opening spotlight mode:
   - CollectionPage for the homepage
   - Uses @graph for proper entity relationships
 
+### Bug Fixes
+- **Back Button Sound Effect**: Fixed incorrect slider.mp3 sound playing when using back button
+  - Changed `switchTab('portfolio', true)` to `switchTab('portfolio', false)` in blog.js
+  - Added proper button press sound effect
+  
+- **Border Color in Production**: Fixed missing border colors on cards in production builds
+  - Root cause: CleanCSS level 2 optimization removing rgba colors in media queries
+  - Solution: Modified minification settings to preserve colors
+  - Added comprehensive border color rules with !important for production reliability
+
+- **Theme System Cleanup**: Removed conflicting theme implementations
+  - Standardized on `prefers-color-scheme` media queries only
+  - Removed `data-theme` and `data-color-scheme` attributes
+  - Cleaned up duplicate theme mode files
+
+### Component Library Implementation
+- **Custom Micro-Component Library**: Built specifically for Hexo
+  - Base component class with lifecycle management
+  - Design token system extending existing variables
+  - Button component as first implementation
+  - Mobile buttons migrated to new system
+  - See "Component Library System" section below for full details
+
 ## Custom Hexo Tag Plugins
 
 The theme includes several custom tag plugins in `themes/san-diego/scripts/`:
@@ -249,9 +272,124 @@ The theme includes several custom tag plugins in `themes/san-diego/scripts/`:
 # Use Google's Rich Results Test: https://search.google.com/test/rich-results
 # Or Schema.org validator: https://validator.schema.org/
 
+# Test component library
+# Visit /components/ for demo page
+hexo new page components
+
 # Analyze build size
 npm run analyze
 ```
+
+## Component Library System (Added June 2025)
+
+### Overview
+A custom micro-component library has been implemented to provide consistent, reusable UI components across the site. This system is built specifically for Hexo and provides a foundation for migrating away from scattered component implementations.
+
+### Architecture
+
+#### Directory Structure
+```
+themes/san-diego/source/components/
+├── index.js              # Main JS entry point
+├── index.scss            # Main SCSS entry point  
+├── utilities/
+│   └── base-component.js # Base class for all components
+├── tokens/
+│   └── _design-tokens.scss # Design system tokens
+└── core/
+    └── button/          # Example component
+        ├── button.js    # Component logic
+        ├── button.scss  # Component styles
+        └── button.ejs   # Component template
+```
+
+#### Integration
+- **Styles**: Imported in `styles.scss` as `@use '../components/index' as component-lib;`
+- **Scripts**: Components auto-initialize via `data-component` attribute
+- **Templates**: Use EJS includes with relative paths
+
+### Design Tokens
+Extended from existing variables with component-specific values:
+```scss
+// Spacing scale
+$spacing-scale: (
+  'xs': 0.25rem,  // 4px
+  'sm': 0.5rem,   // 8px
+  'md': 1rem,     // 16px
+  'lg': 1.5rem,   // 24px
+  'xl': 2rem,     // 32px
+  'xxl': 3rem     // 48px
+);
+
+// Component-specific tokens
+$component-heights: (
+  'sm': 32px,
+  'md': 40px,
+  'lg': 48px
+);
+```
+
+### Creating New Components
+
+1. **Create component directory**:
+   ```bash
+   mkdir -p themes/san-diego/source/components/core/[component-name]
+   ```
+
+2. **Add three files**:
+   - `[component-name].js` - Extends BaseComponent class
+   - `[component-name].scss` - Uses design tokens
+   - `[component-name].ejs` - Template with options
+
+3. **Import styles** in `components/index.scss`:
+   ```scss
+   @use 'core/[component-name]/[component-name]';
+   ```
+
+4. **Use in templates**:
+   ```ejs
+   <%- include('../../source/components/core/[component-name]/[component-name]', {
+     // component options
+   }) %>
+   ```
+
+### Button Component Example
+
+The button component demonstrates the pattern:
+
+```javascript
+// Auto-initialization
+<button class="btn btn--primary" data-component="button" data-ripple="true">
+  Click me
+</button>
+
+// EJS include
+<%- include('../../source/components/core/button/button', {
+  text: 'Click me',
+  variant: 'primary',
+  size: 'md',
+  icon: { name: 'arrow-right', position: 'end' },
+  attributes: { onclick: 'handleClick()' }
+}) %>
+```
+
+Available variants: `default`, `primary`, `secondary`, `ghost`, `soft`
+Available sizes: `sm`, `md`, `lg`
+
+### Migration Strategy
+
+1. **Identify components** to migrate (modals, cards, inputs)
+2. **Create adapter functions** for backward compatibility
+3. **Update templates** gradually to use new components
+4. **Remove old implementations** once migrated
+
+### Important Notes
+
+- **Namespace conflict**: Don't use `components` as namespace (already used by `_components.scss`)
+- **Auto-initialization**: Components with `data-component` attribute initialize automatically
+- **Sound effects**: Integrated with existing sound system via `window.soundEffects`
+- **Accessibility**: All components include ARIA attributes and keyboard support
+- **Performance**: Uses event delegation and lazy initialization
 
 ## Environment Configuration
 

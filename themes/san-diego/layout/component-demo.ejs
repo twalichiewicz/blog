@@ -1,0 +1,281 @@
+---
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component Library Demo - <%= config.title %></title>
+  <%- css('styles/styles.css') %>
+  <style>
+    .demo-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    
+    .demo-section {
+      margin-bottom: 64px;
+    }
+    
+    .demo-section h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      color: var(--text-color, #595959);
+    }
+    
+    .demo-section h3 {
+      font-size: 1.25rem;
+      margin: 32px 0 16px;
+      color: var(--text-color-secondary, #7a7a7a);
+    }
+    
+    .demo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .demo-code {
+      background: rgba(0, 0, 0, 0.03);
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 16px 0;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .demo-code {
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+    
+    .demo-note {
+      padding: 12px 16px;
+      background: rgba(255, 193, 7, 0.1);
+      border-left: 4px solid #ffc107;
+      margin: 16px 0;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h1>Component Library Demo</h1>
+    <p>Interactive examples of all components in the micro-component library.</p>
+    
+    <!-- Button Component Demo -->
+    <section class="demo-section">
+      <h2>Button Component</h2>
+      
+      <h3>Variants</h3>
+      <div class="demo-grid">
+        <%- include('components/core/button/button', {
+          text: 'Default',
+          variant: 'default'
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          text: 'Primary',
+          variant: 'primary'
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          text: 'Secondary',
+          variant: 'secondary'
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          text: 'Ghost',
+          variant: 'ghost'
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          text: 'Soft',
+          variant: 'soft'
+        }) %>
+      </div>
+      
+      <div class="demo-code">
+&lt;%- include('components/core/button/button', {
+  text: 'Primary Button',
+  variant: 'primary'
+}) %&gt;
+      </div>
+      
+      <h3>Sizes</h3>
+      <div class="demo-grid">
+        <%- include('components/core/button/button', {
+          text: 'Small',
+          variant: 'primary',
+          size: 'sm'
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          text: 'Medium',
+          variant: 'primary',
+          size: 'md'
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          text: 'Large',
+          variant: 'primary',
+          size: 'lg'
+        }) %>
+      </div>
+      
+      <h3>With Icons</h3>
+      <div class="demo-grid">
+        <%- include('components/core/button/button', {
+          text: 'Download',
+          variant: 'primary',
+          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>',
+          iconPosition: 'start'
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          text: 'Next',
+          variant: 'secondary',
+          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>',
+          iconPosition: 'end'
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          variant: 'ghost',
+          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>',
+          iconOnly: true,
+          ariaLabel: 'Close'
+        }) %>
+      </div>
+      
+      <h3>States</h3>
+      <div class="demo-grid">
+        <%- include('components/core/button/button', {
+          text: 'Loading',
+          variant: 'primary',
+          loading: true,
+          loadingText: 'Processing...'
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          text: 'Disabled',
+          variant: 'primary',
+          disabled: true
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          text: 'Full Width',
+          variant: 'secondary',
+          fullWidth: true
+        }) %>
+      </div>
+      
+      <h3>Link Buttons</h3>
+      <div class="demo-grid">
+        <%- include('components/core/button/button', {
+          text: 'Visit Blog',
+          href: '/blog',
+          variant: 'primary'
+        }) %>
+        
+        <%- include('components/core/button/button', {
+          text: 'External Link',
+          href: 'https://github.com',
+          variant: 'secondary',
+          icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" /><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" /></svg>',
+          iconPosition: 'end',
+          attributes: {
+            target: '_blank',
+            rel: 'noopener noreferrer'
+          }
+        }) %>
+      </div>
+      
+      <h3>Interactive Examples</h3>
+      <div class="demo-note">
+        Click the buttons below to see the JavaScript API in action.
+      </div>
+      
+      <div class="demo-grid">
+        <button id="interactive-btn" class="btn btn--primary" data-component="button">
+          Click to Load
+        </button>
+        
+        <button id="toggle-btn" class="btn btn--secondary" aria-pressed="false">
+          Toggle Me
+        </button>
+        
+        <button id="counter-btn" class="btn btn--soft">
+          Clicks: 0
+        </button>
+      </div>
+    </section>
+    
+    <!-- More component demos will be added here -->
+    
+  </div>
+  
+  <!-- Scripts -->
+  <%- js('js/sound-effects.js') %>
+  <script type="module">
+    import Button from '/components/core/button/button.js';
+    
+    // Interactive loading button
+    const interactiveBtn = document.getElementById('interactive-btn');
+    const btnInstance = Button.getInstance(interactiveBtn);
+    
+    interactiveBtn.addEventListener('click', () => {
+      btnInstance.setLoading(true, 'Processing...');
+      
+      // Simulate async operation
+      setTimeout(() => {
+        btnInstance.setLoading(false);
+        btnInstance.setText('Success!');
+        btnInstance.updateVariant('soft');
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+          btnInstance.setText('Click to Load');
+          btnInstance.updateVariant('primary');
+        }, 2000);
+      }, 2000);
+    });
+    
+    // Toggle button
+    const toggleBtn = document.getElementById('toggle-btn');
+    const toggleBtnInstance = new Button(toggleBtn, {
+      variant: 'secondary'
+    });
+    
+    toggleBtn.addEventListener('click', () => {
+      const isPressed = toggleBtn.getAttribute('aria-pressed') === 'true';
+      toggleBtn.setAttribute('aria-pressed', !isPressed);
+      toggleBtnInstance.updateVariant(isPressed ? 'secondary' : 'primary');
+      toggleBtn.textContent = isPressed ? 'Toggle Me' : 'Toggled!';
+    });
+    
+    // Counter button
+    const counterBtn = document.getElementById('counter-btn');
+    const counterBtnInstance = new Button(counterBtn, {
+      variant: 'soft'
+    });
+    let clickCount = 0;
+    
+    counterBtn.addEventListener('click', () => {
+      clickCount++;
+      counterBtnInstance.setText(`Clicks: ${clickCount}`);
+      
+      // Add a little animation
+      counterBtn.style.transform = 'scale(1.1)';
+      setTimeout(() => {
+        counterBtn.style.transform = '';
+      }, 100);
+    });
+  </script>
+</body>
+</html>
