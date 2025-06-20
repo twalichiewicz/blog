@@ -56,15 +56,6 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/06/30/workbook-project/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://twalichiewicz.github.io/2024/11/05/what-we-lost-macOS-app-icons/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -92,7 +83,25 @@
   </url>
   
   <url>
+    <loc>https://twalichiewicz.github.io/2024/06/30/workbook-project/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://twalichiewicz.github.io/2024/04/10/udio-ai-music-generator/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/04/16/turning-the-phone-into-companion-ai-with-iSight/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -119,15 +128,6 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/04/16/turning-the-phone-into-companion-ai-with-iSight/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://twalichiewicz.github.io/2023/12/03/touch-interfaces-contextual-menu-affordance/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -146,7 +146,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/11/11/refactor-mostly-done/</loc>
+    <loc>https://twalichiewicz.github.io/2023/12/11/responding-to-enter-late-stage-UX/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -155,7 +155,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2023/12/11/responding-to-enter-late-stage-UX/</loc>
+    <loc>https://twalichiewicz.github.io/2024/11/11/refactor-mostly-done/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -317,15 +317,6 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/08/02/police-apple-wallet/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://twalichiewicz.github.io/2024/06/30/post/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -335,25 +326,16 @@
   </url>
   
   <url>
+    <loc>https://twalichiewicz.github.io/2024/08/02/police-apple-wallet/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://twalichiewicz.github.io/2018/01/15/propel/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2025/01/28/late-is-just-for-a-little-while/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2023/12/19/macOS-stacks-button-fail/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -390,6 +372,60 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2024/05/07/oreo-dipper/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/02/12/is-app-based-the-direction-for-apple-vision-pro/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/12/03/jaguar-type-00/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/06/18/kidpix-lives/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2025/01/28/late-is-just-for-a-little-while/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2023/12/19/macOS-stacks-button-fail/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/06/24/iPhone-Mirroring/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -461,25 +497,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/02/12/is-app-based-the-direction-for-apple-vision-pro/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2024/12/03/jaguar-type-00/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2024/06/18/kidpix-lives/</loc>
+    <loc>https://twalichiewicz.github.io/2023/09/22/homepage-updated/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -506,24 +524,6 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/06/24/iPhone-Mirroring/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2023/09/22/homepage-updated/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://twalichiewicz.github.io/2024/04/14/humane-cicret-ai-bracelet/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -534,6 +534,15 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2024/10/31/happy-halloween-2024/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2023/11/22/glorified-autocomplete/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -578,7 +587,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2023/11/22/glorified-autocomplete/</loc>
+    <loc>https://twalichiewicz.github.io/2025/05/30/figma-slides-multi-select-issue/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -597,15 +606,6 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2023/12/24/finally-got-interactivity-working/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2025/05/30/figma-slides-multi-select-issue/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -641,15 +641,6 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/08/13/designers-that-are-slave-to-process/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://twalichiewicz.github.io/2025/06/03/desktop-mode-offline-temporarily/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -660,6 +651,15 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2024/06/30/door-dash-notifications-fuckery/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/08/13/designers-that-are-slave-to-process/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -713,7 +713,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2023/08/24/cyberstupid/</loc>
+    <loc>https://twalichiewicz.github.io/2024/02/12/cyberrust/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -722,7 +722,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/07/15/dating-app-premium-experience/</loc>
+    <loc>https://twalichiewicz.github.io/2023/08/24/cyberstupid/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -740,7 +740,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2016/12/11/ccl-retiremap/</loc>
+    <loc>https://twalichiewicz.github.io/2024/07/15/dating-app-premium-experience/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -785,25 +785,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/05/20/copilotPlus/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://twalichiewicz.github.io/2024/11/17/costco-amazon-v2/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2024/10/11/cybercab/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -821,25 +803,25 @@
   </url>
   
   <url>
+    <loc>https://twalichiewicz.github.io/2024/05/20/copilotPlus/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/10/11/cybercab/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://twalichiewicz.github.io/2024/04/21/cyberfuck-car-wash-mode/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2024/02/12/cyberrust/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2024/02/04/apple-vision-pro-creative-industry-applications/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -866,6 +848,15 @@
   </url>
   
   <url>
+    <loc>https://twalichiewicz.github.io/2024/02/04/apple-vision-pro-creative-industry-applications/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://twalichiewicz.github.io/2024/02/05/appletv-model-but-for-games/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -884,7 +875,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/10/04/bad-appletv-marketing-promotion/</loc>
+    <loc>https://twalichiewicz.github.io/2023/12/07/blog-long-money-long-me-and-no-filters-we-don-t-get-along/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -893,7 +884,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2023/12/07/blog-long-money-long-me-and-no-filters-we-don-t-get-along/</loc>
+    <loc>https://twalichiewicz.github.io/2024/10/04/bad-appletv-marketing-promotion/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -938,7 +929,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2018/05/01/ccl-greenpath/</loc>
+    <loc>https://twalichiewicz.github.io/2016/12/13/ccl-kiva/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -947,7 +938,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2016/12/13/ccl-kiva/</loc>
+    <loc>https://twalichiewicz.github.io/2018/05/01/ccl-greenpath/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -974,7 +965,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/10/15/apple-fullscreen-new-window-annoyance/</loc>
+    <loc>https://twalichiewicz.github.io/2016/12/11/ccl-retiremap/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -984,6 +975,15 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2024/07/02/apple-card-pro/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/10/15/apple-fullscreen-new-window-annoyance/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1028,7 +1028,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/03/30/apple-music-crossfade-as-dj/</loc>
+    <loc>https://twalichiewicz.github.io/2024/10/08/apple-music-landscape/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1037,7 +1037,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/10/08/apple-music-landscape/</loc>
+    <loc>https://twalichiewicz.github.io/2024/03/30/apple-music-crossfade-as-dj/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1091,7 +1091,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2023/04/27/Twitter-DLC/</loc>
+    <loc>https://twalichiewicz.github.io/2025/05/05/Unsurprisingly-good-input-good-output/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1100,7 +1100,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2025/05/05/Unsurprisingly-good-input-good-output/</loc>
+    <loc>https://twalichiewicz.github.io/2023/04/27/Twitter-DLC/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1136,15 +1136,6 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2025/04/25/You-Can-Be-a-Great-Designer-and-Be-Completely-Unknown/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://twalichiewicz.github.io/2024/08/12/a-ux-designer-walks-into-a-tesla-bar/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -1154,7 +1145,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/06/07/ai-art-the-new-scribble-on-a-postit/</loc>
+    <loc>https://twalichiewicz.github.io/2025/04/25/You-Can-Be-a-Great-Designer-and-Be-Completely-Unknown/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1164,6 +1155,15 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2025/06/17/agency-first-tooling/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/06/07/ai-art-the-new-scribble-on-a-postit/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1235,7 +1235,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2025/05/03/Temporary-tv-subscriptions/</loc>
+    <loc>https://twalichiewicz.github.io/2025/03/19/Talking-to-LLMs/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1244,7 +1244,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2025/03/19/Talking-to-LLMs/</loc>
+    <loc>https://twalichiewicz.github.io/2025/05/03/Temporary-tv-subscriptions/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1298,15 +1298,6 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2025/05/25/Play-Next/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://twalichiewicz.github.io/2025/02/06/Paper-apps/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -1325,6 +1316,15 @@
   </url>
   
   <url>
+    <loc>https://twalichiewicz.github.io/2025/05/25/Play-Next/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://twalichiewicz.github.io/2025/06/16/Preview-of-AI-tooling-post-leaked/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -1335,6 +1335,15 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2019/06/30/Project-Wingman/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/12/13/OpenAI-vs-Musky/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1397,7 +1406,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/12/13/OpenAI-vs-Musky/</loc>
+    <loc>https://twalichiewicz.github.io/2023/06/20/Netflix-Games-and-third-party-app-stores-SHRT/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1415,7 +1424,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2023/06/20/Netflix-Games-and-third-party-app-stores-SHRT/</loc>
+    <loc>https://twalichiewicz.github.io/2014/01/01/Miti-Health/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1424,7 +1433,43 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2014/01/01/Miti-Health/</loc>
+    <loc>https://twalichiewicz.github.io/2023/05/05/Mario-Mid-Movie/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2025/02/22/Metaverse-ad/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/01/07/Microsoft-design-strikes-again/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2016/12/15/Latino-Community-Credit-Union/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2025/04/11/Leaning-into-AI/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1460,15 +1505,6 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2023/05/25/MVPs-degrade-brand-perception/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://twalichiewicz.github.io/2023/11/20/MURAL-stupid-outage/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -1478,25 +1514,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2023/05/05/Mario-Mid-Movie/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2024/01/07/Microsoft-design-strikes-again/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2025/02/22/Metaverse-ad/</loc>
+    <loc>https://twalichiewicz.github.io/2023/05/25/MVPs-degrade-brand-perception/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1524,24 +1542,6 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2022/10/18/Just-Live-Activities-Goofin/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2016/12/15/Latino-Community-Credit-Union/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2025/04/11/Leaning-into-AI/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1622,7 +1622,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2024/12/30/GEICO-email-language-choice/</loc>
+    <loc>https://twalichiewicz.github.io/2024/07/01/GPT-capabilities/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1632,15 +1632,6 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2024/05/13/GPT-4o/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2024/07/01/GPT-capabilities/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1712,6 +1703,15 @@
   </url>
   
   <url>
+    <loc>https://twalichiewicz.github.io/2024/12/30/GEICO-email-language-choice/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://twalichiewicz.github.io/2019/08/30/Custom-Installer-Deployments/</loc>
     
     <lastmod>2025-06-20</lastmod>
@@ -1721,7 +1721,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2022/11/09/Designing-Around-Feedback/</loc>
+    <loc>https://twalichiewicz.github.io/2025/03/15/Designer-developers-in-2025/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1730,7 +1730,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2025/03/15/Designer-developers-in-2025/</loc>
+    <loc>https://twalichiewicz.github.io/2022/11/09/Designing-Around-Feedback/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1776,6 +1776,24 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2016/01/01/Common-Cents-Lab-brand/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2024/06/27/Apple-Music-Station-Stew/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://twalichiewicz.github.io/2023/11/18/Apple-Music-confusing-iconography/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1910,7 +1928,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2025/04/18/Command-minus-minus/</loc>
+    <loc>https://twalichiewicz.github.io/2025/03/14/Coding-over-writing/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1919,7 +1937,7 @@
   </url>
   
   <url>
-    <loc>https://twalichiewicz.github.io/2025/03/14/Coding-over-writing/</loc>
+    <loc>https://twalichiewicz.github.io/2025/04/18/Command-minus-minus/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -1937,25 +1955,16 @@
   </url>
   
   <url>
+    <loc>https://twalichiewicz.github.io/2023/07/08/Apple-Maps-Favorites-with-filters/</loc>
+    
+    <lastmod>2025-06-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://twalichiewicz.github.io/2023/06/19/Apple-Maps-and-DoorDash-had-a-baby/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2024/06/27/Apple-Music-Station-Stew/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2023/11/18/Apple-Music-confusing-iconography/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
@@ -2019,15 +2028,6 @@
   
   <url>
     <loc>https://twalichiewicz.github.io/2025/05/16/Apple-CarPlay-Ultra/</loc>
-    
-    <lastmod>2025-06-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://twalichiewicz.github.io/2023/07/08/Apple-Maps-Favorites-with-filters/</loc>
     
     <lastmod>2025-06-20</lastmod>
     
