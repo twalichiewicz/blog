@@ -1,48 +1,19 @@
-// Add this new file to handle all scroll-related behaviors
-const initScrollBehaviors = function() {
-  // Prevent scroll chaining/bouncing on iOS
-  document.body.style.overscrollBehavior = 'none';
+/**
+ * Scroll.js - Simplified to use ScrollUtility
+ * This file now serves as an initialization point for the scroll utility
+ */
+import ScrollUtility from './utils/scroll-utility.js';
+
+// The ScrollUtility auto-initializes, but we can add any additional 
+// site-specific scroll configurations here if needed
+document.addEventListener('DOMContentLoaded', function() {
+  // Any additional scroll-related setup can go here
+  // The ScrollUtility handles:
+  // - iOS overscroll behavior
+  // - Anchor link smooth scrolling
+  // - Fixed header offset
+  // - Initial hash handling
   
-  // Smooth scroll to anchors - DISABLED to allow blog.js to handle anchor links
-  // The blog page has its own custom anchor link handler with glow effects
-  /*
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    });
-  });
-  */
-
-  // Handle fixed header offset for anchor links
-  function adjustScrollPosition() {
-    if (window.location.hash) {
-      const target = document.querySelector(window.location.hash);
-      if (target) {
-        const headerOffset = document.querySelector('nav')?.offsetHeight || 0;
-        window.scrollTo({
-          top: target.offsetTop - headerOffset,
-          behavior: 'smooth'
-        });
-      }
-    }
-  }
-
-  // Adjust scroll position after page load
-  window.addEventListener('load', adjustScrollPosition);
-  
-  // Store handler for cleanup
-  window._scrollAdjustHandler = adjustScrollPosition;
-};
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initScrollBehaviors);
-} else {
-  initScrollBehaviors();
-} 
+  // Make ScrollUtility available globally if needed by other scripts
+  window.ScrollUtility = ScrollUtility;
+});
