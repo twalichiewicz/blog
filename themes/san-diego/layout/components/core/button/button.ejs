@@ -1,0 +1,49 @@
+<%
+// Button component
+const variant = locals.variant || 'default';
+const size = locals.size || 'md';
+const text = locals.text || 'Button';
+const href = locals.href || '#';
+const onClick = locals.onClick || '';
+const disabled = locals.disabled || false;
+const icon = locals.icon || '';
+const iconPosition = locals.iconPosition || 'start';
+const className = locals.className || '';
+const id = locals.id || '';
+const ariaLabel = locals.ariaLabel || text;
+
+// Build class string
+let classes = ['btn'];
+classes.push(`btn--${variant}`);
+classes.push(`btn--${size}`);
+if (className) classes.push(className);
+
+// Build attributes
+let attributes = [];
+if (id) attributes.push(`id="${id}"`);
+if (onClick) attributes.push(`onclick="${onClick}"`);
+if (disabled) attributes.push('disabled');
+attributes.push(`aria-label="${ariaLabel}"`);
+%>
+
+<% if (href && href !== '#') { %>
+  <a href="<%= href %>" class="<%= classes.join(' ') %>" <%= attributes.join(' ') %>>
+    <% if (icon && iconPosition === 'start') { %>
+      <span class="btn__icon btn__icon--start"><%= icon %></span>
+    <% } %>
+    <span class="btn__text"><%= text %></span>
+    <% if (icon && iconPosition === 'end') { %>
+      <span class="btn__icon btn__icon--end"><%= icon %></span>
+    <% } %>
+  </a>
+<% } else { %>
+  <button class="<%= classes.join(' ') %>" <%= attributes.join(' ') %>>
+    <% if (icon && iconPosition === 'start') { %>
+      <span class="btn__icon btn__icon--start"><%= icon %></span>
+    <% } %>
+    <span class="btn__text"><%= text %></span>
+    <% if (icon && iconPosition === 'end') { %>
+      <span class="btn__icon btn__icon--end"><%= icon %></span>
+    <% } %>
+  </button>
+<% } %>
