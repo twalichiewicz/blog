@@ -117,19 +117,36 @@
 		}
 		
 		.preview-excerpt {
-			color: variables.$text-color-secondary-dark;
+			color: variables.$text-color-secondary-dark !important;
 		}
 		
 		.preview-metadata {
-			color: variables.$text-color-secondary-dark;
+			color: variables.$text-color-secondary-dark !important;
 			
 			.preview-separator {
-				color: variables.$text-color-secondary-dark;
+				color: variables.$text-color-secondary-dark !important;
 			}
 		}
 	}
 	
 	// Forced dark theme
+	
+	// Ensure dark mode colors apply when nested in blog context
+	.blog & {
+		@media (prefers-color-scheme: dark) {
+			.preview-excerpt {
+				color: variables.$text-color-secondary-dark !important;
+			}
+			
+			.preview-metadata {
+				color: variables.$text-color-secondary-dark !important;
+				
+				.preview-separator {
+					color: variables.$text-color-secondary-dark !important;
+				}
+			}
+		}
+	}
 	
 	// Mobile adjustments
 	@media (max-width: variables.$mobile-breakpoint) {
