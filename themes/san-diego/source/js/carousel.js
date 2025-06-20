@@ -4,7 +4,6 @@ class Carousel {
 	updateCarouselImages() {
 		// Update the carousel media array - this now includes both images AND videos
 		const slides = this.carousel.querySelectorAll('.carousel-slide');
-		console.log('[Carousel] updateCarouselImages - Found slides:', slides.length);
 		
 		// Clear the array
 		this.carouselImages = [];
@@ -45,18 +44,11 @@ class Carousel {
 			}
 		});
 		
-		console.log('[Carousel] updateCarouselImages - Found media items:', this.carouselImages.length);
-		console.log('[Carousel] Media breakdown:', this.carouselImages.map(item => ({
-			type: item.type,
-			slideIndex: item.slideIndex,
-			src: item.src
-		})));
 		
 		return this.carouselImages;
 	}
 
 	constructor(element) {
-		console.log('[Carousel] Constructor called for:', element);
 		this.carousel = element;
 		this.track = element.querySelector('.carousel-track');
 		this.slides = Array.from(element.querySelectorAll('.carousel-slide'));
@@ -73,15 +65,6 @@ class Carousel {
 		this.currentSpotlightIndex = 0;
 		// Store images for this specific carousel - only from carousel slides
 		this.updateCarouselImages();
-		console.log('[Carousel] Found', this.carouselImages.length, 'images in carousel slides');
-		
-		// Debug: Log details about each image found
-		if (this.carouselImages.length > 0) {
-			console.log('[Carousel] Image details:');
-			this.carouselImages.forEach((img, index) => {
-				console.log(`  ${index}: src="${img.src}", alt="${img.alt || 'no alt'}"`);
-			});
-		}
 
 		// Add touch handling properties for both carousel and spotlight
 		this.touchStartX = 0;
@@ -100,15 +83,12 @@ class Carousel {
 
 		// Add image click handlers
 		this.setupImageHandlers();
-		console.log('[Carousel] Constructor finished for:', element);
 	}
 
 	init() {
-		console.log('[Carousel init()] Called for:', this.carousel);
 		
 		// Refresh carousel images in case they weren't loaded during construction
 		this.updateCarouselImages();
-		console.log('[Carousel init()] Refreshed image count:', this.carouselImages.length);
 		
 		// Store bound versions of handlers for easy removal
 		this.boundPrev = this.prev.bind(this);
@@ -226,7 +206,6 @@ class Carousel {
 			if (img) {
 				img.style.cursor = 'nesw-resize';
 				const handler = () => {
-					console.log(`[Carousel] Image clicked in slide ${slideIndex}`);
 					this.openSpotlight(img.src, img.alt, slideIndex);
 				};
 				this.imageClickHandlers.set(img, handler);
@@ -235,7 +214,6 @@ class Carousel {
 				// Make all videos clickable
 				video.style.cursor = 'nesw-resize';
 				const handler = () => {
-					console.log(`[Carousel] Video clicked in slide ${slideIndex}`);
 					// Pass slideIndex to know which media to show
 					this.openSpotlight(null, 'Video', slideIndex);
 				};
@@ -252,11 +230,8 @@ class Carousel {
 				img.decoding = 'async';
 			}
 		});
-		console.log('[Carousel init()] Finished for:', this.carousel);
 
-		console.log('[Carousel] Initializing carousel with', this.slideCount, 'slides');
 		if (this.slideCount <= 1) {
-			console.log('[Carousel] Single slide or no slides, hiding navigation');
 			if (this.prevButton) this.prevButton.style.display = 'none';
 			if (this.nextButton) this.nextButton.style.display = 'none';
 			this.indicators.forEach(indicator => indicator.style.display = 'none');
@@ -272,7 +247,6 @@ class Carousel {
 		// This handles cases where images are dynamically loaded
 		if (this.carousel.closest('.project-gallery-section')) {
 			setTimeout(() => {
-				console.log('[Carousel] Delayed image update for project gallery');
 				this.updateCarouselImages();
 			}, 500);
 		}
@@ -333,34 +307,22 @@ class Carousel {
 		// Refresh carousel images one more time to ensure we have all loaded images
 		this.updateCarouselImages();
 		
-		console.log('[Carousel] openSpotlight called. src:', src, 'imageIndex:', imageIndex, 'Total images:', this.carouselImages.length);
 		
 		// Debug: Check if this is a project carousel
 		const isProjectCarousel = this.carousel.closest('.project-gallery-section') !== null;
-		console.log('[Carousel] Is project carousel:', isProjectCarousel);
 		
 		// FORCE CHECK: If we have 1 or fewer media items but multiple slides, re-scan
 		// This handles the case where only the current media was found
 		if (this.carouselImages.length <= 1 && this.slides.length > 1) {
-			console.warn(`[Carousel] Only ${this.carouselImages.length} media items found but ${this.slides.length} slides exist! Forcing re-scan...`);
 			
 			// Force update to rebuild the media array
 			this.updateCarouselImages();
 			
-			console.log('[Carousel] After forced re-scan, total media items:', this.carouselImages.length);
 		}
 		
 		// Debug: Log all carousel images
 		if (this.carouselImages.length > 0) {
-			console.log('[Carousel] All carousel images:');
-			this.carouselImages.forEach((img, idx) => {
-				console.log(`  ${idx}: ${img.src}`);
-			});
 		} else {
-			console.log('[Carousel] WARNING: No images found in carouselImages array!');
-			// Try one more time with a different selector as fallback
-			const allImages = Array.from(this.carousel.querySelectorAll('img'));
-			console.log('[Carousel] Fallback: Found', allImages.length, 'total images in carousel');
 		}
 		
 		Carousel.activeSpotlightCarousel = this;
@@ -368,17 +330,14 @@ class Carousel {
 		// Set the current spotlight index to the clicked image's index
 		if (imageIndex >= 0 && imageIndex < this.carouselImages.length) {
 			this.currentSpotlightIndex = imageIndex;
-			console.log('[Carousel] Using provided imageIndex:', imageIndex);
 		} else {
 			// Fallback: try to find the media index by src
 			const foundIndex = this.carouselImages.findIndex(media => media.src === src);
 			this.currentSpotlightIndex = foundIndex >= 0 ? foundIndex : 0;
-			console.log('[Carousel] Using found index:', this.currentSpotlightIndex, 'for src:', src);
 		}
 		
 		let modal = document.querySelector('.spotlight-modal');
 		const hasMultipleImages = this.carouselImages.length > 1;
-		console.log('[Carousel] Has multiple images:', hasMultipleImages);
 
 		// Get the current media item
 		const currentMedia = this.carouselImages[this.currentSpotlightIndex];
@@ -540,7 +499,7 @@ class Carousel {
 		if (video) {
 			video.play().catch(() => {
 				// Handle autoplay failure gracefully
-				console.log('Autoplay prevented by browser');
+				// Autoplay prevented by browser
 			});
 		}
 	}
@@ -699,23 +658,19 @@ class Carousel {
 	navigateSpotlight(direction) {
 		// Only navigate if this carousel owns the spotlight
 		if (Carousel.activeSpotlightCarousel !== this) {
-			console.log('[Carousel] navigateSpotlight: Not the active carousel');
 			return;
 		}
 
 		const modal = document.querySelector('.spotlight-modal');
 		if (!modal) {
-			console.log('[Carousel] navigateSpotlight: No modal found');
 			return;
 		}
 
-		console.log('[Carousel] navigateSpotlight:', direction, 'Current index:', this.currentSpotlightIndex, 'Total images:', this.carouselImages.length);
 
 		this.currentSpotlightIndex = direction === 'next'
 			? (this.currentSpotlightIndex + 1) % this.carouselImages.length
 			: (this.currentSpotlightIndex - 1 + this.carouselImages.length) % this.carouselImages.length;
 
-		console.log('[Carousel] navigateSpotlight: New index:', this.currentSpotlightIndex);
 
 		// Update the spotlight content with new media
 		this.updateSpotlightContent(modal);
@@ -760,7 +715,6 @@ class Carousel {
 		
 		existingMedia.parentNode.replaceChild(newMedia, existingMedia);
 		
-		console.log('[Carousel] Updated spotlight content to:', currentMedia.type, 'at index', this.currentSpotlightIndex);
 	}
 
 	updateSpotlightIndicators() {
@@ -787,7 +741,6 @@ class Carousel {
 	}
 
 	destroy() {
-		console.log('[Carousel destroy()] Called for:', this.carousel);
 		// Remove event listeners added in init()
 		this.prevButton?.removeEventListener('click', this.boundPrevWithSound);
 		this.nextButton?.removeEventListener('click', this.boundNextWithSound);
@@ -834,8 +787,6 @@ class Carousel {
 			this.boundSpotlightKeydownHandler = null;
 		}
 
-		console.log('Carousel instance destroyed:', this.carousel);
-		console.log('[Carousel destroy()] Finished for:', this.carousel);
 		// Mark as no longer initialized internally (for debugging, classList is external)
 		this.carousel.dataset.carouselInstanceDestroyed = 'true';
 	}
@@ -883,22 +834,17 @@ class Carousel {
 		const videos = this.carousel.querySelectorAll('video');
 		videos.forEach((video, index) => {
 			const sources = video.querySelectorAll('source');
-			console.log(`[Carousel] Setting up video ${index}:`, sources.length ? Array.from(sources).map(s => s.src) : video.src);
 
 			video.addEventListener('loadstart', () => {
-				console.log(`[Carousel] Video ${index} loadstart`);
 			});
 
 			video.addEventListener('loadedmetadata', () => {
-				console.log(`[Carousel] Video ${index} metadata loaded - using: ${video.currentSrc}`);
 			});
 
 			video.addEventListener('canplay', () => {
-				console.log(`[Carousel] Video ${index} can play`);
 			});
 
 			video.addEventListener('error', (e) => {
-				console.error(`[Carousel] Video ${index} error:`, e, video.error);
 
 				// Try to provide helpful error information
 				if (video.error) {
@@ -908,13 +854,11 @@ class Carousel {
 						3: 'MEDIA_ERR_DECODE - The video is corrupted or not supported',
 						4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - The video format is not supported'
 					};
-					console.error(`[Carousel] Video ${index} error details:`, errorMessages[video.error.code] || 'Unknown error');
 				}
 
 				// Show fallback content or poster
 				const slide = video.closest('.carousel-slide');
 				if (slide && video.poster) {
-					console.log(`[Carousel] Video ${index} failed, showing poster image`);
 					const img = document.createElement('img');
 					img.src = video.poster;
 					img.alt = 'Video preview (video failed to load)';
@@ -927,13 +871,11 @@ class Carousel {
 			});
 
 			video.addEventListener('stalled', () => {
-				console.warn(`[Carousel] Video ${index} stalled`);
 			});
 
 			// Add source error handling
 			sources.forEach((source, sourceIndex) => {
 				source.addEventListener('error', (e) => {
-					console.warn(`[Carousel] Video ${index} source ${sourceIndex} failed:`, source.src);
 				});
 			});
 		});
@@ -945,22 +887,17 @@ const initializedCarousels = new WeakSet();
 let carouselInstances = []; // Store instances for potential cleanup
 
 export function initializeCarousels(container = document) {
-	console.log('[carousel.js] initializeCarousels Start, container:', container.id || container.tagName);
 	// Query ALL carousels in the container, not just those :not(.initialized)
 	const carouselsToProcess = container.querySelectorAll('.carousel');
-	console.log(`[carousel.js] Found ${carouselsToProcess.length} total .carousel elements in container ${container.id || container.tagName}`);
 
 	carouselsToProcess.forEach(carouselElement => {
-		console.log('[carousel.js] Processing carouselElement:', carouselElement, 'Current classes:', carouselElement.className);
 
 		// Attempt to find and destroy any existing instance associated with this DOM element
 		const existingInstanceIndex = carouselInstances.findIndex(inst => inst.carousel === carouselElement);
 		if (existingInstanceIndex > -1) {
-			console.log('[carousel.js] Destroying existing tracked instance for:', carouselElement);
 			try {
 				carouselInstances[existingInstanceIndex].destroy();
 			} catch (e) {
-				console.error('[carousel.js] Error destroying existing instance:', e, carouselElement);
 			}
 			carouselInstances.splice(existingInstanceIndex, 1);
 		}
@@ -971,55 +908,43 @@ export function initializeCarousels(container = document) {
 		carouselElement.classList.remove('initialized');
 		delete carouselElement.dataset.carouselInstanceDestroyed; // Clean up our debug marker
 
-		console.log('[carousel.js] Attempting to initialize new Carousel for element:', carouselElement);
 		try {
 			const newInstance = new Carousel(carouselElement);
 			carouselElement.classList.add('initialized'); // Mark as initialized *after* successful construction
 			initializedCarousels.add(carouselElement);
 			carouselInstances.push(newInstance);
 		} catch (error) {
-			console.error('[carousel.js] Error initializing carousel:', error, carouselElement);
 		}
 	});
-	console.log(`[carousel.js] initializeCarousels End. Total active instances: ${carouselInstances.length}`);
 }
 
 // Clean up instances associated with a container before it's removed/replaced
 export function cleanupCarouselInstances(container) {
-	console.log('[carousel.js] cleanupCarouselInstances Start for container:', container.id || container.tagName);
 	const carouselsInContainer = container.querySelectorAll('.carousel.initialized'); // Find carousels marked as initialized
-	console.log(`[carousel.js] Found ${carouselsInContainer.length} .carousel.initialized in container ${container.id || container.tagName} to cleanup.`);
 
 	carouselsInContainer.forEach(carouselElement => {
-		console.log('[carousel.js cleanup] Processing carouselElement for cleanup:', carouselElement);
 		const instanceIndex = carouselInstances.findIndex(inst => inst.carousel === carouselElement);
 		if (instanceIndex > -1) {
 			try {
-				console.log('[carousel.js cleanup] Destroying instance during cleanup for:', carouselElement);
 				carouselInstances[instanceIndex].destroy();
 				carouselInstances.splice(instanceIndex, 1);
 			} catch (error) {
-				console.error('[carousel.js cleanup] Error destroying carousel instance during cleanup:', error, carouselElement);
 			}
 		} else {
-			console.warn('[carousel.js cleanup] Could not find instance in carouselInstances for element:', carouselElement);
 		}
 		initializedCarousels.delete(carouselElement);
 		carouselElement.classList.remove('initialized');
 		// Remove the dataset marker if it was set
 		delete carouselElement.dataset.carouselInstanceDestroyed;
 	});
-	console.log(`[carousel.js] cleanupCarouselInstances End. Total active instances: ${carouselInstances.length}`);
 }
 
 // Handle bfcache restore
 window.addEventListener('pageshow', (event) => {
 	if (event.persisted) {
-		console.log('[carousel.js pageshow] Start - bfcache');
 		// Simply re-run initialization for the whole document.
 		// The logic within initializeCarousels handles destroying old instances.
 		initializeCarousels(document);
-		console.log('[carousel.js pageshow] End - bfcache');
 	}
 });
 

@@ -10,10 +10,8 @@ import videoAutoplayManager from './components/video-autoplay.js';
 // Initialize adaptive video manager
 // const adaptiveVideoManager = new AdaptiveVideoManager();
 
-console.log('=== BLOG.JS LOADED ===');
 
 document.addEventListener('DOMContentLoaded', function () {
-	console.log('=== BLOG.JS DOM CONTENT LOADED ===');
 	// --- Refactored Initialization Function ---
 	function initializeBlogFeatures(container) {
 		// Initializing blog features

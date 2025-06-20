@@ -31,7 +31,7 @@
             </iframe>
           <% } else { %>
             <img src="<%= item.url %>" 
-                 alt="<%= item.caption || '' %>"
+                 alt="<%= item.caption || 'Gallery image ' + (index + 1) %>"
                  loading="lazy"
                  decoding="async">
           <% } %>

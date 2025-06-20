@@ -94,7 +94,6 @@ const normalizeConfig = (config) => {
 		}
 	}
 
-	console.log('Normalized config:', normalized);
 	return normalized;
 };
 
@@ -102,8 +101,6 @@ const normalizeConfig = (config) => {
  * Creates the most appropriate wave text animation based on browser support and device capabilities
  */
 export const createWaveText = (container, config = {}) => {
-	console.log('Creating wave text with container:', container);
-	console.log('Original config:', config);
 
 	// Normalize configuration
 	const normalizedConfig = normalizeConfig(config);
@@ -115,12 +112,10 @@ export const createWaveText = (container, config = {}) => {
 	// Update the animation state when the preference changes
 	reducedMotionQuery.addEventListener('change', () => {
 		reducedMotion = reducedMotionQuery.matches;
-		console.log('Reduced motion preference changed:', reducedMotion);
 
 		// Force rebuild if we already have a wave text instance
 		const existingWaveContainer = document.querySelector('.wave-container');
 		if (existingWaveContainer) {
-			console.log('Rebuilding wave text after motion preference change');
 			// Remove existing animations
 			const styleElement = document.getElementById('wave-text-animations');
 			if (styleElement) {
@@ -154,14 +149,12 @@ export const createWaveText = (container, config = {}) => {
 	const isLowPerformance = isLowEndDevice();
 
 	// For debugging
-	console.log('Browser features:', { hasModernFeatures, isLowPerformance });
 
 	// Default to canvas implementation for mobile (better performance)
 	const isMobile = window.innerWidth < 768;
 
 	if (isMobile || isLowPerformance) {
 		// Use optimized canvas implementation for mobile or low-performance devices
-		console.log('Using Canvas implementation for mobile/low-performance device');
 
 		// First ensure we have a canvas element
 		let canvas = container.querySelector('canvas#waveCanvas');
@@ -174,11 +167,9 @@ export const createWaveText = (container, config = {}) => {
 		return new OptimizedWaveAnimation(canvas, normalizedConfig);
 	} else if (hasModernFeatures) {
 		// Use CSS-based implementation for modern browsers on capable devices
-		console.log('Using CSS implementation');
 		return new CssWaveText(container, normalizedConfig);
 	} else {
 		// Fall back to optimized canvas implementation for better compatibility
-		console.log('Using Canvas implementation for compatibility');
 
 		// First ensure we have a canvas element
 		let canvas = container.querySelector('canvas#waveCanvas');

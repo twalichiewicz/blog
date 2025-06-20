@@ -90,7 +90,7 @@
 		                                }
 		                                %>
 										<img src="<%- url_for(galleryImagePath) %>" 
-											alt="<%= item.caption || item.alt || '' %>"
+											alt="<%= item.caption || item.alt || page.title + ' - Gallery image ' + (index + 1) %>"
 											loading="lazy"
 											decoding="async">
 									<% } %>

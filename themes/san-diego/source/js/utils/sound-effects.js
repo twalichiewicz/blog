@@ -45,7 +45,6 @@ class SoundEffects {
 
 		// Handle loading errors gracefully
 		audio.addEventListener('error', (e) => {
-			console.warn(`Failed to load sound "${name}":`, e);
 		});
 
 		this.sounds.set(name, audio);
@@ -62,7 +61,6 @@ class SoundEffects {
 
 		const sound = this.sounds.get(name);
 		if (!sound) {
-			console.warn(`Sound "${name}" not found`);
 			return;
 		}
 
@@ -79,11 +77,9 @@ class SoundEffects {
 			// Handle play promise for browsers that support it
 			if (playPromise !== undefined) {
 				playPromise.catch(error => {
-					console.warn(`Failed to play sound "${name}":`, error);
 				});
 			}
 		} catch (error) {
-			console.warn(`Error playing sound "${name}":`, error);
 		}
 	}
 
@@ -138,7 +134,6 @@ class SoundEffects {
 		this.loadSound('slider', '/media/slider', ['mp3']);
 		this.loadSound('wavey', '/media/wavey', ['mp3']);
 
-		console.log('Sound effects preloaded');
 	}
 }
 
@@ -172,7 +167,6 @@ function initializeSoundEffects() {
 		soundEffects.play('slider');
 	};
 
-	console.log('Sound effects initialized');
 }
 
 export { soundEffects, initializeSoundEffects };

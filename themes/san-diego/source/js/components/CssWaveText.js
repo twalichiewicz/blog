@@ -27,7 +27,6 @@ export class CssWaveText {
 			};
 		}
 
-		console.log('CssWaveText initialized with config:', this.config);
 		this.initialized = false;
 		this.resizeTimeoutId = null;
 	}
@@ -35,7 +34,6 @@ export class CssWaveText {
 	init() {
 		if (this.initialized) return;
 
-		console.log('Initializing CssWaveText');
 
 		// Create grid container
 		this.gridElement = document.createElement('div');
@@ -58,7 +56,6 @@ export class CssWaveText {
 		this.setupResizeObserver();
 		this.initialized = true;
 
-		console.log('CssWaveText initialization complete');
 	}
 
 	createAnimationStyles() {
@@ -130,7 +127,6 @@ export class CssWaveText {
 		const containerWidth = this.container.clientWidth || window.innerWidth;
 		const containerHeight = this.container.clientHeight || 300;
 
-		console.log(`Building grid: container size = ${containerWidth}x${containerHeight}`);
 
 		// Calculate rows and columns to fill the container
 		const { charWidth, lineHeight } = this.config.font;
@@ -142,7 +138,6 @@ export class CssWaveText {
 		const cols = Math.ceil(containerWidth / (charWidth * densityFactor)) + 2;
 		const rows = Math.ceil(containerHeight / lineHeight);
 
-		console.log(`Grid size: ${cols}x${rows} (${cols * rows} characters)`);
 
 		// Style the grid
 		this.gridElement.style.gridTemplateRows = `repeat(${rows}, ${lineHeight}px)`;
@@ -222,7 +217,6 @@ export class CssWaveText {
 			this.gridElement.appendChild(rowDiv);
 		}
 
-		console.log(`Created ${charCount} characters in the wave grid`);
 	}
 
 	setupResizeObserver() {
@@ -237,7 +231,6 @@ export class CssWaveText {
 				this.resizeTimeoutId = setTimeout(() => {
 					for (const entry of entries) {
 						if (entry.target === this.container) {
-							console.log('Container resized, rebuilding grid');
 							this.buildTextGrid();
 							break;
 						}

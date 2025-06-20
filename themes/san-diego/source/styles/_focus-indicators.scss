@@ -1,0 +1,161 @@
+@use 'variables';
+
+// Focus indicator styles for better accessibility
+// Ensures all interactive elements have visible focus states
+
+// Base focus styles mixin
+@mixin focus-visible {
+	&:focus-visible {
+		outline: 2px solid variables.$link-color;
+		outline-offset: 2px;
+		
+		@media (prefers-color-scheme: dark) {
+			outline-color: variables.$link-color-dark;
+		}
+	}
+	
+	// Remove default focus outline when using focus-visible
+	&:focus:not(:focus-visible) {
+		outline: none;
+	}
+}
+
+// Apply focus indicators to all interactive elements
+a,
+button,
+input,
+textarea,
+select,
+[role="button"],
+[tabindex]:not([tabindex="-1"]) {
+	@include focus-visible;
+}
+
+// Special focus styles for specific elements
+.btn,
+.button,
+.posts-only-button,
+.mobile-impact-button,
+.mobile-contact-button,
+.button-bordered {
+	@include focus-visible;
+	
+	// Additional visual feedback for buttons
+	&:focus-visible {
+		box-shadow: 0 0 0 3px rgba(variables.$link-color, 0.2);
+		
+		@media (prefers-color-scheme: dark) {
+			box-shadow: 0 0 0 3px rgba(variables.$link-color-dark, 0.2);
+		}
+	}
+}
+
+// Form inputs focus styles
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="password"],
+textarea,
+select {
+	@include focus-visible;
+	
+	&:focus-visible {
+		border-color: variables.$link-color;
+		
+		@media (prefers-color-scheme: dark) {
+			border-color: variables.$link-color-dark;
+		}
+	}
+}
+
+// Navigation links
+.nav-link,
+.menu-item a,
+.tab-button {
+	@include focus-visible;
+	
+	&:focus-visible {
+		background-color: rgba(variables.$link-color, 0.1);
+		border-radius: 4px;
+		
+		@media (prefers-color-scheme: dark) {
+			background-color: rgba(variables.$link-color-dark, 0.1);
+		}
+	}
+}
+
+// Cards and clickable containers
+.post-list-item,
+.portfolio-item,
+.post-preview-card,
+.project-card {
+	&:has(a:focus-visible) {
+		outline: 2px solid variables.$link-color;
+		outline-offset: 2px;
+		
+		@media (prefers-color-scheme: dark) {
+			outline-color: variables.$link-color-dark;
+		}
+	}
+}
+
+// Modal close buttons
+.modal-close,
+.spotlight-close {
+	@include focus-visible;
+	
+	&:focus-visible {
+		background-color: rgba(variables.$link-color, 0.1);
+		
+		@media (prefers-color-scheme: dark) {
+			background-color: rgba(variables.$link-color-dark, 0.1);
+		}
+	}
+}
+
+// Skip navigation links
+.skip-navigation a {
+	&:focus {
+		// Always show focus for skip links
+		outline: 2px solid variables.$link-color;
+		outline-offset: 2px;
+		background-color: variables.$white;
+		color: variables.$link-color;
+		
+		@media (prefers-color-scheme: dark) {
+			outline-color: variables.$link-color-dark;
+			background-color: variables.$black;
+			color: variables.$link-color-dark;
+		}
+	}
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+	a:focus,
+	button:focus,
+	input:focus,
+	textarea:focus,
+	select:focus,
+	[role="button"]:focus,
+	[tabindex]:not([tabindex="-1"]):focus {
+		outline: 3px solid;
+		outline-offset: 3px;
+	}
+}
+
+// Remove focus styles for mouse users (optional)
+// Only activate focus styles for keyboard navigation
+@supports selector(:focus-visible) {
+	// Remove outline for mouse focus
+	a:focus:not(:focus-visible),
+	button:focus:not(:focus-visible),
+	input:focus:not(:focus-visible),
+	textarea:focus:not(:focus-visible),
+	select:focus:not(:focus-visible),
+	[role="button"]:focus:not(:focus-visible),
+	[tabindex]:not([tabindex="-1"]):focus:not(:focus-visible) {
+		outline: none;
+		box-shadow: none;
+	}
+}

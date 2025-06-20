@@ -5,7 +5,6 @@
 
 class AdaptiveVideoManager {
 	constructor() {
-		console.log('[AdaptiveVideoManager] Initializing...');
 		this.videos = new Map();
 		this.init();
 	}
@@ -19,11 +18,9 @@ class AdaptiveVideoManager {
 	}
 
 	setup() {
-		console.log('[AdaptiveVideoManager] Setting up adaptive videos...');
 
 		// Find all videos with data-base-path (our adaptive videos)
 		const adaptiveVideos = document.querySelectorAll('video[data-base-path]');
-		console.log('[AdaptiveVideoManager] Found adaptive videos:', adaptiveVideos.length);
 
 		adaptiveVideos.forEach(video => this.setupAdaptiveVideo(video));
 	}
@@ -33,12 +30,10 @@ class AdaptiveVideoManager {
 		const portfolioItem = video.closest('.portfolio-item');
 
 		if (!portfolioItem || !basePath) {
-			console.warn('[AdaptiveVideoManager] Missing portfolio item or base path for video');
 			return;
 		}
 
 		const gridSize = portfolioItem.getAttribute('data-grid-size');
-		console.log('[AdaptiveVideoManager] Setting up video for grid size:', gridSize);
 
 		// Determine the best aspect ratio for this grid size
 		const aspectRatio = this.getAspectRatioForGridSize(gridSize);
@@ -68,7 +63,6 @@ class AdaptiveVideoManager {
 	}
 
 	updateVideoSources(video, basePath, aspectRatio) {
-		console.log('[AdaptiveVideoManager] Updating sources for aspect ratio:', aspectRatio);
 
 		// Clear existing sources
 		const existingSources = video.querySelectorAll('source');
@@ -88,7 +82,6 @@ class AdaptiveVideoManager {
 		// Force video to reload with new sources
 		video.load();
 
-		console.log('[AdaptiveVideoManager] Updated video sources:', sourcePaths.map(s => s.src));
 	}
 
 	getSourcePaths(basePath, aspectRatio) {
@@ -127,7 +120,6 @@ class AdaptiveVideoManager {
 
 	// Refresh all adaptive videos (useful for dynamic content)
 	refresh() {
-		console.log('[AdaptiveVideoManager] Refreshing all adaptive videos...');
 		this.videos.clear();
 		this.setup();
 	}

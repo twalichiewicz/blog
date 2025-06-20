@@ -77,7 +77,7 @@ const hasSummary = page.summary && Object.keys(page.summary).length > 0;
                 }
                 %>
                 <img src="<%- url_for(galleryImagePath) %>" 
-                  alt="<%= item.caption || item.alt || '' %>"
+                  alt="<%= item.caption || item.alt || 'Project gallery image ' + (index + 1) %>"
                   loading="lazy"
                   decoding="async">
               <% } %>
