@@ -65,6 +65,16 @@ GitHub Actions workflow (`.github/workflows/optimize-and-deploy.yml`):
 3. Builds production site
 4. Deploys to GitHub Pages with custom domain (thomas.design)
 
+## Testing & Quality Assurance
+
+Before making changes, consult `TESTING-PROTOCOLS.md` for:
+- Change classification system (🟢 Green / 🟡 Yellow / 🔴 Red light)
+- Required testing procedures based on change type
+- Design review requirements for visual changes
+- Screenshot and visual regression testing protocols
+
+**Key principle**: Like a professional kitchen, all visual changes above a certain threshold need chef review before going out.
+
 ## Important Patterns
 
 ### Creating New Content

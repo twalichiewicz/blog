@@ -16,7 +16,13 @@
     "lint:scss:fix": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss --fix",
     "lint:scss:report": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss --custom-formatter node_modules/stylelint-formatter-html --output-file stylelint-report.html",
     "test:css": "node test-css-borders.js",
-    "test:build": "npm run build:prod && npm run test:css"
+    "test:build": "npm run build:prod && npm run test:css",
+    "screenshot:mobile": "echo 'Screenshot script needs implementation - 375px width'",
+    "screenshot:tablet": "echo 'Screenshot script needs implementation - 768px width'",
+    "screenshot:desktop": "echo 'Screenshot script needs implementation - 1440px width'",
+    "audit:a11y": "echo 'Accessibility audit needs implementation'",
+    "check:contrast": "echo 'Color contrast check needs implementation'",
+    "test:visual": "npm run screenshot:mobile && npm run screenshot:tablet && npm run screenshot:desktop"
   },
   "hexo": {
     "version": "7.3.0"
