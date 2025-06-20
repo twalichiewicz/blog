@@ -62,5 +62,8 @@
 @use 'layout-fixes';
 @use 'dynamic-content-scroll-fix';
 
+// Border fix for production - must come last to ensure proper override
+@use 'border-fix';
+
 // Index (imports all partials - use with caution as it may cause duplication)
 // @use 'index';

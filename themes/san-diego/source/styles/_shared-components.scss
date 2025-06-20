@@ -14,8 +14,7 @@
 	@media (prefers-color-scheme: light) {
 		background: rgb(255 255 255 / 70%);
 		backdrop-filter: blur(5px);
-                    backdrop-filter: blur(5px);
-		border: 1px solid rgba(variables.$text-color-secondary, 0.1);
+		border: 1px solid rgba(variables.$text-color-secondary, 0.1) !important;
 		box-shadow: variables.$shadow-soft;
 		color: variables.$text-color;
 	}
@@ -24,8 +23,7 @@
 	@media (prefers-color-scheme: dark) {
 		background: rgb(0 0 0 / 50%);
 		backdrop-filter: blur(5px);
-                    backdrop-filter: blur(5px);
-		border: 1px solid rgb(255 255 255 / 10%);
+		border: 1px solid rgb(255 255 255 / 10%) !important;
 		color: variables.$text-color-dark;
 		box-shadow: variables.$shadow-soft-dark;
 	}

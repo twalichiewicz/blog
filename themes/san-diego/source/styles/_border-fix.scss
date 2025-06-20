@@ -1,0 +1,54 @@
+// Production border color fix
+// This file ensures border colors are always properly defined in production builds
+
+// Fix for all viewport sizes and all possible selectors
+.blog .blog-content,
+.blog-content,
+#postsContent,
+#projectsContent {
+  .post-list-item.post-long,
+  .portfolio-item.has-writeup {
+    // Light mode borders
+    @media (prefers-color-scheme: light) {
+      border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+    }
+    
+    // Dark mode borders
+    @media (prefers-color-scheme: dark) {
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    // Fallback for systems without color scheme preference
+    @media not all and (prefers-color-scheme) {
+      border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+    }
+  }
+}
+
+// Mobile specific fixes
+@media (max-width: 768px) {
+  .content-inner-wrapper,
+  .blog .blog-content .content-inner-wrapper {
+    .post-list-item.post-long,
+    .portfolio-item.has-writeup {
+      @media (prefers-color-scheme: light) {
+        border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      }
+    }
+  }
+}
+
+// Ensure card-base derived elements have proper borders
+.card-base {
+  @media (prefers-color-scheme: light) {
+    border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+}
