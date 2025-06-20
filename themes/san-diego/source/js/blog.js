@@ -530,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Resize listener removed - dynamic content now works on all screen sizes
 
-		window.addEventListener('popstate', async function (event) {
+		const handlePopstate = async function (event) {
 			// If we're returning to the home page (no state or initial state)
 			if (!event.state || event.state.isInitial) {
 				// Ensure the page is visible
@@ -591,7 +591,12 @@ document.addEventListener('DOMContentLoaded', function () {
 					await fadeInElement(blogContentElement);
 				}
 			}
-		});
+		};
+		
+		window.addEventListener('popstate', handlePopstate);
+		
+		// Store handler for cleanup
+		window._blogPopstateHandler = handlePopstate;
 
 		// Expose fetchAndDisplayContent globally for direct navigation
 		window.fetchAndDisplayContent = fetchAndDisplayContent;

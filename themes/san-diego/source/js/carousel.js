@@ -402,18 +402,22 @@ class Carousel {
 
 		// Always setup navigation for the current modal state
 		this.setupSpotlightNavigation(modal);
+		this.setupSpotlightTouchEvents(modal);
 		modal.classList.add('active');
 		document.body.style.overflow = 'hidden';
 	}
 
 	setupSpotlightTouchEvents(modal) {
-		const handleTouchStart = (e) => {
+		// Store handlers for cleanup
+		this.spotlightTouchHandlers = this.spotlightTouchHandlers || {};
+		
+		this.spotlightTouchHandlers.handleTouchStart = (e) => {
 			this.touchStartX = e.touches[0].clientX;
 			this.touchStartY = e.touches[0].clientY;
 			this.touchStartTime = Date.now();
 		};
 
-		const handleTouchMove = (e) => {
+		this.spotlightTouchHandlers.handleTouchMove = (e) => {
 			if (!this.touchStartX) return;
 
 			const currentX = e.touches[0].clientX;
@@ -425,7 +429,7 @@ class Carousel {
 			e.preventDefault();
 		};
 
-		const handleTouchEnd = (e) => {
+		this.spotlightTouchHandlers.handleTouchEnd = (e) => {
 			if (!this.touchStartX) return;
 
 			const touchEndTime = Date.now();
@@ -453,17 +457,36 @@ class Carousel {
 			this.touchEndY = 0;
 		};
 
-		modal.addEventListener('touchstart', handleTouchStart, { passive: true });
-		modal.addEventListener('touchmove', handleTouchMove, { passive: false });
-		modal.addEventListener('touchend', handleTouchEnd, { passive: true });
+		modal.addEventListener('touchstart', this.spotlightTouchHandlers.handleTouchStart, { passive: true });
+		modal.addEventListener('touchmove', this.spotlightTouchHandlers.handleTouchMove, { passive: false });
+		modal.addEventListener('touchend', this.spotlightTouchHandlers.handleTouchEnd, { passive: true });
 	}
 
 	closeSpotlight() {
 		const modal = document.querySelector('.spotlight-modal');
 		if (modal) {
+			// Remove spotlight touch event listeners
+			if (this.spotlightTouchHandlers) {
+				modal.removeEventListener('touchstart', this.spotlightTouchHandlers.handleTouchStart);
+				modal.removeEventListener('touchmove', this.spotlightTouchHandlers.handleTouchMove);
+				modal.removeEventListener('touchend', this.spotlightTouchHandlers.handleTouchEnd);
+				this.spotlightTouchHandlers = null;
+			}
+			
+			// Remove modal click handler
+			if (this.spotlightModalClickHandler) {
+				modal.removeEventListener('click', this.spotlightModalClickHandler);
+				this.spotlightModalClickHandler = null;
+			}
+			
 			modal.classList.remove('active');
 			document.body.style.overflow = '';
-			Carousel.activeSpotlightCarousel = null;
+			
+			// Clear static reference if this was the active carousel
+			if (Carousel.activeSpotlightCarousel === this) {
+				Carousel.activeSpotlightCarousel = null;
+			}
+			
 			// Remove the specific keydown listener for this spotlight instance
 			if (this.boundSpotlightKeydownHandler) {
 				document.removeEventListener('keydown', this.boundSpotlightKeydownHandler);
@@ -512,14 +535,23 @@ class Carousel {
 
 	handleIframeResize() {
 		const iframes = this.carousel.querySelectorAll('iframe');
+		// Store resize handlers for cleanup
+		this.iframeResizeHandlers = this.iframeResizeHandlers || [];
+		
 		iframes.forEach(iframe => {
 			// Set initial size
 			this.resizeIframe(iframe);
 
-			// Add resize listener
-			window.addEventListener('resize', () => {
+			// Create bound handler for removal later
+			const handler = () => {
 				this.resizeIframe(iframe);
-			});
+			};
+			
+			// Store handler for cleanup
+			this.iframeResizeHandlers.push(handler);
+			
+			// Add resize listener
+			window.addEventListener('resize', handler);
 		});
 	}
 
@@ -571,6 +603,9 @@ class Carousel {
 		const nextButton = modal.querySelector('.carousel-button.next');
 		const closeButton = modal.querySelector('.spotlight-modal-close');
 		const self = this; // Store reference to Carousel instance
+		
+		// Store modal click handler for cleanup
+		this.spotlightModalClickHandler = this.spotlightModalClickHandler || null;
 
 		if (prevButton) {
 			prevButton.onclick = () => {
@@ -617,7 +652,12 @@ class Carousel {
 		});
 
 		// Close on background click
-		modal.addEventListener('click', (e) => {
+		// Remove old handler if exists
+		if (this.spotlightModalClickHandler) {
+			modal.removeEventListener('click', this.spotlightModalClickHandler);
+		}
+		
+		this.spotlightModalClickHandler = (e) => {
 			// Check if the click was directly on the modal (background) and not on its children
 			if (e.target === modal) {
 				self.closeSpotlight();
@@ -626,7 +666,9 @@ class Carousel {
 					window.playSmallClickSound();
 				}
 			}
-		});
+		};
+		
+		modal.addEventListener('click', this.spotlightModalClickHandler);
 
 		// Keyboard navigation
 		// Remove previous keydown listener if it exists on this instance
@@ -778,14 +820,31 @@ class Carousel {
 		});
 		this.imageClickHandlers?.clear();
 
-		// Remove iframe load listeners maybe?
-		// ... other cleanup ...
+		// Remove iframe resize listeners
+		if (this.iframeResizeHandlers) {
+			this.iframeResizeHandlers.forEach(handler => {
+				window.removeEventListener('resize', handler);
+			});
+			this.iframeResizeHandlers = [];
+		}
+
+		// Close spotlight if open and clean up
+		if (Carousel.activeSpotlightCarousel === this) {
+			this.closeSpotlight();
+		}
 
 		// Remove spotlight keydown listener if it was attached
 		if (this.boundSpotlightKeydownHandler) {
 			document.removeEventListener('keydown', this.boundSpotlightKeydownHandler);
 			this.boundSpotlightKeydownHandler = null;
 		}
+
+		// Clear all references
+		this.carouselImages = [];
+		this.slides = [];
+		this.indicators = [];
+		this.indicatorHandlers = null;
+		this.imageClickHandlers = null;
 
 		// Mark as no longer initialized internally (for debugging, classList is external)
 		this.carousel.dataset.carouselInstanceDestroyed = 'true';
@@ -898,6 +957,10 @@ export function initializeCarousels(container = document) {
 			try {
 				carouselInstances[existingInstanceIndex].destroy();
 			} catch (e) {
+				// Error destroying carousel instance - continue with cleanup
+				if (window.DEBUG_MODE) {
+					console.error('Carousel destroy error:', e);
+				}
 			}
 			carouselInstances.splice(existingInstanceIndex, 1);
 		}
@@ -914,6 +977,10 @@ export function initializeCarousels(container = document) {
 			initializedCarousels.add(carouselElement);
 			carouselInstances.push(newInstance);
 		} catch (error) {
+			// Error initializing carousel - log for debugging
+			if (window.DEBUG_MODE) {
+				console.error('Carousel initialization error:', error);
+			}
 		}
 	});
 }
@@ -929,6 +996,10 @@ export function cleanupCarouselInstances(container) {
 				carouselInstances[instanceIndex].destroy();
 				carouselInstances.splice(instanceIndex, 1);
 			} catch (error) {
+				// Error during carousel cleanup - continue
+				if (window.DEBUG_MODE) {
+					console.error('Carousel cleanup error:', error);
+				}
 			}
 		} else {
 		}

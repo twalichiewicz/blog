@@ -558,7 +558,6 @@ class PropelVisualizations {
 
 		// Handle video error
 		video.addEventListener('error', () => {
-			console.warn('Video failed to load, falling back to poster image');
 			// The fallback image will automatically show
 		});
 

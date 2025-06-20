@@ -74,13 +74,17 @@ function initMobileExpandableHeader() {
 	});
 	
 	// Close on outside click
-	document.addEventListener('click', function(event) {
+	const handleOutsideClick = function(event) {
 		const isExpanded = profileHeader.getAttribute('data-expanded') === 'true';
 		if (isExpanded && !profileHeader.contains(event.target)) {
 			profileHeader.setAttribute('data-expanded', 'false');
 			expandButton.setAttribute('aria-expanded', 'false');
 		}
-	});
+	};
+	document.addEventListener('click', handleOutsideClick);
+	
+	// Store handler for cleanup
+	profileHeader._outsideClickHandler = handleOutsideClick;
 }
 
 // Impact Modal functionality
@@ -458,7 +462,7 @@ function fitTextToContainer(textElement, container, heightRatio = 0.8) {
 
 // Refit text on window resize
 let resizeTimeout;
-window.addEventListener('resize', () => {
+const handleWindowResize = () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
         const modal = document.getElementById('impact-modal');
@@ -466,7 +470,11 @@ window.addEventListener('resize', () => {
             fitTextInTiles();
         }
     }, 250);
-});
+};
+window.addEventListener('resize', handleWindowResize);
+
+// Store handler for cleanup
+window._impactModalResizeHandler = handleWindowResize;
 
 // Add animations and text fitting to existing modal open function
 const originalOpenImpactModal = window.openImpactModal;

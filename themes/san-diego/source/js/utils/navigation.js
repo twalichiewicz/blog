@@ -22,7 +22,6 @@ export function initNavigation(options = {}) {
 	let lastScrollPosition = 0;
 
 	if (!navEl) {
-		console.warn('Navigation element not found');
 		return;
 	}
 
@@ -44,7 +43,7 @@ export function initNavigation(options = {}) {
 				navEl.classList.remove('open');
 			}
 		} catch (error) {
-			console.error('Error toggling navigation:', error);
+			// Navigation toggle error
 		}
 	});
 
@@ -63,7 +62,7 @@ export function initNavigation(options = {}) {
 				navEl.classList.remove('open');
 			}
 		} catch (error) {
-			console.error('Error handling navigation resize:', error);
+			// Navigation resize error
 		}
 	});
 
@@ -86,7 +85,7 @@ export function initNavigation(options = {}) {
 
 				lastScrollPosition = currentScrollPosition;
 			} catch (error) {
-				console.error('Error handling navigation scroll:', error);
+				// Navigation scroll error
 			}
 		});
 	}

@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		setupEventListeners: function () {
 			// Throttled resize handler
 			let resizeTimeout;
-			window.addEventListener('resize', () => {
+			this._resizeHandler = () => {
 				// Check for device type change immediately
 				const deviceChanged = this.detectDevice();
 
@@ -130,14 +130,30 @@ document.addEventListener('DOMContentLoaded', function () {
 					this.detectDevice();
 					this.detectOrientation();
 				}, 100);
-			});
-
-			// Orientation change handler
-			window.addEventListener('orientationchange', () => {
+			};
+			
+			this._orientationHandler = () => {
 				setTimeout(() => {
 					this.detectOrientation();
 				}, 50);
-			});
+			};
+			
+			window.addEventListener('resize', this._resizeHandler);
+			window.addEventListener('orientationchange', this._orientationHandler);
+		},
+		
+		/**
+		 * Clean up event listeners
+		 */
+		cleanup: function() {
+			if (this._resizeHandler) {
+				window.removeEventListener('resize', this._resizeHandler);
+				this._resizeHandler = null;
+			}
+			if (this._orientationHandler) {
+				window.removeEventListener('orientationchange', this._orientationHandler);
+				this._orientationHandler = null;
+			}
 		}
 	};
 

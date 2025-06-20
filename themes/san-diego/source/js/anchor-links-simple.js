@@ -22,7 +22,6 @@
             const target = document.getElementById(targetId);
             
             if (!target) {
-                console.warn('Anchor target not found:', targetId);
                 return;
             }
             

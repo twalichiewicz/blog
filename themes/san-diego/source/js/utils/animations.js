@@ -42,7 +42,7 @@ export function initSectionAnimations(options = {}) {
 			sections.forEach(section => observer.observe(section));
 		}
 	} catch (error) {
-		console.error('Error initializing section animations:', error);
+		// Section animations initialization error
 	}
 }
 
@@ -67,7 +67,7 @@ export function initColumnTitleScrollDetection(options = {}) {
 		// Setup scroll detection for projects content
 		setupColumnTitleScroll(config.projectsContentId, config);
 	} catch (error) {
-		console.error('Error initializing column title scroll detection:', error);
+		// Column title scroll detection error
 	}
 }
 
