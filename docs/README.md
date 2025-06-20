@@ -1,152 +1,120 @@
-# Documentation Index
+# Documentation
 
-Welcome to the thomas.design blog documentation. This directory contains comprehensive technical documentation for developers, maintainers, and contributors.
+Comprehensive documentation for the thomas.design blog and portfolio site.
 
-## 📚 Core Documentation
+## Documentation Structure
 
-### Architecture & Development
-- **[DEVELOPMENT.md](./DEVELOPMENT.md)** - Complete developer guide with setup, workflow, and best practices
-- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Deployment procedures and CI/CD pipeline details
-- **[THEME_ARCHITECTURE.md](./THEME_ARCHITECTURE.md)** - Deep dive into the san-diego theme structure
-- **[PERFORMANCE.md](./PERFORMANCE.md)** - Performance optimization strategies and metrics
-- **[TECH_DEBT.md](./TECH_DEBT.md)** - Technical debt tracking and remediation plans
+### 📁 [01-overview](./01-overview/)
+High-level documentation about the project, architecture, and security.
 
-### Feature Documentation
-- **[Adaptive Video System](./README-adaptive-videos.md)** - Dynamic video serving based on layout
-- **[Anchor Links](./ANCHOR_LINKS.md)** - Internal navigation system documentation
-- **[Carousel Component](./carousel-component.md)** - Media carousel implementation details
-- **[Alert Messages](./alert-message-component.md)** - Alert/notification system
-- **[Project Summary](./project-summary-component.md)** - Portfolio project summaries
-- **[Impact Report](./impact-report-system.md)** - Data visualization system
+- **[README](./01-overview/README.md)** - Project overview and getting started
+- **[Theme Architecture](./01-overview/theme-architecture.md)** - Hexo theme structure and customization
+- **[Security](./01-overview/security.md)** - Security practices and configurations
 
-### Implementation Guides
-- **[Video Conversion Guide](./video-conversion-guide.md)** - Converting and optimizing video assets
-- **[CSS Refactoring](./css-refactoring-plan.md)** - SCSS architecture improvements
-- **[JS Refactoring](./js-refactoring-plan.md)** - JavaScript modernization plans
-- **[Editorial Design Library](./editorial-design-library.md)** - Design system documentation
+### 📁 [02-development](./02-development/)
+Development guides, workflows, and best practices.
 
-## 🎯 Quick Start
+- **[Development Guide](./02-development/development-guide.md)** - Local development setup and workflow
+- **[Deployment Guide](./02-development/deployment-guide.md)** - GitHub Pages deployment process
+- **[Performance Guide](./02-development/performance-guide.md)** - Performance optimization strategies
+- **[CSS Refactoring Guide](./02-development/css-refactoring-guide.md)** - SCSS architecture and refactoring
+- **[JS Refactoring Guide](./02-development/js-refactoring-guide.md)** - JavaScript modernization strategy
 
-### Adding Video Cover Images
+### 📁 [03-features](./03-features/)
+Documentation for specific features and components.
 
-1. **Create video versions** (minimum required):
+- **[Carousel Component](./03-features/carousel-component.md)** - Image/video carousel with spotlight
+- **[Alert Message Component](./03-features/alert-message-component.md)** - Notification system
+- **[Impact Report System](./03-features/impact-report-system.md)** - Portfolio impact metrics
+- **[Editorial Design Library](./03-features/editorial-design-library.md)** - Typography and layout
+- **[Project Summary Component](./03-features/project-summary-component.md)** - Portfolio project cards
+- **[Video Conversion Guide](./03-features/video-conversion-guide.md)** - Video optimization
+- **[Adaptive Videos](./03-features/adaptive-videos.md)** - Responsive video implementation
 
-   ```bash
-   # Square version (1:1) for 1x1, 2x2 grids
-   ffmpeg -i source.mov -c:v libx264 -profile:v baseline -crf 23 project-square.mp4
-   ffmpeg -i source.mov -c:v libvpx-vp9 -crf 30 -b:v 0 project-square.webm
-   
-   # Wide version (16:9) for 3x1 grids  
-   ffmpeg -i source-169.mov -c:v libx264 -profile:v baseline -crf 23 project-wide.mp4
-   ffmpeg -i source-169.mov -c:v libvpx-vp9 -crf 30 -b:v 0 project-wide.webm
-   ```
+### 📁 [04-project-health](./04-project-health/)
+Technical debt, maintenance, and project health monitoring.
 
-2. **Add to project markdown**:
+- **[Technical Debt Analysis](./04-project-health/technical-debt-analysis.md)** - Comprehensive debt assessment
+- **[Tech Debt Summary](./04-project-health/tech-debt-summary.md)** - Quick overview of technical debt
+- **[Documentation Cleanup Plan](./04-project-health/documentation-cleanup-plan.md)** - Documentation organization
 
-   ```yaml
-   ---
-   title: My Project
-   cover_image: /path/to/project-simple.mp4
-   cover_video_poster: /path/to/project-poster.jpg
-   ---
-   ```
+### 📁 [05-reference](./05-reference/)
+Reference materials and completed work logs.
 
-3. **The system automatically**:
-   - Detects video files
-   - Serves optimal versions based on grid size
-   - Falls back gracefully if versions are missing
+- **[Anchor Links](./05-reference/anchor-links.md)** - How anchor links work in the theme
+- **[Critical Fixes Completed](./05-reference/critical-fixes-completed.md)** - Log of major fixes
 
-## 🏗️ Architecture
+### 📁 [guides](./guides/)
+Specialized guides and enhancements.
 
-### File Structure
+- **[Desktop Install Enhancement](./guides/desktop-install-enhancement.md)** - PWA installation guide
+- **[Foreground Editing Guide](./guides/foreground-editing-guide.md)** - Real-time editing workflow
 
-```
-blog/
-├── docs/                          # Documentation
-├── source/_posts/                 # Blog posts and projects
-│   └── Project-Name/             # Project media folder
-│       ├── project-square.webm   # 1:1 aspect ratio
-│       ├── project-square.mp4    # 1:1 fallback
-│       ├── project-wide.webm     # 16:9 aspect ratio
-│       ├── project-wide.mp4      # 16:9 fallback
-│       └── project-compatible.*  # Universal fallbacks
-├── themes/san-diego/
-│   ├── layout/                   # EJS templates
-│   ├── source/js/components/     # JavaScript modules
-│   └── source/styles/            # SCSS stylesheets
-└── public/                       # Generated site
-```
+### 📁 [portfolio](./portfolio/)
+Portfolio analysis and improvement documentation.
 
-### Key Components
+- **[Portfolio Analysis 2025](./portfolio/PORTFOLIO_ANALYSIS_2025.md)** - Current portfolio assessment
+- **[Portfolio Improvement Plan](./portfolio/PORTFOLIO_IMPROVEMENT_PLAN.md)** - 8-week enhancement plan
+- **[Portfolio Quality Focus](./portfolio/PORTFOLIO_QUALITY_FOCUS.md)** - Quality over quantity approach
 
-- **AdaptiveVideoManager** - Handles dynamic video source switching
-- **VideoAutoplayManager** - Manages autoplay with intersection observer
-- **Portfolio Grid System** - Dynamic grid layouts with data attributes
-- **Mobile Tabs** - Touch-friendly navigation
+### 📁 [refactoring](./refactoring/)
+Detailed refactoring documentation and examples.
 
-## 🔧 Development
+- CSS refactoring examples and implementation details
+- JavaScript refactoring plans and metrics
 
-### Running the Development Server
+## Quick Links
 
-```bash
-hexo server --port 4001
-```
+### For New Contributors
+1. Start with [Project Overview](./01-overview/README.md)
+2. Set up your environment with [Development Guide](./02-development/development-guide.md)
+3. Review [Theme Architecture](./01-overview/theme-architecture.md)
 
-### Testing Video Systems
+### For Feature Development
+1. Check existing [Features](./03-features/) for patterns
+2. Review [CSS](./02-development/css-refactoring-guide.md) and [JS](./02-development/js-refactoring-guide.md) guides
+3. Follow [Security](./01-overview/security.md) best practices
 
-- **Main site**: `http://localhost:4001`
-- **Test page**: `http://localhost:4001/test-adaptive-video.html`
+### For Maintenance
+1. Review [Technical Debt Analysis](./04-project-health/technical-debt-analysis.md)
+2. Check [Performance Guide](./02-development/performance-guide.md)
+3. Follow [Deployment Guide](./02-development/deployment-guide.md)
 
-## 🚀 Key Features
+## Documentation Standards
 
-### Performance
-- **Build-time optimization** with Sharp.js and hexo-minify
-- **Lazy loading** for images and videos
-- **Progressive enhancement** approach
-- **Automated CI/CD** with GitHub Actions
+### File Naming
+- Use kebab-case for all files: `feature-name.md`
+- Be descriptive but concise
+- Group related docs in subdirectories
 
-### Content Management
-- **222+ posts** with rich media support
-- **Multiple post types** (blog, portfolio, link)
-- **Advanced galleries** with video support
-- **Dark/light theme modes**
+### Content Structure
+1. **Title** - Clear, descriptive H1
+2. **Overview** - Brief description of the topic
+3. **Table of Contents** - For longer documents
+4. **Content** - Well-organized with clear headings
+5. **Examples** - Code samples and usage
+6. **References** - Links to related docs
 
-### Developer Experience
-- **Hot reload** development server
-- **SCSS with design tokens**
-- **ES6 modules** architecture
-- **Comprehensive documentation**
-
-## 📋 Quick Reference
-
-### Common Tasks
-```bash
-# Start development
-npm run server
-
-# Create new content
-hexo new blog-post "Title"
-hexo new portfolio-post "Project"
-
-# Build for production
-npm run build:prod
-
-# Deploy to GitHub Pages
-npm run deploy
+### Code Examples
+```javascript
+// Use syntax highlighting
+// Include comments for clarity
+// Show both good and bad examples
 ```
 
-### File Locations
-- **Content**: `source/_posts/`
-- **Theme**: `themes/san-diego/`
-- **Config**: `_config.yml`
-- **Build tools**: `tools/`, `scripts/`
+### Maintenance
+- Keep documentation up-to-date with code changes
+- Review quarterly for accuracy
+- Archive outdated docs rather than deleting
 
-### Important Links
-- **Production**: [thomas.design](https://thomas.design)
-- **Repository**: [GitHub](https://github.com/twalichiewicz/blog)
-- **Main README**: [../README.md](../README.md)
-- **Architecture**: [../ARCHITECTURE.md](../ARCHITECTURE.md)
+## Contributing
+
+When adding new documentation:
+1. Place it in the appropriate directory
+2. Update this README with a description
+3. Link from related documents
+4. Follow the documentation standards above
 
 ---
 
-*Documentation last updated: June 2025*
+*Last updated: June 2025*

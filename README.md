@@ -205,7 +205,7 @@ search:
 - **Check build size** regularly (`npm run analyze`)
 - **Keep dependencies up to date**
 - **Review largest files** and optimize further if needed
-- **See** `PERFORMANCE_OPTIMIZATION.md` **for advanced tips**
+- **See** [Performance Guide](./docs/02-development/performance-guide.md) **for advanced tips**
 
 ---
 
@@ -230,7 +230,7 @@ search:
 
 ## ⚠️ Known Issues
 
-See [docs/TECH_DEBT.md](./docs/TECH_DEBT.md) for detailed technical debt tracking.
+See [Technical Debt Analysis](./docs/04-project-health/technical-debt-analysis.md) for detailed technical debt tracking.
 
 ### Critical Issues:
 1. **HTML Size Limit**: Large index.html files due to inline post rendering
@@ -245,12 +245,12 @@ See [docs/TECH_DEBT.md](./docs/TECH_DEBT.md) for detailed technical debt trackin
 ## 📚 Documentation
 
 - [ARCHITECTURE.md](./ARCHITECTURE.md) — Technical architecture overview
-- [docs/](./docs/) — All documentation
-  - [DEVELOPMENT.md](./docs/DEVELOPMENT.md) — Developer guide
-  - [DEPLOYMENT.md](./docs/DEPLOYMENT.md) — Deployment procedures
-  - [PERFORMANCE.md](./docs/PERFORMANCE.md) — Performance optimization
-  - [TECH_DEBT.md](./docs/TECH_DEBT.md) — Technical debt tracker
-  - [THEME_ARCHITECTURE.md](./docs/THEME_ARCHITECTURE.md) — Theme documentation
+- [docs/](./docs/) — Comprehensive documentation
+  - [Overview](./docs/01-overview/) — Project overview and architecture
+  - [Development](./docs/02-development/) — Development guides and workflows
+  - [Features](./docs/03-features/) — Component and feature documentation
+  - [Project Health](./docs/04-project-health/) — Technical debt and maintenance
+  - [Portfolio](./docs/portfolio/) — Portfolio analysis and improvements
 - [CLAUDE.md](./CLAUDE.md) — AI assistant instructions
 
 ### External Resources:
