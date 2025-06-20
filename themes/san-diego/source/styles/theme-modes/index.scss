@@ -9,9 +9,7 @@
 @use 'light-mode';
 @use 'dark-mode';
 
-/* Forward the forced mode styles */
-@forward 'light-mode-forced';
-@forward 'dark-mode-forced';
+/* Theme system now uses only prefers-color-scheme media queries */
 
 /* Base theme mode transitions */
 .blog {
