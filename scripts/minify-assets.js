@@ -23,7 +23,18 @@ const config = {
     removeRedundantAttributes: true
   },
   css: {
-    level: 2,
+    level: {
+      1: {
+        all: true,
+        normalizeUrls: false
+      },
+      2: {
+        restructureRules: false, // Prevent breaking media query rules
+        mergeSemantically: false, // Prevent semantic merging that can lose colors
+        overrideProperties: false, // Don't override properties
+        removeUnusedAtRules: false // Keep all at-rules
+      }
+    },
     compatibility: 'ie11'
   },
   js: {

@@ -14,7 +14,9 @@
     "analyze": "du -sh public/ && find public -name '*.js' -o -name '*.css' | xargs wc -c | tail -1",
     "lint:scss": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss",
     "lint:scss:fix": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss --fix",
-    "lint:scss:report": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss --custom-formatter node_modules/stylelint-formatter-html --output-file stylelint-report.html"
+    "lint:scss:report": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss --custom-formatter node_modules/stylelint-formatter-html --output-file stylelint-report.html",
+    "test:css": "node test-css-borders.js",
+    "test:build": "npm run build:prod && npm run test:css"
   },
   "hexo": {
     "version": "7.3.0"
