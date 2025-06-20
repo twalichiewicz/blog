@@ -1,0 +1,196 @@
+@use '../variables';
+@use "sass:color";
+
+// Reusable button mixin based on posts-only-button design
+@mixin reusable-button {
+	padding: 8px 16px;
+	font-size: 12px;
+	font-weight: 500;
+	color: variables.$text-color-secondary;
+	background: linear-gradient(to bottom,
+			color.adjust(variables.$card-bg, $lightness: 2%),
+			variables.$card-bg);
+	border: 1px solid rgb(255 255 255 / 10%);
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow:
+		0 1px 3px rgb(0 0 0 / 10%),
+		0 1px 2px rgb(0 0 0 / 6%);
+	white-space: nowrap;
+	text-decoration: none;
+	display: inline-block;
+	
+	&:hover {
+		background: linear-gradient(to bottom,
+				color.adjust(variables.$card-bg, $lightness: 5%),
+				color.adjust(variables.$card-bg, $lightness: 3%));
+		border-color: rgba(variables.$border-color, 0.3);
+		color: variables.$text-color;
+		box-shadow:
+			0 2px 4px rgb(0 0 0 / 12%),
+			0 1px 3px rgb(0 0 0 / 8%);
+		transform: translateY(-1px);
+	}
+	
+	&.active {
+		background: #000;
+		color: variables.$white;
+		border-color: #000;
+	}
+	
+	// Dark mode styles
+	@media (prefers-color-scheme: dark) {
+		background: linear-gradient(to bottom,
+				color.adjust(variables.$card-bg-dark, $lightness: 2%),
+				variables.$card-bg-dark);
+		border-color: variables.$border-color-dark;
+		color: variables.$text-color-secondary-dark;
+		box-shadow:
+			0 1px 2px rgb(0 0 0 / 20%),
+			0 -1px 0 rgb(255 255 255 / 5%) inset,
+			0 1px 0 rgb(0 0 0 / 10%) inset;
+		
+		&:hover {
+			background: linear-gradient(to bottom,
+					color.adjust(variables.$card-bg-dark, $lightness: 5%),
+					color.adjust(variables.$card-bg-dark, $lightness: 3%));
+			border-color: rgba(variables.$border-color-dark, 0.6);
+			color: variables.$text-color-dark;
+			box-shadow:
+				0 2px 4px rgb(0 0 0 / 25%),
+				0 1px 3px rgb(0 0 0 / 15%);
+		}
+		
+		&.active {
+			background: variables.$link-color-dark;
+			color: hsl(0deg 0% 10%);
+			border-color: variables.$link-color-dark;
+		}
+	}
+}
+
+// Reusable bordered button mixin (no background fill)
+@mixin reusable-button-bordered {
+	padding: 8px 16px;
+	font-size: 12px;
+	font-weight: 500;
+	color: variables.$text-color;
+	background: transparent;
+	border: 1px solid variables.$border-color;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: none;
+	white-space: nowrap;
+	text-decoration: none;
+	display: inline-block;
+	
+	&:hover {
+		border-color: variables.$link-color;
+		color: variables.$link-color;
+		background: rgba(variables.$link-color, 0.05);
+		transform: translateY(-1px);
+		box-shadow: 0 2px 4px rgba(variables.$link-color, 0.1);
+	}
+	
+	&.active {
+		background: variables.$link-color;
+		color: variables.$white;
+		border-color: variables.$link-color;
+	}
+	
+	// Dark mode styles
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+		border-color: rgba(variables.$border-color-dark, 0.5);
+		
+		&:hover {
+			border-color: variables.$link-color-dark;
+			color: variables.$link-color-dark;
+			background: rgba(variables.$link-color-dark, 0.1);
+			box-shadow: 0 2px 4px rgba(variables.$link-color-dark, 0.15);
+		}
+		
+		&.active {
+			background: variables.$link-color-dark;
+			color: variables.$black;
+			border-color: variables.$link-color-dark;
+		}
+	}
+}
+
+// Old button mixin (keeping for backward compatibility)
+@mixin button-styles {
+	padding: 0.5rem 1rem;
+	border: 1px solid currentcolor;
+	border-radius: 6px;
+	background: transparent;
+	font-family: inherit;
+	font-size: 14px;
+	text-decoration: none;
+	cursor: pointer;
+	display: inline-block;
+	transition: all 150ms ease;
+
+	&:hover {
+		background: currentcolor;
+		color: variables.$white;
+	}
+
+	&.active {
+		background: variables.$link-color;
+		color: variables.$white;
+	}
+}
+
+// Button classes
+.button,
+button {
+	@include button-styles;
+}
+
+// Reusable button classes
+.posts-only-button {
+	@include reusable-button;
+}
+
+// Reusable bordered button class
+.button-bordered {
+	@include reusable-button-bordered;
+}
+
+// Dark mode overrides for button classes
+@media (prefers-color-scheme: dark) {
+	.button,
+	button {
+		color: variables.$link-color-dark;
+
+		&.active {
+			background: variables.$link-color-dark;
+		}
+	}
+	
+	.posts-only-button {
+		background: linear-gradient(to bottom,
+				color.adjust(variables.$card-bg-dark, $lightness: 2%),
+				variables.$card-bg-dark);
+		border-color: variables.$border-color-dark;
+		color: variables.$text-color-secondary-dark;
+		box-shadow:
+			0 1px 2px rgb(0 0 0 / 20%),
+			0 -1px 0 rgb(255 255 255 / 5%) inset,
+			0 1px 0 rgb(0 0 0 / 10%) inset;
+		
+		&:hover {
+			background: linear-gradient(to bottom,
+					color.adjust(variables.$card-bg-dark, $lightness: 6%),
+					color.adjust(variables.$card-bg-dark, $lightness: 4%));
+			border-color: rgba(variables.$border-color-dark, 0.4);
+			color: variables.$text-color-dark;
+			box-shadow:
+				0 2px 4px rgb(0 0 0 / 25%),
+				0 -1px 0 rgb(255 255 255 / 8%) inset;
+		}
+	}
+}

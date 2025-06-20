@@ -1,0 +1,398 @@
+// Modern theme system using CSS custom properties
+// Replaces _theme-modes.scss without !important usage
+@use 'variables';
+@use "sass:color";
+
+// Define CSS custom properties at the root level
+:root {
+  // Core color system
+  --color-primary: #{variables.$primary-color};
+  --color-accent-gold: #{variables.$accent-gold};
+  --color-accent-sage: #{variables.$accent-sage};
+  
+  // Background colors
+  --bg-body: #{variables.$body-bg};
+  --bg-card: #{variables.$card-bg};
+  --bg-nav: #{variables.$nav-bg};
+  --bg-overlay: rgba(255, 255, 255, 0.95);
+  
+  // Text colors
+  --text-primary: #{variables.$text-color};
+  --text-secondary: #{variables.$text-color-secondary};
+  --text-inverse: #{variables.$white};
+  
+  // Border colors
+  --border-color: #{variables.$border-color};
+  --border-color-hover: #{color.adjust(variables.$border-color, $lightness: -10%)};
+  --card-border-color: #{variables.$card-border-color};
+  
+  // Link colors
+  --link-color: #{variables.$link-color};
+  --link-hover: #{variables.$hover-color};
+  
+  // Shadow values
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  // Border radius
+  --radius-sm: 4px;
+  --radius-base: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  
+  // Spacing scale
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-base: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  
+  // Typography
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  // Transitions
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
+// Dark mode custom properties
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Background colors
+    --bg-body: #{variables.$body-bg-dark};
+    --bg-card: #{variables.$card-bg-dark};
+    --bg-nav: #{variables.$nav-bg-dark};
+    --bg-overlay: rgba(20, 20, 20, 0.95);
+    
+    // Text colors
+    --text-primary: #{variables.$text-color-dark};
+    --text-secondary: #{variables.$text-color-secondary-dark};
+    --text-inverse: #{variables.$black};
+    
+    // Border colors
+    --border-color: #{variables.$border-color-dark};
+    --border-color-hover: #{color.adjust(variables.$border-color-dark, $lightness: 10%)};
+    --card-border-color: #{variables.$card-border-color-dark};
+    
+    // Link colors
+    --link-color: #{variables.$link-color-dark};
+    --link-hover: #{variables.$hover-color-dark};
+    
+    // Shadow values (adjusted for dark mode)
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(255, 255, 255, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(255, 255, 255, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(255, 255, 255, 0.05);
+  }
+}
+
+// Base element styles using custom properties
+body {
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+// Typography using theme system
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  transition: color var(--transition-fast);
+}
+
+p {
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+a {
+  color: var(--link-color);
+  transition: color var(--transition-fast);
+  
+  &:hover {
+    color: var(--link-hover);
+  }
+}
+
+// Button system using custom properties
+.btn {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-base);
+  padding: var(--space-sm) var(--space-base);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  
+  &:hover {
+    border-color: var(--border-color-hover);
+    box-shadow: var(--shadow-base);
+    transform: translateY(-1px);
+  }
+  
+  &.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--text-inverse);
+    border-color: var(--color-primary);
+  }
+  
+  &.btn-accent {
+    background-color: var(--color-accent-gold);
+    color: var(--text-inverse);
+    border-color: var(--color-accent-gold);
+  }
+}
+
+// Card system using custom properties
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-base);
+  box-shadow: var(--shadow-base);
+  transition: all var(--transition-fast);
+  
+  &:hover {
+    border-color: var(--border-color-hover);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+// Blog layout using theme system
+.blog {
+  background-color: var(--bg-nav);
+  color: var(--text-primary);
+  transition: background-color var(--transition-slow), color var(--transition-slow);
+  
+  .blog-content {
+    background-color: var(--bg-body);
+    transition: background-color var(--transition-slow);
+  }
+  
+  .blog-header {
+    transition: all var(--transition-slow);
+  }
+}
+
+// Profile header using theme system
+.profile-header {
+  .profile-name {
+    color: var(--text-primary);
+    transition: color var(--transition-fast);
+  }
+  
+  .profile-bio {
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+  }
+  
+  .profile-stats .stat {
+    .number {
+      color: var(--text-primary);
+    }
+    
+    .label {
+      color: var(--text-secondary);
+    }
+  }
+  
+  .profile-photo {
+    box-shadow: var(--shadow-md);
+    border: 2px solid var(--border-color);
+    transition: all var(--transition-base);
+  }
+}
+
+// Post content styling using theme system
+.post-list-item {
+  .post-title {
+    color: var(--text-primary);
+  }
+  
+  .post-meta {
+    color: var(--text-secondary);
+  }
+  
+  .post-excerpt {
+    color: var(--text-secondary);
+  }
+}
+
+// Portfolio items using theme system
+.portfolio-item {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-base);
+  transition: all var(--transition-fast);
+  
+  &:hover {
+    border-color: var(--border-color-hover);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .portfolio-title {
+    color: var(--text-primary);
+  }
+  
+  .portfolio-company {
+    color: var(--text-tertiary);
+  }
+  
+  .portfolio-description {
+    color: var(--text-secondary);
+  }
+}
+
+// Contact elements using theme system
+.contact-wrapper {
+  .contact-button {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-base);
+    transition: all var(--transition-fast);
+    
+    &:hover {
+      border-color: var(--border-color-hover);
+      box-shadow: var(--shadow-base);
+    }
+  }
+}
+
+// Modal system using theme system
+.modal {
+  background-color: var(--bg-overlay);
+  
+  .modal-content {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .modal-header {
+    border-bottom: 1px solid var(--border-color);
+    
+    .modal-title {
+      color: var(--text-primary);
+    }
+  }
+  
+  .modal-body {
+    color: var(--text-secondary);
+  }
+}
+
+// Search components using theme system
+.search-container {
+  .search-input {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-base);
+    transition: all var(--transition-fast);
+    
+    &:focus {
+      border-color: var(--link-color);
+      box-shadow: 0 0 0 3px rgba(from var(--link-color) r g b / 0.1);
+    }
+    
+    &::placeholder {
+      color: var(--text-tertiary);
+    }
+  }
+}
+
+// Tag system using theme system
+.tag {
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  
+  &:hover {
+    background-color: var(--link-color);
+    color: var(--text-inverse);
+    border-color: var(--link-color);
+  }
+}
+
+// Code blocks using theme system
+pre {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-base);
+}
+
+code {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+}
+
+// Blockquotes using theme system
+blockquote {
+  border-left: 4px solid var(--link-color);
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
+}
+
+// Form elements using theme system
+input, textarea, select {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-base);
+  transition: all var(--transition-fast);
+  
+  &:focus {
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 3px rgba(from var(--link-color) r g b / 0.1);
+  }
+}
+
+// Utility classes for theme-aware styling
+.bg-card { background-color: var(--bg-card); }
+.bg-body { background-color: var(--bg-body); }
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary { color: var(--text-tertiary); }
+.border-color { border-color: var(--border-color); }
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-base { box-shadow: var(--shadow-base); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: currentColor;
+    --shadow-sm: none;
+    --shadow-base: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: none;
+    --transition-base: none;
+    --transition-slow: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+}

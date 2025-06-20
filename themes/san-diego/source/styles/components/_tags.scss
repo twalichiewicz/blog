@@ -1,0 +1,45 @@
+@use '../variables';
+@use "sass:color";
+
+// Post tags container
+.post-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: variables.$space-md;
+}
+
+// Individual tag style
+.tag {
+	display: inline-block;
+	padding: 0.25rem 0.5rem;
+	background-color: variables.$accent-gold-light;
+	border: 1px solid variables.$accent-gold;
+	border-radius: 4px;
+	font-size: 9px;
+	font-weight: 500;
+	line-height: 1;
+	color: variables.$accent-gold-dark;
+	box-shadow: variables.$shadow-soft;
+
+	&--new {
+		background-color: variables.$link-color;
+		border-color: variables.$link-color;
+		color: variables.$white;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.tag {
+		background-color: rgb(255 255 255 / 10%);
+		border-color: rgb(255 255 255 / 20%);
+		color: hsl(0deg 0% 90%);
+		box-shadow: 0 2px 4px rgb(0 0 0 / 20%), 0 1px 2px rgb(0 0 0 / 30%);
+
+		&--new {
+			background-color: #422006;
+			border-color: #92400e;
+			color: #fdba74;
+		}
+	}
+}

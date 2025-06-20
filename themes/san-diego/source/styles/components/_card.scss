@@ -1,0 +1,67 @@
+@use '../variables' as variables;
+
+// Card Grid Layout
+.card-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	max-width: 1000px;
+	margin: auto;
+	padding: 0 16px;
+
+	@media screen and (width <=1000px) {
+		max-width: 800px;
+	}
+
+	@media screen and (max-width: variables.$mobile-breakpoint) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media screen and (width <=600px) {
+		display: block;
+	}
+}
+
+// Basic Card Component
+.card {
+	overflow: hidden;
+	border-radius: 16px;
+	background-color: variables.$card-bg;
+	margin-bottom: 21px;
+	transition: all 200ms ease;
+}
+
+// Meta Cards Styles
+.meta-cards {
+	display: flex;
+	flex-direction: column;
+	gap: variables.$space-sm;
+	margin: 0 auto;
+	max-width: 1000px;
+	padding: 0 variables.$space-sm;
+}
+
+.meta-card {
+	width: 100%;
+	padding: variables.$space-sm;
+	border-radius: 4px;
+	color: variables.$text-color;
+	margin: 24px 0;
+
+	h2 {
+		margin-bottom: variables.$space-xs;
+		margin-top: 0;
+		font-size: 1.2rem;
+	}
+
+	p {
+		margin: 0;
+		padding-top: 6px;
+	}
+}
+
+// Dark mode styles
+@media (prefers-color-scheme: dark) {
+	.meta-card {
+		color: variables.$text-color-dark;
+	}
+}

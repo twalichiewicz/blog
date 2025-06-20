@@ -1,8 +1,10 @@
 // Main stylesheet for San Diego theme
 // This file imports all the partials
 
-// Core variables and utilities
+// Core systems
 @use 'variables';
+@use 'theme-system';
+@use 'responsive-system';
 @use 'utilities';
 @use 'shared-components';
 @use 'focus-indicators';
@@ -36,6 +38,15 @@
 
 // UI components
 @use 'components';
+@use 'components/button';
+@use 'components/card';
+@use 'components/tags';
+@use 'components/search';
+@use 'components/mobile-tabs';
+@use 'components/modals';
+@use 'components/profile';
+@use 'components/layout-toggle';
+@use 'components/text-carousel';
 @use 'alerts';
 @use 'impact-grid';
 @use 'impact-modal';
@@ -50,19 +61,18 @@
 
 // Theme modes - importing the index file which manages all theme mode styles
 @use 'theme-modes/index' as theme-modes;
+@use 'theme-modes/light-mode';
 
 // Print styles
 @use 'print';
+@use 'theme-modes/dark-mode';
 
 // Home page
 @use 'home';
 
-// Layout fixes - must come after other layout styles
-@use 'layout-fixes';
-@use 'dynamic-content-scroll-fix';
-
-// Border fix for production - must come last to ensure proper override
-@use 'border-fix';
+// Consolidated layout and border systems
+@use 'layout-system';
+@use 'border-system';
 
 // Component Library
 @use '../components/index' as component-lib;

@@ -1,0 +1,304 @@
+// Consolidated layout system - replaces layout-fixes.scss and mobile-scroll-fix.scss
+// Uses proper CSS cascade and specificity instead of !important
+@use 'variables';
+@use 'device-breakpoints';
+
+// Layout hierarchy levels for proper cascade
+$layout-levels: (
+  base: 1,
+  responsive: 2,
+  dynamic: 3,
+  override: 4
+);
+
+// Core blog layout structure
+.blog {
+  // Base layout (level 1)
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  
+  .blog-header {
+    flex-shrink: 0;
+  }
+  
+  .blog-content {
+    flex: 1;
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+  }
+}
+
+// Desktop/tablet responsive layout (level 2)
+@media (min-width: variables.$tablet-breakpoint) {
+  .blog {
+    display: flex;
+    flex-direction: row;
+    height: 100dvh;
+    position: fixed;
+    width: 100vw;
+    
+    .blog-header {
+      width: 300px;
+      flex-shrink: 0;
+    }
+    
+    .blog-content {
+      flex: 1;
+      height: calc(100dvh - 24px);
+      overflow: hidden;
+      
+      // Default scrolling behavior - content-wrapper handles scroll
+      &:not(.has-dynamic-content) {
+        .content-wrapper {
+          height: 100%;
+          overflow-y: auto;
+          overflow-x: hidden;
+          -webkit-overflow-scrolling: touch;
+          padding-bottom: 24px;
+          
+          // Custom scrollbar
+          &::-webkit-scrollbar {
+            width: 6px;
+          }
+          
+          &::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          
+          &::-webkit-scrollbar-thumb {
+            background-color: rgb(0 0 0 / 20%);
+            border-radius: 3px;
+          }
+        }
+        
+        .content-inner-wrapper {
+          overflow: hidden;
+          height: auto;
+          min-height: 100%;
+        }
+      }
+    }
+  }
+}
+
+// Mobile responsive layout (level 2)
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog,
+  .device-mobile .blog {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    overflow: visible;
+    
+    .blog-header {
+      flex-shrink: 0;
+      height: auto;
+    }
+    
+    .blog-content {
+      flex: 1 1 auto;
+      overflow: visible;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      
+      .content-wrapper {
+        overflow: visible;
+        height: auto;
+        min-height: 100%;
+        flex: 1 1 auto;
+        background-image: none;
+        background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
+      }
+      
+      .content-inner-wrapper {
+        overflow: visible;
+        height: auto;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+  
+  // Ensure proper page scroll
+  html,
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  // Prevent transform issues
+  .blog,
+  .blog-content,
+  .content-wrapper,
+  .content-inner-wrapper {
+    transform: none;
+    will-change: auto;
+  }
+}
+
+// Dynamic content behavior (level 3)
+.blog-content.has-dynamic-content {
+  @media (min-width: variables.$tablet-breakpoint) {
+    .content-wrapper {
+      overflow: hidden;
+      height: 100%;
+    }
+    
+    .content-inner-wrapper {
+      overflow-y: scroll;
+      overflow-x: hidden;
+      height: 100%;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    height: auto;
+    overflow: visible;
+    
+    .content-inner-wrapper {
+      overflow: visible;
+      height: auto;
+      min-height: auto;
+      max-height: none;
+      
+      .post-wrapper,
+      .project-wrapper,
+      .substack-post {
+        margin-top: 0;
+        padding-top: 24px;
+      }
+    }
+  }
+}
+
+// Content width management
+#postsContent,
+#projectsContent {
+  @media (min-width: variables.$tablet-breakpoint) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    overflow: visible;
+    height: auto;
+    padding-bottom: 48px;
+  }
+  
+  // Individual items maintain max-width
+  .post-list-item {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+  }
+  
+  // Full-width separators
+  .post-separator {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+// Portfolio specific layout
+#projectsContent {
+  .portfolio-list {
+    width: 100%;
+    
+    .company-group {
+      width: 100%;
+      max-width: none;
+    }
+  }
+}
+
+// Dynamic back button positioning
+.dynamic-back-button {
+  @media (min-width: variables.$tablet-breakpoint) {
+    position: fixed;
+    top: 30px;
+    left: 306px;
+    z-index: 1000;
+  }
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1001;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.85);
+    
+    @media (prefers-color-scheme: dark) {
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+  }
+}
+
+// iOS Safari specific fixes
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: variables.$mobile-breakpoint) {
+    .blog-content.has-dynamic-content {
+      -webkit-transform: translateZ(0);
+      -webkit-overflow-scrolling: touch;
+      
+      .content-inner-wrapper {
+        -webkit-transform: translateZ(0);
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+  }
+}
+
+// Modal state
+body.modal-open {
+  @media (max-width: variables.$mobile-breakpoint) {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+// Mobile blog list separators
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog-list .post-separator {
+    margin: 0.75rem 0;
+    opacity: 0.5;
+  }
+}
+
+// Dynamic content wrapper specifics
+.post-wrapper,
+.project-wrapper {
+  &.dynamic-loaded {
+    width: 100%;
+    max-width: none;
+    
+    .post-content,
+    .project-content {
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 1rem;
+    }
+  }
+}
+
+// Project edge wrapper
+.project-edge-wrapper {
+  .content-wrapper {
+    overflow-y: auto;
+  }
+}

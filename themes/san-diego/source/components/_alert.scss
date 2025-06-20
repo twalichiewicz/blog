@@ -1,0 +1,99 @@
+@use '../styles/variables';
+
+.alert {
+	display: flex;
+	align-items: flex-start;
+	padding: 1rem 1.25rem;
+	margin: 1.5rem 0;
+	border-radius: 12px;
+	font-size: 15px;
+	line-height: 1.5;
+	background-color: variables.$white-1;
+	border: 1px solid variables.$border-color;
+	color: variables.$text-color;
+
+	&--warning {
+		background-color: #fff9eb;
+		border-color: #ffd77a;
+	}
+
+	&--error {
+		background-color: #fef1f1;
+		border-color: #facfcf;
+	}
+
+	&--success {
+		background-color: #f1f9f1;
+		border-color: #cfeacf;
+	}
+
+	&-icon {
+		flex-shrink: 0;
+		margin-right: 0.75rem;
+		margin-top: 0.125rem;
+
+		svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+	&-content {
+		flex: 1;
+
+		h3 {
+			margin: 0 0 6px;
+			font-size: 15px !important;
+			color: variables.$text-color;
+		}
+
+		p {
+			margin: 0;
+			font-size: 12px;
+
+			&:not(:last-child) {
+				margin-bottom: 0.5rem;
+			}
+		}
+
+		a {
+			color: variables.$link-color;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.alert {
+		background-color: variables.$card-bg-dark;
+		border-color: variables.$border-color-dark;
+		color: variables.$text-color-dark;
+
+		&--warning {
+			background-color: rgb(255 215 122 / 10%);
+			border-color: rgb(255 215 122 / 30%);
+		}
+
+		&--error {
+			background-color: rgb(250 207 207 / 10%);
+			border-color: rgb(250 207 207 / 30%);
+		}
+
+		&--success {
+			background-color: rgb(207 234 207 / 10%);
+			border-color: rgb(207 234 207 / 30%);
+		}
+
+		a {
+			color: variables.$link-color-dark;
+		}
+
+		h3 {
+			color: variables.$text-color-dark;
+		}
+	}
+}

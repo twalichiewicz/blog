@@ -1,0 +1,84 @@
+// Border system using CSS custom properties for consistent theming
+// Replaces border-fix.scss without using !important
+@use 'variables';
+
+// Define border custom properties at root level
+:root {
+  // Light mode border colors
+  --border-color-light: rgba(87.975, 78.4125, 65.025, 0.1);
+  --border-color-light-hover: rgba(87.975, 78.4125, 65.025, 0.2);
+  
+  // Dark mode border colors  
+  --border-color-dark: rgba(255, 255, 255, 0.1);
+  --border-color-dark-hover: rgba(255, 255, 255, 0.2);
+  
+  // Default to light mode
+  --border-color: var(--border-color-light);
+  --border-color-hover: var(--border-color-light-hover);
+}
+
+// Apply correct border colors based on color scheme
+@media (prefers-color-scheme: dark) {
+  :root {
+    --border-color: var(--border-color-dark);
+    --border-color-hover: var(--border-color-dark-hover);
+  }
+}
+
+// Base card styles with proper borders
+.card-base,
+.post-list-item.post-long,
+.portfolio-item.has-writeup {
+  border: 1px solid var(--border-color);
+  transition: border-color 0.2s ease;
+  
+  &:hover {
+    border-color: var(--border-color-hover);
+  }
+}
+
+// Ensure borders work in all contexts
+.blog,
+.blog-content,
+#postsContent,
+#projectsContent,
+.content-inner-wrapper {
+  .post-list-item.post-long,
+  .portfolio-item.has-writeup {
+    border: 1px solid var(--border-color);
+    
+    &:hover {
+      border-color: var(--border-color-hover);
+    }
+  }
+}
+
+// Mobile specific border adjustments
+@media (max-width: variables.$mobile-breakpoint) {
+  .post-list-item.post-long,
+  .portfolio-item.has-writeup {
+    // Slightly thicker borders on mobile for better visibility
+    border-width: 1px;
+  }
+}
+
+// Additional border utilities
+.border-none {
+  border: none;
+}
+
+.border-top {
+  border-top: 1px solid var(--border-color);
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.border-left {
+  border-left: 1px solid var(--border-color);
+}
+
+.border-right {
+  border-right: 1px solid var(--border-color);
+}

@@ -1,0 +1,184 @@
+@use '../variables' as variables;
+@use '../device-breakpoints' as *;
+@use 'sass:color';
+
+.layout-toggle {
+	display: none;
+
+	/* Hidden by default, shown on desktop/tablet */
+	flex-direction: row;
+	align-items: center;
+	gap: 0.75rem;
+	margin-bottom: 1rem;
+	margin-top: 15px;
+	user-select: none;
+
+	/* Show on desktop and tablet only */
+	@media screen and (min-width: variables.$mobile-breakpoint) {
+		display: flex;
+	}
+
+	/* Tablet specific styles */
+	@media screen and (max-width: variables.$desktop-breakpoint) {
+		margin-top: 0;
+	}
+
+	&__switch {
+		position: relative;
+		width: 46px;
+		height: 28px;
+
+		/* Match search input height */
+		padding: 9px;
+
+		/* Match search input padding */
+		border: 1px solid rgb(255 255 255 / 10%);
+		border-radius: 6px;
+
+		/* Match search input border radius */
+		background: linear-gradient(to bottom,
+				color.adjust(variables.$card-bg, $lightness: 2%),
+				variables.$card-bg);
+		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow:
+			0 1px 3px rgb(0 0 0 / 10%),
+			0 1px 2px rgb(0 0 0 / 6%);
+		cursor: pointer;
+		overflow: hidden;
+		box-sizing: border-box;
+
+		/* Inner track */
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 2px;
+			background: rgb(0 0 0 / 12%);
+			border-radius: 6px;
+			box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+		}
+
+		/* Toggle handle */
+		&::after {
+			content: '';
+			position: absolute;
+			top: 4px;
+			left: 6px;
+			width: 15px;
+			height: 15px;
+			background: linear-gradient(to bottom,
+					color.adjust(variables.$white, $lightness: -1%),
+					variables.$white);
+			border-radius: 3px;
+			border: 1px solid rgb(0 0 0 / 10%);
+			box-shadow:
+				0 1px 2px rgb(0 0 0 / 10%),
+				0 1px 1px rgb(0 0 0 / 6%);
+			transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+			transform: translateX(0);
+		}
+
+		/* Hover state */
+		&:hover {
+			background: linear-gradient(to bottom,
+					color.adjust(variables.$card-bg, $lightness: 3%),
+					color.adjust(variables.$card-bg, $lightness: 1%));
+			box-shadow:
+				0 2px 4px rgb(0 0 0 / 5%);
+
+			&::after {
+				box-shadow:
+					0 2px 3px rgb(0 0 0 / 12%),
+					0 1px 2px rgb(0 0 0 / 8%);
+			}
+		}
+
+		/* Active/pressed state */
+		&:active {
+			&::after {
+				box-shadow:
+					0 1px 2px rgb(0 0 0 / 8%);
+			}
+		}
+	}
+
+	/* Grid mode - handle moves to right */
+	&[data-layout="grid"] {
+		.layout-toggle__switch {
+
+			/* Keep the same neutral background - no color change for either/or toggle */
+			&::after {
+				transform: translateX(15px);
+
+				/* Move to right side */
+			}
+		}
+	}
+}
+
+/* Dark mode styles for layout toggle */
+@media (prefers-color-scheme: dark) {
+	.layout-toggle {
+		&__switch {
+			background: linear-gradient(to bottom,
+					color.adjust(variables.$card-bg-dark, $lightness: 2%),
+					variables.$card-bg-dark);
+			border-color: variables.$border-color-dark;
+			box-shadow:
+				0 1px 2px rgb(0 0 0 / 20%),
+				0 -1px 0 rgb(255 255 255 / 5%) inset,
+				0 1px 0 rgb(0 0 0 / 10%) inset;
+
+			&::before {
+				background: rgb(0 0 0 / 20%);
+				box-shadow: inset 0 1px 2px rgb(0 0 0 / 30%);
+			}
+
+			&::after {
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$card-bg-dark, $lightness: 15%),
+						color.adjust(variables.$card-bg-dark, $lightness: 10%));
+				border-color: rgb(255 255 255 / 10%);
+				box-shadow:
+					0 1px 2px rgb(0 0 0 / 30%),
+					0 1px 1px rgb(0 0 0 / 20%),
+					0 -1px 0 rgb(255 255 255 / 5%) inset;
+			}
+
+			&:hover {
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$card-bg-dark, $lightness: 4%),
+						color.adjust(variables.$card-bg-dark, $lightness: 2%));
+				box-shadow:
+					0 2px 4px rgb(0 0 0 / 20%),
+					0 -1px 0 rgb(255 255 255 / 5%) inset,
+					0 1px 0 rgb(0 0 0 / 10%) inset;
+
+				&::after {
+					box-shadow:
+						0 2px 3px rgb(0 0 0 / 40%),
+						0 1px 2px rgb(0 0 0 / 30%),
+						0 -1px 0 rgb(255 255 255 / 8%) inset;
+				}
+			}
+
+			&:active {
+				&::after {
+					box-shadow:
+						0 1px 2px rgb(0 0 0 / 20%),
+						0 -1px 0 rgb(255 255 255 / 3%) inset;
+				}
+			}
+		}
+
+		/* Grid mode in dark mode */
+		&[data-layout="grid"] {
+			.layout-toggle__switch {
+
+				/* Keep the same neutral background in dark mode - no color change needed for either/or toggle */
+				&::after {
+					transform: translateX(15px);
+				}
+			}
+		}
+	}
+}

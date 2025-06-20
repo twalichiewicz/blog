@@ -1,0 +1,796 @@
+@use '../variables' as variables;
+@use '../device-breakpoints' as *;
+@use 'button' as button;
+@use 'sass:color';
+
+.profile-header {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 36px 24px 9px;
+	margin: 0 auto 32px;
+	max-width: 600px;
+	z-index: 1;
+	box-sizing: border-box;
+	width: 100%;
+
+	.profile-photo-wrapper {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+
+		.profile-photo {
+			width: 90px;
+			height: 90px;
+			border-radius: 100%;
+			object-fit: cover;
+			flex-shrink: 0;
+			position: relative;
+			box-shadow:
+				0 0 0 1px rgba(variables.$white, 0.7),
+				0 0 0 2px rgba(variables.$black, 0.1),
+				inset 0 2px 8px rgba(variables.$black, 0.4),
+				inset 0 -4px 8px rgba(variables.$white, 0.3);
+			padding: 4px;
+			background: linear-gradient(145deg,
+					rgba(variables.$white, 0.1),
+					rgba(variables.$black, 0.1));
+		}
+	}
+
+	.profile-info {
+		text-align: left;
+		width: 100%;
+
+		.profile-name {
+			font-size: 24px;
+			font-weight: 600;
+			margin: 0 0 9px 0;
+			line-height: 100%;
+			text-shadow:
+				0 1px 1px rgb(255 255 255 / 90%),
+				0 -1px 1px rgb(0 0 0 / 20%);
+			letter-spacing: 0.02em;
+		}
+
+		.profile-byline {
+			font-size: 14px;
+			font-weight: 500;
+			margin: 0 0 8px 0;
+			color: variables.$text-color-secondary;
+			line-height: 1.4;
+			display: none;
+		}
+
+		.profile-bio {
+			color: variables.$text-color-secondary;
+			margin: 0 0 16px 0;
+			font-size: 12px;
+			line-height: 1.4;
+			max-width: 450px;
+		}
+
+		.location-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 4px 12px;
+			background: rgba(variables.$black, 0.05);
+			border-radius: 20px;
+			margin-bottom: 9px;
+			font-size: 13px;
+			color: variables.$text-color-secondary;
+			transition: all 0.2s ease;
+
+			.location-icon {
+				width: 14px;
+				height: 14px;
+				opacity: 0.7;
+			}
+
+			&:hover {
+				background: rgba(variables.$black, 0.08);
+				color: variables.$text-color;
+			}
+		}
+
+		.profile-stats {
+			display: flex;
+			flex-direction: column;
+			gap: 9px;
+			padding-top: 36px;
+			padding-bottom: 9px;
+			justify-content: flex-start;
+			padding: 9px;
+			border: 1px solid #ccc;
+			border-radius: 9px;
+			position: relative;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			
+			@media (max-width: variables.$mobile-breakpoint) {
+				flex-wrap: wrap;
+			}
+
+			&:hover {
+				background: rgba(variables.$black, 0.02);
+				border-color: rgba(variables.$border-color, 0.8);
+			}
+
+			&:active {
+				background: rgba(variables.$black, 0.04);
+			}
+
+			.stat {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+
+				.number {
+					display: block;
+					font-weight: 600;
+					font-size: 18px;
+				}
+
+				.label {
+					font-size: 9px;
+					color: variables.$text-color-secondary;
+					text-transform: uppercase;
+					letter-spacing: 0.05em;
+				}
+			}
+
+			.impact-report-btn {
+				position: absolute;
+				bottom: auto;
+				top: 6px;
+				right: 6px;
+				font-size: 9px;
+				padding: 6px 12px;
+				background: variables.$black;
+				border: 1px solid variables.$black;
+				color: variables.$white;
+				border-radius: 4px;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				cursor: pointer;
+				transition: all 0.2s ease;
+				font-weight: 500;
+
+				&:hover {
+					background: color.scale(variables.$black, $lightness: 10%);
+					border-color: color.scale(variables.$black, $lightness: 10%);
+					color: variables.$white;
+				}
+
+				&:active {
+					background: color.scale(variables.$black, $lightness: 5%);
+					border-color: color.scale(variables.$black, $lightness: 5%);
+				}
+			}
+		}
+	}
+
+	.contact-wrapper.mobile-only {
+		position: relative;
+		top: unset;
+		right: unset;
+		bottom: unset;
+		left: unset;
+		margin: unset;
+		padding: unset;
+		width: auto;
+
+		.contact-button {
+			display: block;
+			padding: 8px 16px;
+			font-size: 12px;
+			font-weight: 500;
+			color: variables.$text-color;
+			text-decoration: none;
+			text-align: center;
+			transition: all 0.2s ease;
+			white-space: nowrap;
+			background: transparent;
+			border: 1px solid rgba(variables.$border-color, 0.6);
+			border-radius: 6px;
+			cursor: pointer;
+			width: 100%;
+
+			&:hover {
+				background: rgba(variables.$link-color, 0.1);
+				color: variables.$link-color;
+			}
+
+			&:active {
+				background: rgba(variables.$link-color, 0.2);
+			}
+		}
+	}
+}
+
+/* Dark mode styles for location pill and profile byline */
+@media (prefers-color-scheme: dark) {
+	.profile-header {
+		.profile-info {
+			.profile-byline {
+				color: variables.$text-color-secondary-dark;
+			}
+
+			.location-pill {
+				background: rgba(variables.$white, 0.1);
+				color: variables.$text-color-secondary-dark;
+
+				&:hover {
+					background: rgba(variables.$white, 0.15);
+					color: variables.$text-color-dark;
+				}
+
+				.location-icon {
+					color: variables.$text-color-secondary-dark;
+				}
+			}
+
+			.profile-stats {
+				border-color: rgba(variables.$border-color-dark, 0.8);
+				
+				&:hover {
+					background: rgba(variables.$white, 0.02);
+					border-color: variables.$border-color-dark;
+				}
+
+				&:active {
+					background: rgba(variables.$white, 0.04);
+				}
+
+				.stat {
+					.label {
+						color: variables.$text-color-secondary-dark;
+					}
+				}
+
+			}
+		}
+	}
+}
+
+/* Mobile Expandable Header Styles */
+@media screen and (max-width: variables.$mobile-breakpoint) {
+	.profile-header {
+		.profile-photo-wrapper .profile-photo {
+			padding: 1px;
+		}
+		
+		.mobile-compact-header {
+			width: 100%;
+			
+			.location-pill {
+				padding: 3px 9px;
+				font-size: 11px;
+				margin-bottom: 3px;
+				
+				.location-icon {
+					width: 10px;
+					height: 10px;
+				}
+			}
+			
+			.profile-byline {
+				font-size: 11px;
+				font-weight: 500;
+				margin: 3px 0;
+				color: variables.$text-color-secondary;
+				line-height: 1.3;
+				display: block;
+			}
+		}
+		
+		.mobile-buttons-container {
+			display: flex;
+			gap: 8px;
+			margin-top: 12px;
+		}
+		
+		.mobile-impact-button,
+		.mobile-contact-button {
+			// Override component library default button styles to use reusable button
+			&.btn--default {
+				@include button.reusable-button;
+				height: auto !important; // Override fixed height
+			}
+		}
+		
+		// Apply bordered button style to View impact report
+		.mobile-impact-button.btn--default {
+			@include button.reusable-button-bordered;
+		}
+		
+		// Custom emphasis for Get in touch button
+		.mobile-contact-button.btn--default {
+			color: variables.$white;
+			background: linear-gradient(to bottom,
+					color.adjust(variables.$link-color, $lightness: 5%),
+					variables.$link-color);
+			border-color: variables.$link-color;
+			
+			&:hover {
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$link-color, $lightness: 10%),
+						color.adjust(variables.$link-color, $lightness: 5%));
+				border-color: color.scale(variables.$link-color, $lightness: 10%);
+				color: variables.$white;
+				box-shadow:
+					0 4px 8px rgba(variables.$link-color, 0.25),
+					0 2px 4px rgba(variables.$link-color, 0.15);
+				transform: translateY(-2px);
+			}
+			
+			@media (prefers-color-scheme: dark) {
+				color: variables.$black;
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$link-color-dark, $lightness: 5%),
+						variables.$link-color-dark);
+				border-color: variables.$link-color-dark;
+				
+				&:hover {
+					background: linear-gradient(to bottom,
+							color.adjust(variables.$link-color-dark, $lightness: 10%),
+							color.adjust(variables.$link-color-dark, $lightness: 5%));
+					border-color: color.scale(variables.$link-color-dark, $lightness: 10%);
+					color: variables.$black;
+					box-shadow:
+						0 4px 8px rgba(variables.$link-color-dark, 0.3),
+						0 2px 4px rgba(variables.$link-color-dark, 0.2);
+				}
+			}
+		}
+		
+		.mobile-expand-button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 4px;
+			padding: 8px 16px;
+			margin: 6px 0 0 0;
+			position: relative;
+			font-size: 12px; // Match other buttons
+			font-weight: 600;
+			color: variables.$text-color;
+			cursor: pointer;
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			text-decoration: none;
+			border-radius: 8px;
+			
+			// Glassmorphism base
+			background: linear-gradient(
+				135deg,
+				rgba(255, 255, 255, 0.1) 0%,
+				rgba(255, 255, 255, 0.05) 100%
+			);
+			backdrop-filter: blur(10px) saturate(1.5);
+			-webkit-backdrop-filter: blur(10px) saturate(1.5);
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			border-radius: 8px;
+			box-shadow:
+				inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+				0 1px 3px rgba(0, 0, 0, 0.1),
+				0 1px 2px rgba(0, 0, 0, 0.06);
+			
+			// Animated border gradient
+			&::before {
+				content: '';
+				position: absolute;
+				inset: -1px;
+				border-radius: 8px;
+				padding: 1px;
+				background: linear-gradient(
+					135deg,
+					transparent 0%,
+					hsl(40, 90%, 60%) 50%,
+					transparent 100%
+				);
+				-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+				-webkit-mask-composite: xor;
+				mask-composite: exclude;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			}
+			
+			// Glow effect
+			&::after {
+				content: '';
+				position: absolute;
+				inset: -8px;
+				border-radius: 12px;
+				background: radial-gradient(
+					circle at center,
+					hsl(40, 90%, 60%, 0.2) 0%,
+					transparent 70%
+				);
+				opacity: 0;
+				transition: opacity 0.3s ease;
+				z-index: -1;
+			}
+			
+			.button-text {
+				color: inherit;
+				position: relative;
+				z-index: 1;
+			}
+			
+			.expand-icon {
+				width: 12px;
+				height: 12px;
+				color: variables.$text-color-secondary;
+				transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+				position: relative;
+				z-index: 1;
+			}
+			
+			&:hover {
+				background: linear-gradient(
+					135deg,
+					rgba(255, 255, 255, 0.15) 0%,
+					rgba(255, 255, 255, 0.08) 100%
+				);
+				border-color: rgba(255, 255, 255, 0.25);
+				transform: translateY(-1px);
+				box-shadow:
+					inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+					0 4px 8px rgba(0, 0, 0, 0.12),
+					0 2px 4px rgba(0, 0, 0, 0.08),
+					0 0 0 1px rgba(hsl(40, 90%, 60%), 0.1);
+				
+				&::before {
+					opacity: 0.6;
+				}
+				
+				&::after {
+					opacity: 0.3;
+				}
+			}
+			
+			&:active {
+				transform: translateY(0);
+				box-shadow:
+					inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+					0 1px 2px rgba(0, 0, 0, 0.1);
+			}
+			
+			&[aria-expanded="true"] {
+				background: linear-gradient(
+					135deg,
+					rgba(hsl(40, 90%, 60%), 0.15) 0%,
+					rgba(hsl(40, 90%, 60%), 0.05) 100%
+				);
+				border-color: rgba(hsl(40, 90%, 60%), 0.3);
+				box-shadow:
+					inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+					0 4px 8px rgba(0, 0, 0, 0.12),
+					0 2px 4px rgba(0, 0, 0, 0.08),
+					0 0 20px rgba(hsl(40, 90%, 60%), 0.15);
+				
+				&::before {
+					opacity: 1;
+					animation: borderRotate 3s linear infinite;
+				}
+				
+				&::after {
+					opacity: 0.5;
+				}
+				
+				.expand-icon {
+					transform: rotate(180deg);
+				}
+			}
+		}
+		
+		// Mobile action buttons now use the component library
+		// Additional styles can be added here if needed
+		.mobile-impact-button,
+		.mobile-contact-button {
+			flex: 1; // Make buttons equal width in container
+		}
+		
+		@keyframes borderRotate {
+			0% {
+				background: linear-gradient(
+					135deg,
+					transparent 0%,
+					hsl(40, 90%, 60%) 50%,
+					transparent 100%
+				);
+			}
+			50% {
+				background: linear-gradient(
+					225deg,
+					transparent 0%,
+					hsl(40, 90%, 60%) 50%,
+					transparent 100%
+				);
+			}
+			100% {
+				background: linear-gradient(
+					135deg,
+					transparent 0%,
+					hsl(40, 90%, 60%) 50%,
+					transparent 100%
+				);
+			}
+		}
+		
+		.mobile-expandable-content {
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease, opacity 0.3s ease;
+			opacity: 0;
+			margin: 0;
+			padding: 0;
+			
+			.location-pill {
+				margin-top: 12px;
+			}
+			
+			.profile-byline {
+				font-size: 14px;
+				font-weight: 500;
+				margin: 12px 0 8px 0;
+				color: variables.$text-color-secondary;
+				line-height: 1.4;
+				display: block;
+			}
+			
+			.profile-stats {
+				display: none;
+				gap: variables.$spacing-inline-lg;
+				justify-content: flex-start;
+				margin: 12px 0;
+				
+				.stat {
+					display: flex;
+					flex-direction: column;
+					align-items: flex-start;
+
+					.number {
+						display: block;
+						font-weight: 600;
+						font-size: 16px;
+					}
+
+					.label {
+						font-size: 9px;
+						color: variables.$text-color-secondary;
+						text-transform: uppercase;
+						letter-spacing: 0.05em;
+					}
+				}
+			}
+			
+			.contact-options {
+				display: flex;
+				flex-direction: row;
+				margin-top: 12px;
+				border: 1px solid rgba(variables.$border-color, 0.6);
+				border-radius: 6px;
+				overflow: hidden;
+				box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+				background: rgba(variables.$card-bg, 0.6);
+				backdrop-filter: blur(4px);
+				-webkit-backdrop-filter: blur(4px);
+				
+				.contact-option {
+					flex: 1;
+					padding: 8px 12px;
+					font-size: 11px;
+					font-weight: 500;
+					color: variables.$text-color;
+					text-decoration: none;
+					text-align: center;
+					background: transparent;
+					transition: all 0.2s ease;
+					position: relative;
+					
+					&:hover {
+						background: rgba(variables.$link-color, 0.1);
+						color: variables.$link-color;
+					}
+					
+					&:active {
+						background: rgba(variables.$link-color, 0.2);
+					}
+					
+					&:not(:last-child) {
+						border-right: 1px solid rgba(variables.$border-color, 0.4);
+						
+						&::after {
+							content: '';
+							position: absolute;
+							right: 0;
+							top: 0;
+							height: 100%;
+							width: 1px;
+							background: rgb(255 255 255 / 70%);
+						}
+					}
+				}
+			}
+		}
+		
+		&[data-expanded="true"] {
+			.mobile-expandable-content {
+				max-height: 500px; // Adjust based on content
+				opacity: 1;
+				padding: 0 0 12px 0;
+				
+				.profile-stats {
+					display: flex;
+					flex-direction: row;
+				}
+			}
+		}
+	}
+}
+
+/* Dark mode styles for mobile expandable header */
+@media (prefers-color-scheme: dark) {
+	@media screen and (max-width: variables.$mobile-breakpoint) {
+		.profile-header {
+			.mobile-compact-header {
+				.location-pill {
+					background: rgba(variables.$white, 0.1);
+					color: variables.$text-color-secondary-dark;
+					
+					.location-icon {
+						color: variables.$text-color-secondary-dark;
+					}
+				}
+				
+				.profile-byline {
+					color: variables.$text-color-secondary-dark;
+				}
+			}
+			
+			.mobile-buttons-container {
+				display: flex;
+				gap: 8px;
+				margin-top: 12px;
+			}
+			
+			.mobile-expand-button {
+				color: variables.$text-color-dark;
+				background: linear-gradient(
+					135deg,
+					rgba(255, 255, 255, 0.05) 0%,
+					rgba(255, 255, 255, 0.02) 100%
+				);
+				border-color: rgba(255, 255, 255, 0.1);
+				box-shadow:
+					inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+					0 1px 3px rgba(0, 0, 0, 0.2),
+					0 1px 2px rgba(0, 0, 0, 0.15);
+				
+				&::before {
+					background: linear-gradient(
+						135deg,
+						transparent 0%,
+						hsl(40, 90%, 50%) 50%,
+						transparent 100%
+					);
+				}
+				
+				&::after {
+					background: radial-gradient(
+						circle at center,
+						hsl(40, 90%, 50%, 0.15) 0%,
+						transparent 70%
+					);
+				}
+				
+				.expand-icon {
+					color: variables.$text-color-secondary-dark;
+				}
+				
+				&:hover {
+					background: linear-gradient(
+						135deg,
+						rgba(255, 255, 255, 0.08) 0%,
+						rgba(255, 255, 255, 0.04) 100%
+					);
+					border-color: rgba(255, 255, 255, 0.15);
+					box-shadow:
+						inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+						0 4px 8px rgba(0, 0, 0, 0.25),
+						0 2px 4px rgba(0, 0, 0, 0.15),
+						0 0 0 1px rgba(hsl(40, 90%, 50%), 0.1);
+				}
+				
+				&[aria-expanded="true"] {
+					background: linear-gradient(
+						135deg,
+						rgba(hsl(40, 90%, 50%), 0.1) 0%,
+						rgba(hsl(40, 90%, 50%), 0.03) 100%
+					);
+					border-color: rgba(hsl(40, 90%, 50%), 0.2);
+					box-shadow:
+						inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+						0 4px 8px rgba(0, 0, 0, 0.25),
+						0 2px 4px rgba(0, 0, 0, 0.15),
+						0 0 20px rgba(hsl(40, 90%, 50%), 0.1);
+				}
+			}
+			
+			.mobile-expandable-content {
+				.profile-byline {
+					color: variables.$text-color-secondary-dark;
+				}
+				
+				.profile-stats {
+					.stat {
+						.label {
+							color: variables.$text-color-secondary-dark;
+						}
+					}
+				}
+				
+				.contact-options {
+					border-color: rgba(variables.$border-color-dark, 0.6);
+					background: rgba(variables.$card-bg-dark, 0.6);
+					
+					.contact-option {
+						color: variables.$text-color-dark;
+						
+						&:hover {
+							background: rgba(variables.$link-color-dark, 0.1);
+							color: variables.$link-color-dark;
+						}
+						
+						&:active {
+							background: rgba(variables.$link-color-dark, 0.2);
+						}
+						
+						&:not(:last-child) {
+							border-right-color: rgba(variables.$border-color-dark, 0.4);
+							
+							&::after {
+								background: rgb(255 255 255 / 10%);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/* Mobile-specific styles for profile header positioning */
+@media screen and (max-width: variables.$mobile-breakpoint) {
+	.profile-header .contact-wrapper.mobile-only {
+		position: absolute;
+		top: 100px;
+		right: -65px;
+		margin-top: 0;
+		width: auto;
+		display: flex;
+		justify-content: center;
+	}
+
+	.contact-wrapper.mobile-only .contact-button {
+		height: 24px;
+		width: 24px;
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 10px;
+		border-radius: 50%;
+
+		&::before {
+			content: '✉';
+			font-size: 12px;
+		}
+	}
+}
