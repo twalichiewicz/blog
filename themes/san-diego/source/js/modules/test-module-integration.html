@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Diego Module System Test</title>
+</head>
+<body>
+    <h1>San Diego Module System Integration Test</h1>
+    
+    <div id="test-results"></div>
+    
+    <!-- Load the module loader instead of individual scripts -->
+    <script src="/js/module-loader.js"></script>
+    
+    <script>
+        // Wait for the namespace to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if SD namespace exists
+            if (window.SD) {
+                // Listen for namespace ready event
+                window.SD.events.on('namespace:ready', function() {
+                    console.log('SD Namespace is ready!');
+                    testModuleSystem();
+                });
+                
+                // If already initialized, test immediately
+                if (window.SD.core.initialized) {
+                    testModuleSystem();
+                }
+            } else {
+                console.error('SD namespace not found');
+            }
+        });
+        
+        function testModuleSystem() {
+            const results = document.getElementById('test-results');
+            let html = '<h2>Module System Test Results</h2><ul>';
+            
+            // Test 1: Check namespace structure
+            html += '<li>SD namespace exists: ' + (!!window.SD) + '</li>';
+            html += '<li>SD.core exists: ' + (!!window.SD.core) + '</li>';
+            html += '<li>SD.ui exists: ' + (!!window.SD.ui) + '</li>';
+            html += '<li>SD.utils exists: ' + (!!window.SD.utils) + '</li>';
+            html += '<li>SD.content exists: ' + (!!window.SD.content) + '</li>';
+            
+            // Test 2: Check modules
+            html += '<li>Sound module loaded: ' + (!!window.SD.utils.sound) + '</li>';
+            html += '<li>Modals module loaded: ' + (!!window.SD.ui.modals) + '</li>';
+            html += '<li>Blog module loaded: ' + (!!window.SD.content.blog) + '</li>';
+            html += '<li>Mobile tabs module loaded: ' + (!!window.SD.ui.tabs.mobile) + '</li>';
+            
+            // Test 3: Check legacy compatibility
+            html += '<li>Legacy window.soundEffects: ' + (!!window.soundEffects) + '</li>';
+            html += '<li>Legacy window.openImpactModal: ' + (!!window.openImpactModal) + '</li>';
+            html += '<li>Legacy window.scrollToFullStory: ' + (!!window.scrollToFullStory) + '</li>';
+            html += '<li>Legacy window.mobileTabs: ' + (!!window.mobileTabs) + '</li>';
+            
+            // Test 4: Test event system
+            let eventTestPassed = false;
+            window.SD.events.on('test:event', function(data) {
+                eventTestPassed = data.test === 'success';
+            });
+            window.SD.events.emit('test:event', { test: 'success' });
+            html += '<li>Event system working: ' + eventTestPassed + '</li>';
+            
+            // Test 5: Module registration
+            const testModule = { name: 'test', init: function() {} };
+            window.SD.registerModule('test-module', testModule);
+            html += '<li>Module registration working: ' + (window.SD.getModule('test-module') === testModule) + '</li>';
+            
+            html += '</ul>';
+            
+            // Display results
+            results.innerHTML = html;
+            
+            // Log detailed info
+            console.log('Registered modules:', window.SD.core.modules);
+            console.log('Full SD namespace:', window.SD);
+        }
+    </script>
+</body>
+</html>
