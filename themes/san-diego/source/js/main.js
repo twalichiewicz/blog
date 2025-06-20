@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	initializeSoundEffects();
 
 	// Initialize color scheme functionality
-	initColorScheme();
+	// Theme system removed - using prefers-color-scheme only
 
 	// Initialize mobile expandable header
 	initMobileExpandableHeader();
@@ -34,40 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /**
- * Initialize color scheme functionality
+ * Theme system removed - now using prefers-color-scheme media queries only
  */
-function initColorScheme() {
-	const colorSchemeToggle = document.getElementById('theme-color-scheme-toggle');
-	if (!colorSchemeToggle) return;
-
-	const bodyEl = document.body;
-	const options = colorSchemeToggle.getElementsByTagName('input');
-
-	// Load saved theme preference
-	const savedTheme = localStorage.getItem('theme');
-	if (savedTheme) {
-		bodyEl.setAttribute('data-color-scheme', savedTheme);
-	}
-
-	// Set up event listeners for the color scheme toggle
-	for (const option of options) {
-		if (option.value === bodyEl.getAttribute('data-color-scheme')) {
-			option.checked = true;
-		}
-		option.addEventListener('change', (ev) => {
-			const value = ev.target.value;
-			bodyEl.setAttribute('data-color-scheme', value);
-			localStorage.setItem('theme', value);
-			for (const o of options) {
-				o.checked = (o.value === value);
-			}
-			// Play toggle sound
-			if (window.soundEffects) {
-				window.soundEffects.play('toggle');
-			}
-		});
-	}
-}
 
 /**
  * Initialize mobile expandable header functionality

@@ -370,22 +370,6 @@
 	}
 }
 
-[data-theme="dark"] {
-	.project-summary {
-		.summary-content {
-			.summary-panel {
-				.summary-panel-content {
-					color: variables.$text-color-dark;
-
-					h2,
-					h3 {
-						color: variables.$text-color-dark;
-					}
-				}
-			}
-		}
-	}
-}
 
 @media (width <= 768px) {
 	.project-summary {

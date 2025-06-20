@@ -87,14 +87,6 @@
   }
 }
 
-// === FORCED THEME OVERRIDES ===
-// For manual theme switching
-[data-theme="light"] {
-  // Copy all light mode values here
-  // (Same as default :root values)
-}
-
-[data-theme="dark"] {
-  // Copy all dark mode values here
-  // (Same as @media (prefers-color-scheme: dark) values)
-}
+// === THEME SYSTEM ===
+// Now using only prefers-color-scheme media queries
+// Manual theme switching has been removed

@@ -130,30 +130,6 @@
 	}
 	
 	// Forced dark theme
-	[data-theme="dark"] & {
-		background-color: variables.$card-bg-dark;
-		border-color: variables.$border-color-dark;
-		
-		.preview-cover-image {
-			background-color: variables.$card-bg-dark;
-		}
-		
-		.preview-title a {
-			color: variables.$text-color-dark;
-		}
-		
-		.preview-excerpt {
-			color: variables.$text-color-secondary-dark;
-		}
-		
-		.preview-metadata {
-			color: variables.$text-color-secondary-dark;
-			
-			.preview-separator {
-				color: variables.$text-color-secondary-dark;
-			}
-		}
-	}
 	
 	// Mobile adjustments
 	@media (max-width: variables.$mobile-breakpoint) {

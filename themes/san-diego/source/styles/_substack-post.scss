@@ -11,9 +11,6 @@
 		color: variables.$text-color-dark;
 	}
 	
-	[data-theme="dark"] & {
-		color: variables.$text-color-dark;
-	}
 }
 
 // Typography mixins
@@ -26,9 +23,6 @@
 		color: variables.$text-color-dark;
 	}
 	
-	[data-theme="dark"] & {
-		color: variables.$text-color-dark;
-	}
 }
 
 @mixin substack-metadata {
@@ -38,9 +32,6 @@
 		color: variables.$text-color-secondary-dark;
 	}
 	
-	[data-theme="dark"] & {
-		color: variables.$text-color-secondary-dark;
-	}
 }
 
 // Shared styles for Substack posts
@@ -99,9 +90,6 @@
 				color: variables.$text-color-secondary-dark;
 			}
 			
-			[data-theme="dark"] & {
-				color: variables.$text-color-secondary-dark;
-			}
 		}
 	}
 	
@@ -137,9 +125,6 @@
 				color: variables.$text-color-dark;
 			}
 			
-			[data-theme="dark"] & {
-				color: variables.$text-color-dark;
-			}
 		}
 		
 		.post-metadata {
@@ -163,9 +148,6 @@
 			color: variables.$text-color-dark;
 		}
 		
-		[data-theme="dark"] & {
-			color: variables.$text-color-dark;
-		}
 		
 		p {
 			margin: 20px 0;
@@ -183,9 +165,6 @@
 				color: variables.$text-color-dark;
 			}
 			
-			[data-theme="dark"] & {
-				color: variables.$text-color-dark;
-			}
 		}
 		
 		h1 { font-size: 28px; }
@@ -205,10 +184,6 @@
 				color: variables.$text-color-secondary-dark;
 			}
 			
-			[data-theme="dark"] & {
-				border-left-color: variables.$border-color-dark;
-				color: variables.$text-color-secondary-dark;
-			}
 		}
 		
 		img {
@@ -238,14 +213,6 @@
 				}
 			}
 			
-			[data-theme="dark"] & {
-				color: variables.$link-color-dark;
-				text-decoration-color: rgba(variables.$link-color-dark, 0.3);
-				
-				&:hover {
-					text-decoration-color: rgba(variables.$link-color-dark, 1);
-				}
-			}
 		}
 		
 		code {
@@ -258,9 +225,6 @@
 				background-color: variables.$card-bg-dark;
 			}
 			
-			[data-theme="dark"] & {
-				background-color: variables.$card-bg-dark;
-			}
 		}
 		
 		pre {
@@ -274,9 +238,6 @@
 				background-color: variables.$card-bg-dark;
 			}
 			
-			[data-theme="dark"] & {
-				background-color: variables.$card-bg-dark;
-			}
 			
 			code {
 				background: none;
@@ -314,10 +275,6 @@
 				border-color: var(--table-border-dark, variables.$border-color-dark);
 			}
 			
-			[data-theme="dark"] & {
-				background: var(--table-bg-dark, variables.$card-bg-dark);
-				border-color: var(--table-border-dark, variables.$border-color-dark);
-			}
 			
 			// Override flex display from global styles
 			tr {
@@ -341,9 +298,6 @@
 					border-bottom-color: var(--table-border-dark, variables.$border-color-dark);
 				}
 				
-				[data-theme="dark"] & {
-					border-bottom-color: var(--table-border-dark, variables.$border-color-dark);
-				}
 			}
 			
 			th {
@@ -362,10 +316,6 @@
 					color: variables.$text-color-dark;
 				}
 				
-				[data-theme="dark"] & {
-					background: var(--table-header-bg-dark, rgba(255, 255, 255, 0.05));
-					color: variables.$text-color-dark;
-				}
 			}
 			
 			td {
@@ -379,9 +329,6 @@
 					color: variables.$text-color-dark;
 				}
 				
-				[data-theme="dark"] & {
-					color: variables.$text-color-dark;
-				}
 			}
 			
 			// Last row styling
@@ -400,9 +347,6 @@
 						background: var(--table-row-hover-dark, rgba(255, 255, 255, 0.02));
 					}
 					
-					[data-theme="dark"] & {
-						background: var(--table-row-hover-dark, rgba(255, 255, 255, 0.02));
-					}
 				}
 			}
 			
@@ -626,9 +570,6 @@
 			border-top-color: variables.$border-color-dark;
 		}
 		
-		[data-theme="dark"] & {
-			border-top-color: variables.$border-color-dark;
-		}
 		
 		.author-card {
 			display: flex;
@@ -644,10 +585,6 @@
 				border-color: variables.$border-color-dark;
 			}
 			
-			[data-theme="dark"] & {
-				background-color: variables.$card-bg-dark;
-				border-color: variables.$border-color-dark;
-			}
 			
 			.author-card-avatar {
 				width: 56px;
@@ -668,9 +605,6 @@
 					color: variables.$text-color-dark;
 				}
 				
-				[data-theme="dark"] & {
-					color: variables.$text-color-dark;
-				}
 			}
 			
 			.author-card-bio {
@@ -683,9 +617,6 @@
 					color: variables.$text-color-secondary-dark;
 				}
 				
-				[data-theme="dark"] & {
-					color: variables.$text-color-secondary-dark;
-				}
 			}
 			
 			.author-card-link {
@@ -702,9 +633,6 @@
 					color: variables.$link-color-dark;
 				}
 				
-				[data-theme="dark"] & {
-					color: variables.$link-color-dark;
-				}
 			}
 		}
 	}

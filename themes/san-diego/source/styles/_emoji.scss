@@ -70,7 +70,7 @@ pre, code {
 }
 
 // Dark mode adjustments
-[data-theme="dark"] {
+@media (prefers-color-scheme: dark) {
   .emoji.emoji-custom {
     // Add subtle glow for better visibility
     filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.1));

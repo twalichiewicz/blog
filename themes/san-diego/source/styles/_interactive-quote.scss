@@ -147,7 +147,6 @@ $quote-transitions: (
 }
 
 // Dark mode - DRY approach
-[data-theme="dark"] .interactive-quote,
 .theme-dark .interactive-quote {
   @include quote-dark-theme;
 }

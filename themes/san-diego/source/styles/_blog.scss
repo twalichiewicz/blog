@@ -849,19 +849,6 @@ p {
 	}
 
 	// Dark mode styles
-	[data-theme="dark"] & {
-		background-color: white;
-		color: black;
-
-		&:hover {
-			background-color: rgb(255 255 255 / 80%);
-			color: black;
-		}
-
-		&:active {
-			background-color: rgb(255 255 255 / 90%);
-		}
-	}
 }
 // Post preview card styles are in _post-preview-card.scss
 

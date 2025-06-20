@@ -47,12 +47,6 @@ body {
 	}
 }
 
-// Manual dark theme on mobile
-[data-theme="dark"] body {
-	@media (max-width: variables.$mobile-breakpoint) {
-		background-color: hsl(28deg 8% 12%);
-	}
-}
 
 @media (prefers-color-scheme: light) {
 

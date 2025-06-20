@@ -57,24 +57,6 @@
     }
   }
   
-  [data-theme="dark"] & {
-    background: #1a1a1a;
-    border-color: rgba(255, 255, 255, 0.08);
-    color: #ffffff;
-    box-shadow: 
-      0 1px 2px rgba(0, 0, 0, 0.1),
-      0 4px 8px -2px rgba(0, 0, 0, 0.1),
-      0 12px 24px -8px rgba(0, 0, 0, 0.05),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    
-    &::before {
-      background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(255, 255, 255, 0.05) 50%, 
-        transparent 100%
-      );
-    }
-  }
   
   // Ensure no underlines on any child elements
   &,
@@ -113,14 +95,6 @@
         border-color: rgba(255, 255, 255, 0.12);
       }
       
-      [data-theme="dark"] & {
-        box-shadow: 
-          0 1px 3px rgba(0, 0, 0, 0.15),
-          0 6px 12px -2px rgba(0, 0, 0, 0.2),
-          0 16px 32px -8px rgba(0, 0, 0, 0.1),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.12);
-      }
       
       .alert-icon {
         transform: scale(1.05);
@@ -204,10 +178,6 @@
       color: rgba(255, 255, 255, 0.8);
     }
     
-    [data-theme="dark"] & {
-      background: rgba(255, 255, 255, 0.08);
-      color: rgba(255, 255, 255, 0.8);
-    }
     
     // Default arrow icon
     &::before {
@@ -228,10 +198,6 @@
         color: rgba(255, 255, 255, 0.8);
       }
       
-      [data-theme="dark"] & {
-        background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.8);
-      }
     }
   }
   
@@ -251,10 +217,6 @@
         color: rgba(255, 255, 255, 0.8);
       }
       
-      [data-theme="dark"] & {
-        background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.8);
-      }
     }
   }
   
@@ -274,10 +236,6 @@
         color: rgba(255, 255, 255, 0.8);
       }
       
-      [data-theme="dark"] & {
-        background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.8);
-      }
     }
   }
   
@@ -298,10 +256,6 @@
         color: rgba(255, 255, 255, 0.8);
       }
       
-      [data-theme="dark"] & {
-        background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.8);
-      }
     }
   }
   
@@ -405,30 +359,6 @@ a.alert-message.alert-link {
 }
 
 // Ensure no underlines in dark mode specifically
-[data-theme="dark"] {
-  .alert-message,
-  .alert-message.alert-link,
-  a.alert-message,
-  a.alert-message.alert-link {
-    text-decoration: none !important;
-    border-bottom: none !important;
-    
-    &,
-    *,
-    .alert-title,
-    .alert-description {
-      text-decoration: none !important;
-    }
-    
-    &:hover,
-    &:focus,
-    &:active,
-    &:visited {
-      text-decoration: none !important;
-      border-bottom: none !important;
-    }
-  }
-}
 
 @media (prefers-color-scheme: dark) {
   .alert-message,
