@@ -17,12 +17,15 @@
     "lint:scss:report": "stylelint \"themes/san-diego/source/styles/**/*.scss\" --custom-syntax postcss-scss --custom-formatter node_modules/stylelint-formatter-html --output-file stylelint-report.html",
     "test:css": "node test-css-borders.js",
     "test:build": "npm run build:prod && npm run test:css",
-    "screenshot:mobile": "echo 'Screenshot script needs implementation - 375px width'",
-    "screenshot:tablet": "echo 'Screenshot script needs implementation - 768px width'",
-    "screenshot:desktop": "echo 'Screenshot script needs implementation - 1440px width'",
+    "screenshot": "node tools/screenshot-automation.js",
+    "screenshot:mobile": "node tools/screenshot-automation.js --viewport mobile",
+    "screenshot:tablet": "node tools/screenshot-automation.js --viewport tablet",
+    "screenshot:desktop": "node tools/screenshot-automation.js --viewport desktop",
+    "visual:diff": "node tools/visual-diff.js",
+    "visual:baseline": "npm run screenshot && mv screenshots/$(ls -t screenshots | head -1) screenshots/baseline",
+    "visual:test": "npm run screenshot && node tools/visual-diff.js screenshots/baseline screenshots/$(ls -t screenshots | head -1)",
     "audit:a11y": "echo 'Accessibility audit needs implementation'",
-    "check:contrast": "echo 'Color contrast check needs implementation'",
-    "test:visual": "npm run screenshot:mobile && npm run screenshot:tablet && npm run screenshot:desktop"
+    "check:contrast": "echo 'Color contrast check needs implementation'"
   },
   "hexo": {
     "version": "7.3.0"
@@ -70,10 +73,15 @@
   },
   "notes": "All vulnerabilities have been addressed by removing hexo-admin and hexo-pdf, and replacing hoek with @hapi/hoek.",
   "devDependencies": {
+    "chalk": "^4.1.2",
     "clean-css": "^5.3.3",
+    "fs-extra": "^11.2.0",
     "glob": "^11.0.3",
     "gray-matter": "^4.0.3",
     "html-minifier-terser": "^7.2.0",
+    "pixelmatch": "^5.3.0",
+    "pngjs": "^7.0.0",
+    "puppeteer": "^23.11.1",
     "sharp": "^0.34.2",
     "stylelint": "^16.20.0",
     "stylelint-config-standard-scss": "^15.0.1",

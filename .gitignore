@@ -64,3 +64,8 @@ ARTICLE_EDITING_PLAYBOOK.md
 
 # Claude AI files
 .claude/
+
+# Screenshot testing
+screenshots/
+!screenshots/baseline/
+!screenshots/.gitkeep

@@ -67,11 +67,21 @@ npm run server
 #### For CSS/Visual changes (🟡/🔴):
 ```bash
 # Visual regression testing
-- [ ] Screenshot at 375px (mobile)
-- [ ] Screenshot at 768px (tablet)
-- [ ] Screenshot at 1440px (desktop)
-- [ ] Compare before/after screenshots
-- [ ] Check both light and dark modes
+
+# 1. Create baseline before changes
+npm run visual:baseline
+
+# 2. After making changes, run visual tests
+npm run visual:test
+
+# 3. Review the diff report
+# Open: screenshots/diff/[timestamp]/report.html
+
+# Checklist:
+- [ ] No unintended changes in diff report
+- [ ] All viewports tested (mobile, tablet, desktop)
+- [ ] Both light and dark modes verified
+- [ ] Changes look correct across all pages
 ```
 
 #### For JavaScript changes:
@@ -123,16 +133,22 @@ Before pushing 🔴 changes:
 
 ### Visual Testing Commands
 ```bash
-# Take screenshots for comparison
-npm run screenshot:mobile   # 375px width
-npm run screenshot:tablet   # 768px width  
-npm run screenshot:desktop  # 1440px width
+# Automated screenshot testing
+npm run screenshot          # All viewports & routes
+npm run screenshot:mobile   # Mobile only (375px)
+npm run screenshot:tablet   # Tablet only (768px)  
+npm run screenshot:desktop  # Desktop only (1440px)
 
-# Check for CSS issues
-npm run lint:scss
+# Visual regression testing
+npm run visual:baseline     # Create/update baseline
+npm run visual:test        # Compare against baseline
+npm run visual:diff <dir1> <dir2>  # Manual comparison
 
-# Analyze bundle size impact
-npm run analyze
+# Code quality checks
+npm run lint:scss          # Check SCSS for issues
+npm run analyze           # Analyze bundle size
+
+# Full visual testing guide: VISUAL-TESTING-GUIDE.md
 ```
 
 ### Accessibility Testing
