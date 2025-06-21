@@ -220,6 +220,13 @@ $layout-levels: (
     .company-group {
       width: 100%;
       max-width: none;
+      
+      // Add bottom margin on desktop for last company group
+      @media (min-width: variables.$tablet-breakpoint) {
+        &:last-child {
+          margin-bottom: 120px; // Approximately one grid height
+        }
+      }
     }
   }
 }

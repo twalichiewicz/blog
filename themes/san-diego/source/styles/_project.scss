@@ -2433,17 +2433,18 @@ body.loaded .project-wrapper {
 	border: none;
 	box-shadow: none;
 	aspect-ratio: unset;  // Remove square aspect ratio
-	height: 120px;  // Match the minmax height from portfolio grid
+	height: auto;  // Let content determine height
+	min-height: unset;  // Remove min-height constraint
 	display: flex;
 	align-items: start;
 	width: 100%;  // Ensure full width
 	box-sizing: border-box;  // Include padding in width calculation
 	
-	// Match responsive height adjustments
+	// Remove height constraints on all screen sizes
 	@media screen and (min-width: 480px) {
 		height: auto;
-		min-height: 120px;
-		max-height: 120px;
+		min-height: unset;
+		max-height: unset;
 	}
 	
 	.portfolio-content {
