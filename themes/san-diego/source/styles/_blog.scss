@@ -95,13 +95,21 @@
 	}
 
 	.blog-content {
-		border-radius: 15px 0 0;
-		background-color: variables.$white;
-		box-shadow: 0 2px 10px rgb(0 0 0 / 5%);
-		border: 1px solid rgb(0 0 0 / 3%);
+		border-radius: 12px 0 0;
 		position: relative;
 		transition: opacity 0.3s ease-in-out;
 		margin-top: 12px;
+		
+		// Mobile only: background, box-shadow, and border
+		@media (max-width: variables.$mobile-breakpoint) {
+			background-color: variables.$white;
+			box-shadow: 0 2px 10px rgb(0 0 0 / 5%);
+			border: 1px solid rgb(0 0 0 / 3%);
+		}
+		
+		@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
+			background-color: rgb(9, 9, 9);
+		}
 		
 		// Desktop/tablet: fixed height with scroll
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
@@ -805,8 +813,8 @@ p {
 	// New styles
 	border-radius: 12px;
 	box-shadow: none;
-	background-color: black;
-	color: white;
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
 
 	// Keep existing functionality styles
 	display: flex;
@@ -835,12 +843,12 @@ p {
 	}
 
 	&:hover {
-		background-color: rgb(0 0 0 / 80%);
-		color: white;
+		background-color: rgba(0, 0, 0, 0.8);
+		color: rgb(255, 255, 255);
 	}
 
 	&:active {
-		background-color: rgb(0 0 0 / 90%);
+		background-color: rgba(0, 0, 0, 0.9);
 	}
 
 	&:focus {
@@ -848,7 +856,23 @@ p {
 		outline-offset: 2px;
 	}
 
-	// Dark mode styles
+	// Light mode styles - always black background
+	@media (prefers-color-scheme: light) {
+		background-color: rgb(0, 0, 0) !important;
+		color: rgb(255, 255, 255) !important;
+	}
+	
+	// Dark mode styles - always black background
+	@media (prefers-color-scheme: dark) {
+		background-color: rgb(0, 0, 0) !important;
+		color: rgb(255, 255, 255) !important;
+	}
+	
+	// Ensure mobile also gets black background
+	@media (max-width: variables.$mobile-breakpoint) {
+		background-color: rgb(0, 0, 0) !important;
+		color: rgb(255, 255, 255) !important;
+	}
 }
 // Post preview card styles are in _post-preview-card.scss
 
