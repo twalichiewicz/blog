@@ -56,7 +56,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
   
   <!-- Robots Meta -->
@@ -89,10 +89,10 @@
   <script type="module" src="/js/components/HomeVisuals.js"></script>
   <script type="module" src="/js/mobile-tabs.js"></script>
   <script type="module" src="/js/carousel.js"></script>
-  <script type="module" src="/js/animations.js"></script>
+  <script type="module" src="/js/utils/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
   <script src="/js/project-summary.js"></script>
-  <script src="/js/scroll.js"></script>
+  <script type="module" src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
   <script src="/js/external-links.js"></script>
   
@@ -241,7 +241,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
   
   <!-- Robots Meta -->
@@ -274,10 +274,10 @@
   <script type="module" src="/js/components/HomeVisuals.js"></script>
   <script type="module" src="/js/mobile-tabs.js"></script>
   <script type="module" src="/js/carousel.js"></script>
-  <script type="module" src="/js/animations.js"></script>
+  <script type="module" src="/js/utils/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
   <script src="/js/project-summary.js"></script>
-  <script src="/js/scroll.js"></script>
+  <script type="module" src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
   <script src="/js/external-links.js"></script>
   
@@ -582,13 +582,21 @@
     
     <!-- Add search bar -->
     <div class="search-container">
-        <div class="search-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 21l-4.35-4.35"/>
-                <path d="M15.5 10.5a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"/>
-            </svg>
+        <div class="search-input-wrapper">
+            <div class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 21l-4.35-4.35"/>
+                    <path d="M15.5 10.5a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"/>
+                </svg>
+            </div>
+            <input type="text" id="postSearch" placeholder="Search words..." class="search-input" aria-label="Search blog posts">
+            <button class="search-clear" aria-label="Clear search" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
         </div>
-        <input type="text" id="postSearch" placeholder="Search words..." class="search-input" aria-label="Search blog posts">
         <button class="posts-only-button" data-filter="posts">Posts only</button>
     </div>
     
@@ -5235,6 +5243,8 @@ init().catch(error => console.error('Fatal error:', error));
                 <div class="company-projects">
                     
                     
+                    
+                    
                         
                         
                             <a href="/2024/06/01/Overlay/" class="portfolio-item has-writeup" data-cover-image="true" data-project-type="professional">
@@ -5457,130 +5467,17 @@ init().catch(error => console.error('Fatal error:', error));
                             </a>
                         
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Autodesk</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>AI/ML Platform</h4>
-                                    
-                                        <p>Creating a platform for seamless AI/ML model development and deployment</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Autodesk</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Autodesk Insights</h4>
-                                    
-                                        <p>Led the transformation of a complex analytics platform into an accessible, visually compelling tool that synthesizes intricate data into clear, actionable insights for users</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Autodesk</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Enhanced user administration</h4>
-                                    
-                                        <p>Drove the creation of improvements to the user management experience, streamlining administrative tasks</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Autodesk</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>5 year vision</h4>
-                                    
-                                        <p>Created an interactive vision prototype for Autodesk's future ecosystem, combining strategic foresight with innovative cloud-first experiences</p>
-                                    
-                                    
-                                    
-                                </div>
+                        <div class="portfolio-item no-writeup-list">
+                            <div class="portfolio-content">
+                                <p class="no-writeup-intro">Other projects include:</p>
+                                <p class="no-writeup-projects">
+                                    AI/ML Platform, Autodesk Insights, Enhanced user administration, 5 year vision, Multi-product install generator
+                                </p>
                             </div>
                         </div>
-                        
-                            </div>
-                        
-                    
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Autodesk</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Multi-product install generator</h4>
-                                    
-                                        <p>Designed the upgraded multi-product install sequencer and deployment tool</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
                 </div>
             </div>
@@ -5594,6 +5491,8 @@ init().catch(error => console.error('Fatal error:', error));
                     
                 </h2>
                 <div class="company-projects">
+                    
+                    
                     
                     
                         
@@ -5781,55 +5680,17 @@ init().catch(error => console.error('Fatal error:', error));
                             </a>
                         
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Human Interest</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>401(k) end user product</h4>
-                                    
-                                        <p>Simplified the 401(k) experience for small to medium businesses employees</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Human Interest</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>401(k) operations tool</h4>
-                                    
-                                        <p>Built out an internal tool for operations, compliance, and customer support to manage all company's 401(k) plans</p>
-                                    
-                                    
-                                    
-                                </div>
+                    
+                    
+                        <div class="portfolio-item no-writeup-list">
+                            <div class="portfolio-content">
+                                <p class="no-writeup-intro">Other projects include:</p>
+                                <p class="no-writeup-projects">
+                                    401(k) end user product, 401(k) operations tool
+                                </p>
                             </div>
                         </div>
-                        
-                            </div>
-                        
                     
                 </div>
             </div>
@@ -5843,6 +5704,8 @@ init().catch(error => console.error('Fatal error:', error));
                     
                 </h2>
                 <div class="company-projects">
+                    
+                    
                     
                     
                         
@@ -5919,280 +5782,17 @@ init().catch(error => console.error('Fatal error:', error));
                             </a>
                         
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Self-Help Credit Union</h4>
-                                    
-                                        <p>Mirroring workplace retirement products to increase savings among credit union members</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>GreenPath Financial Wellness</h4>
-                                    
-                                        <p>Improving retention and savings rates in debt management programs through behavioral design</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Plaid</h4>
-                                    
-                                        <p>Using social proof and behavioral insights to help users reduce unnecessary expenses</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Robin Hood</h4>
-                                    
-                                        <p>Increasing savings through behavioral interventions in tax preparation software</p>
-                                    
-                                    
-                                    
-                                </div>
+                        <div class="portfolio-item no-writeup-list">
+                            <div class="portfolio-content">
+                                <p class="no-writeup-intro">Other projects include:</p>
+                                <p class="no-writeup-projects">
+                                    Self-Help Credit Union, GreenPath Financial Wellness, Plaid, Robin Hood, Propel, Latino Community Credit Union, EarnUp, Kiva, Digit, Retiremap, Payable
+                                </p>
                             </div>
                         </div>
-                        
-                            </div>
-                        
-                    
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Propel</h4>
-                                    
-                                        <p>Helping families on food stamps make their benefits last longer</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
-                    
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Latino Community Credit Union</h4>
-                                    
-                                        <p>Increasing savings through behavioral interventions in credit union services</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
-                    
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>EarnUp</h4>
-                                    
-                                        <p>Using psychologically satisfying numbers to increase loan repayment rates</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
-                    
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Kiva</h4>
-                                    
-                                        <p>Increasing access to good debt through behavioral interventions in microlending</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
-                    
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Digit</h4>
-                                    
-                                        <p>Increasing savings at tax-time through automated savings interventions</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
-                    
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Retiremap</h4>
-                                    
-                                        <p>Leveraging "robo-advisors" to increase retirement savings through personalized recommendations</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
-                    
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Common Cents Lab</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Payable</h4>
-                                    
-                                        <p>Encouraging long-term financial mindsets through behavioral interventions in payroll software</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
                 </div>
             </div>
@@ -6206,6 +5806,8 @@ init().catch(error => console.error('Fatal error:', error));
                     
                 </h2>
                 <div class="company-projects">
+                    
+                    
                     
                     
                         
@@ -6245,80 +5847,17 @@ init().catch(error => console.error('Fatal error:', error));
                             </a>
                         
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Lyra Health</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Case manager app</h4>
-                                    
-                                        <p>Designed a comprehensive case management platform that empowers healthcare professionals to efficiently track patient progress and care plans, incorporating user research to create an intuitive interface that enhances care coordination</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Lyra Health</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Marketing tools</h4>
-                                    
-                                        <p>A series of webtools to show employers the value of offering Lyra's telemedicine benefit</p>
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                            </div>
-                        
                     
-                        
-                        
-                            <div class="portfolio-item" data-cover-image="false" data-project-type="professional">
-                        
-                        
-                        <div class="portfolio-content">
-                            
-                                <div class="company-byline">Lyra Health</div>
-                            
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4>Physician app</h4>
-                                    
-                                        <p>A tool for physicians to track patient progress, care plans, and coordinate care with the case manager</p>
-                                    
-                                    
-                                    
-                                </div>
+                    
+                        <div class="portfolio-item no-writeup-list">
+                            <div class="portfolio-content">
+                                <p class="no-writeup-intro">Other projects include:</p>
+                                <p class="no-writeup-projects">
+                                    Case manager app, Marketing tools, Physician app
+                                </p>
                             </div>
                         </div>
-                        
-                            </div>
-                        
                     
                 </div>
             </div>
@@ -6332,6 +5871,8 @@ init().catch(error => console.error('Fatal error:', error));
                     
                 </h2>
                 <div class="company-projects">
+                    
+                    
                     
                     
                         
@@ -6370,6 +5911,9 @@ init().catch(error => console.error('Fatal error:', error));
                         
                             </a>
                         
+                    
+                    
+                    
                     
                 </div>
             </div>
@@ -6789,15 +6333,12 @@ init().catch(error => console.error('Fatal error:', error));
         
 <script src="/js/device-detection.js"></script>
 
-        <script type="module" src="/js/main.js"></script>
+        <!-- main.js already loaded in head.ejs -->
         
 
         
 
-        <script type="module" src="/js/mobile-tabs.js"></script>
-        
-<script src="/js/sound-effects.js"></script>
-
+        <!-- mobile-tabs.js and sound-effects.js already loaded in head.ejs -->
         <!-- Additional scripts -->
     </body>
 </html>

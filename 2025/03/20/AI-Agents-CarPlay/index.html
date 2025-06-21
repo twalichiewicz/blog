@@ -56,7 +56,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
   
   <!-- Robots Meta -->
@@ -89,10 +89,10 @@
   <script type="module" src="/js/components/HomeVisuals.js"></script>
   <script type="module" src="/js/mobile-tabs.js"></script>
   <script type="module" src="/js/carousel.js"></script>
-  <script type="module" src="/js/animations.js"></script>
+  <script type="module" src="/js/utils/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
   <script src="/js/project-summary.js"></script>
-  <script src="/js/scroll.js"></script>
+  <script type="module" src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
   <script src="/js/external-links.js"></script>
   
@@ -237,7 +237,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
   
   <!-- Robots Meta -->
@@ -270,10 +270,10 @@
   <script type="module" src="/js/components/HomeVisuals.js"></script>
   <script type="module" src="/js/mobile-tabs.js"></script>
   <script type="module" src="/js/carousel.js"></script>
-  <script type="module" src="/js/animations.js"></script>
+  <script type="module" src="/js/utils/animations.js"></script>
   <script src="/js/project-tabs.js"></script>
   <script src="/js/project-summary.js"></script>
-  <script src="/js/scroll.js"></script>
+  <script type="module" src="/js/scroll.js"></script>
   <script src="/js/sound-effects.js"></script>
   <script src="/js/external-links.js"></script>
   
@@ -434,15 +434,12 @@
         
 <script src="/js/device-detection.js"></script>
 
-        <script type="module" src="/js/main.js"></script>
+        <!-- main.js already loaded in head.ejs -->
         
 
         
 
-        <script type="module" src="/js/mobile-tabs.js"></script>
-        
-<script src="/js/sound-effects.js"></script>
-
+        <!-- mobile-tabs.js and sound-effects.js already loaded in head.ejs -->
         <!-- Additional scripts -->
     </body>
 </html>

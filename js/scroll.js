@@ -1,1 +1,1 @@
-document.addEventListener("DOMContentLoaded",function(){document.body.style.overscrollBehavior="none",window.addEventListener("load",function(){if(window.location.hash){const o=document.querySelector(window.location.hash);if(o){const e=document.querySelector("nav")?.offsetHeight||0;window.scrollTo({top:o.offsetTop-e,behavior:"smooth"})}}})});
+import ScrollUtility from"./utils/scroll-utility.js";document.addEventListener("DOMContentLoaded",function(){window.ScrollUtility=ScrollUtility});
