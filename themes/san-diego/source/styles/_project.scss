@@ -2435,16 +2435,17 @@ body.loaded .project-wrapper {
 	aspect-ratio: unset;  // Remove square aspect ratio
 	height: auto;  // Let content determine height
 	min-height: unset;  // Remove min-height constraint
+	max-height: 60px;  // Constrain maximum height
 	display: flex;
 	align-items: start;
 	width: 100%;  // Ensure full width
 	box-sizing: border-box;  // Include padding in width calculation
 	
-	// Remove height constraints on all screen sizes
+	// Reasonable height constraints
 	@media screen and (min-width: 480px) {
 		height: auto;
 		min-height: unset;
-		max-height: unset;
+		max-height: 80px;  // Slightly larger on desktop
 	}
 	
 	.portfolio-content {
