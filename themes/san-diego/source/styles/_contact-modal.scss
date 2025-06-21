@@ -37,6 +37,8 @@
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 
                     0 0 0 1px rgba(255, 255, 255, 0.05);
+        display: flex;
+        flex-direction: column;
         
         @media (max-width: 768px) {
             width: calc(100% - 40px);
@@ -135,11 +137,15 @@
         display: flex;
         flex-direction: row;
         gap: 12px;
+        flex: 1;
+        align-items: center;
         
         @media (max-width: 768px) {
             flex-direction: row;
             gap: 8px;
             padding: 16px;
+            flex: 1;
+            align-items: center;
         }
         
         .contact-option {
@@ -211,8 +217,17 @@
                 font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
                 
                 @media (max-width: 768px) {
-                    font-size: 10px;
+                    display: none;
                 }
+            }
+            
+            // SVG icon styling for GitHub
+            &.github .contact-icon {
+                filter: invert(1) brightness(0.9);
+            }
+            
+            &.github:hover .contact-icon {
+                filter: invert(1) brightness(1.1);
             }
             
             // Option-specific colors
@@ -240,6 +255,15 @@
                 &:hover {
                     border-color: var(--accent-color);
                     box-shadow: 0 4px 12px rgba(255, 179, 128, 0.2);
+                }
+            }
+            
+            &.github {
+                --accent-color: #B3E5FF;
+                
+                &:hover {
+                    border-color: var(--accent-color);
+                    box-shadow: 0 4px 12px rgba(179, 229, 255, 0.2);
                 }
             }
         }
