@@ -3,13 +3,21 @@
     
     <!-- Add search bar -->
     <div class="search-container">
-        <div class="search-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 21l-4.35-4.35"/>
-                <path d="M15.5 10.5a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"/>
-            </svg>
+        <div class="search-input-wrapper">
+            <div class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 21l-4.35-4.35"/>
+                    <path d="M15.5 10.5a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"/>
+                </svg>
+            </div>
+            <input type="text" id="postSearch" placeholder="Search words..." class="search-input" aria-label="Search blog posts">
+            <button class="search-clear" aria-label="Clear search" style="display: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
         </div>
-        <input type="text" id="postSearch" placeholder="Search words..." class="search-input" aria-label="Search blog posts">
         <button class="posts-only-button" data-filter="posts">Posts only</button>
     </div>
     

@@ -144,6 +144,9 @@
             // Load slider sound for tab switching
             this.loadSound('slider', '/media/slider', ['mp3']);
             
+            // Load book sound for search input
+            this.loadSound('book', '/media/book', ['mp3', 'm4a']);
+            
         }
     }
 
@@ -165,6 +168,13 @@
     window.playButtonSound = function() {
         if (window.soundEffects) {
             window.soundEffects.play('smallClick');
+        }
+    };
+    
+    // Define the playBookSound function for search input
+    window.playBookSound = function() {
+        if (window.soundEffects) {
+            window.soundEffects.play('book');
         }
     };
 

@@ -513,7 +513,7 @@ body.loaded .project-wrapper {
 	.carousel {
 		width: 100%;
 		margin: 0 auto;
-		border-radius: 15px 15px 0 0;
+		border-radius: 12px 12px 0 0;
 		background: variables.$black;
 		border: none;
 		position: relative;
@@ -537,11 +537,22 @@ body.loaded .project-wrapper {
 	background: transparent;
 	box-shadow: none;
 	border: none;
-	border-radius: 15px 15px 0 0;
+	border-radius: 12px 12px 0 0;
 	overflow: visible;
 	transition: box-shadow 0.3s ease;
 	display: flex;
 	flex-direction: column;
+	
+	// Dark mode background - transparent on mobile to inherit from parent
+	@media (prefers-color-scheme: dark) {
+		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			background-color: rgb(9, 9, 9);
+		}
+		
+		@media (max-width: variables.$mobile-breakpoint) {
+			background-color: transparent;
+		}
+	}
 
 	// Add consistent typography for lists - matching Substack
 	ul,
@@ -643,7 +654,7 @@ body.loaded .project-wrapper {
 	}
 
 	@media (prefers-color-scheme: dark) {
-		background: variables.$card-bg-dark;
+		// Removed background color - handled elsewhere
 		box-shadow: 0 2px 15px rgb(0 0 0 / 15%),
 			0 0 0 1px rgb(255 255 255 / 10%);
 
@@ -1723,6 +1734,12 @@ body.loaded .project-wrapper {
 	position: relative;
 	margin: 0;
 	padding: 0;
+	border-radius: 12px 0 0 0;
+	
+	// Dark mode background
+	@media (prefers-color-scheme: dark) {
+		background-color: rgb(9, 9, 9);
+	}
 }
 
 // Above the fold preview - 100vh container with Apple TV+ cinematic styling
@@ -2404,6 +2421,56 @@ body.loaded .project-wrapper {
 	// Fix the read story button container positioning
 	.read-story-button-container {
 		margin: 0; // Remove all margins - using flexbox gap instead
+	}
+}
+
+// Projects without writeups - simple list style
+.portfolio-item.no-writeup-list {
+	grid-column: 1 / -1;  // Span full width of grid
+	margin: 0;
+	padding: 9px 0;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	aspect-ratio: unset;  // Remove square aspect ratio
+	height: 120px;  // Match the minmax height from portfolio grid
+	display: flex;
+	align-items: start;
+	width: 100%;  // Ensure full width
+	box-sizing: border-box;  // Include padding in width calculation
+	
+	// Match responsive height adjustments
+	@media screen and (min-width: 480px) {
+		height: auto;
+		min-height: 120px;
+		max-height: 120px;
+	}
+	
+	.portfolio-content {
+		padding: 0;
+		
+		.no-writeup-intro {
+			font-size: 13px;
+			line-height: 1.4;
+			color: variables.$text-color-secondary;
+			margin: 0 0 variables.$space-xs 0;
+			
+			@media (prefers-color-scheme: dark) {
+				color: variables.$text-color-secondary-dark;
+			}
+		}
+		
+		.no-writeup-projects {
+			font-size: 12px;
+			line-height: 1.4;
+			color: variables.$grey;
+			margin: 0;
+			
+			@media (prefers-color-scheme: dark) {
+				color: variables.$grey-dark;
+				opacity: 0.7;
+			}
+		}
 	}
 }
 

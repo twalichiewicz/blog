@@ -25,19 +25,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// --- Search Functionality ---
 		if (elements.searchInput) {
-			console.log('Search input found in container');
+			// Search input found in container
 			elements.searchInput.removeEventListener('input', handleSearch);
 			elements.searchInput.addEventListener('input', handleSearch);
+			
+			// Add click sound effect for search input
+			elements.searchInput.removeEventListener('click', handleSearchClick);
+			elements.searchInput.addEventListener('click', handleSearchClick);
+			
+			// Initialize clear button
+			initializeSearchClearButton(elements.searchInput);
 		} else {
-			console.log('Search input not in container, trying global search');
+			// Search input not in container, trying global search
 			// Try to find search input in the document if not in container
 			const globalSearchInput = document.querySelector('#postSearch');
 			if (globalSearchInput) {
-				console.log('Global search input found');
+				// Global search input found
 				globalSearchInput.removeEventListener('input', handleSearch);
 				globalSearchInput.addEventListener('input', handleSearch);
+				
+				// Add click sound effect for global search input
+				globalSearchInput.removeEventListener('click', handleSearchClick);
+				globalSearchInput.addEventListener('click', handleSearchClick);
+				
+				// Initialize clear button
+				initializeSearchClearButton(globalSearchInput);
 			} else {
-				console.log('No search input found anywhere');
+				// No search input found anywhere
 			}
 		}
 
@@ -510,7 +524,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		function handleLinkClick(event) {
 			const link = event.currentTarget;
-			console.log('Link clicked:', link.href, 'Classes:', link.className);
+			// Link clicked
 			if (link.hostname === window.location.hostname &&
 				!link.getAttribute('target') &&
 				(link.protocol === "http:" || link.protocol === "https:") &&
@@ -519,12 +533,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				// Updated selectors for post previews
 				const isPostLink = link.classList.contains('post-link-wrapper');
 				const isProjectLink = link.matches('a.portfolio-item.has-writeup');
-				console.log('Is post link:', isPostLink, 'Is project link:', isProjectLink);
+				// Check if post or project link
 
 				if (isPostLink || isProjectLink) {
 					event.preventDefault();
 					const url = link.href;
-					console.log('Fetching content for:', url);
+					// Fetching content
 					fetchAndDisplayContent(url, true, isProjectLink);
 				}
 			}
@@ -536,7 +550,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				'a.post-link-wrapper, ' +
 				'a.portfolio-item.has-writeup'
 			);
-			console.log('Initializing link listeners, found links:', linksToProcess.length);
+			// Initializing link listeners
 
 			linksToProcess.forEach(link => {
 				link.removeEventListener('click', handleLinkClick);
@@ -715,6 +729,58 @@ document.addEventListener('DOMContentLoaded', function () {
 		return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 	}
 
+	// Search click sound effect
+	function handleSearchClick(e) {
+		// Play book sound when search input is clicked
+		if (window.playBookSound) {
+			window.playBookSound();
+		}
+	}
+
+	// Initialize search clear button
+	function initializeSearchClearButton(searchInput) {
+		if (!searchInput) return;
+		
+		const clearButton = searchInput.parentElement.querySelector('.search-clear');
+		if (!clearButton) return;
+		
+		// Update clear button visibility based on input value
+		function updateClearVisibility() {
+			clearButton.style.display = searchInput.value ? 'block' : 'none';
+		}
+		
+		// Handle clear button click
+		function handleClearClick(e) {
+			e.preventDefault();
+			
+			// Play small click sound
+			if (window.playSmallClickSound) {
+				window.playSmallClickSound();
+			}
+			
+			// Clear the input
+			searchInput.value = '';
+			clearButton.style.display = 'none';
+			
+			// Trigger search to reset results
+			handleSearch({ target: searchInput });
+			
+			// Focus back on input
+			searchInput.focus();
+		}
+		
+		// Remove existing listeners if any
+		clearButton.removeEventListener('click', handleClearClick);
+		searchInput.removeEventListener('input', updateClearVisibility);
+		
+		// Add new listeners
+		clearButton.addEventListener('click', handleClearClick);
+		searchInput.addEventListener('input', updateClearVisibility);
+		
+		// Set initial visibility
+		updateClearVisibility();
+	}
+
 	// Search functionality
 	function handleSearch(e) {
 		const query = e.target.value.toLowerCase();
@@ -782,9 +848,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Initialize posts only button
 	function initializePostsOnlyButton() {
 		const postsOnlyButton = document.querySelector('.posts-only-button');
-		console.log('Initializing posts only button:', postsOnlyButton);
+		// Initializing posts only button
 		if (!postsOnlyButton) {
-			console.log('Posts only button not found');
+			// Posts only button not found
 			return;
 		}
 		
@@ -792,14 +858,26 @@ document.addEventListener('DOMContentLoaded', function () {
 		postsOnlyButton.removeEventListener('click', handlePostsOnlyClick);
 		// Add new listener
 		postsOnlyButton.addEventListener('click', handlePostsOnlyClick);
+		
+		// Also initialize search clear button if it exists
+		const searchInput = document.querySelector('#postSearch');
+		if (searchInput) {
+			initializeSearchClearButton(searchInput);
+		}
 	}
 	
 	function handlePostsOnlyClick(event) {
-		console.log('Posts only button clicked');
+		// Posts only button clicked
+		
+		// Play the same sound effect as carousel buttons
+		if (window.playSmallClickSound) {
+			window.playSmallClickSound();
+		}
+		
 		const button = event.currentTarget;
 		button.classList.toggle('active');
 		const searchInput = document.querySelector('#postSearch');
-		console.log('Search input found:', searchInput);
+		// Search input found
 		if (searchInput) {
 			handleSearch({ target: searchInput });
 		}
@@ -954,5 +1032,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	initializeProjectToggle();
 	initializePostsOnlyButton();
 	// Anchor links are now handled by anchor-links-simple.js
+	
+	// Initialize search clear button on page load
+	const initialSearchInput = document.querySelector('#postSearch');
+	if (initialSearchInput) {
+		initializeSearchClearButton(initialSearchInput);
+	}
 
 }); 

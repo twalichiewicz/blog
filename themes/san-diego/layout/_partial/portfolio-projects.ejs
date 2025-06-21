@@ -132,8 +132,13 @@
                         return new Date(b.date).getTime() - new Date(a.date).getTime();
                     });
                     
+                    // Separate projects with and without writeups
+                    const projectsWithWriteups = sortedProjects.filter(p => p.has_writeup !== false);
+                    const projectsWithoutWriteups = sortedProjects.filter(p => p.has_writeup === false);
                     %>
-                    <% sortedProjects.forEach(function(post, index) { %>
+                    
+                    <% // Render projects with writeups as cards %>
+                    <% projectsWithWriteups.forEach(function(post, index) { %>
                         <% 
                         // Determine project type - personal companies or projects without a company are personal
                         const personalCompanies = ['Other Projects']; // Only "Other Projects" is personal now
@@ -243,6 +248,18 @@
                             </div>
                         <% } %>
                     <% }) %>
+                    
+                    <% // Render projects without writeups as a simple list %>
+                    <% if (projectsWithoutWriteups.length > 0) { %>
+                        <div class="portfolio-item no-writeup-list">
+                            <div class="portfolio-content">
+                                <p class="no-writeup-intro">Other projects include:</p>
+                                <p class="no-writeup-projects">
+                                    <%= projectsWithoutWriteups.map(p => p.title).join(', ') %>
+                                </p>
+                            </div>
+                        </div>
+                    <% } %>
                 </div>
             </div>
         <% }) %>

@@ -87,17 +87,17 @@
 	display: inline-block;
 	
 	&:hover {
-		border-color: variables.$link-color;
-		color: variables.$link-color;
-		background: rgba(variables.$link-color, 0.05);
+		border-color: rgba(variables.$black, 0.3);
+		color: variables.$text-color;
+		background: rgba(variables.$black, 0.05);
 		transform: translateY(-1px);
-		box-shadow: 0 2px 4px rgba(variables.$link-color, 0.1);
+		box-shadow: none;
 	}
 	
 	&.active {
-		background: variables.$link-color;
+		background: variables.$black;
 		color: variables.$white;
-		border-color: variables.$link-color;
+		border-color: variables.$black;
 	}
 	
 	// Dark mode styles
@@ -106,16 +106,16 @@
 		border-color: rgba(variables.$border-color-dark, 0.5);
 		
 		&:hover {
-			border-color: variables.$link-color-dark;
-			color: variables.$link-color-dark;
-			background: rgba(variables.$link-color-dark, 0.1);
-			box-shadow: 0 2px 4px rgba(variables.$link-color-dark, 0.15);
+			border-color: rgba(variables.$white, 0.3);
+			color: variables.$text-color-dark;
+			background: rgba(variables.$white, 0.05);
+			box-shadow: none;
 		}
 		
 		&.active {
-			background: variables.$link-color-dark;
+			background: variables.$white;
 			color: variables.$black;
-			border-color: variables.$link-color-dark;
+			border-color: variables.$white;
 		}
 	}
 }

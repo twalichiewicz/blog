@@ -285,19 +285,24 @@
 			}
 			
 			.profile-byline {
-				font-size: 11px;
-				font-weight: 500;
+				font-size: 12px;
+				font-weight: 400;
 				margin: 3px 0;
 				color: variables.$text-color-secondary;
-				line-height: 1.3;
+				line-height: 1.5;
 				display: block;
 			}
 		}
 		
 		.mobile-buttons-container {
+			position: absolute;
+			top: 8px; // Balanced position for both light and dark modes
+			right: 12px;
 			display: flex;
 			gap: 8px;
-			margin-top: 12px;
+			margin-top: 0;
+			flex-shrink: 0;
+			max-width: none;
 		}
 		
 		.mobile-impact-button,
@@ -312,6 +317,9 @@
 		// Apply bordered button style to View impact report
 		.mobile-impact-button.btn--default {
 			@include button.reusable-button-bordered;
+			width: auto !important; // Ensure button fits its text
+			min-width: auto !important;
+			max-width: none !important;
 		}
 		
 		// Custom emphasis for Get in touch button

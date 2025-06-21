@@ -137,6 +137,7 @@ class SoundEffects {
 		this.loadSound('smallClick', '/media/smallClick', ['mp3']);
 		this.loadSound('slider', '/media/slider', ['mp3']);
 		this.loadSound('wavey', '/media/wavey', ['mp3']);
+		this.loadSound('book', '/media/book', ['mp3', 'm4a']);
 
 	}
 }
@@ -169,6 +170,10 @@ function initializeSoundEffects() {
 
 	window.playSliderSound = function() {
 		soundEffects.play('slider');
+	};
+
+	window.playBookSound = function() {
+		soundEffects.play('book');
 	};
 
 }
