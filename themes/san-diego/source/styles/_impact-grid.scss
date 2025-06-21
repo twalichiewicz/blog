@@ -370,7 +370,7 @@
     }
     
     @media (max-width: 768px) {
-        font-size: 15px;
+        font-size: 9px !important;
         font-weight: 300;
         text-transform: none;
         letter-spacing: 0;
@@ -382,7 +382,7 @@
         .tile-small &,
         .tile-medium &,
         .tile-large & {
-            font-size: 15px;
+            font-size: 9px !important;
             font-weight: 300;
         }
     }
