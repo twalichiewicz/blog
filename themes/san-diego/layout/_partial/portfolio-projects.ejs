@@ -248,19 +248,19 @@
                             </div>
                         <% } %>
                     <% }) %>
-                    
-                    <% // Render projects without writeups as a simple list %>
-                    <% if (projectsWithoutWriteups.length > 0) { %>
-                        <div class="portfolio-item no-writeup-list">
-                            <div class="portfolio-content">
-                                <p class="no-writeup-intro">Other projects include:</p>
-                                <p class="no-writeup-projects">
-                                    <%= projectsWithoutWriteups.map(p => p.title).join(', ') %>
-                                </p>
-                            </div>
-                        </div>
-                    <% } %>
                 </div>
+                
+                <% // Render projects without writeups as a simple list - OUTSIDE THE GRID %>
+                <% if (projectsWithoutWriteups.length > 0) { %>
+                    <div class="portfolio-item no-writeup-list">
+                        <div class="portfolio-content">
+                            <p class="no-writeup-intro">Other projects include:</p>
+                            <p class="no-writeup-projects">
+                                <%= projectsWithoutWriteups.map(p => p.title).join(', ') %>
+                            </p>
+                        </div>
+                    </div>
+                <% } %>
             </div>
         <% }) %>
     <% } else { %>
