@@ -9,7 +9,7 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Sat, 21 Jun 2025 20:31:28 GMT</pubDate>
+    <pubDate>Sat, 21 Jun 2025 23:26:03 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -47,7 +47,7 @@
       
       
       
-      <content:encoded><![CDATA[<p><a href="#post-iOS-26-AutoMix">Now that we have AutoMix</a>, can I have it trigger when I hit the <strong>Next</strong> button? </p><p>Don’t punish me with an abrupt stop&#x2F;start between songs, queue up the next song in the background and then immediately start blending into the next song. If you still want to retain the current functionality just make a double-tap of the <strong>Next</strong> button expedite the transition to the next song (maybe even throw in a record-scratch sfx for good measure).</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p><a href="#post-iOS-26-AutoMix">Now that we have AutoMix</a>, can I have it trigger when I hit the <strong>Next</strong> button? </p><p>Don’t punish me with an abrupt stop&#x2F;start between songs, queue up the next song in the background and then immediately start blending into the next song. If you still want to retain the current functionality just make a double-tap of the <strong>Next</strong> button expedite the transition to the next song (maybe even throw in a record-scratch sfx for good measure).</p><p><em>Update:</em> If you want to be really clever about the above mechanism, have the behavior adapt depending how much of the song the user has listened to– less than 3 sec played? Jump straight to the next song, they don’t want to hear any more of the current one.</p>]]></content:encoded>
       
       
       
