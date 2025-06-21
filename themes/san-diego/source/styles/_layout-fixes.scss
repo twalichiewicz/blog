@@ -45,7 +45,7 @@
         }
         
         .content-inner-wrapper {
-          overflow: hidden !important;
+          // Don't restrict overflow here - let content determine scrolling
           height: auto;
           min-height: 100%;
         }
@@ -230,23 +230,7 @@
   }
 }
 
-// Specific rules for substack posts on tablet/desktop
-.device-tablet .blog .blog-content.has-dynamic-content .content-inner-wrapper,
-.device-desktop .blog .blog-content.has-dynamic-content .content-inner-wrapper {
-  overflow-y: scroll !important;
-  overflow-x: hidden !important;
-  -webkit-overflow-scrolling: touch;
-  height: 100% !important;
-}
-
-// Even more specific for when post-wrapper is present
-.device-tablet .blog .blog-content .content-inner-wrapper:has(.post-wrapper.dynamic-loaded),
-.device-desktop .blog .blog-content .content-inner-wrapper:has(.post-wrapper.dynamic-loaded) {
-  overflow-y: scroll !important;
-  overflow-x: hidden !important;
-  -webkit-overflow-scrolling: touch;
-  height: 100% !important;
-}
+// Removed conflicting device-specific rules - these are now handled in _dynamic-content-scroll-fix.scss
 
 // Fix for project pages
 .project-edge-wrapper {
@@ -272,14 +256,4 @@
   }
 }
 
-// Force scroll on content-inner-wrapper when dynamic content is present - highest specificity
-@media (min-width: variables.$tablet-breakpoint) {
-  body .blog.device-tablet .blog-content .content-inner-wrapper:has(.post-wrapper.dynamic-loaded),
-  body .blog.device-desktop .blog-content .content-inner-wrapper:has(.post-wrapper.dynamic-loaded) {
-    overflow-y: scroll !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    height: 100% !important;
-    min-height: 0 !important;
-  }
-}
+// Removed highest specificity rule - now handled in _dynamic-content-scroll-fix.scss

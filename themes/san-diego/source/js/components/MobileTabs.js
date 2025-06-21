@@ -455,13 +455,22 @@ export default class MobileTabs {
 	 * Handle window resize event
 	 */
 	handleResize() {
-		this.updateSlider();
-
 		const newDeviceType = this.getDeviceType();
 		if (newDeviceType !== this.currentDeviceType) {
 			this.currentDeviceType = newDeviceType;
 			this.handleDeviceChange(true);
 		}
+
+		// Force slider recalculation on every resize
+		// First, force immediate recalculation
+		this.updateSlider();
+		
+		// Then schedule another update after layout is complete
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				this.updateSlider();
+			});
+		});
 
 		// Ensure UI updates appropriately with resize
 		this.ensureTabsVisibleInTabletMode();

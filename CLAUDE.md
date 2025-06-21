@@ -423,6 +423,16 @@ The `_config.yml` includes:
 
 ## Working Patterns & Best Practices
 
+### Parallel Worktree Development (Highly Effective!)
+When tackling multiple technical debt items or parallel features:
+1. **Create separate worktrees** for each concern: `git worktree add -b branch-name ../folder-name main`
+2. **Run tests individually** in each worktree before integration
+3. **Integrate systematically** from lowest to highest risk
+4. **Use automated tests** between each merge
+5. **Manual fallback** for complex conflicts - copy files individually if needed
+
+See `docs/06-workflows/parallel-worktree-integration.md` for the complete workflow that successfully integrated 5 major technical debt fixes in one session.
+
 ### Visual Development Workflow
 When working on UI changes:
 1. **ALWAYS** take screenshots before making changes (Cmd+Ctrl+Shift+4 on Mac)

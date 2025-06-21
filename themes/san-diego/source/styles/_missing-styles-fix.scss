@@ -1,0 +1,183 @@
+// Fix for missing styles
+@use 'variables';
+
+// Dark mode body background color
+body {
+  @media (prefers-color-scheme: dark) {
+    background-color: hsl(40.1, 8.4%, 35.98%);
+  }
+}
+
+// Consistent styles for tabs-wrapper on both mobile and desktop
+.tabs-wrapper {
+  background: linear-gradient(135deg, #f1f0ed 0%, #faf9f9 100%);
+  border-bottom: 1px solid #e6e6e6;
+  
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(to bottom right, #2c2c2c, #111111);
+    border-bottom-color: variables.$border-color-dark;
+  }
+}
+
+// Desktop-specific styles for tabs-wrapper (when shown)
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  .tabs-wrapper {
+    max-width: none !important; // Remove any max-width constraint on desktop
+    width: 100%; // Ensure full width
+  }
+}
+
+// Content wrapper background - consistent across desktop/mobile
+.blog .blog-content .content-wrapper {
+  background: rgb(249, 248, 246) !important;
+  background-image: none !important; // Override any gradients
+  
+  @media (prefers-color-scheme: dark) {
+    background: rgb(9, 9, 9) !important;
+    background-image: none !important;
+  }
+}
+
+// Blog content border styling - gradient border in dark mode
+.blog .blog-content {
+  @media (prefers-color-scheme: dark) {
+    border: none;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgb(115, 115, 115), rgba(75, 75, 75, 1));
+      padding: 1px;
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      border-radius: 15px 0 0 0;
+      pointer-events: none;
+    }
+  }
+}
+
+// Blog post list item paragraph text color in dark mode
+.blog .blog-list .post-list-item p {
+  @media (prefers-color-scheme: dark) {
+    color: hsl(24, 4.49%, 78.01%);
+  }
+}
+
+// Dark mode styling for "View impact report" button on desktop
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  .profile-header .profile-info .profile-stats .impact-report-btn {
+    @media (prefers-color-scheme: dark) {
+      // Match the mobile "Get in touch" button styling
+      background: rgba(variables.$link-color-dark, 0.8);
+      border-color: rgba(variables.$link-color-dark, 0.6);
+      color: variables.$black;
+      box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+      
+      &:hover {
+        background: rgba(variables.$link-color-dark, 0.9);
+        border-color: rgba(variables.$link-color-dark, 0.8);
+        box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+      }
+      
+      &:active {
+        background: rgba(variables.$link-color-dark, 0.7);
+        border-color: rgba(variables.$link-color-dark, 0.5);
+        box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// Link source URL color in dark mode
+.blog .blog-list .post-list-item.post-link .link-source .link-url {
+  @media (prefers-color-scheme: dark) {
+    color: hsl(40, 0%, 53.5%);
+  }
+}
+
+// Link text group colors
+.link-text,
+.blog .blog-list .post-list-item.post-link .link-share .post-link-wrapper.post-long .link-text-group {
+  color: var(--text-primary, variables.$text-color); // Dark grey in light mode
+  
+  @media (prefers-color-scheme: dark) {
+    color: white;
+  }
+}
+
+// Post separator styling
+.blog .post-separator {
+  @media (prefers-color-scheme: dark) {
+    background: rgb(45, 45, 45);
+  }
+}
+
+// Anchor link highlighting - use same color as search highlight
+.post-list-item.anchor-glow {
+  // Override the highlight color to match search highlight
+  &::before {
+    border-color: variables.$link-color !important;
+  }
+  
+  background-color: rgba(variables.$link-color, 0.3) !important;
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(variables.$link-color-dark, 0.4) !important;
+  }
+}
+
+
+// Company group and name styles
+.company-group {
+  padding: 1rem 0;
+  border-bottom: none; // Remove border in light mode
+  
+  // First company group has no top padding
+  &:first-child {
+    padding-top: 0;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    border-bottom: 1px solid variables.$border-color-dark;
+  }
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  .company-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 1.5rem 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgb(91, 88, 86);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    
+    @media (prefers-color-scheme: dark) {
+      color: variables.$text-color-dark;
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .company-years {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: variables.$text-color-secondary;
+      
+      @media (prefers-color-scheme: dark) {
+        color: variables.$text-color-secondary-dark;
+      }
+    }
+  }
+}

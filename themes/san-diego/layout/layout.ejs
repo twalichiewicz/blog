@@ -10,7 +10,7 @@
 		<%- body %>
 
         <%- js('js/device-detection.js') %>
-        <script type="module" src="<%- url_for('js/main.js') %>"></script>
+        <!-- main.js already loaded in head.ejs -->
         <% if (theme.search == true && page.type == 'search') { %>
         <%- js('js/search.js') %>
         <% } %>
@@ -28,8 +28,7 @@
         </script>
         <% } %>
 
-        <script type="module" src="<%- url_for('js/mobile-tabs.js') %>"></script>
-        <%- js('js/sound-effects.js') %>
+        <!-- mobile-tabs.js and sound-effects.js already loaded in head.ejs -->
         <!-- Additional scripts -->
     </body>
 </html>

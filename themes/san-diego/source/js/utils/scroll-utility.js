@@ -79,7 +79,6 @@ export const ScrollUtility = {
         const link = e.target.closest('a[href^="#"]');
         if (!link) return;
         
-        console.log('[ScrollUtility] Anchor link clicked:', link.getAttribute('href'));
         
         e.preventDefault();
         e.stopPropagation();
@@ -88,11 +87,9 @@ export const ScrollUtility = {
         const target = document.getElementById(targetId);
         
         if (!target) {
-            console.warn('[ScrollUtility] Anchor target not found:', targetId);
             return;
         }
         
-        console.log('[ScrollUtility] Target found:', target);
         this.scrollToTarget(target);
     },
 
@@ -100,33 +97,27 @@ export const ScrollUtility = {
      * Scroll to a target element with tab switching support
      */
     scrollToTarget(target) {
-        console.log('[ScrollUtility] scrollToTarget called with:', target);
         
         // Check if target is in blog or portfolio content
         const isInBlogContent = target.closest('#postsContent');
         const isInPortfolioContent = target.closest('#projectsContent');
         
-        console.log('[ScrollUtility] isInBlogContent:', !!isInBlogContent, 'isInPortfolioContent:', !!isInPortfolioContent);
         
         if (isInBlogContent || isInPortfolioContent) {
             // Switch to the appropriate tab if needed
             const targetTab = isInBlogContent ? 'blog' : 'portfolio';
             const activeTab = document.querySelector('.tab-button.active');
             
-            console.log('[ScrollUtility] targetTab:', targetTab, 'activeTab:', activeTab?.getAttribute('data-type'));
             
             if (activeTab && activeTab.getAttribute('data-type') !== targetTab) {
                 // Need to switch tabs first
-                console.log('[ScrollUtility] Switching tabs first');
                 this.switchTabAndScroll(targetTab, target);
             } else {
                 // Already on correct tab, just scroll
-                console.log('[ScrollUtility] Already on correct tab, scrolling');
                 this.scrollToElement(target, { addGlow: true });
             }
         } else {
             // Target is not in tabbed content, scroll directly
-            console.log('[ScrollUtility] Target not in tabbed content, scrolling directly');
             this.scrollToElement(target, { addGlow: true });
         }
     },
@@ -176,36 +167,35 @@ export const ScrollUtility = {
             container = null
         } = options;
 
-        console.log('[ScrollUtility] scrollToElement called with target:', target, 'options:', options);
 
-        // Add visual feedback if requested
+        // Add visual feedback if requested - using search highlight style
         if (addGlow) {
-            target.classList.add('anchor-glow');
+            // Apply highlight using CSS class
+            target.classList.add('anchor-destination-highlight');
+            
+            // Remove highlight after the glow duration
             setTimeout(() => {
-                target.classList.remove('anchor-glow');
+                target.classList.remove('anchor-destination-highlight');
             }, this.config.glowDuration);
         }
 
         const isMobile = window.innerWidth <= 768;
-        console.log('[ScrollUtility] isMobile:', isMobile);
         
         if (isMobile) {
             // On mobile, we need to account for the tabs wrapper and ensure they stay visible
             const tabsWrapper = document.querySelector('.tabs-wrapper');
-            const blogHeader = document.querySelector('.blog-header');
             
-            // Calculate heights of elements that should remain visible
+            // Get tabs height to ensure they stay visible
             const tabsHeight = tabsWrapper ? tabsWrapper.offsetHeight : 0;
-            const headerHeight = blogHeader ? blogHeader.offsetHeight : 0;
             
-            // Calculate the target position accounting for tabs and header
+            // Calculate the target position accounting for tabs
             const targetRect = target.getBoundingClientRect();
             const absoluteTop = targetRect.top + window.pageYOffset;
             
-            // Scroll to position that keeps tabs visible
-            // We want the target to appear just below the tabs, accounting for header
-            const totalOffset = headerHeight + tabsHeight + 30; // 30px extra padding
-            const scrollPosition = Math.max(0, absoluteTop - totalOffset);
+            // Since tabs-wrapper is position: sticky with top: 0, we just need to account for its height
+            // Add some padding so the target isn't right against the tabs
+            const padding = Math.max(60, tabsHeight + 20);
+            const scrollPosition = Math.max(0, absoluteTop - padding);
             
             window.scrollTo({
                 top: scrollPosition,
@@ -222,8 +212,7 @@ export const ScrollUtility = {
                     const computedStyle = window.getComputedStyle(blogContent);
                     const hasScrollableContent = blogContent.scrollHeight > blogContent.clientHeight;
                     const hasOverflowScroll = computedStyle.overflowY === 'scroll' || computedStyle.overflowY === 'auto';
-                    
-                    console.log('[ScrollUtility] blog-content analysis:', {
+                    console.log('Blog content scroll check:', {
                         scrollHeight: blogContent.scrollHeight,
                         clientHeight: blogContent.clientHeight,
                         overflowY: computedStyle.overflowY,
@@ -234,18 +223,15 @@ export const ScrollUtility = {
                     
                     // Force blog-content to be scrollable if it should be based on screen size
                     if (window.innerWidth > 768 && !hasOverflowScroll) {
-                        console.log('[ScrollUtility] Desktop detected but blog-content not scrollable, forcing scroll properties');
                         blogContent.style.overflowY = 'auto';
                         blogContent.style.height = 'calc(100dvh - 12px)';
                         // Recheck after forcing
                         const newHasScrollableContent = blogContent.scrollHeight > blogContent.clientHeight;
                         if (newHasScrollableContent) {
                             scrollContainer = blogContent;
-                            console.log('[ScrollUtility] Fixed blog-content to be scrollable');
                         }
                     } else if (hasScrollableContent && hasOverflowScroll) {
                         scrollContainer = blogContent;
-                        console.log('[ScrollUtility] Using blog-content as scrollable container');
                     }
                 }
                 
@@ -257,8 +243,7 @@ export const ScrollUtility = {
                         const computedStyle = window.getComputedStyle(currentElement);
                         const hasScrollableContent = currentElement.scrollHeight > currentElement.clientHeight;
                         const hasOverflowScroll = computedStyle.overflowY === 'scroll' || computedStyle.overflowY === 'auto';
-                        
-                        console.log('[ScrollUtility] Checking container:', currentElement.className || currentElement.tagName, {
+                        console.log('Checking scrollable container:', currentElement.className, {
                             scrollHeight: currentElement.scrollHeight,
                             clientHeight: currentElement.clientHeight,
                             overflowY: computedStyle.overflowY,
@@ -268,7 +253,6 @@ export const ScrollUtility = {
                         
                         if (hasScrollableContent && hasOverflowScroll) {
                             scrollContainer = currentElement;
-                            console.log('[ScrollUtility] Found scrollable container:', currentElement.className || currentElement.tagName);
                             break;
                         }
                         
@@ -278,26 +262,21 @@ export const ScrollUtility = {
             }
             
             if (scrollContainer) {
-                console.log('[ScrollUtility] Using container scroll on:', scrollContainer.className || scrollContainer.tagName);
-                
                 // Calculate the target position within the scrollable container
                 const containerRect = scrollContainer.getBoundingClientRect();
                 const targetRect = target.getBoundingClientRect();
-                
-                console.log('[ScrollUtility] Container rect:', containerRect);
-                console.log('[ScrollUtility] Target rect:', targetRect);
                 
                 // Calculate how much to scroll within the container
                 const relativeTop = targetRect.top - containerRect.top;
                 const containerScrollTop = scrollContainer.scrollTop;
                 
-                console.log('[ScrollUtility] relativeTop:', relativeTop, 'containerScrollTop:', containerScrollTop);
+                // Get tabs height to ensure they stay visible
+                const tabsWrapper = document.querySelector('.tabs-wrapper');
+                const tabsHeight = tabsWrapper ? tabsWrapper.offsetHeight : 0;
                 
-                // Add some padding so target isn't right at the edge
-                const padding = 60; // Increased padding to account for tabs
+                // Add padding to account for tabs
+                const padding = Math.max(60, tabsHeight + 20);
                 const newScrollTop = containerScrollTop + relativeTop - padding;
-                
-                console.log('[ScrollUtility] Scrolling container to:', newScrollTop);
                 
                 // Scroll the container instead of the whole page
                 scrollContainer.scrollTo({
@@ -305,26 +284,21 @@ export const ScrollUtility = {
                     behavior
                 });
             } else {
-                console.log('[ScrollUtility] No scrollable container found, using window scroll');
                 
                 // Fallback to window scrolling
                 const targetRect = target.getBoundingClientRect();
                 const absoluteTop = targetRect.top + window.pageYOffset;
                 
-                console.log('[ScrollUtility] Target rect:', targetRect);
-                console.log('[ScrollUtility] absoluteTop:', absoluteTop);
                 
                 // On desktop, we want to scroll to show the target below the tabs
                 const tabsWrapper = document.querySelector('.tabs-wrapper');
                 const tabsHeight = tabsWrapper ? tabsWrapper.offsetHeight : 0;
                 
-                console.log('[ScrollUtility] tabsHeight:', tabsHeight);
                 
                 // Use a reasonable offset that keeps tabs visible but doesn't scroll too far up
                 const totalOffset = Math.max(tabsHeight + 60, offset); // 60px padding below tabs
                 const scrollPosition = Math.max(0, absoluteTop - totalOffset);
                 
-                console.log('[ScrollUtility] Scrolling window to:', scrollPosition);
                 
                 window.scrollTo({
                     top: scrollPosition,
@@ -344,7 +318,6 @@ export const ScrollUtility = {
         if (target) {
             this.scrollToElement(target, options);
         } else {
-            console.warn('[ScrollUtility] Element not found with ID:', targetId);
         }
     },
 

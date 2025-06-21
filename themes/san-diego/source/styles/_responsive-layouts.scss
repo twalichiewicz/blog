@@ -1,7 +1,7 @@
 @use "sass:color";
 @use "variables" as variables;
 @use 'device-breakpoints';
-@use 'theme-modes';
+// Note: theme-modes is already imported via styles.scss -> theme-modes/index
 
 @mixin portfolio-grid-layout {
 	display: grid;
@@ -315,6 +315,10 @@
 		}
 
 		.tabs-wrapper {
+			position: sticky;
+			top: 0;
+			z-index: 100;
+			background: var(--bg-color, #fff);
 			width: 100%;
 			padding: 9px 15px;
 			box-sizing: border-box;
@@ -483,6 +487,11 @@
 		display: flex;
 		flex-direction: column;
 		position: relative;
+		
+		// When dynamic content is loaded, blog-content itself should not hide overflow
+		&.has-dynamic-content {
+			overflow: visible;
+		}
 
 		.tabs-wrapper {
 			width: 100%;
@@ -635,6 +644,11 @@
 		display: flex;
 		flex-direction: column;
 		position: relative;
+		
+		// When dynamic content is loaded, blog-content itself should not hide overflow
+		&.has-dynamic-content {
+			overflow: visible;
+		}
 
 		.tabs-wrapper {
 			display: none;

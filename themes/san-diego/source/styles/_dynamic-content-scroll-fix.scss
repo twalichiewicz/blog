@@ -1,68 +1,153 @@
-// Fix for dynamic content scrolling on tablet/desktop
+// Fix for dynamic content scrolling on all devices
 @use 'variables';
 
-// When post-wrapper.dynamic-loaded exists, make content-inner-wrapper scrollable
-@media (min-width: variables.$tablet-breakpoint) {
-  // Target tablet devices
-  .device-tablet .blog .blog-content {
-    // When viewing dynamic content, wrapper doesn't scroll
-    .content-wrapper:has(.post-wrapper.dynamic-loaded) {
-      overflow: hidden !important;
-      height: calc(100dvh - 64px);
-    }
+// Desktop/Tablet: Container-based scrolling
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  // For tablet view specifically
+  .device-tablet .blog .blog-content.has-dynamic-content {
+    // Override the parent's overflow: hidden
+    overflow: visible !important;
     
-    // Inner wrapper becomes scrollable
-    .content-inner-wrapper:has(.post-wrapper.dynamic-loaded) {
-      overflow-y: scroll !important;
+    // Content inner wrapper becomes the scroll container
+    .content-inner-wrapper {
+      overflow-y: auto !important;
       overflow-x: hidden !important;
       -webkit-overflow-scrolling: touch !important;
-      height: 100% !important;
-      min-height: 0 !important;
-      max-height: 100% !important;
+      height: calc(100dvh - 88px) !important; // Account for margins and back button
       position: relative !important;
+      opacity: 1 !important; // Override the initial opacity: 0
+      
+      // Scrollbar styling
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgb(0 0 0 / 20%);
+        border-radius: 3px;
+        
+        @media (prefers-color-scheme: dark) {
+          background-color: rgb(255 255 255 / 20%);
+        }
+      }
+    }
+    
+    // Back button styling
+    .dynamic-back-button {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: variables.$white;
+      margin: 0 0 1rem 0;
+      padding: 1rem;
+      border-bottom: 1px solid variables.$border-color;
+      border-radius: 0;
+      width: 100%;
+      text-align: left;
+      
+      @media (prefers-color-scheme: dark) {
+        background: variables.$card-bg-dark;
+        border-color: variables.$border-color-dark;
+      }
     }
   }
   
-  // Target desktop devices
-  .device-desktop .blog .blog-content {
-    // When viewing dynamic content, wrapper doesn't scroll
-    .content-wrapper:has(.post-wrapper.dynamic-loaded) {
-      overflow: hidden !important;
-      height: calc(100dvh - 64px);
+  // Generic rule for all views (non-device-specific)
+  .blog .blog-content.has-dynamic-content {
+    // Blog content becomes a flex container
+    display: flex !important;
+    flex-direction: column !important;
+    height: calc(100dvh - 12px) !important;
+    position: relative !important;
+    
+    // Back button is fixed height at top
+    .dynamic-back-button {
+      flex-shrink: 0;
+      position: relative;
+      z-index: 10;
+      background: variables.$white;
+      margin: 0;
+      padding: 1rem;
+      border-bottom: 1px solid variables.$border-color;
+      border-radius: 0;
+      width: 100%;
+      text-align: left;
+      
+      @media (prefers-color-scheme: dark) {
+        background: variables.$card-bg-dark;
+        border-color: variables.$border-color-dark;
+      }
     }
     
-    // Inner wrapper becomes scrollable
-    .content-inner-wrapper:has(.post-wrapper.dynamic-loaded) {
-      overflow-y: scroll !important;
+    // Content inner wrapper fills remaining space and scrolls
+    .content-inner-wrapper {
+      flex: 1;
+      overflow-y: auto !important;
       overflow-x: hidden !important;
       -webkit-overflow-scrolling: touch !important;
-      height: 100% !important;
-      min-height: 0 !important;
-      max-height: 100% !important;
+      min-height: 0 !important; // Critical for flexbox child scrolling
       position: relative !important;
+      opacity: 1 !important; // Override the initial opacity: 0
+      
+      // Ensure content inside has proper spacing
+      .post-wrapper,
+      .substack-post,
+      .project-wrapper {
+        padding-bottom: 2rem;
+        
+        // Make sure images don't overflow
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
     }
   }
 }
 
-// Alternative approach without :has() for older browsers
-@media (min-width: variables.$tablet-breakpoint) {
-  .device-tablet .blog .blog-content .content-inner-wrapper,
-  .device-desktop .blog .blog-content .content-inner-wrapper {
-    .post-wrapper.dynamic-loaded ~ * {
-      // This won't work perfectly but provides a fallback
+// Mobile: Everything expands, only body scrolls
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog .blog-content.has-dynamic-content {
+    // Ensure all containers expand naturally
+    overflow: visible !important;
+    height: auto !important;
+    
+    .content-wrapper,
+    .content-inner-wrapper {
+      overflow: visible !important;
+      height: auto !important;
     }
-  }
-  
-  // Most specific possible selector
-  body .blog.device-tablet .blog-content .content-wrapper .content-inner-wrapper,
-  body .blog.device-desktop .blog-content .content-wrapper .content-inner-wrapper {
-    // When it contains dynamic content
-    &:has(.post-wrapper),
-    &:has(.substack-post) {
-      overflow-y: scroll !important;
-      overflow-x: hidden !important;
-      -webkit-overflow-scrolling: touch !important;
-      height: 100% !important;
+    
+    // Remove any scroll from post/project wrappers
+    .post-wrapper,
+    .project-wrapper,
+    .substack-post {
+      overflow: visible !important;
+      height: auto !important;
+      
+      // Ensure content has proper spacing
+      padding-bottom: 2rem;
+    }
+    
+    // Back button should be sticky but not cause scroll issues  
+    .dynamic-back-button {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: variables.$white;
+      width: 100%;
+      margin: 0;
+      padding: 1rem;
+      border-bottom: 1px solid variables.$border-color;
+      
+      @media (prefers-color-scheme: dark) {
+        background: variables.$card-bg-dark;
+        border-color: variables.$border-color-dark;
+      }
     }
   }
 }

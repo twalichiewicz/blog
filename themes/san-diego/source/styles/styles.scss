@@ -61,11 +61,10 @@
 
 // Theme modes - importing the index file which manages all theme mode styles
 @use 'theme-modes/index' as theme-modes;
-@use 'theme-modes/light-mode';
+// Note: light-mode and dark-mode are already imported by theme-modes/index
 
 // Print styles
 @use 'print';
-@use 'theme-modes/dark-mode';
 
 // Home page
 @use 'home';
@@ -73,6 +72,12 @@
 // Consolidated layout and border systems
 @use 'layout-system';
 @use 'border-system';
+
+// Unified dynamic content architecture (saved for future implementation)
+// @use 'unified-dynamic-content';
+
+// Fix for missing styles
+@use 'missing-styles-fix';
 
 // Component Library
 @use '../components/index' as component-lib;

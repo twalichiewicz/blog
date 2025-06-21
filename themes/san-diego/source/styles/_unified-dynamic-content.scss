@@ -1,0 +1,153 @@
+// Unified Dynamic Content Architecture
+// This replaces the scattered dynamic content handling with a consistent approach
+@use 'variables';
+@use 'device-breakpoints';
+
+// Base dynamic content container - works for both posts and projects
+.dynamic-content-container {
+  // Container takes full height of parent
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  // Dynamic content header (back button)
+  .dynamic-content-header {
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: variables.$white;
+    padding: 1rem;
+    border-bottom: 1px solid variables.$border-color;
+    
+    @media (prefers-color-scheme: dark) {
+      background: variables.$card-bg-dark;
+      border-color: variables.$border-color-dark;
+    }
+    
+    .dynamic-back-button {
+      // Button styles already defined elsewhere
+    }
+  }
+  
+  // Dynamic content body - this is where scroll happens
+  .dynamic-content-body {
+    flex: 1;
+    min-height: 0; // Critical for flexbox child scrolling
+    position: relative;
+    
+    // Desktop/Tablet: Container scrolling
+    @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      
+      // Scrollbar styling
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: rgb(0 0 0 / 20%);
+        border-radius: 3px;
+        
+        @media (prefers-color-scheme: dark) {
+          background-color: rgb(255 255 255 / 20%);
+        }
+      }
+    }
+    
+    // Mobile: Content expands, page scrolls
+    @media (max-width: variables.$mobile-breakpoint) {
+      overflow: visible;
+      height: auto;
+      
+      // Ensure content has proper padding at bottom
+      > * {
+        padding-bottom: 2rem;
+      }
+    }
+  }
+  
+  // Type-specific styles using data attributes
+  &[data-content-type="post"] {
+    .dynamic-content-body {
+      // Post-specific styles if needed
+    }
+  }
+  
+  &[data-content-type="project"] {
+    .dynamic-content-body {
+      // Project-specific styles if needed
+    }
+  }
+}
+
+// Parent container adjustments when dynamic content is loaded
+.blog-content[data-has-dynamic-content="true"] {
+  // Desktop/Tablet
+  @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - 12px);
+    overflow: hidden; // Parent doesn't scroll
+    
+    .content-wrapper {
+      flex: 1;
+      overflow: hidden; // Wrapper doesn't scroll
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .content-inner-wrapper {
+      flex: 1;
+      overflow: hidden; // Inner wrapper doesn't scroll either
+      display: flex;
+      flex-direction: column;
+    }
+    
+    // The dynamic content container handles all scrolling
+    .dynamic-content-container {
+      flex: 1;
+      min-height: 0;
+    }
+  }
+  
+  // Mobile
+  @media (max-width: variables.$mobile-breakpoint) {
+    // Everything expands naturally
+    overflow: visible;
+    height: auto;
+    
+    .content-wrapper,
+    .content-inner-wrapper {
+      overflow: visible;
+      height: auto;
+    }
+    
+    .dynamic-content-container {
+      height: auto;
+      
+      // Sticky header on mobile
+      .dynamic-content-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+      
+      // Add padding to body to account for fixed header
+      .dynamic-content-body {
+        padding-top: 60px; // Adjust based on header height
+      }
+    }
+  }
+}
+
+// Remove the need for .has-dynamic-content class
+// Instead use data attribute for cleaner, more semantic markup

@@ -238,3 +238,43 @@
 		color: variables.$text-color-secondary-dark;
 	}
 }
+
+// Search highlight styles
+.search-highlight,
+mark.search-highlight {
+	background-color: rgba(variables.$link-color, 0.3);
+	color: inherit;
+	padding: 0 2px;
+	border-radius: 2px;
+	font-weight: 500;
+	
+	@media (prefers-color-scheme: dark) {
+		background-color: rgba(variables.$link-color-dark, 0.4);
+	}
+}
+
+// Anchor link destination highlight (matches search highlight)
+.anchor-destination-highlight {
+	background-color: rgba(variables.$link-color, 0.3) !important;
+	padding: 12px !important;
+	border-radius: 3px;
+	transition: background-color 0.3s ease;
+	
+	// Apply to common parent elements that might have padding: 0
+	&.post-list-item,
+	&.post-preview-card,
+	article& {
+		padding: 12px !important;
+	}
+	
+	// For elements that are children of the highlighted element
+	.post-link-wrapper,
+	.post-byline,
+	.preview-content {
+		margin-top: 0;
+	}
+	
+	@media (prefers-color-scheme: dark) {
+		background-color: rgba(variables.$link-color-dark, 0.4) !important;
+	}
+}

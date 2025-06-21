@@ -84,9 +84,8 @@ body.loaded .project-wrapper {
 		margin-top: 0; // Reset margin-top that interferes with project layout
 		inset: auto;
 
-		// Ensure scrolling is enabled for the content itself on mobile when dynamic
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
+		// On mobile, content should expand naturally - no container scrolling
+		overflow: visible;
 	}
 
 	// General scrollability for dynamically loaded content on larger screens

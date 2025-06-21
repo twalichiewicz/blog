@@ -96,11 +96,22 @@
     }
   });
 
-  // Start observing
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
+  // Start observing when DOM is ready
+  function startObserving() {
+    if (document.body) {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    }
+  }
+  
+  // Check if DOM is already loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startObserving);
+  } else {
+    startObserving();
+  }
 
   // Expose function globally for manual processing if needed
   window.processExternalLinks = processExternalLinks;

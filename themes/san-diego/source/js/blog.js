@@ -25,8 +25,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// --- Search Functionality ---
 		if (elements.searchInput) {
+			console.log('Search input found in container');
 			elements.searchInput.removeEventListener('input', handleSearch);
 			elements.searchInput.addEventListener('input', handleSearch);
+		} else {
+			console.log('Search input not in container, trying global search');
+			// Try to find search input in the document if not in container
+			const globalSearchInput = document.querySelector('#postSearch');
+			if (globalSearchInput) {
+				console.log('Global search input found');
+				globalSearchInput.removeEventListener('input', handleSearch);
+				globalSearchInput.addEventListener('input', handleSearch);
+			} else {
+				console.log('No search input found anywhere');
+			}
 		}
 
 		// --- Expand Buttons ---
@@ -498,6 +510,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		function handleLinkClick(event) {
 			const link = event.currentTarget;
+			console.log('Link clicked:', link.href, 'Classes:', link.className);
 			if (link.hostname === window.location.hostname &&
 				!link.getAttribute('target') &&
 				(link.protocol === "http:" || link.protocol === "https:") &&
@@ -506,10 +519,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				// Updated selectors for post previews
 				const isPostLink = link.classList.contains('post-link-wrapper');
 				const isProjectLink = link.matches('a.portfolio-item.has-writeup');
+				console.log('Is post link:', isPostLink, 'Is project link:', isProjectLink);
 
 				if (isPostLink || isProjectLink) {
 					event.preventDefault();
 					const url = link.href;
+					console.log('Fetching content for:', url);
 					fetchAndDisplayContent(url, true, isProjectLink);
 				}
 			}
@@ -521,6 +536,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				'a.post-link-wrapper, ' +
 				'a.portfolio-item.has-writeup'
 			);
+			console.log('Initializing link listeners, found links:', linksToProcess.length);
 
 			linksToProcess.forEach(link => {
 				link.removeEventListener('click', handleLinkClick);
@@ -612,6 +628,93 @@ document.addEventListener('DOMContentLoaded', function () {
 		setupDynamicBlogNavigation();
 	}
 
+	// Highlight search terms in text nodes
+	function highlightSearchTerms(element, searchTerm) {
+		if (!searchTerm) return;
+		
+		const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
+		const walker = document.createTreeWalker(
+			element,
+			NodeFilter.SHOW_TEXT,
+			{
+				acceptNode: function(node) {
+					// Skip script and style elements
+					const parent = node.parentNode;
+					if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE') {
+						return NodeFilter.FILTER_REJECT;
+					}
+					// Skip if already highlighted
+					if (parent.classList && parent.classList.contains('search-highlight')) {
+						return NodeFilter.FILTER_REJECT;
+					}
+					// Accept if contains search term
+					if (regex.test(node.textContent)) {
+						return NodeFilter.FILTER_ACCEPT;
+					}
+					return NodeFilter.FILTER_REJECT;
+				}
+			}
+		);
+
+		const nodesToReplace = [];
+		let node;
+		while (node = walker.nextNode()) {
+			nodesToReplace.push(node);
+		}
+
+		nodesToReplace.forEach(textNode => {
+			const parent = textNode.parentNode;
+			const fragment = document.createDocumentFragment();
+			let lastIndex = 0;
+			let match;
+
+			regex.lastIndex = 0; // Reset regex
+			const text = textNode.textContent;
+
+			while ((match = regex.exec(text)) !== null) {
+				// Add text before match
+				if (match.index > lastIndex) {
+					fragment.appendChild(
+						document.createTextNode(text.slice(lastIndex, match.index))
+					);
+				}
+
+				// Add highlighted match
+				const highlight = document.createElement('mark');
+				highlight.className = 'search-highlight';
+				highlight.textContent = match[0];
+				fragment.appendChild(highlight);
+
+				lastIndex = regex.lastIndex;
+			}
+
+			// Add remaining text
+			if (lastIndex < text.length) {
+				fragment.appendChild(
+					document.createTextNode(text.slice(lastIndex))
+				);
+			}
+
+			parent.replaceChild(fragment, textNode);
+		});
+	}
+
+	// Remove all highlights
+	function removeAllHighlights(container) {
+		const highlights = container.querySelectorAll('.search-highlight');
+		highlights.forEach(highlight => {
+			const parent = highlight.parentNode;
+			const textNode = document.createTextNode(highlight.textContent);
+			parent.replaceChild(textNode, highlight);
+			parent.normalize(); // Merge adjacent text nodes
+		});
+	}
+
+	// Escape special regex characters
+	function escapeRegExp(string) {
+		return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+
 	// Search functionality
 	function handleSearch(e) {
 		const query = e.target.value.toLowerCase();
@@ -626,6 +729,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		let visibleCount = 0;
 		const visiblePosts = [];
+
+		// First, remove any existing highlights
+		removeAllHighlights(blogContent);
 
 		posts.forEach(post => {
 			const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
@@ -644,6 +750,11 @@ document.addEventListener('DOMContentLoaded', function () {
 				post.style.display = '';
 				visibleCount++;
 				visiblePosts.push(post);
+				
+				// Highlight matching terms if there's a query
+				if (query) {
+					highlightSearchTerms(post, query);
+				}
 			} else {
 				post.style.display = 'none';
 			}
@@ -671,7 +782,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Initialize posts only button
 	function initializePostsOnlyButton() {
 		const postsOnlyButton = document.querySelector('.posts-only-button');
-		if (!postsOnlyButton) return;
+		console.log('Initializing posts only button:', postsOnlyButton);
+		if (!postsOnlyButton) {
+			console.log('Posts only button not found');
+			return;
+		}
 		
 		// Remove existing listener if any
 		postsOnlyButton.removeEventListener('click', handlePostsOnlyClick);
@@ -680,9 +795,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	
 	function handlePostsOnlyClick(event) {
+		console.log('Posts only button clicked');
 		const button = event.currentTarget;
 		button.classList.toggle('active');
 		const searchInput = document.querySelector('#postSearch');
+		console.log('Search input found:', searchInput);
 		if (searchInput) {
 			handleSearch({ target: searchInput });
 		}

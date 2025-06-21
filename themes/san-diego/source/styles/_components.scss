@@ -455,156 +455,8 @@ button {
 	}
 }
 
-.mobile-tabs {
-	display: flex;
-	width: 100%;
-	max-width: 600px;
-	margin: 0 auto;
-	background: variables.$card-bg;
-	border-radius: 8px;
-	padding: 4px;
-	gap: 4px;
-	position: relative;
-	box-shadow:
-		0 1px 3px rgb(0 0 0 / 10%),
-		0 1px 2px rgb(0 0 0 / 6%),
-		inset 0 2px 4px rgb(0 0 0 / 10%),
-		inset 0 -1px 2px rgb(255 255 255 / 10%);
-	border: 1px solid rgb(255 255 255 / 10%);
-	box-sizing: border-box;
-
-	// Add CSS custom properties for slider position and width
-	--slider-x: 4px; // Initial position matching container padding
-	--button-width: calc(50% - 6px); // Initial width approximation (half container minus half gap)
-
-	// The slider element (added by JavaScript)
-	.mobile-tabs-slider {
-		position: absolute;
-		left: 0;
-		top: 4px;
-
-		/* Default, will be overridden by JS */
-		height: calc(100% - 8px);
-
-		/* Default, will be overridden by JS */
-		background: variables.$link-color;
-		border-radius: 6px;
-		z-index: 1;
-		box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
-		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease, top 0.3s ease, height 0.3s ease;
-
-		@media (prefers-color-scheme: dark) {
-			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
-			box-shadow:
-				0 1px 2px rgb(0 0 0 / 40%),
-				0 1px 0 rgb(255 255 255 / 30%) inset,
-				0 -1px 0 rgb(0 0 0 / 20%) inset;
-			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
-		}
-	}
-
-	// Hide the pseudo-element when the JavaScript slider is active
-	&.has-slider-element::after {
-		display: none;
-	}
-
-	&::after {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 4px;
-		width: var(--button-width);
-		height: calc(100% - 8px);
-		background: variables.$link-color;
-		border-radius: 6px;
-		z-index: 1;
-		box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
-		transform: translateX(var(--slider-x));
-		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease;
-
-		.is-dragging & {
-			transition: none;
-		}
-	}
-
-	.tab-button {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 8px 16px;
-		border: none;
-		background: transparent !important;
-		border-radius: 6px;
-		font-size: 14px;
-		font-weight: 500;
-		color: variables.$text-color-secondary;
-		cursor: pointer;
-		transition: color 0.3s ease;
-		position: relative;
-		z-index: 2;
-		text-align: center;
-		box-shadow: none;
-		outline: none;
-		box-sizing: border-box;
-		height: 100%;
-		margin: 0;
-
-		&.active {
-			color: variables.$white !important;
-		}
-
-		&:not(.active) {
-			color: variables.$text-color-secondary !important;
-
-			&:hover {
-				color: variables.$text-color !important;
-			}
-		}
-	}
-
-	@media screen and (max-width: variables.$mobile-breakpoint) {
-		.tab-button {
-			padding: 6px 0; // New padding: 6px top/bottom, 0 left/right
-			font-size: 12px; // New font-size
-		}
-	}
-
-	/* Dark mode styles for mobile tabs */
-	@media (prefers-color-scheme: dark) {
-		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
-		border-color: variables.$border-color-dark;
-		box-shadow:
-			0 1px 2px rgb(0 0 0 / 30%),
-			0 -1px 0 rgb(255 255 255 / 10%) inset,
-			0 2px 0 rgb(0 0 0 / 20%) inset;
-
-		&::after {
-			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
-			box-shadow:
-				0 1px 2px rgb(0 0 0 / 40%),
-				0 1px 0 rgb(255 255 255 / 30%) inset,
-				0 -1px 0 rgb(0 0 0 / 20%) inset;
-			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
-		}
-
-		.tab-button {
-			&.active {
-				color: variables.$black !important;
-				text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
-			}
-
-			&:not(.active) {
-				color: variables.$text-color-secondary-dark !important;
-				text-shadow: 0 1px 0 rgb(0 0 0 / 50%);
-
-				&:hover {
-					color: variables.$text-color-dark !important;
-				}
-			}
-		}
-	}
-}
+// Mobile Tabs Styles - Moved to components/_mobile-tabs.scss
+// Entire .mobile-tabs block has been commented out and moved to components/_mobile-tabs.scss
 
 /* Project Filter Checkbox Styles - Craftsmanship Level */
 .project-filter-container {
@@ -848,8 +700,8 @@ button {
 	}
 }
 
-/* Profile Header Styles */
-.profile-header {
+/* Profile Header Styles - Moved to components/_profile.scss */
+/* .profile-header {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -1057,7 +909,7 @@ button {
 			}
 		}
 	}
-}
+} */
 
 /* Dark mode styles for location pill and profile byline */
 @media (prefers-color-scheme: dark) {

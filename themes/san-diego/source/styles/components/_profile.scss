@@ -39,6 +39,11 @@
 			background: linear-gradient(145deg,
 					rgba(variables.$white, 0.1),
 					rgba(variables.$black, 0.1));
+			
+			// Make background transparent when in blog context
+			.blog.blog & {
+				background: transparent;
+			}
 		}
 	}
 
