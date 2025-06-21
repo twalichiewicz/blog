@@ -170,12 +170,28 @@ export const ScrollUtility = {
 
         // Add visual feedback if requested - using search highlight style
         if (addGlow) {
-            // Apply highlight using CSS class
-            target.classList.add('anchor-destination-highlight');
+            // First add a preparatory class for initial state
+            target.classList.add('anchor-destination-prep');
+            
+            // Force a reflow to ensure the prep class is applied before transitioning
+            target.offsetHeight;
+            
+            // Then add the highlight class to trigger the transition
+            requestAnimationFrame(() => {
+                target.classList.add('anchor-destination-highlight');
+                target.classList.remove('anchor-destination-prep');
+            });
             
             // Remove highlight after the glow duration
             setTimeout(() => {
+                // Add prep class again for fade out
+                target.classList.add('anchor-destination-prep');
                 target.classList.remove('anchor-destination-highlight');
+                
+                // Remove all classes after transition completes
+                setTimeout(() => {
+                    target.classList.remove('anchor-destination-prep');
+                }, 300); // Match CSS transition duration
             }, this.config.glowDuration);
         }
 
@@ -212,14 +228,7 @@ export const ScrollUtility = {
                     const computedStyle = window.getComputedStyle(blogContent);
                     const hasScrollableContent = blogContent.scrollHeight > blogContent.clientHeight;
                     const hasOverflowScroll = computedStyle.overflowY === 'scroll' || computedStyle.overflowY === 'auto';
-                    console.log('Blog content scroll check:', {
-                        scrollHeight: blogContent.scrollHeight,
-                        clientHeight: blogContent.clientHeight,
-                        overflowY: computedStyle.overflowY,
-                        hasScrollableContent,
-                        hasOverflowScroll,
-                        windowWidth: window.innerWidth
-                    });
+                    // Blog content scroll check
                     
                     // Force blog-content to be scrollable if it should be based on screen size
                     if (window.innerWidth > 768 && !hasOverflowScroll) {
@@ -243,13 +252,7 @@ export const ScrollUtility = {
                         const computedStyle = window.getComputedStyle(currentElement);
                         const hasScrollableContent = currentElement.scrollHeight > currentElement.clientHeight;
                         const hasOverflowScroll = computedStyle.overflowY === 'scroll' || computedStyle.overflowY === 'auto';
-                        console.log('Checking scrollable container:', currentElement.className, {
-                            scrollHeight: currentElement.scrollHeight,
-                            clientHeight: currentElement.clientHeight,
-                            overflowY: computedStyle.overflowY,
-                            hasScrollableContent,
-                            hasOverflowScroll
-                        });
+                        // Checking scrollable container
                         
                         if (hasScrollableContent && hasOverflowScroll) {
                             scrollContainer = currentElement;

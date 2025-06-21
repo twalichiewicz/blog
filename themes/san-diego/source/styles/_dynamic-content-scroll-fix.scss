@@ -8,6 +8,8 @@
     // Override the parent's overflow: hidden
     overflow: visible !important;
     
+    // Dark mode background removed - should be on project-edge-wrapper instead
+    
     // Content inner wrapper becomes the scroll container
     .content-inner-wrapper {
       overflow-y: auto !important;
@@ -36,24 +38,6 @@
       }
     }
     
-    // Back button styling
-    .dynamic-back-button {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: variables.$white;
-      margin: 0 0 1rem 0;
-      padding: 1rem;
-      border-bottom: 1px solid variables.$border-color;
-      border-radius: 0;
-      width: 100%;
-      text-align: left;
-      
-      @media (prefers-color-scheme: dark) {
-        background: variables.$card-bg-dark;
-        border-color: variables.$border-color-dark;
-      }
-    }
   }
   
   // Generic rule for all views (non-device-specific)
@@ -64,24 +48,8 @@
     height: calc(100dvh - 12px) !important;
     position: relative !important;
     
-    // Back button is fixed height at top
-    .dynamic-back-button {
-      flex-shrink: 0;
-      position: relative;
-      z-index: 10;
-      background: variables.$white;
-      margin: 0;
-      padding: 1rem;
-      border-bottom: 1px solid variables.$border-color;
-      border-radius: 0;
-      width: 100%;
-      text-align: left;
-      
-      @media (prefers-color-scheme: dark) {
-        background: variables.$card-bg-dark;
-        border-color: variables.$border-color-dark;
-      }
-    }
+    // Dark mode background removed - should be on project-edge-wrapper instead
+    
     
     // Content inner wrapper fills remaining space and scrolls
     .content-inner-wrapper {
@@ -133,21 +101,5 @@
       padding-bottom: 2rem;
     }
     
-    // Back button should be sticky but not cause scroll issues  
-    .dynamic-back-button {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: variables.$white;
-      width: 100%;
-      margin: 0;
-      padding: 1rem;
-      border-bottom: 1px solid variables.$border-color;
-      
-      @media (prefers-color-scheme: dark) {
-        background: variables.$card-bg-dark;
-        border-color: variables.$border-color-dark;
-      }
-    }
   }
 }

@@ -169,14 +169,12 @@
 			}
 		}
 
-		/* Dark mode for basic blog content */
-		.blog-content {
-			background-color: variables.$grey-dark;
-			box-shadow: 0 2px 15px rgb(0 0 0 / 15%);
-			border: 1px solid rgb(255 255 255 / 10%);
-
-			&::before {
-				background: linear-gradient(90deg, rgb(255 255 255 / 10%), rgb(255 255 255 / 20%));
+		/* Dark mode for basic blog content - only on mobile */
+		@media (max-width: variables.$mobile-breakpoint) {
+			.blog-content {
+				background-color: variables.$grey-dark;
+				box-shadow: 0 2px 15px rgb(0 0 0 / 15%);
+				border: 1px solid rgb(255 255 255 / 10%);
 			}
 		}
 		

@@ -156,14 +156,12 @@
 		}
 	}
 
-	/* Light mode for basic blog content */
-	.blog-content {
-		background-color: variables.$white;
-		box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
-		border: 1px solid rgb(0 0 0 / 5%);
-
-		&::before {
-			background: linear-gradient(90deg, rgb(0 0 0 / 2%), rgb(0 0 0 / 4%));
+	/* Light mode for basic blog content - only on mobile */
+	@media (max-width: variables.$mobile-breakpoint) {
+		.blog-content {
+			background-color: variables.$white;
+			box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
+			border: 1px solid rgb(0 0 0 / 5%);
 		}
 	}
 }
@@ -250,10 +248,6 @@
 			background-color: variables.$white;
 			box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
 			border: 1px solid rgb(0 0 0 / 5%);
-
-			&::before {
-				background: linear-gradient(90deg, rgb(0 0 0 / 2%), rgb(0 0 0 / 4%));
-			}
 		}
 	}
 }

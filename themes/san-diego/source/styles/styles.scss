@@ -79,6 +79,9 @@
 // Fix for missing styles
 @use 'missing-styles-fix';
 
+// Dynamic content scroll fixes - MUST come after responsive-layouts to override
+@use 'dynamic-content-scroll-fix';
+
 // Component Library
 @use '../components/index' as component-lib;
 

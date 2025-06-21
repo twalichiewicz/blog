@@ -810,25 +810,25 @@ p {
 	left: 6px;
 	z-index: 1000;
 
-	// New styles
+	// Appearance - always black button with white text
+	background-color: rgb(0, 0, 0) !important;
+	color: rgb(255, 255, 255) !important;
 	border-radius: 12px;
 	box-shadow: none;
-	background-color: rgb(0, 0, 0);
-	color: rgb(255, 255, 255);
+	border: none;
 
-	// Keep existing functionality styles
+	// Layout
 	display: flex;
 	align-items: center;
 	gap: 0;
 	padding: 4px 10px;
 	font-size: 12px;
 	font-weight: 500;
-	border: none;
-	transition: all 0.2s ease;
 	cursor: pointer;
 	flex-shrink: 0;
 	width: auto;
 	text-decoration: none;
+	transition: all 0.2s ease;
 
 	svg {
 		width: 16px;
@@ -843,35 +843,18 @@ p {
 	}
 
 	&:hover {
-		background-color: rgba(0, 0, 0, 0.8);
-		color: rgb(255, 255, 255);
+		background-color: rgba(0, 0, 0, 0.8) !important;
+		color: rgb(255, 255, 255) !important;
 	}
 
 	&:active {
-		background-color: rgba(0, 0, 0, 0.9);
+		background-color: rgba(0, 0, 0, 0.9) !important;
+		color: rgb(255, 255, 255) !important;
 	}
 
 	&:focus {
 		outline: 2px solid var(--focus-ring-color, Highlight);
 		outline-offset: 2px;
-	}
-
-	// Light mode styles - always black background
-	@media (prefers-color-scheme: light) {
-		background-color: rgb(0, 0, 0) !important;
-		color: rgb(255, 255, 255) !important;
-	}
-	
-	// Dark mode styles - always black background
-	@media (prefers-color-scheme: dark) {
-		background-color: rgb(0, 0, 0) !important;
-		color: rgb(255, 255, 255) !important;
-	}
-	
-	// Ensure mobile also gets black background
-	@media (max-width: variables.$mobile-breakpoint) {
-		background-color: rgb(0, 0, 0) !important;
-		color: rgb(255, 255, 255) !important;
 	}
 }
 // Post preview card styles are in _post-preview-card.scss

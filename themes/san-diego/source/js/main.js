@@ -92,6 +92,12 @@ function openImpactModal(event) {
     if (event) {
         event.stopPropagation();
     }
+    
+    // Play toggle sound when opening impact report
+    if (window.playToggleSound) {
+        window.playToggleSound();
+    }
+    
     const modal = document.getElementById('impact-modal');
     if (modal) {
         modal.style.display = 'flex';
@@ -108,6 +114,11 @@ function openImpactModal(event) {
 }
 
 function closeImpactModal() {
+    // Play the same sound as Posts only button (small click)
+    if (window.playSmallClickSound) {
+        window.playSmallClickSound();
+    }
+    
     const modal = document.getElementById('impact-modal');
     if (modal) {
         modal.classList.remove('active');
@@ -136,6 +147,12 @@ function openContactModal(event) {
     if (event) {
         event.stopPropagation();
     }
+    
+    // Play toggle sound when opening contact modal (mobile "Get in touch")
+    if (window.playToggleSound) {
+        window.playToggleSound();
+    }
+    
     const modal = document.getElementById('contact-modal');
     if (modal) {
         modal.style.display = 'flex';
@@ -152,6 +169,11 @@ function openContactModal(event) {
 }
 
 function closeContactModal() {
+    // Play the same sound as impact modal close (small click)
+    if (window.playSmallClickSound) {
+        window.playSmallClickSound();
+    }
+    
     const modal = document.getElementById('contact-modal');
     if (modal) {
         modal.classList.remove('active');

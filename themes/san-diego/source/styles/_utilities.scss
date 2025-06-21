@@ -80,3 +80,49 @@ html {
 	margin-top: auto !important;
 	margin-bottom: auto !important;
 }
+
+// Anchor link destination highlight prep state
+// Applied for smooth transitions without pop-in/pop-out
+.anchor-destination-prep {
+	background-color: hsla(15deg, 70%, 40%, 0) !important; // transparent initially
+	padding: 0 !important;
+	border-radius: 0;
+	transition: all 0.3s ease;
+	
+	@media (prefers-color-scheme: dark) {
+		background-color: hsla(40deg, 90%, 60%, 0) !important; // transparent initially
+	}
+}
+
+// Anchor link destination highlight active state
+// Applied temporarily when navigating to anchor links
+// Colors match exactly with .search-highlight for consistency
+.anchor-destination-highlight {
+	background-color: hsla(15deg, 70%, 40%, 0.3) !important; // matches $link-color at 0.3 opacity
+	padding: 12px !important;
+	border-radius: 3px;
+	transition: all 0.3s ease; // smooth transition for all properties
+	
+	@media (prefers-color-scheme: dark) {
+		background-color: hsla(40deg, 90%, 60%, 0.4) !important; // matches $link-color-dark at 0.4 opacity
+	}
+}
+
+// More specific selectors to ensure transitions work on various elements
+article.anchor-destination-prep,
+.post-list-item.anchor-destination-prep,
+.post-preview-card.anchor-destination-prep,
+.blog-post.anchor-destination-prep,
+.project-item.anchor-destination-prep {
+	padding: 0 !important;
+	transition: all 0.3s ease;
+}
+
+article.anchor-destination-highlight,
+.post-list-item.anchor-destination-highlight,
+.post-preview-card.anchor-destination-highlight,
+.blog-post.anchor-destination-highlight,
+.project-item.anchor-destination-highlight {
+	padding: 12px !important;
+	transition: all 0.3s ease;
+}
