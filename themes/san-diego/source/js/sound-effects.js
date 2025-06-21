@@ -177,6 +177,20 @@
             window.soundEffects.play('book');
         }
     };
+    
+    // Define the playSmallClickSound function
+    window.playSmallClickSound = function() {
+        if (window.soundEffects) {
+            window.soundEffects.play('smallClick');
+        }
+    };
+    
+    // Define the playToggleSound function for impact/contact modals
+    window.playToggleSound = function() {
+        if (window.soundEffects) {
+            window.soundEffects.play('toggle');
+        }
+    };
 
     // Initialize on DOM ready
     if (document.readyState === 'loading') {
