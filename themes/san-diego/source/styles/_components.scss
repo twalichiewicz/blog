@@ -2738,6 +2738,13 @@ table {
 	overflow: hidden scroll;
 }
 
+// Desktop: custom border-radius for content-inner-wrapper
+@media screen and (min-width: 1025px) {
+	.content-inner-wrapper {
+		border-radius: 12px 0 0 0;
+	}
+}
+
 // Tablet fix: ensure inner wrapper is scrollable on tablet
 @media screen and (width >=601px) and (width <=1024px) {
 	.device-tablet .blog-content>.content-inner-wrapper {
