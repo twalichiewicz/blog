@@ -1,5 +1,7 @@
 ---
 title: End-user experience
+display_name: "Mental Health Simplified"
+display_description: "Removing barriers between people and the care they need"
 company: Lyra Health
 byline: Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers
 date: 2017-01-01 20:52:01

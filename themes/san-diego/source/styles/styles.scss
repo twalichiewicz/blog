@@ -39,6 +39,7 @@
 // UI components
 @use 'components';
 @use 'components/button';
+@use 'screen-wipe-transition';
 @use 'components/card';
 @use 'components/tags';
 @use 'components/search';
@@ -84,6 +85,9 @@
 
 // Component Library
 @use '../components/index' as component-lib;
+
+// Leuchtturm notebook MUST be loaded LAST to override all other portfolio styles
+@use 'leuchtturm-notebook';
 
 // Index (imports all partials - use with caution as it may cause duplication)
 // @use 'index';

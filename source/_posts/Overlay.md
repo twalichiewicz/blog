@@ -1,5 +1,7 @@
 ---
 title: Overlay
+display_name: "Universal Intelligence Layer"
+display_description: "Cross-application AI that follows users everywhere they create"
 date: 2024-06-01
 company: Autodesk
 byline: Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage

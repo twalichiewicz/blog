@@ -1,5 +1,7 @@
 ---
 title: 2016 Research Report
+display_name: "Financial Behavior Decoded"
+display_description: "Year of insights transforming how people think about money"
 company: Common Cents Lab
 byline: A comprehensive summary of our behavioral science projects and experiments in 2016
 date: 2017-12-30 00:00:00

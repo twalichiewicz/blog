@@ -1,11 +1,26 @@
 ---
 title: Common Project Administration
+display_name: "Enterprise Harmony"
+display_description: "100+ cloud products unified under one intelligent command center"
 date: 2019-09-13
 company: Autodesk
 byline: Created a standaardized project management tool for web-based Autodesk products
 cover_image: cpa-preview.png
 tags:
   - portfolio
+discipline: 
+  - UX Design
+  - Systems Design
+type:
+  - Web App
+  - Platform
+skills:
+  - Information Architecture
+  - Cross-functional Collaboration
+  - Visual Design
+industry:
+  - Enterprise
+  - Creative Tools
 layout: project_gallery
 has_writeup: true
 stats:

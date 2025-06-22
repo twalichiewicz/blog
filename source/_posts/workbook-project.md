@@ -1,5 +1,7 @@
 ---
 title: Workbook
+display_name: "Visual Thinking Archive"
+display_description: "Another notebook filled with design explorations and discoveries"
 date: 2024-06-30 14:07:00
 short: true
 draft: true

@@ -1,5 +1,7 @@
 ---
 title: Custom Install
+display_name: "Deploy at Scale"
+display_description: "Enterprise software deployment transformed from hours to minutes"
 has_writeup: true
 company: Autodesk
 byline: Replaced 60+ fragmented installer systems with a single platform that generates custom UIs from XML—saving Autodesk millions in duplicate development work

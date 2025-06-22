@@ -1,6 +1,8 @@
 ---
 layout: project_gallery
 title: Skills physics simulation
+display_name: "Skills in Motion"
+display_description: "Interactive visualization of multidisciplinary design expertise"
 date: 2025-01-11 20:10:02
 type: project_gallery
 client: Client Name

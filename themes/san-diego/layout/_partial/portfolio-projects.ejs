@@ -1,61 +1,69 @@
-<div id="projectsContent" class="portfolio-list" role="tabpanel" aria-labelledby="tab-portfolio">
+<div id="projectsContent" class="portfolio-list portfolio-list--redesigned" role="tabpanel" aria-labelledby="tab-portfolio">
     <div class="column-title portfolio-column-title">Projects</div>
     
-    <!-- Project Type Toggle -->
-    <% 
-    // Check if there are any personal projects
-    let hasPersonalProjects = false;
-    const personalCompanies = ['Other Projects']; // Only "Other Projects" is personal now
-    
-    projectPosts.forEach(function(post) {
-        if (!post.draft) {
-            const company = post.company || 'Other Projects';
-            if (personalCompanies.includes(company)) {
-                hasPersonalProjects = true;
-            }
-        }
-    });
-    %>
-    <% if (hasPersonalProjects) { %>
-    <div class="project-filter-container">
-        <div class="filter-group">
-            <label class="filter-checkbox" data-type="professional">
-                <input type="checkbox" class="filter-input" checked>
-                <span class="checkbox-indicator">
-                    <svg class="checkmark" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
-                    </svg>
-                </span>
-                <span class="filter-label">Professional</span>
-            </label>
-            <label class="filter-checkbox" data-type="personal">
-                <input type="checkbox" class="filter-input" checked>
-                <span class="checkbox-indicator">
-                    <svg class="checkmark" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
-                    </svg>
-                </span>
-                <span class="filter-label">Personal</span>
-            </label>
+    <!-- Filters dropdown -->
+    <div class="portfolio-controls">
+        <div class="filters-dropdown-container">
+            <button class="posts-only-button filters-toggle" id="filtersToggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="filter-icon" style="width: 14px; height: 14px; margin-right: 4px; vertical-align: -2px;">
+                    <path d="M3 6h18M7 12h10M9 18h6"/>
+                </svg>
+                Filters
+                <span class="filter-count-pip" style="display: none;">0</span>
+            </button>
+            
+            <div class="filters-dropdown" id="filtersDropdown" style="display: none;">
+                <div class="filters-dropdown-content">
+                    <div class="filters-dropdown-header">
+                        <h3>Filter Projects</h3>
+                        <button class="filter-clear">Clear all</button>
+                    </div>
+                    
+                    <div class="portfolio-filters">
+                        <% if (typeof filterCategories !== 'undefined') { %>
+                            <% Object.entries(filterCategories).forEach(([category, filters]) => { %>
+                                <div class="filter-category" data-category="<%- category %>">
+                                    <div class="filter-category-label"><%- category.charAt(0).toUpperCase() + category.slice(1) %></div>
+                                    <div class="filter-pills">
+                                        <% filters.forEach(filter => { %>
+                                            <button class="filter-pill" data-filter="<%- filter.toLowerCase().replace(/\s+/g, '-') %>" data-category="<%- category %>">
+                                                <%- filter %>
+                                            </button>
+                                        <% }) %>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <% } %>
-
+    
     <% if (projectPosts.length > 0) { %>
         <% 
-        // Group posts by company
-        const projectsByCompany = {};
+        // Separate featured (with writeups) and non-featured projects
+        const featuredProjects = [];
+        const nonFeaturedProjects = {};
+        
         projectPosts.forEach(function(post) {
             if (!post.draft) {
-                const company = post.company || 'Other Projects';
-                if (!projectsByCompany[company]) {
-                    projectsByCompany[company] = [];
+                if (post.has_writeup !== false) {
+                    featuredProjects.push(post);
+                } else {
+                    const company = post.company || 'Other Projects';
+                    if (!nonFeaturedProjects[company]) {
+                        nonFeaturedProjects[company] = [];
+                    }
+                    nonFeaturedProjects[company].push(post);
                 }
-                projectsByCompany[company].push(post);
             }
         });
-
-        // Get company configuration from _config.yml
+        
+        // Sort featured projects by date (most recent first)
+        featuredProjects.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        
+        // Get company order for non-featured section
         const companyOrder = config.portfolio?.companies?.order || [
             'Autodesk',
             'Human Interest', 
@@ -64,206 +72,143 @@
             'Maisha Meds',
             'Other Projects'
         ];
-
-        const companyYears = config.portfolio?.companies?.years || {
-            'Autodesk': '2019—Present',
-            'Human Interest': '2017—2019',
-            'Common Cents Lab': '2016—2017',
-            'Lyra Health': '2015',
-            'Maisha Meds': '2013-2014'
-        };
         
-        const sortedCompanies = Object.keys(projectsByCompany).sort((a, b) => {
-            const indexA = companyOrder.indexOf(a);
-            const indexB = companyOrder.indexOf(b);
-            
-            // If both companies are in our order list, use that order
-            if (indexA !== -1 && indexB !== -1) {
-                return indexA - indexB;
-            }
-            
-            // If only one company is in our list, prioritize it
-            if (indexA !== -1) return -1;
-            if (indexB !== -1) return 1;
-            
-            // For companies not in our list, sort alphabetically
-            // but keep "Other Projects" at the end
-            if (a === 'Other Projects') return 1;
-            if (b === 'Other Projects') return -1;
-            return a.localeCompare(b);
-        });
         %>
-
-        <% sortedCompanies.forEach(function(company) { %>
-            <% 
-            // Determine if this company group is personal or professional
-            const personalCompanies = ['Other Projects']; // Only "Other Projects" is personal now
-            const groupType = personalCompanies.includes(company) ? 'personal' : 'professional';
-            %>
-            <div class="company-group" data-project-type="<%= groupType %>">
-                <h2 class="company-name">
-                    <%= company %>
-                    <% if (companyYears[company]) { %>
-                        <span class="company-years"><%= companyYears[company] %></span>
-                    <% } %>
-                </h2>
-                <div class="company-projects">
-                    <% 
-                    // Sort projects within each company by priority and date
-                    const sortedProjects = projectsByCompany[company].sort((a, b) => {
-                        // Priority 1: has_writeup !== false AND cover_image
-                        const aPriority1 = (a.has_writeup !== false && a.cover_image) ? 1 : 0;
-                        const bPriority1 = (b.has_writeup !== false && b.cover_image) ? 1 : 0;
-                        
-                        // Priority 2: has_writeup !== false (without cover_image)
-                        const aPriority2 = (a.has_writeup !== false && !a.cover_image) ? 1 : 0;
-                        const bPriority2 = (b.has_writeup !== false && !b.cover_image) ? 1 : 0;
-                        
-                        // Priority 3: everything else
-                        const aPriority3 = (a.has_writeup === false || !a.has_writeup) ? 1 : 0;
-                        const bPriority3 = (b.has_writeup === false || !b.has_writeup) ? 1 : 0;
-                        
-                        // Compare priorities
-                        if (aPriority1 !== bPriority1) return bPriority1 - aPriority1;
-                        if (aPriority2 !== bPriority2) return bPriority2 - aPriority2;
-                        if (aPriority3 !== bPriority3) return bPriority3 - aPriority3;
-                        
-                        // Within same priority, sort by date (most recent first)
-                        return new Date(b.date).getTime() - new Date(a.date).getTime();
-                    });
-                    
-                    // Separate projects with and without writeups
-                    const projectsWithWriteups = sortedProjects.filter(p => p.has_writeup !== false);
-                    const projectsWithoutWriteups = sortedProjects.filter(p => p.has_writeup === false);
-                    %>
-                    
-                    <% // Render projects with writeups as cards %>
-                    <% projectsWithWriteups.forEach(function(post, index) { %>
-                        <% 
-                        // Determine project type - personal companies or projects without a company are personal
-                        const personalCompanies = ['Other Projects']; // Only "Other Projects" is personal now
-                        const projectType = personalCompanies.includes(company) || !post.company ? 'personal' : 'professional';
-                        %>
-                        <% if (post.has_writeup !== false) { %>
-                            <a href="<%- url_for(post.path) %>" class="portfolio-item has-writeup" data-cover-image="<%= post.cover_image ? 'true' : 'false' %>" data-project-type="<%= projectType %>">
-                        <% } else { %>
-                            <div class="portfolio-item" data-cover-image="<%= post.cover_image && post.has_writeup !== false ? 'true' : 'false' %>" data-project-type="<%= projectType %>">
-                        <% } %>
-                        <% if (post.cover_image && post.has_writeup !== false) { %>    
-                        <div class="portfolio-image">
-                            <% 
-                            const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(post.cover_image);
-                            %>
-                            <% if (isVideo) { %>
-                                <% 
-                                let coverVideoPosterPath = post.cover_video_poster;
-                                if (coverVideoPosterPath) {
-                                    if (!coverVideoPosterPath.startsWith('/') && !coverVideoPosterPath.startsWith('http')) {
-                                        if (/^\d{4}\/\d{2}\/\d{2}\//.test(coverVideoPosterPath)) {
-                                            coverVideoPosterPath = '/' + coverVideoPosterPath;
-                                        } else {
-                                            coverVideoPosterPath = post.path + coverVideoPosterPath;
-                                        }
-                                    }
-                                }
-                                const finalCoverVideoPosterSrc = coverVideoPosterPath ? url_for(coverVideoPosterPath) : '';
-
-                                let videoSrcToProcess = post.cover_image;
-                                if (videoSrcToProcess) {
-                                    if (!videoSrcToProcess.startsWith('/') && !videoSrcToProcess.startsWith('http')) {
-                                        if (/^\d{4}\/\d{2}\/\d{2}\//.test(videoSrcToProcess)) {
-                                            videoSrcToProcess = '/' + videoSrcToProcess;
-                                        } else {
-                                            videoSrcToProcess = post.path + videoSrcToProcess;
-                                        }
-                                    }
-                                }
-                                const resolvedOriginalVideoPath = videoSrcToProcess ? url_for(videoSrcToProcess) : '';
-                                const baseVideoPathForVariants = resolvedOriginalVideoPath ? resolvedOriginalVideoPath.replace(/\.(mp4|webm|ogg|mov)$/i, '') : '';
-                                const webmVariant = baseVideoPathForVariants ? baseVideoPathForVariants.replace('-simple', '-compatible') + '.webm' : '';
-                                const mp4Variant = baseVideoPathForVariants ? baseVideoPathForVariants.replace('-simple', '-compatible') + '.mp4' : '';
-                                %>
-                                <video 
-                                    autoplay 
-                                    loop 
-                                    muted 
-                                    playsinline
-                                    preload="metadata"
-                                    data-autoplay="true"
-                                    <%= finalCoverVideoPosterSrc ? `poster="${finalCoverVideoPosterSrc}"` : '' %>
-                                    alt="<%- post.title %>"
-                                    loading="lazy"
-                                >
-                                    <source src="<%- webmVariant %>" type="video/webm">
-                                    <source src="<%- mp4Variant %>" type="video/mp4">
-                                    <source src="<%- resolvedOriginalVideoPath %>" type="video/mp4">
-                                </video>
-                            <% } else { %>
-                                <% 
-                                let coverImagePath = post.cover_image;
-                                if (coverImagePath) {
-                                    if (!coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
-                                        if (/^\d{4}\/\d{2}\/\d{2}\//.test(coverImagePath)) {
-                                            coverImagePath = '/' + coverImagePath;
-                                        } else {
-                                            coverImagePath = post.path + coverImagePath;
-                                        }
-                                    }
-                                }
-                                %>
-                                <img 
-                                    src="<%- coverImagePath ? url_for(coverImagePath) : '' %>" 
-                                    alt="<%- post.title %>"
-                                    loading="lazy"
-                                >
-                            <% } %>
-                        </div>
-                        <% } %>
-                        <div class="portfolio-content">
-                            <% if (post.company) { %>
-                                <div class="company-byline"><%= post.company %></div>
-                            <% } %>
-                            
-                            <div class="title-row">
-                                <div class="content-text">
-                                    <h4><%- post.title %></h4>
-                                    <% if (post.byline) { %>
-                                        <p><%- post.byline %></p>
-                                    <% } %>
+        
+        <%
+        // Define filter categories (moved outside conditionals to be accessible in modal)
+        const filterCategories = {
+            discipline: ['UX Design', 'UI Design', 'Research', 'Brand Design', 'Systems Design'],
+            type: ['Web App', 'Mobile App', 'Design System', 'Desktop App', 'Platform'],
+            skills: ['Prototyping', 'User Research', 'Visual Design', 'Data Viz', 'Strategy'],
+            industry: ['FinTech', 'Enterprise', 'Healthcare', 'Creative Tools', 'Social Impact']
+        };
+        %>
+        
+        <!-- Featured Projects Grid -->
+        <div class="portfolio-featured-grid">
+            <% featuredProjects.forEach(function(post) { %>
+                <a href="<%- url_for(post.path) %>" class="portfolio-item-wrapper" 
+                   data-discipline="<%- (post.tags?.discipline || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>"
+                   data-type="<%- (post.tags?.type || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>"
+                   data-skills="<%- (post.tags?.skills || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>"
+                   data-industry="<%- (post.tags?.industry || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>">
+                    <div class="portfolio-item portfolio-item--featured">
+                        <% if (post.cover_image) { %>
+                            <div class="notebook">
+                                <!-- Back cover (base layer) -->
+                                <div class="back-cover"></div>
+                                
+                                <!-- Page block (middle pages) -->
+                                <div class="page-block"></div>
+                                
+                                <!-- Additional page layer for thickness -->
+                                <div class="page-layer-2"></div>
+                                
+                                <!-- Inside back cover -->
+                                <div class="inside-back-cover"></div>
+                                
+                                <!-- Inside pages with content -->
+                                <div class="inside-pages">
+                                    <% 
+                                    // Process cover image for paperclip photo
+                                    let coverImagePath = post.cover_image;
+                                    const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(post.cover_image);
                                     
-                                    <% if (post.has_writeup !== false && post.excerpt) { %>
-                                        <details class="content-accordion">
-                                            <summary>View details</summary>
-                                            <div class="accordion-content">
-                                                <%- post.excerpt %>
-                                            </div>
-                                        </details>
+                                    if (isVideo && post.cover_video_poster) {
+                                        // Use poster for video covers
+                                        coverImagePath = post.cover_video_poster;
+                                    }
+                                    
+                                    if (coverImagePath) {
+                                        if (!coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
+                                            if (/^\d{4}\/\d{2}\/\d{2}\//.test(coverImagePath)) {
+                                                coverImagePath = '/' + coverImagePath;
+                                            } else {
+                                                coverImagePath = post.path + coverImagePath;
+                                            }
+                                        }
+                                    }
+                                    %>
+                                    <div class="paperclip-photo">
+                                        <img src="<%- coverImagePath ? url_for(coverImagePath) : '' %>" alt="<%- post.title %>" />
+                                    </div>
+                                </div>
+                                
+                                <!-- Inside front cover -->
+                                <div class="inside-front-cover"></div>
+                                
+                                <!-- Front cover (top layer) -->
+                                <div class="front-cover"></div>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="portfolio-info">
+                        <h4 class="portfolio-title"><%- post.display_name || post.title %></h4>
+                        <% if (post.display_description || post.byline) { %>
+                            <p class="portfolio-byline"><%- post.display_description || post.byline %></p>
+                        <% } %>
+                    </div>
+                </a>
+            <% }) %>
+        </div>
+        
+        <% if (Object.keys(nonFeaturedProjects).length > 0) { %>
+            <!-- Even More Section -->
+            <div class="portfolio-more-section">
+                <div class="portfolio-more-transition"></div>
+                <div class="portfolio-more-content">
+                    <h2 class="portfolio-more-title">That's just scratching the surface</h2>
+                    
+                    <div class="portfolio-more-grid">
+                        <% 
+                        // Sort companies by predefined order
+                        const sortedCompanies = Object.keys(nonFeaturedProjects).sort((a, b) => {
+                            const indexA = companyOrder.indexOf(a);
+                            const indexB = companyOrder.indexOf(b);
+                            
+                            if (indexA !== -1 && indexB !== -1) {
+                                return indexA - indexB;
+                            }
+                            
+                            if (indexA !== -1) return -1;
+                            if (indexB !== -1) return 1;
+                            
+                            if (a === 'Other Projects') return 1;
+                            if (b === 'Other Projects') return -1;
+                            return a.localeCompare(b);
+                        });
+                        %>
+                        
+                        <% sortedCompanies.forEach(function(company) { %>
+                            <div class="portfolio-more-company">
+                                <h3 class="portfolio-more-company-name">
+                                    <%- company %>
+                                    <% 
+                                    const companyYears = config.portfolio?.companies?.years || {
+                                        'Autodesk': '2019—Present',
+                                        'Human Interest': '2017—2019',
+                                        'Common Cents Lab': '2016—2017',
+                                        'Lyra Health': '2015',
+                                        'Maisha Meds': '2013-2014'
+                                    };
+                                    if (companyYears[company]) { %>
+                                        <span class="company-years"><%- companyYears[company] %></span>
                                     <% } %>
+                                </h3>
+                                <div class="portfolio-more-projects">
+                                    <% nonFeaturedProjects[company].forEach(function(post) { %>
+                                        <div class="portfolio-more-project"><%- post.title %></div>
+                                    <% }) %>
                                 </div>
                             </div>
-                        </div>
-                        <% if (post.has_writeup !== false) { %>
-                            </a>
-                        <% } else { %>
-                            </div>
-                        <% } %>
-                    <% }) %>
-                </div>
-                
-                <% // Render projects without writeups as a simple list - OUTSIDE THE GRID %>
-                <% if (projectsWithoutWriteups.length > 0) { %>
-                    <div class="portfolio-item no-writeup-list">
-                        <div class="portfolio-content">
-                            <p class="no-writeup-intro">Other projects include:</p>
-                            <p class="no-writeup-projects">
-                                <%= projectsWithoutWriteups.map(p => p.title).join(', ') %>
-                            </p>
-                        </div>
+                        <% }) %>
                     </div>
-                <% } %>
+                </div>
             </div>
-        <% }) %>
+        <% } %>
     <% } else { %>
         <%- partial('_partial/loading-skull') %>
     <% } %>
 </div>
+

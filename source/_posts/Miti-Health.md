@@ -1,5 +1,7 @@
 ---
 title: Remote pharmacy
+display_name: "Digital Meets Traditional"
+display_description: "Bridging paper workflows to digital advantages in rural Kenya"
 company: Maisha Meds
 byline: Digital platform connecting rural Kenyan pharmacies with suppliers while ensuring medication quality and inventory management
 date: 2014-01-01 14:57:27

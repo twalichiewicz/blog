@@ -3,11 +3,27 @@ layout: project_gallery
 permalink: /2017/09/11/Human-Interest-brand/
 company: Human Interest
 title: Company rebranding
+display_name: "A New Vision for Retirement"
+display_description: "Transformed a startup into a category leader through comprehensive brand evolution that humanized financial planning"
 byline: Led comprehensive brand transformation across all touchpoints, unifying visual identity, marketing, and product design
 cover_image: /2017/09/11/Human-Interest-brand/humanInterestBrand-preview.png
 date: 2017-09-11 00:00:00
 type: project_gallery
 year: 2017
+tags:
+  - portfolio
+discipline:
+  - Brand Design
+  - Visual Design
+  - Strategy
+project_type:
+  - Brand Identity
+skills:
+  - Visual Design
+  - Strategy
+  - Cross-functional Collaboration
+industry:
+  - FinTech
 stats:
   - value: "360°"
     label: "Brand Touchpoints"
@@ -39,8 +55,6 @@ gallery_images:
   - url: https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FGVWz5qon5XDndfOPLg71u9%2FHuman-Interest-rebranded-website%3Ftype%3Ddesign%26node-id%3D0%253A1%26mode%3Ddesign%26t%3Djw8FnbnjBlCvDwRB-1
     caption: Comprehensive website redesign in Figma
     type: iframe
-tags:
-  - portfolio
 ---
 
 ## Strategic Brand Development

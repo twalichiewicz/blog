@@ -1,6 +1,8 @@
 ---
 layout: project_gallery
 title: Monophone Navigation
+display_name: "One-Handed Revolution"
+display_description: "Reimagining mobile UX for the way we actually hold our phones"
 date: 2025-01-06
 draft: true
 tags:

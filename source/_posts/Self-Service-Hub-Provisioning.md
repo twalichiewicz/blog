@@ -1,5 +1,7 @@
 ---
 title: Self-Service Hub Provisioning
+display_name: "Instant Infrastructure"
+display_description: "Enterprise cloud deployment at the speed of business"
 date: 2019-10-19T12:00:00.000Z
 company: Autodesk
 byline: Empowered administrators to provision new cloud hubs instantly with a guided, self-service tool—eliminating support delays and streamlining deployment

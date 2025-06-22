@@ -249,13 +249,17 @@ document.addEventListener('DOMContentLoaded', function () {
 					window.soundEffects.playButtonPress();
 				}
 				
+				// Start screen wipe transition
+				let transitionData = null;
+				if (window.ScreenWipeTransition) {
+					transitionData = await window.ScreenWipeTransition.start();
+				}
+				
 				// Determine what type of content we're returning from
 				const currentHistoryState = history.state;
 				const isReturningFromProject = currentHistoryState && currentHistoryState.isProject === true;
 				
 				// Back button clicked, returning from project
-				
-				await fadeOutElement(blogContentElement);
 				
 				// Remove has-dynamic-content class to restore scroll behavior
 				blogContentElement.classList.remove('has-dynamic-content');
@@ -286,6 +290,8 @@ document.addEventListener('DOMContentLoaded', function () {
 						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
 							window.mobileTabs.switchTab('portfolio', false);
 						}
+						// Emit portfolio-loaded event for parallax initialization
+						window.dispatchEvent(new Event('portfolio-loaded'));
 					}, 50);
 				} else {
 					// Coming from a blog post, show blog tab and clean URL
@@ -313,6 +319,12 @@ document.addEventListener('DOMContentLoaded', function () {
 						}
 					}, 100);
 				}
+				
+				// End screen wipe transition
+				if (window.ScreenWipeTransition && transitionData) {
+					await window.ScreenWipeTransition.end(transitionData);
+				}
+				
 				await fadeInElement(blogContentElement);
 				history.pushState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
 			};
@@ -328,6 +340,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		async function fetchAndDisplayContent(url, isPushState = true, isProject = false) {
 			if (!blogContentElement) return;
 
+			// Start screen wipe transition
+			let transitionData = null;
+			if (window.ScreenWipeTransition) {
+				transitionData = await window.ScreenWipeTransition.start();
+			}
+
 			// Before clearing content, cleanup any carousel instances managed by carousel.js
 			if (typeof cleanupCarouselInstances === 'function') {
 				// Cleaning up carousel instances from blogContentElement
@@ -337,10 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Add has-dynamic-content class to enable proper scrolling
 			blogContentElement.classList.add('has-dynamic-content');
 
-			// No longer preserving tab structure for mobile - treat all devices the same
-
-			// Use consistent fade out/clear approach for all devices
-			await fadeOutElement(blogContentElement);
+			// Clear content after transition starts
 			blogContentElement.innerHTML = '';
 
 			try {
@@ -453,6 +468,11 @@ document.addEventListener('DOMContentLoaded', function () {
 						}, 100);
 					}
 
+					// Emit portfolio-loaded event if this is a project
+					if (isProject) {
+						window.dispatchEvent(new Event('portfolio-loaded'));
+					}
+
 					// Set up scroll button for dynamic content - multiple attempts
 					function setupDynamicScrollButton() {
 						const scrollButton = blogContentElement.querySelector('.read-story-button') ||
@@ -513,6 +533,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				if (!backBtn) backBtn = addOrUpdateBackButton();
 				if (backBtn) { backBtn.after(errorTechnical); } else { blogContentElement.appendChild(errorTechnical); }
 			}
+			
+			// End screen wipe transition
+			if (window.ScreenWipeTransition && transitionData) {
+				await window.ScreenWipeTransition.end(transitionData);
+			}
+			
 			// Fade in blog content for all devices
 			await fadeInElement(blogContentElement);
 			// Scroll into view for all devices using ScrollUtility
@@ -532,7 +558,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			) {
 				// Updated selectors for post previews
 				const isPostLink = link.classList.contains('post-link-wrapper');
-				const isProjectLink = link.matches('a.portfolio-item.has-writeup');
+				const isProjectLink = link.matches('a.portfolio-item-wrapper, a.portfolio-item.has-writeup');
 				// Check if post or project link
 
 				if (isPostLink || isProjectLink) {
@@ -548,6 +574,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (!parentElement) return;
 			const linksToProcess = parentElement.querySelectorAll(
 				'a.post-link-wrapper, ' +
+				'a.portfolio-item-wrapper, ' +
 				'a.portfolio-item.has-writeup'
 			);
 			// Initializing link listeners

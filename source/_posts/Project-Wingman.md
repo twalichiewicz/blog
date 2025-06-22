@@ -1,5 +1,7 @@
 ---
 title: Desktop install platform
+display_name: "Installation Reimagined"
+display_description: "100+ chaotic installers unified into one seamless experience"
 company: Autodesk
 byline: Standardized Autodesk's full suite of products to use a single install SDK
 date: 2019-6-30 20:52:01

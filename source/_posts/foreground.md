@@ -1,5 +1,7 @@
 ---
 title: Design system
+display_name: "Foreground Design System"
+display_description: "Financial complexity made simple through unified component architecture"
 layout: project_gallery
 company: Human Interest
 byline: Built "Foreground" design system that unified product ecosystem across three user types while enabling engineering team to implement designs autonomously

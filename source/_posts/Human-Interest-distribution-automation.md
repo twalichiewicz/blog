@@ -1,5 +1,7 @@
 ---
 title: Distribution automation
+display_name: "Automated Financial Flow"
+display_description: "Paper-based retirement processes transformed into instant digital actions"
 date: 2017-07-30 13:22:52
 company: Human Interest
 byline: Designed and implemented an automated digital system for 401(k) distribution requests—transforming a paper-based process into a streamlined, user-friendly experience that reduced processing times and improved customer satisfaction

@@ -229,6 +229,20 @@ $layout-levels: (
       }
     }
   }
+  
+  // Allow the portfolio redesign to extend full width
+  .portfolio-list--redesigned {
+    // Reset padding for full-width sections
+    .portfolio-more-section {
+      margin-left: calc(-1 * var(--content-padding, 24px));
+      margin-right: calc(-1 * var(--content-padding, 24px));
+      
+      @media (min-width: variables.$tablet-breakpoint) {
+        margin-left: calc(-1 * var(--content-padding, 48px));
+        margin-right: calc(-1 * var(--content-padding, 48px));
+      }
+    }
+  }
 }
 
 // Dynamic back button positioning

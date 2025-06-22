@@ -1,0 +1,438 @@
+@use 'variables';
+@use 'sass:color';
+
+// Leuchtturm notebook styles for portfolio items
+.portfolio-featured-grid {
+    .portfolio-item-wrapper {
+        // Proper Leuchtturm notebook aspect ratio (slightly taller)
+        aspect-ratio: 5 / 7 !important; // More accurate notebook proportions
+        max-width: 220px !important;
+        width: 100%;
+        height: auto !important;
+        min-height: 300px !important;
+        margin: 0 auto;
+        
+        .portfolio-item--featured {
+            height: 100% !important;
+            width: 100% !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            overflow: visible !important;
+            position: relative;
+            transform: none !important;
+            
+            .notebook {
+            position: absolute;
+            top: 8%;
+            left: 12%;
+            right: 12%;
+            bottom: 8%;
+            transform-style: preserve-3d;
+            perspective: 2000px;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: scale(0.85) translateX(0) !important;
+            transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            // All notebook elements
+            * {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            // Back cover (base layer - always visible)
+            .back-cover {
+                position: absolute;
+                inset: 0;
+                background: 
+                    radial-gradient(ellipse at 30% 40%, rgba(0, 0, 0, 0.02), transparent 70%),
+                    #262626;
+                border-radius: 4px 12px 12px 4px;
+                box-shadow: 
+                    0 12px 35px rgba(0, 0, 0, 0.3),
+                    0 6px 18px rgba(0, 0, 0, 0.2),
+                    0 3px 8px rgba(0, 0, 0, 0.15);
+                transform: translateZ(0); // Base layer
+                opacity: 1 !important;
+                
+                // Page edges (right side) - thinner
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 2%;
+                    bottom: 2%;
+                    right: 0;
+                    width: 8px; // Much thinner
+                    background: 
+                        repeating-linear-gradient(
+                            to bottom,
+                            #f8f8f8 0px,
+                            #f8f8f8 0.5px,
+                            #d8d8d8 0.5px,
+                            #d8d8d8 1px
+                        );
+                    border-radius: 0 10px 10px 0;
+                    box-shadow: 
+                        inset -2px 0 4px rgba(0, 0, 0, 0.1),
+                        1px 0 2px rgba(0, 0, 0, 0.05);
+                }
+                
+                // Bottom edge pages - thinner
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 2%;
+                    right: 10px;
+                    height: 6px; // Reduced thickness
+                    background: 
+                        linear-gradient(to bottom,
+                            #d8d8d8 0%,
+                            #f0f0f0 40%,
+                            #e8e8e8 100%);
+                    box-shadow: 
+                        0 1px 3px rgba(0, 0, 0, 0.1);
+                    border-radius: 0 0 8px 3px;
+                }
+            }
+            
+            // Multiple page layers for thickness
+            .page-block {
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                right: 3px;
+                bottom: 3px;
+                background: #f5f5f5;
+                border-radius: 3px 10px 10px 3px;
+                transform: translateZ(0.5px);
+                opacity: 0;
+                transition: opacity 0.8s ease-out;
+                box-shadow: 
+                    inset 0 0 20px rgba(0, 0, 0, 0.03);
+            }
+            
+            // Additional page layer for more thickness
+            .page-layer-2 {
+                position: absolute;
+                top: 4px;
+                left: 4px;
+                right: 4px;
+                bottom: 4px;
+                background: #f8f8f8;
+                border-radius: 2px 9px 9px 2px;
+                transform: translateZ(1px);
+                opacity: 0;
+                transition: opacity 0.8s ease-out 0.1s;
+            }
+            
+            // Inside back cover - plain white paper
+            .inside-back-cover {
+                position: absolute;
+                inset: 0;
+                background: #ffffff; // Plain white paper
+                border-radius: 4px 12px 12px 4px;
+                transform: translateZ(1.5px);
+                opacity: 0;
+                transition: opacity 0.6s ease-out 0.6s;
+                box-shadow: 
+                    inset 0 0 10px rgba(0, 0, 0, 0.02);
+            }
+            
+            // Inside pages with content (plain white paper with photo)
+            .inside-pages {
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                right: 6px;
+                bottom: 6px;
+                background: #ffffff; // Plain white paper
+                border-radius: 3px 10px 10px 3px;
+                transform: translateZ(2px);
+                opacity: 0;
+                transition: opacity 0.8s ease-out 0.8s;
+                box-shadow: 
+                    0 1px 2px rgba(0, 0, 0, 0.05);
+                
+                // Photo with paperclip
+                .paperclip-photo {
+                    position: absolute;
+                    top: 35px;
+                    right: 20px;
+                    width: 70px;
+                    height: 52px;
+                    transform: rotate(-2deg) translateY(10px);
+                    opacity: 0;
+                    transition: all 0.6s ease-out 1s;
+                    
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border: 2.5px solid white;
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+                        display: block;
+                    }
+                    
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: -10px;
+                        left: 12px;
+                        width: 16px;
+                        height: 24px;
+                        background: 
+                            linear-gradient(135deg,
+                                #d8d8d8 0%,
+                                #f0f0f0 25%,
+                                #c8c8c8 60%,
+                                #a8a8a8 100%);
+                        border-radius: 8px 8px 12px 12px;
+                        border: 0.5px solid #999;
+                        box-shadow: 
+                            inset 0 1px 1px rgba(255, 255, 255, 0.7),
+                            0 1px 2px rgba(0, 0, 0, 0.2);
+                        transform: rotate(10deg);
+                        z-index: 2;
+                    }
+                }
+            }
+            
+            // Inside front cover - plain white paper
+            .inside-front-cover {
+                position: absolute;
+                inset: 0;
+                background: #ffffff; // Plain white paper
+                border-radius: 4px 12px 12px 4px;
+                transform-origin: 0% 50%;
+                transform: translateZ(2.5px) rotateY(0deg);
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out;
+                opacity: 0;
+                box-shadow: 
+                    inset 0 0 10px rgba(0, 0, 0, 0.02);
+                // Add subtle left edge to prevent complete disappearance
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 2px;
+                    background: linear-gradient(to right, rgba(0, 0, 0, 0.05), transparent);
+                }
+            }
+            
+            // Front cover (visible by default in closed state)
+            .front-cover {
+                position: absolute;
+                inset: 0;
+                background: 
+                    // Elastic band
+                    linear-gradient(to right,
+                        transparent 0%,
+                        transparent calc(100% - 20px),
+                        rgba(0, 0, 0, 0.15) calc(100% - 20px),
+                        rgba(0, 0, 0, 0.25) calc(100% - 17px),
+                        rgba(0, 0, 0, 0.15) calc(100% - 14px),
+                        transparent calc(100% - 14px)
+                    ),
+                    linear-gradient(145deg, 
+                        rgba(255, 255, 255, 0.04) 0%, 
+                        transparent 35%),
+                    radial-gradient(ellipse at 70% 30%, 
+                        rgba(255, 255, 255, 0.02) 0%, 
+                        transparent 65%),
+                    #262626;
+                border-radius: 4px 12px 12px 4px;
+                transform-origin: 0% 50%;
+                transform: translateZ(3px) rotateY(0deg); // Further reduced
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 
+                    0 3px 6px rgba(0, 0, 0, 0.2),
+                    0 1px 3px rgba(0, 0, 0, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                
+                &::before {
+                    content: 'LEUCHTTURM1917';
+                    position: absolute;
+                    bottom: 30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-size: 6.5px;
+                    letter-spacing: 1.5px;
+                    color: rgba(255, 255, 255, 0.1);
+                    font-weight: 300;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                    text-rendering: optimizeLegibility;
+                }
+                
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 8px; // Reduced from 15px
+                    background: 
+                        linear-gradient(to right,
+                            rgba(0, 0, 0, 0.2) 0%,
+                            rgba(0, 0, 0, 0.1) 50%,
+                            transparent 100%);
+                    border-radius: 4px 0 0 4px;
+                }
+            }
+        }
+        
+        // Hover state - smooth notebook opening with shift
+        &:hover .notebook {
+            transform: scale(0.85) translateX(15%) !important; // Shift right as it opens
+            
+            .front-cover {
+                transform: translateZ(3px) rotateY(-150deg);
+                transition-duration: 1.8s;
+                transition-delay: 0.3s;
+            }
+            
+            .inside-front-cover {
+                opacity: 1;
+                transform: translateZ(2.5px) rotateY(-140deg);
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s, 
+                           opacity 0.1s ease-out 0s;
+            }
+            
+            .page-block {
+                opacity: 1;
+                transition-delay: 0.5s;
+            }
+            
+            .page-layer-2 {
+                opacity: 1;
+            }
+            
+            .inside-back-cover {
+                opacity: 1;
+            }
+            
+            .inside-pages {
+                opacity: 1;
+                
+                .paperclip-photo {
+                    opacity: 1;
+                    transform: rotate(-2deg) translateY(0);
+                }
+            }
+        }
+        
+        // Ensure notebook stays visible on mouseout
+        &:not(:hover) .notebook {
+            transform: scale(0.85) translateX(0) !important;
+            
+            * {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .back-cover,
+            .front-cover {
+                opacity: 1 !important;
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            // Delay the opacity fade-out for inside front cover
+            .inside-front-cover {
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0s, 
+                           opacity 0.8s ease-out 0.6s;
+            }
+        }
+        
+    }
+    
+    // Ensure notebooks are always visible for ALL featured items
+    .portfolio-item--featured {
+        .notebook {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            
+            * {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .back-cover,
+            .front-cover {
+                opacity: 1 !important;
+                display: block !important;
+                visibility: visible !important;
+            }
+            }
+        }
+        
+        // Prevent any parent transforms from affecting our notebooks
+        .portfolio-item-wrapper &,
+        & {
+            transform: none !important;
+        }
+    }
+
+// Dark mode adjustments
+@media (prefers-color-scheme: dark) {
+    .portfolio-featured-grid .portfolio-item-wrapper .portfolio-item--featured {
+        .notebook {
+            .back-cover,
+            .front-cover {
+                background-color: #1a1a1a;
+            }
+            
+            .inside-back-cover,
+            .inside-front-cover {
+                background: #ffffff; // Keep paper white in dark mode
+            }
+            
+            .inside-pages {
+                background-color: #fffef8; // Keep paper light
+            }
+        }
+    }
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+    .portfolio-featured-grid .portfolio-item-wrapper {
+        aspect-ratio: 5 / 7 !important;
+        max-width: 160px !important;
+        
+        .portfolio-item--featured.parallax-active {
+            .notebook {
+                top: 6%;
+                left: 10%;
+                right: 10%;
+                bottom: 6%;
+                transform: scale(0.85) translateX(0) !important;
+                
+                .inside-pages .paperclip-photo {
+                    width: 55px;
+                    height: 41px;
+                    top: 25px;
+                    right: 15px;
+                }
+                
+                .front-cover::before {
+                    font-size: 5.5px;
+                    bottom: 25px;
+                }
+            }
+            
+            &:hover .notebook {
+                transform: scale(0.85) translateX(12%) !important;
+            }
+        }
+    }
+}
+}

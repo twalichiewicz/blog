@@ -1,5 +1,7 @@
 ---
 title: Common Cents Lab brand
+display_name: "Behavioral Science Identity"
+display_description: "Making complex financial research accessible through focused design"
 company: Common Cents Lab
 byline: Built a comprehensive brand identity system for a behavioral science research nonprofit
 date: 2016-01-01 20:52:01

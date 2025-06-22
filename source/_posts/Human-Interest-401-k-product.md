@@ -1,11 +1,28 @@
 ---
 title: 401(k) Administration product
+display_name: "Retirement Made Simple"
+display_description: "Revolutionized how small businesses manage employee benefits by turning complex 401(k) administration into an intuitive digital experience"
 date: 2017-02-01 20:52:01
 company: Human Interest
 byline: Redesigned the 401(k) administration experience for small to medium businesses, creating an intuitive platform that simplifies complex financial processes while maintaining robust functionality and compliance requirements
 cover_image: /2017/02/01/Human-Interest-401-k-product/cutawayPreviewUpdated.jpg
 tags:
   - portfolio
+discipline:
+  - UX Design
+  - UI Design
+  - Service Design
+type:
+  - Web App
+  - Platform
+skills:
+  - User Research
+  - Information Architecture
+  - Visual Design
+  - Cross-functional Collaboration
+industry:
+  - FinTech
+  - Enterprise
 layout: project
 credits:
   - role: Lead Product Designer

@@ -1,5 +1,7 @@
 ---
 title: Onboarding tool
+display_name: "Transparent Progress"
+display_description: "401(k) setup reimagined as a visible, manageable journey"
 layout: project_gallery
 company: Human Interest
 byline: Created a streamlined 401(k) setup experience that reduces friction and increases completion rates through research-driven design
