@@ -30,7 +30,7 @@ stats:
 notebook_color: crimson
 notebook_texture: pristine
 notebook_brand: leuchtturm
-notebook_pages: notebook-pages.png
+notebook_pages: notebook-pages.jpg
 notebook_stickers:
   - text: "AI/ML"
     bg: "#1a237e"
