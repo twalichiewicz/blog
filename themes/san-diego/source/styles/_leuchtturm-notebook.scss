@@ -42,12 +42,10 @@
             transform-style: preserve-3d;
             perspective: 2000px;
             display: block !important;
-            opacity: 0;
-            visibility: hidden;
+            opacity: 1 !important;
+            visibility: visible !important;
             transform: scale(0.85) translateX(0) !important;
-            transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                        opacity 0.6s ease-out,
-                        visibility 0s linear 0.6s;
+            transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
             
             // All notebook elements
             * {
@@ -55,7 +53,7 @@
                 visibility: visible !important;
             }
             
-            // Back cover (base layer - always visible)
+            // Layer 6: Back cover (static anchor - no animation)
             .back-cover {
                 position: absolute;
                 inset: 0;
@@ -67,17 +65,18 @@
                     0 12px 35px rgba(0, 0, 0, 0.3),
                     0 6px 18px rgba(0, 0, 0, 0.2),
                     0 3px 8px rgba(0, 0, 0, 0.15);
-                transform: translateZ(0); // Base layer
-                opacity: 1 !important;
+                z-index: 1;
+                transform: translateZ(0);
+                overflow: hidden; // Clip any overflow that might cause red edges
                 
                 // Page edges (right side) - thinner
                 &::before {
                     content: '';
                     position: absolute;
-                    top: 2%;
-                    bottom: 2%;
-                    right: 0;
-                    width: 8px; // Much thinner
+                    top: 4px;
+                    bottom: 4px;
+                    right: 4px; // Inset from edge to prevent overflow
+                    width: 6px; // Slightly thinner to fit within bounds
                     background: 
                         repeating-linear-gradient(
                             to bottom,
@@ -86,7 +85,7 @@
                             #d8d8d8 0.5px,
                             #d8d8d8 1px
                         );
-                    border-radius: 0 10px 10px 0;
+                    border-radius: 0 8px 8px 0; // Slightly smaller radius
                     box-shadow: 
                         inset -2px 0 4px rgba(0, 0, 0, 0.1),
                         1px 0 2px rgba(0, 0, 0, 0.05);
@@ -111,64 +110,37 @@
                 }
             }
             
-            // Multiple page layers for thickness
-            .page-block {
-                position: absolute;
-                top: 3px;
-                left: 3px;
-                right: 3px;
-                bottom: 3px;
-                background: #f5f5f5;
-                border-radius: 3px 10px 10px 3px;
-                transform: translateZ(0.5px);
-                opacity: 0;
-                transition: opacity 0.8s ease-out;
-                box-shadow: 
-                    inset 0 0 20px rgba(0, 0, 0, 0.03);
-            }
-            
-            // Additional page layer for more thickness
-            .page-layer-2 {
-                position: absolute;
-                top: 4px;
-                left: 4px;
-                right: 4px;
-                bottom: 4px;
-                background: #f8f8f8;
-                border-radius: 2px 9px 9px 2px;
-                transform: translateZ(1px);
-                opacity: 0;
-                transition: opacity 0.8s ease-out 0.1s;
-            }
-            
-            // Inside back cover - plain white paper
+            // Layer 5: Inside of back cover (static anchor - no animation)
             .inside-back-cover {
                 position: absolute;
-                inset: 0;
-                background: #ffffff; // Plain white paper
-                border-radius: 4px 12px 12px 4px;
-                transform: translateZ(1.5px);
-                opacity: 0;
-                transition: opacity 0.6s ease-out 0.6s;
+                top: 6px;
+                left: 3px; // Match other page insets
+                right: 6px;
+                bottom: 6px;
+                background: #ffffff;
+                border-radius: 3px 10px 10px 3px;
+                transform-origin: -3px 50%; // Share same rotational axis as other pages
+                z-index: 2;
+                transform: translateZ(1px);
                 box-shadow: 
                     inset 0 0 10px rgba(0, 0, 0, 0.02);
             }
             
-            // Inside pages with content (plain white paper with photo)
-            .inside-pages {
+            // Layer 4: Right inner page (content)
+            .inner-page-right {
                 position: absolute;
                 top: 6px;
-                left: 6px;
+                left: 3px; // Match inside-front-cover inset
                 right: 6px;
                 bottom: 6px;
                 background: #ffffff; // Plain white paper
                 border-radius: 3px 10px 10px 3px;
+                transform-origin: -3px 50%; // Share same rotational axis as other pages
+                z-index: 3;
                 transform: translateZ(2px);
-                opacity: 0;
-                transition: opacity 0.8s ease-out 0.8s;
                 box-shadow: 
                     0 1px 2px rgba(0, 0, 0, 0.05);
-                overflow: hidden; // Ensure custom image doesn't overflow
+                overflow: hidden;
                 
                 // Custom notebook pages image (full coverage)
                 .notebook-pages-custom {
@@ -190,8 +162,8 @@
                     width: 70px;
                     height: 52px;
                     transform: rotate(-2deg) translateY(10px);
-                    opacity: 0;
-                    transition: all 0.6s ease-out 1s;
+                    opacity: 1;
+                    transition: all 0.6s ease-out;
                     
                     img {
                         width: 100%;
@@ -231,19 +203,22 @@
                 }
             }
             
-            // Inside front cover - plain white paper (left page)
-            .inside-front-cover {
+            // Layer 3: Left inner page (content)
+            .inner-page-left {
                 position: absolute;
-                inset: 0;
+                top: 6px;
+                left: 6px; // Move further right to close gap
+                right: 8px; // Scoot right edge in by 2px more
+                bottom: 6px;
                 background: #ffffff; // Plain white paper
-                border-radius: 4px 12px 12px 4px;
-                transform-origin: 0% 50%;
-                transform: translateZ(2.5px) rotateY(0deg);
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out;
-                opacity: 0;
+                border-radius: 3px 10px 10px 3px;
+                transform-origin: 0% 50%; // Match front cover transform-origin
+                z-index: 4;
+                transform: translateZ(3px) rotateY(0deg);
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
                 box-shadow: 
                     inset 0 0 10px rgba(0, 0, 0, 0.02);
-                overflow: hidden; // Ensure custom image doesn't overflow
+                overflow: hidden;
                 
                 // Custom left page image
                 .notebook-page-left-custom {
@@ -270,22 +245,22 @@
                 }
             }
             
-            // Front cover backing layer (prevents sticker bleed-through)
-            .front-cover-backing {
+            // Layer 2: Inside of front cover (white, animates with front cover)
+            .inside-front-cover {
                 position: absolute;
-                inset: 0;
-                background: #262626; // Solid color, no transparency
-                border-radius: 4px 12px 12px 4px;
-                transform-origin: 0% 50%;
-                transform: translateZ(2.8px) rotateY(0deg); // Slightly behind front-cover
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
-                // Add thickness effect
-                box-shadow: 
-                    -1px 0 2px rgba(0, 0, 0, 0.3),
-                    -2px 0 4px rgba(0, 0, 0, 0.2);
+                top: 2px;    // Slightly inside the front cover
+                left: 2px;   // Slightly inside the front cover  
+                right: 2px;  // Slightly inside the front cover
+                bottom: 2px; // Slightly inside the front cover
+                background: #ffffff;
+                border-radius: 2px 10px 10px 2px; // Slightly smaller radius to match inset
+                transform-origin: 0% 50%; // Match front cover transform-origin
+                z-index: 5;
+                transform: translateZ(4px) rotateY(0deg);
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.9s;
             }
             
-            // Front cover (visible by default in closed state)
+            // Layer 1: Front cover (what user sees initially)
             .front-cover {
                 position: absolute;
                 inset: 0;
@@ -308,15 +283,13 @@
                     #262626;
                 border-radius: 4px 12px 12px 4px;
                 transform-origin: 0% 50%;
-                transform: translateZ(3px) rotateY(0deg); // Further reduced
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 6;
+                transform: translateZ(5px) rotateY(0deg);
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.9s;
                 box-shadow: 
                     0 3px 6px rgba(0, 0, 0, 0.2),
                     0 1px 3px rgba(0, 0, 0, 0.15),
                     inset 0 1px 0 rgba(255, 255, 255, 0.03);
-                display: block !important;
-                opacity: 1 !important;
-                visibility: visible !important;
                 
                 &::before {
                     content: 'LEUCHTTURM1917';
@@ -354,45 +327,26 @@
         &:hover .notebook {
             transform: scale(0.85) translateX(15%) !important; // Shift right as it opens
             
-            .front-cover-backing {
-                transform: translateZ(2.8px) rotateY(-150deg);
-                transition-duration: 1.8s;
-                transition-delay: 0.1s;
-            }
-            
+            // Layer 1: Front cover - swaps to z-index 5 later in animation
             .front-cover {
-                transform: translateZ(3px) rotateY(-150deg);
-                transition-duration: 1.8s;
-                transition-delay: 0.1s;
+                transform: translateZ(5px) rotateY(-150deg);
+                z-index: 5; // Swap happens later to keep cover visible longer
+                // Delay z-index swap to 1.4s (near end of 1.8s animation)
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, z-index 0s linear 1.4s;
             }
             
+            // Layer 2: Inside front cover - swaps to z-index 6 at same time
+            // Must stay perfectly aligned with front cover throughout animation
             .inside-front-cover {
-                opacity: 1;
-                transform: translateZ(2.5px) rotateY(-140deg);
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, 
-                           opacity 0.1s ease-out 0s;
+                transform: translateZ(4px) rotateY(-150deg);
+                z-index: 6; // Swap happens at same time as front cover
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, z-index 0s linear 1.4s;
             }
             
-            .page-block {
-                opacity: 1;
-                transition-delay: 0.3s;
-            }
-            
-            .page-layer-2 {
-                opacity: 1;
-            }
-            
-            .inside-back-cover {
-                opacity: 1;
-            }
-            
-            .inside-pages {
-                opacity: 1;
-                
-                .paperclip-photo {
-                    opacity: 1;
-                    transform: rotate(-2deg) translateY(0);
-                }
+            // Layer 3: Left inner page - animates open
+            .inner-page-left {
+                transform: translateZ(3px) rotateY(-140deg);
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
             }
         }
         
@@ -406,16 +360,30 @@
             }
             
             .back-cover,
-            .front-cover {
+            .front-cover,
+            .inside-front-cover {
                 opacity: 1 !important;
                 display: block !important;
                 visibility: visible !important;
             }
             
-            // Delay the opacity fade-out for inside front cover
+            // Reset positions and z-indices on mouseout
+            .front-cover {
+                z-index: 6;
+                transform: translateZ(5px) rotateY(0deg);
+                // Delay swap to happen early in close animation (0.4s into 1.8s animation)
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.4s;
+            }
+            
             .inside-front-cover {
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0s, 
-                           opacity 0.8s ease-out 0.6s;
+                z-index: 5;
+                transform: translateZ(4px) rotateY(0deg);
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.4s;
+            }
+            
+            .inner-page-left {
+                transform: translateZ(3px) rotateY(0deg);
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
             }
         }
     }
@@ -433,7 +401,8 @@
             }
             
             .back-cover,
-            .front-cover {
+            .front-cover,
+            .inside-front-cover {
                 opacity: 1 !important;
                 display: block !important;
                 visibility: visible !important;
@@ -471,7 +440,8 @@
                 background: #ffffff; // Keep paper white in dark mode
             }
             
-            .inside-pages {
+            .inner-page-left,
+            .inner-page-right {
                 background-color: #fffef8; // Keep paper light
             }
         }
@@ -593,21 +563,19 @@
                     transform: scale(0.85) translateX(35%) !important;
                     transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
                     
-                    .front-cover-backing {
-                        transform: translateZ(2.8px) rotateY(-150deg) !important;
+                    .front-cover-inner {
+                        transform: translateZ(9px) rotateY(-150deg) !important;
                         transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
                     }
                     
                     .front-cover {
-                        transform: translateZ(3px) rotateY(-150deg) !important;
+                        transform: translateZ(10px) rotateY(-150deg) !important;
                         transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
                     }
                     
                     .inside-front-cover {
-                        opacity: 1 !important;
-                        transform: translateZ(2.5px) rotateY(-140deg) !important;
-                        transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, 
-                                   opacity 0.1s ease-out 0s;
+                        transform: translateZ(8px) rotateY(-140deg) !important;
+                        transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
                     }
                     
                     .page-block,
@@ -741,15 +709,17 @@
                     .notebook {
                         // Ensure closed state
                         .front-cover {
-                            transform: translateZ(3px) rotateY(0deg) !important;
+                            z-index: 6;
+                            transform: translateZ(5px) rotateY(0deg) !important;
                         }
                         
-                        .inside-front-cover,
-                        .page-block,
-                        .page-layer-2,
-                        .inside-back-cover,
-                        .inside-pages {
-                            opacity: 0 !important;
+                        .inside-front-cover {
+                            z-index: 5;
+                            transform: translateZ(4px) rotateY(0deg) !important;
+                        }
+                        
+                        .inner-page-left {
+                            transform: translateZ(3px) rotateY(0deg) !important;
                         }
                     }
                 }
@@ -766,46 +736,28 @@
                     .notebook {
                         transform: scale(0.9) translateX(12%) !important; // Adjusted for mobile
                         
-                        .front-cover-backing {
-                            transform: translateZ(2.8px) rotateY(-150deg);
-                            transition-duration: 0.8s; // Faster for mobile
-                            transition-delay: 0.05s; // Minimal delay
-                        }
-                        
+                        // Layer 1: Front cover - swaps to z-index 5 later in animation
                         .front-cover {
-                            transform: translateZ(3px) rotateY(-150deg);
-                            transition-duration: 0.8s; // Faster for mobile
-                            transition-delay: 0.05s; // Minimal delay
+                            transform: translateZ(5px) rotateY(-150deg);
+                            z-index: 5;
+                            // Delay z-index swap to 0.65s (near end of 0.8s animation)
+                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.05s, z-index 0s linear 0.65s;
                         }
                         
+                        // Layer 2: Inside front cover - swaps to z-index 6 at same time
                         .inside-front-cover {
-                            opacity: 1;
-                            transform: translateZ(2.5px) rotateY(-140deg);
-                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, 
-                                       opacity 0.1s ease-out 0s;
+                            transform: translateZ(4px) rotateY(-150deg);
+                            z-index: 6;
+                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.05s, z-index 0s linear 0.65s;
                         }
                         
-                        .page-block {
-                            opacity: 1;
-                            transition-delay: 0.15s; // Reduced delay
+                        // Layer 3: Left inner page - animates open
+                        .inner-page-left {
+                            transform: translateZ(3px) rotateY(-140deg);
+                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
                         }
                         
-                        .page-layer-2 {
-                            opacity: 1;
-                        }
-                        
-                        .inside-back-cover {
-                            opacity: 1;
-                        }
-                        
-                        .inside-pages {
-                            opacity: 1;
-                            
-                            .paperclip-photo {
-                                opacity: 1;
-                                transform: rotate(-2deg) translateY(0);
-                            }
-                        }
+                        // Pages stay visible
                     }
                     
                     // When active notebook starts closing, maintain open state initially
@@ -823,21 +775,23 @@
                         // Animate back to closed state
                         transform: scale(0.9) translateX(0) !important;
                         
-                        .front-cover-backing {
-                            transform: translateZ(2.8px) rotateY(0deg) !important;
-                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                        }
-                        
+                        // Reset z-indices while closing - swap early in animation
                         .front-cover {
-                            transform: translateZ(3px) rotateY(0deg) !important;
-                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                            z-index: 6;
+                            transform: translateZ(5px) rotateY(0deg) !important;
+                            // Swap happens early in close animation (0.15s into 0.8s)
+                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.15s;
                         }
                         
                         .inside-front-cover {
-                            opacity: 0 !important;
-                            transform: translateZ(2.5px) rotateY(0deg) !important;
-                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                                       opacity 0.4s ease-out 0.4s !important;
+                            z-index: 5;
+                            transform: translateZ(4px) rotateY(0deg) !important;
+                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.15s;
+                        }
+                        
+                        .inner-page-left {
+                            transform: translateZ(3px) rotateY(0deg) !important;
+                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
                         }
                         
                         .page-block,
@@ -910,7 +864,5 @@
 .portfolio-item--featured.notebook-loaded .notebook {
     opacity: 1 !important;
     visibility: visible !important;
-    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                opacity 0.6s ease-out,
-                visibility 0s linear;
+    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
 }

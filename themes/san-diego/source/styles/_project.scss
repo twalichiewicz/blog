@@ -1932,6 +1932,14 @@ body.loaded .project-wrapper {
 
 // Project edge wrapper specific overrides - flat white styling for video overlay
 .project-edge-wrapper .above-fold-content-wrapper .project-title {
+	// Company and title in flex column
+	.project-company-title {
+		display: flex;
+		flex-direction: column; // Changed to column layout
+		align-items: flex-start;
+		gap: 0; // No gap as requested
+	}
+	
 	h2 {
 		color: #ffffff !important;
 		text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
@@ -1939,12 +1947,16 @@ body.loaded .project-wrapper {
 		background-clip: unset;
 		-webkit-background-clip: unset;
 		-webkit-text-fill-color: unset;
+		font-size: clamp(1.5rem, 4vw, 42px); // Cap at 42px
+		margin: 0; // No additional padding
+		padding: 0; // No additional padding
 	}
 	
 	.project-category {
 		font-size: 9px;
 		color: rgba(255, 255, 255, 0.8);
 		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+		margin-bottom: 0.5rem; // Space between company and title
 	}
 
 	.project-byline {
@@ -1953,13 +1965,45 @@ body.loaded .project-wrapper {
 		color: rgba(255, 255, 255, 0.85);
 		margin-top: 1.5rem;
 		margin-left: 0;
-		max-width: 50ch;
+		max-width: 450px; // Updated max-width as requested
 		font-weight: 400;
 		text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+		position: relative;
+		
+		// Truncate text after 3 lines
+		&.truncated {
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 		
 		@media (prefers-color-scheme: light) {
 			color: rgba(255, 255, 255, 0.9);
 			text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
+		}
+	}
+	
+	// More button for long bylines
+	.byline-more-button {
+		display: inline-block;
+		margin-top: 0.5rem;
+		padding: 4px 12px;
+		font-size: 12px;
+		font-weight: 500;
+		color: rgba(255, 255, 255, 0.9);
+		background: rgba(255, 255, 255, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 4px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+		
+		&:hover {
+			background: rgba(255, 255, 255, 0.15);
+			border-color: rgba(255, 255, 255, 0.3);
+			transform: translateY(-1px);
 		}
 	}
 }
@@ -1967,20 +2011,15 @@ body.loaded .project-wrapper {
 // Project impact stats in above-fold content - clean minimal design
 .project-edge-wrapper .above-fold-content-wrapper .project-impact-stats {
 	display: flex;
-	gap: clamp(1rem, 3vw, 2rem); // Reduce gap for mobile
+	gap: 12px; // Fixed 12px gap as requested
 	margin-top: 0; // Remove margin - using flexbox gap instead
 	align-items: flex-start;
-	
-	// Mobile-specific gap reduction
-	@media (max-width: variables.$mobile-breakpoint) {
-		gap: 0.75rem;
-	}
 	
 	.stat-item-wrapper .stat-item {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		padding: 16px 20px;
+		padding: 6px 9px; // Updated padding as requested
 		border: 1px solid rgba(255, 255, 255, 0.25);
 		border-radius: 8px;
 		position: relative;
@@ -2017,8 +2056,8 @@ body.loaded .project-wrapper {
 		}
 		
 		.stat-value {
-			font-size: 30px;
-			font-weight: 600;
+			font-size: 24px; // Updated font-size as requested
+			font-weight: 500; // Updated font-weight as requested
 			line-height: 1;
 			color: #ffffff;
 			margin-bottom: 0.25rem;
@@ -2043,13 +2082,9 @@ body.loaded .project-wrapper {
 	
 	// Responsive adjustments
 	@media (max-width: 768px) {
-		gap: clamp(1.5rem, 4vw, 2rem);
-		
 		.stat-item-wrapper .stat-item {
-			padding: 14px 18px;
-			
 			.stat-value {
-				font-size: clamp(1.5rem, 4vw, 2rem);
+				font-size: 20px; // Slightly smaller on mobile
 			}
 			
 			.stat-label {
@@ -2059,10 +2094,7 @@ body.loaded .project-wrapper {
 	}
 	
 	@media (max-width: 480px) {
-		gap: 1.5rem;
-		
 		.stat-item-wrapper .stat-item {
-			padding: 12px 16px;
 			
 			.stat-value {
 				font-size: clamp(1.25rem, 3.5vw, 1.75rem);
@@ -2079,6 +2111,9 @@ body.loaded .project-wrapper {
 .read-story-button-container {
 	margin-top: clamp(1rem, 2dvh, 1.5rem); // Reduce margin significantly
 	z-index: 10;
+	display: flex;
+	gap: 12px; // Space between buttons
+	align-items: center;
 	
 	// Mobile-specific margin reduction
 	@media (max-width: variables.$mobile-breakpoint) {
@@ -2213,6 +2248,38 @@ body.loaded .project-wrapper {
 				@include stat-label-base;
 			}
 		}
+	}
+}
+
+// Demo button - solid white with black text
+.demo-button {
+	background-color: white;
+	color: black;
+	border: 1px solid rgba(255, 255, 255, 0.9);
+	border-radius: 8px;
+	padding: 12px 24px;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	transition: all 0.2s ease;
+	text-decoration: none;
+	
+	svg {
+		width: 16px;
+		height: 16px;
+		fill: currentColor;
+	}
+	
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+	
+	&:active {
+		transform: translateY(0);
 	}
 }
 
@@ -3496,6 +3563,234 @@ body.loaded .project-wrapper {
 					background: color.scale(variables.$text-color-dark, $lightness: -10%);
 				}
 			}
+		}
+	}
+}
+
+// =============================================================================
+// DEMO MODE STYLES
+// =============================================================================
+
+// Demo mode active state
+body.demo-active {
+	.above-fold-content-wrapper {
+		transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+		
+		// Shrink the ::before overlay when demo is active
+		&::before {
+			top: -5dvh; // Shrink from -30dvh to -5dvh
+			backdrop-filter: blur(5px); // Reduce blur
+			-webkit-backdrop-filter: blur(5px);
+			background: linear-gradient(
+				180deg,
+				rgba(0, 0, 0, 0) 0%,
+				rgba(0, 0, 0, 0.05) 30%,
+				rgba(0, 0, 0, 0.2) 60%,
+				rgba(0, 0, 0, 0.4) 85%,
+				rgba(0, 0, 0, 0.6) 100%
+			);
+			transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+	}
+}
+
+// Demo mode for trailer hero
+.project-trailer-hero.demo-mode {
+	z-index: 20; // Bring to front
+	transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	
+	.trailer-content {
+		background: rgba(0, 0, 0, 0.95);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 40px;
+		
+		// Demo container styles
+		.demo-loading {
+			color: white;
+			font-size: 18px;
+			font-weight: 500;
+			text-align: center;
+		}
+		
+		.demo-prototype,
+		.demo-codesandbox,
+		.demo-figma {
+			width: 100%;
+			height: 100%;
+			max-width: 1400px;
+			max-height: 90vh;
+			margin: 0 auto;
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+			
+			iframe {
+				width: 100%;
+				height: 100%;
+				border: none;
+				border-radius: 12px;
+				background: white;
+			}
+		}
+	}
+}
+
+// Demo close button
+.demo-close-button {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 48px;
+	height: 48px;
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	z-index: 30;
+	
+	svg {
+		width: 24px;
+		height: 24px;
+		color: white;
+	}
+	
+	&:hover {
+		background: rgba(255, 255, 255, 0.2);
+		transform: scale(1.1);
+		border-color: rgba(255, 255, 255, 0.3);
+	}
+	
+	&:active {
+		transform: scale(0.95);
+	}
+}
+
+// Demo button pulsing animation
+.demo-button {
+	position: relative;
+	overflow: visible;
+	
+	&::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 100%;
+		height: 100%;
+		border-radius: 8px;
+		background: white;
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(1);
+		animation: demoPulse 2s infinite;
+		pointer-events: none;
+		z-index: -1;
+	}
+}
+
+@keyframes demoPulse {
+	0% {
+		opacity: 0.3;
+		transform: translate(-50%, -50%) scale(1);
+	}
+	50% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(1.3);
+	}
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(1.3);
+	}
+}
+
+// =============================================================================
+// BYLINE MODAL STYLES
+// =============================================================================
+
+// Modal overlay
+.byline-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.9);
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+	
+	&.active {
+		opacity: 1;
+		visibility: visible;
+		
+		.byline-modal-content {
+			transform: scale(1);
+		}
+	}
+}
+
+// Modal content
+.byline-modal-content {
+	background: rgba(20, 20, 20, 0.95);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 12px;
+	padding: 32px;
+	max-width: 600px;
+	width: 100%;
+	max-height: 80vh;
+	overflow-y: auto;
+	position: relative;
+	transform: scale(0.9);
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+	
+	.modal-byline-text {
+		font-size: 18px;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.9);
+		margin: 0;
+		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	}
+	
+	.modal-close-button {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		width: 32px;
+		height: 32px;
+		background: rgba(255, 255, 255, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		
+		svg {
+			width: 16px;
+			height: 16px;
+			color: rgba(255, 255, 255, 0.8);
+		}
+		
+		&:hover {
+			background: rgba(255, 255, 255, 0.15);
+			border-color: rgba(255, 255, 255, 0.3);
+			transform: scale(1.1);
 		}
 	}
 }

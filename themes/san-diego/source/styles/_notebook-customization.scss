@@ -170,8 +170,15 @@ $notebook-brands: (
                     }
                 }
                 
-                // Apply color to front cover backing
-                .front-cover-backing {
+                // Apply color to inside of front cover
+                .inside-front-cover {
+                    // Always white for inside pages
+                    background: #ffffff !important;
+                }
+                
+                
+                // Apply color to spine
+                .spine {
                     @if type-of($color-value) == 'color' {
                         background: $color-value !important;
                     } @else {

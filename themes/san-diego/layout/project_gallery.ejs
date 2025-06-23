@@ -37,8 +37,8 @@
 				</div>
 			</div>
 			<!-- Project trailer (single hero item) -->
-			<div class="project-trailer-hero<%= !page.trailer && !page.cover_image ? ' hidden' : '' %>">
-				<div class="trailer-content">
+			<div class="project-trailer-hero<%= !page.trailer && !page.cover_image ? ' hidden' : '' %>" id="trailerHero">
+				<div class="trailer-content" id="trailerContent">
 						<% if (page.trailer) { %>
 							<% 
 							// Handle both string and object trailer configurations
@@ -121,8 +121,10 @@
 			<div class="above-fold-content-wrapper">
 				<!-- Project title -->
 				<div class="project-title">
-					<span class="project-category"><%- page.company %></span>
-					<h2><%- page.title %></h2>
+					<div class="project-company-title">
+						<span class="project-category"><%- page.company %></span>
+						<h2><%- page.title %></h2>
+					</div>
 					<% if (page.byline) { %>
 						<p class="project-byline"><%- page.byline %></p>
 					<% } %>
@@ -144,6 +146,21 @@
 				
 				<!-- Read full story button -->
 				<div class="read-story-button-container">
+					<% if (page.demo_url || page.demo_component) { %>
+						<button class="demo-button" 
+							<% if (page.demo_url) { %>
+								data-demo-url="<%- page.demo_url %>"
+							<% } %>
+							<% if (page.demo_component) { %>
+								data-demo-component="<%- page.demo_component %>"
+							<% } %>
+							id="demoBtn">
+							Demo
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M8 5v14l11-7z"/>
+							</svg>
+						</button>
+					<% } %>
 					<button class="read-story-button" id="scrollToFullStoryBtn">
 						Read the full story below
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -286,6 +303,135 @@
 					window.scrollToFullStory();
 				};
 			}
+			
+			// Set up demo button
+			const demoButton = document.getElementById('demoBtn');
+			if (demoButton) {
+				setupDemoButton(demoButton);
+			}
+		}
+		
+		// Demo button functionality
+		function setupDemoButton(button) {
+			button.addEventListener('click', function(e) {
+				e.preventDefault();
+				
+				const demoUrl = button.getAttribute('data-demo-url');
+				const demoComponent = button.getAttribute('data-demo-component');
+				
+				if (demoUrl) {
+					// External demo - open in new window
+					window.open(demoUrl, '_blank', 'noopener,noreferrer');
+				} else if (demoComponent) {
+					// Dynamic component demo
+					loadDemoComponent(demoComponent);
+				}
+			});
+		}
+		
+		// Load demo component
+		function loadDemoComponent(componentName) {
+			const trailerHero = document.getElementById('trailerHero');
+			const trailerContent = document.getElementById('trailerContent');
+			const aboveFold = document.querySelector('.above-fold-content-wrapper');
+			
+			if (!trailerHero || !trailerContent) return;
+			
+			// Add demo-active class to trigger animations
+			document.body.classList.add('demo-active');
+			trailerHero.classList.add('demo-mode');
+			
+			// Clear existing content
+			trailerContent.innerHTML = '<div class="demo-loading">Loading demo...</div>';
+			
+			// Load the demo component
+			switch(componentName) {
+				case 'interactive-prototype':
+					loadInteractivePrototype(trailerContent);
+					break;
+				case 'code-sandbox':
+					loadCodeSandbox(trailerContent);
+					break;
+				case 'figma-embed':
+					loadFigmaEmbed(trailerContent);
+					break;
+				default:
+					// Try to load custom component
+					loadCustomComponent(componentName, trailerContent);
+			}
+			
+			// Add close button
+			addDemoCloseButton(trailerHero);
+		}
+		
+		// Example demo loaders
+		function loadInteractivePrototype(container) {
+			container.innerHTML = `
+				<div class="demo-prototype">
+					<iframe src="/demos/prototype.html" 
+						frameborder="0" 
+						allowfullscreen
+						title="Interactive Prototype">
+					</iframe>
+				</div>
+			`;
+		}
+		
+		function loadCodeSandbox(container) {
+			container.innerHTML = `
+				<div class="demo-codesandbox">
+					<iframe src="https://codesandbox.io/embed/" 
+						frameborder="0" 
+						allowfullscreen
+						sandbox="allow-scripts allow-same-origin"
+						title="Code Sandbox Demo">
+					</iframe>
+				</div>
+			`;
+		}
+		
+		function loadFigmaEmbed(container) {
+			container.innerHTML = `
+				<div class="demo-figma">
+					<iframe src="https://www.figma.com/embed" 
+						frameborder="0" 
+						allowfullscreen
+						title="Figma Prototype">
+					</iframe>
+				</div>
+			`;
+		}
+		
+		function loadCustomComponent(name, container) {
+			// Dispatch event for custom handlers
+			const event = new CustomEvent('loadDemoComponent', {
+				detail: { name, container }
+			});
+			document.dispatchEvent(event);
+		}
+		
+		function addDemoCloseButton(trailerHero) {
+			const closeBtn = document.createElement('button');
+			closeBtn.className = 'demo-close-button';
+			closeBtn.innerHTML = `
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+					<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+				</svg>
+			`;
+			closeBtn.onclick = closeDemoMode;
+			trailerHero.appendChild(closeBtn);
+		}
+		
+		function closeDemoMode() {
+			document.body.classList.remove('demo-active');
+			const trailerHero = document.getElementById('trailerHero');
+			const closeBtn = trailerHero.querySelector('.demo-close-button');
+			
+			if (closeBtn) closeBtn.remove();
+			trailerHero.classList.remove('demo-mode');
+			
+			// Reload original content
+			location.reload();
 		}
 
 		// Set up immediately or on DOM ready
