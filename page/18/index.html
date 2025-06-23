@@ -96,6 +96,8 @@
   <script src="/js/sound-effects.js"></script>
   <script src="/js/screen-wipe-transition.js"></script>
   <script src="/js/external-links.js"></script>
+  <script src="/js/project-demo.js"></script>
+  <script src="/js/byline-modal.js"></script>
   <script src="/js/portfolio-parallax-optimized.js"></script>
   <script src="/js/portfolio-filters.js"></script>
   <script src="/js/portfolio-filters-dropdown.js"></script>
@@ -287,6 +289,8 @@
   <script src="/js/sound-effects.js"></script>
   <script src="/js/screen-wipe-transition.js"></script>
   <script src="/js/external-links.js"></script>
+  <script src="/js/project-demo.js"></script>
+  <script src="/js/byline-modal.js"></script>
   <script src="/js/portfolio-parallax-optimized.js"></script>
   <script src="/js/portfolio-filters.js"></script>
   <script src="/js/portfolio-filters-dropdown.js"></script>
@@ -5237,32 +5241,6 @@ init().catch(error => console.error('Fatal error:', error));
                 <div id="projectsContent" class="portfolio-list portfolio-list--redesigned" role="tabpanel" aria-labelledby="tab-portfolio">
     <div class="column-title portfolio-column-title">Projects</div>
     
-    <!-- Filters dropdown -->
-    <div class="portfolio-controls">
-        <div class="filters-dropdown-container">
-            <button class="posts-only-button filters-toggle" id="filtersToggle">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="filter-icon" style="width: 14px; height: 14px; margin-right: 4px; vertical-align: -2px;">
-                    <path d="M3 6h18M7 12h10M9 18h6"/>
-                </svg>
-                Filters
-                <span class="filter-count-pip" style="display: none;">0</span>
-            </button>
-            
-            <div class="filters-dropdown" id="filtersDropdown" style="display: none;">
-                <div class="filters-dropdown-content">
-                    <div class="filters-dropdown-header">
-                        <h3>Filter Projects</h3>
-                        <button class="filter-clear">Clear all</button>
-                    </div>
-                    
-                    <div class="portfolio-filters">
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
     
         
         
@@ -5294,34 +5272,28 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         <img class="notebook-pages-custom" src="/2024/06/01/Overlay/notebook-pages.png" alt="Overlay notebook pages" / loading="lazy" decoding="async">
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                          
@@ -5335,22 +5307,16 @@ init().catch(error => console.error('Fatal error:', error));
                                              style="--sticker-2-color: #000; --sticker-2-bg: #fdd835; --sticker-2-rotate: 3deg; --sticker-2-shape: rounded;"
                                              
                                          
-                                             data-sticker-3="2024"
-                                             
-                                         
-                                             data-sticker-4="★"
+                                             data-sticker-3="★"
                                              
                                          
                                      
                                 >
                                     
                                         
-                                            <span class="sticker-3" data-sticker-3="2024" 
-                                                  style="--sticker-3-color: #fff; --sticker-3-bg: #00c853; --sticker-3-rotate: -2deg; --sticker-3-shape: rounded; --sticker-3-bottom: 150px; --sticker-3-left: 50%;"></span>
+                                            <span class="sticker-3" data-sticker-3="★" 
+                                                  style="--sticker-3-color: #fff; --sticker-3-bg: #ff1744; --sticker-3-rotate: 15deg; --sticker-3-shape: circle;"></span>
                                         
-                                        
-                                            <span class="sticker-4" data-sticker-4="★" 
-                                                  style="--sticker-4-color: #fff; --sticker-4-bg: #ff1744; --sticker-4-rotate: 15deg; --sticker-4-shape: circle;"></span>
                                         
                                     
                                 </div>
@@ -5388,20 +5354,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2020/01/19/Self-Service-Publishing-Pipeline/sspp_cover.jpg" alt="Self-Service Publishing Pipeline notebook pages" / loading="lazy" decoding="async">
@@ -5409,15 +5369,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -5457,20 +5417,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2019/10/19/Self-Service-Hub-Provisioning/selfServiceHubProv_000.png" alt="Self-Service Hub Provisioning notebook pages" / loading="lazy" decoding="async">
@@ -5478,15 +5432,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -5526,20 +5480,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2019/09/13/Common-Project-Administration/cpa-preview.png" alt="Common Project Administration notebook pages" / loading="lazy" decoding="async">
@@ -5547,15 +5495,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -5595,20 +5543,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2019/08/30/Custom-Install/customInstall-preview.png" alt="Custom Install notebook pages" / loading="lazy" decoding="async">
@@ -5616,15 +5558,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -5664,20 +5606,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg" alt="Desktop install platform notebook pages" / loading="lazy" decoding="async">
@@ -5685,15 +5621,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -5733,20 +5669,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2018/04/05/foreground/foreground-preview.jpg" alt="Design system notebook pages" / loading="lazy" decoding="async">
@@ -5754,15 +5684,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -5802,20 +5732,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2017/12/30/Common-Cents-Lab-2016-Research-Report/ccl-2016-report-preview.png" alt="2016 Research Report notebook pages" / loading="lazy" decoding="async">
@@ -5823,15 +5747,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -5871,20 +5795,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2017/09/11/Human-Interest-brand/humanInterestBrand-preview.png" alt="Company rebranding notebook pages" / loading="lazy" decoding="async">
@@ -5892,15 +5810,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -5940,20 +5858,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2017/07/30/Human-Interest-distribution-automation/distribution_000.png" alt="Distribution automation notebook pages" / loading="lazy" decoding="async">
@@ -5961,15 +5873,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -6009,20 +5921,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2017/02/01/Human-Interest-401-k-product/cutawayPreviewUpdated.jpg" alt="401(k) Administration product notebook pages" / loading="lazy" decoding="async">
@@ -6030,15 +5936,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -6078,20 +5984,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2017/01/01/End-user-experience/lyra-preview.png" alt="End-user experience notebook pages" / loading="lazy" decoding="async">
@@ -6099,15 +5999,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -6147,20 +6047,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2017/01/01/Human-Interest-onboarding-tool/onboarding-tool_poster.jpg" alt="Onboarding tool notebook pages" / loading="lazy" decoding="async">
@@ -6168,15 +6062,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -6216,20 +6110,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2016/01/01/Common-Cents-Lab-brand/cclBrand-preview.png" alt="Common Cents Lab brand notebook pages" / loading="lazy" decoding="async">
@@ -6237,15 +6125,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -6285,20 +6173,14 @@ init().catch(error => console.error('Fatal error:', error));
                         
                         
                             <div class="notebook">
-                                <!-- Back cover (base layer) -->
+                                <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 
-                                <!-- Page block (middle pages) -->
-                                <div class="page-block"></div>
-                                
-                                <!-- Additional page layer for thickness -->
-                                <div class="page-layer-2"></div>
-                                
-                                <!-- Inside back cover -->
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content (right page) -->
-                                <div class="inside-pages">
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
                                     
                                         
                                             <img class="notebook-pages-custom" src="/2014/01/01/Miti-Health/mitiHealth-preview.jpg" alt="Remote pharmacy notebook pages" / loading="lazy" decoding="async">
@@ -6306,15 +6188,15 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                 </div>
                                 
-                                <!-- Inside front cover (left page) -->
-                                <div class="inside-front-cover">
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
                                     
                                 </div>
                                 
-                                <!-- Front cover backing (prevents sticker bleed-through) -->
-                                <div class="front-cover-backing"></div>
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
                                 
-                                <!-- Front cover (top layer) -->
+                                <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
                                 >
@@ -6375,9 +6257,9 @@ init().catch(error => console.error('Fatal error:', error));
                                 </h3>
                                 <div class="portfolio-more-projects">
                                     
-                                        <div class="portfolio-more-project">401(k) operations tool</div>
-                                    
                                         <div class="portfolio-more-project">401(k) end user product</div>
+                                    
+                                        <div class="portfolio-more-project">401(k) operations tool</div>
                                     
                                 </div>
                             </div>
