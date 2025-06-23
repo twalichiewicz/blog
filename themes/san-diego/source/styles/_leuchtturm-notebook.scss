@@ -91,14 +91,14 @@
                         1px 0 2px rgba(0, 0, 0, 0.05);
                 }
                 
-                // Bottom edge pages - trimmed and reduced
+                // Bottom edge pages - removed to prevent overflow
                 &::after {
                     content: '';
                     position: absolute;
                     bottom: 2px;
                     left: 4%;
                     right: 12px;
-                    height: 4px; // Thinner to reduce visibility
+                    height: 0; // Remove bottom edge effect
                     background: 
                         linear-gradient(to bottom,
                             #d8d8d8 0%,
