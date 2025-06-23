@@ -69,14 +69,14 @@
                 transform: translateZ(0);
                 overflow: hidden; // Clip any overflow that might cause red edges
                 
-                // Page edges (right side) - thinner
+                // Page edges (right side) - trimmed to stay under layers
                 &::before {
                     content: '';
                     position: absolute;
-                    top: 4px;
-                    bottom: 4px;
-                    right: 4px; // Inset from edge to prevent overflow
-                    width: 6px; // Slightly thinner to fit within bounds
+                    top: 8px;
+                    bottom: 8px;
+                    right: 8px; // More inset to stay under right page
+                    width: 4px; // Thinner to reduce visibility
                     background: 
                         repeating-linear-gradient(
                             to bottom,
@@ -85,20 +85,20 @@
                             #d8d8d8 0.5px,
                             #d8d8d8 1px
                         );
-                    border-radius: 0 8px 8px 0; // Slightly smaller radius
+                    border-radius: 0 6px 6px 0; // Smaller radius
                     box-shadow: 
                         inset -2px 0 4px rgba(0, 0, 0, 0.1),
                         1px 0 2px rgba(0, 0, 0, 0.05);
                 }
                 
-                // Bottom edge pages - thinner
+                // Bottom edge pages - trimmed and reduced
                 &::after {
                     content: '';
                     position: absolute;
-                    bottom: 0;
-                    left: 2%;
-                    right: 10px;
-                    height: 6px; // Reduced thickness
+                    bottom: 2px;
+                    left: 4%;
+                    right: 12px;
+                    height: 4px; // Thinner to reduce visibility
                     background: 
                         linear-gradient(to bottom,
                             #d8d8d8 0%,
@@ -106,7 +106,7 @@
                             #e8e8e8 100%);
                     box-shadow: 
                         0 1px 3px rgba(0, 0, 0, 0.1);
-                    border-radius: 0 0 8px 3px;
+                    border-radius: 0 0 6px 2px;
                 }
             }
             
