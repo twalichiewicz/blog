@@ -27,6 +27,29 @@ stats:
     label: "Desktop Apps"
   - value: "POC"
     label: "Stage Reached"
+notebook_color: crimson
+notebook_texture: pristine
+notebook_brand: leuchtturm
+notebook_pages: notebook-pages.png
+notebook_stickers:
+  - text: "AI/ML"
+    bg: "#1a237e"
+    color: "#fff"
+    rotate: "-12deg"
+  - text: "POC"
+    bg: "#fdd835"
+    color: "#000"
+    shape: "rounded"
+  - text: "2024"
+    bg: "#00c853"
+    color: "#fff"
+    left: "50%"
+    bottom: "150px"
+  - text: "★"
+    shape: "circle"
+    bg: "#ff1744"
+    color: "#fff"
+    rotate: "15deg"
 ---
 
 ## The Problem: Isolated Product Silos

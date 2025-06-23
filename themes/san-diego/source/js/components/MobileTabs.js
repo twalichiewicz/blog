@@ -401,6 +401,18 @@ export default class MobileTabs {
 			if (window.initializeProjectToggle) {
 				window.initializeProjectToggle();
 			}
+			
+			// Dispatch portfolio-loaded event to trigger carousel initialization
+			setTimeout(() => {
+				console.log('[MobileTabs] Dispatching portfolio-loaded event');
+				document.dispatchEvent(new Event('portfolio-loaded'));
+				
+				// Also check if carousel needs position restoration
+				if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
+					console.log('[MobileTabs] Triggering carousel reinitialization');
+					window._notebookCarousel.reinitialize();
+				}
+			}, 50);
 		}
 	}
 

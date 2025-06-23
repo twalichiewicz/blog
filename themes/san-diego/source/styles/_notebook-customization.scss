@@ -1,0 +1,400 @@
+@use 'variables';
+@use 'sass:color';
+@use 'sass:map';
+
+// Notebook Customization Framework
+// =================================
+// This framework allows customization of individual notebook covers through
+// data attributes on the portfolio items.
+
+// Color Palette for Notebook Covers
+$notebook-colors: (
+    // Classic colors
+    'black': #262626,
+    'charcoal': #1a1a1a,
+    'navy': #1e3a5f,
+    'emerald': #0d4f3c,
+    'berry': #5d1e3f,
+    'crimson': #dc143c,
+    'sage': #4a5445,
+    'ochre': #8b6914,
+    'rust': #8b3a1f,
+    
+    // Modern colors
+    'nordic-blue': #2e5266,
+    'forest': #1b3b36,
+    'copper': #b87333,
+    'wine': #722f37,
+    'slate': #434c5e,
+    'olive': #3d4f2f,
+    'plum': #4b294b,
+    'tobacco': #6f4e37,
+    
+    // Special editions
+    'gold': linear-gradient(135deg, #d4af37 0%, #f9e79f 50%, #d4af37 100%),
+    'silver': linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 50%, #c0c0c0 100%),
+    'rose-gold': linear-gradient(135deg, #e0b0a0 0%, #f4d7cc 50%, #e0b0a0 100%)
+);
+
+// Texture Overlays
+$notebook-textures: (
+    'pristine': none,
+    'worn': url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='worn'%3E%3CfeTurbulence baseFrequency='0.02' numOctaves='3' /%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23worn)' /%3E%3C/svg%3E"),
+    'scratched': url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath d='M10,20 L90,80 M20,10 L80,90 M5,50 L95,50' stroke='rgba(255,255,255,0.03)' stroke-width='0.5'/%3E%3C/svg%3E"),
+    'weathered': radial-gradient(circle at 20% 80%, rgba(0,0,0,0.1) 0%, transparent 50%),
+    'stained': radial-gradient(ellipse at 70% 30%, rgba(139,69,19,0.05) 0%, transparent 40%)
+);
+
+// Brand Styles
+$notebook-brands: (
+    'leuchtturm': (
+        'text': 'LEUCHTTURM1917',
+        'font-size': 6.5px,
+        'letter-spacing': 1.5px,
+        'font-weight': 300
+    ),
+    'moleskine': (
+        'text': 'MOLESKINE',
+        'font-size': 5px,
+        'letter-spacing': 2px,
+        'font-weight': 400
+    ),
+    'field-notes': (
+        'text': 'FIELD NOTES',
+        'font-size': 5.5px,
+        'letter-spacing': 1px,
+        'font-weight': 600
+    ),
+    'rhodia': (
+        'text': 'Rhodia',
+        'font-size': 7px,
+        'letter-spacing': 0.5px,
+        'font-weight': 400,
+        'font-style': italic
+    ),
+    'custom': (
+        // Will use data-notebook-brand-text attribute
+        'font-size': 6px,
+        'letter-spacing': 1px,
+        'font-weight': 400
+    )
+);
+
+// Enhanced Sticker Styles
+@mixin notebook-sticker($content, $color: #fff, $bg: #000, $rotate: 0deg, $shape: 'rectangle') {
+    content: $content;
+    position: absolute;
+    padding: 6px 14px; // Larger padding
+    background: $bg;
+    color: $color;
+    font-size: 11px; // Larger font
+    font-weight: 700; // Bolder
+    transform: rotate($rotate);
+    border: 3px solid #fff; // White border like real stickers
+    box-shadow: 
+        0 2px 8px rgba(0,0,0,0.25), // More pronounced shadow
+        0 1px 4px rgba(0,0,0,0.15),
+        inset 0 -1px 0 rgba(0,0,0,0.1); // Subtle depth
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    
+    @if $shape == 'circle' {
+        border-radius: 50%;
+        width: 50px; // Larger circle
+        height: 50px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        line-height: 1;
+        font-size: 10px; // Slightly smaller for circles
+    } @else if $shape == 'rounded' {
+        border-radius: 20px; // More rounded
+    } @else {
+        border-radius: 4px; // Slightly rounded corners
+    }
+}
+
+// Apply customizations based on data attributes
+.portfolio-item-wrapper {
+    // Color customization
+    @each $color-name, $color-value in $notebook-colors {
+        &[data-notebook-color="#{$color-name}"] {
+            .notebook {
+                .front-cover {
+                    @if type-of($color-value) == 'color' {
+                        background: 
+                            // Keep elastic band
+                            linear-gradient(to right,
+                                transparent 0%,
+                                transparent calc(100% - 20px),
+                                rgba(0, 0, 0, 0.15) calc(100% - 20px),
+                                rgba(0, 0, 0, 0.25) calc(100% - 17px),
+                                rgba(0, 0, 0, 0.15) calc(100% - 14px),
+                                transparent calc(100% - 14px)
+                            ),
+                            // Subtle highlights
+                            linear-gradient(145deg, 
+                                rgba(255, 255, 255, 0.04) 0%, 
+                                transparent 35%),
+                            radial-gradient(ellipse at 70% 30%, 
+                                rgba(255, 255, 255, 0.02) 0%, 
+                                transparent 65%),
+                            $color-value !important;
+                    } @else {
+                        // For gradients (special editions)
+                        background: 
+                            linear-gradient(to right,
+                                transparent 0%,
+                                transparent calc(100% - 20px),
+                                rgba(0, 0, 0, 0.15) calc(100% - 20px),
+                                rgba(0, 0, 0, 0.25) calc(100% - 17px),
+                                rgba(0, 0, 0, 0.15) calc(100% - 14px),
+                                transparent calc(100% - 14px)
+                            ),
+                            $color-value !important;
+                    }
+                }
+                
+                .back-cover {
+                    @if type-of($color-value) == 'color' {
+                        background: 
+                            radial-gradient(ellipse at 30% 40%, rgba(0, 0, 0, 0.02), transparent 70%),
+                            $color-value !important;
+                    } @else {
+                        // For gradients (special editions)
+                        background: $color-value !important;
+                    }
+                }
+                
+                // Apply color to front cover backing
+                .front-cover-backing {
+                    @if type-of($color-value) == 'color' {
+                        background: $color-value !important;
+                    } @else {
+                        // For gradients, use the first color
+                        background: #262626 !important; // Fallback
+                    }
+                }
+            }
+        }
+    }
+    
+    // Texture overlay
+    @each $texture-name, $texture-value in $notebook-textures {
+        &[data-notebook-texture="#{$texture-name}"] {
+            .notebook .front-cover::after {
+                @if $texture-value != none {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background: $texture-value;
+                    pointer-events: none;
+                    border-radius: 4px 12px 12px 4px;
+                }
+            }
+        }
+    }
+    
+    // Brand customization
+    @each $brand-name, $brand-styles in $notebook-brands {
+        &[data-notebook-brand="#{$brand-name}"] {
+            .notebook .front-cover::before {
+                @if $brand-name == 'custom' {
+                    content: attr(data-notebook-brand-text);
+                } @else {
+                    content: map.get($brand-styles, 'text');
+                }
+                font-size: map.get($brand-styles, 'font-size');
+                letter-spacing: map.get($brand-styles, 'letter-spacing');
+                font-weight: map.get($brand-styles, 'font-weight');
+                @if map.has-key($brand-styles, 'font-style') {
+                    font-style: map.get($brand-styles, 'font-style');
+                }
+            }
+        }
+    }
+    
+    // Adjust brand text color for lighter notebook colors
+    &[data-notebook-color="crimson"],
+    &[data-notebook-color="rust"],
+    &[data-notebook-color="wine"],
+    &[data-notebook-color="copper"],
+    &[data-notebook-color="ochre"],
+    &[data-notebook-color="gold"],
+    &[data-notebook-color="silver"],
+    &[data-notebook-color="rose-gold"] {
+        .notebook .front-cover::before {
+            color: rgba(0, 0, 0, 0.15); // Dark text for light backgrounds
+        }
+    }
+    
+    // Enhanced Sticker System - up to 4 stickers
+    &[data-notebook-stickers] {
+        .notebook .front-cover {
+            // Create additional pseudo-elements for more stickers
+            position: relative;
+            
+            // Sticker 1: Default top right
+            &[data-sticker-1]::before {
+                @include notebook-sticker(
+                    attr(data-sticker-1),
+                    var(--sticker-1-color, #fff),
+                    var(--sticker-1-bg, #ff4444),
+                    var(--sticker-1-rotate, -5deg),
+                    var(--sticker-1-shape, 'rectangle')
+                );
+                top: var(--sticker-1-top, 20px); // More spacing
+                right: var(--sticker-1-right, 20px);
+                left: var(--sticker-1-left, auto);
+                bottom: var(--sticker-1-bottom, auto);
+                transform: translateX(0) rotate(var(--sticker-1-rotate, -5deg));
+            }
+            
+            // Sticker 2: Default bottom left
+            &[data-sticker-2]::after {
+                @include notebook-sticker(
+                    attr(data-sticker-2),
+                    var(--sticker-2-color, #000),
+                    var(--sticker-2-bg, #ffeb3b),
+                    var(--sticker-2-rotate, 3deg),
+                    var(--sticker-2-shape, 'rectangle')
+                );
+                top: var(--sticker-2-top, auto);
+                right: var(--sticker-2-right, auto);
+                left: var(--sticker-2-left, 25px); // More spacing
+                bottom: var(--sticker-2-bottom, 55px); // Lower position
+                width: auto;
+                height: auto;
+                background-image: none;
+                transform: rotate(var(--sticker-2-rotate, 3deg));
+            }
+        }
+        
+        // Stickers 3 & 4 use child elements
+        .notebook .front-cover {
+            // Sticker 3: Default center
+            .sticker-3[data-sticker-3]::after {
+                @include notebook-sticker(
+                    attr(data-sticker-3),
+                    var(--sticker-3-color, #fff),
+                    var(--sticker-3-bg, #4CAF50),
+                    var(--sticker-3-rotate, -2deg),
+                    var(--sticker-3-shape, 'rounded')
+                );
+                top: var(--sticker-3-top, 50%);
+                right: var(--sticker-3-right, auto);
+                left: var(--sticker-3-left, 50%);
+                bottom: var(--sticker-3-bottom, auto);
+                transform: translate(-50%, -50%) rotate(var(--sticker-3-rotate, -2deg));
+            }
+            
+            // Sticker 4: Default bottom right
+            .sticker-4[data-sticker-4]::after {
+                @include notebook-sticker(
+                    attr(data-sticker-4),
+                    var(--sticker-4-color, #fff),
+                    var(--sticker-4-bg, #9C27B0),
+                    var(--sticker-4-rotate, 8deg),
+                    var(--sticker-4-shape, 'circle')
+                );
+                top: var(--sticker-4-top, auto);
+                right: var(--sticker-4-right, 30px); // More spacing
+                left: var(--sticker-4-left, auto);
+                bottom: var(--sticker-4-bottom, 100px); // Higher to avoid overlap
+                transform: rotate(var(--sticker-4-rotate, 8deg));
+            }
+        }
+    }
+    
+    // Special effects
+    &[data-notebook-effect="holographic"] {
+        .notebook .front-cover {
+            background-image: 
+                linear-gradient(45deg, 
+                    transparent 30%, 
+                    rgba(255,0,255,0.1) 35%,
+                    rgba(0,255,255,0.1) 40%,
+                    transparent 45%),
+                var(--notebook-bg);
+            background-size: 200% 200%;
+            animation: holographic 3s ease-in-out infinite;
+        }
+    }
+    
+    &[data-notebook-effect="metallic"] {
+        .notebook .front-cover {
+            background-image: 
+                radial-gradient(circle at 30% 40%, 
+                    rgba(255,255,255,0.2) 0%, 
+                    transparent 50%),
+                linear-gradient(135deg,
+                    rgba(255,255,255,0.1) 0%,
+                    transparent 20%,
+                    transparent 80%,
+                    rgba(0,0,0,0.1) 100%),
+                var(--notebook-bg);
+        }
+    }
+}
+
+// Animations
+@keyframes holographic {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+// Dark mode adjustments
+@media (prefers-color-scheme: dark) {
+    .portfolio-item-wrapper {
+        // Ensure custom colors work in dark mode
+        @each $color-name, $color-value in $notebook-colors {
+            &[data-notebook-color="#{$color-name}"] {
+                .notebook {
+                    .front-cover::before,
+                    .back-cover::before {
+                        // Adjust brand text visibility based on background darkness
+                        @if type-of($color-value) == 'color' {
+                            @if color.channel($color-value, "lightness", $space: hsl) < 30% {
+                                color: rgba(255, 255, 255, 0.15);
+                            } @else {
+                                color: rgba(0, 0, 0, 0.15);
+                            }
+                        } @else {
+                            // For gradients, use a safe default
+                            color: rgba(255, 255, 255, 0.15);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Utility classes for quick customization
+.notebook-pristine {
+    --notebook-texture: none;
+}
+
+.notebook-vintage {
+    --notebook-color: tobacco;
+    --notebook-texture: weathered;
+    --notebook-brand: moleskine;
+}
+
+.notebook-tech {
+    --notebook-color: nordic-blue;
+    --notebook-texture: pristine;
+    --notebook-brand: leuchtturm;
+    --notebook-effect: metallic;
+}
+
+.notebook-creative {
+    --notebook-color: berry;
+    --notebook-texture: worn;
+    --notebook-brand: rhodia;
+}

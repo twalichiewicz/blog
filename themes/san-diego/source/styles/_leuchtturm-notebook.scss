@@ -3,38 +3,51 @@
 
 // Leuchtturm notebook styles for portfolio items
 .portfolio-featured-grid {
+    // Force grid to respect fixed item sizes
+    grid-auto-rows: auto !important; // Let rows expand based on content
+    align-items: start !important; // Align items to top of their cells
+    
     .portfolio-item-wrapper {
-        // Proper Leuchtturm notebook aspect ratio (slightly taller)
-        aspect-ratio: 5 / 7 !important; // More accurate notebook proportions
-        max-width: 220px !important;
-        width: 100%;
+        // Container should expand to fit content
+        width: auto !important;
         height: auto !important;
-        min-height: 300px !important;
+        min-width: 220px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         margin: 0 auto;
         
         .portfolio-item--featured {
-            height: 100% !important;
-            width: 100% !important;
+            // Fixed dimensions for the notebook itself
+            width: 220px !important;
+            height: 308px !important;
+            min-width: 220px !important;
+            min-height: 308px !important;
+            max-width: 220px !important;
+            max-height: 308px !important;
             background: transparent !important;
             border: none !important;
             box-shadow: none !important;
             overflow: visible !important;
-            position: relative;
+            position: relative; // Back to relative for proper flow
+            margin-bottom: 0; // No margin
             transform: none !important;
             
             .notebook {
             position: absolute;
-            top: 8%;
-            left: 12%;
-            right: 12%;
-            bottom: 8%;
+            top: 5%;
+            left: 10%;
+            right: 10%;
+            bottom: 5%;
             transform-style: preserve-3d;
             perspective: 2000px;
             display: block !important;
-            opacity: 1 !important;
-            visibility: visible !important;
+            opacity: 0;
+            visibility: hidden;
             transform: scale(0.85) translateX(0) !important;
-            transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.6s ease-out,
+                        visibility 0s linear 0.6s;
             
             // All notebook elements
             * {
@@ -155,8 +168,21 @@
                 transition: opacity 0.8s ease-out 0.8s;
                 box-shadow: 
                     0 1px 2px rgba(0, 0, 0, 0.05);
+                overflow: hidden; // Ensure custom image doesn't overflow
                 
-                // Photo with paperclip
+                // Custom notebook pages image (full coverage)
+                .notebook-pages-custom {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 3px 10px 10px 3px;
+                    display: block;
+                }
+                
+                // Photo with paperclip (preserved for future use)
                 .paperclip-photo {
                     position: absolute;
                     top: 35px;
@@ -197,10 +223,15 @@
                         transform: rotate(10deg);
                         z-index: 2;
                     }
+                    
+                    // Placeholder state (hidden)
+                    &.paperclip-placeholder {
+                        display: none;
+                    }
                 }
             }
             
-            // Inside front cover - plain white paper
+            // Inside front cover - plain white paper (left page)
             .inside-front-cover {
                 position: absolute;
                 inset: 0;
@@ -212,6 +243,20 @@
                 opacity: 0;
                 box-shadow: 
                     inset 0 0 10px rgba(0, 0, 0, 0.02);
+                overflow: hidden; // Ensure custom image doesn't overflow
+                
+                // Custom left page image
+                .notebook-page-left-custom {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 4px 12px 12px 4px;
+                    display: block;
+                }
+                
                 // Add subtle left edge to prevent complete disappearance
                 &::after {
                     content: '';
@@ -221,7 +266,23 @@
                     bottom: 0;
                     width: 2px;
                     background: linear-gradient(to right, rgba(0, 0, 0, 0.05), transparent);
+                    z-index: 1; // Above custom image
                 }
+            }
+            
+            // Front cover backing layer (prevents sticker bleed-through)
+            .front-cover-backing {
+                position: absolute;
+                inset: 0;
+                background: #262626; // Solid color, no transparency
+                border-radius: 4px 12px 12px 4px;
+                transform-origin: 0% 50%;
+                transform: translateZ(2.8px) rotateY(0deg); // Slightly behind front-cover
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+                // Add thickness effect
+                box-shadow: 
+                    -1px 0 2px rgba(0, 0, 0, 0.3),
+                    -2px 0 4px rgba(0, 0, 0, 0.2);
             }
             
             // Front cover (visible by default in closed state)
@@ -286,28 +347,35 @@
                     border-radius: 4px 0 0 4px;
                 }
             }
+            }
         }
         
         // Hover state - smooth notebook opening with shift
         &:hover .notebook {
             transform: scale(0.85) translateX(15%) !important; // Shift right as it opens
             
+            .front-cover-backing {
+                transform: translateZ(2.8px) rotateY(-150deg);
+                transition-duration: 1.8s;
+                transition-delay: 0.1s;
+            }
+            
             .front-cover {
                 transform: translateZ(3px) rotateY(-150deg);
                 transition-duration: 1.8s;
-                transition-delay: 0.3s;
+                transition-delay: 0.1s;
             }
             
             .inside-front-cover {
                 opacity: 1;
                 transform: translateZ(2.5px) rotateY(-140deg);
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s, 
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, 
                            opacity 0.1s ease-out 0s;
             }
             
             .page-block {
                 opacity: 1;
-                transition-delay: 0.5s;
+                transition-delay: 0.3s;
             }
             
             .page-layer-2 {
@@ -350,7 +418,6 @@
                            opacity 0.8s ease-out 0.6s;
             }
         }
-        
     }
     
     // Ensure notebooks are always visible for ALL featured items
@@ -371,15 +438,24 @@
                 display: block !important;
                 visibility: visible !important;
             }
-            }
-        }
-        
-        // Prevent any parent transforms from affecting our notebooks
-        .portfolio-item-wrapper &,
-        & {
-            transform: none !important;
         }
     }
+    
+    // Ensure portfolio-info appears as caption below notebook
+    .portfolio-info {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        text-align: center;
+        padding: 0 10px;
+    }
+    
+    // Prevent any parent transforms from affecting our notebooks
+    .portfolio-item-wrapper &,
+    & {
+        transform: none !important;
+    }
+}
 
 // Dark mode adjustments
 @media (prefers-color-scheme: dark) {
@@ -404,17 +480,53 @@
 
 // Mobile responsive
 @media (max-width: 768px) {
+    // Default mobile layout to prevent vertical stacking
+    .portfolio-featured-grid {
+        // Apply flex layout by default on mobile
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 20px;
+        padding: 20px 20px 40px 20px;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        grid-template-columns: none !important;
+        align-items: center;
+        min-height: 220px;
+        
+        // Add centering spacers
+        &::before,
+        &::after {
+            content: '';
+            flex: 0 0 calc(50vw - 100px);
+            height: 1px;
+        }
+    }
+    
     .portfolio-featured-grid .portfolio-item-wrapper {
-        aspect-ratio: 5 / 7 !important;
-        max-width: 160px !important;
+        // Flex properties to ensure horizontal layout
+        flex: 0 0 auto !important;
+        scroll-snap-align: center;
+        
+        aspect-ratio: 122 / 166 !important;
+        width: 122px !important;
+        height: 166px !important; // Enforce fixed height
+        
+        .portfolio-item--featured {
+            height: 166px !important; // Override any other height
+            width: 122px !important;
+        }
         
         .portfolio-item--featured.parallax-active {
             .notebook {
-                top: 6%;
-                left: 10%;
-                right: 10%;
-                bottom: 6%;
-                transform: scale(0.85) translateX(0) !important;
+                top: 5%; // Adjusted for better fit
+                left: 5%;
+                right: 5%;
+                bottom: 5%;
+                transform: scale(0.9) translateX(0) !important; // Slightly larger scale
+                width: auto !important;
+                height: auto !important;
                 
                 .inside-pages .paperclip-photo {
                     width: 55px;
@@ -435,4 +547,370 @@
         }
     }
 }
+
+// Carousel state management for mobile
+@media (max-width: 768px) {
+    .notebook-carousel-mobile {
+        .portfolio-item-wrapper {
+            // Remove hover effects by default on mobile
+            &:hover .notebook {
+                transform: scale(0.85) translateX(0) !important;
+                
+                .front-cover {
+                    transform: translateZ(3px) rotateY(0deg) !important;
+                }
+                
+                .inside-front-cover,
+                .page-block,
+                .page-layer-2,
+                .inside-back-cover,
+                .inside-pages,
+                .paperclip-photo {
+                    opacity: 0 !important;
+                }
+            }
+            
+            // Default state for all notebooks - ensure smooth transitions
+            .notebook {
+                transform: scale(0.85) translateX(0) !important;
+                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            
+            // Inactive notebooks stay dimmed
+            &.carousel-inactive {
+                opacity: 0.6;
+                transform: translateX(0) !important; // Reset position
+                transition: opacity 0.3s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            
+            // Active notebook shows the opening animation (what was hover)
+            &.carousel-active {
+                opacity: 1;
+                
+                .notebook {
+                    // Combine scale and translate in one transform for smooth animation
+                    // Move further right (35% instead of 15%) to keep centered when open
+                    transform: scale(0.85) translateX(35%) !important;
+                    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+                    
+                    .front-cover-backing {
+                        transform: translateZ(2.8px) rotateY(-150deg) !important;
+                        transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+                    }
+                    
+                    .front-cover {
+                        transform: translateZ(3px) rotateY(-150deg) !important;
+                        transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+                    }
+                    
+                    .inside-front-cover {
+                        opacity: 1 !important;
+                        transform: translateZ(2.5px) rotateY(-140deg) !important;
+                        transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, 
+                                   opacity 0.1s ease-out 0s;
+                    }
+                    
+                    .page-block,
+                    .page-layer-2,
+                    .inside-back-cover,
+                    .inside-pages {
+                        opacity: 1 !important;
+                        transition-delay: 0.3s;
+                    }
+                    
+                    .paperclip-photo {
+                        opacity: 1 !important;
+                        transform: rotate(-2deg) translateY(0) !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Mobile carousel specific styles for portfolio-featured-grid
+@media (max-width: 768px) {
+    // Fix for white borders on actual mobile devices
+    .portfolio-list,
+    .portfolio-list--redesigned {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        padding: 0;
+        overflow: hidden;
+    }
+    
+    // When notebook carousel is active, the projectsContent needs to be scrollable
+    #projectsContent.has-notebook-carousel {
+        position: relative;
+        height: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        
+        // This ensures the portfolio-more-section is included in the scroll
+        display: flex;
+        flex-direction: column;
+    }
+    
+    // Alternative: Apply styles directly when carousel is active
+    .portfolio-featured-grid.notebook-carousel-mobile {
+        // Container setup for horizontal scrolling
+        display: flex !important;
+        flex-direction: row; // Horizontal layout
+        gap: 20px;
+        padding: 20px 20px 40px 20px; // More bottom padding
+        margin-bottom: 0 !important;
+        width: 100%;
+        height: auto; // Let height be determined by content
+        min-height: 220px; // Minimum to show notebooks properly
+        align-items: center; // Center notebooks vertically
+        justify-content: flex-start;
+        position: relative;
+        grid-template-columns: none !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        background: transparent !important; // Remove any background
+            
+        // Performance optimizations
+        contain: layout style;
+        overscroll-behavior-x: contain;
+        will-change: scroll-position;
+        
+        // Add pseudo elements to center first/last items
+        &::before,
+        &::after {
+            content: '';
+            flex: 0 0 calc(50vw - 100px);
+            height: 1px;
+        }
+            
+        .portfolio-item-wrapper {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            margin: 0;
+            pointer-events: auto;
+            touch-action: manipulation;
+            will-change: opacity, transform; // Hint browser about upcoming changes
+            transform: translateZ(0); // Force GPU acceleration
+            backface-visibility: hidden; // Prevent flicker
+            
+            // Container should expand to fit content  
+            width: auto !important;
+            height: auto !important;
+            min-width: 122px !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 0 0 auto; // Never grow or shrink
+            
+            // Prevent any transform on wrapper
+            transform: none !important;
+                
+                .portfolio-item--featured {
+                    height: 166px !important;
+                    width: 122px !important;
+                    margin-bottom: 0 !important;
+                    
+                    // Speed up transitions on mobile
+                    .notebook {
+                        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                    }
+                }
+                
+                // Remove hover effects on mobile
+                &:hover {
+                    transform: none !important;
+                    
+                    .notebook {
+                        transform: scale(0.9) translateX(0) !important;
+                    }
+                }
+                
+                // Dimmed state
+                &.carousel-dimmed {
+                    opacity: 0.6;
+                    
+                    // Ensure portfolio-info participates in opacity transition
+                    .portfolio-info {
+                        // Use transform to ensure it's on same compositing layer
+                        transform: translateZ(0);
+                    }
+                    
+                    .notebook {
+                        // Ensure closed state
+                        .front-cover {
+                            transform: translateZ(3px) rotateY(0deg) !important;
+                        }
+                        
+                        .inside-front-cover,
+                        .page-block,
+                        .page-layer-2,
+                        .inside-back-cover,
+                        .inside-pages {
+                            opacity: 0 !important;
+                        }
+                    }
+                }
+                
+                // Active state (centered and stationary)
+                &.carousel-active {
+                    opacity: 1;
+                    
+                    // Ensure portfolio-info is on same layer
+                    .portfolio-info {
+                        transform: translateZ(0);
+                    }
+                    
+                    .notebook {
+                        transform: scale(0.9) translateX(12%) !important; // Adjusted for mobile
+                        
+                        .front-cover-backing {
+                            transform: translateZ(2.8px) rotateY(-150deg);
+                            transition-duration: 0.8s; // Faster for mobile
+                            transition-delay: 0.05s; // Minimal delay
+                        }
+                        
+                        .front-cover {
+                            transform: translateZ(3px) rotateY(-150deg);
+                            transition-duration: 0.8s; // Faster for mobile
+                            transition-delay: 0.05s; // Minimal delay
+                        }
+                        
+                        .inside-front-cover {
+                            opacity: 1;
+                            transform: translateZ(2.5px) rotateY(-140deg);
+                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, 
+                                       opacity 0.1s ease-out 0s;
+                        }
+                        
+                        .page-block {
+                            opacity: 1;
+                            transition-delay: 0.15s; // Reduced delay
+                        }
+                        
+                        .page-layer-2 {
+                            opacity: 1;
+                        }
+                        
+                        .inside-back-cover {
+                            opacity: 1;
+                        }
+                        
+                        .inside-pages {
+                            opacity: 1;
+                            
+                            .paperclip-photo {
+                                opacity: 1;
+                                transform: rotate(-2deg) translateY(0);
+                            }
+                        }
+                    }
+                    
+                    // When active notebook starts closing, maintain open state initially
+                    &.carousel-closing {
+                        .notebook {
+                            // Start from open position
+                            transform: scale(0.9) translateX(12%) !important;
+                        }
+                    }
+            }
+            
+                // Closing state - smooth closing animation
+                &.carousel-closing {
+                    .notebook {
+                        // Animate back to closed state
+                        transform: scale(0.9) translateX(0) !important;
+                        
+                        .front-cover-backing {
+                            transform: translateZ(2.8px) rotateY(0deg) !important;
+                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                        }
+                        
+                        .front-cover {
+                            transform: translateZ(3px) rotateY(0deg) !important;
+                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                        }
+                        
+                        .inside-front-cover {
+                            opacity: 0 !important;
+                            transform: translateZ(2.5px) rotateY(0deg) !important;
+                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                                       opacity 0.4s ease-out 0.4s !important;
+                        }
+                        
+                        .page-block,
+                        .page-layer-2,
+                        .inside-back-cover,
+                        .inside-pages {
+                            opacity: 0 !important;
+                            transition: opacity 0.3s ease-out !important;
+                        }
+                        
+                        .paperclip-photo {
+                            opacity: 0 !important;
+                            transform: rotate(-2deg) translateY(10px) !important;
+                            transition: all 0.3s ease-out !important;
+                        }
+                    }
+                }
+        }
+        
+        // Fix portfolio-info width in carousel context
+        .portfolio-info {
+            width: 240px !important; // Wider for better text layout on iPhone
+            margin: 0 auto !important; // Center horizontally
+            padding: 8px 10px 0 10px !important; // More horizontal padding
+            text-align: center;
+            display: block;
+            
+            .portfolio-title {
+                font-size: 14px !important; // Slightly larger
+                line-height: 1.3 !important;
+            }
+            
+            .portfolio-byline {
+                font-size: 11px !important; // Slightly larger
+                line-height: 1.3 !important;
+                opacity: 0.8;
+            }
+        }
+    }
+    
+    // Fallback for browsers without :has() support
+    body.notebook-carousel-active {
+        #projectsContent {
+            position: relative;
+            height: auto;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    
+    // Ensure portfolio-more-section is visible in carousel mode
+    .portfolio-featured-grid.notebook-carousel-mobile ~ .portfolio-more-section {
+        display: block !important;
+        visibility: visible !important;
+        margin-top: 40px;
+        padding: 0;
+        flex-shrink: 0;
+        
+        .portfolio-more-content {
+            margin: 0 16px; // Add margin instead of padding on parent
+        }
+    }
+}
+
+// Show notebook when content is loaded
+.portfolio-item--featured.notebook-content-loaded .notebook,
+.portfolio-item--featured.notebook-loaded .notebook {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.6s ease-out,
+                visibility 0s linear;
 }

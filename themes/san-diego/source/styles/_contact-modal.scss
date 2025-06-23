@@ -12,6 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px;
     
     &-backdrop {
         position: absolute;
@@ -41,8 +42,9 @@
         flex-direction: column;
         
         @media (max-width: 768px) {
-            width: calc(100% - 40px);
-            margin: 0 20px;
+            width: calc(100% - 32px);
+            margin: 0 16px;
+            max-width: 340px;
         }
     }
     
@@ -50,14 +52,15 @@
     &-header {
         display: flex;
         width: 100%;
-        padding: 9px;
+        padding: 12px;
         justify-content: flex-start;
         align-items: center;
         position: relative;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        flex-shrink: 0;
         
         @media (max-width: 768px) {
-            padding: 9px;
+            padding: 10px;
         }
     }
     
@@ -141,11 +144,14 @@
         align-items: center;
         
         @media (max-width: 768px) {
-            flex-direction: row;
-            gap: 8px;
-            padding: 16px;
-            flex: 1;
-            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 9px;
+            padding: 12px;
+            max-height: unset;
+            justify-items: center;
+            width: auto;
         }
         
         .contact-option {
@@ -164,7 +170,11 @@
             text-align: center;
             
             @media (max-width: 768px) {
-                padding: 16px 8px;
+                padding: 16px 12px;
+                width: 100%;
+                height: 100%;
+                min-height: 110px;
+                margin: 0;
             }
             
             &:hover {
@@ -184,10 +194,11 @@
                 margin-bottom: 12px;
                 filter: brightness(0.9);
                 transition: filter 0.2s ease;
+                object-fit: contain;
                 
                 @media (max-width: 768px) {
-                    width: 40px;
-                    height: 40px;
+                    width: 36px;
+                    height: 36px;
                     margin-bottom: 8px;
                 }
             }
@@ -217,7 +228,8 @@
                 font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
                 
                 @media (max-width: 768px) {
-                    display: none;
+                    font-size: 10px;
+                    margin-top: 2px;
                 }
             }
             

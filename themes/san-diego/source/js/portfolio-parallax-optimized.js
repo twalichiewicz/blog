@@ -48,6 +48,12 @@
         return;
       }
       
+      // Skip if in mobile carousel mode
+      if (portfolioGrid && portfolioGrid.classList.contains('notebook-carousel-mobile')) {
+        console.log('Skipping parallax - mobile carousel mode active');
+        return;
+      }
+      
       if (portfolioItem) {
         // Force GPU layer creation
         portfolioItem.style.willChange = 'transform';

@@ -127,6 +127,17 @@
 
 		// Dark mode styles moved to _theme-modes.scss
 	}
+	
+	// Mobile-specific content-inner-wrapper styles
+	@media (max-width: variables.$mobile-breakpoint) {
+		.blog-content .content-inner-wrapper {
+			border-left: none;
+			border-right: none;
+			border-bottom: none;
+			margin-bottom: 0;
+			border-radius: 0;
+		}
+	}
 
 	// Base styles for blog posts
 	.blog-posts {

@@ -1,0 +1,213 @@
+@use 'variables';
+@use 'sass:color';
+
+// Notebook Skeleton UI
+// Provides loading placeholders while notebooks render
+
+// Skeleton animation
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+// Skeleton mixin
+@mixin skeleton-base {
+    background: linear-gradient(
+        90deg,
+        rgba(variables.$text-color, 0.06) 0%,
+        rgba(variables.$text-color, 0.02) 20%,
+        rgba(variables.$text-color, 0.06) 40%,
+        rgba(variables.$text-color, 0.06) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 2s infinite ease-in-out;
+}
+
+// Skeleton container
+.notebook-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 0; // Behind the actual notebook
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    padding-top: 5%; // Match notebook positioning
+}
+
+// Skeleton notebook shape
+.skeleton-notebook {
+    width: 220px;
+    height: 308px;
+    border-radius: 4px 12px 12px 4px;
+    @include skeleton-base;
+    position: relative;
+    
+    // Simulate elastic band
+    &::after {
+        content: '';
+        position: absolute;
+        right: 14px;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+        background: rgba(variables.$text-color, 0.08);
+        border-radius: 3px;
+    }
+    
+    // Dark mode adjustments
+    @media (prefers-color-scheme: dark) {
+        background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.03) 0%,
+            rgba(255, 255, 255, 0.01) 20%,
+            rgba(255, 255, 255, 0.03) 40%,
+            rgba(255, 255, 255, 0.03) 100%
+        );
+        background-size: 200% 100%;
+        animation: skeleton-shimmer 2s infinite ease-in-out;
+        
+        &::after {
+            background: rgba(255, 255, 255, 0.04);
+        }
+    }
+}
+
+// Skeleton info section
+.skeleton-info {
+    width: 100%;
+    padding: 12px 20px 0;
+    text-align: center;
+}
+
+// Skeleton title
+.skeleton-title {
+    height: 18px;
+    width: 70%;
+    margin: 0 auto 8px;
+    border-radius: 4px;
+    @include skeleton-base;
+    
+    @media (prefers-color-scheme: dark) {
+        background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.06) 0%,
+            rgba(255, 255, 255, 0.02) 20%,
+            rgba(255, 255, 255, 0.06) 40%,
+            rgba(255, 255, 255, 0.06) 100%
+        );
+        background-size: 200% 100%;
+        animation: skeleton-shimmer 2s infinite ease-in-out;
+    }
+}
+
+// Skeleton byline
+.skeleton-byline {
+    height: 14px;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 3px;
+    @include skeleton-base;
+    
+    @media (prefers-color-scheme: dark) {
+        background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.04) 0%,
+            rgba(255, 255, 255, 0.01) 20%,
+            rgba(255, 255, 255, 0.04) 40%,
+            rgba(255, 255, 255, 0.04) 100%
+        );
+        background-size: 200% 100%;
+        animation: skeleton-shimmer 2s infinite ease-in-out;
+    }
+}
+
+// Mobile adjustments
+@media (max-width: 768px) {
+    .skeleton-notebook {
+        width: 122px;
+        height: 166px;
+        border-radius: 3px 8px 8px 3px;
+        
+        &::after {
+            right: 8px;
+            width: 4px;
+        }
+    }
+    
+    .skeleton-info {
+        padding: 8px 10px 0;
+    }
+    
+    .skeleton-title {
+        height: 14px;
+        margin-bottom: 6px;
+    }
+    
+    .skeleton-byline {
+        height: 11px;
+    }
+}
+
+// Hide skeleton when notebook is visible
+.portfolio-item--featured {
+    position: relative;
+    
+    // Notebook covers the skeleton when it loads
+    .notebook {
+        position: relative;
+        z-index: 1;
+    }
+    
+    // Hide skeleton only when notebook content is actually loaded and visible
+    &.notebook-content-loaded .notebook-skeleton {
+        opacity: 0;
+        animation: none;
+        pointer-events: none;
+        // Match the notebook fade-in timing
+        transition: opacity 0.6s ease-out 0.3s;
+    }
+    
+    // Alternative: Hide when notebook images are loaded
+    &:has(.notebook-pages-custom[src]:not([src=""])) .notebook-skeleton,
+    &:has(.notebook-page-left-custom[src]:not([src=""])) .notebook-skeleton {
+        opacity: 0;
+        animation: none;
+        pointer-events: none;
+        transition: opacity 0.6s ease-out 0.3s;
+    }
+    
+    // Fallback for browsers without :has() - use the JS-added class
+    &.notebook-loaded .notebook-skeleton {
+        opacity: 0;
+        animation: none;
+        pointer-events: none;
+    }
+}
+
+// For carousel items, ensure proper layering
+.portfolio-item-wrapper {
+    .portfolio-item--featured {
+        position: relative;
+        
+        // Notebook should always be above skeleton
+        .notebook {
+            position: absolute;
+            z-index: 2;
+        }
+        
+        .notebook-skeleton {
+            position: absolute;
+            z-index: 1;
+        }
+    }
+}

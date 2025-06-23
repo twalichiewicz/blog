@@ -264,6 +264,14 @@ document.addEventListener('DOMContentLoaded', function () {
 				// Remove has-dynamic-content class to restore scroll behavior
 				blogContentElement.classList.remove('has-dynamic-content');
 				
+				// Clean up any existing carousel before resetting content
+				if (window._notebookCarouselDebug && window._notebookCarouselDebug.getInstance) {
+					const existingCarousel = window._notebookCarouselDebug.getInstance();
+					if (existingCarousel && existingCarousel.destroy) {
+						existingCarousel.destroy();
+					}
+				}
+				
 				blogContentElement.innerHTML = initialBlogContentHTML;
 				initializeBlogFeatures(blogContentElement);
 				initializeLinkListeners(blogContentElement);
@@ -285,6 +293,9 @@ document.addEventListener('DOMContentLoaded', function () {
 				
 				// Set the appropriate tab based on content type
 				if (isReturningFromProject) {
+					// Mark as back navigation for carousel
+					sessionStorage.setItem('portfolio-back-navigation', 'true');
+					
 					// Coming from a project, show portfolio tab
 					setTimeout(() => {
 						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
@@ -292,6 +303,16 @@ document.addEventListener('DOMContentLoaded', function () {
 						}
 						// Emit portfolio-loaded event for parallax initialization
 						window.dispatchEvent(new Event('portfolio-loaded'));
+						
+						// Also emit contentLoaded to ensure carousel initializes
+						document.dispatchEvent(new Event('contentLoaded'));
+						
+						// Give browser time to restore scroll, then check active notebook
+						setTimeout(() => {
+							if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
+								window._notebookCarousel.reinitialize();
+							}
+						}, 300); // Longer delay to ensure scroll restoration completes
 					}, 50);
 				} else {
 					// Coming from a blog post, show blog tab and clean URL
@@ -608,6 +629,29 @@ document.addEventListener('DOMContentLoaded', function () {
 						innerWrapper.style.opacity = '1';
 					}
 				}
+				
+				// Check if we're coming back from a project (portfolio was likely active)
+				const currentHistoryState = history.state;
+				const wasOnProject = window.location.pathname.includes('/20'); // Year-based URLs
+				
+				if (wasOnProject || (currentHistoryState && currentHistoryState.isProject)) {
+					// Mark as back navigation for carousel
+					sessionStorage.setItem('portfolio-back-navigation', 'true');
+					
+					// Emit events to trigger carousel re-initialization
+					setTimeout(() => {
+						document.dispatchEvent(new Event('contentLoaded'));
+						window.dispatchEvent(new Event('portfolio-loaded'));
+						
+						// Give browser time to restore scroll, then check active notebook
+						setTimeout(() => {
+							if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
+								window._notebookCarousel.reinitialize();
+							}
+						}, 300);
+					}, 100);
+				}
+				
 				return;
 			}
 			

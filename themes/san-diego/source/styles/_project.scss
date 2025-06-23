@@ -1815,7 +1815,7 @@ body.loaded .project-wrapper {
 	&::before {
 		content: '';
 		position: absolute;
-		top: 0;
+		top: -30dvh;
 		left: 0;
 		right: 0;
 		bottom: 0;
@@ -2522,7 +2522,7 @@ body.loaded .project-wrapper {
 		
 		@media (max-width: variables.$mobile-breakpoint) {
 			padding: 0 16px;
-			margin-bottom: 24px;
+			margin-bottom: 0;
 		}
 		
 		// Using the reusable posts-only-button class from components/_button.scss
@@ -2750,7 +2750,8 @@ body.loaded .project-wrapper {
 	// Featured projects grid
 	.portfolio-featured-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(3, minmax(220px, max-content));
+		justify-content: center; // Center the grid
 		gap: 32px;
 		margin-bottom: 80px;
 		padding: 0 48px;
@@ -2758,6 +2759,14 @@ body.loaded .project-wrapper {
 		@media (min-width: 1200px) {
 			gap: 40px;
 			padding: 0 64px;
+		}
+		
+		// Mobile carousel override
+		@media (max-width: 768px) {
+			&.notebook-carousel-mobile {
+				display: flex !important;
+				grid-template-columns: none;
+			}
 		}
 		
 		@media (min-width: 1400px) {
@@ -2772,9 +2781,11 @@ body.loaded .project-wrapper {
 		}
 		
 		@media (max-width: variables.$mobile-breakpoint) {
-			grid-template-columns: repeat(1, 1fr);
-			gap: 20px;
-			padding: 0 16px;
+			&:not(.notebook-carousel-mobile) {
+				grid-template-columns: repeat(1, 1fr);
+				gap: 20px;
+				padding: 0 16px;
+			}
 		}
 	}
 	
@@ -2783,11 +2794,15 @@ body.loaded .project-wrapper {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		width: max-content; // Only as wide as content
 		text-decoration: none;
 		transition: transform 0.2s ease;
 		
 		&:hover {
-			transform: translateY(-8px) scale(1.02);
+			// Only transform the featured item, not the wrapper
+			.portfolio-item--featured {
+				transform: translateY(-8px) scale(1.02);
+			}
 			
 			.portfolio-image {
 				transform: rotateY(calc(-10deg + var(--tilt-y) * 0.8)) rotateX(calc(3deg + var(--tilt-x) * 0.5));
@@ -3104,10 +3119,43 @@ body.loaded .project-wrapper {
 		}
 	}
 	
+	// Ensure portfolio-more-section works in portfolio-list context
+	.portfolio-list,
+	.portfolio-list--redesigned {
+		.portfolio-more-section {
+			// Clear any grid constraints
+			grid-column: 1 / -1;
+			width: 100%;
+			max-width: none;
+			// Padding is already set on the element itself
+		}
+	}
+	
 	// Even More Section
 	.portfolio-more-section {
 		margin-top: 120px;
 		position: relative;
+		grid-column: 1 / -1; // Span full grid width
+		width: 100%;
+		padding: 0; // Remove padding to allow background edge-to-edge
+		box-sizing: border-box;
+		
+		// Desktop - extend to edges of content area
+		@media (min-width: variables.$tablet-breakpoint) {
+			// Assuming projectsContent has padding of space-md (usually 32px)
+			margin-left: -32px;
+			margin-right: -32px;
+			width: calc(100% + 64px);
+		}
+		
+		// Mobile responsive margin
+		@media (max-width: variables.$mobile-breakpoint) {
+			margin-top: 80px;
+			padding: 0; // Ensure no padding on mobile
+			width: 100vw;
+			margin-left: calc(-50vw + 50%);
+			margin-right: calc(-50vw + 50%);
+		}
 		
 		// Gradient transition
 		.portfolio-more-transition {
@@ -3120,10 +3168,10 @@ body.loaded .project-wrapper {
 				rgba(0, 0, 0, 0.85) 90%,
 				rgba(0, 0, 0, 0.92) 100%
 			);
-			margin: 0 calc(-1 * var(--content-padding, 24px));
+			margin: 0; // No compensation needed now
 			
-			@media (min-width: variables.$tablet-breakpoint) {
-				margin: 0 calc(-1 * var(--content-padding, 48px));
+			@media (max-width: variables.$mobile-breakpoint) {
+				height: 150px;
 			}
 			
 			// Dark mode gradient
@@ -3142,8 +3190,9 @@ body.loaded .project-wrapper {
 		// Dark background content area
 		.portfolio-more-content {
 			background-color: rgba(0, 0, 0, 0.92);
-			margin: 0 calc(-1 * var(--content-padding, 24px));
-			padding: 60px 48px 80px;
+			margin: 0; // No compensation needed
+			padding: 60px 63px 80px; // Add the 15px that was on parent (48 + 15 = 63)
+			min-height: 300px; // Ensure minimum height
 			
 			// Dark mode background
 			@media (prefers-color-scheme: dark) {
@@ -3151,23 +3200,21 @@ body.loaded .project-wrapper {
 			}
 			
 			@media (min-width: 1200px) {
-				padding: 80px 64px 100px;
+				padding: 80px 79px 100px; // 64 + 15
 			}
 			
 			@media (min-width: 1400px) {
-				padding: 80px 80px 100px;
-			}
-			
-			@media (min-width: variables.$tablet-breakpoint) {
-				margin: 0 calc(-1 * var(--content-padding, 48px));
+				padding: 80px 95px 100px; // 80 + 15
 			}
 			
 			@media (max-width: variables.$tablet-breakpoint) {
-				padding: 60px 32px 80px;
+				padding: 60px 47px 80px; // 32 + 15
 			}
 			
 			@media (max-width: variables.$mobile-breakpoint) {
-				padding: 60px 16px 80px;
+				padding: 48px 16px calc(120px + env(safe-area-inset-bottom)); // Match device padding
+				margin: 0;
+				width: 100%;
 			}
 			
 			// Even in light mode, we want dark styling here

@@ -60,6 +60,7 @@
 				0 1px 1px rgb(255 255 255 / 90%),
 				0 -1px 1px rgb(0 0 0 / 20%);
 			letter-spacing: 0.02em;
+			transition: opacity 0.3s ease;
 		}
 
 		.profile-byline {
@@ -266,8 +267,13 @@
 /* Mobile Expandable Header Styles */
 @media screen and (max-width: variables.$mobile-breakpoint) {
 	.profile-header {
+		// Add transition for smooth padding changes
+		transition: padding-top 0.3s ease;
+		
 		.profile-photo-wrapper .profile-photo {
 			padding: 1px;
+			// Base transition for photo size changes
+			transition: all 0.3s ease;
 		}
 		
 		.mobile-compact-header {
@@ -277,6 +283,8 @@
 				padding: 3px 9px;
 				font-size: 11px;
 				margin-bottom: 3px;
+				// Base transition for opacity changes
+				transition: opacity 0.3s ease;
 				
 				.location-icon {
 					width: 10px;
@@ -291,6 +299,8 @@
 				color: variables.$text-color-secondary;
 				line-height: 1.5;
 				display: block;
+				// Base transition for opacity changes
+				transition: opacity 0.3s ease;
 			}
 		}
 		
@@ -665,12 +675,6 @@
 				.profile-byline {
 					color: variables.$text-color-secondary-dark;
 				}
-			}
-			
-			.mobile-buttons-container {
-				display: flex;
-				gap: 8px;
-				margin-top: 12px;
 			}
 			
 			.mobile-expand-button {

@@ -154,10 +154,21 @@
 		
 		.preview-cover-image {
 			height: 150px;
+			
+			// Specific override for Words tab
+			#postsContent & {
+				max-height: 90px !important;
+				height: 90px !important;
+				
+				img {
+					max-height: 90px !important;
+					height: 90px !important;
+				}
+			}
 		}
 		
 		.preview-content {
-			padding: 16px;
+			padding: 12px;
 			
 			.preview-title {
 				font-size: 18px;
@@ -166,6 +177,11 @@
 			.preview-excerpt {
 				font-size: 14px;
 				-webkit-line-clamp: 2; // Show only 2 lines on mobile
+				
+				// Specific override for Words page
+				#postsContent & {
+					font-size: 12px !important;
+				}
 			}
 			
 			.preview-metadata {
@@ -182,7 +198,7 @@
 		}
 		
 		.preview-content {
-			padding: 16px;
+			padding: 9px;
 			
 			.preview-title {
 				font-size: 18px;

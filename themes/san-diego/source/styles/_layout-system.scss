@@ -176,8 +176,16 @@ $layout-levels: (
         margin-top: 0;
         padding-top: 24px;
       }
+      
+    }
+    
+    // Override for mobile carousel - allow it to take full control
+    .notebook-carousel-mobile {
+      // Force parent containers to accommodate the carousel
+      position: relative;
     }
   }
+  
 }
 
 // Content width management
@@ -232,16 +240,7 @@ $layout-levels: (
   
   // Allow the portfolio redesign to extend full width
   .portfolio-list--redesigned {
-    // Reset padding for full-width sections
-    .portfolio-more-section {
-      margin-left: calc(-1 * var(--content-padding, 24px));
-      margin-right: calc(-1 * var(--content-padding, 24px));
-      
-      @media (min-width: variables.$tablet-breakpoint) {
-        margin-left: calc(-1 * var(--content-padding, 48px));
-        margin-right: calc(-1 * var(--content-padding, 48px));
-      }
-    }
+    // portfolio-more-section now handles its own padding
   }
 }
 

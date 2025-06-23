@@ -26,6 +26,44 @@ npm run optimize:images # Optimize images in source/_posts/
 npm run analyze        # Analyze build size
 ```
 
+## Process Management & Resource Cleanup
+
+### Cleaning Up Development Processes
+When switching between tasks or experiencing high CPU/memory usage, clean up orphaned processes:
+
+```bash
+# Check for running Node.js processes
+ps aux | grep node
+
+# Check for Hexo server processes
+ps aux | grep hexo
+
+# Kill specific process by PID
+kill -9 [PID]
+
+# Kill all Node.js processes (use with caution)
+pkill -f node
+
+# Check port 4000 usage (Hexo default)
+lsof -i :4000
+
+# Force kill process using port 4000
+kill -9 $(lsof -t -i:4000)
+```
+
+### Common Process Issues
+1. **Multiple Hexo servers**: Running `npm run server` multiple times without proper cleanup
+2. **Orphaned build processes**: Build commands that didn't complete properly
+3. **Watch processes**: File watchers from development tools that persist
+4. **Browser sync**: Multiple browser-sync instances from different sessions
+
+### Best Practices
+- Always use Ctrl+C to properly stop development servers
+- Check for running processes before starting new ones
+- Close terminal sessions cleanly
+- Use `npm run clean` before switching between major tasks
+- Monitor Activity Monitor (Mac) or Task Manager (Windows) for Node processes
+
 ## Architecture & Key Concepts
 
 ### Content Management
@@ -139,6 +177,34 @@ hexo new case-study "Study Title"
 - Link posts with `short: true` are rendered inline on the homepage
 - The script handles both mobile and desktop scrolling contexts
 
+## Notebook Customization Framework
+
+### Overview
+Portfolio projects can have customized notebook covers with different colors, textures, brands, effects, and stickers. This allows each project to have a unique visual identity that reflects its nature.
+
+### Customization Options
+- **Colors**: 16 preset colors from classic black to metallic gradients
+- **Textures**: pristine, worn, scratched, weathered, stained
+- **Brands**: Leuchtturm1917, Moleskine, Field Notes, Rhodia, or custom
+- **Effects**: holographic, metallic
+- **Stickers**: Up to 2 custom stickers with text, colors, and rotation
+
+### Implementation
+Add properties to portfolio post front matter:
+```yaml
+notebook_color: nordic-blue
+notebook_texture: worn
+notebook_brand: leuchtturm
+notebook_effect: metallic
+notebook_stickers:
+  - text: "SHIPPED"
+    color: "#fff"
+    bg: "#00c853"
+    rotate: "-3deg"
+```
+
+See `docs/notebook-customization-guide.md` for full documentation.
+
 ## Carousel & Spotlight Feature
 
 ### Overview
@@ -201,6 +267,43 @@ When opening spotlight mode:
 - **Issue**: Many scripts don't handle edge cases (missing elements, network failures)
 - **Impact**: Silent failures that are hard to debug
 - **Solution**: Add comprehensive error handling and user feedback
+
+## Recent Session Changes (Current)
+
+### 1. Screen Wipe Transition Direction Change
+- **Changed**: Transition animation from top/bottom sliding to left/right sliding
+- **Files Modified**: `_screen-wipe-transition.scss`
+- **Implementation**: Updated transform properties from `translateY` to `translateX`
+- **Panels**: Left panel slides from -100% to 0, right panel from 100% to 0
+
+### 2. Notebook Carousel Back Button Fix
+- **Issue**: Notebooks displayed vertically stacked when returning from project view
+- **Root Cause**: Carousel wasn't re-initializing properly on popstate event
+- **Solution**:
+  - Modified popstate handler to emit `contentLoaded` and `portfolio-loaded` events
+  - Added immediate class application for mobile devices
+  - CSS-first approach: Made horizontal flex layout default on mobile
+  - Removed initialization delays since CSS handles layout from start
+- **Files Modified**: 
+  - `blog.js` - Enhanced popstate handler
+  - `portfolio-notebook-carousel-clean.js` - Improved initialization
+  - `_leuchtturm-notebook.scss` - Default mobile flex layout
+
+### 3. Notebook Customization Framework
+- **Purpose**: Allow unique visual identity for each portfolio project
+- **Architecture**:
+  - Color system with 16 preset colors plus gradients
+  - Texture overlays (pristine, worn, scratched, weathered, stained)
+  - Brand customization (Leuchtturm, Moleskine, Field Notes, Rhodia, custom)
+  - Special effects (holographic, metallic)
+  - Sticker system (up to 2 custom stickers)
+- **Implementation**:
+  - Created `_notebook-customization.scss` with comprehensive SCSS maps
+  - Updated `portfolio-projects.ejs` to read customization from front matter
+  - Data attribute based styling system
+  - CSS custom properties for dynamic values
+- **Usage**: Add properties to portfolio post front matter
+- **Documentation**: Created comprehensive guide at `docs/notebook-customization-guide.md`
 
 ## Recent Front-End Improvements & Fixes (June 2025)
 
@@ -588,6 +691,62 @@ Custom commands available via `/project:`:
 3. **Root cause analysis**: Variable inheritance issues require tracing through SCSS compilation.
 4. **Pattern application**: Apply working patterns (like portfolio display) to similar problems.
 5. **Clear communication**: Document what was changed and why for future reference.
+
+### Debugging UI Layout Issues (Contact Modal Fix)
+When elements aren't displaying properly:
+1. **Look at screenshots carefully** - Visual issues often reveal the exact problem (height constraints, overflow, etc.)
+2. **Check parent containers first** - Look for max-height, overflow:hidden, or fixed dimensions
+3. **Think like DevTools** - What would you inspect first? Usually container constraints, not child layouts
+4. **Start simple** - Remove constraints (max-height: unset) and center items (justify-items: center) before complex grid properties
+5. **Trust user hints** - When user says "there is clearly a max-height", that's the immediate focus
+6. **Don't overcomplicate** - A 2x2 grid that won't display is usually a container issue, not a grid layout issue
+
+### Effective Working Pattern (June 2025)
+The user has noted that our recent working approach has been particularly effective:
+1. **Focused, specific changes**: Making targeted fixes without scope creep
+2. **Clear communication**: Explaining what's being changed and why
+3. **Build verification**: Always running `npm run build` after changes
+4. **Systematic approach**: Finding the root cause before implementing fixes
+5. **Mobile-first considerations**: Being thorough with mobile-specific styling needs
+6. **Edge-to-edge implementations**: Understanding padding redistribution patterns (moving from parent to child)
+7. **Clarification before action**: When finding unexpected implementations (e.g., transition already from top/bottom when user expected left/right), ask for clarification and thank the user for clarifying when they explain what they actually want
+This collaborative pattern of clear requests, focused implementation, and immediate verification has proven highly productive.
+
+### CSS-First Solutions for JavaScript Problems
+1. **Principle**: Many visual glitches can be prevented with CSS defaults rather than fixed with JavaScript
+2. **Example**: Notebook carousel vertical stacking issue
+   - Initial approach: Detect and fix stacking with JavaScript (reactive)
+   - Better approach: Apply flex layout by default in CSS (preventive)
+3. **Benefits**:
+   - No flash of incorrect layout
+   - Works immediately on page load
+   - More performant (no layout thrashing)
+   - Simpler code maintenance
+
+### State Management in Dynamic Content
+1. **Problem**: Complex state when navigating between views (especially with back button)
+2. **Solution Pattern**:
+   - Use events to communicate state changes
+   - Apply critical styles immediately before JavaScript initializes
+   - Clean up previous instances before creating new ones
+3. **Implementation**: Global instance tracking with proper cleanup in destroy methods
+
+### Data Attribute Architecture
+1. **Pattern**: Use data attributes for styling variations instead of JavaScript class manipulation
+2. **Benefits**:
+   - Declarative styling in HTML/templates
+   - CSS handles all visual changes
+   - Easy to debug in DevTools
+   - Works with server-side rendering
+3. **Example**: Notebook customization framework uses data-notebook-* attributes
+
+### Mobile-First Default Layouts
+1. **Insight**: Default mobile layouts should match final JavaScript state
+2. **Implementation**: 
+   - Apply mobile layout rules by default in CSS
+   - JavaScript only adds interactive behavior
+   - Prevents layout shift on initialization
+3. **Trade-off**: Desktop might need to override mobile defaults, but mobile experience is prioritized
 
 ## 🚨 CRITICAL STYLING RULES - DO NOT VIOLATE 🚨
 

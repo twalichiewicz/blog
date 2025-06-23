@@ -89,5 +89,14 @@
 // Leuchtturm notebook MUST be loaded LAST to override all other portfolio styles
 @use 'leuchtturm-notebook';
 
+// Notebook customization framework - load after base notebook styles
+@use 'notebook-customization';
+
+// Notebook skeleton UI - load after notebook styles
+@use 'notebook-skeleton';
+
+// Profile header compact mode for mobile
+@use 'profile-header-compact';
+
 // Index (imports all partials - use with caution as it may cause duplication)
 // @use 'index';

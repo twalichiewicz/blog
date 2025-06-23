@@ -92,8 +92,23 @@
                    data-discipline="<%- (post.tags?.discipline || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>"
                    data-type="<%- (post.tags?.type || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>"
                    data-skills="<%- (post.tags?.skills || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>"
-                   data-industry="<%- (post.tags?.industry || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>">
+                   data-industry="<%- (post.tags?.industry || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>"
+                   <% if (post.notebook_color) { %>data-notebook-color="<%- post.notebook_color %>"<% } %>
+                   <% if (post.notebook_texture) { %>data-notebook-texture="<%- post.notebook_texture %>"<% } %>
+                   <% if (post.notebook_brand) { %>data-notebook-brand="<%- post.notebook_brand %>"<% } %>
+                   <% if (post.notebook_brand_text) { %>data-notebook-brand-text="<%- post.notebook_brand_text %>"<% } %>
+                   <% if (post.notebook_effect) { %>data-notebook-effect="<%- post.notebook_effect %>"<% } %>
+                   <% if (post.notebook_stickers) { %>data-notebook-stickers="true"<% } %>>
                     <div class="portfolio-item portfolio-item--featured">
+                        <!-- Skeleton UI placeholder -->
+                        <div class="notebook-skeleton">
+                            <div class="skeleton-notebook"></div>
+                            <div class="skeleton-info">
+                                <div class="skeleton-title"></div>
+                                <div class="skeleton-byline"></div>
+                            </div>
+                        </div>
+                        
                         <% if (post.cover_image) { %>
                             <div class="notebook">
                                 <!-- Back cover (base layer) -->
@@ -108,38 +123,141 @@
                                 <!-- Inside back cover -->
                                 <div class="inside-back-cover"></div>
                                 
-                                <!-- Inside pages with content -->
+                                <!-- Inside pages with content (right page) -->
                                 <div class="inside-pages">
                                     <% 
-                                    // Process cover image for paperclip photo
-                                    let coverImagePath = post.cover_image;
-                                    const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(post.cover_image);
-                                    
-                                    if (isVideo && post.cover_video_poster) {
-                                        // Use poster for video covers
-                                        coverImagePath = post.cover_video_poster;
-                                    }
-                                    
-                                    if (coverImagePath) {
-                                        if (!coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
-                                            if (/^\d{4}\/\d{2}\/\d{2}\//.test(coverImagePath)) {
-                                                coverImagePath = '/' + coverImagePath;
+                                    // Check for custom notebook pages image first (right page)
+                                    if (post.notebook_pages || post.notebook_page_right) {
+                                        let notebookPagesPath = post.notebook_page_right || post.notebook_pages;
+                                        if (!notebookPagesPath.startsWith('/') && !notebookPagesPath.startsWith('http')) {
+                                            if (/^\d{4}\/\d{2}\/\d{2}\//.test(notebookPagesPath)) {
+                                                notebookPagesPath = '/' + notebookPagesPath;
                                             } else {
-                                                coverImagePath = post.path + coverImagePath;
+                                                notebookPagesPath = post.path + notebookPagesPath;
                                             }
                                         }
-                                    }
                                     %>
-                                    <div class="paperclip-photo">
-                                        <img src="<%- coverImagePath ? url_for(coverImagePath) : '' %>" alt="<%- post.title %>" />
-                                    </div>
+                                        <img class="notebook-pages-custom" src="<%- url_for(notebookPagesPath) %>" alt="<%- post.title %> notebook pages" />
+                                    <% } else { %>
+                                        <% 
+                                        // Default: Use cover image as full notebook page
+                                        let coverImagePath = post.cover_image;
+                                        const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(post.cover_image);
+                                        
+                                        if (isVideo && post.cover_video_poster) {
+                                            // Use poster for video covers
+                                            coverImagePath = post.cover_video_poster;
+                                        }
+                                        
+                                        if (coverImagePath) {
+                                            if (!coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
+                                                if (/^\d{4}\/\d{2}\/\d{2}\//.test(coverImagePath)) {
+                                                    coverImagePath = '/' + coverImagePath;
+                                                } else {
+                                                    coverImagePath = post.path + coverImagePath;
+                                                }
+                                            }
+                                            // Use cover image as full notebook page
+                                            %>
+                                            <img class="notebook-pages-custom" src="<%- url_for(coverImagePath) %>" alt="<%- post.title %> notebook pages" />
+                                        <% } else { %>
+                                            <!-- Fallback: paperclip photo for future use -->
+                                            <div class="paperclip-photo paperclip-placeholder">
+                                                <!-- Empty placeholder -->
+                                            </div>
+                                        <% } %>
+                                    <% } %>
                                 </div>
                                 
-                                <!-- Inside front cover -->
-                                <div class="inside-front-cover"></div>
+                                <!-- Inside front cover (left page) -->
+                                <div class="inside-front-cover">
+                                    <% 
+                                    // Check for custom notebook left page image
+                                    if (post.notebook_page_left) {
+                                        let notebookLeftPath = post.notebook_page_left;
+                                        if (!notebookLeftPath.startsWith('/') && !notebookLeftPath.startsWith('http')) {
+                                            if (/^\d{4}\/\d{2}\/\d{2}\//.test(notebookLeftPath)) {
+                                                notebookLeftPath = '/' + notebookLeftPath;
+                                            } else {
+                                                notebookLeftPath = post.path + notebookLeftPath;
+                                            }
+                                        }
+                                    %>
+                                        <img class="notebook-page-left-custom" src="<%- url_for(notebookLeftPath) %>" alt="<%- post.title %> left page" />
+                                    <% } %>
+                                </div>
+                                
+                                <!-- Front cover backing (prevents sticker bleed-through) -->
+                                <div class="front-cover-backing"></div>
                                 
                                 <!-- Front cover (top layer) -->
-                                <div class="front-cover"></div>
+                                <div class="front-cover"
+                                     <% if (post.notebook_stickers && post.notebook_stickers.length > 0) { %>
+                                         <% post.notebook_stickers.forEach((sticker, index) => { 
+                                             if (sticker && index < 4) { 
+                                                 const stickerNum = index + 1;
+                                                 const defaultBgs = ['#ff4444', '#ffeb3b', '#4CAF50', '#9C27B0'];
+                                                 const defaultColors = ['#fff', '#000', '#fff', '#fff'];
+                                                 const defaultRotates = ['-5deg', '3deg', '-2deg', '8deg'];
+                                                 const defaultShapes = ['rectangle', 'rectangle', 'rounded', 'circle'];
+                                         %>
+                                             data-sticker-<%- stickerNum %>="<%- sticker.text %>"
+                                             <% if (index === 0) { %>
+                                             style="<%- Object.entries({
+                                                 '--sticker-1-color': sticker.color || defaultColors[0],
+                                                 '--sticker-1-bg': sticker.bg || defaultBgs[0],
+                                                 '--sticker-1-rotate': sticker.rotate || defaultRotates[0],
+                                                 '--sticker-1-shape': sticker.shape || defaultShapes[0],
+                                                 '--sticker-1-top': sticker.top,
+                                                 '--sticker-1-right': sticker.right,
+                                                 '--sticker-1-bottom': sticker.bottom,
+                                                 '--sticker-1-left': sticker.left
+                                             }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join('; ') %>;"
+                                             <% } else if (index === 1) { %>
+                                             style="<%- Object.entries({
+                                                 '--sticker-2-color': sticker.color || defaultColors[1],
+                                                 '--sticker-2-bg': sticker.bg || defaultBgs[1],
+                                                 '--sticker-2-rotate': sticker.rotate || defaultRotates[1],
+                                                 '--sticker-2-shape': sticker.shape || defaultShapes[1],
+                                                 '--sticker-2-top': sticker.top,
+                                                 '--sticker-2-right': sticker.right,
+                                                 '--sticker-2-bottom': sticker.bottom,
+                                                 '--sticker-2-left': sticker.left
+                                             }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join('; ') %>;"
+                                             <% } %>
+                                         <% } 
+                                         }); %>
+                                     <% } %>
+                                >
+                                    <% if (post.notebook_stickers && post.notebook_stickers.length > 2) { %>
+                                        <% if (post.notebook_stickers[2]) { %>
+                                            <span class="sticker-3" data-sticker-3="<%- post.notebook_stickers[2].text %>" 
+                                                  style="<%- Object.entries({
+                                                      '--sticker-3-color': post.notebook_stickers[2].color || '#fff',
+                                                      '--sticker-3-bg': post.notebook_stickers[2].bg || '#4CAF50',
+                                                      '--sticker-3-rotate': post.notebook_stickers[2].rotate || '-2deg',
+                                                      '--sticker-3-shape': post.notebook_stickers[2].shape || 'rounded',
+                                                      '--sticker-3-top': post.notebook_stickers[2].top,
+                                                      '--sticker-3-right': post.notebook_stickers[2].right,
+                                                      '--sticker-3-bottom': post.notebook_stickers[2].bottom,
+                                                      '--sticker-3-left': post.notebook_stickers[2].left
+                                                  }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join('; ') %>;"></span>
+                                        <% } %>
+                                        <% if (post.notebook_stickers[3]) { %>
+                                            <span class="sticker-4" data-sticker-4="<%- post.notebook_stickers[3].text %>" 
+                                                  style="<%- Object.entries({
+                                                      '--sticker-4-color': post.notebook_stickers[3].color || '#fff',
+                                                      '--sticker-4-bg': post.notebook_stickers[3].bg || '#9C27B0',
+                                                      '--sticker-4-rotate': post.notebook_stickers[3].rotate || '8deg',
+                                                      '--sticker-4-shape': post.notebook_stickers[3].shape || 'circle',
+                                                      '--sticker-4-top': post.notebook_stickers[3].top,
+                                                      '--sticker-4-right': post.notebook_stickers[3].right,
+                                                      '--sticker-4-bottom': post.notebook_stickers[3].bottom,
+                                                      '--sticker-4-left': post.notebook_stickers[3].left
+                                                  }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join('; ') %>;"></span>
+                                        <% } %>
+                                    <% } %>
+                                </div>
                             </div>
                         <% } %>
                     </div>

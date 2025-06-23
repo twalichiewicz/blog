@@ -1,0 +1,145 @@
+@use 'variables';
+@use 'device-breakpoints';
+
+// Compact Profile Header for Mobile Dynamic Content
+// =================================================
+// When dynamic content is loaded on mobile, the profile header
+// becomes compact to maximize content space
+
+@include device-breakpoints.mobile-only {
+    // When dynamic content is active
+    body.has-dynamic-content-active {
+        .profile-header {
+            // Compact state styles
+            &.compact {
+                padding-top: 6px !important; // Reduced padding for compact mode
+                cursor: pointer;
+                position: sticky;
+                top: 0;
+                z-index: 10; // Ensure it stays above content
+                transition: padding-top 0.3s ease;
+                
+                // Make photo wrapper block display
+                .profile-photo-wrapper {
+                    display: block;
+                }
+                
+                // Shrink photo with specific styles
+                .profile-photo-wrapper .profile-photo {
+                    width: 36px !important;
+                    height: 36px !important;
+                    border-width: 1px !important; // Thinner border for compact
+                    padding: 1px !important;
+                    transition: all 0.3s ease;
+                }
+                
+                // Special box-shadow for blog context in compact mode
+                &.blog .profile-photo-wrapper .profile-photo,
+                .blog.blog & .profile-photo-wrapper .profile-photo {
+                    box-shadow: 
+                        0 0 0 1px rgba(25.5, 25.5, 25.5, 0.05), 
+                        0 0 0 1px rgba(255, 255, 255, 0.5), 
+                        inset 0 1px 8px rgba(25.5, 25.5, 25.5, 0.1), 
+                        inset 0 -4px 8px rgba(255, 255, 255, 0.3) !important;
+                }
+                
+                // Hide text elements
+                .profile-name,
+                .profile-byline,
+                .location-pill {
+                    display: none !important;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                }
+                
+                // CRITICAL: Ensure buttons don't move when sticky positioning is applied
+                .mobile-buttons-container {
+                    position: absolute !important;
+                    top: 8px !important;
+                    right: 12px !important;
+                }
+                
+                // Add expand indicator - adjusted for 6px padding
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -4px; // Moved down to account for reduced padding
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 30px;
+                    height: 3px;
+                    background: variables.$text-color-secondary;
+                    opacity: 0.3;
+                    border-radius: 3px;
+                    transition: opacity 0.3s ease;
+                }
+                
+                &:hover::after {
+                    opacity: 0.5;
+                }
+            }
+            
+            // Expanded state (when tapped)
+            &.compact.expanded {
+                padding: 15px 12px 0 12px !important; // Match default mobile padding
+                gap: 12px !important; // Ensure proper gap
+                
+                // Restore photo size to 64px as specified
+                .profile-photo-wrapper .profile-photo {
+                    width: 64px !important;
+                    height: 64px !important;
+                    border-width: 2px !important;
+                    padding: 1px !important;
+                    background: transparent;
+                    border-radius: 100%;
+                    object-fit: cover;
+                    transition: all 0.3s ease;
+                }
+                
+                // Restore box-shadow for expanded blog context
+                &.blog .profile-photo-wrapper .profile-photo,
+                .blog.blog & .profile-photo-wrapper .profile-photo {
+                    box-shadow: 
+                        0 0 0 1px rgba(25.5, 25.5, 25.5, 0.05), 
+                        0 0 0 2px rgba(255, 255, 255, 0.5), 
+                        inset 0 2px 8px rgba(25.5, 25.5, 25.5, 0.1), 
+                        inset 0 -4px 8px rgba(255, 255, 255, 0.3) !important;
+                }
+                
+                // Show text elements with their default display values
+                .profile-name {
+                    display: block !important;
+                    opacity: 1;
+                }
+                
+                .profile-byline {
+                    display: block !important;
+                    opacity: 1;
+                }
+                
+                .location-pill {
+                    display: inline-flex !important;
+                    opacity: 1;
+                }
+                
+                // Hide the indicator when expanded
+                &::after {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+}
+
+// Dark mode support for expand indicator
+@include device-breakpoints.mobile-only {
+    @media (prefers-color-scheme: dark) {
+        body.has-dynamic-content-active {
+            .profile-header.compact {
+                &::after {
+                    background: variables.$text-color-secondary-dark;
+                }
+            }
+        }
+    }
+}

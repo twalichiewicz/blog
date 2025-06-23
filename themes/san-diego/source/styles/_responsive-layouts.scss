@@ -375,11 +375,44 @@
 		}
 	}
 
-	.portfolio-list {
+	.portfolio-list,
+	.portfolio-list--redesigned {
 		width: 100%;
+		margin-bottom: 0; // Remove margin-bottom on mobile
+		padding-bottom: 0; // Remove padding-bottom on mobile
+		
+		// Specific rule for when notebook carousel is active
+		&.has-notebook-carousel {
+			margin-bottom: 0 !important;
+			padding-bottom: 0 !important;
+		}
+		
+		// Fix for edge-to-edge on actual mobile devices
+		&.portfolio-list--redesigned {
+			width: 100vw;
+			margin-left: calc(-50vw + 50%);
+			margin-right: calc(-50vw + 50%);
+			padding: 0;
+			overflow: hidden;
+		}
 		
 		.company-group {
 			padding: 0 15px;
+		}
+		
+		// Portfolio more section should be edge to edge on mobile
+		.portfolio-more-section {
+			margin-left: calc(-50vw + 50%);
+			margin-right: calc(-50vw + 50%);
+			width: 100vw;
+			padding: 0; // Ensure no padding on portfolio-more-section
+			padding-bottom: 0; // Explicitly set padding-bottom to 0
+			
+			.portfolio-more-content {
+				padding: variables.$space-sm 16px calc(variables.$space-xl + env(safe-area-inset-bottom));
+				width: 100%;
+				margin: 0;
+			}
 		}
 	}
 
@@ -904,8 +937,8 @@
 				width: calc(100% - 24px);
 				max-width: 600px;
 				margin: 0 auto;
-				background-color: rgb(243, 240, 237); // sRGB 0.9538 0.9406 0.9283 converted
-				border-radius: 12px;
+				background-color: rgb(243, 240, 237);
+				border-radius: 12px 0 0 0;
 				box-shadow: 
 					0 2px 10px rgb(0 0 0 / 5%),
 					0 1px 3px rgb(0 0 0 / 10%),
@@ -991,7 +1024,8 @@
 			align-items: flex-start;
 			gap: variables.$space-sm;
 			padding: 0;
-			margin-bottom: variables.$space-md;
+			margin-bottom: 0; // Remove margin-bottom on mobile
+			padding-bottom: 0; // Remove padding-bottom on mobile
 			position: relative;
 			z-index: 1;
 			

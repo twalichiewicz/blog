@@ -31,7 +31,74 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 	// Initialize responsive table enhancements
 	initResponsiveTables();
+	
+	// Initialize notebook hover sounds
+	initNotebookHoverSounds();
 });
+
+/**
+ * Initialize sound effects for notebook hover on desktop
+ */
+function initNotebookHoverSounds() {
+	let hoverTimeout = null;
+	
+	function addNotebookHoverSound() {
+		const notebooks = document.querySelectorAll('.portfolio-featured-grid .portfolio-item-wrapper');
+		notebooks.forEach(notebook => {
+			// Remove any existing listeners to prevent duplicates
+			notebook.removeEventListener('mouseenter', handleNotebookHover);
+			notebook.removeEventListener('mouseleave', handleNotebookLeave);
+			notebook.addEventListener('mouseenter', handleNotebookHover);
+			notebook.addEventListener('mouseleave', handleNotebookLeave);
+		});
+	}
+	
+	function handleNotebookHover() {
+		// Only play sound on desktop (not mobile)
+		if (window.innerWidth > 768) {
+			// Clear any existing timeout
+			if (hoverTimeout) {
+				clearTimeout(hoverTimeout);
+			}
+			
+			// Animation takes 1.8s, play sound slightly after hover starts
+			hoverTimeout = setTimeout(() => {
+				// Check if sound system is ready
+				if (window.playBookSound) {
+					window.playBookSound();
+				} else if (window.soundEffects && window.soundEffects.play) {
+					// Fallback to direct sound effects call
+					window.soundEffects.play('book');
+				}
+			}, 300); // 300ms delay for optimal timing with animation
+		}
+	}
+	
+	function handleNotebookLeave() {
+		// Cancel sound if user leaves before it plays
+		if (hoverTimeout) {
+			clearTimeout(hoverTimeout);
+			hoverTimeout = null;
+		}
+	}
+	
+	// Wait for sound system to be ready
+	function initWhenReady() {
+		if (window.soundEffects || window.playBookSound) {
+			addNotebookHoverSound();
+		} else {
+			// Try again in a moment
+			setTimeout(initWhenReady, 100);
+		}
+	}
+	
+	// Initial setup
+	initWhenReady();
+	
+	// Re-add listeners when content is dynamically loaded
+	document.addEventListener('contentLoaded', addNotebookHoverSound);
+	document.addEventListener('portfolio-loaded', addNotebookHoverSound);
+}
 
 /**
  * Theme system removed - now using prefers-color-scheme media queries only
