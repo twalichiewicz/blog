@@ -270,13 +270,48 @@ When opening spotlight mode:
 
 ## Recent Session Changes (Current)
 
-### 1. Screen Wipe Transition Direction Change
+### 1. Complete 3D Notebook Animation System (June 2025)
+- **Major Achievement**: Implemented comprehensive 6-layer notebook animation system
+- **Architecture**: 
+  - **Layer 6**: Back cover (static anchor, no animation)
+  - **Layer 5**: Inside back cover (static anchor)  
+  - **Layer 4**: Right inner page (content display)
+  - **Layer 3**: Left inner page (content display)
+  - **Layer 2**: Inside front cover (animates with front cover)
+  - **Layer 1**: Front cover (primary interactive layer)
+
+- **Animation Features**:
+  - Z-index swapping during animation for visual continuity
+  - Transform origins aligned to spine (0% 50%) for realistic rotation
+  - Smooth 1.8s cubic-bezier transitions with staggered timing
+  - 150° rotation with 15% right translation on hover
+
+- **Visual Fixes Completed**:
+  - **Gap Prevention**: Left inner page positioned at `left: 6px, right: 8px` to close spine gaps
+  - **Cover Alignment**: Inside front cover positioned 2px inset from all sides of front cover  
+  - **Edge Overflow**: Back cover uses `overflow: hidden` with inset page edge pseudo-elements
+  - **Layer Management**: Proper z-index ordering (1-6) with mid-animation swapping
+
+- **Technical Implementation**:
+  - 3D transforms with `transform-style: preserve-3d` and `perspective: 2000px`
+  - GPU-accelerated animations with `translateZ()` layering
+  - EJS template fixes for regex syntax (`\\s+` to `\s+`)
+  - Mobile-compatible with existing carousel system
+
+- **Files Modified**:
+  - `_leuchtturm-notebook.scss` - Complete 6-layer structure and animations
+  - `portfolio-projects.ejs` - Updated HTML structure and EJS syntax fixes
+  - `project_gallery.ejs` - Added demo button functionality
+  - `head.ejs` - Added new JS components
+  - Created `byline-modal.js` and `project-demo.js` components
+
+### 2. Screen Wipe Transition Direction Change
 - **Changed**: Transition animation from top/bottom sliding to left/right sliding
 - **Files Modified**: `_screen-wipe-transition.scss`
 - **Implementation**: Updated transform properties from `translateY` to `translateX`
 - **Panels**: Left panel slides from -100% to 0, right panel from 100% to 0
 
-### 2. Notebook Carousel Back Button Fix
+### 3. Notebook Carousel Back Button Fix
 - **Issue**: Notebooks displayed vertically stacked when returning from project view
 - **Root Cause**: Carousel wasn't re-initializing properly on popstate event
 - **Solution**:
@@ -289,7 +324,7 @@ When opening spotlight mode:
   - `portfolio-notebook-carousel-clean.js` - Improved initialization
   - `_leuchtturm-notebook.scss` - Default mobile flex layout
 
-### 3. Notebook Customization Framework
+### 4. Notebook Customization Framework
 - **Purpose**: Allow unique visual identity for each portfolio project
 - **Architecture**:
   - Color system with 16 preset colors plus gradients
