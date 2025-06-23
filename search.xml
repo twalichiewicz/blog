@@ -2537,6 +2537,25 @@
     
     
     <entry>
+      <title>Customized Notebook Example</title>
+      <link href="/2024/01/15/example-customized-notebook/"/>
+      <url>/2024/01/15/example-customized-notebook/</url>
+      
+        <content type="html"><![CDATA[<p>This is an example post demonstrating the notebook customization framework.</p><h2 id="Customization-Details"><a href="#Customization-Details" class="headerlink" title="Customization Details"></a>Customization Details</h2><p>This notebook uses:</p><ul><li><strong>Color</strong>: Nordic Blue - A sophisticated blue-grey</li><li><strong>Texture</strong>: Worn - Shows this is a well-used project notebook</li><li><strong>Brand</strong>: Leuchtturm1917 - Premium notebook brand</li><li><strong>Effect</strong>: Metallic - Adds a subtle sheen</li><li><strong>Stickers</strong>: “SHIPPED” and “2024” badges</li></ul><p>You can customize your own notebooks by adding these properties to your post’s front matter.</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> [object Object] </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>the bending spoons cancer continues to spread</title>
       <link href="/2024/01/12/the-bending-spoons-cancer-continues-to-spread/"/>
       <url>/2024/01/12/the-bending-spoons-cancer-continues-to-spread/</url>
@@ -3875,9 +3894,9 @@
     
     
     <entry>
-      <title>Case manager app</title>
-      <link href="/2017/01/01/Lyra-Case-manager-app/"/>
-      <url>/2017/01/01/Lyra-Case-manager-app/</url>
+      <title>Marketing tools</title>
+      <link href="/2017/01/01/Lyra-Employer-Convincing-Tool/"/>
+      <url>/2017/01/01/Lyra-Employer-Convincing-Tool/</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -3894,9 +3913,9 @@
     
     
     <entry>
-      <title>Marketing tools</title>
-      <link href="/2017/01/01/Lyra-Employer-Convincing-Tool/"/>
-      <url>/2017/01/01/Lyra-Employer-Convincing-Tool/</url>
+      <title>Case manager app</title>
+      <link href="/2017/01/01/Lyra-Case-manager-app/"/>
+      <url>/2017/01/01/Lyra-Case-manager-app/</url>
       
         <content type="html"><![CDATA[]]></content>
       
