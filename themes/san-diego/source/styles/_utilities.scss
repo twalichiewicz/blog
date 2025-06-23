@@ -135,8 +135,8 @@ article.anchor-destination-highlight {
 
 // Special handling for post-list-item to avoid layout shifts
 .post-list-item.anchor-destination-highlight {
-	position: relative;
-	z-index: 1;
+	// Don't add position: relative if it doesn't already have it
+	// This prevents layout shifts on mobile
 	
 	&::before {
 		content: '';
@@ -152,11 +152,11 @@ article.anchor-destination-highlight {
 		z-index: -1; // Behind all content
 		
 		@media (max-width: 768px) {
-			// Pull in padding on mobile
-			top: -12px;
-			right: -12px;
-			bottom: -12px;
-			left: -12px;
+			// Account for existing padding on mobile (12px) and reduce highlight padding
+			top: -8px;
+			right: 0;
+			bottom: -8px;
+			left: 0;
 		}
 		
 		@media (prefers-color-scheme: dark) {
@@ -169,6 +169,54 @@ article.anchor-destination-highlight {
 		
 		@media (prefers-color-scheme: dark) {
 			background-color: hsla(40deg, 90%, 60%, 0.2);
+		}
+	}
+}
+
+// Only add position relative to post-list-item when NOT on mobile
+@media (min-width: 769px) {
+	.post-list-item.anchor-destination-highlight {
+		position: relative;
+		z-index: 1;
+	}
+}
+
+// On mobile, use a wrapper approach to avoid layout shifts
+@media (max-width: 768px) {
+	.post-list-item.anchor-destination-highlight {
+		// Create a new stacking context without position: relative
+		isolation: isolate;
+		
+		// Apply highlight to a pseudo-element on the parent
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background-color: hsla(15deg, 70%, 40%, 0); // transparent initially
+			border-radius: 8px;
+			transition: background-color 0.3s ease;
+			pointer-events: none;
+			z-index: -1;
+			
+			@media (prefers-color-scheme: dark) {
+				background-color: hsla(40deg, 90%, 60%, 0); // transparent initially
+			}
+		}
+		
+		&.active::after {
+			background-color: hsla(15deg, 70%, 40%, 0.15);
+			
+			@media (prefers-color-scheme: dark) {
+				background-color: hsla(40deg, 90%, 60%, 0.2);
+			}
+		}
+		
+		// Hide the ::before on mobile to avoid double highlighting
+		&::before {
+			display: none;
 		}
 	}
 }
