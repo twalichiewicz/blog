@@ -170,27 +170,22 @@ export const ScrollUtility = {
 
         // Add visual feedback if requested - using search highlight style
         if (addGlow) {
-            // First add a preparatory class for initial state
-            target.classList.add('anchor-destination-prep');
+            // Add the highlight class with active state
+            target.classList.add('anchor-destination-highlight');
             
-            // Force a reflow to ensure the prep class is applied before transitioning
-            target.offsetHeight;
-            
-            // Then add the highlight class to trigger the transition
+            // Use requestAnimationFrame to ensure class is applied before adding active
             requestAnimationFrame(() => {
-                target.classList.add('anchor-destination-highlight');
-                target.classList.remove('anchor-destination-prep');
+                target.classList.add('active');
             });
             
             // Remove highlight after the glow duration
             setTimeout(() => {
-                // Add prep class again for fade out
-                target.classList.add('anchor-destination-prep');
-                target.classList.remove('anchor-destination-highlight');
+                // Remove active class to trigger fade out
+                target.classList.remove('active');
                 
-                // Remove all classes after transition completes
+                // Remove highlight class after transition completes
                 setTimeout(() => {
-                    target.classList.remove('anchor-destination-prep');
+                    target.classList.remove('anchor-destination-highlight');
                 }, 300); // Match CSS transition duration
             }, this.config.glowDuration);
         }

@@ -81,48 +81,94 @@ html {
 	margin-bottom: auto !important;
 }
 
-// Anchor link destination highlight prep state
-// Applied for smooth transitions without pop-in/pop-out
-.anchor-destination-prep {
-	background-color: hsla(15deg, 70%, 40%, 0) !important; // transparent initially
-	padding: 0 !important;
-	border-radius: 0;
-	transition: all 0.3s ease;
-	
-	@media (prefers-color-scheme: dark) {
-		background-color: hsla(40deg, 90%, 60%, 0) !important; // transparent initially
-	}
-}
-
-// Anchor link destination highlight active state
-// Applied temporarily when navigating to anchor links
-// Colors match exactly with .search-highlight for consistency
+// Anchor link destination highlight
+// Uses ::before pseudo-element to avoid layout shifts
 .anchor-destination-highlight {
-	background-color: hsla(15deg, 70%, 40%, 0.3) !important; // matches $link-color at 0.3 opacity
-	padding: 12px !important;
-	border-radius: 3px;
-	transition: all 0.3s ease; // smooth transition for all properties
+	&::before {
+		content: '';
+		position: absolute;
+		top: -20px;
+		right: -20px;
+		bottom: -20px;
+		left: -20px;
+		background-color: hsla(15deg, 70%, 40%, 0); // transparent initially
+		border-radius: 12px;
+		transition: background-color 0.3s ease;
+		pointer-events: none; // Don't interfere with element interactions
+		z-index: -1; // Behind content to avoid darkening date bars
+		
+		@media (max-width: 768px) {
+			// Pull in padding on mobile
+			top: -12px;
+			right: -12px;
+			bottom: -12px;
+			left: -12px;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			background-color: hsla(40deg, 90%, 60%, 0); // transparent initially
+		}
+	}
 	
-	@media (prefers-color-scheme: dark) {
-		background-color: hsla(40deg, 90%, 60%, 0.4) !important; // matches $link-color-dark at 0.4 opacity
+	&.active::before {
+		background-color: hsla(15deg, 70%, 40%, 0.15); // Lower opacity for better transparency
+		
+		@media (prefers-color-scheme: dark) {
+			background-color: hsla(40deg, 90%, 60%, 0.2); // Lower opacity in dark mode too
+		}
 	}
 }
 
-// More specific selectors to ensure transitions work on various elements
-article.anchor-destination-prep,
-.post-list-item.anchor-destination-prep,
-.post-preview-card.anchor-destination-prep,
-.blog-post.anchor-destination-prep,
-.project-item.anchor-destination-prep {
-	padding: 0 !important;
-	transition: all 0.3s ease;
+// Ensure the highlight works on various elements without changing their position
+// Only add position: relative if they don't already have a position set
+article.anchor-destination-highlight {
+	position: relative;
+	z-index: 1; // Ensure content stays above highlight
 }
 
-article.anchor-destination-highlight,
-.post-list-item.anchor-destination-highlight,
 .post-preview-card.anchor-destination-highlight,
 .blog-post.anchor-destination-highlight,
 .project-item.anchor-destination-highlight {
-	padding: 12px !important;
-	transition: all 0.3s ease;
+	position: relative;
+	z-index: 1;
+}
+
+// Special handling for post-list-item to avoid layout shifts
+.post-list-item.anchor-destination-highlight {
+	position: relative;
+	z-index: 1;
+	
+	&::before {
+		content: '';
+		position: absolute;
+		top: -20px;
+		right: -20px;
+		bottom: -20px;
+		left: -20px;
+		background-color: hsla(15deg, 70%, 40%, 0); // transparent initially
+		border-radius: 12px;
+		transition: background-color 0.3s ease;
+		pointer-events: none;
+		z-index: -1; // Behind all content
+		
+		@media (max-width: 768px) {
+			// Pull in padding on mobile
+			top: -12px;
+			right: -12px;
+			bottom: -12px;
+			left: -12px;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			background-color: hsla(40deg, 90%, 60%, 0); // transparent initially
+		}
+	}
+	
+	&.active::before {
+		background-color: hsla(15deg, 70%, 40%, 0.15); // Lower opacity
+		
+		@media (prefers-color-scheme: dark) {
+			background-color: hsla(40deg, 90%, 60%, 0.2);
+		}
+	}
 }
