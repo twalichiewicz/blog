@@ -52,6 +52,58 @@
 
     // Add "more" button to truncated byline
     function addMoreButton(byline) {
+        // Store the full text
+        const fullText = byline.textContent || byline.innerText;
+        byline.setAttribute('data-full-text', fullText);
+        
+        // Create a temporary element to find the truncation point
+        const tempElement = byline.cloneNode(true);
+        tempElement.style.cssText = byline.style.cssText;
+        tempElement.style.position = 'absolute';
+        tempElement.style.visibility = 'hidden';
+        tempElement.style.width = byline.offsetWidth + 'px';
+        tempElement.classList.add('truncated');
+        byline.parentNode.appendChild(tempElement);
+        
+        // Binary search to find the last visible character
+        let low = 0;
+        let high = fullText.length;
+        let bestFit = 0;
+        
+        while (low <= high) {
+            const mid = Math.floor((low + high) / 2);
+            tempElement.textContent = fullText.substring(0, mid) + '...';
+            
+            if (tempElement.scrollHeight <= byline.offsetHeight) {
+                bestFit = mid;
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        
+        // Find the last complete word before truncation
+        let truncateAt = bestFit;
+        while (truncateAt > 0 && fullText[truncateAt] !== ' ') {
+            truncateAt--;
+        }
+        
+        // Account for the space needed by the "more" button
+        const moreButtonText = ' more';
+        truncateAt = Math.max(0, truncateAt - moreButtonText.length - 5); // Extra space for ellipsis
+        
+        // Find the previous word boundary
+        while (truncateAt > 0 && fullText[truncateAt] !== ' ') {
+            truncateAt--;
+        }
+        
+        // Remove temp element
+        tempElement.remove();
+        
+        // Create the truncated content with ellipsis
+        const truncatedText = fullText.substring(0, truncateAt).trim();
+        
+        // Create the more button
         const moreButton = document.createElement('button');
         moreButton.className = 'byline-more-button';
         moreButton.textContent = 'more';
@@ -69,8 +121,10 @@
             showBylineModal(byline);
         });
         
-        // Insert after the byline
-        byline.parentNode.insertBefore(moreButton, byline.nextSibling);
+        // Update the byline content
+        byline.innerHTML = '';
+        byline.appendChild(document.createTextNode(truncatedText + '... '));
+        byline.appendChild(moreButton);
     }
 
     // Show byline modal
@@ -81,8 +135,8 @@
             existingModal.remove();
         }
         
-        // Get the full byline text
-        const fullText = byline.textContent || byline.innerText;
+        // Get the full byline text from data attribute
+        const fullText = byline.getAttribute('data-full-text') || byline.textContent || byline.innerText;
         
         // Create modal
         const modal = document.createElement('div');

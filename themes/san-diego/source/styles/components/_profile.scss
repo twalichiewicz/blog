@@ -83,12 +83,13 @@
 		.location-pill {
 			display: inline-flex;
 			align-items: center;
-			gap: 6px;
-			padding: 4px 12px;
-			background: rgba(variables.$black, 0.05);
+			gap: 3px;
+			padding: 3px 0;
+			background: transparent;
 			border-radius: 20px;
 			margin-bottom: 9px;
 			font-size: 13px;
+			font-weight: 500;
 			color: variables.$text-color-secondary;
 			transition: all 0.2s ease;
 
@@ -99,7 +100,6 @@
 			}
 
 			&:hover {
-				background: rgba(variables.$black, 0.08);
 				color: variables.$text-color;
 			}
 		}
@@ -160,7 +160,7 @@
 				background: variables.$black;
 				border: 1px solid variables.$black;
 				color: variables.$white;
-				border-radius: 4px;
+				border-radius: 30px;
 				text-transform: uppercase;
 				letter-spacing: 0.05em;
 				cursor: pointer;
@@ -228,11 +228,10 @@
 			}
 
 			.location-pill {
-				background: rgba(variables.$white, 0.1);
+				background: transparent;
 				color: variables.$text-color-secondary-dark;
 
 				&:hover {
-					background: rgba(variables.$white, 0.15);
 					color: variables.$text-color-dark;
 				}
 
@@ -280,7 +279,7 @@
 			width: 100%;
 			
 			.location-pill {
-				padding: 3px 9px;
+				padding: 3px 0;
 				font-size: 11px;
 				margin-bottom: 3px;
 				// Base transition for opacity changes

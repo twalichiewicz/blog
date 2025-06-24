@@ -29,6 +29,8 @@ credits:
     name: Thomas Walichiewicz
   - role: Year
     name: 2019
+notebook_color: warm-grey
+notebook_brand: custom
 ---
 
 <style>

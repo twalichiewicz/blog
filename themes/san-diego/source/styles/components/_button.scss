@@ -11,7 +11,7 @@
 			color.adjust(variables.$card-bg, $lightness: 2%),
 			variables.$card-bg);
 	border: 1px solid rgb(255 255 255 / 10%);
-	border-radius: 8px;
+	border-radius: 30px;
 	cursor: pointer;
 	transition: all 0.2s ease;
 	box-shadow:
@@ -78,7 +78,7 @@
 	color: variables.$text-color;
 	background: transparent;
 	border: 1px solid variables.$border-color;
-	border-radius: 8px;
+	border-radius: 30px;
 	cursor: pointer;
 	transition: all 0.2s ease;
 	box-shadow: none;

@@ -14,11 +14,9 @@
     window._notebookCarouselDebug = {
         getInstance: () => currentCarouselInstance,
         forceInitialize: () => {
-            console.log('[Carousel Debug] Force initialization requested');
             initializeCarousel();
         },
         checkState: () => {
-            console.log('[Carousel Debug] Current state:', {
                 instance: !!currentCarouselInstance,
                 initialized: currentCarouselInstance?.initialized,
                 activeIndex: currentCarouselInstance?.currentActiveIndex,
@@ -36,49 +34,41 @@
     // Main carousel class
     class NotebookCarousel {
         constructor() {
-            console.log('[Carousel Debug] NotebookCarousel constructor called');
             
             // Clean up any existing instance
             if (currentCarouselInstance) {
-                console.log('[Carousel Debug] Cleaning up existing carousel instance');
                 currentCarouselInstance.destroy();
             }
             
             this.container = document.querySelector('.portfolio-featured-grid');
             this.projectsContent = document.getElementById('projectsContent');
             
-            console.log('[Carousel Debug] Container found:', !!this.container);
-            console.log('[Carousel Debug] ProjectsContent found:', !!this.projectsContent);
-            console.log('[Carousel Debug] Is mobile device:', isMobileDevice());
             
             // Check tab visibility
             if (this.projectsContent) {
-                console.log('[Carousel Debug] ProjectsContent display:', window.getComputedStyle(this.projectsContent).display);
-                console.log('[Carousel Debug] ProjectsContent opacity:', window.getComputedStyle(this.projectsContent).opacity);
-                console.log('[Carousel Debug] ProjectsContent visibility:', window.getComputedStyle(this.projectsContent).visibility);
             }
             
             if (!this.container || !this.projectsContent || !isMobileDevice()) {
-                console.log('[Carousel Debug] Prerequisites not met, exiting constructor');
                 return;
             }
             
             this.notebooks = Array.from(this.container.querySelectorAll('.portfolio-item-wrapper'));
             
-            console.log('[Carousel Debug] Found notebooks:', this.notebooks.length);
             
             if (this.notebooks.length === 0) {
-                console.log('[Carousel Debug] No notebooks found, exiting');
                 return;
             }
             
             this.isScrolling = false;
+            this.isTouching = false;
+            this.isActivating = false; // Prevent multiple activations
             this.scrollTimeout = null;
             this.currentActiveIndex = -1;
             this.scrollEndDelay = 100; // ms to wait after scroll stops - balanced for mobile
             this.initialized = false;
             this.carouselObserver = null; // Observer to track carousel visibility
             this.initialPositioningComplete = false; // Flag to prevent activation during initial setup
+            this.allowActivation = false; // Prevent any activation until user interaction
             
             // Store this instance globally
             currentCarouselInstance = this;
@@ -87,29 +77,22 @@
         }
         
         init() {
-            console.log('[Carousel Debug] Initializing carousel');
             // Set up the scrollable container structure
             this.setupContainers();
             
             // Wait for layout to settle, then set up scrolling
             requestAnimationFrame(() => {
-                console.log('[Carousel Debug] Setting up scrolling after animation frame');
                 this.setupScrolling();
                 this.initialized = true;
                 
                 // Check if browser has already restored scroll position
                 if (this.container.scrollLeft > 0) {
-                    console.log('[Carousel Debug] Scroll position already set:', this.container.scrollLeft);
-                    // Wait a bit for layout to settle then check active
-                    setTimeout(() => {
-                        this.checkActiveNotebook();
-                    }, 100);
+                    // Don't activate any notebook automatically - wait for user interaction
                 }
             });
         }
         
         setupContainers() {
-            console.log('[Carousel Debug] Setting up containers');
             // Make projectsContent the scrollable container
             this.projectsContent.classList.add('has-notebook-carousel');
             
@@ -122,24 +105,24 @@
             // Check for stored scroll position
             const storedScrollPosition = sessionStorage.getItem('carouselScrollPosition');
             if (storedScrollPosition) {
-                console.log('[Carousel Debug] Found stored scroll position:', storedScrollPosition);
                 // Don't reset, will restore position later
             } else {
                 this.container.scrollLeft = 0;
-                console.log('[Carousel Debug] No stored position, reset scrollLeft to 0');
             }
             
-            // Ensure notebooks have fixed sizes
+            // Let CSS handle all sizing
             this.notebooks.forEach((notebook, index) => {
-                // Size is handled by CSS, just ensure they're properly styled
-                notebook.style.flexShrink = '0';
-                console.log('[Carousel Debug] Notebook', index, 'classes:', notebook.className);
             });
         }
         
         setupScrolling() {
             // Set up scroll listener on the carousel container itself for horizontal scroll
             this.container.addEventListener('scroll', this.handleScroll.bind(this));
+            
+            // Add touch event listeners for immediate response
+            this.container.addEventListener('touchstart', this.handleTouchStart.bind(this));
+            this.container.addEventListener('touchmove', this.handleTouchMove.bind(this));
+            this.container.addEventListener('touchend', this.handleTouchEnd.bind(this));
             
             // Disable hover effects on touch devices by adding a class
             if ('ontouchstart' in window) {
@@ -152,12 +135,11 @@
             // Set up visibility observer to track when carousel goes out of view
             this.setupVisibilityObserver();
             
-            // Let browser handle scroll restoration, just check active notebook
-            setTimeout(() => {
-                console.log('[Carousel Debug] Checking active notebook, scroll position:', this.container.scrollLeft);
+            // Wait for all notebooks to fully load before allowing any activation
+            this.waitForNotebooksToLoad().then(() => {
                 this.initialPositioningComplete = true;
-                this.checkActiveNotebook();
-            }, 200);
+                // Still don't enable activation automatically - wait for user interaction
+            });
             
             // Handle resize
             window.addEventListener('resize', () => {
@@ -166,6 +148,39 @@
                 } else if (!this.initialized) {
                     this.init();
                 }
+            });
+        }
+        
+        waitForNotebooksToLoad() {
+            return new Promise((resolve) => {
+                // Check if all notebooks are already loaded
+                const checkLoaded = () => {
+                    const allNotebooks = this.container.querySelectorAll('.portfolio-item--featured');
+                    const loadedNotebooks = this.container.querySelectorAll('.portfolio-item--featured.notebook-content-loaded, .portfolio-item--featured.notebook-loaded');
+                    
+                    
+                    if (loadedNotebooks.length === allNotebooks.length) {
+                        resolve();
+                        return true;
+                    }
+                    return false;
+                };
+                
+                // Check immediately
+                if (checkLoaded()) return;
+                
+                // Otherwise, poll until all are loaded
+                const checkInterval = setInterval(() => {
+                    if (checkLoaded()) {
+                        clearInterval(checkInterval);
+                    }
+                }, 100);
+                
+                // Timeout after 5 seconds to prevent infinite waiting
+                setTimeout(() => {
+                    clearInterval(checkInterval);
+                    resolve();
+                }, 5000);
             });
         }
         
@@ -182,14 +197,16 @@
                 threshold: 0.3 // Lower threshold for quicker response
             };
             
-            console.log('[Carousel Debug] Setting up intersection observer with options:', options);
             
             this.observer = new IntersectionObserver((entries) => {
-                console.log('[Carousel Debug] Intersection observer callback fired, initialPositioningComplete:', this.initialPositioningComplete);
                 
-                if (!this.initialPositioningComplete) {
-                    console.log('[Carousel Debug] Skipping - initial positioning not complete');
-                    return; // Don't process during initial setup
+                if (!this.initialPositioningComplete || !this.allowActivation) {
+                    return; // Don't process during initial setup or before user interaction
+                }
+                
+                // Don't process if we're actively scrolling or touching
+                if (this.isScrolling || this.isTouching) {
+                    return;
                 }
                 
                 // Find the most centered notebook among intersecting entries
@@ -199,15 +216,12 @@
                 const containerRect = this.container.getBoundingClientRect();
                 const containerCenter = containerRect.left + containerRect.width / 2;
                 
-                console.log('[Carousel Debug] Container center:', containerCenter);
-                console.log('[Carousel Debug] Processing', entries.length, 'entries');
                 
                 entries.forEach(entry => {
                     const rect = entry.target.getBoundingClientRect();
                     const notebookCenter = rect.left + rect.width / 2;
                     const distanceFromCenter = Math.abs(notebookCenter - containerCenter);
                     
-                    console.log('[Carousel Debug] Entry:', {
                         isIntersecting: entry.isIntersecting,
                         notebookIndex: this.notebooks.indexOf(entry.target),
                         notebookCenter: notebookCenter,
@@ -223,24 +237,19 @@
                     }
                 });
                 
-                // Activate immediately when centered, even while scrolling
-                if (mostCentered) {
+                // Activate only when not scrolling and notebook is centered
+                if (mostCentered && !this.isScrolling && !this.isTouching) {
                     const index = this.notebooks.indexOf(mostCentered);
-                    console.log('[Carousel Debug] Most centered notebook index:', index, 'current active:', this.currentActiveIndex);
                     if (index !== -1 && index !== this.currentActiveIndex) {
-                        console.log('[Carousel Debug] Activating notebook at index:', index);
                         this.activateNotebook(index);
                     }
                 } else {
-                    console.log('[Carousel Debug] No centered notebook found');
                 }
             }, options);
             
             // Observe all notebooks
-            console.log('[Carousel Debug] Observing', this.notebooks.length, 'notebooks');
             this.notebooks.forEach((notebook, index) => {
                 this.observer.observe(notebook);
-                console.log('[Carousel Debug] Started observing notebook at index:', index);
             });
         }
         
@@ -271,24 +280,70 @@
         }
         
         handleScroll() {
+            // Enable activation on first user scroll
+            if (!this.allowActivation) {
+                this.allowActivation = true;
+            }
+            
             // Clear existing timeout
             if (this.scrollTimeout) {
                 clearTimeout(this.scrollTimeout);
             }
             
-            // Always check active notebook on scroll to handle browser scroll restoration
-            if (this.initialPositioningComplete) {
-                this.checkActiveNotebook();
-            }
+            // Mark as scrolling
+            this.isScrolling = true;
             
-            // Set new timeout for snapping
+            // Close all notebooks and remove opacity during scroll
+            this.closeAllNotebooksForScroll();
+            
+            // Set new timeout for when scrolling stops
             this.scrollTimeout = setTimeout(() => {
                 this.isScrolling = false;
-                this.snapToNearestNotebook();
+                // Only snap to nearest if user has interacted
+                if (this.allowActivation) {
+                    this.snapToNearestNotebook();
+                }
             }, this.scrollEndDelay);
+        }
+        
+        handleTouchStart(e) {
+            // Enable activation on first user touch
+            if (!this.allowActivation) {
+                this.allowActivation = true;
+            }
             
-            // Mark as scrolling but don't deactivate notebooks
-            this.isScrolling = true;
+            // Immediately close all notebooks when touch starts
+            this.isTouching = true;
+            this.closeAllNotebooksForScroll();
+        }
+        
+        handleTouchMove(e) {
+            // Keep notebooks closed during touch move
+            if (!this.isTouching) {
+                this.isTouching = true;
+                this.closeAllNotebooksForScroll();
+            }
+        }
+        
+        handleTouchEnd(e) {
+            // Mark touch as ended
+            this.isTouching = false;
+            // The scroll end timeout will handle reactivation
+        }
+        
+        closeAllNotebooksForScroll() {
+            // Immediately remove all active states and animations
+            this.notebooks.forEach(notebook => {
+                // Force remove all animation classes immediately
+                notebook.classList.remove('carousel-active', 'carousel-dimmed', 'carousel-closing');
+                
+                // Don't manipulate notebook styles - let CSS handle everything
+                
+                // Portfolio info visibility handled by CSS
+            });
+            
+            this.currentActiveIndex = -1;
+            this.isActivating = false; // Clear any activation in progress
         }
         
         snapToNearestNotebook() {
@@ -324,20 +379,27 @@
                     behavior: 'smooth'
                 });
                 
-                // Wait for scroll to complete, then activate
+                // Wait for scroll to complete, then check if we should activate
                 setTimeout(() => {
-                    this.checkActiveNotebook();
+                    // Only check active notebook if activation is allowed
+                    if (this.allowActivation) {
+                        this.checkActiveNotebook();
+                    }
                 }, 200); // Balanced delay to ensure scroll completes
             }
         }
         
         checkActiveNotebook() {
-            console.log('[Carousel Debug] checkActiveNotebook called');
+            
+            // Don't activate if not allowed yet
+            if (!this.allowActivation) {
+                return;
+            }
+            
             // Re-check which notebook is in center zone horizontally
             const containerRect = this.container.getBoundingClientRect();
             const containerCenter = containerRect.left + containerRect.width / 2;
             
-            console.log('[Carousel Debug] Container center:', containerCenter);
             
             let closestNotebook = null;
             let closestDistance = Infinity;
@@ -349,7 +411,6 @@
                 const notebookCenter = rect.left + rect.width / 2;
                 const distanceFromCenter = Math.abs(notebookCenter - containerCenter);
                 
-                console.log('[Carousel Debug] Notebook', index, 'center:', notebookCenter, 'distance:', distanceFromCenter);
                 
                 if (distanceFromCenter < closestDistance) {
                     closestDistance = distanceFromCenter;
@@ -358,25 +419,28 @@
                 }
             });
             
-            console.log('[Carousel Debug] Closest notebook index:', closestIndex, 'current active:', this.currentActiveIndex);
             
             // Only activate if it's a different notebook than currently active
             if (closestIndex !== -1 && closestIndex !== this.currentActiveIndex) {
-                console.log('[Carousel Debug] Activating notebook at index:', closestIndex);
                 this.activateNotebook(closestIndex);
             } else {
-                console.log('[Carousel Debug] No change needed, keeping current active notebook');
             }
         }
         
         activateNotebook(index) {
-            console.log('[Carousel Debug] activateNotebook called with index:', index);
+            
+            // Don't activate if we're currently scrolling, touching, already activating, or activation not allowed
+            if (this.isScrolling || this.isTouching || this.isActivating || !this.allowActivation) {
+                return;
+            }
+            
+            // Set flag to prevent concurrent activations
+            this.isActivating = true;
             
             // If there's a currently active notebook, animate it closing
             if (this.currentActiveIndex !== -1 && this.currentActiveIndex !== index) {
                 const previousNotebook = this.notebooks[this.currentActiveIndex];
                 const previousIndex = this.currentActiveIndex;
-                console.log('[Carousel Debug] Closing previous notebook at index:', this.currentActiveIndex);
                 
                 // Add closing class to trigger closing animation
                 previousNotebook.classList.add('carousel-closing');
@@ -388,29 +452,35 @@
                 }, 800); // Match the closing animation duration
             }
             
-            // Dim all notebooks except the one being activated
+            // Update all notebooks - no dimming at all
             this.notebooks.forEach((notebook, i) => {
-                if (i !== index && i !== this.currentActiveIndex) {
-                    notebook.classList.remove('carousel-active');
-                    notebook.classList.add('carousel-dimmed');
+                // Don't manipulate styles - CSS handles everything
+                
+                if (i === index) {
+                    // Activate the selected notebook
+                    notebook.classList.remove('carousel-dimmed');
+                    notebook.classList.add('carousel-active');
+                } else {
+                    // All other notebooks remain normal - no dimming
+                    notebook.classList.remove('carousel-active', 'carousel-dimmed');
                 }
             });
             
-            // Remove dimmed state and activate the selected notebook
-            this.notebooks[index].classList.remove('carousel-dimmed');
-            this.notebooks[index].classList.add('carousel-active');
             this.currentActiveIndex = index;
             
-            console.log('[Carousel Debug] Notebook activated. Classes on notebook:', this.notebooks[index].className);
             
             // Play book sound when notebook opens with same delay as animation
             if (window.playBookSound) {
-                console.log('[Carousel Debug] Playing book sound');
                 // Play sound immediately for better responsiveness
                 setTimeout(() => {
                     window.playBookSound();
                 }, 50); // Minimal delay for immediate feedback
             }
+            
+            // Clear the activating flag after animation starts
+            setTimeout(() => {
+                this.isActivating = false;
+            }, 300); // Clear after initial animation phase
         }
         
         deactivateAllNotebooks() {
@@ -441,7 +511,6 @@
         }
         
         restoreScrollPosition(targetScrollLeft) {
-            console.log('[Carousel Debug] Restoring scroll position to:', targetScrollLeft);
             
             // Disable scroll snap temporarily
             this.container.style.scrollSnapType = 'none';
@@ -453,11 +522,9 @@
                 this.checkActiveNotebook();
             }, 100);
             
-            console.log('[Carousel Debug] Scroll position restored to:', targetScrollLeft);
         }
         
         destroy() {
-            console.log('[Carousel Debug] Destroying carousel instance');
             
             // Clean up for desktop mode
             if (this.projectsContent) {
@@ -466,16 +533,17 @@
             
             if (this.container) {
                 this.container.classList.remove('notebook-carousel-mobile');
-                // Create a new bound function for removal
-                const scrollHandler = this.handleScroll.bind(this);
-                this.container.removeEventListener('scroll', scrollHandler);
+                // Remove all event listeners
+                this.container.removeEventListener('scroll', this.handleScroll.bind(this));
+                this.container.removeEventListener('touchstart', this.handleTouchStart.bind(this));
+                this.container.removeEventListener('touchmove', this.handleTouchMove.bind(this));
+                this.container.removeEventListener('touchend', this.handleTouchEnd.bind(this));
             }
             
             document.body.classList.remove('notebook-carousel-active');
             document.body.classList.remove('touch-device');
             
             this.notebooks.forEach(notebook => {
-                notebook.style.flexShrink = '';
                 notebook.classList.remove('carousel-active', 'carousel-dimmed', 'carousel-closing');
             });
             
@@ -496,7 +564,9 @@
             
             this.initialized = false;
             this.initialPositioningComplete = false;
+            this.allowActivation = false;
             this.currentActiveIndex = -1;
+            this.isTouching = false;
             
             // Clear global reference
             if (currentCarouselInstance === this) {
@@ -507,28 +577,20 @@
     
     // Initialize with delay to ensure elements are loaded
     function initializeCarousel() {
-        console.log('[Carousel Debug] initializeCarousel called');
-        console.log('[Carousel Debug] Window width:', window.innerWidth);
-        console.log('[Carousel Debug] Has touch:', 'ontouchstart' in window);
-        console.log('[Carousel Debug] Is mobile device:', isMobileDevice());
         
         // Check if we're on mobile and the portfolio tab is active
         if (!isMobileDevice()) {
-            console.log('[Carousel Debug] Not mobile device, skipping initialization');
             return;
         }
         
         const container = document.querySelector('.portfolio-featured-grid');
-        console.log('[Carousel Debug] Portfolio grid found:', !!container);
         if (!container) return;
         
         // Check if carousel is already initialized
         if (container.classList.contains('notebook-carousel-mobile')) {
-            console.log('[Carousel Debug] Carousel already initialized');
             // If there's a stored position, try to restore it on the existing instance
             const storedScrollPosition = sessionStorage.getItem('carouselScrollPosition');
             if (storedScrollPosition && currentCarouselInstance) {
-                console.log('[Carousel Debug] Restoring position on existing instance');
                 currentCarouselInstance.restoreScrollPosition(parseInt(storedScrollPosition, 10));
                 sessionStorage.removeItem('carouselScrollPosition');
             }
@@ -537,7 +599,6 @@
         
         // Clean up any existing instance
         if (currentCarouselInstance) {
-            console.log('[Carousel Debug] Cleaning up existing instance');
             currentCarouselInstance.destroy();
         }
         
@@ -547,52 +608,41 @@
             const isVisible = window.getComputedStyle(projectsContent).display !== 'none' &&
                             window.getComputedStyle(projectsContent).visibility !== 'hidden' &&
                             window.getComputedStyle(projectsContent).opacity !== '0';
-            console.log('[Carousel Debug] Projects content visible:', isVisible);
             
             if (!isVisible) {
-                console.log('[Carousel Debug] Projects content not visible, delaying initialization');
                 // Try again after a short delay
                 setTimeout(() => initializeCarousel(), 100);
                 return;
             }
         }
         
-        console.log('[Carousel Debug] Creating new NotebookCarousel instance');
         new NotebookCarousel();
     }
     
     // Initialize on DOM ready
     if (document.readyState === 'loading') {
-        console.log('[Carousel Debug] DOM still loading, waiting for DOMContentLoaded');
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('[Carousel Debug] DOMContentLoaded fired');
             initializeCarousel();
         });
     } else {
-        console.log('[Carousel Debug] DOM already loaded, initializing immediately');
         initializeCarousel();
     }
     
     // Re-initialize on dynamic content load
     document.addEventListener('contentLoaded', () => {
-        console.log('[Carousel Debug] contentLoaded event fired');
         initializeCarousel();
     });
     
     // Also try to initialize when portfolio content is loaded
     document.addEventListener('portfolio-loaded', () => {
-        console.log('[Carousel Debug] portfolio-loaded event fired');
         initializeCarousel();
     });
     
     // Initialize on window load as fallback
     window.addEventListener('load', () => {
-        console.log('[Carousel Debug] window load event fired');
         if (!document.querySelector('.portfolio-featured-grid.notebook-carousel-mobile')) {
-            console.log('[Carousel Debug] Carousel not found on window load, initializing');
             initializeCarousel();
         } else {
-            console.log('[Carousel Debug] Carousel already exists on window load');
         }
     });
     

@@ -95,6 +95,9 @@
 // Notebook skeleton UI - load after notebook styles
 @use 'notebook-skeleton';
 
+// Byline truncation with inline more button
+@use 'byline-truncation';
+
 // Profile header compact mode for mobile
 @use 'profile-header-compact';
 

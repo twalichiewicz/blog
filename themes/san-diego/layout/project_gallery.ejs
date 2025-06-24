@@ -125,6 +125,33 @@
 						<span class="project-category"><%- page.company %></span>
 						<h2><%- page.title %></h2>
 					</div>
+					
+					<!-- Read full story button and demo button moved here -->
+					<div class="read-story-button-container">
+						<button class="read-story-button" id="scrollToFullStoryBtn">
+							Read the full story
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<line x1="12" y1="5" x2="12" y2="19"></line>
+								<polyline points="19 12 12 19 5 12"></polyline>
+							</svg>
+						</button>
+						<% if (page.demo_url || page.demo_component) { %>
+							<button class="demo-button" 
+								<% if (page.demo_url) { %>
+									data-demo-url="<%- page.demo_url %>"
+								<% } %>
+								<% if (page.demo_component) { %>
+									data-demo-component="<%- page.demo_component %>"
+								<% } %>
+								id="demoBtn">
+								Demo
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M8 5v14l11-7z"/>
+								</svg>
+							</button>
+						<% } %>
+					</div>
+					
 					<% if (page.byline) { %>
 						<p class="project-byline"><%- page.byline %></p>
 					<% } %>
@@ -143,31 +170,6 @@
 						<% }); %>
 					</div>
 				<% } %>
-				
-				<!-- Read full story button -->
-				<div class="read-story-button-container">
-					<% if (page.demo_url || page.demo_component) { %>
-						<button class="demo-button" 
-							<% if (page.demo_url) { %>
-								data-demo-url="<%- page.demo_url %>"
-							<% } %>
-							<% if (page.demo_component) { %>
-								data-demo-component="<%- page.demo_component %>"
-							<% } %>
-							id="demoBtn">
-							Demo
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-								<path d="M8 5v14l11-7z"/>
-							</svg>
-						</button>
-					<% } %>
-					<button class="read-story-button" id="scrollToFullStoryBtn">
-						Read the full story below
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-							<path d="M12 16.5l-6-6h12l-6 6z"/>
-						</svg>
-					</button>
-				</div>
 			</div>
 		</div>
 		

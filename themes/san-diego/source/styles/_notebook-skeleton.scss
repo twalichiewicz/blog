@@ -162,12 +162,6 @@
 .portfolio-item--featured {
     position: relative;
     
-    // Notebook covers the skeleton when it loads
-    .notebook {
-        position: relative;
-        z-index: 1;
-    }
-    
     // Hide skeleton only when notebook content is actually loaded and visible
     &.notebook-content-loaded .notebook-skeleton {
         opacity: 0;
@@ -199,15 +193,10 @@
     .portfolio-item--featured {
         position: relative;
         
-        // Notebook should always be above skeleton
-        .notebook {
-            position: absolute;
-            z-index: 2;
-        }
-        
+        // Don't override notebook positioning - it's handled by _leuchtturm-notebook.scss
         .notebook-skeleton {
             position: absolute;
-            z-index: 1;
+            z-index: 0; // Behind notebook
         }
     }
 }

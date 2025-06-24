@@ -1,0 +1,187 @@
+@use 'variables';
+
+// Byline truncation styles with inline "More" button
+// Applies to both project-byline and portfolio-byline
+
+// Base truncation styles
+.project-byline,
+.portfolio-byline {
+    &.truncated {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        position: relative;
+        
+        // Remove ellipsis from the container
+        text-overflow: clip;
+        
+        // Add a wrapper for inline content
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 1.5em; // Height of one line
+            background: linear-gradient(to right, transparent 0%, currentColor 80%);
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}
+
+// Inline more button styling
+.byline-more-button {
+    display: inline;
+    margin-left: 0.25em;
+    padding: 2px 6px;
+    font-size: 0.85em;
+    font-weight: 500;
+    background: rgba(variables.$link-color, 0.1);
+    border: 1px solid rgba(variables.$link-color, 0.2);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    vertical-align: baseline;
+    line-height: 1;
+    color: variables.$link-color;
+    text-decoration: none;
+    
+    &:hover {
+        background: rgba(variables.$link-color, 0.15);
+        border-color: rgba(variables.$link-color, 0.3);
+        transform: translateY(-1px);
+    }
+    
+    // Dark mode adjustments
+    @media (prefers-color-scheme: dark) {
+        background: rgba(variables.$link-color-dark, 0.1);
+        border-color: rgba(variables.$link-color-dark, 0.2);
+        color: variables.$link-color-dark;
+        
+        &:hover {
+            background: rgba(variables.$link-color-dark, 0.15);
+            border-color: rgba(variables.$link-color-dark, 0.3);
+        }
+    }
+}
+
+// Special styling for portfolio notebooks
+.portfolio-info {
+    .portfolio-byline {
+        &.truncated {
+            -webkit-line-clamp: 2; // Less lines for compact notebook display
+        }
+    }
+    
+    .byline-more-button {
+        font-size: 0.8em;
+        padding: 1px 4px;
+    }
+}
+
+// Project edge wrapper specific overrides
+.project-edge-wrapper {
+    .project-byline {
+        &.truncated {
+            // Keep existing styles but adjust for inline button
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: clip;
+        }
+    }
+    
+    .byline-more-button {
+        // Adjust for hero context
+        color: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+}
+
+// Modal styles remain the same
+.byline-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    
+    &.active {
+        opacity: 1;
+    }
+    
+    .byline-modal-content {
+        background: variables.$card-bg;
+        border-radius: 12px;
+        padding: 32px;
+        max-width: 600px;
+        width: 100%;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        
+        @media (prefers-color-scheme: dark) {
+            background: variables.$card-bg-dark;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+    }
+    
+    .modal-close-button {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 50%;
+        transition: background 0.2s ease;
+        color: variables.$text-color-secondary;
+        
+        &:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            color: variables.$text-color-secondary-dark;
+            
+            &:hover {
+                background: rgba(255, 255, 255, 0.05);
+            }
+        }
+    }
+    
+    .modal-byline-text {
+        font-size: 16px;
+        line-height: 1.6;
+        color: variables.$text-color;
+        margin: 0;
+        
+        @media (prefers-color-scheme: dark) {
+            color: variables.$text-color-dark;
+        }
+    }
+}

@@ -36,6 +36,8 @@ gallery_images:
     type: image
   - url: /2017/07/30/Human-Interest-distribution-automation/distribution_1000.png
     type: image
+notebook_color: warm-grey
+notebook_brand: custom
 ---
 
 ## Process & Design Approach

@@ -6,6 +6,7 @@
 // =================================
 // This framework allows customization of individual notebook covers through
 // data attributes on the portfolio items.
+// Works with the unified notebook animation system.
 
 // Color Palette for Notebook Covers
 $notebook-colors: (
@@ -29,6 +30,7 @@ $notebook-colors: (
     'olive': #3d4f2f,
     'plum': #4b294b,
     'tobacco': #6f4e37,
+    'warm-grey': #f5f5f0,
     
     // Special editions
     'gold': linear-gradient(135deg, #d4af37 0%, #f9e79f 50%, #d4af37 100%),
@@ -225,6 +227,13 @@ $notebook-brands: (
         }
     }
     
+    // Hide brand text when custom brand is used without text
+    &[data-notebook-brand="custom"]:not([data-notebook-brand-text]) {
+        .notebook .front-cover::before {
+            display: none !important;
+        }
+    }
+    
     // Adjust brand text color for lighter notebook colors
     &[data-notebook-color="crimson"],
     &[data-notebook-color="rust"],
@@ -233,7 +242,8 @@ $notebook-brands: (
     &[data-notebook-color="ochre"],
     &[data-notebook-color="gold"],
     &[data-notebook-color="silver"],
-    &[data-notebook-color="rose-gold"] {
+    &[data-notebook-color="rose-gold"],
+    &[data-notebook-color="warm-grey"] {
         .notebook .front-cover::before {
             color: rgba(0, 0, 0, 0.15); // Dark text for light backgrounds
         }

@@ -44,7 +44,7 @@
             display: block !important;
             opacity: 1 !important;
             visibility: visible !important;
-            transform: scale(0.85) translateX(0) !important;
+            transform: scale(0.9) translateX(0) !important;
             transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
             
             // All notebook elements
@@ -325,7 +325,7 @@
         
         // Hover state - smooth notebook opening with shift
         &:hover .notebook {
-            transform: scale(0.85) translateX(15%) !important; // Shift right as it opens
+            transform: scale(0.9) translateX(15%) !important; // Shift right as it opens
             
             // Layer 1: Front cover - swaps to z-index 5 later in animation
             .front-cover {
@@ -352,7 +352,7 @@
         
         // Ensure notebook stays visible on mouseout
         &:not(:hover) .notebook {
-            transform: scale(0.85) translateX(0) !important;
+            transform: scale(0.9) translateX(0) !important;
             
             * {
                 display: block !important;
@@ -490,11 +490,11 @@
         
         .portfolio-item--featured.parallax-active {
             .notebook {
-                top: 5%; // Adjusted for better fit
-                left: 5%;
-                right: 5%;
+                top: 5%;
+                left: 10%; // Match desktop positioning
+                right: 10%;
                 bottom: 5%;
-                transform: scale(0.9) translateX(0) !important; // Slightly larger scale
+                transform: scale(0.7) translateX(0) !important; // Smaller scale for mobile
                 width: auto !important;
                 height: auto !important;
                 
@@ -511,8 +511,9 @@
                 }
             }
             
+            // Disable hover on mobile - it interferes with touch scrolling
             &:hover .notebook {
-                transform: scale(0.85) translateX(12%) !important;
+                transform: scale(0.7) translateX(0) !important; // No movement on hover
             }
         }
     }
@@ -524,7 +525,7 @@
         .portfolio-item-wrapper {
             // Remove hover effects by default on mobile
             &:hover .notebook {
-                transform: scale(0.85) translateX(0) !important;
+                transform: scale(0.7) translateX(0) !important;
                 
                 .front-cover {
                     transform: translateZ(3px) rotateY(0deg) !important;
@@ -540,17 +541,16 @@
                 }
             }
             
-            // Default state for all notebooks - ensure smooth transitions
+            // Default state for all notebooks - smaller scale for mobile
             .notebook {
-                transform: scale(0.85) translateX(0) !important;
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+                transform: scale(0.7) translateX(0) !important;
+                transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             }
             
-            // Inactive notebooks stay dimmed
+            // Inactive notebooks - removed dimming
             &.carousel-inactive {
-                opacity: 0.6;
                 transform: translateX(0) !important; // Reset position
-                transition: opacity 0.3s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+                transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             }
             
             // Active notebook shows the opening animation (what was hover)
@@ -681,9 +681,9 @@
                     width: 122px !important;
                     margin-bottom: 0 !important;
                     
-                    // Speed up transitions on mobile
+                    // Faster transition timing for mobile
                     .notebook {
-                        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                        transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
                     }
                 }
                 
@@ -692,41 +692,17 @@
                     transform: none !important;
                     
                     .notebook {
-                        transform: scale(0.9) translateX(0) !important;
+                        transform: scale(0.7) translateX(0) !important;
                     }
                 }
                 
-                // Dimmed state
-                &.carousel-dimmed {
-                    opacity: 0.6;
-                    
-                    // Ensure portfolio-info participates in opacity transition
-                    .portfolio-info {
-                        // Use transform to ensure it's on same compositing layer
-                        transform: translateZ(0);
-                    }
-                    
-                    .notebook {
-                        // Ensure closed state
-                        .front-cover {
-                            z-index: 6;
-                            transform: translateZ(5px) rotateY(0deg) !important;
-                        }
-                        
-                        .inside-front-cover {
-                            z-index: 5;
-                            transform: translateZ(4px) rotateY(0deg) !important;
-                        }
-                        
-                        .inner-page-left {
-                            transform: translateZ(3px) rotateY(0deg) !important;
-                        }
-                    }
-                }
+                // Removed dimmed state - no opacity changes
                 
                 // Active state (centered and stationary)
                 &.carousel-active {
                     opacity: 1;
+                    
+                    // No need for separate right shift here - included in transform
                     
                     // Ensure portfolio-info is on same layer
                     .portfolio-info {
@@ -734,27 +710,29 @@
                     }
                     
                     .notebook {
-                        transform: scale(0.9) translateX(12%) !important; // Adjusted for mobile
+                        // Match desktop transform exactly
+                        transform: scale(0.85) translateX(15%) !important; // Same as desktop hover
                         
-                        // Layer 1: Front cover - swaps to z-index 5 later in animation
+                        // Layer 1: Front cover - match desktop exactly
                         .front-cover {
                             transform: translateZ(5px) rotateY(-150deg);
                             z-index: 5;
-                            // Delay z-index swap to 0.65s (near end of 0.8s animation)
-                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.05s, z-index 0s linear 0.65s;
+                            // Match desktop timing: 1.8s animation, z-index swap at 1.4s
+                            transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, z-index 0s linear 1.4s;
                         }
                         
-                        // Layer 2: Inside front cover - swaps to z-index 6 at same time
+                        // Layer 2: Inside front cover - match desktop exactly
                         .inside-front-cover {
                             transform: translateZ(4px) rotateY(-150deg);
                             z-index: 6;
-                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.05s, z-index 0s linear 0.65s;
+                            // Match desktop timing
+                            transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, z-index 0s linear 1.4s;
                         }
                         
-                        // Layer 3: Left inner page - animates open
+                        // Layer 3: Left inner page - match desktop exactly
                         .inner-page-left {
                             transform: translateZ(3px) rotateY(-140deg);
-                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+                            transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
                         }
                         
                         // Pages stay visible
@@ -763,8 +741,8 @@
                     // When active notebook starts closing, maintain open state initially
                     &.carousel-closing {
                         .notebook {
-                            // Start from open position
-                            transform: scale(0.9) translateX(12%) !important;
+                            // Start from open position - match desktop
+                            transform: scale(0.85) translateX(15%) !important;
                         }
                     }
             }
@@ -772,26 +750,26 @@
                 // Closing state - smooth closing animation
                 &.carousel-closing {
                     .notebook {
-                        // Animate back to closed state
-                        transform: scale(0.9) translateX(0) !important;
+                        // Animate back to closed state - match desktop
+                        transform: scale(0.7) translateX(0) !important;
+                        transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
                         
-                        // Reset z-indices while closing - swap early in animation
+                        // Reset z-indices while closing - swap late in animation to prevent clipping
                         .front-cover {
                             z-index: 6;
                             transform: translateZ(5px) rotateY(0deg) !important;
-                            // Swap happens early in close animation (0.15s into 0.8s)
-                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.15s;
+                            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.3s;
                         }
                         
                         .inside-front-cover {
                             z-index: 5;
                             transform: translateZ(4px) rotateY(0deg) !important;
-                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.15s;
+                            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.3s;
                         }
                         
                         .inner-page-left {
                             transform: translateZ(3px) rotateY(0deg) !important;
-                            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                            transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) !important;
                         }
                         
                         .page-block,
@@ -805,7 +783,7 @@
                         .paperclip-photo {
                             opacity: 0 !important;
                             transform: rotate(-2deg) translateY(10px) !important;
-                            transition: all 0.3s ease-out !important;
+                            transition: all 0.6s ease-out !important;
                         }
                     }
                 }
@@ -865,4 +843,53 @@
     opacity: 1 !important;
     visibility: visible !important;
     transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Disable all hover effects on touch devices to prevent accidental triggers while scrolling
+body.touch-device {
+    .portfolio-featured-grid .portfolio-item-wrapper {
+        &:hover .notebook {
+            // Keep notebooks closed on hover for touch devices
+            transform: scale(0.7) translateX(0) !important;
+            
+            .front-cover {
+                transform: translateZ(5px) rotateY(0deg) !important;
+                z-index: 6 !important;
+            }
+            
+            .inside-front-cover {
+                transform: translateZ(4px) rotateY(0deg) !important;
+                z-index: 5 !important;
+            }
+            
+            .inner-page-left {
+                transform: translateZ(3px) rotateY(0deg) !important;
+                z-index: 4 !important;
+            }
+        }
+    }
+}
+
+// Also disable hover with media query for touch capabilities
+@media (hover: none) and (pointer: coarse) {
+    .portfolio-featured-grid .portfolio-item-wrapper {
+        &:hover .notebook {
+            transform: scale(0.7) translateX(0) !important;
+            
+            .front-cover {
+                transform: translateZ(5px) rotateY(0deg) !important;
+                z-index: 6 !important;
+            }
+            
+            .inside-front-cover {
+                transform: translateZ(4px) rotateY(0deg) !important;
+                z-index: 5 !important;
+            }
+            
+            .inner-page-left {
+                transform: translateZ(3px) rotateY(0deg) !important;
+                z-index: 4 !important;
+            }
+        }
+    }
 }
