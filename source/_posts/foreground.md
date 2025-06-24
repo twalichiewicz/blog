@@ -15,8 +15,6 @@ stats:
     label: "Fewer Support Calls"
   - value: "50%→10%"
     label: "Implementation Time"
-  - value: "3 User Types"
-    label: "Unified Experience"
 project_stats:
   - label: "Team"
     value: 
