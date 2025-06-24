@@ -1979,6 +1979,20 @@ body.loaded .project-wrapper {
 			position: relative;
 			z-index: 1;
 		}
+		
+		// Special class for project impact stats labels - no margin bottom
+		.stat-label--impact {
+			font-size: 9px;
+			font-weight: 400;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			color: rgba(255, 255, 255, 0.7);
+			line-height: 1.2;
+			text-shadow: none;
+			position: relative;
+			z-index: 1;
+			margin-bottom: 0;
+		}
 	}
 	
 	// Responsive adjustments
@@ -1988,7 +2002,8 @@ body.loaded .project-wrapper {
 				font-size: 16px; // Slightly smaller on mobile
 			}
 			
-			.stat-label {
+			.stat-label,
+			.stat-label--impact {
 				font-size: 8px;
 			}
 		}
@@ -2001,7 +2016,8 @@ body.loaded .project-wrapper {
 				font-size: clamp(1.25rem, 3.5vw, 1.75rem);
 			}
 			
-			.stat-label {
+			.stat-label,
+			.stat-label--impact {
 				font-size: 7px;
 			}
 		}
