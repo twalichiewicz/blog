@@ -27,8 +27,6 @@ stats:
     label: "Executive Sponsorship"
   - value: "$10M+"
     label: "Identified Savings"
-  - value: "Patent"
-    label: "IP Protection"
 project_stats:
   - label: "Team"
     value: 
@@ -100,6 +98,5 @@ The Overlay initiative secured VP-level sponsorship and achieved critical milest
 - **Production-Ready POC**: Delivered fully functional prototype demonstrating cross-application intelligence
 - **Architectural Innovation**: Designed framework serving 60+ desktop applications with single codebase
 - **$10M+ Savings Potential**: Identified duplicate feature development across teams that platform would eliminate
-- **Strategic Patent Filing**: Core architectural concepts submitted for patent protection
 
 The project successfully reached production-ready POC stage with demonstrated ROI and technical feasibility. Following a strategic reorganization, the company pivoted to an alternative implementation approach. The foundational architecture and design principles I established continue to influence Autodesk's platform strategy.
