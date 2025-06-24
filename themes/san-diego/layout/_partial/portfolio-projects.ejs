@@ -59,7 +59,8 @@
                    <% if (post.notebook_brand) { %>data-notebook-brand="<%- post.notebook_brand %>"<% } %>
                    <% if (post.notebook_brand_text) { %>data-notebook-brand-text="<%- post.notebook_brand_text %>"<% } %>
                    <% if (post.notebook_effect) { %>data-notebook-effect="<%- post.notebook_effect %>"<% } %>
-                   <% if (post.notebook_stickers) { %>data-notebook-stickers="true"<% } %>>
+                   <% if (post.notebook_stickers) { %>data-notebook-stickers="true"<% } %>
+                   <% if (post.notebook_style) { %>data-notebook-style="<%- post.notebook_style %>"<% } %>>
                     <div class="portfolio-item portfolio-item--featured">
                         <!-- Skeleton UI placeholder -->
                         <div class="notebook-skeleton">
@@ -72,6 +73,53 @@
                         
                         <% if (post.cover_image) { %>
                             <div class="notebook">
+                                <!-- Special elements for notebook variants -->
+                                <% if (post.notebook_style === 'stack-papers') { %>
+                                    <div class="notebook-staple"></div>
+                                    <div class="notebook-page-curl"></div>
+                                    <!-- Top paper that displays the notebook_pages image -->
+                                    <div class="notebook-paper-top">
+                                        <% 
+                                        // Use notebook_pages image for stack of papers
+                                        if (post.notebook_pages || post.notebook_page_right) {
+                                            let notebookPagesPath = post.notebook_page_right || post.notebook_pages;
+                                            if (!notebookPagesPath.startsWith('/') && !notebookPagesPath.startsWith('http')) {
+                                                if (/^\d{4}\/\d{2}\/\d{2}\//.test(notebookPagesPath)) {
+                                                    notebookPagesPath = '/' + notebookPagesPath;
+                                                } else {
+                                                    notebookPagesPath = post.path + notebookPagesPath;
+                                                }
+                                            }
+                                        %>
+                                            <img src="<%- url_for(notebookPagesPath) %>" alt="<%- post.title %>" />
+                                        <% } else if (post.cover_image) { 
+                                            // Fallback to cover image
+                                            let coverImagePath = post.cover_image;
+                                            const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(post.cover_image);
+                                            
+                                            if (isVideo && post.cover_video_poster) {
+                                                coverImagePath = post.cover_video_poster;
+                                            }
+                                            
+                                            if (coverImagePath) {
+                                                if (!coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
+                                                    if (/^\d{4}\/\d{2}\/\d{2}\//.test(coverImagePath)) {
+                                                        coverImagePath = '/' + coverImagePath;
+                                                    } else {
+                                                        coverImagePath = post.path + coverImagePath;
+                                                    }
+                                                }
+                                            %>
+                                                <img src="<%- url_for(coverImagePath) %>" alt="<%- post.title %>" />
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+                                <% } else if (post.notebook_style === 'spiral') { %>
+                                    <div class="notebook-spiral"></div>
+                                <% } else if (post.notebook_style === 'notepad') { %>
+                                    <div class="notebook-spiral-top"></div>
+                                <% } %>
+                                
                                 <!-- Layer 6: Back cover (static anchor) -->
                                 <div class="back-cover"></div>
                                 

@@ -31,6 +31,9 @@ $notebook-colors: (
     'plum': #4b294b,
     'tobacco': #6f4e37,
     'warm-grey': #f5f5f0,
+    'offwhite': #fafaf8,
+    'dark-lime-green': #556b2f,
+    'tangerine': #ff6347,
     
     // Special editions
     'gold': linear-gradient(135deg, #d4af37 0%, #f9e79f 50%, #d4af37 100%),
@@ -68,11 +71,10 @@ $notebook-brands: (
         'font-weight': 600
     ),
     'rhodia': (
-        'text': 'Rhodia',
-        'font-size': 7px,
-        'letter-spacing': 0.5px,
-        'font-weight': 400,
-        'font-style': italic
+        'text': 'RHODIA',
+        'font-size': 6px,
+        'letter-spacing': 1.5px,
+        'font-weight': 600
     ),
     'custom': (
         // Will use data-notebook-brand-text attribute

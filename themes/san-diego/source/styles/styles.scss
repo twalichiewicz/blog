@@ -92,6 +92,9 @@
 // Notebook customization framework - load after base notebook styles
 @use 'notebook-customization';
 
+// Notebook variant styles (stack papers, spiral, notepad)
+@use 'notebook-variants';
+
 // Notebook skeleton UI - load after notebook styles
 @use 'notebook-skeleton';
 

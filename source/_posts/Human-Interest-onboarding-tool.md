@@ -15,7 +15,7 @@ trailer:
   loop: true
   muted: true
 tags: [portfolio]
-has_writeup: true
+has_writeup: false
 stats:
   - value: "30%"
     label: "Fewer Support Calls"

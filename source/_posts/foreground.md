@@ -8,7 +8,7 @@ byline: Built "Foreground" design system that unified product ecosystem across t
 date: 2018-04-05 00:00:00
 cover_image: foreground-preview.jpg
 cover_video_poster: 
-has_writeup: true
+has_writeup: false
 tags: [portfolio]
 stats:
   - value: "90%"

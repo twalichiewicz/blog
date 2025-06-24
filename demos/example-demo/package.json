@@ -1,0 +1,10 @@
+{
+  "name": "example-demo",
+  "version": "1.0.0",
+  "description": "Example demo for testing the demo system",
+  "scripts": {
+    "dev": "python3 -m http.server 3001",
+    "build": "mkdir -p dist && cp -r src/* dist/"
+  },
+  "private": true
+}

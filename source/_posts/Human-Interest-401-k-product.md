@@ -23,6 +23,7 @@ skills:
 industry:
   - FinTech
   - Enterprise
+has_writeup: false
 layout: project
 credits:
   - role: Lead Product Designer

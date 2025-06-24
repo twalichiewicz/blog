@@ -9,6 +9,8 @@ tags:
   - portfolio
 layout: project_gallery
 has_writeup: true
+notebook_color: "tangerine"
+notebook_brand: "rhodia"
 cover_image: sspp_cover.jpg
 stats:
   - value: "$6-8M"

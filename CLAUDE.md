@@ -2,12 +2,74 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
+## Table of Contents
 
+1. [🚨 Critical Rules & Warnings](#-critical-rules--warnings)
+2. [Quick Start](#quick-start)
+3. [Project Architecture](#project-architecture)
+4. [Development Guide](#development-guide)
+5. [Component Systems](#component-systems)
+6. [Styling Guidelines](#styling-guidelines)
+7. [Testing & Quality](#testing--quality)
+8. [Deployment](#deployment)
+9. [Troubleshooting](#troubleshooting)
+10. [Best Practices](#best-practices)
+11. [Technical Debt Registry](#technical-debt-registry)
+
+## 🚨 Critical Rules & Warnings
+
+### Build Requirements
+**ALWAYS run `npm run build` before committing ANY changes**
+- If build fails → DO NOT commit or push
+- Fix all errors first
+- This is a hard blocker - no exceptions
+- Test locally before deployment
+
+### File Purpose Boundaries
+Each SCSS file has a specific purpose. NEVER cross these boundaries:
+- `_dynamic-content-scroll-fix.scss`: ONLY for fixing scroll behavior, NO styling
+- `_blog.scss`: Component styling for blog elements
+- `_project.scss`: Component styling for project elements
+- `_mobile-scroll-fix.scss`: Mobile-specific scroll fixes only
+
+### Respecting Constraints
+**THE MOST IMPORTANT RULE**: When given a specific task with constraints, DO NOT make changes outside those boundaries.
+- If told not to touch something, DON'T
+- Fix only what was asked, nothing more
+- When user says something works, study it but don't modify it
+
+### Security Rules
+- NEVER introduce code that exposes or logs secrets/keys
+- NEVER commit secrets or keys to the repository
+- Always follow security best practices
+
+## Quick Start
+
+### Prerequisites
+- Node.js (v14 or higher)
+- Git
+- npm or yarn
+
+### Project Overview
 This is a Hexo-powered static blog and portfolio site for Thomas Walichiewicz. Hexo converts Markdown posts into a static website with a custom theme called "san-diego".
 
-## Common Development Commands
+### Initial Setup
+```bash
+# Clone the repository
+git clone [repository-url]
+cd blog
 
+# Install dependencies
+npm install
+
+# Start development server
+npm run server
+
+# Build for production
+npm run build:prod
+```
+
+### Common Commands Reference
 ```bash
 # Development
 npm run server          # Start local server on port 4000
@@ -21,52 +83,43 @@ npm run deploy         # Deploy to GitHub Pages
 npm run lint:scss      # Lint SCSS files
 npm run lint:scss:fix  # Auto-fix SCSS issues
 
+# Demo Development
+npm run build:demos    # Build all demo projects
+npm run dev:demos      # Start demo development servers
+
 # Optimization
 npm run optimize:images # Optimize images in source/_posts/
 npm run analyze        # Analyze build size
 ```
 
-## Process Management & Resource Cleanup
+## Project Architecture
 
-### Cleaning Up Development Processes
-When switching between tasks or experiencing high CPU/memory usage, clean up orphaned processes:
-
-```bash
-# Check for running Node.js processes
-ps aux | grep node
-
-# Check for Hexo server processes
-ps aux | grep hexo
-
-# Kill specific process by PID
-kill -9 [PID]
-
-# Kill all Node.js processes (use with caution)
-pkill -f node
-
-# Check port 4000 usage (Hexo default)
-lsof -i :4000
-
-# Force kill process using port 4000
-kill -9 $(lsof -t -i:4000)
+### Directory Structure
+```
+blog/
+├── source/
+│   ├── _posts/          # Blog and portfolio content
+│   └── assets/          # Global assets
+├── themes/san-diego/    # Custom theme
+│   ├── layout/          # EJS templates
+│   ├── source/
+│   │   ├── styles/      # SCSS files
+│   │   ├── js/          # JavaScript modules
+│   │   └── components/  # Component library
+│   └── scripts/         # Build-time scripts
+├── scaffolds/           # Content templates
+├── demos/               # Interactive demo projects
+├── tools/               # Utility scripts
+│   ├── blog-editor/     # Remote editor
+│   └── optimize-images.js
+├── _config.yml          # Hexo configuration
+├── package.json
+└── CLAUDE.md           # This file
 ```
 
-### Common Process Issues
-1. **Multiple Hexo servers**: Running `npm run server` multiple times without proper cleanup
-2. **Orphaned build processes**: Build commands that didn't complete properly
-3. **Watch processes**: File watchers from development tools that persist
-4. **Browser sync**: Multiple browser-sync instances from different sessions
+### Core Concepts
 
-### Best Practices
-- Always use Ctrl+C to properly stop development servers
-- Check for running processes before starting new ones
-- Close terminal sessions cleanly
-- Use `npm run clean` before switching between major tasks
-- Monitor Activity Monitor (Mac) or Task Manager (Windows) for Node processes
-
-## Architecture & Key Concepts
-
-### Content Management
+#### Content Management
 - **Posts**: Markdown files in `source/_posts/` become blog/portfolio entries
 - **Scaffolds**: Templates in `scaffolds/` for creating new content:
   - `blog-post.md` - Standard blog post
@@ -75,52 +128,29 @@ kill -9 $(lsof -t -i:4000)
   - `case-study.md` - Detailed case studies
   - `page.md` - Static pages
 
-### Theme System
-The custom "san-diego" theme (`themes/san-diego/`) consists of:
+#### Theme System
+The custom "san-diego" theme consists of:
 - **Templates**: EJS files in `layout/` for page structures
 - **Styles**: SCSS in `source/styles/` with modular architecture
 - **JavaScript**: Modular JS in `source/js/` for interactions
 - **Scripts**: Build-time scripts in `scripts/` for processing
 
-### Build Pipeline
+#### Build Pipeline
 1. **Hexo Generation**: Converts Markdown to HTML
 2. **Asset Processing**: Custom minification script (`scripts/minify-assets.js`)
 3. **Image Optimization**: Sharp.js processes images (`tools/optimize-images.js`)
 4. **Deployment**: GitHub Actions workflow to GitHub Pages
 
-### Key Features Implementation
+### Key Features
 1. **Project Gallery**: Uses `project_gallery.ejs` with multiple layout modes
-2. **Adaptive Videos**: Automatic video format conversion for web compatibility
-3. **Image Optimization**: Sharp.js processes images on build
-4. **Dark/Light Mode**: CSS custom properties with JavaScript toggle
-5. **Performance**: Lazy loading, minification, and caching strategies
-6. **Remote Editor**: Secure blog editor in `tools/blog-editor/` with GitHub OAuth
+2. **Interactive Demo System**: Self-contained demos that load in place of project trailers
+3. **Adaptive Videos**: Automatic video format conversion for web compatibility
+4. **Image Optimization**: Sharp.js processes images on build
+5. **Dark/Light Mode**: CSS custom properties with prefers-color-scheme
+6. **Performance**: Lazy loading, minification, and caching strategies
+7. **Remote Editor**: Secure blog editor in `tools/blog-editor/` with GitHub OAuth
 
-### Deployment Pipeline
-GitHub Actions workflow (`.github/workflows/optimize-and-deploy.yml`):
-1. Triggers on push to main
-2. Runs image optimization
-3. Builds production site
-4. Deploys to GitHub Pages with custom domain (thomas.design)
-
-## Testing & Quality Assurance
-
-Before making changes, consult `TESTING-PROTOCOLS.md` for:
-- Change classification system (🟢 Green / 🟡 Yellow / 🔴 Red light)
-- Required testing procedures based on change type
-- Design review requirements for visual changes
-- Screenshot and visual regression testing protocols
-
-**Key principle**: Like a professional kitchen, all visual changes above a certain threshold need chef review before going out.
-
-### 🚨 CRITICAL DEPLOYMENT RULE 🚨
-**ALWAYS run `npm run build` before committing ANY changes**
-- If build fails → DO NOT commit or push
-- Fix all errors first
-- This is a hard blocker - no exceptions
-- Test locally before deployment
-
-## Important Patterns
+## Development Guide
 
 ### Creating New Content
 ```bash
@@ -134,313 +164,55 @@ hexo new portfolio-post "Project Name"
 hexo new case-study "Study Title"
 ```
 
-### Working with Images
+### Working with Media
+
+#### Images
 - Place images in post folders: `source/_posts/post-name/`
 - Use relative paths in Markdown: `![Alt text](./image.jpg)`
 - Images are automatically optimized during build
 - Small files (<10KB) are skipped from optimization
 
-### Video Guidelines
+#### Videos
 - Supported formats: MP4, WebM
 - Place in post folders alongside images
 - Use adaptive video component for responsive playback
 - Different aspect ratios for various grid layouts
 
-### SCSS Architecture
-- Variables in `_variables.scss`
-- Component styles in individual files (e.g., `_project.scss`)
-- Responsive breakpoints in `_device-breakpoints.scss`
-- Theme modes in `theme-modes/` directory
+### Process Management
 
-## Performance Considerations
-- All images are automatically compressed with Sharp.js
-- HTML/CSS/JS are minified in production builds
-- Lazy loading is implemented for images and videos
-- Font loading is optimized with font-display: swap
-- Build size analysis available via `npm run analyze`
-
-## Anchor Links Implementation
-
-### How Anchor Links Work
-- Anchor links allow navigation to specific posts using hash fragments (e.g., `#post-Play-Next`)
-- The anchor link handler is in `themes/san-diego/source/js/anchor-links-simple.js`
-- Uses native `scrollIntoView()` method for smooth scrolling
-- Automatically switches between blog/portfolio tabs if needed
-
-### Creating Anchor Links
-- Post IDs are generated from the filename: `Post-Name.md` becomes `#post-Post-Name`
-- Link format in Markdown: `[Link text](#post-Post-Name)`
-- The ID is case-sensitive and must match the filename exactly
-
-### Important Notes
-- Posts marked with `draft: true` won't be published and anchor links to them will fail
-- Link posts with `short: true` are rendered inline on the homepage
-- The script handles both mobile and desktop scrolling contexts
-
-## Notebook Customization Framework
-
-### Overview
-Portfolio projects can have customized notebook covers with different colors, textures, brands, effects, and stickers. This allows each project to have a unique visual identity that reflects its nature.
-
-### Customization Options
-- **Colors**: 16 preset colors from classic black to metallic gradients
-- **Textures**: pristine, worn, scratched, weathered, stained
-- **Brands**: Leuchtturm1917, Moleskine, Field Notes, Rhodia, or custom
-- **Effects**: holographic, metallic
-- **Stickers**: Up to 2 custom stickers with text, colors, and rotation
-
-### Implementation
-Add properties to portfolio post front matter:
-```yaml
-notebook_color: nordic-blue
-notebook_texture: worn
-notebook_brand: leuchtturm
-notebook_effect: metallic
-notebook_stickers:
-  - text: "SHIPPED"
-    color: "#fff"
-    bg: "#00c853"
-    rotate: "-3deg"
-```
-
-See `docs/notebook-customization-guide.md` for full documentation.
-
-## Carousel & Spotlight Feature
-
-### Overview
-The carousel component supports both images and videos, with an integrated spotlight modal for full-screen viewing. When users click on any carousel media, it opens in a spotlight modal with navigation controls.
-
-### Key Features
-- **Mixed Media Support**: Carousels can contain both images and videos
-- **Spotlight Modal**: Click any carousel item to view it full-screen
-- **Navigation Controls**: Previous/next buttons and keyboard navigation (arrow keys, escape)
-- **Indicator Dots**: Visual indicators showing current position and allowing direct navigation
-- **Video Support**: Videos are displayed with controls in spotlight mode
-- **Touch Support**: Swipe gestures on mobile devices
-
-### Implementation Details
-The carousel system (`themes/san-diego/source/js/carousel.js`) tracks all media items in a `carouselImages` array that includes:
-- Images: stored with their src, alt text, and slide index
-- Videos: stored with their poster image (if available) or a placeholder
-
-When opening spotlight mode:
-1. The current media item is displayed (image or video with controls)
-2. Navigation indicators appear if there are multiple items
-3. Users can navigate using buttons, indicators, keyboard, or swipe gestures
-4. Videos autoplay with controls visible
-
-### Common Issues & Solutions
-- **Missing Indicators**: Usually caused by the carousel not detecting all media items. The system now automatically re-scans for media when opening spotlight
-- **Mixed Media**: Carousels with both videos and images now correctly count all items for navigation
-- **Dynamic Content**: Project galleries loaded via AJAX are handled with delayed initialization
-
-## Known Technical Debt
-
-### 1. HTML Size Limitation
-- **Issue**: When too many posts have `short: true`, the generated index.html can become very large
-- **Impact**: Previously caused HTML truncation at ~138KB, breaking functionality
-- **Current Fix**: Strip script/style tags from inline post content in `blog-posts.ejs`
-- **Proper Solution**: Implement pagination (change `per_page: 0` to a reasonable number in `_config.yml`)
-
-### 2. Duplicate Scroll Implementations
-- **Issue**: Multiple files implement similar scroll functionality
-- **Files**: `scroll.js`, `blog.js`, and `anchor-links-simple.js`
-- **Impact**: Potential conflicts and maintenance overhead
-- **Solution**: Consolidate scroll logic into a single utility module
-
-### 3. Event Handler Conflicts
-- **Issue**: Multiple scripts attach click handlers to anchor links
-- **Current Fix**: Use capture phase in anchor-links-simple.js to intercept first
-- **Proper Solution**: Implement a central event delegation system
-
-### 4. Script Loading Order Dependencies
-- **Issue**: Some scripts depend on others being loaded first (e.g., mobileTabs)
-- **Impact**: Race conditions can cause features to fail intermittently
-- **Solution**: Implement proper module system or use dynamic imports
-
-### 5. Deprecated Sass API Warnings
-- **Issue**: Build process shows "legacy-js-api" deprecation warnings
-- **Impact**: Will break when Dart Sass 2.0.0 is released
-- **Solution**: Update build configuration to use modern Sass API
-
-### 6. Missing Error Handling
-- **Issue**: Many scripts don't handle edge cases (missing elements, network failures)
-- **Impact**: Silent failures that are hard to debug
-- **Solution**: Add comprehensive error handling and user feedback
-
-## Recent Session Changes (Current)
-
-### 1. Complete 3D Notebook Animation System (June 2025)
-- **Major Achievement**: Implemented comprehensive 6-layer notebook animation system
-- **Architecture**: 
-  - **Layer 6**: Back cover (static anchor, no animation)
-  - **Layer 5**: Inside back cover (static anchor)  
-  - **Layer 4**: Right inner page (content display)
-  - **Layer 3**: Left inner page (content display)
-  - **Layer 2**: Inside front cover (animates with front cover)
-  - **Layer 1**: Front cover (primary interactive layer)
-
-- **Animation Features**:
-  - Z-index swapping during animation for visual continuity
-  - Transform origins aligned to spine (0% 50%) for realistic rotation
-  - Smooth 1.8s cubic-bezier transitions with staggered timing
-  - 150° rotation with 15% right translation on hover
-
-- **Visual Fixes Completed**:
-  - **Gap Prevention**: Left inner page positioned at `left: 6px, right: 8px` to close spine gaps
-  - **Cover Alignment**: Inside front cover positioned 2px inset from all sides of front cover  
-  - **Edge Overflow**: Back cover uses `overflow: hidden` with inset page edge pseudo-elements
-  - **Layer Management**: Proper z-index ordering (1-6) with mid-animation swapping
-
-- **Technical Implementation**:
-  - 3D transforms with `transform-style: preserve-3d` and `perspective: 2000px`
-  - GPU-accelerated animations with `translateZ()` layering
-  - EJS template fixes for regex syntax (`\\s+` to `\s+`)
-  - Mobile-compatible with existing carousel system
-
-- **Files Modified**:
-  - `_leuchtturm-notebook.scss` - Complete 6-layer structure and animations
-  - `portfolio-projects.ejs` - Updated HTML structure and EJS syntax fixes
-  - `project_gallery.ejs` - Added demo button functionality
-  - `head.ejs` - Added new JS components
-  - Created `byline-modal.js` and `project-demo.js` components
-
-### 2. Screen Wipe Transition Direction Change
-- **Changed**: Transition animation from top/bottom sliding to left/right sliding
-- **Files Modified**: `_screen-wipe-transition.scss`
-- **Implementation**: Updated transform properties from `translateY` to `translateX`
-- **Panels**: Left panel slides from -100% to 0, right panel from 100% to 0
-
-### 3. Notebook Carousel Back Button Fix
-- **Issue**: Notebooks displayed vertically stacked when returning from project view
-- **Root Cause**: Carousel wasn't re-initializing properly on popstate event
-- **Solution**:
-  - Modified popstate handler to emit `contentLoaded` and `portfolio-loaded` events
-  - Added immediate class application for mobile devices
-  - CSS-first approach: Made horizontal flex layout default on mobile
-  - Removed initialization delays since CSS handles layout from start
-- **Files Modified**: 
-  - `blog.js` - Enhanced popstate handler
-  - `portfolio-notebook-carousel-clean.js` - Improved initialization
-  - `_leuchtturm-notebook.scss` - Default mobile flex layout
-
-### 4. Notebook Customization Framework
-- **Purpose**: Allow unique visual identity for each portfolio project
-- **Architecture**:
-  - Color system with 16 preset colors plus gradients
-  - Texture overlays (pristine, worn, scratched, weathered, stained)
-  - Brand customization (Leuchtturm, Moleskine, Field Notes, Rhodia, custom)
-  - Special effects (holographic, metallic)
-  - Sticker system (up to 2 custom stickers)
-- **Implementation**:
-  - Created `_notebook-customization.scss` with comprehensive SCSS maps
-  - Updated `portfolio-projects.ejs` to read customization from front matter
-  - Data attribute based styling system
-  - CSS custom properties for dynamic values
-- **Usage**: Add properties to portfolio post front matter
-- **Documentation**: Created comprehensive guide at `docs/notebook-customization-guide.md`
-
-## Recent Front-End Improvements & Fixes (June 2025)
-
-### Accessibility Enhancements
-- **Skip Navigation Links**: Added skip links at the top of all pages for keyboard navigation
-  - Skip to main content
-  - Skip to blog posts (index page)
-  - Skip to portfolio (index page)
-  - Skip to article content (post/project pages)
-  - Implementation: `themes/san-diego/layout/_partial/skip-navigation.ejs`
-
-### Security Improvements
-- **External Links**: Automatic addition of `rel="noopener noreferrer"` to all external links
-  - Prevents window.opener attacks
-  - Adds visual indicators for external links
-  - Implementation: `themes/san-diego/source/js/external-links.js`
-- **Removed Vulnerable Packages**: `hexo-admin` and `hexo-pdf` removed
-- **NPM Overrides**: Force secure versions of dependencies
-
-### Performance Optimizations
-- **Resource Hints**: Added DNS prefetch and preconnect for external resources
-  - CDN resources (jsdelivr, unpkg, cdnjs)
-  - Reduces connection latency
-  - Preloads critical CSS
-- **Print Stylesheet**: Optimized layout for printing
-  - Hides non-essential elements
-  - Shows URLs for external links
-  - Improves readability with proper page breaks
-  - Implementation: `themes/san-diego/source/styles/_print.scss`
-
-### SEO & Structured Data
-- **Enhanced Schema.org Implementation**:
-  - WebSite schema with publisher information
-  - Person schema with social links
-  - Article schema for posts and projects
-  - BreadcrumbList for better navigation understanding
-  - CollectionPage for the homepage
-  - Uses @graph for proper entity relationships
-
-### Bug Fixes
-- **Back Button Sound Effect**: Fixed incorrect slider.mp3 sound playing when using back button
-  - Changed `switchTab('portfolio', true)` to `switchTab('portfolio', false)` in blog.js
-  - Added proper button press sound effect
-  
-- **Border Color in Production**: Fixed missing border colors on cards in production builds
-  - Root cause: CleanCSS level 2 optimization removing rgba colors in media queries
-  - Solution: Modified minification settings to preserve colors
-  - Added comprehensive border color rules with !important for production reliability
-
-- **Theme System Cleanup**: Removed conflicting theme implementations
-  - Standardized on `prefers-color-scheme` media queries only
-  - Removed `data-theme` and `data-color-scheme` attributes
-  - Cleaned up duplicate theme mode files
-
-### Component Library Implementation
-- **Custom Micro-Component Library**: Built specifically for Hexo
-  - Base component class with lifecycle management
-  - Design token system extending existing variables
-  - Button component as first implementation
-  - Mobile buttons migrated to new system
-  - See "Component Library System" section below for full details
-
-## Custom Hexo Tag Plugins
-
-The theme includes several custom tag plugins in `themes/san-diego/scripts/`:
-- **video**: Multi-format video embedding with fallbacks
-- **carousel**: Image/video carousel generation
-- **image-caption**: Automatic image captions from alt text
-- **process-alerts**: Alert/callout boxes (info, warning, success, danger)
-- **wave-text**: Animated text effects
-- **emoji-processor**: Enhanced emoji handling
-
-## Testing Features
+#### Cleaning Up Development Processes
+When switching between tasks or experiencing high CPU/memory usage:
 ```bash
-# Test skip navigation
-# Press Tab key after page loads - skip links should appear
+# Check for running Node.js processes
+ps aux | grep node
 
-# Test external links
-# Check browser console for processed links:
-# window.processExternalLinks()
+# Kill specific process by PID
+kill -9 [PID]
 
-# Test print styles
-# Use browser print preview (Cmd+P or Ctrl+P)
+# Check port 4000 usage (Hexo default)
+lsof -i :4000
 
-# Test structured data
-# Use Google's Rich Results Test: https://search.google.com/test/rich-results
-# Or Schema.org validator: https://validator.schema.org/
-
-# Test component library
-# Visit /components/ for demo page
-hexo new page components
-
-# Analyze build size
-npm run analyze
+# Force kill process using port 4000
+kill -9 $(lsof -t -i:4000)
 ```
 
-## Component Library System (Added June 2025)
+#### Best Practices
+- Always use Ctrl+C to properly stop development servers
+- Check for running processes before starting new ones
+- Close terminal sessions cleanly
+- Monitor Activity Monitor (Mac) for Node processes
 
-### Overview
-A custom micro-component library has been implemented to provide consistent, reusable UI components across the site. This system is built specifically for Hexo and provides a foundation for migrating away from scattered component implementations.
+### Anchor Links
+- Post IDs are generated from filename: `Post-Name.md` → `#post-Post-Name`
+- Link format: `[Link text](#post-Post-Name)`
+- IDs are case-sensitive and must match filename exactly
+- Posts with `draft: true` won't be published
+- Posts with `short: true` are rendered inline
 
-### Architecture
+## Component Systems
+
+### Component Library
+A custom micro-component library built specifically for Hexo:
 
 #### Directory Structure
 ```
@@ -458,395 +230,240 @@ themes/san-diego/source/components/
         └── button.ejs   # Component template
 ```
 
-#### Integration
-- **Styles**: Imported in `styles.scss` as `@use '../components/index' as component-lib;`
-- **Scripts**: Components auto-initialize via `data-component` attribute
-- **Templates**: Use EJS includes with relative paths
+#### Creating New Components
+1. Create component directory: `mkdir -p themes/san-diego/source/components/core/[name]`
+2. Add three files: `.js`, `.scss`, `.ejs`
+3. Import styles in `components/index.scss`
+4. Use in templates with EJS includes
 
-### Design Tokens
-Extended from existing variables with component-specific values:
-```scss
-// Spacing scale
-$spacing-scale: (
-  'xs': 0.25rem,  // 4px
-  'sm': 0.5rem,   // 8px
-  'md': 1rem,     // 16px
-  'lg': 1.5rem,   // 24px
-  'xl': 2rem,     // 32px
-  'xxl': 3rem     // 48px
-);
+### Custom Hexo Tag Plugins
+Available in `themes/san-diego/scripts/`:
+- **video**: Multi-format video embedding
+- **carousel**: Image/video carousel generation
+- **image-caption**: Automatic image captions
+- **process-alerts**: Alert boxes (info, warning, success, danger)
+- **wave-text**: Animated text effects
+- **emoji-processor**: Enhanced emoji handling
 
-// Component-specific tokens
-$component-heights: (
-  'sm': 32px,
-  'md': 40px,
-  'lg': 48px
-);
+### Interactive Demo System
+Self-contained demos that load in place of project trailers:
+
+#### Creating Demos
+```bash
+# Copy React template
+cp -r demos/examples/react-demo-template demos/my-project-demo
+cd demos/my-project-demo
+npm install
+
+# Add to project front matter
+demo_component: "my-project-demo"
 ```
 
-### Creating New Components
+#### Requirements
+- Must build to `dist/` with `index.html`
+- Self-contained (no external dependencies)
+- Include `package.json` with build/dev scripts
 
-1. **Create component directory**:
-   ```bash
-   mkdir -p themes/san-diego/source/components/core/[component-name]
-   ```
+### Notebook Customization
+Portfolio projects can have customized notebook covers:
 
-2. **Add three files**:
-   - `[component-name].js` - Extends BaseComponent class
-   - `[component-name].scss` - Uses design tokens
-   - `[component-name].ejs` - Template with options
-
-3. **Import styles** in `components/index.scss`:
-   ```scss
-   @use 'core/[component-name]/[component-name]';
-   ```
-
-4. **Use in templates**:
-   ```ejs
-   <%- include('../../source/components/core/[component-name]/[component-name]', {
-     // component options
-   }) %>
-   ```
-
-### Button Component Example
-
-The button component demonstrates the pattern:
-
-```javascript
-// Auto-initialization
-<button class="btn btn--primary" data-component="button" data-ripple="true">
-  Click me
-</button>
-
-// EJS include
-<%- include('../../source/components/core/button/button', {
-  text: 'Click me',
-  variant: 'primary',
-  size: 'md',
-  icon: { name: 'arrow-right', position: 'end' },
-  attributes: { onclick: 'handleClick()' }
-}) %>
+```yaml
+notebook_color: nordic-blue
+notebook_texture: worn
+notebook_brand: leuchtturm
+notebook_effect: metallic
+notebook_stickers:
+  - text: "SHIPPED"
+    color: "#fff"
+    bg: "#00c853"
+    rotate: "-3deg"
 ```
 
-Available variants: `default`, `primary`, `secondary`, `ghost`, `soft`
-Available sizes: `sm`, `md`, `lg`
+Options:
+- **Colors**: 16 preset colors + gradients
+- **Textures**: pristine, worn, scratched, weathered, stained
+- **Brands**: Leuchtturm1917, Moleskine, Field Notes, Rhodia, custom
+- **Effects**: holographic, metallic
+- **Stickers**: Up to 2 custom stickers
 
-### Migration Strategy
+### Carousel & Spotlight
+- **Mixed Media**: Images and videos in same carousel
+- **Spotlight Modal**: Full-screen viewing on click
+- **Navigation**: Buttons, indicators, keyboard (arrows/escape), swipe
+- **Auto-play**: Videos play with controls in spotlight
 
-1. **Identify components** to migrate (modals, cards, inputs)
-2. **Create adapter functions** for backward compatibility
-3. **Update templates** gradually to use new components
-4. **Remove old implementations** once migrated
+## Styling Guidelines
 
-### Important Notes
+### SCSS Architecture
+```
+themes/san-diego/source/styles/
+├── _variables.scss           # Global variables
+├── _device-breakpoints.scss  # Responsive breakpoints
+├── _components.scss          # Component imports
+├── _blog.scss               # Blog-specific styles
+├── _project.scss            # Project-specific styles
+├── theme-modes/             # Dark/light mode styles
+└── styles.scss              # Main entry point
+```
 
-- **Namespace conflict**: Don't use `components` as namespace (already used by `_components.scss`)
-- **Auto-initialization**: Components with `data-component` attribute initialize automatically
-- **Sound effects**: Integrated with existing sound system via `window.soundEffects`
-- **Accessibility**: All components include ARIA attributes and keyboard support
-- **Performance**: Uses event delegation and lazy initialization
+### Theme System
+- Uses CSS custom properties for theming
+- `prefers-color-scheme` media queries for automatic switching
+- No JavaScript-based theme switching (CSS-only)
 
-## Environment Configuration
+### Dark Mode Considerations
+- Variables like `$card-bg-dark` may need explicit RGB values
+- Media query ordering matters for cascade
+- Test all changes in both light and dark modes
+- Use `rgb(9, 9, 9)` for true black backgrounds
 
-Two `.env.example` files show expected configurations:
-- **Root level**: API keys, admin config, analytics
-- **Blog editor** (`tools/blog-editor/.env.example`): GitHub OAuth, session secrets, paths
+### Mobile-First Approach
+- Default styles target mobile
+- Desktop styles override via media queries
+- Mobile padding often differs (12px vs 36px desktop)
+- Touch targets need adequate size
 
-## Portfolio Organization
+### Style Boundaries
+- Component styles stay in their designated files
+- No styling in scroll-fix files
+- Use data attributes for variations, not JavaScript classes
+- Avoid excessive `!important` usage
 
-The `_config.yml` includes:
-- Company ordering for portfolio grouping
-- Year ranges for chronological organization
-- Allows both company-based and time-based project views
+## Testing & Quality
 
-## Working Patterns & Best Practices
-
-### Parallel Worktree Development (Highly Effective!)
-When tackling multiple technical debt items or parallel features:
-1. **Create separate worktrees** for each concern: `git worktree add -b branch-name ../folder-name main`
-2. **Run tests individually** in each worktree before integration
-3. **Integrate systematically** from lowest to highest risk
-4. **Use automated tests** between each merge
-5. **Manual fallback** for complex conflicts - copy files individually if needed
-
-See `docs/06-workflows/parallel-worktree-integration.md` for the complete workflow that successfully integrated 5 major technical debt fixes in one session.
+### Testing Protocols
+Consult `TESTING-PROTOCOLS.md` for:
+- Change classification (🟢 Green / 🟡 Yellow / 🔴 Red light)
+- Required testing based on change type
+- Design review requirements
+- Visual regression testing
 
 ### Visual Development Workflow
-When working on UI changes:
-1. **ALWAYS** take screenshots before making changes (Cmd+Ctrl+Shift+4 on Mac)
-2. Use the visual-testing protocols in `docs/02-development/visual-testing-guide.md`
-3. Iterate on designs by comparing screenshots
-4. For major changes, use `/project:visual-compare [component]` command
+1. **ALWAYS** take screenshots before changes (Cmd+Ctrl+Shift+4)
+2. Use visual-testing protocols in docs
+3. Compare screenshots iteratively
+4. Test in both themes and multiple viewports
 
-### Portfolio Improvement Checklist
-When improving portfolio projects, ensure:
-- ✓ Clear problem statement and context
-- ✓ Research and insights documented  
-- ✓ Design process shown (sketches → wireframes → final)
-- ✓ Mobile designs included with responsive behavior
-- ✓ Metrics and measurable outcomes stated
-- ✓ Your specific role clarified vs team contributions
-- ✓ Technical implementation details where relevant
-- ✓ Lessons learned or reflections
-
-### Performance First Approach
+### Performance Monitoring
 - Run `npm run analyze` after significant changes
-- Check that images are optimized before committing
-- Verify lazy loading works for new content  
-- Monitor bundle sizes with each feature addition
-- Use `/project:performance-audit [target]` for detailed analysis
+- Monitor bundle sizes
+- Verify lazy loading functionality
+- Check Lighthouse scores
 
-### Git Workflow Best Practices
-- Let Claude write detailed commit messages based on changes
-- **ALWAYS** run `npm run build` before committing (no exceptions)
-- Create PRs for significant changes using `gh pr create`
-- Reference issues in commits: `fixes #123` or `relates to #456`
+### Browser Testing
+- Test in Chrome, Firefox, Safari (Mac)
+- Check mobile browsers
+- Verify responsive breakpoints
+- Test with/without JavaScript
+
+## Deployment
+
+### GitHub Actions Pipeline
+Automated deployment via `.github/workflows/optimize-and-deploy.yml`:
+1. Triggers on push to main
+2. Runs image optimization
+3. Builds production site
+4. Deploys to GitHub Pages (thomas.design)
+
+### Pre-deployment Checklist
+- [ ] Run `npm run build:prod` locally
+- [ ] Check for build errors/warnings
+- [ ] Test all interactive features
+- [ ] Verify responsive design
+- [ ] Check console for errors
+- [ ] Review git diff for unintended changes
+
+### Environment Configuration
+Two `.env.example` files show required configs:
+- **Root**: API keys, admin config, analytics
+- **Blog editor**: GitHub OAuth, session secrets
+
+## Troubleshooting
+
+### Common Issues
+
+#### Port 4000 Already in Use
+```bash
+# Find and kill process
+lsof -i :4000
+kill -9 $(lsof -t -i:4000)
+```
+
+#### Build Failures
+1. Check Node version compatibility
+2. Clear Hexo cache: `hexo clean`
+3. Delete node_modules and reinstall
+4. Check for syntax errors in posts
+
+#### Orphaned Processes
+- Multiple Hexo servers running
+- Build commands that didn't complete
+- File watchers persisting
+- Browser-sync instances
+
+#### Style Issues
+- Check theme variable inheritance
+- Verify media query order
+- Test in both light/dark modes
+- Clear browser cache
+
+## Best Practices
+
+### Git Workflow
+- Create descriptive commit messages
 - Use conventional commits: `feat:`, `fix:`, `docs:`, `chore:`
+- Create PRs for significant changes
+- Reference issues in commits
 
-### Quick Commands Reference
-Custom commands available via `/project:`:
-- `portfolio-improve [project-name]` - Enhance a portfolio case study
-- `performance-audit [target]` - Run performance analysis
-- `fix-tech-debt [issue]` - Address technical debt items
-- `visual-compare [component]` - Create visual regression comparison
+### Code Organization
+- Follow existing patterns and conventions
+- Check if libraries are already in use before adding
+- Maintain consistent code style
+- Document complex logic
 
-### Screenshot Tips
-- **Mac screenshot to clipboard**: Cmd+Ctrl+Shift+4
-- **Paste into Claude**: Ctrl+V (NOT Cmd+V)
-- **Full page screenshot**: Browser DevTools → Cmd+Shift+P → "Capture full size screenshot"
-- **Multiple viewport testing**: Use browser responsive mode
+### Performance First
+- Optimize images before committing
+- Monitor bundle sizes
+- Implement lazy loading
+- Use performance budgets
 
-### Effective Claude Usage Patterns
-1. **Research First**: Ask Claude to explore and understand before coding
-2. **Plan Before Implementation**: Request a plan, review it, then execute
-3. **Iterate Visually**: Use screenshots for UI work
-4. **Clear Context**: Use `/clear` between major task switches
-5. **Leverage Subagents**: For complex research or verification tasks
+### Content Guidelines
+- Only create documentation when explicitly requested
+- Avoid using emojis unless asked
+- Keep responses concise and focused
+- Don't add unnecessary comments to code
 
-## Lessons Learned & Development Insights (June 2025)
+## Technical Debt Registry
 
-### CSS Architecture & Dark Mode Complexities
-1. **Dark mode inheritance issues**: Variables like `$card-bg-dark` sometimes resolve to light colors (e.g., `hsl(0, 0%, 75%)` instead of expected dark values). Always verify computed values.
-2. **Media query ordering matters**: Dark mode styles can be overridden by device-specific styles. Check specificity and cascade order.
-3. **Use explicit RGB values**: When dark mode variables fail, use explicit `rgb(9, 9, 9)` for true black backgrounds.
-4. **Border handling**: Setting borders to 0 on specific edges (right/bottom) creates unique visual effects and solves overflow issues.
+### High Priority
+1. **HTML Size Limitation**
+   - Issue: Large index.html with many `short: true` posts
+   - Current fix: Strip scripts/styles from inline content
+   - Proper solution: Implement pagination
 
-### Mobile vs Desktop Styling Patterns
-1. **Responsive padding differences**: Mobile often has different padding (12px vs 36px), affecting absolute positioning of child elements.
-2. **Position context changes**: `.profile-header` padding varies between mobile/desktop, requiring careful absolute positioning calculations.
-3. **!important flag usage**: Sometimes necessary for mobile-specific overrides, but use sparingly and document why.
+2. **Deprecated Sass API**
+   - Issue: "legacy-js-api" warnings
+   - Impact: Will break with Dart Sass 2.0
+   - Solution: Update build configuration
 
-### UI Component Enhancements (Latest Session)
-1. **Search Clear Button Implementation**:
-   - Added minimal clear button to search input that only shows when field has content
-   - Position absolutely inside search-input-wrapper
-   - No borders or box-shadows for clean appearance
-   - Proper event handling with cleanup of previous listeners
-   - Initialize on page load and dynamic content loads
+### Medium Priority
+3. **Duplicate Scroll Implementations**
+   - Files: `scroll.js`, `blog.js`, `anchor-links-simple.js`
+   - Solution: Consolidate into single utility
 
-2. **Button Style Standardization**:
-   - Migrated Posts Only and Search buttons to outline style (transparent background)
-   - Greyscale active states (black/white) instead of colored
-   - Consistent hover opacity (30%) across all buttons
-   - Dark mode text color set to hsl(0, 0%, 75%) for proper contrast
+4. **Event Handler Conflicts**
+   - Multiple scripts attach to same elements
+   - Solution: Central event delegation system
 
-3. **Content Display Optimization**:
-   - Non-interactive portfolio projects rendered as comma-separated text lists
-   - Saves vertical space allowing more interactive projects to be visible
-   - Uses `.no-writeup-list` class with transparent background and no borders
-   - Maintains grid layout compatibility
+### Low Priority
+5. **Script Loading Dependencies**
+   - Some scripts require specific load order
+   - Solution: Implement module system
 
-4. **Sound Effect Integration**:
-   - Posts Only button: plays small click sound (carousel button sound)
-   - Search input: plays book sound on click
-   - Impact/Contact modals: close buttons play appropriate sounds
-   - Consistent audio feedback across UI interactions
+6. **Missing Error Handling**
+   - Silent failures in some components
+   - Solution: Add comprehensive error handling
 
-5. **Border Radius Standardization**:
-   - Updated all instances from 15px to 12px for consistency
-   - Affects blog-content, portfolio items, and nested components
-   - Creates more modern, cohesive visual appearance
+---
 
-### Sound System Integration
-1. **Centralized sound management**: The site has a sophisticated sound system in `sound-effects.js` with preloading and helper functions.
-2. **Audio format considerations**: Use .m4a for sound effects (not .mp3) for consistency and better compression.
-3. **Event timing**: Play sounds at the beginning of event handlers for immediate feedback.
-4. **Sound categories**: Different sounds for different actions (toggle, small click, button press).
-5. **Helper function pattern**: Create dedicated functions like `playBookSound()` for new sounds.
-
-### Portfolio Display Optimization
-1. **Space-saving techniques**: Render non-interactive projects as comma-separated text lists instead of grid items.
-2. **Content hierarchy**: Use "Other projects include:" prefix to clearly differentiate project types.
-3. **Grid layout flexibility**: `grid-column: 1 / -1` spans full width, useful for special content blocks.
-4. **Height constraints**: Match grid row heights (120px) even for text-only content.
-
-### Button Design Evolution
-1. **Outline style trend**: Moving from filled buttons to outline styles creates cleaner, more modern interfaces.
-2. **Consistent hover states**: Greyscale hovers (30% opacity borders) work better than colored states for neutral UI.
-3. **Active state contrast**: Black/white fills provide clear feedback without color dependency.
-4. **Font consistency**: Matching font-size (12px) and weight (500) across related elements improves cohesion.
-5. **Placeholder refinement**: 60% opacity provides optimal readability without being too prominent.
-
-### Development Workflow Improvements
-1. **Console.log cleanup**: Always remove debug statements before production. Use comments instead.
-2. **Build verification**: Run `npm run build` after every significant change to catch issues early.
-3. **SCSS linting**: Warnings about modern CSS notation aren't breaking but indicate future compatibility needs.
-4. **Git diff review**: Always review changes before committing to catch unintended modifications.
-5. **Comprehensive search**: When removing debug code, search all modified files systematically.
-
-### Cross-Theme Compatibility
-1. **Light/dark mode testing**: Every change needs verification in both themes - they often behave differently.
-2. **Compromise solutions**: Sometimes perfect alignment in both themes isn't possible; find acceptable middle ground.
-3. **Theme-specific overrides**: Occasionally necessary but try to minimize for maintainability.
-4. **Explicit color values**: When theme variables produce unexpected results, use explicit RGB/HSL values.
-
-### Performance Considerations
-1. **Lazy loading preservation**: Ensure dynamic content changes don't break lazy loading functionality.
-2. **Event delegation**: Better than individual listeners for dynamically loaded content.
-3. **Build size monitoring**: Check that new features don't significantly increase bundle size.
-4. **Sound preloading**: Preload audio files to ensure immediate playback on user interaction.
-
-### User Experience Refinements
-1. **Text overflow handling**: Multiple properties needed (`white-space`, `overflow`, `text-overflow`) to prevent button text cutoff.
-2. **Touch targets**: Mobile buttons need adequate padding for comfortable tapping.
-3. **Visual feedback**: Immediate sound feedback improves perceived responsiveness.
-4. **Placeholder styling**: Consistent opacity across light/dark modes maintains visual hierarchy.
-5. **Border radius consistency**: Updating from 15px to 12px across all components creates cohesion.
-
-### Technical Debt Management
-1. **Document known issues**: Add TODO comments for future fixes (like mobile button positioning).
-2. **Incremental improvements**: Not everything needs perfect fixes immediately - functional is better than broken.
-3. **Pattern recognition**: Similar issues (like console.logs) often appear in multiple files - search comprehensively.
-4. **Testing strategy**: Manual testing still crucial for visual changes and interaction patterns.
-5. **Priority assessment**: Low-priority issues (like positioning compromises) can be noted for future improvement.
-
-### Problem-Solving Strategies
-1. **User feedback integration**: "Don't be lazy" - be thorough with selectors and specificity.
-2. **Iterative refinement**: Multiple attempts may be needed to get mobile styles right.
-3. **Root cause analysis**: Variable inheritance issues require tracing through SCSS compilation.
-4. **Pattern application**: Apply working patterns (like portfolio display) to similar problems.
-5. **Clear communication**: Document what was changed and why for future reference.
-
-### Debugging UI Layout Issues (Contact Modal Fix)
-When elements aren't displaying properly:
-1. **Look at screenshots carefully** - Visual issues often reveal the exact problem (height constraints, overflow, etc.)
-2. **Check parent containers first** - Look for max-height, overflow:hidden, or fixed dimensions
-3. **Think like DevTools** - What would you inspect first? Usually container constraints, not child layouts
-4. **Start simple** - Remove constraints (max-height: unset) and center items (justify-items: center) before complex grid properties
-5. **Trust user hints** - When user says "there is clearly a max-height", that's the immediate focus
-6. **Don't overcomplicate** - A 2x2 grid that won't display is usually a container issue, not a grid layout issue
-
-### Effective Working Pattern (June 2025)
-The user has noted that our recent working approach has been particularly effective:
-1. **Focused, specific changes**: Making targeted fixes without scope creep
-2. **Clear communication**: Explaining what's being changed and why
-3. **Build verification**: Always running `npm run build` after changes
-4. **Systematic approach**: Finding the root cause before implementing fixes
-5. **Mobile-first considerations**: Being thorough with mobile-specific styling needs
-6. **Edge-to-edge implementations**: Understanding padding redistribution patterns (moving from parent to child)
-7. **Clarification before action**: When finding unexpected implementations (e.g., transition already from top/bottom when user expected left/right), ask for clarification and thank the user for clarifying when they explain what they actually want
-This collaborative pattern of clear requests, focused implementation, and immediate verification has proven highly productive.
-
-### CSS-First Solutions for JavaScript Problems
-1. **Principle**: Many visual glitches can be prevented with CSS defaults rather than fixed with JavaScript
-2. **Example**: Notebook carousel vertical stacking issue
-   - Initial approach: Detect and fix stacking with JavaScript (reactive)
-   - Better approach: Apply flex layout by default in CSS (preventive)
-3. **Benefits**:
-   - No flash of incorrect layout
-   - Works immediately on page load
-   - More performant (no layout thrashing)
-   - Simpler code maintenance
-
-### State Management in Dynamic Content
-1. **Problem**: Complex state when navigating between views (especially with back button)
-2. **Solution Pattern**:
-   - Use events to communicate state changes
-   - Apply critical styles immediately before JavaScript initializes
-   - Clean up previous instances before creating new ones
-3. **Implementation**: Global instance tracking with proper cleanup in destroy methods
-
-### Data Attribute Architecture
-1. **Pattern**: Use data attributes for styling variations instead of JavaScript class manipulation
-2. **Benefits**:
-   - Declarative styling in HTML/templates
-   - CSS handles all visual changes
-   - Easy to debug in DevTools
-   - Works with server-side rendering
-3. **Example**: Notebook customization framework uses data-notebook-* attributes
-
-### Mobile-First Default Layouts
-1. **Insight**: Default mobile layouts should match final JavaScript state
-2. **Implementation**: 
-   - Apply mobile layout rules by default in CSS
-   - JavaScript only adds interactive behavior
-   - Prevents layout shift on initialization
-3. **Trade-off**: Desktop might need to override mobile defaults, but mobile experience is prioritized
-
-## 🚨 CRITICAL STYLING RULES - DO NOT VIOLATE 🚨
-
-### Respecting Boundaries and Constraints
-**THE MOST IMPORTANT RULE**: When given a specific task with constraints, DO NOT make changes outside those boundaries.
-
-#### Example of Boundary Violations to Avoid:
-- User says "Projects are working fine" → DO NOT modify project code
-- User asks to fix scroll issues → DO NOT change button colors
-- User creates a file for scroll fixes → DO NOT add styling to it
-- User says "look at what works and apply that pattern" → DO NOT change the working code
-
-### File Purpose Boundaries
-Each SCSS file has a specific purpose. NEVER cross these boundaries:
-- `_dynamic-content-scroll-fix.scss`: ONLY for fixing scroll behavior, NO styling
-- `_blog.scss`: Component styling for blog elements
-- `_project.scss`: Component styling for project elements
-- `_mobile-scroll-fix.scss`: Mobile-specific scroll fixes only
-
-### Dynamic Back Button Styling
-- **Location**: ONLY in `_blog.scss` (lines 802-859)
-- **Background**: ALWAYS black in ALL modes (light/dark)
-- **NEVER** add dynamic-back-button styling to any other file
-- If you see white background rules for dynamic-back-button anywhere else, DELETE THEM
-
-### Blog Content Dark Mode
-- `.blog .blog-content` MUST have `background-color: rgb(9, 9, 9)` in dark mode
-- This is defined in `_blog.scss` and `_dynamic-content-scroll-fix.scss`
-
-### Project Edge Wrapper
-- Must have `border-radius: 15px 0 0 0` (top-left only)
-- Defined in `_project.scss`
-
-### Dynamic Content Scroll Patterns
-- **Projects work correctly**: They insert WITHOUT `.content-inner-wrapper`
-- **Posts had issues**: They were wrapped in `.content-inner-wrapper` with overflow:hidden
-- **Fix approach**: Use CSS to handle scroll, NOT JavaScript DOM manipulation
-- **Understanding before action**: Study working patterns before implementing fixes
-
-### Problem-Solving Approach
-1. **Listen to explicit constraints**: If told not to touch something, DON'T
-2. **Understand what works first**: Analyze working examples without modifying them
-3. **Apply patterns, don't change originals**: Use working patterns to fix broken things
-4. **Stay within scope**: Fix only what was asked, nothing more
-5. **Use appropriate specificity**: Target precisely without !important spam
-6. **Respect file organization**: Keep code in its designated location
-
-### Red Flags That You're Going Off Track
-- Adding styling to files meant for layout/behavior fixes
-- Modifying code the user said was working correctly
-- Using !important more than once or twice
-- Making changes unrelated to the stated problem
-- Ignoring explicit user corrections
-- Assuming you know better than the user's constraints
-
-### When User Says Something Works
-- **DO**: Study it to understand the pattern
-- **DO**: Apply that pattern to fix other things
-- **DON'T**: Modify it
-- **DON'T**: "Improve" it
-- **DON'T**: Touch it at all
-
-### Recovery When You've Gone Off Track
-1. **Stop immediately** when corrected
-2. **Revert changes** without argument
-3. **Focus only** on the original request
-4. **Ask for clarification** if constraints are unclear
-5. **Never defend** unnecessary changes
+*For temporal changes and session history, see CHANGELOG.md*

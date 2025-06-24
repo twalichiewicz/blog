@@ -7,7 +7,7 @@ byline: Standardized Autodesk's full suite of products to use a single install S
 date: 2019-6-30 20:52:01
 tags: [portfolio]
 layout: project_gallery
-has_writeup: true
+has_writeup: false
 gallery_images:
   - url: /2019/06/30/Project-Wingman/wingmanInstaller.mp4
     type: video

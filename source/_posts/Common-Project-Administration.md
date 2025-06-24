@@ -22,7 +22,7 @@ industry:
   - Enterprise
   - Creative Tools
 layout: project_gallery
-has_writeup: true
+has_writeup: false
 stats:
   - value: "100+"
     label: "Products Unified"

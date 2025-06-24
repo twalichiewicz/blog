@@ -7,7 +7,7 @@ byline: Built a comprehensive brand identity system for a behavioral science res
 date: 2016-01-01 20:52:01
 cover_image: 2016/01/01/Common-Cents-Lab-brand/cclBrand-preview.png
 tags: [portfolio]
-has_writeup: true
+has_writeup: false
 layout: project_gallery
 year: 2016
 credits:

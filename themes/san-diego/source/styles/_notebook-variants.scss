@@ -1,0 +1,348 @@
+@use 'variables';
+@use 'sass:color';
+
+// Notebook Variant Styles
+// ======================
+// This file contains different notebook styles that can be applied
+// to portfolio items through the notebook_style property
+
+// Base shared styles for all notebook variants
+@mixin notebook-base {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+// 1. Stack of Papers Style (with staple) - NOT a notebook!
+[data-notebook-style="stack-papers"] {
+    .notebook {
+        // Hide ALL notebook elements - this is NOT a notebook
+        .front-cover,
+        .inside-front-cover,
+        .inner-page-left,
+        .inner-page-right,
+        .inside-back-cover,
+        .back-cover,
+        .notebook-spine {
+            display: none !important;
+        }
+        
+        // The notebook div becomes our paper stack container
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        
+        // Third paper (bottom of stack)
+        &::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 5px;
+            right: -5px;
+            bottom: -8px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+            z-index: 1;
+            border-radius: 0;
+        }
+        
+        // Second paper (middle of stack)
+        &::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 2.5px;
+            right: -2.5px;
+            bottom: -4px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            z-index: 2;
+            border-radius: 0;
+        }
+    }
+    
+    // Custom paper content div for the top paper
+    .notebook-paper-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        z-index: 3;
+        overflow: hidden;
+        border-radius: 0;
+        
+        // This is where the notebook_pages image will show
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    
+    // Metallic staple
+    .notebook-staple {
+        position: absolute;
+        top: 18px;
+        right: 22px;
+        width: 32px;
+        height: 9px;
+        background: linear-gradient(to bottom, 
+            #f0f0f0 0%, 
+            #d0d0d0 20%,
+            #a0a0a0 45%, 
+            #808080 50%, 
+            #a0a0a0 55%,
+            #d0d0d0 80%,
+            #f0f0f0 100%);
+        border-radius: 3px;
+        box-shadow: 
+            inset 0 1px 0 rgba(255, 255, 255, 0.8),
+            0 2px 4px rgba(0, 0, 0, 0.3),
+            0 1px 2px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        
+        // Staple prongs (going through the papers)
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 6px;
+            background: linear-gradient(to bottom,
+                #707070 0%,
+                #505050 100%);
+            bottom: -5px;
+            border-radius: 0 0 1px 1px;
+            box-shadow: 
+                inset -1px 0 1px rgba(0, 0, 0, 0.2),
+                inset 1px 0 1px rgba(255, 255, 255, 0.1);
+        }
+        
+        &::before {
+            left: 7px;
+        }
+        
+        &::after {
+            right: 7px;
+        }
+    }
+    
+    // Page curl effect on hover
+    .notebook-page-curl {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        z-index: 4;
+        overflow: visible;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 0 0;
+            border-color: transparent transparent #f5f5f5 transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: bottom right;
+            box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            background: linear-gradient(135deg, 
+                transparent 40%, 
+                rgba(0, 0, 0, 0.03) 50%,
+                rgba(0, 0, 0, 0.05) 60%,
+                #ffffff 65%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: bottom right;
+        }
+    }
+    
+    &:hover .notebook-page-curl {
+        &::before {
+            border-width: 0 0 45px 45px;
+        }
+        
+        &::after {
+            width: 45px;
+            height: 45px;
+        }
+    }
+}
+
+// 2. Spiral Notebook Style
+[data-notebook-style="spiral"] .notebook {
+    .front-cover {
+        // Slightly shorter than standard
+        height: 95%;
+        top: 2.5%;
+    }
+    
+    .notebook-spine {
+        display: none; // No regular spine for spiral
+    }
+    
+    // Spiral binding
+    .notebook-spiral {
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+        z-index: -1; // Behind other layers
+        
+        // Individual spiral rings
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            bottom: 10px;
+            width: 100%;
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 8px,
+                #808080 8px,
+                #808080 9px,
+                #a0a0a0 9px,
+                #a0a0a0 10px,
+                #808080 10px,
+                #808080 11px,
+                transparent 11px,
+                transparent 16px
+            );
+        }
+        
+        // Spiral holes in cover
+        &::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 10px;
+            bottom: 10px;
+            width: 10px;
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 11px,
+                rgba(0, 0, 0, 0.1) 11px,
+                rgba(0, 0, 0, 0.1) 13px,
+                transparent 13px,
+                transparent 16px
+            );
+        }
+    }
+    
+    // Adjust content area for spiral
+    .notebook-content {
+        margin-left: 35px;
+    }
+}
+
+// 3. Top-flip Notepad Style
+[data-notebook-style="notepad"] {
+    .portfolio-item--featured {
+        height: 280px !important; // Adjust container for portrait orientation
+    }
+    
+    .notebook {
+        // Portrait orientation - taller than wide
+        width: 160px !important;
+        height: 260px !important;
+        
+        .front-cover {
+            // Flip dimensions
+            width: 100%;
+            height: 100%;
+        }
+        
+        // Top spiral binding
+        .notebook-spiral-top {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            z-index: -1;
+            
+            // Spiral rings across top
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 15px;
+                right: 15px;
+                height: 100%;
+                background-image: repeating-linear-gradient(
+                    to right,
+                    transparent,
+                    transparent 8px,
+                    #808080 8px,
+                    #808080 9px,
+                    #a0a0a0 9px,
+                    #a0a0a0 10px,
+                    #808080 10px,
+                    #808080 11px,
+                    transparent 11px,
+                    transparent 16px
+                );
+            }
+            
+            // Holes in top
+            &::after {
+                content: '';
+                position: absolute;
+                top: 5px;
+                left: 15px;
+                right: 15px;
+                height: 10px;
+                background-image: repeating-linear-gradient(
+                    to right,
+                    transparent,
+                    transparent 11px,
+                    rgba(0, 0, 0, 0.1) 11px,
+                    rgba(0, 0, 0, 0.1) 13px,
+                    transparent 13px,
+                    transparent 16px
+                );
+            }
+        }
+        
+        .notebook-spine {
+            display: none;
+        }
+        
+        // Adjust content area
+        .notebook-content {
+            margin-top: 30px;
+            padding: 15px;
+        }
+    }
+}
+
+// Default style remains Leuchtturm
+[data-notebook-style="leuchtturm"],
+.portfolio-item-wrapper:not([data-notebook-style]) {
+    // Uses existing Leuchtturm styles
+}

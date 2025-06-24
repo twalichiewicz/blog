@@ -10,6 +10,7 @@ cover_image: /2019/08/30/Custom-Install/customInstall-preview.png
 tags:
   - portfolio
 layout: project_gallery
+notebook_color: "dark-lime-green"
 gallery_images:
   - url: /2019/08/30/Custom-Install/000_customInstall.jpg
     type: image
