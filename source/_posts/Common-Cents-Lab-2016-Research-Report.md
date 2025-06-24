@@ -7,6 +7,8 @@ byline: A comprehensive summary of our behavioral science projects and experimen
 date: 2017-12-30 00:00:00
 cover_image: ccl-2016-report-preview.png
 fullscreen: true
+hidden: true
+draft: true
 tags:
   - portfolio
 credits:
@@ -15,6 +17,22 @@ credits:
   - role: Year
     name: 2016
 layout: project_gallery
+project_stats:
+  - label: "Team"
+    value: 
+      - "UX Lead & Insights Author (me) - Data visualization, editorial design, research synthesis"
+      - "2 Behavioral Scientists - Experiment design, research methodology, behavioral analysis"
+      - "1 Data Analyst - Statistical analysis, data processing, insights extraction"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "3 months (Fall 2016)"
+  - label: "Deliverable"
+    value: "40-page digital research report"
+  - label: "Skills"
+    value: ["Data Visualization", "Editorial Design", "Research Synthesis", "InDesign"]
+    type: "tags"
+    span: 3
 ---
 
 ![](ccl-2016-report-preview.png)

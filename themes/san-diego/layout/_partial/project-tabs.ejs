@@ -3,6 +3,13 @@
 const hasSummary = page.summary && Object.keys(page.summary).length > 0;
 %>
 
+<!-- Project Stats Grid Section -->
+<% if (page.project_stats && page.project_stats.length > 0) { %>
+  <div class="project-stats-section">
+    <%- partial('project-stats-grid', { stats: page.project_stats }) %>
+  </div>
+<% } %>
+
 <!-- Gallery section - always render if gallery_images exist, regardless of summary -->
 <% if (page.gallery_images && page.gallery_images.length > 0) { %>
   <div class="project-gallery-section">

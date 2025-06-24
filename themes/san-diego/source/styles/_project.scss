@@ -1587,85 +1587,6 @@ blockquote.pullquote {
 	}
 }
 
-// Apple Footer-style metadata styling
-.project-metadata-footer {
-	width: 100%;
-	max-width: 900px;
-	margin-top: 0;
-	padding: 2rem 1rem;
-	border-top: 1px solid rgb(0 0 0 / 10%);
-
-	@media (width <=768px) {
-		margin-left: 18px !important;
-		margin-right: 18px !important;
-		padding: 1.5rem 1rem;
-	}
-
-	&::before {
-		content: "Additional details";
-		display: block;
-		font-size: 9px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		color: rgb(0 0 0 / 50%);
-		margin-bottom: 1rem;
-	}
-
-	.metadata {
-		background: none;
-		border: none;
-		padding: 0;
-		margin: 0;
-
-		.metadata-list {
-			display: flex;
-			flex-direction: column;
-			gap: 0.75rem;
-		}
-
-		.metadata-item {
-			display: flex;
-			flex-direction: column;
-			gap: 2px;
-
-			.label {
-				font-size: 9px !important;
-				font-weight: 600 !important;
-				color: rgb(0 0 0 / 70%) !important;
-				text-transform: uppercase;
-				letter-spacing: 0.3px;
-			}
-
-			.value {
-				font-size: 12px !important;
-				color: rgb(0 0 0 / 50%) !important;
-				font-weight: 400;
-			}
-		}
-	}
-
-	// Dark mode
-	@media (prefers-color-scheme: dark) {
-		border-top-color: rgb(255 255 255 / 10%);
-
-		&::before {
-			color: rgb(255 255 255 / 50%);
-		}
-
-		.metadata {
-			.metadata-item {
-				.label {
-					color: rgb(255 255 255 / 70%) !important;
-				}
-
-				.value {
-					color: rgb(255 255 255 / 50%) !important;
-				}
-			}
-		}
-	}
-}
 
 // Rule moved from project_gallery.ejs for better separation of concerns
 // Hides project navigation when the project is dynamically loaded.
@@ -2256,12 +2177,12 @@ body.loaded .project-wrapper {
 	}
 	
 	&:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+		background-color: #e3e3e3;
+		color: black;
 	}
 	
 	&:active {
-		transform: translateY(0);
+		background-color: #E8E8E8;
 	}
 }
 
@@ -2286,24 +2207,15 @@ body.loaded .project-wrapper {
 	svg {
 		width: 16px;
 		height: 16px;
-		transition: transform 0.3s ease;
 	}
 
 	&:hover {
-		background-color: rgba(0, 0, 0, 0.8);
+		background-color: #1A1A1A; // Subtle lighten from black
 		border-color: rgba(255, 255, 255, 0.3);
-		transform: translateY(-1px);
-		box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-
-		svg {
-			transform: translateX(2px);
-		}
 	}
 
 	&:active {
-		background-color: rgba(0, 0, 0, 0.9);
-		transform: translateY(0);
-		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+		background-color: #242424;
 	}
 }
 
@@ -2320,7 +2232,7 @@ body.loaded .project-wrapper {
 	
 	// Reset inherited blog-content styles that interfere with project layout
 	.above-the-fold-preview {
-		height: calc(100dvh - 24px);
+		height: calc(90dvh - 24px);
 		margin-top: 0;
 		padding-top: 0;
 		
@@ -3775,5 +3687,205 @@ body.demo-active {
 			transform: scale(1.1);
 		}
 	}
+}
+
+// Demo mode styles
+.demo-custom {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    border: none;
+    background: white;
+  }
+}
+
+#trailerHero.demo-mode {
+  #trailerContent {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+.demo-close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+// Demo Modal Styles
+.demo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: modalFadeIn 0.3s ease-out;
+  
+  &.closing {
+    animation: modalFadeOut 0.3s ease-out;
+  }
+}
+
+.demo-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  cursor: pointer;
+}
+
+.demo-modal-content {
+  position: relative;
+  width: 95vw;
+  height: 95vh;
+  max-width: 1600px;
+  max-height: 900px;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+  
+  .closing & {
+    animation: modalSlideOut 0.3s ease-out;
+  }
+}
+
+.demo-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+  }
+  
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.demo-modal-body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  
+  .demo-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #666;
+    font-weight: 500;
+  }
+  
+  .demo-custom {
+    width: 100%;
+    height: 100%;
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+    }
+  }
+}
+
+// Prevent body scroll when modal is open
+body.demo-modal-open {
+  overflow: hidden;
+}
+
+// Animations
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.9);
+    opacity: 0;
+  }
 }
 

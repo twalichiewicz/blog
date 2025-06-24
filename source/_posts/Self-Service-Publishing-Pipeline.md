@@ -19,6 +19,22 @@ stats:
     label: "Faster publishing"
   - value: "$2M/year"
     label: "Engineering costs saved"
+project_stats:
+  - label: "Team"
+    value: 
+      - "Lead Product Designer (me)"
+      - "1 Product Manager"
+      - "Engineering team (7 people)"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "1 year"
+  - label: "Platform"
+    value: "CMS with custom creation tool built on top"
+  - label: "Skills"
+    value: ["Service Design", "CMS Design", "Developer Tools", "Business Strategy"]
+    type: "tags"
+    span: 3
 gallery_images:
  - url: LINO-0.png
    type: image

@@ -25,7 +25,9 @@
     "visual:baseline": "npm run screenshot && mv screenshots/$(ls -t screenshots | head -1) screenshots/baseline",
     "visual:test": "npm run screenshot && node tools/visual-diff.js screenshots/baseline screenshots/$(ls -t screenshots | head -1)",
     "audit:a11y": "echo 'Accessibility audit needs implementation'",
-    "check:contrast": "echo 'Color contrast check needs implementation'"
+    "check:contrast": "echo 'Color contrast check needs implementation'",
+    "build:demos": "node demos/build-scripts/build-all-demos.js",
+    "dev:demos": "node demos/build-scripts/watch-demos.js"
   },
   "hexo": {
     "version": "7.3.0"

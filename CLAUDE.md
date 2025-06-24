@@ -433,6 +433,15 @@ kill -9 $(lsof -t -i:4000)
 - Keep responses concise and focused
 - Don't add unnecessary comments to code
 
+### Style Implementation Guidelines
+**CRITICAL**: When implementing style changes, especially hover effects:
+- Read the user's requirements CAREFULLY and implement EXACTLY what they ask for
+- "Subtle" means subtle (e.g., #FFF to #F1F1F1, not rgba(0,0,0,0.05))
+- When asked to remove ALL transform/movement effects, check ALL instances and variations
+- Don't assume - if user says "remove transform", remove ALL transform properties
+- Test changes thoroughly before claiming they're complete
+- If you fail to implement correctly the first time, expect harsh but deserved criticism
+
 ## Technical Debt Registry
 
 ### High Priority

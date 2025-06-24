@@ -37,40 +37,78 @@
 
     // Load demo component
     function loadDemoComponent(componentName) {
-        const trailerHero = document.getElementById('trailerHero');
-        const trailerContent = document.getElementById('trailerContent');
-        const aboveFold = document.querySelector('.above-fold-content-wrapper');
         
-        if (!trailerHero || !trailerContent) return;
+        // Create fullscreen modal
+        const modal = document.createElement('div');
+        modal.className = 'demo-modal';
+        modal.innerHTML = `
+            <div class="demo-modal-overlay"></div>
+            <div class="demo-modal-content">
+                <button class="demo-modal-close" aria-label="Close demo">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+                <div class="demo-modal-body">
+                    <div class="demo-loading">Loading demo...</div>
+                </div>
+            </div>
+        `;
         
-        // Add demo-active class to trigger animations
-        document.body.classList.add('demo-active');
-        trailerHero.classList.add('demo-mode');
+        // Add modal to body
+        document.body.appendChild(modal);
+        document.body.classList.add('demo-modal-open');
         
-        // Clear existing content
-        trailerContent.innerHTML = '<div class="demo-loading">Loading demo...</div>';
+        // Get the modal body for content
+        const modalBody = modal.querySelector('.demo-modal-body');
+        
+        // Set up close button
+        const closeBtn = modal.querySelector('.demo-modal-close');
+        const overlay = modal.querySelector('.demo-modal-overlay');
+        
+        const closeModal = () => {
+            // Play sound effect if available
+            if (window.soundEffects && window.soundEffects.playSound) {
+                window.soundEffects.playSound('small-click');
+            }
+            
+            document.body.classList.remove('demo-modal-open');
+            modal.classList.add('closing');
+            setTimeout(() => {
+                modal.remove();
+            }, 300);
+        };
+        
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', closeModal);
+        
+        // Handle escape key
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
         
         // Load the demo component
         switch(componentName) {
             case 'interactive-prototype':
-                loadInteractivePrototype(trailerContent);
+                loadInteractivePrototype(modalBody);
                 break;
             case 'code-sandbox':
-                loadCodeSandbox(trailerContent);
+                loadCodeSandbox(modalBody);
                 break;
             case 'figma-embed':
-                loadFigmaEmbed(trailerContent);
+                loadFigmaEmbed(modalBody);
                 break;
             case 'live-component':
-                loadLiveComponent(trailerContent);
+                loadLiveComponent(modalBody);
                 break;
             default:
                 // Try to load custom component
-                loadCustomComponent(componentName, trailerContent);
+                loadCustomComponent(componentName, modalBody);
         }
-        
-        // Add close button
-        addDemoCloseButton(trailerHero);
     }
 
     // Example demo loaders
@@ -127,91 +165,44 @@
     }
 
     function loadCustomComponent(name, container) {
-        // Dispatch event for custom handlers
+        // Load custom demo as iframe
+        container.innerHTML = `
+            <div class="demo-custom">
+                <iframe src="/demos/${name}/" 
+                    frameborder="0" 
+                    allowfullscreen
+                    style="width: 100%; height: 100%;"
+                    title="${name} Demo">
+                </iframe>
+            </div>
+        `;
+        
+        // Also dispatch event for any additional handlers
         const event = new CustomEvent('loadDemoComponent', {
             detail: { name, container }
         });
         document.dispatchEvent(event);
     }
 
-    function addDemoCloseButton(trailerHero) {
-        // Check if button already exists
-        if (trailerHero.querySelector('.demo-close-button')) return;
-        
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'demo-close-button';
-        closeBtn.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-            </svg>
-        `;
-        closeBtn.onclick = closeDemoMode;
-        trailerHero.appendChild(closeBtn);
-    }
-
-    function closeDemoMode() {
-        // Play sound effect if available
-        if (window.soundEffects && window.soundEffects.playSound) {
-            window.soundEffects.playSound('small-click');
-        }
-        
-        document.body.classList.remove('demo-active');
-        const trailerHero = document.getElementById('trailerHero');
-        const trailerContent = document.getElementById('trailerContent');
-        const closeBtn = trailerHero.querySelector('.demo-close-button');
-        
-        if (closeBtn) closeBtn.remove();
-        trailerHero.classList.remove('demo-mode');
-        
-        // Restore original content
-        const originalContent = trailerHero.getAttribute('data-original-content');
-        if (originalContent && trailerContent) {
-            trailerContent.innerHTML = originalContent;
-        } else {
-            // If no original content saved, reload the page
-            location.reload();
-        }
-    }
-
-    // Save original content before demo mode
-    function saveOriginalContent() {
-        const trailerHero = document.getElementById('trailerHero');
-        const trailerContent = document.getElementById('trailerContent');
-        
-        if (trailerHero && trailerContent && !trailerHero.hasAttribute('data-original-content')) {
-            trailerHero.setAttribute('data-original-content', trailerContent.innerHTML);
-        }
-    }
 
     // Export functions for global use
     window.projectDemo = {
         init: initProjectDemo,
-        loadComponent: loadDemoComponent,
-        close: closeDemoMode
+        loadComponent: loadDemoComponent
     };
 
     // Initialize on DOM ready and dynamic content load
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
-            saveOriginalContent();
             initProjectDemo();
         });
     } else {
-        saveOriginalContent();
         initProjectDemo();
     }
 
     // Re-initialize on dynamic content load
     document.addEventListener('contentLoaded', function() {
-        saveOriginalContent();
         initProjectDemo();
-    });
-
-    // Handle escape key to close demo
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && document.body.classList.contains('demo-active')) {
-            closeDemoMode();
-        }
     });
 
 })();

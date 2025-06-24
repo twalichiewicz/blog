@@ -7,7 +7,7 @@ byline: Standardized Autodesk's full suite of products to use a single install S
 date: 2019-6-30 20:52:01
 tags: [portfolio]
 layout: project_gallery
-has_writeup: false
+has_writeup: true
 gallery_images:
   - url: /2019/06/30/Project-Wingman/wingmanInstaller.mp4
     type: video
@@ -19,6 +19,24 @@ stats:
     label: "Unified Installers"
   - value: "Millions"
     label: "Users Impacted"
+  - value: "6 Products"
+    label: "Major Teams Aligned"
+project_stats:
+  - label: "Team"
+    value: 
+      - "Lead Product Designer (me) - Framework design, stakeholder alignment, research"
+      - "Platform Engineering - Technical architecture and SDK development"
+      - "6 Product Teams - AutoCAD, Maya, 3ds Max, Inventor, Revit, Fusion"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "8 months (2019)"
+  - label: "Platform"
+    value: "Desktop installer framework"
+  - label: "Skills"
+    value: ["Enterprise UX", "Stakeholder Management", "Framework Design", "Research Operations"]
+    type: "tags"
+    span: 3
 credits:
   - role: Role
     name: Lead Product Designer, Access Experience

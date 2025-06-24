@@ -8,10 +8,28 @@ date: 2014-01-01 14:57:27
 cover_image: mitiHealth-preview.jpg
 tags: [portfolio]
 has_writeup: true
+hidden: true
+draft: true
 layout: project_gallery
 stats:
   - value: "Rural Kenya"
     label: "Target Market"
+project_stats:
+  - label: "Team"
+    value: 
+      - "UX Designer & Researcher (me) - Field research, offline-first design, cultural adaptation"
+      - "2 Engineers - Android development, offline synchronization, data management"
+      - "Local Health Experts - Pharmacy workflows, regulatory guidance, user validation"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "6 months (2014)"
+  - label: "Platform"
+    value: "Android tablet application"
+  - label: "Skills"
+    value: ["Emerging Markets UX", "Field Research", "Offline-First Design", "Android"]
+    type: "tags"
+    span: 3
 gallery_images:
   - url: 000_mitiHealth.png
     caption: Miti Health app interface

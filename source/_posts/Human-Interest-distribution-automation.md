@@ -8,6 +8,22 @@ byline: Designed and implemented an automated digital system for 401(k) distribu
 tags: [portfolio]
 layout: project_gallery
 has_writeup: true
+draft: true
+project_stats:
+  - label: "Team"
+    value: 
+      - "Lead Designer (me) - UX design, user research, process mapping, interaction design"
+      - "2 Engineers - Backend development, API integration, automation systems"
+      - "Compliance Expert - 401(k) regulations, legal requirements, compliance validation"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "3 months (2017)"
+  - label: "Platform"
+    value: "Web application"
+  - label: "Achievement"
+    value: "First digital 401(k) distribution system"
+    span: 2
 cover_image: distribution_000.png
 gallery_images:
   - url: /2017/07/30/Human-Interest-distribution-automation/distribution_000.png

@@ -128,14 +128,8 @@
 					
 					<!-- Read full story button and demo button moved here -->
 					<div class="read-story-button-container">
-						<button class="read-story-button" id="scrollToFullStoryBtn">
-							Read the full story
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-								<line x1="12" y1="5" x2="12" y2="19"></line>
-								<polyline points="19 12 12 19 5 12"></polyline>
-							</svg>
-						</button>
-						<% if (page.demo_url || page.demo_component) { %>
+						<% /* DEMO BUTTON TEMPORARILY DISABLED
+						if (page.demo_url || page.demo_component) { %>
 							<button class="demo-button" 
 								<% if (page.demo_url) { %>
 									data-demo-url="<%- page.demo_url %>"
@@ -149,7 +143,15 @@
 									<path d="M8 5v14l11-7z"/>
 								</svg>
 							</button>
-						<% } %>
+						<% } 
+						*/ %>
+						<button class="read-story-button" id="scrollToFullStoryBtn">
+							Read the full story
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<line x1="12" y1="5" x2="12" y2="19"></line>
+								<polyline points="19 12 12 19 5 12"></polyline>
+							</svg>
+						</button>
 					</div>
 					
 					<% if (page.byline) { %>
@@ -181,33 +183,6 @@
 			</div>
 		</div>
 
-		<!-- Project metadata moved to end of page -->
-		<% if (page.credits && page.credits.length) { %>
-		<div class="project-metadata-footer">
-			<div class="metadata">
-				<div class="metadata-list">
-					<% page.credits.forEach(function(credit) { %>
-						<div class="metadata-item">
-						<span class="label" style="font-size: 9px;"><%= credit.role %></span>
-						<span class="value" style="font-size: 12px;"><%= credit.name %></span>
-						</div>
-					<% }); %>
-					<% if (page.year) { %>
-					<div class="metadata-item">
-						<span class="label" style="font-size: 9px;">Year</span>
-						<span class="value" style="font-size: 12px;"><%= page.year %></span>
-					</div>
-					<% } %>
-					<% if (page.location) { %>
-					<div class="metadata-item">
-						<span class="label" style="font-size: 9px;">Location</span>
-						<span class="value" style="font-size: 12px;"><%= page.location %></span>
-					</div>
-					<% } %>
-				</div>
-			</div>
-		</div>
-		<% } %>
 	</div>
 	</div>
 
@@ -306,11 +281,13 @@
 				};
 			}
 			
-			// Set up demo button
+			// Set up demo button - TEMPORARILY DISABLED
+			/*
 			const demoButton = document.getElementById('demoBtn');
 			if (demoButton) {
 				setupDemoButton(demoButton);
 			}
+			*/
 		}
 		
 		// Demo button functionality
@@ -333,37 +310,70 @@
 		
 		// Load demo component
 		function loadDemoComponent(componentName) {
-			const trailerHero = document.getElementById('trailerHero');
-			const trailerContent = document.getElementById('trailerContent');
-			const aboveFold = document.querySelector('.above-fold-content-wrapper');
 			
-			if (!trailerHero || !trailerContent) return;
+			// Create fullscreen modal
+			const modal = document.createElement('div');
+			modal.className = 'demo-modal';
+			modal.innerHTML = `
+				<div class="demo-modal-overlay"></div>
+				<div class="demo-modal-content">
+					<button class="demo-modal-close" aria-label="Close demo">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+						</svg>
+					</button>
+					<div class="demo-modal-body">
+						<div class="demo-loading">Loading demo...</div>
+					</div>
+				</div>
+			`;
 			
-			// Add demo-active class to trigger animations
-			document.body.classList.add('demo-active');
-			trailerHero.classList.add('demo-mode');
+			// Add modal to body
+			document.body.appendChild(modal);
+			document.body.classList.add('demo-modal-open');
 			
-			// Clear existing content
-			trailerContent.innerHTML = '<div class="demo-loading">Loading demo...</div>';
+			// Get the modal body for content
+			const modalBody = modal.querySelector('.demo-modal-body');
+			
+			// Set up close button
+			const closeBtn = modal.querySelector('.demo-modal-close');
+			const overlay = modal.querySelector('.demo-modal-overlay');
+			
+			const closeModal = () => {
+				document.body.classList.remove('demo-modal-open');
+				modal.classList.add('closing');
+				setTimeout(() => {
+					modal.remove();
+				}, 300);
+			};
+			
+			closeBtn.addEventListener('click', closeModal);
+			overlay.addEventListener('click', closeModal);
+			
+			// Handle escape key
+			const handleEscape = (e) => {
+				if (e.key === 'Escape') {
+					closeModal();
+					document.removeEventListener('keydown', handleEscape);
+				}
+			};
+			document.addEventListener('keydown', handleEscape);
 			
 			// Load the demo component
 			switch(componentName) {
 				case 'interactive-prototype':
-					loadInteractivePrototype(trailerContent);
+					loadInteractivePrototype(modalBody);
 					break;
 				case 'code-sandbox':
-					loadCodeSandbox(trailerContent);
+					loadCodeSandbox(modalBody);
 					break;
 				case 'figma-embed':
-					loadFigmaEmbed(trailerContent);
+					loadFigmaEmbed(modalBody);
 					break;
 				default:
 					// Try to load custom component
-					loadCustomComponent(componentName, trailerContent);
+					loadCustomComponent(componentName, modalBody);
 			}
-			
-			// Add close button
-			addDemoCloseButton(trailerHero);
 		}
 		
 		// Example demo loaders
@@ -405,35 +415,23 @@
 		}
 		
 		function loadCustomComponent(name, container) {
-			// Dispatch event for custom handlers
+			// Load custom demo as iframe
+			container.innerHTML = `
+				<div class="demo-custom">
+					<iframe src="/demos/${name}/" 
+						frameborder="0" 
+						allowfullscreen
+						style="width: 100%; height: 100%;"
+						title="${name} Demo">
+					</iframe>
+				</div>
+			`;
+			
+			// Also dispatch event for any additional handlers
 			const event = new CustomEvent('loadDemoComponent', {
 				detail: { name, container }
 			});
 			document.dispatchEvent(event);
-		}
-		
-		function addDemoCloseButton(trailerHero) {
-			const closeBtn = document.createElement('button');
-			closeBtn.className = 'demo-close-button';
-			closeBtn.innerHTML = `
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-					<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-				</svg>
-			`;
-			closeBtn.onclick = closeDemoMode;
-			trailerHero.appendChild(closeBtn);
-		}
-		
-		function closeDemoMode() {
-			document.body.classList.remove('demo-active');
-			const trailerHero = document.getElementById('trailerHero');
-			const closeBtn = trailerHero.querySelector('.demo-close-button');
-			
-			if (closeBtn) closeBtn.remove();
-			trailerHero.classList.remove('demo-mode');
-			
-			// Reload original content
-			location.reload();
 		}
 
 		// Set up immediately or on DOM ready

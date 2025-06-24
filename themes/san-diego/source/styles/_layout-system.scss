@@ -311,7 +311,7 @@ body.modal-open {
     .project-content {
       margin-left: auto;
       margin-right: auto;
-      padding: 0 1rem;
+      padding: 0; // Remove padding here - will be applied to children
     }
   }
 }

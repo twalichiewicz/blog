@@ -1,0 +1,60 @@
+// Project Layout Fix - Stats section full width approach
+@use 'variables';
+
+// For dynamically loaded projects and gallery projects
+.project-wrapper.dynamic-loaded,
+.project-wrapper,
+.project-edge-wrapper {
+  // Override stats section to be full width
+  .project-stats-section {
+    // Break out of parent padding using negative margins
+    margin-top: 0;
+    margin-left: -36px;
+    margin-right: -36px;
+    width: calc(100% + 72px);
+    padding-left: 36px;
+    padding-right: 36px;
+    
+    @media (max-width: variables.$mobile-breakpoint) {
+      margin-left: -18px;
+      margin-right: -18px;
+      width: calc(100% + 36px);
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+    
+    // Inside project-description which has 24px padding
+    .project-description & {
+      margin-left: -24px;
+      margin-right: -24px;
+      width: calc(100% + 48px);
+      
+      @media (max-width: variables.$mobile-breakpoint) {
+        margin-left: -24px;
+        margin-right: -24px;
+        width: calc(100% + 48px);
+      }
+    }
+  }
+}
+
+// For the standard project template
+.project-page .project-details {
+  .project-stats-section {
+    margin-left: -24px;
+    margin-right: -24px;
+    width: calc(100% + 48px);
+    
+    @media (max-width: variables.$mobile-breakpoint) {
+      margin-left: -16px;
+      margin-right: -16px;
+      width: calc(100% + 32px);
+    }
+  }
+}
+
+// Remove all padding from project-details - be more specific to override
+.project-content .project-details {
+  padding: 0 !important;
+}
+

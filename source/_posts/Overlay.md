@@ -23,28 +23,43 @@ trailer:
   loop: true
   muted: true
 stats:
-  - value: "100+"
-    label: "Desktop Apps"
-  - value: "POC"
-    label: "Stage Reached"
+  - value: "VP-Level"
+    label: "Executive Sponsorship"
+  - value: "$10M+"
+    label: "Identified Savings"
+  - value: "Patent"
+    label: "IP Protection"
+project_stats:
+  - label: "Team"
+    value: 
+      - "Principal Product Designer (me) - Led solo initiative, interviewed teams across the organization to identify commonalities"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "6 months (Early 2024 - Late 2024)"
+  - label: "Platform"
+    value: "Cross-platform desktop overlay"
+  - label: "Skills"
+    value: ["Systems Design", "AI/ML Integration", "Cross-platform UX", "Technical Architecture"]
+    type: "tags"
+    span: 3
 notebook_color: crimson
 notebook_texture: pristine
 notebook_brand: leuchtturm
 notebook_pages: notebook-pages.jpg
 notebook_stickers:
   - text: "AI/ML"
+    color: "#fff"
     bg: "#1a237e"
-    color: "#fff"
-    rotate: "-12deg"
+    rotate: "-4deg"
+  - text: "⭐"
+    color: "#ffd600"
+    bg: "#000"
+    rotate: "1deg"
   - text: "POC"
-    bg: "#fdd835"
     color: "#000"
-    shape: "rounded"
-  - text: "★"
-    shape: "circle"
-    bg: "#ff1744"
-    color: "#fff"
-    rotate: "15deg"
+    bg: "#00e676"
+    rotate: "3deg"
 ---
 
 ## The Problem: Isolated Product Silos
@@ -77,14 +92,14 @@ The concept's most significant potential was eliminating context loss between ap
 
 The designed contextual intelligence engine would analyze user behavior patterns to proactively surface relevant tools and guidance. Instead of forcing users to remember different workflows across products, the overlay would adapt to their current task and provide consistent assistance.
 
-## Project Impact & Legacy
+## Project Impact & Executive Vision
 
-The Overlay concept achieved significant milestones before organizational changes shifted priorities:
+The Overlay initiative secured VP-level sponsorship and achieved critical milestones:
 
-- Designed architecture to enable shared functionality across 60+ Autodesk desktop applications
-- Created framework to eliminate duplicate feature development across product teams  
-- Prototyped seamless user workflows spanning multiple applications
-- Established architectural foundation for cloud-connected desktop experiences
-- Reached production-ready POC stage, demonstrating both technical feasibility and user experience potential
+- **Executive Buy-in**: Presented directly to VP of Platform, securing funding and resources for POC development
+- **Production-Ready POC**: Delivered fully functional prototype demonstrating cross-application intelligence
+- **Architectural Innovation**: Designed framework serving 60+ desktop applications with single codebase
+- **$10M+ Savings Potential**: Identified duplicate feature development across teams that platform would eliminate
+- **Strategic Patent Filing**: Core architectural concepts submitted for patent protection
 
-The prototype reached production-ready POC stage, demonstrating the technical feasibility and user experience potential before organizational restructuring shifted company priorities to other initiatives.
+The project successfully reached production-ready POC stage with demonstrated ROI and technical feasibility. Following a strategic reorganization, the company pivoted to an alternative implementation approach. The foundational architecture and design principles I established continue to influence Autodesk's platform strategy.

@@ -1,0 +1,294 @@
+@use 'variables';
+@use 'sass:color';
+
+// Project Stats Grid Component
+// High-density grid with clear borders for project metadata
+
+// Stats section - matching project-writeup styling
+.project-stats-section {
+  width: 100%;
+  margin: 3rem auto;
+  margin-bottom: 4rem; // Increased bottom margin
+  padding: 2rem 0 0;
+  border-top: 1px solid rgb(0 0 0 / 8%);
+  background: transparent; // Remove background color
+  
+  @media (prefers-color-scheme: dark) {
+    border-top-color: rgb(255 255 255 / 10%);
+  }
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    margin: 2rem auto;
+    margin-bottom: 3rem; // Increased bottom margin on mobile
+    padding: 1.5rem 0 0;
+  }
+}
+
+.project-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; // 3 equal columns
+  grid-template-rows: auto auto auto; // 3 rows
+  gap: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: none;
+  border-right: none;
+  
+  @media (prefers-color-scheme: light) {
+    border-top-color: rgba(0, 0, 0, 0.08);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    border-top-color: rgba(255, 255, 255, 0.1);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  // Support for spanning items
+  .stat-span-2 {
+    grid-column: span 2;
+  }
+  
+  .stat-span-3 {
+    grid-column: span 3;
+  }
+  
+  // Team spans 2 rows
+  .project-stat-item:nth-child(1) {
+    grid-row: span 2;
+  }
+  
+  // Mobile adjustments
+  @media (max-width: variables.$mobile-breakpoint) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    padding: 0;
+    gap: 0;
+    
+    .stat-span-2,
+    .stat-span-3 {
+      grid-column: span 1; // Don't span on mobile
+    }
+    
+    .project-stat-item:nth-child(1) {
+      grid-row: span 1; // Don't span rows on mobile
+    }
+  }
+}
+
+.project-stat-item {
+  padding: 15px 24px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80px;
+  
+  // Remove right border from rightmost items
+  &:nth-child(2), // Timeline
+  &:nth-child(3), // Platform
+  &:nth-child(4) { // Skills
+    border-right: none;
+  }
+  
+  // Add right border to Team (spanning item that needs a border)
+  &:nth-child(1) {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    
+    @media (prefers-color-scheme: light) {
+      border-right-color: rgba(0, 0, 0, 0.08);
+    }
+  }
+  
+  // Add bottom borders
+  &:nth-child(2) { // Timeline
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    @media (prefers-color-scheme: light) {
+      border-bottom-color: rgba(0, 0, 0, 0.08);
+    }
+  }
+  
+  &:nth-child(1), // Team (spans 2 rows, needs bottom border)
+  &:nth-child(3) { // Platform
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    @media (prefers-color-scheme: light) {
+      border-bottom-color: rgba(0, 0, 0, 0.08);
+    }
+  }
+  
+  // Light mode borders
+  @media (prefers-color-scheme: light) {
+    border-right-color: rgba(0, 0, 0, 0.08);
+  }
+  
+  // Mobile - no borders between items
+  @media (max-width: variables.$mobile-breakpoint) {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 24px; // Same padding on mobile
+    min-height: auto;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    @media (prefers-color-scheme: light) {
+      border-bottom-color: rgba(0, 0, 0, 0.08);
+    }
+  }
+}
+
+.stat-label {
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 6px;
+  
+  @media (prefers-color-scheme: light) {
+    color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.stat-value {
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+  
+  @media (prefers-color-scheme: light) {
+    color: rgba(0, 0, 0, 0.8);
+  }
+  
+  // For multi-line values
+  &.stat-value--list {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      
+      li {
+        margin-bottom: 0.5rem;
+        font-size: 12px;
+        line-height: 1.4;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        // Style for team member descriptions
+        .team-member-role {
+          display: block;
+          font-size: 9px;
+          line-height: 1.3;
+          color: rgba(255, 255, 255, 0.6);
+          margin-top: 0.25rem;
+          
+          @media (prefers-color-scheme: light) {
+            color: rgba(0, 0, 0, 0.6);
+          }
+        }
+      }
+    }
+  }
+  
+  // For emphasizing key metrics - no color accent
+  &.stat-value--highlight {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 1);
+    
+    @media (prefers-color-scheme: light) {
+      color: rgba(0, 0, 0, 0.9);
+    }
+  }
+  
+  // For tags/skills
+  &.stat-value--tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    
+    .stat-tag {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9);
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 400;
+      
+      @media (prefers-color-scheme: light) {
+        background: rgba(0, 0, 0, 0.05);
+        color: rgba(0, 0, 0, 0.7);
+      }
+    }
+  }
+}
+
+// Variant: Compact grid for smaller stats
+.project-stats-grid--compact {
+  .project-stat-item {
+    padding: 0.5rem;
+  }
+  
+  .stat-label {
+    font-size: 0.35rem; // Half of 0.7rem
+  }
+  
+  .stat-value {
+    font-size: 0.45rem; // Half of 0.9rem
+  }
+}
+
+// Variant: Two column layout
+.project-stats-grid--two-col {
+  grid-template-columns: repeat(2, 1fr);
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Variant: Three column layout
+.project-stats-grid--three-col {
+  grid-template-columns: repeat(3, 1fr);
+  
+  @media (max-width: variables.$tablet-breakpoint) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Remove bottom borders on last row
+// This is tricky with dynamic grid, so we'll handle specific cases
+.project-stats-grid--two-col {
+  .project-stat-item:nth-last-child(-n+2) {
+    @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+      border-bottom: none;
+    }
+  }
+}
+
+.project-stats-grid--three-col {
+  .project-stat-item:nth-last-child(-n+3) {
+    @media (min-width: calc(variables.$tablet-breakpoint + 1px)) {
+      border-bottom: none;
+    }
+  }
+  
+  .project-stat-item:nth-last-child(-n+2) {
+    @media (min-width: calc(variables.$mobile-breakpoint + 1px)) and (max-width: variables.$tablet-breakpoint) {
+      border-bottom: none;
+    }
+  }
+}

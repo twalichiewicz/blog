@@ -10,6 +10,7 @@ cover_image: /2017/09/11/Human-Interest-brand/humanInterestBrand-preview.png
 date: 2017-09-11 00:00:00
 type: project_gallery
 year: 2017
+draft: true
 tags:
   - portfolio
 discipline:
@@ -27,6 +28,21 @@ industry:
 stats:
   - value: "360°"
     label: "Brand Touchpoints"
+project_stats:
+  - label: "Team"
+    value: 
+      - "Design & Brand Lead (me) - Brand strategy, visual identity, motion design, art direction"
+      - "External Agency Team - Brand consultation, creative collaboration, production support"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "4 months (2017)"
+  - label: "Deliverables"
+    value: "Logo, Guidelines, Marketing, Product UI"
+  - label: "Skills"
+    value: ["Brand Strategy", "Visual Identity", "Motion Design", "Art Direction"]
+    type: "tags"
+    span: 3
 credits:
   - role: Design & Brand Lead
     name: Thomas Walichiewicz

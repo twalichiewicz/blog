@@ -11,6 +11,7 @@ tags:
   - portfolio
 layout: project_gallery
 notebook_color: "dark-lime-green"
+demo_component: "custom-install-demo"
 gallery_images:
   - url: /2019/08/30/Custom-Install/000_customInstall.jpg
     type: image
@@ -33,6 +34,22 @@ stats:
     label: "Faster Deployments"
   - value: "85%"
     label: "Fewer Support Tickets"
+project_stats:
+  - label: "Team"
+    value: 
+      - "Lead Product Designer (me)"
+      - "Product Manager & Product Owner"
+      - "Engineering team (5-6 people)"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "18 months (2018-2019)"
+  - label: "Platform"
+    value: "Cloud-based React application"
+  - label: "Skills"
+    value: ["Enterprise UX", "Design Systems", "Accessibility", "Cross-platform Design"]
+    type: "tags"
+    span: 3
 ---
 
 

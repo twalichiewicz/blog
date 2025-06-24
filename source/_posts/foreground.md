@@ -8,13 +8,30 @@ byline: Built "Foreground" design system that unified product ecosystem across t
 date: 2018-04-05 00:00:00
 cover_image: foreground-preview.jpg
 cover_video_poster: 
-has_writeup: false
+has_writeup: true
 tags: [portfolio]
 stats:
   - value: "90%"
     label: "Fewer Support Calls"
   - value: "50%→10%"
     label: "Implementation Time"
+  - value: "3 User Types"
+    label: "Unified Experience"
+project_stats:
+  - label: "Team"
+    value: 
+      - "Lead Product Designer (me) - Architecture, component design, and implementation"
+      - "Contract Engineering Team - Directed implementation of complex components"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "6 months (2018)"
+  - label: "Platform"
+    value: "React component library"
+  - label: "Skills"
+    value: ["Design Systems", "Component Architecture", "Financial UX", "Cross-functional Leadership"]
+    type: "tags"
+    span: 3
 gallery_images:
   - url: Color-scheme.jpg
     type: image

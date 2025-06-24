@@ -15,26 +15,4 @@ tags:
   - portfolio
 ---
 
-### Opportunity
 
-Type your opportunity text here.
-
-### Insight
-
-Type your insight text here.
-
-### Solution
-
-Type your solution text here.
-
-## Opportunity
-
-Type your opportunity text here.
-
-## Insight
-
-Type your insight text here.
-
-## Solution
-
-Type your solution text here.

@@ -8,12 +8,30 @@ byline: Empowered administrators to provision new cloud hubs instantly with a gu
 tags: [portfolio]
 has_writeup: true
 layout: project_gallery
-cover_image: selfServiceHubProv_000.png 
+cover_image: selfServiceHubProv_000.png
+draft: true 
 stats:
   - value: "Days → Minutes"
     label: "Deployment Time"
   - value: "90%"
     label: "Self-Service Rate"
+project_stats:
+  - label: "Team"
+    value: 
+      - "Lead Product Designer, Cloud Hubs (me) - UX design, workflow optimization, enterprise patterns"
+      - "6 Engineers - Cloud infrastructure, backend services, frontend implementation"
+      - "DevOps Team - Deployment automation, security configuration, regional infrastructure"
+      - "1 Product Manager - Enterprise requirements, business strategy, customer success"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "12 months (2019)"
+  - label: "Platform"
+    value: "Web-based admin portal"
+  - label: "Skills"
+    value: ["Enterprise UX", "Cloud Infrastructure", "Self-Service Design", "Complex Workflows"]
+    type: "tags"
+    span: 3
 gallery_images:
   - url: selfServiceHubProv_000.png
     type: image

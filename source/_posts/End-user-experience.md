@@ -7,8 +7,26 @@ byline: Streamlined telemedicine platform enabling secure video consultations an
 date: 2017-01-01 20:52:01
 cover_image: /2017/01/01/End-user-experience/lyra-preview.png
 has_writeup: true
+hidden: true
+draft: true
 layout: project_gallery
 stats:
+project_stats:
+  - label: "Team"
+    value: 
+      - "User Experience Lead (me) - Healthcare UX design, user research, HIPAA compliance"
+      - "3 Engineers - Frontend development, video conferencing integration, security implementation"
+      - "Clinical Advisory Team - Mental health expertise, clinical workflow validation, care protocols"
+    type: "list"
+    span: 2
+  - label: "Timeline"
+    value: "6 months (2016)"
+  - label: "Platform"
+    value: "Web application (responsive)"
+  - label: "Skills"
+    value: ["Healthcare UX", "HIPAA Compliance", "Video Conferencing", "Accessibility"]
+    type: "tags"
+    span: 3
 credits:
   - role: User Experience Lead
     name: Thomas Walichiewicz
