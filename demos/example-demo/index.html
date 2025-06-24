@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Demo</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .demo-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        
+        button:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        
+        .counter {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .counter-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .status {
+            margin-top: 1rem;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>🚀 Example Demo</h1>
+        <p>This is a simple demo to test the demo system. Click the buttons below to interact with it!</p>
+        
+        <div class="counter">
+            <div class="counter-value" id="counterValue">0</div>
+            <div>Clicks</div>
+        </div>
+        
+        <div class="demo-controls">
+            <button onclick="increment()">+1</button>
+            <button onclick="decrement()">-1</button>
+            <button onclick="reset()">Reset</button>
+        </div>
+        
+        <div id="status" class="status info">
+            Demo is ready! Click the buttons above.
+        </div>
+    </div>
+
+    <script>
+        let counter = 0;
+        
+        function updateDisplay() {
+            document.getElementById('counterValue').textContent = counter;
+        }
+        
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+        }
+        
+        function increment() {
+            counter++;
+            updateDisplay();
+            updateStatus(`Incremented to ${counter}!`, 'success');
+        }
+        
+        function decrement() {
+            counter--;
+            updateDisplay();
+            updateStatus(`Decremented to ${counter}!`, 'info');
+        }
+        
+        function reset() {
+            counter = 0;
+            updateDisplay();
+            updateStatus('Counter reset to 0!', 'info');
+        }
+        
+        // Initialize
+        updateDisplay();
+        
+        // Add some interactivity for demo purposes
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowUp') {
+                increment();
+            } else if (e.key === 'ArrowDown') {
+                decrement();
+            } else if (e.key === 'r' || e.key === 'R') {
+                reset();
+            }
+        });
+        
+        updateStatus('Use arrow keys or buttons to interact!', 'info');
+    </script>
+</body>
+</html>
