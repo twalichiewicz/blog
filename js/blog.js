@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			expandButtons: container.querySelectorAll('.expand-button'),
 			// carousels: container.querySelectorAll('.carousel'), // No longer handled directly here
 		};
+		
+		// Initialize project demo if available
+		setTimeout(() => {
+			if (window.projectDemo && window.projectDemo.init) {
+				console.log('[Blog] Initializing project demo after content load');
+				window.projectDemo.init();
+			}
+		}, 100);
 
 		// --- Search Functionality ---
 		if (elements.searchInput) {
@@ -306,6 +314,13 @@ document.addEventListener('DOMContentLoaded', function () {
 						
 						// Also emit contentLoaded to ensure carousel initializes
 						document.dispatchEvent(new Event('contentLoaded'));
+						
+						// Initialize demo button if project has one
+						setTimeout(() => {
+							if (window.projectDemo && window.projectDemo.init) {
+								window.projectDemo.init();
+							}
+						}, 100);
 						
 						// Give browser time to restore scroll, then check active notebook
 						setTimeout(() => {
