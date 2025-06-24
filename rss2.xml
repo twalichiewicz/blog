@@ -9,8 +9,36 @@
     <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
-    <pubDate>Tue, 24 Jun 2025 21:30:34 GMT</pubDate>
+    <pubDate>Tue, 24 Jun 2025 21:49:44 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Old Notebooks New Inspiration</title>
+      <link>https://twalichiewicz.github.io/2025/06/24/Old-Notebooks-New-Inspiration/</link>
+      <guid>https://twalichiewicz.github.io/2025/06/24/Old-Notebooks-New-Inspiration/</guid>
+      <pubDate>Tue, 24 Jun 2025 14:42:21 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Found a stack of my old design notebooks tucked away in a drawer today. Pages filled with sketches, half-formed ideas, and that particula</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Found a stack of my old design notebooks tucked away in a drawer today. Pages filled with sketches, half-formed ideas, and that particular kind of energy that comes from putting pen to paper without overthinking it.</p><p>There’s something about the tactile process of sketching that digital tools can’t quite replicate. The weight of the pencil, the texture of paper, the way ideas flow more freely when your hand is moving. Those notebooks captured a rawness and immediacy that made me want to bring some of that spirit back to my work.</p><p>Felt inspired enough to completely redo the Works page. Sometimes you need to look back to move forward.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/design/">design</category>
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/reflection/">reflection</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/06/24/Old-Notebooks-New-Inspiration/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>How creative mediums find their voice</title>
@@ -471,31 +499,6 @@
       
       
       <comments>https://twalichiewicz.github.io/2025/05/05/Unsurprisingly-good-input-good-output/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Finding errors after sharing portfolio</title>
-      <link>https://twalichiewicz.github.io/2025/05/04/Finding-errors-after-sharing-portfolio/</link>
-      <guid>https://twalichiewicz.github.io/2025/05/04/Finding-errors-after-sharing-portfolio/</guid>
-      <pubDate>Sun, 04 May 2025 19:47:47 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Got to hate finding errors&amp;#x2F;broken code immediately after sharing out my portfolio. Such is the cost of being my own maintainer.&lt;/p&gt;
-</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Got to hate finding errors&#x2F;broken code immediately after sharing out my portfolio. Such is the cost of being my own maintainer.</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
-      
-      
-      <comments>https://twalichiewicz.github.io/2025/05/04/Finding-errors-after-sharing-portfolio/#disqus_thread</comments>
       
     </item>
     
