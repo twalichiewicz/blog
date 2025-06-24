@@ -1,1 +1,163 @@
-!function(t){"use strict";const e=new class{constructor(){this.sounds=new Map,this.enabled=!0,this.volume=.5,this.initialized=!1}init(){if(this.initialized)return;const e=localStorage.getItem("sound-effects-enabled");this.enabled=null===e||"true"===e;const o=localStorage.getItem("sound-effects-volume");this.volume=null!==o?parseFloat(o):.5,this.preloadCommonSounds(),this.initialized=!0,t.events.emit("sound-effects:initialized")}loadSound(t,e,o=["mp3","ogg","m4a"]){const l=new Audio;for(const t of o){const o=l.canPlayType(`audio/${"m4a"===t?"mp4":t}`);if("probably"===o||"maybe"===o){l.src=`${e}.${t}`;break}}return l.src||(l.src=`${e}.mp3`),l.preload="auto",l.volume=this.volume,l.addEventListener("error",t=>{}),this.sounds.set(t,l),l}play(t,e=null){if(!this.enabled)return;const o=this.sounds.get(t);if(o)try{o.currentTime=0,o.volume=null!==e?e:this.volume;const t=o.play();void 0!==t&&t.catch(t=>{})}catch(t){}}setEnabled(e){this.enabled=e,localStorage.setItem("sound-effects-enabled",e.toString()),t.events.emit("sound-effects:toggle",{enabled:e})}setVolume(e){this.volume=Math.max(0,Math.min(1,e)),localStorage.setItem("sound-effects-volume",this.volume.toString()),this.sounds.forEach(t=>{t.volume=this.volume}),t.events.emit("sound-effects:volume-change",{volume:this.volume})}isEnabled(){return this.enabled}getVolume(){return this.volume}preloadCommonSounds(){this.loadSound("toggle","/media/toggleSound",["mp3","ogg","m4a"]),this.loadSound("buttonDown","/media/button-press-down",["mp3","m4a"]),this.loadSound("buttonUp","/media/button-press-up",["mp3","m4a"]),this.loadSound("smallClick","/media/smallClick",["mp3"]),this.loadSound("slider","/media/slider",["mp3"])}playButton(){this.play("smallClick")}playSmallClick(){this.play("smallClick")}playToggle(){this.play("toggle")}playSlider(){this.play("slider")}playButtonDown(){this.play("buttonDown")}playButtonUp(){this.play("buttonUp")}};t.utils.sound=e,t.registerModule("sound-effects",e)}(window.SD||(window.SD={}));
+/**
+ * Sound Effects Module for San Diego Theme
+ * Refactored to use the SD namespace pattern
+ */
+(function(SD) {
+  'use strict';
+
+  class SoundEffectsModule {
+    constructor() {
+      this.sounds = new Map();
+      this.enabled = true;
+      this.volume = 0.5;
+      this.initialized = false;
+    }
+
+    init() {
+      if (this.initialized) return;
+
+      // Load user preferences
+      const soundPref = localStorage.getItem('sound-effects-enabled');
+      this.enabled = soundPref !== null ? soundPref === 'true' : true;
+
+      const volumePref = localStorage.getItem('sound-effects-volume');
+      this.volume = volumePref !== null ? parseFloat(volumePref) : 0.5;
+
+      // Preload common sounds
+      this.preloadCommonSounds();
+      
+      this.initialized = true;
+      SD.events.emit('sound-effects:initialized');
+    }
+
+    loadSound(name, basePath, formats = ['mp3', 'ogg', 'm4a']) {
+      const audio = new Audio();
+
+      // Test which format is supported
+      for (const format of formats) {
+        const canPlay = audio.canPlayType(`audio/${format === 'm4a' ? 'mp4' : format}`);
+        if (canPlay === 'probably' || canPlay === 'maybe') {
+          audio.src = `${basePath}.${format}`;
+          break;
+        }
+      }
+
+      // If no format was explicitly supported, default to mp3
+      if (!audio.src) {
+        audio.src = `${basePath}.mp3`;
+      }
+
+      audio.preload = 'auto';
+      audio.volume = this.volume;
+
+      // Handle loading errors gracefully
+      audio.addEventListener('error', (e) => {
+        // Failed to load sound - silently continue
+      });
+
+      this.sounds.set(name, audio);
+      return audio;
+    }
+
+    play(name, volume = null) {
+      if (!this.enabled) return;
+
+      const sound = this.sounds.get(name);
+      if (!sound) {
+        return;
+      }
+
+      try {
+        // Reset to beginning in case it was played recently
+        sound.currentTime = 0;
+
+        // Set volume
+        sound.volume = volume !== null ? volume : this.volume;
+
+        // Play the sound
+        const playPromise = sound.play();
+
+        // Handle play promise for browsers that support it
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            // Sound play prevented - silently continue
+          });
+        }
+      } catch (error) {
+        // Error playing sound - silently continue
+      }
+    }
+
+    setEnabled(enabled) {
+      this.enabled = enabled;
+      localStorage.setItem('sound-effects-enabled', enabled.toString());
+      SD.events.emit('sound-effects:toggle', { enabled });
+    }
+
+    setVolume(volume) {
+      this.volume = Math.max(0, Math.min(1, volume));
+      localStorage.setItem('sound-effects-volume', this.volume.toString());
+
+      // Update volume for all loaded sounds
+      this.sounds.forEach(sound => {
+        sound.volume = this.volume;
+      });
+      
+      SD.events.emit('sound-effects:volume-change', { volume: this.volume });
+    }
+
+    isEnabled() {
+      return this.enabled;
+    }
+
+    getVolume() {
+      return this.volume;
+    }
+
+    preloadCommonSounds() {
+      // Load toggle sound with multiple format fallbacks
+      this.loadSound('toggle', '/media/toggleSound', ['mp3', 'ogg', 'm4a']);
+      
+      // Load button press sounds
+      this.loadSound('buttonDown', '/media/button-press-down', ['mp3', 'm4a']);
+      this.loadSound('buttonUp', '/media/button-press-up', ['mp3', 'm4a']);
+      this.loadSound('smallClick', '/media/smallClick', ['mp3']);
+      
+      // Load slider sound for tab switching
+      this.loadSound('slider', '/media/slider', ['mp3']);
+    }
+
+    // Convenience methods for common sounds
+    playButton() {
+      this.play('smallClick');
+    }
+
+    playSmallClick() {
+      this.play('smallClick');
+    }
+
+    playToggle() {
+      this.play('toggle');
+    }
+
+    playSlider() {
+      this.play('slider');
+    }
+
+    playButtonDown() {
+      this.play('buttonDown');
+    }
+
+    playButtonUp() {
+      this.play('buttonUp');
+    }
+  }
+
+  // Create and register the module
+  const soundEffectsModule = new SoundEffectsModule();
+  
+  // Register with SD namespace
+  SD.utils.sound = soundEffectsModule;
+  SD.registerModule('sound-effects', soundEffectsModule);
+
+})(window.SD || (window.SD = {}));

@@ -1,1 +1,134 @@
-class AdaptiveVideoManager{constructor(){this.videos=new Map,this.init()}init(){"loading"===document.readyState?document.addEventListener("DOMContentLoaded",()=>this.setup()):this.setup()}setup(){document.querySelectorAll("video[data-base-path]").forEach(e=>this.setupAdaptiveVideo(e))}setupAdaptiveVideo(e){const t=e.getAttribute("data-base-path"),i=e.closest(".portfolio-item");if(!i||!t)return;const o=i.getAttribute("data-grid-size"),s=this.getAspectRatioForGridSize(o);this.updateVideoSources(e,t,s),this.videos.set(e,{basePath:t,gridSize:o,aspectRatio:s,portfolioItem:i})}getAspectRatioForGridSize(e){const t={"1x1":"square","2x2":"square","1x2":"tall","3x1":"wide",default:"compatible"};return t[e]||t.default}updateVideoSources(e,t,i){e.querySelectorAll("source").forEach(e=>e.remove()),this.getSourcePaths(t,i).forEach(({src:t,type:i})=>{const o=document.createElement("source");o.src=t,o.type=i,e.appendChild(o)}),e.load()}getSourcePaths(e,t){const i=[];return"compatible"!==t&&i.push({src:`${e}-${t}.webm`,type:"video/webm"},{src:`${e}-${t}.mp4`,type:"video/mp4"}),i.push({src:`${e}-compatible.webm`,type:"video/webm"},{src:`${e}-compatible.mp4`,type:"video/mp4"},{src:`${e}-simple.mp4`,type:"video/mp4"}),i}updateVideoForNewGridSize(e,t){const i=this.videos.get(e);if(!i)return;const o=this.getAspectRatioForGridSize(t);o!==i.aspectRatio&&(this.updateVideoSources(e,i.basePath,o),i.gridSize=t,i.aspectRatio=o)}refresh(){this.videos.clear(),this.setup()}}export default AdaptiveVideoManager;"undefined"!=typeof window&&(window.AdaptiveVideoManager=AdaptiveVideoManager);
+/**
+ * Adaptive Video Component
+ * Dynamically switches video sources based on grid layout for optimal aspect ratios
+ */
+
+class AdaptiveVideoManager {
+	constructor() {
+		this.videos = new Map();
+		this.init();
+	}
+
+	init() {
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', () => this.setup());
+		} else {
+			this.setup();
+		}
+	}
+
+	setup() {
+
+		// Find all videos with data-base-path (our adaptive videos)
+		const adaptiveVideos = document.querySelectorAll('video[data-base-path]');
+
+		adaptiveVideos.forEach(video => this.setupAdaptiveVideo(video));
+	}
+
+	setupAdaptiveVideo(video) {
+		const basePath = video.getAttribute('data-base-path');
+		const portfolioItem = video.closest('.portfolio-item');
+
+		if (!portfolioItem || !basePath) {
+			return;
+		}
+
+		const gridSize = portfolioItem.getAttribute('data-grid-size');
+
+		// Determine the best aspect ratio for this grid size
+		const aspectRatio = this.getAspectRatioForGridSize(gridSize);
+
+		// Update video sources based on aspect ratio
+		this.updateVideoSources(video, basePath, aspectRatio);
+
+		// Store video info for potential future updates
+		this.videos.set(video, {
+			basePath,
+			gridSize,
+			aspectRatio,
+			portfolioItem
+		});
+	}
+
+	getAspectRatioForGridSize(gridSize) {
+		const aspectRatioMap = {
+			'1x1': 'square',    // 1:1 aspect ratio
+			'2x2': 'square',    // 1:1 aspect ratio (larger)
+			'1x2': 'tall',      // 9:16 aspect ratio
+			'3x1': 'wide',      // 16:9 aspect ratio
+			'default': 'compatible' // Default 16:9
+		};
+
+		return aspectRatioMap[gridSize] || aspectRatioMap.default;
+	}
+
+	updateVideoSources(video, basePath, aspectRatio) {
+
+		// Clear existing sources
+		const existingSources = video.querySelectorAll('source');
+		existingSources.forEach(source => source.remove());
+
+		// Define source priorities based on aspect ratio
+		const sourcePaths = this.getSourcePaths(basePath, aspectRatio);
+
+		// Add new sources in priority order
+		sourcePaths.forEach(({ src, type }) => {
+			const source = document.createElement('source');
+			source.src = src;
+			source.type = type;
+			video.appendChild(source);
+		});
+
+		// Force video to reload with new sources
+		video.load();
+
+	}
+
+	getSourcePaths(basePath, aspectRatio) {
+		const sources = [];
+
+		// Add aspect-ratio specific sources first (highest priority)
+		if (aspectRatio !== 'compatible') {
+			sources.push(
+				{ src: `${basePath}-${aspectRatio}.webm`, type: 'video/webm' },
+				{ src: `${basePath}-${aspectRatio}.mp4`, type: 'video/mp4' }
+			);
+		}
+
+		// Add compatible fallbacks
+		sources.push(
+			{ src: `${basePath}-compatible.webm`, type: 'video/webm' },
+			{ src: `${basePath}-compatible.mp4`, type: 'video/mp4' },
+			{ src: `${basePath}-simple.mp4`, type: 'video/mp4' }
+		);
+
+		return sources;
+	}
+
+	// Method to update videos if grid layout changes (for future use)
+	updateVideoForNewGridSize(video, newGridSize) {
+		const videoData = this.videos.get(video);
+		if (!videoData) return;
+
+		const newAspectRatio = this.getAspectRatioForGridSize(newGridSize);
+		if (newAspectRatio !== videoData.aspectRatio) {
+			this.updateVideoSources(video, videoData.basePath, newAspectRatio);
+			videoData.gridSize = newGridSize;
+			videoData.aspectRatio = newAspectRatio;
+		}
+	}
+
+	// Refresh all adaptive videos (useful for dynamic content)
+	refresh() {
+		this.videos.clear();
+		this.setup();
+	}
+}
+
+// Export for module system
+export default AdaptiveVideoManager;
+
+// Also make available globally for non-module usage
+if (typeof window !== 'undefined') {
+	window.AdaptiveVideoManager = AdaptiveVideoManager;
+} 

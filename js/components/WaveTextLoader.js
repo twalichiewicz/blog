@@ -1,1 +1,184 @@
-import{CssWaveText}from"./CssWaveText.js";import{OptimizedWaveAnimation}from"./OptimizedWaveAnimation.js";const supportsFeature=e=>"css-grid"===e?window.CSS&&window.CSS.supports&&window.CSS.supports("display","grid"):"intersection-observer"===e?"IntersectionObserver"in window:"resize-observer"===e&&"ResizeObserver"in window,isLowEndDevice=()=>{const e=window.navigator;if(e.deviceMemory&&e.deviceMemory<4)return!0;if(e.hardwareConcurrency&&e.hardwareConcurrency<4)return!0;const n=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(e.userAgent)||window.innerWidth<768||window.matchMedia&&window.matchMedia("(max-width: 767px)").matches||e.maxTouchPoints&&e.maxTouchPoints>1,t=/iPad|iPhone|iPod/.test(e.userAgent)&&!window.MSStream;return n||t},prefersReducedMotion=()=>window.matchMedia("(prefers-reduced-motion: reduce)").matches,normalizeConfig=e=>{const n={baseString:"Design in Everything ",font:{size:21,lineHeight:30,charWidth:14},frequency:.009,amplitude:30,speed:3e-4};return e.baseString&&(n.baseString=e.baseString),e.font&&(n.font={...n.font,...e.font}),e.frequency&&(n.frequency=e.frequency),e.amplitude&&(n.amplitude=e.amplitude),e.speed&&(n.speed=e.speed),e.wave&&(e.wave.baseString&&(n.baseString=e.wave.baseString),e.wave.frequency&&(n.frequency=e.wave.frequency),e.wave.amplitude&&(n.amplitude=e.wave.amplitude),e.wave.speed&&(n.speed=e.wave.speed),e.wave.font&&(n.font={...n.font,...e.wave.font})),window.innerWidth<768&&(n.amplitude=.8*n.amplitude,n.speed=3*n.speed,n.frequency=1.5*n.frequency,n.font.size>18&&(n.font.size=18,n.font.lineHeight=Math.max(.9*n.font.lineHeight,24),n.font.charWidth=Math.max(.9*n.font.charWidth,12))),n};export const createWaveText=(e,n={})=>{const t=normalizeConfig(n),i=window.matchMedia("(prefers-reduced-motion: reduce)");let a=i.matches;if(i.addEventListener("change",()=>{a=i.matches;const e=document.querySelector(".wave-container");if(e){const n=document.getElementById("wave-text-animations");n&&n.parentNode.removeChild(n),e.style.opacity="0.99",setTimeout(()=>{e.style.opacity="1"},50)}}),a)return new CssWaveText(e,{...t,rows:5,columns:10,reducedMotion:!0});const r=supportsFeature("css-grid")&&supportsFeature("intersection-observer"),o=isLowEndDevice();if(window.innerWidth<768||o){let n=e.querySelector("canvas#waveCanvas");return n||(n=document.createElement("canvas"),n.id="waveCanvas",e.appendChild(n)),new OptimizedWaveAnimation(n,t)}if(r)return new CssWaveText(e,t);{let n=e.querySelector("canvas#waveCanvas");return n||(n=document.createElement("canvas"),n.id="waveCanvas",e.appendChild(n)),new OptimizedWaveAnimation(n,t)}};
+import { CssWaveText } from './CssWaveText.js';
+import { OptimizedWaveAnimation } from './OptimizedWaveAnimation.js';
+
+// Feature detection helper
+const supportsFeature = (feature) => {
+	if (feature === 'css-grid') {
+		return window.CSS && window.CSS.supports && window.CSS.supports('display', 'grid');
+	}
+	if (feature === 'intersection-observer') {
+		return 'IntersectionObserver' in window;
+	}
+	if (feature === 'resize-observer') {
+		return 'ResizeObserver' in window;
+	}
+	return false;
+};
+
+// Performance detection with more reliable mobile checks
+const isLowEndDevice = () => {
+	// Check if the device has limited resources
+	const navigatorInfo = window.navigator;
+
+	// Check for low memory (if available)
+	if (navigatorInfo.deviceMemory && navigatorInfo.deviceMemory < 4) {
+		return true;
+	}
+
+	// Check for slower CPUs via hardwareConcurrency
+	if (navigatorInfo.hardwareConcurrency && navigatorInfo.hardwareConcurrency < 4) {
+		return true;
+	}
+
+	// More reliable mobile detection using multiple signals
+	const isMobile =
+		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigatorInfo.userAgent) ||
+		(window.innerWidth < 768) ||
+		(window.matchMedia && window.matchMedia('(max-width: 767px)').matches) ||
+		(navigatorInfo.maxTouchPoints && navigatorInfo.maxTouchPoints > 1); // Likely touch device
+
+	// If we're on iOS, it can have performance issues with complex animations
+	const isIOS = /iPad|iPhone|iPod/.test(navigatorInfo.userAgent) && !window.MSStream;
+
+	return isMobile || isIOS;
+};
+
+// Check if reduced motion is preferred
+const prefersReducedMotion = () => {
+	return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+};
+
+// Normalize configuration to handle both flat and nested structures
+const normalizeConfig = (config) => {
+	// Create a normalized config with default values
+	const normalized = {
+		baseString: "Design in Everything ",
+		font: {
+			size: 21,
+			lineHeight: 30,
+			charWidth: 14
+		},
+		frequency: 0.009,
+		amplitude: 30,
+		speed: 0.0003
+	};
+
+	// Copy direct properties if they exist
+	if (config.baseString) normalized.baseString = config.baseString;
+	if (config.font) normalized.font = { ...normalized.font, ...config.font };
+	if (config.frequency) normalized.frequency = config.frequency;
+	if (config.amplitude) normalized.amplitude = config.amplitude;
+	if (config.speed) normalized.speed = config.speed;
+
+	// Copy nested properties from wave object if it exists
+	if (config.wave) {
+		if (config.wave.baseString) normalized.baseString = config.wave.baseString;
+		if (config.wave.frequency) normalized.frequency = config.wave.frequency;
+		if (config.wave.amplitude) normalized.amplitude = config.wave.amplitude;
+		if (config.wave.speed) normalized.speed = config.wave.speed;
+		if (config.wave.font) normalized.font = { ...normalized.font, ...config.wave.font };
+	}
+
+	// For mobile devices, adjust parameters for better performance
+	if (window.innerWidth < 768) {
+		// Adjust animation parameters for mobile - significantly speed up the animation
+		normalized.amplitude = normalized.amplitude * 0.8;    // Slightly higher amplitude 
+		normalized.speed = normalized.speed * 3.0;           // Much faster speed on mobile
+		normalized.frequency = normalized.frequency * 1.5;    // Higher frequency for more visible waves
+
+		// Slightly reduce font size on small screens if needed
+		if (normalized.font.size > 18) {
+			normalized.font.size = 18;
+			normalized.font.lineHeight = Math.max(normalized.font.lineHeight * 0.9, 24);
+			normalized.font.charWidth = Math.max(normalized.font.charWidth * 0.9, 12);
+		}
+	}
+
+	return normalized;
+};
+
+/**
+ * Creates the most appropriate wave text animation based on browser support and device capabilities
+ */
+export const createWaveText = (container, config = {}) => {
+
+	// Normalize configuration
+	const normalizedConfig = normalizeConfig(config);
+
+	// Add reduced motion media query listener
+	const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+	let reducedMotion = reducedMotionQuery.matches;
+
+	// Update the animation state when the preference changes
+	reducedMotionQuery.addEventListener('change', () => {
+		reducedMotion = reducedMotionQuery.matches;
+
+		// Force rebuild if we already have a wave text instance
+		const existingWaveContainer = document.querySelector('.wave-container');
+		if (existingWaveContainer) {
+			// Remove existing animations
+			const styleElement = document.getElementById('wave-text-animations');
+			if (styleElement) {
+				styleElement.parentNode.removeChild(styleElement);
+			}
+			// Refresh the container to trigger a rebuild
+			existingWaveContainer.style.opacity = '0.99';
+			setTimeout(() => {
+				existingWaveContainer.style.opacity = '1';
+			}, 50);
+		}
+	});
+
+	// If user prefers reduced motion, use the most lightweight implementation
+	if (reducedMotion) {
+		// Use CSS with static styling (animation is disabled in CSS for reduced motion)
+		const waveText = new CssWaveText(container, {
+			...normalizedConfig,
+			rows: 5, // Use fewer rows for reduced motion
+			columns: 10,
+			reducedMotion: true
+		});
+		return waveText;
+	}
+
+	// Check browser capabilities
+	const hasModernFeatures = supportsFeature('css-grid') &&
+		supportsFeature('intersection-observer');
+
+	// Check device performance
+	const isLowPerformance = isLowEndDevice();
+
+	// For debugging
+
+	// Default to canvas implementation for mobile (better performance)
+	const isMobile = window.innerWidth < 768;
+
+	if (isMobile || isLowPerformance) {
+		// Use optimized canvas implementation for mobile or low-performance devices
+
+		// First ensure we have a canvas element
+		let canvas = container.querySelector('canvas#waveCanvas');
+		if (!canvas) {
+			canvas = document.createElement('canvas');
+			canvas.id = 'waveCanvas';
+			container.appendChild(canvas);
+		}
+
+		return new OptimizedWaveAnimation(canvas, normalizedConfig);
+	} else if (hasModernFeatures) {
+		// Use CSS-based implementation for modern browsers on capable devices
+		return new CssWaveText(container, normalizedConfig);
+	} else {
+		// Fall back to optimized canvas implementation for better compatibility
+
+		// First ensure we have a canvas element
+		let canvas = container.querySelector('canvas#waveCanvas');
+		if (!canvas) {
+			canvas = document.createElement('canvas');
+			canvas.id = 'waveCanvas';
+			container.appendChild(canvas);
+		}
+
+		return new OptimizedWaveAnimation(canvas, normalizedConfig);
+	}
+}; 

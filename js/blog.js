@@ -1,1 +1,1113 @@
-import{initializeCarousels,cleanupCarouselInstances}from"./carousel.js";import{initializeMobileTabs}from"./mobile-tabs.js";import videoAutoplayManager from"./components/video-autoplay.js";import ScrollUtility from"./utils/scroll-utility.js";document.addEventListener("DOMContentLoaded",function(){function e(e){const i={searchInput:e.querySelector("#postSearch"),expandButtons:e.querySelectorAll(".expand-button")};if(i.searchInput)i.searchInput.removeEventListener("input",n),i.searchInput.addEventListener("input",n),i.searchInput.removeEventListener("click",t),i.searchInput.addEventListener("click",t),o(i.searchInput);else{const e=document.querySelector("#postSearch");e&&(e.removeEventListener("input",n),e.addEventListener("input",n),e.removeEventListener("click",t),e.addEventListener("click",t),o(e))}i.expandButtons.length&&i.expandButtons.forEach(e=>{e.removeEventListener("click",d),e.addEventListener("click",d)}),"function"==typeof initializeCarousels&&initializeCarousels(e),e.querySelector('video[data-autoplay="true"]')&&videoAutoplayManager&&"function"==typeof videoAutoplayManager.refresh&&videoAutoplayManager.refresh()}function t(e){window.playBookSound&&window.playBookSound()}function o(e){if(!e)return;const t=e.parentElement.querySelector(".search-clear");function o(){t.style.display=e.value?"block":"none"}function i(o){o.preventDefault(),window.playSmallClickSound&&window.playSmallClickSound(),e.value="",t.style.display="none",n({target:e}),e.focus()}t&&(t.removeEventListener("click",i),e.removeEventListener("input",o),t.addEventListener("click",i),e.addEventListener("input",o),o())}function n(e){const t=e.target.value.toLowerCase(),o=document.querySelector(".blog-content");if(!o)return;const n=o.querySelectorAll(".post-list-item"),i=o.querySelectorAll(".post-separator"),a=o.querySelector(".no-results-message"),r=o.querySelector(".posts-only-button"),s=r&&r.classList.contains("active");let c=0;const l=[];o.querySelectorAll(".search-highlight").forEach(e=>{const t=e.parentNode,o=document.createTextNode(e.textContent);t.replaceChild(o,e),t.normalize()}),n.forEach(e=>{const o=e.querySelector("h3")?.textContent.toLowerCase()||"",n=e.textContent.toLowerCase(),i=o.includes(t)||n.includes(t),a=e.querySelector(".post-long.post-preview-card")||e.classList.contains("post-long")&&e.classList.contains("post-preview-card");!i||s&&!a?e.style.display="none":(e.style.display="",c++,l.push(e),t&&function(e,t){if(!t)return;const o=new RegExp(`(${n=t,n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")})`,"gi");var n;const i=document.createTreeWalker(e,NodeFilter.SHOW_TEXT,{acceptNode:function(e){const t=e.parentNode;return"SCRIPT"===t.tagName||"STYLE"===t.tagName||t.classList&&t.classList.contains("search-highlight")?NodeFilter.FILTER_REJECT:o.test(e.textContent)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT}}),a=[];let r;for(;r=i.nextNode();)a.push(r);a.forEach(e=>{const t=e.parentNode,n=document.createDocumentFragment();let i,a=0;o.lastIndex=0;const r=e.textContent;for(;null!==(i=o.exec(r));){i.index>a&&n.appendChild(document.createTextNode(r.slice(a,i.index)));const e=document.createElement("mark");e.className="search-highlight",e.textContent=i[0],n.appendChild(e),a=o.lastIndex}a<r.length&&n.appendChild(document.createTextNode(r.slice(a))),t.replaceChild(n,e)})}(e,t))}),i.forEach(e=>e.style.display="none"),l.forEach((e,t)=>{if(t<l.length-1){let t=e.nextElementSibling;for(;t&&!t.classList.contains("post-separator");)t=t.nextElementSibling;t&&t.classList.contains("post-separator")&&(t.style.display="")}}),a&&(a.style.display=0===c?"block":"none")}function i(){const e=document.querySelector(".posts-only-button");if(!e)return;e.removeEventListener("click",a),e.addEventListener("click",a);const t=document.querySelector("#postSearch");t&&o(t)}function a(e){window.playSmallClickSound&&window.playSmallClickSound(),e.currentTarget.classList.toggle("active");const t=document.querySelector("#postSearch");t&&n({target:t})}window.innerWidth,document.body.classList.contains("device-desktop"),window.scrollToFullStory=function(){const e=document.getElementById("full-story");e&&ScrollUtility.scrollToElement(e,{behavior:"smooth",block:"start"})},document.querySelector(".blog-content")&&function(){const t=document.querySelector(".blog-content");if(!t)return;let o=t.innerHTML,n=window.location.pathname+window.location.search+window.location.hash;async function a(e,o=300){if(!e)return;const n=e.querySelector(".project-edge-wrapper");if(n)return n.style.transform="translateZ(0)",n.style.willChange="opacity",n.style.opacity="0",n.style.transition=`opacity ${o}ms ease-in-out`,n.offsetHeight,await new Promise(e=>setTimeout(e,20)),n.style.opacity="1",await new Promise(e=>setTimeout(e,o)),void(n.style.willChange="auto");let i=e;e===t&&(i=e.querySelector(".content-inner-wrapper"),i||(i=e)),i&&(i.style.transform="translateZ(0)",i.style.willChange="opacity",i.style.opacity="0",i.style.transition=`opacity ${o}ms ease-in-out`,i.offsetHeight,await new Promise(e=>setTimeout(e,20)),i.style.opacity="1",await new Promise(e=>setTimeout(e,o)),i.style.willChange="auto")}function r(){if(!t)return null;if(t.querySelector(".project-edge-wrapper")||t.innerHTML.includes("project-edge-wrapper"))return null;let r=t.querySelector(".dynamic-back-button");r||(r=document.createElement("button"),r.textContent="← Back",r.className="dynamic-back-button",t.firstChild?t.insertBefore(r,t.firstChild):t.appendChild(r));const s=async function(r){r.preventDefault(),window.soundEffects&&window.soundEffects.playButtonPress&&window.soundEffects.playButtonPress();let s=null;window.ScreenWipeTransition&&(s=await window.ScreenWipeTransition.start());const l=history.state,u=l&&!0===l.isProject;if(t.classList.remove("has-dynamic-content"),window._notebookCarouselDebug&&window._notebookCarouselDebug.getInstance){const e=window._notebookCarouselDebug.getInstance();e&&e.destroy&&e.destroy()}if(t.innerHTML=o,e(t),d(t),initializeMobileTabs(),c(),i(),window.innerWidth<=768){const e=t.querySelector(".tabs-wrapper");e&&(e.style.display="")}u?(sessionStorage.setItem("portfolio-back-navigation","true"),setTimeout(()=>{window.mobileTabs&&"function"==typeof window.mobileTabs.switchTab&&window.mobileTabs.switchTab("portfolio",!1),window.dispatchEvent(new Event("portfolio-loaded")),document.dispatchEvent(new Event("contentLoaded")),setTimeout(()=>{window._notebookCarousel&&window._notebookCarousel.reinitialize&&window._notebookCarousel.reinitialize()},300)},50)):setTimeout(()=>{window.mobileTabs&&"function"==typeof window.mobileTabs.switchTab&&window.mobileTabs.switchTab("blog",!1),window.location.search.includes("tab=portfolio")&&history.replaceState({path:"/",isInitial:!0,isDynamic:!1},"","/")},50),window.initializeSoundEffects?window.initializeSoundEffects():setTimeout(()=>{window.initializeSoundEffects&&window.initializeSoundEffects()},100),window.ScreenWipeTransition&&s&&await window.ScreenWipeTransition.end(s),await a(t),history.pushState({path:n,isInitial:!0,isDynamic:!1},"",n)},l=r._clickHandler;return l&&r.removeEventListener("click",l),r.addEventListener("click",s),r._clickHandler=s,r}async function s(o,n=!0,i=!1){if(!t)return;let s=null;window.ScreenWipeTransition&&(s=await window.ScreenWipeTransition.start()),"function"==typeof cleanupCarouselInstances&&cleanupCarouselInstances(t),t.classList.add("has-dynamic-content"),t.innerHTML="";try{const l=await fetch(o);if(!l.ok)throw new Error(`HTTP error! status: ${l.status}`);const d=await l.text(),u=(new DOMParser).parseFromString(d,"text/html");let p=i?"div.project-edge-wrapper":"div.post-wrapper",w=u.querySelector(p);!w&&i&&(p="div.project-wrapper",w=u.querySelector(p)),w||i||(w=u.querySelector("div.project-wrapper"));const y=r();if(w){const m=document.createDocumentFragment();if(w.classList.contains("project-edge-wrapper")){const f=w.querySelector(".project-wrapper");f&&f.classList.add("dynamic-loaded");const h=w.cloneNode(!0);m.appendChild(h)}else{const S=document.createElement("div");S.className="content-inner-wrapper",S.style.opacity="0";let g=null;g=w.classList.contains("project-wrapper")?w:w.querySelector(".project-wrapper"),g&&!g.classList.contains("dynamic-loaded")&&g.classList.add("dynamic-loaded"),S.appendChild(w.cloneNode(!0)),m.appendChild(S)}function c(){const e=t.querySelector(".read-story-button")||t.querySelector("#scrollToFullStoryBtn");return!!e&&(e.onclick=null,e.onclick=function(e){e.preventDefault(),window.scrollToFullStory&&window.scrollToFullStory()},!0)}y?y.after(m):t.appendChild(m),e(t),window.initializeProjectTabs&&window.initializeProjectTabs(t),window.initializeProjectSummary&&window.initializeProjectSummary(t),window.initializeSoundEffects?window.initializeSoundEffects():setTimeout(()=>{window.initializeSoundEffects&&window.initializeSoundEffects()},100),i&&window.dispatchEvent(new Event("portfolio-loaded")),c()||(setTimeout(c,100),setTimeout(c,300),setTimeout(c,500))}else{const v=document.createElement("p");v.textContent="Sorry, the content could not be loaded.",y?y.after(v):t.appendChild(v)}n&&history.pushState({path:o,isProject:i,isDynamic:!0},"",o)}catch(b){const E=document.createElement("p");E.textContent="There was an error loading the page.";let T=t.querySelector(".dynamic-back-button");T||(T=r()),T?T.after(E):t.appendChild(E)}window.ScreenWipeTransition&&s&&await window.ScreenWipeTransition.end(s),await a(t),ScrollUtility.scrollToElement(t,{behavior:"smooth",block:"start"})}function l(e){const t=e.currentTarget;if(!(t.hostname!==window.location.hostname||t.getAttribute("target")||"http:"!==t.protocol&&"https:"!==t.protocol||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)){const o=t.classList.contains("post-link-wrapper"),n=t.matches("a.portfolio-item-wrapper, a.portfolio-item.has-writeup");(o||n)&&(e.preventDefault(),s(t.href,!0,n))}}function d(e){e&&e.querySelectorAll("a.post-link-wrapper, a.portfolio-item-wrapper, a.portfolio-item.has-writeup").forEach(e=>{e.removeEventListener("click",l),e.addEventListener("click",l)})}d(t);const u=async function(o){if(o.state&&!o.state.isInitial){if(o.state&&o.state.page){const n=o.state.page;await async function(e,o=300){if(!e)return;const n=e.querySelector(".project-edge-wrapper");if(n)return n.style.opacity="1",n.style.transition=`opacity ${o}ms ease-in-out`,n.style.opacity="0",void await new Promise(e=>setTimeout(e,o));let i=e;e===t&&(i=e.querySelector(".content-inner-wrapper"),i||(i=e)),i&&(i.style.opacity="1",i.style.transition=`opacity ${o}ms ease-in-out`,i.style.opacity="0",await new Promise(e=>setTimeout(e,o)))}(t),window.history.replaceState({page:n},"",n);try{const o=await fetch(n,{headers:{"X-Requested-With":"XMLHttpRequest"}});if(o.ok){const n=await o.text(),i=(new DOMParser).parseFromString(n,"text/html").querySelector(".blog");i&&(t.innerHTML=i.innerHTML,e(t),await a(t))}}catch(e){await a(t)}}}else{document.body.style.opacity="1",document.body.classList.add("loaded");const e=document.querySelector(".page-transition-overlay");if(e&&(e.style.display="none"),t){t.style.opacity="1";const e=t.querySelector(".content-inner-wrapper");e&&(e.style.opacity="1")}const o=history.state;(window.location.pathname.includes("/20")||o&&o.isProject)&&(sessionStorage.setItem("portfolio-back-navigation","true"),setTimeout(()=>{document.dispatchEvent(new Event("contentLoaded")),window.dispatchEvent(new Event("portfolio-loaded")),setTimeout(()=>{window._notebookCarousel&&window._notebookCarousel.reinitialize&&window._notebookCarousel.reinitialize()},300)},100))}};window.addEventListener("popstate",u),window._blogPopstateHandler=u,window.fetchAndDisplayContent=s,history.state&&(history.state.isDynamic||history.state.isInitial)||history.replaceState({path:n,isInitial:!0,isDynamic:!1},"",n)}();let r=new Set(["professional","personal"]);function s(e){const t=e.currentTarget,o=t.closest(".filter-checkbox").getAttribute("data-type");t.checked?r.add(o):r.delete(o),l()}function c(){const e=document.querySelectorAll(".project-filter-container .filter-input"),t=document.querySelector("#projectsContent");document.querySelector(".project-toggle-container")&&!e.length||e.length&&t&&(e.forEach(e=>{const t=e.closest(".filter-checkbox").getAttribute("data-type");e.checked=r.has(t),e.removeEventListener("change",s),e.addEventListener("change",s)}),l())}function l(){const e=document.querySelector("#projectsContent");if(!e)return;const t=e.querySelectorAll(".company-group"),o=e.querySelectorAll(".portfolio-item");let n=!1;t.forEach(e=>{const t=e.getAttribute("data-project-type"),o=r.has(t);e.style.display=o?"":"none",o&&(n=!0)}),o.forEach(e=>{const t=e.getAttribute("data-project-type"),o=r.has(t);e.style.display=o?"":"none"});let i=e.querySelector(".no-projects-message");if(n||0!==r.size)if(n)i&&i.remove();else{i||(i=document.createElement("div"),i.className="no-projects-message",i.style.textAlign="center",i.style.padding="3rem 2rem",i.style.color="var(--text-color-secondary)",e.appendChild(i));const t=Array.from(r).join(" or ");i.textContent=`No ${t} projects to display.`}else i||(i=document.createElement("div"),i.className="no-projects-message",i.style.textAlign="center",i.style.padding="3rem 2rem",i.style.color="var(--text-color-secondary)",e.appendChild(i)),i.textContent="Please select at least one project type to display."}function d(){const e=this.nextElementSibling,t=this.closest("details");if(t)return void(this.textContent=t.open?"Show less":"Read more");const o="true"===this.getAttribute("aria-expanded");this.setAttribute("aria-expanded",!o),e&&(e.style.maxHeight=o?null:`${e.scrollHeight}px`),this.textContent=o?"Read more":"Show less"}window.initializeProjectToggle=c,window.initializePostsOnlyButton=i,e(document),initializeMobileTabs(),c(),i();const u=document.querySelector("#postSearch");u&&o(u)});
+/**
+ * Blog functionality - Simplified
+ * Handles search, mobile tabs, and device detection
+ */
+import { initializeCarousels, cleanupCarouselInstances } from './carousel.js';
+import { initializeMobileTabs } from './mobile-tabs.js';
+import videoAutoplayManager from './components/video-autoplay.js';
+import ScrollUtility from './utils/scroll-utility.js';
+// import AdaptiveVideoManager from './components/adaptive-video.js';
+
+// Initialize adaptive video manager
+// const adaptiveVideoManager = new AdaptiveVideoManager();
+
+
+document.addEventListener('DOMContentLoaded', function () {
+	// --- Refactored Initialization Function ---
+	function initializeBlogFeatures(container) {
+		// Initializing blog features
+		// Cache DOM elements within the container
+		const elements = {
+			searchInput: container.querySelector('#postSearch'),
+			expandButtons: container.querySelectorAll('.expand-button'),
+			// carousels: container.querySelectorAll('.carousel'), // No longer handled directly here
+		};
+
+		// --- Search Functionality ---
+		if (elements.searchInput) {
+			// Search input found in container
+			elements.searchInput.removeEventListener('input', handleSearch);
+			elements.searchInput.addEventListener('input', handleSearch);
+			
+			// Add click sound effect for search input
+			elements.searchInput.removeEventListener('click', handleSearchClick);
+			elements.searchInput.addEventListener('click', handleSearchClick);
+			
+			// Initialize clear button
+			initializeSearchClearButton(elements.searchInput);
+		} else {
+			// Search input not in container, trying global search
+			// Try to find search input in the document if not in container
+			const globalSearchInput = document.querySelector('#postSearch');
+			if (globalSearchInput) {
+				// Global search input found
+				globalSearchInput.removeEventListener('input', handleSearch);
+				globalSearchInput.addEventListener('input', handleSearch);
+				
+				// Add click sound effect for global search input
+				globalSearchInput.removeEventListener('click', handleSearchClick);
+				globalSearchInput.addEventListener('click', handleSearchClick);
+				
+				// Initialize clear button
+				initializeSearchClearButton(globalSearchInput);
+			} else {
+				// No search input found anywhere
+			}
+		}
+
+		// --- Expand Buttons ---
+		if (elements.expandButtons.length) {
+			elements.expandButtons.forEach(btn => {
+				btn.removeEventListener('click', toggleExpand);
+				btn.addEventListener('click', toggleExpand);
+			});
+		}
+
+		// --- Carousels (Delegate to global carousel.js initializer) ---
+		if (typeof initializeCarousels === 'function') {
+			// Delegating carousel initialization to carousel.js
+			initializeCarousels(container);
+		} else {
+			// initializeCarousels not found
+		}
+
+		// --- Video Autoplay --- Only refresh if there are videos in the container
+		const hasVideos = container.querySelector('video[data-autoplay="true"]');
+		if (hasVideos && videoAutoplayManager && typeof videoAutoplayManager.refresh === 'function') {
+			// Refreshing video autoplay manager
+			videoAutoplayManager.refresh();
+		}
+
+		// --- Adaptive Videos ---
+		// if (adaptiveVideoManager && typeof adaptiveVideoManager.refresh === 'function') {
+		// 	console.log('[blog.js] Refreshing adaptive video manager for container:', container);
+		// 	adaptiveVideoManager.refresh();
+		// }
+		
+		// --- Anchor Links ---
+		// Now handled by ScrollUtility which auto-initializes
+
+		// Blog features initialized
+	}
+	// --- End of Refactored Initialization Function ---
+
+	// Device detection (usually needed only once)
+	const isMobile = window.innerWidth <= 768;
+	const isDesktop = document.body.classList.contains('device-desktop');
+
+	// Global scroll function available for both standalone and dynamic contexts
+	function scrollToFullStory() {
+		// Scroll button clicked
+		const fullStoryElement = document.getElementById('full-story');
+		if (!fullStoryElement) {
+			// Full story element not found
+			return;
+		}
+
+		// Use ScrollUtility for consistent scrolling
+		ScrollUtility.scrollToElement(fullStoryElement, {
+			behavior: 'smooth',
+			block: 'start'
+		});
+	}
+
+	// Make function globally available immediately
+	window.scrollToFullStory = scrollToFullStory;
+
+	// === Dynamic Content Loader for Blog Posts/Projects ===
+	function setupDynamicBlogNavigation() {
+		const blogContentElement = document.querySelector('.blog-content');
+		if (!blogContentElement) {
+			return;
+		}
+
+		let initialBlogContentHTML = blogContentElement.innerHTML;
+		let initialBlogContentURL = window.location.pathname + window.location.search + window.location.hash; // More robust URL capture
+
+		async function fadeOutElement(element, duration = 300) {
+			if (!element) return;
+
+			// Check if we have a project-edge-wrapper (don't apply inner wrapper fade logic)
+			const hasProjectEdgeWrapper = element.querySelector('.project-edge-wrapper');
+			if (hasProjectEdgeWrapper) {
+				// Project edge wrapper detected, fading directly
+				hasProjectEdgeWrapper.style.opacity = '1';
+				hasProjectEdgeWrapper.style.transition = `opacity ${duration}ms ease-in-out`;
+				hasProjectEdgeWrapper.style.opacity = '0';
+				await new Promise(resolve => setTimeout(resolve, duration));
+				return;
+			}
+
+			// Always look for content-inner-wrapper when fading blog content
+			let targetElement = element;
+			if (element === blogContentElement) {
+				targetElement = element.querySelector('.content-inner-wrapper');
+				if (!targetElement) {
+					// .content-inner-wrapper not found, fading blog-content instead
+					targetElement = element; // Fallback
+				}
+			}
+
+			if (!targetElement) {
+				// No valid target element found
+				return;
+			}
+
+			targetElement.style.opacity = '1';
+			targetElement.style.transition = `opacity ${duration}ms ease-in-out`;
+			targetElement.style.opacity = '0';
+			await new Promise(resolve => setTimeout(resolve, duration));
+		}
+
+		async function fadeInElement(element, duration = 300) {
+			if (!element) return;
+
+			// Check if we have a project-edge-wrapper (don't apply inner wrapper fade logic)
+			const hasProjectEdgeWrapper = element.querySelector('.project-edge-wrapper');
+			if (hasProjectEdgeWrapper) {
+				// Project edge wrapper detected, fading directly
+				// Force layout to prevent Chrome rendering issues
+				hasProjectEdgeWrapper.style.transform = 'translateZ(0)';
+				hasProjectEdgeWrapper.style.willChange = 'opacity';
+				hasProjectEdgeWrapper.style.opacity = '0';
+				hasProjectEdgeWrapper.style.transition = `opacity ${duration}ms ease-in-out`;
+
+				// Force repaint
+				hasProjectEdgeWrapper.offsetHeight;
+
+				await new Promise(resolve => setTimeout(resolve, 20)); // Small delay for style application
+				hasProjectEdgeWrapper.style.opacity = '1';
+				await new Promise(resolve => setTimeout(resolve, duration));
+
+				// Clean up will-change for performance
+				hasProjectEdgeWrapper.style.willChange = 'auto';
+				return;
+			}
+
+			// Always look for content-inner-wrapper when fading blog content
+			let targetElement = element;
+			if (element === blogContentElement) {
+				targetElement = element.querySelector('.content-inner-wrapper');
+				if (!targetElement) {
+					// .content-inner-wrapper not found, fading blog-content instead
+					targetElement = element; // Fallback
+				}
+			}
+
+			if (!targetElement) {
+				// No valid target element found
+				return;
+			}
+
+			// Force layout to prevent Chrome rendering issues
+			targetElement.style.transform = 'translateZ(0)';
+			targetElement.style.willChange = 'opacity';
+			targetElement.style.opacity = '0';
+			targetElement.style.transition = `opacity ${duration}ms ease-in-out`;
+
+			// Force repaint
+			targetElement.offsetHeight;
+
+			await new Promise(resolve => setTimeout(resolve, 20)); // Small delay for style application
+			targetElement.style.opacity = '1';
+			await new Promise(resolve => setTimeout(resolve, duration));
+
+			// Clean up will-change for performance
+			targetElement.style.willChange = 'auto';
+		}
+
+		function addOrUpdateBackButton() {
+			if (!blogContentElement) return null;
+
+			// Check if we're loading a project-edge-wrapper which already has its own navigation
+			const hasProjectEdgeWrapper = blogContentElement.querySelector('.project-edge-wrapper') ||
+				blogContentElement.innerHTML.includes('project-edge-wrapper');
+			if (hasProjectEdgeWrapper) {
+				// Project edge wrapper detected, skipping back button creation
+				return null;
+			}
+
+			let backButton = blogContentElement.querySelector('.dynamic-back-button');
+			if (!backButton) {
+				backButton = document.createElement('button');
+				backButton.textContent = '← Back';
+				backButton.className = 'dynamic-back-button';
+
+				// Consistent placement for all devices
+				if (blogContentElement.firstChild) {
+					blogContentElement.insertBefore(backButton, blogContentElement.firstChild);
+				} else {
+					blogContentElement.appendChild(backButton);
+				}
+			}
+
+			const backButtonClickHandler = async function (event) {
+				event.preventDefault();
+				
+				// Play button press sound effect
+				if (window.soundEffects && window.soundEffects.playButtonPress) {
+					window.soundEffects.playButtonPress();
+				}
+				
+				// Start screen wipe transition
+				let transitionData = null;
+				if (window.ScreenWipeTransition) {
+					transitionData = await window.ScreenWipeTransition.start();
+				}
+				
+				// Determine what type of content we're returning from
+				const currentHistoryState = history.state;
+				const isReturningFromProject = currentHistoryState && currentHistoryState.isProject === true;
+				
+				// Back button clicked, returning from project
+				
+				// Remove has-dynamic-content class to restore scroll behavior
+				blogContentElement.classList.remove('has-dynamic-content');
+				
+				// Clean up any existing carousel before resetting content
+				if (window._notebookCarouselDebug && window._notebookCarouselDebug.getInstance) {
+					const existingCarousel = window._notebookCarouselDebug.getInstance();
+					if (existingCarousel && existingCarousel.destroy) {
+						existingCarousel.destroy();
+					}
+				}
+				
+				blogContentElement.innerHTML = initialBlogContentHTML;
+				initializeBlogFeatures(blogContentElement);
+				initializeLinkListeners(blogContentElement);
+				
+				// Initialize mobile tabs
+				initializeMobileTabs();
+				
+				// Re-initialize toggles
+				initializeProjectToggle();
+				initializePostsOnlyButton();
+				
+				// Ensure tabs are visible again on mobile
+				if (window.innerWidth <= 768) {
+					const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
+					if (tabsWrapper) {
+						tabsWrapper.style.display = '';
+					}
+				}
+				
+				// Set the appropriate tab based on content type
+				if (isReturningFromProject) {
+					// Mark as back navigation for carousel
+					sessionStorage.setItem('portfolio-back-navigation', 'true');
+					
+					// Coming from a project, show portfolio tab
+					setTimeout(() => {
+						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+							window.mobileTabs.switchTab('portfolio', false);
+						}
+						// Emit portfolio-loaded event for parallax initialization
+						window.dispatchEvent(new Event('portfolio-loaded'));
+						
+						// Also emit contentLoaded to ensure carousel initializes
+						document.dispatchEvent(new Event('contentLoaded'));
+						
+						// Give browser time to restore scroll, then check active notebook
+						setTimeout(() => {
+							if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
+								window._notebookCarousel.reinitialize();
+							}
+						}, 300); // Longer delay to ensure scroll restoration completes
+					}, 50);
+				} else {
+					// Coming from a blog post, show blog tab and clean URL
+					setTimeout(() => {
+						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+							window.mobileTabs.switchTab('blog', false);
+						}
+						// Clean up URL parameter if coming from blog post
+						if (window.location.search.includes('tab=portfolio')) {
+							history.replaceState({ path: '/', isInitial: true, isDynamic: false }, '', '/');
+						}
+					}, 50);
+				}
+				
+				// Re-initialize sound effects when returning to home page
+				if (window.initializeSoundEffects) {
+					// Re-initializing sound effects for back navigation
+					window.initializeSoundEffects();
+				} else {
+					// Fallback: try again after a short delay in case sound effects script is still loading
+					setTimeout(() => {
+						if (window.initializeSoundEffects) {
+							// Re-initializing sound effects for back navigation (delayed)
+							window.initializeSoundEffects();
+						}
+					}, 100);
+				}
+				
+				// End screen wipe transition
+				if (window.ScreenWipeTransition && transitionData) {
+					await window.ScreenWipeTransition.end(transitionData);
+				}
+				
+				await fadeInElement(blogContentElement);
+				history.pushState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
+			};
+
+			const oldHandler = backButton._clickHandler;
+			if (oldHandler) backButton.removeEventListener('click', oldHandler);
+
+			backButton.addEventListener('click', backButtonClickHandler);
+			backButton._clickHandler = backButtonClickHandler;
+			return backButton;
+		}
+
+		async function fetchAndDisplayContent(url, isPushState = true, isProject = false) {
+			if (!blogContentElement) return;
+
+			// Start screen wipe transition
+			let transitionData = null;
+			if (window.ScreenWipeTransition) {
+				transitionData = await window.ScreenWipeTransition.start();
+			}
+
+			// Before clearing content, cleanup any carousel instances managed by carousel.js
+			if (typeof cleanupCarouselInstances === 'function') {
+				// Cleaning up carousel instances from blogContentElement
+				cleanupCarouselInstances(blogContentElement);
+			}
+
+			// Add has-dynamic-content class to enable proper scrolling
+			blogContentElement.classList.add('has-dynamic-content');
+
+			// Clear content after transition starts
+			blogContentElement.innerHTML = '';
+
+			try {
+				const response = await fetch(url);
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				const htmlText = await response.text();
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(htmlText, 'text/html');
+
+				// Updated selector to handle new Substack-style posts
+					let contentToExtractSelector = isProject ? 'div.project-edge-wrapper' : 'div.post-wrapper';
+				let newContentContainer = doc.querySelector(contentToExtractSelector);
+
+				// Initial selector determined
+				// Found content container
+
+				// Fallback for projects: if project-edge-wrapper is not found, try project-wrapper
+				if (!newContentContainer && isProject) {
+					contentToExtractSelector = 'div.project-wrapper';
+					newContentContainer = doc.querySelector(contentToExtractSelector);
+					// Fallback selector
+					// Fallback content container
+				}
+
+				// Fallback: if loading a post and article.post is not found, try div.project-wrapper
+				if (!newContentContainer && !isProject) {
+					newContentContainer = doc.querySelector('div.project-wrapper');
+					// Post fallback to project-wrapper
+				}
+
+				const backButton = addOrUpdateBackButton();
+				// Back button created
+
+				if (newContentContainer) {
+					// Content container found, proceeding with insertion
+					// Container classes logged
+					// Container HTML preview logged
+
+					const contentFragment = document.createDocumentFragment();
+
+					// Special handling for project-edge-wrapper: don't add extra wrappers
+					if (newContentContainer.classList.contains('project-edge-wrapper')) {
+						// Project edge wrapper detected, inserting without extra wrappers
+
+						// Find and mark project-wrapper inside edge-wrapper with dynamic-loaded
+						const projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
+						if (projectWrapperInstance) {
+							projectWrapperInstance.classList.add('dynamic-loaded');
+							// Added dynamic-loaded to project-wrapper inside edge-wrapper
+						}
+
+						const clonedContent = newContentContainer.cloneNode(true);
+						contentFragment.appendChild(clonedContent);
+					} else {
+						// Regular content handling - Use same simple structure for all devices
+						const innerWrapper = document.createElement('div');
+						innerWrapper.className = 'content-inner-wrapper';
+						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
+
+						// Handle project-wrapper inside regular content
+						let projectWrapperInstance = null;
+						if (newContentContainer.classList.contains('project-wrapper')) {
+							projectWrapperInstance = newContentContainer;
+						} else {
+							projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
+						}
+
+						if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
+							projectWrapperInstance.classList.add('dynamic-loaded');
+							// Added dynamic-loaded to project wrapper
+						}
+
+						innerWrapper.appendChild(newContentContainer.cloneNode(true));
+						contentFragment.appendChild(innerWrapper);
+					}
+
+					// Insert content consistently for all devices
+					if (backButton) {
+						// Inserting content after back button
+						backButton.after(contentFragment);
+					} else {
+						// Appending content directly to blog element
+						blogContentElement.appendChild(contentFragment);
+					}
+
+					// Content inserted successfully
+					initializeBlogFeatures(blogContentElement); // This will now delegate carousel init
+					
+					// Initialize project tabs for dynamically loaded content
+					if (window.initializeProjectTabs) {
+						window.initializeProjectTabs(blogContentElement);
+					}
+					// Initialize project summary for dynamically loaded content
+					if (window.initializeProjectSummary) {
+						window.initializeProjectSummary(blogContentElement);
+					}
+					// Re-initialize sound effects for dynamically loaded content
+					if (window.initializeSoundEffects) {
+						// Re-initializing sound effects for dynamically loaded content
+						window.initializeSoundEffects();
+					} else {
+						// Fallback: try again after a short delay in case sound effects script is still loading
+						setTimeout(() => {
+							if (window.initializeSoundEffects) {
+								// Re-initializing sound effects for dynamically loaded content (delayed)
+								window.initializeSoundEffects();
+							}
+						}, 100);
+					}
+
+					// Emit portfolio-loaded event if this is a project
+					if (isProject) {
+						window.dispatchEvent(new Event('portfolio-loaded'));
+					}
+
+					// Set up scroll button for dynamic content - multiple attempts
+					function setupDynamicScrollButton() {
+						const scrollButton = blogContentElement.querySelector('.read-story-button') ||
+							blogContentElement.querySelector('#scrollToFullStoryBtn');
+
+						if (scrollButton) {
+							// Found scroll button for dynamic content
+
+							// Remove any existing handlers
+							scrollButton.onclick = null;
+
+							// Add new handler
+							scrollButton.onclick = function (e) {
+								e.preventDefault();
+								// Dynamic scroll button clicked
+								if (window.scrollToFullStory) {
+									window.scrollToFullStory();
+								} else {
+									// scrollToFullStory function not available
+								}
+							};
+
+							// Dynamic scroll button handler attached
+							return true;
+						} else {
+							// Scroll button not found yet for dynamic content
+							return false;
+						}
+					}
+
+					// Try multiple times with increasing delays
+					if (!setupDynamicScrollButton()) {
+						setTimeout(setupDynamicScrollButton, 100);
+						setTimeout(setupDynamicScrollButton, 300);
+						setTimeout(setupDynamicScrollButton, 500);
+					}
+				} else {
+					// ERROR: No content container found
+					// Available elements in doc logged
+					// isProject flag logged
+					// URL logged
+
+					const errorMsg = document.createElement('p');
+					errorMsg.textContent = 'Sorry, the content could not be loaded.';
+					// Add the inner wrapper conditionally here too if needed, or just append directly?
+					// Simplified: just append the error message
+					if (backButton) { backButton.after(errorMsg); } else { blogContentElement.appendChild(errorMsg); }
+				}
+
+				if (isPushState) {
+					history.pushState({ path: url, isProject: isProject, isDynamic: true }, '', url);
+				}
+			} catch (error) {
+				// Error fetching or displaying content
+				const errorTechnical = document.createElement('p');
+				errorTechnical.textContent = 'There was an error loading the page.';
+				let backBtn = blogContentElement.querySelector('.dynamic-back-button');
+				if (!backBtn) backBtn = addOrUpdateBackButton();
+				if (backBtn) { backBtn.after(errorTechnical); } else { blogContentElement.appendChild(errorTechnical); }
+			}
+			
+			// End screen wipe transition
+			if (window.ScreenWipeTransition && transitionData) {
+				await window.ScreenWipeTransition.end(transitionData);
+			}
+			
+			// Fade in blog content for all devices
+			await fadeInElement(blogContentElement);
+			// Scroll into view for all devices using ScrollUtility
+			ScrollUtility.scrollToElement(blogContentElement, {
+				behavior: 'smooth',
+				block: 'start'
+			});
+		}
+
+		function handleLinkClick(event) {
+			const link = event.currentTarget;
+			// Link clicked
+			if (link.hostname === window.location.hostname &&
+				!link.getAttribute('target') &&
+				(link.protocol === "http:" || link.protocol === "https:") &&
+				!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey
+			) {
+				// Updated selectors for post previews
+				const isPostLink = link.classList.contains('post-link-wrapper');
+				const isProjectLink = link.matches('a.portfolio-item-wrapper, a.portfolio-item.has-writeup');
+				// Check if post or project link
+
+				if (isPostLink || isProjectLink) {
+					event.preventDefault();
+					const url = link.href;
+					// Fetching content
+					fetchAndDisplayContent(url, true, isProjectLink);
+				}
+			}
+		}
+
+		function initializeLinkListeners(parentElement) {
+			if (!parentElement) return;
+			const linksToProcess = parentElement.querySelectorAll(
+				'a.post-link-wrapper, ' +
+				'a.portfolio-item-wrapper, ' +
+				'a.portfolio-item.has-writeup'
+			);
+			// Initializing link listeners
+
+			linksToProcess.forEach(link => {
+				link.removeEventListener('click', handleLinkClick);
+				link.addEventListener('click', handleLinkClick);
+			});
+		}
+
+		initializeLinkListeners(blogContentElement);
+
+		// Resize listener removed - dynamic content now works on all screen sizes
+
+		const handlePopstate = async function (event) {
+			// If we're returning to the home page (no state or initial state)
+			if (!event.state || event.state.isInitial) {
+				// Ensure the page is visible
+				document.body.style.opacity = '1';
+				document.body.classList.add('loaded');
+				const overlay = document.querySelector('.page-transition-overlay');
+				if (overlay) {
+					overlay.style.display = 'none';
+				}
+				
+				// If blog content was hidden, show it
+				if (blogContentElement) {
+					blogContentElement.style.opacity = '1';
+					const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+					if (innerWrapper) {
+						innerWrapper.style.opacity = '1';
+					}
+				}
+				
+				// Check if we're coming back from a project (portfolio was likely active)
+				const currentHistoryState = history.state;
+				const wasOnProject = window.location.pathname.includes('/20'); // Year-based URLs
+				
+				if (wasOnProject || (currentHistoryState && currentHistoryState.isProject)) {
+					// Mark as back navigation for carousel
+					sessionStorage.setItem('portfolio-back-navigation', 'true');
+					
+					// Emit events to trigger carousel re-initialization
+					setTimeout(() => {
+						document.dispatchEvent(new Event('contentLoaded'));
+						window.dispatchEvent(new Event('portfolio-loaded'));
+						
+						// Give browser time to restore scroll, then check active notebook
+						setTimeout(() => {
+							if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
+								window._notebookCarousel.reinitialize();
+							}
+						}, 300);
+					}, 100);
+				}
+				
+				return;
+			}
+			
+			if (event.state && event.state.page) {
+				const targetUrl = event.state.page;
+				// Navigating to target URL
+
+				// Perform fade out
+				await fadeOutElement(blogContentElement);
+
+				// Update URL without triggering a reload
+				window.history.replaceState({ page: targetUrl }, '', targetUrl);
+
+				// Fetch the new page content
+				try {
+					const response = await fetch(targetUrl, {
+						headers: {
+							'X-Requested-With': 'XMLHttpRequest'
+						}
+					});
+
+					if (response.ok) {
+						const html = await response.text();
+						const parser = new DOMParser();
+						const doc = parser.parseFromString(html, 'text/html');
+
+						// Update the main content
+						const newContent = doc.querySelector('.blog');
+						if (newContent) {
+							blogContentElement.innerHTML = newContent.innerHTML;
+							// Initialize features on the new content
+							initializeBlogFeatures(blogContentElement);
+							// Fade in immediately
+							await fadeInElement(blogContentElement);
+						}
+					}
+				} catch (error) {
+					// Error fetching page
+					// Fade in anyway to show current content
+					await fadeInElement(blogContentElement);
+				}
+			}
+		};
+		
+		window.addEventListener('popstate', handlePopstate);
+		
+		// Store handler for cleanup
+		window._blogPopstateHandler = handlePopstate;
+
+		// Expose fetchAndDisplayContent globally for direct navigation
+		window.fetchAndDisplayContent = fetchAndDisplayContent;
+
+		if (!history.state || (!history.state.isDynamic && !history.state.isInitial)) {
+			history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
+		}
+	}
+
+	if (document.querySelector('.blog-content')) {
+		setupDynamicBlogNavigation();
+	}
+
+	// Highlight search terms in text nodes
+	function highlightSearchTerms(element, searchTerm) {
+		if (!searchTerm) return;
+		
+		const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
+		const walker = document.createTreeWalker(
+			element,
+			NodeFilter.SHOW_TEXT,
+			{
+				acceptNode: function(node) {
+					// Skip script and style elements
+					const parent = node.parentNode;
+					if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE') {
+						return NodeFilter.FILTER_REJECT;
+					}
+					// Skip if already highlighted
+					if (parent.classList && parent.classList.contains('search-highlight')) {
+						return NodeFilter.FILTER_REJECT;
+					}
+					// Accept if contains search term
+					if (regex.test(node.textContent)) {
+						return NodeFilter.FILTER_ACCEPT;
+					}
+					return NodeFilter.FILTER_REJECT;
+				}
+			}
+		);
+
+		const nodesToReplace = [];
+		let node;
+		while (node = walker.nextNode()) {
+			nodesToReplace.push(node);
+		}
+
+		nodesToReplace.forEach(textNode => {
+			const parent = textNode.parentNode;
+			const fragment = document.createDocumentFragment();
+			let lastIndex = 0;
+			let match;
+
+			regex.lastIndex = 0; // Reset regex
+			const text = textNode.textContent;
+
+			while ((match = regex.exec(text)) !== null) {
+				// Add text before match
+				if (match.index > lastIndex) {
+					fragment.appendChild(
+						document.createTextNode(text.slice(lastIndex, match.index))
+					);
+				}
+
+				// Add highlighted match
+				const highlight = document.createElement('mark');
+				highlight.className = 'search-highlight';
+				highlight.textContent = match[0];
+				fragment.appendChild(highlight);
+
+				lastIndex = regex.lastIndex;
+			}
+
+			// Add remaining text
+			if (lastIndex < text.length) {
+				fragment.appendChild(
+					document.createTextNode(text.slice(lastIndex))
+				);
+			}
+
+			parent.replaceChild(fragment, textNode);
+		});
+	}
+
+	// Remove all highlights
+	function removeAllHighlights(container) {
+		const highlights = container.querySelectorAll('.search-highlight');
+		highlights.forEach(highlight => {
+			const parent = highlight.parentNode;
+			const textNode = document.createTextNode(highlight.textContent);
+			parent.replaceChild(textNode, highlight);
+			parent.normalize(); // Merge adjacent text nodes
+		});
+	}
+
+	// Escape special regex characters
+	function escapeRegExp(string) {
+		return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	}
+
+	// Search click sound effect
+	function handleSearchClick(e) {
+		// Play book sound when search input is clicked
+		if (window.playBookSound) {
+			window.playBookSound();
+		}
+	}
+
+	// Initialize search clear button
+	function initializeSearchClearButton(searchInput) {
+		if (!searchInput) return;
+		
+		const clearButton = searchInput.parentElement.querySelector('.search-clear');
+		if (!clearButton) return;
+		
+		// Update clear button visibility based on input value
+		function updateClearVisibility() {
+			clearButton.style.display = searchInput.value ? 'block' : 'none';
+		}
+		
+		// Handle clear button click
+		function handleClearClick(e) {
+			e.preventDefault();
+			
+			// Play small click sound
+			if (window.playSmallClickSound) {
+				window.playSmallClickSound();
+			}
+			
+			// Clear the input
+			searchInput.value = '';
+			clearButton.style.display = 'none';
+			
+			// Trigger search to reset results
+			handleSearch({ target: searchInput });
+			
+			// Focus back on input
+			searchInput.focus();
+		}
+		
+		// Remove existing listeners if any
+		clearButton.removeEventListener('click', handleClearClick);
+		searchInput.removeEventListener('input', updateClearVisibility);
+		
+		// Add new listeners
+		clearButton.addEventListener('click', handleClearClick);
+		searchInput.addEventListener('input', updateClearVisibility);
+		
+		// Set initial visibility
+		updateClearVisibility();
+	}
+
+	// Search functionality
+	function handleSearch(e) {
+		const query = e.target.value.toLowerCase();
+		const blogContent = document.querySelector('.blog-content');
+		if (!blogContent) return;
+
+		const posts = blogContent.querySelectorAll('.post-list-item');
+		const postSeparators = blogContent.querySelectorAll('.post-separator');
+		const noResultsMessage = blogContent.querySelector('.no-results-message');
+		const postsOnlyButton = blogContent.querySelector('.posts-only-button');
+		const isPostsOnly = postsOnlyButton && postsOnlyButton.classList.contains('active');
+
+		let visibleCount = 0;
+		const visiblePosts = [];
+
+		// First, remove any existing highlights
+		removeAllHighlights(blogContent);
+
+		posts.forEach(post => {
+			const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
+			const content = post.textContent.toLowerCase();
+			const isMatch = title.includes(query) || content.includes(query);
+			
+			// Check if it's specifically a "post-long post-preview-card" type
+			// Look for the preview card either on the post itself OR nested inside
+			const hasPreviewCard = post.querySelector('.post-long.post-preview-card') || 
+								  (post.classList.contains('post-long') && post.classList.contains('post-preview-card'));
+			
+			// It's a regular post if it has the preview card structure
+			const isPostType = hasPreviewCard;
+
+			if (isMatch && (!isPostsOnly || isPostType)) {
+				post.style.display = '';
+				visibleCount++;
+				visiblePosts.push(post);
+				
+				// Highlight matching terms if there's a query
+				if (query) {
+					highlightSearchTerms(post, query);
+				}
+			} else {
+				post.style.display = 'none';
+			}
+		});
+
+		postSeparators.forEach(sep => sep.style.display = 'none');
+
+		visiblePosts.forEach((post, index) => {
+			if (index < visiblePosts.length - 1) {
+				let nextSibling = post.nextElementSibling;
+				while (nextSibling && !nextSibling.classList.contains('post-separator')) {
+					nextSibling = nextSibling.nextElementSibling;
+				}
+				if (nextSibling && nextSibling.classList.contains('post-separator')) {
+					nextSibling.style.display = '';
+				}
+			}
+		});
+
+		if (noResultsMessage) {
+			noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+		}
+	}
+	
+	// Initialize posts only button
+	function initializePostsOnlyButton() {
+		const postsOnlyButton = document.querySelector('.posts-only-button');
+		// Initializing posts only button
+		if (!postsOnlyButton) {
+			// Posts only button not found
+			return;
+		}
+		
+		// Remove existing listener if any
+		postsOnlyButton.removeEventListener('click', handlePostsOnlyClick);
+		// Add new listener
+		postsOnlyButton.addEventListener('click', handlePostsOnlyClick);
+		
+		// Also initialize search clear button if it exists
+		const searchInput = document.querySelector('#postSearch');
+		if (searchInput) {
+			initializeSearchClearButton(searchInput);
+		}
+	}
+	
+	function handlePostsOnlyClick(event) {
+		// Posts only button clicked
+		
+		// Play the same sound effect as carousel buttons
+		if (window.playSmallClickSound) {
+			window.playSmallClickSound();
+		}
+		
+		const button = event.currentTarget;
+		button.classList.toggle('active');
+		const searchInput = document.querySelector('#postSearch');
+		// Search input found
+		if (searchInput) {
+			handleSearch({ target: searchInput });
+		}
+	}
+
+	// Toggle search visibility
+	function toggleSearch() {
+		const searchContainer = document.querySelector('.search-container');
+		if (searchContainer) {
+			searchContainer.classList.toggle('active');
+			const searchInput = searchContainer.querySelector('#postSearch');
+			if (searchContainer.classList.contains('active') && searchInput) {
+				searchInput.focus();
+			}
+		}
+	}
+
+	// Initialize project filter functionality with checkboxes
+	let activeProjectFilters = new Set(['professional', 'personal']); // Both checked by default
+	
+	function handleProjectFilterChange(event) {
+		const checkbox = event.currentTarget;
+		const filterType = checkbox.closest('.filter-checkbox').getAttribute('data-type');
+		
+		if (checkbox.checked) {
+			activeProjectFilters.add(filterType);
+		} else {
+			activeProjectFilters.delete(filterType);
+		}
+		
+		applyProjectFilters();
+	}
+	
+	function initializeProjectToggle() {
+		const filterCheckboxes = document.querySelectorAll('.project-filter-container .filter-input');
+		const projectsContent = document.querySelector('#projectsContent');
+		
+		// If old toggle container exists, ignore it
+		const oldToggleContainer = document.querySelector('.project-toggle-container');
+		if (oldToggleContainer && !filterCheckboxes.length) {
+			return; // Old implementation, skip
+		}
+		
+		if (!filterCheckboxes.length || !projectsContent) return;
+		
+		// Initialize checkboxes based on current state
+		filterCheckboxes.forEach(checkbox => {
+			const filterType = checkbox.closest('.filter-checkbox').getAttribute('data-type');
+			checkbox.checked = activeProjectFilters.has(filterType);
+			
+			// Remove any existing listeners
+			checkbox.removeEventListener('change', handleProjectFilterChange);
+			// Add new listener
+			checkbox.addEventListener('change', handleProjectFilterChange);
+		});
+		
+		// Apply the current filters
+		applyProjectFilters();
+	}
+	
+	function applyProjectFilters() {
+		const projectsContent = document.querySelector('#projectsContent');
+		if (!projectsContent) return;
+		
+		const companyGroups = projectsContent.querySelectorAll('.company-group');
+		const projectItems = projectsContent.querySelectorAll('.portfolio-item');
+		let hasVisibleProjects = false;
+		
+		// Show/hide company groups based on active filters
+		companyGroups.forEach(group => {
+			const groupType = group.getAttribute('data-project-type');
+			const shouldShow = activeProjectFilters.has(groupType);
+			group.style.display = shouldShow ? '' : 'none';
+			if (shouldShow) hasVisibleProjects = true;
+		});
+		
+		// Show/hide individual project items based on active filters
+		projectItems.forEach(item => {
+			const itemType = item.getAttribute('data-project-type');
+			const shouldShow = activeProjectFilters.has(itemType);
+			item.style.display = shouldShow ? '' : 'none';
+		});
+		
+		// Handle no results message
+		let noResultsMsg = projectsContent.querySelector('.no-projects-message');
+		
+		if (!hasVisibleProjects && activeProjectFilters.size === 0) {
+			if (!noResultsMsg) {
+				noResultsMsg = document.createElement('div');
+				noResultsMsg.className = 'no-projects-message';
+				noResultsMsg.style.textAlign = 'center';
+				noResultsMsg.style.padding = '3rem 2rem';
+				noResultsMsg.style.color = 'var(--text-color-secondary)';
+				projectsContent.appendChild(noResultsMsg);
+			}
+			noResultsMsg.textContent = 'Please select at least one project type to display.';
+		} else if (!hasVisibleProjects) {
+			if (!noResultsMsg) {
+				noResultsMsg = document.createElement('div');
+				noResultsMsg.className = 'no-projects-message';
+				noResultsMsg.style.textAlign = 'center';
+				noResultsMsg.style.padding = '3rem 2rem';
+				noResultsMsg.style.color = 'var(--text-color-secondary)';
+				projectsContent.appendChild(noResultsMsg);
+			}
+			const filterNames = Array.from(activeProjectFilters).join(' or ');
+			noResultsMsg.textContent = `No ${filterNames} projects to display.`;
+		} else if (noResultsMsg) {
+			noResultsMsg.remove();
+		}
+	}
+
+	// Function to toggle expand
+	function toggleExpand() {
+		const overflow = this.nextElementSibling;
+		const detailsParent = this.closest('details');
+		if (detailsParent) {
+			this.textContent = detailsParent.open ? 'Show less' : 'Read more';
+			return;
+		}
+
+		const isExpanded = this.getAttribute('aria-expanded') === 'true';
+		this.setAttribute('aria-expanded', !isExpanded);
+		if (overflow) {
+			overflow.style.maxHeight = isExpanded ? null : `${overflow.scrollHeight}px`;
+		}
+		this.textContent = isExpanded ? 'Read more' : 'Show less';
+	}
+
+	// REMOVE initializeCarousel and openSpotlight from blog.js
+	// They are now handled by the global carousel.js
+
+	/*
+	// Initialize carousel  -- REMOVE THIS FUNCTION
+	function initializeCarousel(carousel) { ... }
+	*/
+
+	/*
+	// === Spotlight Modal === -- REMOVE THIS FUNCTION and related vars like currentSpotlightIndex
+	let currentSpotlightIndex = 0;
+	let allSpotlightSlides = []; 
+	function openSpotlight(initialSrc, slidesArray, initialIndex) { ... }
+	*/
+
+	// Make initialization functions globally available for mobile tabs
+	window.initializeProjectToggle = initializeProjectToggle;
+	window.initializePostsOnlyButton = initializePostsOnlyButton;
+
+	// Initial setup on page load - moved to end after all functions are defined
+	initializeBlogFeatures(document);
+	initializeMobileTabs();
+	initializeProjectToggle();
+	initializePostsOnlyButton();
+	// Anchor links are now handled by anchor-links-simple.js
+	
+	// Initialize search clear button on page load
+	const initialSearchInput = document.querySelector('#postSearch');
+	if (initialSearchInput) {
+		initializeSearchClearButton(initialSearchInput);
+	}
+
+}); 

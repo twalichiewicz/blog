@@ -1,1 +1,245 @@
-!function(t){"use strict";const e=new class{constructor(){this.initialized=!1,this.projectTabs=null,this.summaryInitialized=!1}init(){this.initialized||(this.initProjectTabs(),this.initSummary(),this.initialized=!0,t.events.emit("portfolio:initialized"))}initProjectTabs(){t.ui.tabs.project={init:()=>this.setupProjectTabs(),activeTab:null},this.setupProjectTabs()}setupProjectTabs(){const e=document.querySelectorAll(".project-tab-button"),o=document.querySelectorAll(".project-tab-content");if(!e.length||!o.length)return;e.forEach(t=>{t.addEventListener("click",e=>{const o=t.getAttribute("data-tab");this.switchProjectTab(o)})});const i=e[0]?.getAttribute("data-tab");i&&this.switchProjectTab(i),t.events.emit("portfolio:project-tabs-initialized")}switchProjectTab(e){const o=document.querySelectorAll(".project-tab-button"),i=document.querySelectorAll(".project-tab-content");o.forEach(t=>{const o=t.getAttribute("data-tab")===e;t.classList.toggle("active",o),t.setAttribute("aria-selected",o)}),i.forEach(t=>{const o=t.id===e;t.style.display=o?"block":"none",t.setAttribute("aria-hidden",!o)}),t.ui.tabs.project.activeTab=e,window.videoAutoplayManager&&"function"==typeof window.videoAutoplayManager.refresh&&setTimeout(()=>{window.videoAutoplayManager.refresh()},100),t.utils.sound&&t.utils.sound.playToggle(),t.events.emit("portfolio:project-tab-switched",{tabId:e})}initSummary(){if(this.summaryInitialized)return;const e=document.querySelectorAll(".project-summary"),o=document.querySelectorAll(".expand-summary");e.length&&(o.forEach(t=>{t.addEventListener("click",e=>{const o=t.closest(".project-section").querySelector(".project-summary");o&&this.toggleSummary(o,t)})}),document.querySelectorAll(".read-more").forEach(t=>{t.addEventListener("click",e=>{e.preventDefault();const o=t.closest(".project-summary");o&&this.expandSummary(o)})}),this.summaryInitialized=!0,t.events.emit("portfolio:summary-initialized"))}toggleSummary(t,e){t.classList.contains("expanded")?this.collapseSummary(t,e):this.expandSummary(t,e)}expandSummary(e,o){e.classList.add("expanded"),o&&(o.textContent="Show Less",o.setAttribute("aria-expanded","true"));const i=e.querySelector(".summary-truncated"),r=e.querySelector(".summary-full");i&&(i.style.display="none"),r&&(r.style.display="block"),t.utils.sound&&t.utils.sound.playToggle(),t.events.emit("portfolio:summary-expanded",{summary:e})}collapseSummary(e,o){e.classList.remove("expanded"),o&&(o.textContent="Show More",o.setAttribute("aria-expanded","false"));const i=e.querySelector(".summary-truncated"),r=e.querySelector(".summary-full");i&&(i.style.display="block"),r&&(r.style.display="none"),e.getBoundingClientRect().top<0&&e.scrollIntoView({behavior:"smooth",block:"start"}),t.utils.sound&&t.utils.sound.playToggle(),t.events.emit("portfolio:summary-collapsed",{summary:e})}getProjects(){const t=document.querySelectorAll(".portfolio-item");return Array.from(t).map(t=>({element:t,id:t.id,title:t.querySelector(".portfolio-title")?.textContent,company:t.querySelector(".company")?.textContent,year:t.querySelector(".year")?.textContent}))}filterByCompany(e){this.getProjects().forEach(t=>{const o=!e||t.company===e;t.element.style.display=o?"block":"none"}),t.events.emit("portfolio:filtered",{filter:"company",value:e})}filterByYear(e){this.getProjects().forEach(t=>{const o=!e||t.year===e;t.element.style.display=o?"block":"none"}),t.events.emit("portfolio:filtered",{filter:"year",value:e})}showAll(){document.querySelectorAll(".portfolio-item").forEach(t=>{t.style.display="block"}),t.events.emit("portfolio:filter-cleared")}};t.content.portfolio=e,t.registerModule("portfolio",e),t.content.portfolio.initSummary=e.initSummary.bind(e)}(window.SD||(window.SD={}));
+/**
+ * Portfolio Module for San Diego Theme
+ * Handles portfolio/project functionality including tabs and summaries
+ */
+(function(SD) {
+  'use strict';
+
+  class PortfolioModule {
+    constructor() {
+      this.initialized = false;
+      this.projectTabs = null;
+      this.summaryInitialized = false;
+    }
+
+    init() {
+      if (this.initialized) return;
+
+      this.initProjectTabs();
+      this.initSummary();
+      
+      this.initialized = true;
+      SD.events.emit('portfolio:initialized');
+    }
+
+    initProjectTabs() {
+      // Initialize project tab system
+      SD.ui.tabs.project = {
+        init: () => this.setupProjectTabs(),
+        activeTab: null
+      };
+
+      this.setupProjectTabs();
+    }
+
+    setupProjectTabs() {
+      const tabButtons = document.querySelectorAll('.project-tab-button');
+      const tabContents = document.querySelectorAll('.project-tab-content');
+
+      if (!tabButtons.length || !tabContents.length) return;
+
+      // Set up click handlers
+      tabButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          const tabId = button.getAttribute('data-tab');
+          this.switchProjectTab(tabId);
+        });
+      });
+
+      // Activate first tab by default
+      const firstTab = tabButtons[0]?.getAttribute('data-tab');
+      if (firstTab) {
+        this.switchProjectTab(firstTab);
+      }
+
+      SD.events.emit('portfolio:project-tabs-initialized');
+    }
+
+    switchProjectTab(tabId) {
+      const tabButtons = document.querySelectorAll('.project-tab-button');
+      const tabContents = document.querySelectorAll('.project-tab-content');
+
+      // Update buttons
+      tabButtons.forEach(button => {
+        const isActive = button.getAttribute('data-tab') === tabId;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-selected', isActive);
+      });
+
+      // Update content
+      tabContents.forEach(content => {
+        const isActive = content.id === tabId;
+        content.style.display = isActive ? 'block' : 'none';
+        content.setAttribute('aria-hidden', !isActive);
+      });
+
+      // Update active tab
+      SD.ui.tabs.project.activeTab = tabId;
+
+      // Refresh video autoplay if needed
+      if (window.videoAutoplayManager && typeof window.videoAutoplayManager.refresh === 'function') {
+        setTimeout(() => {
+          window.videoAutoplayManager.refresh();
+        }, 100);
+      }
+
+      // Play sound effect
+      if (SD.utils.sound) {
+        SD.utils.sound.playToggle();
+      }
+
+      SD.events.emit('portfolio:project-tab-switched', { tabId });
+    }
+
+    initSummary() {
+      if (this.summaryInitialized) return;
+
+      const summaryElements = document.querySelectorAll('.project-summary');
+      const expandButtons = document.querySelectorAll('.expand-summary');
+
+      if (!summaryElements.length) return;
+
+      // Set up expand/collapse functionality
+      expandButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          const summary = button.closest('.project-section').querySelector('.project-summary');
+          if (summary) {
+            this.toggleSummary(summary, button);
+          }
+        });
+      });
+
+      // Set up read more links
+      const readMoreLinks = document.querySelectorAll('.read-more');
+      readMoreLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const summary = link.closest('.project-summary');
+          if (summary) {
+            this.expandSummary(summary);
+          }
+        });
+      });
+
+      this.summaryInitialized = true;
+      SD.events.emit('portfolio:summary-initialized');
+    }
+
+    toggleSummary(summary, button) {
+      const isExpanded = summary.classList.contains('expanded');
+      
+      if (isExpanded) {
+        this.collapseSummary(summary, button);
+      } else {
+        this.expandSummary(summary, button);
+      }
+    }
+
+    expandSummary(summary, button) {
+      summary.classList.add('expanded');
+      
+      if (button) {
+        button.textContent = 'Show Less';
+        button.setAttribute('aria-expanded', 'true');
+      }
+
+      // Hide truncated content, show full content
+      const truncated = summary.querySelector('.summary-truncated');
+      const full = summary.querySelector('.summary-full');
+      
+      if (truncated) truncated.style.display = 'none';
+      if (full) full.style.display = 'block';
+
+      // Play sound effect
+      if (SD.utils.sound) {
+        SD.utils.sound.playToggle();
+      }
+
+      SD.events.emit('portfolio:summary-expanded', { summary });
+    }
+
+    collapseSummary(summary, button) {
+      summary.classList.remove('expanded');
+      
+      if (button) {
+        button.textContent = 'Show More';
+        button.setAttribute('aria-expanded', 'false');
+      }
+
+      // Show truncated content, hide full content
+      const truncated = summary.querySelector('.summary-truncated');
+      const full = summary.querySelector('.summary-full');
+      
+      if (truncated) truncated.style.display = 'block';
+      if (full) full.style.display = 'none';
+
+      // Scroll summary into view if needed
+      const summaryTop = summary.getBoundingClientRect().top;
+      if (summaryTop < 0) {
+        summary.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // Play sound effect
+      if (SD.utils.sound) {
+        SD.utils.sound.playToggle();
+      }
+
+      SD.events.emit('portfolio:summary-collapsed', { summary });
+    }
+
+    // Get all projects
+    getProjects() {
+      const projects = document.querySelectorAll('.portfolio-item');
+      return Array.from(projects).map(project => ({
+        element: project,
+        id: project.id,
+        title: project.querySelector('.portfolio-title')?.textContent,
+        company: project.querySelector('.company')?.textContent,
+        year: project.querySelector('.year')?.textContent
+      }));
+    }
+
+    // Filter projects by company
+    filterByCompany(company) {
+      const projects = this.getProjects();
+      projects.forEach(project => {
+        const show = !company || project.company === company;
+        project.element.style.display = show ? 'block' : 'none';
+      });
+
+      SD.events.emit('portfolio:filtered', { filter: 'company', value: company });
+    }
+
+    // Filter projects by year
+    filterByYear(year) {
+      const projects = this.getProjects();
+      projects.forEach(project => {
+        const show = !year || project.year === year;
+        project.element.style.display = show ? 'block' : 'none';
+      });
+
+      SD.events.emit('portfolio:filtered', { filter: 'year', value: year });
+    }
+
+    // Show all projects
+    showAll() {
+      const projects = document.querySelectorAll('.portfolio-item');
+      projects.forEach(project => {
+        project.style.display = 'block';
+      });
+
+      SD.events.emit('portfolio:filter-cleared');
+    }
+  }
+
+  // Create and register the module
+  const portfolioModule = new PortfolioModule();
+  
+  // Register with SD namespace
+  SD.content.portfolio = portfolioModule;
+  SD.registerModule('portfolio', portfolioModule);
+
+  // Bind methods to maintain context
+  SD.content.portfolio.initSummary = portfolioModule.initSummary.bind(portfolioModule);
+
+})(window.SD || (window.SD = {}));

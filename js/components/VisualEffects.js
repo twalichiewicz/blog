@@ -1,1 +1,52 @@
-import{SkullAnimation}from"./HomeVisuals.js";export class VisualEffects{constructor(s={}){this.config={showSkull:!1,skullConfig:{},...s},this.animations=[]}static createContainer(s="skull"){const n=document.createElement("div");n.className=`${s}-container`;const t=document.createElement("canvas");return t.id=`${s}Canvas`,n.appendChild(t),n}init(s){if(s&&(s.innerHTML="",this.config.showSkull)){const n=VisualEffects.createContainer("skull");s.appendChild(n);const t=n.querySelector("#skullCanvas");if(t){const s=new SkullAnimation(t,"img/skully3d.glb",this.config.skullConfig);this.animations.push(s)}}}destroy(){this.animations.forEach(s=>{s.destroy&&s.destroy()}),this.animations=[]}}
+import { SkullAnimation } from './HomeVisuals.js';
+
+export class VisualEffects {
+	constructor(config = {}) {
+		this.config = {
+			showSkull: false,
+			skullConfig: {},
+			...config
+		};
+		this.animations = [];
+	}
+
+	static createContainer(type = 'skull') {
+		const container = document.createElement('div');
+		container.className = `${type}-container`;
+
+		const canvas = document.createElement('canvas');
+		canvas.id = `${type}Canvas`;
+		container.appendChild(canvas);
+
+		return container;
+	}
+
+	init(targetElement) {
+		if (!targetElement) return;
+
+		// Clear existing content
+		targetElement.innerHTML = '';
+
+		if (this.config.showSkull) {
+			const skullContainer = VisualEffects.createContainer('skull');
+			targetElement.appendChild(skullContainer);
+
+			const skullCanvas = skullContainer.querySelector('#skullCanvas');
+			if (skullCanvas) {
+				const skullAnimation = new SkullAnimation(
+					skullCanvas,
+					'img/skully3d.glb',
+					this.config.skullConfig
+				);
+				this.animations.push(skullAnimation);
+			}
+		}
+	}
+
+	destroy() {
+		this.animations.forEach(animation => {
+			if (animation.destroy) animation.destroy();
+		});
+		this.animations = [];
+	}
+} 

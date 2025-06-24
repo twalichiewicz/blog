@@ -1,1 +1,224 @@
-!function(t){"use strict";const e=new class{constructor(){this.initialized=!1,this.config={tabsWrapperSelector:".tabs-wrapper",tabContainerSelector:".mobile-tabs",tabButtonSelector:".tab-button",postsContentId:"postsContent",projectsContentId:"projectsContent",searchBarSelector:".search-bar"},this.elements={},this.activeTab="blog",this.isMobile=!1}init(){this.initialized||(this.cacheElements(),this.checkDevice(),this.setupEventListeners(),this.checkInitialTab(),this.initialized=!0,t.events.emit("mobile-tabs:initialized"))}destroy(){this.resizeHandler&&window.removeEventListener("resize",this.resizeHandler),this.initialized=!1,this.elements={},t.events.emit("mobile-tabs:destroyed")}cacheElements(){this.elements={tabsWrapper:document.querySelector(this.config.tabsWrapperSelector),tabContainer:document.querySelector(this.config.tabContainerSelector),blogTab:document.querySelector('[data-tab="blog"]'),portfolioTab:document.querySelector('[data-tab="portfolio"]'),postsContent:document.getElementById(this.config.postsContentId),projectsContent:document.getElementById(this.config.projectsContentId),searchBar:document.querySelector(this.config.searchBarSelector)}}checkDevice(){this.isMobile=window.innerWidth<=768,document.body.classList.toggle("mobile-tabs-active",this.isMobile)}setupEventListeners(){this.elements.blogTab&&this.elements.blogTab.addEventListener("click",()=>this.switchTab("blog")),this.elements.portfolioTab&&this.elements.portfolioTab.addEventListener("click",()=>this.switchTab("portfolio")),this.resizeHandler=this.debounce(()=>{const t=this.isMobile;this.checkDevice(),t!==this.isMobile&&this.handleDeviceChange()},250),window.addEventListener("resize",this.resizeHandler),window.addEventListener("popstate",t=>{t.state&&t.state.tab&&this.switchTab(t.state.tab,!1,!1)})}checkInitialTab(){const t=new URLSearchParams(window.location.search).get("tab");"portfolio"===t||"works"===t?this.switchTab("portfolio",!1):"blog"!==t&&"words"!==t||this.switchTab("blog",!1),window.location.hash&&window.location.hash.substring(1).startsWith("project-")&&this.switchTab("portfolio",!1)}switchTab(e,i=!0,s=!0){e!==this.activeTab&&(this.activeTab=e,this.updateTabButtons(e),this.updateContentVisibility(e),this.updateSearchBarVisibility(e),i&&t.utils.sound&&t.utils.sound.playSlider(),s&&this.updateURL(e),t.events.emit("mobile-tabs:switched",{tab:e}))}updateTabButtons(t){document.querySelectorAll(this.config.tabButtonSelector).forEach(e=>{const i=e.dataset.tab===t;e.classList.toggle("active",i),e.setAttribute("aria-selected",i)})}updateContentVisibility(t){this.elements.postsContent&&(this.elements.postsContent.style.display="blog"===t?"block":"none"),this.elements.projectsContent&&(this.elements.projectsContent.style.display="portfolio"===t?"block":"none")}updateSearchBarVisibility(t){this.elements.searchBar&&(this.elements.searchBar.style.display="blog"===t?"block":"none")}updateURL(t){const e=new URL(window.location);e.searchParams.set("tab",t);const i={tab:t};window.history.pushState(i,"",e)}handleDeviceChange(){this.isMobile?(this.updateContentVisibility(this.activeTab),this.updateSearchBarVisibility(this.activeTab)):(this.elements.postsContent&&(this.elements.postsContent.style.display="block"),this.elements.projectsContent&&(this.elements.projectsContent.style.display="block"),this.elements.searchBar&&(this.elements.searchBar.style.display="block"))}setActiveTab(t){this.switchTab(t,!1)}getActiveTab(){return this.activeTab}debounce(t,e){let i;return function(...s){clearTimeout(i),i=setTimeout(()=>{clearTimeout(i),t(...s)},e)}}};t.ui.tabs.mobile=e,t.registerModule("mobile-tabs",e)}(window.SD||(window.SD={}));
+/**
+ * Mobile Tabs Module for San Diego Theme
+ * Handles tab functionality for mobile and desktop views
+ */
+(function(SD) {
+  'use strict';
+
+  class MobileTabsModule {
+    constructor() {
+      this.initialized = false;
+      this.config = {
+        tabsWrapperSelector: '.tabs-wrapper',
+        tabContainerSelector: '.mobile-tabs',
+        tabButtonSelector: '.tab-button',
+        postsContentId: 'postsContent',
+        projectsContentId: 'projectsContent',
+        searchBarSelector: '.search-bar'
+      };
+      this.elements = {};
+      this.activeTab = 'blog';
+      this.isMobile = false;
+    }
+
+    init() {
+      if (this.initialized) return;
+
+      this.cacheElements();
+      this.checkDevice();
+      this.setupEventListeners();
+      this.checkInitialTab();
+      
+      this.initialized = true;
+      SD.events.emit('mobile-tabs:initialized');
+    }
+
+    destroy() {
+      // Clean up event listeners
+      if (this.resizeHandler) {
+        window.removeEventListener('resize', this.resizeHandler);
+      }
+      
+      // Reset state
+      this.initialized = false;
+      this.elements = {};
+      
+      SD.events.emit('mobile-tabs:destroyed');
+    }
+
+    cacheElements() {
+      this.elements = {
+        tabsWrapper: document.querySelector(this.config.tabsWrapperSelector),
+        tabContainer: document.querySelector(this.config.tabContainerSelector),
+        blogTab: document.querySelector('[data-tab="blog"]'),
+        portfolioTab: document.querySelector('[data-tab="portfolio"]'),
+        postsContent: document.getElementById(this.config.postsContentId),
+        projectsContent: document.getElementById(this.config.projectsContentId),
+        searchBar: document.querySelector(this.config.searchBarSelector)
+      };
+    }
+
+    checkDevice() {
+      this.isMobile = window.innerWidth <= 768;
+      document.body.classList.toggle('mobile-tabs-active', this.isMobile);
+    }
+
+    setupEventListeners() {
+      // Tab click handlers
+      if (this.elements.blogTab) {
+        this.elements.blogTab.addEventListener('click', () => this.switchTab('blog'));
+      }
+      
+      if (this.elements.portfolioTab) {
+        this.elements.portfolioTab.addEventListener('click', () => this.switchTab('portfolio'));
+      }
+
+      // Window resize handler
+      this.resizeHandler = this.debounce(() => {
+        const wasMobile = this.isMobile;
+        this.checkDevice();
+        
+        if (wasMobile !== this.isMobile) {
+          this.handleDeviceChange();
+        }
+      }, 250);
+      
+      window.addEventListener('resize', this.resizeHandler);
+
+      // Handle browser back/forward
+      window.addEventListener('popstate', (event) => {
+        if (event.state && event.state.tab) {
+          this.switchTab(event.state.tab, false, false);
+        }
+      });
+    }
+
+    checkInitialTab() {
+      // Check URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const tabParam = urlParams.get('tab');
+      
+      if (tabParam === 'portfolio' || tabParam === 'works') {
+        this.switchTab('portfolio', false);
+      } else if (tabParam === 'blog' || tabParam === 'words') {
+        this.switchTab('blog', false);
+      }
+
+      // Check hash for anchor links
+      if (window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        if (hash.startsWith('project-')) {
+          this.switchTab('portfolio', false);
+        }
+      }
+    }
+
+    switchTab(tab, playSound = true, updateHistory = true) {
+      if (tab === this.activeTab) return;
+
+      this.activeTab = tab;
+
+      // Update tab buttons
+      this.updateTabButtons(tab);
+
+      // Update content visibility
+      this.updateContentVisibility(tab);
+
+      // Handle search bar visibility
+      this.updateSearchBarVisibility(tab);
+
+      // Play sound effect
+      if (playSound && SD.utils.sound) {
+        SD.utils.sound.playSlider();
+      }
+
+      // Update URL
+      if (updateHistory) {
+        this.updateURL(tab);
+      }
+
+      // Emit event
+      SD.events.emit('mobile-tabs:switched', { tab });
+    }
+
+    updateTabButtons(activeTab) {
+      const tabs = document.querySelectorAll(this.config.tabButtonSelector);
+      tabs.forEach(tab => {
+        const isActive = tab.dataset.tab === activeTab;
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-selected', isActive);
+      });
+    }
+
+    updateContentVisibility(activeTab) {
+      if (this.elements.postsContent) {
+        this.elements.postsContent.style.display = activeTab === 'blog' ? 'block' : 'none';
+      }
+      
+      if (this.elements.projectsContent) {
+        this.elements.projectsContent.style.display = activeTab === 'portfolio' ? 'block' : 'none';
+      }
+    }
+
+    updateSearchBarVisibility(activeTab) {
+      if (this.elements.searchBar) {
+        this.elements.searchBar.style.display = activeTab === 'blog' ? 'block' : 'none';
+      }
+    }
+
+    updateURL(tab) {
+      const url = new URL(window.location);
+      url.searchParams.set('tab', tab);
+      
+      const state = { tab };
+      window.history.pushState(state, '', url);
+    }
+
+    handleDeviceChange() {
+      if (!this.isMobile) {
+        // Show both contents on desktop
+        if (this.elements.postsContent) {
+          this.elements.postsContent.style.display = 'block';
+        }
+        if (this.elements.projectsContent) {
+          this.elements.projectsContent.style.display = 'block';
+        }
+        if (this.elements.searchBar) {
+          this.elements.searchBar.style.display = 'block';
+        }
+      } else {
+        // Apply current tab state on mobile
+        this.updateContentVisibility(this.activeTab);
+        this.updateSearchBarVisibility(this.activeTab);
+      }
+    }
+
+    setActiveTab(tab) {
+      this.switchTab(tab, false);
+    }
+
+    getActiveTab() {
+      return this.activeTab;
+    }
+
+    debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+  }
+
+  // Create and register the module
+  const mobileTabsModule = new MobileTabsModule();
+  
+  // Register with SD namespace
+  SD.ui.tabs.mobile = mobileTabsModule;
+  SD.registerModule('mobile-tabs', mobileTabsModule);
+
+})(window.SD || (window.SD = {}));
