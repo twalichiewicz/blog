@@ -128,8 +128,7 @@
 					
 					<!-- Read full story button and demo button moved here -->
 					<div class="read-story-button-container">
-						<% /* DEMO BUTTON TEMPORARILY DISABLED
-						if (page.demo_url || page.demo_component) { %>
+						<% if (page.demo_url || page.demo_component) { %>
 							<button class="demo-button" 
 								<% if (page.demo_url) { %>
 									data-demo-url="<%- page.demo_url %>"
@@ -137,14 +136,14 @@
 								<% if (page.demo_component) { %>
 									data-demo-component="<%- page.demo_component %>"
 								<% } %>
-								id="demoBtn">
+								id="demoBtn"
+								style="display: none;">
 								Demo
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
 									<path d="M8 5v14l11-7z"/>
 								</svg>
 							</button>
-						<% } 
-						*/ %>
+						<% } %>
 						<button class="read-story-button" id="scrollToFullStoryBtn">
 							Read the full story
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -250,10 +249,8 @@
 	<script>
 		// Define scroll function for standalone pages (fallback if blog.js not loaded)
 		function scrollToFullStory() {
-			// Scroll button clicked
 			const fullStoryElement = document.getElementById('full-story');
 			if (!fullStoryElement) {
-				// Full story element not found
 				return;
 			}
 			
@@ -273,21 +270,12 @@
 		function setupStandaloneScrollButton() {
 			const button = document.getElementById('scrollToFullStoryBtn');
 			if (button) {
-				// Setting up standalone scroll button
 				button.onclick = function(e) {
 					e.preventDefault();
-					// Standalone scroll button clicked
 					window.scrollToFullStory();
 				};
 			}
 			
-			// Set up demo button - TEMPORARILY DISABLED
-			/*
-			const demoButton = document.getElementById('demoBtn');
-			if (demoButton) {
-				setupDemoButton(demoButton);
-			}
-			*/
 		}
 		
 		// Demo button functionality

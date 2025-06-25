@@ -28,19 +28,26 @@ stats:
   - value: "$10M+"
     label: "Identified Savings"
 project_stats:
-  - label: "Team"
-    value: 
-      - "Principal Product Designer (me) - Led solo initiative, interviewed teams across the organization to identify commonalities"
-    type: "list"
-    span: 2
+  - label: "Problem"
+    value: "60+ siloed applications each rebuilding the same AI features"
+    type: "problem"
+  - label: "Solution"
+    value: "Universal overlay platform serving AI capabilities across all products"
+    type: "solution"
   - label: "Timeline"
     value: "6 months (Early 2024 - Late 2024)"
   - label: "Platform"
     value: "Cross-platform desktop overlay"
-  - label: "Skills"
-    value: ["Systems Design", "AI/ML Integration", "Cross-platform UX", "Technical Architecture"]
+  - label: "Team"
+    value: 
+      - "Principal Product Designer (me) - Led solo initiative, interviewed teams across the organization to identify commonalities"
+    type: "list"
+  - label: "Leadership"
+    value: ["Strategic Innovation: Platform Architecture Vision", "Executive Partnership: VP-Level Sponsorship", "Cross-Org Influence: 60+ Product Teams", "Technical Leadership: POC Architecture", "Process Innovation: Solo Initiative Impact"]
     type: "tags"
-    span: 3
+  - label: "Skills"
+    value: ["Systems Design", "AI/ML Integration", "Cross-platform UX", "Technical Architecture", "Platform Strategy", "User Research"]
+    type: "tags"
 notebook_color: crimson
 notebook_texture: pristine
 notebook_brand: leuchtturm

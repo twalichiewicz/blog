@@ -6,10 +6,6 @@ import { initializeCarousels, cleanupCarouselInstances } from './carousel.js';
 import { initializeMobileTabs } from './mobile-tabs.js';
 import videoAutoplayManager from './components/video-autoplay.js';
 import ScrollUtility from './utils/scroll-utility.js';
-// import AdaptiveVideoManager from './components/adaptive-video.js';
-
-// Initialize adaptive video manager
-// const adaptiveVideoManager = new AdaptiveVideoManager();
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -26,14 +22,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Initialize project demo if available
 		setTimeout(() => {
 			if (window.projectDemo && window.projectDemo.init) {
-				console.log('[Blog] Initializing project demo after content load');
 				window.projectDemo.init();
 			}
 		}, 100);
 
 		// --- Search Functionality ---
 		if (elements.searchInput) {
-			// Search input found in container
 			elements.searchInput.removeEventListener('input', handleSearch);
 			elements.searchInput.addEventListener('input', handleSearch);
 			
@@ -44,11 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Initialize clear button
 			initializeSearchClearButton(elements.searchInput);
 		} else {
-			// Search input not in container, trying global search
 			// Try to find search input in the document if not in container
 			const globalSearchInput = document.querySelector('#postSearch');
 			if (globalSearchInput) {
-				// Global search input found
 				globalSearchInput.removeEventListener('input', handleSearch);
 				globalSearchInput.addEventListener('input', handleSearch);
 				
@@ -58,8 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				
 				// Initialize clear button
 				initializeSearchClearButton(globalSearchInput);
-			} else {
-				// No search input found anywhere
 			}
 		}
 
@@ -73,29 +63,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// --- Carousels (Delegate to global carousel.js initializer) ---
 		if (typeof initializeCarousels === 'function') {
-			// Delegating carousel initialization to carousel.js
 			initializeCarousels(container);
-		} else {
-			// initializeCarousels not found
 		}
 
 		// --- Video Autoplay --- Only refresh if there are videos in the container
 		const hasVideos = container.querySelector('video[data-autoplay="true"]');
 		if (hasVideos && videoAutoplayManager && typeof videoAutoplayManager.refresh === 'function') {
-			// Refreshing video autoplay manager
 			videoAutoplayManager.refresh();
 		}
 
-		// --- Adaptive Videos ---
-		// if (adaptiveVideoManager && typeof adaptiveVideoManager.refresh === 'function') {
-		// 	console.log('[blog.js] Refreshing adaptive video manager for container:', container);
-		// 	adaptiveVideoManager.refresh();
-		// }
 		
 		// --- Anchor Links ---
 		// Now handled by ScrollUtility which auto-initializes
-
-		// Blog features initialized
 	}
 	// --- End of Refactored Initialization Function ---
 
@@ -257,22 +236,11 @@ document.addEventListener('DOMContentLoaded', function () {
 					window.soundEffects.playButtonPress();
 				}
 				
-				// Start screen wipe transition
-				let transitionData = null;
-				if (window.ScreenWipeTransition) {
-					transitionData = await window.ScreenWipeTransition.start();
-				}
-				
 				// Determine what type of content we're returning from
 				const currentHistoryState = history.state;
 				const isReturningFromProject = currentHistoryState && currentHistoryState.isProject === true;
 				
-				// Back button clicked, returning from project
-				
-				// Remove has-dynamic-content class to restore scroll behavior
-				blogContentElement.classList.remove('has-dynamic-content');
-				
-				// Clean up any existing carousel before resetting content
+				// Clean up any existing carousel before transition
 				if (window._notebookCarouselDebug && window._notebookCarouselDebug.getInstance) {
 					const existingCarousel = window._notebookCarouselDebug.getInstance();
 					if (existingCarousel && existingCarousel.destroy) {
@@ -280,80 +248,91 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 				}
 				
-				blogContentElement.innerHTML = initialBlogContentHTML;
-				initializeBlogFeatures(blogContentElement);
-				initializeLinkListeners(blogContentElement);
-				
-				// Initialize mobile tabs
-				initializeMobileTabs();
-				
-				// Re-initialize toggles
-				initializeProjectToggle();
-				initializePostsOnlyButton();
-				
-				// Ensure tabs are visible again on mobile
-				if (window.innerWidth <= 768) {
-					const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
-					if (tabsWrapper) {
-						tabsWrapper.style.display = '';
-					}
-				}
-				
-				// Set the appropriate tab based on content type
-				if (isReturningFromProject) {
-					// Mark as back navigation for carousel
-					sessionStorage.setItem('portfolio-back-navigation', 'true');
-					
-					// Coming from a project, show portfolio tab
-					setTimeout(() => {
-						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-							window.mobileTabs.switchTab('portfolio', false);
-						}
-						// Emit portfolio-loaded event for parallax initialization
-						window.dispatchEvent(new Event('portfolio-loaded'));
+				// Start screen wipe transition (back navigation variant)
+				let transitionData = null;
+				if (window.ScreenWipeTransition) {
+					transitionData = await window.ScreenWipeTransition.startBack(() => {
+						// This callback fires when panels meet in the middle
+						// Remove has-dynamic-content class to restore scroll behavior
+						blogContentElement.classList.remove('has-dynamic-content');
 						
-						// Also emit contentLoaded to ensure carousel initializes
-						document.dispatchEvent(new Event('contentLoaded'));
+						// Swap content while panels are covering the screen
+						blogContentElement.innerHTML = initialBlogContentHTML;
+						initializeBlogFeatures(blogContentElement);
+						initializeLinkListeners(blogContentElement);
 						
-						// Initialize demo button if project has one
-						setTimeout(() => {
-							if (window.projectDemo && window.projectDemo.init) {
-								window.projectDemo.init();
+						// Initialize mobile tabs
+						initializeMobileTabs();
+						
+						// Re-initialize toggles
+						initializeProjectToggle();
+						initializePostsOnlyButton();
+						
+						// Ensure tabs are visible again on mobile
+						if (window.innerWidth <= 768) {
+							const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
+							if (tabsWrapper) {
+								tabsWrapper.style.display = '';
 							}
-						}, 100);
+						}
 						
-						// Give browser time to restore scroll, then check active notebook
-						setTimeout(() => {
-							if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
-								window._notebookCarousel.reinitialize();
-							}
-						}, 300); // Longer delay to ensure scroll restoration completes
-					}, 50);
-				} else {
-					// Coming from a blog post, show blog tab and clean URL
-					setTimeout(() => {
-						if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-							window.mobileTabs.switchTab('blog', false);
+						// Set the appropriate tab based on content type
+						if (isReturningFromProject) {
+							// Mark as back navigation for carousel
+							sessionStorage.setItem('portfolio-back-navigation', 'true');
+							
+							// Coming from a project, show portfolio tab
+							setTimeout(() => {
+								if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+									window.mobileTabs.switchTab('portfolio', false);
+								}
+								// Emit portfolio-loaded event for parallax initialization
+								window.dispatchEvent(new Event('portfolio-loaded'));
+								
+								// Also emit contentLoaded to ensure carousel initializes
+								document.dispatchEvent(new Event('contentLoaded'));
+								
+								// Initialize demo button if project has one
+								setTimeout(() => {
+									if (window.projectDemo && window.projectDemo.init) {
+										window.projectDemo.init();
+									}
+								}, 100);
+								
+								// Give browser time to restore scroll, then check active notebook
+								setTimeout(() => {
+									if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
+										window._notebookCarousel.reinitialize();
+									}
+								}, 300); // Longer delay to ensure scroll restoration completes
+							}, 50);
+						} else {
+							// Coming from a blog post, show blog tab and clean URL
+							setTimeout(() => {
+								if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+									window.mobileTabs.switchTab('blog', false);
+								}
+								// Clean up URL parameter if coming from blog post
+								if (window.location.search.includes('tab=portfolio')) {
+									history.replaceState({ path: '/', isInitial: true, isDynamic: false }, '', '/');
+								}
+							}, 50);
 						}
-						// Clean up URL parameter if coming from blog post
-						if (window.location.search.includes('tab=portfolio')) {
-							history.replaceState({ path: '/', isInitial: true, isDynamic: false }, '', '/');
-						}
-					}, 50);
-				}
-				
-				// Re-initialize sound effects when returning to home page
-				if (window.initializeSoundEffects) {
-					// Re-initializing sound effects for back navigation
-					window.initializeSoundEffects();
-				} else {
-					// Fallback: try again after a short delay in case sound effects script is still loading
-					setTimeout(() => {
+						
+						// Re-initialize sound effects when returning to home page
 						if (window.initializeSoundEffects) {
-							// Re-initializing sound effects for back navigation (delayed)
+							// Re-initializing sound effects for back navigation
 							window.initializeSoundEffects();
+						} else {
+							// Fallback: try again after a short delay in case sound effects script is still loading
+							setTimeout(() => {
+								if (window.initializeSoundEffects) {
+									// Re-initializing sound effects for back navigation (delayed)
+									window.initializeSoundEffects();
+								}
+							}, 100);
 						}
-					}, 100);
+					});
 				}
 				
 				// End screen wipe transition
@@ -361,7 +340,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					await window.ScreenWipeTransition.end(transitionData);
 				}
 				
-				await fadeInElement(blogContentElement);
 				history.pushState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
 			};
 
@@ -376,12 +354,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		async function fetchAndDisplayContent(url, isPushState = true, isProject = false) {
 			if (!blogContentElement) return;
 
-			// Start screen wipe transition
-			let transitionData = null;
-			if (window.ScreenWipeTransition) {
-				transitionData = await window.ScreenWipeTransition.start();
-			}
-
 			// Before clearing content, cleanup any carousel instances managed by carousel.js
 			if (typeof cleanupCarouselInstances === 'function') {
 				// Cleaning up carousel instances from blogContentElement
@@ -390,6 +362,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			// Add has-dynamic-content class to enable proper scrolling
 			blogContentElement.classList.add('has-dynamic-content');
+
+			// Start screen wipe transition
+			let transitionData = null;
+			if (window.ScreenWipeTransition) {
+				transitionData = await window.ScreenWipeTransition.start();
+			}
 
 			// Clear content after transition starts
 			blogContentElement.innerHTML = '';

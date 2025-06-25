@@ -10,26 +10,34 @@ cover_image: foreground-preview.jpg
 cover_video_poster: 
 has_writeup: true
 tags: [portfolio]
+demo_component: "foreground-demo"
 stats:
   - value: "90%"
     label: "Fewer Support Calls"
   - value: "50%→10%"
     label: "Implementation Time"
 project_stats:
+  - label: "Problem"
+    value: "Three user types with vastly different needs in a single financial platform"
+    type: "problem"
+  - label: "Solution"
+    value: "Unified design system enabling autonomous engineering implementation"
+    type: "solution"
+  - label: "Timeline"
+    value: "6 months (2018)"
+  - label: "Platform"
+    value: "React component library"
   - label: "Team"
     value: 
       - "Lead Product Designer (me) - Architecture, component design, and implementation"
       - "Contract Engineering Team - Directed implementation of complex components"
     type: "list"
-    span: 2
-  - label: "Timeline"
-    value: "6 months (2018)"
-  - label: "Platform"
-    value: "React component library"
-  - label: "Skills"
-    value: ["Design Systems", "Component Architecture", "Financial UX", "Cross-functional Leadership"]
+  - label: "Leadership"
+    value: ["Technical Leadership: Engineering Direction", "Process Innovation: Design System Architecture", "Cross-Functional Enablement: Autonomous Implementation", "Strategic Innovation: Financial Domain Patterns", "Startup Versatility: Solo Designer Impact"]
     type: "tags"
-    span: 3
+  - label: "Skills"
+    value: ["Design Systems", "Component Architecture", "Financial UX", "React", "Technical Documentation", "Developer Experience"]
+    type: "tags"
 gallery_images:
   - url: Color-scheme.jpg
     type: image

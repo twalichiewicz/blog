@@ -8,7 +8,19 @@
     function initProjectDemo() {
         const demoButton = document.getElementById('demoBtn');
         if (demoButton) {
-            setupDemoButton(demoButton);
+            // Feature flag: Only show demo button on localhost
+            const isLocalhost = window.location.hostname === 'localhost' || 
+                               window.location.hostname === '127.0.0.1' || 
+                               window.location.hostname.startsWith('192.168.') ||
+                               window.location.port === '4000'; // Hexo dev server port
+            
+            if (isLocalhost) {
+                demoButton.style.display = 'inline-flex'; // Show button
+                setupDemoButton(demoButton);
+            } else {
+                // Remove button entirely on production
+                demoButton.remove();
+            }
         }
     }
 

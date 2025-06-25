@@ -248,21 +248,195 @@ Available in `themes/san-diego/scripts/`:
 ### Interactive Demo System
 Self-contained demos that load in place of project trailers:
 
-#### Creating Demos
+#### Demo Architecture
+```
+demos/
+├── build-scripts/          # Build automation
+│   ├── build-all-demos.js # Builds all demos
+│   └── watch-demos.js     # Development servers
+├── examples/               # Demo templates
+│   └── react-demo-template/
+├── [project-demos]/        # Individual demo projects
+└── README.md
+```
+
+#### Creating a New Demo
+
+##### 1. Setup from Template
 ```bash
 # Copy React template
 cp -r demos/examples/react-demo-template demos/my-project-demo
 cd demos/my-project-demo
-npm install
 
-# Add to project front matter
-demo_component: "my-project-demo"
+# Update package.json
+# Change name, description, and port (use unique ports: 3001, 3002, etc.)
 ```
 
-#### Requirements
-- Must build to `dist/` with `index.html`
-- Self-contained (no external dependencies)
-- Include `package.json` with build/dev scripts
+##### 2. Configure Vite
+Update `vite.config.js`:
+```javascript
+export default defineConfig({
+  plugins: [react()],
+  base: './',  // CRITICAL: Use relative paths for assets
+  server: {
+    port: 3002,  // Unique port for each demo
+  }
+})
+```
+
+##### 3. Demo Structure
+Typical demo components:
+```
+src/
+├── App.jsx              # Main app component
+├── App.css              # Global styles
+└── components/
+    ├── Feature1.jsx     # Feature demonstrations
+    ├── Feature2.jsx
+    └── styles/          # Component styles
+```
+
+##### 4. Enable in Portfolio Post
+Add to project front matter:
+```yaml
+demo_component: "my-project-demo"
+# or for external demos:
+demo_url: "https://codepen.io/example"
+```
+
+#### Building Demos
+
+##### Development Workflow
+```bash
+# Start all demo dev servers
+npm run dev:demos
+
+# Start specific demo
+cd demos/my-project-demo && npm run dev
+
+# Start blog dev server (separate terminal)
+npm run server
+```
+
+##### Production Build
+```bash
+# Build all demos (from root)
+npm run build:demos
+
+# Build specific demo
+cd demos/my-project-demo && npm run build
+
+# Build blog with demos
+npm run build
+```
+
+#### Demo Requirements
+- **Build Output**: Must build to `dist/` with `index.html`
+- **Asset Paths**: Use relative paths (`base: './'` in Vite)
+- **Self-contained**: No external runtime dependencies
+- **Responsive**: Must work on all devices
+- **Performance**: Keep bundle size reasonable (<1MB)
+
+#### Best Practices for Demo Development
+
+##### 1. Story-Driven Design
+- Focus on user journey, not feature lists
+- Create narrative flow through the demo
+- Show business impact, not just functionality
+
+##### 2. Interactivity Patterns
+- **Progressive Disclosure**: Start simple, reveal complexity
+- **Guided Exploration**: Clear CTAs and next steps
+- **Reset Capability**: Allow users to restart demos
+- **Loading States**: Show progress for async operations
+
+##### 3. Visual Polish
+- Match the sophistication of the actual project
+- Use smooth animations (Framer Motion recommended)
+- Consistent with portfolio design language
+- High-quality mockups and assets
+
+##### 4. Technical Considerations
+```javascript
+// Good: Component-based architecture
+const Demo = () => {
+  const [activeFeature, setActiveFeature] = useState('overview');
+  
+  return (
+    <div className="demo-container">
+      <Navigation onFeatureChange={setActiveFeature} />
+      <FeatureDisplay feature={activeFeature} />
+    </div>
+  );
+};
+
+// Good: Responsive design
+.demo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+// Good: Performance optimization
+const HeavyComponent = lazy(() => import('./HeavyComponent'));
+```
+
+##### 5. Common Demo Features
+- **Multi-step Workflows**: Show complex processes simply
+- **Before/After Comparisons**: Highlight transformations
+- **Interactive Playgrounds**: Let users experiment
+- **Data Visualizations**: Charts, graphs, metrics
+- **Persona Switching**: Show different user experiences
+
+#### Example Demo Patterns
+
+##### Pattern 1: Multi-Step Form (Fauxdal)
+```javascript
+const steps = ['Welcome', 'Input', 'Review', 'Complete'];
+const [currentStep, setCurrentStep] = useState(0);
+
+// Progressive form with validation
+// Visual progress indicator
+// Smooth transitions between steps
+```
+
+##### Pattern 2: Before/After Comparison
+```javascript
+const [showBefore, setShowBefore] = useState(true);
+
+// Split screen or toggle view
+// Animated transitions
+// Clear visual differences
+```
+
+##### Pattern 3: Feature Showcase
+```javascript
+const features = [
+  { id: 'feature1', title: 'Feature 1', component: <Feature1 /> },
+  { id: 'feature2', title: 'Feature 2', component: <Feature2 /> }
+];
+
+// Tab navigation
+// Lazy loading of features
+// Contextual help/tooltips
+```
+
+#### Troubleshooting Demos
+
+##### Asset Loading Issues
+- Ensure `base: './'` in vite.config.js
+- Check console for 404 errors
+- Verify build output structure
+
+##### Performance Problems
+- Use React DevTools Profiler
+- Implement code splitting
+- Optimize images and assets
+
+##### Cross-Browser Issues
+- Test in Chrome, Firefox, Safari
+- Check mobile browsers
+- Verify touch interactions
 
 ### Notebook Customization
 Portfolio projects can have customized notebook covers:

@@ -9,7 +9,7 @@
   width: 100%;
   margin: 3rem auto;
   margin-bottom: 4rem; // Increased bottom margin
-  padding: 2rem 0 0;
+  padding: 24px 0 0;
   border-top: 1px solid rgb(0 0 0 / 8%);
   background: transparent; // Remove background color
   
@@ -251,8 +251,23 @@
 .project-stats-grid--two-col {
   grid-template-columns: repeat(2, 1fr);
   
+  .project-stat-item {
+    // Remove right border from Solution (right column)
+    &:nth-child(2) {
+      border-right: none;
+    }
+  }
+  
   @media (max-width: variables.$mobile-breakpoint) {
     grid-template-columns: 1fr;
+    
+    .project-stat-item {
+      border-right: none;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
   }
 }
 
@@ -266,6 +281,108 @@
   
   @media (max-width: variables.$mobile-breakpoint) {
     grid-template-columns: 1fr;
+  }
+}
+
+// Variant: Full width for leadership/skills tags
+.project-stats-grid--full-width {
+  grid-template-columns: 1fr;
+  
+  .stat-span-full {
+    grid-column: 1 / -1;
+  }
+  
+  // Remove right borders for full-width items
+  .project-stat-item {
+    border-right: none !important;
+  }
+}
+
+// Variant: Team context layout (Team on left, Timeline/Platform stacked on right)
+.project-stats-grid--team-context {
+  grid-template-columns: 1fr 1fr; // Match Problem/Solution proportions
+  
+  .stat-team {
+    grid-row: span 2; // Team spans both rows
+    border-bottom: none !important; // Remove border-bottom from Team
+  }
+  
+  .stat-timeline-platform-stack {
+    display: flex;
+    flex-direction: column;
+    
+    .project-stat-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: none;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      @media (prefers-color-scheme: light) {
+        border-bottom-color: rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    grid-template-columns: 1fr;
+    
+    .stat-team {
+      grid-row: span 1;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; // Restore border on mobile
+      
+      @media (prefers-color-scheme: light) {
+        border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+      }
+    }
+    
+    .stat-timeline-platform-stack {
+      .project-stat-item {
+        border-right: none;
+      }
+    }
+  }
+}
+
+// Container for multiple stat rows
+.project-stats-container {
+  .project-stats-grid {
+    margin-bottom: 0;
+    border-top: none;
+    border-bottom: none;
+    
+    // First grid (Problem/Solution) has top and bottom border
+    &:first-child {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      
+      @media (prefers-color-scheme: light) {
+        border-top-color: rgba(0, 0, 0, 0.08);
+        border-bottom-color: rgba(0, 0, 0, 0.08);
+      }
+    }
+    
+    
+    // Leadership grid gets top border only (Skills grid has bottom borders on items)
+    &.project-stats-grid--leadership {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      
+      @media (prefers-color-scheme: light) {
+        border-top-color: rgba(0, 0, 0, 0.08);
+      }
+    }
+    
+    // Skills grid - let individual items handle borders
+    &.project-stats-grid--skills {
+      .project-stat-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        
+        @media (prefers-color-scheme: light) {
+          border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
+      }
+    }
   }
 }
 

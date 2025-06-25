@@ -9,8 +9,17 @@
                 </svg>
             </button>
             <div class="impact-modal-title">Design Impact Report 2025</div>
+            <button class="impact-modal-party-mode" onclick="togglePartyMode()" aria-label="Toggle party mode" title="Activate party mode">
+                <svg class="party-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                </svg>
+                <span class="party-text">Party</span>
+                <audio id="impact-audio" loop>
+                    <source src="<%- url_for('/media/deepHouse.mp3') %>" type="audio/mpeg">
+                </audio>
+            </button>
         </div>
-		<div class="impact-modal-subtitle">Values represent individual project improvements, not cumulative metrics.</div>
+		<div class="impact-modal-subtitle">Strategic design leadership through collaboration, innovation, and measurable business impact.</div>
         <div class="impact-grid">
             <!-- FINANCIAL IMPACT Section -->
             <div class="impact-section" data-section="financial">
@@ -244,6 +253,120 @@
                                 <div class="tile-label">User Retention Rate</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CROSS-FUNCTIONAL COLLABORATION Section -->
+            <div class="impact-section" data-section="collaboration">
+                <div class="section-label">CROSS-FUNCTIONAL COLLABORATION</div>
+                
+                <!-- Engineering Partnership - Large tile -->
+                <div class="impact-tile tile-large tile-engineering" data-animate="stack" style="grid-column: span 3; grid-row: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">Deep Partnership</div>
+                                <div class="tile-label">Engineering Collaboration</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Embedded in technical decisions, not request fulfillment</div>
+                    </div>
+                </div>
+                
+                <!-- Multi-Team Collaboration - Medium tile -->
+                <div class="impact-tile tile-medium tile-teams" data-animate="pulse" style="grid-column: span 3;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">Cross-Team</div>
+                                <div class="tile-label">Design Collaboration</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Design feedback across Autodesk teams</div>
+                    </div>
+                </div>
+                
+                <!-- Workshop Facilitation - Medium tile -->
+                <div class="impact-tile tile-medium tile-workshops" data-animate="spark" style="grid-column: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">Facilitator</div>
+                                <div class="tile-label">Workshop Design</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Internal teams + customers</div>
+                    </div>
+                </div>
+                
+                <!-- Code Contribution - Small tile -->
+                <div class="impact-tile tile-small tile-code" data-animate="flip">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">3</div>
+                                <div class="tile-label">Languages</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">React, JS, Python</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- STRATEGIC INNOVATION Section -->
+            <div class="impact-section" data-section="innovation">
+                <div class="section-label">STRATEGIC INNOVATION</div>
+                
+                <!-- North Star Projects - Large tile -->
+                <div class="impact-tile tile-large tile-northstar" data-animate="shine" style="grid-column: span 3;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">Multiple</div>
+                                <div class="tile-label">North Star Initiatives</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Launched & influenced product direction</div>
+                    </div>
+                </div>
+                
+                <!-- Overlay Initiative - Medium tile -->
+                <div class="impact-tile tile-medium tile-overlay" data-animate="rotate" style="grid-column: span 3;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">VP-Sponsored</div>
+                                <div class="tile-label">Overlay Platform</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Self-initiated cross-app intelligence</div>
+                    </div>
+                </div>
+                
+                <!-- MAP Framework - Medium tile -->
+                <div class="impact-tile tile-medium tile-map" data-animate="flip" style="grid-column: span 2;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">MAP</div>
+                                <div class="tile-label">Framework Design</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">New methodology proposal</div>
+                    </div>
+                </div>
+                
+                <!-- Org Design - Large tile -->
+                <div class="impact-tile tile-large tile-orgdesign" data-animate="stack" style="grid-column: span 4;">
+                    <div class="tile-inner">
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">Platform Strategy</div>
+                                <div class="tile-label">Organizational Insights</div>
+                            </div>
+                        </div>
+                        <div class="tile-detail">Identified structural barriers to platform adoption</div>
                     </div>
                 </div>
             </div>

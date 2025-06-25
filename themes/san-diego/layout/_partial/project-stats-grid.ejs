@@ -1,19 +1,20 @@
 <%
 // Project Stats Grid Component
-// Displays project metadata in a high-density grid format
-// 
-// Expected data structure:
-// stats: [
-//   { label: 'Role', value: 'Lead Designer' },
-//   { label: 'Timeline', value: '6 months' },
-//   { label: 'Team', value: ['1 Designer', '3 Engineers', '1 PM'], type: 'list' },
-//   { label: 'Impact', value: '90% reduction', type: 'highlight' },
-//   { label: 'Skills', value: ['Design Systems', 'Prototyping', 'Research'], type: 'tags' }
-// ]
 
 const stats = locals.stats || [];
 const variant = locals.variant || ''; // 'compact', 'two-col', 'three-col'
 const className = locals.className || '';
+
+// Separate stats into rows for better organization
+const problemSolutionStats = stats.filter(stat => stat.type === 'problem' || stat.type === 'solution');
+const teamStats = stats.filter(stat => stat.label === 'Team');
+const timelinePlatformStats = stats.filter(stat => ['Timeline', 'Platform'].includes(stat.label));
+const leadershipStats = stats.filter(stat => stat.label === 'Leadership');
+const skillsStats = stats.filter(stat => stat.label === 'Skills');
+const otherStats = stats.filter(stat => 
+  !['problem', 'solution'].includes(stat.type) && 
+  !['Role', 'Timeline', 'Team', 'Platform', 'Leadership', 'Skills'].includes(stat.label)
+);
 
 // Determine grid class based on number of items or explicit variant
 let gridClass = 'project-stats-grid';
@@ -31,58 +32,129 @@ if (className) {
 %>
 
 <% if (stats && stats.length > 0) { %>
-<div class="<%- gridClass %>">
-  <% stats.forEach(function(stat, index) { 
-    if (!stat.label || !stat.value) return;
-    
-    // Determine value class based on type
-    let valueClass = 'stat-value';
-    if (stat.type === 'list') {
-      valueClass += ' stat-value--list';
-    } else if (stat.type === 'highlight') {
-      valueClass += ' stat-value--highlight';
-    } else if (stat.type === 'tags') {
-      valueClass += ' stat-value--tags';
-    }
-    
-    // Add spanning class for items that should span columns
-    let itemClass = 'project-stat-item';
-    if (stat.span === 2) {
-      itemClass += ' stat-span-2';
-    } else if (stat.span === 3) {
-      itemClass += ' stat-span-3';
-    }
-  %>
-    <div class="<%- itemClass %>">
-      <div class="stat-label"><%- stat.label %></div>
-      <div class="<%- valueClass %>">
-        <% if (stat.type === 'list' && Array.isArray(stat.value)) { %>
-          <ul>
-            <% stat.value.forEach(function(item) { 
-              // Check if this is a team member with role description
-              const dashIndex = item.indexOf(' - ');
-              if (stat.label === 'Team' && dashIndex > -1) {
-                const member = item.substring(0, dashIndex);
-                const role = item.substring(dashIndex + 3);
-            %>
-              <li>
-                <%- member %>
-                <span class="team-member-role"><%- role %></span>
-              </li>
-            <% } else { %>
-              <li><%- item %></li>
-            <% } 
-            }) %>
-          </ul>
-        <% } else if (stat.type === 'tags' && Array.isArray(stat.value)) { %>
-          <% stat.value.forEach(function(tag) { %>
-            <span class="stat-tag"><%- tag %></span>
-          <% }) %>
-        <% } else { %>
-          <%- stat.value %>
-        <% } %>
+<div class="project-stats-container">
+  <% if (problemSolutionStats.length > 0) { %>
+  <!-- Problem/Solution Row -->
+  <div class="project-stats-grid project-stats-grid--two-col">
+    <% problemSolutionStats.forEach(function(stat) { %>
+      <div class="project-stat-item">
+        <div class="stat-label"><%- stat.label %></div>
+        <div class="stat-value"><%- stat.value %></div>
       </div>
-    </div>
-  <% }) %>
+    <% }) %>
+  </div>
+  <% } %>
+  
+  <% if (teamStats.length > 0 || timelinePlatformStats.length > 0) { %>
+  <!-- Context Row: Team takes left side, Timeline/Platform stack on right -->
+  <div class="project-stats-grid project-stats-grid--team-context">
+    <% if (teamStats.length > 0) { %>
+      <% teamStats.forEach(function(stat) { 
+        let valueClass = 'stat-value';
+        if (stat.type === 'list') {
+          valueClass += ' stat-value--list';
+        }
+      %>
+        <div class="project-stat-item stat-team">
+          <div class="stat-label"><%- stat.label %></div>
+          <div class="<%- valueClass %>">
+            <% if (stat.type === 'list' && Array.isArray(stat.value)) { %>
+              <ul>
+                <% stat.value.forEach(function(item) { 
+                  // Check if this is a team member with role description
+                  const dashIndex = item.indexOf(' - ');
+                  if (stat.label === 'Team' && dashIndex > -1) {
+                    const member = item.substring(0, dashIndex);
+                    const role = item.substring(dashIndex + 3);
+                %>
+                  <li>
+                    <%- member %>
+                    <span class="team-member-role"><%- role %></span>
+                  </li>
+                <% } else { %>
+                  <li><%- item %></li>
+                <% } 
+                }) %>
+              </ul>
+            <% } else { %>
+              <%- stat.value %>
+            <% } %>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+    
+    <% if (timelinePlatformStats.length > 0) { %>
+      <div class="stat-timeline-platform-stack">
+        <% timelinePlatformStats.forEach(function(stat) { %>
+          <div class="project-stat-item">
+            <div class="stat-label"><%- stat.label %></div>
+            <div class="stat-value"><%- stat.value %></div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+  <% } %>
+  
+  <% if (leadershipStats.length > 0) { %>
+  <!-- Leadership Row (full width tags) -->
+  <div class="project-stats-grid project-stats-grid--full-width project-stats-grid--leadership">
+    <% leadershipStats.forEach(function(stat) { %>
+      <div class="project-stat-item stat-span-full">
+        <div class="stat-label"><%- stat.label %></div>
+        <div class="stat-value stat-value--tags">
+          <% if (Array.isArray(stat.value)) { %>
+            <% stat.value.forEach(function(tag) { %>
+              <span class="stat-tag"><%- tag %></span>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+  <% } %>
+  
+  <% if (skillsStats.length > 0) { %>
+  <!-- Skills Row (full width tags) -->
+  <div class="project-stats-grid project-stats-grid--full-width project-stats-grid--skills">
+    <% skillsStats.forEach(function(stat) { %>
+      <div class="project-stat-item stat-span-full">
+        <div class="stat-label"><%- stat.label %></div>
+        <div class="stat-value stat-value--tags">
+          <% if (Array.isArray(stat.value)) { %>
+            <% stat.value.forEach(function(tag) { %>
+              <span class="stat-tag"><%- tag %></span>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+  <% } %>
+  
+  <% if (otherStats.length > 0) { %>
+  <!-- Other Stats -->
+  <div class="<%- gridClass %>">
+    <% otherStats.forEach(function(stat) { 
+      let valueClass = 'stat-value';
+      if (stat.type === 'highlight') {
+        valueClass += ' stat-value--highlight';
+      }
+      
+      let itemClass = 'project-stat-item';
+      if (stat.span === 2) {
+        itemClass += ' stat-span-2';
+      } else if (stat.span === 3) {
+        itemClass += ' stat-span-3';
+      }
+    %>
+      <div class="<%- itemClass %>">
+        <div class="stat-label"><%- stat.label %></div>
+        <div class="<%- valueClass %>"><%- stat.value %></div>
+      </div>
+    <% }) %>
+  </div>
+  <% } %>
 </div>
 <% } %>

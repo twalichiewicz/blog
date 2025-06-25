@@ -978,8 +978,132 @@
     --accent-color: #FF9999; // Bright red
 }
 
+// Cross-functional collaboration colors
+.tile-engineering {
+    --accent-color: #9999FF; // Bright blue-purple
+}
+
+.tile-workshops {
+    --accent-color: #FF99E6; // Bright fuchsia
+}
+
+.tile-code {
+    --accent-color: #99FF99; // Bright lime green
+}
+
+// Strategic innovation colors
+.tile-northstar {
+    --accent-color: #FFD700; // Bright gold
+}
+
+.tile-overlay {
+    --accent-color: #99E6FF; // Bright sky blue
+}
+
+.tile-map {
+    --accent-color: #FF99B3; // Bright coral pink
+}
+
+.tile-orgdesign {
+    --accent-color: #B399FF; // Bright violet
+}
+
 .tile-legacy {
     --accent-color: #FFD700; // Gold
+}
+
+// Party mode animations
+.impact-grid.party-mode {
+    .impact-tile {
+        transition: transform 0.1s ease-out;
+        
+        // Trigger hover effect on beat - match actual hover styles
+        &.beat-hover {
+            transform: translateY(-4px) scale(1.02);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 8px 16px rgba(0, 0, 0, 0.3),
+                0 12px 32px rgba(0, 0, 0, 0.2),
+                0 0 40px -10px var(--accent-color),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            
+            .tile-hover-content {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            .tile-value {
+                // Enhanced neon glow on hover - matching exact hover styles
+                text-shadow: 
+                    // Inner glass highlight (brighter)
+                    0 -1px 0 rgba(255, 255, 255, 0.5),
+                    // Glass tube depth
+                    0 1px 2px rgba(0, 0, 0, 0.9),
+                    // Inner neon glow (stronger)
+                    inset 0 0 15px var(--accent-color),
+                    // Outer glow (more intense)
+                    0 0 12px var(--accent-color),
+                    0 0 20px var(--accent-color);
+                filter: contrast(1.3) brightness(1.2);
+            }
+            
+            .counter {
+                // Enhanced neon glow on hover
+                text-shadow: 
+                    // Inner glass highlight (brighter)
+                    0 -1px 0 rgba(255, 255, 255, 0.5),
+                    // Glass tube depth
+                    0 1px 2px rgba(0, 0, 0, 0.9),
+                    // Inner neon glow (stronger)
+                    inset 0 0 15px var(--accent-color),
+                    // Outer glow (more intense)
+                    0 0 12px var(--accent-color),
+                    0 0 20px var(--accent-color);
+                filter: contrast(1.3) brightness(1.2);
+            }
+        }
+    }
+    
+    .tile-value {
+        animation: colorShift 4s ease-in-out infinite;
+    }
+}
+
+@keyframes beatPulse {
+    0% {
+        filter: brightness(1) drop-shadow(0 0 20px var(--accent-color));
+    }
+    50% {
+        filter: brightness(1.5) drop-shadow(0 0 40px var(--accent-color));
+    }
+    100% {
+        filter: brightness(1) drop-shadow(0 0 20px var(--accent-color));
+    }
+}
+
+@keyframes colorShift {
+    0%, 100% {
+        filter: hue-rotate(0deg) brightness(1.2);
+    }
+    25% {
+        filter: hue-rotate(90deg) brightness(1.3);
+    }
+    50% {
+        filter: hue-rotate(180deg) brightness(1.4);
+    }
+    75% {
+        filter: hue-rotate(270deg) brightness(1.3);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 // Mobile wrapper for horizontal layout

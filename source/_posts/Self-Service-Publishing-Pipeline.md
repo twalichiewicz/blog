@@ -20,21 +20,29 @@ stats:
   - value: "$2M/year"
     label: "Engineering costs saved"
 project_stats:
+  - label: "Problem"
+    value: "3-4 week publishing cycles blocking $6-8M revenue opportunities"
+    type: "problem"
+  - label: "Solution"
+    value: "Self-service platform enabling same-day content publishing"
+    type: "solution"
+  - label: "Timeline"
+    value: "9 months"
+  - label: "Platform"
+    value: "CMS with custom creation tool built on top"
   - label: "Team"
     value: 
       - "Lead Product Designer (me)"
       - "1 Product Manager"
       - "Engineering team (7 people)"
+      - "Subject matter experts (8 people)"
     type: "list"
-    span: 2
-  - label: "Timeline"
-    value: "1 year"
-  - label: "Platform"
-    value: "CMS with custom creation tool built on top"
-  - label: "Skills"
-    value: ["Service Design", "CMS Design", "Developer Tools", "Business Strategy"]
+  - label: "Leadership"
+    value: ["Cross-Functional Influence (9 people)", "Process Innovation: Self-Service Framework", "Strategic Partnership: Business Strategy", "Change Management: Publishing Transformation", "Stakeholder Education: Content Team Enablement"]
     type: "tags"
-    span: 3
+  - label: "Skills"
+    value: ["Service Design", "CMS Design", "Developer Tools", "Business Strategy", "Platform Design", "User Research"]
+    type: "tags"
 gallery_images:
  - url: LINO-0.png
    type: image

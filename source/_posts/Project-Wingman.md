@@ -17,26 +17,31 @@ cover_video_poster: /2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg
 stats:
   - value: "100+"
     label: "Unified Installers"
-  - value: "Millions"
-    label: "Users Impacted"
   - value: "6 Products"
     label: "Major Teams Aligned"
 project_stats:
+  - label: "Problem"
+    value: "100+ fragmented installers creating chaos for enterprise deployments"
+    type: "problem"
+  - label: "Solution"
+    value: "Unified installer SDK with progressive loading architecture"
+    type: "solution"
+  - label: "Timeline"
+    value: "8 months (2019)"
+  - label: "Platform"
+    value: "Desktop installer framework"
   - label: "Team"
     value: 
       - "Lead Product Designer (me) - Framework design, stakeholder alignment, research"
       - "Platform Engineering - Technical architecture and SDK development"
       - "6 Product Teams - AutoCAD, Maya, 3ds Max, Inventor, Revit, Fusion"
     type: "list"
-    span: 2
-  - label: "Timeline"
-    value: "8 months (2019)"
-  - label: "Platform"
-    value: "Desktop installer framework"
-  - label: "Skills"
-    value: ["Enterprise UX", "Stakeholder Management", "Framework Design", "Research Operations"]
+  - label: "Leadership"
+    value: ["Cross-Functional Influence (6 Product Teams)", "Process Innovation: Installation Framework", "Strategic Research: Administrator Cohort", "Change Management: Organizational Standardization", "Technical Leadership: SDK Architecture"]
     type: "tags"
-    span: 3
+  - label: "Skills"
+    value: ["Enterprise UX", "Stakeholder Management", "Framework Design", "Research Operations", "Systems Architecture", "Change Management"]
+    type: "tags"
 credits:
   - role: Role
     name: Lead Product Designer, Access Experience

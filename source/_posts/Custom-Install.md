@@ -35,21 +35,28 @@ stats:
   - value: "85%"
     label: "Fewer Support Tickets"
 project_stats:
+  - label: "Problem"
+    value: "60+ duplicate installer systems consuming millions in redundant development"
+    type: "problem"
+  - label: "Solution"
+    value: "Single platform generating custom deployment UIs from XML configuration"
+    type: "solution"
+  - label: "Timeline"
+    value: "18 months (2019-2020)"
+  - label: "Platform"
+    value: "Cloud-based React application"
   - label: "Team"
     value: 
       - "Lead Product Designer (me)"
       - "Product Manager & Product Owner"
       - "Engineering team (5-6 people)"
     type: "list"
-    span: 2
-  - label: "Timeline"
-    value: "18 months (2018-2019)"
-  - label: "Platform"
-    value: "Cloud-based React application"
-  - label: "Skills"
-    value: ["Enterprise UX", "Design Systems", "Accessibility", "Cross-platform Design"]
+  - label: "Leadership"
+    value: ["Cross-Functional Influence (8 people)", "Process Innovation: Research Partnership Program", "Strategic Impact: Platform Transformation", "Stakeholder Education: Delta Deployment Group", "Change Management: Enterprise Adoption"]
     type: "tags"
-    span: 3
+  - label: "Skills"
+    value: ["Enterprise UX", "Design Systems", "Accessibility", "Cross-platform Design", "Service Design", "React"]
+    type: "tags"
 ---
 
 
