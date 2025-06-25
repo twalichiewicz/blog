@@ -228,6 +228,8 @@ function togglePartyMode() {
     
     if (isPartyMode) {
         // Start the party!
+        // Set the audio to loop
+        audio.loop = true;
         audio.play();
         button.classList.add('playing');
         
