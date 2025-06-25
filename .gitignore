@@ -59,8 +59,12 @@ mcp-dev-server/
 # *.sh
 start-server.sh
 
-# Internal documentation
+# Internal documentation & personal growth
 ARTICLE_EDITING_PLAYBOOK.md
+portfolio-leadership-positioning-strategy.md
+portfolio-project-stats-analysis.md
+docs/750k-ic-roadmap.md
+docs/demo-development-strategy.md
 
 # Claude AI files
 .claude/
