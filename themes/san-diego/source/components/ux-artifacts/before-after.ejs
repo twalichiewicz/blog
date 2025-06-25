@@ -1,0 +1,92 @@
+<%# Before/After Comparison Component - Usage: <%- include('components/ux-artifacts/before-after', { comparison: {...} }) %> %>
+
+<div class="ux-artifact before-after">
+  <div class="artifact-header">
+    <div class="artifact-icon">🔄</div>
+    <h3 class="artifact-title"><%= comparison.title || 'Before vs After' %></h3>
+  </div>
+  
+  <div class="comparison-container">
+    <div class="comparison-side before-side">
+      <div class="side-label">
+        <span class="label-icon">❌</span>
+        <h4>Before</h4>
+      </div>
+      <div class="side-content">
+        <% if (comparison.before.image) { %>
+          <div class="comparison-image">
+            <img src="<%= comparison.before.image %>" alt="Before state" />
+          </div>
+        <% } %>
+        <div class="comparison-details">
+          <% if (comparison.before.description) { %>
+            <p><%= comparison.before.description %></p>
+          <% } %>
+          <% if (comparison.before.pain_points) { %>
+            <div class="pain-points">
+              <h5>Pain Points:</h5>
+              <ul>
+                <% comparison.before.pain_points.forEach(function(point) { %>
+                  <li><%= point %></li>
+                <% }); %>
+              </ul>
+            </div>
+          <% } %>
+          <% if (comparison.before.metrics) { %>
+            <div class="metrics-before">
+              <% comparison.before.metrics.forEach(function(metric) { %>
+                <div class="metric-item negative">
+                  <span class="metric-value"><%= metric.value %></span>
+                  <span class="metric-label"><%= metric.label %></span>
+                </div>
+              <% }); %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="comparison-divider">
+      <div class="divider-arrow">→</div>
+    </div>
+
+    <div class="comparison-side after-side">
+      <div class="side-label">
+        <span class="label-icon">✅</span>
+        <h4>After</h4>
+      </div>
+      <div class="side-content">
+        <% if (comparison.after.image) { %>
+          <div class="comparison-image">
+            <img src="<%= comparison.after.image %>" alt="After state" />
+          </div>
+        <% } %>
+        <div class="comparison-details">
+          <% if (comparison.after.description) { %>
+            <p><%= comparison.after.description %></p>
+          <% } %>
+          <% if (comparison.after.improvements) { %>
+            <div class="improvements">
+              <h5>Key Improvements:</h5>
+              <ul>
+                <% comparison.after.improvements.forEach(function(improvement) { %>
+                  <li><%= improvement %></li>
+                <% }); %>
+              </ul>
+            </div>
+          <% } %>
+          <% if (comparison.after.metrics) { %>
+            <div class="metrics-after">
+              <% comparison.after.metrics.forEach(function(metric) { %>
+                <div class="metric-item positive">
+                  <span class="metric-value"><%= metric.value %></span>
+                  <span class="metric-label"><%= metric.label %></span>
+                </div>
+              <% }); %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -107,6 +107,31 @@
 				color: variables.$text-color !important;
 			}
 		}
+
+		// Beta pill styling for portfolio tab only
+		&#tab-portfolio::after {
+			content: 'BETA';
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 81px;
+			background-color: lightgrey;
+			color: white;
+			font-size: 9px;
+			font-weight: 600;
+			padding: 3px 4px 3px 6px;
+			border-radius: 9px;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			line-height: 1;
+			z-index: 10;
+		}
+
+		// Beta pill active state styling
+		&#tab-portfolio.active::after {
+			background-color: white;
+			color: grey;
+		}
 	}
 
 	@media screen and (max-width: variables.$mobile-breakpoint) {
@@ -147,6 +172,19 @@
 				&:hover {
 					color: variables.$text-color-dark !important;
 				}
+			}
+
+			// Beta pill dark mode styling for portfolio tab only
+			&#tab-portfolio::after {
+				background-color: lightgrey;
+				color: white;
+				text-shadow: none;
+			}
+
+			// Beta pill dark mode active state styling
+			&#tab-portfolio.active::after {
+				background-color: white;
+				color: grey;
 			}
 		}
 	}

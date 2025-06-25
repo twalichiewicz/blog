@@ -526,9 +526,14 @@ Consult `TESTING-PROTOCOLS.md` for:
 
 ### Browser Testing
 - Test in Chrome, Firefox, Safari (Mac)
-- Check mobile browsers
+- Check mobile browsers (iOS Safari, Chrome Mobile, Samsung Internet)
 - Verify responsive breakpoints
 - Test with/without JavaScript
+- **CSS Feature Testing**: Always test advanced CSS features (backdrop-filter, CSS Grid, flexbox gaps, etc.) across browsers
+- **Fallback Testing**: Verify that CSS `@supports` queries and fallbacks work properly
+- **Visual Regression**: Compare screenshots across browsers for visual consistency
+- **Performance**: Test loading speeds and interactions on different browsers
+- **Developer Tools**: Check console for browser-specific errors or warnings
 
 ## Deployment
 

@@ -11,6 +11,7 @@ cover_video_poster:
 has_writeup: true
 tags: [portfolio]
 demo_component: "foreground-demo"
+demo_inline: true
 stats:
   - value: "90%"
     label: "Fewer Support Calls"

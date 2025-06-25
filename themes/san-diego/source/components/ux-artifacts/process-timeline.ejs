@@ -1,0 +1,34 @@
+<%# Process Timeline Component - Usage: <%- include('components/ux-artifacts/process-timeline', { phases: [...] }) %> %>
+
+<div class="ux-artifact process-timeline">
+  <div class="artifact-header">
+    <div class="artifact-icon">⏱️</div>
+    <h3 class="artifact-title">Design Process</h3>
+  </div>
+  
+  <div class="timeline-container">
+    <div class="timeline-line"></div>
+    <% phases.forEach(function(phase, index) { %>
+      <div class="timeline-phase" data-phase="<%= index + 1 %>">
+        <div class="phase-marker">
+          <div class="phase-number"><%= index + 1 %></div>
+        </div>
+        <div class="phase-content">
+          <h4 class="phase-title"><%= phase.title %></h4>
+          <div class="phase-duration"><%= phase.duration %></div>
+          <p class="phase-description"><%= phase.description %></p>
+          <% if (phase.deliverables) { %>
+            <div class="phase-deliverables">
+              <strong>Key Deliverables:</strong>
+              <ul>
+                <% phase.deliverables.forEach(function(deliverable) { %>
+                  <li><%= deliverable %></li>
+                <% }); %>
+              </ul>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>

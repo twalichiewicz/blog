@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <%- partial('_partial/head') %>
-<body class="project-page">
+<body class="project-page<%= page.demo_inline && page.demo_component ? ' demo-inline-active' : '' %>">
 	<script>
 		// Redirect to homepage with project path
 		(function() {
@@ -37,9 +37,18 @@
 				</div>
 			</div>
 			<!-- Project trailer (single hero item) -->
-			<div class="project-trailer-hero<%= !page.trailer && !page.cover_image ? ' hidden' : '' %>" id="trailerHero">
+			<div class="project-trailer-hero<%= !page.trailer && !page.cover_image && (!page.demo_inline || !page.demo_component) ? ' hidden' : '' %>" id="trailerHero">
 				<div class="trailer-content" id="trailerContent">
-						<% if (page.trailer) { %>
+						<% if (page.demo_inline && page.demo_component) { %>
+							<!-- Inline demo mode -->
+							<div class="demo-inline-container" data-demo-component="<%= page.demo_component %>">
+								<div class="demo-inline-loading">
+									<div class="demo-loading-spinner"></div>
+									<p>Loading interactive demo...</p>
+								</div>
+								<!-- Demo iframe will be injected here -->
+							</div>
+						<% } else if (page.trailer) { %>
 							<% 
 							// Handle both string and object trailer configurations
 							const item = typeof page.trailer === 'string' 
@@ -128,7 +137,7 @@
 					
 					<!-- Read full story button and demo button moved here -->
 					<div class="read-story-button-container">
-						<% if (page.demo_url || page.demo_component) { %>
+						<% if ((page.demo_url || page.demo_component) && !page.demo_inline) { %>
 							<button class="demo-button" 
 								<% if (page.demo_url) { %>
 									data-demo-url="<%- page.demo_url %>"

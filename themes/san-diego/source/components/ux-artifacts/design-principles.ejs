@@ -1,0 +1,30 @@
+<%# Design Principles Component - Usage: <%- include('components/ux-artifacts/design-principles', { principles: [...] }) %> %>
+
+<div class="ux-artifact design-principles">
+  <div class="artifact-header">
+    <div class="artifact-icon">🎯</div>
+    <h3 class="artifact-title">Design Principles</h3>
+  </div>
+  
+  <div class="principles-grid">
+    <% principles.forEach(function(principle, index) { %>
+      <div class="principle-card" data-principle="<%= index + 1 %>">
+        <div class="principle-number"><%= index + 1 %></div>
+        <div class="principle-content">
+          <h4 class="principle-title"><%= principle.title %></h4>
+          <p class="principle-description"><%= principle.description %></p>
+          <% if (principle.example) { %>
+            <div class="principle-example">
+              <strong>Example:</strong> <%= principle.example %>
+            </div>
+          <% } %>
+          <% if (principle.impact) { %>
+            <div class="principle-impact">
+              <strong>Impact:</strong> <%= principle.impact %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>

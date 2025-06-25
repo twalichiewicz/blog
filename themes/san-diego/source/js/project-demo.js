@@ -6,6 +6,30 @@
 
     // Initialize demo system
     function initProjectDemo() {
+        // Check for inline demo container first
+        const inlineContainer = document.querySelector('.demo-inline-container');
+        if (inlineContainer) {
+            const isLocalhost = window.location.hostname === 'localhost' || 
+                               window.location.hostname === '127.0.0.1' || 
+                               window.location.hostname.startsWith('192.168.') ||
+                               window.location.port === '4000'; // Hexo dev server port
+            
+            if (isLocalhost) {
+                const componentName = inlineContainer.getAttribute('data-demo-component');
+                if (componentName) {
+                    loadInlineDemo(componentName, inlineContainer);
+                }
+            } else {
+                // On production, show a placeholder message
+                inlineContainer.innerHTML = `
+                    <div class="demo-placeholder">
+                        <p>Interactive demo available in development mode</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Original demo button logic
         const demoButton = document.getElementById('demoBtn');
         if (demoButton) {
             // Feature flag: Only show demo button on localhost
@@ -192,6 +216,44 @@
         // Also dispatch event for any additional handlers
         const event = new CustomEvent('loadDemoComponent', {
             detail: { name, container }
+        });
+        document.dispatchEvent(event);
+    }
+
+    // Load demo inline in the hero section
+    function loadInlineDemo(componentName, container) {
+        // Clear loading state
+        container.innerHTML = '';
+        
+        // Create iframe for inline demo
+        const iframe = document.createElement('iframe');
+        iframe.src = `/demos/${componentName}/`;
+        iframe.frameBorder = '0';
+        iframe.allowFullscreen = true;
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.title = `${componentName} Demo`;
+        iframe.className = 'demo-inline-iframe';
+        
+        // Add loading handler
+        iframe.addEventListener('load', function() {
+            container.classList.add('demo-loaded');
+        });
+        
+        // Add error handler
+        iframe.addEventListener('error', function() {
+            container.innerHTML = `
+                <div class="demo-error">
+                    <p>Failed to load demo</p>
+                </div>
+            `;
+        });
+        
+        container.appendChild(iframe);
+        
+        // Dispatch event for any additional handlers
+        const event = new CustomEvent('loadInlineDemoComponent', {
+            detail: { name: componentName, container, iframe }
         });
         document.dispatchEvent(event);
     }

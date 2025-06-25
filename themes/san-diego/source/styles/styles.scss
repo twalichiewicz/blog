@@ -87,6 +87,9 @@
 // Component Library
 @use '../components/index' as component-lib;
 
+// UX Artifacts components for portfolio case studies
+@use 'ux-artifacts';
+
 // Leuchtturm notebook MUST be loaded LAST to override all other portfolio styles
 @use 'leuchtturm-notebook';
 

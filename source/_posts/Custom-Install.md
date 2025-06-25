@@ -12,6 +12,7 @@ tags:
 layout: project_gallery
 notebook_color: "dark-lime-green"
 demo_component: "custom-install-demo"
+demo_inline: true
 gallery_images:
   - url: /2019/08/30/Custom-Install/000_customInstall.jpg
     type: image
