@@ -43,13 +43,6 @@ project_stats:
   - label: "Skills"
     value: ["Service Design", "CMS Design", "Developer Tools", "Business Strategy", "Platform Design", "User Research"]
     type: "tags"
-gallery_images:
- - url: LINO-0.png
-   type: image
- - url: LINO-SIMPLE.png
-   type: image
- - url: LINO-EXPANDED.png
-   type: image
 ---
 
 ## The Problem
@@ -78,6 +71,15 @@ I mapped the complete content lifecycle and discovered it took eight people acro
 ## The Solution
 
 I designed a publishing platform that transforms content creation from engineering projects into form submissions. The interface feels like writing an email but publishes to millions of users with sophisticated behavioral targeting.
+
+{% carousel_with_caption [
+  {"src":"LINO-0.png","alt":"Self-service publishing platform main interface"},
+  {"src":"LINO-SIMPLE.png","alt":"Simplified content creation form view"},
+  {"src":"LINO-EXPANDED.png","alt":"Expanded view with behavioral targeting options"}
+] %}
+Presenting: LINO, the self-service publishing UI
+{% endcarousel_with_caption %}
+
 
 Key innovations:
 

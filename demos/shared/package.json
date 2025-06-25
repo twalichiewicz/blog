@@ -1,0 +1,11 @@
+{
+  "name": "@portfolio/demo-shared",
+  "version": "1.0.0",
+  "description": "Shared components for portfolio demos",
+  "main": "components/index.js",
+  "type": "module",
+  "exports": {
+    ".": "./components/index.js",
+    "./styles": "./components/demo-wrapper.css"
+  }
+}

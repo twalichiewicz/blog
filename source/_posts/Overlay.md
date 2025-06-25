@@ -8,12 +8,6 @@ byline: Designed a universal cloud overlay system architecture for 60+ Autodesk 
 tags: [portfolio]
 layout: project_gallery
 has_writeup: true
-gallery_images:
- - url: overlayExplainer_web.mp4
-   type: video
-   poster: overlayPreview_poster.jpg
- - url: overlay0.png
-   type: image
 cover_image: overlayPreview_cover.jpg
 trailer:
   type: video
@@ -74,6 +68,8 @@ Autodesk's array of desktop products operated as completely isolated silos. User
 ## Solution: Cross-Application Intelligence Platform
 
 I designed and prototyped a universal overlay system that would run as a cloud-connected singleton across all Autodesk desktop applications. Like Steam's overlay for gaming, this concept creates a persistent application layer that follows users everywhere—enabling shared functionality, contextual assistance, and seamless workflows while maintaining bidirectional communication with host applications.
+
+{% video overlayExplainer_web.mp4 autoplay loop muted %}
 
 The Overlay concept represented a fundamental shift in how Autodesk could approach desktop software architecture. Rather than maintaining isolated applications, I designed a shared platform layer that could enhance any desktop product with cloud-connected capabilities.
 

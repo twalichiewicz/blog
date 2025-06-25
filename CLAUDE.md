@@ -254,11 +254,104 @@ demos/
 ├── build-scripts/          # Build automation
 │   ├── build-all-demos.js # Builds all demos
 │   └── watch-demos.js     # Development servers
+├── shared/                 # Shared demo components
+│   ├── components/         # Reusable UI components
+│   │   ├── DemoWrapper.jsx # Complete demo wrapper
+│   │   ├── BrowserChrome.jsx # Browser window chrome
+│   │   └── demo-wrapper.css # Shared styles
+│   ├── examples/           # Usage examples
+│   └── README.md          # Component documentation
 ├── examples/               # Demo templates
 │   └── react-demo-template/
 ├── [project-demos]/        # Individual demo projects
 └── README.md
 ```
+
+#### Demo Wrapper System
+A standardized browser chrome and background system for all portfolio demos:
+
+##### Using the Demo Wrapper
+```jsx
+import { DemoWrapper } from '@portfolio/demo-shared';
+import '@portfolio/demo-shared/styles';
+
+function App() {
+  return (
+    <DemoWrapper url="app.example.com">
+      <YourDemoContent />
+    </DemoWrapper>
+  );
+}
+```
+
+##### Available Props
+- `url` - URL to display in browser address bar
+- `browserTheme` - Chrome style: 'mac' (default), 'windows', 'minimal'
+- `showBackground` - Show grid background pattern (default: true)
+- `backgroundStyle` - Custom background CSS styles
+- `className` - Additional CSS classes
+
+##### Browser Themes
+1. **Mac Theme** (default) - macOS-style with colored window controls
+2. **Windows Theme** - Windows-style with right-aligned controls
+3. **Minimal Theme** - Clean header with no window controls
+
+##### Background Patterns
+- Default: Grid pattern (like Custom Install demo)
+- `.demo-background--dots`: Dot pattern
+- `.demo-background--diagonal`: Diagonal lines
+- Custom: Pass `backgroundStyle` prop
+
+##### Example Configurations
+```jsx
+// Autodesk style
+<DemoWrapper url="manage.autodesk.com/products">
+  <AutodeskDemo />
+</DemoWrapper>
+
+// Windows enterprise app
+<DemoWrapper 
+  url="enterprise.app/dashboard"
+  browserTheme="windows"
+>
+  <EnterpriseApp />
+</DemoWrapper>
+
+// Minimal prototype
+<DemoWrapper 
+  url="prototype.local"
+  browserTheme="minimal"
+  showBackground={false}
+>
+  <Prototype />
+</DemoWrapper>
+```
+
+#### Migrating Existing Demos to Shared Components
+
+##### Quick Migration Steps
+1. Import shared components:
+   ```jsx
+   import { DemoWrapper } from '@portfolio/demo-shared';
+   import '@portfolio/demo-shared/styles';
+   ```
+
+2. Replace custom wrapper with DemoWrapper:
+   ```jsx
+   // Before
+   <div className="custom-wrapper">
+     <YourDemo />
+   </div>
+   
+   // After
+   <DemoWrapper url="your.demo.url">
+     <YourDemo />
+   </DemoWrapper>
+   ```
+
+3. Remove duplicate styles (browser chrome, backgrounds)
+
+4. Keep demo-specific styles only
 
 #### Creating a New Demo
 

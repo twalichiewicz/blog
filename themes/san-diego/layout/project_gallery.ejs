@@ -162,24 +162,28 @@
 						</button>
 					</div>
 					
+				</div>
+				
+				<!-- Project info wrapper (byline and stats) -->
+				<div class="project-info-wrapper">
 					<% if (page.byline) { %>
 						<p class="project-byline"><%- page.byline %></p>
 					<% } %>
-				</div>
-				
-				<!-- Project impact stats -->
-				<% if (page.stats && page.stats.length > 0) { %>
-					<div class="project-impact-stats">
-						<% page.stats.forEach(function(stat) { %>
-							<div class="stat-item-wrapper">
-								<div class="stat-item">
-									<div class="stat-value"><%- stat.value %></div>
-									<div class="stat-label stat-label--impact"><%- stat.label %></div>
+					
+					<!-- Project impact stats -->
+					<% if (page.stats && page.stats.length > 0) { %>
+						<div class="project-impact-stats">
+							<% page.stats.forEach(function(stat) { %>
+								<div class="stat-item-wrapper">
+									<div class="stat-item">
+										<div class="stat-value"><%- stat.value %></div>
+										<div class="stat-label stat-label--impact"><%- stat.label %></div>
+									</div>
 								</div>
-							</div>
-						<% }); %>
-					</div>
-				<% } %>
+							<% }); %>
+						</div>
+					<% } %>
+				</div>
 			</div>
 		</div>
 		
