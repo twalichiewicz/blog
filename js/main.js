@@ -186,6 +186,11 @@ function closeImpactModal() {
         window.playSmallClickSound();
     }
     
+    // Stop the party if it's playing
+    if (isPartyMode) {
+        togglePartyMode();
+    }
+    
     const modal = document.getElementById('impact-modal');
     if (modal) {
         modal.classList.remove('active');
@@ -205,9 +210,255 @@ function handleImpactModalKeydown(event) {
     }
 }
 
+// Party mode functionality
+let isPartyMode = false;
+let audioContext = null;
+let audioAnalyser = null;
+let audioSource = null;
+let animationFrame = null;
+let scrollInterval = null;
+
+function togglePartyMode() {
+    const audio = document.getElementById('impact-audio');
+    const button = document.querySelector('.impact-modal-party-mode');
+    
+    if (!audio || !button) return;
+    
+    isPartyMode = !isPartyMode;
+    
+    if (isPartyMode) {
+        // Start the party!
+        audio.play();
+        button.classList.add('playing');
+        
+        // Initialize audio context for beat detection
+        if (!audioContext) {
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Resume context if suspended (required for some browsers)
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                
+                audioAnalyser = audioContext.createAnalyser();
+                audioSource = audioContext.createMediaElementSource(audio);
+                audioSource.connect(audioAnalyser);
+                audioAnalyser.connect(audioContext.destination);
+                
+                // Configure analyser for better beat detection
+                audioAnalyser.fftSize = 2048; // Higher resolution for better frequency analysis
+                audioAnalyser.smoothingTimeConstant = 0.8; // Some smoothing to reduce noise
+                
+            } catch (error) {
+            }
+        }
+        
+        // Start beat-synced animations
+        startBeatAnimations();
+        
+        // Add party class to grid for CSS animations
+        const grid = document.querySelector('.impact-grid');
+        if (grid) {
+            grid.classList.add('party-mode');
+        }
+        
+        // Start auto-scroll with a small delay to ensure DOM is ready
+        setTimeout(() => {
+            startAutoScroll();
+        }, 100);
+    } else {
+        // Party's over
+        audio.pause();
+        audio.currentTime = 0;
+        button.classList.remove('playing');
+        
+        // Stop animations
+        stopBeatAnimations();
+        
+        // Stop auto-scroll
+        stopAutoScroll();
+        
+        // Remove party class
+        document.querySelector('.impact-grid').classList.remove('party-mode');
+    }
+}
+
+function startBeatAnimations() {
+    if (!audioAnalyser) {
+        return;
+    }
+    
+    const bufferLength = audioAnalyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    let beatCount = 0;
+    const beatInterval = 469; // ~128 BPM (60000/128)
+    
+    
+    // Simple interval-based beat trigger synced to BPM
+    const beatTimer = setInterval(() => {
+        const tiles = document.querySelectorAll('.impact-tile');
+        if (tiles.length === 0) return;
+        
+        beatCount++;
+        
+        // Randomly select tiles to pulse
+        const tileCount = tiles.length;
+        const selectedIndices = new Set();
+        
+        // Choose pattern type randomly
+        const patternType = Math.random();
+        
+        if (patternType < 0.33) {
+            // Pattern 1: Random scattered tiles (20-40% of tiles)
+            const pulseTileCount = Math.floor(tileCount * (0.2 + Math.random() * 0.2));
+            while (selectedIndices.size < pulseTileCount) {
+                selectedIndices.add(Math.floor(Math.random() * tileCount));
+            }
+        } else if (patternType < 0.66) {
+            // Pattern 2: Clustered tiles (pick a center and nearby tiles)
+            const centerTile = Math.floor(Math.random() * tileCount);
+            const clusterSize = 3 + Math.floor(Math.random() * 5); // 3-7 tiles
+            selectedIndices.add(centerTile);
+            
+            // Add nearby tiles
+            for (let i = 0; i < clusterSize && selectedIndices.size < tileCount; i++) {
+                const offset = Math.floor(Math.random() * 5) - 2; // -2 to +2
+                const nearbyIndex = Math.max(0, Math.min(tileCount - 1, centerTile + offset));
+                selectedIndices.add(nearbyIndex);
+            }
+        } else {
+            // Pattern 3: Every nth tile for a rhythmic pattern
+            const step = 2 + Math.floor(Math.random() * 3); // step by 2, 3, or 4
+            const startOffset = Math.floor(Math.random() * step);
+            for (let i = startOffset; i < tileCount; i += step) {
+                selectedIndices.add(i);
+            }
+        }
+        
+        
+        // Apply beat-hover to selected tiles with slight random delays
+        selectedIndices.forEach(index => {
+            const tile = tiles[index];
+            const randomDelay = Math.random() * 50; // 0-50ms random delay
+            
+            setTimeout(() => {
+                tile.classList.add('beat-hover');
+                setTimeout(() => tile.classList.remove('beat-hover'), 200);
+            }, randomDelay);
+        });
+    }, beatInterval);
+    
+    // Store timer reference for cleanup
+    window.beatTimer = beatTimer;
+    
+    // Also do continuous volume-based animation
+    function animate() {
+        animationFrame = requestAnimationFrame(animate);
+        
+        audioAnalyser.getByteFrequencyData(dataArray);
+        
+        // Get overall volume
+        let sum = 0;
+        for (let i = 0; i < bufferLength; i++) {
+            sum += dataArray[i];
+        }
+        const average = sum / bufferLength / 255; // Normalize to 0-1
+        
+        // Apply subtle scaling based on volume
+        const tiles = document.querySelectorAll('.impact-tile');
+        tiles.forEach((tile, index) => {
+            if (!tile.classList.contains('beat-hover')) {
+                const offset = index * 0.05;
+                const scale = 1 + (average * 0.08 * Math.sin(Date.now() * 0.001 + offset));
+                tile.style.transform = `scale(${scale})`;
+            }
+        });
+    }
+    
+    animate();
+}
+
+function stopBeatAnimations() {
+    if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+    }
+    
+    // Clear beat timer
+    if (window.beatTimer) {
+        clearInterval(window.beatTimer);
+        window.beatTimer = null;
+    }
+    
+    // Reset all tile transforms
+    const tiles = document.querySelectorAll('.impact-tile');
+    tiles.forEach(tile => {
+        tile.style.transform = '';
+        tile.classList.remove('beat-hover');
+    });
+}
+
+function startAutoScroll() {
+    // First try to find the impact-grid element
+    const impactGrid = document.querySelector('.impact-grid');
+    if (!impactGrid) {
+        return;
+    }
+    
+    // Check if it's actually scrollable
+    const isScrollable = impactGrid.scrollHeight > impactGrid.clientHeight;
+    if (!isScrollable) {
+        return;
+    }
+    
+    
+    // Smooth scroll animation
+    let scrollDirection = 1;
+    let scrollSpeed = 1; // pixels per frame (increased from 0.5)
+    
+    function animateScroll() {
+        if (!isPartyMode) {
+            stopAutoScroll();
+            return;
+        }
+        
+        const currentScroll = impactGrid.scrollTop;
+        const maxScroll = impactGrid.scrollHeight - impactGrid.clientHeight;
+        
+        // Change direction at top or bottom
+        if (currentScroll >= maxScroll - 5 && scrollDirection === 1) {
+            scrollDirection = -1;
+        } else if (currentScroll <= 5 && scrollDirection === -1) {
+            scrollDirection = 1;
+        }
+        
+        // Apply scroll
+        impactGrid.scrollTop += scrollSpeed * scrollDirection;
+        
+        // Continue animation
+        animationFrame = requestAnimationFrame(animateScroll);
+    }
+    
+    // Start the animation
+    animateScroll();
+}
+
+function stopAutoScroll() {
+    if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+    }
+    if (scrollInterval) {
+        clearInterval(scrollInterval);
+        scrollInterval = null;
+    }
+}
+
 // Make functions globally accessible
 window.openImpactModal = openImpactModal;
 window.closeImpactModal = closeImpactModal;
+window.togglePartyMode = togglePartyMode;
 
 // Contact Modal functionality
 function openContactModal(event) {
