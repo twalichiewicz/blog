@@ -389,9 +389,9 @@
 		
 		// Fix for edge-to-edge on actual mobile devices
 		&.portfolio-list--redesigned {
-			width: 100vw;
-			margin-left: calc(-50vw + 50%);
-			margin-right: calc(-50vw + 50%);
+			width: 100%;
+			margin-left: -15px;
+			margin-right: -15px;
 			padding: 0;
 			overflow: hidden;
 		}
@@ -402,9 +402,9 @@
 		
 		// Portfolio more section should be edge to edge on mobile
 		.portfolio-more-section {
-			margin-left: calc(-50vw + 50%);
-			margin-right: calc(-50vw + 50%);
-			width: 100vw;
+			margin-left: -15px;
+			margin-right: -15px;
+			width: calc(100% + 30px);
 			padding: 0; // Ensure no padding on portfolio-more-section
 			padding-bottom: 0; // Explicitly set padding-bottom to 0
 			
@@ -501,7 +501,7 @@
 	.blog-header {
 		align-self: start;
 		justify-content: start;
-		width: 300px;
+		width: 270px;
 		flex-shrink: 0;
 		position: relative;
 		padding-top: 0;
@@ -520,7 +520,7 @@
 	.blog-content {
 		margin-top: 24px;
 		margin-left: 0;
-		width: calc(100% - 300px);
+		width: calc(100% - 270px);
 		height: calc(100dvh - 24px);
 		overflow: hidden;
 		display: flex;

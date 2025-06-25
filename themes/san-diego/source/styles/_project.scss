@@ -1656,6 +1656,7 @@ body.loaded .project-wrapper {
 	margin: 0;
 	padding: 0;
 	border-radius: 12px 0 0 0;
+	overflow-x: hidden; // Prevent horizontal overflow from child elements
 	
 	// Dark mode background
 	@media (prefers-color-scheme: dark) {
@@ -1674,13 +1675,11 @@ body.loaded .project-wrapper {
 	overflow: hidden;
 }
 
-// Project trailer hero - fullscreen video background with fade-in
+// Project trailer hero - video background with adjusted height
 .project-trailer-hero {
-	height: 100dvh;
+	height: 75dvh;
 	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
+	position: relative;
 	z-index: 1;
 
 	.trailer-content {
@@ -1715,77 +1714,45 @@ body.loaded .project-wrapper {
 	}
 }
 
-// Above fold content wrapper - bottom aligned with progressive blur
+// Above fold content wrapper - bottom aligned with background
 .above-fold-content-wrapper {
 	height: auto;
-	min-height: 40dvh;
+	min-height: 25dvh;
 	width: 100%;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	position: relative;
 	z-index: 10;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
 	align-items: flex-start;
-	padding: clamp(3rem, 6dvh, 6rem) 36px 36px 36px;
+	padding: clamp(2rem, 4dvh, 4rem) 36px 36px 36px;
 	box-sizing: border-box;
 	text-align: left;
 	
-	// Progressive blur background overlay matching content wrapper height
-	&::before {
-		content: '';
-		position: absolute;
-		top: -30dvh;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: linear-gradient(
-			180deg,
-			rgba(0, 0, 0, 0) 0%,
-			rgba(0, 0, 0, 0.1) 30%,
-			rgba(0, 0, 0, 0.4) 60%,
-			rgba(0, 0, 0, 0.7) 85%,
-			rgba(0, 0, 0, 0.85) 100%
-		);
-		backdrop-filter: blur(15px);
-		-webkit-backdrop-filter: blur(15px);
-		z-index: -1;
-		
-		// Soft top edge with additional blur
-		mask: linear-gradient(
-			180deg,
-			rgba(0, 0, 0, 0) 0%,
-			rgba(0, 0, 0, 0.3) 15%,
-			rgba(0, 0, 0, 0.8) 40%,
-			rgba(0, 0, 0, 1) 60%,
-			rgba(0, 0, 0, 1) 100%
-		);
-		-webkit-mask: linear-gradient(
-			180deg,
-			rgba(0, 0, 0, 0) 0%,
-			rgba(0, 0, 0, 0.3) 15%,
-			rgba(0, 0, 0, 0.8) 40%,
-			rgba(0, 0, 0, 1) 60%,
-			rgba(0, 0, 0, 1) 100%
-		);
-	}
+	// Solid background overlay for readability
+	background: linear-gradient(
+		180deg,
+		rgba(0, 0, 0, 0) 0%,
+		rgba(0, 0, 0, 0.3) 30%,
+		rgba(0, 0, 0, 0.6) 60%,
+		rgba(0, 0, 0, 0.8) 85%,
+		rgba(0, 0, 0, 0.9) 100%
+	);
 	
 	// Responsive adjustments for all sizes
 	@media (max-width: 1200px) {
-		padding: clamp(2.5rem, 5dvh, 5rem) 32px 32px 32px;
-		min-height: 35dvh;
+		padding: clamp(1.5rem, 3dvh, 3rem) 32px 32px 32px;
+		min-height: 22dvh;
 	}
 	
 	@media (max-width: 768px) {
-		padding: clamp(2rem, 4dvh, 4rem) 24px 24px 24px;
-		min-height: 30dvh;
+		padding: clamp(1.5rem, 3dvh, 3rem) 24px 24px 24px;
+		min-height: 20dvh;
 	}
 	
 	@media (max-width: 480px) {
-		padding: 2rem 20px 20px 20px;
-		min-height: 25dvh;
+		padding: 1.5rem 20px 20px 20px;
+		min-height: 18dvh;
 	}
 
 	// Ensure project impact stats are always in row direction
@@ -1796,21 +1763,55 @@ body.loaded .project-wrapper {
 
 	// Very small height adjustments
 	@media (max-height: 600px) {
-		min-height: 35dvh;
-		padding: 15px clamp(0.5rem, 3vw, 2rem) 25px;
+		min-height: 22dvh;
+		padding: 15px clamp(0.5rem, 3vw, 2rem) 20px;
 		justify-content: flex-start;
 	}
 
 	@media (max-height: 500px) {
-		min-height: 30dvh;
-		padding: 10px clamp(0.5rem, 2vw, 1.5rem) 20px;
+		min-height: 20dvh;
+		padding: 10px clamp(0.5rem, 2vw, 1.5rem) 15px;
 		gap: 0.5rem;
 	}
 
 	@media (max-height: 400px) {
-		min-height: 25dvh;
-		padding: 9px clamp(0.5rem, 2vw, 1rem) 15px; // Maintain smaller top vs bottom
+		min-height: 18dvh;
+		padding: 8px clamp(0.5rem, 2vw, 1rem) 12px; // Maintain smaller top vs bottom
 		gap: 0.25rem;
+	}
+}
+
+// When demo is inline, adjust the above-fold content wrapper
+body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fold-content-wrapper {
+	// Note: Blur overlay is now disabled globally, so no special handling needed
+	
+	// Reduce padding since demo provides visual interest
+	padding: clamp(2rem, 4dvh, 4rem) 36px 36px 36px;
+	
+	// Adjust responsive padding
+	@media (max-width: 1200px) {
+		padding: clamp(1.5rem, 3dvh, 3rem) 32px 32px 32px;
+	}
+	
+	@media (max-width: 768px) {
+		padding: clamp(1rem, 2dvh, 2rem) 24px 24px 24px;
+	}
+	
+	@media (max-width: 480px) {
+		padding: 1.5rem 20px 20px 20px;
+	}
+	
+	// Adjust for very small heights
+	@media (max-height: 600px) {
+		padding: 15px clamp(0.5rem, 3vw, 2rem) 20px;
+	}
+
+	@media (max-height: 500px) {
+		padding: 10px clamp(0.5rem, 2vw, 1.5rem) 15px;
+	}
+
+	@media (max-height: 400px) {
+		padding: 8px clamp(0.5rem, 2vw, 1rem) 12px;
 	}
 }
 
@@ -2249,40 +2250,41 @@ body.loaded .project-wrapper {
 	
 	// Reset inherited blog-content styles that interfere with project layout
 	.above-the-fold-preview {
-		height: calc(90dvh - 24px);
+		height: calc(100% - 10%);
 		margin-top: 0;
 		padding-top: 0;
 		
 		// Mobile-specific fixes for dynamic loading
 		@media (max-width: variables.$mobile-breakpoint) {
+			height: 100vh; // Fallback for older browsers
 			height: 100dvh;
 		}
 	}
 
 	.project-trailer-hero {
-		height: calc(100dvh - 24px);
+		height: 100%;
 		margin-top: 0;
 		padding-top: 0;
 	}
 
 	.above-fold-content-wrapper {
-		// Use the same positioning as standalone projects
-		height: auto;
-		min-height: 40dvh;
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		padding: clamp(3rem, 6dvh, 6rem) 36px 36px 36px;
-		margin-top: 0;
+		position: relative;
+		min-height: unset;
+		max-height: unset;
+		padding: 36px;
+		background-color: rgba(0, 0, 0, 0.03); // Subtle light mode background
+		
+		@media (prefers-color-scheme: dark) {
+			background-color: rgba(255, 255, 255, 0.03); // Subtle dark mode background
+		}
 		
 		// Responsive padding overrides
 		@media (max-width: 1200px) {
-			padding: clamp(2.5rem, 5dvh, 5rem) 32px 32px 32px;
+			padding: 36px 32px;
 		}
 		
 		@media (max-width: 768px) {
-			padding: clamp(1.5rem, 3dvh, 3rem) 24px 20px 24px; // Reduce bottom padding significantly
+			padding: 36px 24px;
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-end;
@@ -2290,9 +2292,7 @@ body.loaded .project-wrapper {
 		}
 		
 		@media (max-width: 480px) {
-			padding: 1rem 20px 20px 20px; // Reduce bottom padding significantly  
-			height: auto; // Remove fixed height constraint
-			max-height: 50dvh; // Prevent overflow while allowing flexibility
+			padding: 36px 20px;
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-end;
@@ -2338,29 +2338,41 @@ body.loaded .project-wrapper {
 	}
 
 	.above-fold-content-wrapper {
-		height: auto; // Remove fixed height constraint
-		max-height: 50dvh; // Prevent overflow while allowing flexibility
-		padding: 16px clamp(0.75rem, 2.5vw, 1.5rem) 20px; // Reduce bottom padding dramatically
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end; // Align content to bottom
-		gap: 0.75rem; // Control spacing between all child elements
+		// Mobile styles now handled in the main .blog-content .project-edge-wrapper block
+		// to maintain consistency with 36px padding
 
 		.project-title {
 			max-width: 95%;
 			display: flex;
 			flex-direction: column;
 			gap: 0.5rem; // Control spacing between title elements
+			margin-bottom: 0; // Set margin-bottom to 0 on mobile
 
 			h2 {
 				font-size: clamp(1.75rem, 6vw, 2.5rem);
 				margin: 0; // Remove default margins
+				margin-bottom: 9px; // Add 9px margin-bottom on mobile
 			}
 
 			.project-byline {
 				font-size: clamp(0.9rem, 2.2vw, 1.1rem);
 				margin: 0; // Remove all margins - using gap instead
 				line-height: 1.3;
+			}
+		}
+	}
+
+	// Mobile styles for project-edge-wrapper elements
+	.project-edge-wrapper .above-fold-content-wrapper {
+		.project-title {
+			margin-bottom: 0; // Set margin-bottom to 0 on mobile
+
+			.project-category {
+				margin-bottom: 6px; // Add 6px margin-bottom on mobile
+			}
+
+			h2 {
+				margin-bottom: 9px; // Add 9px margin-bottom on mobile
 			}
 		}
 
@@ -3887,6 +3899,208 @@ body.demo-active {
 body.demo-modal-open {
   overflow: hidden;
 }
+
+// Inline Demo Styles
+.demo-inline-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 400px;
+  
+  // Blueprint/drafting table background
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0, 0, 0, 0.02) 50px, rgba(0, 0, 0, 0.02) 51px),
+      repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0, 0, 0, 0.02) 50px, rgba(0, 0, 0, 0.02) 51px);
+    background-size: 51px 51px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  // Border frame
+  &::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    min-height: 300px;
+  }
+  
+  .demo-inline-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #333;
+    z-index: 2;
+    
+    .demo-loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-top-color: #333;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  }
+  
+  .demo-inline-iframe {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    width: calc(100% - 80px);
+    height: calc(100% - 80px);
+    border: none;
+    background: transparent;
+    z-index: 15; // Higher than content wrapper z-index (10)
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    @media (max-width: variables.$mobile-breakpoint) {
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      width: calc(100% - 40px);
+      height: calc(100% - 40px);
+    }
+  }
+  
+  &.demo-loaded {
+    .demo-inline-loading {
+      display: none;
+    }
+  }
+  
+  .demo-error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #cc0000;
+    z-index: 2;
+    
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+  
+  .demo-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+    
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Ensure trailer hero handles inline demos properly
+.project-trailer-hero {
+  .trailer-content {
+    .demo-inline-container {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+// Dynamic height calculation for inline demos
+.demo-inline-active {
+  // Convert to flexbox layout for proper space distribution
+  .above-the-fold-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  
+  .project-trailer-hero {
+    // Switch from absolute to relative positioning
+    position: relative;
+    height: 70%; // Increased to give more space to demo
+    min-height: 450px;
+    max-height: 75vh; // Increased cap for better demo visibility
+    flex: 0 0 auto;
+    
+    @media (max-width: variables.$mobile-breakpoint) {
+      height: 65%; // More space on mobile too
+      min-height: 350px;
+      max-height: 65vh;
+    }
+    
+    .trailer-content {
+      height: 100%;
+      
+      .demo-inline-container {
+        height: 100%;
+        
+        &.demo-loaded {
+          // Ensure loaded demos respect the container height
+          .demo-inline-iframe {
+            max-height: calc(100% - 80px); // Account for padding
+            
+            @media (max-width: variables.$mobile-breakpoint) {
+              max-height: calc(100% - 40px); // Less padding on mobile
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Make content wrapper relative and auto-sized
+  .above-fold-content-wrapper {
+    position: relative;
+    bottom: auto;
+    flex: 0 0 auto;
+    min-height: auto; // Let content determine height
+    height: auto;
+    
+    // Completely remove the gradient overlay for inline demos
+    &::before {
+      display: none !important; // Force removal of overlay
+    }
+  }
+}
+
 
 // Animations
 @keyframes modalFadeIn {
