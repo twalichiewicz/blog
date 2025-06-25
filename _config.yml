@@ -20,7 +20,6 @@ pretty_urls:
 source_dir: source
 public_dir: public
 tag_dir: blog/tags
-archive_dir: archive
 category_dir: blog/categories
 
 # Writing
