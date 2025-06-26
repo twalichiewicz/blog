@@ -4180,6 +4180,7 @@ body.demo-modal-open {
       
       .demo-inline-container {
         height: 100%;
+        border-radius: 0;
         
         &.demo-loaded {
           // Ensure loaded demos respect the container height

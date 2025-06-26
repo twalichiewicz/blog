@@ -12,6 +12,7 @@ has_writeup: true
 notebook_color: "tangerine"
 notebook_brand: "rhodia"
 cover_image: sspp_cover.jpg
+demo_component: "self-service-publishing-demo"
 stats:
   - value: "$6-8M"
     label: "ARR opportunity captured"

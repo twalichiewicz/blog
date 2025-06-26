@@ -46,7 +46,25 @@ hexo.extend.tag.register('carousel', function (args) {
                                   title="${item.caption || 'Embedded content'}">
             </iframe>`;
 			} else {
-				mediaContent = `<img src="${item.url || item.src}" 
+				// For images, resolve the path relative to the post
+				let imageSrc = item.url || item.src;
+				
+				// If it's a relative path (doesn't start with http:// or https:// or /)
+				if (!imageSrc.match(/^https?:\/\//) && !imageSrc.startsWith('/')) {
+					// Build the full path based on the post's permalink
+					if (postPath && postPath.includes('://')) {
+						// If permalink is a full URL, extract just the path part
+						const url = new URL(postPath);
+						const pathOnly = url.pathname.replace(/\.html$/, '').replace(/\/$/, '') + '/';
+						imageSrc = pathOnly + imageSrc;
+					} else if (postPath) {
+						// If it's already a path, use it
+						const cleanPath = postPath.replace(/\.html$/, '').replace(/\/$/, '') + '/';
+						imageSrc = '/' + cleanPath + imageSrc;
+					}
+				}
+				
+				mediaContent = `<img src="${imageSrc}" 
                                alt="${item.caption || item.alt || ''}"
                                loading="lazy"
                                decoding="async">`;
@@ -92,6 +110,9 @@ hexo.extend.tag.register('carousel_with_caption', function (args, content) {
 			.replace(/""+/g, '"');
 
 		const images = JSON.parse(input);
+		
+		// Get the post's URL path for image resolution
+		const postPath = this.permalink || this.path || '';
 
 		// Process each item to set video defaults
 		const processedImages = images.map(item => {
@@ -127,7 +148,25 @@ hexo.extend.tag.register('carousel_with_caption', function (args, content) {
                                   title="${item.caption || 'Embedded content'}">
             </iframe>`;
 			} else {
-				mediaContent = `<img src="${item.url || item.src}" 
+				// For images, resolve the path relative to the post
+				let imageSrc = item.url || item.src;
+				
+				// If it's a relative path (doesn't start with http:// or https:// or /)
+				if (!imageSrc.match(/^https?:\/\//) && !imageSrc.startsWith('/')) {
+					// Build the full path based on the post's permalink
+					if (postPath && postPath.includes('://')) {
+						// If permalink is a full URL, extract just the path part
+						const url = new URL(postPath);
+						const pathOnly = url.pathname.replace(/\.html$/, '').replace(/\/$/, '') + '/';
+						imageSrc = pathOnly + imageSrc;
+					} else if (postPath) {
+						// If it's already a path, use it
+						const cleanPath = postPath.replace(/\.html$/, '').replace(/\/$/, '') + '/';
+						imageSrc = '/' + cleanPath + imageSrc;
+					}
+				}
+				
+				mediaContent = `<img src="${imageSrc}" 
                                alt="${item.caption || item.alt || ''}"
                                loading="lazy"
                                decoding="async">`;
