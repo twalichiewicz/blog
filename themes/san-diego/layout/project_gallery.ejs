@@ -41,7 +41,7 @@
 				<div class="trailer-content" id="trailerContent">
 						<% if (page.demo_inline && page.demo_component) { %>
 							<!-- Inline demo mode -->
-							<div class="demo-inline-container" data-demo-component="<%= page.demo_component %>">
+							<div class="demo-inline-container" data-demo-component="<%= page.demo_component %>" <% if (page.cover_image) { %>data-cover-image="<%= page.cover_image %>"<% } %>>
 								<div class="demo-inline-loading">
 									<div class="demo-loading-spinner"></div>
 									<p>Loading interactive demo...</p>

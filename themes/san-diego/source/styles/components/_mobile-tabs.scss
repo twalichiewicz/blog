@@ -125,6 +125,13 @@
 			letter-spacing: 0.5px;
 			line-height: 1;
 			z-index: 10;
+			
+			// Adjust position on mobile to prevent overlap
+			@media screen and (max-width: variables.$mobile-breakpoint) {
+				right: 65px; // Move further right on mobile
+				font-size: 8px; // Slightly smaller
+				padding: 2px 3px 2px 4px; // Smaller padding
+			}
 		}
 
 		// Beta pill active state styling

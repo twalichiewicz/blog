@@ -571,11 +571,19 @@
                     .front-cover {
                         transform: translateZ(10px) rotateY(-150deg) !important;
                         transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+                        z-index: 3 !important; // Lower z-index when open
                     }
                     
                     .inside-front-cover {
                         transform: translateZ(8px) rotateY(-140deg) !important;
                         transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+                        z-index: 2 !important; // Lower z-index when open
+                    }
+                    
+                    // Fix z-index for inner pages when open
+                    .inner-page-left {
+                        z-index: 4 !important; // Ensure it stays behind other elements
+                        pointer-events: none; // Prevent touch interactions
                     }
                     
                     .page-block,

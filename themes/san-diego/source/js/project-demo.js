@@ -20,12 +20,18 @@
                     loadInlineDemo(componentName, inlineContainer);
                 }
             } else {
-                // On production, show a placeholder message
-                inlineContainer.innerHTML = `
-                    <div class="demo-placeholder">
-                        <p>Interactive demo available in development mode</p>
-                    </div>
-                `;
+                // On production, show the cover image if available
+                const coverImage = inlineContainer.getAttribute('data-cover-image');
+                if (coverImage) {
+                    inlineContainer.innerHTML = `
+                        <img src="${coverImage}" 
+                             alt="Project preview" 
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    `;
+                } else {
+                    // Remove the container entirely if no cover image
+                    inlineContainer.remove();
+                }
             }
         }
         
