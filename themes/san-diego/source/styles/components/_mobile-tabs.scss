@@ -204,15 +204,15 @@
 
 			// Beta pill dark mode styling for portfolio tab only
 			&#tab-portfolio::after {
-				background-color: lightgrey;
+				background-color: #757575;
 				color: white;
 				text-shadow: none;
 			}
 
 			// Beta pill dark mode active state styling
 			&#tab-portfolio.active::after {
-				background-color: white;
-				color: grey;
+				background-color: black;
+				color: white;
 			}
 			
 			// Mobile beta tag dark mode adjustments
