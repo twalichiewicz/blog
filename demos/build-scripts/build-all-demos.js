@@ -32,7 +32,10 @@ function ensureDirectory(dirPath) {
 function getDemoDirectories() {
     const entries = fs.readdirSync(DEMOS_DIR, { withFileTypes: true });
     return entries
-        .filter(entry => entry.isDirectory() && entry.name !== 'build-scripts' && entry.name !== 'examples')
+        .filter(entry => entry.isDirectory() && 
+                entry.name !== 'build-scripts' && 
+                entry.name !== 'examples' && 
+                entry.name !== 'shared')
         .map(entry => entry.name);
 }
 

@@ -126,11 +126,32 @@
 			line-height: 1;
 			z-index: 10;
 			
-			// Adjust position on mobile to prevent overlap
+			// On mobile, hide the absolutely positioned beta tag
 			@media screen and (max-width: variables.$mobile-breakpoint) {
-				right: 65px; // Move further right on mobile
-				font-size: 8px; // Slightly smaller
-				padding: 2px 3px 2px 4px; // Smaller padding
+				display: none;
+			}
+		}
+		
+		// On mobile, make beta tag inline instead of absolute
+		@media screen and (max-width: variables.$mobile-breakpoint) {
+			&#tab-portfolio::after {
+				content: 'BETA';
+				display: inline-block;
+				position: relative;
+				top: -1px;
+				right: auto;
+				transform: none;
+				background-color: lightgrey;
+				color: white;
+				font-size: 6px;
+				font-weight: 600;
+				padding: 1px 2px;
+				border-radius: 4px;
+				text-transform: uppercase;
+				letter-spacing: 0.2px;
+				line-height: 1;
+				margin-left: 2px;
+				vertical-align: super;
 			}
 		}
 
@@ -192,6 +213,21 @@
 			&#tab-portfolio.active::after {
 				background-color: white;
 				color: grey;
+			}
+			
+			// Mobile beta tag dark mode adjustments
+			@media screen and (max-width: variables.$mobile-breakpoint) {
+				&#tab-portfolio::after {
+					background-color: rgba(255, 255, 255, 0.2);
+					color: rgba(255, 255, 255, 0.9);
+					border: 1px solid rgba(255, 255, 255, 0.1);
+				}
+				
+				&#tab-portfolio.active::after {
+					background-color: rgba(0, 0, 0, 0.3);
+					color: rgba(255, 255, 255, 0.9);
+					border: 1px solid rgba(0, 0, 0, 0.2);
+				}
 			}
 		}
 	}

@@ -207,12 +207,12 @@
             .inner-page-left {
                 position: absolute;
                 top: 6px;
-                left: 4px; // Adjusted positioning
-                right: 8px; // Scoot right edge in by 2px more
+                left: 3px; // Match inside-front-cover and inner-page-right
+                right: 6px; // Match inside-front-cover and inner-page-right
                 bottom: 6px;
                 background: #ffffff; // Plain white paper
                 border-radius: 3px 10px 10px 3px;
-                transform-origin: 0% 50%; // Match front cover transform-origin
+                transform-origin: -3px 50%; // Share same rotational axis as other pages
                 z-index: 4;
                 transform: translateZ(3px) rotateY(0deg);
                 transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -323,67 +323,72 @@
             }
         }
         
-        // Hover state - smooth notebook opening with shift
-        &:hover .notebook {
-            transform: scale(0.9) translateX(15%) !important; // Shift right as it opens
-            
-            // Layer 1: Front cover - swaps to z-index 5 later in animation
-            .front-cover {
-                transform: translateZ(5px) rotateY(-150deg);
-                z-index: 5; // Swap happens later to keep cover visible longer
-                // Delay z-index swap to 1.4s (near end of 1.8s animation)
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, z-index 0s linear 1.4s;
-            }
-            
-            // Layer 2: Inside front cover - swaps to z-index 6 at same time
-            // Must stay perfectly aligned with front cover throughout animation
-            .inside-front-cover {
-                transform: translateZ(4px) rotateY(-150deg);
-                z-index: 6; // Swap happens at same time as front cover
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, z-index 0s linear 1.4s;
-            }
-            
-            // Layer 3: Left inner page - animates open
-            .inner-page-left {
-                transform: translateZ(3px) rotateY(-140deg);
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+        // Hover state - only for desktop/tablet with actual hover capability
+        @media (hover: hover) and (pointer: fine) {
+            &:hover .notebook {
+                transform: scale(0.9) translateX(15%) !important; // Shift right as it opens
+                
+                // Layer 1: Front cover - swaps to z-index 5 later in animation
+                .front-cover {
+                    transform: translateZ(5px) rotateY(-150deg);
+                    z-index: 5; // Swap happens later to keep cover visible longer
+                    // Delay z-index swap to 1.4s (near end of 1.8s animation)
+                    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, z-index 0s linear 1.4s;
+                }
+                
+                // Layer 2: Inside front cover - swaps to z-index 6 at same time
+                // Must stay perfectly aligned with front cover throughout animation
+                .inside-front-cover {
+                    transform: translateZ(4px) rotateY(-150deg);
+                    z-index: 6; // Swap happens at same time as front cover
+                    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, z-index 0s linear 1.4s;
+                }
+                
+                // Layer 3: Left inner page - animates open
+                .inner-page-left {
+                    transform: translateZ(3px) rotateY(-140deg);
+                    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+                    pointer-events: none; // Prevent interaction issues
+                }
             }
         }
         
-        // Ensure notebook stays visible on mouseout
-        &:not(:hover) .notebook {
-            transform: scale(0.9) translateX(0) !important;
-            
-            * {
-                display: block !important;
-                visibility: visible !important;
-            }
-            
-            .back-cover,
-            .front-cover,
-            .inside-front-cover {
-                opacity: 1 !important;
-                display: block !important;
-                visibility: visible !important;
-            }
-            
-            // Reset positions and z-indices on mouseout
-            .front-cover {
-                z-index: 6;
-                transform: translateZ(5px) rotateY(0deg);
-                // Delay swap to happen early in close animation (0.4s into 1.8s animation)
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.4s;
-            }
-            
-            .inside-front-cover {
-                z-index: 5;
-                transform: translateZ(4px) rotateY(0deg);
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.4s;
-            }
-            
-            .inner-page-left {
-                transform: translateZ(3px) rotateY(0deg);
-                transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+        // Ensure notebook stays visible on mouseout (only for desktop/tablet)
+        @media (hover: hover) and (pointer: fine) {
+            &:not(:hover) .notebook {
+                transform: scale(0.9) translateX(0) !important;
+                
+                * {
+                    display: block !important;
+                    visibility: visible !important;
+                }
+                
+                .back-cover,
+                .front-cover,
+                .inside-front-cover {
+                    opacity: 1 !important;
+                    display: block !important;
+                    visibility: visible !important;
+                }
+                
+                // Reset positions and z-indices on mouseout
+                .front-cover {
+                    z-index: 6;
+                    transform: translateZ(5px) rotateY(0deg);
+                    // Delay swap to happen early in close animation (0.4s into 1.8s animation)
+                    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.4s;
+                }
+                
+                .inside-front-cover {
+                    z-index: 5;
+                    transform: translateZ(4px) rotateY(0deg);
+                    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.4s;
+                }
+                
+                .inner-page-left {
+                    transform: translateZ(3px) rotateY(0deg);
+                    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+                }
             }
         }
     }
@@ -511,10 +516,7 @@
                 }
             }
             
-            // Disable hover on mobile - it interferes with touch scrolling
-            &:hover .notebook {
-                transform: scale(0.7) translateX(0) !important; // No movement on hover
-            }
+            // No hover effects on mobile - JavaScript handles all animations
         }
     }
 }
@@ -523,23 +525,7 @@
 @media (max-width: 768px) {
     .notebook-carousel-mobile {
         .portfolio-item-wrapper {
-            // Remove hover effects by default on mobile
-            &:hover .notebook {
-                transform: scale(0.7) translateX(0) !important;
-                
-                .front-cover {
-                    transform: translateZ(3px) rotateY(0deg) !important;
-                }
-                
-                .inside-front-cover,
-                .page-block,
-                .page-layer-2,
-                .inside-back-cover,
-                .inside-pages,
-                .paperclip-photo {
-                    opacity: 0 !important;
-                }
-            }
+            // No hover effects on mobile - only carousel JavaScript animations
             
             // Default state for all notebooks - smaller scale for mobile
             .notebook {
@@ -696,14 +682,7 @@
                     }
                 }
                 
-                // Remove hover effects on mobile
-                &:hover {
-                    transform: none !important;
-                    
-                    .notebook {
-                        transform: scale(0.7) translateX(0) !important;
-                    }
-                }
+                // No hover effects on mobile - only JavaScript-triggered animations
                 
                 // Removed dimmed state - no opacity changes
                 
@@ -854,51 +833,4 @@
     transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-// Disable all hover effects on touch devices to prevent accidental triggers while scrolling
-body.touch-device {
-    .portfolio-featured-grid .portfolio-item-wrapper {
-        &:hover .notebook {
-            // Keep notebooks closed on hover for touch devices
-            transform: scale(0.7) translateX(0) !important;
-            
-            .front-cover {
-                transform: translateZ(5px) rotateY(0deg) !important;
-                z-index: 6 !important;
-            }
-            
-            .inside-front-cover {
-                transform: translateZ(4px) rotateY(0deg) !important;
-                z-index: 5 !important;
-            }
-            
-            .inner-page-left {
-                transform: translateZ(3px) rotateY(0deg) !important;
-                z-index: 4 !important;
-            }
-        }
-    }
-}
-
-// Also disable hover with media query for touch capabilities
-@media (hover: none) and (pointer: coarse) {
-    .portfolio-featured-grid .portfolio-item-wrapper {
-        &:hover .notebook {
-            transform: scale(0.7) translateX(0) !important;
-            
-            .front-cover {
-                transform: translateZ(5px) rotateY(0deg) !important;
-                z-index: 6 !important;
-            }
-            
-            .inside-front-cover {
-                transform: translateZ(4px) rotateY(0deg) !important;
-                z-index: 5 !important;
-            }
-            
-            .inner-page-left {
-                transform: translateZ(3px) rotateY(0deg) !important;
-                z-index: 4 !important;
-            }
-        }
-    }
-}
+// No hover effects needed on touch devices - JavaScript handles all animations
