@@ -47,6 +47,13 @@
             transform: scale(0.9) translateX(0) !important;
             transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
             
+            // Mobile positioning adjustments
+            @media (max-width: 768px) {
+                left: 15%; // More inset on mobile
+                right: 15%;
+                transform: scale(0.7) translateX(5%) !important; // Smaller scale, slight right shift
+            }
+            
             // All notebook elements
             * {
                 display: block !important;
@@ -248,10 +255,11 @@
             // Layer 2: Inside of front cover (white, animates with front cover)
             .inside-front-cover {
                 position: absolute;
-                top: 2px;    // Slightly inside the front cover
+                top: 6px;
                 left: 2px;   // Slightly inside the front cover  
                 right: 2px;  // Slightly inside the front cover
                 bottom: 2px; // Slightly inside the front cover
+                height: 266px;
                 background: #ffffff;
                 border-radius: 2px 10px 10px 2px; // Slightly smaller radius to match inset
                 transform-origin: 0% 50%; // Match front cover transform-origin
@@ -263,7 +271,11 @@
             // Layer 1: Front cover (what user sees initially)
             .front-cover {
                 position: absolute;
-                inset: 0;
+                left: 0px;
+                top: 1px;
+                right: 0;
+                bottom: 0;
+                height: 276px;
                 background: 
                     // Elastic band
                     linear-gradient(to right,
@@ -496,10 +508,10 @@
         .portfolio-item--featured.parallax-active {
             .notebook {
                 top: 5%;
-                left: 10%; // Match desktop positioning
-                right: 10%;
+                left: 15%; // More inset on mobile to prevent overflow
+                right: 15%;
                 bottom: 5%;
-                transform: scale(0.7) translateX(0) !important; // Smaller scale for mobile
+                transform: scale(0.7) translateX(5%) !important; // Smaller scale, slight right shift
                 width: auto !important;
                 height: auto !important;
                 
@@ -529,7 +541,9 @@
             
             // Default state for all notebooks - smaller scale for mobile
             .notebook {
-                transform: scale(0.7) translateX(0) !important;
+                left: 15%; // More inset on mobile
+                right: 15%;
+                transform: scale(0.7) translateX(5%) !important; // Slight right shift
                 transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             }
             
@@ -545,8 +559,10 @@
                 
                 .notebook {
                     // Combine scale and translate in one transform for smooth animation
-                    // Move further right (35% instead of 15%) to keep centered when open
-                    transform: scale(0.85) translateX(35%) !important;
+                    // Adjust position for mobile with inset positioning
+                    left: 15%; // More inset on mobile
+                    right: 15%;
+                    transform: scale(0.85) translateX(20%) !important; // Reduced translate to account for more inset
                     transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
                     
                     .front-cover-inner {
@@ -698,8 +714,10 @@
                     }
                     
                     .notebook {
-                        // Match desktop transform exactly
-                        transform: scale(0.85) translateX(15%) !important; // Same as desktop hover
+                        // Adjust for mobile positioning
+                        left: 15%; // More inset on mobile
+                        right: 15%;
+                        transform: scale(0.85) translateX(10%) !important; // Reduced translate for mobile inset
                         
                         // Layer 1: Front cover - match desktop exactly
                         .front-cover {
@@ -729,8 +747,10 @@
                     // When active notebook starts closing, maintain open state initially
                     &.carousel-closing {
                         .notebook {
-                            // Start from open position - match desktop
-                            transform: scale(0.85) translateX(15%) !important;
+                            // Start from open position - adjusted for mobile
+                            left: 15%; // More inset on mobile
+                            right: 15%;
+                            transform: scale(0.85) translateX(10%) !important;
                         }
                     }
             }
@@ -738,8 +758,10 @@
                 // Closing state - smooth closing animation
                 &.carousel-closing {
                     .notebook {
-                        // Animate back to closed state - match desktop
-                        transform: scale(0.7) translateX(0) !important;
+                        // Animate back to closed state - adjusted for mobile
+                        left: 15%; // More inset on mobile
+                        right: 15%;
+                        transform: scale(0.7) translateX(5%) !important;
                         transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
                         
                         // Reset z-indices while closing - swap late in animation to prevent clipping
