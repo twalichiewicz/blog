@@ -46,7 +46,7 @@
   <meta property="article:author" content="Thomas Walichiewicz">
   <meta property="article:published_time" content="2020-01-19T00:00:00.000Z">
   
-  <meta property="article:modified_time" content="2025-06-25T22:48:26.576Z">
+  <meta property="article:modified_time" content="2025-06-26T00:20:49.133Z">
   
   
   
@@ -152,7 +152,7 @@
         "image": "https://twalichiewicz.github.io/2020/01/19/Self-Service-Publishing-Pipeline/sspp_cover.jpg",
         "datePublished": "2020-01-19T00:00:00.000Z",
         
-        "dateModified": "2025-06-25T22:48:26.576Z",
+        "dateModified": "2025-06-26T00:20:49.133Z",
         
         "mainEntityOfPage": {
           "@type": "WebPage",
@@ -291,7 +291,7 @@
   <meta property="article:author" content="Thomas Walichiewicz">
   <meta property="article:published_time" content="2020-01-19T00:00:00.000Z">
   
-  <meta property="article:modified_time" content="2025-06-25T22:48:26.576Z">
+  <meta property="article:modified_time" content="2025-06-26T00:20:49.133Z">
   
   
   
@@ -397,7 +397,7 @@
         "image": "https://twalichiewicz.github.io/2020/01/19/Self-Service-Publishing-Pipeline/sspp_cover.jpg",
         "datePublished": "2020-01-19T00:00:00.000Z",
         
-        "dateModified": "2025-06-25T22:48:26.576Z",
+        "dateModified": "2025-06-26T00:20:49.133Z",
         
         "mainEntityOfPage": {
           "@type": "WebPage",
@@ -509,38 +509,42 @@
 						</button>
 					</div>
 					
+				</div>
+				
+				<!-- Project info wrapper (byline and stats) -->
+				<div class="project-info-wrapper">
 					
 						<p class="project-byline">Transformed content publishing from 3-week engineering cycles to same-day self-service, unlocking $6-8M in revenue opportunities</p>
 					
+					
+					<!-- Project impact stats -->
+					
+						<div class="project-impact-stats">
+							
+								<div class="stat-item-wrapper">
+									<div class="stat-item">
+										<div class="stat-value">$6-8M</div>
+										<div class="stat-label stat-label--impact">ARR opportunity captured</div>
+									</div>
+								</div>
+							
+								<div class="stat-item-wrapper">
+									<div class="stat-item">
+										<div class="stat-value">250x</div>
+										<div class="stat-label stat-label--impact">Faster publishing</div>
+									</div>
+								</div>
+							
+								<div class="stat-item-wrapper">
+									<div class="stat-item">
+										<div class="stat-value">$2M/year</div>
+										<div class="stat-label stat-label--impact">Engineering costs saved</div>
+									</div>
+								</div>
+							
+						</div>
+					
 				</div>
-				
-				<!-- Project impact stats -->
-				
-					<div class="project-impact-stats">
-						
-							<div class="stat-item-wrapper">
-								<div class="stat-item">
-									<div class="stat-value">$6-8M</div>
-									<div class="stat-label stat-label--impact">ARR opportunity captured</div>
-								</div>
-							</div>
-						
-							<div class="stat-item-wrapper">
-								<div class="stat-item">
-									<div class="stat-value">250x</div>
-									<div class="stat-label stat-label--impact">Faster publishing</div>
-								</div>
-							</div>
-						
-							<div class="stat-item-wrapper">
-								<div class="stat-item">
-									<div class="stat-value">$2M/year</div>
-									<div class="stat-label stat-label--impact">Engineering costs saved</div>
-								</div>
-							</div>
-						
-					</div>
-				
 			</div>
 		</div>
 		
@@ -680,63 +684,6 @@
 
 <!-- Gallery section - always render if gallery_images exist, regardless of summary -->
 
-  <div class="project-gallery-section">
-    <h2>Gallery</h2>
-    <div class="project-gallery-full">
-      <div class="carousel" aria-label="Project gallery">
-        <div class="carousel-track">
-          
-            <div class="carousel-slide active" aria-hidden="false">
-              
-                
-                <img src="/2020/01/19/Self-Service-Publishing-Pipeline/LINO-0.png" 
-                  alt="Project gallery image 1"
-                  loading="lazy"
-                  decoding="async">
-              
-              
-            </div>
-          
-            <div class="carousel-slide " aria-hidden="true">
-              
-                
-                <img src="/2020/01/19/Self-Service-Publishing-Pipeline/LINO-SIMPLE.png" 
-                  alt="Project gallery image 2"
-                  loading="lazy"
-                  decoding="async">
-              
-              
-            </div>
-          
-            <div class="carousel-slide " aria-hidden="true">
-              
-                
-                <img src="/2020/01/19/Self-Service-Publishing-Pipeline/LINO-EXPANDED.png" 
-                  alt="Project gallery image 3"
-                  loading="lazy"
-                  decoding="async">
-              
-              
-            </div>
-          
-          
-            <div class="carousel-indicators">
-              <button class="carousel-button prev" aria-label="Previous slide"></button>
-              
-                <button class="indicator active" aria-label="Go to slide 1"></button>
-              
-                <button class="indicator " aria-label="Go to slide 2"></button>
-              
-                <button class="indicator " aria-label="Go to slide 3"></button>
-              
-              <button class="carousel-button next" aria-label="Next slide"></button>
-            </div>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-
 
 
   <!-- No explicit summary metadata - just render content normally without auto-generating SummaryTron -->
@@ -757,6 +704,51 @@
 <p><strong>Technical Audit:</strong> Our platform could already handle dynamic content and behavioral targeting. The bottleneck wasn’t capability—it was accessibility. The publishing interface required engineering knowledge that content experts didn’t have (and shouldn’t need).</p>
 <p><strong>Rapid Prototyping:</strong> I tested a simplified flow with five content creators. Within minutes, they were building guidance that would have taken weeks. The validation was immediate: remove technical barriers, unlock content velocity.</p>
 <h2 id="The-Solution"><a href="#The-Solution" class="headerlink" title="The Solution"></a>The Solution</h2><p>I designed a publishing platform that transforms content creation from engineering projects into form submissions. The interface feels like writing an email but publishes to millions of users with sophisticated behavioral targeting.</p>
+<div class="carousel" aria-label="Media carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide active" 
+                      aria-hidden="false">
+            <img src="LINO-0.png" 
+                               alt="Self-service publishing platform main interface"
+                               loading="lazy"
+                               decoding="async">
+            
+          </div><div class="carousel-slide " 
+                      aria-hidden="true">
+            <img src="LINO-SIMPLE.png" 
+                               alt="Simplified content creation form view"
+                               loading="lazy"
+                               decoding="async">
+            
+          </div><div class="carousel-slide " 
+                      aria-hidden="true">
+            <img src="LINO-EXPANDED.png" 
+                               alt="Expanded view with behavioral targeting options"
+                               loading="lazy"
+                               decoding="async">
+            
+          </div>
+      </div>
+      
+        <div class="carousel-indicators">
+          <button class="carousel-button prev" aria-label="Previous slide"></button>
+          
+            <button class="indicator active" 
+                    aria-label="Go to slide 1"></button>
+          
+            <button class="indicator " 
+                    aria-label="Go to slide 2"></button>
+          
+            <button class="indicator " 
+                    aria-label="Go to slide 3"></button>
+          
+          <button class="carousel-button next" aria-label="Next slide"></button>
+        </div>
+      
+      <div class="carousel-overall-caption">Presenting: LINO, the self-service publishing UI</div>
+    </div>
+
+
 <p>Key innovations:</p>
 <ul>
 <li><strong>Visual Behavioral Targeting:</strong> Drag-and-drop conditions replace code queries (“Show when user is in modeling AND hasn’t used extrude AND idle 30 seconds”)</li>
