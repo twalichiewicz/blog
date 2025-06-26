@@ -108,13 +108,11 @@
 			}
 		}
 
-		// Beta pill styling for portfolio tab only
+		// Beta pill styling for portfolio tab only - positioned inline after text
 		&#tab-portfolio::after {
 			content: 'BETA';
-			position: absolute;
-			top: 50%;
-			transform: translateY(-50%);
-			right: 81px;
+			display: inline-block;
+			position: relative;
 			background-color: lightgrey;
 			color: white;
 			font-size: 9px;
@@ -124,34 +122,19 @@
 			text-transform: uppercase;
 			letter-spacing: 0.5px;
 			line-height: 1;
-			z-index: 10;
-			
-			// On mobile, hide the absolutely positioned beta tag
-			@media screen and (max-width: variables.$mobile-breakpoint) {
-				display: none;
-			}
+			margin-left: 4px;
+			vertical-align: middle;
+			top: -1px;
 		}
 		
-		// On mobile, make beta tag inline instead of absolute
+		// On mobile, make beta tag smaller
 		@media screen and (max-width: variables.$mobile-breakpoint) {
 			&#tab-portfolio::after {
-				content: 'BETA';
-				display: inline-block;
-				position: relative;
-				top: -1px;
-				right: auto;
-				transform: none;
-				background-color: lightgrey;
-				color: white;
 				font-size: 6px;
-				font-weight: 600;
 				padding: 1px 2px;
 				border-radius: 4px;
-				text-transform: uppercase;
 				letter-spacing: 0.2px;
-				line-height: 1;
 				margin-left: 2px;
-				vertical-align: super;
 			}
 		}
 
@@ -213,21 +196,6 @@
 			&#tab-portfolio.active::after {
 				background-color: black;
 				color: white;
-			}
-			
-			// Mobile beta tag dark mode adjustments
-			@media screen and (max-width: variables.$mobile-breakpoint) {
-				&#tab-portfolio::after {
-					background-color: rgba(255, 255, 255, 0.2);
-					color: rgba(255, 255, 255, 0.9);
-					border: 1px solid rgba(255, 255, 255, 0.1);
-				}
-				
-				&#tab-portfolio.active::after {
-					background-color: rgba(0, 0, 0, 0.3);
-					color: rgba(255, 255, 255, 0.9);
-					border: 1px solid rgba(0, 0, 0, 0.2);
-				}
 			}
 		}
 	}
