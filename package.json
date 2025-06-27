@@ -59,7 +59,7 @@
     "minimatch": "^3.1.2",
     "sass": "^1.89.2",
     "tough-cookie": "^5.1.2",
-    "two.js": "^0.8.16",
+    "two.js": "^0.8.19",
     "uuid": "^9.0.1"
   },
   "overrides": {
