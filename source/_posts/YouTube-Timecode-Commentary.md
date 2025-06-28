@@ -143,10 +143,13 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
     
     <!-- Comment Input -->
     <div class="comment-input-box" style="border-radius: 8px; padding: 12px; margin-bottom: 16px;">
-      <textarea class="comment-input" placeholder="Add a comment..." style="width: 100%; background: transparent; border: none; resize: none; font-family: inherit; font-size: 14px; line-height: 1.4; outline: none;" rows="2"></textarea>
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+      <textarea class="comment-input" placeholder="Add a comment..." style="width: 100%; background: transparent; border: none; resize: none; font-family: inherit; font-size: 14px; line-height: 1.4; outline: none; overflow: hidden; transition: height 0.2s ease;" rows="1"></textarea>
+      <div class="comment-actions" style="display: none; justify-content: space-between; align-items: center; margin-top: 8px;">
         <span class="comment-timecode" style="font-size: 12px;">@ 0:00</span>
-        <button class="comment-submit" style="background: #065fd4; color: white; border: none; padding: 6px 16px; border-radius: 4px; font-size: 14px; cursor: pointer; opacity: 0.5;" disabled>Comment</button>
+        <div style="display: flex; gap: 8px;">
+          <button class="comment-cancel" style="background: transparent; color: #909090; border: none; padding: 6px 16px; border-radius: 4px; font-size: 14px; cursor: pointer;">Cancel</button>
+          <button class="comment-submit" style="background: #065fd4; color: white; border: none; padding: 6px 16px; border-radius: 4px; font-size: 14px; cursor: pointer; opacity: 0.5;" disabled>Comment</button>
+        </div>
       </div>
     </div>
     
@@ -789,6 +792,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const commentInput = demo.querySelector('.comment-input');
   const commentTimecode = demo.querySelector('.comment-timecode');
   const commentSubmit = demo.querySelector('.comment-submit');
+  const commentCancel = demo.querySelector('.comment-cancel');
+  const commentActions = demo.querySelector('.comment-actions');
   const commentsList = demo.querySelector('.comments-list');
   const toggleCommentsBtn = demo.querySelector('.toggle-comments');
   const loopBtn = demo.querySelector('.loop-btn');
@@ -808,7 +813,9 @@ document.addEventListener('DOMContentLoaded', function() {
     get playing() { return playing; },
     get currentTime() { return currentTime; },
     set currentTime(val) { currentTime = val; updateTime(); },
-    showControls: showControls
+    showControls: showControls,
+    resetCommunity: () => { communityEnabled = true; },
+    hideAllComments: hideAllComments
   };
   
   // Format time
@@ -1150,12 +1157,23 @@ document.addEventListener('DOMContentLoaded', function() {
       // Hide controls after 3 seconds
       showControls();
       
-      // Start playback
-      playInterval = setInterval(() => {
+      // Start playback with requestAnimationFrame
+      let lastFrameTime = performance.now();
+      
+      function animate(currentFrameTime) {
+        if (!playing) return;
+        
+        // Calculate time elapsed since last frame
+        const deltaTime = (currentFrameTime - lastFrameTime) / 1000; // Convert to seconds
+        lastFrameTime = currentFrameTime;
+        
         if (currentTime < duration) {
-          currentTime += 0.1;
+          currentTime += deltaTime;
           updateTime();
           checkComments();
+          
+          // Continue animation
+          playInterval = requestAnimationFrame(animate);
         } else {
           // End of video
           if (loopEnabled) {
@@ -1171,10 +1189,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 demo.classList.remove('controls-visible');
               }
             }, 1500);
+            
+            // Continue animation loop
+            playInterval = requestAnimationFrame(animate);
           } else {
             // Stop playback
             playing = false;
-            clearInterval(playInterval);
             playBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M8 5v14l11-7z"/>
             </svg>`;
@@ -1193,13 +1213,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
         }
-      }, 100);
+      }
+      
+      // Start the animation
+      playInterval = requestAnimationFrame(animate);
     } else {
       // Change to play icon
       playBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M8 5v14l11-7z"/>
       </svg>`;
-      clearInterval(playInterval);
+      cancelAnimationFrame(playInterval);
       demo.classList.add('controls-visible');
       
       // Pause GIF by replacing with static frame
@@ -1265,16 +1288,37 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Comment input handling
   if (commentInput) {
+    // Focus handler - expand the comment box
+    commentInput.addEventListener('focus', () => {
+      commentInput.rows = 2;
+      commentActions.style.display = 'flex';
+      // Update timecode when focusing on input
+      commentTimecode.textContent = `@ ${formatTime(currentTime)}`;
+    });
+    
+    // Input handler
     commentInput.addEventListener('input', () => {
       const hasText = commentInput.value.trim().length > 0;
       commentSubmit.disabled = !hasText;
       commentSubmit.style.opacity = hasText ? '1' : '0.5';
+      
+      // Auto-resize based on content
+      commentInput.style.height = 'auto';
+      commentInput.style.height = commentInput.scrollHeight + 'px';
     });
     
-    commentInput.addEventListener('focus', () => {
-      // Update timecode when focusing on input
-      commentTimecode.textContent = `@ ${formatTime(currentTime)}`;
-    });
+    // Cancel button handler
+    if (commentCancel) {
+      commentCancel.addEventListener('click', () => {
+        commentInput.value = '';
+        commentInput.rows = 1;
+        commentInput.style.height = 'auto';
+        commentActions.style.display = 'none';
+        commentSubmit.disabled = true;
+        commentSubmit.style.opacity = '0.5';
+        commentInput.blur();
+      });
+    }
   }
   
   // Submit comment
@@ -1304,10 +1348,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add to comments list
         commentsList.appendChild(newComment);
         
-        // Clear input
+        // Clear and collapse input
         commentInput.value = '';
+        commentInput.rows = 1;
+        commentInput.style.height = 'auto';
+        commentActions.style.display = 'none';
         commentSubmit.disabled = true;
         commentSubmit.style.opacity = '0.5';
+        commentInput.blur();
         
         // Show comments section if hidden
         if (commentsSection.style.display === 'none') {
@@ -1480,6 +1528,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function setToggleState(on, isAutomatic = false) {
       isOn = on;
       
+      const greenLight = prototypeWrapper.querySelector('.live-demo-badge > div > div:first-child');
+      const pulseRing = greenLight ? greenLight.querySelector('div') : null;
+      
       if (isOn) {
         // Turn ON
         prototypeWrapper.classList.remove('collapsed');
@@ -1488,6 +1539,52 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleBtn.style.background = '#e5e7eb';
         youtubeDemo.style.display = 'block';
         wasAutoToggled = false;
+        
+        // Turn green light back on
+        if (greenLight) {
+          greenLight.style.background = '#10b981';
+          if (pulseRing) {
+            pulseRing.style.background = '#10b981';
+            pulseRing.style.animation = 'modernPulse 2s ease-in-out infinite';
+          }
+        }
+        
+        // Reset the demo to initial state
+        const demo = youtubeDemo;
+        if (demo && demo.youtubeDemo) {
+          // Reset time to 5 seconds
+          demo.youtubeDemo.currentTime = 5;
+          
+          // Ensure demo is paused
+          const playBtn = demo.querySelector('.play-btn');
+          if (demo.dataset.playing === 'true' && playBtn) {
+            playBtn.click();
+          }
+          
+          // Reset controls visibility
+          demo.classList.add('controls-visible');
+          
+          // Re-enable community commentary
+          demo.youtubeDemo.resetCommunity();
+          const communityToggle = demo.querySelector('.community-toggle');
+          if (communityToggle) {
+            const toggle = communityToggle.querySelector('.toggle');
+            const toggleBtn = toggle.querySelector('div');
+            toggle.style.background = '#ffeb3b';
+            toggleBtn.style.left = '';
+            toggleBtn.style.right = '2px';
+          }
+          
+          // Hide all tooltips and comments
+          demo.youtubeDemo.hideAllComments();
+          
+          // Restart autoplay after a delay
+          setTimeout(() => {
+            if (playBtn && demo.dataset.playing !== 'true') {
+              playBtn.click();
+            }
+          }, 500);
+        }
       } else {
         // Turn OFF
         prototypeWrapper.classList.add('collapsed');
@@ -1495,6 +1592,15 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleBtn.classList.add('off');
         toggleBtn.style.background = '#e5e7eb';
         youtubeDemo.style.display = 'none';
+        
+        // Turn green light off (grey)
+        if (greenLight) {
+          greenLight.style.background = '#9ca3af';
+          if (pulseRing) {
+            pulseRing.style.background = '#9ca3af';
+            pulseRing.style.animation = 'none';
+          }
+        }
         
         // Pause the demo if it's playing
         const playBtn = youtubeDemo.querySelector('.play-btn');
