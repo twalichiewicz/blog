@@ -1,0 +1,204 @@
+/* Prototype Sandbox Styles */
+
+.prototype-sandbox {
+  position: relative;
+  margin: 32px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.sandbox-preview {
+  position: relative;
+}
+
+.sandbox-content {
+  width: 100%;
+  overflow: auto;
+  position: relative;
+  
+  /* Contain layout */
+  contain: layout style;
+  
+  /* Smooth scrolling within sandbox */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent content from escaping */
+.sandbox-content * {
+  max-width: 100%;
+}
+
+/* Overlay for play button */
+.sandbox-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+.prototype-sandbox.active .sandbox-overlay {
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Play button */
+.sandbox-play-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 20px 32px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.sandbox-play-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
+
+.sandbox-play-button svg {
+  flex-shrink: 0;
+}
+
+/* Controls */
+.sandbox-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.prototype-sandbox:hover .sandbox-controls,
+.prototype-sandbox.active .sandbox-controls {
+  opacity: 1;
+}
+
+.sandbox-controls button {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sandbox-controls button:hover {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Theme variations */
+.prototype-sandbox[data-theme="youtube"] {
+  background: #0f0f0f;
+}
+
+.prototype-sandbox[data-theme="soundcloud"] {
+  background: #f50;
+}
+
+.prototype-sandbox[data-theme="generic"] {
+  background: #1a1a1a;
+}
+
+/* Fullscreen mode */
+.prototype-sandbox.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  margin: 0;
+  border-radius: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.prototype-sandbox.fullscreen .sandbox-content {
+  height: 100vh;
+  max-height: 100vh;
+}
+
+body.prototype-fullscreen-active {
+  overflow: hidden;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .prototype-sandbox {
+    margin: 16px -16px;
+    border-radius: 0;
+  }
+  
+  .sandbox-play-button {
+    padding: 16px 24px;
+    font-size: 14px;
+  }
+  
+  .sandbox-play-button svg {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .sandbox-controls {
+    opacity: 1; /* Always visible on mobile */
+  }
+}
+
+/* Focus styles */
+.prototype-sandbox:focus-within {
+  outline: 2px solid var(--focus-color, #3b82f6);
+  outline-offset: 2px;
+}
+
+/* Loading state */
+.prototype-sandbox.loading .sandbox-content {
+  opacity: 0.5;
+}
+
+.prototype-sandbox.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}

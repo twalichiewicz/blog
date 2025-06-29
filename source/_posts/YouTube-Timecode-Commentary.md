@@ -253,6 +253,57 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 
 
 <style>
+/* Default cursor for the prototype (non-interactive areas) */
+.youtube-demo {
+  cursor: url('data:image/svg+xml;utf8,%3Csvg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M4.89415 6.3844C4.57502 5.5334 5.46478 4.73239 6.27769 5.13885L17.5821 10.7911C18.4125 11.2063 18.2781 12.4305 17.3775 12.6556L12.5326 13.8669C12.2009 13.9498 11.9345 14.1964 11.8264 14.5208L10.8932 17.3203C10.5952 18.2144 9.3391 18.2376 9.00821 17.3552L4.89415 6.3844Z" fill="white" stroke="black" stroke-width="1.5" stroke-linejoin="round"/%3E%3C/svg%3E') 4 4, default;
+}
+
+/* Apply default cursor to all elements within the prototype */
+.youtube-demo * {
+  cursor: inherit !important;
+}
+
+/* Clickable elements get the interactive cursor with blue dot */
+.youtube-demo button,
+.youtube-demo a,
+.youtube-demo .timeline-marker,
+.youtube-demo .play-btn,
+.youtube-demo .loop-btn,
+.youtube-demo .settings-btn,
+.youtube-demo .action-button,
+.youtube-demo .toggle-comments,
+.youtube-demo .comment-time-link,
+.youtube-demo .menu-item,
+.youtube-demo [role="button"],
+.youtube-demo [onclick],
+.youtube-demo input[type="submit"],
+.youtube-demo input[type="button"],
+.youtube-demo .clickable {
+  cursor: url('data:image/svg+xml;utf8,%3Csvg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M4.89415 6.3844C4.57502 5.5334 5.46478 4.73239 6.27769 5.13885L17.5821 10.7911C18.4125 11.2063 18.2781 12.4305 17.3775 12.6556L12.5326 13.8669C12.2009 13.9498 11.9345 14.1964 11.8264 14.5208L10.8932 17.3203C10.5952 18.2144 9.3391 18.2376 9.00821 17.3552L4.89415 6.3844Z" fill="white" stroke="black" stroke-width="1.5" stroke-linejoin="round"/%3E%3Cpath d="M18 8.5C19.3807 8.5 20.5 7.38071 20.5 6C20.5 4.61929 19.3807 3.5 18 3.5C16.6193 3.5 15.5 4.61929 15.5 6C15.5 7.38071 16.6193 8.5 18 8.5Z" fill="%23007AFF" stroke="white"/%3E%3Cpath d="M16 8L14 10" stroke="%23007AFF" stroke-width="1.5" stroke-linecap="round"/%3E%3C/svg%3E') 4 4, pointer !important;
+}
+
+/* Text selection areas get text cursor */
+.youtube-demo input[type="text"],
+.youtube-demo textarea,
+.youtube-demo [contenteditable="true"],
+.youtube-demo .comment-input {
+  cursor: text !important;
+}
+
+/* Draggable elements get grab cursor */
+.youtube-demo .progress-bar,
+.youtube-demo .progress-fill {
+  cursor: url('data:image/svg+xml;utf8,%3Csvg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M12 8C10.5825 8 10.1696 9.00466 10.0494 9.58987C9.99603 9.84966 9.89464 10.1054 9.70711 10.2929L7.70711 12.2929C7.31658 12.6834 7.31658 13.3166 7.70711 13.7071L9.70711 15.7071C9.89464 15.8946 9.99603 16.1503 10.0494 16.4101C10.1696 16.9953 10.5825 18 12 18C13.4175 18 13.8304 16.9953 13.9506 16.4101C14.004 16.1503 14.1054 15.8946 14.2929 15.7071L16.2929 13.7071C16.6834 13.3166 16.6834 12.6834 16.2929 12.2929L14.2929 10.2929C14.1054 10.1054 14.004 9.84966 13.9506 9.58987C13.8304 9.00466 13.4175 8 12 8Z" fill="white" stroke="black" stroke-width="1.5" stroke-linejoin="round"/%3E%3Cpath d="M12 15C13.1046 15 14 14.1046 14 13C14 11.8954 13.1046 11 12 11C10.8954 11 10 11.8954 10 13C10 14.1046 10.8954 15 12 15Z" fill="%23007AFF"/%3E%3C/svg%3E') 12 12, grab !important;
+}
+
+/* Disabled elements get not-allowed cursor */
+.youtube-demo button:disabled,
+.youtube-demo [disabled],
+.youtube-demo .disabled {
+  cursor: not-allowed !important;
+  opacity: 0.5;
+}
+
 /* Light mode styles (default) */
 .linear-prototype-wrapper {
   background: #fafafa;
