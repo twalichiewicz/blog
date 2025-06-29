@@ -34,7 +34,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
     <!-- Comments are now displayed as tooltips on timeline markers -->
     
     <!-- Tooltip container - separate from controls so they stay visible -->
-    <div class="tooltip-container" style="position: absolute; bottom: 0; left: 0; right: 0; pointer-events: none; z-index: 20;">
+    <div class="tooltip-container" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 20;">
       <!-- Tooltips will be dynamically positioned here -->
     </div>
     
@@ -511,13 +511,13 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 
 /* Glassomorphic iOS 16 tooltip style */
 .timeline-tooltip-minimal {
-  position: fixed;
+  position: absolute;
   display: flex;
   align-items: center;
   gap: 8px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 25; /* Above everything */
   flex-shrink: 0;
   margin: 0 8px;
@@ -704,6 +704,8 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
   transition: all 0.2s ease;
   transform-origin: top;
   overflow: hidden;
+  position: relative;
+  contain: layout style;
 }
 
 .comments-section.expanding {
@@ -937,13 +939,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Reset positioning
-    tooltip.style.position = 'fixed';
+    tooltip.style.position = 'absolute';
     
     if (controlsVisible && marker) {
       // When controls visible, position above the timeline marker
       const markerRect = marker.getBoundingClientRect();
       const progressBar = demo.querySelector('.progress-bar');
       const progressBarRect = progressBar.getBoundingClientRect();
+      const containerRect = tooltipContainer.getBoundingClientRect();
       
       // Get tooltip dimensions
       tooltip.style.visibility = 'hidden';
@@ -953,33 +956,44 @@ document.addEventListener('DOMContentLoaded', function() {
       const tooltipHeight = tooltipRect.height;
       tooltip.style.visibility = '';
       
-      // Calculate horizontal position aligned with marker
-      let leftPos = markerRect.left + markerRect.width / 2;
+      // Calculate position relative to container
+      const markerLeft = markerRect.left - containerRect.left + markerRect.width / 2;
+      const progressTop = progressBarRect.top - containerRect.top;
       
-      // Check bounds and adjust
-      const minLeft = demoRect.left + tooltipWidth/2 + 10;
-      const maxLeft = demoRect.right - tooltipWidth/2 - 10;
+      // Calculate horizontal position with bounds checking
+      let leftPos = markerLeft;
+      const minLeft = tooltipWidth/2 + 10;
+      const maxLeft = containerRect.width - tooltipWidth/2 - 10;
       
-      if (leftPos - tooltipWidth/2 < demoRect.left + 10) {
-        // Tooltip would overflow left
+      if (leftPos < minLeft) {
         leftPos = minLeft;
-      } else if (leftPos + tooltipWidth/2 > demoRect.right - 10) {
-        // Tooltip would overflow right
+      } else if (leftPos > maxLeft) {
         leftPos = maxLeft;
       }
       
-      // Position above progress bar with proper spacing
+      // Position above progress bar
       tooltip.style.left = leftPos + 'px';
-      tooltip.style.top = (progressBarRect.top - tooltipHeight - 20) + 'px';
+      tooltip.style.top = (progressTop - tooltipHeight - 20) + 'px';
       tooltip.style.transform = 'translateX(-50%)';
     } else {
-      // When controls hidden, fixed position from bottom of video
-      const centerX = demoRect.left + demoRect.width / 2;
-      const bottomY = videoRect.bottom - 15; // 15px from bottom
+      // When controls hidden, position at bottom of video (3px from bottom)
+      const containerRect = tooltipContainer.getBoundingClientRect();
+      const videoGif = demo.querySelector('.video-gif');
+      const videoRect = videoGif.getBoundingClientRect();
+      
+      // Calculate position relative to container
+      const centerX = containerRect.width / 2;
+      const bottomY = (videoRect.bottom - containerRect.top) - 3; // 3px from bottom of video
+      
+      // Get tooltip height for proper positioning
+      tooltip.style.visibility = 'hidden';
+      tooltip.style.display = 'flex';
+      const tooltipHeight = tooltip.getBoundingClientRect().height;
+      tooltip.style.visibility = '';
       
       tooltip.style.left = centerX + 'px';
-      tooltip.style.top = bottomY + 'px';
-      tooltip.style.transform = 'translateX(-50%) translateY(-100%)'; // Translate up by its height
+      tooltip.style.top = (bottomY - tooltipHeight) + 'px';
+      tooltip.style.transform = 'translateX(-50%)';
     }
   }
   
@@ -998,7 +1012,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (targetComment) {
       targetComment.classList.add('highlighted');
       // Scroll to comment
-      targetComment.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Scroll within the comments section only
+      const commentsContainer = targetComment.closest('.comments-section');
+      if (commentsContainer) {
+        const containerRect = commentsContainer.getBoundingClientRect();
+        const targetRect = targetComment.getBoundingClientRect();
+        const scrollTop = targetRect.top - containerRect.top + commentsContainer.scrollTop - (containerRect.height / 2) + (targetRect.height / 2);
+        commentsContainer.scrollTop = scrollTop;
+      }
     }
   }
   
@@ -1034,14 +1055,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
         
         commentTimeouts.set(tooltip, timeout);
-        
-        // Update position when controls visibility changes
-        const observer = new MutationObserver(() => {
-          if (tooltip.style.opacity === '1') {
-            positionTooltip(tooltip, marker, true);
-          }
-        });
-        observer.observe(demo, { attributes: true, attributeFilter: ['class'] });
       }
     });
   }
@@ -1076,14 +1089,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
         
         commentTimeouts.set(tooltip, timeout);
-        
-        // Update position when controls visibility changes
-        const observer = new MutationObserver(() => {
-          if (tooltip.style.opacity === '1') {
-            positionTooltip(tooltip, marker, true);
-          }
-        });
-        observer.observe(demo, { attributes: true, attributeFilter: ['class'] });
       }
     });
   });
@@ -1113,6 +1118,29 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 3000);
   }
+  
+  // Watch for controls visibility changes and reposition all visible tooltips
+  const controlsObserver = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        // Reposition all visible tooltips
+        const visibleTooltips = tooltipContainer.querySelectorAll('.timeline-tooltip-minimal[style*="opacity: 1"]');
+        visibleTooltips.forEach(tooltip => {
+          const markerId = tooltip.dataset.markerId;
+          const marker = demo.querySelector(`.timeline-marker[data-time="${markerId}"]`);
+          if (marker) {
+            positionTooltip(tooltip, marker);
+          }
+        });
+      }
+    });
+  });
+  
+  // Start observing the demo element for class changes
+  controlsObserver.observe(demo, { 
+    attributes: true, 
+    attributeFilter: ['class'] 
+  });
   
   // Show controls on mouse move
   demo.addEventListener('mousemove', () => {
@@ -1364,7 +1392,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Highlight new comment
         newComment.classList.add('highlighted');
-        newComment.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Scroll within the comments section only
+        const commentsContainer = newComment.closest('.comments-section');
+        if (commentsContainer) {
+          const containerRect = commentsContainer.getBoundingClientRect();
+          const targetRect = newComment.getBoundingClientRect();
+          const scrollTop = targetRect.top - containerRect.top + commentsContainer.scrollTop - (containerRect.height / 2) + (targetRect.height / 2);
+          commentsContainer.scrollTop = scrollTop;
+        }
       }
     });
   }
