@@ -41,6 +41,7 @@ node_modules/
 # Build and deploy
 .deploy_git/
 .eslintcache
+.build-cache/
 
 # Temporary files
 *.tmp

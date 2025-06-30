@@ -50,7 +50,9 @@
     height: 308px;
     border-radius: 4px 12px 12px 4px;
     @include skeleton-base;
-    position: relative;
+	& {
+		position: relative;
+	}
     
     // Simulate elastic band
     &::after {

@@ -994,7 +994,9 @@ button {
 			// Override component library default button styles to use reusable button
 			&.btn--default {
 				@include reusable-button;
-				height: auto !important; // Override fixed height
+	& {
+		height: auto !important;
+	} // Override fixed height
 			}
 		}
 		

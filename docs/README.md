@@ -1,120 +1,115 @@
 # Documentation
 
-Comprehensive documentation for the thomas.design blog and portfolio site.
+Welcome to the Thomas.design portfolio documentation. This comprehensive guide covers everything from development setup to deployment and maintenance.
 
-## Documentation Structure
+## 🚀 Quick Start
 
-### 📁 [01-overview](./01-overview/)
-High-level documentation about the project, architecture, and security.
+### New to the Project?
+1. **[Getting Started](./guides/development/getting-started.md)** - Development environment setup
+2. **[CLAUDE.md](../CLAUDE.md)** - AI assistant instructions and project rules
+3. **[Quick Reference](./QUICK-REFERENCE.md)** - Essential commands cheat sheet
 
-- **[README](./01-overview/README.md)** - Project overview and getting started
-- **[Theme Architecture](./01-overview/theme-architecture.md)** - Hexo theme structure and customization
-- **[Security](./01-overview/security.md)** - Security practices and configurations
+### Looking for Something Specific?
+- **Demo Development**: [Creating Demos](./guides/development/creating-demos.md) | [Demo System](./reference/architecture/demo-system.md)
+- **Self-Healing System**: [Self-Healing Guide](./guides/development/self-healing-system.md) 🏥
+- **Testing**: [Testing Guide](./guides/development/testing.md) | [Test Scripts](../test-scripts/)
+- **Troubleshooting**: [Common Issues](./guides/development/troubleshooting.md)
 
-### 📁 [02-development](./02-development/)
-Development guides, workflows, and best practices.
+## 📚 Documentation Structure
 
-- **[Development Guide](./02-development/development-guide.md)** - Local development setup and workflow
-- **[Deployment Guide](./02-development/deployment-guide.md)** - GitHub Pages deployment process
-- **[Performance Guide](./02-development/performance-guide.md)** - Performance optimization strategies
-- **[CSS Refactoring Guide](./02-development/css-refactoring-guide.md)** - SCSS architecture and refactoring
-- **[JS Refactoring Guide](./02-development/js-refactoring-guide.md)** - JavaScript modernization strategy
+### 🔧 Guides (How-To)
+Step-by-step instructions for common tasks.
 
-### 📁 [03-features](./03-features/)
-Documentation for specific features and components.
+**Development**
+- [Getting Started](./guides/development/getting-started.md) - Environment setup and workflow
+- [Self-Healing System](./guides/development/self-healing-system.md) 🏥 - Automatic issue detection
+- [Creating Demos](./guides/development/creating-demos.md) - Interactive portfolio demos
+- [Testing](./guides/development/testing.md) - Test strategies and automation
+- [Deployment](./guides/development/deployment.md) - Production deployment
+- [Troubleshooting](./guides/development/troubleshooting.md) - Common problems and solutions
+- [Video Conversion](./guides/development/video-conversion-guide.md) - Media optimization
 
-- **[Carousel Component](./03-features/carousel-component.md)** - Image/video carousel with spotlight
-- **[Alert Message Component](./03-features/alert-message-component.md)** - Notification system
-- **[Impact Report System](./03-features/impact-report-system.md)** - Portfolio impact metrics
-- **[Editorial Design Library](./03-features/editorial-design-library.md)** - Typography and layout
-- **[Project Summary Component](./03-features/project-summary-component.md)** - Portfolio project cards
-- **[Video Conversion Guide](./03-features/video-conversion-guide.md)** - Video optimization
-- **[Adaptive Videos](./03-features/adaptive-videos.md)** - Responsive video implementation
+**Portfolio Management**
+- [Editing Projects](./guides/portfolio/editing-projects.md) - Content management
+- [Notebook System](./guides/portfolio/NOTEBOOK-SYSTEM.md) - Custom notebook covers
+- [Best Practices](./guides/portfolio/best-practices.md) - Portfolio optimization
 
-### 📁 [04-project-health](./04-project-health/)
-Technical debt, maintenance, and project health monitoring.
+**Maintenance**
+- [Performance Optimization](./guides/maintenance/performance-optimization.md) - Site speed
+- [Security Updates](./guides/maintenance/security-updates.md) - Security practices
 
-- **[Technical Debt Analysis](./04-project-health/technical-debt-analysis.md)** - Comprehensive debt assessment
-- **[Tech Debt Summary](./04-project-health/tech-debt-summary.md)** - Quick overview of technical debt
-- **[Documentation Cleanup Plan](./04-project-health/documentation-cleanup-plan.md)** - Documentation organization
+### 📖 Reference (Technical Docs)
+Detailed technical specifications and API documentation.
 
-### 📁 [05-reference](./05-reference/)
-Reference materials and completed work logs.
+**Architecture**
+- [System Overview](./reference/architecture/overview.md) - High-level architecture
+- [Demo System](./reference/architecture/demo-system.md) - Demo framework details
+- [Theme System](./reference/architecture/theme-system.md) - Theme architecture
+- [Build Pipeline](./reference/architecture/build-pipeline.md) - Build process
 
-- **[Anchor Links](./05-reference/anchor-links.md)** - How anchor links work in the theme
-- **[Critical Fixes Completed](./05-reference/critical-fixes-completed.md)** - Log of major fixes
+**Components**
+- [Component Library](./reference/components/README.md) - Available components
+- [UI Components](./reference/components/ui-components.md) - Interface components
+- [Media Components](./reference/components/media-components.md) - Media handling
 
-### 📁 [guides](./guides/)
-Specialized guides and enhancements.
+### 📋 Project Management
+Project planning, roadmaps, and contribution guidelines.
 
-- **[Desktop Install Enhancement](./guides/desktop-install-enhancement.md)** - PWA installation guide
-- **[Foreground Editing Guide](./guides/foreground-editing-guide.md)** - Real-time editing workflow
+- [Technical Debt](./project/technical-debt.md) - Known issues and improvements
+- [Contribution Guide](./project/contribution-guide.md) - How to contribute
+- [750k IC Roadmap](./project/750k-ic-roadmap.md) - Individual contributor path
 
-### 📁 [portfolio](./portfolio/)
-Portfolio analysis and improvement documentation.
+## 🤖 AI-Powered Features
 
-- **[Portfolio Analysis 2025](./portfolio/PORTFOLIO_ANALYSIS_2025.md)** - Current portfolio assessment
-- **[Portfolio Improvement Plan](./portfolio/PORTFOLIO_IMPROVEMENT_PLAN.md)** - 8-week enhancement plan
-- **[Portfolio Quality Focus](./portfolio/PORTFOLIO_QUALITY_FOCUS.md)** - Quality over quantity approach
+### Claude Auto-Fix System
+- **[Auto-Fix Documentation](./guides/development/CLAUDE-AUTOFIX-SYSTEM.md)** - AI-powered error fixing
+- **[Demo Auto-Fix](../demos/build-scripts/README-AUTOFIX.md)** - Automatic demo validation and fixes
 
-### 📁 [refactoring](./refactoring/)
-Detailed refactoring documentation and examples.
+### Self-Healing Development
+- **[Self-Healing System](./guides/development/self-healing-system.md)** - Automatic issue detection and resolution
+- **[Health Dashboard](../build-system/README.md)** - Interactive monitoring
 
-- CSS refactoring examples and implementation details
-- JavaScript refactoring plans and metrics
+## 📄 Recent Updates
 
-## Quick Links
+### Latest Improvements
+- **[Demo Standardization](./DEMO-STANDARDIZATION-SUMMARY.md)** - Recent demo system improvements
+- **[Documentation Cleanup](./CLEANUP-SUMMARY.md)** - Recent documentation reorganization
+- **[Cursor System](./PROTOTYPE-CURSORS.md)** - Custom cursor implementation
 
-### For New Contributors
-1. Start with [Project Overview](./01-overview/README.md)
-2. Set up your environment with [Development Guide](./02-development/development-guide.md)
-3. Review [Theme Architecture](./01-overview/theme-architecture.md)
+### Archive
+- **[Archive](./archive/)** - Superseded documentation (kept for reference)
+- **[Backup](../docs-backup-2025-06-26/)** - Full backup from reorganization
 
-### For Feature Development
-1. Check existing [Features](./03-features/) for patterns
-2. Review [CSS](./02-development/css-refactoring-guide.md) and [JS](./02-development/js-refactoring-guide.md) guides
-3. Follow [Security](./01-overview/security.md) best practices
+## 🛠️ Tools & Scripts
 
-### For Maintenance
-1. Review [Technical Debt Analysis](./04-project-health/technical-debt-analysis.md)
-2. Check [Performance Guide](./02-development/performance-guide.md)
-3. Follow [Deployment Guide](./02-development/deployment-guide.md)
+### Build System
+- **[Build System](../build-system/README.md)** - Self-healing CLI and health monitoring
+- **[Test Scripts](../test-scripts/)** - Comprehensive testing suite
+- **[Tools](../tools/)** - Utility scripts and automation
 
-## Documentation Standards
+### Demo Development
+- **[Demo System](../demos/README.md)** - Interactive portfolio demos
+- **[Shared Components](../demos/shared/README.md)** - Reusable demo components
 
-### File Naming
-- Use kebab-case for all files: `feature-name.md`
-- Be descriptive but concise
-- Group related docs in subdirectories
+## 📚 Learning Resources
 
-### Content Structure
-1. **Title** - Clear, descriptive H1
-2. **Overview** - Brief description of the topic
-3. **Table of Contents** - For longer documents
-4. **Content** - Well-organized with clear headings
-5. **Examples** - Code samples and usage
-6. **References** - Links to related docs
+### For Designers
+- [Portfolio Best Practices](./guides/portfolio/best-practices.md)
+- [Notebook Customization](./guides/portfolio/NOTEBOOK-SYSTEM.md)
+- [Case Study Writing](./guides/portfolio/case-studies.md)
 
-### Code Examples
-```javascript
-// Use syntax highlighting
-// Include comments for clarity
-// Show both good and bad examples
-```
+### For Developers
+- [Architecture Overview](./reference/architecture/overview.md)
+- [Component Library](./reference/components/README.md)
+- [Testing Strategies](./guides/development/testing.md)
 
-### Maintenance
-- Keep documentation up-to-date with code changes
-- Review quarterly for accuracy
-- Archive outdated docs rather than deleting
-
-## Contributing
-
-When adding new documentation:
-1. Place it in the appropriate directory
-2. Update this README with a description
-3. Link from related documents
-4. Follow the documentation standards above
+### For Contributors
+- [Contribution Guide](./project/contribution-guide.md)
+- [Technical Debt](./project/technical-debt.md)
+- [Roadmap](./project/750k-ic-roadmap.md)
 
 ---
 
-*Last updated: June 2025*
+**Need help?** Check [Troubleshooting](./guides/development/troubleshooting.md) or review [CLAUDE.md](../CLAUDE.md) for AI assistant guidance.
+
+*Documentation updated: December 2025*

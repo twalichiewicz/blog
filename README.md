@@ -11,6 +11,7 @@ This is a **static site generator (SSG)** built on Hexo 7.3.0 with a custom "san
 - **222+ blog posts and portfolio projects**
 - **Custom theme with dark/light modes**
 - **Advanced media galleries with video support**
+- **Self-healing development system**
 - **Automated performance optimizations**
 - **CI/CD pipeline with GitHub Actions**
 - **Responsive, accessible, and SEO-optimized**
@@ -26,7 +27,7 @@ This is a **static site generator (SSG)** built on Hexo 7.3.0 with a custom "san
 - **Build Tools**: Sharp.js for images, hexo-minify for assets
 - **Deployment**: GitHub Actions → GitHub Pages
 
-For detailed technical documentation, see [ARCHITECTURE.md](./ARCHITECTURE.md).
+For detailed technical documentation, see [Architecture Guide](./docs/reference/architecture/overview.md).
 
 ---
 
@@ -35,16 +36,23 @@ For detailed technical documentation, see [ARCHITECTURE.md](./ARCHITECTURE.md).
 ```
 blog/
 ├── source/              # Content (Markdown posts, images, assets)
-│   ├── _posts/         # Blog posts and portfolio projects (222 files)
+│   ├── _posts/         # Blog posts and portfolio projects (222+ files)
 │   ├── img/            # Site-wide images
 │   └── media/          # Audio/video assets
 ├── themes/san-diego/    # Custom theme
 │   ├── layout/         # EJS templates
 │   ├── source/         # Theme assets (JS, SCSS, images)
 │   └── scripts/        # Build-time processors
-├── scripts/            # Hexo plugins and generators
-├── tools/              # Build optimization scripts
-├── docs/               # Documentation
+├── demos/              # Interactive portfolio demos
+│   ├── shared/         # Shared demo components
+│   └── [project-demos]/# Individual demo projects
+├── build-system/       # Self-healing development system
+├── docs/               # Comprehensive documentation
+│   ├── guides/         # How-to guides
+│   ├── reference/      # Technical reference
+│   └── project/        # Project management
+├── test-scripts/       # Testing and validation
+├── tools/              # Build optimization and utilities
 ├── _config.yml         # Hexo configuration
 └── package.json        # Dependencies
 
@@ -71,10 +79,22 @@ npm install
 ### Development Commands
 
 ```bash
-# Start local development server (http://localhost:4000)
+# Start development server with self-healing (RECOMMENDED)
+npm run dev
+
+# Check system health
+npm run doctor
+
+# Auto-fix detected issues
+npm run fix
+
+# Interactive health dashboard
+npm run health
+
+# Simple server without self-healing (legacy)
 npm run server
 
-# Build the site
+# Build everything (demos + site)
 npm run build
 
 # Production build with optimizations
@@ -82,6 +102,12 @@ npm run build:prod
 
 # Deploy to GitHub Pages
 npm run deploy
+
+# Run tests (comprehensive suite)
+npm test
+
+# Quick tests for development
+npm run test:quick
 
 # Optimize images only
 npm run optimize:images
@@ -106,6 +132,26 @@ hexo new portfolio-post "Project Name"
 # Create a draft
 hexo new draft "Work in Progress"
 ```
+
+### 🤖 Claude Auto-Fix System (NEW)
+
+Automatically fix failing tests using Claude AI:
+
+```bash
+# Set up Claude API key
+export CLAUDE_API_KEY="sk-ant-..."
+
+# Auto-fix all tests
+npm run test:autofix
+
+# Fix demo standards only
+npm run fix:demos
+
+# Preview fixes without applying
+DRY_RUN=true npm run fix:demos
+```
+
+See [Claude Auto-Fix Documentation](./docs/CLAUDE-AUTOFIX-SYSTEM.md) for complete guide.
 
 ---
 
@@ -209,12 +255,42 @@ search:
 
 ---
 
+## 🏥 Self-Healing Development System
+
+The portfolio includes an innovative self-healing system that automatically detects and fixes common development issues:
+
+### Features
+- **Automatic Issue Detection**: Monitors for Hexo warehouse errors, port conflicts, memory issues, missing dependencies, and more
+- **Smart Auto-Fix**: Safely repairs database corruption, kills zombie processes, rebuilds missing assets
+- **Real-Time Monitoring**: Watches development server for errors and applies fixes automatically
+- **Health Dashboard**: Interactive terminal UI for system monitoring and control
+
+### Common Issues Fixed Automatically
+1. **Hexo Warehouse Errors**: "ID has been used" → Cleans database and restarts
+2. **Port 4000 Blocked**: Process using port → Kills process and frees port
+3. **High Memory Usage**: > 800MB → Triggers garbage collection
+4. **Missing Demo Builds**: Demos not in theme → Rebuilds demos
+5. **Stale Cache**: > 7 days old → Clears and rebuilds cache
+6. **CSS Issues**: Dark mode visibility → Updates styles
+
+### Usage
+```bash
+npm run doctor    # Check system health
+npm run fix       # Apply automatic fixes
+npm run health    # Open dashboard (requires: npm install blessed blessed-contrib)
+```
+
+For detailed information, see [Self-Healing System Guide](./docs/guides/development/self-healing-system.md).
+
+---
+
 ## 🐛 Troubleshooting
 
-- **Out of memory:** Lower batch size in `tools/optimize-images.js`
+- **Out of memory:** Lower batch size in `tools/optimize-images.js` or use `npm run fix`
 - **Sharp errors:** Update Node.js to latest LTS
-- **Build failures:** Check image permissions and formats
+- **Build failures:** Run `npm run doctor` first, then check permissions
 - **SASS warnings:** These are theme-related and harmless
+- **Hexo errors:** The self-healing system handles most automatically
 
 ---
 
@@ -251,7 +327,11 @@ See [Technical Debt Analysis](./docs/04-project-health/technical-debt-analysis.m
   - [Features](./docs/03-features/) — Component and feature documentation
   - [Project Health](./docs/04-project-health/) — Technical debt and maintenance
   - [Portfolio](./docs/portfolio/) — Portfolio analysis and improvements
+  - **[Testing Guide](./docs/TESTING.md)** — Comprehensive testing system
+  - **[Quick Reference](./docs/QUICK-REFERENCE.md)** — Essential commands and patterns
+  - **[Demo Standardization](./docs/DEMO-STANDARDIZATION-SUMMARY.md)** — Recent improvements
 - [CLAUDE.md](./CLAUDE.md) — AI assistant instructions
+- [CHANGELOG.md](./CHANGELOG.md) — Project history and changes
 
 ### External Resources:
 - [Hexo Documentation](https://hexo.io/docs/)

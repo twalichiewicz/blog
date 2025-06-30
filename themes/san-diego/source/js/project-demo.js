@@ -9,48 +9,18 @@
         // Check for inline demo container first
         const inlineContainer = document.querySelector('.demo-inline-container');
         if (inlineContainer) {
-            const isLocalhost = window.location.hostname === 'localhost' || 
-                               window.location.hostname === '127.0.0.1' || 
-                               window.location.hostname.startsWith('192.168.') ||
-                               window.location.port === '4000'; // Hexo dev server port
-            
-            if (isLocalhost) {
-                const componentName = inlineContainer.getAttribute('data-demo-component');
-                if (componentName) {
-                    loadInlineDemo(componentName, inlineContainer);
-                }
-            } else {
-                // On production, show the cover image if available
-                const coverImage = inlineContainer.getAttribute('data-cover-image');
-                if (coverImage) {
-                    inlineContainer.innerHTML = `
-                        <img src="${coverImage}" 
-                             alt="Project preview" 
-                             style="width: 100%; height: 100%; object-fit: cover;">
-                    `;
-                } else {
-                    // Remove the container entirely if no cover image
-                    inlineContainer.remove();
-                }
+            const componentName = inlineContainer.getAttribute('data-demo-component');
+            if (componentName) {
+                loadInlineDemo(componentName, inlineContainer);
+                setupInlineDemoControls(inlineContainer);
             }
         }
         
         // Original demo button logic
         const demoButton = document.getElementById('demoBtn');
         if (demoButton) {
-            // Feature flag: Only show demo button on localhost
-            const isLocalhost = window.location.hostname === 'localhost' || 
-                               window.location.hostname === '127.0.0.1' || 
-                               window.location.hostname.startsWith('192.168.') ||
-                               window.location.port === '4000'; // Hexo dev server port
-            
-            if (isLocalhost) {
-                demoButton.style.display = 'inline-flex'; // Show button
-                setupDemoButton(demoButton);
-            } else {
-                // Remove button entirely on production
-                demoButton.remove();
-            }
+            demoButton.style.display = 'inline-flex'; // Show button
+            setupDemoButton(demoButton);
         }
     }
 
@@ -71,165 +41,37 @@
                 // External demo - open in new window
                 window.open(demoUrl, '_blank', 'noopener,noreferrer');
             } else if (demoComponent) {
-                // Dynamic component demo
-                loadDemoComponent(demoComponent);
+                // For inline demos, trigger fullscreen and start onboarding
+                const inlineContainer = document.querySelector('.demo-inline-container');
+                if (inlineContainer) {
+                    // Use the same fullscreen function as the fullscreen button
+                    toggleFullscreenDemo(inlineContainer);
+                    
+                    // Trigger walkthrough toolbar when entering fullscreen via Demo button
+                    // This shows the toolbar WITH auto-start capability
+                    setTimeout(() => {
+                        if (window.demoWalkthrough && window.demoWalkthrough.handleFullscreenEntry) {
+                            // Show toolbar with auto-start flag since it's from Demo button
+                            window.demoWalkthrough.showToolbar(true);
+                        }
+                    }, 500); // Wait for fullscreen animation to start
+                }
             }
         });
     }
 
-    // Load demo component
-    function loadDemoComponent(componentName) {
-        
-        // Create fullscreen modal
-        const modal = document.createElement('div');
-        modal.className = 'demo-modal';
-        modal.innerHTML = `
-            <div class="demo-modal-overlay"></div>
-            <div class="demo-modal-content">
-                <button class="demo-modal-close" aria-label="Close demo">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                    </svg>
-                </button>
-                <div class="demo-modal-body">
-                    <div class="demo-loading">Loading demo...</div>
-                </div>
-            </div>
-        `;
-        
-        // Add modal to body
-        document.body.appendChild(modal);
-        document.body.classList.add('demo-modal-open');
-        
-        // Get the modal body for content
-        const modalBody = modal.querySelector('.demo-modal-body');
-        
-        // Set up close button
-        const closeBtn = modal.querySelector('.demo-modal-close');
-        const overlay = modal.querySelector('.demo-modal-overlay');
-        
-        const closeModal = () => {
-            // Play sound effect if available
-            if (window.soundEffects && window.soundEffects.playSound) {
-                window.soundEffects.playSound('small-click');
-            }
-            
-            document.body.classList.remove('demo-modal-open');
-            modal.classList.add('closing');
-            setTimeout(() => {
-                modal.remove();
-            }, 300);
-        };
-        
-        closeBtn.addEventListener('click', closeModal);
-        overlay.addEventListener('click', closeModal);
-        
-        // Handle escape key
-        const handleEscape = (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
-                document.removeEventListener('keydown', handleEscape);
-            }
-        };
-        document.addEventListener('keydown', handleEscape);
-        
-        // Load the demo component
-        switch(componentName) {
-            case 'interactive-prototype':
-                loadInteractivePrototype(modalBody);
-                break;
-            case 'code-sandbox':
-                loadCodeSandbox(modalBody);
-                break;
-            case 'figma-embed':
-                loadFigmaEmbed(modalBody);
-                break;
-            case 'live-component':
-                loadLiveComponent(modalBody);
-                break;
-            default:
-                // Try to load custom component
-                loadCustomComponent(componentName, modalBody);
-        }
-    }
+    // Removed old modal-based loadDemoComponent function - now using toggleFullscreenDemo instead
 
-    // Example demo loaders
-    function loadInteractivePrototype(container) {
-        container.innerHTML = `
-            <div class="demo-prototype">
-                <iframe src="/demos/prototype.html" 
-                    frameborder="0" 
-                    allowfullscreen
-                    title="Interactive Prototype">
-                </iframe>
-            </div>
-        `;
-    }
-
-    function loadCodeSandbox(container) {
-        container.innerHTML = `
-            <div class="demo-codesandbox">
-                <iframe src="https://codesandbox.io/embed/" 
-                    frameborder="0" 
-                    allowfullscreen
-                    sandbox="allow-scripts allow-same-origin"
-                    title="Code Sandbox Demo">
-                </iframe>
-            </div>
-        `;
-    }
-
-    function loadFigmaEmbed(container) {
-        container.innerHTML = `
-            <div class="demo-figma">
-                <iframe src="https://www.figma.com/embed" 
-                    frameborder="0" 
-                    allowfullscreen
-                    title="Figma Prototype">
-                </iframe>
-            </div>
-        `;
-    }
-
-    function loadLiveComponent(container) {
-        // Example of loading a live React/Vue component
-        container.innerHTML = `
-            <div class="demo-live-component" id="demo-mount-point">
-                <!-- Component will be mounted here -->
-            </div>
-        `;
-        
-        // Dispatch event for component mounting
-        const event = new CustomEvent('mountDemoComponent', {
-            detail: { mountPoint: document.getElementById('demo-mount-point') }
-        });
-        document.dispatchEvent(event);
-    }
-
-    function loadCustomComponent(name, container) {
-        // Load custom demo as iframe
-        container.innerHTML = `
-            <div class="demo-custom">
-                <iframe src="/demos/${name}/" 
-                    frameborder="0" 
-                    allowfullscreen
-                    style="width: 100%; height: 100%;"
-                    title="${name} Demo">
-                </iframe>
-            </div>
-        `;
-        
-        // Also dispatch event for any additional handlers
-        const event = new CustomEvent('loadDemoComponent', {
-            detail: { name, container }
-        });
-        document.dispatchEvent(event);
-    }
 
     // Load demo inline in the hero section
     function loadInlineDemo(componentName, container) {
-        // Clear loading state
-        container.innerHTML = '';
+        // Preserve the controls
+        const controls = container.querySelector('.demo-inline-controls');
+        const loading = container.querySelector('.demo-inline-loading');
+        
+        // Create wrapper div for iframe
+        const iframeWrapper = document.createElement('div');
+        iframeWrapper.className = 'demo-iframe-wrapper';
         
         // Create iframe for inline demo
         const iframe = document.createElement('iframe');
@@ -240,22 +82,33 @@
         iframe.style.height = '100%';
         iframe.title = `${componentName} Demo`;
         iframe.className = 'demo-inline-iframe';
+        iframe.sandbox = 'allow-scripts allow-same-origin allow-forms allow-popups allow-modals';
         
         // Add loading handler
         iframe.addEventListener('load', function() {
             container.classList.add('demo-loaded');
+            if (loading) loading.style.display = 'none';
         });
         
         // Add error handler
         iframe.addEventListener('error', function() {
-            container.innerHTML = `
-                <div class="demo-error">
-                    <p>Failed to load demo</p>
-                </div>
-            `;
+            if (loading) {
+                loading.innerHTML = `
+                    <div class="demo-error">
+                        <p>Failed to load demo</p>
+                    </div>
+                `;
+            }
         });
         
-        container.appendChild(iframe);
+        // Add iframe to wrapper, then wrapper to container
+        iframeWrapper.appendChild(iframe);
+        container.appendChild(iframeWrapper);
+        
+        // Re-append controls to ensure they stay on top
+        if (controls) {
+            container.appendChild(controls);
+        }
         
         // Dispatch event for any additional handlers
         const event = new CustomEvent('loadInlineDemoComponent', {
@@ -263,12 +116,296 @@
         });
         document.dispatchEvent(event);
     }
+    
+    // Toggle fullscreen demo animation
+    function toggleFullscreenDemo(container) {
+        const trailerHero = container.closest('.project-trailer-hero');
+        const controls = container.querySelector('.demo-inline-controls');
+        
+        if (!trailerHero) return;
+        
+        const isFullscreen = trailerHero.classList.contains('demo-fullscreen');
+        
+        if (!isFullscreen) {
+            // Enter fullscreen
+            
+            // Check if we're in a dynamically loaded context
+            const blogContent = trailerHero.closest('.blog-content.has-dynamic-content');
+            if (blogContent) {
+                // Store original parent and position for restoration
+                trailerHero.dataset.originalParent = trailerHero.parentElement.id || 'original-parent-' + Date.now();
+                if (!trailerHero.parentElement.id) {
+                    trailerHero.parentElement.id = trailerHero.dataset.originalParent;
+                }
+                
+                // Create placeholder to maintain layout
+                const placeholder = document.createElement('div');
+                placeholder.id = 'demo-fullscreen-placeholder';
+                placeholder.style.height = trailerHero.offsetHeight + 'px';
+                trailerHero.parentElement.insertBefore(placeholder, trailerHero);
+                
+                // Move element to body for true fullscreen
+                document.body.appendChild(trailerHero);
+            }
+            
+            trailerHero.classList.add('demo-fullscreen');
+            document.body.classList.add('demo-fullscreen-active');
+            
+            // Update controls for fullscreen mode
+            if (controls) {
+                // Update existing controls
+                const controlsRight = controls.querySelector('.demo-controls-right');
+                
+                // Create left button group
+                const leftButtonGroup = document.createElement('div');
+                leftButtonGroup.className = 'demo-controls-left';
+                leftButtonGroup.style.display = 'flex';
+                leftButtonGroup.style.gap = '8px';
+                
+                // Add Projects button (goes to portfolio page)
+                const projectsBtn = document.createElement('a');
+                projectsBtn.href = '/?tab=portfolio';
+                projectsBtn.className = 'demo-control-button demo-projects-button';
+                projectsBtn.setAttribute('aria-label', 'Back to Projects');
+                projectsBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Projects</span>
+                `;
+                
+                // Add Minimize button (exits fullscreen)
+                const minimizeBtn = document.createElement('button');
+                minimizeBtn.className = 'demo-control-button demo-minimize-button';
+                minimizeBtn.setAttribute('aria-label', 'Minimize');
+                minimizeBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                    <span>Minimize</span>
+                `;
+                
+                // Add buttons to left group
+                leftButtonGroup.appendChild(projectsBtn);
+                leftButtonGroup.appendChild(minimizeBtn);
+                
+                // Insert left button group as first child of controls
+                controls.insertBefore(leftButtonGroup, controls.firstChild);
+                
+                // Add exit fullscreen button to the right side
+                if (controlsRight) {
+                    // Create exit fullscreen button
+                    const exitFullscreenBtn = document.createElement('button');
+                    exitFullscreenBtn.className = 'demo-control-button demo-exit-fullscreen-button';
+                    exitFullscreenBtn.setAttribute('aria-label', 'Exit fullscreen');
+                    exitFullscreenBtn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+                        </svg>
+                    `;
+                    
+                    // Add click handler
+                    exitFullscreenBtn.addEventListener('click', function() {
+                        toggleFullscreenDemo(container);
+                    });
+                    
+                    // Append to the right controls after zoom controls
+                    controlsRight.appendChild(exitFullscreenBtn);
+                }
+                
+                // Hide the regular fullscreen button in fullscreen mode
+                const fullscreenBtn = container.querySelector('.demo-fullscreen-button');
+                if (fullscreenBtn) {
+                    fullscreenBtn.style.display = 'none';
+                }
+                
+                // Update controls layout for fullscreen
+                controls.style.justifyContent = 'space-between';
+                
+                // Handle minimize button click
+                minimizeBtn.addEventListener('click', function() {
+                    toggleFullscreenDemo(container);
+                });
+            }
+            
+            // Play sound effect
+            if (window.soundEffects && window.soundEffects.playSound) {
+                window.soundEffects.playSound('button-press');
+            }
+            
+        } else {
+            // Exit fullscreen
+            trailerHero.classList.remove('demo-fullscreen');
+            document.body.classList.remove('demo-fullscreen-active');
+            
+            // Restore original position if it was moved
+            const originalParentId = trailerHero.dataset.originalParent;
+            if (originalParentId) {
+                const originalParent = document.getElementById(originalParentId);
+                const placeholder = document.getElementById('demo-fullscreen-placeholder');
+                
+                if (originalParent && placeholder) {
+                    // Move element back to original position
+                    originalParent.insertBefore(trailerHero, placeholder);
+                    placeholder.remove();
+                }
+                
+                // Clean up data attribute
+                delete trailerHero.dataset.originalParent;
+            }
+            
+            // Remove left button group
+            const leftButtonGroup = controls.querySelector('.demo-controls-left');
+            if (leftButtonGroup) leftButtonGroup.remove();
+            
+            // Remove exit fullscreen button
+            const exitFullscreenBtn = controls.querySelector('.demo-exit-fullscreen-button');
+            if (exitFullscreenBtn) exitFullscreenBtn.remove();
+            
+            // Restore fullscreen button visibility
+            const fullscreenBtn = container.querySelector('.demo-fullscreen-button');
+            if (fullscreenBtn) {
+                fullscreenBtn.style.display = '';
+            }
+            
+            // Restore controls layout
+            if (controls) {
+                controls.style.justifyContent = 'flex-end';
+            }
+            
+            // Hide walkthrough toolbar when exiting fullscreen
+            if (window.demoWalkthrough && window.demoWalkthrough.handleFullscreenExit) {
+                window.demoWalkthrough.handleFullscreenExit();
+            }
+            
+            // Play sound effect
+            if (window.soundEffects && window.soundEffects.playSound) {
+                window.soundEffects.playSound('small-click');
+            }
+        }
+        
+        // Handle escape key
+        const handleEscape = (e) => {
+            if (e.key === 'Escape' && trailerHero.classList.contains('demo-fullscreen')) {
+                toggleFullscreenDemo(container);
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        
+        if (!isFullscreen) {
+            document.addEventListener('keydown', handleEscape);
+        }
+    }
+    
+    // Store zoom level globally per demo
+    const demoZoomLevels = new Map();
+    
+    // Setup inline demo controls
+    function setupInlineDemoControls(container) {
+        const fullscreenBtn = container.querySelector('.demo-fullscreen-button');
+        const zoomInBtn = container.querySelector('.demo-zoom-in');
+        const zoomOutBtn = container.querySelector('.demo-zoom-out');
+        const zoomLevelDisplay = container.querySelector('.demo-zoom-level');
+        
+        // Get demo component name for zoom persistence
+        const demoComponent = container.getAttribute('data-demo-component') || 'default';
+        
+        // Fullscreen button handler - animate existing demo instead of modal
+        if (fullscreenBtn) {
+            fullscreenBtn.addEventListener('click', function() {
+                toggleFullscreenDemo(container);
+                
+                // Trigger walkthrough toolbar when entering fullscreen
+                // This shows the toolbar without auto-starting the walkthrough
+                setTimeout(() => {
+                    if (window.demoWalkthrough && window.demoWalkthrough.handleFullscreenEntry) {
+                        window.demoWalkthrough.handleFullscreenEntry();
+                    }
+                }, 500); // Wait for fullscreen animation to start
+            });
+        }
+        
+        // Zoom controls - retrieve persisted zoom or default to 100
+        let currentZoom = demoZoomLevels.get(demoComponent) || 100;
+        const zoomStep = 10;
+        const minZoom = 50;
+        const maxZoom = 200;
+        
+        // Initialize display with current zoom
+        if (zoomLevelDisplay) {
+            zoomLevelDisplay.textContent = `${currentZoom}%`;
+        }
+        
+        const updateZoom = (newZoom) => {
+            currentZoom = Math.max(minZoom, Math.min(maxZoom, newZoom));
+            
+            // Persist zoom level
+            demoZoomLevels.set(demoComponent, currentZoom);
+            
+            // Update all zoom displays for this demo
+            const allZoomDisplays = container.querySelectorAll('.demo-zoom-level');
+            allZoomDisplays.forEach(display => {
+                display.textContent = `${currentZoom}%`;
+            });
+            
+            // Send zoom message to iframe
+            const iframe = container.querySelector('.demo-inline-iframe');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({
+                    type: 'setDemoZoom',
+                    zoom: currentZoom / 100
+                }, '*');
+            }
+            
+            // Play sound effect if available
+            if (window.soundEffects && window.soundEffects.playSound) {
+                window.soundEffects.playSound('small-click');
+            }
+        };
+        
+        // Apply initial zoom if not 100%
+        if (currentZoom !== 100) {
+            setTimeout(() => updateZoom(currentZoom), 100);
+        }
+        
+        if (zoomInBtn) {
+            zoomInBtn.addEventListener('click', () => {
+                updateZoom(currentZoom + zoomStep);
+            });
+        }
+        
+        if (zoomOutBtn) {
+            zoomOutBtn.addEventListener('click', () => {
+                updateZoom(currentZoom - zoomStep);
+            });
+        }
+        
+        // Keyboard shortcuts for zoom when container is focused
+        container.setAttribute('tabindex', '0');
+        container.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === '=' || e.key === '+') {
+                    e.preventDefault();
+                    updateZoom(currentZoom + zoomStep);
+                } else if (e.key === '-') {
+                    e.preventDefault();
+                    updateZoom(currentZoom - zoomStep);
+                } else if (e.key === '0') {
+                    e.preventDefault();
+                    updateZoom(100);
+                }
+            }
+        });
+        
+        // Return updateZoom function for external use
+        container.updateZoom = updateZoom;
+    }
 
 
     // Export functions for global use
     window.projectDemo = {
         init: initProjectDemo,
-        loadComponent: loadDemoComponent
+        toggleFullscreen: toggleFullscreenDemo
     };
 
     // Initialize on DOM ready and dynamic content load

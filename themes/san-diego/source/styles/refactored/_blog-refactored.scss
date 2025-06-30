@@ -36,7 +36,9 @@
     
     @include tablet-up {
       grid-template-columns: 1fr 3fr;
-      gap: var(--space-8);
+	& {
+		gap: var(--space-8);
+	}
     }
   }
   

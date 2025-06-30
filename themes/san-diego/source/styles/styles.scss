@@ -36,6 +36,7 @@
 @use 'project-nav';
 @use 'project-stats-grid';
 @use 'project-layout-fix';
+@use 'demo-walkthrough';
 
 // UI components
 @use 'components';
@@ -110,3 +111,6 @@
 
 // Index (imports all partials - use with caution as it may cause duplication)
 // @use 'index';
+
+// Demo cursors (only apply within demos/prototypes)
+@use 'demo-cursors';

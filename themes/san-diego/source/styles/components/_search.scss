@@ -142,9 +142,12 @@
 	
 	.posts-only-button {
 		@include button.reusable-button-bordered;
-		white-space: nowrap;
-		flex-shrink: 0;
-		min-width: fit-content;
+		
+		& {
+			white-space: nowrap;
+			flex-shrink: 0;
+			min-width: fit-content;
+		}
 	}
 	
 	// Reusable bordered button class

@@ -44,10 +44,10 @@ $notebook-colors: (
 // Texture Overlays
 $notebook-textures: (
     'pristine': none,
-    'worn': url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='worn'%3E%3CfeTurbulence baseFrequency='0.02' numOctaves='3' /%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23worn)' /%3E%3C/svg%3E"),
-    'scratched': url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath d='M10,20 L90,80 M20,10 L80,90 M5,50 L95,50' stroke='rgba(255,255,255,0.03)' stroke-width='0.5'/%3E%3C/svg%3E"),
-    'weathered': radial-gradient(circle at 20% 80%, rgba(0,0,0,0.1) 0%, transparent 50%),
-    'stained': radial-gradient(ellipse at 70% 30%, rgba(139,69,19,0.05) 0%, transparent 40%)
+    'worn': url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Cfilter id='worn'%3E%3CfeTurbulence baseFrequency='0.008' numOctaves='4' seed='2' /%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='400' height='600' filter='url(%23worn)' /%3E%3C/svg%3E"),
+    'scratched': url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M10,20 L90,80 M20,10 L80,90 M5,50 L95,50 M30,5 L70,95 M15,30 L85,70 M40,15 L60,85' stroke='rgba(0,0,0,0.1)' stroke-width='1'/%3E%3C/svg%3E"),
+    'weathered': radial-gradient(circle at 20% 80%, rgba(0,0,0,0.2) 0%, transparent 50%),
+    'stained': radial-gradient(ellipse at 70% 30%, rgba(139,69,19,0.15) 0%, transparent 40%)
 );
 
 // Brand Styles
@@ -85,40 +85,82 @@ $notebook-brands: (
 );
 
 // Enhanced Sticker Styles
-@mixin notebook-sticker($content, $color: #fff, $bg: #000, $rotate: 0deg, $shape: 'rectangle') {
+@mixin notebook-sticker($content, $color: #fff, $bg: #000, $rotate: 0deg, $shape: 'rectangle', $style: 'regular') {
     content: $content;
     position: absolute;
-    padding: 6px 14px; // Larger padding
-    background: $bg;
     color: $color;
-    font-size: 11px; // Larger font
-    font-weight: 700; // Bolder
-    transform: rotate($rotate);
-    border: 3px solid #fff; // White border like real stickers
-    box-shadow: 
-        0 2px 8px rgba(0,0,0,0.25), // More pronounced shadow
-        0 1px 4px rgba(0,0,0,0.15),
-        inset 0 -1px 0 rgba(0,0,0,0.1); // Subtle depth
+    background: $bg;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     white-space: nowrap;
     
-    @if $shape == 'circle' {
-        border-radius: 50%;
-        width: 50px; // Larger circle
-        height: 50px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        line-height: 1;
-        font-size: 10px; // Slightly smaller for circles
-    } @else if $shape == 'rounded' {
-        border-radius: 20px; // More rounded
+    @if $style == 'die-cut' {
+        // Die-cut style: text-hugging shape
+        padding: 3px 8px;
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        transform: rotate($rotate);
+        
+        // Tighter border
+        border: 2px solid #fff;
+        box-shadow: 
+            0 2px 6px rgba(0,0,0,0.3),
+            0 1px 3px rgba(0,0,0,0.2);
+        
+        // Shape variations for die-cut
+        @if $shape == 'circle' {
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1;
+            font-size: 11px;
+        } @else if $shape == 'rounded' {
+            border-radius: 2px; // Minimal rounding for die-cut
+        } @else if $shape == 'badge' {
+            border-radius: 4px 4px 0 0;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+            padding-bottom: 8px;
+        } @else {
+            border-radius: 1px; // Very minimal rounding
+        }
     } @else {
-        border-radius: 4px; // Slightly rounded corners
+        // Regular style: traditional sticker look
+        padding: 6px 14px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        transform: rotate($rotate);
+        
+        // White border like real stickers
+        border: 3px solid #fff;
+        box-shadow: 
+            0 2px 8px rgba(0,0,0,0.25),
+            0 1px 4px rgba(0,0,0,0.15),
+            inset 0 -1px 0 rgba(0,0,0,0.1);
+        
+        // Shape variations for regular
+        @if $shape == 'circle' {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1;
+            font-size: 10px;
+        } @else if $shape == 'rounded' {
+            border-radius: 20px;
+        } @else {
+            border-radius: 4px;
+        }
     }
 }
 
@@ -128,6 +170,9 @@ $notebook-brands: (
     @each $color-name, $color-value in $notebook-colors {
         &[data-notebook-color="#{$color-name}"] {
             .notebook {
+                // Set CSS variable for texture to use
+                --notebook-bg-color: #{$color-value};
+                
                 .front-cover {
                     @if type-of($color-value) == 'color' {
                         background: 
@@ -194,17 +239,81 @@ $notebook-brands: (
         }
     }
     
-    // Texture overlay
+    // Texture overlay - Apply with combined selectors for higher specificity
     @each $texture-name, $texture-value in $notebook-textures {
-        &[data-notebook-texture="#{$texture-name}"] {
-            .notebook .front-cover::after {
+        @each $color-name, $color-value in $notebook-colors {
+            &[data-notebook-color="#{$color-name}"][data-notebook-texture="#{$texture-name}"] {
+                .notebook .front-cover {
+                    @if $texture-value != none {
+                        position: relative;
+                        
+                        // Add texture as an additional background layer
+                        background: 
+                            // Texture layer (on top)
+                            $texture-value,
+                            // Keep existing elastic band
+                            linear-gradient(to right,
+                                transparent 0%,
+                                transparent calc(100% - 20px),
+                                rgba(0, 0, 0, 0.15) calc(100% - 20px),
+                                rgba(0, 0, 0, 0.25) calc(100% - 17px),
+                                rgba(0, 0, 0, 0.15) calc(100% - 14px),
+                                transparent calc(100% - 14px)
+                            ),
+                            // Keep existing highlights
+                            linear-gradient(145deg, 
+                                rgba(255, 255, 255, 0.04) 0%, 
+                                transparent 35%),
+                            radial-gradient(ellipse at 70% 30%, 
+                                rgba(255, 255, 255, 0.02) 0%, 
+                                transparent 65%),
+                            // Use the actual color value
+                            $color-value !important;
+                        background-size: cover, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+                        background-position: center, 0 0, 0 0, 0 0, 0 0;
+                        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+                        
+                        // Ensure texture layers render properly
+                        z-index: 6;
+                    }
+                }
+            }
+        }
+        
+        // Also handle cases where no color is specified
+        &[data-notebook-texture="#{$texture-name}"]:not([data-notebook-color]) {
+            .notebook .front-cover {
                 @if $texture-value != none {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    background: $texture-value;
-                    pointer-events: none;
-                    border-radius: 4px 12px 12px 4px;
+                    position: relative;
+                    
+                    // Add texture as an additional background layer
+                    background: 
+                        // Texture layer (on top)
+                        $texture-value,
+                        // Keep existing elastic band
+                        linear-gradient(to right,
+                            transparent 0%,
+                            transparent calc(100% - 20px),
+                            rgba(0, 0, 0, 0.15) calc(100% - 20px),
+                            rgba(0, 0, 0, 0.25) calc(100% - 17px),
+                            rgba(0, 0, 0, 0.15) calc(100% - 14px),
+                            transparent calc(100% - 14px)
+                        ),
+                        // Keep existing highlights
+                        linear-gradient(145deg, 
+                            rgba(255, 255, 255, 0.04) 0%, 
+                            transparent 35%),
+                        radial-gradient(ellipse at 70% 30%, 
+                            rgba(255, 255, 255, 0.02) 0%, 
+                            transparent 65%),
+                        // Default color
+                        #262626 !important;
+                    background-size: cover, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+                    background-position: center, 0 0, 0 0, 0 0, 0 0;
+                    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+                    
+                    // Ensure texture layers render properly
+                    z-index: 6;
                 }
             }
         }
@@ -257,8 +366,8 @@ $notebook-brands: (
             // Create additional pseudo-elements for more stickers
             position: relative;
             
-            // Sticker 1: Default top right
-            &[data-sticker-1]::before {
+            // Sticker 1: Default top right (only for text stickers)
+            &[data-sticker-1]:not([data-sticker-1-image])::before {
                 @include notebook-sticker(
                     attr(data-sticker-1),
                     var(--sticker-1-color, #fff),
@@ -266,11 +375,92 @@ $notebook-brands: (
                     var(--sticker-1-rotate, -5deg),
                     var(--sticker-1-shape, 'rectangle')
                 );
-                top: var(--sticker-1-top, 20px); // More spacing
+                top: var(--sticker-1-top, 20px);
                 right: var(--sticker-1-right, 20px);
                 left: var(--sticker-1-left, auto);
                 bottom: var(--sticker-1-bottom, auto);
                 transform: translateX(0) rotate(var(--sticker-1-rotate, -5deg));
+            }
+            
+            // Image sticker override for sticker 1 - Die-cut style
+            &[data-sticker-1-image] {
+                .sticker-1-svg {
+                    position: absolute;
+                    bottom: var(--sticker-1-bottom, 25px);
+                    right: var(--sticker-1-right, 25px);
+                    top: var(--sticker-1-top, auto);
+                    left: var(--sticker-1-left, auto);
+                    width: var(--sticker-1-width, 50px);
+                    height: var(--sticker-1-height, 50px);
+                    transform: rotate(var(--sticker-1-rotate, -3deg));
+                    pointer-events: none;
+                    
+                    // Multiple white layers for full coverage
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        inset: -2px; // Extend slightly beyond bounds
+                        background-image: var(--sticker-1-image);
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        // Stack multiple white shadows for full border coverage
+                        filter: 
+                            brightness(0) saturate(100%) invert(100%)
+                            drop-shadow(1px 0 0 #fff)
+                            drop-shadow(-1px 0 0 #fff)
+                            drop-shadow(0 1px 0 #fff)
+                            drop-shadow(0 -1px 0 #fff)
+                            drop-shadow(1px 1px 0 #fff)
+                            drop-shadow(-1px -1px 0 #fff)
+                            drop-shadow(1px -1px 0 #fff)
+                            drop-shadow(-1px 1px 0 #fff);
+                        z-index: 1;
+                    }
+                    
+                    // Actual colored SVG on top
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        inset: 0;
+                        background-image: var(--sticker-1-image);
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        z-index: 2;
+                        // Shadow for depth
+                        filter: 
+                            drop-shadow(1px 2px 3px rgba(0,0,0,0.25))
+                            drop-shadow(0 1px 2px rgba(0,0,0,0.15));
+                    }
+                }
+            }
+            
+            // Die-cut style override for sticker 1
+            &[data-sticker-1][style*="--sticker-1-style: die-cut"]::before {
+                padding: 3px 8px;
+                font-size: 13px;
+                font-weight: 900;
+                letter-spacing: 1px;
+                border: 2px solid #fff;
+                box-shadow: 
+                    0 2px 6px rgba(0,0,0,0.3),
+                    0 1px 3px rgba(0,0,0,0.2);
+                border-radius: 1px;
+            }
+            
+            // Circle shape adjustment for die-cut sticker 1
+            &[data-sticker-1][style*="--sticker-1-style: die-cut"][style*="--sticker-1-shape: circle"]::before {
+                width: 45px;
+                height: 45px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                line-height: 1;
+                font-size: 11px;
+                border-radius: 50%;
             }
             
             // Sticker 2: Default bottom left
@@ -282,14 +472,43 @@ $notebook-brands: (
                     var(--sticker-2-rotate, 3deg),
                     var(--sticker-2-shape, 'rectangle')
                 );
-                top: var(--sticker-2-top, auto);
-                right: var(--sticker-2-right, auto);
-                left: var(--sticker-2-left, 25px); // More spacing
+	& {
+		top: var(--sticker-2-top, auto);
+		right: var(--sticker-2-right, auto);
+		left: var(--sticker-2-left, 25px);
+	} // More spacing
                 bottom: var(--sticker-2-bottom, 55px); // Lower position
                 width: auto;
                 height: auto;
                 background-image: none;
                 transform: rotate(var(--sticker-2-rotate, 3deg));
+            }
+            
+            // Die-cut style override for sticker 2
+            &[data-sticker-2][style*="--sticker-2-style: die-cut"]::after {
+                padding: 3px 8px;
+                font-size: 13px;
+                font-weight: 900;
+                letter-spacing: 1px;
+                border: 2px solid #fff;
+                box-shadow: 
+                    0 2px 6px rgba(0,0,0,0.3),
+                    0 1px 3px rgba(0,0,0,0.2);
+                border-radius: 1px;
+            }
+            
+            // Circle shape adjustment for die-cut sticker 2
+            &[data-sticker-2][style*="--sticker-2-style: die-cut"][style*="--sticker-2-shape: circle"]::after {
+                width: 45px;
+                height: 45px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                line-height: 1;
+                font-size: 11px;
+                border-radius: 50%;
             }
         }
         
@@ -304,11 +523,47 @@ $notebook-brands: (
                     var(--sticker-3-rotate, -2deg),
                     var(--sticker-3-shape, 'rounded')
                 );
-                top: var(--sticker-3-top, 50%);
-                right: var(--sticker-3-right, auto);
-                left: var(--sticker-3-left, 50%);
-                bottom: var(--sticker-3-bottom, auto);
-                transform: translate(-50%, -50%) rotate(var(--sticker-3-rotate, -2deg));
+	& {
+		top: var(--sticker-3-top, 50%);
+		right: var(--sticker-3-right, auto);
+		left: var(--sticker-3-left, 50%);
+		bottom: var(--sticker-3-bottom, auto);
+		transform: translate(-50%, -50%) rotate(var(--sticker-3-rotate, -2deg));
+	}
+            }
+            
+            // Die-cut style override for sticker 3
+            .sticker-3[data-sticker-3][style*="--sticker-3-style: die-cut"]::after {
+                padding: 3px 8px;
+                font-size: 13px;
+                font-weight: 900;
+                letter-spacing: 1px;
+                border: 2px solid #fff;
+                box-shadow: 
+                    0 2px 6px rgba(0,0,0,0.3),
+                    0 1px 3px rgba(0,0,0,0.2);
+                border-radius: 1px;
+            }
+            
+            // Badge shape for die-cut sticker 3
+            .sticker-3[data-sticker-3][style*="--sticker-3-style: die-cut"][style*="--sticker-3-shape: badge"]::after {
+                border-radius: 4px 4px 0 0;
+                clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+                padding-bottom: 8px;
+            }
+            
+            // Circle shape for die-cut sticker 3
+            .sticker-3[data-sticker-3][style*="--sticker-3-style: die-cut"][style*="--sticker-3-shape: circle"]::after {
+                width: 45px;
+                height: 45px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                line-height: 1;
+                font-size: 11px;
+                border-radius: 50%;
             }
             
             // Sticker 4: Default bottom right
@@ -320,13 +575,93 @@ $notebook-brands: (
                     var(--sticker-4-rotate, 8deg),
                     var(--sticker-4-shape, 'circle')
                 );
-                top: var(--sticker-4-top, auto);
-                right: var(--sticker-4-right, 30px); // More spacing
+	& {
+		top: var(--sticker-4-top, auto);
+		right: var(--sticker-4-right, 30px);
+	} // More spacing
                 left: var(--sticker-4-left, auto);
                 bottom: var(--sticker-4-bottom, 100px); // Higher to avoid overlap
                 transform: rotate(var(--sticker-4-rotate, 8deg));
             }
+            
+            // Die-cut style override for sticker 4
+            .sticker-4[data-sticker-4][style*="--sticker-4-style: die-cut"]::after {
+                padding: 3px 8px;
+                font-size: 13px;
+                font-weight: 900;
+                letter-spacing: 1px;
+                border: 2px solid #fff;
+                box-shadow: 
+                    0 2px 6px rgba(0,0,0,0.3),
+                    0 1px 3px rgba(0,0,0,0.2);
+                border-radius: 1px;
+            }
+            
+            // Circle shape for die-cut sticker 4
+            .sticker-4[data-sticker-4][style*="--sticker-4-style: die-cut"][style*="--sticker-4-shape: circle"]::after {
+                width: 45px;
+                height: 45px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                line-height: 1;
+                font-size: 11px;
+                border-radius: 50%;
+            }
         }
+    }
+    
+    // Year Label Sticker (Portable Label Printer Style)
+    .notebook .front-cover .notebook-year-label {
+                position: absolute;
+                bottom: 25px;
+                left: 25px;
+                
+                // Label printer tape appearance
+                background: #000000; // Deep black tape
+                color: #ffffff; // White embossed text
+                
+                // Typography for embossed effect
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size: 10px;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0.15em;
+                line-height: 1;
+                
+                // Padding for tape dimensions
+                padding: 4px 8px;
+                
+                // Slight rotation for realistic placement
+                transform: rotate(-1deg);
+                
+                // Embossed text effect
+                text-shadow: 
+                    0 -1px 0 rgba(0,0,0,0.5), // Top shadow for depth
+                    0 1px 0 rgba(255,255,255,0.1); // Bottom highlight
+                
+                // Tape edges and shadows
+                box-shadow: 
+                    0 1px 3px rgba(0,0,0,0.3), // Basic shadow
+                    0 0 0 1px rgba(255,255,255,0.05) inset, // Subtle inner highlight
+                    0 2px 5px rgba(0,0,0,0.15); // Larger shadow for depth
+                
+                // Slightly rounded corners like real label tape
+                border-radius: 1px;
+                
+                // Glossy tape surface
+                background-image: 
+                    linear-gradient(to bottom, 
+                        rgba(255,255,255,0.1) 0%, 
+                        rgba(255,255,255,0.05) 40%,
+                        transparent 40%,
+                        transparent 60%,
+                        rgba(0,0,0,0.1) 100%);
+                
+                // Ensure it appears above other elements but below stickers
+                z-index: 2;
     }
     
     // Special effects

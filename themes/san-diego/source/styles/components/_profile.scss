@@ -319,14 +319,18 @@
 			// Override component library default button styles to use reusable button
 			&.btn--default {
 				@include button.reusable-button;
-				height: auto !important; // Override fixed height
+	& {
+		height: auto !important;
+	} // Override fixed height
 			}
 		}
 		
 		// Apply bordered button style to View impact report
 		.mobile-impact-button.btn--default {
 			@include button.reusable-button-bordered;
-			width: auto !important; // Ensure button fits its text
+	& {
+		width: auto !important;
+	} // Ensure button fits its text
 			min-width: auto !important;
 			max-width: none !important;
 		}

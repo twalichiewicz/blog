@@ -1,5 +1,56 @@
 # CHANGELOG.md
 
+All notable changes to the Thomas.design portfolio project.
+
+## [Unreleased]
+
+### June 26, 2025 - Demo System Standardization & Testing Enhancements
+
+#### Added
+- **Demo System Standardization**
+  - Comprehensive onboarding for YouTube Timecode demo with business metrics
+  - Structured metrics arrays for all Foreground demo onboarding steps
+  - Missing metrics for Overlay demo step 3 with enhanced descriptions
+  - Complete metrics coverage for Custom Install demo all steps
+  - Comprehensive component prop documentation (`demos/shared/COMPONENT_API.md`)
+  - Grid background pattern consistency across all demos
+
+- **Testing System Enhancements**
+  - Comprehensive test suite (`scripts/comprehensive-test.js`) with full validation
+  - Quick test suite (`scripts/quick-test.js`) for rapid development feedback
+  - Demo dependency installer (`scripts/install-demo-deps.js`) for npm packages
+  - Testing documentation (`docs/TESTING.md`) with usage guides
+  - Demo standardization summary (`docs/DEMO-STANDARDIZATION-SUMMARY.md`)
+
+- **Template Improvements**
+  - Complete React demo template rewrite showcasing all shared components
+  - Interactive demo content with tabs, async actions, and metrics
+  - Comprehensive README for React template with guides
+
+#### Changed
+- **Demo Updates**
+  - YouTube Timecode demo now uses configured `customCursor="default"`
+  - Example demo converted from static HTML to full React implementation
+  - All demo onboarding content standardized with business metrics
+  - Package.json test scripts updated to use new testing system
+
+- **Testing Updates**
+  - Main `test` script now uses comprehensive test suite
+  - Content validation changed to non-blocking (warnings only)
+  - Old test script renamed to `test:legacy`
+
+#### Fixed
+- **Demo Fixes**
+  - Cursor inconsistency in YouTube Timecode demo
+  - Example demo React implementation and shared components
+  - Demo integration test excludes shared assets directory
+
+- **Build Fixes**
+  - Example demo build failure resolved with dependencies
+  - Test scripts handle content validation gracefully
+
+---
+
 ## Recent Session Changes & History
 
 ### June 2025 Session

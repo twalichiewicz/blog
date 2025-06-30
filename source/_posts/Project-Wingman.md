@@ -4,16 +4,16 @@ display_name: "Installation Reimagined"
 display_description: "100+ chaotic installers unified into one seamless experience"
 company: Autodesk
 byline: Standardized Autodesk's full suite of products to use a single install SDK
-date: 2019-6-30 20:52:01
+date: 2020-6-30 20:52:01
 tags: [portfolio]
 layout: project_gallery
 has_writeup: true
 gallery_images:
-  - url: /2019/06/30/Project-Wingman/wingmanInstaller.mp4
+  - url: ./wingmanInstaller.mp4
     type: video
-    poster: /2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg
-cover_image: /2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg
-cover_video_poster: /2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg
+    poster: ./wingmanInstaller_poster.jpg
+cover_image: ./wingmanInstaller_poster.jpg
+cover_video_poster: ./wingmanInstaller_poster.jpg
 stats:
   - value: "100+"
     label: "Unified Installers"

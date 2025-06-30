@@ -6,19 +6,19 @@ date: 2018-01-15
 company: Common Cents Lab
 subtitle: Helping families make food stamps last longer
 byline: Helping families on food stamps make their benefits last longer
-cover_image: 2017/06/15/propel/propel-preview.png
-hero_image: /2017/06/15/propel/heroImage.png
+cover_image: ./propel-preview.png
+hero_image: ./heroImage.png
 tags:
   - portfolio
 client: Propel
 year: 2017
 location: New York, USA
 gallery_images:
-  - url: /2017/06/15/propel/propel.jpg
+  - url: ./propel.jpg
     caption: Fresh EBT App Interface
-  - url: /2017/06/15/propel/intentionality.png
+  - url: ./intentionality.png
     caption: User Research Findings
-  - url: /2017/06/15/propel/visualizationsAmountSpent.png
+  - url: ./visualizationsAmountSpent.png
     caption: Impact Metrics
 ---
 

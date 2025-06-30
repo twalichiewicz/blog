@@ -7,9 +7,7 @@ byline: Digital platform connecting rural Kenyan pharmacies with suppliers while
 date: 2014-01-01 14:57:27
 cover_image: mitiHealth-preview.jpg
 tags: [portfolio]
-has_writeup: true
-hidden: true
-draft: true
+has_writeup: false
 layout: project_gallery
 stats:
   - value: "Rural Kenya"

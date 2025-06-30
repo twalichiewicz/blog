@@ -13,6 +13,34 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	min-height: 100dvh;
 	min-height: -webkit-fill-available;
+	position: relative;
+	
+	// Brand mark on desktop only
+	@media (min-width: 768px) {
+		&::before {
+			content: '';
+			position: fixed;
+			bottom: 20px;
+			left: 20px;
+			width: 20px;
+			height: 20px;
+			background-image: url('/img/TWDesignLogo.svg');
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			opacity: 0.06;
+			pointer-events: none;
+			z-index: 1;
+			filter: contrast(0) brightness(0);
+			// Premium fabric cutout effect with subtle inner shadows
+			box-shadow: 
+				inset 0 1px 2px rgba(0, 0, 0, 0.1),
+				inset 0 -1px 1px rgba(0, 0, 0, 0.05),
+				inset 1px 0 1px rgba(0, 0, 0, 0.05),
+				inset -1px 0 1px rgba(0, 0, 0, 0.05);
+			border-radius: 3px;
+		}
+	}
 }
 
 // Add viewport-fit meta tag support for iOS Safari
@@ -26,6 +54,20 @@ body {
 	body {
 		color: variables.$text-color-dark;
 		background-color: variables.$body-bg-dark;
+		
+		// Adjust brand mark for dark mode
+		@media (min-width: 768px) {
+			&::before {
+				filter: contrast(0) brightness(1);
+				opacity: 0.04;
+				// Adjust inner shadows for dark mode - more subtle highlights
+				box-shadow: 
+					inset 0 1px 1px rgba(255, 255, 255, 0.03),
+					inset 0 -1px 1px rgba(0, 0, 0, 0.2),
+					inset 1px 0 1px rgba(0, 0, 0, 0.1),
+					inset -1px 0 1px rgba(0, 0, 0, 0.1);
+			}
+		}
 	}
 
 	a:link,

@@ -5,7 +5,7 @@ display_description: "Revolutionized how small businesses manage employee benefi
 date: 2017-02-01 20:52:01
 company: Human Interest
 byline: Redesigned the 401(k) administration experience for small to medium businesses, creating an intuitive platform that simplifies complex financial processes while maintaining robust functionality and compliance requirements
-cover_image: /2017/02/01/Human-Interest-401-k-product/cutawayPreviewUpdated.jpg
+cover_image: ./cutawayPreviewUpdated.jpg
 tags:
   - portfolio
 discipline:

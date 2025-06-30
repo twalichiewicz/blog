@@ -11,6 +11,9 @@ hexo.extend.tag.register('carousel', function (args) {
 
 		const images = JSON.parse(input);
 		const carouselCaption = null; // We'll add caption support differently
+		
+		// Get the post's URL path for image resolution
+		const postPath = this.permalink || this.path || '';
 
 		// Process each item to set video defaults
 		const processedImages = images.map(item => {
@@ -92,6 +95,8 @@ hexo.extend.tag.register('carousel', function (args) {
 	} catch (error) {
 		console.error('Error rendering carousel:', error);
 		console.error('Input:', args.join(' '));
+		console.error('Context path:', this.path);
+		console.error('Context permalink:', this.permalink);
 		return '<div class="carousel-error">Error loading carousel</div>';
 	}
 }, { ends: false });

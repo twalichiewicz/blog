@@ -10,7 +10,6 @@
 .btn {
   // Reset and base styles
   @include button-reset;
-  @include focus-visible;
   
   // Layout
   display: inline-flex;
@@ -36,6 +35,9 @@
   
   // Prevent text selection on double click
   user-select: none;
+  
+  // Focus styles (after all declarations to avoid mixed-decls)
+  @include focus-visible;
   
   // ==========================================
   // Size Variants

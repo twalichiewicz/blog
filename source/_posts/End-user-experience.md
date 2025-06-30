@@ -5,9 +5,8 @@ display_description: "Removing barriers between people and the care they need"
 company: Lyra Health
 byline: Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers
 date: 2017-01-01 20:52:01
-cover_image: /2017/01/01/End-user-experience/lyra-preview.png
+cover_image: ./lyra-preview.png
 has_writeup: true
-hidden: true
 draft: true
 layout: project_gallery
 stats:
@@ -33,35 +32,35 @@ credits:
   - role: Year
     name: 2016
 gallery_images:
-  - url: /2017/01/01/End-user-experience/000_.png
+  - url: ./000_.png
     type: image
-  - url: /2017/01/01/End-user-experience/010_.png
+  - url: ./010_.png
     type: image
-  - url: /2017/01/01/End-user-experience/011_.png
+  - url: ./011_.png
     type: image
-  - url: /2017/01/01/End-user-experience/012_.png
+  - url: ./012_.png
     type: image
-  - url: /2017/01/01/End-user-experience/013_.png
+  - url: ./013_.png
     type: image
-  - url: /2017/01/01/End-user-experience/020_.png
+  - url: ./020_.png
     type: image
-  - url: /2017/01/01/End-user-experience/021_.png
+  - url: ./021_.png
     type: image
-  - url: /2017/01/01/End-user-experience/022_.png
+  - url: ./022_.png
     type: image
-  - url: /2017/01/01/End-user-experience/023_.png
+  - url: ./023_.png
     type: image
-  - url: /2017/01/01/End-user-experience/024_.png
+  - url: ./024_.png
     type: image
-  - url: /2017/01/01/End-user-experience/030_.png
+  - url: ./030_.png
     type: image
-  - url: /2017/01/01/End-user-experience/031_.png
+  - url: ./031_.png
     type: image
-  - url: /2017/01/01/End-user-experience/032_.png
+  - url: ./032_.png
     type: image
-  - url: /2017/01/01/End-user-experience/033_.png
+  - url: ./033_.png
     type: image
-  - url: /2017/01/01/End-user-experience/040_.png
+  - url: ./040_.png
     type: image
 tags:
   - portfolio

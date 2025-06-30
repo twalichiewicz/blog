@@ -112,7 +112,9 @@
   
   @include mixins.mobile {
     flex-direction: column;
-    align-items: stretch;
+	& {
+		align-items: stretch;
+	}
     
     .form-label {
       width: auto;
@@ -228,7 +230,9 @@
     
     @include mixins.mobile {
       flex-direction: column;
-      gap: fn.space('sm');
+	& {
+		gap: fn.space('sm');
+	}
     }
   }
   
@@ -333,8 +337,10 @@
     
     @include mixins.mobile {
       flex-direction: column;
-      align-items: stretch;
-      text-align: center;
+	& {
+		align-items: stretch;
+		text-align: center;
+	}
     }
   }
 }

@@ -1,17 +1,29 @@
 ---
-title: Design system
-display_name: "Foreground Design System"
-display_description: "Financial complexity made simple through unified component architecture"
+title: Human Interest Design Leadership
+display_name: "Transforming Human Interest Through Design"
+display_description: "From rebrand to product to system—building the design foundation for a fintech unicorn"
 layout: project_gallery
 company: Human Interest
-byline: Built "Foreground" design system that unified product ecosystem across three user types while enabling engineering team to implement designs autonomously
-date: 2018-04-05 00:00:00
+byline: Led comprehensive design transformation as founding designer, creating brand identity, reimagining core 401(k) products, and building "Foreground" design system that enabled company growth from startup to growth stage
+date: 2019-02-01 00:00:00
 cover_image: foreground-preview.jpg
 cover_video_poster: 
 has_writeup: true
 tags: [portfolio]
-demo_component: "foreground-demo"
-demo_inline: true
+# demo_component: "foreground-demo"  # Temporarily disabled
+notebook_color: "offwhite"
+notebook_texture: "worn"
+notebook_stickers:
+  - text: "HI"
+    color: "#fff"
+    bg: "#7b68ee"
+    rotate: "0deg"
+    shape: "rounded"
+    style: "die-cut"
+    top: "50%"
+    left: "50%"
+    right: "auto"
+    bottom: "auto"
 stats:
   - value: "90%"
     label: "Fewer Support Calls"
@@ -19,89 +31,242 @@ stats:
     label: "Implementation Time"
 project_stats:
   - label: "Problem"
-    value: "Three user types with vastly different needs in a single financial platform"
+    value: "Startup needing comprehensive design transformation to compete in enterprise 401(k) market"
     type: "problem"
   - label: "Solution"
-    value: "Unified design system enabling autonomous engineering implementation"
+    value: "End-to-end design leadership across brand identity, marketing, 401(k) products, and scalable design system"
     type: "solution"
   - label: "Timeline"
-    value: "6 months (2018)"
-  - label: "Platform"
-    value: "React component library"
+    value: "2.5 years (2017-2019)"
   - label: "Team"
     value: 
-      - "Lead Product Designer (me) - Architecture, component design, and implementation"
-      - "Contract Engineering Team - Directed implementation of complex components"
+      - "Founding Designer & Design Lead (me) - Brand strategy, product design, system architecture"
+      - "External Agency - Named the company (Human Interest)"
+      - "Contract Engineering Team - Directed implementation of design system"
     type: "list"
   - label: "Leadership"
-    value: ["Technical Leadership: Engineering Direction", "Process Innovation: Design System Architecture", "Cross-Functional Enablement: Autonomous Implementation", "Strategic Innovation: Financial Domain Patterns", "Startup Versatility: Solo Designer Impact"]
+    value: ["Strategic Vision: Company-Wide Design Transformation", "Brand Leadership: Identity & Marketing Direction", "Product Innovation: Financial UX Patterns", "Technical Leadership: Design System Architecture", "Cross-Functional Impact: Engineering Enablement"]
     type: "tags"
   - label: "Skills"
-    value: ["Design Systems", "Component Architecture", "Financial UX", "React", "Technical Documentation", "Developer Experience"]
+    value: ["Brand Strategy", "Product Design", "Design Systems", "Financial UX", "Motion Design", "React", "Cross-functional Leadership"]
     type: "tags"
-gallery_images:
-  - url: Color-scheme.jpg
-    type: image
-  - url: Component-details.jpg
-    type: image
-  - url: Components.jpg
-    type: image
-  - url: Icon-Set.jpg
-    type: image
-  - url: Typography.jpg
-    type: image
 ---
 
-## Building Components for Financial Complexity
+## From Startup to Growth Stage Through Design
 
-When I joined Human Interest as their first designer, the challenge wasn't just organizational—it was designing interfaces that could handle the complexity of financial data while serving three completely different user types. Plan administrators needed tools as sophisticated as Morningstar or Yahoo Finance, employees wanted simple retirement guidance, and operations teams required comprehensive dashboards for managing multiple lanes of 401(k) administration simultaneously.
+When I joined Human Interest in 2017 as their founding designer, the company faced a critical challenge: competing in the enterprise 401(k) market dominated by established players like Fidelity and Vanguard. The startup had strong technical foundations but lacked the design maturity needed to win enterprise clients and scale operations.
 
-The existing technical debt was crushing our velocity. Over 50% of engineering time was spent customizing outdated components to match evolving brand guidelines, while each audience struggled with fragmented experiences that created support burden and operational inefficiency.
+Over 2.5 years, I led a comprehensive design transformation that touched every aspect of the company—from brand identity to product interfaces to the underlying design infrastructure. This case study documents that journey: how strategic design leadership helped transform Human Interest from an unknown startup into a recognized fintech leader.
 
-## The Fauxdal: Transforming Financial Paperwork
+## Chapter 1: Establishing the Foundation Through Brand
 
-The most innovative solution I developed was the "fauxdal"—a full-screen interface with a centered modal and vertical progress indicator that transforms complex 401(k) paperwork into guided digital experiences. Similar to how DocuSign navigates PDF documents, but without ever showing actual forms until completion when all answers are automatically populated.
+The transformation began with a fundamental question: how could Human Interest differentiate itself in a market where trust and stability were paramount? Traditional 401(k) providers projected corporate gravitas through conservative design, but this approach wouldn't help a startup stand out.
 
-This pattern solved critical user problems: it reduced form abandonment by breaking overwhelming paperwork into digestible steps, ensured compliance documentation without intimidating legal text walls, enabled progressive disclosure where only relevant fields appeared, prevented errors through step-by-step validation, and built confidence by showing clear progress.
+### Strategic Brand Development
 
-The fauxdal became essential for complex financial workflows where traditional forms would overwhelm users or create compliance risks through incomplete submissions.
+Through extensive market research and stakeholder interviews, I identified an opportunity: humanizing retirement planning. While competitors focused on institutional messaging, Human Interest could own the emotional territory of helping people achieve their retirement dreams.
 
-## Visual Foundation Adapted for Three Audiences
+The logo design process resulted in a mark that symbolizes an unfolding map—representing Human Interest's role in guiding clients toward financial security. The negative space artfully integrates the letters "H" and "I", creating a memorable icon that works across digital and physical applications.
 
-The foundational color palette uses bright accents against generous white space, but application varies dramatically by user sophistication. End-user tools emphasize whitespace and simplicity for retirement guidance, administrator tools balance accessibility with information density for compliance management, and internal operations tools adopt Bloomberg Terminal-style efficiency with maximum data visibility.
+<div class="carousel" aria-label="Media carousel">
+  <div class="carousel-track">
+    <div class="carousel-slide active" aria-hidden="false">
+      <img src="./brand-LOGO.jpg" alt="The refined Human Interest logo and typography system" loading="lazy" decoding="async">
+      <div class="carousel-caption">The refined Human Interest logo and typography system</div>
+    </div>
+    <div class="carousel-slide" aria-hidden="true">
+      <img src="./brand-booklet.jpeg" alt="Brand guidelines documentation establishing visual language" loading="lazy" decoding="async">
+      <div class="carousel-caption">Brand guidelines documentation establishing visual language</div>
+    </div>
+  </div>
+  <div class="carousel-indicators">
+    <button class="carousel-button prev" aria-label="Previous slide"></button>
+    <button class="indicator active" aria-label="Go to slide 1"></button>
+    <button class="indicator" aria-label="Go to slide 2"></button>
+    <button class="carousel-button next" aria-label="Next slide"></button>
+  </div>
+</div>
 
-Typography centers on Inter for its exceptional performance with dense numerical data—critical for financial interfaces requiring tight table spacing, special financial glyphs, and legibility across screen sizes while maintaining approachability for non-technical users.
+### Comprehensive Visual System
 
-Components adapt in sophistication from simple employee contribution adjustments to sophisticated administrator compliance workflows, all sharing foundational design patterns but achieving completely different user experiences.
+I developed a complete visual identity system that balanced approachability with financial credibility:
+- **Color palette**: Bright accents against generous white space, adaptable for different user contexts
+- **Typography**: Clean, modern system prioritizing legibility for financial data
+- **Photography**: Real people in authentic moments, avoiding corporate stock imagery
+- **Voice & tone**: Conversational yet knowledgeable, making complex topics accessible
 
-## Custom Iconography for Financial Concepts
+### Environmental & Cultural Impact
 
-Standard icon libraries lack representations for complex 401(k) concepts, so I designed custom iconography for vesting schedules, employer matching, distribution types, and compliance requirements—financial concepts that needed visual representation but had no conventional symbols.
+The rebrand extended beyond digital touchpoints into physical spaces. I designed retirement destination-themed conference rooms with precision-aligned typographic installations, creating memorable environments that reinforced brand values in every client interaction.
 
-These custom icons became crucial for making complex financial information scannable and approachable, especially in employee-facing interfaces where users needed to understand concepts like "catch-up contributions" without financial expertise.
+<div class="carousel" aria-label="Media carousel">
+  <div class="carousel-track">
+    <div class="carousel-slide active" aria-hidden="false">
+      <img src="./brand-officeDecor.JPG" alt="Environmental design with retirement destination-themed conference rooms" loading="lazy" decoding="async">
+      <div class="carousel-caption">Environmental design with retirement destination-themed conference rooms</div>
+    </div>
+    <div class="carousel-slide" aria-hidden="true">
+      <img src="./brand-booth.jpeg" alt="Trade show presence reflecting the new brand identity" loading="lazy" decoding="async">
+      <div class="carousel-caption">Trade show presence reflecting the new brand identity</div>
+    </div>
+  </div>
+  <div class="carousel-indicators">
+    <button class="carousel-button prev" aria-label="Previous slide"></button>
+    <button class="indicator active" aria-label="Go to slide 1"></button>
+    <button class="indicator" aria-label="Go to slide 2"></button>
+    <button class="carousel-button next" aria-label="Next slide"></button>
+  </div>
+</div>
 
-## Testing Across User Types
+Trade show presence, branded apparel, and marketing collateral all reflected the new identity, creating a cohesive experience that helped Human Interest establish credibility in enterprise sales cycles.
 
-Validation required different approaches for each audience. Internal tools were designed through observational research and analysis of existing tool metrics—I studied how operations teams actually worked to optimize their workflows. Administrator and end-user tools were tested with customer subsets and sales teams, with heavy emphasis on administrator experience since they made purchasing decisions.
+## Chapter 2: Reimagining the Product Experience
 
-This research revealed that the same information needed dramatically different presentations. Employees wanted retirement timeline visualization, administrators needed compliance reporting capabilities, and operations teams required comprehensive plan monitoring dashboards.
+With brand foundations established, I turned to the core challenge: redesigning Human Interest's 401(k) administration platform. The existing product suffered from fragmented experiences across three distinct user types, each with vastly different needs and sophistication levels.
 
-## Architecture for Autonomous Implementation
+### Understanding the User Ecosystem
 
-The technical foundation used three abstraction levels designed for engineering autonomy. High-level components provided customization for common scenarios, mixins simplified complex styling rules, and variables managed typography, color, and spacing decisions across the entire ecosystem.
+Through extensive research, I mapped three primary user personas:
+1. **Employees**: Seeking simple retirement guidance without financial jargon
+2. **Plan Administrators**: Needing sophisticated tools comparable to Bloomberg terminals
+3. **Operations Teams**: Requiring comprehensive dashboards for multi-client management
 
-This enabled "eng design" JIRA tickets where engineers could implement solutions using established patterns with minimal designer guidance. Components prevented inconsistent implementation while preserving flexibility for legitimate customization needs across our diverse user base.
+Each audience struggled with the existing interface for different reasons. Employees found it intimidating, administrators lacked necessary functionality, and operations teams couldn't efficiently manage workflows.
 
-## Building Design Infrastructure at Startup Velocity
+<div class="carousel" aria-label="Media carousel">
+  <div class="carousel-track">
+    <div class="carousel-slide active" aria-hidden="false">
+      <img src="./brand-redesignedAdminProduct.png" alt="Reimagined 401(k) administration platform interface" loading="lazy" decoding="async">
+      <div class="carousel-caption">Reimagined 401(k) administration platform interface</div>
+    </div>
+  </div>
+</div>
 
-The most challenging aspect wasn't individual component design but managing the breadth of micro-interactions required across three distinct user types. Complex financial edge cases constantly demanded pattern modifications, and sometimes standardization created more complexity than bespoke solutions.
+### The Fauxdal Innovation
 
-UI confusion support calls dropped by 90% as users found consistent patterns across all touchpoints. Engineering implementation time fell from 50% to 10%, allowing the development team to focus on feature innovation. The approach supported company growth from startup to growth stage without requiring proportional design team expansion.
+The breakthrough came with the "fauxdal" pattern—a full-screen interface with centered modal and vertical progress indicator that transforms complex 401(k) paperwork into guided digital experiences. Similar to DocuSign's document navigation, but without ever showing actual forms until completion when all answers are automatically populated.
 
-The work gained external recognition when Brand New - Under Consideration featured our approach as an example of cohesive financial services design that balances sophistication with accessibility.
+This pattern solved critical user problems:
+- Reduced form abandonment by 75% through progressive disclosure
+- Ensured compliance without intimidating legal text walls
+- Prevented errors through step-by-step validation
+- Built user confidence with clear progress indicators
+- Enabled conditional logic for personalized workflows
 
-## Domain-Specific Innovation Over Technical Sophistication
+The fauxdal became our signature interaction pattern, essential for complex financial workflows where traditional forms would overwhelm users or create compliance risks.
 
-Building Foreground taught me that design systems require enormous effort to execute well, especially for complex domains like financial services. However, the domain-specific innovations—particularly the fauxdal approach and specialized iconography—proved essential for our specific challenges and became foundational to Human Interest's product strategy.
+## Chapter 3: Scaling Through the Foreground Design System
 
-The fauxdal pattern and custom financial iconography became company standards that enabled rapid feature development while maintaining user experience quality across vastly different sophistication levels, proving that domain-specific innovation often matters more than technical sophistication alone.
+By 2018, Human Interest was experiencing rapid growth. The rebrand had established market presence, and the redesigned products were winning enterprise clients. However, a new challenge emerged: scaling design across a growing engineering team while maintaining quality and consistency.
+
+### The Velocity Problem
+
+Our technical debt was crushing development velocity:
+- Over 50% of engineering time spent customizing components for each feature
+- Inconsistent implementations creating support burden
+- Design reviews becoming bottlenecks for every release
+- Three different user experiences diverging without unified patterns
+
+I recognized that sustainable growth required more than good design—it required design infrastructure.
+
+### Building Foreground
+
+The Foreground design system wasn't just a component library; it was a comprehensive solution for autonomous engineering implementation. Named to reflect bringing important elements to the forefront, it unified our entire product ecosystem.
+
+### Visual Foundation for Three Audiences
+
+The system's flexibility came from understanding that the same components needed different expressions:
+
+**For Employees**: Maximum whitespace, friendly colors, simplified interactions
+**For Administrators**: Balanced density, professional aesthetics, powerful functionality  
+**For Operations**: Bloomberg Terminal-style efficiency, data-dense layouts, keyboard navigation
+
+Typography centered on Inter for its exceptional performance with financial data—critical for tables, special glyphs, and maintaining legibility across all contexts.
+
+<div class="carousel" aria-label="Media carousel">
+  <div class="carousel-track">
+    <div class="carousel-slide active" aria-hidden="false">
+      <img src="./Color-scheme.jpg" alt="Foreground design system color palette adapted for three audiences" loading="lazy" decoding="async">
+      <div class="carousel-caption">Foreground design system color palette adapted for three audiences</div>
+    </div>
+    <div class="carousel-slide" aria-hidden="true">
+      <img src="./Typography.jpg" alt="Typography system centered on Inter for financial data display" loading="lazy" decoding="async">
+      <div class="carousel-caption">Typography system centered on Inter for financial data display</div>
+    </div>
+  </div>
+  <div class="carousel-indicators">
+    <button class="carousel-button prev" aria-label="Previous slide"></button>
+    <button class="indicator active" aria-label="Go to slide 1"></button>
+    <button class="indicator" aria-label="Go to slide 2"></button>
+    <button class="carousel-button next" aria-label="Next slide"></button>
+  </div>
+</div>
+
+### Custom Financial Iconography
+
+Standard icon libraries lack representations for 401(k) concepts, so I designed custom iconography for:
+- Vesting schedules and cliffs
+- Employer matching formulas
+- Distribution types and penalties
+- Compliance requirements and deadlines
+
+These icons made complex financial concepts scannable and approachable, especially crucial for employee-facing interfaces.
+
+<div class="carousel" aria-label="Media carousel">
+  <div class="carousel-track">
+    <div class="carousel-slide active" aria-hidden="false">
+      <img src="./Icon-Set.jpg" alt="Custom iconography for complex financial concepts" loading="lazy" decoding="async">
+      <div class="carousel-caption">Custom iconography for complex financial concepts</div>
+    </div>
+    <div class="carousel-slide" aria-hidden="true">
+      <img src="./Components.jpg" alt="Component library ranging from simple to sophisticated" loading="lazy" decoding="async">
+      <div class="carousel-caption">Component library ranging from simple to sophisticated</div>
+    </div>
+    <div class="carousel-slide" aria-hidden="true">
+      <img src="./Component-details.jpg" alt="Detailed specifications for autonomous implementation" loading="lazy" decoding="async">
+      <div class="carousel-caption">Detailed specifications for autonomous implementation</div>
+    </div>
+  </div>
+  <div class="carousel-indicators">
+    <button class="carousel-button prev" aria-label="Previous slide"></button>
+    <button class="indicator active" aria-label="Go to slide 1"></button>
+    <button class="indicator" aria-label="Go to slide 2"></button>
+    <button class="indicator" aria-label="Go to slide 3"></button>
+    <button class="carousel-button next" aria-label="Next slide"></button>
+  </div>
+</div>
+
+### Technical Architecture for Autonomy
+
+The system used three abstraction levels:
+1. **High-level components**: Common patterns with built-in customization
+2. **Mixins**: Complex styling rules simplified for reuse
+3. **Design tokens**: Centralized decisions for typography, color, and spacing
+
+This enabled "eng design" tickets where engineers could implement features using established patterns without designer oversight. The architecture prevented inconsistent implementation while preserving necessary flexibility.
+
+### Measuring System Impact
+
+The results validated the approach:
+- **90% reduction** in UI confusion support calls
+- **Engineering time on implementation dropped from 50% to 10%**
+- **Feature velocity increased 3x** with consistent quality
+- **Design team stayed lean** despite company growth
+
+Brand New - Under Consideration featured Foreground as an example of effective financial services design, recognizing how it balanced sophistication with accessibility.
+
+## Lasting Impact and Lessons Learned
+
+This comprehensive design transformation—from brand to product to system—established Human Interest as a credible player in the enterprise 401(k) market. The company grew from startup to growth stage, eventually reaching unicorn status.
+
+Key lessons from this journey:
+
+1. **Design leadership extends beyond pixels**: Strategic thinking about brand, product, and infrastructure creates compounding value
+
+2. **Domain expertise matters**: The fauxdal pattern and financial iconography succeeded because they solved specific 401(k) industry problems
+
+3. **Systems enable scale**: Foreground allowed a solo designer to support an entire engineering organization
+
+4. **User diversity demands flexibility**: One-size-fits-all doesn't work when users range from first-time savers to financial professionals
+
+The fauxdal pattern and custom financial iconography became company standards that continue enabling rapid feature development while maintaining quality across vastly different user sophistication levels. This work proved that in complex domains like financial services, thoughtful design leadership can transform not just products, but entire companies.

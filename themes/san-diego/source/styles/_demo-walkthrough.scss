@@ -1,0 +1,600 @@
+// Demo Walkthrough Toolbar Styles
+// Apple Music-style floating player bar
+
+@use 'variables';
+
+.demo-walkthrough-toolbar {
+  position: fixed;
+  bottom: -100px; // Hidden by default
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  z-index: 10000;
+  transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  // Show animation
+  &.visible {
+    bottom: 24px;
+  }
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    width: 95%;
+    max-width: none;
+    
+    &.visible {
+      bottom: 16px;
+    }
+  }
+}
+
+// Enhanced positioning for fullscreen mode
+body.demo-fullscreen-active .demo-walkthrough-toolbar {
+  position: fixed !important;
+  z-index: 10001 !important; // Above fullscreen content
+  
+  &.visible {
+    bottom: 24px !important;
+    
+    @media (max-width: variables.$mobile-breakpoint) {
+      bottom: 16px !important;
+    }
+  }
+}
+
+.walkthrough-toolbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 20px;
+  background: rgba(18, 18, 18, 0.85);
+  backdrop-filter: blur(60px) saturate(200%);
+  -webkit-backdrop-filter: blur(60px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.6),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    gap: 16px;
+    padding: 12px 16px;
+  }
+}
+
+// Control button groups
+.walkthrough-controls-left,
+.walkthrough-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+// Individual control buttons
+.walkthrough-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+  }
+  
+  // Hover state
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.95);
+    
+    svg {
+      transform: scale(1.1);
+    }
+  }
+  
+  // Active state
+  &:active:not(:disabled) {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(0.95);
+  }
+  
+  // Disabled state
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  
+  // Focus state
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring-color, #0696d7);
+    outline-offset: 2px;
+  }
+  
+  // Play/pause button special styling
+  &.walkthrough-play-pause {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+  
+  // Close button
+  &.walkthrough-close {
+    width: 32px;
+    height: 32px;
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// Step information
+.walkthrough-info {
+  flex: 1;
+  min-width: 0; // Allow text truncation
+  text-align: center;
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    text-align: left;
+  }
+}
+
+.walkthrough-step-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.walkthrough-step-indicator {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+// Progress bar
+.walkthrough-progress {
+  width: 120px;
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    display: none; // Hide on mobile to save space
+  }
+}
+
+.walkthrough-progress-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.walkthrough-progress-fill {
+  height: 100%;
+  background: #0696d7;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  position: relative;
+  
+  // Animated glow effect
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4));
+    animation: progressGlow 2s ease-in-out infinite;
+  }
+}
+
+@keyframes progressGlow {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+// Compact mobile layout
+@media (max-width: 480px) {
+  .walkthrough-toolbar-inner {
+    gap: 12px;
+    padding: 10px 12px;
+  }
+  
+  .walkthrough-btn {
+    width: 32px;
+    height: 32px;
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    &.walkthrough-play-pause {
+      width: 36px;
+      height: 36px;
+      
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    
+    &.walkthrough-close {
+      width: 28px;
+      height: 28px;
+      
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+  
+  .walkthrough-step-title {
+    font-size: 14px;
+  }
+  
+  .walkthrough-step-indicator {
+    font-size: 12px;
+  }
+}
+
+// Animation for button presses
+@keyframes buttonPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.walkthrough-btn:active:not(:disabled) {
+  animation: buttonPress 0.15s ease-out;
+}
+
+// Minimized toolbar styles
+.demo-walkthrough-toolbar.minimized {
+  .walkthrough-toolbar-inner {
+    display: none;
+  }
+  
+  .walkthrough-toolbar-minimized {
+    display: flex;
+  }
+}
+
+.walkthrough-toolbar-minimized {
+  display: none; // Hidden by default
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(18, 18, 18, 0.85);
+  backdrop-filter: blur(60px) saturate(200%);
+  -webkit-backdrop-filter: blur(60px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.6),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    padding: 10px 16px;
+  }
+}
+
+.walkthrough-minimized-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    font-size: 13px;
+  }
+}
+
+// Minimize button styling
+.walkthrough-btn.walkthrough-minimize {
+  width: 32px;
+  height: 32px;
+  
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// Maximize button special styling
+.walkthrough-btn.walkthrough-maximize {
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.06);
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+// Close button in minimized state
+.walkthrough-btn.walkthrough-close-minimized {
+  width: 28px;
+  height: 28px;
+  
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+// Hide close buttons - toolbar should always be present in fullscreen
+.walkthrough-close,
+.walkthrough-close-minimized {
+  display: none !important;
+}
+
+// Animated Cassette Deck Component
+.walkthrough-cassette-deck {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  background: linear-gradient(135deg, #e8e8e8 0%, #c5c5c5 50%, #a8a8a8 100%);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
+  height: 36px;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.3) 50%, 
+      transparent 100%);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+}
+
+.cassette-well {
+  width: 24px;
+  height: 20px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.2);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border-radius: 1px;
+  }
+}
+
+.tape-reel {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #4a4a4a, #2a2a2a);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3px;
+    height: 3px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    background: linear-gradient(45deg, 
+      transparent 47%, 
+      rgba(255, 255, 255, 0.1) 49%, 
+      rgba(255, 255, 255, 0.1) 51%, 
+      transparent 53%),
+    linear-gradient(-45deg, 
+      transparent 47%, 
+      rgba(255, 255, 255, 0.1) 49%, 
+      rgba(255, 255, 255, 0.1) 51%, 
+      transparent 53%);
+  }
+  
+  &.left-reel {
+    top: 6px;
+    left: 4px;
+  }
+  
+  &.right-reel {
+    top: 6px;
+    right: 4px;
+  }
+  
+  &.playing {
+    animation: tapeReelSpin 2s linear infinite;
+  }
+  
+  &.rewinding {
+    animation: tapeReelSpin 0.5s linear infinite reverse;
+  }
+  
+  &.fast-forward {
+    animation: tapeReelSpin 0.5s linear infinite;
+  }
+}
+
+@keyframes tapeReelSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cassette-window {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  height: 8px;
+  background: linear-gradient(90deg, 
+    rgba(139, 69, 19, 0.3) 0%,
+    rgba(139, 69, 19, 0.5) 30%,
+    rgba(139, 69, 19, 0.5) 70%,
+    rgba(139, 69, 19, 0.3) 100%);
+  border-radius: 1px;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: var(--tape-position, 0%);
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent 0%,
+      rgba(139, 69, 19, 0.8) 50%,
+      transparent 100%);
+    transition: left 0.3s ease;
+  }
+}
+
+.deck-label {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 6px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+// Deck A (left side)
+.cassette-well:first-child {
+  .deck-label::after {
+    content: 'A';
+  }
+}
+
+// Deck B (right side)  
+.cassette-well:last-child {
+  .deck-label::after {
+    content: 'B';
+  }
+}
+
+// Animation states based on walkthrough progress
+.walkthrough-cassette-deck {
+  &[data-state="playing"] {
+    .tape-reel {
+      animation: tapeReelSpin 2s linear infinite;
+    }
+    
+    .cassette-window::before {
+      animation: tapeProgress 10s linear infinite;
+    }
+  }
+  
+  &[data-state="paused"] {
+    .tape-reel {
+      animation-play-state: paused;
+    }
+  }
+  
+  &[data-state="rewinding"] {
+    .tape-reel {
+      animation: tapeReelSpin 0.5s linear infinite reverse;
+    }
+  }
+  
+  &[data-state="fast-forward"] {
+    .tape-reel {
+      animation: tapeReelSpin 0.5s linear infinite;
+    }
+  }
+}
+
+@keyframes tapeProgress {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 100%;
+  }
+}

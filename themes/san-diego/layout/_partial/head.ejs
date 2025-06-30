@@ -167,6 +167,7 @@
   <script src="<%- url_for('js/screen-wipe-transition.js') %>"></script>
   <script src="<%- url_for('js/external-links.js') %>"></script>
   <script src="<%- url_for('js/project-demo.js') %>"></script>
+  <script src="<%- url_for('js/project-demo-walkthrough.js') %>"></script>
   <script src="<%- url_for('js/byline-modal.js') %>"></script>
   <script src="<%- url_for('js/portfolio-parallax-optimized.js') %>"></script>
   <script src="<%- url_for('js/portfolio-filters.js') %>"></script>
@@ -271,4 +272,5 @@
   <% if (config.feed && config.feed.path) { %>
   <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for(config.feed.path) %>">
   <% } %>
+  
 </head>

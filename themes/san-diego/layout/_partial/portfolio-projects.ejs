@@ -195,7 +195,19 @@
                                 
                                 <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
-                                     <% if (post.notebook_stickers && post.notebook_stickers.length > 0) { %>
+                                     <% if (post.notebook_sticker_image) { %>
+                                         data-sticker-1-image="true"
+                                         style="<%- Object.entries({
+                                             '--sticker-1-image': `url(${url_for(post.notebook_sticker_image)})`,
+                                             '--sticker-1-width': post.notebook_sticker_image_width || '50px',
+                                             '--sticker-1-height': post.notebook_sticker_image_height || '50px',
+                                             '--sticker-1-top': post.notebook_sticker_image_top || 'auto',
+                                             '--sticker-1-right': post.notebook_sticker_image_right || '25px',
+                                             '--sticker-1-bottom': post.notebook_sticker_image_bottom || '25px',
+                                             '--sticker-1-left': post.notebook_sticker_image_left || 'auto',
+                                             '--sticker-1-rotate': post.notebook_sticker_image_rotate || '-3deg'
+                                         }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join('; ') %>;"
+                                     <% } else if (post.notebook_stickers && post.notebook_stickers.length > 0) { %>
                                          <% post.notebook_stickers.forEach((sticker, index) => { 
                                              if (sticker && index < 4) { 
                                                  const stickerNum = index + 1;
@@ -211,6 +223,7 @@
                                                  '--sticker-1-bg': sticker.bg || defaultBgs[0],
                                                  '--sticker-1-rotate': sticker.rotate || defaultRotates[0],
                                                  '--sticker-1-shape': sticker.shape || defaultShapes[0],
+                                                 '--sticker-1-style': sticker.style || 'regular',
                                                  '--sticker-1-top': sticker.top,
                                                  '--sticker-1-right': sticker.right,
                                                  '--sticker-1-bottom': sticker.bottom,
@@ -222,6 +235,7 @@
                                                  '--sticker-2-bg': sticker.bg || defaultBgs[1],
                                                  '--sticker-2-rotate': sticker.rotate || defaultRotates[1],
                                                  '--sticker-2-shape': sticker.shape || defaultShapes[1],
+                                                 '--sticker-2-style': sticker.style || 'regular',
                                                  '--sticker-2-top': sticker.top,
                                                  '--sticker-2-right': sticker.right,
                                                  '--sticker-2-bottom': sticker.bottom,
@@ -240,6 +254,7 @@
                                                       '--sticker-3-bg': post.notebook_stickers[2].bg || '#4CAF50',
                                                       '--sticker-3-rotate': post.notebook_stickers[2].rotate || '-2deg',
                                                       '--sticker-3-shape': post.notebook_stickers[2].shape || 'rounded',
+                                                      '--sticker-3-style': post.notebook_stickers[2].style || 'regular',
                                                       '--sticker-3-top': post.notebook_stickers[2].top,
                                                       '--sticker-3-right': post.notebook_stickers[2].right,
                                                       '--sticker-3-bottom': post.notebook_stickers[2].bottom,
@@ -253,12 +268,23 @@
                                                       '--sticker-4-bg': post.notebook_stickers[3].bg || '#9C27B0',
                                                       '--sticker-4-rotate': post.notebook_stickers[3].rotate || '8deg',
                                                       '--sticker-4-shape': post.notebook_stickers[3].shape || 'circle',
+                                                      '--sticker-4-style': post.notebook_stickers[3].style || 'regular',
                                                       '--sticker-4-top': post.notebook_stickers[3].top,
                                                       '--sticker-4-right': post.notebook_stickers[3].right,
                                                       '--sticker-4-bottom': post.notebook_stickers[3].bottom,
                                                       '--sticker-4-left': post.notebook_stickers[3].left
                                                   }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join('; ') %>;"></span>
                                         <% } %>
+                                    <% } %>
+                                    
+                                    <!-- Image sticker (die-cut SVG) -->
+                                    <% if (post.notebook_sticker_image) { %>
+                                        <div class="sticker-1-svg"></div>
+                                    <% } %>
+                                    
+                                    <!-- Year Label (Portable Label Printer Style) -->
+                                    <% if (post.date) { %>
+                                        <div class="notebook-year-label"><%- new Date(post.date).getFullYear() %></div>
                                     <% } %>
                                 </div>
                             </div>

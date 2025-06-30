@@ -6,8 +6,6 @@ cover_image:
 date: 2017-01-31 00:00:00
 layout: project_gallery
 has_writeup: false
-hidden: true
-draft: true
 credits:
   - role: User Experience Designer
     name: Thomas Walichiewicz

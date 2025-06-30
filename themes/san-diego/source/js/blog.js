@@ -214,6 +214,30 @@ document.addEventListener('DOMContentLoaded', function () {
 				return null;
 			}
 
+			// Check if we're loading demo content which has its own navigation controls
+			const hasDemoContent = blogContentElement.querySelector('.demo-inline-container') ||
+				blogContentElement.innerHTML.includes('demo-inline-container');
+			if (hasDemoContent) {
+				// Demo content detected, skipping back button creation
+				return null;
+			}
+
+			// Check if we're loading content with demo controls (which include their own back button)
+			const hasDemoControls = blogContentElement.querySelector('.demo-inline-controls') ||
+				blogContentElement.innerHTML.includes('demo-inline-controls');
+			if (hasDemoControls) {
+				// Demo controls detected, skipping back button creation
+				return null;
+			}
+
+			// Check if we're loading a project with its own navigation
+			const hasProjectNavigation = blogContentElement.querySelector('.project-navigation') ||
+				blogContentElement.innerHTML.includes('project-navigation');
+			if (hasProjectNavigation) {
+				// Project navigation detected, skipping back button creation
+				return null;
+			}
+
 			let backButton = blogContentElement.querySelector('.dynamic-back-button');
 			if (!backButton) {
 				backButton = document.createElement('button');

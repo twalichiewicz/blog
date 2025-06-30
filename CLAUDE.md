@@ -62,8 +62,8 @@ cd blog
 # Install dependencies
 npm install
 
-# Start development server
-npm run server
+# Start development server with self-healing
+npm run dev
 
 # Build for production
 npm run build:prod
@@ -72,9 +72,16 @@ npm run build:prod
 ### Common Commands Reference
 ```bash
 # Development
-npm run server          # Start local server on port 4000
-npm run build          # Clean and generate static site
+npm run dev            # Start dev with self-healing, auto-rebuild, and monitoring
+npm run server         # Start local server only (legacy, no self-healing)
+npm run build          # Build everything (demos + site)
 npm run build:prod     # Production build with optimizations
+npm run test           # Run comprehensive test suite
+
+# Health & Maintenance (NEW!)
+npm run doctor         # Check system health
+npm run fix            # Auto-fix detected issues
+npm run health         # Interactive health dashboard
 
 # Deployment
 npm run deploy         # Deploy to GitHub Pages
@@ -149,6 +156,7 @@ The custom "san-diego" theme consists of:
 5. **Dark/Light Mode**: CSS custom properties with prefers-color-scheme
 6. **Performance**: Lazy loading, minification, and caching strategies
 7. **Remote Editor**: Secure blog editor in `tools/blog-editor/` with GitHub OAuth
+8. **Self-Healing System**: Automatic issue detection and fixing during development
 
 ## Development Guide
 
@@ -244,6 +252,32 @@ Available in `themes/san-diego/scripts/`:
 - **process-alerts**: Alert boxes (info, warning, success, danger)
 - **wave-text**: Animated text effects
 - **emoji-processor**: Enhanced emoji handling
+
+### Custom Cursor System
+Portfolio demos use a unified custom cursor system for enhanced user experience:
+
+#### Cursor Architecture
+- **Central CSS File**: `/demos/shared/styles/demo-cursors.css` contains all cursor definitions
+- **Base64 SVGs**: Cursors are encoded to avoid Hexo's JSON wrapping of SVG files  
+- **CSS Variables**: Defined as custom properties for easy customization
+- **Auto-Application**: Import the CSS and cursors apply automatically
+
+#### Adding Cursors to Demos
+```css
+/* In your demo's main CSS */
+@import '@portfolio/demo-shared/styles/demo-cursors.css';
+```
+
+#### Available Cursors
+- `--cursor-default`: White arrow (general navigation)
+- `--cursor-pointer`: Arrow with blue dot (interactive elements)
+- `--cursor-active`: Arrow with larger dot (pressed state)
+- `--cursor-text`: I-beam for text input
+- `--cursor-disabled`: Prohibition sign
+- `--cursor-loading`: Circular spinner
+- `--cursor-grab/grabbing`: Drag handles
+
+For complete documentation, see `/docs/PROTOTYPE-CURSORS.md`.
 
 ### Interactive Demo System
 Self-contained demos that load in place of project trailers:
@@ -662,10 +696,24 @@ kill -9 $(lsof -t -i:4000)
 ```
 
 #### Build Failures
-1. Check Node version compatibility
-2. Clear Hexo cache: `hexo clean`
-3. Delete node_modules and reinstall
-4. Check for syntax errors in posts
+1. Run `npm run doctor` to diagnose issues
+2. Run `npm run fix` to apply automatic fixes
+3. If issues persist:
+   - Check Node version compatibility
+   - Clear Hexo cache: `hexo clean`
+   - Delete node_modules and reinstall
+   - Check for syntax errors in posts
+
+#### Changes Not Showing on localhost:4000
+This is automatically handled by the self-healing system in `npm run dev`. For manual fixes:
+1. Use `npm run dev` instead of `npm run server` - it builds demos first
+2. For existing servers showing old content:
+   ```bash
+   # Stop server (Ctrl+C)
+   npm run clean
+   npm run dev
+   ```
+3. If still seeing old content, force browser refresh (Cmd+Shift+R)
 
 #### Orphaned Processes
 - Multiple Hexo servers running
@@ -678,6 +726,108 @@ kill -9 $(lsof -t -i:4000)
 - Verify media query order
 - Test in both light/dark modes
 - Clear browser cache
+
+## Self-Healing Development System
+
+### Overview
+The portfolio includes a comprehensive self-healing system that automatically detects and fixes common development issues. This reduces friction and improves developer experience by handling routine problems automatically.
+
+### Key Features
+- **Automatic Issue Detection**: Monitors for Hexo warehouse errors, port conflicts, memory issues, and more
+- **Smart Auto-Fix**: Safely fixes issues like database corruption, blocked ports, and missing builds
+- **Real-Time Monitoring**: Watches for errors during development and fixes them automatically
+- **Health Dashboard**: Interactive terminal UI for system monitoring and control
+
+### Quick Commands
+```bash
+# Start development with self-healing (RECOMMENDED)
+npm run dev
+
+# Check system health
+npm run doctor
+
+# Apply automatic fixes
+npm run fix
+
+# Open health dashboard (requires blessed packages)
+npm run health
+```
+
+### What Gets Fixed Automatically
+1. **Hexo Warehouse Errors**: Cleans database and restarts server
+2. **Port Conflicts**: Kills processes blocking port 4000
+3. **Memory Issues**: Triggers garbage collection
+4. **Missing Demo Builds**: Rebuilds demos automatically
+5. **Cache Problems**: Clears stale or corrupted caches
+6. **Dark Mode CSS**: Updates visibility issues
+
+### Health Dashboard Features
+- System status overview
+- Real-time memory graphs
+- Build performance metrics
+- Active issues list
+- Server monitoring
+- Quick action shortcuts (c=clean, b=build, f=fix, r=restart)
+
+### Advanced Usage
+```bash
+# Continuous monitoring mode
+node build-system/self-healing-cli.js monitor
+
+# Generate health report
+node build-system/self-healing-cli.js report
+```
+
+### Full Documentation
+See [Self-Healing System Guide](./docs/guides/development/self-healing-system.md) for detailed information.
+
+## Claude Auto-Fix System
+
+### Overview
+This codebase includes an AI-powered auto-fix system that can automatically resolve test failures and validation errors using Claude AI.
+
+### Quick Usage
+```bash
+# Set up API key
+export CLAUDE_API_KEY="sk-ant-..."
+
+# Auto-fix demo validation errors
+npm run fix:demos
+
+# Run all tests with auto-fix
+npm run test:autofix
+
+# Preview fixes without applying
+DRY_RUN=true npm run fix:demos
+```
+
+### What It Can Fix
+- Missing DemoWrapper components
+- Missing or incorrect imports
+- Prop validation errors
+- Build configuration issues
+- Missing dependencies
+- Onboarding integration
+
+### Important Notes
+- **Always review changes** before committing
+- **Use feature branches** for auto-fixes
+- **Set API key** as environment variable only
+- **Monitor costs** - uses Claude API tokens
+
+### CI/CD Integration
+The system includes GitHub Actions workflow:
+1. Add `ANTHROPIC_API_KEY` to repository secrets
+2. Push changes to feature branch
+3. Auto-fix workflow creates PR with fixes
+
+### Full Documentation
+See [Claude Auto-Fix System Documentation](./docs/CLAUDE-AUTOFIX-SYSTEM.md) for complete guide including:
+- Detailed setup instructions
+- Configuration options
+- Troubleshooting guide
+- API reference
+- Cost management
 
 ## Best Practices
 
