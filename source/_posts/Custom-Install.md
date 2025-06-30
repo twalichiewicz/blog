@@ -5,29 +5,36 @@ display_description: "Enterprise software deployment transformed from hours to m
 has_writeup: true
 company: Autodesk
 byline: Replaced 60+ fragmented installer systems with a single platform that generates custom UIs from XML—saving Autodesk millions in duplicate development work
-date: 2019-08-30 20:52:01
-cover_image: /2019/08/30/Custom-Install/customInstall-preview.png
+date: 2021-08-30 20:52:01
+cover_image: ./customInstall-preview.png
 tags:
   - portfolio
 layout: project_gallery
 notebook_color: "dark-lime-green"
-demo_component: "custom-install-demo"
-demo_inline: true
-gallery_images:
-  - url: /2019/08/30/Custom-Install/000_customInstall.jpg
-    type: image
-  - url: /2019/08/30/Custom-Install/010_customInstall.jpg
-    type: image
-  - url: /2019/08/30/Custom-Install/011_customInstall.jpg
-    type: image
-  - url: /2019/08/30/Custom-Install/012_customInstall.jpg
-    type: image
-  - url: /2019/08/30/Custom-Install/020_customInstall.jpg
-    type: image
-  - url: /2019/08/30/Custom-Install/021_customInstall.jpg
-    type: image
-  - url: /2019/08/30/Custom-Install/030_customInstall.png
-    type: image
+# demo_component: "custom-install-demo"  # Temporarily disabled due to build error
+notebook_stickers:
+  - text: "🌲"
+    color: "#2e7d32"
+    bg: "#fff"
+    rotate: "-2deg"
+    shape: "circle"
+    style: "regular"
+    bottom: "30px"
+    right: "30px"
+    top: "auto"
+    left: "auto"
+  - text: "DEMO"
+    color: "#fff"
+    bg: "#4caf50"
+    rotate: "1deg"
+    style: "die-cut"
+    shape: "circle"
+notebook_sticker_image: "/img/stickers/bonsai.svg"
+notebook_sticker_image_width: "45px"
+notebook_sticker_image_height: "45px"
+notebook_sticker_image_bottom: "25px"
+notebook_sticker_image_right: "25px"
+notebook_sticker_image_rotate: "-3deg"
 stats:
   - value: "$3-5M"
     label: "Annual Savings"
@@ -75,6 +82,8 @@ I approached this challenge systematically, knowing that understanding the full 
 
 **Pattern Inventory**: I audited all 100+ installers, documenting every interface element and workflow. By creating Venn diagrams of functionality, I surfaced the repeat atoms—"licensing," "paths," "dependencies"—that appeared across products. This analysis revealed that despite surface differences, most installers were solving identical problems with slightly different implementations.
 
+{% carousel [{"src":"./000_customInstall.jpg","alt":"Early research mapping installer patterns and workflows across Autodesk's product suite"},{"src":"./010_customInstall.jpg","alt":"Legacy installer interfaces showing fragmented approaches to the same core functionality"}] %}
+
 **Data Triangulation**: I analyzed support logs, chat transcripts, and forum discussions, building PowerBI dashboards to identify where users were failing. The instrumentation data showed clear patterns: version mismatches, licensing errors, and extension conflicts accounted for 73% of installation failures. These became our leverage points.
 
 **Regular Feedback Sessions**: I established the "Delta Deployment Group"—a cohort of CAD administrators managing enterprise deployments. Every quarter, we'd workshop their workflows, and crucially, I'd show how their previous feedback had been incorporated. This transparency built trust and developed a shared mental model that helped me think like an IT administrator, not just a designer.
@@ -89,6 +98,8 @@ The platform introduced several breakthrough capabilities:
 - **Cloud-based configuration library** eliminating local storage needs entirely
 - **Shared configurations** that turn individual solutions into organizational knowledge
 - **On-demand generation** creating installers for any configuration combination instantly
+
+{% carousel [{"src":"./011_customInstall.jpg","alt":"Unified package library interface showing cloud-based configuration management"},{"src":"./012_customInstall.jpg","alt":"Product selection interface with intelligent dependency resolution"},{"src":"./020_customInstall.jpg","alt":"Advanced configuration options with collapsible sections for complex enterprise setups"},{"src":"./021_customInstall.jpg","alt":"Version and language configuration interface streamlining deployment workflows"},{"src":"./030_customInstall.png","alt":"Final platform architecture showing the complete transformation from fragmented to unified system"}] %}
 
 The design focused on the three critical failure points our data identified: version management became automatic, licensing was centralized, and extensions were handled through dependency resolution.
 

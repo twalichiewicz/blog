@@ -2,7 +2,7 @@
 title: Self-Service Publishing Pipeline
 display_name: "Content Velocity Unleashed"
 display_description: "3-week engineering cycles reduced to same-day publishing"
-date: 2020-01-19
+date: 2024-01-19
 company: Autodesk
 byline: Transformed content publishing from 3-week engineering cycles to same-day self-service, unlocking $6-8M in revenue opportunities
 tags:
@@ -11,8 +11,15 @@ layout: project_gallery
 has_writeup: true
 notebook_color: "tangerine"
 notebook_brand: "rhodia"
+notebook_stickers:
+  - text: "DEMO"
+    color: "#fff"
+    bg: "#000000"
+    rotate: "2deg"
+    style: "die-cut"
+    shape: "circle"
 cover_image: sspp_cover.jpg
-demo_component: "self-service-publishing-demo"
+# demo_component: "self-service-publishing-demo"  # Temporarily disabled
 stats:
   - value: "$6-8M"
     label: "ARR opportunity captured"
