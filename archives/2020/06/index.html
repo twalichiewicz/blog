@@ -17,7 +17,7 @@
   
   
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://twalichiewicz.github.io/archives/2019/06/index.html">
+  <link rel="canonical" href="https://twalichiewicz.github.io/archives/2020/06/index.html">
   
   <!-- Resource Hints for Performance -->
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
@@ -37,7 +37,7 @@
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://twalichiewicz.github.io/archives/2019/06/index.html">
+  <meta property="og:url" content="https://twalichiewicz.github.io/archives/2020/06/index.html">
   <meta property="og:title" content="Thomas Walichiewicz">
   <meta property="og:description" content="Thomas Walichiewicz - Designer, Developer, Thinker">
   <meta property="og:image" content="https://twalichiewicz.github.io/favicon.png">
@@ -46,7 +46,7 @@
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://twalichiewicz.github.io/archives/2019/06/index.html">
+  <meta name="twitter:url" content="https://twalichiewicz.github.io/archives/2020/06/index.html">
   <meta name="twitter:title" content="Thomas Walichiewicz">
   <meta name="twitter:description" content="Thomas Walichiewicz - Designer, Developer, Thinker">
   <meta name="twitter:image" content="https://twalichiewicz.github.io/favicon.png">
@@ -97,6 +97,7 @@
   <script src="/js/screen-wipe-transition.js"></script>
   <script src="/js/external-links.js"></script>
   <script src="/js/project-demo.js"></script>
+  <script src="/js/project-demo-walkthrough.js"></script>
   <script src="/js/byline-modal.js"></script>
   <script src="/js/portfolio-parallax-optimized.js"></script>
   <script src="/js/portfolio-filters.js"></script>
@@ -139,6 +140,7 @@
   <!-- RSS Feed -->
   
   <link rel="alternate" type="application/rss+xml" title="Thomas Walichiewicz" href="/rss2.xml">
+  
   
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
@@ -210,7 +212,7 @@
   
   
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://twalichiewicz.github.io/archives/2019/06/index.html">
+  <link rel="canonical" href="https://twalichiewicz.github.io/archives/2020/06/index.html">
   
   <!-- Resource Hints for Performance -->
   <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
@@ -230,7 +232,7 @@
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://twalichiewicz.github.io/archives/2019/06/index.html">
+  <meta property="og:url" content="https://twalichiewicz.github.io/archives/2020/06/index.html">
   <meta property="og:title" content="Thomas Walichiewicz">
   <meta property="og:description" content="Thomas Walichiewicz - Designer, Developer, Thinker">
   <meta property="og:image" content="https://twalichiewicz.github.io/favicon.png">
@@ -239,7 +241,7 @@
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://twalichiewicz.github.io/archives/2019/06/index.html">
+  <meta name="twitter:url" content="https://twalichiewicz.github.io/archives/2020/06/index.html">
   <meta name="twitter:title" content="Thomas Walichiewicz">
   <meta name="twitter:description" content="Thomas Walichiewicz - Designer, Developer, Thinker">
   <meta name="twitter:image" content="https://twalichiewicz.github.io/favicon.png">
@@ -290,6 +292,7 @@
   <script src="/js/screen-wipe-transition.js"></script>
   <script src="/js/external-links.js"></script>
   <script src="/js/project-demo.js"></script>
+  <script src="/js/project-demo-walkthrough.js"></script>
   <script src="/js/byline-modal.js"></script>
   <script src="/js/portfolio-parallax-optimized.js"></script>
   <script src="/js/portfolio-filters.js"></script>
@@ -332,6 +335,7 @@
   <!-- RSS Feed -->
   
   <link rel="alternate" type="application/rss+xml" title="Thomas Walichiewicz" href="/rss2.xml">
+  
   
 </head>
 	<style>
@@ -877,7 +881,7 @@
 <style>
 /* Default cursor for the prototype (non-interactive areas) */
 .youtube-demo {
-  cursor: url('data:image/svg+xml;utf8,%3Csvg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M4.89415 6.3844C4.57502 5.5334 5.46478 4.73239 6.27769 5.13885L17.5821 10.7911C18.4125 11.2063 18.2781 12.4305 17.3775 12.6556L12.5326 13.8669C12.2009 13.9498 11.9345 14.1964 11.8264 14.5208L10.8932 17.3203C10.5952 18.2144 9.3391 18.2376 9.00821 17.3552L4.89415 6.3844Z" fill="white" stroke="black" stroke-width="1.5" stroke-linejoin="round"/%3E%3C/svg%3E') 4 4, default;
+  cursor: url('/components/prototype-sandbox/cursors/default-cursor.svg') 4 4, default;
 }
 
 /* Apply default cursor to all elements within the prototype */
@@ -901,7 +905,7 @@
 .youtube-demo input[type="submit"],
 .youtube-demo input[type="button"],
 .youtube-demo .clickable {
-  cursor: url('data:image/svg+xml;utf8,%3Csvg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M4.89415 6.3844C4.57502 5.5334 5.46478 4.73239 6.27769 5.13885L17.5821 10.7911C18.4125 11.2063 18.2781 12.4305 17.3775 12.6556L12.5326 13.8669C12.2009 13.9498 11.9345 14.1964 11.8264 14.5208L10.8932 17.3203C10.5952 18.2144 9.3391 18.2376 9.00821 17.3552L4.89415 6.3844Z" fill="white" stroke="black" stroke-width="1.5" stroke-linejoin="round"/%3E%3Cpath d="M18 8.5C19.3807 8.5 20.5 7.38071 20.5 6C20.5 4.61929 19.3807 3.5 18 3.5C16.6193 3.5 15.5 4.61929 15.5 6C15.5 7.38071 16.6193 8.5 18 8.5Z" fill="%23007AFF" stroke="white"/%3E%3Cpath d="M16 8L14 10" stroke="%23007AFF" stroke-width="1.5" stroke-linecap="round"/%3E%3C/svg%3E') 4 4, pointer !important;
+  cursor: url('/components/prototype-sandbox/cursors/interactive-cursor.svg') 4 4, pointer !important;
 }
 
 /* Text selection areas get text cursor */
@@ -915,7 +919,7 @@
 /* Draggable elements get grab cursor */
 .youtube-demo .progress-bar,
 .youtube-demo .progress-fill {
-  cursor: url('data:image/svg+xml;utf8,%3Csvg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M12 8C10.5825 8 10.1696 9.00466 10.0494 9.58987C9.99603 9.84966 9.89464 10.1054 9.70711 10.2929L7.70711 12.2929C7.31658 12.6834 7.31658 13.3166 7.70711 13.7071L9.70711 15.7071C9.89464 15.8946 9.99603 16.1503 10.0494 16.4101C10.1696 16.9953 10.5825 18 12 18C13.4175 18 13.8304 16.9953 13.9506 16.4101C14.004 16.1503 14.1054 15.8946 14.2929 15.7071L16.2929 13.7071C16.6834 13.3166 16.6834 12.6834 16.2929 12.2929L14.2929 10.2929C14.1054 10.1054 14.004 9.84966 13.9506 9.58987C13.8304 9.00466 13.4175 8 12 8Z" fill="white" stroke="black" stroke-width="1.5" stroke-linejoin="round"/%3E%3Cpath d="M12 15C13.1046 15 14 14.1046 14 13C14 11.8954 13.1046 11 12 11C10.8954 11 10 11.8954 10 13C10 14.1046 10.8954 15 12 15Z" fill="%23007AFF"/%3E%3C/svg%3E') 12 12, grab !important;
+  cursor: url('/components/prototype-sandbox/cursors/grab-cursor.svg') 12 12, grab !important;
 }
 
 /* Disabled elements get not-allowed cursor */
@@ -7078,12 +7082,12 @@ init().catch(error => console.error('Fatal error:', error));
                                          
                                              data-sticker-1="AI/ML"
                                              
-                                             style="--sticker-1-color: #fff; --sticker-1-bg: #1a237e; --sticker-1-rotate: -4deg; --sticker-1-shape: rectangle;"
+                                             style="--sticker-1-color: #fff; --sticker-1-bg: #1a237e; --sticker-1-rotate: -4deg; --sticker-1-shape: rectangle; --sticker-1-style: regular;"
                                              
                                          
                                              data-sticker-2="⭐"
                                              
-                                             style="--sticker-2-color: #ffd600; --sticker-2-bg: #000; --sticker-2-rotate: 1deg; --sticker-2-shape: rectangle;"
+                                             style="--sticker-2-color: #ffd600; --sticker-2-bg: #000; --sticker-2-rotate: 1deg; --sticker-2-shape: rectangle; --sticker-2-style: regular;"
                                              
                                          
                                              data-sticker-3="POC"
@@ -7094,9 +7098,17 @@ init().catch(error => console.error('Fatal error:', error));
                                     
                                         
                                             <span class="sticker-3" data-sticker-3="POC" 
-                                                  style="--sticker-3-color: #000; --sticker-3-bg: #00e676; --sticker-3-rotate: 3deg; --sticker-3-shape: rounded;"></span>
+                                                  style="--sticker-3-color: #000; --sticker-3-bg: #00e676; --sticker-3-rotate: 3deg; --sticker-3-shape: rounded; --sticker-3-style: regular;"></span>
                                         
                                         
+                                    
+                                    
+                                    <!-- Image sticker (die-cut SVG) -->
+                                    
+                                    
+                                    <!-- Year Label (Portable Label Printer Style) -->
+                                    
+                                        <div class="notebook-year-label">2024</div>
                                     
                                 </div>
                             </div>
@@ -7106,6 +7118,81 @@ init().catch(error => console.error('Fatal error:', error));
                         <h4 class="portfolio-title">Universal Intelligence Layer</h4>
                         
                             <p class="portfolio-byline">Cross-application AI that follows users everywhere they create</p>
+                        
+                    </div>
+                </a>
+            
+                <a href="/2020/06/30/Project-Wingman/" class="portfolio-item-wrapper" 
+                   data-discipline=""
+                   data-type=""
+                   data-skills=""
+                   data-industry=""
+                   
+                   
+                   
+                   
+                   
+                   
+                   >
+                    <div class="portfolio-item portfolio-item--featured">
+                        <!-- Skeleton UI placeholder -->
+                        <div class="notebook-skeleton">
+                            <div class="skeleton-notebook"></div>
+                            <div class="skeleton-info">
+                                <div class="skeleton-title"></div>
+                                <div class="skeleton-byline"></div>
+                            </div>
+                        </div>
+                        
+                        
+                            <div class="notebook">
+                                <!-- Special elements for notebook variants -->
+                                
+                                
+                                <!-- Layer 6: Back cover (static anchor) -->
+                                <div class="back-cover"></div>
+                                
+                                <!-- Layer 5: Inside of back cover (static anchor) -->
+                                <div class="inside-back-cover"></div>
+                                
+                                <!-- Layer 4: Right inner page (content) -->
+                                <div class="inner-page-right">
+                                    
+                                        
+                                            <img class="notebook-pages-custom" src="/2020/06/30/Project-Wingman/./wingmanInstaller_poster.jpg" alt="Desktop install platform notebook pages" / loading="lazy" decoding="async">
+                                        
+                                    
+                                </div>
+                                
+                                <!-- Layer 3: Left inner page (content) -->
+                                <div class="inner-page-left">
+                                    
+                                </div>
+                                
+                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
+                                <div class="inside-front-cover"></div>
+                                
+                                <!-- Layer 1: Front cover (what user sees initially) -->
+                                <div class="front-cover"
+                                     
+                                >
+                                    
+                                    
+                                    <!-- Image sticker (die-cut SVG) -->
+                                    
+                                    
+                                    <!-- Year Label (Portable Label Printer Style) -->
+                                    
+                                        <div class="notebook-year-label">2020</div>
+                                    
+                                </div>
+                            </div>
+                        
+                    </div>
+                    <div class="portfolio-info">
+                        <h4 class="portfolio-title">Installation Reimagined</h4>
+                        
+                            <p class="portfolio-byline">100+ chaotic installers unified into one seamless experience</p>
                         
                     </div>
                 </a>
@@ -7164,6 +7251,14 @@ init().catch(error => console.error('Fatal error:', error));
                                 <div class="front-cover"
                                      
                                 >
+                                    
+                                    
+                                    <!-- Image sticker (die-cut SVG) -->
+                                    
+                                    
+                                    <!-- Year Label (Portable Label Printer Style) -->
+                                    
+                                        <div class="notebook-year-label">2020</div>
                                     
                                 </div>
                             </div>
@@ -7232,6 +7327,14 @@ init().catch(error => console.error('Fatal error:', error));
                                      
                                 >
                                     
+                                    
+                                    <!-- Image sticker (die-cut SVG) -->
+                                    
+                                    
+                                    <!-- Year Label (Portable Label Printer Style) -->
+                                    
+                                        <div class="notebook-year-label">2019</div>
+                                    
                                 </div>
                             </div>
                         
@@ -7244,17 +7347,17 @@ init().catch(error => console.error('Fatal error:', error));
                     </div>
                 </a>
             
-                <a href="/2019/06/30/Project-Wingman/" class="portfolio-item-wrapper" 
+                <a href="/2019/02/01/foreground/" class="portfolio-item-wrapper" 
                    data-discipline=""
                    data-type=""
                    data-skills=""
                    data-industry=""
+                   data-notebook-color="offwhite"
+                   data-notebook-texture="worn"
                    
                    
                    
-                   
-                   
-                   
+                   data-notebook-stickers="true"
                    >
                     <div class="portfolio-item portfolio-item--featured">
                         <!-- Skeleton UI placeholder -->
@@ -7281,7 +7384,7 @@ init().catch(error => console.error('Fatal error:', error));
                                 <div class="inner-page-right">
                                     
                                         
-                                            <img class="notebook-pages-custom" src="/2019/06/30/Project-Wingman/wingmanInstaller_poster.jpg" alt="Desktop install platform notebook pages" / loading="lazy" decoding="async">
+                                            <img class="notebook-pages-custom" src="/2019/02/01/foreground/foreground-preview.jpg" alt="Human Interest Design Leadership notebook pages" / loading="lazy" decoding="async">
                                         
                                     
                                 </div>
@@ -7297,83 +7400,31 @@ init().catch(error => console.error('Fatal error:', error));
                                 <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
                                      
-                                >
-                                    
-                                </div>
-                            </div>
-                        
-                    </div>
-                    <div class="portfolio-info">
-                        <h4 class="portfolio-title">Installation Reimagined</h4>
-                        
-                            <p class="portfolio-byline">100+ chaotic installers unified into one seamless experience</p>
-                        
-                    </div>
-                </a>
-            
-                <a href="/2018/04/05/foreground/" class="portfolio-item-wrapper" 
-                   data-discipline=""
-                   data-type=""
-                   data-skills=""
-                   data-industry=""
-                   
-                   
-                   
-                   
-                   
-                   
-                   >
-                    <div class="portfolio-item portfolio-item--featured">
-                        <!-- Skeleton UI placeholder -->
-                        <div class="notebook-skeleton">
-                            <div class="skeleton-notebook"></div>
-                            <div class="skeleton-info">
-                                <div class="skeleton-title"></div>
-                                <div class="skeleton-byline"></div>
-                            </div>
-                        </div>
-                        
-                        
-                            <div class="notebook">
-                                <!-- Special elements for notebook variants -->
-                                
-                                
-                                <!-- Layer 6: Back cover (static anchor) -->
-                                <div class="back-cover"></div>
-                                
-                                <!-- Layer 5: Inside of back cover (static anchor) -->
-                                <div class="inside-back-cover"></div>
-                                
-                                <!-- Layer 4: Right inner page (content) -->
-                                <div class="inner-page-right">
-                                    
-                                        
-                                            <img class="notebook-pages-custom" src="/2018/04/05/foreground/foreground-preview.jpg" alt="Design system notebook pages" / loading="lazy" decoding="async">
-                                        
-                                    
-                                </div>
-                                
-                                <!-- Layer 3: Left inner page (content) -->
-                                <div class="inner-page-left">
-                                    
-                                </div>
-                                
-                                <!-- Layer 2: Inside of front cover (white, animates with front cover) -->
-                                <div class="inside-front-cover"></div>
-                                
-                                <!-- Layer 1: Front cover (what user sees initially) -->
-                                <div class="front-cover"
+                                         
+                                             data-sticker-1="HI"
+                                             
+                                             style="--sticker-1-color: #fff; --sticker-1-bg: #7b68ee; --sticker-1-rotate: 0deg; --sticker-1-shape: rounded; --sticker-1-style: die-cut; --sticker-1-top: 50%; --sticker-1-right: auto; --sticker-1-bottom: auto; --sticker-1-left: 50%;"
+                                             
+                                         
                                      
                                 >
                                     
+                                    
+                                    <!-- Image sticker (die-cut SVG) -->
+                                    
+                                    
+                                    <!-- Year Label (Portable Label Printer Style) -->
+                                    
+                                        <div class="notebook-year-label">2019</div>
+                                    
                                 </div>
                             </div>
                         
                     </div>
                     <div class="portfolio-info">
-                        <h4 class="portfolio-title">Foreground Design System</h4>
+                        <h4 class="portfolio-title">Transforming Human Interest Through Design</h4>
                         
-                            <p class="portfolio-byline">Financial complexity made simple through unified component architecture</p>
+                            <p class="portfolio-byline">From rebrand to product to system—building the design foundation for a fintech unicorn</p>
                         
                     </div>
                 </a>
@@ -7425,6 +7476,8 @@ init().catch(error => console.error('Fatal error:', error));
                                 <div class="portfolio-more-projects">
                                     
                                         <div class="portfolio-more-project">401(k) Administration product</div>
+                                    
+                                        <div class="portfolio-more-project">401(k) end user product</div>
                                     
                                         <div class="portfolio-more-project">401(k) operations tool</div>
                                     
@@ -7478,11 +7531,25 @@ init().catch(error => console.error('Fatal error:', error));
                                 </h3>
                                 <div class="portfolio-more-projects">
                                     
+                                        <div class="portfolio-more-project">Case manager app</div>
+                                    
                                         <div class="portfolio-more-project">Marketing tools</div>
                                     
                                         <div class="portfolio-more-project">Physician app</div>
                                     
-                                        <div class="portfolio-more-project">Case manager app</div>
+                                </div>
+                            </div>
+                        
+                            <div class="portfolio-more-company">
+                                <h3 class="portfolio-more-company-name">
+                                    Maisha Meds
+                                    
+                                        <span class="company-years">2013-2014</span>
+                                    
+                                </h3>
+                                <div class="portfolio-more-projects">
+                                    
+                                        <div class="portfolio-more-project">Remote pharmacy</div>
                                     
                                 </div>
                             </div>
