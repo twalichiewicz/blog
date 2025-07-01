@@ -12,9 +12,12 @@
 
 const BuildManager = require('./BuildManager');
 const SelfHealingManager = require('./self-healing-manager');
+const BrowserRefresh = require('./browser-refresh');
+const CLIUXManager = require('./cli-ux-manager');
 const { spawn } = require('child_process');
 const chokidar = require('chokidar');
 const path = require('path');
+const crypto = require('crypto');
 
 class DevCommand extends BuildManager {
   constructor() {
@@ -22,11 +25,17 @@ class DevCommand extends BuildManager {
     this.watchers = [];
     this.servers = new Map();
     this.selfHealing = new SelfHealingManager();
+    this.browserRefresh = new BrowserRefresh();
+    this.cliUX = new CLIUXManager();
+    this.demoHashes = new Map(); // Track file hashes to detect real changes
   }
 
   async run() {
     this.log('🚀 Starting development mode...', 'step');
     const startTime = this.startTimer();
+
+    // Set environment flag for development mode
+    process.env.DEV_MODE = 'true';
 
     try {
       // Phase 0: Self-healing health checks
@@ -41,11 +50,15 @@ class DevCommand extends BuildManager {
       // Phase 2: Start main server
       await this.startMainServer();
       
-      // Phase 3: Setup file watching
+      // Phase 3: Start browser auto-refresh
+      this.browserRefresh.start();
+      
+      // Phase 4: Setup file watching
       this.setupWatchers();
       
       this.endTimer(startTime, 'Development mode ready');
       this.log('🎉 Ready for development! Site running at http://localhost:4000', 'success');
+      this.log('🔄 Browser auto-refresh active on WebSocket port 4001', 'info');
       
       // Keep process alive
       this.keepAlive();
@@ -190,14 +203,38 @@ class DevCommand extends BuildManager {
       this.handleContentChange(filePath);
     });
     
-    // Watch demo source files
-    const demoWatcher = chokidar.watch('demos/*/src/**/*', {
+    // Watch demo source files - broader pattern to catch all changes
+    const demoWatcher = chokidar.watch([
+      'demos/*/src/**/*',
+      'demos/*/package.json',
+      'demos/*/vite.config.js',
+      'demos/*/index.html',
+      'demos/*/*.jsx',
+      'demos/*/*.js',
+      'demos/*/*.css'
+    ], {
       cwd: this.root,
-      ignored: ['node_modules', 'dist']
+      ignored: ['node_modules', 'dist', '.git'],
+      ignoreInitial: true,
+      awaitWriteFinish: {
+        stabilityThreshold: 300,
+        pollInterval: 100
+      }
     });
     
+    // Watch for all demo changes (not just 'change' event)
     demoWatcher.on('change', (filePath) => {
       this.log(`🔧 Demo file changed: ${filePath}`, 'info');
+      this.handleDemoChange(filePath);
+    });
+    
+    demoWatcher.on('add', (filePath) => {
+      this.log(`🔧 Demo file added: ${filePath}`, 'info');
+      this.handleDemoChange(filePath);
+    });
+    
+    demoWatcher.on('unlink', (filePath) => {
+      this.log(`🔧 Demo file removed: ${filePath}`, 'info');
       this.handleDemoChange(filePath);
     });
     
@@ -223,7 +260,122 @@ class DevCommand extends BuildManager {
     });
     
     this.watchers.push(contentWatcher, demoWatcher, demoDistWatcher);
+    
+    // Setup polling watcher for external changes (other Claude instances)
+    this.setupExternalChangePolling();
+    
     this.log('✅ File watchers active', 'success');
+  }
+  
+  setupExternalChangePolling() {
+    this.log('🔍 Setting up external change detection...', 'step');
+    
+    // Store initial timestamps
+    this.demoTimestamps = {};
+    this.updateDemoTimestamps();
+    
+    // Poll for changes every 3 seconds
+    this.externalChangeInterval = setInterval(() => {
+      this.checkForExternalChanges();
+    }, 3000);
+    
+    this.log('✅ External change detection active', 'success');
+  }
+  
+  updateDemoTimestamps() {
+    const fs = require('fs');
+    const path = require('path');
+    
+    const demos = this.getDemos();
+    for (const demo of demos) {
+      const indexFile = path.join(demo.dist, 'index.html');
+      if (fs.existsSync(indexFile)) {
+        const stats = fs.statSync(indexFile);
+        this.demoTimestamps[demo.name] = stats.mtime.getTime();
+      }
+    }
+  }
+  
+  async checkForExternalChanges() {
+    const fs = require('fs');
+    const path = require('path');
+    
+    const demos = this.getDemos();
+    for (const demo of demos) {
+      const indexFile = path.join(demo.dist, 'index.html');
+      if (fs.existsSync(indexFile)) {
+        const stats = fs.statSync(indexFile);
+        const currentTime = stats.mtime.getTime();
+        const lastTime = this.demoTimestamps[demo.name] || 0;
+        
+        if (currentTime > lastTime) {
+          this.log(`🔄 External change detected in ${demo.name}`, 'info');
+          this.demoTimestamps[demo.name] = currentTime;
+          
+          // Trigger copy to theme and regeneration
+          await this.handleExternalDemoChange(demo.name);
+        }
+      }
+    }
+  }
+  
+  async handleExternalDemoChange(demoName) {
+    try {
+      // Show external change detection
+      this.cliUX.showChangeDetection('external', {
+        demo: demoName,
+        path: `demos/${demoName}/dist/`
+      });
+      
+      // Show pipeline for external changes
+      const pipeline = [
+        { name: 'External Change', status: 'complete' },
+        { name: 'Copy to Theme', status: 'active' },
+        { name: 'Update Public', status: 'pending' },
+        { name: 'Refresh Browser', status: 'pending' }
+      ];
+      this.cliUX.showPipelineStatus(pipeline);
+      
+      // Copy spinner
+      const copySpinner = this.cliUX.createSpinner(`ext-copy-${demoName}`, `Processing external change for ${demoName}...`);
+      copySpinner.start();
+      
+      // Copy updated dist files to theme directory
+      await this.copyDemoToTheme(demoName);
+      this.cliUX.succeedSpinner(`ext-copy-${demoName}`, `${demoName} synced`);
+      
+      // Update pipeline
+      pipeline[1].status = 'complete';
+      pipeline[2].status = 'active';
+      this.cliUX.showPipelineStatus(pipeline);
+      
+      // Hexo regeneration
+      const hexoSpinner = this.cliUX.createSpinner(`ext-hexo-${demoName}`, `Deploying ${demoName} to public...`);
+      hexoSpinner.start();
+      
+      await this.buildMainSite(false);
+      
+      this.cliUX.succeedSpinner(`ext-hexo-${demoName}`, `${demoName} deployed`);
+      
+      // Update pipeline
+      pipeline[2].status = 'complete';
+      pipeline[3].status = 'active';
+      this.cliUX.showPipelineStatus(pipeline);
+      
+      // Trigger browser refresh
+      this.browserRefresh.refreshBrowsers(`Demo updated: ${demoName}`);
+      
+      // Final update
+      pipeline[3].status = 'complete';
+      this.cliUX.showPipelineStatus(pipeline);
+      
+      // Summary
+      this.cliUX.showActionSummary('🌐 External Update Live', `${demoName} synced from external source`);
+      
+    } catch (error) {
+      this.cliUX.failSpinner(`ext-${demoName}`, `External sync failed: ${error.message}`);
+      this.log(`Failed to process external change for ${demoName}: ${error.message}`, 'error');
+    }
   }
   
   async handleContentChange(filePath) {
@@ -234,6 +386,9 @@ class DevCommand extends BuildManager {
         this.log('🔄 Rebuilding main site...', 'step');
         await this.buildMainSite(false);
         this.log('✅ Main site rebuilt', 'success');
+        
+        // Trigger browser refresh for content changes
+        this.browserRefresh.refreshBrowsers('Content updated');
       } catch (error) {
         this.log(`Rebuild failed: ${error.message}`, 'error');
       }
@@ -249,19 +404,49 @@ class DevCommand extends BuildManager {
     
     this.demoChangeTimeouts[demoName] = setTimeout(async () => {
       try {
-        this.log(`🔄 Rebuilding ${demoName} demo...`, 'step');
+        // Show what triggered the rebuild
+        this.cliUX.showChangeDetection('source', {
+          path: filePath,
+          demo: demoName
+        });
+        
+        // Show pipeline status
+        const pipeline = [
+          { name: 'Detect Change', status: 'complete' },
+          { name: 'Build Demo', status: 'active' },
+          { name: 'Copy to Theme', status: 'pending' },
+          { name: 'Update Public', status: 'pending' },
+          { name: 'Refresh Browser', status: 'pending' }
+        ];
+        this.cliUX.showPipelineStatus(pipeline);
+        
+        // Start spinner for build
+        const spinner = this.cliUX.createSpinner(`build-${demoName}`, `Building ${demoName}...`);
+        spinner.start();
+        
         const demos = this.getDemos();
         const demo = demos.find(d => d.name === demoName);
         
         if (demo) {
+          // Build the demo
           await this.buildDemo(demo);
-          this.log(`✅ ${demoName} demo rebuilt`, 'success');
-          // The dist watcher will handle copying to public
+          
+          this.cliUX.succeedSpinner(`build-${demoName}`, `${demoName} built successfully`);
+          
+          // Update pipeline
+          pipeline[1].status = 'complete';
+          pipeline[2].status = 'active';
+          this.cliUX.showPipelineStatus(pipeline);
+          
+          // The dist watcher will handle the rest of the pipeline
+        } else {
+          this.cliUX.failSpinner(`build-${demoName}`, `Demo ${demoName} not found`);
         }
       } catch (error) {
+        this.cliUX.failSpinner(`build-${demoName}`, `Build failed: ${error.message}`);
         this.log(`Demo rebuild failed: ${error.message}`, 'error');
       }
-    }, 1000);
+    }, 500); // Reduced debounce for faster response
   }
   
   async handleDemoDistChange(filePath) {
@@ -273,34 +458,83 @@ class DevCommand extends BuildManager {
     
     this.demoDistChangeTimeouts[demoName] = setTimeout(async () => {
       try {
+        // Show what's happening
+        this.cliUX.showChangeDetection('dist', {
+          path: filePath,
+          demo: demoName
+        });
+        
+        // Continue pipeline from where demo build left off
+        const pipeline = [
+          { name: 'Detect Change', status: 'complete' },
+          { name: 'Build Demo', status: 'complete' },
+          { name: 'Copy to Theme', status: 'active' },
+          { name: 'Update Public', status: 'pending' },
+          { name: 'Refresh Browser', status: 'pending' }
+        ];
+        this.cliUX.showPipelineStatus(pipeline);
+        
+        // Start copy spinner
+        const copySpinner = this.cliUX.createSpinner(`copy-${demoName}`, `Copying ${demoName} to theme directory...`);
+        copySpinner.start();
+        
         // CRITICAL FIX: Copy updated dist files to theme directory first
-        this.log(`📋 Copying ${demoName} from dist to theme directory...`, 'step');
         await this.copyDemoToTheme(demoName);
+        this.cliUX.succeedSpinner(`copy-${demoName}`, `${demoName} copied to theme`);
+        
+        // Update pipeline
+        pipeline[2].status = 'complete';
+        pipeline[3].status = 'active';
+        this.cliUX.showPipelineStatus(pipeline);
         
         // Check if this is a new asset hash (indicates rebuild)
         const isNewAsset = filePath.includes('index-') && (filePath.includes('.css') || filePath.includes('.js'));
         
         if (isNewAsset) {
           // Proactively clean to prevent warehouse errors
-          this.log(`🔄 Demo ${demoName} has new assets, cleaning database...`, 'step');
+          const cleanSpinner = this.cliUX.createSpinner('clean-db', 'Cleaning database for new assets...');
+          cleanSpinner.start();
+          
           const fs = require('fs');
           const path = require('path');
           const dbFile = path.join(this.root, 'db.json');
           
           if (fs.existsSync(dbFile)) {
             fs.unlinkSync(dbFile);
-            this.log('✅ Database cleaned proactively', 'success');
+            this.cliUX.succeedSpinner('clean-db', 'Database cleaned');
+          } else {
+            cleanSpinner.stop();
           }
         }
         
         // Regenerate Hexo to copy the new dist files
-        this.log(`🔄 Copying updated ${demoName} demo to public...`, 'step');
+        const hexoSpinner = this.cliUX.createSpinner('hexo-gen', `Updating public directory for ${demoName}...`);
+        hexoSpinner.start();
+        
         await this.buildMainSite(false);
-        this.log(`✅ Demo updates now live at http://localhost:4000`, 'success');
+        
+        this.cliUX.succeedSpinner('hexo-gen', `${demoName} deployed to public`);
+        
+        // Update pipeline
+        pipeline[3].status = 'complete';
+        pipeline[4].status = 'active';
+        this.cliUX.showPipelineStatus(pipeline);
+        
+        // Trigger browser refresh for demo changes
+        this.browserRefresh.refreshBrowsers(`Demo updated: ${demoName}`);
+        
+        // Final pipeline update
+        pipeline[4].status = 'complete';
+        this.cliUX.showPipelineStatus(pipeline);
+        
+        // Show summary
+        this.cliUX.showActionSummary('✨ Demo Live', `${demoName} at http://localhost:4000`);
+        
       } catch (error) {
+        this.cliUX.failSpinner(`update-${demoName}`, `Failed: ${error.message}`);
         this.log(`Failed to update public directory: ${error.message}`, 'error');
       }
-    }, 500);
+    }, 300); // Faster response
   }
   
   async copyDemoToTheme(demoName) {
@@ -373,6 +607,18 @@ class DevCommand extends BuildManager {
     
     // Stop watchers
     this.watchers.forEach(watcher => watcher.close());
+    
+    // Stop external change polling
+    if (this.externalChangeInterval) {
+      clearInterval(this.externalChangeInterval);
+      this.log('🔍 External change detection stopped', 'step');
+    }
+    
+    // Stop browser refresh server
+    this.browserRefresh.stop();
+    
+    // Clean up CLI UX
+    this.cliUX.cleanup();
     
     // Stop servers
     this.servers.forEach((server, name) => {

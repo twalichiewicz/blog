@@ -436,6 +436,12 @@ $notebook-brands: (
                 }
             }
             
+            // Special handling for centered stickers (like HI logo)
+            // When both top and left are 50%, apply centering transform
+            &[data-sticker-1][style*="--sticker-1-top: 50%"][style*="--sticker-1-left: 50%"]::before {
+                transform: translate(-50%, -50%) rotate(var(--sticker-1-rotate, 0deg)) !important;
+            }
+            
             // Die-cut style override for sticker 1
             &[data-sticker-1][style*="--sticker-1-style: die-cut"]::before {
                 padding: 3px 8px;
@@ -447,6 +453,11 @@ $notebook-brands: (
                     0 2px 6px rgba(0,0,0,0.3),
                     0 1px 3px rgba(0,0,0,0.2);
                 border-radius: 1px;
+            }
+            
+            // Rounded shape for die-cut sticker 1
+            &[data-sticker-1][style*="--sticker-1-style: die-cut"][style*="--sticker-1-shape: rounded"]::before {
+                border-radius: 2px; // Minimal rounding for die-cut
             }
             
             // Circle shape adjustment for die-cut sticker 1
@@ -613,11 +624,35 @@ $notebook-brands: (
         }
     }
     
+    // Mobile adjustments for stickers - minimal changes
+    @media (max-width: 768px) {
+        // Apply scaling to all notebooks on mobile
+        .portfolio-featured-grid .notebook {
+            // For centered stickers, including die-cut ones like HI
+            .front-cover[data-sticker-1][style*="--sticker-1-top: 50%"][style*="--sticker-1-left: 50%"]::before {
+                // Force centering to work properly on mobile
+                position: absolute !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) rotate(var(--sticker-1-rotate, 0deg)) !important;
+                // For die-cut stickers, also reduce size on mobile
+                font-size: 11px !important;
+                padding: 2px 6px !important;
+            }
+        }
+    }
+    
     // Year Label Sticker (Portable Label Printer Style)
     .notebook .front-cover .notebook-year-label {
                 position: absolute;
                 bottom: 25px;
                 left: 25px;
+                
+                @media (max-width: 768px) {
+                    // Just slightly smaller, let notebook scale handle the rest
+                    font-size: 9px;
+                    padding: 3px 6px;
+                }
                 
                 // Label printer tape appearance
                 background: #000000; // Deep black tape

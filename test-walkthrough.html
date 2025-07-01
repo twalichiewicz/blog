@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Walkthrough Test</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        .console-output {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .console-entry {
+            margin: 2px 0;
+        }
+        .console-entry.error { color: #f00; }
+        .console-entry.warn { color: #ff0; }
+        .console-entry.log { color: #0f0; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Walkthrough System Debug Test</h1>
+    
+    <div class="test-section">
+        <h2>Console Output</h2>
+        <div id="console" class="console-output"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test Controls</h2>
+        <button onclick="clearConsole()">Clear Console</button>
+        <button onclick="sendCheckSupport()">Send Check Support Message</button>
+        <button onclick="sendStartOnboarding()">Send Start Onboarding</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Custom Install Demo</h2>
+        <iframe id="demoFrame" src="/demos/custom-install-demo/" frameborder="0"></iframe>
+    </div>
+    
+    <script>
+        const consoleDiv = document.getElementById('console');
+        const demoFrame = document.getElementById('demoFrame');
+        
+        // Override console methods to capture output
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        function addToConsole(type, ...args) {
+            const entry = document.createElement('div');
+            entry.className = `console-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${type.toUpperCase()}: ${args.join(' ')}`;
+            consoleDiv.appendChild(entry);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsole('log', ...args);
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsole('error', ...args);
+        };
+        
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToConsole('warn', ...args);
+        };
+        
+        // Listen for messages from iframe
+        window.addEventListener('message', (event) => {
+            if (event.data && typeof event.data === 'object') {
+                console.log('Parent received message:', event.data.type, JSON.stringify(event.data));
+            }
+        });
+        
+        function clearConsole() {
+            consoleDiv.innerHTML = '';
+            console.log('Console cleared');
+        }
+        
+        function sendCheckSupport() {
+            console.log('Sending checkWalkthroughSupport to iframe');
+            demoFrame.contentWindow.postMessage({
+                type: 'checkWalkthroughSupport'
+            }, '*');
+        }
+        
+        function sendStartOnboarding() {
+            console.log('Sending startDemoOnboarding to iframe');
+            demoFrame.contentWindow.postMessage({
+                type: 'startDemoOnboarding'
+            }, '*');
+        }
+        
+        // Wait for iframe to load
+        demoFrame.addEventListener('load', () => {
+            console.log('Demo iframe loaded');
+            setTimeout(() => {
+                console.log('Checking walkthrough support...');
+                sendCheckSupport();
+            }, 1000);
+        });
+        
+        console.log('Test page initialized');
+    </script>
+</body>
+</html>

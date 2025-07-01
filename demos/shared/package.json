@@ -6,6 +6,13 @@
   "type": "module",
   "exports": {
     ".": "./components/index.js",
-    "./styles": "./components/demo-wrapper.css"
+    "./styles": "./components/demo-wrapper.css",
+    "./onboarding-styles": "./components/demo-onboarding.css",
+    "./styles/demo-cursors.css": "./styles/demo-cursors.css"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "framer-motion": "^10.16.0",
+    "lucide-react": "^0.294.0"
   }
 }

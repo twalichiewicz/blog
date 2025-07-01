@@ -8,6 +8,7 @@
 @use 'utilities';
 @use 'shared-components';
 @use 'focus-indicators';
+@use 'fouc-fix';
 
 // Base styles
 @use 'typography';
@@ -25,6 +26,7 @@
 @use 'post';
 @use 'substack-post';
 @use 'post-preview-card';
+@use 'bluesky-post-list';
 @use 'carousel';
 
 // Project components
@@ -47,6 +49,8 @@
 @use 'components/search';
 @use 'components/mobile-tabs';
 @use 'components/modals';
+
+// Custom cursors are handled within individual demos only
 @use 'components/profile';
 @use 'components/layout-toggle';
 @use 'components/text-carousel';
@@ -106,11 +110,16 @@
 // Byline truncation with inline more button
 @use 'byline-truncation';
 
+// FORCE TABS TO BE VISIBLE ON ALL SCREEN SIZES
+@use 'force-tabs-visible';
+
+// Tab switching functionality
+@use 'tab-switching';
+
 // Profile header compact mode for mobile
 @use 'profile-header-compact';
 
 // Index (imports all partials - use with caution as it may cause duplication)
 // @use 'index';
 
-// Demo cursors (only apply within demos/prototypes)
-@use 'demo-cursors';
+// Demo cursors are handled by project-cursors system

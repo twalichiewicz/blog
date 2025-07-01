@@ -1,0 +1,1731 @@
+.macos-desktop {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Menu Bar */
+.macos-menubar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 78px; /* 48px for demo controls + 30px for menubar */
+  background: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 12px 8px 12px; /* Bottom padding to position menubar content */
+  font-size: 13px;
+  color: #fff;
+  z-index: 1000;
+}
+
+.menubar-left {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.tw-logo {
+  width: 16px;
+  height: 16px;
+  filter: invert(1);
+  object-fit: contain;
+  aspect-ratio: 1;
+}
+
+.menubar-app {
+  font-weight: 600;
+}
+
+.menubar-item {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.menubar-item:hover {
+  opacity: 1;
+}
+
+.menubar-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.menubar-status {
+  opacity: 0.9;
+}
+
+.menubar-time {
+  font-feature-settings: "tnum";
+}
+
+/* Desktop Area */
+.desktop-area {
+  position: absolute;
+  top: 78px; /* 48px demo controls + 30px menu bar */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-image: url('../assets/overlayWallpaper.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Application Windows */
+.app-window {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  cursor: default;
+  transition: box-shadow 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  will-change: transform;
+  border: 1px solid #d0d0d0;
+}
+
+.app-window.maximized {
+  border-radius: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-window.dragging {
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  transform: scale(1.02);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+/* Resize handles */
+.resize-handle {
+  position: absolute;
+  z-index: 5;
+}
+
+/* Corner handles - larger touch targets */
+.resize-handle.corner {
+  width: 16px;
+  height: 16px;
+}
+
+.resize-handle.corner.tl {
+  top: -8px;
+  left: -8px;
+  cursor: nwse-resize;
+}
+
+.resize-handle.corner.tr {
+  top: -8px;
+  right: -8px;
+  cursor: nesw-resize;
+}
+
+.resize-handle.corner.bl {
+  bottom: -8px;
+  left: -8px;
+  cursor: nesw-resize;
+}
+
+.resize-handle.corner.br {
+  bottom: -8px;
+  right: -8px;
+  cursor: nwse-resize;
+}
+
+/* Edge handles - forgiving touch targets */
+.resize-handle.edge {
+  background: transparent;
+}
+
+.resize-handle.edge.top {
+  top: -8px;
+  left: 16px;
+  right: 16px;
+  height: 16px;
+  cursor: ns-resize;
+}
+
+.resize-handle.edge.bottom {
+  bottom: -8px;
+  left: 16px;
+  right: 16px;
+  height: 16px;
+  cursor: ns-resize;
+}
+
+.resize-handle.edge.left {
+  left: -8px;
+  top: 16px;
+  bottom: 16px;
+  width: 16px;
+  cursor: ew-resize;
+}
+
+.resize-handle.edge.right {
+  right: -8px;
+  top: 16px;
+  bottom: 16px;
+  width: 16px;
+  cursor: ew-resize;
+}
+
+.app-window.active {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.app-window.dimmed {
+  filter: brightness(0.7);
+}
+
+.window-titlebar {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  position: relative;
+  user-select: none;
+  cursor: grab;
+  -webkit-user-select: none;
+  -webkit-app-region: no-drag;
+  background: linear-gradient(180deg, #f0f0f0 0%, #e5e5e5 100%) !important;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+/* Override titlebar background when overlay is active */
+.window-titlebar.overlay-active {
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%) !important;
+  border-bottom: 1px solid #333;
+}
+
+.window-titlebar:active {
+  cursor: grabbing;
+}
+
+.app-window.maximized .window-titlebar {
+  cursor: default;
+}
+
+/* Prevent text selection when dragging */
+.app-window.dragging * {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.window-controls {
+  display: flex;
+  gap: 12px;
+  position: absolute;
+  left: 12px;
+}
+
+/* macOS Traffic Light Controls */
+.window-control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid rgba(0, 0, 0, 0.15);
+}
+
+/* Default greyscale state */
+.window-control.close {
+  background: #e4e4e4;
+}
+
+.window-control.minimize {
+  background: #e4e4e4;
+}
+
+.window-control.maximize {
+  background: #e4e4e4;
+}
+
+/* Icons - hidden by default, shown on hover */
+.window-control::before {
+  content: '';
+  position: absolute;
+  font-size: 8px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  line-height: 1;
+  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: system-ui, -apple-system;
+}
+
+.window-control.close::before {
+  content: '×';
+  font-size: 9px;
+}
+
+.window-control.minimize::before {
+  content: '−';
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.window-control.maximize::before {
+  content: '+';
+  font-size: 8px;
+  font-weight: 700;
+}
+
+/* Show colored controls and icons on titlebar hover (but not when overlay is active) */
+.window-titlebar:not(.overlay-active):hover .window-control.close {
+  background: #ff5f56;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.window-titlebar:not(.overlay-active):hover .window-control.close::before {
+  opacity: 1;
+  color: #4a0000;
+}
+
+.window-titlebar:not(.overlay-active):hover .window-control.minimize {
+  background: #ffbd2e;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.window-titlebar:not(.overlay-active):hover .window-control.minimize::before {
+  opacity: 1;
+  color: #995700;
+}
+
+.window-titlebar:not(.overlay-active):hover .window-control.maximize {
+  background: #27c93f;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.window-titlebar:not(.overlay-active):hover .window-control.maximize::before {
+  opacity: 1;
+  color: #0a5000;
+}
+
+/* Active states */
+.window-control:active {
+  filter: brightness(0.9);
+}
+
+.window-title {
+  flex: 1;
+  text-align: center;
+  color: #323130;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 80px; /* Add padding to prevent overlap with controls and overlay button */
+}
+
+.app-icon {
+  font-size: 16px;
+}
+
+.window-content {
+  background: #1e1e1e;
+  height: calc(100% - 32px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 1 !important; /* Force full opacity */
+  padding: 0; /* Remove default padding */
+}
+
+/* Ensure overlay is contained within window content */
+.window-content .steam-overlay {
+  border-radius: 0 0 8px 8px; /* Match window border radius */
+}
+
+/* Ribbon */
+.app-ribbon {
+  background: #f8f8f8;
+  border-bottom: 1px solid #d2d0ce;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* Scroll indicators for ribbon */
+.app-ribbon::before,
+.app-ribbon::after {
+  content: '';
+  position: absolute;
+  top: 30px; /* Below tabs */
+  bottom: 0;
+  width: 20px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.app-ribbon::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(248, 248, 248, 1), rgba(248, 248, 248, 0));
+}
+
+.app-ribbon::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(248, 248, 248, 1), rgba(248, 248, 248, 0));
+}
+
+/* Show scroll indicators when content overflows */
+.app-ribbon.scroll-start::after,
+.app-ribbon.scroll-end::before,
+.app-ribbon.scroll-both::before,
+.app-ribbon.scroll-both::after {
+  opacity: 1;
+}
+
+.ribbon-tabs {
+  display: flex;
+  gap: 0;
+  background: #f3f2f1;
+  padding: 0;
+  height: 30px;
+  border-bottom: 1px solid #d2d0ce;
+}
+
+.ribbon-tab {
+  padding: 6px 20px;
+  background: #ffffff;
+  color: #323130;
+  font-size: 11px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #d2d0ce;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ribbon-tab:hover {
+  background: #f3f2f1;
+}
+
+.ribbon-tab.active {
+  background: #0078d4;
+  color: #ffffff;
+}
+
+.ribbon-tools {
+  display: flex;
+  gap: 12px;
+  padding: 8px 12px;
+  align-items: flex-start;
+  background: #f8f8f8;
+  min-height: 80px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+/* Custom scrollbar for ribbon tools */
+.ribbon-tools::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ribbon-tools::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.ribbon-tools::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.ribbon-tools::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.tool-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+  flex-shrink: 0; /* Prevent sections from shrinking */
+}
+
+.section-label {
+  font-size: 9px;
+  color: #605e5c;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+  text-align: center;
+  border-bottom: 1px solid #d2d0ce;
+  padding-bottom: 2px;
+}
+
+.tool-group-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tool-row {
+  display: flex;
+  gap: 2px;
+}
+
+.tool-item-text {
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #d2d0ce;
+  border-radius: 2px;
+  font-size: 9px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  min-width: 35px;
+  height: 20px;
+  color: #323130;
+}
+
+.tool-item-text:hover {
+  background: #f3f2f1;
+  border-color: #8a8886;
+  transform: none;
+}
+
+.tool-group {
+  display: flex;
+  gap: 2px;
+}
+
+.tool-item {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #d2d0ce;
+  border-radius: 2px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tool-item:hover {
+  background: #f3f2f1;
+  border-color: #8a8886;
+  transform: none;
+}
+
+/* Window actions container */
+.window-actions {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Overlay button in titlebar */
+.window-titlebar .overlay-trigger {
+  padding: 3px 8px;
+  background: rgba(0, 102, 204, 0.8);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s;
+  height: 20px;
+  line-height: 1;
+}
+
+.window-titlebar .overlay-trigger:hover {
+  background: rgba(0, 102, 204, 1);
+}
+
+/* Profile button for AutoCAD */
+.profile-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.2s;
+  height: 24px;
+}
+
+.profile-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.profile-avatar {
+  font-size: 14px;
+}
+
+.profile-name {
+  color: #323130;
+}
+
+/* Dark theme for overlay button when overlay is active */
+.window-titlebar.overlay-active .overlay-trigger {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.window-titlebar.overlay-active .overlay-trigger:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.window-titlebar.overlay-active .profile-name {
+  color: #ffffff;
+}
+
+.overlay-icon {
+  font-size: 14px;
+}
+
+/* Workspace */
+.app-workspace {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Panels */
+.left-panel,
+.right-panel {
+  width: 240px;
+  background: #252525;
+  border-right: 1px solid #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  opacity: 1 !important; /* Force full opacity */
+  position: relative;
+  overflow: auto;
+  min-width: 180px;
+  max-width: 400px;
+}
+
+/* AutoCAD specific left panel - fixed width */
+.app-window[data-app="autocad"] .left-panel {
+  width: auto;
+  min-width: unset;
+  max-width: unset;
+  flex-shrink: 0;
+}
+
+.right-panel {
+  border-left: 1px solid #1a1a1a;
+  border-right: none;
+}
+
+/* Panel resize handles */
+.left-panel::after,
+.right-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  cursor: ew-resize;
+  background: transparent;
+  transition: background 0.2s;
+}
+
+.left-panel::after {
+  right: -2px;
+}
+
+.right-panel::before {
+  left: -2px;
+}
+
+.left-panel:hover::after,
+.right-panel:hover::before {
+  background: rgba(0, 120, 212, 0.5);
+}
+
+/* Disable resize for AutoCAD left panel */
+.app-window[data-app="autocad"] .left-panel::after {
+  display: none;
+}
+
+/* Resize affordance indicator */
+.panel-resize-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.left-panel .panel-resize-indicator {
+  right: 2px;
+}
+
+.right-panel .panel-resize-indicator {
+  left: 2px;
+}
+
+.left-panel:hover .panel-resize-indicator,
+.right-panel:hover .panel-resize-indicator {
+  opacity: 1;
+}
+
+/* Hide resize indicator for AutoCAD left panel */
+.app-window[data-app="autocad"] .left-panel .panel-resize-indicator {
+  display: none;
+}
+
+.panel-header {
+  padding: 6px 8px;
+  background: #f3f2f1;
+  font-size: 11px;
+  font-weight: 600;
+  color: #323130;
+  border-bottom: 1px solid #d2d0ce;
+}
+
+/* File Tree */
+.file-tree {
+  padding: 4px;
+  flex: 1;
+  overflow-y: auto;
+  font-size: 11px;
+}
+
+/* Fusion specific - remove panel background, add item backgrounds */
+.app-window[data-app="fusion"] .left-panel {
+  background: transparent;
+}
+
+.app-window[data-app="fusion"] .file-tree {
+  padding: 0;
+  background: transparent;
+}
+
+.tree-item {
+  padding: 2px 8px;
+  font-size: 11px;
+  color: #323130;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.tree-item:hover {
+  background: #f3f2f1;
+}
+
+/* Fusion tree items have individual backgrounds */
+.app-window[data-app="fusion"] .tree-item {
+  background: #f8f8f8;
+  margin-bottom: 1px;
+  border-radius: 2px;
+}
+
+.app-window[data-app="fusion"] .tree-item:hover {
+  background: #e1e1e1;
+}
+
+.tree-item.indent {
+  padding-left: 20px;
+}
+
+.tree-item.indent-2 {
+  padding-left: 32px;
+  font-size: 10px;
+  color: #605e5c;
+}
+
+/* Canvas Area */
+.canvas-area {
+  flex: 1;
+  background: #1a1a1a;
+  position: relative;
+  overflow: hidden;
+  opacity: 1 !important; /* Force full opacity */
+}
+
+.viewport {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.model-preview,
+.drawing-preview,
+.building-preview {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.model-3d,
+.building-model {
+  font-size: 120px;
+  opacity: 0.2;
+}
+
+.viewport-controls,
+.viewport-info {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #aaa;
+}
+
+.viewport-controls span {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.viewport-controls span:hover {
+  color: #fff;
+}
+
+.drawing-grid {
+  position: absolute;
+  inset: 10%;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.drawing-lines {
+  width: 200px;
+  height: 200px;
+  border: 2px solid rgba(255,255,255,0.1);
+  position: relative;
+}
+
+.drawing-lines::before,
+.drawing-lines::after {
+  content: '';
+  position: absolute;
+  background: rgba(255,255,255,0.1);
+}
+
+.drawing-lines::before {
+  width: 100%;
+  height: 2px;
+  top: 50%;
+  left: 0;
+}
+
+.drawing-lines::after {
+  width: 2px;
+  height: 100%;
+  top: 0;
+  left: 50%;
+}
+
+/* Properties Panel */
+.properties-list {
+  padding: 8px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.property-group {
+  margin-bottom: 12px;
+}
+
+.property-header {
+  padding: 4px 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: #605e5c;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.property-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0;
+  font-size: 10px;
+  color: #323130;
+  margin-bottom: 2px;
+}
+
+.property-item span {
+  min-width: 70px;
+  font-size: 10px;
+}
+
+.property-item input,
+.property-item select {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #d2d0ce;
+  padding: 2px 4px;
+  color: #323130;
+  font-size: 10px;
+  border-radius: 2px;
+  height: 18px;
+}
+
+.property-item input:focus,
+.property-item select:focus {
+  outline: 2px solid #0078d4;
+  border-color: #0078d4;
+}
+
+/* Dock */
+.macos-dock {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(30, 30, 30, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center; /* Center items vertically */
+  gap: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  pointer-events: none; /* Allow windows to be dragged through dock area */
+  z-index: 100; /* Keep dock above windows */
+}
+
+.dock-item {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  pointer-events: auto; /* Make dock items clickable */
+}
+
+.dock-item.minimized {
+  opacity: 0.7;
+}
+
+.dock-icon {
+  font-size: 32px;
+}
+
+/* App icon backgrounds in dock (not for Finder) */
+.dock-item:not(:first-child) .dock-icon {
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 20px; /* Smaller emoji size to fit */
+}
+
+.dock-icon.finder-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.dock-label {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Arrow pointing down from tooltip to icon */
+.dock-label::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(0, 0, 0, 0.9);
+}
+
+.dock-item:hover .dock-label {
+  opacity: 1;
+}
+
+.dock-indicator {
+  position: absolute;
+  bottom: -6px;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+/* Keep indicator in place during hover */
+.dock-item:hover .dock-indicator {
+  transform: translateY(10px); /* Compensate for the y: -10 hover movement */
+}
+
+.dock-separator {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 8px;
+  pointer-events: none; /* Separator is not interactive */
+}
+
+/* AutoCAD dark theme overrides */
+.app-window[data-app="autocad"] .app-ribbon {
+  border-bottom: 1px solid #5a5a5a;
+}
+
+.app-window[data-app="autocad"] .ribbon-tabs {
+  border-bottom: 1px solid #5a5a5a;
+}
+
+.app-window[data-app="autocad"] .ribbon-tab {
+  border-right: 1px solid #5a5a5a;
+}
+
+.app-window[data-app="autocad"] .section-label {
+  border-bottom: 1px solid #5a5a5a;
+}
+
+.app-window[data-app="autocad"] .tool-item-text {
+  border: 1px solid #5a5a5a;
+}
+
+.app-window[data-app="autocad"] .tool-item {
+  border: 1px solid #5a5a5a;
+}
+
+.app-window[data-app="autocad"] .panel-header {
+  border-bottom: 1px solid #5a5a5a;
+}
+
+.app-window[data-app="autocad"] input,
+.app-window[data-app="autocad"] select {
+  border: 1px solid #5a5a5a;
+}
+
+/* Fusion specific ribbon layout */
+.fusion-ribbon-tools {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.fusion-workspace-dropdown {
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+  border-right: 1px solid #d2d0ce;
+}
+
+.fusion-workspace-dropdown select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  outline: none;
+}
+
+.fusion-tool-groups {
+  display: flex;
+  gap: 20px;
+  padding: 8px 12px;
+  align-items: flex-start;
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Ensure tool groups don't wrap */
+.fusion-tool-group {
+  flex-shrink: 0;
+}
+
+.fusion-tool-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 100px;
+}
+
+.fusion-group-label {
+  font-size: 8px;
+  color: #605e5c;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #d2d0ce;
+  margin-bottom: 4px;
+}
+
+.fusion-tool-buttons {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.fusion-tool-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: #ffffff;
+  border: 1px solid #d2d0ce;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 4px;
+}
+
+.fusion-tool-button:hover {
+  background: #f3f2f1;
+  border-color: #8a8886;
+}
+
+.fusion-tool-button .tool-icon {
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.fusion-tool-button .tool-name {
+  font-size: 8px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1;
+}
+
+/* Dark theme for window controls when overlay is active */
+.window-titlebar.overlay-active .window-control.close {
+  background: #ff5f56 !important;
+}
+
+.window-titlebar.overlay-active .window-control.close::before {
+  color: #ffffff;
+}
+
+.window-titlebar.overlay-active .window-control.close:hover {
+  background: #ff3b30 !important;
+}
+
+.window-titlebar.overlay-active .window-control.minimize {
+  background: #ffbd2e !important;
+}
+
+.window-titlebar.overlay-active .window-control.minimize::before {
+  color: #ffffff;
+}
+
+.window-titlebar.overlay-active .window-control.minimize:hover {
+  background: #ffaa00 !important;
+}
+
+.window-titlebar.overlay-active .window-control.maximize {
+  background: #27c93f !important;
+}
+
+.window-titlebar.overlay-active .window-control.maximize::before {
+  color: #ffffff;
+}
+
+.window-titlebar.overlay-active .window-control.maximize:hover {
+  background: #00d911 !important;
+}
+
+/* AutoCAD Toolbar Styles */
+.autocad-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  height: 36px;
+  border-bottom: 1px solid;
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Hide scrollbar for cleaner look */
+}
+
+.autocad-toolbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar but keep functionality */
+}
+
+.toolbar-section {
+  display: flex;
+  gap: 2px;
+}
+
+.toolbar-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.2s;
+  font-size: 16px;
+}
+
+.toolbar-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.toolbar-separator {
+  width: 1px;
+  height: 20px;
+  margin: 0 4px;
+  align-self: center;
+}
+
+/* AutoCAD Tabs */
+.autocad-tabs {
+  display: flex;
+  gap: 0;
+  height: 24px;
+  border-bottom: 1px solid;
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.autocad-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* Revit Tab Bar */
+.revit-tabs {
+  display: flex;
+  gap: 0;
+  height: 22px;
+  background: #f3f2f1;
+  border-bottom: 1px solid #d2d0ce;
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  padding: 0 4px;
+}
+
+.revit-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.revit-tab {
+  padding: 3px 12px;
+  font-size: 10px;
+  font-weight: 400;
+  color: #323130;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 3px 3px 0 0;
+  margin-right: 1px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  position: relative;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.revit-tab:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.revit-tab.active {
+  background: #ffffff;
+  border-color: #d2d0ce;
+  border-bottom-color: #ffffff;
+  position: relative;
+  z-index: 1;
+  font-weight: 500;
+}
+
+/* Revit Ribbon with Accordion Sections */
+.revit-ribbon {
+  background: #ffffff;
+  border-bottom: 1px solid #d2d0ce;
+  min-height: 100px;
+  max-height: 140px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.revit-ribbon.expanded {
+  max-height: 200px;
+}
+
+.revit-ribbon-sections {
+  display: flex;
+  gap: 0;
+  padding: 6px 8px;
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.revit-ribbon-sections::-webkit-scrollbar {
+  height: 6px;
+}
+
+.revit-ribbon-sections::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.revit-ribbon-sections::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.revit-section {
+  display: flex;
+  flex-direction: column;
+  min-width: fit-content;
+  border-right: 1px solid #e1e1e1;
+  padding-right: 12px;
+  margin-right: 12px;
+  position: relative;
+}
+
+.revit-section:last-child {
+  border-right: none;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.revit-section-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.revit-section-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.revit-tool-row {
+  display: flex;
+  gap: 3px;
+}
+
+.revit-tool {
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  border: 1px solid #e1e1e1;
+  border-radius: 2px;
+  padding: 3px 6px;
+  min-height: 26px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 11px;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.revit-tool.compact {
+  padding: 2px 4px;
+  min-height: 20px;
+  font-size: 9px;
+  gap: 2px;
+}
+
+.revit-tool.compact .tool-icon {
+  font-size: 12px;
+}
+
+.revit-tool.compact .tool-label {
+  font-size: 8px;
+}
+
+.revit-tool:hover {
+  background: #e8f4ff;
+  border-color: #0078d4;
+}
+
+.revit-tool.large {
+  flex-direction: column;
+  padding: 6px 12px;
+  min-height: 52px;
+  min-width: 60px;
+  justify-content: center;
+  text-align: center;
+}
+
+.revit-tool.large .tool-icon {
+  font-size: 20px;
+}
+
+.revit-tool.large .tool-label {
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.revit-tool .tool-icon {
+  font-size: 14px;
+}
+
+.revit-tool .tool-label {
+  font-size: 11px;
+  color: #323130;
+}
+
+.revit-section-label {
+  font-size: 9px;
+  color: #605e5c;
+  text-align: center;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid #e1e1e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.revit-section-label:hover {
+  color: #323130;
+}
+
+.accordion-arrow {
+  font-size: 8px;
+  transition: transform 0.2s;
+}
+
+.revit-section.expanded .accordion-arrow {
+  transform: rotate(180deg);
+}
+
+/* Revit Panels */
+.revit-panels {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.revit-panel {
+  background: #f8f8f8;
+  border: 1px solid #d2d0ce;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.revit-panel-titlebar {
+  height: 22px;
+  background: #e5e5e5;
+  border-bottom: 1px solid #d2d0ce;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  cursor: grab;
+  user-select: none;
+}
+
+.revit-panel-titlebar:active {
+  cursor: grabbing;
+}
+
+.revit-panel-title {
+  font-size: 11px;
+  font-weight: 500;
+  color: #323130;
+}
+
+.revit-panel-close {
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 10px;
+  color: #605e5c;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.revit-panel-close:hover {
+  background: #d2d0ce;
+  color: #323130;
+}
+
+.revit-panel-content {
+  flex: 1;
+  padding: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Revit Project Browser */
+.revit-browser {
+  font-size: 11px;
+}
+
+.revit-browser-item {
+  padding: 2px 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #323130;
+}
+
+.revit-browser-item:hover {
+  background: #e8f4ff;
+}
+
+.revit-browser-item.selected {
+  background: #0078d4;
+  color: white;
+}
+
+.revit-browser-item.indent {
+  padding-left: 16px;
+}
+
+.revit-browser-item.indent-2 {
+  padding-left: 28px;
+}
+
+.revit-browser-icon {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Revit Properties */
+.revit-properties {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.revit-property-category {
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 8px;
+}
+
+.revit-property-category:last-child {
+  border-bottom: none;
+}
+
+.revit-property-header {
+  font-size: 10px;
+  font-weight: 600;
+  color: #605e5c;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.revit-property {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 3px;
+}
+
+.revit-property-label {
+  font-size: 10px;
+  color: #605e5c;
+  min-width: 80px;
+}
+
+.revit-property-value {
+  flex: 1;
+  font-size: 10px;
+  padding: 2px 4px;
+  background: white;
+  border: 1px solid #d2d0ce;
+  border-radius: 2px;
+  color: #323130;
+}
+
+.revit-property-value:focus {
+  outline: 2px solid #0078d4;
+  outline-offset: -1px;
+}
+
+.autocad-tab {
+  padding: 4px 16px;
+  font-size: 11px;
+  cursor: pointer;
+  border-right: 1px solid;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.autocad-tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.autocad-tab.active {
+  font-weight: 600;
+}
+
+.autocad-tab.add-tab {
+  padding: 4px 12px;
+  font-weight: bold;
+}
+
+/* AutoCAD Tool Panel (Photoshop style) */
+.autocad-tools-panel {
+  padding: 8px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  padding: 4px;
+  width: fit-content;
+}
+
+.tool-palette-row {
+  display: flex;
+  gap: 0;
+}
+
+.palette-tool {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.2s;
+  font-size: 18px;
+}
+
+.palette-tool:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.palette-tool.active {
+  background: rgba(0, 120, 212, 0.3);
+}
+
+.layers-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.section-header {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 0;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.layer-item {
+  padding: 4px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  border-radius: 2px;
+  margin-bottom: 1px;
+  transition: background 0.2s;
+}
+
+.layer-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

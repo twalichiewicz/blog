@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test New Architecture</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .content-area { 
+            border: 2px solid #ccc; 
+            margin: 20px 0; 
+            padding: 20px; 
+            min-height: 200px;
+        }
+        .tabs-wrapper { margin: 20px 0; }
+        .mobile-tabs { display: flex; gap: 10px; }
+        .tab-button { 
+            padding: 10px 20px; 
+            border: 1px solid #ccc; 
+            background: #f0f0f0; 
+            cursor: pointer;
+        }
+        .tab-button.active { 
+            background: #007cba; 
+            color: white; 
+        }
+        .demo-controls {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        .demo-controls button {
+            margin: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+        .status {
+            background: #e7f3ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #007cba;
+        }
+        .log {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>New Architecture Test</h1>
+    
+    <div class="status">
+        <h3>System Status</h3>
+        <div id="status-display">Initializing...</div>
+    </div>
+
+    <div class="demo-controls">
+        <h3>Test Controls</h3>
+        <button onclick="testTabSwitch('blog')">Switch to Blog</button>
+        <button onclick="testTabSwitch('portfolio')">Switch to Portfolio</button>
+        <button onclick="testUrlParam('?tab=blog')">Test URL: ?tab=blog</button>
+        <button onclick="testUrlParam('?tab=portfolio')">Test URL: ?tab=portfolio</button>
+        <button onclick="testDeviceChange('mobile')">Simulate Mobile</button>
+        <button onclick="testDeviceChange('desktop')">Simulate Desktop</button>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <!-- Simulated tab structure -->
+    <div class="tabs-wrapper">
+        <div class="mobile-tabs">
+            <button class="tab-button" data-type="blog">Blog</button>
+            <button class="tab-button" data-type="portfolio">Portfolio</button>
+        </div>
+    </div>
+
+    <!-- Simulated content areas -->
+    <div id="postsContent" class="content-area">
+        <h3>Posts Content Area</h3>
+        <p>This represents the blog posts content.</p>
+        <div class="demo-element">Demo element in posts</div>
+    </div>
+
+    <div id="projectsContent" class="content-area">
+        <h3>Projects Content Area</h3>
+        <p>This represents the portfolio projects content.</p>
+        <div class="demo-element">Demo element in projects</div>
+    </div>
+
+    <div class="log">
+        <h4>Debug Log</h4>
+        <div id="log-output"></div>
+    </div>
+
+    <script type="module">
+        // Import our new architecture
+        import { eventBus, stateManager, safeVisibilityManager, initializationCoordinator } from './themes/san-diego/source/js/core/index.js';
+
+        // Override console.log to capture output
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToLog(args.join(' '));
+        };
+
+        function addToLog(message) {
+            const logOutput = document.getElementById('log-output');
+            const timestamp = new Date().toLocaleTimeString();
+            logOutput.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+
+        function updateStatus() {
+            const status = initializationCoordinator.getStatus();
+            const state = stateManager.getState();
+            
+            document.getElementById('status-display').innerHTML = `
+                <strong>Initialization:</strong> ${status.isComplete ? 'Complete' : 'In Progress'}<br>
+                <strong>Current Phase:</strong> ${status.currentPhase}<br>
+                <strong>Active Tab:</strong> ${state.activeTab || 'None'}<br>
+                <strong>Device Type:</strong> ${state.deviceType}<br>
+                <strong>Systems Ready:</strong> ${status.initializedSystems.join(', ')}<br>
+                <strong>Elapsed Time:</strong> ${Math.round(status.elapsedTime / 1000)}s
+            `;
+        }
+
+        // Set up event listeners for status updates
+        eventBus.on('stateChanged', updateStatus);
+        eventBus.on('initializationPhaseStarted', updateStatus);
+        eventBus.on('initializationPhaseCompleted', updateStatus);
+        eventBus.on('systemReady', updateStatus);
+        eventBus.on('allSystemsReady', () => {
+            updateStatus();
+            addToLog('🎉 ALL SYSTEMS READY! Architecture initialization complete.');
+        });
+
+        // Test functions
+        window.testTabSwitch = function(tab) {
+            addToLog(`🔧 Testing tab switch to: ${tab}`);
+            stateManager.setActiveTab(tab, true, 'user');
+        };
+
+        window.testUrlParam = function(urlParam) {
+            addToLog(`🔧 Testing URL parameter: ${urlParam}`);
+            const newUrl = window.location.pathname + urlParam;
+            window.history.pushState({}, '', newUrl);
+            stateManager.updateUrlParams();
+            stateManager.processUrlParameters();
+        };
+
+        window.testDeviceChange = function(deviceType) {
+            addToLog(`🔧 Testing device change to: ${deviceType}`);
+            // Simulate device type change
+            stateManager.setState({ deviceType });
+            eventBus.emit('deviceTypeChanged', {
+                oldType: 'unknown',
+                newType: deviceType
+            });
+        };
+
+        window.clearLog = function() {
+            document.getElementById('log-output').innerHTML = '';
+        };
+
+        // Enable debug mode
+        stateManager.enableDebug();
+        
+        // Initial status update
+        updateStatus();
+        setInterval(updateStatus, 1000);
+
+        addToLog('🚀 Test environment initialized');
+    </script>
+</body>
+</html>

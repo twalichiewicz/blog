@@ -1,0 +1,82 @@
+/**
+ * FORCE TABS VISIBLE ON ALL SCREEN SIZES
+ * This overrides any hiding rules to ensure tabs are ALWAYS visible
+ */
+
+// Force tabs visible after page load
+body.js-loaded {
+  .tabs-wrapper {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    
+    // Also ensure mobile-tabs inside are visible
+    .mobile-tabs {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: flex !important;
+    }
+  }
+}
+
+// Alternative: Force visibility using animation delay
+// This ensures tabs show after a brief delay even if JS fails
+@keyframes force-show-tabs {
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.tabs-wrapper {
+  animation: force-show-tabs 0s 0.5s forwards;
+}
+
+.mobile-tabs {
+  animation: force-show-tabs 0s 0.5s forwards;
+}
+
+// Ensure tabs are visible on ALL device sizes
+@media screen and (min-width: 320px) {
+  body {
+    .tabs-wrapper {
+      display: block !important;
+      
+      .mobile-tabs {
+        display: flex !important;
+      }
+    }
+  }
+}
+
+// Override any device-specific hiding
+.device-mobile,
+.device-tablet,
+.device-desktop {
+  .tabs-wrapper {
+    display: block !important;
+    
+    .mobile-tabs {
+      display: flex !important;
+    }
+  }
+}
+
+// Nuclear option: Use nth-child to ensure specificity
+body > * > * .tabs-wrapper,
+body .blog .blog-content .tabs-wrapper,
+body .blog-content .tabs-wrapper,
+.tabs-wrapper {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+body > * > * .mobile-tabs,
+body .blog .blog-content .mobile-tabs,
+body .blog-content .mobile-tabs,
+.mobile-tabs {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+}

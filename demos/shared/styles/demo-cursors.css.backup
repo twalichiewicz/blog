@@ -1,0 +1,135 @@
+/**
+ * Demo Custom Cursor System
+ * Import this file in your demo to get custom cursors
+ * @import '@portfolio/demo-shared/styles/demo-cursors.css';
+ */
+
+:root {
+  /* Default cursor - arrow (base64 encoded) */
+  --cursor-default: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuODk0MTUgNi4zODQ0QzQuNTc1MDIgNS41MzM0IDUuNDY0NzggNC43MzIzOSA2LjI3NzY5IDUuMTM4ODVMMTcuNTgyMSAxMC43OTExQzE4LjQxMjUgMTEuMjA2MyAxOC4yNzgxIDEyLjQzMDUgMTcuMzc3NSAxMi42NTU2TDEyLjUzMjYgMTMuODY2OUMxMi4yMDA5IDEzLjk0OTggMTEuOTM0NSAxNC4xOTY0IDExLjgyNjQgMTQuNTIwOEwxMC44OTMyIDE3LjMyMDNDMTAuNTk1MiAxOC4yMTQ0IDkuMzM5MSAxOC4yMzc2IDkuMDA4MjEgMTcuMzU1Mkw0Ljg5NDE1IDYuMzg0NFoiIGZpbGw9IndoaXRlIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K') 4 4, default;
+  
+  /* Pointer cursor - arrow with blue dot (base64 encoded) */
+  --cursor-pointer: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuODk0MTUgNi4zODQ0QzQuNTc1MDIgNS41MzM0IDUuNDY0NzggNC43MzIzOSA2LjI3NzY5IDUuMTM4ODVMMTcuNTgyMSAxMC43OTExQzE4LjQxMjUgMTEuMjA2MyAxOC4yNzgxIDEyLjQzMDUgMTcuMzc3NSAxMi42NTU2TDEyLjUzMjYgMTMuODY2OUMxMi4yMDA5IDEzLjk0OTggMTEuOTM0NSAxNC4xOTY0IDExLjgyNjQgMTQuNTIwOEwxMC44OTMyIDE3LjMyMDNDMTAuNTk1MiAxOC4yMTQ0IDkuMzM5MSAxOC4yMzc2IDkuMDA4MjEgMTcuMzU1Mkw0Ljg5NDE1IDYuMzg0NFoiIGZpbGw9IndoaXRlIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8Y2lyY2xlIGN4PSIxOCIgY3k9IjYiIHI9IjMiIGZpbGw9IiMwMDdBRkYiIHN0cm9rZT0id2hpdGUiLz4KPC9zdmc+') 4 4, pointer;
+  
+  /* Text cursor */
+  --cursor-text: text;
+  
+  /* Active/pressed state (base64 encoded) */
+  --cursor-active: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuODk0MTUgNi4zODQ0QzQuNTc1MDIgNS41MzM0IDUuNDY0NzggNC43MzIzOSA2LjI3NzY5IDUuMTM4ODVMMTcuNTgyMSAxMC43OTExQzE4LjQxMjUgMTEuMjA2MyAxOC4yNzgxIDEyLjQzMDUgMTcuMzc3NSAxMi42NTU2TDEyLjUzMjYgMTMuODY2OUMxMi4yMDA5IDEzLjk0OTggMTEuOTM0NSAxNC4xOTY0IDExLjgyNjQgMTQuNTIwOEwxMC44OTMyIDE3LjMyMDNDMTAuNTk1MiAxOC4yMTQ0IDkuMzM5MSAxOC4yMzc2IDkuMDA4MjEgMTcuMzU1Mkw0Ljg5NDE1IDYuMzg0NFoiIGZpbGw9IndoaXRlIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8Y2lyY2xlIGN4PSIxOCIgY3k9IjYiIHI9IjMuNSIgZmlsbD0iIzAwNTFENSIgc3Ryb2tlPSJ3aGl0ZSIvPgo8L3N2Zz4=') 4 4, pointer;
+  
+  /* Disabled cursor (base64 encoded) */
+  --cursor-disabled: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iOSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik01IDVsMTQgMTQiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=') 12 12, not-allowed;
+  
+  /* Help cursor */
+  --cursor-help: help;
+  
+  /* Loading cursor (base64 encoded) */
+  --cursor-loading: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iOCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIiBvcGFjaXR5PSIwLjMiLz4KPHBhdGggZD0iTTEyIDRhOCA4IDAgMDE4IDgiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPg==') 12 12, wait;
+  
+  /* Grab cursor (base64 encoded) */
+  --cursor-grab: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDhjLTIuMjEgMC00IDEuNzktNCA0czEuNzkgNCA0IDQgNC0xLjc5IDQtNC0xLjc5LTQtNC00em0wIDZjLTEuMSAwLTItLjktMi0ycy45LTIgMi0yIDIgLjkgMiAyLS45IDItMiAyeiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTEyIDNsLTIgNGg0em0wIDE4bDItNGgtNHpNMyAxMmw0IDJ2LTR6bTE4IDBsLTQtMnY0eiIgZmlsbD0iYmxhY2siLz4KPC9zdmc+') 12 12, grab;
+  
+  /* Grabbing cursor (base64 encoded) */
+  --cursor-grabbing: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDljLTEuNjUgMC0zIDEuMzUtMyAzczEuMzUgMyAzIDMgMy0xLjM1IDMtMy0xLjM1LTMtMy0zeiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTEyIDNsLTIgNGg0em0wIDE4bDItNGgtNHpNMyAxMmw0IDJ2LTR6bTE4IDBsLTQtMnY0eiIgZmlsbD0iYmxhY2siLz4KPC9zdmc+') 12 12, grabbing;
+}
+
+/* Apply custom cursors to all elements */
+* {
+  cursor: var(--cursor-default) !important;
+}
+
+/* Interactive elements */
+a,
+button,
+.button,
+[role="button"],
+[role="link"],
+.clickable,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+label[for],
+select {
+  cursor: var(--cursor-pointer) !important;
+}
+
+a:active,
+button:active,
+.button:active,
+[role="button"]:active {
+  cursor: var(--cursor-active) !important;
+}
+
+/* Text inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+textarea,
+[contenteditable="true"],
+.editable {
+  cursor: var(--cursor-text) !important;
+}
+
+/* Disabled elements */
+[disabled],
+.disabled,
+[aria-disabled="true"],
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: var(--cursor-disabled) !important;
+  opacity: 0.6;
+}
+
+/* Draggable elements */
+[draggable="true"],
+.draggable,
+.sortable-item,
+.resize-handle {
+  cursor: var(--cursor-grab) !important;
+}
+
+[draggable="true"]:active,
+.draggable:active,
+.dragging {
+  cursor: var(--cursor-grabbing) !important;
+}
+
+/* Loading states */
+.loading,
+.is-loading,
+[aria-busy="true"],
+.spinner {
+  cursor: var(--cursor-loading) !important;
+}
+
+/* Help elements */
+abbr[title],
+.tooltip-trigger,
+.help-icon {
+  cursor: var(--cursor-help) !important;
+}
+
+/* Code blocks */
+pre,
+code,
+.code-editor {
+  cursor: var(--cursor-text) !important;
+}
+
+/* Images */
+img.zoomable,
+.image-zoom,
+.lightbox-trigger {
+  cursor: var(--cursor-pointer) !important;
+}
+
+/* Ensure html and body have cursor */
+html,
+body {
+  cursor: var(--cursor-default) !important;
+}

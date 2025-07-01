@@ -12,7 +12,7 @@ gallery_images:
   - url: ./wingmanInstaller.mp4
     type: video
     poster: ./wingmanInstaller_poster.jpg
-cover_image: ./wingmanInstaller_poster.jpg
+cover_image: wingmanInstaller_poster.svg
 cover_video_poster: ./wingmanInstaller_poster.jpg
 stats:
   - value: "100+"

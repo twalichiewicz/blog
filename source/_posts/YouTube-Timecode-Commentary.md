@@ -11,33 +11,17 @@ What if YouTube borrowed SoundCloud's timecode comments—letting viewers pin in
 YouTube comments already lean heavily on timestamps. Livestream VODs use third-party tools to overlay chat reactions. And if a user doesn't want to see them? Just add a toggle in settings.
 
 {% raw %}
-<!-- Modern 2025 Linear-style Wrapper -->
-<div class="linear-prototype-wrapper" style="position: relative; margin: 32px auto; max-width: 100%; padding: 48px 24px 24px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);">
-  
-  <!-- Clean Live Demo Badge -->
-  <div class="live-demo-badge" style="position: absolute; top: 16px; left: 24px; z-index: 10;">
-    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #ffffff; border-radius: 20px; border: 1px solid #e5e7eb; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-      <!-- Pulse indicator -->
-      <div style="width: 6px; height: 6px; background: #10b981; border-radius: 50%; position: relative;">
-        <div style="position: absolute; inset: -2px; background: #10b981; border-radius: 50%; opacity: 0.4; animation: modernPulse 2s ease-in-out infinite;"></div>
-      </div>
-      <span class="prototype-label" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: -0.01em;">Interactive Prototype</span>
-      <button class="prototype-toggle" style="margin-left: 8px; padding: 2px 8px; background: #e5e7eb; border: none; border-radius: 12px; color: #374151; font-size: 10px; font-weight: 600; cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif; transition: all 0.2s ease;">OFF</button>
-    </div>
-  </div>
+<!-- Code Sandbox Container -->
+<div data-sandbox-type="youtube-timecode-legacy" data-sandbox-config='{"autoplay": true}'>
 
-<div class="youtube-demo" data-playing="false" data-current-time="5" data-duration="15" style="margin: 20px 0; background: #0f0f0f; max-width: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);">
-  
-  <div style="position: relative; background: #000; padding-bottom: 56.25%; overflow: hidden;">
+<div class="youtube-demo" data-playing="false" data-current-time="5" data-duration="15" style="margin: 0; background: transparent; max-width: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);">
+  <div style="position: relative; background: transparent; padding-bottom: 56.25%; overflow: hidden;">
     <img class="video-gif" src="/2025/06/25/YouTube-Timecode-Commentary/cat.gif" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; margin-top: 0; margin-bottom: 0; pointer-events: none; border: none;">
-    
     <!-- Comments are now displayed as tooltips on timeline markers -->
-    
     <!-- Tooltip container - separate from controls so they stay visible -->
     <div class="tooltip-container" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 20;">
       <!-- Tooltips will be dynamically positioned here -->
     </div>
-    
     <div class="controls-wrapper">
       <div class="progress-bar" style="position: relative; height: 3px; background: rgba(255,255,255,0.3); margin-bottom: 8px; cursor: pointer;">
         <div class="progress-fill" style="height: 100%; background: #ff0000; width: 33%; transition: width 0.1s linear; position: relative;">
@@ -47,14 +31,12 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
         <div class="timeline-marker" data-time="2" data-comment-id="1" data-username="@TomNook" data-full-text="Already vibing 🎶" style="position: absolute; left: 13.33%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
         <div class="timeline-marker" data-time="4" data-comment-id="2" data-username="@CatLover2024" data-full-text="The way crumb bobs to the beat here is EVERYTHING 😸" style="position: absolute; left: 26.67%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
         <div class="timeline-marker" data-time="6" data-comment-id="3" data-username="@NostalgicGamer" data-full-text="This takes me back to Saturday afternoons" style="position: absolute; left: 40%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
-        
         <!-- Dense cluster for popular section (8-10 seconds) -->
         <div class="timeline-marker" data-time="8" data-comment-id="4" data-username="@VirtuallyVibe" data-full-text="HERE COMES THE BEST PART!! 🔥🔥🔥" style="position: absolute; left: 53.33%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
         <div class="timeline-marker" data-time="9" data-comment-id="5" data-username="@DanceCat" data-full-text="My cat literally stopped what he was doing to dance" style="position: absolute; left: 60%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
         <div class="timeline-marker" data-time="10" data-comment-id="6" data-username="@BeatDropper" data-full-text="This drop hits different at 2x speed 😤" style="position: absolute; left: 66.67%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
         <div class="timeline-marker" data-time="13" data-comment-id="7" data-username="@MemeMaster" data-full-text="POV: It's 2008 and you're spending your allowance on Wii Points 🥲" style="position: absolute; left: 86.67%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
       </div>
-      
       <div style="display: flex; align-items: center; justify-content: space-between;">
         <div style="display: flex; align-items: center; gap: 12px;">
           <button class="play-btn" style="background: none; border: none; color: white; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center;">
@@ -73,8 +55,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
             </svg>
           </button>
           <span class="time-display" style="color: white; font-size: 12px; margin-left: 8px;">0:05 / 0:15</span>
-        </div>
-        
+        </div>     
         <div style="display: flex; align-items: center; gap: 8px;">
           <button class="loop-btn" style="background: none; border: none; color: #ff0000; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center;" title="Loop">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -113,7 +94,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
       </div>
     </div>
   </div>
-  
   <div class="video-info-section" style="padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
     <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">crumb cat dancing to wii shop music (15 second loop)</h3>
     <div style="display: flex; align-items: center; justify-content: space-between;">
@@ -130,7 +110,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
       </button>
     </div>
   </div>
-  
   <!-- Comments Section -->
   <div class="comments-section" style="display: none; border-top: 1px solid rgba(255,255,255,0.1); padding: 16px; max-height: 210px; overflow-y: auto;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
@@ -140,7 +119,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
         <option value="timecode">By timecode</option>
       </select>
     </div>
-    
     <!-- Comment Input -->
     <div class="comment-input-box" style="border-radius: 8px; padding: 12px; margin-bottom: 16px;">
       <textarea class="comment-input" placeholder="Add a comment..." style="width: 100%; background: transparent; border: none; resize: none; font-family: inherit; font-size: 14px; line-height: 1.4; outline: none; overflow: hidden; transition: height 0.2s ease;" rows="1"></textarea>
@@ -152,7 +130,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
         </div>
       </div>
     </div>
-    
     <!-- Comments List -->
     <div class="comments-list">
       <div class="comment-item" data-comment-id="1" data-time="2" style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
@@ -167,7 +144,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
           </div>
         </div>
       </div>
-      
       <div class="comment-item" data-comment-id="2" data-time="4" style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
         <div style="display: flex; gap: 12px;">
           <div style="width: 36px; height: 36px; background: #ff6b6b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: white; flex-shrink: 0;">C</div>
@@ -180,7 +156,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
           </div>
         </div>
       </div>
-      
       <div class="comment-item" data-comment-id="3" data-time="6" style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
         <div style="display: flex; gap: 12px;">
           <div style="width: 36px; height: 36px; background: #2196f3; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: white; flex-shrink: 0;">N</div>
@@ -193,7 +168,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
           </div>
         </div>
       </div>
-      
       <div class="comment-item" data-comment-id="4" data-time="8" style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
         <div style="display: flex; gap: 12px;">
           <div style="width: 36px; height: 36px; background: #e91e63; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: white; flex-shrink: 0;">V</div>
@@ -206,7 +180,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
           </div>
         </div>
       </div>
-      
       <div class="comment-item" data-comment-id="5" data-time="9" style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
         <div style="display: flex; gap: 12px;">
           <div style="width: 36px; height: 36px; background: #00bcd4; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: white; flex-shrink: 0;">D</div>
@@ -219,7 +192,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
           </div>
         </div>
       </div>
-      
       <div class="comment-item" data-comment-id="6" data-time="10" style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
         <div style="display: flex; gap: 12px;">
           <div style="width: 36px; height: 36px; background: #795548; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: white; flex-shrink: 0;">B</div>
@@ -232,7 +204,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
           </div>
         </div>
       </div>
-      
       <div class="comment-item" data-comment-id="7" data-time="13" style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
         <div style="display: flex; gap: 12px;">
           <div style="width: 36px; height: 36px; background: #4ecdc4; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: white; flex-shrink: 0;">M</div>
@@ -249,7 +220,8 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
   </div>
   
 </div>
-</div><!-- End of titanium wrapper -->
+</div>
+</div><!-- End of code sandbox -->
 
 
 <style>
@@ -257,12 +229,10 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 .youtube-demo {
   cursor: url('/components/prototype-sandbox/cursors/default-cursor.svg') 4 4, default;
 }
-
 /* Apply default cursor to all elements within the prototype */
 .youtube-demo * {
   cursor: inherit !important;
 }
-
 /* Clickable elements get the interactive cursor with blue dot */
 .youtube-demo button,
 .youtube-demo a,
@@ -281,7 +251,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 .youtube-demo .clickable {
   cursor: url('/components/prototype-sandbox/cursors/interactive-cursor.svg') 4 4, pointer !important;
 }
-
 /* Text selection areas get text cursor */
 .youtube-demo input[type="text"],
 .youtube-demo textarea,
@@ -289,13 +258,11 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 .youtube-demo .comment-input {
   cursor: text !important;
 }
-
 /* Draggable elements get grab cursor */
 .youtube-demo .progress-bar,
 .youtube-demo .progress-fill {
   cursor: url('/components/prototype-sandbox/cursors/grab-cursor.svg') 12 12, grab !important;
 }
-
 /* Disabled elements get not-allowed cursor */
 .youtube-demo button:disabled,
 .youtube-demo [disabled],
@@ -303,51 +270,41 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
   cursor: not-allowed !important;
   opacity: 0.5;
 }
-
 /* Light mode styles (default) */
 .linear-prototype-wrapper {
   background: #fafafa;
   border: 1px solid #e5e7eb;
 }
-
 .linear-prototype-wrapper .prototype-label {
   color: #374151;
 }
-
 /* Dark mode styles */
 @media (prefers-color-scheme: dark) {
   .linear-prototype-wrapper {
     background: #1a1a1a;
     border-color: #292929;
   }
-  
   .linear-prototype-wrapper .prototype-label {
     color: #d1d5db;
   }
-  
   .live-demo-badge > div {
     background: #2a2a2a !important;
     border-color: #404040 !important;
   }
-  
   .live-demo-badge span {
     color: #d1d5db !important;
   }
-  
   .prototype-toggle {
     background: #374151 !important;
     color: #d1d5db !important;
   }
-  
   .prototype-toggle:hover {
     background: #2d3748 !important;
   }
-  
   .prototype-toggle:active {
     background: #1f2937 !important;
   }
 }
-
 /* Toggle button styles */
 .prototype-toggle {
   transition: all 0.2s ease;

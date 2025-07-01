@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Walkthrough Toolbar Fix Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .code {
+            background: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Walkthrough Toolbar Fix Test</h1>
+    
+    <div class="test-section">
+        <h2>Changes Applied:</h2>
+        <ol>
+            <li><strong>Singleton Pattern Enforcement:</strong> Added check for existing toolbar in DOM before creating new one</li>
+            <li><strong>Fullscreen Exit Handler:</strong> Added <span class="code">handleFullscreenExit()</span> method to hide toolbar</li>
+            <li><strong>Cleanup Enhancement:</strong> Improved cleanup to remove toolbar from DOM</li>
+            <li><strong>Integration:</strong> Connected fullscreen exit to walkthrough toolbar hiding</li>
+        </ol>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test Scenarios:</h2>
+        <ol>
+            <li>
+                <strong>Enter Fullscreen:</strong>
+                <ul>
+                    <li>Click Demo button → Toolbar should appear</li>
+                    <li>Click Fullscreen button → Toolbar should appear</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Exit Fullscreen:</strong>
+                <ul>
+                    <li>Click Minimize button → Toolbar should hide</li>
+                    <li>Press Escape → Toolbar should hide</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Page Revisit:</strong>
+                <ul>
+                    <li>Navigate away and back → Only one toolbar instance should exist</li>
+                    <li>Multiple fullscreen toggles → No duplicate toolbars</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    
+    <div class="test-section">
+        <h2>Implementation Details:</h2>
+        <div class="status success">
+            <strong>✓ Fixed:</strong> Toolbar now properly hides when exiting fullscreen mode
+        </div>
+        <div class="status success">
+            <strong>✓ Fixed:</strong> Prevents multiple toolbar instances through singleton pattern
+        </div>
+        <div class="status success">
+            <strong>✓ Added:</strong> New <span class="code">hideToolbar()</span> method for clean state management
+        </div>
+        <div class="status success">
+            <strong>✓ Enhanced:</strong> Cleanup method now removes toolbar from DOM completely
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Files Modified:</h2>
+        <ul>
+            <li><span class="code">/themes/san-diego/source/js/project-demo-walkthrough.js</span></li>
+            <li><span class="code">/themes/san-diego/source/js/project-demo.js</span></li>
+        </ul>
+    </div>
+</body>
+</html>

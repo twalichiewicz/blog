@@ -19,7 +19,7 @@ notebook_stickers:
     style: "die-cut"
     shape: "circle"
 cover_image: sspp_cover.jpg
-# demo_component: "self-service-publishing-demo"  # Temporarily disabled
+demo_component: "self-service-publishing-demo"
 stats:
   - value: "$6-8M"
     label: "ARR opportunity captured"

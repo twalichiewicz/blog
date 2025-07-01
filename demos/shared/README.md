@@ -26,7 +26,10 @@ import '@portfolio/demo-shared/styles';
 
 function App() {
   return (
-    <DemoWrapper url="app.example.com">
+    <DemoWrapper 
+      url="app.example.com"
+      customCursor="pointer"
+    >
       <YourDemoContent />
     </DemoWrapper>
   );
@@ -82,6 +85,55 @@ import { DemoWrapper } from '@portfolio/demo-shared';
   <Content />
 </DemoWrapper>
 ```
+
+### Custom Cursors
+
+**New Standard**: All demos should use custom cursors to distinguish them from the regular website and create an app-like experience.
+
+```jsx
+// Enterprise apps - precision tools
+<DemoWrapper 
+  url="manage.autodesk.com"
+  customCursor="crosshair"
+>
+  <EnterpriseApp />
+</DemoWrapper>
+
+// Design systems - help and guidance
+<DemoWrapper 
+  url="design.system"
+  customCursor="help"
+>
+  <DesignSystemDemo />
+</DemoWrapper>
+
+// Interactive content - grabbable/draggable
+<DemoWrapper 
+  url="interactive.app"
+  customCursor="grab"
+>
+  <InteractiveDemo />
+</DemoWrapper>
+
+// Content exploration - zoom and examine
+<DemoWrapper 
+  url="gallery.app"
+  customCursor="zoom-in"
+>
+  <GalleryDemo />
+</DemoWrapper>
+```
+
+**Available cursor options:**
+- `pointer` - Consumer/marketing apps
+- `crosshair` - Enterprise/precision tools
+- `help` - Design systems/documentation
+- `grab` - Interactive/draggable content
+- `zoom-in` - Media/content exploration
+- `move` - Spatial/layout tools
+- `text` - Text-heavy applications
+- `wait` - Loading/processing states
+- Custom URLs for brand-specific cursors
 
 ### Using BrowserChrome Directly
 

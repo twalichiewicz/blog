@@ -1,0 +1,24 @@
+/* Import custom cursors */
+@import '@portfolio/demo-shared/styles/demo-cursors.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+.overlay-demo {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+

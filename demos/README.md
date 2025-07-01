@@ -1,55 +1,137 @@
-# Demos Directory
+# Portfolio Demos System
 
-This directory contains interactive demos for portfolio projects. Each demo is a self-contained application that can be embedded within project pages.
+This directory contains interactive demonstrations for portfolio projects. Each demo is a self-contained web application that showcases specific features or concepts from the projects.
+
+> **🤖 AI-Powered**: This demo system includes Claude AI integration for automatic error fixing and code generation.
+
+## Quick Start
+
+### 🚀 Running Demos
+
+```bash
+# Install dependencies
+npm install
+
+# Start all demo dev servers
+npm run dev:demos
+
+# Build all demos (automatically done by npm run dev/build/test)
+npm run build:demos
+
+# Validate demo standards
+npm run validate:demos
+
+# Auto-fix validation errors with Claude
+npm run fix:demos
+```
+
+### 🤖 Claude Auto-Fix
+
+```bash
+# Set up Claude API key
+export CLAUDE_API_KEY="sk-ant-..."
+
+# Fix demo validation errors automatically
+npm run fix:demos
+
+# Preview fixes without applying
+DRY_RUN=true npm run fix:demos
+```
 
 ## Structure
 
 ```
 demos/
-├── build-scripts/          # Build and development scripts
-│   ├── build-all-demos.js # Builds all demos for production
-│   └── watch-demos.js     # Development server with hot reload
-├── examples/              # Demo templates and examples
-└── [project-demos]/       # Individual demo projects
+├── build-scripts/          # Build and automation scripts
+│   ├── build-all-demos.js # Builds all demos
+│   ├── watch-demos.js     # Dev server orchestration
+│   ├── validate-demo-standards-v2.js # Standards validation
+│   ├── auto-fix-with-claude.js # AI-powered fixes
+│   └── create-demo.js     # Demo generator
+├── shared/                # Shared components & utilities
+│   ├── components/        # DemoWrapper, DemoOnboarding, etc.
+│   ├── assets/           # Shared assets (cursors, etc.)
+│   └── utils/            # Utility functions
+├── examples/             # Demo templates
+└── [project-demos]/      # Individual demo projects
 ```
 
 ## Creating a New Demo
 
-1. **Create a new directory** for your demo:
+### Option 1: Use the Generator (Recommended)
+
+```bash
+npm run create:demo
+
+# Follow the interactive prompts:
+# ✏️  Demo name: my-feature-demo
+# 📁 Demo type: enterprise
+# 🔌 Port: 3006
+```
+
+### Option 2: Manual Setup
+
+1. **Copy template**:
    ```bash
-   mkdir demos/my-project-demo
-   cd demos/my-project-demo
+   cp -r demos/examples/react-demo-template demos/my-demo
+   cd demos/my-demo
    ```
 
-2. **Initialize with package.json**:
-   ```bash
-   npm init -y
-   ```
-
-3. **Add required scripts** to package.json:
-   ```json
-   {
-     "scripts": {
-       "dev": "vite --port 3001",
-       "build": "vite build",
-       "preview": "vite preview"
+2. **Update configuration**:
+   ```javascript
+   // vite.config.js
+   export default defineConfig({
+     base: './',  // CRITICAL for iframe loading
+     server: {
+       port: 3006  // Unique port
      }
+   })
+   ```
+
+3. **Implement with shared components**:
+   ```jsx
+   import { DemoWrapper, DemoOnboarding } from '@portfolio/demo-shared';
+   import '@portfolio/demo-shared/styles/demo-cursors.css'; // Custom cursors
+   
+   function App() {
+     return (
+       <DemoOnboarding steps={onboardingSteps}>
+         <DemoWrapper url="app.example.com">
+           <YourDemo />
+         </DemoWrapper>
+       </DemoOnboarding>
+     );
    }
    ```
 
-4. **Create your demo** in the `src/` directory
+## Demo Standards & Requirements
 
-5. **Configure build output** to `dist/` directory
+### ✅ Required Components
 
-## Demo Requirements
+1. **DemoWrapper** - Provides browser chrome and background
+2. **DemoOnboarding** - Interactive tour for fullscreen mode
+3. **Proper build config** - `base: './'` in vite.config.js
+4. **Unique port** - Configured in demo-config.json
 
-Each demo must:
+### 📋 Validation Checks
 
-- Have a `package.json` with `build` and `dev` scripts
-- Build output to a `dist/` directory
-- Include an `index.html` as the entry point
-- Be self-contained (no external dependencies at runtime)
-- Work within an iframe context
+The build system validates:
+- ✓ Uses shared components (DemoWrapper, DemoOnboarding)
+- ✓ Correct build configuration
+- ✓ Proper file structure (dist/index.html)
+- ✓ No missing dependencies
+- ✓ Custom cursor implementation
+- ✓ Iframe compatibility
+
+### 🎨 Demo Types
+
+| Type | Browser | Background | Cursor | Onboarding |
+|------|---------|------------|---------|------------|
+| enterprise | windows/mac | ❌ | crosshair | required |
+| consumer | mac | ✅ | branded | optional |
+| design-system | minimal | ✅ | help | required |
+| interactive | mac | ✅ | grab | required |
+| code-toy | mac | ✅ | default | not required |
 
 ## Integration with Blog
 
@@ -103,38 +185,154 @@ See `examples/` directory for starter templates:
 - `vanilla-demo-template/` - Vanilla JavaScript setup
 - `vue-demo-template/` - Vue + Vite setup
 
+## Shared Components
+
+### DemoWrapper
+```jsx
+<DemoWrapper 
+  url="app.example.com"      // URL in browser chrome
+  browserTheme="mac"         // mac, windows, minimal
+  showBackground={true}       // Grid pattern background
+  customCursor="enterprise"  // Custom cursor style
+>
+  <YourContent />
+</DemoWrapper>
+```
+
+### DemoOnboarding
+```jsx
+const steps = [
+  {
+    title: "Welcome",
+    description: "Introduction to the demo",
+    developerNote: "Technical implementation details",
+    businessImpact: "$2M annual savings",
+    metrics: [
+      { value: "250x", label: "Faster" },
+      { value: "95%", label: "Less errors" }
+    ]
+  }
+];
+
+<DemoOnboarding steps={steps}>
+  <YourDemo />
+</DemoOnboarding>
+```
+
+### Custom Cursors
+
+All demos automatically include custom cursors when you import the shared styles:
+
+```css
+/* In your demo's main CSS file */
+@import '@portfolio/demo-shared/styles/demo-cursors.css';
+```
+
+This provides:
+- **Default cursor**: White arrow for general navigation
+- **Pointer cursor**: Arrow with blue dot for interactive elements  
+- **Text cursor**: I-beam for text inputs
+- **Disabled cursor**: Prohibition sign for disabled states
+- **Loading cursor**: Circular spinner for loading states
+- **Grab/Grabbing**: For draggable elements
+
+The cursors are automatically applied to appropriate elements - no additional configuration needed!
+
+For complete cursor documentation, see `/docs/PROTOTYPE-CURSORS.md`.
+
 ## Best Practices
 
-### Performance
-- Keep bundle sizes small
-- Use lazy loading for heavy assets
-- Optimize images and videos
+### 🚀 Performance
+- Keep bundles under 1MB
+- Use code splitting and lazy loading
+- Optimize all images with Sharp
+- Monitor bundle size with `npm run analyze`
 
-### UX
-- Include loading states
-- Handle errors gracefully
-- Make demos responsive
-- Provide clear interactions
+### ♿ Accessibility
+- Full keyboard navigation
+- Proper ARIA labels
+- Color contrast compliance (WCAG AA)
+- Screen reader announcements
 
-### Development
-- Use TypeScript for complex demos
-- Include README for each demo
-- Test across different screen sizes
-- Ensure demos work in iframe context
+### 📱 Responsive Design
+- Test on all device sizes
+- Touch-friendly interactions
+- Adaptive layouts
+- Performance on mobile networks
+
+### 🧪 Testing
+```bash
+# Test individual demo
+cd demos/my-demo && npm run dev
+
+# Test in iframe context
+npm run server  # Then navigate to project
+
+# Validate standards
+npm run validate:demos
+```
+
+## Claude Auto-Fix System
+
+### What Gets Fixed Automatically
+
+- ✅ Missing DemoWrapper import/usage
+- ✅ Missing DemoOnboarding component  
+- ✅ Incorrect props or configurations
+- ✅ Missing dependencies in package.json
+- ✅ Build configuration issues
+- ✅ Import path problems
+
+### CI/CD Integration
+
+1. Push changes to feature branch
+2. GitHub Actions runs validation
+3. If failures detected, Claude attempts fixes
+4. Creates PR with fixes automatically
+5. Review and merge
+
+### Cost Management
+
+- ~$0.01-0.20 per fix depending on complexity
+- Use `CLAUDE_MODEL=claude-3-sonnet-20240229` for cheaper fixes
+- Monitor usage in Anthropic console
+
+See [Claude Auto-Fix Documentation](../docs/CLAUDE-AUTOFIX-SYSTEM.md) for full details.
 
 ## Troubleshooting
 
-### Demo not building
-- Check that `package.json` has correct scripts
-- Ensure build outputs to `dist/` directory
-- Verify all dependencies are installed
+### Common Issues
 
-### Demo not loading in blog
-- Check browser console for errors
-- Verify demo works in standalone mode
-- Ensure no CORS issues with external resources
+**❌ Validation fails**
+```bash
+# Auto-fix with Claude
+npm run fix:demos
 
-### Development server conflicts
-- Each demo gets a different port automatically
-- Check `watch-demos.js` output for assigned ports
-- Kill existing processes if ports are in use
+# Or fix manually and re-validate
+npm run validate:demos
+```
+
+**❌ Port already in use**
+```bash
+# Find and kill process
+lsof -ti:3004 | xargs kill -9
+```
+
+**❌ Assets not loading in iframe**
+```javascript
+// Ensure this in vite.config.js
+export default defineConfig({
+  base: './'  // MUST be relative
+})
+```
+
+**❌ Custom cursor not showing**
+1. Check cursor assets: `ls themes/san-diego/source/demos/shared/assets/cursors/`
+2. Verify paths are relative in cursor-utils.js
+3. Rebuild: `npm run build:demos`
+
+**❌ Build out of memory**
+```bash
+# Increase Node memory
+NODE_OPTIONS="--max-old-space-size=4096" npm run build:demos
+```

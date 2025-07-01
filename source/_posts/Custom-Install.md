@@ -11,7 +11,7 @@ tags:
   - portfolio
 layout: project_gallery
 notebook_color: "dark-lime-green"
-# demo_component: "custom-install-demo"  # Temporarily disabled due to build error
+demo_component: "custom-install-demo"
 notebook_stickers:
   - text: "🌲"
     color: "#2e7d32"

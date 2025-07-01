@@ -3,13 +3,26 @@
 /**
  * Build All Demos Script
  * 
- * This script builds all demo projects and copies them to the Hexo source directory
- * for inclusion in the blog build process.
+ * This script validates demo standards, builds all demo projects, 
+ * and copies them to the Hexo source directory for inclusion in the blog build process.
  */
 
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+// Load demo configuration for filtering
+function loadDemoConfig() {
+  const configPath = path.join(__dirname, '..', 'demo-config.json');
+  if (!fs.existsSync(configPath)) {
+    return { demos: {}, demoTypes: {} };
+  }
+  try {
+    return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  } catch (error) {
+    console.warn(`Warning: Could not load demo config: ${error.message}`);
+    return { demos: {}, demoTypes: {} };
+  }
+}
 
 const DEMOS_DIR = path.join(__dirname, '..');
 const HEXO_DEMOS_DIR = path.join(__dirname, '../../themes/san-diego/source/demos');
@@ -30,16 +43,39 @@ function ensureDirectory(dirPath) {
 }
 
 function getDemoDirectories() {
+    const config = loadDemoConfig();
     const entries = fs.readdirSync(DEMOS_DIR, { withFileTypes: true });
-    return entries
+    const allDemos = entries
         .filter(entry => entry.isDirectory() && 
                 entry.name !== 'build-scripts' && 
                 entry.name !== 'examples' && 
                 entry.name !== 'shared')
         .map(entry => entry.name);
+    
+    // Filter out code-toys and excluded demos
+    const demosToBuild = allDemos.filter(demo => {
+        const demoConfig = config.demos[demo];
+        const demoType = demoConfig?.type;
+        const typeConfig = config.demoTypes[demoType];
+        
+        const isExcluded = demoConfig?.excludeFromValidation || 
+                          demoConfig?.skipAllValidation || 
+                          typeConfig?.excludeFromValidation ||
+                          demoType === 'code-toy';
+        
+        return !isExcluded;
+    });
+    
+    const excludedDemos = allDemos.filter(demo => !demosToBuild.includes(demo));
+    
+    if (excludedDemos.length > 0) {
+        log(`📝 Excluded from build: ${excludedDemos.join(', ')} (code-toys/blog components)`);
+    }
+    
+    return demosToBuild;
 }
 
-function buildDemo(demoName) {
+function buildDemo(demoName, allDemos, skipValidation = false) {
     const demoPath = path.join(DEMOS_DIR, demoName);
     const packageJsonPath = path.join(demoPath, 'package.json');
     
@@ -50,6 +86,21 @@ function buildDemo(demoName) {
 
     try {
         log(`🔨 Building demo: ${demoName}`);
+        
+        // Skip validation for excluded demos (they were already filtered out)
+        if (!skipValidation) {
+            log(`🔍 Validating demo standards for ${demoName}...`);
+            // Use v2 validation script which respects demo config
+            try {
+                execSync('node validate-demo-standards-v2.js', { 
+                    cwd: path.join(__dirname), 
+                    stdio: 'pipe' 
+                });
+            } catch (error) {
+                log(`❌ Demo ${demoName} failed validation. Use --skip-validation to build anyway.`);
+                return false;
+            }
+        }
         
         // Install dependencies if node_modules doesn't exist
         const nodeModulesPath = path.join(demoPath, 'node_modules');
@@ -108,6 +159,12 @@ function copyDirectory(src, dest) {
 function main() {
     log('🚀 Starting demo build process...');
     
+    // Check for --skip-validation flag
+    const skipValidation = process.argv.includes('--skip-validation');
+    if (skipValidation) {
+        log('⚠️  Skipping validation checks (--skip-validation flag used)');
+    }
+    
     // Ensure output directory exists
     ensureDirectory(HEXO_DEMOS_DIR);
     
@@ -121,10 +178,20 @@ function main() {
     
     log(`📁 Found ${demos.length} demo project(s): ${demos.join(', ')}`);
     
+    // First run validation on all demos to show complete report
+    if (!skipValidation) {
+        log('\n📋 Running validation checks on all demos...\n');
+        execSync('node validate-demo-standards-v2.js', { 
+            cwd: path.join(__dirname), 
+            stdio: 'inherit' 
+        });
+        log('\n');
+    }
+    
     // Build each demo
     let successCount = 0;
     for (const demo of demos) {
-        if (buildDemo(demo)) {
+        if (buildDemo(demo, demos, skipValidation)) {
             successCount++;
         }
     }
@@ -140,6 +207,8 @@ function main() {
         process.exit(0);
     } else {
         log('⚠️  Some demos failed to build. Check logs above.');
+        log('💡 Run "npm run validate:demos" to see all validation issues.');
+        log('📚 See demos/shared/README.md for demo standards documentation.');
         process.exit(1);
     }
 }

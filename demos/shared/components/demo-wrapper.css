@@ -1,5 +1,10 @@
 /* Demo Wrapper Styles - Shared across all demos */
 
+/* Make body transparent in demos */
+body {
+  background: transparent !important;
+}
+
 /* Background pattern (makers marks) */
 .demo-background {
   position: fixed;
@@ -14,8 +19,8 @@
   position: absolute;
   inset: 0;
   background-image: 
-    repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0, 0, 0, 0.02) 50px, rgba(0, 0, 0, 0.02) 51px),
-    repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0, 0, 0, 0.02) 50px, rgba(0, 0, 0, 0.02) 51px);
+    repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(0, 0, 0, 0.08) 50px, rgba(0, 0, 0, 0.08) 51px),
+    repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0, 0, 0, 0.08) 50px, rgba(0, 0, 0, 0.08) 51px);
   background-size: 51px 51px;
 }
 
@@ -26,7 +31,7 @@
   left: 10px;
   right: 10px;
   bottom: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 2px;
 }
 
@@ -44,10 +49,18 @@
 /* Demo wrapper container */
 .demo-wrapper {
   min-height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+}
+
+/* In iframe mode, remove padding and use full height */
+@media (max-height: 99999px) {
+  .demo-wrapper:has(.browser-chrome) {
+    padding: 0;
+  }
 }
 
 /* Browser chrome container */
@@ -87,7 +100,7 @@
   height: 12px;
   border-radius: 50%;
   border: 0.5px solid rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+  cursor: not-allowed;
   transition: opacity 0.2s;
 }
 
@@ -151,6 +164,41 @@
   display: none;
 }
 
+/* Navigation buttons */
+.browser-navigation {
+  display: flex;
+  gap: 2px;
+  margin-right: 8px;
+}
+
+.browser-nav-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #666;
+  transition: background-color 0.2s;
+}
+
+.browser-nav-btn:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.browser-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.browser-nav-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
 /* Address bar */
 .browser-address-bar {
   flex: 1;
@@ -197,6 +245,21 @@
   flex: 1;
   overflow: auto;
   background: #f5f6f7;
+  position: relative;
+}
+
+/* Demo content area with custom cursor */
+.demo-content-area {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.2s ease;
+  will-change: transform;
+}
+
+/* Cursor inheritance for all interactive elements within demo */
+.demo-content-area * {
+  cursor: inherit !important;
 }
 
 /* Responsive adjustments */
@@ -227,21 +290,65 @@
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a !important;
+  }
+  
   .demo-background {
     background-color: #1a1a1a;
   }
 
   .demo-background::before {
     background-image: 
-      repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255, 255, 255, 0.02) 50px, rgba(255, 255, 255, 0.02) 51px),
-      repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 255, 255, 0.02) 50px, rgba(255, 255, 255, 0.02) 51px);
+      repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255, 255, 255, 0.15) 50px, rgba(255, 255, 255, 0.15) 51px),
+      repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 255, 255, 0.15) 50px, rgba(255, 255, 255, 0.15) 51px);
   }
 
   .demo-background::after {
-    border-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   .browser-chrome {
+    background: #1e1e1e;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+  
+  .browser-content {
+    background: #121212;
+  }
+  
+  .browser-header {
+    background: linear-gradient(to bottom, #2a2a2a, #1e1e1e);
+    border-bottom-color: #444;
+  }
+  
+  .browser-address-bar {
+    background: #2a2a2a;
+    border-color: #444;
+    color: #ccc;
+  }
+  
+  .browser-chrome--minimal .browser-address-bar {
+    background: #2a2a2a;
+  }
+  
+  /* Windows theme dark mode */
+  .browser-chrome--windows .browser-header {
+    background: #202020;
+    border-bottom-color: #444;
+  }
+  
+  .browser-chrome--windows .browser-control {
+    color: #ccc;
+  }
+  
+  .browser-chrome--windows .browser-control:hover {
+    background: #333;
+  }
+  
+  /* Minimal theme dark mode */
+  .browser-chrome--minimal .browser-header {
+    background: #1a1a1a;
+    border-bottom-color: #333;
   }
 }

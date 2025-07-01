@@ -1,0 +1,136 @@
+/**
+ * FOUC (Flash of Unstyled Content) Fix
+ * Prevents tabs from flashing on page load
+ */
+
+/* 
+ * Hide tabs by default until JavaScript determines device type and initializes
+ * This prevents the flash where tabs appear then disappear on desktop
+ */
+.tabs-wrapper {
+  /* Initially hidden on all devices */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  
+  /* Show when JavaScript has initialized and determined device type */
+  &.js-initialized {
+    opacity: 1;
+    visibility: visible;
+    
+    /* Ensure mobile-tabs inside are also visible */
+    .mobile-tabs {
+      opacity: 1;
+      visibility: visible;
+      display: flex; /* Restore original display value */
+    }
+  }
+  
+  /* On desktop, ensure tabs are visible when initialized */
+  @media screen and (min-width: 1024px) {
+    &.js-initialized {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: block !important;
+      
+      .mobile-tabs {
+        display: flex !important;
+      }
+    }
+  }
+}
+
+/* 
+ * For content areas, let JavaScript handle visibility completely
+ * since it's setting inline styles that override CSS
+ */
+#postsContent,
+#projectsContent {
+  /* Initial state - both visible for JavaScript to initialize */
+  display: block;
+  
+  /* Remove any CSS that tries to control visibility - let JS handle it */
+}
+
+/* 
+ * Ensure tab buttons don't flash active states incorrectly
+ */
+.tab-button {
+  /* Remove active state until JavaScript sets it properly */
+  &.active {
+    /* On initial load, don't show active styles until JS initializes */
+    color: inherit;
+    
+    /* Restore active styles after JS initialization */
+    .js-initialized & {
+      color: var(--white) !important;
+    }
+  }
+}
+
+/*
+ * Ensure mobile-tabs are never hidden by other CSS rules when they should be visible
+ */
+.mobile-tabs {
+  /* Default mobile-tabs should be visible when parent allows it */
+  opacity: 1;
+  visibility: visible;
+  
+  /* Only hide when parent tabs-wrapper is not initialized */
+  .tabs-wrapper:not(.js-initialized) & {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  /* On mobile devices, ensure mobile-tabs are visible when parent is initialized */
+  @media screen and (max-width: 1023px) {
+    .tabs-wrapper.js-initialized & {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: flex !important;
+    }
+  }
+  
+  /* On desktop, ensure mobile-tabs are visible when parent allows it */
+  @media screen and (min-width: 1024px) {
+    .tabs-wrapper.js-initialized & {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: flex !important;
+    }
+  }
+}
+
+/*
+ * Body class to indicate when JavaScript has loaded
+ * This allows progressive enhancement
+ */
+body:not(.js-loaded) {
+  /* Additional styles for when JavaScript hasn't loaded yet */
+  .tabs-wrapper {
+    /* Keep hidden if JS fails to load */
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .mobile-tabs {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+body.js-loaded {
+  /* JavaScript has loaded, enable transitions */
+  .tabs-wrapper {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .mobile-tabs {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  #postsContent,
+  #projectsContent {
+    transition: opacity 0.3s ease;
+  }
+}

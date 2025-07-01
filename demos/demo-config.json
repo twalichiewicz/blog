@@ -1,0 +1,153 @@
+{
+  "demoDefaults": {
+    "browserTheme": "mac",
+    "showBackground": true,
+    "requiresOnboarding": true,
+    "alwaysShowInline": true,
+    "alwaysShowDemoButton": true,
+    "customCursor": "pointer",
+    "customValidation": {}
+  },
+  "demos": {
+    "custom-install-demo": {
+      "name": "Autodesk Custom Install",
+      "type": "enterprise",
+      "browserTheme": "mac",
+      "showBackground": false,
+      "url": "manage.autodesk.com/custom-install",
+      "description": "Enterprise software deployment tool",
+      "specialInstructions": "Replace the custom browser header (div with window controls) with DemoWrapper. Keep multi-view navigation.",
+      "requiresOnboarding": true,
+      "customCursor": "enterprise"
+    },
+    "foreground-demo": {
+      "name": "Foreground Design System",
+      "type": "design-system",
+      "browserTheme": "minimal",
+      "url": "foreground.design/system",
+      "description": "Design system with persona switching",
+      "specialInstructions": "Keep persona switching functionality. Wrap existing content with DemoWrapper.",
+      "requiresOnboarding": true,
+      "customCursor": "design-system"
+    },
+    "self-service-publishing-demo": {
+      "name": "Self-Service Publishing Pipeline",
+      "type": "enterprise",
+      "browserTheme": "mac",
+      "url": "manage.autodesk.com/insights",
+      "description": "Autodesk's LINO publishing system that transformed content publishing from 3-4 weeks to 2 hours",
+      "requiresOnboarding": true,
+      "customCursor": "interactive",
+      "customValidation": {
+        "hasWorkingIframe": {
+          "enabled": false,
+          "severity": "warning",
+          "error": "Demo IS the iframe content - this validation is not needed",
+          "fix": "This demo correctly builds to dist/index.html for iframe loading"
+        }
+      }
+    },
+    "example-demo": {
+      "name": "Example Demo",
+      "type": "template",
+      "description": "Template demonstration",
+      "specialInstructions": "Convert to React to showcase all shared components",
+      "skipStandardValidation": [
+        "usesDemoWrapper",
+        "hasOnboardingAvailable"
+      ]
+    },
+    "human-interest-brand-demo": {
+      "name": "Human Interest Brand Demo",
+      "type": "consumer",
+      "browserTheme": "mac",
+      "showBackground": true,
+      "url": "humaninterest.com/brand",
+      "description": "Interactive brand evolution showcase",
+      "requiresOnboarding": false,
+      "customCursor": "consumer"
+    },
+    "youtube-timecode-demo": {
+      "name": "YouTube Timecode Commentary",
+      "type": "code-toy",
+      "browserTheme": "mac",
+      "showBackground": true,
+      "url": "localhost:3006",
+      "description": "Interactive code toy for blog post demonstration",
+      "requiresOnboarding": false
+    },
+    "overlay-demo": {
+      "name": "Universal Intelligence Layer",
+      "type": "enterprise",
+      "browserTheme": "mac",
+      "showBackground": false,
+      "url": "overlay.autodesk.cloud",
+      "description": "Cross-application AI overlay system that follows users across 60+ Autodesk desktop applications",
+      "requiresOnboarding": true,
+      "customCursor": "enterprise",
+      "skipStandardValidation": [
+        "usesDemoWrapper"
+      ],
+      "customValidation": {
+        "usesDemoWrapper": {
+          "enabled": false,
+          "severity": "info",
+          "error": "Overlay demo is designed as OS-level simulation without browser chrome",
+          "fix": "This demo intentionally omits DemoWrapper to simulate desktop environment"
+        }
+      }
+    }
+  },
+  "demoTypes": {
+    "enterprise": {
+      "browserTheme": "windows",
+      "showBackground": false,
+      "bundleSizeLimit": "2MB",
+      "requiresAuth": false,
+      "customCursor": "enterprise"
+    },
+    "consumer": {
+      "browserTheme": "mac",
+      "showBackground": true,
+      "bundleSizeLimit": "1MB",
+      "customCursor": "consumer"
+    },
+    "design-system": {
+      "browserTheme": "minimal",
+      "showBackground": true,
+      "bundleSizeLimit": "1.5MB",
+      "customCursor": "design-system"
+    },
+    "template": {
+      "browserTheme": "mac",
+      "showBackground": true,
+      "bundleSizeLimit": "500KB",
+      "customCursor": "default"
+    },
+    "code-toy": {
+      "browserTheme": "mac",
+      "showBackground": true,
+      "bundleSizeLimit": "1MB",
+      "requiresOnboarding": false,
+      "alwaysShowInline": true,
+      "alwaysShowDemoButton": false,
+      "excludeFromValidation": true,
+      "skipAllValidation": true,
+      "customCursor": "default"
+    }
+  },
+  "portAllocation": {
+    "rangeStart": 3001,
+    "rangeEnd": 3099,
+    "reserved": {
+      "3000": "default-vite",
+      "3001": "example-demo",
+      "3002": "foreground-demo",
+      "3003": "self-service-publishing-demo",
+      "3004": "custom-install-demo",
+      "3005": "human-interest-brand-demo",
+      "3006": "youtube-timecode-demo",
+      "3007": "overlay-demo"
+    }
+  }
+}
