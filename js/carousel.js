@@ -1025,7 +1025,3 @@ if (document.readyState === 'loading') {
 } else {
 	initializeCarousels(document); // Initialize if DOM is already ready
 }
-
-// Make functions globally available for dynamic content loading
-window.initializeCarousels = initializeCarousels;
-window.cleanupCarouselInstances = cleanupCarouselInstances;
