@@ -8,7 +8,21 @@
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
-const chalk = require('chalk');
+
+// Simple color functions to replace chalk
+const colors = {
+  red: (text) => `\x1b[31m${text}\x1b[0m`,
+  yellow: (text) => `\x1b[33m${text}\x1b[0m`,
+  green: (text) => `\x1b[32m${text}\x1b[0m`,
+  blue: (text) => `\x1b[34m${text}\x1b[0m`,
+  gray: (text) => `\x1b[90m${text}\x1b[0m`,
+  bold: {
+    red: (text) => `\x1b[1m\x1b[31m${text}\x1b[0m`,
+    yellow: (text) => `\x1b[1m\x1b[33m${text}\x1b[0m`,
+    green: (text) => `\x1b[1m\x1b[32m${text}\x1b[0m`,
+    blue: (text) => `\x1b[1m\x1b[34m${text}\x1b[0m`,
+  }
+};
 
 // Configuration
 const config = {
@@ -169,7 +183,7 @@ function checkFile(filePath) {
 
 // Main execution
 function main() {
-  console.log(chalk.blue('\n🔍 Running pre-deployment safety checks...\n'));
+  console.log(colors.blue('\n🔍 Running pre-deployment safety checks...\n'));
   
   // Get all files to check
   const jsFiles = glob.sync(config.jsFilePattern);
@@ -178,60 +192,60 @@ function main() {
   
   const allFiles = [...jsFiles, ...ejsFiles, ...scssFiles];
   
-  console.log(chalk.gray(`Checking ${allFiles.length} files...\n`));
+  console.log(colors.gray(`Checking ${allFiles.length} files...\n`));
   
   // Check each file
   allFiles.forEach(checkFile);
   
   // Display results
   if (results.errors.length > 0) {
-    console.log(chalk.red.bold(`\n❌ ERRORS (${results.errors.length}):`));
+    console.log(colors.bold.red(`\n❌ ERRORS (${results.errors.length}):`));
     results.errors.forEach(({ file, line, pattern, message, match }) => {
-      console.log(chalk.red(`  ${file}${line ? `:${line}` : ''}`));
-      console.log(chalk.red(`    ${pattern}: ${message}`));
+      console.log(colors.red(`  ${file}${line ? `:${line}` : ''}`));
+      console.log(colors.red(`    ${pattern}: ${message}`));
       if (match) {
-        console.log(chalk.gray(`    Found: "${match}"`));
+        console.log(colors.gray(`    Found: "${match}"`));
       }
     });
   }
   
   if (results.warnings.length > 0) {
-    console.log(chalk.yellow.bold(`\n⚠️  WARNINGS (${results.warnings.length}):`));
+    console.log(colors.bold.yellow(`\n⚠️  WARNINGS (${results.warnings.length}):`));
     results.warnings.forEach(({ file, line, pattern, message, match }) => {
-      console.log(chalk.yellow(`  ${file}${line ? `:${line}` : ''}`));
-      console.log(chalk.yellow(`    ${pattern}: ${message}`));
+      console.log(colors.yellow(`  ${file}${line ? `:${line}` : ''}`));
+      console.log(colors.yellow(`    ${pattern}: ${message}`));
       if (match) {
-        console.log(chalk.gray(`    Found: "${match}"`));
+        console.log(colors.gray(`    Found: "${match}"`));
       }
     });
   }
   
   if (results.info.length > 0 && process.env.VERBOSE) {
-    console.log(chalk.blue.bold(`\nℹ️  INFO (${results.info.length}):`));
+    console.log(colors.bold.blue(`\nℹ️  INFO (${results.info.length}):`));
     results.info.forEach(({ file, pattern, message }) => {
-      console.log(chalk.blue(`  ${file}`));
-      console.log(chalk.blue(`    ${pattern}: ${message}`));
+      console.log(colors.blue(`  ${file}`));
+      console.log(colors.blue(`    ${pattern}: ${message}`));
     });
   }
   
   // Summary
-  console.log(chalk.bold('\n📊 Summary:'));
+  console.log('\n📊 Summary:');
   console.log(`  Errors: ${results.errors.length}`);
   console.log(`  Warnings: ${results.warnings.length}`);
   console.log(`  Info: ${results.info.length}`);
   
   // Exit with error if errors found
   if (results.errors.length > 0) {
-    console.log(chalk.red.bold('\n❌ Deployment blocked due to errors. Please fix them before deploying.\n'));
+    console.log(colors.bold.red('\n❌ Deployment blocked due to errors. Please fix them before deploying.\n'));
     process.exit(1);
   } else if (results.warnings.length > 0) {
-    console.log(chalk.yellow.bold('\n⚠️  Warnings found. Consider fixing them before deployment.\n'));
-    console.log(chalk.gray('Run with --force to deploy anyway.\n'));
+    console.log(colors.bold.yellow('\n⚠️  Warnings found. Consider fixing them before deployment.\n'));
+    console.log(colors.gray('Run with --force to deploy anyway.\n'));
     if (!process.argv.includes('--force')) {
       process.exit(1);
     }
   } else {
-    console.log(chalk.green.bold('\n✅ All checks passed! Safe to deploy.\n'));
+    console.log(colors.bold.green('\n✅ All checks passed! Safe to deploy.\n'));
   }
 }
 
