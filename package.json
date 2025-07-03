@@ -38,7 +38,7 @@
     "check:contrast": "echo 'Color contrast check needs implementation'",
     "build:demos": "node demos/build-scripts/build-all-demos.js",
     "build:demos:force": "node demos/build-scripts/build-all-demos.js --skip-validation",
-    "dev:demos": "node demos/build-scripts/watch-demos.js",
+    "watch:demos": "node demos/build-scripts/watch-demos.js",
     "validate:demos": "node demos/build-scripts/validate-demo-standards-v2.js",
     "validate:demos:legacy": "node demos/build-scripts/validate-demo-standards.js",
     "create:demo": "node demos/build-scripts/create-demo.js",
