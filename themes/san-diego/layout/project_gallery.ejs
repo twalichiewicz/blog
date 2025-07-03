@@ -41,8 +41,8 @@
 			<!-- Project trailer (single hero item) -->
 			<div class="project-trailer-hero<%= !page.trailer && !page.cover_image && !page.demo_component ? ' hidden' : '' %>" id="trailerHero">
 				<div class="trailer-content" id="trailerContent">
-						<% if (page.demo_component) { %>
-							<!-- Inline demo mode - always show demos inline for preview -->
+						<% if (page.demo_component && config.feature_flags && config.feature_flags.demos_enabled) { %>
+							<!-- Inline demo mode - only show if demos are enabled -->
 							<div class="demo-inline-container" data-demo-component="<%= page.demo_component %>" <% if (page.cover_image) { %>data-cover-image="<%= page.cover_image %>"<% } %>>
 								<!-- Demo controls positioned absolutely -->
 								<div class="demo-inline-controls">
@@ -139,6 +139,18 @@
 									<% if (item.caption) { %>
 										<div class="carousel-caption"><%= item.caption %></div>
 									<% } %>
+						<% } else if (page.demo_component && (!config.feature_flags || !config.feature_flags.demos_enabled)) { %>
+							<!-- Demo component exists but demos are disabled - show cover image instead -->
+							<%
+							let demoFallbackImagePath = page.cover_image;
+							if (demoFallbackImagePath && !demoFallbackImagePath.startsWith('/') && !demoFallbackImagePath.startsWith('http')) {
+								demoFallbackImagePath = page.path + demoFallbackImagePath;
+							}
+							%>
+							<img src="<%- url_for(demoFallbackImagePath) %>" 
+								alt="<%= page.title %> preview"
+								loading="lazy"
+								decoding="async">
 						<% } else if (page.cover_image) { %>
 							<%
 							// Use cover image as fallback
@@ -170,7 +182,7 @@
 					
 					<!-- Read full story button and demo button moved here -->
 					<div class="read-story-button-container">
-						<% if (page.demo_url || page.demo_component) { %>
+						<% if (page.demo_url || (page.demo_component && config.feature_flags && config.feature_flags.demos_enabled)) { %>
 							<button class="demo-button" 
 								<% if (page.demo_url) { %>
 									data-demo-url="<%- page.demo_url %>"
@@ -530,5 +542,9 @@
 			}
 		});
 	</script>
+	
+	<!-- Project demo loading -->
+	<script src="<%- url_for('js/project-demo.js') %>"></script>
+	<script src="<%- url_for('js/project-demo-walkthrough.js') %>"></script>
 </body>
 </html> 

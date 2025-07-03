@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import custom cursors for demos */
+@import '@portfolio/demo-shared/styles/demo-cursors.css';
+
 @layer base {
   :root {
     /* Strictly monochromatic color scheme */
@@ -87,10 +90,47 @@
   background: #a8a8a8;
 }
 
+/* Custom cursors for better UX */
+.cursor-clickable {
+  cursor: pointer !important;
+}
+
+.cursor-not-clickable {
+  cursor: default !important;
+}
+
+.cursor-text-edit {
+  cursor: text !important;
+}
+
+/* Override demo wrapper cursor for specific elements */
+.demo-content-area .cursor-clickable {
+  cursor: pointer !important;
+}
+
+.demo-content-area .cursor-not-clickable {
+  cursor: default !important;
+}
+
+.demo-content-area .cursor-text-edit {
+  cursor: text !important;
+}
+
 /* Ensure full height layout */
 html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
+}
+
+/* Fix browser content background for Custom Install demo */
+.browser-content {
+  background: hsl(0 0% 98%) !important; /* Match --background color */
+}
+
+/* Ensure demo content area fills available space */
+.demo-content-area {
+  min-height: 100%;
+  background: hsl(0 0% 98%); /* Match --background color */
 }

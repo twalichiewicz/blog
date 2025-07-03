@@ -36,7 +36,7 @@
 		</div>
 		<% } %>
 		
-		<% if (page.demo_component) { %>
+		<% if (page.demo_component && config.feature_flags && config.feature_flags.demos_enabled) { %>
 		<!-- Project Demo Section -->
 		<div class="project-trailer-hero" id="trailerHero">
 			<div class="trailer-content" id="trailerContent">

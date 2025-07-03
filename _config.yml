@@ -112,6 +112,10 @@ search:
   field: post
   content: true
 
+# Feature Flags
+feature_flags:
+  demos_enabled: false  # Set to true to enable demos in production
+
 # Portfolio Company Configuration
 portfolio:
   companies:

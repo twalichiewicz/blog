@@ -1,6 +1,12 @@
 # OS-specific files
 .DS_Store
+.DS_Store?
+._*
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+.Spotlight-V100
+.Trashes
 
 # Hexo files
 db.json
@@ -18,10 +24,18 @@ logs/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
 
 # Dependencies
 node_modules/
 .npm
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
 
 # IDE and editor files
 .vscode/
@@ -37,21 +51,59 @@ node_modules/
 .env
 .env.*
 !.env.example
+.env.local
+.env.development
+.env.test
+.env.production
+!.env.development.example
+!.env.test.example
+!.env.production.example
+
+# Security and secrets
+*.pem
+*.key
+*.cert
+*.crt
+.secrets/
+credentials.json
+service-account.json
+
+# Local configuration
+_config.local.yml
 
 # Build and deploy
 .deploy_git/
 .eslintcache
 .build-cache/
+.cache/
+.parcel-cache/
+dist/
+build/
+out/
+*.map
+*.min.js
+*.min.css
+!themes/san-diego/source/demos/*/assets/*
 
 # Temporary files
 *.tmp
 *.bak
+*.backup
+*.old
 temp/
 tmp/
+.temp/
+.tmp/
 
 # Test coverage
 coverage/
 .nyc_output/
+*.lcov
+.jest/
+
+# TypeScript
+*.tsbuildinfo
+.tsc-cache/
 
 # Development tools
 mcp-dev-server/
@@ -75,3 +127,9 @@ screenshots/
 !screenshots/baseline/
 !screenshots/.gitkeep
 CLAUDE.md
+
+# Health reports and debug files
+.health-reports/
+*-health-report.json
+*-debug.log
+.debug/

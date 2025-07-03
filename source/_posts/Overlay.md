@@ -2,7 +2,7 @@
 title: Overlay
 display_name: "Universal Intelligence Layer"
 display_description: "Cross-application AI that follows users everywhere they create"
-date: 2024-06-01
+date: 2025-06-01
 company: Autodesk
 byline: Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage
 tags: [portfolio]
@@ -51,14 +51,22 @@ notebook_stickers:
     color: "#fff"
     bg: "#1a237e"
     rotate: "-4deg"
+    style: "die-cut"  # New die-cut style
   - text: "⭐"
     color: "#ffd600"
     bg: "#000"
     rotate: "1deg"
-  - text: "POC"
-    color: "#000"
-    bg: "#00e676"
+    shape: "circle"
+    style: "die-cut"  # Die-cut style for tighter emoji presentation
+  - text: "DEMO"
+    color: "#fff"
+    bg: "#ff5722"
     rotate: "3deg"
+    style: "die-cut"
+    shape: "circle"
+demo_component: "overlay-demo"
+demo_height: "600px"
+demo_fullscreen: true
 ---
 
 ## The Problem: Isolated Product Silos
