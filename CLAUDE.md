@@ -21,11 +21,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 🚨 Critical Rules & Warnings
 
 ### Development Workflow Requirements
-**MANDATORY: Use Git Worktrees and Plan-First Approach**
-- ALWAYS use git worktrees for new features or fixes
+**MANDATORY: Use Feature Branches and PR-Based Workflow**
+- NEVER push directly to main branch - ALL changes must go through PRs
+- ALWAYS create feature branches for any changes
+- ALWAYS use git worktrees for complex features or fixes
 - ALWAYS create a detailed plan BEFORE writing any code
-- Create implementation plans in `*-plan.md` files
+- Create implementation plans in `*-plan.md` files for major changes
 - Get user approval on plans before proceeding
+- Every PR gets a Netlify preview for testing
 - This prevents issues like the redirect bug that affected production
 
 ### Git Worktree Workflow
@@ -39,6 +42,45 @@ git worktree list
 # Remove worktree when done
 git worktree remove ../blog-new-feature
 ```
+
+### PR-Based Development Workflow
+**IMPORTANT**: Never push directly to main branch. All changes must go through pull requests.
+
+#### Creating Changes
+1. **Create a feature branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   # or
+   git checkout -b fix/your-fix-name
+   ```
+
+2. **Make your changes**
+   - Follow all existing guidelines
+   - Run `npm run dev` to test locally
+   - Ensure `npm run build` succeeds
+
+3. **Push to create PR**
+   ```bash
+   git push -u origin feature/your-feature-name
+   ```
+
+4. **Verify PR Checks**
+   - Wait for Netlify preview deployment
+   - Check the preview URL (commented on PR)
+   - Ensure all GitHub Actions checks pass
+   - Review any safety warnings
+
+#### PR Preview System
+- **Netlify Preview**: Every PR gets a unique preview URL
+- **Safety Checks**: Pre-deploy script runs automatically
+- **Build Validation**: GitHub Actions verify the build
+- **No Production Impact**: Changes are isolated until merged
+
+#### Important Notes
+- The pre-deploy check uses `--force` flag temporarily due to history manipulation issues
+- Preview deployments go to the "preview" environment
+- Production deployments only happen after merging to main
+- Cache-busting headers prevent stale content issues
 
 ### Plan-First Development Process
 1. **Planning Phase** (REQUIRED)
@@ -83,6 +125,7 @@ Each SCSS file has a specific purpose. NEVER cross these boundaries:
 ### Security Rules
 - NEVER introduce code that exposes or logs secrets/keys
 - NEVER commit secrets or keys to the repository
+- NEVER push directly to the main branch - always use PRs
 - Always follow security best practices
 
 ## Quick Start
