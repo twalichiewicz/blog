@@ -3,6 +3,7 @@
 /**
  * Pre-deployment Safety Check Script
  * Scans for potentially dangerous patterns before deployment
+ * Updated: Using ANSI colors instead of chalk for Netlify compatibility
  */
 
 const fs = require('fs');
@@ -183,6 +184,7 @@ function checkFile(filePath) {
 
 // Main execution
 function main() {
+  console.log('Pre-deploy check v2.0 - Using ANSI colors');
   console.log(colors.blue('\n🔍 Running pre-deployment safety checks...\n'));
   
   // Get all files to check
