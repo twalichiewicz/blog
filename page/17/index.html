@@ -6451,9 +6451,9 @@ init().catch(error => console.error('Fatal error:', error));
                                 </h3>
                                 <div class="portfolio-more-projects">
                                     
-                                        <div class="portfolio-more-project">Marketing tools</div>
-                                    
                                         <div class="portfolio-more-project">Case manager app</div>
+                                    
+                                        <div class="portfolio-more-project">Marketing tools</div>
                                     
                                         <div class="portfolio-more-project">Physician app</div>
                                     
@@ -7040,8 +7040,8 @@ init().catch(error => console.error('Fatal error:', error));
                 // Load the content
                 window.fetchAndDisplayContent(path, false, isProject);
                 
-                // Clean up the URL to show the actual post/project path
-                window.history.replaceState({ path: path, isDynamic: true, isProject: isProject }, '', path);
+                // DISABLED: This line was causing redirect issues
+                // window.history.replaceState({ path: path, isDynamic: true, isProject: isProject }, '', path);
             }
         }, 500); // Small delay to ensure everything is initialized
     }
