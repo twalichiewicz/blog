@@ -1,9 +1,9 @@
+/* Import custom cursors for demos - must be before tailwind */
+@import '@portfolio/demo-shared/styles/demo-cursors.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import custom cursors for demos */
-@import '@portfolio/demo-shared/styles/demo-cursors.css';
 
 @layer base {
   :root {
