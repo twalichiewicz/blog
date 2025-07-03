@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="potGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#654321;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="leafGrad">
+      <stop offset="0%" style="stop-color:#228B22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#006400;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Pot -->
+  <path d="M30 70 L35 85 L65 85 L70 70 Z" fill="url(#potGrad)" stroke="#5C4033" stroke-width="1"/>
+  <rect x="28" y="68" width="44" height="4" fill="#8B4513" stroke="#5C4033" stroke-width="1"/>
+  
+  <!-- Trunk -->
+  <path d="M50 70 C50 65 48 60 48 55 C48 50 52 48 52 45" 
+        fill="none" stroke="#654321" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Main foliage -->
+  <ellipse cx="50" cy="35" rx="25" ry="20" fill="url(#leafGrad)" opacity="0.9"/>
+  <ellipse cx="40" cy="40" rx="15" ry="12" fill="url(#leafGrad)" opacity="0.8"/>
+  <ellipse cx="60" cy="38" rx="18" ry="15" fill="url(#leafGrad)" opacity="0.85"/>
+  
+  <!-- Branch details -->
+  <path d="M48 45 C45 43 42 42 38 42" fill="none" stroke="#654321" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M52 45 C55 43 58 42 62 42" fill="none" stroke="#654321" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Leaf clusters -->
+  <circle cx="35" cy="30" r="8" fill="#228B22" opacity="0.7"/>
+  <circle cx="65" cy="32" r="7" fill="#228B22" opacity="0.7"/>
+  <circle cx="50" cy="25" r="9" fill="#228B22" opacity="0.8"/>
+  
+  <!-- Decorative details -->
+  <circle cx="45" cy="35" r="2" fill="#90EE90" opacity="0.6"/>
+  <circle cx="55" cy="37" r="2" fill="#90EE90" opacity="0.6"/>
+  <circle cx="50" cy="30" r="2" fill="#90EE90" opacity="0.6"/>
+</svg>

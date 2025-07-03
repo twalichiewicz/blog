@@ -24,6 +24,12 @@
         init() {
             console.log('[DemoWalkthrough] Initializing walkthrough system');
             
+            // REDIRECT FIX: Don't initialize on homepage to prevent interference
+            if (window.location.pathname === '/' && !window.location.search && !window.location.hash) {
+                console.log('[DemoWalkthrough] Skipping initialization on clean homepage');
+                return;
+            }
+            
             // Clean up previous initialization if any
             this.cleanup();
             

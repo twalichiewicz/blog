@@ -1,0 +1,32 @@
+/**
+ * Tab Switching Styles
+ * Simple display-based visibility control
+ */
+
+// Content areas - default state
+#postsContent {
+  // Blog content visible by default
+  display: block;
+  
+  &.js-inactive {
+    display: none !important;
+  }
+}
+
+#projectsContent {
+  // Portfolio content hidden by default
+  display: none;
+  
+  &.js-active {
+    display: block !important;
+  }
+}
+
+// Search bar - visible by default
+.search-bar {
+  display: block;
+  
+  &.js-hidden {
+    display: none !important;
+  }
+}

@@ -38,41 +38,49 @@
             }
             %>
             <% 
-            // Check if this is a regular blog post (not link or short)
+            // Determine post type for styling
+            const postType = post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post');
             const isRegularPost = !post.type && !post.short;
             %>
             
-            <% if (isRegularPost) { %>
-                <%# Use the Substack-style post-link partial for regular posts %>
-                <%- partial('post-link', { post: post }) %>
-            <% } else { %>
-                <%# Keep existing rendering for link posts and short posts %>
-                <% if (isLongPost) { %>
-                    <a href="<%- url_for(post.path) %>" class="post-link-wrapper no-external-indicators">
-                <% } %>
+            <a href="<%- url_for(post.path) %>" class="post-link-wrapper no-external-indicators">
                 <article class="post-list-item <%= classNames.join(' ') %>" id="<%= postId %>">
-                    <div class="post-byline">
-                        <%= date(post.date, 'MMMM D, YYYY') %> • 
-                        <%= post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post') %>
+                    <div class="post-byline" data-type="<%= postType %>">
+                        <%= date(post.date, 'MMMM D, YYYY') %>
                     </div>
-                    <% if (post.type === 'link') { %>
+                    
+                    <% if (isRegularPost) { %>
+                        <h3 class="preview-title"><%= post.title %></h3>
+                        <% if (post.subtitle || post.excerpt) { %>
+                            <p class="preview-excerpt"><%- post.subtitle || post.excerpt %></p>
+                        <% } %>
+                        <div class="preview-metadata">
+                            <% 
+                            // Calculate reading time
+                            let wordCount = 0;
+                            if (post._content) {
+                                const content = post._content.replace(/<\/?[^>]+(>|$)/g, '');
+                                wordCount = content.split(/\s+/).filter(word => word.length > 0).length;
+                            }
+                            const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+                            %>
+                            <span class="preview-reading-time"><%= readingTime %> min read</span>
+                        </div>
+                    <% } else if (post.type === 'link') { %>
+                        <h3><%= post.title %></h3>
+                        <% if (post.content) { %>
+                            <% 
+                            // Strip script tags from link post content to prevent HTML breaking
+                            const cleanContent = post.content
+                                .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+                                .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+                            %>
+                            <p><%- cleanContent %></p>
+                        <% } %>
                         <div class="link-share no-external-indicators">
-                            <% if (post.content) { %>
-                                <% 
-                                // Strip script tags from link post content to prevent HTML breaking
-                                const cleanContent = post.content
-                                    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-                                    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
-                                %>
-                                <p><%- cleanContent %></p>
-                            <% } %>
-                            
-                            <a href="<%= post.url %>" target="_blank" rel="noopener" class="post-list-item post-long post-link-wrapper">
+                            <a href="<%= post.url %>" target="_blank" rel="noopener" class="post-link-wrapper" onclick="event.stopPropagation();">
                                 <div class="link-text-group">
-                                    <%= post.title %>
-                                    <div class="link-source">
-                                        <span class="link-url"><%= new URL(post.url).hostname %></span>
-                                    </div>
+                                    <%= new URL(post.url).hostname %>
                                 </div>
                                 <span class="external-icon">↗</span>
                             </a>
@@ -81,10 +89,7 @@
                         <%- post.content %>
                     <% } %>
                 </article>
-                <% if (isLongPost) { %>
-                    </a>
-                <% } %>
-            <% } %>
+            </a>
             <% if (index < blogPosts.length - 1) { %>
                 <hr class="post-separator">
             <% } %>

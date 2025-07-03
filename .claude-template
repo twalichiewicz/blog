@@ -1,0 +1,9 @@
+Before starting work, please run `npm run onboard` to understand this codebase's structure and conventions.
+
+Key points:
+- This is a Hexo-based portfolio site
+- Always build before committing
+- Respect file boundaries and constraints
+- Use TodoWrite for task planning
+
+Now, here's what I need help with:

@@ -1,18 +1,41 @@
-# Portfolio Demos
+# Portfolio Demos System
 
-Interactive demonstrations for portfolio projects. Each demo is a self-contained web application that showcases specific features from the projects.
+This directory contains interactive demonstrations for portfolio projects. Each demo is a self-contained web application that showcases specific features or concepts from the projects.
+
+> **🤖 AI-Powered**: This demo system includes Claude AI integration for automatic error fixing and code generation.
 
 ## Quick Start
 
-```bash
-# Build all demos (automatically done during site build)
-npm run build:demos
+### 🚀 Running Demos
 
-# Start demo dev servers
+```bash
+# Install dependencies
+npm install
+
+# Start all demo dev servers
 npm run dev:demos
 
+# Build all demos (automatically done by npm run dev/build/test)
+npm run build:demos
+
 # Validate demo standards
-npm run test:demos
+npm run validate:demos
+
+# Auto-fix validation errors with Claude
+npm run fix:demos
+```
+
+### 🤖 Claude Auto-Fix
+
+```bash
+# Set up Claude API key
+export CLAUDE_API_KEY="sk-ant-..."
+
+# Fix demo validation errors automatically
+npm run fix:demos
+
+# Preview fixes without applying
+DRY_RUN=true npm run fix:demos
 ```
 
 ## Structure

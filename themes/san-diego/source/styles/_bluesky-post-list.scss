@@ -1,0 +1,338 @@
+@use 'variables';
+
+// Bluesky-inspired post list styling
+.blog-list {
+  .post-list-item {
+    // Clean Bluesky-like post cards
+    background: variables.$white;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 1px;
+    border: 1px solid variables.$border-color;
+    transition: background-color 0.15s ease;
+    position: relative;
+    
+    &:hover {
+      background-color: rgba(variables.$primary-color, 0.03);
+      cursor: pointer;
+    }
+    
+    // Remove default post-link-wrapper separator
+    .post-link-wrapper::after {
+      display: none;
+    }
+    
+    // Author-like header (date + type)
+    .post-byline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: variables.$text-color-secondary;
+      margin-bottom: 4px;
+      font-weight: 400;
+      
+      // Style the type badge
+      &::after {
+        content: attr(data-type);
+        padding: 2px 8px;
+        background: rgba(variables.$primary-color, 0.1);
+        color: variables.$primary-color;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 500;
+      }
+    }
+    
+    // Post title - main content style
+    h3, .preview-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 0 0 8px 0;
+      color: variables.$text-color;
+      
+      a {
+        color: inherit;
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+    
+    // Post excerpt/content
+    p, .preview-excerpt {
+      font-size: 15px;
+      line-height: 1.5;
+      color: variables.$text-color;
+      margin: 0 0 8px 0;
+    }
+    
+    // Metadata footer (reading time, etc)
+    .preview-metadata {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: variables.$text-color-secondary;
+      
+      .preview-reading-time {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        
+        &::before {
+          content: "•";
+          opacity: 0.5;
+        }
+      }
+    }
+    
+    // Remove cover images for cleaner look
+    .preview-cover-image {
+      display: none;
+    }
+    
+    // Link post styling
+    &.post-link {
+      .link-share {
+        .post-link-wrapper {
+          background: rgba(variables.$border-color, 0.3);
+          border: 1px solid variables.$border-color;
+          border-radius: 8px;
+          padding: 12px;
+          margin-top: 8px;
+          
+          &:hover {
+            background: rgba(variables.$border-color, 0.5);
+            border-color: rgba(variables.$primary-color, 0.3);
+            
+            .external-icon {
+              color: variables.$primary-color;
+            }
+          }
+          
+          .link-text-group {
+            font-size: 14px;
+            line-height: 1.4;
+          }
+          
+          .link-source {
+            margin-top: 4px;
+            
+            .link-url {
+              font-size: 12px;
+              color: variables.$text-color-secondary;
+            }
+          }
+          
+          .external-icon {
+            font-size: 16px;
+            color: variables.$text-color-secondary;
+            transition: color 0.15s ease;
+          }
+        }
+      }
+    }
+    
+    // Short post (musing) styling
+    &:has(p) {
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  // Post separators - thin lines like Bluesky
+  .post-separator {
+    height: 1px;
+    background: variables.$border-color;
+    border: none;
+    margin: 0;
+  }
+  
+  // Search container updates
+  .search-container {
+    margin-bottom: 16px;
+    padding: 16px;
+    background: rgba(variables.$primary-color, 0.03);
+    border-radius: 8px;
+    border: 1px solid variables.$border-color;
+    
+    .search-input-wrapper {
+      background: variables.$white;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid variables.$border-color;
+      transition: all 0.15s ease;
+      
+      &:focus-within {
+        border-color: variables.$primary-color;
+        box-shadow: 0 0 0 3px rgba(variables.$primary-color, 0.1);
+      }
+    }
+    
+    .search-input {
+      border: none;
+      background: transparent;
+      padding: 10px 36px 10px 36px;
+      font-size: 14px;
+      
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+    
+    .posts-only-button {
+      background: variables.$white;
+      border: 1px solid variables.$border-color;
+      color: variables.$text-color;
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.15s ease;
+      
+      &:hover {
+        background: rgba(variables.$primary-color, 0.05);
+        border-color: variables.$primary-color;
+        color: variables.$primary-color;
+      }
+      
+      &.active {
+        background: variables.$primary-color;
+        color: variables.$white;
+        border-color: variables.$primary-color;
+        
+        &:hover {
+          background: darken(variables.$primary-color, 5%);
+        }
+      }
+    }
+  }
+}
+
+// Dark mode adjustments
+@media (prefers-color-scheme: dark) {
+  .blog-list {
+    .post-list-item {
+      background: rgb(22, 24, 28);
+      border-color: rgb(46, 51, 60);
+      
+      &:hover {
+        background-color: rgba(variables.$primary-color-dark, 0.05);
+      }
+      
+      .post-byline {
+        color: variables.$text-color-secondary-dark;
+        
+        &::after {
+          background: rgba(variables.$primary-color-dark, 0.2);
+          color: variables.$primary-color-dark;
+        }
+      }
+      
+      h3, .preview-title {
+        color: variables.$text-color-dark;
+      }
+      
+      p, .preview-excerpt {
+        color: variables.$text-color-dark;
+      }
+      
+      .preview-metadata {
+        color: variables.$text-color-secondary-dark;
+      }
+      
+      &.post-link {
+        .link-share {
+          .post-link-wrapper {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgb(46, 51, 60);
+            
+            &:hover {
+              background: rgba(255, 255, 255, 0.05);
+              border-color: rgba(variables.$primary-color-dark, 0.3);
+              
+              .external-icon {
+                color: variables.$primary-color-dark;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .post-separator {
+      background: rgb(46, 51, 60);
+    }
+    
+    .search-container {
+      background: rgba(255, 255, 255, 0.02);
+      border-color: rgb(46, 51, 60);
+      
+      .search-input-wrapper {
+        background: rgb(22, 24, 28);
+        border-color: rgb(46, 51, 60);
+        
+        &:focus-within {
+          border-color: variables.$primary-color-dark;
+          box-shadow: 0 0 0 3px rgba(variables.$primary-color-dark, 0.1);
+        }
+      }
+      
+      .posts-only-button {
+        background: rgb(22, 24, 28);
+        border-color: rgb(46, 51, 60);
+        color: variables.$text-color-dark;
+        
+        &:hover {
+          background: rgba(variables.$primary-color-dark, 0.05);
+          border-color: variables.$primary-color-dark;
+          color: variables.$primary-color-dark;
+        }
+        
+        &.active {
+          background: variables.$primary-color-dark;
+          color: variables.$white;
+          border-color: variables.$primary-color-dark;
+        }
+      }
+    }
+  }
+}
+
+// Mobile responsiveness
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog-list {
+    .post-list-item {
+      padding: 12px;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+      
+      &:first-child {
+        border-top: none;
+      }
+      
+      h3, .preview-title {
+        font-size: 16px;
+      }
+      
+      p, .preview-excerpt {
+        font-size: 14px;
+      }
+    }
+    
+    .search-container {
+      padding: 12px;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+      margin-bottom: 0;
+      border-top: none;
+    }
+  }
+}

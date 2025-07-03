@@ -715,15 +715,21 @@
 		}
 
 		.tabs-wrapper {
-			display: none;
+			width: 100%;
+			padding: variables.$space-sm;
+			box-sizing: border-box;
+			margin-bottom: 0;
+			max-width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+			flex-shrink: 0;
 		}
 
 		.content-wrapper {
-			position: absolute;
-			top: 0;
-			left: 0;
+			position: relative;
+			flex: 1;
 			width: 100%;
-			height: calc(100dvh - 64px); // Match tablet height fix
+			height: calc(100dvh - 120px); // Account for tabs height
 			min-height: 0;
 			overflow-y: auto;
 			overflow-x: hidden;
@@ -822,16 +828,15 @@
 		}
 
 		.mobile-tabs {
-			display: none;
+			flex-shrink: 0;
+			margin: 0;
+			padding: 4px;
+			gap: 4px;
 		}
 	}
 
-	#postsContent,
-	#projectsContent {
-		display: block;
-		visibility: visible !important;
-		opacity: 1 !important;
-	}
+	// Removed forced visibility to allow tab switching to work properly
+	// Tab visibility is now controlled by JavaScript and _tab-switching.scss
 
 	.portfolio-list {
 		width: 100%;

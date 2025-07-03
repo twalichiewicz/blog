@@ -59,7 +59,9 @@
     "build:clear-cache": "node build-system/build-utils.js clear-cache",
     "build:install-deps": "node build-system/build-utils.js install-deps",
     "build:all": "node build-system/build-utils.js build-all",
-    "fix:sass-warnings": "node tools/fix-sass-warnings.js"
+    "fix:sass-warnings": "node tools/fix-sass-warnings.js",
+    "onboard": "node build-system/claude-onboard.js",
+    "claude": "node build-system/claude-onboard.js"
   },
   "hexo": {
     "version": "7.3.0"
@@ -69,8 +71,10 @@
     "ajv": "^8.17.1",
     "blessed": "^0.1.81",
     "blessed-contrib": "^4.11.0",
+    "boxen": "^8.0.1",
     "braces": "^3.0.3",
     "chart.js": "^4.5.0",
+    "cli-progress": "^3.12.0",
     "cli-table3": "^0.6.5",
     "hawk": "^9.0.2",
     "hexo": "^7.3.0",
@@ -93,7 +97,7 @@
     "highlight.js": "^11.11.1",
     "js-yaml": "^4.1.0",
     "minimatch": "^3.1.2",
-    "ora": "^8.2.0",
+    "ora": "^5.4.1",
     "sass": "^1.89.2",
     "tough-cookie": "^5.1.2",
     "two.js": "^0.8.16",
@@ -112,7 +116,7 @@
   },
   "notes": "All vulnerabilities have been addressed by removing hexo-admin and hexo-pdf, and replacing hoek with @hapi/hoek.",
   "devDependencies": {
-    "chalk": "^5.4.1",
+    "chalk": "^4.1.2",
     "chokidar": "^4.0.3",
     "clean-css": "^5.3.3",
     "concurrently": "^9.2.0",

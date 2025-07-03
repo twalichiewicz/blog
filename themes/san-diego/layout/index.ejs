@@ -55,9 +55,29 @@
             <% 
             // Separate posts and projects
             const allPosts = site.posts.toArray();
-            const blogPosts = allPosts.filter(post => 
-                post.tags && post.tags.toArray().some(tag => tag.name === 'blog') && !post.draft
-            ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            
+            // Define the allowed long form post titles
+            const allowedLongFormPosts = [
+                "How creative mediums find their voice",
+                "Rethinking mobile hardware interaction patterns",
+                "macOS + spatialOS = ?"
+            ];
+            
+            const blogPosts = allPosts.filter(post => {
+                // Must have blog tag and not be a draft
+                if (!post.tags || !post.tags.toArray().some(tag => tag.name === 'blog') || post.draft) {
+                    return false;
+                }
+                
+                // Filter to only show allowed long form posts
+                const isLongFormPost = !post.type && !post.short; // Regular posts (not links or musings)
+                if (isLongFormPost) {
+                    return allowedLongFormPosts.includes(post.title);
+                }
+                
+                // Show all link posts and musings
+                return true;
+            }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
             const projectPosts = allPosts.filter(post => 
                 post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio') && !post.draft
@@ -75,7 +95,10 @@
 <%- partial('_partial/contact-modal') %>
 <%- partial('_partial/impact-modal') %>
 
-<script type="module" src="<%- url_for('js/blog.js') %>"></script>
+<!-- Temporarily using standalone version without ES6 imports -->
+<script src="<%- url_for('js/blog-standalone.js') %>"></script>
+<script src="<%- url_for('js/code-sandbox.js') %>"></script>
+<script src="<%- url_for('js/blog-debug.js') %>"></script>
 <script src="<%- url_for('js/portfolio-filters.js') %>"></script>
 <script src="<%- url_for('js/blog-init.js') %>"></script>
 <script src="<%- url_for('js/anchor-links-simple.js') %>"></script>
@@ -160,6 +183,36 @@
 	});
 	// Handle direct navigation to blog posts and projects via URL parameter
 	document.addEventListener('DOMContentLoaded', function() {
+	    // REDIRECT FIX: Enhanced protection against unwanted redirects
+	    if (window.location.pathname === '/' && window.location.search === '' && window.location.hash === '') {
+	        console.log('[RedirectFix] On homepage, clearing any problematic states');
+	        
+	        // Clear ALL session storage that might cause redirects
+	        sessionStorage.removeItem('previousUrl');
+	        sessionStorage.removeItem('previousTab');
+	        sessionStorage.removeItem('portfolio-back-navigation');
+	        sessionStorage.removeItem('currentPage'); // Additional cleanup
+	        sessionStorage.removeItem('lastVisited'); // Additional cleanup
+	        
+	        // Clear any problematic history states
+	        if (history.state && history.state.path) {
+	            if (history.state.path.includes('YouTube-Timecode-Commentary') || 
+	                history.state.path.includes('/2025/06/25/') ||
+	                history.state.isDynamic) {
+	                console.log('[RedirectFix] Clearing problematic history state:', history.state);
+	                history.replaceState({ path: '/', isInitial: true, isDynamic: false }, '', '/');
+	            }
+	        }
+	        
+	        // Clear any stored navigation intentions
+	        if (window.fetchAndDisplayContent) {
+	            window.fetchAndDisplayContent = null;
+	        }
+	        
+	        // Don't process any URL parameters if we're on the clean homepage
+	        return;
+	    }
+	    
 	    // Check if we have a post or project parameter
 	    const urlParams = new URLSearchParams(window.location.search);
 	    const postPath = urlParams.get('post');

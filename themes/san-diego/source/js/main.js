@@ -1,40 +1,45 @@
 /**
  * Main JavaScript Entry Point
  * Import and initialize all modules
+ * Updated to use new core architecture system with legacy compatibility
  */
-import { initSectionAnimations, initColumnTitleScrollDetection } from './utils/animations.js';
+
+// Import legacy integration layer first
+import './legacy-integration.js';
+
+// Import utilities that still need direct initialization
 import { initializeSoundEffects } from './utils/sound-effects.js';
 import { initResponsiveTables } from './components/responsive-tables.js';
 
 document.addEventListener('DOMContentLoaded', function () {
-	// Initialize sound effects first
+	// Initialize sound effects first (not state-dependent)
 	initializeSoundEffects();
 
-	// Initialize color scheme functionality
-	// Theme system removed - using prefers-color-scheme only
-
-	// Initialize mobile expandable header
+	// Initialize mobile expandable header (not state-dependent)
 	initMobileExpandableHeader();
-
-	// Initialize animations for sections
-	initSectionAnimations({
-		sectionSelector: '.section',
-		blogPostSelector: '.blog-post',
-		portfolioItemSelector: '.portfolio-item'
-	});
-
-	// Initialize column title scroll detection
-	initColumnTitleScrollDetection({
-		postsContentId: 'postsContent',
-		projectsContentId: 'projectsContent'
-	});
 	
-	// Initialize responsive table enhancements
+	// Initialize responsive table enhancements (not state-dependent)
 	initResponsiveTables();
 	
-	// Initialize notebook hover sounds
+	// Initialize notebook hover sounds (will coordinate with state)
 	initNotebookHoverSounds();
+
+	console.log('[Main] Basic initialization complete');
 });
+
+/**
+ * Set up final integrations after all systems are ready
+ */
+function setupFinalIntegrations() {
+	// Re-initialize notebook hover sounds to ensure they work with new system
+	const notebooks = document.querySelectorAll('.portfolio-featured-grid .portfolio-item-wrapper');
+	if (notebooks.length === 0) {
+		// Content might be hidden, try again after a short delay
+		setTimeout(() => {
+			initNotebookHoverSounds();
+		}, 500);
+	}
+}
 
 /**
  * Initialize sound effects for notebook hover on desktop
