@@ -28,6 +28,9 @@ node_modules/
 .idea/
 .cursor/
 *.mdc
+
+# Netlify
+.netlify/
 *.swp
 *.swo
 *~

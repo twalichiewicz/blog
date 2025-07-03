@@ -1,0 +1,119 @@
+name: PR Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  safety-check:
+    name: Run Safety Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run pre-deployment checks
+        run: npm run pre-deploy
+        continue-on-error: true
+        id: safety-check
+        
+      - name: Comment PR with safety check results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let comment = '## 🔍 Safety Check Results\n\n';
+            
+            if (${{ steps.safety-check.outcome == 'failure' }}) {
+              comment += '❌ **Safety checks failed!** Please fix the issues below before merging:\n\n';
+              comment += 'Run `npm run pre-deploy` locally to see detailed results.\n';
+            } else {
+              comment += '✅ **All safety checks passed!**\n';
+            }
+            
+            // Find and update or create comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('Safety Check Results')
+            );
+            
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: comment
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment
+              });
+            }
+
+  build-test:
+    name: Test Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build demos
+        run: npm run build:demos
+        
+      - name: Build site
+        run: npm run build
+        
+      - name: Check build output
+        run: |
+          if [ ! -d "public" ]; then
+            echo "❌ Build failed - no public directory found"
+            exit 1
+          fi
+          
+          echo "✅ Build successful"
+          echo "📊 Build size: $(du -sh public | cut -f1)"
+          echo "📁 Total files: $(find public -type f | wc -l)"
+
+  # Optional: Add more checks
+  # lighthouse:
+  #   name: Lighthouse CI
+  #   runs-on: ubuntu-latest
+  #   needs: build-test
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Run Lighthouse CI
+  #       uses: treosh/lighthouse-ci-action@v10
+  #       with:
+  #         urls: |
+  #           http://localhost:4000
+  #         uploadArtifacts: true

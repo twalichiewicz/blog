@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**Quick Start:** Run `npm run onboard` for an interactive orientation to this codebase.
+
 ## Table of Contents
 
 1. [🚨 Critical Rules & Warnings](#-critical-rules--warnings)
@@ -17,6 +19,46 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 11. [Technical Debt Registry](#technical-debt-registry)
 
 ## 🚨 Critical Rules & Warnings
+
+### Development Workflow Requirements
+**MANDATORY: Use Git Worktrees and Plan-First Approach**
+- ALWAYS use git worktrees for new features or fixes
+- ALWAYS create a detailed plan BEFORE writing any code
+- Create implementation plans in `*-plan.md` files
+- Get user approval on plans before proceeding
+- This prevents issues like the redirect bug that affected production
+
+### Git Worktree Workflow
+```bash
+# Create worktree for new feature
+git worktree add -b feature/new-feature ../blog-new-feature
+
+# List worktrees
+git worktree list
+
+# Remove worktree when done
+git worktree remove ../blog-new-feature
+```
+
+### Plan-First Development Process
+1. **Planning Phase** (REQUIRED)
+   - Create `feature-name-plan.md` with:
+     - Problem statement
+     - Proposed solution
+     - Files to be modified
+     - Potential risks
+     - Testing strategy
+   - Get user approval before proceeding
+
+2. **Implementation Phase**
+   - Work in git worktree
+   - Follow the approved plan exactly
+   - Test thoroughly before merging
+
+3. **Verification Phase**
+   - Run all tests
+   - Build and verify locally
+   - Check for unintended side effects
 
 ### Build Requirements
 **ALWAYS run `npm run build` before committing ANY changes**

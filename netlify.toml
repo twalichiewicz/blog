@@ -1,0 +1,108 @@
+# Netlify Configuration
+# This file configures how Netlify builds and deploys the site
+
+[build]
+  # Build command - includes pre-deployment checks
+  command = "npm run build:prod"
+  
+  # Directory to deploy (Hexo outputs here)
+  publish = "public"
+  
+  # Directory with functions (if needed later)
+  # functions = "netlify/functions"
+
+[build.environment]
+  # Use Node 18 LTS
+  NODE_VERSION = "18"
+  
+  # Increase Node memory for large builds
+  NODE_OPTIONS = "--max_old_space_size=4096"
+
+# Production context - runs on main branch
+[context.production]
+  command = "npm run build:prod"
+  
+  [context.production.environment]
+    HUGO_ENV = "production"
+
+# Deploy preview context - runs for PRs
+[context.deploy-preview]
+  command = "npm run build:prod"
+  
+  [context.deploy-preview.environment]
+    # Can add preview-specific env vars here
+    PREVIEW = "true"
+
+# Branch deploy context
+[context.branch-deploy]
+  command = "npm run build:prod"
+
+# Headers for all routes
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security headers
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Cache control - Netlify handles this well but we can be explicit
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Cache static assets
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/styles/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirects (example - customize as needed)
+# [[redirects]]
+#   from = "/old-path"
+#   to = "/new-path"
+#   status = 301
+
+# Post-processing
+[build.processing]
+  skip_processing = false
+  
+[build.processing.css]
+  bundle = true
+  minify = true
+  
+[build.processing.js]
+  bundle = true
+  minify = true
+  
+[build.processing.html]
+  pretty_urls = true
+  
+[build.processing.images]
+  compress = true
+
+# Plugins (optional but useful)
+[[plugins]]
+  # Lighthouse CI for performance checks on every deploy
+  package = "@netlify/plugin-lighthouse"
+  
+  [plugins.inputs]
+    # Test the homepage
+    url = "/"
+    
+    # Thresholds (optional)
+    thresholds = { performance = 0.9, accessibility = 0.9, "best-practices" = 0.9, seo = 0.9 }
+
+# Development settings
+[dev]
+  command = "npm run dev"
+  port = 4000
+  targetPort = 4000

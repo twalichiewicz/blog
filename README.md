@@ -197,6 +197,45 @@ See [Claude Auto-Fix Documentation](./docs/CLAUDE-AUTOFIX-SYSTEM.md) for complet
   4. Analyze build size
   5. Deploy to GitHub Pages
 
+### 🚨 Emergency Rollback Procedure
+
+If a deployment causes issues in production (redirect loops, broken functionality, etc.):
+
+#### Quick Rollback (< 2 minutes)
+```bash
+# 1. Find the last known good commit
+git log --oneline -10
+
+# 2. Reset to that commit
+git reset --hard <commit-hash>
+# Example: git reset --hard b487fa843
+
+# 3. Force push to main
+git push --force origin main
+
+# 4. Trigger GitHub Pages rebuild
+git commit --allow-empty -m "Force rebuild after rollback"
+git push origin main
+```
+
+#### Cache Issues After Rollback
+If users still see the broken version due to browser caching:
+
+1. **Clear browser cache** (varies by browser):
+   - Chrome: Cmd+Shift+R (Mac) / Ctrl+Shift+R (Windows)
+   - Safari: Cmd+Option+R or Develop menu → Empty Caches
+   - Firefox: Cmd+Shift+R (Mac) / Ctrl+Shift+R (Windows)
+
+2. **Force new deployment** with cache-busting:
+   - The site now includes cache-control headers and version query parameters
+   - Each deployment will force browsers to fetch fresh assets
+
+#### Prevention Measures
+- **Always run** `npm run pre-deploy` before deploying
+- **Test locally** with `npm run build:prod && npm run server`
+- **Check multiple browsers** before pushing to production
+- **Use feature branches** for risky changes
+
 ---
 
 ## 🔧 Configuration Highlights
