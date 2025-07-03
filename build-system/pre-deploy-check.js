@@ -238,13 +238,21 @@ function main() {
   
   // Exit with error if errors found
   if (results.errors.length > 0) {
-    console.log(colors.bold.red('\n❌ Deployment blocked due to errors. Please fix them before deploying.\n'));
-    process.exit(1);
+    console.log(colors.bold.red('\n❌ ERRORS found that would normally block deployment.\n'));
+    if (!process.argv.includes('--force')) {
+      console.log(colors.red('Deployment blocked. Use --force to deploy anyway (NOT RECOMMENDED).\n'));
+      process.exit(1);
+    } else {
+      console.log(colors.yellow('⚠️  FORCE FLAG DETECTED: Bypassing errors. This is dangerous!\n'));
+      console.log(colors.yellow('These errors should be fixed before production deployment.\n'));
+    }
   } else if (results.warnings.length > 0) {
     console.log(colors.bold.yellow('\n⚠️  Warnings found. Consider fixing them before deployment.\n'));
-    console.log(colors.gray('Run with --force to deploy anyway.\n'));
     if (!process.argv.includes('--force')) {
+      console.log(colors.gray('Run with --force to deploy anyway.\n'));
       process.exit(1);
+    } else {
+      console.log(colors.yellow('⚠️  Continuing with --force flag. Warnings will not block deployment.\n'));
     }
   } else {
     console.log(colors.bold.green('\n✅ All checks passed! Safe to deploy.\n'));
