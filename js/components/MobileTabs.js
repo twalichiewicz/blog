@@ -1,7 +1,12 @@
 /**
  * Mobile Tabs Component
  * A unified tab handling solution for mobile devices
+ * Refactored to use centralized state management system
  */
+
+import { eventBus } from '../core/StateEventBus.js';
+import { stateManager } from '../core/ApplicationStateManager.js';
+
 export default class MobileTabs {
 	/**
 	 * Constructor
@@ -13,8 +18,6 @@ export default class MobileTabs {
 			tabsWrapperSelector: '.tabs-wrapper',
 			tabContainerSelector: '.mobile-tabs',
 			tabButtonSelector: '.tab-button',
-			postsContentId: 'postsContent',
-			projectsContentId: 'projectsContent',
 			searchBarSelector: '.search-bar',
 			activeClass: 'active',
 			transitionDuration: 150,
@@ -22,38 +25,36 @@ export default class MobileTabs {
 		};
 
 		// Store bound listeners for removal
-		this.boundListeners = {
-			handleTabClick: null,
-			handleResize: null,
-			handleOrientationChange: null
-		};
+		this.boundListeners = {};
 		this.tabClickListeners = new Map(); // Store individual tab click listeners
 
-		// Initialize state
-		this.userSelectedTab = null;
-		this.currentDeviceType = '';
+		this.isInitialized = false;
+		this.debugMode = stateManager.getStateValue('debugMode') || false;
 
 		// Cache DOM elements
 		this.cacheElements();
 
 		// Exit if no tab container
-		if (!this.tabContainer) return;
+		if (!this.tabContainer) {
+			console.warn('[MobileTabs] Tab container not found, exiting initialization');
+			return;
+		}
 
-		// Set up event listeners
-		this.setupEventListeners();
+		// Set up event listeners for state management
+		this.setupStateEventListeners();
 
-		// Initialize based on current device type
-		this.currentDeviceType = this.getDeviceType();
-		this.handleDeviceChange(true);
-
-		// Initialize desktop view if needed
-		this.initializeDesktopView();
+		// Set up DOM event listeners
+		this.setupDomEventListeners();
 
 		// Initialize the slider
 		this.initializeSlider();
 
-		// Validate active state to ensure UI consistency
-		this.validateActiveState();
+		// Register with initialization coordinator
+		eventBus.on('initializeMobileTabs', this.initialize.bind(this));
+
+		if (this.debugMode) {
+			console.log('[MobileTabs] Constructor completed, waiting for initialization signal');
+		}
 	}
 
 	/**
@@ -66,40 +67,198 @@ export default class MobileTabs {
 		if (!this.tabContainer) return;
 
 		this.tabButtons = document.querySelectorAll(this.config.tabButtonSelector);
-		this.postsContent = document.getElementById(this.config.postsContentId);
-		this.projectsContent = document.getElementById(this.config.projectsContentId);
 		this.searchBar = document.querySelector(this.config.searchBarSelector);
 	}
 
 	/**
-	 * Set up event listeners
+	 * Initialize the mobile tabs system (called by initialization coordinator)
 	 */
-	setupEventListeners() {
-		// Ensure previous listeners are removed before adding new ones
-		this.removeEventListeners();
+	initialize() {
+		if (this.isInitialized) {
+			if (this.debugMode) {
+				console.log('[MobileTabs] Already initialized, skipping');
+			}
+			return;
+		}
 
-		// Create bound versions of handlers
-		this.boundListeners.handleResize = this.handleResize.bind(this);
-		this.boundListeners.handleOrientationChange = this.handleDeviceChange.bind(this);
+		if (this.debugMode) {
+			console.log('[MobileTabs] Starting initialization');
+		}
 
+		// Get current device type from state manager
+		const deviceType = stateManager.getStateValue('deviceType');
+		this.handleDeviceTypeChange(deviceType);
+
+		// Mark as initialized
+		this.isInitialized = true;
+
+		// Register as ready
+		stateManager.registerSystemReady('mobileTabs');
+
+		if (this.debugMode) {
+			console.log('[MobileTabs] Initialization complete');
+		}
+	}
+
+	/**
+	 * Set up state management event listeners
+	 */
+	setupStateEventListeners() {
+		// Listen for tab changes from state manager
+		eventBus.on('tabChanged', this.handleTabChange.bind(this));
+		
+		// Listen for device type changes
+		eventBus.on('deviceTypeChanged', this.handleDeviceTypeChangeEvent.bind(this));
+		
+		// Listen for state changes
+		eventBus.on('stateChanged', this.handleStateChange.bind(this));
+	}
+
+	/**
+	 * Set up DOM event listeners
+	 */
+	setupDomEventListeners() {
 		// Tab button click events
 		this.tabButtons.forEach(button => {
-			// Create a unique bound handler for each button to manage individually if needed,
-			// or use a shared one if parameters aren't button-specific.
-			// Here, we use a shared handler factory approach.
 			const handler = (e) => {
 				const type = e.currentTarget.dataset.type;
-				this.switchTab(type, true);
+				this.handleUserTabClick(type);
 			};
-			this.tabClickListeners.set(button, handler); // Store handler associated with button
+			this.tabClickListeners.set(button, handler);
 			button.addEventListener('click', handler);
 		});
 
-		// Window resize event
-		window.addEventListener('resize', this.boundListeners.handleResize);
+	}
 
-		// Device orientation change
-		window.addEventListener('orientationchange', this.boundListeners.handleOrientationChange);
+	/**
+	 * Handle user tab clicks
+	 * @param {string} tabType - Type of tab clicked ('blog' or 'portfolio')
+	 */
+	handleUserTabClick(tabType) {
+		if (this.debugMode) {
+			console.log('[MobileTabs] User clicked tab:', tabType);
+		}
+
+		// Update state manager with user selection
+		stateManager.setActiveTab(tabType, true, 'user');
+	}
+
+	/**
+	 * Handle tab changes from state manager
+	 * @param {Object} data - Tab change event data
+	 */
+	handleTabChange(data) {
+		const { newTab, deviceType, source } = data;
+		
+		if (this.debugMode) {
+			console.log('[MobileTabs] Handling tab change:', { newTab, deviceType, source });
+		}
+
+		// Update UI to reflect new tab
+		this.updateTabButtons(newTab);
+		this.updateSlider();
+
+		// Show/hide tabs wrapper based on device type
+		if (deviceType === 'desktop') {
+			if (this.tabsWrapper) {
+				this.tabsWrapper.style.display = 'none';
+			}
+		} else {
+			if (this.tabsWrapper) {
+				this.tabsWrapper.style.display = 'block';
+			}
+		}
+
+		// Handle special functionality for specific tabs
+		if (newTab === 'blog') {
+			if (window.initializePostsOnlyButton) {
+				window.initializePostsOnlyButton();
+			}
+		} else if (newTab === 'portfolio') {
+			if (window.initializeProjectToggle) {
+				window.initializeProjectToggle();
+			}
+			
+			// Dispatch portfolio-loaded event for carousel initialization
+			setTimeout(() => {
+				if (this.debugMode) {
+					console.log('[MobileTabs] Dispatching portfolio-loaded event');
+				}
+				document.dispatchEvent(new Event('portfolio-loaded'));
+				
+				// Check if carousel needs position restoration
+				if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
+					if (this.debugMode) {
+						console.log('[MobileTabs] Triggering carousel reinitialization');
+					}
+					window._notebookCarousel.reinitialize();
+				}
+			}, 50);
+		}
+	}
+
+	/**
+	 * Handle device type changes from state manager
+	 * @param {Object} data - Device type change event data
+	 */
+	handleDeviceTypeChangeEvent(data) {
+		const { newType } = data;
+		this.handleDeviceTypeChange(newType);
+	}
+
+	/**
+	 * Handle device type changes
+	 * @param {string} deviceType - New device type
+	 */
+	handleDeviceTypeChange(deviceType) {
+		if (this.debugMode) {
+			console.log('[MobileTabs] Handling device type change:', deviceType);
+		}
+
+		// Show/hide tabs based on device type
+		if (deviceType === 'desktop') {
+			if (this.tabsWrapper) {
+				this.tabsWrapper.style.display = 'none';
+			}
+		} else {
+			if (this.tabsWrapper) {
+				this.tabsWrapper.style.display = 'block';
+			}
+		}
+	}
+
+	/**
+	 * Handle general state changes
+	 * @param {Object} data - State change event data
+	 */
+	handleStateChange(data) {
+		// Handle any other state changes if needed
+		if (this.debugMode && data.updates.activeTab) {
+			console.log('[MobileTabs] Active tab changed in state:', data.updates.activeTab);
+		}
+	}
+
+	/**
+	 * Update tab button states
+	 * @param {string} activeTab - The active tab type
+	 */
+	updateTabButtons(activeTab) {
+		this.tabButtons.forEach(button => {
+			const isActive = button.dataset.type === activeTab;
+			
+			if (isActive) {
+				button.classList.add(this.config.activeClass);
+				button.setAttribute('aria-selected', 'true');
+			} else {
+				button.classList.remove(this.config.activeClass);
+				button.setAttribute('aria-selected', 'false');
+			}
+		});
+
+		// Update container data attribute
+		if (this.tabContainer) {
+			this.tabContainer.setAttribute('data-active-tab', activeTab);
+		}
 	}
 
 	/**
