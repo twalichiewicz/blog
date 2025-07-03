@@ -62,6 +62,38 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
         cname: thomas.design
+    
+    - name: Create production deployment status
+      if: github.ref == 'refs/heads/main'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          try {
+            // Create a deployment for production
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.sha,
+              task: 'deploy',
+              auto_merge: false,
+              required_contexts: [],
+              environment: 'github-pages',
+              description: 'Production deployment'
+            });
+            
+            // Create a successful deployment status
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deployment.data.id,
+              state: 'success',
+              environment_url: 'https://thomas.design',
+              description: 'Deployed to production',
+              auto_inactive: false
+            });
+          } catch (error) {
+            console.log('Production deployment status creation failed:', error);
+          }
         
     - name: Create deployment status for PR
       if: github.event_name == 'pull_request'
@@ -77,7 +109,7 @@ jobs:
               task: 'deploy',
               auto_merge: false,
               required_contexts: [],
-              environment: 'github-pages',
+              environment: 'preview',
               description: 'PR Build Validation'
             });
             
