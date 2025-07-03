@@ -75,7 +75,8 @@
         
         // Create iframe for inline demo
         const iframe = document.createElement('iframe');
-        iframe.src = `/demos/${componentName}/`;
+        // Use absolute path from site root
+        iframe.src = `/demos/${componentName}/index.html`;
         iframe.frameBorder = '0';
         iframe.allowFullscreen = true;
         iframe.style.width = '100%';
