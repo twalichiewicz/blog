@@ -102,11 +102,13 @@ function buildDemo(demoName, allDemos, skipValidation = false) {
             }
         }
         
-        // Install dependencies if node_modules doesn't exist
+        // Install dependencies (always in CI to ensure shared deps are linked)
         const nodeModulesPath = path.join(demoPath, 'node_modules');
-        if (!fs.existsSync(nodeModulesPath)) {
+        const isCI = process.env.CI === 'true';
+        if (!fs.existsSync(nodeModulesPath) || isCI) {
             log(`📦 Installing dependencies for ${demoName}...`);
-            execSync('npm install', { cwd: demoPath, stdio: 'pipe' });
+            // Force reinstall to ensure shared dependencies are properly linked
+            execSync('npm install --force', { cwd: demoPath, stdio: 'pipe' });
         }
         
         // Build the demo
@@ -177,6 +179,16 @@ function main() {
     }
     
     log(`📁 Found ${demos.length} demo project(s): ${demos.join(', ')}`);
+    
+    // Install shared dependencies first (critical for CI)
+    const sharedPath = path.join(DEMOS_DIR, 'shared');
+    if (fs.existsSync(sharedPath)) {
+        const sharedNodeModules = path.join(sharedPath, 'node_modules');
+        if (!fs.existsSync(sharedNodeModules) || process.env.CI === 'true') {
+            log('📦 Installing shared dependencies...');
+            execSync('npm install', { cwd: sharedPath, stdio: 'pipe' });
+        }
+    }
     
     // First run validation on all demos to show complete report
     if (!skipValidation) {
