@@ -1,5 +1,7 @@
 # thomas.design Blog
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR-SITE-ID/deploy-status)](https://app.netlify.com/sites/whimsical-cheesecake-adfa17/deploys)
+
 A sophisticated Hexo-powered portfolio and blog for Thomas Walichiewicz, featuring a custom theme with advanced performance optimizations, rich media galleries, and professional content management capabilities.
 
 ---
