@@ -3,8 +3,7 @@ name: Optimize and Deploy
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  # Remove pull_request trigger - Netlify handles PR previews
 
 jobs:
   optimize-and-deploy:

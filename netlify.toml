@@ -71,35 +71,19 @@
 #   to = "/new-path"
 #   status = 301
 
-# Post-processing
+# Post-processing - Skip for Hexo sites
+# Hexo already handles minification and optimization
 [build.processing]
-  skip_processing = false
-  
-[build.processing.css]
-  bundle = true
-  minify = true
-  
-[build.processing.js]
-  bundle = true
-  minify = true
-  
-[build.processing.html]
-  pretty_urls = true
-  
-[build.processing.images]
-  compress = true
+  skip_processing = true
 
 # Plugins (optional but useful)
-[[plugins]]
-  # Lighthouse CI for performance checks on every deploy
-  package = "@netlify/plugin-lighthouse"
-  
-  [plugins.inputs]
-    # Test the homepage
-    url = "/"
-    
-    # Thresholds (optional)
-    thresholds = { performance = 0.9, accessibility = 0.9, "best-practices" = 0.9, seo = 0.9 }
+# Uncomment to enable Lighthouse performance monitoring
+# [[plugins]]
+#   package = "@netlify/plugin-lighthouse"
+#   
+#   [plugins.inputs]
+#     url = "/"
+#     thresholds = { performance = 0.9, accessibility = 0.9, "best-practices" = 0.9, seo = 0.9 }
 
 # Development settings
 [dev]
