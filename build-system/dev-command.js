@@ -12,6 +12,7 @@
 
 const BuildManager = require('./BuildManager');
 const SelfHealingManager = require('./self-healing-manager');
+const DevSafetyCheck = require('./dev-safety-check');
 const { spawn } = require('child_process');
 const chokidar = require('chokidar');
 const path = require('path');
@@ -22,6 +23,8 @@ class DevCommand extends BuildManager {
     this.watchers = [];
     this.servers = new Map();
     this.selfHealing = new SelfHealingManager();
+    this.safetyCheck = new DevSafetyCheck();
+    this.warningsShown = new Set(); // Track shown warnings to avoid spam
   }
 
   async run() {
@@ -44,6 +47,9 @@ class DevCommand extends BuildManager {
       // Phase 3: Setup file watching
       this.setupWatchers();
       
+      // Phase 4: Initial safety scan
+      await this.runInitialSafetyCheck();
+      
       this.endTimer(startTime, 'Development mode ready');
       this.log('🎉 Ready for development! Site running at http://localhost:4000', 'success');
       
@@ -53,6 +59,46 @@ class DevCommand extends BuildManager {
     } catch (error) {
       this.log(`Development startup failed: ${error.message}`, 'error');
       process.exit(1);
+    }
+  }
+
+  async runInitialSafetyCheck() {
+    this.log('🔍 Running initial safety check...', 'step');
+    
+    const glob = require('glob');
+    const jsFiles = glob.sync('themes/san-diego/source/js/**/*.js', { cwd: this.root });
+    const ejsFiles = glob.sync('themes/san-diego/layout/**/*.ejs', { cwd: this.root });
+    
+    let totalWarnings = 0;
+    const fileWarnings = [];
+    
+    [...jsFiles, ...ejsFiles].forEach(file => {
+      if (this.safetyCheck.shouldCheckFile(file)) {
+        const warnings = this.safetyCheck.checkFile(path.join(this.root, file));
+        if (warnings.length > 0) {
+          totalWarnings += warnings.length;
+          fileWarnings.push({ file, warnings });
+        }
+      }
+    });
+    
+    if (totalWarnings > 0) {
+      this.log(`⚠️  Found ${totalWarnings} safety warning${totalWarnings > 1 ? 's' : ''} in ${fileWarnings.length} file${fileWarnings.length > 1 ? 's' : ''}:`, 'warning');
+      
+      // Show first 5 files with warnings
+      fileWarnings.slice(0, 5).forEach(({ file, warnings }) => {
+        this.log(`   ${file}:`, 'plain');
+        const formatted = this.safetyCheck.formatWarnings(warnings);
+        formatted.forEach(w => this.log(`     ${w}`, 'plain'));
+      });
+      
+      if (fileWarnings.length > 5) {
+        this.log(`   ... and ${fileWarnings.length - 5} more files`, 'plain');
+      }
+      
+      this.log('💡 Run "npm run pre-deploy" for a full safety report', 'info');
+    } else {
+      this.log('✅ No critical safety issues found', 'success');
     }
   }
 
@@ -100,8 +146,8 @@ class DevCommand extends BuildManager {
       this.log('Main site up-to-date', 'success');
     }
     
-    // Start Hexo server
-    const hexoServer = spawn('npx', ['hexo', 'server'], {
+    // Start Hexo server with dev config
+    const hexoServer = spawn('npx', ['hexo', 'server', '--config', '_config.yml,_config.dev.yml'], {
       cwd: this.root,
       stdio: ['pipe', 'pipe', 'pipe']
     });
@@ -227,6 +273,22 @@ class DevCommand extends BuildManager {
   }
   
   async handleContentChange(filePath) {
+    // Run safety check if applicable
+    if (this.safetyCheck.shouldCheckFile(filePath)) {
+      const warnings = this.safetyCheck.checkFile(path.join(this.root, filePath));
+      if (warnings.length > 0) {
+        const warningKey = `${filePath}:${warnings.map(w => w.message).join(',')}`;
+        
+        // Only show each unique warning once per file
+        if (!this.warningsShown.has(warningKey)) {
+          this.warningsShown.add(warningKey);
+          this.log(`⚠️  Safety warnings in ${filePath}:`, 'warning');
+          const formatted = this.safetyCheck.formatWarnings(warnings);
+          formatted.forEach(w => this.log(`   ${w}`, 'plain'));
+        }
+      }
+    }
+    
     // Debounce rapid changes
     clearTimeout(this.contentChangeTimeout);
     this.contentChangeTimeout = setTimeout(async () => {

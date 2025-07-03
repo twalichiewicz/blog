@@ -1,0 +1,33 @@
+# Development-specific configuration
+# This file overrides settings in _config.yml for development mode
+
+# Development timestamp for cache-busting (set once per server start)
+dev_timestamp: <%= Date.now() %>
+
+# Server settings for development
+server:
+  # Prevent aggressive caching in development
+  headers:
+    Cache-Control: "no-cache, no-store, must-revalidate"
+    Pragma: "no-cache"
+    Expires: "0"
+    X-Dev-Mode: "true"
+  
+  # Log all requests in dev mode
+  log: true
+  
+  # Compress responses even in dev (optional)
+  compress: false
+
+# Disable minification in development for easier debugging
+minify:
+  enable: false
+
+# More verbose logging in development
+log_level: debug
+
+# Development-only feature flags
+dev_features:
+  show_warnings: true
+  check_patterns: true
+  verbose_errors: true
