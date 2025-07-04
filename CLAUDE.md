@@ -18,12 +18,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 10. [Best Practices](#best-practices)
 11. [Technical Debt Registry](#technical-debt-registry)
 
+## 🚨 STOP! READ THIS FIRST 🚨
+
+**🔒 MAIN BRANCH IS PROTECTED - DO NOT COMMIT TO MAIN 🔒**
+
+### 🤖 MANDATORY FIRST COMMAND FOR ALL CLAUDE SESSIONS:
+```bash
+npm run check-branch
+```
+**DO NOT SKIP THIS STEP - RUN IT IMMEDIATELY WHEN STARTING**
+
+Before making ANY changes, you MUST:
+1. Run `npm run check-branch` (MANDATORY)
+2. Check current branch: `git branch --show-current`
+3. If on main: IMMEDIATELY create worktree or feature branch
+4. NEVER use `git commit` while on main branch
+
 ## 🚀 Quick Reference Card
+
+### ⚠️ CRITICAL: Check Branch Before Any Work
+```bash
+# ALWAYS check which branch you're on FIRST
+git branch --show-current
+
+# If you're on 'main', STOP and create a worktree:
+git worktree add -b feature/name ../blog-feature
+# Then navigate to the worktree directory to work
+```
 
 ### Most Common Workflows
 ```bash
-# Fix something quickly
-git checkout -b fix/issue-name
+# Fix something quickly - CREATE BRANCH FIRST
+git checkout -b fix/issue-name  # ← NEVER skip this step
 npm run dev
 # Make changes, test locally
 npm run build  # MUST PASS before committing
@@ -31,7 +57,7 @@ git add -A && git commit -m "fix: description"
 git push -u origin fix/issue-name
 open "https://github.com/twalichiewicz/blog/pull/new/fix/issue-name"
 
-# Add new feature with worktree
+# Add new feature with worktree (PREFERRED)
 git worktree add -b feature/name ../blog-feature
 # Copy files between directories as needed
 cp source/file.js ../blog-feature/source/file.js
@@ -44,8 +70,9 @@ npm run fix          # Auto-fix issues
 ```
 
 ### Key Rules
-- ❌ NEVER push to main directly
-- ✅ ALWAYS create feature branches
+- 🛑 **NEVER EVER** commit to main directly
+- ✅ ALWAYS check branch with `git branch --show-current` before starting
+- ✅ ALWAYS create feature branches or worktrees
 - ✅ ALWAYS run `npm run build` before committing
 - ✅ ALWAYS test on Netlify preview before merging
 - 📝 Create `*-plan.md` for complex features

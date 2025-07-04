@@ -1,0 +1,35 @@
+#!/bin/bash
+# Auto-run when Claude enters this directory
+
+echo "🤖 Claude Code Session Started"
+echo "📂 Repository: $(basename $(pwd))"
+echo ""
+
+# Check if we're in a git repository
+if [ -d ".git" ]; then
+    echo "🔍 Checking current git branch..."
+    CURRENT_BRANCH=$(git branch --show-current)
+    
+    if [ "$CURRENT_BRANCH" = "main" ]; then
+        echo ""
+        echo "⚠️  WARNING: You are on the MAIN branch!"
+        echo "🛑 DO NOT make changes here. Use a feature branch or worktree."
+        echo ""
+        echo "Run 'npm run check-branch' to create a safe working environment."
+        echo ""
+    else
+        echo "✅ Safe to work - Current branch: $CURRENT_BRANCH"
+        echo ""
+    fi
+    
+    # Show worktree status
+    echo "📁 Active worktrees:"
+    git worktree list | head -5
+    echo ""
+fi
+
+echo "🚀 Quick commands:"
+echo "   npm run check-branch  # Ensure safe branch"
+echo "   npm run dev          # Start development"
+echo "   npm run build        # Test build"
+echo ""

@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "check-branch": "bash scripts/ensure-safe-branch.sh",
+    "postinstall": "echo '🤖 Remember to run: npm run check-branch before making changes!'",
     "test:scss": "sass themes/san-diego/source/styles/styles.scss /tmp/test-scss-output.css",
     "build": "npm run test:scss && npm run build:demos && hexo clean && hexo generate",
     "build:full": "npm run build:demos && npm run build",
