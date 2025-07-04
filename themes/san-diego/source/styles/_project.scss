@@ -114,6 +114,25 @@ body .project-edge-wrapper {
 	}
 }
 
+// Additional specificity override to defeat theme mode borders
+.blog .project-edge-wrapper .blog-content,
+body .project-edge-wrapper .blog-content {
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		// Override any general blog-content border styles
+		@media (prefers-color-scheme: light) {
+			border: none !important;
+			border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
+			border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			border: none !important;
+			border-top: 1px solid rgba(255, 255, 255, 0.03) !important;
+			border-left: 1px solid rgba(255, 255, 255, 0.03) !important;
+		}
+	}
+}
+
 // Ensure short articles take full viewport height when loaded
 body.loaded .project-wrapper {
 	min-height: 100dvh;
