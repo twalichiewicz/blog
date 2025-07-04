@@ -34,6 +34,9 @@ jobs:
     - name: Build demos
       run: npm run build:demos
 
+    - name: Run pre-deployment safety checks
+      run: npm run pre-deploy
+
     - name: Optimize images
       run: npm run optimize:images
 

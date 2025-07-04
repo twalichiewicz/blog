@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:demos && hexo clean && hexo generate",
     "build:full": "npm run build:demos && npm run build",
-    "build:prod": "npm run pre-deploy:force && npm run build:demos && hexo clean && hexo generate && npm run optimize",
+    "build:prod": "npm run pre-deploy && npm run build:demos && hexo clean && hexo generate && npm run optimize",
     "build:prod:strict": "npm run pre-deploy && npm run build:demos && hexo clean && hexo generate && npm run optimize",
     "pre-deploy": "node build-system/pre-deploy-check.js",
     "pre-deploy:force": "node build-system/pre-deploy-check.js --force",
