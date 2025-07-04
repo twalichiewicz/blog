@@ -213,6 +213,7 @@ git worktree remove ../blog-new-feature
 - Fix all errors first
 - This is a hard blocker - no exceptions
 - Test locally before deployment
+- **NEW**: Build now includes SCSS validation (`npm run test:scss`) to prevent undefined variable errors
 
 ### File Purpose Boundaries
 Each SCSS file has a specific purpose. NEVER cross these boundaries:
@@ -243,6 +244,7 @@ Each SCSS file has a specific purpose. NEVER cross these boundaries:
 7. **Creating unnecessary files** - Edit existing files when possible
 8. **Adding comments without being asked** - Keep code clean
 9. **Making changes beyond the scope** - Stick to what was requested
+10. **Pushing changes with undefined SCSS variables** - The build now validates SCSS to prevent this
 
 ## Quick Start
 
@@ -288,6 +290,7 @@ npm run health         # Interactive health dashboard
 npm run deploy         # Deploy to GitHub Pages
 
 # Code Quality
+npm run test:scss      # Validate SCSS compilation (catches undefined variables)
 npm run lint:scss      # Lint SCSS files
 npm run lint:scss:fix  # Auto-fix SCSS issues
 
@@ -954,6 +957,8 @@ This is automatically handled by the self-healing system in `npm run dev`. For m
 - Verify media query order
 - Test in both light/dark modes
 - Clear browser cache
+- Run `npm run test:scss` to catch SCSS compilation errors (undefined variables, etc.)
+- Check if variables are properly imported with @use before being referenced
 
 ### Emergency Procedures
 
