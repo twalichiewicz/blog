@@ -14,10 +14,24 @@ class Carousel {
 			const video = slide.querySelector('video');
 			
 			if (img) {
+				// Ensure image src is properly resolved for relative paths
+				let imgSrc = img.src;
+				if (!imgSrc || imgSrc === window.location.href) {
+					// If src is empty or equals current page, try getting from dataset or attribute
+					imgSrc = img.getAttribute('src') || img.dataset.src || '';
+					
+					// For relative paths, resolve them properly
+					if (imgSrc.startsWith('./')) {
+						const currentPath = window.location.pathname;
+						const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+						imgSrc = basePath + imgSrc.substring(2);
+					}
+				}
+				
 				this.carouselImages.push({
 					type: 'image',
 					element: img,
-					src: img.src,
+					src: imgSrc,
 					alt: img.alt || '',
 					slideIndex: index
 				});
@@ -243,13 +257,45 @@ class Carousel {
 		// Add video error handling
 		this.setupVideoErrorHandling();
 		
-		// For project galleries, also try updating images after a delay
-		// This handles cases where images are dynamically loaded
+		// For project galleries, ensure images are loaded before finalizing
 		if (this.carousel.closest('.project-gallery-section')) {
-			setTimeout(() => {
-				this.updateCarouselImages();
-			}, 500);
+			this.waitForImagesAndUpdate();
 		}
+	}
+
+	waitForImagesAndUpdate() {
+		const images = this.carousel.querySelectorAll('img');
+		const promises = Array.from(images).map(img => {
+			return new Promise((resolve) => {
+				if (img.complete && img.naturalHeight !== 0) {
+					// Image already loaded
+					resolve();
+				} else {
+					// Wait for image to load
+					const onLoad = () => {
+						img.removeEventListener('load', onLoad);
+						img.removeEventListener('error', onError);
+						resolve();
+					};
+					const onError = () => {
+						img.removeEventListener('load', onLoad);
+						img.removeEventListener('error', onError);
+						resolve(); // Resolve even on error to not block carousel
+					};
+					
+					img.addEventListener('load', onLoad);
+					img.addEventListener('error', onError);
+				}
+			});
+		});
+
+		Promise.all(promises).then(() => {
+			// All images loaded or errored, update carousel
+			this.updateCarouselImages();
+			
+			// Re-setup image handlers with proper sources
+			this.setupImageHandlers();
+		});
 	}
 
 	handleSwipe(deltaX, duration) {

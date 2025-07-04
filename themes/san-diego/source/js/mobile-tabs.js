@@ -7,6 +7,17 @@
 import MobileTabs from './components/MobileTabs.js';
 
 export function initializeMobileTabs() {
+	// Check if we're on a project page - don't initialize tabs
+	const currentPath = window.location.pathname;
+	const isOnProjectPage = currentPath.includes('/20') && // matches year-based URLs like /2019/02/01/project-name
+						   currentPath !== '/' && 
+						   !currentPath.includes('?');
+	
+	if (isOnProjectPage) {
+		// On project page, don't initialize mobile tabs
+		return;
+	}
+
 	// If an old instance exists and has a destroy method, call it
 	if (window.mobileTabs && typeof window.mobileTabs.destroy === 'function') {
 		try {

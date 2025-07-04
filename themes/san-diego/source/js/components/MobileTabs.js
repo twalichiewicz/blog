@@ -299,7 +299,18 @@ export default class MobileTabs {
 				targetTabType = tabParam;
 				// Using URL parameter tab
 			} else {
-				// Fallback to referrer check
+				// Check if we're already on a project page
+				const currentPath = window.location.pathname;
+				const isOnProjectPage = currentPath.includes('/20') && // matches year-based URLs like /2019/02/01/project-name
+										 currentPath !== '/' && 
+										 !currentPath.includes('?');
+				
+				if (isOnProjectPage) {
+					// We're on a project page, don't change anything - let it load normally
+					return null;
+				}
+				
+				// Fallback to referrer check for home page
 				const referrer = document.referrer;
 				const isFromProject = referrer && (
 					referrer.includes('/20') && // matches year-based URLs like /2023/01/01/project-name
@@ -307,11 +318,8 @@ export default class MobileTabs {
 					referrer !== window.location.href // not the same page
 				);
 				
-				// Referrer detection complete
-				
 				// If coming from a project, default to 'portfolio', otherwise 'blog'
 				targetTabType = isFromProject ? 'portfolio' : 'blog';
-				// Setting default tab
 			}
 		}
 
