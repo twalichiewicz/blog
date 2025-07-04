@@ -257,7 +257,11 @@ export default class MobileTabs {
 	 * Update the slider width and position based on active button
 	 */
 	updateSlider() {
-		if (!this.tabContainer || this.tabButtons.length < 2) return;
+		// Safari fix: Re-check elements if they became null
+		if (!this.tabContainer) {
+			this.cacheElements();
+		}
+		if (!this.tabContainer || !this.tabButtons || this.tabButtons.length < 2) return;
 
 		const activeButton = this.tabContainer.querySelector(
 			`${this.config.tabButtonSelector}.${this.config.activeClass}`
@@ -299,9 +303,19 @@ export default class MobileTabs {
 	 * @returns {string} The active tab type
 	 */
 	validateActiveState() {
+		// Safari fix: Ensure we have valid tab buttons before proceeding
+		if (!this.tabButtons || this.tabButtons.length === 0) {
+			console.log('[MobileTabs] No tab buttons available, re-caching elements');
+			this.cacheElements();
+			if (!this.tabButtons || this.tabButtons.length === 0) {
+				console.warn('[MobileTabs] Still no tab buttons after re-caching');
+				return null;
+			}
+		}
+		
 		let activeButtons = [];
 		this.tabButtons.forEach(button => {
-			if (button.classList.contains(this.config.activeClass)) {
+			if (button && button.classList && button.classList.contains(this.config.activeClass)) {
 				activeButtons.push(button);
 			}
 		});
@@ -389,18 +403,31 @@ export default class MobileTabs {
 	 * @param {string} type - The tab type to show
 	 */
 	showContent(type) {
-		if (!this.postsContent || !this.projectsContent) return;
+		// Safari fix: Re-cache elements if they became null after DOM replacement
+		if (!this.postsContent || !this.projectsContent) {
+			console.log('[MobileTabs] Content elements are null, re-caching DOM elements');
+			this.cacheElements();
+			// If still null after re-caching, exit
+			if (!this.postsContent || !this.projectsContent) {
+				console.warn('[MobileTabs] Content elements still null after re-caching, skipping showContent');
+				return;
+			}
+		}
 
 		// Apply CSS transitions for smoother content changes
-		this.postsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
-		this.projectsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
+		if (this.postsContent && this.projectsContent) {
+			this.postsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
+			this.projectsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
+		}
 
 		// EMERGENCY FIX: Device-desktop class no longer exists, check by device type instead
 		if (this.currentDeviceType === 'desktop') {
-			this.postsContent.style.opacity = '1';
-			this.projectsContent.style.opacity = '1';
-			this.postsContent.style.display = 'block';
-			this.projectsContent.style.display = 'block';
+			if (this.postsContent && this.projectsContent) {
+				this.postsContent.style.opacity = '1';
+				this.projectsContent.style.opacity = '1';
+				this.postsContent.style.display = 'block';
+				this.projectsContent.style.display = 'block';
+			}
 			if (this.searchBar) this.searchBar.style.display = 'block';
 
 			// Hide tabs wrapper on desktop
@@ -413,14 +440,19 @@ export default class MobileTabs {
 
 		// On mobile/tablet, show only the active tab
 		if (type === 'blog') {
-			this.postsContent.style.opacity = '1';
-			this.projectsContent.style.opacity = '0';
+			if (this.postsContent && this.projectsContent) {
+				this.postsContent.style.opacity = '1';
+				this.projectsContent.style.opacity = '0';
 
-			// Use setTimeout to prevent content flashing
-			setTimeout(() => {
-				this.postsContent.style.display = 'block';
-				this.projectsContent.style.display = 'none';
-			}, this.config.transitionDuration);
+				// Use setTimeout to prevent content flashing
+				setTimeout(() => {
+					// Double-check elements still exist before setting styles
+					if (this.postsContent && this.projectsContent) {
+						this.postsContent.style.display = 'block';
+						this.projectsContent.style.display = 'none';
+					}
+				}, this.config.transitionDuration);
+			}
 
 			if (this.searchBar) this.searchBar.style.display = 'block';
 			
@@ -429,14 +461,19 @@ export default class MobileTabs {
 				window.initializePostsOnlyButton();
 			}
 		} else if (type === 'portfolio') {
-			this.postsContent.style.opacity = '0';
-			this.projectsContent.style.opacity = '1';
+			if (this.postsContent && this.projectsContent) {
+				this.postsContent.style.opacity = '0';
+				this.projectsContent.style.opacity = '1';
 
-			// Use setTimeout to prevent content flashing
-			setTimeout(() => {
-				this.postsContent.style.display = 'none';
-				this.projectsContent.style.display = 'block';
-			}, this.config.transitionDuration);
+				// Use setTimeout to prevent content flashing
+				setTimeout(() => {
+					// Double-check elements still exist before setting styles
+					if (this.postsContent && this.projectsContent) {
+						this.postsContent.style.display = 'none';
+						this.projectsContent.style.display = 'block';
+					}
+				}, this.config.transitionDuration);
+			}
 
 			if (this.searchBar) this.searchBar.style.display = 'none';
 			
