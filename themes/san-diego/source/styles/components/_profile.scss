@@ -104,19 +104,27 @@
 			}
 		}
 
+		.profile-stats-container {
+			display: flex;
+			flex-direction: column;
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		}
+
 		.profile-stats {
 			display: flex;
 			flex-direction: column;
 			gap: 9px;
-			padding-top: 36px;
-			padding-bottom: 9px;
+			padding: 12px;
 			justify-content: flex-start;
-			padding: 9px;
 			border: 1px solid #ccc;
-			border-radius: 9px;
+			border-bottom: none;
+			border-radius: 12px 12px 0 0;
 			position: relative;
 			cursor: pointer;
 			transition: all 0.2s ease;
+			background: variables.$white;
 			
 			@media (max-width: variables.$mobile-breakpoint) {
 				flex-wrap: wrap;
@@ -124,7 +132,6 @@
 
 			&:hover {
 				background: rgba(variables.$black, 0.02);
-				border-color: rgba(variables.$border-color, 0.8);
 			}
 
 			&:active {
@@ -149,33 +156,88 @@
 					letter-spacing: 0.05em;
 				}
 			}
+		}
+
+		.impact-report-chin {
+			position: relative;
+			padding: 12px;
+			background: #1a1a1a;
+			background: linear-gradient(180deg, 
+				#0a0a0a 0%, 
+				#1a1a1a 20%,
+				#0f0f0f 100%);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-top: 1px solid rgba(255, 255, 255, 0.2);
+			box-shadow: 
+				inset 0 1px 0 rgba(255, 255, 255, 0.1),
+				inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+				0 2px 8px rgba(0, 0, 0, 0.3);
+			overflow: hidden;
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 50%;
+				background: linear-gradient(180deg,
+					rgba(255, 255, 255, 0.15) 0%,
+					rgba(255, 255, 255, 0.05) 50%,
+					transparent 100%);
+				pointer-events: none;
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: -50%;
+				left: -10%;
+				width: 120%;
+				height: 100%;
+				background: radial-gradient(ellipse at center,
+					rgba(255, 255, 255, 0.02) 0%,
+					transparent 70%);
+				pointer-events: none;
+			}
 
 			.impact-report-btn {
-				position: absolute;
-				bottom: auto;
-				top: 6px;
-				right: 6px;
-				font-size: 9px;
-				padding: 6px 12px;
-				background: variables.$black;
-				border: 1px solid variables.$black;
-				color: variables.$white;
-				border-radius: 30px;
+				position: relative;
+				width: 100%;
+				font-size: 11px;
+				padding: 8px 16px;
+				background: rgba(255, 255, 255, 0.05);
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				color: rgba(255, 255, 255, 0.9);
+				border-radius: 6px;
 				text-transform: uppercase;
-				letter-spacing: 0.05em;
+				letter-spacing: 0.1em;
 				cursor: pointer;
 				transition: all 0.2s ease;
-				font-weight: 500;
+				font-weight: 600;
+				box-shadow: 
+					inset 0 1px 0 rgba(255, 255, 255, 0.1),
+					0 1px 3px rgba(0, 0, 0, 0.3);
+				text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 
 				&:hover {
-					background: color.scale(variables.$black, $lightness: 10%);
-					border-color: color.scale(variables.$black, $lightness: 10%);
+					background: rgba(255, 255, 255, 0.08);
+					border-color: rgba(255, 255, 255, 0.15);
 					color: variables.$white;
+					box-shadow: 
+						inset 0 1px 0 rgba(255, 255, 255, 0.15),
+						0 1px 3px rgba(0, 0, 0, 0.4),
+						0 0 20px rgba(255, 255, 255, 0.05);
+					transform: translateY(-1px);
 				}
 
 				&:active {
-					background: color.scale(variables.$black, $lightness: 5%);
-					border-color: color.scale(variables.$black, $lightness: 5%);
+					background: rgba(255, 255, 255, 0.03);
+					border-color: rgba(255, 255, 255, 0.08);
+					transform: translateY(0);
+					box-shadow: 
+						inset 0 1px 3px rgba(0, 0, 0, 0.3),
+						0 1px 2px rgba(0, 0, 0, 0.4);
 				}
 			}
 		}
@@ -240,12 +302,16 @@
 				}
 			}
 
+			.profile-stats-container {
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			}
+
 			.profile-stats {
+				background: variables.$bg-color-dark;
 				border-color: rgba(variables.$border-color-dark, 0.8);
 				
 				&:hover {
 					background: rgba(variables.$white, 0.02);
-					border-color: variables.$border-color-dark;
 				}
 
 				&:active {
@@ -257,7 +323,36 @@
 						color: variables.$text-color-secondary-dark;
 					}
 				}
+			}
 
+			.impact-report-chin {
+				background: linear-gradient(180deg, 
+					#0a0a0a 0%, 
+					#0f0f0f 20%,
+					#080808 100%);
+				border-color: rgba(255, 255, 255, 0.05);
+				border-top-color: rgba(255, 255, 255, 0.1);
+				box-shadow: 
+					inset 0 1px 0 rgba(255, 255, 255, 0.05),
+					inset 0 -1px 2px rgba(0, 0, 0, 0.8),
+					0 2px 8px rgba(0, 0, 0, 0.5);
+
+				.impact-report-btn {
+					background: rgba(255, 255, 255, 0.03);
+					border-color: rgba(255, 255, 255, 0.08);
+					color: rgba(255, 255, 255, 0.8);
+
+					&:hover {
+						background: rgba(255, 255, 255, 0.06);
+						border-color: rgba(255, 255, 255, 0.12);
+						color: rgba(255, 255, 255, 0.95);
+					}
+
+					&:active {
+						background: rgba(255, 255, 255, 0.02);
+						border-color: rgba(255, 255, 255, 0.06);
+					}
+				}
 			}
 		}
 	}
