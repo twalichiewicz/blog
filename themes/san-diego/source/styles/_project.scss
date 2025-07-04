@@ -3337,9 +3337,10 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 			}
 			
 			@media (max-width: variables.$mobile-breakpoint) {
-				padding: 48px 16px calc(120px + env(safe-area-inset-bottom)); // Match device padding
+				padding: 48px 24px calc(120px + env(safe-area-inset-bottom)); // Match device padding
 				margin: 0;
 				width: 100%;
+				min-height: 60vh; // Ensure it extends to bottom of viewport
 			}
 			
 			.portfolio-more-title {
