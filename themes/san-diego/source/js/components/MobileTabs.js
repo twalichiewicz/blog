@@ -125,6 +125,7 @@ export default class MobileTabs {
 	 * Destroy the component instance, removing listeners.
 	 */
 	destroy() {
+		console.log('[MobileTabs] Destroying instance');
 		this.removeEventListeners();
 		// Optional: Add any other cleanup logic here (e.g., removing added elements)
 		const slider = this.tabContainer?.querySelector('.mobile-tabs-slider');
@@ -132,6 +133,13 @@ export default class MobileTabs {
 			// slider.remove(); // Decide if the slider element should be removed on destroy
 		}
 		this.tabContainer?.classList.remove('has-slider-element');
+		// Clear cached elements
+		this.tabsWrapper = null;
+		this.tabContainer = null;
+		this.tabButtons = null;
+		this.postsContent = null;
+		this.projectsContent = null;
+		this.searchBar = null;
 	}
 
 	/**

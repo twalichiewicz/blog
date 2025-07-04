@@ -272,6 +272,13 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 				}
 				
+				// Clean up existing mobile tabs instance before transition
+				if (window.mobileTabs && typeof window.mobileTabs.destroy === 'function') {
+					console.log('[Blog] Destroying existing mobile tabs before back navigation');
+					window.mobileTabs.destroy();
+					window.mobileTabs = null;
+				}
+				
 				// Start screen wipe transition (back navigation variant)
 				let transitionData = null;
 				if (window.ScreenWipeTransition) {
@@ -285,8 +292,11 @@ document.addEventListener('DOMContentLoaded', function () {
 						initializeBlogFeatures(blogContentElement);
 						initializeLinkListeners(blogContentElement);
 						
-						// Initialize mobile tabs
-						initializeMobileTabs();
+						// Initialize mobile tabs with a delay to ensure DOM is ready
+						setTimeout(() => {
+							console.log('[Blog] Reinitializing mobile tabs after back navigation');
+							initializeMobileTabs();
+						}, 100);
 						
 						// Re-initialize toggles
 						initializeProjectToggle();

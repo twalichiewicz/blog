@@ -51,6 +51,8 @@ export function initializeMobileTabs() {
 	} else {
 		console.log('[MobileTabs] Elements not ready, trying with delay');
 		setTimeout(checkAndInitialize, 50);
+		// Add another fallback check
+		setTimeout(checkAndInitialize, 200);
 	}
 }
 
