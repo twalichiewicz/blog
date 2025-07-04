@@ -42,17 +42,17 @@
   --letter-spacing-wide: 0.025em;
 }
 
-// Responsive Base Font Size (Scaled Down)
-// ----------------------------------------
+// Responsive Base Font Size (Improved for Mobile)
+// ------------------------------------------------
 :root {
-  font-size: 14px;
+  font-size: 16px;  // Better mobile readability
   
   @media (min-width: 768px) {
-    font-size: 15px;
+    font-size: 16px;  // Keep consistent on tablet
   }
   
   @media (min-width: 1280px) {
-    font-size: 16px;
+    font-size: 16px;  // Desktop stays the same
   }
 }
 

@@ -40,6 +40,7 @@ body {
 
 // Blog post list item paragraph text color in dark mode
 .blog .blog-list .post-list-item p {
+  font-size: var(--font-size-md);
   @media (prefers-color-scheme: dark) {
     color: hsl(24, 4.49%, 78.01%);
   }
