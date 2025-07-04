@@ -3229,7 +3229,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		
 		.portfolio-byline {
 			font-family: var(--font-sans);
-			font-size: var(--font-size-xs);
+			font-size: var(--font-size-sm);
 			font-weight: var(--font-weight-normal);
 			color: variables.$text-color-secondary;
 			margin: 0;
@@ -3437,7 +3437,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 				.portfolio-more-project {
 					font-family: var(--font-sans);
 					padding: 16px 20px;
-					font-size: var(--font-size-sm);
+					font-size: var(--font-size-base);
 					font-weight: var(--font-weight-normal);
 					line-height: var(--line-height-tight).4;
 					color: rgba(0, 0, 0, 0.7);
