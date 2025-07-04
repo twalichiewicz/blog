@@ -6,18 +6,13 @@
   margin: 32px auto;
   max-width: 100%;
   padding: 9px;
-  background: #f8f7f4; // Warm stone/natural background
+  background: rgba(0, 0, 0, 0.02);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 
-              0 1px 3px rgba(0, 0, 0, 0.04),
-              inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   
-  // Dark mode
   @media (prefers-color-scheme: dark) {
-    background: #1a1917; // Dark stone
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 
-                0 1px 3px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.06);
   }
 }
 
@@ -39,16 +34,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 8px 12px;
   margin-top: 9px;
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  
-  @media (prefers-color-scheme: dark) {
-    background: rgba(255, 255, 255, 0.02);
-    border-color: rgba(255, 255, 255, 0.06);
-  }
 }
 
 // Left side - logo and label
@@ -84,60 +71,59 @@
   }
 }
 
-// Right side - iPhone-style toggle switch
+// Right side - iPhone hardware-style toggle switch
 .code-sandbox-toggle {
   position: relative;
-  width: 51px;
-  height: 31px;
-  background: #e5e5e7;
-  border-radius: 31px;
+  width: 24px;
+  height: 12px;
+  background: #d4d4d6;
+  border-radius: 2px;
   cursor: pointer;
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04),
-              inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1),
+              inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
   
   @media (prefers-color-scheme: dark) {
-    background: #39393d;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04),
-                inset 0 1px 3px rgba(0, 0, 0, 0.3);
+    background: #48484a;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3),
+                inset 0 0 0 0.5px rgba(255, 255, 255, 0.04);
   }
   
-  // Toggle knob
+  // Toggle slider - rectangular like iPhone hardware switch
   &::after {
     content: '';
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 27px;
-    height: 27px;
-    background: white;
-    border-radius: 27px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15),
-                0 3px 1px rgba(0, 0, 0, 0.06);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    top: 1px;
+    left: 1px;
+    width: 10px;
+    height: 10px;
+    background: #fafafa;
+    border-radius: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2),
+                0 0 0 0.5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
     
     @media (prefers-color-scheme: dark) {
-      background: #f4f4f5;
+      background: #e5e5e7;
     }
   }
   
-  // Active state (ON)
+  // Active state (ON) - subtle orange like iPhone silent mode
   &.active {
-    background: #34c759;
+    background: #ff9500;
     
     @media (prefers-color-scheme: dark) {
-      background: #30d158;
+      background: #ff9500;
     }
     
     &::after {
-      transform: translateX(20px);
+      transform: translateX(12px);
     }
   }
   
-  // Hover state
-  &:hover::after {
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2),
-                0 3px 1px rgba(0, 0, 0, 0.08);
+  // Hover state - subtle highlight
+  &:hover {
+    opacity: 0.9;
   }
   
   // Focus state
@@ -191,16 +177,16 @@
   }
   
   .code-sandbox-toggle {
-    width: 42px;
-    height: 26px;
+    width: 20px;
+    height: 10px;
     
     &::after {
-      width: 22px;
-      height: 22px;
+      width: 8px;
+      height: 8px;
     }
     
     &.active::after {
-      transform: translateX(16px);
+      transform: translateX(10px);
     }
   }
 }
