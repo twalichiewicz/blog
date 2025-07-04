@@ -1548,7 +1548,6 @@ document.addEventListener('DOMContentLoaded', function() {
         sandboxWrapper.classList.remove('collapsed');
         toggleSwitch.classList.add('active');
         toggleSwitch.setAttribute('aria-checked', 'true');
-        youtubeDemo.style.display = 'block';
         wasAutoToggled = false;
         
         // Reset the demo to initial state
