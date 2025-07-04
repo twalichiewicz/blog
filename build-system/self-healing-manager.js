@@ -3,19 +3,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const { execSync, spawn } = require('child_process');
-let chalk;
-try {
-  chalk = require('chalk');
-} catch (error) {
-  // Fallback if chalk isn't available
-  chalk = {
-    blue: (str) => str,
-    gray: (str) => str,
-    green: (str) => str,
-    yellow: (str) => str,
-    red: (str) => str
-  };
-}
+const chalk = require('./chalk-wrapper');
 
 class SelfHealingManager {
   constructor() {
