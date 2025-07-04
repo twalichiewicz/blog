@@ -111,9 +111,9 @@ $quote-transitions: (
 .interactive-quote .quote-text {
   margin: 0;
   font-size: clamp(2.25rem, 5vw, 3rem);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   font-style: normal;
-  line-height: 1.3;
+  line-height: var(--line-height-tight).3;
   letter-spacing: -0.02em;
   
   // Smooth text rendering
@@ -129,8 +129,8 @@ $quote-transitions: (
 .interactive-quote .quote-citation {
   display: block;
   margin-top: 2rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   font-style: normal;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -213,9 +213,9 @@ $quote-transitions: (
     bottom: 1rem;
     font-size: 10rem;
     font-weight: 900;
-    line-height: 1;
+    line-height: var(--line-height-tight);
     opacity: 0.1;
-    font-family: Georgia, serif;
+    font-family: Georgia, serif; // TODO: Consider using var(--font-sans) instead; // TODO: Consider using var(--font-sans) instead;
     pointer-events: none;
     color: var(--quote-text);
   }

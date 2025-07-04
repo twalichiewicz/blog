@@ -122,8 +122,8 @@ body {
   }
   
   .company-name {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
     margin: 1.5rem 0 0.75rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -138,8 +138,8 @@ body {
     }
     
     .company-years {
-      font-size: 0.875rem;
-      font-weight: 400;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-normal);
       color: variables.$text-color-secondary;
       
       @media (prefers-color-scheme: dark) {

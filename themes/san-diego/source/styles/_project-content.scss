@@ -22,8 +22,8 @@
 
 	.hero-title {
 		font-size: 96px;
-		line-height: 1;
-		font-weight: 700;
+		line-height: var(--line-height-tight);
+		font-weight: var(--font-weight-bold);
 		margin-bottom: 20px;
 		background: linear-gradient(180deg, var(--text-color) 0%, rgb(29 29 31 / 80%) 100%);
 		background-clip: text;
@@ -32,7 +32,7 @@
 
 	.hero-byline {
 		font-size: 28px;
-		line-height: 1.4;
+		line-height: var(--line-height-tight).4;
 		margin-bottom: 60px;
 		max-width: 600px;
 	}
@@ -46,14 +46,14 @@
 			text-align: center;
 
 			.stat-number {
-				font-size: 48px;
-				font-weight: 700;
+				font-size: var(--font-size-5xl);
+				font-weight: var(--font-weight-bold);
 				display: block;
 				margin-bottom: 10px;
 			}
 
 			.stat-label {
-				font-size: 16px;
+				font-size: var(--font-size-base);
 				opacity: 0.8;
 			}
 		}
@@ -111,13 +111,13 @@
 		}
 
 		h3 {
-			font-size: 24px;
+			font-size: var(--font-size-2xl);
 			margin-bottom: 15px;
 		}
 
 		p {
-			font-size: 16px;
-			line-height: 1.5;
+			font-size: var(--font-size-base);
+			line-height: var(--line-height-tight).5;
 			opacity: 0.8;
 		}
 	}
@@ -135,7 +135,7 @@
 		margin: 0 auto;
 
 		h2 {
-			font-size: 48px;
+			font-size: var(--font-size-5xl);
 			margin-bottom: 20px;
 		}
 
@@ -147,7 +147,7 @@
 			color: variables.$white-dark;
 			border-radius: 30px;
 			text-decoration: none;
-			font-weight: 600;
+			font-weight: var(--font-weight-semibold);
 			transition: transform 0.3s ease;
 
 			&:hover {
@@ -183,11 +183,11 @@
 @media (max-width: variables.$mobile-breakpoint) {
 	.hero-section {
 		.hero-title {
-			font-size: 48px;
+			font-size: var(--font-size-5xl);
 		}
 
 		.hero-byline {
-			font-size: 24px;
+			font-size: var(--font-size-2xl);
 		}
 
 		.hero-stats {

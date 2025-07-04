@@ -52,10 +52,10 @@
 		width: 100%;
 
 		.profile-name {
-			font-size: 24px;
-			font-weight: 600;
+			font-size: var(--font-size-2xl);
+			font-weight: var(--font-weight-semibold);
 			margin: 0 0 9px 0;
-			line-height: 100%;
+			line-height: var(--line-height-tight);
 			text-shadow:
 				0 1px 1px rgb(255 255 255 / 90%),
 				0 -1px 1px rgb(0 0 0 / 20%);
@@ -64,19 +64,19 @@
 		}
 
 		.profile-byline {
-			font-size: 14px;
-			font-weight: 500;
+			font-size: var(--font-size-sm);
+			font-weight: var(--font-weight-medium);
 			margin: 0 0 8px 0;
 			color: variables.$text-color-secondary;
-			line-height: 1.4;
+			line-height: var(--line-height-tight).4;
 			display: none;
 		}
 
 		.profile-bio {
 			color: variables.$text-color-secondary;
 			margin: 0 0 16px 0;
-			font-size: 12px;
-			line-height: 1.4;
+			font-size: var(--font-size-xs);
+			line-height: var(--line-height-tight).4;
 			max-width: 450px;
 		}
 
@@ -88,8 +88,8 @@
 			background: transparent;
 			border-radius: 20px;
 			margin-bottom: 9px;
-			font-size: 13px;
-			font-weight: 500;
+			font-size: var(--font-size-sm);
+			font-weight: var(--font-weight-medium);
 			color: variables.$text-color-secondary;
 			transition: all 0.2s ease;
 
@@ -138,12 +138,12 @@
 
 				.number {
 					display: block;
-					font-weight: 600;
-					font-size: 18px;
+					font-weight: var(--font-weight-semibold);
+					font-size: var(--font-size-lg);
 				}
 
 				.label {
-					font-size: 9px;
+					font-size: var(--font-size-xs);
 					color: variables.$text-color-secondary;
 					text-transform: uppercase;
 					letter-spacing: 0.05em;
@@ -155,7 +155,7 @@
 				bottom: auto;
 				top: 6px;
 				right: 6px;
-				font-size: 9px;
+				font-size: var(--font-size-xs);
 				padding: 6px 12px;
 				background: variables.$black;
 				border: 1px solid variables.$black;
@@ -165,7 +165,7 @@
 				letter-spacing: 0.05em;
 				cursor: pointer;
 				transition: all 0.2s ease;
-				font-weight: 500;
+				font-weight: var(--font-weight-medium);
 
 				&:hover {
 					background: color.scale(variables.$black, $lightness: 10%);
@@ -194,8 +194,8 @@
 		.contact-button {
 			display: block;
 			padding: 8px 16px;
-			font-size: 12px;
-			font-weight: 500;
+			font-size: var(--font-size-xs);
+			font-weight: var(--font-weight-medium);
 			color: variables.$text-color;
 			text-decoration: none;
 			text-align: center;
@@ -280,7 +280,7 @@
 			
 			.location-pill {
 				padding: 3px 0;
-				font-size: 11px;
+				font-size: var(--font-size-xs);
 				margin-bottom: 3px;
 				// Base transition for opacity changes
 				transition: opacity 0.3s ease;
@@ -292,11 +292,11 @@
 			}
 			
 			.profile-byline {
-				font-size: 12px;
-				font-weight: 400;
+				font-size: var(--font-size-xs);
+				font-weight: var(--font-weight-normal);
 				margin: 3px 0;
 				color: variables.$text-color-secondary;
-				line-height: 1.5;
+				line-height: var(--line-height-tight).5;
 				display: block;
 				// Base transition for opacity changes
 				transition: opacity 0.3s ease;
@@ -383,8 +383,8 @@
 			padding: 8px 16px;
 			margin: 6px 0 0 0;
 			position: relative;
-			font-size: 12px; // Match other buttons
-			font-weight: 600;
+			font-size: var(--font-size-xs); // Match other buttons
+			font-weight: var(--font-weight-semibold);
 			color: variables.$text-color;
 			cursor: pointer;
 			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -562,11 +562,11 @@
 			}
 			
 			.profile-byline {
-				font-size: 14px;
-				font-weight: 500;
+				font-size: var(--font-size-sm);
+				font-weight: var(--font-weight-medium);
 				margin: 12px 0 8px 0;
 				color: variables.$text-color-secondary;
-				line-height: 1.4;
+				line-height: var(--line-height-tight).4;
 				display: block;
 			}
 			
@@ -583,12 +583,12 @@
 
 					.number {
 						display: block;
-						font-weight: 600;
-						font-size: 16px;
+						font-weight: var(--font-weight-semibold);
+						font-size: var(--font-size-base);
 					}
 
 					.label {
-						font-size: 9px;
+						font-size: var(--font-size-xs);
 						color: variables.$text-color-secondary;
 						text-transform: uppercase;
 						letter-spacing: 0.05em;
@@ -611,8 +611,8 @@
 				.contact-option {
 					flex: 1;
 					padding: 8px 12px;
-					font-size: 11px;
-					font-weight: 500;
+					font-size: var(--font-size-xs);
+					font-weight: var(--font-weight-medium);
 					color: variables.$text-color;
 					text-decoration: none;
 					text-align: center;
@@ -805,12 +805,12 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 10px;
+		font-size: var(--font-size-xs);
 		border-radius: 50%;
 
 		&::before {
 			content: '✉';
-			font-size: 12px;
+			font-size: var(--font-size-xs);
 		}
 	}
 }

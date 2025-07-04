@@ -43,8 +43,8 @@
 
 // Shared byline styling
 .byline-base {
-	font-size: 10px;
-	font-weight: 600;
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-semibold);
 	margin-bottom: 6px;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
@@ -76,7 +76,7 @@
 		cursor: pointer;
 		color: variables.$text-color-secondary;
 		opacity: 0.7;
-		font-size: 0.75rem;
+		font-size: var(--font-size-xs);
 		user-select: none;
 		transition: all 0.2s ease;
 		padding: 0.15rem 0;
@@ -89,7 +89,7 @@
 
 		&::before {
 			content: "↓";
-			font-size: 9px;
+			font-size: var(--font-size-xs);
 			margin-right: 4px;
 			opacity: 0.6;
 			transition: transform 0.2s ease;
@@ -117,7 +117,7 @@
 		margin-top: 0.25rem;
 		color: variables.$text-color;
 		font-size: 0.8rem;
-		line-height: 1.4;
+		line-height: var(--line-height-tight).4;
 		padding: 0.25rem 0.5rem;
 		background: rgb(0 0 0 / 2%);
 		border-radius: 4px;
@@ -164,9 +164,9 @@
 
 	h3,
 	h4 {
-		font-size: 1rem;
+		font-size: var(--font-size-base);
 		margin: 0.25rem 0;
-		line-height: 1.4;
+		line-height: var(--line-height-tight).4;
 
 		@media (prefers-color-scheme: light) {
 			color: variables.$text-color;
@@ -178,9 +178,9 @@
 	}
 
 	p {
-		font-size: 14px;
+		font-size: var(--font-size-sm);
 		margin: 0.25rem 0;
-		line-height: 1.3;
+		line-height: var(--line-height-tight).3;
 
 		@media (prefers-color-scheme: light) {
 			color: variables.$text-color-secondary;

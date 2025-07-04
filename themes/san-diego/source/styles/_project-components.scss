@@ -42,8 +42,8 @@
 
 		&__title {
 			font-size: var(--heading-xl);
-			line-height: 1.1;
-			font-weight: 700;
+			line-height: var(--line-height-tight).1;
+			font-weight: var(--font-weight-bold);
 		}
 
 		&__subtitle {
@@ -91,7 +91,7 @@
 
 		&__text {
 			font-size: var(--text-md);
-			line-height: 1.6;
+			line-height: var(--line-height-tight).6;
 		}
 	}
 
@@ -139,7 +139,7 @@
 		&__item {
 			.number {
 				font-size: var(--heading-md);
-				font-weight: 700;
+				font-weight: var(--font-weight-bold);
 				margin-bottom: 0.5rem;
 			}
 

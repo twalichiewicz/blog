@@ -16,9 +16,9 @@
 	background-color: variables.$accent-gold-light;
 	border: 1px solid variables.$accent-gold;
 	border-radius: 4px;
-	font-size: 9px;
-	font-weight: 500;
-	line-height: 1;
+	font-size: var(--font-size-2xs);
+	font-weight: var(--font-weight-medium);
+	line-height: var(--line-height-tight);
 	color: variables.$accent-gold-dark;
 	box-shadow: variables.$shadow-soft;
 

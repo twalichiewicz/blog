@@ -82,8 +82,8 @@
 	.search-input {
 		flex: 1;
 		padding: 8px 36px 8px 32px; // Adjusted left padding for new icon position
-		font-size: 12px;
-		font-weight: 500;
+		font-size: var(--font-size-xs);
+		font-weight: var(--font-weight-medium);
 		border: 1px solid variables.$border-color;
 		border-radius: 30px;
 		background: transparent;
@@ -264,7 +264,7 @@ mark.search-highlight {
 	color: inherit;
 	padding: 0 2px;
 	border-radius: 2px;
-	font-weight: 500;
+	font-weight: var(--font-weight-medium);
 	
 	@media (prefers-color-scheme: dark) {
 		background-color: rgba(variables.$link-color-dark, 0.4);

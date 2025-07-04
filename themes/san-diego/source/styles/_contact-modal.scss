@@ -116,13 +116,13 @@
     
     &-title {
         padding: 0;
-        font-size: 18px;
+        font-size: var(--font-size-lg);
         color: white;
-        font-weight: 500;
+        font-weight: var(--font-weight-medium);
         letter-spacing: 0.03em;
         width: 100%;
         text-align: center;
-        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+        font-family: var(--font-sans);
         margin: 0;
         position: absolute;
         left: 0;
@@ -130,7 +130,7 @@
         pointer-events: none;
         
         @media (max-width: 768px) {
-            font-size: 16px;
+            font-size: var(--font-size-base);
         }
     }
     
@@ -208,27 +208,27 @@
             }
             
             .contact-label {
-                font-size: 14px;
-                font-weight: 600;
+                font-size: var(--font-size-sm);
+                font-weight: var(--font-weight-semibold);
                 color: rgba(255, 255, 255, 0.9);
                 display: block;
                 margin-bottom: 4px;
-                font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+                font-family: var(--font-sans);
                 
                 @media (max-width: 768px) {
-                    font-size: 12px;
+                    font-size: var(--font-size-xs);
                     margin-bottom: 2px;
                 }
             }
             
             .contact-sublabel {
-                font-size: 11px;
+                font-size: var(--font-size-xs);
                 color: rgba(255, 255, 255, 0.5);
                 display: block;
-                font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+                font-family: var(--font-sans);
                 
                 @media (max-width: 768px) {
-                    font-size: 10px;
+                    font-size: var(--font-size-xs);
                     margin-top: 2px;
                 }
             }

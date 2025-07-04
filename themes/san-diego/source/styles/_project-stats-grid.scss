@@ -144,8 +144,8 @@
 }
 
 .stat-label {
-  font-size: 9px;
-  font-weight: 500;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: rgba(255, 255, 255, 0.5);
@@ -157,10 +157,10 @@
 }
 
 .stat-value {
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-tight).4;
   color: rgba(255, 255, 255, 0.9);
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   
   @media (prefers-color-scheme: light) {
     color: rgba(0, 0, 0, 0.8);
@@ -175,8 +175,8 @@
       
       li {
         margin-bottom: 0.5rem;
-        font-size: 12px;
-        line-height: 1.4;
+        font-size: var(--font-size-xs);
+        line-height: var(--line-height-tight).4;
         
         &:last-child {
           margin-bottom: 0;
@@ -185,8 +185,8 @@
         // Style for team member descriptions
         .team-member-role {
           display: block;
-          font-size: 9px;
-          line-height: 1.3;
+          font-size: var(--font-size-xs);
+          line-height: var(--line-height-tight).3;
           color: rgba(255, 255, 255, 0.6);
           margin-top: 0;
           
@@ -200,8 +200,8 @@
   
   // For emphasizing key metrics - no color accent
   &.stat-value--highlight {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
     color: rgba(255, 255, 255, 1);
     
     @media (prefers-color-scheme: light) {
@@ -221,8 +221,8 @@
       background: rgba(255, 255, 255, 0.1);
       color: rgba(255, 255, 255, 0.9);
       border-radius: 3px;
-      font-size: 11px;
-      font-weight: 400;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-normal);
       
       @media (prefers-color-scheme: light) {
         background: rgba(0, 0, 0, 0.05);

@@ -68,9 +68,9 @@
 		justify-content: center;
 		align-items: center;
 		position: relative;
-		font-size: 21px;
+		font-size: var(--font-size-xl);
 		line-height: 30px;
-		font-weight: 600;
+		font-weight: var(--font-weight-semibold);
 		will-change: transform, opacity;
 		text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 		transition: color 0.3s ease;
@@ -113,7 +113,7 @@
 		}
 
 		.wave-char {
-			font-size: 18px;
+			font-size: var(--font-size-lg);
 			line-height: 24px;
 			will-change: none;
 			/* Disable will-change on mobile for better performance */

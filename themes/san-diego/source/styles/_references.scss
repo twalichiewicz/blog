@@ -1,5 +1,5 @@
 // References Component
-// Academic-style references with monospaced typography
+// Academic-style references with var(--font-mono)d typography
 
 .references-section {
   margin-top: 4rem;
@@ -11,16 +11,16 @@
   }
   
   h2 {
-    font-size: 1.5rem;
+    font-size: var(--font-size-2xl);
     margin-bottom: 1.5rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
   }
 }
 
 .references-list {
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  font-size: 9px;
-  line-height: 1.6;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-tight).6;
   color: var(--text-secondary, #666);
   
   @media (prefers-color-scheme: dark) {
@@ -36,14 +36,14 @@
     li {
       margin-bottom: 0.75rem;
       padding-left: 1.5rem;
-      font-size: 9px;
+      font-size: var(--font-size-xs);
       position: relative;
       list-style-position: outside;
       margin-left: 1rem;
       
       // Reference number styling
       &::marker {
-        font-weight: 600;
+        font-weight: var(--font-weight-semibold);
         color: var(--text-primary);
       }
     }
@@ -81,7 +81,7 @@ sup {
   a {
     text-decoration: none;
     color: var(--link-color, hsl(15deg 70% 40%));
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     padding: 0 0.1em;
     
     &:hover {

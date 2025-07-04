@@ -83,7 +83,7 @@
           left: 50%;
           transform: translate(-50%, -50%);
           color: rgb(255 255 255 / 80%);
-          font-size: 24px;
+          font-size: var(--font-size-2xl);
           text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
           z-index: 2;
           opacity: 0;
@@ -128,7 +128,7 @@
     &[data-cover-image="true"] {
       .portfolio-content {
         padding: 4px;
-        font-size: 0.875rem;
+        font-size: var(--font-size-sm);
       }
     }
   }

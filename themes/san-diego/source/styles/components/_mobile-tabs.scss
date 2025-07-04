@@ -82,8 +82,8 @@
 		border: none;
 		background: transparent !important;
 		border-radius: 30px;
-		font-size: 14px;
-		font-weight: 500;
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-medium);
 		color: variables.$text-color-secondary;
 		cursor: pointer;
 		transition: color 0.3s ease;
@@ -115,13 +115,13 @@
 			position: relative;
 			background-color: lightgrey;
 			color: white;
-			font-size: 9px;
-			font-weight: 600;
+			font-size: var(--font-size-xs);
+			font-weight: var(--font-weight-semibold);
 			padding: 3px 4px 3px 6px;
 			border-radius: 9px;
 			text-transform: uppercase;
 			letter-spacing: 0.5px;
-			line-height: 1;
+			line-height: var(--line-height-tight);
 			margin-left: 4px;
 			vertical-align: middle;
 			top: -1px;
@@ -148,7 +148,7 @@
 	@media screen and (max-width: variables.$mobile-breakpoint) {
 		.tab-button {
 			padding: 6px 0; // New padding: 6px top/bottom, 0 left/right
-			font-size: 12px; // New font-size
+			font-size: var(--font-size-xs); // New font-size
 		}
 	}
 

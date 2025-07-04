@@ -4,8 +4,8 @@
 // Reusable button mixin based on posts-only-button design
 @mixin reusable-button {
 	padding: 8px 16px;
-	font-size: 12px;
-	font-weight: 500;
+	font-size: var(--font-size-2xs);
+	font-weight: var(--font-weight-medium);
 	color: variables.$text-color-secondary;
 	background: linear-gradient(to bottom,
 			color.adjust(variables.$card-bg, $lightness: 2%),
@@ -73,8 +73,8 @@
 // Reusable bordered button mixin (no background fill)
 @mixin reusable-button-bordered {
 	padding: 8px 16px;
-	font-size: 12px;
-	font-weight: 500;
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-medium);
 	color: variables.$text-color;
 	background: transparent;
 	border: 1px solid variables.$border-color;
@@ -127,7 +127,7 @@
 	border-radius: 6px;
 	background: transparent;
 	font-family: inherit;
-	font-size: 14px;
+	font-size: var(--font-size-sm);
 	text-decoration: none;
 	cursor: pointer;
 	display: inline-block;
@@ -229,7 +229,7 @@ button {
 	transition: all 0.2s ease-in-out;
 	margin-top: 0;
 	color: variables.$text-color;
-	font-size: 12px;
+	font-size: var(--font-size-xs);
 
 	&:hover {
 		background: variables.$link-color;
@@ -288,8 +288,8 @@ blockquote {
 	padding: 1rem 1.25rem;
 	margin: 1.5rem 0;
 	border-radius: 12px;
-	font-size: 15px;
-	line-height: 1.5;
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-tight).5;
 	background-color: variables.$white-1;
 	border: 1px solid variables.$border-color;
 	color: variables.$text-color;
@@ -325,13 +325,13 @@ blockquote {
 
 		h3 {
 			margin: 0 0 6px;
-			font-size: 15px !important;
+			font-size: var(--font-size-base) !important;
 			color: variables.$text-color;
 		}
 
 		p {
 			margin: 0;
-			font-size: 12px;
+			font-size: var(--font-size-xs);
 
 			&:not(:last-child) {
 				margin-bottom: 0.5rem;
@@ -363,9 +363,9 @@ blockquote {
 	background-color: variables.$accent-gold-light;
 	border: 1px solid variables.$accent-gold;
 	border-radius: 4px;
-	font-size: 9px;
-	font-weight: 500;
-	line-height: 1;
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-medium);
+	line-height: var(--line-height-tight);
 	color: variables.$accent-gold-dark;
 	box-shadow: variables.$shadow-soft;
 
@@ -554,15 +554,15 @@ button {
 		
 		// Label styling
 		.filter-label {
-			font-size: 13px;
-			font-weight: 600;
+			font-size: var(--font-size-sm);
+			font-weight: var(--font-weight-semibold);
 			color: variables.$text-color;
 			text-transform: uppercase;
 			letter-spacing: 0.04em;
 			transition: color 0.2s ease;
 			
 			@media screen and (max-width: variables.$mobile-breakpoint) {
-				font-size: 12px;
+				font-size: var(--font-size-xs);
 			}
 		}
 		
@@ -745,10 +745,10 @@ button {
 		width: 100%;
 
 		.profile-name {
-			font-size: 24px;
-			font-weight: 600;
+			font-size: var(--font-size-2xl);
+			font-weight: var(--font-weight-semibold);
 			margin: 0 0 9px 0;
-			line-height: 100%;
+			line-height: var(--line-height-tight);
 			text-shadow:
 				0 1px 1px rgb(255 255 255 / 90%),
 				0 -1px 1px rgb(0 0 0 / 20%);
@@ -756,19 +756,19 @@ button {
 		}
 
 		.profile-byline {
-			font-size: 14px;
-			font-weight: 500;
+			font-size: var(--font-size-sm);
+			font-weight: var(--font-weight-medium);
 			margin: 0 0 8px 0;
 			color: variables.$text-color-secondary;
-			line-height: 1.4;
+			line-height: var(--line-height-tight).4;
 			display: none;
 		}
 
 		.profile-bio {
 			color: variables.$text-color-secondary;
 			margin: 0 0 16px 0;
-			font-size: 12px;
-			line-height: 1.4;
+			font-size: var(--font-size-xs);
+			line-height: var(--line-height-tight).4;
 			max-width: 450px;
 		}
 
@@ -780,7 +780,7 @@ button {
 			background: rgba(variables.$black, 0.05);
 			border-radius: 20px;
 			margin-bottom: 9px;
-			font-size: 13px;
+			font-size: var(--font-size-sm);
 			color: variables.$text-color-secondary;
 			transition: all 0.2s ease;
 
@@ -830,12 +830,12 @@ button {
 
 				.number {
 					display: block;
-					font-weight: 600;
-					font-size: 18px;
+					font-weight: var(--font-weight-semibold);
+					font-size: var(--font-size-lg);
 				}
 
 				.label {
-					font-size: 9px;
+					font-size: var(--font-size-xs);
 					color: variables.$text-color-secondary;
 					text-transform: uppercase;
 					letter-spacing: 0.05em;
@@ -847,7 +847,7 @@ button {
 				bottom: auto;
 				top: 6px;
 				right: 6px;
-				font-size: 9px;
+				font-size: var(--font-size-xs);
 				padding: 6px 12px;
 				background: variables.$black;
 				border: 1px solid variables.$black;
@@ -857,7 +857,7 @@ button {
 				letter-spacing: 0.05em;
 				cursor: pointer;
 				transition: all 0.2s ease;
-				font-weight: 500;
+				font-weight: var(--font-weight-medium);
 
 				&:hover {
 					background: color.scale(variables.$black, $lightness: 10%);
@@ -886,8 +886,8 @@ button {
 		.contact-button {
 			display: block;
 			padding: 8px 16px;
-			font-size: 12px;
-			font-weight: 500;
+			font-size: var(--font-size-xs);
+			font-weight: var(--font-weight-medium);
 			color: variables.$text-color;
 			text-decoration: none;
 			text-align: center;
@@ -964,7 +964,7 @@ button {
 			
 			.location-pill {
 				padding: 3px 9px;
-				font-size: 11px;
+				font-size: var(--font-size-xs);
 				margin-bottom: 3px;
 				
 				.location-icon {
@@ -974,11 +974,11 @@ button {
 			}
 			
 			.profile-byline {
-				font-size: 11px;
-				font-weight: 500;
+				font-size: var(--font-size-xs);
+				font-weight: var(--font-weight-medium);
 				margin: 3px 0;
 				color: variables.$text-color-secondary;
-				line-height: 1.3;
+				line-height: var(--line-height-tight).3;
 				display: block;
 			}
 		}
@@ -1053,8 +1053,8 @@ button {
 			padding: 8px 16px;
 			margin: 6px 0 0 0;
 			position: relative;
-			font-size: 12px; // Match other buttons
-			font-weight: 600;
+			font-size: var(--font-size-xs); // Match other buttons
+			font-weight: var(--font-weight-semibold);
 			color: variables.$text-color;
 			cursor: pointer;
 			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1232,11 +1232,11 @@ button {
 			}
 			
 			.profile-byline {
-				font-size: 14px;
-				font-weight: 500;
+				font-size: var(--font-size-sm);
+				font-weight: var(--font-weight-medium);
 				margin: 12px 0 8px 0;
 				color: variables.$text-color-secondary;
-				line-height: 1.4;
+				line-height: var(--line-height-tight).4;
 				display: block;
 			}
 			
@@ -1253,12 +1253,12 @@ button {
 
 					.number {
 						display: block;
-						font-weight: 600;
-						font-size: 16px;
+						font-weight: var(--font-weight-semibold);
+						font-size: var(--font-size-base);
 					}
 
 					.label {
-						font-size: 9px;
+						font-size: var(--font-size-xs);
 						color: variables.$text-color-secondary;
 						text-transform: uppercase;
 						letter-spacing: 0.05em;
@@ -1281,8 +1281,8 @@ button {
 				.contact-option {
 					flex: 1;
 					padding: 8px 12px;
-					font-size: 11px;
-					font-weight: 500;
+					font-size: var(--font-size-xs);
+					font-weight: var(--font-weight-medium);
 					color: variables.$text-color;
 					text-decoration: none;
 					text-align: center;
@@ -1489,8 +1489,8 @@ button {
 			background: rgba(variables.$link-color, 0.8);
 			border: 1px solid rgba(variables.$link-color, 0.6);
 			border-radius: 6px;
-			font-size: 12px;
-			font-weight: 600;
+			font-size: var(--font-size-xs);
+			font-weight: var(--font-weight-semibold);
 			color: variables.$white;
 			text-decoration: none;
 			cursor: pointer;
@@ -1551,8 +1551,8 @@ button {
 			.contact-option {
 				display: block;
 				padding: 8px 16px;
-				font-size: 12px;
-				font-weight: 500;
+				font-size: var(--font-size-xs);
+				font-weight: var(--font-weight-medium);
 				color: variables.$text-color;
 				text-decoration: none;
 				text-align: center;
@@ -1604,8 +1604,8 @@ button {
 
 			.contact-option {
 				padding: 8px 16px;
-				font-size: 12px;
-				font-weight: 500;
+				font-size: var(--font-size-xs);
+				font-weight: var(--font-weight-medium);
 				color: variables.$text-color;
 				text-decoration: none;
 				text-align: center;
@@ -1832,7 +1832,7 @@ button {
 
 		h2 {
 			margin: 0;
-			font-size: 15px;
+			font-size: var(--font-size-base);
 			color: var(--propel-text);
 			text-transform: none;
 		}
@@ -1879,7 +1879,7 @@ button {
 			opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
 		.tldr-summary {
-			font-size: 15px;
+			font-size: var(--font-size-base);
 			color: var(--propel-text-secondary);
 			margin-top: 0;
 		}
@@ -1895,16 +1895,16 @@ button {
 				padding: variables.$space-sm;
 
 				h3 {
-					font-size: 14px;
+					font-size: var(--font-size-sm);
 					margin: 0;
 					color: var(--propel-text);
 				}
 
 				p {
 					margin: 0;
-					font-size: 12px;
+					font-size: var(--font-size-xs);
 					color: var(--propel-text-secondary);
-					line-height: 1.5;
+					line-height: var(--line-height-tight).5;
 				}
 
 				svg {
@@ -2110,8 +2110,8 @@ table {
 	width: 100%;
 	margin: variables.$space-lg 0;
 	border-collapse: collapse;
-	font-size: 12px;
-	line-height: 1.4;
+	font-size: var(--font-size-xs);
+	line-height: var(--line-height-tight).4;
 	border: 1px solid rgba(variables.$border-color, 0.3);
 	border-radius: 6px;
 	overflow: hidden;
@@ -2143,7 +2143,7 @@ table {
 		text-align: left;
 		padding: 0.75em 1em;
 		background-color: rgba(variables.$card-bg, 0.95);
-		font-weight: 500;
+		font-weight: var(--font-weight-medium);
 		vertical-align: top;
 		display: flex;
 		flex-direction: column;
@@ -2172,7 +2172,7 @@ table {
 
 	// Style for the "Updated" and "New" badges
 	th span {
-		font-size: 9px;
+		font-size: var(--font-size-xs);
 		background-color: #f0f0f0;
 		padding: 2px 4px;
 		border-radius: 3px;
@@ -2303,7 +2303,7 @@ table {
 	.search-input {
 		flex: 1;
 		padding: 9px 9px 9px 30px;
-		font-size: 14px;
+		font-size: var(--font-size-sm);
 		border: 1px solid rgb(255 255 255 / 10%);
 		border-radius: 8px;
 		background: linear-gradient(to bottom,
@@ -2614,8 +2614,8 @@ table {
 	}
 
 	.contact-modal-title {
-		font-size: 15px;
-		font-weight: 400;
+		font-size: var(--font-size-base);
+		font-weight: var(--font-weight-normal);
 		margin-bottom: 18px;
 		color: #666;
 		letter-spacing: 0.01em;
@@ -2663,7 +2663,7 @@ table {
 			align-items: center;
 			justify-content: center;
 			padding: 16px 12px 12px;
-			font-size: 12px;
+			font-size: var(--font-size-xs);
 			border-radius: 8px;
 			background-color: rgb(255 255 255 / 36%);
 			color: #9291a1;
@@ -2693,9 +2693,9 @@ table {
 			}
 
 			.contact-label {
-				font-weight: 500;
+				font-weight: var(--font-weight-medium);
 				text-align: center;
-				line-height: 1.2;
+				line-height: var(--line-height-tight).2;
 			}
 		}
 	}
@@ -2977,8 +2977,8 @@ table {
 								background: rgb(0 0 0 / 15%);
 								border-radius: 6px;
 								color: white;
-								font-size: 14px;
-								font-weight: 600;
+								font-size: var(--font-size-sm);
+								font-weight: var(--font-weight-semibold);
 								margin: 0;
 								text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
 							}
@@ -3105,8 +3105,8 @@ table {
 
 		.stat-value {
 			font-size: clamp(1.75rem, 3dvh, 2.25rem);
-			font-weight: 700;
-			line-height: 1.1;
+			font-weight: var(--font-weight-bold);
+			line-height: var(--line-height-tight).1;
 			color: #fff;
 			margin-bottom: clamp(0.25rem, 0.5dvh, 0.5rem);
 			font-feature-settings: "tnum";
@@ -3118,7 +3118,7 @@ table {
 		.stat-label {
 			font-size: clamp(0.75rem, 1.2dvh, 0.875rem);
 			color: rgba(255, 255, 255, 0.8);
-			font-weight: 500;
+			font-weight: var(--font-weight-medium);
 			opacity: 1;
 			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 			text-transform: uppercase;
@@ -3250,8 +3250,8 @@ table {
 	}
 
 	.impact-modal-title {
-		font-size: 15px;
-		font-weight: 500;
+		font-size: var(--font-size-base);
+		font-weight: var(--font-weight-medium);
 		margin: 0;
 		padding: 0;
 		text-align: center;
@@ -3274,8 +3274,8 @@ table {
 		}
 
 		h3 {
-			font-size: 20px;
-			font-weight: 600;
+			font-size: var(--font-size-xl);
+			font-weight: var(--font-weight-semibold);
 			margin-bottom: 20px;
 			color: variables.$text-color;
 		}
@@ -3302,22 +3302,22 @@ table {
 
 		.impact-number {
 			display: block;
-			font-size: 36px;
-			font-weight: 700;
+			font-size: var(--font-size-4xl);
+			font-weight: var(--font-weight-bold);
 			color: variables.$link-color;
 			margin-bottom: 8px;
 		}
 
 		.impact-label {
 			display: block;
-			font-size: 14px;
-			font-weight: 600;
+			font-size: var(--font-size-sm);
+			font-weight: var(--font-weight-semibold);
 			margin-bottom: 8px;
 			color: variables.$text-color;
 		}
 
 		.impact-description {
-			font-size: 12px;
+			font-size: var(--font-size-xs);
 			color: variables.$text-color-secondary;
 			margin: 0;
 		}
@@ -3332,8 +3332,8 @@ table {
 			position: relative;
 			padding-left: 24px;
 			margin-bottom: 12px;
-			font-size: 14px;
-			line-height: 1.6;
+			font-size: var(--font-size-sm);
+			line-height: var(--line-height-tight).6;
 			color: variables.$text-color;
 
 			&:before {
@@ -3341,7 +3341,7 @@ table {
 				position: absolute;
 				left: 8px;
 				color: variables.$link-color;
-				font-weight: bold;
+				font-weight: var(--font-weight-bold);
 			}
 		}
 	}
@@ -3363,22 +3363,22 @@ table {
 		}
 
 		h4 {
-			font-size: 16px;
-			font-weight: 600;
+			font-size: var(--font-size-base);
+			font-weight: var(--font-weight-semibold);
 			margin: 0 0 8px 0;
 			color: variables.$text-color;
 		}
 
 		p {
-			font-size: 12px;
+			font-size: var(--font-size-xs);
 			color: variables.$text-color-secondary;
 			margin: 0;
 		}
 	}
 
 	.impact-philosophy {
-		font-size: 16px;
-		line-height: 1.8;
+		font-size: var(--font-size-base);
+		line-height: var(--line-height-tight).8;
 		color: variables.$text-color;
 		font-style: italic;
 		background: rgba(variables.$black, 0.02);
