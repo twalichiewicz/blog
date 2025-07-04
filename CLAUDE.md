@@ -18,6 +18,55 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 10. [Best Practices](#best-practices)
 11. [Technical Debt Registry](#technical-debt-registry)
 
+## 🚀 Quick Reference Card
+
+### Most Common Workflows
+```bash
+# Fix something quickly
+git checkout -b fix/issue-name
+npm run dev
+# Make changes, test locally
+npm run build  # MUST PASS before committing
+git add -A && git commit -m "fix: description"
+git push -u origin fix/issue-name
+open "https://github.com/twalichiewicz/blog/pull/new/fix/issue-name"
+
+# Add new feature with worktree
+git worktree add -b feature/name ../blog-feature
+# Copy files between directories as needed
+cp source/file.js ../blog-feature/source/file.js
+
+# Common commands
+npm run dev          # Development with self-healing
+npm run build        # Build everything (REQUIRED before commit)
+npm run doctor       # Check system health
+npm run fix          # Auto-fix issues
+```
+
+### Key Rules
+- ❌ NEVER push to main directly
+- ✅ ALWAYS create feature branches
+- ✅ ALWAYS run `npm run build` before committing
+- ✅ ALWAYS test on Netlify preview before merging
+- 📝 Create `*-plan.md` for complex features
+
+### Decision Tree: What Workflow Should I Use?
+
+**Simple fix (typo, color change, small CSS tweak)?**
+→ Create branch directly: `git checkout -b fix/issue-name`
+
+**Complex feature or multiple file changes?**
+→ Use worktree: `git worktree add -b feature/name ../blog-feature`
+
+**Need to test across multiple scenarios?**
+→ Create PR early, use Netlify preview for testing
+
+**Experimental changes that might break things?**
+→ Definitely use worktree to isolate changes
+
+**Working on demos or interactive components?**
+→ Use worktree + `npm run dev:demos` in parallel
+
 ## 🚨 Critical Rules & Warnings
 
 ### Development Workflow Requirements
@@ -43,6 +92,16 @@ git worktree list
 git worktree remove ../blog-new-feature
 ```
 
+#### Claude Code Worktree Limitations
+**IMPORTANT**: Claude Code has security restrictions on directory access:
+- Cannot `cd` to parent directories or sibling directories
+- Cannot directly edit files in worktrees created outside the main directory
+- Workaround strategies:
+  1. Create branch directly in main repo: `git checkout -b feature/name`
+  2. Copy files between directories: `cp file.txt ../worktree/file.txt`
+  3. Use `git stash` to transfer changes between branches
+  4. Request user to manually navigate to worktree directories if needed
+
 ### PR-Based Development Workflow
 **IMPORTANT**: Never push directly to main branch. All changes must go through pull requests.
 
@@ -64,23 +123,50 @@ git worktree remove ../blog-new-feature
    git push -u origin feature/your-feature-name
    ```
 
-4. **Verify PR Checks**
+4. **Create PR programmatically (if GitHub CLI is available)**
+   ```bash
+   # Method 1: Using gh CLI (requires authentication)
+   gh pr create --title "Title" --body "Description"
+   
+   # Method 2: Open browser to create PR
+   open "https://github.com/twalichiewicz/blog/pull/new/feature/your-feature-name"
+   
+   # Note: GitHub CLI authentication in Claude Code
+   # - Environment variable GITHUB_TOKEN is not always available
+   # - Alternative: GH_TOKEN=$GITHUB_TOKEN gh pr create ...
+   # - If auth fails, use browser method instead
+   ```
+
+5. **Verify PR Checks**
    - Wait for Netlify preview deployment
    - Check the preview URL (commented on PR)
    - Ensure all GitHub Actions checks pass
    - Review any safety warnings
 
 #### PR Preview System
-- **Netlify Preview**: Every PR gets a unique preview URL
+- **Netlify Preview**: Every PR gets a unique preview URL (format: `https://deploy-preview-[PR-NUMBER]--thomasdesign.netlify.app/`)
 - **Safety Checks**: Pre-deploy script runs automatically
 - **Build Validation**: GitHub Actions verify the build
 - **No Production Impact**: Changes are isolated until merged
+
+#### Staging Server Workflow
+1. **Create PR**: Push feature branch and create pull request
+2. **Wait for deployment**: Netlify bot comments with preview URL (~2-3 minutes)
+3. **Test on staging**: 
+   - Preview URL format: `https://deploy-preview-[PR-NUMBER]--thomasdesign.netlify.app/`
+   - Test in both light/dark modes
+   - Check mobile responsiveness
+   - Verify interactive features
+4. **Iterate if needed**: Push more commits to update preview
+5. **Merge when ready**: Production deployment happens automatically
 
 #### Important Notes
 - The pre-deploy check uses `--force` flag temporarily due to history manipulation issues
 - Preview deployments go to the "preview" environment
 - Production deployments only happen after merging to main
 - Cache-busting headers prevent stale content issues
+- Claude Code cannot access parent directories, so worktree operations may require manual steps
+- Each commit to a PR branch triggers a new preview build
 
 ### Plan-First Development Process
 1. **Planning Phase** (REQUIRED)
@@ -127,6 +213,17 @@ Each SCSS file has a specific purpose. NEVER cross these boundaries:
 - NEVER commit secrets or keys to the repository
 - NEVER push directly to the main branch - always use PRs
 - Always follow security best practices
+
+### Common Pitfalls to Avoid
+1. **Forgetting to build before committing** - Always run `npm run build`
+2. **Working in the wrong branch** - Check with `git branch` before starting
+3. **Modifying production directly** - Always use feature branches
+4. **Ignoring TypeScript/build errors** - Fix ALL errors before pushing
+5. **Not testing in both light/dark modes** - Both must work correctly
+6. **Assuming libraries exist** - Check package.json first
+7. **Creating unnecessary files** - Edit existing files when possible
+8. **Adding comments without being asked** - Keep code clean
+9. **Making changes beyond the scope** - Stick to what was requested
 
 ## Quick Start
 
@@ -717,6 +814,23 @@ themes/san-diego/source/styles/
 
 ## Testing & Quality
 
+### Quick Testing Checklist
+```bash
+# Before pushing any changes:
+npm run build              # Must pass - no exceptions
+npm run lint:scss          # Check SCSS formatting
+npm run test               # Run test suite
+npm run analyze            # Check bundle size
+
+# Manual testing:
+- [ ] Test in light mode
+- [ ] Test in dark mode
+- [ ] Test on mobile viewport
+- [ ] Test on tablet viewport
+- [ ] Check browser console for errors
+- [ ] Verify interactive features work
+```
+
 ### Testing Protocols
 Consult `TESTING-PROTOCOLS.md` for:
 - Change classification (🟢 Green / 🟡 Yellow / 🔴 Red light)
@@ -729,6 +843,16 @@ Consult `TESTING-PROTOCOLS.md` for:
 2. Use visual-testing protocols in docs
 3. Compare screenshots iteratively
 4. Test in both themes and multiple viewports
+
+### Testing on Staging
+1. Push to feature branch
+2. Wait for Netlify comment with preview URL
+3. Test comprehensively:
+   - All affected pages
+   - Both color modes
+   - Mobile/tablet/desktop
+   - Interactive features
+   - Performance metrics
 
 ### Performance Monitoring
 - Run `npm run analyze` after significant changes
@@ -811,6 +935,35 @@ This is automatically handled by the self-healing system in `npm run dev`. For m
 - Verify media query order
 - Test in both light/dark modes
 - Clear browser cache
+
+### Emergency Procedures
+
+#### If You Break Production
+1. **Don't panic** - The site has backups
+2. **Revert immediately**:
+   ```bash
+   git revert HEAD
+   git push origin main
+   ```
+3. **Notify user** about the issue
+4. **Fix in feature branch** and test thoroughly
+
+#### If Build Keeps Failing
+1. Run `npm run doctor` for diagnostics
+2. Try `npm run fix` for auto-fixes
+3. Clear all caches:
+   ```bash
+   hexo clean
+   rm -rf node_modules
+   npm install
+   ```
+4. Check Node.js version compatibility
+
+#### If PR Preview Isn't Working
+1. Check Netlify dashboard for build logs
+2. Ensure branch is pushed correctly
+3. Wait 3-5 minutes for deployment
+4. Check for build errors in PR checks
 
 ## Self-Healing Development System
 

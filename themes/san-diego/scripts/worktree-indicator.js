@@ -8,7 +8,18 @@
 
 hexo.extend.filter.register('after_render:html', function(str, data) {
   // Only inject in development mode
-  if (process.env.NODE_ENV === 'production') {
+  // Check multiple conditions to ensure we're not in production
+  if (process.env.NODE_ENV === 'production' || 
+      hexo.env.env === 'production' ||
+      process.env.HEXO_ENV === 'production' ||
+      process.env.NETLIFY === 'true' ||
+      process.env.CI === 'true' ||
+      hexo.config.environment === 'production') {
+    return str;
+  }
+  
+  // Additional safety check - if URL is set and not localhost, don't show
+  if (hexo.config.url && !hexo.config.url.includes('localhost')) {
     return str;
   }
 
