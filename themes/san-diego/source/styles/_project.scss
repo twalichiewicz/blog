@@ -12,21 +12,22 @@
 }
 
 // Project edge wrapper styles
-body .project-edge-wrapper {
-	// Desktop/tablet: Apply outer border to project-edge-wrapper (top and left only)
+body .project-edge-wrapper,
+.project-edge-wrapper {
+	// NUCLEAR OVERRIDE: Reset ALL borders first
 	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		border: none !important;
+		
+		// Then apply only the borders we want (top and left only)
 		border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
 		border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
-		border-right: none !important;
-		border-bottom: none !important;
 		border-radius: 12px 0 0 0;
 		background: variables.$card-bg;
 		
 		@media (prefers-color-scheme: dark) {
-			border-top-color: rgba(255, 255, 255, 0.1) !important;
-			border-left-color: rgba(255, 255, 255, 0.1) !important;
-			border-right: none !important;
-			border-bottom: none !important;
+			border: none !important;
+			border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+			border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
 			background: rgb(24, 24, 24);
 		}
 	}
