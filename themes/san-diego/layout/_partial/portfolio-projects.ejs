@@ -194,9 +194,15 @@
                                 
                                 <!-- Layer 1: Front cover (what user sees initially) -->
                                 <div class="front-cover"
-                                     <% if (post.notebook_sticker_image) { %>
-                                         data-sticker-1-image="true"
-                                         style="<%- Object.entries({
+                                     <% 
+                                     // Handle both image stickers and text stickers
+                                     let allAttributes = [];
+                                     let allStyles = [];
+                                     
+                                     // Process image sticker if present
+                                     if (post.notebook_sticker_image) {
+                                         allAttributes.push('data-sticker-1-image="true"');
+                                         const imageStyles = Object.entries({
                                              '--sticker-1-image': `url(${url_for(post.notebook_sticker_image)})`,
                                              '--sticker-1-width': post.notebook_sticker_image_width || '50px',
                                              '--sticker-1-height': post.notebook_sticker_image_height || '50px',
@@ -205,44 +211,41 @@
                                              '--sticker-1-bottom': post.notebook_sticker_image_bottom || '25px',
                                              '--sticker-1-left': post.notebook_sticker_image_left || 'auto',
                                              '--sticker-1-rotate': post.notebook_sticker_image_rotate || '-3deg'
-                                         }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join('; ') %>;"
-                                     <% } else if (post.notebook_stickers && post.notebook_stickers.length > 0) { %>
-                                         <% post.notebook_stickers.forEach((sticker, index) => { 
+                                         }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`);
+                                         allStyles = allStyles.concat(imageStyles);
+                                     }
+                                     
+                                     // Process text stickers if present
+                                     if (post.notebook_stickers && post.notebook_stickers.length > 0) {
+                                         post.notebook_stickers.forEach((sticker, index) => { 
                                              if (sticker && index < 4) { 
                                                  const stickerNum = index + 1;
                                                  const defaultBgs = ['#ff4444', '#ffeb3b', '#4CAF50', '#9C27B0'];
                                                  const defaultColors = ['#fff', '#000', '#fff', '#fff'];
                                                  const defaultRotates = ['-5deg', '3deg', '-2deg', '8deg'];
                                                  const defaultShapes = ['rectangle', 'rectangle', 'rounded', 'circle'];
-                                         %>
-                                             data-sticker-<%- stickerNum %>="<%- sticker.text %>"
-                                             <% if (index === 0) { %>
-                                             style="<%- Object.entries({
-                                                 '--sticker-1-color': sticker.color || defaultColors[0],
-                                                 '--sticker-1-bg': sticker.bg || defaultBgs[0],
-                                                 '--sticker-1-rotate': sticker.rotate || defaultRotates[0],
-                                                 '--sticker-1-shape': sticker.shape || defaultShapes[0],
-                                                 '--sticker-1-style': sticker.style || 'regular',
-                                                 '--sticker-1-top': sticker.top,
-                                                 '--sticker-1-right': sticker.right,
-                                                 '--sticker-1-bottom': sticker.bottom,
-                                                 '--sticker-1-left': sticker.left
-                                             }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join('; ') %>;"
-                                             <% } else if (index === 1) { %>
-                                             style="<%- Object.entries({
-                                                 '--sticker-2-color': sticker.color || defaultColors[1],
-                                                 '--sticker-2-bg': sticker.bg || defaultBgs[1],
-                                                 '--sticker-2-rotate': sticker.rotate || defaultRotates[1],
-                                                 '--sticker-2-shape': sticker.shape || defaultShapes[1],
-                                                 '--sticker-2-style': sticker.style || 'regular',
-                                                 '--sticker-2-top': sticker.top,
-                                                 '--sticker-2-right': sticker.right,
-                                                 '--sticker-2-bottom': sticker.bottom,
-                                                 '--sticker-2-left': sticker.left
-                                             }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join('; ') %>;"
-                                             <% } %>
-                                         <% } 
-                                         }); %>
+                                                 
+                                                 allAttributes.push(`data-sticker-${stickerNum}="${sticker.text}"`);
+                                                 
+                                                 const stickerStyles = Object.entries({
+                                                     [`--sticker-${stickerNum}-color`]: sticker.color || defaultColors[index],
+                                                     [`--sticker-${stickerNum}-bg`]: sticker.bg || defaultBgs[index],
+                                                     [`--sticker-${stickerNum}-rotate`]: sticker.rotate || defaultRotates[index],
+                                                     [`--sticker-${stickerNum}-shape`]: sticker.shape || defaultShapes[index],
+                                                     [`--sticker-${stickerNum}-style`]: sticker.style || 'regular',
+                                                     [`--sticker-${stickerNum}-top`]: sticker.top,
+                                                     [`--sticker-${stickerNum}-right`]: sticker.right,
+                                                     [`--sticker-${stickerNum}-bottom`]: sticker.bottom,
+                                                     [`--sticker-${stickerNum}-left`]: sticker.left
+                                                 }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`);
+                                                 allStyles = allStyles.concat(stickerStyles);
+                                             }
+                                         });
+                                     }
+                                     %>
+                                     <%- allAttributes.join(' ') %>
+                                     <% if (allStyles.length > 0) { %>
+                                     style="<%- allStyles.join('; ') %>;"
                                      <% } %>
                                 >
                                     <% if (post.notebook_stickers && post.notebook_stickers.length > 2) { %>
