@@ -75,7 +75,7 @@
 		.profile-bio {
 			color: variables.$text-color-secondary;
 			margin: 0 0 16px 0;
-			font-size: var(--font-size-xs);
+			font-size: var(--font-size-sm);
 			line-height: var(--line-height-tight).4;
 			max-width: 450px;
 		}
@@ -88,7 +88,7 @@
 			background: transparent;
 			border-radius: 20px;
 			margin-bottom: 9px;
-			font-size: var(--font-size-sm);
+			font-size: var(--font-size-xs);
 			font-weight: var(--font-weight-medium);
 			color: variables.$text-color-secondary;
 			transition: all 0.2s ease;

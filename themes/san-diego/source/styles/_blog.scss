@@ -159,6 +159,14 @@
 
 		.post-byline {
 			@extend .byline-base;
+			
+			// Ensure byline styles don't leak to following content
+			+ * {
+				font-weight: var(--font-weight-normal);
+				text-transform: none;
+				letter-spacing: normal;
+				opacity: 1;
+			}
 		}
 
 		h3 {
@@ -178,7 +186,7 @@
 		p,
 		ul,
 		ol {
-			font-size: var(--font-size-sm);
+			font-size: var(--font-size-md);
 			line-height: var(--line-height-tight).4;
 			margin: variables.$spacing-stack 0;
 		}
@@ -190,8 +198,13 @@
 			li {
 				margin-bottom: 0.5rem;
 				color: variables.$grey-dark;
-				font-size: var(--font-size-sm);
+				font-size: var(--font-size-md);
 				line-height: var(--line-height-tight).4;
+				// Ensure list items don't inherit byline styles
+				font-weight: var(--font-weight-normal);
+				text-transform: none;
+				letter-spacing: normal;
+				opacity: 1;
 
 				&:last-child {
 					margin-bottom: 0;
@@ -566,6 +579,13 @@
 			ol,
 			ul {
 				li {
+					// Ensure list items have proper styling
+					font-weight: var(--font-weight-normal);
+					text-transform: none;
+					letter-spacing: normal;
+					opacity: 1;
+					color: variables.$text-color;
+					
 					img {
 						margin: 0; // Remove margin from images in lists
 						display: inline-block; // Allow images to flow with text
