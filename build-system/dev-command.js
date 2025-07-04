@@ -4,6 +4,7 @@
  * Development Command - Fast, Smart Development Mode
  * 
  * This is your daily driver for development:
+ * - Starts servers for ALL git worktrees
  * - Only rebuilds what changed
  * - Starts servers quickly  
  * - Watches for changes
@@ -13,6 +14,8 @@
 const BuildManager = require('./BuildManager');
 const SelfHealingManager = require('./self-healing-manager');
 const DevSafetyCheck = require('./dev-safety-check');
+const DevWebSocketServer = require('./dev-websocket-server');
+const WorktreeServerManager = require('./worktree-server-manager');
 const { spawn } = require('child_process');
 const chokidar = require('chokidar');
 const path = require('path');
@@ -25,10 +28,21 @@ class DevCommand extends BuildManager {
     this.selfHealing = new SelfHealingManager();
     this.safetyCheck = new DevSafetyCheck();
     this.warningsShown = new Set(); // Track shown warnings to avoid spam
+    this.wsServer = new DevWebSocketServer(this);
   }
 
   async run() {
-    this.log('🚀 Starting development mode...', 'step');
+    // Get current branch name
+    const { execSync } = require('child_process');
+    let branchName = 'unknown';
+    try {
+      branchName = execSync('git branch --show-current', { encoding: 'utf8' }).trim();
+    } catch (e) {
+      // Fallback if not in git repo
+    }
+    
+    this.branchName = branchName;
+    this.log(`🚀 Starting development mode for all worktrees...`, 'step');
     const startTime = this.startTimer();
 
     try {
@@ -41,17 +55,21 @@ class DevCommand extends BuildManager {
       // Phase 1: Quick checks (parallel)
       await this.quickSetup();
       
-      // Phase 2: Start main server
-      await this.startMainServer();
+      // Phase 2: Start servers for ALL worktrees
+      this.worktreeManager = new WorktreeServerManager();
+      await this.worktreeManager.startAllServers();
       
-      // Phase 3: Setup file watching
-      this.setupWatchers();
+      // Phase 3: Start WebSocket server for debug panel
+      this.wsServer.start();
       
-      // Phase 4: Initial safety scan
+      // Phase 4: Setup file watching (for all worktrees)
+      this.setupWatchersForAllWorktrees();
+      
+      // Phase 5: Initial safety scan
       await this.runInitialSafetyCheck();
       
       this.endTimer(startTime, 'Development mode ready');
-      this.log('🎉 Ready for development! Site running at http://localhost:4000', 'success');
+      this.log(`🎉 Ready for development! All worktree servers started`, 'success');
       
       // Keep process alive
       this.keepAlive();
@@ -158,7 +176,7 @@ class DevCommand extends BuildManager {
     hexoServer.stdout.on('data', (data) => {
       const output = data.toString().trim();
       if (output.includes('Hexo is running')) {
-        this.log('✅ Hexo server started successfully', 'success');
+        this.log(`✅ Hexo server started successfully [DEV - ${this.branchName}]`, 'success');
       }
     });
     
@@ -216,60 +234,57 @@ class DevCommand extends BuildManager {
     return files.some(file => this.hasFileChanged(file));
   }
 
-  setupWatchers() {
-    this.log('👀 Setting up file watchers...', 'step');
+  setupWatchersForAllWorktrees() {
+    this.log('👀 Setting up file watchers for all worktrees...', 'step');
     
-    // Watch main content
-    const contentWatcher = chokidar.watch([
-      'source/**/*.md',
-      'source/**/*.ejs', 
-      'themes/san-diego/**/*.ejs',
-      'themes/san-diego/**/*.scss',
-      'themes/san-diego/**/*.js'
-    ], {
-      cwd: this.root,
-      ignored: ['node_modules', '.git', 'public']
+    const worktrees = this.worktreeManager.getWorktrees();
+    
+    worktrees.forEach(worktree => {
+      const worktreePath = worktree.path;
+      const branchName = worktree.branchName;
+      
+      // Watch main content for each worktree
+      const contentWatcher = chokidar.watch([
+        'source/**/*.md',
+        'source/**/*.ejs', 
+        'themes/san-diego/**/*.ejs',
+        'themes/san-diego/**/*.scss',
+        'themes/san-diego/**/*.js'
+      ], {
+        cwd: worktreePath,
+        ignored: ['node_modules', '.git', 'public']
+      });
+      
+      contentWatcher.on('change', (filePath) => {
+        this.log(`📝 [${branchName}] File changed: ${filePath}`, 'info');
+        this.handleContentChangeForWorktree(filePath, worktree);
+      });
+      
+      // Watch demo source files
+      const demoWatcher = chokidar.watch('demos/*/src/**/*', {
+        cwd: worktreePath,
+        ignored: ['node_modules', 'dist']
+      });
+      
+      demoWatcher.on('change', (filePath) => {
+        this.log(`🔧 [${branchName}] Demo file changed: ${filePath}`, 'info');
+        this.handleDemoChangeForWorktree(filePath, worktree);
+      });
+      
+      this.watchers.push(contentWatcher, demoWatcher);
     });
     
-    contentWatcher.on('change', (filePath) => {
-      this.log(`📝 File changed: ${filePath}`, 'info');
-      this.handleContentChange(filePath);
-    });
-    
-    // Watch demo source files
-    const demoWatcher = chokidar.watch('demos/*/src/**/*', {
-      cwd: this.root,
-      ignored: ['node_modules', 'dist']
-    });
-    
-    demoWatcher.on('change', (filePath) => {
-      this.log(`🔧 Demo file changed: ${filePath}`, 'info');
-      this.handleDemoChange(filePath);
-    });
-    
-    // Watch demo dist directories for rebuilds
-    const demoDistWatcher = chokidar.watch('demos/*/dist/**/*', {
-      cwd: this.root,
-      ignored: ['node_modules'],
-      ignoreInitial: true,  // Don't trigger on startup
-      awaitWriteFinish: {
-        stabilityThreshold: 500,
-        pollInterval: 100
-      }
-    });
-    
-    demoDistWatcher.on('add', (filePath) => {
-      this.log(`📦 Demo build output detected: ${filePath}`, 'info');
-      this.handleDemoDistChange(filePath);
-    });
-    
-    demoDistWatcher.on('change', (filePath) => {
-      this.log(`📦 Demo build output updated: ${filePath}`, 'info');
-      this.handleDemoDistChange(filePath);
-    });
-    
-    this.watchers.push(contentWatcher, demoWatcher, demoDistWatcher);
-    this.log('✅ File watchers active', 'success');
+    this.log(`✅ File watchers active for ${worktrees.length} worktree(s)`, 'success');
+  }
+  
+  async handleContentChangeForWorktree(filePath, worktree) {
+    // TODO: Implement worktree-specific content change handling
+    this.log(`🔄 [${worktree.branchName}] Would rebuild content...`, 'info');
+  }
+  
+  async handleDemoChangeForWorktree(filePath, worktree) {
+    // TODO: Implement worktree-specific demo change handling
+    this.log(`🔄 [${worktree.branchName}] Would rebuild demo...`, 'info');
   }
   
   async handleContentChange(filePath) {
@@ -358,7 +373,7 @@ class DevCommand extends BuildManager {
         // Regenerate Hexo to copy the new dist files
         this.log(`🔄 Copying updated ${demoName} demo to public...`, 'step');
         await this.buildMainSite(false);
-        this.log(`✅ Demo updates now live at http://localhost:4000`, 'success');
+        this.log(`✅ Demo updates now live at http://localhost:4000 [DEV - ${this.branchName}]`, 'success');
       } catch (error) {
         this.log(`Failed to update public directory: ${error.message}`, 'error');
       }
@@ -433,10 +448,19 @@ class DevCommand extends BuildManager {
   async cleanup() {
     this.log('🧹 Cleaning up...', 'step');
     
+    // Stop WebSocket server
+    this.wsServer.stop();
+    
     // Stop watchers
     this.watchers.forEach(watcher => watcher.close());
     
-    // Stop servers
+    // Stop all worktree servers
+    if (this.worktreeManager) {
+      this.log('Stopping all worktree servers...', 'step');
+      this.worktreeManager.cleanup();
+    }
+    
+    // Stop any other servers
     this.servers.forEach((server, name) => {
       this.log(`Stopping ${name} server...`, 'step');
       server.kill();
@@ -526,7 +550,7 @@ class DevCommand extends BuildManager {
 // Help text
 if (process.argv.includes('--help')) {
   console.log(`
-🚀 Development Mode - Fast development with file watching
+🚀 Development Mode - Fast development with file watching for ALL worktrees
 
 Usage: npm run dev [options]
 
@@ -536,11 +560,16 @@ Options:
   --no-watch    Skip file watching
 
 This command:
+✓ Starts servers for ALL git worktrees
+✓ Assigns unique ports (4000, 4001, 4002...)
 ✓ Quickly checks dependencies  
-✓ Starts Hexo server
-✓ Watches files for changes
+✓ Watches files for changes in all worktrees
 ✓ Rebuilds only what changed
 ✓ Optimized for speed over safety
+
+Port Allocation:
+- Main branch: port 4000
+- Feature branches: ports 4001, 4002, etc.
 
 For full validation, use: npm run test
 `);
