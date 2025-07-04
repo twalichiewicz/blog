@@ -31,6 +31,7 @@
   --font-weight-bold: 700;
   
   // Line heights
+  --line-height-1: 1;
   --line-height-tight: 1.25;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.75;
@@ -243,6 +244,7 @@ blockquote {
 .font-bold { font-weight: var(--font-weight-bold) !important; }
 
 // Line heights
+.leading-1 { line-height: var(--line-height-1) !important; }
 .leading-tight { line-height: var(--line-height-tight) !important; }
 .leading-normal { line-height: var(--line-height-normal) !important; }
 .leading-relaxed { line-height: var(--line-height-relaxed) !important; }
