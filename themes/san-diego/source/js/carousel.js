@@ -19,27 +19,36 @@ class Carousel {
 				let originalSrc = img.getAttribute('src') || '';
 				
 				// Check if we have a relative path that needs resolution
-				if (originalSrc.startsWith('./')) {
+				if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
 					const currentPath = window.location.pathname;
 					// Ensure we have a trailing slash for proper path resolution
 					const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
-					imgSrc = basePath + originalSrc.substring(2);
 					
-					console.log('[Carousel] Resolving image path:', {
+					// Remove './' if present, otherwise use the original src
+					const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
+					imgSrc = basePath + filename;
+					
+					console.log('[Carousel] updateCarouselImages - Resolving path:', {
 						original: originalSrc,
 						currentPath: currentPath,
 						basePath: basePath,
+						filename: filename,
 						resolved: imgSrc
 					});
 					
 					// Update the actual img element's src attribute
 					img.src = imgSrc;
 					img.setAttribute('src', imgSrc);
-				} else if (!imgSrc || imgSrc === window.location.href) {
-					// If src is empty or equals current page, try getting from dataset or attribute
-					imgSrc = originalSrc || img.dataset.src || '';
-					if (imgSrc) {
+				} else if (!imgSrc || imgSrc === window.location.href || imgSrc.endsWith('.html')) {
+					// If src is empty, equals current page, or ends with .html, it's broken
+					console.warn('[Carousel] Invalid image src detected:', imgSrc);
+					// Try to fix by using the original src with proper path
+					if (originalSrc) {
+						const currentPath = window.location.pathname;
+						const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+						imgSrc = basePath + originalSrc;
 						img.src = imgSrc;
+						img.setAttribute('src', imgSrc);
 					}
 				}
 				
@@ -95,19 +104,24 @@ class Carousel {
 				isSafari
 			});
 			
-			// Handle relative paths starting with './'
-			if (originalSrc.startsWith('./')) {
+			// Handle relative paths starting with './' or images without proper path
+			if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
 				const currentPath = window.location.pathname;
 				// Ensure we have a trailing slash for proper path resolution
 				const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
-				const resolvedSrc = basePath + originalSrc.substring(2);
+				
+				// Remove './' if present, otherwise use the original src
+				const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
+				const resolvedSrc = basePath + filename;
 				
 				console.log('[Carousel] Fixing image path:', {
 					index,
 					original: originalSrc,
 					currentPath: currentPath,
 					basePath: basePath,
-					resolved: resolvedSrc
+					filename: filename,
+					resolved: resolvedSrc,
+					currentImgSrc: img.src
 				});
 				
 				// Safari fix: Remove src first to force reload
@@ -185,6 +199,23 @@ class Carousel {
 		console.log('[Carousel] fixImagePaths completed');
 	}
 
+	diagnoseImages(stage) {
+		console.log(`[Carousel] Image Diagnostic - ${stage}:`);
+		this.slides.forEach((slide, index) => {
+			const img = slide.querySelector('img');
+			if (img) {
+				console.log(`  Image ${index}:`, {
+					src: img.src,
+					getAttribute: img.getAttribute('src'),
+					currentSrc: img.currentSrc,
+					naturalWidth: img.naturalWidth,
+					complete: img.complete,
+					classList: [...img.classList]
+				});
+			}
+		});
+	}
+
 	setupSafariImageLoading() {
 		// Safari-specific: Use IntersectionObserver to trigger image loading when visible
 		if ('IntersectionObserver' in window) {
@@ -259,11 +290,20 @@ class Carousel {
 		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 		console.log('[Carousel] Constructor: Starting initialization for carousel with', this.slides.length, 'slides (Safari:', isSafari + ')');
 		
+		// Diagnostic: Check initial image state
+		this.diagnoseImages('BEFORE fixImagePaths');
+		
 		// Fix image paths immediately and wait for completion
 		this.fixImagePaths();
 		
+		// Diagnostic: Check after fixImagePaths
+		this.diagnoseImages('AFTER fixImagePaths');
+		
 		// Store images for this specific carousel after path fixing
 		this.updateCarouselImages();
+		
+		// Diagnostic: Check after updateCarouselImages
+		this.diagnoseImages('AFTER updateCarouselImages');
 
 		// Add touch handling properties for both carousel and spotlight
 		this.touchStartX = 0;
