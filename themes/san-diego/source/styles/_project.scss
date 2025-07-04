@@ -13,14 +13,16 @@
 
 // Project edge wrapper styles
 body .project-edge-wrapper {
-	// Desktop/tablet: Apply outer border to project-edge-wrapper
+	// Desktop/tablet: Apply outer border to project-edge-wrapper (top and left only)
 	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-		border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
+		border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
+		border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
 		border-radius: 12px 0 0 0;
 		background: variables.$card-bg;
 		
 		@media (prefers-color-scheme: dark) {
-			border-color: rgba(255, 255, 255, 0.08);
+			border-top-color: rgba(255, 255, 255, 0.1);
+			border-left-color: rgba(255, 255, 255, 0.1);
 			background: rgb(24, 24, 24);
 		}
 	}
@@ -85,9 +87,10 @@ body .project-edge-wrapper {
 // When viewing a project, the structure is: project-edge-wrapper > blog-content
 body .project-edge-wrapper {
 	.blog-content {
-		// Desktop/tablet: Apply inner border to blog-content when inside project-edge-wrapper
+		// Desktop/tablet: Apply inner border to blog-content when inside project-edge-wrapper (top and left only)
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-			border: 1px solid rgba(87.975, 78.4125, 65.025, 0.08);
+			border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.05);
+			border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.05);
 			border-radius: 12px 0 0 0;
 			margin: 12px;
 			background: variables.$white;
@@ -95,7 +98,8 @@ body .project-edge-wrapper {
 			overflow: visible; // Override default overflow
 			
 			@media (prefers-color-scheme: dark) {
-				border-color: rgba(255, 255, 255, 0.05);
+				border-top-color: rgba(255, 255, 255, 0.03);
+				border-left-color: rgba(255, 255, 255, 0.03);
 				background: rgb(9, 9, 9);
 			}
 		}
