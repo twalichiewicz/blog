@@ -1649,6 +1649,7 @@ blockquote.pullquote {
 		align-items: flex-end;
 		
 		.project-byline {
+			font-size: var(--font-size-md);
 			text-align: right;
 			max-width: 450px;
 			color: variables.$grey-light; // Use light grey color
