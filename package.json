@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:demos && hexo clean && hexo generate",
     "build:full": "npm run build:demos && npm run build",
-    "build:prod": "NODE_ENV=production npm run pre-deploy && (npm run build:demos || echo 'Demo build failed, continuing...') && hexo clean && NODE_ENV=production hexo generate && npm run optimize",
+    "build:prod": "NODE_ENV=production npm run pre-deploy && npm run build:demos:safe && hexo clean && NODE_ENV=production hexo generate && npm run optimize",
     "build:prod:strict": "NODE_ENV=production npm run pre-deploy && npm run build:demos && hexo clean && NODE_ENV=production hexo generate && npm run optimize",
     "pre-deploy": "node build-system/pre-deploy-check.js",
     "pre-deploy:force": "node build-system/pre-deploy-check.js --force",
@@ -38,6 +38,7 @@
     "audit:a11y": "echo 'Accessibility audit needs implementation'",
     "check:contrast": "echo 'Color contrast check needs implementation'",
     "build:demos": "node demos/build-scripts/build-all-demos.js",
+    "build:demos:safe": "node demos/build-scripts/build-all-demos.js || echo 'Demo build failed, continuing with site build...'",
     "build:demos:force": "node demos/build-scripts/build-all-demos.js --skip-validation",
     "dev:demos": "node demos/build-scripts/watch-demos.js",
     "validate:demos": "node demos/build-scripts/validate-demo-standards-v2.js",
