@@ -3364,7 +3364,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 				
 				@media (max-width: variables.$mobile-breakpoint) {
 					font-size: 26px;
-					margin-bottom: 48px;
+					margin: 0 8px 48px 8px; // Add horizontal margins to match company blocks
 				}
 			}
 			
@@ -3382,6 +3382,9 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 			}
 			
 			.portfolio-more-company {
+				@media (max-width: variables.$mobile-breakpoint) {
+					margin: 0 8px; // Add horizontal margins on mobile to prevent edge touching
+				}
 				.portfolio-more-company-name {
 					font-family: var(--font-sans);
 					font-size: var(--font-size-lg);
