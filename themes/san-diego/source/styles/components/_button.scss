@@ -4,7 +4,7 @@
 // Reusable button mixin based on posts-only-button design
 @mixin reusable-button {
 	padding: 8px 16px;
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-medium);
 	color: variables.$text-color-secondary;
 	background: linear-gradient(to bottom,
@@ -73,7 +73,7 @@
 // Reusable bordered button mixin (no background fill)
 @mixin reusable-button-bordered {
 	padding: 8px 16px;
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-medium);
 	color: variables.$text-color;
 	background: transparent;

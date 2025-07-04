@@ -307,7 +307,7 @@
 			}
 
 			.profile-stats {
-				background: variables.$card-bg-dark;
+				background: variables.$bg-color-dark;
 				border-color: rgba(variables.$border-color-dark, 0.8);
 				
 				&:hover {
@@ -387,7 +387,7 @@
 			}
 			
 			.profile-byline {
-				font-size: var(--font-size-xs);
+				font-size: var(--font-size-sm);
 				font-weight: var(--font-weight-normal);
 				margin: 3px 0;
 				color: variables.$text-color-secondary;
