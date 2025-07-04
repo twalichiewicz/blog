@@ -14,10 +14,48 @@ class Carousel {
 			const video = slide.querySelector('video');
 			
 			if (img) {
+				// Ensure image src is properly resolved for relative paths
+				let imgSrc = img.src;
+				let originalSrc = img.getAttribute('src') || '';
+				
+				// Check if we have a relative path that needs resolution
+				if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
+					const currentPath = window.location.pathname;
+					// Ensure we have a trailing slash for proper path resolution
+					const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+					
+					// Remove './' if present, otherwise use the original src
+					const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
+					imgSrc = basePath + filename;
+					
+					console.log('[Carousel] updateCarouselImages - Resolving path:', {
+						original: originalSrc,
+						currentPath: currentPath,
+						basePath: basePath,
+						filename: filename,
+						resolved: imgSrc
+					});
+					
+					// Update the actual img element's src attribute
+					img.src = imgSrc;
+					img.setAttribute('src', imgSrc);
+				} else if (!imgSrc || imgSrc === window.location.href || imgSrc.endsWith('.html')) {
+					// If src is empty, equals current page, or ends with .html, it's broken
+					console.warn('[Carousel] Invalid image src detected:', imgSrc);
+					// Try to fix by using the original src with proper path
+					if (originalSrc) {
+						const currentPath = window.location.pathname;
+						const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+						imgSrc = basePath + originalSrc;
+						img.src = imgSrc;
+						img.setAttribute('src', imgSrc);
+					}
+				}
+				
 				this.carouselImages.push({
 					type: 'image',
 					element: img,
-					src: img.src,
+					src: imgSrc,
 					alt: img.alt || '',
 					slideIndex: index
 				});
@@ -48,6 +86,31 @@ class Carousel {
 		return this.carouselImages;
 	}
 
+	fixImagePathsImmediately() {
+		// Immediate synchronous fix for Safari
+		const images = this.carousel.querySelectorAll('img');
+		const currentPath = window.location.pathname;
+		const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+		
+		images.forEach((img, index) => {
+			const originalSrc = img.getAttribute('src') || '';
+			
+			if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
+				const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
+				const resolvedSrc = basePath + filename;
+				
+				console.log(`[Carousel] Safari immediate fix - Image ${index}:`, {
+					original: originalSrc,
+					resolved: resolvedSrc
+				});
+				
+				// Set both attribute and property
+				img.setAttribute('src', resolvedSrc);
+				img.src = resolvedSrc;
+			}
+		});
+	}
+
 	constructor(element) {
 		this.carousel = element;
 		this.track = element.querySelector('.carousel-track');
@@ -63,6 +126,14 @@ class Carousel {
 		this.activeMedia = null;
 
 		this.currentSpotlightIndex = 0;
+		
+		// Safari fix: Fix image paths BEFORE collecting them
+		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+		if (isSafari) {
+			console.log('[Carousel] Safari detected - fixing image paths before initialization');
+			this.fixImagePathsImmediately();
+		}
+		
 		// Store images for this specific carousel - only from carousel slides
 		this.updateCarouselImages();
 
@@ -948,6 +1019,10 @@ let carouselInstances = []; // Store instances for potential cleanup
 export function initializeCarousels(container = document) {
 	// Query ALL carousels in the container, not just those :not(.initialized)
 	const carouselsToProcess = container.querySelectorAll('.carousel');
+	const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+	const isDynamicContent = container !== document;
+	
+	console.log('[initializeCarousels] Found', carouselsToProcess.length, 'carousels to process (Safari:', isSafari, ', Dynamic:', isDynamicContent + ')');
 
 	carouselsToProcess.forEach(carouselElement => {
 
@@ -976,8 +1051,40 @@ export function initializeCarousels(container = document) {
 			carouselElement.classList.add('initialized'); // Mark as initialized *after* successful construction
 			initializedCarousels.add(carouselElement);
 			carouselInstances.push(newInstance);
+			
+			// Safari fix: For dynamically loaded content, force additional image loading attempts
+			if (isSafari && isDynamicContent) {
+				console.log('[initializeCarousels] Safari dynamic content - scheduling additional image fixes');
+				
+				// Try multiple times with different delays
+				[100, 300, 500, 1000].forEach(delay => {
+					setTimeout(() => {
+						if (newInstance.carousel && document.contains(newInstance.carousel)) {
+							console.log(`[initializeCarousels] Safari fix attempt at ${delay}ms`);
+							newInstance.fixImagePathsImmediately();
+							newInstance.updateCarouselImages();
+							
+							// Also try to force image loading by manipulating display
+							const images = newInstance.carousel.querySelectorAll('img');
+							images.forEach(img => {
+								if (!img.complete || img.naturalWidth === 0) {
+									const src = img.src;
+									img.style.display = 'none';
+									img.offsetHeight; // Force reflow
+									img.style.display = '';
+									// Add timestamp to force reload
+									if (src && !src.includes('?t=')) {
+										img.src = src + '?t=' + Date.now();
+									}
+								}
+							});
+						}
+					}, delay);
+				});
+			}
 		} catch (error) {
 			// Error initializing carousel - log for debugging
+			console.error('[initializeCarousels] Error:', error);
 			if (window.DEBUG_MODE) {
 				console.error('Carousel initialization error:', error);
 			}
