@@ -29,6 +29,8 @@ notebook_stickers:
     rotate: "2deg"
     style: "die-cut"
     shape: "circle"
+    bottom: "80px"
+    right: "25px"
 notebook_sticker_image: "/img/stickers/bonsai.svg"
 notebook_sticker_image_width: "45px"
 notebook_sticker_image_height: "45px"
