@@ -21,11 +21,20 @@ class Carousel {
 				// Check if we have a relative path that needs resolution
 				if (originalSrc.startsWith('./')) {
 					const currentPath = window.location.pathname;
-					const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+					// Ensure we have a trailing slash for proper path resolution
+					const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
 					imgSrc = basePath + originalSrc.substring(2);
+					
+					console.log('[Carousel] Resolving image path:', {
+						original: originalSrc,
+						currentPath: currentPath,
+						basePath: basePath,
+						resolved: imgSrc
+					});
 					
 					// Update the actual img element's src attribute
 					img.src = imgSrc;
+					img.setAttribute('src', imgSrc);
 				} else if (!imgSrc || imgSrc === window.location.href) {
 					// If src is empty or equals current page, try getting from dataset or attribute
 					imgSrc = originalSrc || img.dataset.src || '';
@@ -68,6 +77,41 @@ class Carousel {
 		return this.carouselImages;
 	}
 
+	fixImagePaths() {
+		// Immediately fix any relative image paths in carousel slides
+		const images = this.carousel.querySelectorAll('img');
+		console.log('[Carousel] fixImagePaths: Found', images.length, 'images to check');
+		
+		images.forEach(img => {
+			const originalSrc = img.getAttribute('src') || '';
+			
+			// Handle relative paths starting with './'
+			if (originalSrc.startsWith('./')) {
+				const currentPath = window.location.pathname;
+				// Ensure we have a trailing slash for proper path resolution
+				const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+				const resolvedSrc = basePath + originalSrc.substring(2);
+				
+				console.log('[Carousel] fixImagePaths: Fixing image', {
+					element: img,
+					original: originalSrc,
+					currentPath: currentPath,
+					basePath: basePath,
+					resolved: resolvedSrc
+				});
+				
+				// Update both src property and attribute
+				img.src = resolvedSrc;
+				img.setAttribute('src', resolvedSrc);
+				
+				// Force a repaint to ensure the image loads
+				img.style.display = 'none';
+				img.offsetHeight; // Trigger reflow
+				img.style.display = '';
+			}
+		});
+	}
+
 	constructor(element) {
 		this.carousel = element;
 		this.track = element.querySelector('.carousel-track');
@@ -83,6 +127,9 @@ class Carousel {
 		this.activeMedia = null;
 
 		this.currentSpotlightIndex = 0;
+		// Fix image paths immediately before any other processing
+		this.fixImagePaths();
+		
 		// Store images for this specific carousel - only from carousel slides
 		this.updateCarouselImages();
 
@@ -274,11 +321,25 @@ class Carousel {
 		const images = this.carousel.querySelectorAll('img');
 		images.forEach(img => {
 			const originalSrc = img.getAttribute('src') || '';
+			
+			// Handle relative paths starting with './'
 			if (originalSrc.startsWith('./')) {
 				const currentPath = window.location.pathname;
-				const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+				// Ensure we have a trailing slash for proper path resolution
+				const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
 				const resolvedSrc = basePath + originalSrc.substring(2);
+				
+				console.log('[Carousel] Fixing image path:', {
+					original: originalSrc,
+					currentPath: currentPath,
+					basePath: basePath,
+					resolved: resolvedSrc
+				});
+				
 				img.src = resolvedSrc;
+				
+				// Also set the src attribute to ensure consistency
+				img.setAttribute('src', resolvedSrc);
 			}
 		});
 		
