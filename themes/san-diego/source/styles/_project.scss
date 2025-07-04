@@ -12,7 +12,26 @@
 }
 
 // Project edge wrapper styles
-body .project-edge-wrapper {
+body .project-edge-wrapper,
+.project-edge-wrapper {
+	// NUCLEAR OVERRIDE: Reset ALL borders first
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		border: none !important;
+		
+		// Then apply only the borders we want (top and left only)
+		border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+		border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+		border-radius: 12px 0 0 0;
+		background: variables.$card-bg;
+		
+		@media (prefers-color-scheme: dark) {
+			border: none !important;
+			border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+			border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+			background: rgb(24, 24, 24);
+		}
+	}
+	
 	.above-fold-content-wrapper {
 		.project-title {
 			.project-byline {
@@ -68,6 +87,53 @@ body .project-edge-wrapper {
 		}
 	}
 }
+
+// Double-border effect for project pages
+// When viewing a project, the structure is: project-edge-wrapper > blog-content
+body .project-edge-wrapper {
+	.blog-content {
+		// Desktop/tablet: Apply inner border to blog-content when inside project-edge-wrapper (top and left only)
+		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
+			border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
+			border-right: none !important;
+			border-bottom: none !important;
+			border-radius: 12px 0 0 0;
+			margin: 12px;
+			background: variables.$white;
+			height: auto; // Override default blog-content height
+			overflow: visible; // Override default overflow
+			
+			@media (prefers-color-scheme: dark) {
+				border-top-color: rgba(255, 255, 255, 0.03) !important;
+				border-left-color: rgba(255, 255, 255, 0.03) !important;
+				border-right: none !important;
+				border-bottom: none !important;
+				background: rgb(9, 9, 9);
+			}
+		}
+	}
+}
+
+// Additional specificity override to defeat theme mode borders
+.blog .project-edge-wrapper .blog-content,
+body .project-edge-wrapper .blog-content {
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		// Override any general blog-content border styles
+		@media (prefers-color-scheme: light) {
+			border: none !important;
+			border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
+			border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			border: none !important;
+			border-top: 1px solid rgba(255, 255, 255, 0.03) !important;
+			border-left: 1px solid rgba(255, 255, 255, 0.03) !important;
+		}
+	}
+}
+
 
 // Ensure short articles take full viewport height when loaded
 body.loaded .project-wrapper {
@@ -2400,10 +2466,21 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		min-height: unset;
 		max-height: unset;
 		padding: 36px;
-		background-color: rgba(0, 0, 0, 0.03); // Subtle light mode background
 		
-		@media (prefers-color-scheme: dark) {
-			background-color: rgba(255, 255, 255, 0.03); // Subtle dark mode background
+		// Create full-width background that extends to edges
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -100vw;
+			right: -100vw;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.03); // Subtle light mode background
+			z-index: -1;
+			
+			@media (prefers-color-scheme: dark) {
+				background-color: rgba(255, 255, 255, 0.03); // Subtle dark mode background
+			}
 		}
 		
 		// Responsive padding overrides

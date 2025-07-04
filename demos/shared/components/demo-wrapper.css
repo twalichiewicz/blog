@@ -233,8 +233,8 @@
 
   .demo-background::before {
     background-image: 
-      repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255, 255, 255, 0.02) 50px, rgba(255, 255, 255, 0.02) 51px),
-      repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 255, 255, 0.02) 50px, rgba(255, 255, 255, 0.02) 51px);
+      repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255, 255, 255, 0.06) 50px, rgba(255, 255, 255, 0.06) 51px),
+      repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255, 255, 255, 0.06) 50px, rgba(255, 255, 255, 0.06) 51px);
   }
 
   .demo-background::after {
