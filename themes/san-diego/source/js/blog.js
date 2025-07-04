@@ -292,11 +292,23 @@ document.addEventListener('DOMContentLoaded', function () {
 						initializeBlogFeatures(blogContentElement);
 						initializeLinkListeners(blogContentElement);
 						
-						// Initialize mobile tabs with a delay to ensure DOM is ready
-						setTimeout(() => {
-							console.log('[Blog] Reinitializing mobile tabs after back navigation');
-							initializeMobileTabs();
-						}, 100);
+						// Initialize mobile tabs with proper timing to ensure DOM is ready
+						// Use requestAnimationFrame to ensure browser has rendered the new content
+						requestAnimationFrame(() => {
+							requestAnimationFrame(() => {
+								console.log('[Blog] Reinitializing mobile tabs after back navigation');
+								initializeMobileTabs();
+								
+								// Force a check to ensure tabs are working
+								setTimeout(() => {
+									const tabButtons = document.querySelectorAll('.tab-button');
+									console.log('[Blog] Verifying tab buttons after init:', tabButtons.length, 'buttons found');
+									if (tabButtons.length === 0) {
+										console.error('[Blog] No tab buttons found after initialization!');
+									}
+								}, 200);
+							});
+						});
 						
 						// Re-initialize toggles
 						initializeProjectToggle();
@@ -375,6 +387,18 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 				
 				history.pushState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
+				
+				// Final verification that mobile tabs are working
+				setTimeout(() => {
+					const buttons = document.querySelectorAll('.tab-button');
+					const instance = window.mobileTabs;
+					console.log('[Blog] Final mobile tabs check:', {
+						buttonsInDOM: buttons.length,
+						instanceExists: !!instance,
+						listenersAttached: instance?.tabClickListeners?.size || 0,
+						tabsVisible: document.querySelector('.tabs-wrapper')?.style.display !== 'none'
+					});
+				}, 500);
 			};
 
 			const oldHandler = backButton._clickHandler;

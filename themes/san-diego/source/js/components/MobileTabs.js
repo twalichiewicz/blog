@@ -60,15 +60,25 @@ export default class MobileTabs {
 	 * Cache DOM elements for better performance
 	 */
 	cacheElements() {
+		console.log('[MobileTabs] Caching DOM elements');
 		this.tabsWrapper = document.querySelector(this.config.tabsWrapperSelector);
 		this.tabContainer = document.querySelector(this.config.tabContainerSelector);
 
-		if (!this.tabContainer) return;
+		if (!this.tabContainer) {
+			console.log('[MobileTabs] No tab container found, exiting');
+			return;
+		}
 
 		this.tabButtons = document.querySelectorAll(this.config.tabButtonSelector);
 		this.postsContent = document.getElementById(this.config.postsContentId);
 		this.projectsContent = document.getElementById(this.config.projectsContentId);
 		this.searchBar = document.querySelector(this.config.searchBarSelector);
+		
+		console.log('[MobileTabs] Cached elements:', {
+			tabButtons: this.tabButtons.length,
+			postsContent: !!this.postsContent,
+			projectsContent: !!this.projectsContent
+		});
 	}
 
 	/**
@@ -83,16 +93,19 @@ export default class MobileTabs {
 		this.boundListeners.handleOrientationChange = this.handleDeviceChange.bind(this);
 
 		// Tab button click events
-		this.tabButtons.forEach(button => {
+		console.log('[MobileTabs] Setting up click listeners for', this.tabButtons.length, 'buttons');
+		this.tabButtons.forEach((button, index) => {
 			// Create a unique bound handler for each button to manage individually if needed,
 			// or use a shared one if parameters aren't button-specific.
 			// Here, we use a shared handler factory approach.
 			const handler = (e) => {
+				console.log('[MobileTabs] Tab clicked:', e.currentTarget.dataset.type);
 				const type = e.currentTarget.dataset.type;
 				this.switchTab(type, true);
 			};
 			this.tabClickListeners.set(button, handler); // Store handler associated with button
 			button.addEventListener('click', handler);
+			console.log('[MobileTabs] Added listener to button', index, 'type:', button.dataset.type);
 		});
 
 		// Window resize event
@@ -127,12 +140,21 @@ export default class MobileTabs {
 	destroy() {
 		console.log('[MobileTabs] Destroying instance');
 		this.removeEventListeners();
-		// Optional: Add any other cleanup logic here (e.g., removing added elements)
+		
+		// Remove the slider element to ensure clean state
 		const slider = this.tabContainer?.querySelector('.mobile-tabs-slider');
 		if (slider) {
-			// slider.remove(); // Decide if the slider element should be removed on destroy
+			console.log('[MobileTabs] Removing slider element');
+			slider.remove();
 		}
 		this.tabContainer?.classList.remove('has-slider-element');
+		
+		// Clear all timeouts
+		if (this.sliderUpdateTimeout) {
+			clearTimeout(this.sliderUpdateTimeout);
+			this.sliderUpdateTimeout = null;
+		}
+		
 		// Clear cached elements
 		this.tabsWrapper = null;
 		this.tabContainer = null;
@@ -140,6 +162,10 @@ export default class MobileTabs {
 		this.postsContent = null;
 		this.projectsContent = null;
 		this.searchBar = null;
+		
+		// Clear state
+		this.userSelectedTab = null;
+		this.currentDeviceType = null;
 	}
 
 	/**
