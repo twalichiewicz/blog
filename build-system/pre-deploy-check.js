@@ -8,7 +8,46 @@
 
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
+
+// Simple glob replacement using Node.js built-ins
+function globSync(pattern) {
+  const files = [];
+  
+  function walkDir(dir, pattern) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      
+      if (entry.isDirectory()) {
+        walkDir(fullPath, pattern);
+      } else if (entry.isFile()) {
+        // Simple pattern matching for our use case
+        if (pattern.includes('**/*.js') && fullPath.endsWith('.js') && fullPath.includes('themes/san-diego/source/js')) {
+          files.push(fullPath);
+        } else if (pattern.includes('**/*.ejs') && fullPath.endsWith('.ejs') && fullPath.includes('themes/san-diego/layout')) {
+          files.push(fullPath);
+        } else if (pattern.includes('**/*.scss') && fullPath.endsWith('.scss') && fullPath.includes('themes/san-diego/source/styles')) {
+          files.push(fullPath);
+        }
+      }
+    }
+  }
+  
+  try {
+    if (pattern.includes('themes/san-diego/source/js')) {
+      walkDir('themes/san-diego/source/js', pattern);
+    } else if (pattern.includes('themes/san-diego/layout')) {
+      walkDir('themes/san-diego/layout', pattern);
+    } else if (pattern.includes('themes/san-diego/source/styles')) {
+      walkDir('themes/san-diego/source/styles', pattern);
+    }
+  } catch (err) {
+    // Directory doesn't exist, return empty array
+  }
+  
+  return files;
+}
 
 // Simple color functions to replace chalk
 const colors = {
@@ -188,9 +227,9 @@ function main() {
   console.log(colors.blue('\n🔍 Running pre-deployment safety checks...\n'));
   
   // Get all files to check
-  const jsFiles = glob.sync(config.jsFilePattern);
-  const ejsFiles = glob.sync(config.ejsFilePattern);
-  const scssFiles = glob.sync(config.scssFilePattern);
+  const jsFiles = globSync(config.jsFilePattern);
+  const ejsFiles = globSync(config.ejsFilePattern);
+  const scssFiles = globSync(config.scssFilePattern);
   
   const allFiles = [...jsFiles, ...ejsFiles, ...scssFiles];
   
