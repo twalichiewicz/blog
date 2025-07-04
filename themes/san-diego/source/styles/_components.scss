@@ -2740,18 +2740,10 @@ table {
 	overflow: hidden scroll;
 }
 
-// Desktop: custom border-radius and border for content-inner-wrapper
+// Desktop: custom border-radius for content-inner-wrapper
 @media screen and (min-width: 1025px) {
 	.content-inner-wrapper {
 		border-radius: 12px 0 0 0;
-		border: 1px solid rgba(87.975, 78.4125, 65.025, 0.08);
-		margin: 12px;
-		background: variables.$white;
-		
-		@media (prefers-color-scheme: dark) {
-			border-color: rgba(255, 255, 255, 0.05);
-			background: rgb(9, 9, 9);
-		}
 	}
 }
 

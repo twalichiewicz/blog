@@ -13,6 +13,18 @@
 
 // Project edge wrapper styles
 body .project-edge-wrapper {
+	// Desktop/tablet: Apply outer border to project-edge-wrapper
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
+		border-radius: 12px 0 0 0;
+		background: variables.$card-bg;
+		
+		@media (prefers-color-scheme: dark) {
+			border-color: rgba(255, 255, 255, 0.08);
+			background: rgb(24, 24, 24);
+		}
+	}
+	
 	.above-fold-content-wrapper {
 		.project-title {
 			.project-byline {
@@ -69,30 +81,18 @@ body .project-edge-wrapper {
 	}
 }
 
-// Double-border effect for project pages only
-body.project-page {
+// Double-border effect for project pages
+// When viewing a project, the structure is: project-edge-wrapper > blog-content
+body .project-edge-wrapper {
 	.blog-content {
-		// Desktop/tablet: Apply border to blog-content (outer border)
-		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-			border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
-			border-radius: 12px 0 0 0;
-			background: variables.$card-bg;
-			padding: 0; // Ensure no padding interferes with inner wrapper margin
-			
-			@media (prefers-color-scheme: dark) {
-				border-color: rgba(255, 255, 255, 0.08);
-				background: rgb(24, 24, 24);
-			}
-		}
-	}
-
-	.content-inner-wrapper {
-		// Desktop/tablet: Apply border to content-inner-wrapper (inner border)
+		// Desktop/tablet: Apply inner border to blog-content when inside project-edge-wrapper
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
 			border: 1px solid rgba(87.975, 78.4125, 65.025, 0.08);
 			border-radius: 12px 0 0 0;
 			margin: 12px;
 			background: variables.$white;
+			height: auto; // Override default blog-content height
+			overflow: visible; // Override default overflow
 			
 			@media (prefers-color-scheme: dark) {
 				border-color: rgba(255, 255, 255, 0.05);
