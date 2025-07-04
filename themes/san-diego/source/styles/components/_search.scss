@@ -82,7 +82,7 @@
 	.search-input {
 		flex: 1;
 		padding: 8px 36px 8px 32px; // Adjusted left padding for new icon position
-		font-size: var(--font-size-xs);
+		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight-medium);
 		border: 1px solid variables.$border-color;
 		border-radius: 30px;
@@ -144,6 +144,7 @@
 		@include button.reusable-button-bordered;
 		
 		& {
+			font-size: var(--font-size-sm);
 			white-space: nowrap;
 			flex-shrink: 0;
 			min-width: fit-content;
