@@ -299,14 +299,15 @@ export default class MobileTabs {
 				targetTabType = tabParam;
 				// Using URL parameter tab
 			} else {
-				// Check if we're already on a project page
+				// Check if we're on a standalone project page (not dynamic content)
 				const currentPath = window.location.pathname;
-				const isOnProjectPage = currentPath.includes('/20') && // matches year-based URLs like /2019/02/01/project-name
-										 currentPath !== '/' && 
-										 !currentPath.includes('?');
+				const isStandaloneProjectPage = currentPath.includes('/20') && 
+												currentPath !== '/' && 
+												!currentPath.includes('?') &&
+												!document.querySelector('.blog-content'); // No dynamic content container
 				
-				if (isOnProjectPage) {
-					// We're on a project page, don't change anything - let it load normally
+				if (isStandaloneProjectPage) {
+					// We're on a standalone project page, don't interfere with tab logic
 					return null;
 				}
 				

@@ -7,14 +7,27 @@
 import MobileTabs from './components/MobileTabs.js';
 
 export function initializeMobileTabs() {
-	// Check if we're on a project page - don't initialize tabs
-	const currentPath = window.location.pathname;
-	const isOnProjectPage = currentPath.includes('/20') && // matches year-based URLs like /2019/02/01/project-name
-						   currentPath !== '/' && 
-						   !currentPath.includes('?');
+	// Check if we actually have tab content in the DOM
+	// This is more reliable than URL checking for dynamic content
+	const tabsWrapper = document.querySelector('.tabs-wrapper');
+	const postsContent = document.getElementById('postsContent');
+	const projectsContent = document.getElementById('projectsContent');
 	
-	if (isOnProjectPage) {
-		// On project page, don't initialize mobile tabs
+	// If we don't have the required tab elements, don't initialize
+	if (!tabsWrapper || !postsContent || !projectsContent) {
+		console.log('[MobileTabs] Required tab elements not found, skipping initialization');
+		return;
+	}
+	
+	// Additional check: if we're on a standalone project page (not dynamic content)
+	const currentPath = window.location.pathname;
+	const isStandaloneProjectPage = currentPath.includes('/20') && 
+									currentPath !== '/' && 
+									!currentPath.includes('?') &&
+									!document.querySelector('.blog-content'); // No dynamic content container
+	
+	if (isStandaloneProjectPage) {
+		console.log('[MobileTabs] On standalone project page, skipping initialization');
 		return;
 	}
 
