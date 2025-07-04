@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:demos && hexo clean && hexo generate",
     "build:full": "npm run build:demos && npm run build",
-    "build:prod": "NODE_ENV=production npm run pre-deploy && npm run build:demos:safe && hexo clean && NODE_ENV=production hexo generate && npm run optimize",
+    "build:prod": "NODE_ENV=production npm run pre-deploy && npm run build:demos:safe && hexo clean && NODE_ENV=production hexo generate && (npm run optimize || echo 'Optimization failed, continuing...')",
     "build:prod:strict": "NODE_ENV=production npm run pre-deploy && npm run build:demos && hexo clean && NODE_ENV=production hexo generate && npm run optimize",
     "pre-deploy": "node build-system/pre-deploy-check.js",
     "pre-deploy:force": "node build-system/pre-deploy-check.js --force",
@@ -100,7 +100,10 @@
     "sass": "^1.89.2",
     "tough-cookie": "^5.1.2",
     "two.js": "^0.8.16",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "sharp": "^0.34.2",
+    "html-minifier-terser": "^7.2.0",
+    "terser": "^5.43.0"
   },
   "overrides": {
     "minimatch": "^3.1.2",
@@ -121,14 +124,11 @@
     "concurrently": "^9.2.0",
     "fs-extra": "^11.3.0",
     "gray-matter": "^4.0.3",
-    "html-minifier-terser": "^7.2.0",
     "pixelmatch": "^7.1.0",
     "pngjs": "^7.0.0",
     "puppeteer": "^24.11.1",
-    "sharp": "^0.34.2",
     "stylelint": "^16.21.0",
     "stylelint-config-standard-scss": "^15.0.1",
-    "stylelint-formatter-html": "^1.0.1",
-    "terser": "^5.43.0"
+    "stylelint-formatter-html": "^1.0.1"
   }
 }
