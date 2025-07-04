@@ -75,8 +75,11 @@
         
         // Create iframe for inline demo
         const iframe = document.createElement('iframe');
-        // Use absolute path from site root
-        iframe.src = `/demos/${componentName}/index.html`;
+        // Use relative path that works on all deployment environments
+        // For a post at /2021/08/30/Custom-Install/, we need to go up 4 levels
+        const pathSegments = window.location.pathname.split('/').filter(s => s);
+        const levelsUp = pathSegments.length > 0 ? '../'.repeat(pathSegments.length) : '';
+        iframe.src = `${levelsUp}demos/${componentName}/index.html`;
         iframe.frameBorder = '0';
         iframe.allowFullscreen = true;
         iframe.style.width = '100%';
