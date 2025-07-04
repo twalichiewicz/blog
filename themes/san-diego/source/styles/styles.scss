@@ -4,6 +4,7 @@
 // Core systems
 @use 'variables';
 @use 'theme-system';
+@use 'typography-system'; // Import the typography system BEFORE other files use it
 @use 'responsive-system';
 @use 'utilities';
 @use 'shared-components';
