@@ -180,13 +180,29 @@ if (typeof window._mobiletabs_diagnostic === 'undefined') {
 	window._mobiletabs_diagnostic = true;
 	document.addEventListener('click', (e) => {
 		if (e.target.closest('.tab-button')) {
+			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 			console.log('[MobileTabs-Diagnostic] Tab button clicked:', {
 				target: e.target,
 				closest: e.target.closest('.tab-button'),
 				type: e.target.closest('.tab-button')?.dataset.type,
 				instanceExists: !!window.mobileTabs,
-				defaultPrevented: e.defaultPrevented
+				defaultPrevented: e.defaultPrevented,
+				isSafari: isSafari,
+				listenersAttached: window.mobileTabs?.tabClickListeners?.size || 0,
+				buttonStillInDOM: document.contains(e.target.closest('.tab-button'))
 			});
+			
+			// Safari-specific debugging: check if the click will actually be handled
+			if (isSafari && window.mobileTabs) {
+				const button = e.target.closest('.tab-button');
+				const hasListener = window.mobileTabs.tabClickListeners.has(button);
+				console.log('[Safari-Debug] Button has listener:', hasListener);
+				if (!hasListener) {
+					console.error('[Safari-Debug] Button missing click listener! Re-caching elements...');
+					window.mobileTabs.cacheElements();
+					window.mobileTabs.setupEventListeners();
+				}
+			}
 		}
 	}, true); // Use capture phase
 }

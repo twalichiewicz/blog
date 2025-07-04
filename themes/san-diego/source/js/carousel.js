@@ -82,8 +82,16 @@ class Carousel {
 		const images = this.carousel.querySelectorAll('img');
 		console.log('[Carousel] fixImagePaths: Found', images.length, 'images to check');
 		
-		images.forEach(img => {
+		images.forEach((img, index) => {
 			const originalSrc = img.getAttribute('src') || '';
+			const currentSrc = img.src;
+			
+			console.log(`[Carousel] Image ${index}:`, {
+				originalSrc,
+				currentSrc,
+				needsFixing: originalSrc.startsWith('./'),
+				currentPath: window.location.pathname
+			});
 			
 			// Handle relative paths starting with './'
 			if (originalSrc.startsWith('./')) {
@@ -92,8 +100,8 @@ class Carousel {
 				const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
 				const resolvedSrc = basePath + originalSrc.substring(2);
 				
-				console.log('[Carousel] fixImagePaths: Fixing image', {
-					element: img,
+				console.log('[Carousel] Fixing image path:', {
+					index,
 					original: originalSrc,
 					currentPath: currentPath,
 					basePath: basePath,
@@ -104,12 +112,37 @@ class Carousel {
 				img.src = resolvedSrc;
 				img.setAttribute('src', resolvedSrc);
 				
-				// Force a repaint to ensure the image loads
-				img.style.display = 'none';
-				img.offsetHeight; // Trigger reflow
-				img.style.display = '';
+				// Add load event listener to verify
+				img.addEventListener('load', () => {
+					console.log(`[Carousel] Image ${index} loaded successfully:`, resolvedSrc);
+					img.classList.add('carousel-image-loaded');
+				});
+				img.addEventListener('error', () => {
+					console.error(`[Carousel] Image ${index} failed to load:`, resolvedSrc);
+					img.classList.add('carousel-image-error');
+				});
+				
+				// Check if image is already loaded (cached)
+				if (img.complete && img.naturalHeight !== 0) {
+					console.log(`[Carousel] Image ${index} was already loaded:`, resolvedSrc);
+					img.classList.add('carousel-image-loaded');
+				} else {
+					// Force browser to attempt loading the image
+					img.style.display = 'none';
+					img.offsetHeight; // Trigger reflow
+					img.style.display = '';
+					
+					// Also try setting src again to trigger reload
+					const tempSrc = img.src;
+					img.src = '';
+					img.src = tempSrc;
+				}
+			} else {
+				console.log(`[Carousel] Image ${index} doesn't need path fixing:`, originalSrc);
 			}
 		});
+		
+		console.log('[Carousel] fixImagePaths completed');
 	}
 
 	constructor(element) {
@@ -127,10 +160,13 @@ class Carousel {
 		this.activeMedia = null;
 
 		this.currentSpotlightIndex = 0;
-		// Fix image paths immediately before any other processing
+		
+		console.log('[Carousel] Constructor: Starting initialization for carousel with', this.slides.length, 'slides');
+		
+		// Fix image paths immediately and wait for completion
 		this.fixImagePaths();
 		
-		// Store images for this specific carousel - only from carousel slides
+		// Store images for this specific carousel after path fixing
 		this.updateCarouselImages();
 
 		// Add touch handling properties for both carousel and spotlight

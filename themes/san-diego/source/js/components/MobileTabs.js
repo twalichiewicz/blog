@@ -60,7 +60,18 @@ export default class MobileTabs {
 	 * Cache DOM elements for better performance
 	 */
 	cacheElements() {
-		console.log('[MobileTabs] Caching DOM elements');
+		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+		console.log('[MobileTabs] Caching DOM elements (Safari:', isSafari + ')');
+		
+		// Clear existing references first (Safari fix)
+		this.tabsWrapper = null;
+		this.tabContainer = null;
+		this.tabButtons = null;
+		this.postsContent = null;
+		this.projectsContent = null;
+		this.searchBar = null;
+		
+		// Re-query all elements
 		this.tabsWrapper = document.querySelector(this.config.tabsWrapperSelector);
 		this.tabContainer = document.querySelector(this.config.tabContainerSelector);
 
@@ -77,7 +88,8 @@ export default class MobileTabs {
 		console.log('[MobileTabs] Cached elements:', {
 			tabButtons: this.tabButtons.length,
 			postsContent: !!this.postsContent,
-			projectsContent: !!this.projectsContent
+			projectsContent: !!this.projectsContent,
+			isSafari: isSafari
 		});
 	}
 
