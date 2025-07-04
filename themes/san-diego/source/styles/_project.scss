@@ -69,32 +69,34 @@ body .project-edge-wrapper {
 	}
 }
 
-// Double-border effect for project pages
-.blog-content {
-	// Desktop/tablet: Apply border to blog-content
-	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-		border: 1px solid var(--border-color, variables.$border-color);
-		border-radius: 12px 0 0 0;
-		background: variables.$card-bg;
-		
-		@media (prefers-color-scheme: dark) {
-			border-color: rgba(255, 255, 255, 0.1);
-			background: rgb(9, 9, 9);
+// Double-border effect for project pages only
+.project-page {
+	.blog-content {
+		// Desktop/tablet: Apply border to blog-content
+		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
+			border-radius: 12px 0 0 0;
+			background: variables.$card-bg;
+			
+			@media (prefers-color-scheme: dark) {
+				border-color: rgba(255, 255, 255, 0.06);
+				background: rgb(18, 18, 18);
+			}
 		}
 	}
-}
 
-.content-inner-wrapper {
-	// Desktop/tablet: Apply border to content-inner-wrapper for double-border effect
-	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-		border: 1px solid var(--border-color, variables.$border-color);
-		border-radius: 12px 0 0 0;
-		margin: 12px;
-		background: variables.$card-bg;
-		
-		@media (prefers-color-scheme: dark) {
-			border-color: rgba(255, 255, 255, 0.08);
-			background: rgb(16, 16, 16);
+	.content-inner-wrapper {
+		// Desktop/tablet: Apply border to content-inner-wrapper for double-border effect
+		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			border: 1px solid rgba(87.975, 78.4125, 65.025, 0.08);
+			border-radius: 12px 0 0 0;
+			margin: 12px;
+			background: variables.$white;
+			
+			@media (prefers-color-scheme: dark) {
+				border-color: rgba(255, 255, 255, 0.04);
+				background: rgb(9, 9, 9);
+			}
 		}
 	}
 }
