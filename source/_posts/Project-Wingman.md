@@ -11,9 +11,9 @@ has_writeup: true
 gallery_images:
   - url: ./wingmanInstaller.mp4
     type: video
-    poster: ./wingmanInstaller_poster.jpg
-cover_image: ./wingmanInstaller_poster.jpg
-cover_video_poster: ./wingmanInstaller_poster.jpg
+    poster: ./wingmanInstaller_poster.svg
+cover_image: ./wingmanInstaller_poster.svg
+cover_video_poster: ./wingmanInstaller_poster.svg
 stats:
   - value: "100+"
     label: "Unified Installers"

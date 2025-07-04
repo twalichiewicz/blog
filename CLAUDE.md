@@ -80,16 +80,35 @@ npm run fix          # Auto-fix issues
 - Every PR gets a Netlify preview for testing
 - This prevents issues like the redirect bug that affected production
 
+**⚠️ CRITICAL WORKFLOW VIOLATION WARNING ⚠️**
+**DO NOT MAKE ANY CODE CHANGES ON MAIN BRANCH - EVER**
+- If you make changes on main branch, you have VIOLATED the workflow
+- Create worktree FIRST, then make changes in the worktree
+- Making changes on main then trying to move them to worktree contaminates the process
+- If you violate this, STOP immediately and ask for guidance
+- Document the violation and restart from clean state
+
 ### Git Worktree Workflow
+**CORRECT WORKFLOW - FOLLOW EXACTLY:**
 ```bash
-# Create worktree for new feature
+# Step 1: Create worktree BEFORE touching any code
 git worktree add -b feature/new-feature ../blog-new-feature
 
-# List worktrees
+# Step 2: Work ONLY in the worktree directory
+# DO NOT make changes in main working directory
+
+# Step 3: List worktrees to verify
 git worktree list
 
-# Remove worktree when done
+# Step 4: When done, remove worktree
 git worktree remove ../blog-new-feature
+```
+
+**WRONG WORKFLOW - NEVER DO THIS:**
+```bash
+# ❌ Making changes on main branch first
+# ❌ Then trying to move them to worktree
+# ❌ This contaminates the process and violates workflow
 ```
 
 #### Claude Code Worktree Limitations
