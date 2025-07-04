@@ -134,6 +134,27 @@ body .project-edge-wrapper .blog-content {
 	}
 }
 
+// NUCLEAR OVERRIDE: Fix dark borders on homepage portfolio grid
+// The homepage also uses .blog-content but doesn't have project-edge-wrapper
+body .blog-content,
+.blog .blog-content,
+.portfolio-list .blog-content {
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		@media (prefers-color-scheme: light) {
+			// Use the correct light border color instead of the dark rgb(0 0 0 / 5%)
+			border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+			border-right: none !important;
+			border-bottom: none !important;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			border: 1px solid rgba(255, 255, 255, 0.1) !important;
+			border-right: none !important;
+			border-bottom: none !important;
+		}
+	}
+}
+
 // Ensure short articles take full viewport height when loaded
 body.loaded .project-wrapper {
 	min-height: 100dvh;
