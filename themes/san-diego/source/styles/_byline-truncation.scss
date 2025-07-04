@@ -37,14 +37,14 @@
     margin-left: 0.25em;
     padding: 2px 6px;
     font-size: 0.85em;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     background: rgba(variables.$link-color, 0.1);
     border: 1px solid rgba(variables.$link-color, 0.2);
     border-radius: 3px;
     cursor: pointer;
     transition: all 0.2s ease;
     vertical-align: baseline;
-    line-height: 1;
+    line-height: var(--line-height-tight);
     color: variables.$link-color;
     text-decoration: none;
     
@@ -175,8 +175,8 @@
     }
     
     .modal-byline-text {
-        font-size: 16px;
-        line-height: 1.6;
+        font-size: var(--font-size-base);
+        line-height: var(--line-height-tight).6;
         color: variables.$text-color;
         margin: 0;
         

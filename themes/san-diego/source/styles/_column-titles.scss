@@ -16,8 +16,8 @@
 
 	/* Higher z-index to ensure it stays on top */
 	padding: variables.$space-md;
-	font-size: 24px;
-	font-weight: 600;
+	font-size: var(--font-size-2xl);
+	font-weight: var(--font-weight-semibold);
 	letter-spacing: normal;
 	text-transform: none;
 	background: transparent;

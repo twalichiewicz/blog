@@ -16,7 +16,7 @@ body .project-edge-wrapper {
 	.above-fold-content-wrapper {
 		.project-title {
 			.project-byline {
-				font-size: 15px;
+				font-size: var(--font-size-base);
 				line-height: 120%;
 				margin-top: 0.5rem; // Reduce margin to bring closer to stats
 				margin-bottom: 0.25rem; // Tighter bottom margin before stats
@@ -194,7 +194,7 @@ body.loaded .project-wrapper {
 
 	.company-byline {
 		font-size: var(--text-sm);
-		font-weight: 600;
+		font-weight: var(--font-weight-semibold);
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		color: variables.$text-color-secondary;
@@ -205,9 +205,9 @@ body.loaded .project-wrapper {
 	.project-title {
 		font-size: var(--heading-xl);
 		margin: 0 0 1.5rem;
-		line-height: 1.2;
+		line-height: var(--line-height-tight).2;
 		max-width: 100%;
-		font-weight: 700;
+		font-weight: var(--font-weight-bold);
 		color: variables.$text-color;
 		letter-spacing: -0.02em;
 		position: relative;
@@ -222,9 +222,9 @@ body.loaded .project-wrapper {
 		font-size: var(--text-md);
 		color: variables.$text-color-secondary;
 		margin: 0 0 24px;
-		line-height: 1.7;
+		line-height: var(--line-height-tight).7;
 		max-width: 100%;
-		font-weight: 400;
+		font-weight: var(--font-weight-normal);
 		
 		@media (prefers-color-scheme: dark) {
 			color: variables.$text-color-secondary-dark;
@@ -243,10 +243,10 @@ body.loaded .project-wrapper {
 	transition: background-color 0.3s ease;
 
 	.project-category {
-		font-size: 13px;
+		font-size: var(--font-size-sm);
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
-		font-weight: 600;
+		font-weight: var(--font-weight-semibold);
 		color: variables.$text-color-secondary;
 		margin-bottom: 8px;
 		display: block;
@@ -259,8 +259,8 @@ body.loaded .project-wrapper {
 	h2 {
 		margin: 0 0 16px 0;
 		font-size: 32px;
-		font-weight: 700;
-		line-height: 1.2;
+		font-weight: var(--font-weight-bold);
+		line-height: var(--line-height-tight).2;
 		border: none;
 		letter-spacing: -0.02em;
 		color: variables.$text-color;
@@ -277,7 +277,7 @@ body.loaded .project-wrapper {
 
 		// Small mobile screens
 		@media (width <=480px) {
-			font-size: 24px;
+			font-size: var(--font-size-2xl);
 		}
 	}
 
@@ -336,12 +336,12 @@ body.loaded .project-wrapper {
 	}
 
 	.intro-text {
-		font-size: 16px;
-		line-height: 1.7;
+		font-size: var(--font-size-base);
+		line-height: var(--line-height-tight).7;
 		color: variables.$text-color;
 		margin-bottom: 20px;
 		max-width: 100%;
-		font-weight: 400;
+		font-weight: var(--font-weight-normal);
 		
 		@media (prefers-color-scheme: dark) {
 			color: variables.$text-color-dark;
@@ -408,7 +408,7 @@ body.loaded .project-wrapper {
 		gap: 0.5rem;
 		color: variables.$text-color;
 		font-size: var(--text-md);
-		font-weight: 500;
+		font-weight: var(--font-weight-medium);
 		cursor: pointer;
 		transition: all 0.2s ease;
 		box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
@@ -557,8 +557,8 @@ body.loaded .project-wrapper {
 	// Add consistent typography for lists - matching Substack
 	ul,
 	ol {
-		font-size: 16px;
-		line-height: 1.7;
+		font-size: var(--font-size-base);
+		line-height: var(--line-height-tight).7;
 		margin: 20px 0;
 		padding-left: 30px;
 		color: variables.$text-color;
@@ -740,8 +740,8 @@ body.loaded .project-wrapper {
 
 // Project description typography matching Substack
 .project-description {
-	font-size: 16px;
-	line-height: 1.7;
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-tight).7;
 	color: variables.$text-color;
 	margin: 0 auto;
 	padding: 0 24px;
@@ -763,13 +763,13 @@ body.loaded .project-wrapper {
 
 	p {
 		margin: 20px 0;
-		font-size: 16px;
-		line-height: 1.7;
+		font-size: var(--font-size-base);
+		line-height: var(--line-height-tight).7;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-		font-weight: 600;
+		font-family: var(--font-sans);
+		font-weight: var(--font-weight-semibold);
 		margin-top: 32px;
 		margin-bottom: 16px;
 		color: variables.$text-color;
@@ -780,9 +780,9 @@ body.loaded .project-wrapper {
 	}
 
 	h1 { font-size: 28px; }
-	h2 { font-size: 24px; }
-	h3 { font-size: 20px; }
-	h4 { font-size: 18px; }
+	h2 { font-size: var(--font-size-2xl); }
+	h3 { font-size: var(--font-size-xl); }
+	h4 { font-size: var(--font-size-lg); }
 
 	blockquote {
 		margin: 24px 0;
@@ -865,7 +865,7 @@ body.loaded .project-wrapper {
 		code {
 			background: none;
 			padding: 0;
-			font-size: 14px;
+			font-size: var(--font-size-sm);
 		}
 	}
 
@@ -875,7 +875,7 @@ body.loaded .project-wrapper {
 
 		li {
 			margin-bottom: 8px;
-			line-height: 1.7;
+			line-height: var(--line-height-tight).7;
 		}
 	}
 	
@@ -1035,8 +1035,8 @@ body.loaded .project-wrapper {
 		align-items: center;
 		gap: 0;
 		padding: 4px 10px;
-		font-size: 12px;
-		font-weight: 500;
+		font-size: var(--font-size-xs);
+		font-weight: var(--font-weight-medium);
 		border: none;
 		transition: all 0.2s ease;
 		cursor: pointer;
@@ -1053,7 +1053,7 @@ body.loaded .project-wrapper {
 		}
 
 		span {
-			line-height: 16px;
+			line-height: var(--line-height-normal);
 		}
 
 		&:hover {
@@ -1187,8 +1187,8 @@ figure {
 
 // Pull quote variant (featured highlight)
 blockquote.pullquote {
-	font-size: 1.5rem;
-	line-height: 1.4;
+	font-size: var(--font-size-2xl);
+	line-height: var(--line-height-tight).4;
 	text-align: center;
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
@@ -1196,7 +1196,7 @@ blockquote.pullquote {
 	margin: 2.25rem 0;
 	border-radius: 16px;
 	color: #ffffff;
-	font-weight: 500;
+	font-weight: var(--font-weight-medium);
 	font-style: normal;
 	position: relative;
 	
@@ -1213,7 +1213,7 @@ blockquote.pullquote {
 
 // Shared content area mixin for posts and projects
 @mixin content-area-styles {
-	line-height: 1.7;
+	line-height: var(--line-height-tight).7;
 	font-size: 1.1em;
 	color: variables.$text-color;
 	background: variables.$white;
@@ -1248,7 +1248,7 @@ blockquote.pullquote {
 			font-size: 0.9em;
 			color: variables.$text-color-secondary;
 			margin-bottom: 12px;
-			font-weight: 500;
+			font-weight: var(--font-weight-medium);
 			text-align: center;
 			padding: 0 16px;
 		}
@@ -1445,7 +1445,7 @@ blockquote.pullquote {
 		th {
 			padding: 12px 16px;
 			text-align: center;
-			font-weight: 600;
+			font-weight: var(--font-weight-semibold);
 			color: variables.$text-color;
 			letter-spacing: 0.02em;
 			white-space: normal;
@@ -1473,7 +1473,7 @@ blockquote.pullquote {
 			
 			// Support for bold text
 			strong {
-				font-weight: 600;
+				font-weight: var(--font-weight-semibold);
 				color: variables.$text-color;
 			}
 			
@@ -1492,7 +1492,7 @@ blockquote.pullquote {
 			td:first-child,
 			th:first-child {
 				text-align: left;
-				font-weight: 600;
+				font-weight: var(--font-weight-semibold);
 			}
 		}
 		
@@ -1943,7 +1943,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		font-size: clamp(11px, 1.4vw, 14px);
 		text-transform: uppercase;
 		letter-spacing: 0.15em;
-		font-weight: 700;
+		font-weight: var(--font-weight-bold);
 		color: rgba(255, 255, 255, 0.7);
 		display: block;
 		margin-bottom: 1rem;
@@ -1994,7 +1994,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 	}
 	
 	.project-category {
-		font-size: 9px;
+		font-size: var(--font-size-xs);
 		color: rgba(255, 255, 255, 0.8);
 		text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
 		margin-bottom: 0.5rem; // Space between company and title
@@ -2002,12 +2002,12 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 
 	.project-byline {
 		font-size: clamp(1.1rem, 2.8vw, 1.5rem);
-		line-height: 1.4;
+		line-height: var(--line-height-tight).4;
 		color: rgba(255, 255, 255, 0.85);
 		margin-top: 1.5rem;
 		margin-left: 0;
 		max-width: 450px; // Updated max-width as requested
-		font-weight: 400;
+		font-weight: var(--font-weight-normal);
 		text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
 		position: relative;
 		
@@ -2077,9 +2077,9 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		}
 		
 		.stat-value {
-			font-size: 18px; // Updated font-size to 18px as requested
-			font-weight: 500; // Updated font-weight as requested
-			line-height: 1;
+			font-size: var(--font-size-xl); // Updated font-size one weight up as requested
+			font-weight: var(--font-weight-medium); // Updated font-weight as requested
+			line-height: var(--line-height-tight);
 			color: #ffffff;
 			margin-bottom: 0.25rem;
 			letter-spacing: -0.01em;
@@ -2089,12 +2089,12 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		}
 		
 		.stat-label {
-			font-size: 9px;
-			font-weight: 400;
+			font-size: var(--font-size-xs);
+			font-weight: var(--font-weight-normal);
 			text-transform: uppercase;
 			letter-spacing: 0.08em;
 			color: rgba(255, 255, 255, 0.7);
-			line-height: 1.2;
+			line-height: var(--line-height-tight).2;
 			text-shadow: none;
 			position: relative;
 			z-index: 1;
@@ -2102,12 +2102,12 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		
 		// Special class for project impact stats labels - no margin bottom
 		.stat-label--impact {
-			font-size: 9px;
-			font-weight: 400;
+			font-size: var(--font-size-xs);
+			font-weight: var(--font-weight-normal);
 			text-transform: uppercase;
 			letter-spacing: 0.08em;
 			color: rgba(255, 255, 255, 0.7);
-			line-height: 1.2;
+			line-height: var(--line-height-tight).2;
 			text-shadow: none;
 			position: relative;
 			z-index: 1;
@@ -2119,7 +2119,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 	@media (max-width: 768px) {
 		.stat-item-wrapper .stat-item {
 			.stat-value {
-				font-size: 16px; // Slightly smaller on mobile
+				font-size: var(--font-size-base); // Slightly smaller on mobile
 			}
 			
 			.stat-label,
@@ -2178,18 +2178,18 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 	}
 
 	@media (max-height: 500px) {
-		font-size: 1.5rem;
+		font-size: var(--font-size-2xl);
 	}
 
 	@media (max-height: 400px) {
-		font-size: 1.25rem;
+		font-size: var(--font-size-xl);
 	}
 }
 
 @mixin stat-label-base {
 	font-size: clamp(12px, 1.5vw, 1rem);
 	color: #909090;
-	line-height: 100%;
+	line-height: var(--line-height-tight);
 }
 
 @mixin project-title-colors {
@@ -2299,8 +2299,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 	border: 1px solid rgba(255, 255, 255, 0.9);
 	border-radius: 30px;
 	padding: 12px 24px;
-	font-size: 16px;
-	font-weight: 500;
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-medium);
 	cursor: pointer;
 	display: inline-flex;
 	align-items: center;
@@ -2339,8 +2339,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	border-radius: 30px;
 	padding: 12px 24px;
-	font-size: 16px;
-	font-weight: 400;
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-normal);
 	cursor: pointer;
 	display: flex;
 	align-items: center;
@@ -2485,7 +2485,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 			.project-byline {
 				font-size: clamp(0.9rem, 2.2vw, 1.1rem);
 				margin: 0; // Remove all margins - using gap instead
-				line-height: 1.3;
+				line-height: var(--line-height-tight).3;
 			}
 		}
 	}
@@ -2527,7 +2527,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 
 	.read-story-button {
 		padding: 8px 16px; // More padding for better touch targets
-		font-size: 14px; // Slightly larger text
+		font-size: var(--font-size-sm); // Slightly larger text
 		bottom: 20px; // Move up from edge
 
 		svg {
@@ -2569,8 +2569,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		padding: 0;
 		
 		.no-writeup-intro {
-			font-size: 13px;
-			line-height: 1.4;
+			font-size: var(--font-size-sm);
+			line-height: var(--line-height-tight).4;
 			color: variables.$text-color-secondary;
 			margin: 0 0 variables.$space-xs 0;
 			
@@ -2580,8 +2580,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		}
 		
 		.no-writeup-projects {
-			font-size: 12px;
-			line-height: 1.4;
+			font-size: var(--font-size-xs);
+			line-height: var(--line-height-tight).4;
 			color: variables.$grey;
 			margin: 0;
 			
@@ -2666,8 +2666,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 				right: -8px;
 				background: variables.$accent-gold;
 				color: variables.$black;
-				font-size: 10px;
-				font-weight: 600;
+				font-size: var(--font-size-xs);
+				font-weight: var(--font-weight-semibold);
 				min-width: 18px;
 				height: 18px;
 				border-radius: 9px;
@@ -2725,8 +2725,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 					}
 					
 					h3 {
-						font-size: 16px;
-						font-weight: 600;
+						font-size: var(--font-size-base);
+						font-weight: var(--font-weight-semibold);
 						margin: 0;
 						color: variables.$text-color;
 						
@@ -2737,8 +2737,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 					
 					.filter-clear {
 						padding: 4px 12px;
-						font-size: 11px;
-						font-weight: 500;
+						font-size: var(--font-size-xs);
+						font-weight: var(--font-weight-medium);
 						background: transparent;
 						border: 1px solid variables.$border-color;
 						border-radius: 6px;
@@ -2785,8 +2785,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 			margin-bottom: 20px;
 			
 			&-label {
-				font-size: 12px;
-				font-weight: 600;
+				font-size: var(--font-size-xs);
+				font-weight: var(--font-weight-semibold);
 				text-transform: uppercase;
 				letter-spacing: 0.05em;
 				color: variables.$text-color-secondary;
@@ -2806,8 +2806,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		
 		.filter-pill {
 			padding: 6px 16px;
-			font-size: 12px;
-			font-weight: 500;
+			font-size: var(--font-size-xs);
+			font-weight: var(--font-weight-medium);
 			background: transparent;
 			border: 1px solid variables.$border-color;
 			border-radius: 20px;
@@ -2846,8 +2846,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		.filter-clear {
 			margin-top: 16px;
 			padding: 8px 20px;
-			font-size: 12px;
-			font-weight: 500;
+			font-size: var(--font-size-xs);
+			font-weight: var(--font-weight-medium);
 			background: transparent;
 			border: none;
 			color: hsl(0, 60%, 50%); // Red color
@@ -3214,12 +3214,12 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		margin-left: -10px;
 		
 		.portfolio-title {
-			font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', sans-serif;
-			font-size: 15px;
-			font-weight: 600;
+			font-family: var(--font-sans);
+			font-size: var(--font-size-base);
+			font-weight: var(--font-weight-semibold);
 			color: variables.$text-color;
 			margin: 0 0 4px 0;
-			line-height: 1.3;
+			line-height: var(--line-height-tight).3;
 			letter-spacing: -0.02em;
 			
 			@media (prefers-color-scheme: dark) {
@@ -3228,12 +3228,12 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		}
 		
 		.portfolio-byline {
-			font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Helvetica Neue', sans-serif;
-			font-size: 12px;
-			font-weight: 400;
+			font-family: var(--font-sans);
+			font-size: var(--font-size-sm);
+			font-weight: var(--font-weight-normal);
 			color: variables.$text-color-secondary;
 			margin: 0;
-			line-height: 1.4;
+			line-height: var(--line-height-tight).4;
 			letter-spacing: -0.01em;
 			
 			@media (prefers-color-scheme: dark) {
@@ -3344,14 +3344,14 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 			}
 			
 			.portfolio-more-title {
-				font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', sans-serif;
+				font-family: var(--font-sans);
 				font-size: 32px;
-				font-weight: 600;
+				font-weight: var(--font-weight-semibold);
 				color: rgba(0, 0, 0, 0.9);
 				text-align: center;
 				margin: 0 0 60px 0;
 				letter-spacing: -0.02em;
-				line-height: 1.2;
+				line-height: var(--line-height-tight).2;
 				
 				@media (prefers-color-scheme: dark) {
 					color: rgba(255, 255, 255, 0.9);
@@ -3383,9 +3383,9 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 			
 			.portfolio-more-company {
 				.portfolio-more-company-name {
-					font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', sans-serif;
-					font-size: 18px;
-					font-weight: 500;
+					font-family: var(--font-sans);
+					font-size: var(--font-size-lg);
+					font-weight: var(--font-weight-medium);
 					color: rgba(0, 0, 0, 0.85);
 					margin: 0 0 16px 0;
 					text-transform: none;
@@ -3400,8 +3400,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 					}
 					
 					.company-years {
-						font-size: 14px;
-						font-weight: 400;
+						font-size: var(--font-size-sm);
+						font-weight: var(--font-weight-normal);
 						color: rgba(0, 0, 0, 0.5);
 						letter-spacing: 0;
 						
@@ -3411,10 +3411,10 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 					}
 					
 					@media (max-width: variables.$mobile-breakpoint) {
-						font-size: 16px;
+						font-size: var(--font-size-base);
 						
 						.company-years {
-							font-size: 13px;
+							font-size: var(--font-size-sm);
 						}
 					}
 				}
@@ -3436,11 +3436,11 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 				}
 				
 				.portfolio-more-project {
-					font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Helvetica Neue', sans-serif;
+					font-family: var(--font-sans);
 					padding: 16px 20px;
-					font-size: 14px;
-					font-weight: 400;
-					line-height: 1.4;
+					font-size: var(--font-size-base);
+					font-weight: var(--font-weight-normal);
+					line-height: var(--line-height-tight).4;
 					color: rgba(0, 0, 0, 0.7);
 					text-align: left;
 					letter-spacing: -0.01em;
@@ -3467,7 +3467,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 					}
 					
 					@media (max-width: variables.$mobile-breakpoint) {
-						font-size: 13px;
+						font-size: var(--font-size-sm);
 						padding: 14px 16px;
 					}
 				}
@@ -3545,8 +3545,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		
 		h2 {
 			margin: 0;
-			font-size: 20px;
-			font-weight: 600;
+			font-size: var(--font-size-xl);
+			font-weight: var(--font-weight-semibold);
 			color: variables.$text-color;
 		}
 		
@@ -3623,8 +3623,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		
 		.filters-apply {
 			padding: 10px 24px;
-			font-size: 14px;
-			font-weight: 500;
+			font-size: var(--font-size-sm);
+			font-weight: var(--font-weight-medium);
 			background: variables.$text-color;
 			color: variables.$white;
 			border: none;
@@ -3691,8 +3691,8 @@ body.demo-active {
 		// Demo container styles
 		.demo-loading {
 			color: white;
-			font-size: 18px;
-			font-weight: 500;
+			font-size: var(--font-size-lg);
+			font-weight: var(--font-weight-medium);
 			text-align: center;
 		}
 		
@@ -3841,8 +3841,8 @@ body.demo-active {
 	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 	
 	.modal-byline-text {
-		font-size: 18px;
-		line-height: 1.6;
+		font-size: var(--font-size-lg);
+		line-height: var(--line-height-tight).6;
 		color: rgba(255, 255, 255, 0.9);
 		margin: 0;
 		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
@@ -4065,8 +4065,8 @@ body.demo-active {
     align-items: center;
     justify-content: center;
     padding: 4px;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
     border: none;
     transition: all 0.2s ease;
     cursor: pointer;
@@ -4089,8 +4089,8 @@ body.demo-active {
   
   .demo-zoom-level {
     color: white;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
     min-width: 45px;
     text-align: center;
     user-select: none;
@@ -4127,7 +4127,7 @@ body.demo-active {
     }
     
     .demo-zoom-level {
-      font-size: 11px;
+      font-size: var(--font-size-xs);
       min-width: 40px;
     }
   }
@@ -4145,9 +4145,9 @@ body.demo-active {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     color: #666;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
   }
   
   .demo-custom {
@@ -4261,8 +4261,8 @@ body.demo-modal-open {
     align-items: center;
     gap: 0;
     padding: 4px 10px;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
     cursor: pointer;
     flex-shrink: 0;
     width: auto;
@@ -4278,7 +4278,7 @@ body.demo-modal-open {
     }
     
     span {
-      line-height: 16px;
+      line-height: var(--line-height-normal);
     }
     
     &:hover {
@@ -4355,14 +4355,14 @@ body.demo-modal-open {
     
     .demo-zoom-level {
       color: white;
-      font-size: 12px;
-      font-weight: 500;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
       min-width: 45px;
       text-align: center;
       user-select: none;
       padding: 4px 8px;
       background-color: rgb(0, 0, 0);
-      line-height: 16px;
+      line-height: var(--line-height-normal);
     }
   }
   
@@ -4387,7 +4387,7 @@ body.demo-modal-open {
     
     p {
       margin: 0;
-      font-size: 14px;
+      font-size: var(--font-size-sm);
       opacity: 0.8;
     }
   }
@@ -4432,7 +4432,7 @@ body.demo-modal-open {
     
     p {
       margin: 0;
-      font-size: 14px;
+      font-size: var(--font-size-sm);
     }
   }
   
@@ -4447,7 +4447,7 @@ body.demo-modal-open {
     
     p {
       margin: 0;
-      font-size: 14px;
+      font-size: var(--font-size-sm);
     }
   }
 }

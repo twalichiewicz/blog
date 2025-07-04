@@ -71,7 +71,7 @@
 						left: 50%;
 						transform: translate(-50%, -50%);
 						color: rgb(255 255 255 / 80%);
-						font-size: 24px;
+						font-size: var(--font-size-2xl);
 						text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 						z-index: 2;
 						opacity: 0;
@@ -110,8 +110,8 @@
 							background: rgb(0 0 0 / 15%);
 							border-radius: 6px;
 							color: white;
-							font-size: 14px;
-							font-weight: 600;
+							font-size: var(--font-size-sm);
+							font-weight: var(--font-weight-semibold);
 							margin: 0;
 							text-shadow: 0 1px 3px rgb(0 0 0 / 50%);
 						}
@@ -145,7 +145,7 @@
 				background: none;
 				border-radius: initial;
 				color: initial;
-				font-size: 12px;
+				font-size: var(--font-size-xs);
 				font-weight: initial;
 				text-shadow: none;
 			}
@@ -262,8 +262,8 @@
 			.contact-button {
 				display: block;
 				padding: 8px 16px;
-				font-size: 12px;
-				font-weight: 600;
+				font-size: var(--font-size-xs);
+				font-weight: var(--font-weight-semibold);
 				color: variables.$white;
 				text-decoration: none;
 				text-align: center;
@@ -998,7 +998,7 @@
 				text-align: left;
 
 				.profile-name {
-					font-size: 21px !important;
+					font-size: var(--font-size-xl) !important;
 				}
 			}
 		}
@@ -1045,12 +1045,12 @@
 					
 					.number {
 						display: block;
-						font-weight: 600;
-						font-size: 18px;
+						font-weight: var(--font-weight-semibold);
+						font-size: var(--font-size-lg);
 					}
 					
 					.label {
-						font-size: 9px;
+						font-size: var(--font-size-xs);
 						color: variables.$text-color-secondary;
 						text-transform: uppercase;
 						letter-spacing: 0.05em;
@@ -1164,8 +1164,8 @@
 					margin-top: 0;
 					padding: 3px 9px;
 					display: block;
-					font-size: 12px;
-					font-weight: 500;
+					font-size: var(--font-size-xs);
+					font-weight: var(--font-weight-medium);
 					color: variables.$text-color;
 					text-decoration: none;
 					text-align: center;
@@ -1194,7 +1194,7 @@
 
 			.profile-name {
 				margin-bottom: 3px;
-				font-size: 15px;
+				font-size: var(--font-size-base);
 
 				.desktop-only {
 					display: none;
@@ -1209,8 +1209,8 @@
 				display: block;
 				
 				&.mobile-only {
-					font-weight: normal;
-					font-size: 12px;
+					font-weight: var(--font-weight-normal);
+					font-size: var(--font-size-xs);
 				}
 			}
 
@@ -1220,7 +1220,7 @@
 
 			.location-pill {
 				gap: 3px;
-				font-size: 9px;
+				font-size: var(--font-size-xs);
 				padding: 3px 8px;
 
 				.location-icon {
@@ -1479,8 +1479,8 @@
 	z-index: 100;
 
 	padding: variables.$space-md;
-	font-size: 24px;
-	font-weight: 600;
+	font-size: var(--font-size-2xl);
+	font-weight: var(--font-weight-semibold);
 	letter-spacing: normal;
 	text-transform: none;
 	background: transparent;

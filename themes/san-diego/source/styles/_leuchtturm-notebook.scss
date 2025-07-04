@@ -328,7 +328,7 @@
                     letter-spacing: 1.5px;
                     color: rgba(255, 255, 255, 0.1);
                     font-weight: 300;
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                    font-family: var(--font-sans);
                     text-rendering: optimizeLegibility;
                 }
                 
@@ -823,13 +823,13 @@
             display: block;
             
             .portfolio-title {
-                font-size: 14px !important; // Slightly larger
-                line-height: 1.3 !important;
+                font-size: var(--font-size-sm) !important; // Slightly larger
+                line-height: var(--line-height-tight).3 !important;
             }
             
             .portfolio-byline {
-                font-size: 11px !important; // Slightly larger
-                line-height: 1.3 !important;
+                font-size: var(--font-size-xs) !important; // Slightly larger
+                line-height: var(--line-height-tight).3 !important;
                 opacity: 0.8;
             }
         }

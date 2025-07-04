@@ -1,4 +1,5 @@
 @use 'variables';
+@import 'typography-system';
 
 * {
 	transition: color 0.2s, background-color 0.2s;
@@ -10,7 +11,7 @@ body {
 	margin: 0;
 	color: variables.$text-color;
 	background-color: variables.$body-bg;
-	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	// Font family now handled by typography-system.scss
 	min-height: 100dvh;
 	min-height: -webkit-fill-available;
 	position: relative;
@@ -98,20 +99,11 @@ body {
 	}
 }
 
-a:link {
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
-a:active {
-	text-decoration: none;
-}
-
+// Link styles now handled by typography-system.scss
+// Override only color behavior here
+a:link,
 a:visited {
-	text-decoration: none;
+	color: inherit;
 }
 
 .container {

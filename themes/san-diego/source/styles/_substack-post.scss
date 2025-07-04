@@ -15,7 +15,7 @@
 
 // Typography mixins
 @mixin substack-title {
-	font-weight: 700;
+	font-weight: var(--font-weight-bold);
 	letter-spacing: -0.02em;
 	color: variables.$text-color;
 	
@@ -75,16 +75,16 @@
 		
 		.post-title {
 			margin: 0 auto 16px auto;
-			line-height: 1.2;
+			line-height: var(--line-height-tight).2;
 			@include substack-title;
 		}
 		
 		.post-subtitle {
-			font-size: 18px;
-			line-height: 1.4;
+			font-size: var(--font-size-lg);
+			line-height: var(--line-height-tight).4;
 			color: variables.$text-color-secondary;
 			margin-bottom: 24px;
-			font-weight: 400;
+			font-weight: var(--font-weight-normal);
 				
 			@media (prefers-color-scheme: dark) {
 				color: variables.$text-color-secondary-dark;
@@ -117,7 +117,7 @@
 		}
 		
 		.author-name {
-			font-weight: 500;
+			font-weight: var(--font-weight-medium);
 			color: variables.$text-color;
 			@include substack-metadata;
 			
@@ -141,7 +141,7 @@
 	
 	// Content styles
 	.post-content {
-		line-height: 1.7;
+		line-height: var(--line-height-tight).7;
 		color: variables.$text-color;
 		
 		@media (prefers-color-scheme: dark) {
@@ -151,12 +151,12 @@
 		
 		p {
 			margin: 20px 0;
-			line-height: 1.7;
+			line-height: var(--line-height-tight).7;
 		}
 		
 		h1, h2, h3, h4, h5, h6 {
-			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-			font-weight: 600;
+			font-family: var(--font-sans);
+			font-weight: var(--font-weight-semibold);
 			margin-top: 32px;
 			margin-bottom: 16px;
 			color: variables.$text-color;
@@ -168,9 +168,9 @@
 		}
 		
 		h1 { font-size: 28px; }
-		h2 { font-size: 24px; }
-		h3 { font-size: 20px; }
-		h4 { font-size: 18px; }
+		h2 { font-size: var(--font-size-2xl); }
+		h3 { font-size: var(--font-size-xl); }
+		h4 { font-size: var(--font-size-lg); }
 		
 		blockquote {
 			margin: 24px 0;
@@ -242,7 +242,7 @@
 			code {
 				background: none;
 				padding: 0;
-				font-size: 14px;
+				font-size: var(--font-size-sm);
 			}
 		}
 		
@@ -252,7 +252,7 @@
 			
 			li {
 				margin-bottom: 8px;
-				line-height: 1.7;
+				line-height: var(--line-height-tight).7;
 			}
 		}
 		
@@ -262,8 +262,8 @@
 			margin: 24px 0;
 			border-collapse: collapse;
 			table-layout: auto; // Allow automatic column sizing
-			font-size: 14px;
-			line-height: 1.5;
+			font-size: var(--font-size-sm);
+			line-height: var(--line-height-tight).5;
 			background: var(--table-bg, variables.$card-bg);
 			border: 1px solid var(--table-border, variables.$border-color);
 			border-radius: 8px;
@@ -301,10 +301,10 @@
 			}
 			
 			th {
-				font-weight: 600;
+				font-weight: var(--font-weight-semibold);
 				background: var(--table-header-bg, rgba(0, 0, 0, 0.03));
 				color: variables.$text-color;
-				font-size: 13px;
+				font-size: var(--font-size-sm);
 				text-transform: uppercase;
 				letter-spacing: 0.05em;
 				white-space: normal; // Allow header wrapping
@@ -352,7 +352,7 @@
 			
 			// Mobile responsive
 			@media (max-width: variables.$mobile-breakpoint) {
-				font-size: 13px;
+				font-size: var(--font-size-sm);
 				display: block;
 				overflow-x: auto;
 				-webkit-overflow-scrolling: touch;
@@ -498,12 +498,12 @@
 		}
 		
 		.author-name {
-			font-size: 14px;
+			font-size: var(--font-size-sm);
 			margin-bottom: 2px;
 		}
 		
 		.post-metadata {
-			font-size: 13px;
+			font-size: var(--font-size-sm);
 		}
 	}
 	
@@ -511,7 +511,7 @@
 		padding: 0 24px;
 		
 		.post-content {
-			font-size: 16px;
+			font-size: var(--font-size-base);
 			
 			// Apply max-width to text elements
 			p, 
@@ -525,7 +525,7 @@
 			}
 			
 			p {
-				font-size: 16px;
+				font-size: var(--font-size-base);
 			}
 			
 			// Allow tables to expand beyond text width
@@ -596,8 +596,8 @@
 			}
 			
 			.author-card-name {
-				font-size: 16px;
-				font-weight: 600;
+				font-size: var(--font-size-base);
+				font-weight: var(--font-weight-semibold);
 				margin: 0 0 8px 0;
 				color: variables.$text-color;
 				
@@ -608,8 +608,8 @@
 			}
 			
 			.author-card-bio {
-				font-size: 14px;
-				line-height: 1.5;
+				font-size: var(--font-size-sm);
+				line-height: var(--line-height-tight).5;
 				color: variables.$text-color-secondary;
 				margin: 0 0 12px 0;
 				
@@ -620,10 +620,10 @@
 			}
 			
 			.author-card-link {
-				font-size: 13px;
+				font-size: var(--font-size-sm);
 				color: variables.$link-color;
 				text-decoration: none;
-				font-weight: 500;
+				font-weight: var(--font-weight-medium);
 				
 				&:hover {
 					text-decoration: underline;
@@ -648,7 +648,7 @@
 			}
 			
 			.post-subtitle {
-				font-size: 16px;
+				font-size: var(--font-size-base);
 			}
 		}
 		
@@ -656,7 +656,7 @@
 			padding: 0 16px;
 			
 			.post-content {
-				font-size: 15px;
+				font-size: var(--font-size-base);
 				padding-left: 0;
 				padding-right: 0;
 				
@@ -671,7 +671,7 @@
 				}
 				
 				p {
-					font-size: 15px;
+					font-size: var(--font-size-base);
 				}
 			}
 		}

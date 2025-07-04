@@ -163,8 +163,8 @@ body.demo-fullscreen-active .demo-walkthrough-toolbar {
 }
 
 .walkthrough-step-title {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 2px;
   white-space: nowrap;
@@ -173,7 +173,7 @@ body.demo-fullscreen-active .demo-walkthrough-toolbar {
 }
 
 .walkthrough-step-indicator {
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -260,11 +260,11 @@ body.demo-fullscreen-active .demo-walkthrough-toolbar {
   }
   
   .walkthrough-step-title {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
   
   .walkthrough-step-indicator {
-    font-size: 12px;
+    font-size: var(--font-size-xs);
   }
 }
 
@@ -318,13 +318,13 @@ body.demo-fullscreen-active .demo-walkthrough-toolbar {
 }
 
 .walkthrough-minimized-text {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: rgba(255, 255, 255, 0.8);
   white-space: nowrap;
   
   @media (max-width: variables.$mobile-breakpoint) {
-    font-size: 13px;
+    font-size: var(--font-size-sm);
   }
 }
 
@@ -540,7 +540,7 @@ body.demo-fullscreen-active .demo-walkthrough-toolbar {
   transform: translateX(-50%);
   font-size: 6px;
   color: rgba(255, 255, 255, 0.6);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   letter-spacing: 0.5px;
   white-space: nowrap;
 }

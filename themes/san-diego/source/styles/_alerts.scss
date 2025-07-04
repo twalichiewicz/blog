@@ -117,13 +117,13 @@
   
   // Title
   .alert-title {
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.4;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight).4;
     margin: 0 0 2px 0;
     color: #ffffff;
     letter-spacing: -0.01em;
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+    font-family: var(--font-sans);
     text-decoration: none;
     
     // External indicator
@@ -131,7 +131,7 @@
       content: '↗';
       display: inline-block;
       margin-left: 4px;
-      font-size: 13px;
+      font-size: var(--font-size-sm);
       opacity: 0.9;
       transition: all 0.2s ease;
     }
@@ -149,13 +149,13 @@
   
   // Description
   .alert-description {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-tight).5;
     margin: 0;
     color: #ffffff;
     opacity: 0.85;
     letter-spacing: -0.005em;
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+    font-family: var(--font-sans);
     text-decoration: none;
   }
   
@@ -170,7 +170,7 @@
     background: rgba(255, 255, 255, 0.15);
     color: rgba(255, 255, 255, 0.9);
     flex-shrink: 0;
-    font-size: 20px;
+    font-size: var(--font-size-xl);
     transition: all 0.2s ease;
     
     @media (prefers-color-scheme: dark) {
@@ -182,8 +182,8 @@
     // Default arrow icon
     &::before {
       content: '→';
-      font-weight: 400;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: var(--font-weight-normal);
+      font-family: var(--font-sans);
     }
   }
   
@@ -209,7 +209,7 @@
       
       &::before {
         content: '✓';
-        font-weight: 700;
+        font-weight: var(--font-weight-bold);
       }
       
       @media (prefers-color-scheme: dark) {
@@ -228,7 +228,7 @@
       
       &::before {
         content: '!';
-        font-weight: 700;
+        font-weight: var(--font-weight-bold);
       }
       
       @media (prefers-color-scheme: dark) {
@@ -247,8 +247,8 @@
       
       &::before {
         content: '×';
-        font-weight: 400;
-        font-size: 24px;
+        font-weight: var(--font-weight-normal);
+        font-size: var(--font-size-2xl);
       }
       
       @media (prefers-color-scheme: dark) {
@@ -265,17 +265,17 @@
     gap: 12px;
     
     .alert-title {
-      font-size: 14px;
+      font-size: var(--font-size-sm);
     }
     
     .alert-description {
-      font-size: 13px;
+      font-size: var(--font-size-sm);
     }
     
     .alert-icon {
       width: 32px;
       height: 32px;
-      font-size: 16px;
+      font-size: var(--font-size-base);
     }
   }
   
@@ -288,17 +288,17 @@
     border-radius: 10px;
     
     .alert-title {
-      font-size: 14px;
+      font-size: var(--font-size-sm);
     }
     
     .alert-description {
-      font-size: 13px;
+      font-size: var(--font-size-sm);
     }
     
     .alert-icon {
       width: 36px;
       height: 36px;
-      font-size: 18px;
+      font-size: var(--font-size-lg);
       border-radius: 8px;
     }
   }

@@ -109,8 +109,8 @@
         flex-shrink: 0;
         margin-left: auto;
         margin-right: 9px;
-        font-size: 11px;
-        font-weight: 600;
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-semibold);
         position: relative;
         overflow: hidden;
         
@@ -190,9 +190,9 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 10;
         color: rgba(255, 255, 255, 0.9);
-        font-size: 13px;
-        font-weight: 600;
-        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-semibold);
+        font-family: var(--font-sans);
         white-space: nowrap;
         letter-spacing: 0.02em;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1),
@@ -239,7 +239,7 @@
         }
         
         @media (max-width: 768px) {
-            font-size: 12px;
+            font-size: var(--font-size-xs);
             padding: 0 14px;
             height: 26px;
         }
@@ -247,13 +247,13 @@
     
     &-title {
         padding: 0;
-        font-size: 18px;
+        font-size: var(--font-size-lg);
         color: white;
-        font-weight: 500;
+        font-weight: var(--font-weight-medium);
         letter-spacing: 0.03em;
         width: 100%;
         text-align: center;
-        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+        font-family: var(--font-sans);
         margin: 0;
         position: absolute;
         left: 0;
@@ -261,7 +261,7 @@
         pointer-events: none;
         
         @media (max-width: 768px) {
-            font-size: 16px;
+            font-size: var(--font-size-base);
         }
     }
 }
@@ -270,12 +270,12 @@
 .impact-modal-subtitle {
     padding: 20px 30px 15px;
     text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-tight).5;
     color: rgba(255, 255, 255, 0.7);
     letter-spacing: 0.02em;
-    font-weight: 400;
+    font-weight: var(--font-weight-normal);
     background: rgba(255, 255, 255, 0.02);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
@@ -286,13 +286,13 @@
     // Highlight the key message
     strong {
         color: rgba(255, 255, 255, 0.9);
-        font-weight: 500;
+        font-weight: var(--font-weight-medium);
     }
     
     @media (max-width: 768px) {
-        font-size: 12px;
+        font-size: var(--font-size-xs);
         padding: 15px 20px 12px;
-        line-height: 1.4;
+        line-height: var(--line-height-tight).4;
         letter-spacing: 0.01em;
     }
 }
@@ -351,9 +351,9 @@
     
     // Value styling with glow
     .tile-value {
-        font-size: 48px;
+        font-size: var(--font-size-5xl);
         font-weight: 800;
-        line-height: 1;
+        line-height: var(--line-height-tight);
         margin-bottom: 8px;
         color: var(--accent-color);
         // Photorealistic neon glass tube effect
@@ -371,7 +371,7 @@
         
         .unit {
             font-size: 0.7em;
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             margin-left: 2px;
             opacity: 0.8;
         }
@@ -383,14 +383,14 @@
     
     // Label styling
     .tile-label {
-        font-size: 15px;
-        font-weight: 600;
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-semibold);
         color: rgba(255, 255, 255, 0.9);
         margin-bottom: 2px;
         letter-spacing: 0.01em;
         text-transform: uppercase;
         opacity: 0.9;
-        line-height: 1.2;
+        line-height: var(--line-height-tight).2;
         
         @media (max-width: 768px) {
             margin-bottom: 0;
@@ -399,9 +399,9 @@
     
     // Detail styling
     .tile-detail {
-        font-size: 10px;
+        font-size: var(--font-size-xs);
         color: rgba(255, 255, 255, 0.6);
-        line-height: 1.4;
+        line-height: var(--line-height-tight).4;
     }
     
     // Icon styling
@@ -432,12 +432,12 @@
             }
             
             .tile-value {
-                font-size: 24px !important;
+                font-size: var(--font-size-2xl) !important;
                 margin-bottom: 0 !important;
             }
             
             .tile-label {
-                font-size: 9px !important;
+                font-size: var(--font-size-xs) !important;
                 font-weight: 300 !important;
                 margin-bottom: 0 !important;
             }
@@ -450,11 +450,11 @@
     // Small tiles
     &.tile-small {
         .tile-value {
-            font-size: 36px;
+            font-size: var(--font-size-4xl);
         }
         
         .tile-label {
-            font-size: 13px;
+            font-size: var(--font-size-sm);
         }
     }
     
@@ -464,7 +464,7 @@
             font-size: 56px;
             
             @media (max-width: 768px) {
-                font-size: 24px;
+                font-size: var(--font-size-2xl);
                 margin-bottom: 0;
             }
         }
@@ -479,9 +479,9 @@
             transition: all 0.3s ease;
             
             p {
-                font-size: 13px;
+                font-size: var(--font-size-sm);
                 color: rgba(255, 255, 255, 0.7);
-                line-height: 1.5;
+                line-height: var(--line-height-tight).5;
                 margin: 0;
             }
         }
@@ -523,7 +523,7 @@
             
             .chart-number {
                 font-size: 28px;
-                font-weight: 700;
+                font-weight: var(--font-weight-bold);
                 color: var(--accent-color);
                 text-shadow: 0 0 10px var(--accent-color);
             }
@@ -633,7 +633,7 @@
                 bottom: -24px;
                 left: 50%;
                 transform: translateX(-50%);
-                font-size: 11px;
+                font-size: var(--font-size-xs);
                 color: rgba(255, 255, 255, 0.5);
                 white-space: nowrap;
             }
@@ -704,7 +704,7 @@
                     bottom: -24px;
                     left: 50%;
                     transform: translateX(-50%);
-                    font-size: 12px;
+                    font-size: var(--font-size-xs);
                     color: rgba(255, 255, 255, 0.6);
                 }
                 
@@ -741,7 +741,7 @@
                 bottom: -20px;
                 left: 50%;
                 transform: translateX(-50%);
-                font-size: 9px;
+                font-size: var(--font-size-xs);
                 color: rgba(255, 255, 255, 0.4);
                 white-space: nowrap;
                 text-align: center;

@@ -4,11 +4,11 @@
 .emoji {
   display: inline-block;
   vertical-align: middle;
-  line-height: 1;
+  line-height: var(--line-height-tight);
   
   // Standard unicode emoji
   font-style: normal;
-  font-weight: normal;
+  font-weight: var(--font-weight-normal);
   font-size: 1.2em;
   margin: 0 0.1em;
   
@@ -132,7 +132,7 @@ pre, code {
     margin-bottom: 1rem;
     
     h4 {
-      font-size: 0.875rem;
+      font-size: var(--font-size-sm);
       text-transform: uppercase;
       color: var(--text-color-secondary);
       margin-bottom: 0.5rem;
@@ -181,7 +181,7 @@ pre, code {
     padding: 0.25rem 0.5rem;
     background: rgba(0, 0, 0, 0.8);
     color: white;
-    font-size: 0.75rem;
+    font-size: var(--font-size-xs);
     border-radius: 4px;
     white-space: nowrap;
     opacity: 0;
