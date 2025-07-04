@@ -69,8 +69,8 @@
   <meta name="googlebot" content="index, follow">
   
   <!-- Stylesheets -->
-  <link rel="preload" href="/styles/styles.css?v=1751588893625" as="style">
-  <link rel="stylesheet" href="/styles/styles.css?v=1751588893625">
+  <link rel="preload" href="/styles/styles.css?v=1751589802210" as="style">
+  <link rel="stylesheet" href="/styles/styles.css?v=1751589802210">
   
   <!-- Project-specific Scripts -->
   
@@ -90,25 +90,25 @@
   </script>
 
   <!-- Core Scripts -->
-  <script type="module" src="/js/main.js?v=1751588893625"></script>
-  <script type="module" src="/js/components/HomeVisuals.js?v=1751588893625"></script>
-  <script type="module" src="/js/mobile-tabs.js?v=1751588893625"></script>
-  <script type="module" src="/js/carousel.js?v=1751588893625"></script>
-  <script type="module" src="/js/utils/animations.js?v=1751588893625"></script>
-  <script src="/js/project-tabs.js?v=1751588893625"></script>
-  <script src="/js/project-summary.js?v=1751588893625"></script>
-  <script type="module" src="/js/scroll.js?v=1751588893625"></script>
-  <script src="/js/sound-effects.js?v=1751588893625"></script>
-  <script src="/js/screen-wipe-transition.js?v=1751588893625"></script>
-  <script src="/js/external-links.js?v=1751588893625"></script>
-  <script src="/js/project-demo.js?v=1751588893625"></script>
-  <script src="/js/project-demo-walkthrough.js?v=1751588893625"></script>
-  <script src="/js/byline-modal.js?v=1751588893625"></script>
-  <script src="/js/portfolio-parallax-optimized.js?v=1751588893625"></script>
-  <script src="/js/portfolio-filters.js?v=1751588893625"></script>
-  <script src="/js/portfolio-filters-dropdown.js?v=1751588893625"></script>
-  <script src="/js/portfolio-notebook-carousel-state.js?v=1751588893625"></script>
-  <script src="/js/notebook-skeleton-loader.js?v=1751588893625"></script>
+  <script type="module" src="/js/main.js?v=1751589802210"></script>
+  <script type="module" src="/js/components/HomeVisuals.js?v=1751589802210"></script>
+  <script type="module" src="/js/mobile-tabs.js?v=1751589802210"></script>
+  <script type="module" src="/js/carousel.js?v=1751589802210"></script>
+  <script type="module" src="/js/utils/animations.js?v=1751589802210"></script>
+  <script src="/js/project-tabs.js?v=1751589802210"></script>
+  <script src="/js/project-summary.js?v=1751589802210"></script>
+  <script type="module" src="/js/scroll.js?v=1751589802210"></script>
+  <script src="/js/sound-effects.js?v=1751589802210"></script>
+  <script src="/js/screen-wipe-transition.js?v=1751589802210"></script>
+  <script src="/js/external-links.js?v=1751589802210"></script>
+  <script src="/js/project-demo.js?v=1751589802210"></script>
+  <script src="/js/project-demo-walkthrough.js?v=1751589802210"></script>
+  <script src="/js/byline-modal.js?v=1751589802210"></script>
+  <script src="/js/portfolio-parallax-optimized.js?v=1751589802210"></script>
+  <script src="/js/portfolio-filters.js?v=1751589802210"></script>
+  <script src="/js/portfolio-filters-dropdown.js?v=1751589802210"></script>
+  <script src="/js/portfolio-notebook-carousel-state.js?v=1751589802211"></script>
+  <script src="/js/notebook-skeleton-loader.js?v=1751589802211"></script>
   
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -151,7 +151,77 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0">
+<style>
+  /* Worktree/Branch Indicator */
+  body::before {
+    content: "📍 main • localhost:4000";
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 99999;
+    pointer-events: none;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+  
+  body:hover::before {
+    opacity: 1;
+  }
+  
+  /* Different colors for different branch types */
+  
+  body::before {
+    background: rgba(0, 122, 255, 0.9);
+  }
+  
+  
+  
+  
+  
+  
+  
+  /* Dark mode adjustments */
+  @media (prefers-color-scheme: dark) {
+    body::before {
+      background: rgba(30, 30, 30, 0.95);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    
+    body::before {
+      background: rgba(0, 122, 255, 0.3);
+      border-color: rgba(0, 122, 255, 0.5);
+    }
+    
+    
+    
+    
+    
+    
+  }
+  
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    body::before {
+      bottom: 10px;
+      right: 10px;
+      padding: 6px 12px;
+      font-size: 11px;
+    }
+  }
+</style>
+</head>
     </head>
     <body>
         <!-- Skip Navigation Links for Accessibility -->
@@ -269,8 +339,8 @@
   <meta name="googlebot" content="index, follow">
   
   <!-- Stylesheets -->
-  <link rel="preload" href="/styles/styles.css?v=1751588892842" as="style">
-  <link rel="stylesheet" href="/styles/styles.css?v=1751588892842">
+  <link rel="preload" href="/styles/styles.css?v=1751589801439" as="style">
+  <link rel="stylesheet" href="/styles/styles.css?v=1751589801439">
   
   <!-- Project-specific Scripts -->
   
@@ -290,25 +360,25 @@
   </script>
 
   <!-- Core Scripts -->
-  <script type="module" src="/js/main.js?v=1751588892842"></script>
-  <script type="module" src="/js/components/HomeVisuals.js?v=1751588892842"></script>
-  <script type="module" src="/js/mobile-tabs.js?v=1751588892842"></script>
-  <script type="module" src="/js/carousel.js?v=1751588892842"></script>
-  <script type="module" src="/js/utils/animations.js?v=1751588892842"></script>
-  <script src="/js/project-tabs.js?v=1751588892842"></script>
-  <script src="/js/project-summary.js?v=1751588892842"></script>
-  <script type="module" src="/js/scroll.js?v=1751588892842"></script>
-  <script src="/js/sound-effects.js?v=1751588892842"></script>
-  <script src="/js/screen-wipe-transition.js?v=1751588892842"></script>
-  <script src="/js/external-links.js?v=1751588892842"></script>
-  <script src="/js/project-demo.js?v=1751588892842"></script>
-  <script src="/js/project-demo-walkthrough.js?v=1751588892842"></script>
-  <script src="/js/byline-modal.js?v=1751588892842"></script>
-  <script src="/js/portfolio-parallax-optimized.js?v=1751588892842"></script>
-  <script src="/js/portfolio-filters.js?v=1751588892842"></script>
-  <script src="/js/portfolio-filters-dropdown.js?v=1751588892842"></script>
-  <script src="/js/portfolio-notebook-carousel-state.js?v=1751588892842"></script>
-  <script src="/js/notebook-skeleton-loader.js?v=1751588892842"></script>
+  <script type="module" src="/js/main.js?v=1751589801439"></script>
+  <script type="module" src="/js/components/HomeVisuals.js?v=1751589801439"></script>
+  <script type="module" src="/js/mobile-tabs.js?v=1751589801439"></script>
+  <script type="module" src="/js/carousel.js?v=1751589801439"></script>
+  <script type="module" src="/js/utils/animations.js?v=1751589801439"></script>
+  <script src="/js/project-tabs.js?v=1751589801439"></script>
+  <script src="/js/project-summary.js?v=1751589801439"></script>
+  <script type="module" src="/js/scroll.js?v=1751589801439"></script>
+  <script src="/js/sound-effects.js?v=1751589801439"></script>
+  <script src="/js/screen-wipe-transition.js?v=1751589801439"></script>
+  <script src="/js/external-links.js?v=1751589801439"></script>
+  <script src="/js/project-demo.js?v=1751589801439"></script>
+  <script src="/js/project-demo-walkthrough.js?v=1751589801439"></script>
+  <script src="/js/byline-modal.js?v=1751589801439"></script>
+  <script src="/js/portfolio-parallax-optimized.js?v=1751589801439"></script>
+  <script src="/js/portfolio-filters.js?v=1751589801439"></script>
+  <script src="/js/portfolio-filters-dropdown.js?v=1751589801439"></script>
+  <script src="/js/portfolio-notebook-carousel-state.js?v=1751589801439"></script>
+  <script src="/js/notebook-skeleton-loader.js?v=1751589801439"></script>
   
   <!-- Structured Data -->
   <script type="application/ld+json">
