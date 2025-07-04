@@ -11,22 +11,11 @@ What if YouTube borrowed SoundCloud's timecode comments—letting viewers pin in
 YouTube comments already lean heavily on timestamps. Livestream VODs use third-party tools to overlay chat reactions. And if a user doesn't want to see them? Just add a toggle in settings.
 
 {% raw %}
-<!-- Modern 2025 Linear-style Wrapper -->
-<div class="linear-prototype-wrapper" style="position: relative; margin: 32px auto; max-width: 100%; padding: 48px 24px 24px; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);">
-  
-  <!-- Clean Live Demo Badge -->
-  <div class="live-demo-badge" style="position: absolute; top: 16px; left: 24px; z-index: 10;">
-    <div style="display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: #ffffff; border-radius: 20px; border: 1px solid #e5e7eb; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
-      <!-- Pulse indicator -->
-      <div style="width: 6px; height: 6px; background: #10b981; border-radius: 50%; position: relative;">
-        <div style="position: absolute; inset: -2px; background: #10b981; border-radius: 50%; opacity: 0.4; animation: modernPulse 2s ease-in-out infinite;"></div>
-      </div>
-      <span class="prototype-label" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: -0.01em;">Interactive Prototype</span>
-      <button class="prototype-toggle" style="margin-left: 8px; padding: 2px 8px; background: #e5e7eb; border: none; border-radius: 12px; color: #374151; font-size: 10px; font-weight: 600; cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif; transition: all 0.2s ease;">OFF</button>
-    </div>
-  </div>
+<!-- Code Sandbox Wrapper -->
+<div class="code-sandbox-wrapper">
+  <div class="code-sandbox-content">
 
-<div class="youtube-demo" data-playing="false" data-current-time="5" data-duration="15" style="margin: 20px 0; background: #0f0f0f; max-width: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);">
+<div class="youtube-demo" data-playing="false" data-current-time="5" data-duration="15" style="margin: 0; background: #0f0f0f; max-width: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);">
   
   <div style="position: relative; background: #000; padding-bottom: 56.25%; overflow: hidden;">
     <img class="video-gif" src="/2025/06/25/YouTube-Timecode-Commentary/cat.gif" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; margin-top: 0; margin-bottom: 0; pointer-events: none; border: none;">
@@ -249,7 +238,19 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
   </div>
   
 </div>
-</div><!-- End of titanium wrapper -->
+  </div><!-- End of code-sandbox-content -->
+  
+  <!-- Minimalist chin with controls -->
+  <div class="code-sandbox-chin">
+    <div class="code-sandbox-brand">
+      <svg width="288" height="273" viewBox="0 0 288 273" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M192 0C245.019 0 288 42.9807 288 96V177C288 230.019 245.019 273 192 273H96C42.9807 273 1.3048e-06 230.019 0 177V96C0 42.9807 42.9807 1.54624e-06 96 0H192ZM75 45C58.4315 45 45 58.4315 45 75V198C45 214.569 58.4315 228 75 228C91.5685 228 105 214.569 105 198V75C105 58.4315 91.5685 45 75 45ZM144 105C127.431 105 114 118.431 114 135V198C114 214.569 127.431 228 144 228C160.569 228 174 214.569 174 198V135C174 118.431 160.569 105 144 105ZM213 45C196.431 45 183 58.4315 183 75V198C183 214.569 196.431 228 213 228C229.569 228 243 214.569 243 198V75C243 58.4315 229.569 45 213 45Z" fill="currentColor"/>
+      </svg>
+      <span>Code sandbox</span>
+    </div>
+    <div class="code-sandbox-toggle active" tabindex="0" role="switch" aria-checked="true"></div>
+  </div>
+</div><!-- End of code-sandbox-wrapper -->
 
 
 <style>
@@ -302,78 +303,6 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 .youtube-demo .disabled {
   cursor: not-allowed !important;
   opacity: 0.5;
-}
-
-/* Light mode styles (default) */
-.linear-prototype-wrapper {
-  background: #fafafa;
-  border: 1px solid #e5e7eb;
-}
-
-.linear-prototype-wrapper .prototype-label {
-  color: #374151;
-}
-
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  .linear-prototype-wrapper {
-    background: #1a1a1a;
-    border-color: #292929;
-  }
-  
-  .linear-prototype-wrapper .prototype-label {
-    color: #d1d5db;
-  }
-  
-  .live-demo-badge > div {
-    background: #2a2a2a !important;
-    border-color: #404040 !important;
-  }
-  
-  .live-demo-badge span {
-    color: #d1d5db !important;
-  }
-  
-  .prototype-toggle {
-    background: #374151 !important;
-    color: #d1d5db !important;
-  }
-  
-  .prototype-toggle:hover {
-    background: #2d3748 !important;
-  }
-  
-  .prototype-toggle:active {
-    background: #1f2937 !important;
-  }
-}
-
-/* Toggle button styles */
-.prototype-toggle {
-  transition: all 0.2s ease;
-}
-
-.prototype-toggle:hover {
-  background: #d1d5db !important;
-}
-
-/* Dark mode override for toggle button */
-@media (prefers-color-scheme: dark) {
-  .prototype-toggle:hover {
-    background: #2d3748 !important;
-  }
-}
-
-.prototype-toggle:active {
-  background: #9ca3af !important;
-}
-
-.linear-prototype-wrapper.collapsed .youtube-demo {
-  display: none;
-}
-
-.linear-prototype-wrapper.collapsed {
-  padding-bottom: 15px !important;
 }
 
 /* Light mode styles (default) */
@@ -1601,39 +1530,26 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 500);
 });
 
-// Prototype toggle functionality
+// Code sandbox toggle functionality
 document.addEventListener('DOMContentLoaded', function() {
-  const prototypeWrapper = document.querySelector('.linear-prototype-wrapper');
-  const toggleBtn = document.querySelector('.prototype-toggle');
+  const sandboxWrapper = document.querySelector('.code-sandbox-wrapper');
+  const toggleSwitch = document.querySelector('.code-sandbox-toggle');
   const youtubeDemo = document.querySelector('.youtube-demo');
   
-  if (toggleBtn && prototypeWrapper && youtubeDemo) {
+  if (toggleSwitch && sandboxWrapper && youtubeDemo) {
     let isOn = true;
     let wasAutoToggled = false; // Track if it was auto-toggled by scroll
     
     function setToggleState(on, isAutomatic = false) {
       isOn = on;
       
-      const greenLight = prototypeWrapper.querySelector('.live-demo-badge > div > div:first-child');
-      const pulseRing = greenLight ? greenLight.querySelector('div') : null;
-      
       if (isOn) {
         // Turn ON
-        prototypeWrapper.classList.remove('collapsed');
-        toggleBtn.textContent = 'OFF';
-        toggleBtn.classList.remove('off');
-        toggleBtn.style.background = '#e5e7eb';
+        sandboxWrapper.classList.remove('collapsed');
+        toggleSwitch.classList.add('active');
+        toggleSwitch.setAttribute('aria-checked', 'true');
         youtubeDemo.style.display = 'block';
         wasAutoToggled = false;
-        
-        // Turn green light back on
-        if (greenLight) {
-          greenLight.style.background = '#10b981';
-          if (pulseRing) {
-            pulseRing.style.background = '#10b981';
-            pulseRing.style.animation = 'modernPulse 2s ease-in-out infinite';
-          }
-        }
         
         // Reset the demo to initial state
         const demo = youtubeDemo;
@@ -1673,20 +1589,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       } else {
         // Turn OFF
-        prototypeWrapper.classList.add('collapsed');
-        toggleBtn.textContent = 'ON';
-        toggleBtn.classList.add('off');
-        toggleBtn.style.background = '#e5e7eb';
+        sandboxWrapper.classList.add('collapsed');
+        toggleSwitch.classList.remove('active');
+        toggleSwitch.setAttribute('aria-checked', 'false');
         youtubeDemo.style.display = 'none';
-        
-        // Turn green light off (grey)
-        if (greenLight) {
-          greenLight.style.background = '#9ca3af';
-          if (pulseRing) {
-            pulseRing.style.background = '#9ca3af';
-            pulseRing.style.animation = 'none';
-          }
-        }
         
         // Pause the demo if it's playing
         const playBtn = youtubeDemo.querySelector('.play-btn');
@@ -1700,11 +1606,21 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // Manual toggle
-    toggleBtn.addEventListener('click', function(e) {
+    // Manual toggle - click handler
+    toggleSwitch.addEventListener('click', function(e) {
       e.stopPropagation();
       setToggleState(!isOn, false);
       wasAutoToggled = false; // Reset auto-toggle flag on manual interaction
+    });
+    
+    // Keyboard accessibility - space/enter to toggle
+    toggleSwitch.addEventListener('keydown', function(e) {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        setToggleState(!isOn, false);
+        wasAutoToggled = false;
+      }
     });
     
     // Set up Intersection Observer to auto-toggle based on visibility
@@ -1731,8 +1647,8 @@ document.addEventListener('DOMContentLoaded', function() {
       rootMargin: '50px'
     });
     
-    // Start observing the prototype wrapper
-    observer.observe(prototypeWrapper);
+    // Start observing the sandbox wrapper
+    observer.observe(sandboxWrapper);
   }
 });
 </script>
