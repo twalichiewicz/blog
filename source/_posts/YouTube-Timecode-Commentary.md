@@ -1591,7 +1591,6 @@ document.addEventListener('DOMContentLoaded', function() {
         sandboxWrapper.classList.add('collapsed');
         toggleSwitch.classList.remove('active');
         toggleSwitch.setAttribute('aria-checked', 'false');
-        youtubeDemo.style.display = 'none';
         
         // Pause the demo if it's playing
         const playBtn = youtubeDemo.querySelector('.play-btn');

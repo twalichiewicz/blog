@@ -5,7 +5,7 @@
   position: relative;
   margin: 32px auto;
   max-width: 100%;
-  padding: 9px;
+  padding: 9px 9px 0;
   background: rgba(0, 0, 0, 0.02);
   border-radius: 12px;
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -21,12 +21,13 @@
   border-radius: 8px;
   overflow: hidden;
   position: relative;
-  background: #000;
+  background: rgba(0, 0, 0, 0.03);
   border: 1px solid rgba(0, 0, 0, 0.06);
   transition: max-height 0.3s ease, opacity 0.3s ease;
   max-height: 2000px; // Large enough for content
   
   @media (prefers-color-scheme: dark) {
+    background: rgba(255, 255, 255, 0.01);
     border-color: rgba(255, 255, 255, 0.06);
   }
   
@@ -42,7 +43,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 6px 12px;
-  margin-top: 6px;
+  margin-top: 0;
 }
 
 // Left side - logo and label
@@ -165,12 +166,12 @@
 @media (max-width: 768px) {
   .code-sandbox-wrapper {
     margin: 16px 0;
-    padding: 6px;
+    padding: 6px 6px 0;
   }
   
   .code-sandbox-chin {
     padding: 5px 10px;
-    margin-top: 4px;
+    margin-top: 0;
   }
   
   .code-sandbox-brand {
