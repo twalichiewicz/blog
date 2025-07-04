@@ -338,9 +338,9 @@ function App() {
       <DemoWrapper 
         url="manage.autodesk.com/products/deployments"
         browserTheme="mac"
-        showBackground={false}
+        showBackground={true}
       >
-        <div className="h-full bg-background">
+        <div className="h-full">
           {/* Simple header */}
           <header className="bg-foreground text-background">
             <div className="h-14 flex items-center px-6 border-b border-gray-800">
