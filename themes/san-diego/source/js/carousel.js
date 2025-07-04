@@ -16,15 +16,21 @@ class Carousel {
 			if (img) {
 				// Ensure image src is properly resolved for relative paths
 				let imgSrc = img.src;
-				if (!imgSrc || imgSrc === window.location.href) {
-					// If src is empty or equals current page, try getting from dataset or attribute
-					imgSrc = img.getAttribute('src') || img.dataset.src || '';
+				let originalSrc = img.getAttribute('src') || '';
+				
+				// Check if we have a relative path that needs resolution
+				if (originalSrc.startsWith('./')) {
+					const currentPath = window.location.pathname;
+					const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+					imgSrc = basePath + originalSrc.substring(2);
 					
-					// For relative paths, resolve them properly
-					if (imgSrc.startsWith('./')) {
-						const currentPath = window.location.pathname;
-						const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
-						imgSrc = basePath + imgSrc.substring(2);
+					// Update the actual img element's src attribute
+					img.src = imgSrc;
+				} else if (!imgSrc || imgSrc === window.location.href) {
+					// If src is empty or equals current page, try getting from dataset or attribute
+					imgSrc = originalSrc || img.dataset.src || '';
+					if (imgSrc) {
+						img.src = imgSrc;
 					}
 				}
 				
@@ -264,7 +270,19 @@ class Carousel {
 	}
 
 	waitForImagesAndUpdate() {
+		// First, fix any relative image paths immediately
 		const images = this.carousel.querySelectorAll('img');
+		images.forEach(img => {
+			const originalSrc = img.getAttribute('src') || '';
+			if (originalSrc.startsWith('./')) {
+				const currentPath = window.location.pathname;
+				const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+				const resolvedSrc = basePath + originalSrc.substring(2);
+				img.src = resolvedSrc;
+			}
+		});
+		
+		// Then wait for all images to load
 		const promises = Array.from(images).map(img => {
 			return new Promise((resolve) => {
 				if (img.complete && img.naturalHeight !== 0) {
