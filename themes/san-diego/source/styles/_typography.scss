@@ -46,8 +46,8 @@ ol {
 
 	li {
 		margin-bottom: 0.5rem;
-		font-size: var(--font-size-sm);
-		line-height: var(--line-height-tight).4;
+		font-size: var(--font-size-base);
+		line-height: var(--line-height-normal);
 
 		&:last-child {
 			margin-bottom: 0;
