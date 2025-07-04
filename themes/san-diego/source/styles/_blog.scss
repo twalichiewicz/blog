@@ -111,11 +111,18 @@
 			background-color: rgb(9, 9, 9);
 		}
 		
-		// Desktop/tablet: fixed height with scroll
+		// Desktop/tablet: fixed height with scroll and border
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
 			height: calc(100dvh - 12px);
 			overflow-y: auto;
 			-webkit-overflow-scrolling: touch;
+			border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
+			background: variables.$card-bg;
+			
+			@media (prefers-color-scheme: dark) {
+				border-color: rgba(255, 255, 255, 0.08);
+				background: rgb(24, 24, 24);
+			}
 		}
 		
 		// Mobile: no fixed height, no scroll container - just normal flow
