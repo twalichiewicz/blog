@@ -55,6 +55,13 @@
     # Cache control - Netlify handles this well but we can be explicit
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# Headers for demos - ensure proper loading
+[[headers]]
+  for = "/demos/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "frame-ancestors 'self'"
+
 # Cache static assets
 [[headers]]
   for = "/js/*"
