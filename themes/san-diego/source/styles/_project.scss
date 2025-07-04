@@ -15,14 +15,18 @@
 body .project-edge-wrapper {
 	// Desktop/tablet: Apply outer border to project-edge-wrapper (top and left only)
 	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-		border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
-		border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.1);
+		border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+		border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+		border-right: none !important;
+		border-bottom: none !important;
 		border-radius: 12px 0 0 0;
 		background: variables.$card-bg;
 		
 		@media (prefers-color-scheme: dark) {
-			border-top-color: rgba(255, 255, 255, 0.1);
-			border-left-color: rgba(255, 255, 255, 0.1);
+			border-top-color: rgba(255, 255, 255, 0.1) !important;
+			border-left-color: rgba(255, 255, 255, 0.1) !important;
+			border-right: none !important;
+			border-bottom: none !important;
 			background: rgb(24, 24, 24);
 		}
 	}
@@ -89,8 +93,10 @@ body .project-edge-wrapper {
 	.blog-content {
 		// Desktop/tablet: Apply inner border to blog-content when inside project-edge-wrapper (top and left only)
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-			border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.05);
-			border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.05);
+			border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
+			border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
+			border-right: none !important;
+			border-bottom: none !important;
 			border-radius: 12px 0 0 0;
 			margin: 12px;
 			background: variables.$white;
@@ -98,8 +104,10 @@ body .project-edge-wrapper {
 			overflow: visible; // Override default overflow
 			
 			@media (prefers-color-scheme: dark) {
-				border-top-color: rgba(255, 255, 255, 0.03);
-				border-left-color: rgba(255, 255, 255, 0.03);
+				border-top-color: rgba(255, 255, 255, 0.03) !important;
+				border-left-color: rgba(255, 255, 255, 0.03) !important;
+				border-right: none !important;
+				border-bottom: none !important;
 				background: rgb(9, 9, 9);
 			}
 		}
