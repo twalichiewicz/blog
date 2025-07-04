@@ -9,20 +9,20 @@
   --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
 }
 
-// Type Scale (Divisible by 3)
-// ---------------------------
+// Type Scale (Divisible by 3, Scaled Down)
+// -----------------------------------------
 :root {
-  // Font sizes - all values divisible by 3
-  --font-size-2xs: 0.5625rem; // 9px
-  --font-size-xs: 0.75rem;    // 12px
-  --font-size-sm: 0.9375rem;  // 15px
-  --font-size-base: 1.125rem; // 18px
-  --font-size-lg: 1.3125rem;  // 21px
-  --font-size-xl: 1.5rem;     // 24px
-  --font-size-2xl: 1.6875rem; // 27px
-  --font-size-3xl: 1.875rem;  // 30px
-  --font-size-4xl: 2.0625rem; // 33px
-  --font-size-5xl: 2.25rem;   // 36px
+  // Font sizes - all values divisible by 3, scaled down for better readability
+  --font-size-2xs: 0.5625rem; // 9px  - small labels, pills, bylines
+  --font-size-xs: 0.625rem;   // 10px - adjusted for better scale
+  --font-size-sm: 0.75rem;    // 12px - small text, captions
+  --font-size-base: 0.875rem; // 14px - body text (scaled down from 18px)
+  --font-size-lg: 1rem;       // 16px - large body text
+  --font-size-xl: 1.125rem;   // 18px - headings
+  --font-size-2xl: 1.25rem;   // 20px - larger headings
+  --font-size-3xl: 1.5rem;    // 24px - section headings
+  --font-size-4xl: 1.75rem;   // 28px - page headings
+  --font-size-5xl: 2rem;      // 32px - hero text
   
   // Font weights
   --font-weight-normal: 400;
@@ -41,17 +41,17 @@
   --letter-spacing-wide: 0.025em;
 }
 
-// Responsive Base Font Size (Divisible by 3)
-// -------------------------------------------
+// Responsive Base Font Size (Scaled Down)
+// ----------------------------------------
 :root {
-  font-size: 15px;
+  font-size: 14px;
   
   @media (min-width: 768px) {
-    font-size: 18px;
+    font-size: 15px;
   }
   
   @media (min-width: 1280px) {
-    font-size: 21px;
+    font-size: 16px;
   }
 }
 
