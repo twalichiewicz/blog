@@ -23,19 +23,25 @@
   command = "npm run build:prod"
   
   [context.production.environment]
-    HUGO_ENV = "production"
+    NODE_ENV = "production"
+    HEXO_ENV = "production"
 
 # Deploy preview context - runs for PRs
 [context.deploy-preview]
   command = "npm run build:prod"
   
   [context.deploy-preview.environment]
-    # Can add preview-specific env vars here
+    NODE_ENV = "production"
+    HEXO_ENV = "production"
     PREVIEW = "true"
 
 # Branch deploy context
 [context.branch-deploy]
   command = "npm run build:prod"
+  
+  [context.branch-deploy.environment]
+    NODE_ENV = "production"
+    HEXO_ENV = "production"
 
 # Headers for all routes
 [[headers]]
