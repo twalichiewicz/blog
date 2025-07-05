@@ -35,7 +35,10 @@ function getDemoDirectories() {
         .filter(entry => entry.isDirectory() && 
                 entry.name !== 'build-scripts' && 
                 entry.name !== 'examples' && 
-                entry.name !== 'shared')
+                entry.name !== 'shared' &&
+                entry.name !== 'overlay-demo' && // No package.json
+                entry.name !== '.git' && // Exclude git directory
+                !entry.name.startsWith('.')) // Exclude hidden directories
         .map(entry => entry.name);
 }
 
@@ -45,7 +48,7 @@ function buildDemo(demoName) {
     
     if (!fs.existsSync(packageJsonPath)) {
         log(`⚠️  No package.json found for ${demoName}, skipping...`);
-        return false;
+        return 'skipped';
     }
 
     try {
@@ -123,9 +126,17 @@ function main() {
     
     // Build each demo
     let successCount = 0;
+    let skippedCount = 0;
+    let failedCount = 0;
+    
     for (const demo of demos) {
-        if (buildDemo(demo)) {
+        const result = buildDemo(demo);
+        if (result === true) {
             successCount++;
+        } else if (result === 'skipped') {
+            skippedCount++;
+        } else {
+            failedCount++;
         }
     }
     
@@ -133,13 +144,19 @@ function main() {
     log(`\n📊 Build Summary:`);
     log(`   Total demos: ${demos.length}`);
     log(`   Successful: ${successCount}`);
-    log(`   Failed: ${demos.length - successCount}`);
+    log(`   Skipped: ${skippedCount}`);
+    log(`   Failed: ${failedCount}`);
     
-    if (successCount === demos.length) {
-        log('🎉 All demos built successfully!');
-        process.exit(0);
+    if (failedCount === 0) {
+        if (successCount === 0) {
+            log('⚠️  No demos were built. All were skipped.');
+            process.exit(1);
+        } else {
+            log('✅ Build completed successfully!');
+            process.exit(0);
+        }
     } else {
-        log('⚠️  Some demos failed to build. Check logs above.');
+        log('❌ Some demos failed to build. Check logs above.');
         process.exit(1);
     }
 }
