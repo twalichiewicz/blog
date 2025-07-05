@@ -11,8 +11,6 @@ cover_video_poster:
 has_writeup: true
 tags: [portfolio]
 # demo_component: "foreground-demo"  # Temporarily disabled
-notebook_color: "offwhite"
-notebook_texture: "worn"
 notebook_stickers:
   - text: "DESIGN SYSTEM"
     color: "#fff"
