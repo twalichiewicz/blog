@@ -57,6 +57,11 @@
       e.stopPropagation();
       this.setToggleState(!this.isOn, false);
       this.wasAutoToggled = false;
+      
+      // Play small click sound
+      if (window.playSmallClickSound) {
+        window.playSmallClickSound();
+      }
     }
 
     handleToggleKeydown(e) {
