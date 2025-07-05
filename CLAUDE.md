@@ -178,18 +178,38 @@ git worktree remove ../blog-new-feature
    git push -u origin feature/your-feature-name
    ```
 
-4. **Create PR programmatically (if GitHub CLI is available)**
+4. **Create PR with comprehensive description**
    ```bash
-   # Method 1: Using gh CLI (requires authentication)
-   gh pr create --title "Title" --body "Description"
+   # IMPORTANT: Always prepare a detailed PR description BEFORE creating the PR
+   # Claude Code should generate and provide the full description text
    
-   # Method 2: Open browser to create PR
+   # Method 1: Using gh CLI with pre-filled description
+   gh pr create --title "Title" --body "$(cat <<'EOF'
+   ## Summary
+   [Brief description of changes]
+   
+   ## Key Changes
+   - [Change 1]
+   - [Change 2]
+   
+   ## Testing
+   - [ ] Tested locally
+   - [ ] Verified in both light/dark modes
+   - [ ] Mobile responsive
+   - [ ] No console errors
+   
+   🤖 Generated with Claude Code
+   EOF
+   )"
+   
+   # Method 2: Open browser (provide description text separately)
    open "https://github.com/twalichiewicz/blog/pull/new/feature/your-feature-name"
+   # Claude Code should output the full PR description for copy/paste
    
    # Note: GitHub CLI authentication in Claude Code
    # - Environment variable GITHUB_TOKEN is not always available
    # - Alternative: GH_TOKEN=$GITHUB_TOKEN gh pr create ...
-   # - If auth fails, use browser method instead
+   # - If auth fails, use browser method and provide description text
    ```
 
 5. **Verify PR Checks**
@@ -222,6 +242,51 @@ git worktree remove ../blog-new-feature
 - Cache-busting headers prevent stale content issues
 - Claude Code cannot access parent directories, so worktree operations may require manual steps
 - Each commit to a PR branch triggers a new preview build
+
+#### PR Description Requirements
+**CRITICAL**: Claude Code MUST always provide a complete PR description that includes:
+
+1. **Summary**: Clear overview of what the PR accomplishes
+2. **Key Changes**: Bullet points of major modifications
+3. **Technical Details**: Architecture changes, new patterns, refactoring
+4. **Testing Checklist**: What was tested and how
+5. **Visual Changes**: Screenshots or descriptions if UI is affected
+6. **Breaking Changes**: Any backward compatibility concerns
+7. **Migration Guide**: If existing code needs updates
+
+Example PR description template:
+```markdown
+## Summary
+[1-2 sentences describing the overall change]
+
+## Key Changes
+- **Feature/Fix**: [What was added/fixed]
+- **Architecture**: [Any structural changes]
+- **Performance**: [Any optimization]
+- **UX/UI**: [Any visual changes]
+
+## Technical Details
+[Detailed explanation of implementation]
+
+## Testing
+- [x] Build passes (`npm run build`)
+- [x] Tested in Chrome, Firefox, Safari
+- [x] Mobile responsive
+- [x] Dark/light mode
+- [x] No console errors
+- [x] Performance verified
+
+## Screenshots (if applicable)
+[Before/after comparisons]
+
+## Breaking Changes
+[None | List any breaking changes]
+
+## Notes
+[Any additional context]
+
+🤖 Generated with Claude Code
+```
 
 ### Plan-First Development Process
 **IMPORTANT**: This is now the DEFAULT approach for all non-trivial tasks. Always plan before coding.
@@ -290,6 +355,49 @@ git worktree remove ../blog-new-feature
 
 **✅ Good Plan (specific and actionable):**
 "I'll analyze the 3 duplicate sound implementations, design a centralized API that maintains backward compatibility, implement it as an ES6 module with lazy loading, and provide migration paths for existing usage patterns"
+
+### Milestone-Based Development & Commits
+**IMPORTANT**: For complex features, use milestone commits for easy rollback.
+
+#### When to Use Milestone Commits
+- Features with multiple implementation steps
+- High-risk changes that could break functionality
+- Refactoring that touches many files
+- Any change where rollback might be needed
+
+#### How to Implement Milestone Commits
+1. **Break work into logical milestones**
+   - Each milestone should be independently functional
+   - Test thoroughly before committing
+   - Include tests in the commit when possible
+
+2. **Commit after each milestone**
+   ```bash
+   # After completing milestone 1
+   git add -A
+   git commit -m "feat: [1/5] Create sound service foundation"
+   
+   # After completing milestone 2
+   git add -A  
+   git commit -m "feat: [2/5] Add sound registry and lazy loading"
+   ```
+
+3. **Test between milestones**
+   - Run `npm run build` after each commit
+   - Test affected functionality manually
+   - Fix any issues before proceeding
+
+4. **Tag critical milestones for easy reference**
+   ```bash
+   git tag -a "sound-service-pre-migration" -m "Before migrating components"
+   ```
+
+#### Benefits
+- **Easy rollback**: Can revert to any milestone
+- **Clear history**: See exactly what changed when
+- **Reduced risk**: Problems isolated to smaller changes
+- **Better debugging**: Bisect to find issues
+- **Progress tracking**: Clear view of implementation status
 
 ### Build Requirements
 **ALWAYS run `npm run build` before committing ANY changes**
