@@ -159,10 +159,29 @@
 	// Mobile responsive styles
 	@media (max-width: variables.$mobile-breakpoint) {
 		padding: 0 15px;
-		gap: 12px;
+		gap: 8px;
 		
 		.search-icon {
 			left: 9px;
+		}
+		
+		.posts-only-button {
+			font-size: var(--font-size-xs); // Smaller font on mobile
+			padding: 6px 12px; // Reduced padding
+		}
+	}
+	
+	// Medium mobile screens - prevent wrapping
+	@media (max-width: 480px) {
+		.posts-only-button {
+			// Shorten text on smaller screens
+			.button-text-full {
+				display: none;
+			}
+			
+			&::after {
+				content: "Posts";
+			}
 		}
 	}
 	
@@ -178,6 +197,10 @@
 		
 		.search-icon {
 			left: 9px;
+		}
+		
+		.posts-only-button::after {
+			content: "Posts only"; // Restore full text when stacked
 		}
 	}
 }
