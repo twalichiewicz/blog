@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			
 			if (isSafari && isDynamicContent) {
 				// Safari needs a delay for dynamic content to ensure images are in DOM
-				console.log('[Blog] Safari detected with dynamic content - delaying carousel init');
 				setTimeout(() => {
 					initializeCarousels(container);
 				}, 100);
@@ -482,7 +481,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					// Safari fix: Fix image paths BEFORE cloning
 					const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 					if (isSafari && isProject) {
-						console.log('[Blog] Safari: Fixing carousel image paths before cloning');
 						const carouselImages = newContentContainer.querySelectorAll('.carousel img');
 						
 						// For project pages, we need to build the full path including the project directory
@@ -492,33 +490,16 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Remove .html extension and ensure trailing slash
 						const projectPath = pathname.replace(/\.html$/, '').replace(/\/?$/, '/');
 						
-						console.log('[Blog] Safari image fix debug:', {
-							originalUrl: url,
-							parsedPathname: pathname,
-							projectPath: projectPath,
-							currentLocation: window.location.href
-						});
-						
 						carouselImages.forEach((img, index) => {
 							const originalSrc = img.getAttribute('src') || '';
 							if (originalSrc.startsWith('./')) {
 								// Remove './' and prepend the project path
 								const filename = originalSrc.substring(2);
 								const resolvedSrc = projectPath + filename;
-								console.log(`[Blog] Pre-clone fix - Image ${index}:`, {
-									original: originalSrc,
-									resolved: resolvedSrc,
-									projectPath: projectPath
-								});
 								img.setAttribute('src', resolvedSrc);
 							} else if (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')) {
 								// Relative path without './'
 								const resolvedSrc = projectPath + originalSrc;
-								console.log(`[Blog] Pre-clone fix - Image ${index}:`, {
-									original: originalSrc,
-									resolved: resolvedSrc,
-									projectPath: projectPath
-								});
 								img.setAttribute('src', resolvedSrc);
 							}
 						});
