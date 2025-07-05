@@ -747,6 +747,50 @@ $notebook-brands: (
     --notebook-effect: metallic;
 }
 
+// Mobile-specific sticker positioning fixes
+@media (max-width: 768px) {
+    // When notebooks scale down on mobile, stickers need adjustment
+    .notebook .front-cover {
+        // Adjust all stickers to compensate for 0.7x scale
+        &[data-sticker-1]::before {
+            // Scale up slightly to maintain visibility
+            font-size: calc(var(--font-size-xs) * 1.2);
+        }
+        
+        &[data-sticker-2]::after {
+            // Move sticker 2 slightly up on mobile
+            bottom: var(--sticker-2-bottom, 40px) !important;
+        }
+    }
+    
+    // Specific fix for centered stickers (like Human Interest)
+    .portfolio-item-wrapper {
+        .notebook .front-cover {
+            // For sticker 1 when centered
+            &[data-sticker-1][style*="--sticker-1-top: 50%"][style*="--sticker-1-left: 50%"]::before {
+                // Adjust position to stay centered on scaled notebook
+                top: calc(50% - 8px) !important;
+                transform: translate(-50%, -50%) rotate(var(--sticker-1-rotate, 0deg)) scale(1.15);
+            }
+            
+            // For sticker 3 when centered
+            .sticker-3[data-sticker-3][style*="--sticker-3-top: 50%"][style*="--sticker-3-left: 50%"]::after {
+                top: calc(50% - 8px) !important;
+                transform: translate(-50%, -50%) rotate(var(--sticker-3-rotate, -2deg)) scale(1.15);
+            }
+        }
+    }
+    
+    // Human Interest (foreground) specific adjustments
+    .portfolio-item-wrapper[data-title*="Design Leadership"] {
+        .notebook .front-cover[data-sticker-1]::before {
+            // Fine-tune position for this specific notebook
+            top: calc(50% - 12px) !important;
+            left: calc(50% - 3px) !important;
+        }
+    }
+}
+
 .notebook-creative {
     --notebook-color: berry;
     --notebook-texture: worn;
