@@ -74,8 +74,10 @@
 		<div class="controls">
 			<button id="test-init">Test Initialization</button>
 			<button id="test-formats">Test Format Detection</button>
+			<button id="test-registry">Test Registry</button>
 			<button id="test-play">Test Play Sound</button>
 			<button id="test-preload">Test Preload</button>
+			<button id="test-categories">Test Categories</button>
 		</div>
 	</div>
 
@@ -171,6 +173,30 @@
 			}
 		});
 		
+		// Test registry
+		document.getElementById('test-registry').addEventListener('click', () => {
+			try {
+				const availableSounds = soundService.getAvailableSounds();
+				addResult('Registry', true, `Available sounds: ${availableSounds.length}`);
+				addResult('Sound List', true, availableSounds.join(', '));
+				
+				// Test dynamic registration
+				soundService.registerSound('test-dynamic', {
+					name: 'Dynamic Test Sound',
+					url: 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=',
+					volume: 0.3
+				});
+				
+				const newList = soundService.getAvailableSounds();
+				addResult('Dynamic Registration', newList.includes('test-dynamic'), 
+					'Successfully registered new sound');
+				
+				updateDebugInfo();
+			} catch (e) {
+				addResult('Registry', false, e.message);
+			}
+		});
+		
 		// Test play sound
 		document.getElementById('test-play').addEventListener('click', async () => {
 			try {
@@ -201,6 +227,32 @@
 				updateDebugInfo();
 			} catch (e) {
 				addResult('Preload', false, e.message);
+			}
+		});
+		
+		// Test categories
+		document.getElementById('test-categories').addEventListener('click', () => {
+			try {
+				const uiSounds = soundService.getSoundsByCategory('ui');
+				const navigationSounds = soundService.getSoundsByCategory('navigation');
+				const ambientSounds = soundService.getSoundsByCategory('ambient');
+				
+				addResult('Categories', true, 
+					`UI: ${Object.keys(uiSounds).length}, ` +
+					`Navigation: ${Object.keys(navigationSounds).length}, ` +
+					`Ambient: ${Object.keys(ambientSounds).length}`
+				);
+				
+				// Test playing sound by category
+				const firstUiSound = Object.keys(uiSounds)[0];
+				if (firstUiSound) {
+					soundService.play(firstUiSound);
+					addResult('Category Play', true, `Played ${firstUiSound} from UI category`);
+				}
+				
+				updateDebugInfo();
+			} catch (e) {
+				addResult('Categories', false, e.message);
 			}
 		});
 		

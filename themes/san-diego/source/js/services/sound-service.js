@@ -4,6 +4,8 @@
  * caching, and cross-browser compatibility
  */
 
+import { SoundRegistry, SoundRegistryHelper } from './sound-registry.js';
+
 class SoundService {
 	constructor() {
 		// Singleton pattern
@@ -42,9 +44,28 @@ class SoundService {
 		// Listen for volume/enabled changes
 		this.setupStorageListener();
 		
+		// Preload critical sounds
+		this.preloadCriticalSounds();
+		
 		// Expose global for backward compatibility (will be deprecated)
 		if (typeof window !== 'undefined') {
 			window.soundService = this;
+		}
+	}
+
+	/**
+	 * Preload critical sounds on initialization
+	 * @private
+	 */
+	async preloadCriticalSounds() {
+		// Wait for user interaction first
+		if (this.autoplayAllowed === false) {
+			return;
+		}
+		
+		const criticalSounds = SoundRegistryHelper.getPreloadSounds();
+		if (criticalSounds.length > 0) {
+			await this.preload(criticalSounds);
 		}
 	}
 
@@ -81,6 +102,8 @@ class SoundService {
 				await audio.play();
 				this.autoplayAllowed = true;
 				this.processPendingSounds();
+				// Preload critical sounds now that autoplay is allowed
+				this.preloadCriticalSounds();
 			} catch (e) {
 				this.autoplayAllowed = false;
 				console.info('Sound autoplay requires user interaction');
@@ -178,6 +201,11 @@ class SoundService {
 	 * @private
 	 */
 	getBestFormat(config) {
+		// Simple URL provided
+		if (typeof config === 'string') {
+			return config;
+		}
+		
 		if (config.url) {
 			return config.url;
 		}
@@ -217,19 +245,44 @@ class SoundService {
 		}
 
 		try {
-			const audio = await this.load(name, options.source || this.getDefaultSource(name));
+			// Get sound config from registry if no source provided
+			let source = options.source;
+			if (!source) {
+				const config = SoundRegistryHelper.getSoundConfig(name);
+				if (!config) {
+					console.warn(`Sound not found in registry: ${name}`);
+					return;
+				}
+				source = config;
+			}
+			
+			const audio = await this.load(name, source);
 			
 			// Clone for concurrent playback
 			const instance = audio.cloneNode(true);
-			instance.volume = options.volume ?? this.volume;
+			
+			// Use sound-specific volume from registry or options
+			const soundConfig = SoundRegistryHelper.getSoundConfig(name);
+			const defaultVolume = soundConfig ? soundConfig.volume : this.volume;
+			instance.volume = (options.volume ?? defaultVolume) * this.volume;
+			
+			// Handle looping if specified
+			if (soundConfig && soundConfig.loop && options.loop !== false) {
+				instance.loop = true;
+			}
 			
 			// Play and cleanup
 			await instance.play();
 			
-			// Cleanup after playback
-			instance.addEventListener('ended', () => {
-				instance.remove();
-			}, { once: true });
+			// Cleanup after playback (unless looping)
+			if (!instance.loop) {
+				instance.addEventListener('ended', () => {
+					instance.remove();
+				}, { once: true });
+			}
+			
+			// Return instance for potential control (stop, volume change, etc.)
+			return instance;
 			
 		} catch (error) {
 			console.error(`Failed to play sound: ${name}`, error);
@@ -241,11 +294,16 @@ class SoundService {
 	 * @param {string[]} names - Sound identifiers to preload
 	 */
 	async preload(names) {
-		const promises = names.map(name => 
-			this.load(name, this.getDefaultSource(name)).catch(e => 
+		const promises = names.map(name => {
+			const config = SoundRegistryHelper.getSoundConfig(name);
+			if (!config) {
+				console.warn(`Sound not found in registry for preload: ${name}`);
+				return Promise.resolve();
+			}
+			return this.load(name, config).catch(e => 
 				console.warn(`Failed to preload sound: ${name}`, e)
-			)
-		);
+			);
+		});
 		
 		await Promise.allSettled(promises);
 	}
@@ -278,20 +336,39 @@ class SoundService {
 	}
 
 	/**
-	 * Get default source for built-in sounds
-	 * @private
+	 * Register a new sound dynamically
+	 * @param {string} key - Sound identifier
+	 * @param {Object} config - Sound configuration
+	 * @param {string} category - Sound category
 	 */
-	getDefaultSource(name) {
-		// This will be replaced with registry in milestone 2
-		const sources = {
-			'button': '/media/button-press-down.mp3',
-			'toggle': '/media/toggleSound.mp3',
-			'smallClick': '/media/smallClick.mp3',
-			'slider': '/media/slider.mp3',
-			'book': '/media/book.mp3'
-		};
-		
-		return sources[name] || null;
+	registerSound(key, config, category = 'custom') {
+		SoundRegistryHelper.registerSound(key, config, category);
+	}
+	
+	/**
+	 * Get all available sound keys
+	 * @returns {string[]} Array of sound identifiers
+	 */
+	getAvailableSounds() {
+		return Object.keys(SoundRegistryHelper.getAllSounds());
+	}
+	
+	/**
+	 * Get sounds by category
+	 * @param {string} category - Category name
+	 * @returns {Object} Sounds in the category
+	 */
+	getSoundsByCategory(category) {
+		return SoundRegistryHelper.getSoundsByCategory(category);
+	}
+	
+	/**
+	 * Stop all playing sounds (useful for cleanup)
+	 */
+	stopAll() {
+		// This would require tracking playing instances
+		// Will be implemented in a future milestone if needed
+		console.info('stopAll not yet implemented');
 	}
 
 	/**
