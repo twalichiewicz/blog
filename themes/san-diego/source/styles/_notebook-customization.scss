@@ -780,23 +780,21 @@ $notebook-brands: (
     // Human Interest specific adjustments using its notebook attributes
     .portfolio-item-wrapper[data-notebook-color="offwhite"][data-notebook-texture="worn"] {
         .notebook .front-cover {
-            // Fix centered sticker position
-            &[data-sticker-1]::before {
-                // Properly center the sticker on the notebook cover
-                top: 50% !important;
-                left: 50% !important;
-                transform: translate(-50%, -50%) rotate(0deg) !important;
-                // Keep sticker at reasonable size on mobile
-                font-size: var(--font-size-xs) !important;
-                padding: 4px 10px !important;
-            }
-            
             // Ensure date label stays in correct position
             .notebook-year-label {
                 bottom: 25px !important;
                 left: 25px !important;
                 transform: rotate(-1deg) !important;
             }
+        }
+    }
+    
+    // Fix for notebooks with centered stickers (like Human Interest)
+    // This needs to be after the default sticker styles to override the transform
+    .portfolio-item-wrapper[data-notebook-stickers] .notebook .front-cover {
+        &[data-sticker-1][style*="--sticker-1-top: 50%"][style*="--sticker-1-left: 50%"]::before {
+            // Override the default transform to properly center
+            transform: translate(-50%, -50%) rotate(var(--sticker-1-rotate, 0deg)) !important;
         }
     }
     
@@ -810,6 +808,21 @@ $notebook-brands: (
             transform: translate(-50%, -50%) rotate(var(--sticker-1-rotate, 0deg)) !important;
             // Maintain reasonable size
             font-size: var(--font-size-xs) !important;
+        }
+    }
+    
+    // FINAL OVERRIDE: Must be last to ensure highest specificity for Human Interest
+    .portfolio-item-wrapper[data-notebook-color="offwhite"][data-notebook-texture="worn"] {
+        .notebook .front-cover[data-sticker-1]::before {
+            // Force proper centering on mobile
+            top: 50% !important;
+            left: 50% !important;
+            right: auto !important;
+            bottom: auto !important;
+            transform: translate(-50%, -50%) rotate(0deg) !important;
+            // Keep size consistent
+            font-size: var(--font-size-xs) !important;
+            padding: 4px 10px !important;
         }
     }
 }
