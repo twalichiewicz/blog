@@ -1530,28 +1530,20 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 500);
 });
 
-// Code sandbox toggle functionality
+// YouTube demo specific handlers
 document.addEventListener('DOMContentLoaded', function() {
   const sandboxWrapper = document.querySelector('.code-sandbox-wrapper');
-  const toggleSwitch = document.querySelector('.code-sandbox-toggle');
   const youtubeDemo = document.querySelector('.youtube-demo');
   
-  if (toggleSwitch && sandboxWrapper && youtubeDemo) {
-    let isOn = true;
-    let wasAutoToggled = false; // Track if it was auto-toggled by scroll
-    
-    function setToggleState(on, isAutomatic = false) {
-      isOn = on;
+  if (sandboxWrapper && youtubeDemo && typeof CodeSandbox !== 'undefined') {
+    // Initialize with custom handlers for YouTube demo
+    const sandbox = new CodeSandbox(sandboxWrapper, {
+      autoToggleOnScroll: true,
+      suspendOnHide: true,
+      resetOnShow: true,
       
-      if (isOn) {
-        // Turn ON
-        sandboxWrapper.classList.remove('collapsed');
-        toggleSwitch.classList.add('active');
-        toggleSwitch.setAttribute('aria-checked', 'true');
-        wasAutoToggled = false;
-        
-        // Reset the demo to initial state
-        const demo = youtubeDemo;
+      onShow: function(content) {
+        const demo = content.querySelector('.youtube-demo');
         if (demo && demo.youtubeDemo) {
           // Reset time to 5 seconds
           demo.youtubeDemo.currentTime = 5;
@@ -1586,67 +1578,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }, 500);
         }
-      } else {
-        // Turn OFF
-        sandboxWrapper.classList.add('collapsed');
-        toggleSwitch.classList.remove('active');
-        toggleSwitch.setAttribute('aria-checked', 'false');
-        
-        // Pause the demo if it's playing
-        const playBtn = youtubeDemo.querySelector('.play-btn');
-        if (youtubeDemo.dataset.playing === 'true' && playBtn) {
-          playBtn.click();
+      },
+      
+      onHide: function(content) {
+        const demo = content.querySelector('.youtube-demo');
+        if (demo) {
+          // Pause the demo if it's playing
+          const playBtn = demo.querySelector('.play-btn');
+          if (demo.dataset.playing === 'true' && playBtn) {
+            playBtn.click();
+          }
         }
-        
-        if (isAutomatic) {
-          wasAutoToggled = true;
-        }
-      }
-    }
-    
-    // Manual toggle - click handler
-    toggleSwitch.addEventListener('click', function(e) {
-      e.stopPropagation();
-      setToggleState(!isOn, false);
-      wasAutoToggled = false; // Reset auto-toggle flag on manual interaction
-    });
-    
-    // Keyboard accessibility - space/enter to toggle
-    toggleSwitch.addEventListener('keydown', function(e) {
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        e.stopPropagation();
-        setToggleState(!isOn, false);
-        wasAutoToggled = false;
       }
     });
     
-    // Set up Intersection Observer to auto-toggle based on visibility
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Element is visible
-          if (wasAutoToggled && !isOn) {
-            // Auto-turn ON only if it was auto-turned OFF
-            setToggleState(true, true);
-          }
-        } else {
-          // Element is not visible
-          if (isOn) {
-            // Auto-turn OFF if currently ON
-            setToggleState(false, true);
-          }
-        }
-      });
-    }, {
-      // Trigger when 10% of the element is visible
-      threshold: 0.1,
-      // Add some margin so it triggers slightly before/after the element is fully out of view
-      rootMargin: '50px'
+    // Listen for suspend/resume events to handle animation frames
+    youtubeDemo.addEventListener('sandbox:suspend', function() {
+      // Cancel any animation frames used by the demo
+      if (youtubeDemo.playInterval) {
+        cancelAnimationFrame(youtubeDemo.playInterval);
+      }
     });
     
-    // Start observing the sandbox wrapper
-    observer.observe(sandboxWrapper);
+    youtubeDemo.addEventListener('sandbox:resume', function() {
+      // Demo will restart via the onShow handler
+    });
   }
 });
 </script>
