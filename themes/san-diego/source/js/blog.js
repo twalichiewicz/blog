@@ -657,6 +657,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 				if (isPostLink || isProjectLink) {
 					event.preventDefault();
+					
+					// Play book sound for post links
+					if (isPostLink && window.playBookSound) {
+						window.playBookSound();
+					}
+					
 					const url = link.href;
 					// Fetching content
 					fetchAndDisplayContent(url, true, isProjectLink);
