@@ -282,6 +282,24 @@ class Carousel {
 		if (isSafari) {
 			console.log('[Carousel] Safari detected - fixing image paths before initialization');
 			this.fixImagePathsImmediately();
+			
+			// Safari first image fix: Force load the first image immediately
+			const firstImage = this.carousel.querySelector('.carousel-slide:first-child img');
+			if (firstImage && (!firstImage.complete || firstImage.naturalWidth === 0)) {
+				console.log('[Carousel] Safari: Force-loading first image', firstImage.src);
+				const src = firstImage.src;
+				// Create a new Image to force load
+				const preloader = new Image();
+				preloader.onload = () => {
+					console.log('[Carousel] Safari: First image preloaded successfully');
+					// Force the carousel image to update
+					firstImage.src = src + '?t=' + Date.now();
+				};
+				preloader.onerror = () => {
+					console.error('[Carousel] Safari: First image preload failed', src);
+				};
+				preloader.src = src;
+			}
 		}
 		
 		// Store images for this specific carousel - only from carousel slides
@@ -417,6 +435,31 @@ class Carousel {
 			this.carousel.addEventListener('touchstart', this.boundTouchStart, { passive: true });
 			this.carousel.addEventListener('touchmove', this.boundTouchMove, { passive: false });
 			this.carousel.addEventListener('touchend', this.boundTouchEnd, { passive: true });
+		}
+		
+		// Safari fix: Ensure first slide is active on initialization
+		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+		if (isSafari && this.slides.length > 0) {
+			// Remove active from all slides first
+			this.slides.forEach(slide => slide.classList.remove('active'));
+			this.indicators.forEach(indicator => indicator.classList.remove('active'));
+			
+			// Set first slide as active
+			this.slides[0].classList.add('active');
+			if (this.indicators.length > 0) {
+				this.indicators[0].classList.add('active');
+			}
+			
+			console.log('[Carousel] Safari: Ensured first slide is active');
+			
+			// Double-check first image visibility
+			const firstImg = this.slides[0].querySelector('img');
+			if (firstImg) {
+				// Force display update
+				firstImg.style.display = 'none';
+				void firstImg.offsetHeight; // Force reflow
+				firstImg.style.display = '';
+			}
 		}
 
 		// Add click handlers for media (images and videos)
