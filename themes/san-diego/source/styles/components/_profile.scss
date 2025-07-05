@@ -419,6 +419,26 @@
 			margin-top: 0;
 			flex-shrink: 0;
 			max-width: none;
+			
+			// Further optimize for smaller screens
+			@media (max-width: 480px) {
+				gap: 6px;
+				right: 8px;
+				
+				// Reduce button size on very small screens
+				.mobile-impact-button,
+				.mobile-contact-button {
+					font-size: 0.625rem !important; // 10px
+					padding: 5px 10px !important;
+				}
+			}
+			
+			@media (max-width: 375px) {
+				top: 12px; // Move down slightly on very small screens
+				flex-direction: column; // Stack vertically if needed
+				align-items: flex-end;
+				gap: 4px;
+			}
 		}
 		
 		.mobile-impact-button,

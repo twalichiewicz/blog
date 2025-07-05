@@ -159,7 +159,7 @@
 	// Mobile responsive styles
 	@media (max-width: variables.$mobile-breakpoint) {
 		padding: 0 15px;
-		gap: 12px;
+		gap: 8px;
 		
 		.search-icon {
 			left: 9px;
@@ -178,16 +178,18 @@
 			line-height: 34px; // Account for border (36px - 2px border)
 			display: inline-flex;
 			align-items: center;
+		}
+	}
+	
+	// Medium mobile screens - prevent wrapping
+	@media (max-width: 480px) {
+		.posts-only-button {
+			// Hide original text and show shortened version
+			font-size: 0; // Hide original text
 			
-			// Show shortened text on very small screens
-			@media (max-width: 480px) {
-				// Hide original text and show shortened version
-				font-size: 0; // Hide original text
-				
-				&::after {
-					content: "Posts";
-					font-size: var(--font-size-sm); // Restore font size for pseudo element
-				}
+			&::after {
+				content: "Posts";
+				font-size: var(--font-size-sm); // Restore font size for pseudo element
 			}
 		}
 	}
@@ -204,6 +206,10 @@
 		
 		.search-icon {
 			left: 9px;
+		}
+		
+		.posts-only-button::after {
+			content: "Posts only"; // Restore full text when stacked
 		}
 	}
 }
