@@ -981,3 +981,37 @@ p {
 		}
 	}
 }
+
+
+// Mobile-specific optimizations for blog post list
+@media (max-width: variables.$mobile-breakpoint) {
+	.blog {
+		// Optimize font sizes for mobile readability
+		.post-list {
+			p,
+			ul,
+			ol {
+				font-size: var(--font-size-sm); // Use smaller size on mobile
+			}
+			
+			.post-list-item {
+				h2, h3 {
+					font-size: var(--font-size-lg); // Scale down heading sizes
+				}
+				
+				// Reduce spacing for mobile
+				margin-bottom: 1rem;
+				
+				&.post-long {
+					padding: variables.$space-sm;
+				}
+			}
+		}
+		
+		// Optimize spacing for mobile
+		.byline {
+			font-size: var(--font-size-xs);
+			margin-bottom: 0.5rem;
+		}
+	}
+}
