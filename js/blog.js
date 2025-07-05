@@ -581,6 +581,10 @@ document.addEventListener('DOMContentLoaded', function () {
 							// Add new handler
 							scrollButton.onclick = function (e) {
 								e.preventDefault();
+								// Play button sound (same as View impact report)
+								if (window.playButtonSound) {
+									window.playButtonSound();
+								}
 								// Dynamic scroll button clicked
 								if (window.scrollToFullStory) {
 									window.scrollToFullStory();
