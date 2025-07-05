@@ -766,29 +766,31 @@ $notebook-brands: (
     // Specific fix for centered stickers (like Human Interest)
     .portfolio-item-wrapper {
         .notebook .front-cover {
-            // For sticker 1 when centered
+            // For sticker 1 when centered - keep it truly centered
             &[data-sticker-1][style*="--sticker-1-top: 50%"][style*="--sticker-1-left: 50%"]::before {
-                // Adjust position to stay centered on scaled notebook
-                top: calc(50% - 8px) !important;
-                transform: translate(-50%, -50%) rotate(var(--sticker-1-rotate, 0deg)) scale(1.15);
+                // Keep centered without offset
+                top: 50% !important;
+                transform: translate(-50%, -50%) rotate(var(--sticker-1-rotate, 0deg));
             }
             
             // For sticker 3 when centered
             .sticker-3[data-sticker-3][style*="--sticker-3-top: 50%"][style*="--sticker-3-left: 50%"]::after {
-                top: calc(50% - 8px) !important;
-                transform: translate(-50%, -50%) rotate(var(--sticker-3-rotate, -2deg)) scale(1.15);
+                top: 50% !important;
+                transform: translate(-50%, -50%) rotate(var(--sticker-3-rotate, -2deg));
             }
         }
     }
     
-    // Human Interest (foreground) specific adjustments - matches centered sticker positioning
+    // Human Interest (foreground) specific adjustments - properly center sticker on mobile
     .portfolio-item-wrapper[data-project-id="foreground"] {
         .notebook .front-cover[data-sticker-1]::before {
-            // Fine-tune position for this specific notebook with centered positioning
-            top: calc(50% - 15px) !important;
-            left: calc(50% - 3px) !important;
-            transform: translate(-50%, -50%) rotate(0deg) scale(1.2) !important;
-            font-size: calc(var(--font-size-xs) * 1.1) !important;
+            // Properly center the sticker on the notebook cover
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) rotate(0deg) !important;
+            // Keep sticker at reasonable size on mobile
+            font-size: var(--font-size-xs) !important;
+            padding: 4px 10px !important;
         }
     }
     
@@ -796,11 +798,12 @@ $notebook-brands: (
     .portfolio-item-wrapper .notebook .front-cover {
         // For any sticker 1 that uses centered positioning (top: 50%, left: 50%)
         &[style*="--sticker-1-top: 50%"][style*="--sticker-1-left: 50%"]::before {
-            // Adjust for notebook scaling on mobile (0.7x scale requires compensation)
-            top: calc(50% - 12px) !important;
-            left: calc(50% - 2px) !important;
-            transform: translate(-50%, -50%) rotate(var(--sticker-1-rotate, 0deg)) scale(1.25) !important;
-            font-size: calc(var(--font-size-xs) * 1.15) !important;
+            // Keep stickers properly centered without offset
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) rotate(var(--sticker-1-rotate, 0deg)) !important;
+            // Maintain reasonable size
+            font-size: var(--font-size-xs) !important;
         }
     }
 }
