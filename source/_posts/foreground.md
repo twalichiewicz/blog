@@ -18,10 +18,6 @@ notebook_stickers:
     color: "#fff"
     bg: "#7b68ee"
     rotate: "-3deg"
-  - text: "2019"
-    color: "#000"
-    bg: "#ffd600"
-    rotate: "2deg"
 stats:
   - value: "90%"
     label: "Fewer Support Calls"
