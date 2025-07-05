@@ -184,13 +184,9 @@
 	// Medium mobile screens - prevent wrapping
 	@media (max-width: 480px) {
 		.posts-only-button {
-			// Hide original text and show shortened version
-			font-size: 0; // Hide original text
-			
-			&::after {
-				content: "Posts";
-				font-size: var(--font-size-sm); // Restore font size for pseudo element
-			}
+			// Keep original text, just adjust size if needed
+			font-size: var(--font-size-xs);
+			padding: 6px 10px;
 		}
 	}
 	
