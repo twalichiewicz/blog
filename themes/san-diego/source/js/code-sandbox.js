@@ -233,6 +233,26 @@
     });
   }
 
+  // Reinitialize code sandboxes (useful for dynamic content)
+  function reinitializeCodeSandboxes() {
+    const sandboxes = document.querySelectorAll('.code-sandbox-wrapper[data-auto-init="true"]');
+    sandboxes.forEach(sandbox => {
+      // Skip if already initialized
+      if (sandbox.codeSandbox) return;
+      
+      const sandboxId = sandbox.getAttribute('data-sandbox-id');
+      
+      // Check if there's a stored initializer for this sandbox
+      if (sandboxId && window.sandboxInitializers && window.sandboxInitializers[sandboxId]) {
+        // Use the stored initializer
+        window.sandboxInitializers[sandboxId]();
+      } else {
+        // Fall back to basic initialization
+        new CodeSandbox(sandbox);
+      }
+    });
+  }
+
   // Auto-initialize on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeCodeSandboxes);
@@ -240,6 +260,65 @@
     initializeCodeSandboxes();
   }
 
+  // Reinitialize when navigating (for single-page apps or dynamic content)
+  // Listen for common navigation events
+  window.addEventListener('popstate', reinitializeCodeSandboxes);
+  
+  // Also reinitialize on visibility change (when returning to tab)
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      setTimeout(reinitializeCodeSandboxes, 100);
+    }
+  });
+
+  // Watch for dynamically added content
+  const observer = new MutationObserver((mutations) => {
+    let hasNewSandboxes = false;
+    
+    mutations.forEach(mutation => {
+      mutation.addedNodes.forEach(node => {
+        if (node.nodeType === 1) { // Element node
+          if (node.classList && node.classList.contains('code-sandbox-wrapper') && 
+              node.getAttribute('data-auto-init') === 'true') {
+            hasNewSandboxes = true;
+          } else if (node.querySelector && 
+                     node.querySelector('.code-sandbox-wrapper[data-auto-init="true"]')) {
+            hasNewSandboxes = true;
+          }
+        }
+      });
+    });
+    
+    if (hasNewSandboxes) {
+      setTimeout(reinitializeCodeSandboxes, 100);
+    }
+  });
+
+  // Start observing when DOM is ready
+  if (document.body) {
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  } else {
+    document.addEventListener('DOMContentLoaded', () => {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    });
+  }
+
+  // Listen for SD theme events if available
+  if (window.SD && window.SD.events) {
+    // Reinitialize when blog content is loaded
+    window.SD.events.on('blog:content-loaded', reinitializeCodeSandboxes);
+    window.SD.events.on('blog:content-reinitialized', reinitializeCodeSandboxes);
+    window.SD.events.on('portfolio:content-loaded', reinitializeCodeSandboxes);
+    window.SD.events.on('page:changed', reinitializeCodeSandboxes);
+  }
+
   // Expose to global scope for manual initialization
   window.CodeSandbox = CodeSandbox;
+  window.reinitializeCodeSandboxes = reinitializeCodeSandboxes;
 })();

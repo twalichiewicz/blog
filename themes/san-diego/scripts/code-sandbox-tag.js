@@ -60,13 +60,15 @@ ${content}
   </div>
 </div>
 
-<script>
+<script data-sandbox-init="${sandboxId}">
 // Initialize this specific sandbox with options
 (function() {
-  // Wait for CodeSandbox to be available
-  function initSandbox() {
+  // Store initialization function globally for reuse
+  window.sandboxInitializers = window.sandboxInitializers || {};
+  
+  window.sandboxInitializers['${sandboxId}'] = function() {
     const wrapper = document.querySelector('[data-sandbox-id="${sandboxId}"]');
-    if (!wrapper || wrapper.codeSandbox) return;
+    if (!wrapper || wrapper.codeSandbox) return false;
     
     const options = {
       autoToggleOnScroll: ${autoToggle},
@@ -80,16 +82,23 @@ ${content}
     }
     
     new CodeSandbox(wrapper, options);
+    return true;
+  };
+  
+  // Try to initialize immediately
+  function tryInit() {
+    if (typeof CodeSandbox !== 'undefined') {
+      window.sandboxInitializers['${sandboxId}']();
+      return true;
+    }
+    return false;
   }
   
-  if (typeof CodeSandbox !== 'undefined') {
-    initSandbox();
-  } else {
-    // Wait for script to load
+  if (!tryInit()) {
+    // Wait for CodeSandbox to be available
     const checkInterval = setInterval(() => {
-      if (typeof CodeSandbox !== 'undefined') {
+      if (tryInit()) {
         clearInterval(checkInterval);
-        initSandbox();
       }
     }, 100);
     
