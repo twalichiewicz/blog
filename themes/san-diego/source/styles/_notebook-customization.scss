@@ -41,14 +41,6 @@ $notebook-colors: (
     'rose-gold': linear-gradient(135deg, #e0b0a0 0%, #f4d7cc 50%, #e0b0a0 100%)
 );
 
-// Texture Overlays
-$notebook-textures: (
-    'pristine': none,
-    'worn': url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Cfilter id='worn'%3E%3CfeTurbulence baseFrequency='0.008' numOctaves='4' seed='2' /%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='400' height='600' filter='url(%23worn)' /%3E%3C/svg%3E"),
-    'scratched': url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M10,20 L90,80 M20,10 L80,90 M5,50 L95,50 M30,5 L70,95 M15,30 L85,70 M40,15 L60,85' stroke='rgba(0,0,0,0.1)' stroke-width='1'/%3E%3C/svg%3E"),
-    'weathered': radial-gradient(circle at 20% 80%, rgba(0,0,0,0.2) 0%, transparent 50%),
-    'stained': radial-gradient(ellipse at 70% 30%, rgba(139,69,19,0.15) 0%, transparent 40%)
-);
 
 // Brand Styles
 $notebook-brands: (
@@ -170,7 +162,6 @@ $notebook-brands: (
     @each $color-name, $color-value in $notebook-colors {
         &[data-notebook-color="#{$color-name}"] {
             .notebook {
-                // Set CSS variable for texture to use
                 --notebook-bg-color: #{$color-value};
                 
                 .front-cover {
@@ -234,86 +225,6 @@ $notebook-brands: (
                         // For gradients, use the first color
                         background: #262626 !important; // Fallback
                     }
-                }
-            }
-        }
-    }
-    
-    // Texture overlay - Apply with combined selectors for higher specificity
-    @each $texture-name, $texture-value in $notebook-textures {
-        @each $color-name, $color-value in $notebook-colors {
-            &[data-notebook-color="#{$color-name}"][data-notebook-texture="#{$texture-name}"] {
-                .notebook .front-cover {
-                    @if $texture-value != none {
-                        position: relative;
-                        
-                        // Add texture as an additional background layer
-                        background: 
-                            // Texture layer (on top)
-                            $texture-value,
-                            // Keep existing elastic band
-                            linear-gradient(to right,
-                                transparent 0%,
-                                transparent calc(100% - 20px),
-                                rgba(0, 0, 0, 0.15) calc(100% - 20px),
-                                rgba(0, 0, 0, 0.25) calc(100% - 17px),
-                                rgba(0, 0, 0, 0.15) calc(100% - 14px),
-                                transparent calc(100% - 14px)
-                            ),
-                            // Keep existing highlights
-                            linear-gradient(145deg, 
-                                rgba(255, 255, 255, 0.04) 0%, 
-                                transparent 35%),
-                            radial-gradient(ellipse at 70% 30%, 
-                                rgba(255, 255, 255, 0.02) 0%, 
-                                transparent 65%),
-                            // Use the actual color value
-                            $color-value !important;
-                        background-size: cover, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-                        background-position: center, 0 0, 0 0, 0 0, 0 0;
-                        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-                        
-                        // Ensure texture layers render properly
-                        z-index: 6;
-                    }
-                }
-            }
-        }
-        
-        // Also handle cases where no color is specified
-        &[data-notebook-texture="#{$texture-name}"]:not([data-notebook-color]) {
-            .notebook .front-cover {
-                @if $texture-value != none {
-                    position: relative;
-                    
-                    // Add texture as an additional background layer
-                    background: 
-                        // Texture layer (on top)
-                        $texture-value,
-                        // Keep existing elastic band
-                        linear-gradient(to right,
-                            transparent 0%,
-                            transparent calc(100% - 20px),
-                            rgba(0, 0, 0, 0.15) calc(100% - 20px),
-                            rgba(0, 0, 0, 0.25) calc(100% - 17px),
-                            rgba(0, 0, 0, 0.15) calc(100% - 14px),
-                            transparent calc(100% - 14px)
-                        ),
-                        // Keep existing highlights
-                        linear-gradient(145deg, 
-                            rgba(255, 255, 255, 0.04) 0%, 
-                            transparent 35%),
-                        radial-gradient(ellipse at 70% 30%, 
-                            rgba(255, 255, 255, 0.02) 0%, 
-                            transparent 65%),
-                        // Default color
-                        #262626 !important;
-                    background-size: cover, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-                    background-position: center, 0 0, 0 0, 0 0, 0 0;
-                    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
-                    
-                    // Ensure texture layers render properly
-                    z-index: 6;
                 }
             }
         }
@@ -472,11 +383,9 @@ $notebook-brands: (
                     var(--sticker-2-rotate, 3deg),
                     var(--sticker-2-shape, 'rectangle')
                 );
-	& {
-		top: var(--sticker-2-top, auto);
-		right: var(--sticker-2-right, auto);
-		left: var(--sticker-2-left, 25px);
-	} // More spacing
+                top: var(--sticker-2-top, auto);
+                right: var(--sticker-2-right, auto);
+                left: var(--sticker-2-left, 25px);
                 bottom: var(--sticker-2-bottom, 55px); // Lower position
                 width: auto;
                 height: auto;
@@ -523,13 +432,11 @@ $notebook-brands: (
                     var(--sticker-3-rotate, -2deg),
                     var(--sticker-3-shape, 'rounded')
                 );
-	& {
-		top: var(--sticker-3-top, 50%);
-		right: var(--sticker-3-right, auto);
-		left: var(--sticker-3-left, 50%);
-		bottom: var(--sticker-3-bottom, auto);
-		transform: translate(-50%, -50%) rotate(var(--sticker-3-rotate, -2deg));
-	}
+                top: var(--sticker-3-top, 50%);
+                right: var(--sticker-3-right, auto);
+                left: var(--sticker-3-left, 50%);
+                bottom: var(--sticker-3-bottom, auto);
+                transform: translate(-50%, -50%) rotate(var(--sticker-3-rotate, -2deg));
             }
             
             // Die-cut style override for sticker 3
@@ -575,10 +482,8 @@ $notebook-brands: (
                     var(--sticker-4-rotate, 8deg),
                     var(--sticker-4-shape, 'circle')
                 );
-	& {
-		top: var(--sticker-4-top, auto);
-		right: var(--sticker-4-right, 30px);
-	} // More spacing
+                top: var(--sticker-4-top, auto);
+                right: var(--sticker-4-right, 30px);
                 left: var(--sticker-4-left, auto);
                 bottom: var(--sticker-4-bottom, 100px); // Higher to avoid overlap
                 transform: rotate(var(--sticker-4-rotate, 8deg));
@@ -730,25 +635,35 @@ $notebook-brands: (
 }
 
 // Utility classes for quick customization
-.notebook-pristine {
-    --notebook-texture: none;
-}
-
 .notebook-vintage {
     --notebook-color: tobacco;
-    --notebook-texture: weathered;
     --notebook-brand: moleskine;
 }
 
 .notebook-tech {
     --notebook-color: nordic-blue;
-    --notebook-texture: pristine;
     --notebook-brand: leuchtturm;
     --notebook-effect: metallic;
 }
 
+// Mobile-specific sticker positioning fixes
+@media (max-width: 768px) {
+    // When notebooks scale down on mobile, stickers need adjustment
+    .notebook .front-cover {
+        // Adjust all stickers to compensate for 0.7x scale
+        &[data-sticker-1]::before {
+            // Scale up slightly to maintain visibility
+            font-size: calc(var(--font-size-xs) * 1.2);
+        }
+        
+        &[data-sticker-2]::after {
+            // Move sticker 2 slightly up on mobile
+            bottom: var(--sticker-2-bottom, 40px) !important;
+        }
+    }
+}
+
 .notebook-creative {
     --notebook-color: berry;
-    --notebook-texture: worn;
     --notebook-brand: rhodia;
 }

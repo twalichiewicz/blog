@@ -43,7 +43,6 @@ project_stats:
     value: ["Systems Design", "AI/ML Integration", "Cross-platform UX", "Technical Architecture", "Platform Strategy", "User Research"]
     type: "tags"
 notebook_color: crimson
-notebook_texture: pristine
 notebook_brand: leuchtturm
 notebook_pages: notebook-pages.jpg
 notebook_stickers:

@@ -1,0 +1,460 @@
+@use 'variables';
+
+// Modern carousel design tokens
+:root {
+	// Glass morphism
+	--carousel-glass-bg: rgba(255, 255, 255, 0.1);
+	--carousel-glass-border: rgba(255, 255, 255, 0.2);
+	--carousel-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+	--carousel-glass-blur: 10px;
+	
+	// Colors
+	--carousel-accent: #007AFF;
+	--carousel-accent-hover: #0051D5;
+	--carousel-indicator-active: #007AFF;
+	--carousel-indicator-inactive: rgba(0, 0, 0, 0.2);
+	
+	// Spacing
+	--carousel-padding: 2rem;
+	--carousel-button-size: 44px;
+	--carousel-indicator-size: 8px;
+	
+	// Animation
+	--carousel-transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+	--carousel-spring: 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+// Dark mode adjustments
+@media (prefers-color-scheme: dark) {
+	:root {
+		--carousel-glass-bg: rgba(255, 255, 255, 0.05);
+		--carousel-glass-border: rgba(255, 255, 255, 0.1);
+		--carousel-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+		--carousel-indicator-inactive: rgba(255, 255, 255, 0.3);
+	}
+}
+
+// Modern carousel container
+.carousel-modern {
+	position: relative;
+	width: 100%;
+	margin: 3rem 0;
+	border-radius: 20px;
+	overflow: hidden;
+	max-width: 1800px;
+	min-height: 400px;
+	
+	// Enhanced glass morphism
+	background: var(--carousel-glass-bg);
+	backdrop-filter: blur(var(--carousel-glass-blur));
+	-webkit-backdrop-filter: blur(var(--carousel-glass-blur));
+	border: 1px solid var(--carousel-glass-border);
+	box-shadow: var(--carousel-glass-shadow);
+	
+	// Subtle gradient overlay
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(
+			135deg,
+			rgba(255, 255, 255, 0.1) 0%,
+			rgba(255, 255, 255, 0) 40%,
+			rgba(255, 255, 255, 0) 60%,
+			rgba(255, 255, 255, 0.05) 100%
+		);
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	&-container {
+		position: relative;
+		width: 100%;
+		padding-bottom: 56.25%; // 16:9 aspect ratio default
+		height: 0;
+		overflow: hidden;
+		
+		// Custom aspect ratios
+		&[data-aspect="3:2"] {
+			padding-bottom: 66.67%;
+		}
+		
+		&[data-aspect="4:3"] {
+			padding-bottom: 75%;
+		}
+		
+		&[data-aspect="1:1"] {
+			padding-bottom: 100%;
+		}
+	}
+
+	&-track {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		transition: transform var(--carousel-transition);
+		
+		// During drag
+		.dragging & {
+			transition: none;
+			cursor: grabbing;
+		}
+	}
+
+	&-slide {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		transform: scale(0.95);
+		transition: all var(--carousel-transition);
+		pointer-events: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+
+		&.active {
+			opacity: 1;
+			transform: scale(1);
+			pointer-events: auto;
+			z-index: 2;
+		}
+
+		// Media styling
+		img, video {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+			margin: auto;
+			border-radius: 12px;
+			
+			// Loading state
+			&:not(.loaded) {
+				opacity: 0;
+			}
+			
+			&.loaded {
+				animation: mediaFadeIn 600ms ease-out forwards;
+			}
+		}
+		
+		img {
+			cursor: zoom-in;
+			transition: transform var(--carousel-transition);
+			
+			&:hover {
+				transform: scale(1.02);
+			}
+		}
+	}
+
+	// Modern navigation buttons
+	&-button {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: var(--carousel-button-size);
+		height: var(--carousel-button-size);
+		border: none;
+		background: var(--carousel-glass-bg);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border: 1px solid var(--carousel-glass-border);
+		border-radius: 50%;
+		color: var(--carousel-accent);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 10;
+		transition: all var(--carousel-transition);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.2);
+			transform: translateY(-50%) scale(1.1);
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+			color: var(--carousel-accent-hover);
+		}
+		
+		&:active {
+			transform: translateY(-50%) scale(0.95);
+		}
+
+		&.prev {
+			left: 1rem;
+		}
+
+		&.next {
+			right: 1rem;
+		}
+		
+		// Icon styling
+		svg {
+			width: 24px;
+			height: 24px;
+			stroke-width: 2.5;
+		}
+		
+		// Hide on mobile if only one slide
+		@media (max-width: 768px) {
+			&.prev, &.next {
+				width: 36px;
+				height: 36px;
+				
+				svg {
+					width: 20px;
+					height: 20px;
+				}
+			}
+		}
+	}
+
+	// Modern indicators
+	&-indicators {
+		position: absolute;
+		bottom: 1.5rem;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 0.5rem;
+		z-index: 10;
+		padding: 0.5rem 1rem;
+		background: var(--carousel-glass-bg);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border-radius: 20px;
+		border: 1px solid var(--carousel-glass-border);
+	}
+
+	.indicator {
+		width: var(--carousel-indicator-size);
+		height: var(--carousel-indicator-size);
+		border-radius: 4px;
+		border: none;
+		background: var(--carousel-indicator-inactive);
+		cursor: pointer;
+		padding: 0;
+		transition: all var(--carousel-spring);
+		
+		&:hover:not(.active) {
+			opacity: 0.8;
+			transform: scale(1.2);
+		}
+
+		&.active {
+			width: 24px;
+			background: var(--carousel-indicator-active);
+			transform: none;
+		}
+	}
+}
+
+// Spotlight modal styles
+.carousel-spotlight-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 300ms ease;
+	
+	&.active {
+		opacity: 1;
+		visibility: visible;
+		
+		.spotlight-content {
+			transform: scale(1);
+		}
+	}
+
+	.spotlight-backdrop {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.9);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+	}
+
+	.spotlight-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2rem;
+	}
+
+	.spotlight-content {
+		position: relative;
+		max-width: 90vw;
+		max-height: 90vh;
+		transform: scale(0.9);
+		transition: transform var(--carousel-spring);
+		
+		.spotlight-media-container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			
+			img, video {
+				max-width: 100%;
+				max-height: 90vh;
+				object-fit: contain;
+				border-radius: 12px;
+			}
+		}
+	}
+
+	.spotlight-close {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		width: 44px;
+		height: 44px;
+		background: var(--carousel-glass-bg);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border: 1px solid var(--carousel-glass-border);
+		border-radius: 50%;
+		color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		z-index: 10;
+		transition: all var(--carousel-transition);
+		
+		&:hover {
+			background: rgba(255, 255, 255, 0.2);
+			transform: scale(1.1);
+		}
+	}
+
+	.spotlight-navigation {
+		.carousel-button {
+			background: var(--carousel-glass-bg);
+			color: white;
+			
+			&:hover {
+				background: rgba(255, 255, 255, 0.2);
+			}
+		}
+	}
+
+	.spotlight-indicators {
+		position: absolute;
+		bottom: 2rem;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 0.5rem;
+		padding: 0.5rem 1rem;
+		background: var(--carousel-glass-bg);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border-radius: 20px;
+		border: 1px solid var(--carousel-glass-border);
+		
+		.spotlight-indicator {
+			width: 8px;
+			height: 8px;
+			border-radius: 4px;
+			border: none;
+			background: rgba(255, 255, 255, 0.4);
+			cursor: pointer;
+			padding: 0;
+			transition: all var(--carousel-spring);
+			
+			&.active {
+				width: 24px;
+				background: white;
+			}
+		}
+	}
+}
+
+// Animations
+@keyframes mediaFadeIn {
+	from {
+		opacity: 0;
+		transform: scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+// Keyboard focus styles
+.carousel-modern.keyboard-focused {
+	outline: 2px solid var(--carousel-accent);
+	outline-offset: 4px;
+}
+
+// Accessibility
+.carousel-live-region {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+// Mobile optimizations
+@media (max-width: 768px) {
+	.carousel-modern {
+		margin: 2rem 0;
+		border-radius: 16px;
+		
+		&-indicators {
+			bottom: 1rem;
+			padding: 0.375rem 0.75rem;
+			gap: 0.375rem;
+		}
+		
+		.indicator {
+			width: 6px;
+			height: 6px;
+			
+			&.active {
+				width: 18px;
+			}
+		}
+	}
+	
+	.carousel-spotlight-modal {
+		.spotlight-container {
+			padding: 1rem;
+		}
+	}
+}
+
+// Print styles
+@media print {
+	.carousel-modern {
+		&-button,
+		&-indicators {
+			display: none;
+		}
+		
+		&-slide {
+			opacity: 1 !important;
+			position: relative !important;
+			page-break-inside: avoid;
+		}
+	}
+}

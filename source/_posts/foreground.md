@@ -11,19 +11,6 @@ cover_video_poster:
 has_writeup: true
 tags: [portfolio]
 # demo_component: "foreground-demo"  # Temporarily disabled
-notebook_color: "offwhite"
-notebook_texture: "worn"
-notebook_stickers:
-  - text: "HI"
-    color: "#fff"
-    bg: "#7b68ee"
-    rotate: "0deg"
-    shape: "rounded"
-    style: "die-cut"
-    top: "50%"
-    left: "50%"
-    right: "auto"
-    bottom: "auto"
 stats:
   - value: "90%"
     label: "Fewer Support Calls"

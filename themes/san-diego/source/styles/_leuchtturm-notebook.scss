@@ -823,13 +823,13 @@
             display: block;
             
             .portfolio-title {
-                font-size: var(--font-size-sm) !important; // Slightly larger
-                line-height: var(--line-height-tight).3 !important;
+                font-size: var(--font-size-xl) !important; // Increased 2 sizes: sm → lg → xl
+                line-height: var(--line-height-tight) !important;
             }
             
             .portfolio-byline {
-                font-size: var(--font-size-xs) !important; // Slightly larger
-                line-height: var(--line-height-tight).3 !important;
+                font-size: var(--font-size-sm) !important; // Increased 1 size: xs → sm
+                line-height: var(--line-height-tight) !important;
                 opacity: 0.8;
             }
         }

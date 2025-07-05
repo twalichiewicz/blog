@@ -165,23 +165,28 @@
 			left: 9px;
 		}
 		
+		// Ensure search input and button have matching heights
+		.search-input {
+			height: auto; // Let content determine height
+			padding: 6px 36px 6px 32px; // Reasonable padding
+			line-height: normal; // Normal line height
+		}
+		
 		.posts-only-button {
-			font-size: var(--font-size-xs); // Smaller font on mobile
-			padding: 6px 12px; // Reduced padding
+			height: auto; // Let content determine height
+			padding: 6px 12px; // Reasonable padding
+			line-height: normal; // Normal line height
+			display: inline-flex;
+			align-items: center;
 		}
 	}
 	
 	// Medium mobile screens - prevent wrapping
 	@media (max-width: 480px) {
 		.posts-only-button {
-			// Shorten text on smaller screens
-			.button-text-full {
-				display: none;
-			}
-			
-			&::after {
-				content: "Posts";
-			}
+			// Keep original text, just adjust size if needed
+			font-size: var(--font-size-xs);
+			padding: 6px 10px;
 		}
 	}
 	
