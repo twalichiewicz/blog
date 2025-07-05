@@ -781,13 +781,26 @@ $notebook-brands: (
         }
     }
     
-    // Human Interest (foreground) specific adjustments
+    // Human Interest (foreground) specific adjustments - matches centered sticker positioning
     .portfolio-item-wrapper[data-project-id="foreground"] {
         .notebook .front-cover[data-sticker-1]::before {
-            // Fine-tune position for this specific notebook
-            top: calc(50% - 20px) !important;
-            left: calc(50% - 5px) !important;
-            transform: translate(-50%, -50%) rotate(0deg) scale(1.3);
+            // Fine-tune position for this specific notebook with centered positioning
+            top: calc(50% - 15px) !important;
+            left: calc(50% - 3px) !important;
+            transform: translate(-50%, -50%) rotate(0deg) scale(1.2) !important;
+            font-size: calc(var(--font-size-xs) * 1.1) !important;
+        }
+    }
+    
+    // General fix for any project with centered stickers on mobile
+    .portfolio-item-wrapper .notebook .front-cover {
+        // For any sticker 1 that uses centered positioning (top: 50%, left: 50%)
+        &[style*="--sticker-1-top: 50%"][style*="--sticker-1-left: 50%"]::before {
+            // Adjust for notebook scaling on mobile (0.7x scale requires compensation)
+            top: calc(50% - 12px) !important;
+            left: calc(50% - 2px) !important;
+            transform: translate(-50%, -50%) rotate(var(--sticker-1-rotate, 0deg)) scale(1.25) !important;
+            font-size: calc(var(--font-size-xs) * 1.15) !important;
         }
     }
 }
