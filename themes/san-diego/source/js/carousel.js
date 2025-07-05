@@ -92,8 +92,21 @@ class Carousel {
 		const currentPath = window.location.pathname;
 		const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
 		
+		console.log('[Carousel] fixImagePathsImmediately called:', {
+			imageCount: images.length,
+			currentPath: currentPath,
+			basePath: basePath
+		});
+		
 		images.forEach((img, index) => {
 			const originalSrc = img.getAttribute('src') || '';
+			const currentSrc = img.src || '';
+			
+			console.log(`[Carousel] Checking image ${index}:`, {
+				originalSrc: originalSrc,
+				currentSrc: currentSrc,
+				needsFixing: originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))
+			});
 			
 			if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
 				const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
@@ -104,9 +117,35 @@ class Carousel {
 					resolved: resolvedSrc
 				});
 				
+				// Remove src first for Safari to force reload
+				img.removeAttribute('src');
+				void img.offsetHeight; // Force reflow
+				
 				// Set both attribute and property
 				img.setAttribute('src', resolvedSrc);
 				img.src = resolvedSrc;
+				
+				// Force load by creating new Image
+				const preloader = new Image();
+				preloader.onload = () => {
+					console.log(`[Carousel] Preloader success for image ${index}`);
+					// Set src again after preload
+					img.src = resolvedSrc;
+				};
+				preloader.onerror = () => {
+					console.error(`[Carousel] Preloader failed for image ${index}:`, resolvedSrc);
+				};
+				preloader.src = resolvedSrc;
+			} else if (!currentSrc || currentSrc === window.location.href || currentSrc.endsWith('.html')) {
+				// Image src is broken even if not relative
+				console.warn(`[Carousel] Broken image src for image ${index}:`, currentSrc);
+				if (originalSrc) {
+					const resolvedSrc = basePath + originalSrc;
+					img.removeAttribute('src');
+					void img.offsetHeight;
+					img.setAttribute('src', resolvedSrc);
+					img.src = resolvedSrc;
+				}
 			}
 		});
 	}

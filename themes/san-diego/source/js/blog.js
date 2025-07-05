@@ -63,7 +63,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// --- Carousels (Delegate to global carousel.js initializer) ---
 		if (typeof initializeCarousels === 'function') {
-			initializeCarousels(container);
+			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+			const isDynamicContent = container !== document;
+			
+			if (isSafari && isDynamicContent) {
+				// Safari needs a delay for dynamic content to ensure images are in DOM
+				console.log('[Blog] Safari detected with dynamic content - delaying carousel init');
+				setTimeout(() => {
+					initializeCarousels(container);
+				}, 100);
+			} else {
+				initializeCarousels(container);
+			}
 		}
 
 		// --- Video Autoplay --- Only refresh if there are videos in the container
@@ -467,6 +478,28 @@ document.addEventListener('DOMContentLoaded', function () {
 					// Content container found, proceeding with insertion
 					// Container classes logged
 					// Container HTML preview logged
+					
+					// Safari fix: Fix image paths BEFORE cloning
+					const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+					if (isSafari) {
+						console.log('[Blog] Safari: Fixing carousel image paths before cloning');
+						const carouselImages = newContentContainer.querySelectorAll('.carousel img');
+						const currentPath = window.location.pathname;
+						const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+						
+						carouselImages.forEach((img, index) => {
+							const originalSrc = img.getAttribute('src') || '';
+							if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
+								const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
+								const resolvedSrc = basePath + filename;
+								console.log(`[Blog] Pre-clone fix - Image ${index}:`, {
+									original: originalSrc,
+									resolved: resolvedSrc
+								});
+								img.setAttribute('src', resolvedSrc);
+							}
+						});
+					}
 
 					const contentFragment = document.createDocumentFragment();
 
