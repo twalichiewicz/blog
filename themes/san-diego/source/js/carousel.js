@@ -39,6 +39,24 @@ class Carousel {
 					// Update the actual img element's src attribute
 					img.src = imgSrc;
 					img.setAttribute('src', imgSrc);
+				} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/') && !originalSrc.includes('/20')) {
+					// This is an absolute path from root that should be relative to the project
+					const currentPath = window.location.pathname;
+					const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+					const filename = originalSrc.substring(1); // Remove leading slash
+					imgSrc = basePath + filename;
+					
+					console.log('[Carousel] updateCarouselImages - Fixing absolute path:', {
+						original: originalSrc,
+						currentPath: currentPath,
+						basePath: basePath,
+						filename: filename,
+						resolved: imgSrc
+					});
+					
+					// Update the actual img element's src attribute
+					img.src = imgSrc;
+					img.setAttribute('src', imgSrc);
 				} else if (!imgSrc || imgSrc === window.location.href || imgSrc.endsWith('.html')) {
 					// If src is empty, equals current page, or ends with .html, it's broken
 					console.warn('[Carousel] Invalid image src detected:', imgSrc);
@@ -134,6 +152,35 @@ class Carousel {
 				};
 				preloader.onerror = () => {
 					console.error(`[Carousel] Preloader failed for image ${index}:`, resolvedSrc);
+				};
+				preloader.src = resolvedSrc;
+			} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/') && !originalSrc.includes('/20')) {
+				// Absolute path that needs project path prepended
+				const filename = originalSrc.substring(1); // Remove leading slash
+				const resolvedSrc = basePath + filename;
+				
+				console.log(`[Carousel] Safari immediate fix - Absolute path - Image ${index}:`, {
+					original: originalSrc,
+					resolved: resolvedSrc,
+					basePath: basePath
+				});
+				
+				// Remove src first for Safari to force reload
+				img.removeAttribute('src');
+				void img.offsetHeight; // Force reflow
+				
+				// Set both attribute and property
+				img.setAttribute('src', resolvedSrc);
+				img.src = resolvedSrc;
+				
+				// Force load by creating new Image
+				const preloader = new Image();
+				preloader.onload = () => {
+					console.log(`[Carousel] Preloader success for absolute path image ${index}`);
+					img.src = resolvedSrc;
+				};
+				preloader.onerror = () => {
+					console.error(`[Carousel] Preloader failed for absolute path image ${index}:`, resolvedSrc);
 				};
 				preloader.src = resolvedSrc;
 			} else if (!currentSrc || currentSrc === window.location.href || currentSrc.endsWith('.html')) {
