@@ -3220,8 +3220,13 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 			font-weight: var(--font-weight-semibold);
 			color: variables.$text-color;
 			margin: 0 0 4px 0;
-			line-height: var(--line-height-tight).3;
+			line-height: var(--line-height-tight);
 			letter-spacing: -0.02em;
+			
+			// Mobile: scale up 2 sizes (base → lg → xl)
+			@media (max-width: variables.$mobile-breakpoint) {
+				font-size: var(--font-size-xl);
+			}
 			
 			@media (prefers-color-scheme: dark) {
 				color: variables.$text-color-dark;
@@ -3234,8 +3239,13 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 			font-weight: var(--font-weight-normal);
 			color: variables.$text-color-secondary;
 			margin: 0;
-			line-height: var(--line-height-tight).4;
+			line-height: var(--line-height-tight);
 			letter-spacing: -0.01em;
+			
+			// Mobile: scale up 1 size (sm → base)
+			@media (max-width: variables.$mobile-breakpoint) {
+				font-size: var(--font-size-base);
+			}
 			
 			@media (prefers-color-scheme: dark) {
 				color: variables.$text-color-secondary-dark;
