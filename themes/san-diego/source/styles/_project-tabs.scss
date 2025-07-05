@@ -259,8 +259,8 @@
 		}
 
 		h3 {
-			// Desktop styles (18px)
-			font-size: var(--font-size-lg);
+			// Desktop styles (xl size)
+			font-size: var(--font-size-xl);
 			font-weight: var(--font-weight-medium);
 			padding: 0;
 			margin: 0;
@@ -278,8 +278,8 @@
 		}
 
 		p {
-			// Updated to 18px for both desktop and all contexts
-			font-size: var(--font-size-lg);
+			// Updated to base size for better readability
+			font-size: var(--font-size-base);
 			margin: 0 0 24px;
 			line-height: var(--line-height-tight).6;
 
@@ -302,7 +302,7 @@
 			li {
 				margin-bottom: 0.5rem;
 				line-height: var(--line-height-tight).6;
-				font-size: var(--font-size-lg); // Match paragraph font size
+				font-size: var(--font-size-base); // Match paragraph font size
 
 				strong {
 					font-weight: var(--font-weight-semibold);
