@@ -270,6 +270,12 @@
 		color: variables.$text-color-secondary;
 		margin-top: 0.75rem;
 		font-style: italic;
+		line-height: var(--line-height-normal);
+		
+		// Tighter line-height on mobile for better spacing
+		@media (max-width: variables.$mobile-breakpoint) {
+			line-height: var(--line-height-tight);
+		}
 		
 		@media (prefers-color-scheme: dark) {
 			color: variables.$text-color-secondary-dark;

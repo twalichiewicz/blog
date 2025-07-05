@@ -1251,6 +1251,12 @@ blockquote.pullquote {
 			font-weight: var(--font-weight-medium);
 			text-align: center;
 			padding: 0 16px;
+			line-height: var(--line-height-normal);
+			
+			// Tighter line-height on mobile for better spacing
+			@media (max-width: variables.$mobile-breakpoint) {
+				line-height: var(--line-height-tight);
+			}
 		}
 		
 		// Table scroll container

@@ -148,6 +148,11 @@ h6, .h6 {
   font-size: var(--font-size-xs);
   line-height: var(--line-height-normal);
   letter-spacing: var(--letter-spacing-wide);
+  
+  // Tighter line-height on mobile for better spacing
+  @media (max-width: 768px) {
+    line-height: var(--line-height-tight);
+  }
 }
 
 // Paragraphs

@@ -273,6 +273,12 @@
 				text-align: center;
 				color: variables.$text-color-secondary;
 				font-size: var(--font-size-sm);
+				line-height: var(--line-height-normal);
+				
+				// Tighter line-height on mobile for better spacing
+				@media (max-width: variables.$mobile-breakpoint) {
+					line-height: var(--line-height-tight);
+				}
 			}
 		}
 
