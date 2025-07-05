@@ -148,7 +148,7 @@
 	@media screen and (max-width: variables.$mobile-breakpoint) {
 		.tab-button {
 			padding: 6px 0; // New padding: 6px top/bottom, 0 left/right
-			font-size: var(--font-size-xs); // New font-size
+			font-size: var(--font-size-sm); // Increased from xs to sm
 		}
 	}
 
