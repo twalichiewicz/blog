@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sound Service Test</title>
+	<style>
+		body {
+			font-family: system-ui, -apple-system, sans-serif;
+			max-width: 800px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+			line-height: 1.6;
+		}
+		.test-section {
+			background: #f5f5f5;
+			padding: 1rem;
+			margin: 1rem 0;
+			border-radius: 8px;
+		}
+		button {
+			padding: 0.5rem 1rem;
+			margin: 0.25rem;
+			border: none;
+			background: #0066cc;
+			color: white;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		button:hover {
+			background: #0052a3;
+		}
+		button:disabled {
+			background: #ccc;
+			cursor: not-allowed;
+		}
+		.status {
+			padding: 0.5rem;
+			margin: 0.5rem 0;
+			border-radius: 4px;
+		}
+		.status.success { background: #d4edda; color: #155724; }
+		.status.error { background: #f8d7da; color: #721c24; }
+		.status.info { background: #d1ecf1; color: #0c5460; }
+		input[type="range"] {
+			width: 200px;
+			vertical-align: middle;
+		}
+		.controls {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			flex-wrap: wrap;
+		}
+		pre {
+			background: #f8f8f8;
+			padding: 1rem;
+			overflow-x: auto;
+			border-radius: 4px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Sound Service Test Suite</h1>
+	
+	<div class="test-section">
+		<h2>Status</h2>
+		<div id="status" class="status info">Click any button to test autoplay detection</div>
+		<pre id="debug-info">Loading...</pre>
+	</div>
+
+	<div class="test-section">
+		<h2>Core Functionality Tests</h2>
+		<div class="controls">
+			<button id="test-init">Test Initialization</button>
+			<button id="test-formats">Test Format Detection</button>
+			<button id="test-play">Test Play Sound</button>
+			<button id="test-preload">Test Preload</button>
+		</div>
+	</div>
+
+	<div class="test-section">
+		<h2>Sound Controls</h2>
+		<div class="controls">
+			<label>
+				<input type="checkbox" id="sound-enabled" checked> Enable Sounds
+			</label>
+			<label>
+				Volume: <input type="range" id="volume" min="0" max="100" value="50">
+				<span id="volume-display">50%</span>
+			</label>
+		</div>
+	</div>
+
+	<div class="test-section">
+		<h2>Built-in Sounds</h2>
+		<div class="controls">
+			<button class="play-sound" data-sound="button">Button Click</button>
+			<button class="play-sound" data-sound="toggle">Toggle</button>
+			<button class="play-sound" data-sound="smallClick">Small Click</button>
+			<button class="play-sound" data-sound="slider">Slider</button>
+			<button class="play-sound" data-sound="book">Book</button>
+		</div>
+	</div>
+
+	<div class="test-section">
+		<h2>Test Results</h2>
+		<div id="results"></div>
+	</div>
+
+	<script type="module">
+		// Import the sound service
+		import SoundService from './sound-service.js';
+		
+		// Initialize service
+		const soundService = new SoundService();
+		window.testSoundService = soundService; // For debugging
+		
+		// UI elements
+		const status = document.getElementById('status');
+		const debugInfo = document.getElementById('debug-info');
+		const results = document.getElementById('results');
+		const volumeSlider = document.getElementById('volume');
+		const volumeDisplay = document.getElementById('volume-display');
+		const enabledCheckbox = document.getElementById('sound-enabled');
+		
+		// Update debug info
+		function updateDebugInfo() {
+			debugInfo.textContent = JSON.stringify({
+				enabled: soundService.enabled,
+				volume: soundService.volume,
+				autoplayAllowed: soundService.autoplayAllowed,
+				cachedSounds: soundService.sounds.size,
+				supportedFormats: soundService.supportedFormats,
+				pendingSounds: soundService.pendingSounds.length
+			}, null, 2);
+		}
+		
+		// Add test result
+		function addResult(test, success, message) {
+			const div = document.createElement('div');
+			div.className = `status ${success ? 'success' : 'error'}`;
+			div.textContent = `${test}: ${message}`;
+			results.appendChild(div);
+		}
+		
+		// Test initialization
+		document.getElementById('test-init').addEventListener('click', () => {
+			try {
+				addResult('Initialization', true, 'Service initialized successfully');
+				addResult('Singleton', soundService === new SoundService(), 'Singleton pattern working');
+				addResult('Global Access', window.soundService === soundService, 'Global access available');
+				updateDebugInfo();
+			} catch (e) {
+				addResult('Initialization', false, e.message);
+			}
+		});
+		
+		// Test format detection
+		document.getElementById('test-formats').addEventListener('click', () => {
+			try {
+				const formats = soundService.supportedFormats;
+				let supported = [];
+				for (const [format, isSupported] of Object.entries(formats)) {
+					if (isSupported) supported.push(format);
+				}
+				addResult('Format Detection', true, `Supported: ${supported.join(', ')}`);
+				updateDebugInfo();
+			} catch (e) {
+				addResult('Format Detection', false, e.message);
+			}
+		});
+		
+		// Test play sound
+		document.getElementById('test-play').addEventListener('click', async () => {
+			try {
+				// Use a data URI for testing
+				const testSound = 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGHy+/msjMFHm7A7+aeSAoQVqzn8LFzHwUuhM/y55NWCg9Qst3m';
+				
+				await soundService.play('test', { source: testSound });
+				addResult('Play Sound', true, 'Sound played successfully');
+				
+				if (soundService.autoplayAllowed === false) {
+					status.textContent = 'Autoplay blocked - sounds require user interaction';
+					status.className = 'status info';
+				} else {
+					status.textContent = 'Autoplay allowed - sounds working normally';
+					status.className = 'status success';
+				}
+				updateDebugInfo();
+			} catch (e) {
+				addResult('Play Sound', false, e.message);
+			}
+		});
+		
+		// Test preload
+		document.getElementById('test-preload').addEventListener('click', async () => {
+			try {
+				await soundService.preload(['button', 'toggle']);
+				addResult('Preload', true, `Preloaded sounds, cache size: ${soundService.sounds.size}`);
+				updateDebugInfo();
+			} catch (e) {
+				addResult('Preload', false, e.message);
+			}
+		});
+		
+		// Volume control
+		volumeSlider.addEventListener('input', (e) => {
+			const volume = e.target.value / 100;
+			soundService.setVolume(volume);
+			volumeDisplay.textContent = `${e.target.value}%`;
+			updateDebugInfo();
+		});
+		
+		// Enable/disable control
+		enabledCheckbox.addEventListener('change', (e) => {
+			soundService.setEnabled(e.target.checked);
+			updateDebugInfo();
+		});
+		
+		// Play built-in sounds
+		document.querySelectorAll('.play-sound').forEach(button => {
+			button.addEventListener('click', async (e) => {
+				const sound = e.target.dataset.sound;
+				try {
+					await soundService.play(sound);
+					e.target.style.background = '#28a745';
+					setTimeout(() => {
+						e.target.style.background = '';
+					}, 200);
+				} catch (error) {
+					e.target.style.background = '#dc3545';
+					console.error(`Failed to play ${sound}:`, error);
+				}
+			});
+		});
+		
+		// Initial update
+		updateDebugInfo();
+		
+		// Update UI from stored settings
+		volumeSlider.value = soundService.volume * 100;
+		volumeDisplay.textContent = `${Math.round(soundService.volume * 100)}%`;
+		enabledCheckbox.checked = soundService.enabled;
+		
+		// Auto-update debug info
+		setInterval(updateDebugInfo, 1000);
+	</script>
+</body>
+</html>
