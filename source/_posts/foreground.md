@@ -11,11 +11,6 @@ cover_video_poster:
 has_writeup: true
 tags: [portfolio]
 # demo_component: "foreground-demo"  # Temporarily disabled
-notebook_stickers:
-  - text: "DESIGN SYSTEM"
-    color: "#fff"
-    bg: "#7b68ee"
-    rotate: "-3deg"
 stats:
   - value: "90%"
     label: "Fewer Support Calls"
