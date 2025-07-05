@@ -318,6 +318,10 @@
 			if (button) {
 				button.onclick = function(e) {
 					e.preventDefault();
+					// Play button sound (same as View impact report)
+					if (window.playButtonSound) {
+						window.playButtonSound();
+					}
 					window.scrollToFullStory();
 				};
 			}
