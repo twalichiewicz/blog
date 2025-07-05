@@ -182,7 +182,7 @@
         
         // Increase font size on mobile
         @media (max-width: variables.$mobile-breakpoint) {
-            font-size: var(--font-size-lg);
+            font-size: var(--font-size-xl);
         }
         
         @media (prefers-color-scheme: dark) {

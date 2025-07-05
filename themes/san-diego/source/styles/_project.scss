@@ -4656,6 +4656,26 @@ body.demo-fullscreen-active .project-trailer-hero.demo-fullscreen {
 }
 
 
+// Mobile-specific demo button fixes
+@media (max-width: variables.$mobile-breakpoint) {
+  .demo-button {
+    padding: 8px 16px;
+    font-size: var(--font-size-sm);
+    line-height: normal;
+    gap: 6px;
+    
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+  
+  // Fix for any button with "Try the" text
+  button:contains("Try the") {
+    line-height: normal !important;
+  }
+}
+
 // Animations
 @keyframes modalFadeIn {
   from {

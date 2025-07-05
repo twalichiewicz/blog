@@ -782,11 +782,12 @@ $notebook-brands: (
     }
     
     // Human Interest (foreground) specific adjustments
-    .portfolio-item-wrapper[data-title*="Design Leadership"] {
+    .portfolio-item-wrapper[data-project-id="foreground"] {
         .notebook .front-cover[data-sticker-1]::before {
             // Fine-tune position for this specific notebook
-            top: calc(50% - 12px) !important;
-            left: calc(50% - 3px) !important;
+            top: calc(50% - 20px) !important;
+            left: calc(50% - 5px) !important;
+            transform: translate(-50%, -50%) rotate(0deg) scale(1.3);
         }
     }
 }

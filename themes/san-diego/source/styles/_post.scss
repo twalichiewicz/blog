@@ -728,10 +728,11 @@
 		margin: 0 16px;
 		padding-left: 16px;
 		padding-right: 16px;
+		padding-bottom: 16px; // Fix excessive padding-bottom on mobile
 		border-radius: 16px;
 
 		.post-title {
-			font-size: 1.35rem;
+			font-size: 1.1rem;
 			margin: variables.$space-sm 0 variables.$space-md;
 		}
 

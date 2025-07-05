@@ -167,15 +167,15 @@
 		
 		// Ensure search input and button have matching heights
 		.search-input {
-			height: 36px; // Explicit height
-			padding: 0 36px 0 32px; // Remove vertical padding, rely on height
-			line-height: 36px; // Match the height
+			height: auto; // Let content determine height
+			padding: 6px 36px 6px 32px; // Reasonable padding
+			line-height: normal; // Normal line height
 		}
 		
 		.posts-only-button {
-			height: 36px; // Match search input height
-			padding: 0 16px; // Remove vertical padding
-			line-height: 34px; // Account for border (36px - 2px border)
+			height: auto; // Let content determine height
+			padding: 6px 12px; // Reasonable padding
+			line-height: normal; // Normal line height
 			display: inline-flex;
 			align-items: center;
 		}
