@@ -53,7 +53,6 @@
                     return parsed.activeIndex || 0;
                 }
             } catch (e) {
-                console.error('Failed to load carousel state:', e);
             }
             return 0;
         }
@@ -65,7 +64,6 @@
                     timestamp: Date.now()
                 }));
             } catch (e) {
-                console.error('Failed to save carousel state:', e);
             }
         }
         

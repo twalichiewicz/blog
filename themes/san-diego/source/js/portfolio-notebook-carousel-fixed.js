@@ -14,21 +14,15 @@
     // Main carousel class
     class NotebookCarousel {
         constructor() {
-            console.log('NotebookCarousel constructor called');
             this.container = document.querySelector('.portfolio-featured-grid');
-            console.log('Container found:', !!this.container);
-            console.log('Is mobile:', isMobileDevice());
             
             if (!this.container || !isMobileDevice()) {
-                console.log('Exiting: no container or not mobile');
                 return;
             }
             
             this.notebooks = Array.from(this.container.querySelectorAll('.portfolio-item-wrapper'));
-            console.log('Notebooks found:', this.notebooks.length);
             
             if (this.notebooks.length === 0) {
-                console.log('Exiting: no notebooks found');
                 return;
             }
             
@@ -42,7 +36,6 @@
         }
         
         init() {
-            console.log('Initializing carousel...');
             
             // Force container to have proper dimensions immediately
             this.ensureContainerDimensions();
@@ -61,7 +54,6 @@
                     height: 100dvh !important;
                     overflow: hidden !important;
                 `;
-                console.log('Set parent container dimensions');
             }
             
             // Set carousel container dimensions
@@ -90,7 +82,6 @@
                 this.container.style.background = '#000000 !important';
             }
             
-            console.log('Applied carousel container dimensions');
         }
         
         initWithRetry(attemptCount) {
@@ -110,13 +101,10 @@
                     // Success! Container is ready
                     this.setupScrolling();
                     this.initialized = true;
-                    console.log('Carousel successfully initialized');
                 } else if (attemptCount < maxAttempts - 1) {
                     // Retry
-                    console.log('Retrying initialization...');
                     this.initWithRetry(attemptCount + 1);
                 } else {
-                    console.log('Failed to initialize after max attempts');
                 }
             }, 200 * (attemptCount + 1)); // Increasing delay
         }
@@ -124,7 +112,6 @@
         setupScrolling() {
             // Set up scroll listener
             this.container.addEventListener('scroll', this.handleScroll.bind(this));
-            console.log('Added scroll listener');
             
             // Set up intersection observer for zone detection
             this.setupIntersectionObserver();
@@ -143,7 +130,6 @@
                 }
             });
             
-            console.log('Scroll setup complete');
         }
         
         setupIntersectionObserver() {
@@ -177,13 +163,11 @@
         }
         
         handleScroll() {
-            console.log('Scroll event detected');
             
             // Set scrolling state
             if (!this.isScrolling) {
                 this.isScrolling = true;
                 this.deactivateAllNotebooks();
-                console.log('Started scrolling - deactivated all notebooks');
             }
             
             // Clear existing timeout
@@ -194,7 +178,6 @@
             // Set new timeout
             this.scrollTimeout = setTimeout(() => {
                 this.isScrolling = false;
-                console.log('Stopped scrolling - checking active notebook');
                 this.snapToNearestNotebook();
             }, this.scrollEndDelay);
         }
@@ -298,10 +281,6 @@
     
     // Initialize with delay to ensure elements are loaded
     function initializeCarousel() {
-        console.log('Initializing NotebookCarousel...');
-        console.log('Is mobile device:', isMobileDevice());
-        console.log('Window width:', window.innerWidth);
-        console.log('Portfolio grid exists:', !!document.querySelector('.portfolio-featured-grid'));
         new NotebookCarousel();
     }
     

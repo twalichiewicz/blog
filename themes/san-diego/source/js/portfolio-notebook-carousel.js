@@ -15,21 +15,15 @@
     // Main carousel class
     class NotebookCarousel {
         constructor() {
-            console.log('NotebookCarousel constructor called');
             this.container = document.querySelector('.portfolio-featured-grid');
-            console.log('Container found:', !!this.container);
-            console.log('Is mobile:', isMobileDevice());
             
             if (!this.container || !isMobileDevice()) {
-                console.log('Exiting: no container or not mobile');
                 return;
             }
             
             this.notebooks = Array.from(this.container.querySelectorAll('.portfolio-item-wrapper'));
-            console.log('Notebooks found:', this.notebooks.length);
             
             if (this.notebooks.length === 0) {
-                console.log('Exiting: no notebooks found');
                 return;
             }
             
@@ -42,7 +36,6 @@
         }
         
         init() {
-            console.log('NotebookCarousel init started');
             
             // Add class to container
             this.container.classList.add('notebook-carousel-mobile');
@@ -57,14 +50,12 @@
             }
             
             // Let CSS handle the layout - don't apply inline styles
-            console.log('Classes added, CSS will handle layout');
             
             // Check container dimensions after CSS is applied
             setTimeout(() => {
                 const rect = this.container.getBoundingClientRect();
                 const computedStyle = getComputedStyle(this.container);
                 
-                console.log('Container dimensions:', {
                     height: rect.height,
                     scrollHeight: this.container.scrollHeight,
                     canScroll: this.container.scrollHeight > rect.height,
@@ -89,7 +80,6 @@
             // Activate first notebook if visible
             this.checkInitialNotebook();
             
-            console.log('Carousel setup complete');
         }
         
         checkInitialNotebook() {
@@ -139,13 +129,11 @@
         }
         
         handleScroll() {
-            console.log('Scroll event detected');
             
             // Set scrolling state
             if (!this.isScrolling) {
                 this.isScrolling = true;
                 this.deactivateAllNotebooks();
-                console.log('Started scrolling - deactivated all notebooks');
             }
             
             // Clear existing timeout
@@ -156,7 +144,6 @@
             // Set new timeout
             this.scrollTimeout = setTimeout(() => {
                 this.isScrolling = false;
-                console.log('Stopped scrolling - checking active notebook');
                 this.snapToNearestNotebook();
             }, this.scrollEndDelay);
         }
@@ -258,10 +245,6 @@
     
     // Initialize with delay to ensure elements are loaded
     function initializeCarousel() {
-        console.log('Initializing NotebookCarousel...');
-        console.log('Is mobile device:', isMobileDevice());
-        console.log('Window width:', window.innerWidth);
-        console.log('Portfolio grid exists:', !!document.querySelector('.portfolio-featured-grid'));
         new NotebookCarousel();
     }
     
