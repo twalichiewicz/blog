@@ -55,6 +55,10 @@
 
     handleToggleClick(e) {
       e.stopPropagation();
+      // Play small click sound when toggled
+      if (window.playSmallClickSound) {
+        window.playSmallClickSound();
+      }
       this.setToggleState(!this.isOn, false);
       this.wasAutoToggled = false;
     }
@@ -63,6 +67,10 @@
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         e.stopPropagation();
+        // Play small click sound when toggled via keyboard
+        if (window.playSmallClickSound) {
+          window.playSmallClickSound();
+        }
         this.setToggleState(!this.isOn, false);
         this.wasAutoToggled = false;
       }
