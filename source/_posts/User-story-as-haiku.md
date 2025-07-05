@@ -6,6 +6,7 @@ categories: 💬
 short: true
 ---
 
+{% code_sandbox label="Taiko Sound Player" %}
 <script>
 	function play() {
 		var audio = document.getElementById("audio");
@@ -14,6 +15,7 @@ short: true
 </script>
 
 User story as haiku <button id="taiko-easter-egg" onClick=play()>⛩️</button><audio id="audio" src="https://thomas.design/media/blog/sounds/taiko.mp3"></audio>
+{% endcode_sandbox %}
 
 > Persona with needs,
 > Desires met by product's deeds,

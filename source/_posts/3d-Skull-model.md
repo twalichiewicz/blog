@@ -6,6 +6,7 @@ tags:
 date: 2025-04-30 23:17:10
 ---
 
+{% code_sandbox label="3D Skull Model" %}
 <style>
 #skull-container {
   width: 100%;
@@ -413,7 +414,7 @@ const init = async () => {
     canvas.id = 'skullCanvas';
     container.appendChild(canvas);
 
-    new PatchedSkullAnimation(canvas, modelPath, mtlPath, {
+    window.skullAnimation = new PatchedSkullAnimation(canvas, modelPath, mtlPath, {
     mouseLookFactor: 0.05,
     autoRotationSpeed: 0.0005
     });
@@ -427,4 +428,27 @@ const init = async () => {
 
 // Start initialization
 init().catch(error => console.error('Fatal error:', error));
+
+// Handle code-sandbox events
+const canvas = document.getElementById('skullCanvas');
+if (canvas) {
+  const container = canvas.closest('.code-sandbox-content');
+  if (container) {
+    let animation = null;
+    
+    container.addEventListener('sandbox:suspend', () => {
+      // Find and destroy the animation instance
+      if (window.skullAnimation) {
+        window.skullAnimation.destroy();
+        window.skullAnimation = null;
+      }
+    });
+    
+    container.addEventListener('sandbox:resume', () => {
+      // Reinitialize the animation
+      init().catch(error => console.error('Resume error:', error));
+    });
+  }
+}
 </script>
+{% endcode_sandbox %}

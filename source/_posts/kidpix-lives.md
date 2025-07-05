@@ -8,6 +8,7 @@ tags:
   - blog
 ---
 
+{% code_sandbox label="Kid Pix Interactive" %}
 <style>
  #hashtagContainer {
   width: 100%;
@@ -67,3 +68,4 @@ tags:
   });
  }
 </script>
+{% endcode_sandbox %}
