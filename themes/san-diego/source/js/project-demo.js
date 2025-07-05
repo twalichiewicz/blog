@@ -29,9 +29,9 @@
         button.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Play sound effect if available
-            if (window.soundEffects && window.soundEffects.playSound) {
-                window.soundEffects.playSound('button-press');
+            // Play button sound (same as View impact report)
+            if (window.playButtonSound) {
+                window.playButtonSound();
             }
             
             const demoUrl = button.getAttribute('data-demo-url');
@@ -206,6 +206,10 @@
                     
                     // Add click handler
                     exitFullscreenBtn.addEventListener('click', function() {
+                        // Play tiny button sound
+                        if (window.playSmallClickSound) {
+                            window.playSmallClickSound();
+                        }
                         toggleFullscreenDemo(container);
                     });
                     
@@ -224,6 +228,10 @@
                 
                 // Handle minimize button click
                 minimizeBtn.addEventListener('click', function() {
+                    // Play tiny button sound
+                    if (window.playSmallClickSound) {
+                        window.playSmallClickSound();
+                    }
                     toggleFullscreenDemo(container);
                 });
             }
@@ -313,6 +321,10 @@
         // Fullscreen button handler - animate existing demo instead of modal
         if (fullscreenBtn) {
             fullscreenBtn.addEventListener('click', function() {
+                // Play tiny button sound
+                if (window.playSmallClickSound) {
+                    window.playSmallClickSound();
+                }
                 toggleFullscreenDemo(container);
                 
                 // Trigger walkthrough toolbar when entering fullscreen
@@ -357,9 +369,9 @@
                 }, '*');
             }
             
-            // Play sound effect if available
-            if (window.soundEffects && window.soundEffects.playSound) {
-                window.soundEffects.playSound('small-click');
+            // Play tiny button sound
+            if (window.playSmallClickSound) {
+                window.playSmallClickSound();
             }
         };
         
