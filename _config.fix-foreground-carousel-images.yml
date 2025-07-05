@@ -1,0 +1,4 @@
+
+# Dev config for fix/foreground-carousel-images
+server:
+  port: 4002

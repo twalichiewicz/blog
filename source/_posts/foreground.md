@@ -71,7 +71,7 @@ The logo design process resulted in a mark that symbolizes an unfolding map—re
 <div class="carousel" aria-label="Media carousel">
   <div class="carousel-track">
     <div class="carousel-slide active" aria-hidden="false">
-      <img src="./brand-LOGO.png" alt="The refined Human Interest logo and typography system" loading="lazy" decoding="async">
+      <img src="./brand-LOGO.jpg" alt="The refined Human Interest logo and typography system" loading="lazy" decoding="async">
       <div class="carousel-caption">The refined Human Interest logo and typography system</div>
     </div>
     <div class="carousel-slide" aria-hidden="true">
