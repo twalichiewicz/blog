@@ -66,28 +66,37 @@ class Carousel {
 // Replace the old carousel initialization
 window.Carousel = Carousel;
 
-// Also export modern initialization
-export { initializeCarousels } from './carousel-modern.js';
+// Import modern functions
+import { initializeCarousels as modernInitializeCarousels, ModernCarousel } from './carousel-modern.js';
 
-// Auto-initialize on DOM ready (maintains backward compatibility)
-function initLegacyCarousels() {
-	const carousels = document.querySelectorAll('.carousel:not(.carousel-initialized)');
-	
+// Create a wrapper that maintains the old API but uses modern implementation
+function initializeCarousels(container = document) {
+	// Use the modern initialization
+	return modernInitializeCarousels(container);
+}
+
+// Also expose cleanup function for dynamic content
+function cleanupCarouselInstances(container) {
+	// Get all carousel instances in the container
+	const carousels = container.querySelectorAll('.carousel');
 	carousels.forEach(carousel => {
-		try {
-			new Carousel(carousel);
-		} catch (error) {
-			console.error('Failed to initialize carousel:', error);
+		const instance = ModernCarousel.getInstance(carousel);
+		if (instance) {
+			instance.destroy();
 		}
 	});
 }
 
-// Initialize
-if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', initLegacyCarousels);
-} else {
-	initLegacyCarousels();
-}
+// Export functions globally for dynamic loading compatibility
+window.initializeCarousels = initializeCarousels;
+window.cleanupCarouselInstances = cleanupCarouselInstances;
 
-// Export for backward compatibility
-window.initializeCarousels = initLegacyCarousels;
+// Also export as modules
+export { initializeCarousels, cleanupCarouselInstances };
+
+// Auto-initialize on DOM ready
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', () => initializeCarousels());
+} else {
+	initializeCarousels();
+}
