@@ -24,6 +24,7 @@ tags:
 
 ![A screenshot showing a Apple Intelligence Writing UI](/2024/07/30/apple-intelligence-writing-UI/appleAIWritingUI.png)
 
+{% code_sandbox label="Quote Rotator" %}
 <div class="alert">
     <span id="textSpan" class="alert__content"></span>
  <hr id="divider"/>
@@ -87,3 +88,4 @@ tags:
     transform: rotate(45deg);
 }
 </style>
+{% endcode_sandbox %}

@@ -10,6 +10,7 @@ Via [Reuters](https://www.reuters.com/business/autos-transportation/tesla-cybert
 
 [hmm.](https://thomas.design/blog/2023/08/24/cyberstupid/)
 
+{% code_sandbox label="Days Without Incident Counter" %}
 <p>
 <b>Days without incident:</b> <span id="days"></span>
 </p>
@@ -22,3 +23,4 @@ Via [Reuters](https://www.reuters.com/business/autos-transportation/tesla-cybert
 	var daysSinceEvent = Math.round(difference/86400000);
 	document.querySelector('#days').innerHTML = daysSinceEvent;
 </script>
+{% endcode_sandbox %}
