@@ -763,6 +763,34 @@ $notebook-brands: (
         }
     }
     
+    // Fix for notebooks with texture overlays - they affect child positioning
+    .portfolio-item-wrapper[data-notebook-texture] {
+        .notebook .front-cover {
+            // Force proper stacking context for textured notebooks
+            transform-style: flat !important;
+            
+            // Ensure all positioned children maintain their positions
+            &::before,
+            &::after,
+            .notebook-year-label,
+            .sticker-1-svg,
+            .sticker-3,
+            .sticker-4 {
+                // Higher z-index to appear above texture layers
+                z-index: 10 !important;
+                // Prevent position shift from texture backgrounds
+                position: absolute !important;
+            }
+            
+            // Year label specific fix for textured notebooks
+            .notebook-year-label {
+                bottom: 25px !important;
+                left: 25px !important;
+                transform: rotate(-1deg) !important; // Only rotation, no translate
+            }
+        }
+    }
+    
     // Specific fix for centered stickers (like Human Interest)
     .portfolio-item-wrapper {
         .notebook .front-cover {
