@@ -472,11 +472,9 @@ $notebook-brands: (
                     var(--sticker-2-rotate, 3deg),
                     var(--sticker-2-shape, 'rectangle')
                 );
-	& {
-		top: var(--sticker-2-top, auto);
-		right: var(--sticker-2-right, auto);
-		left: var(--sticker-2-left, 25px);
-	} // More spacing
+                top: var(--sticker-2-top, auto);
+                right: var(--sticker-2-right, auto);
+                left: var(--sticker-2-left, 25px);
                 bottom: var(--sticker-2-bottom, 55px); // Lower position
                 width: auto;
                 height: auto;
@@ -523,13 +521,11 @@ $notebook-brands: (
                     var(--sticker-3-rotate, -2deg),
                     var(--sticker-3-shape, 'rounded')
                 );
-	& {
-		top: var(--sticker-3-top, 50%);
-		right: var(--sticker-3-right, auto);
-		left: var(--sticker-3-left, 50%);
-		bottom: var(--sticker-3-bottom, auto);
-		transform: translate(-50%, -50%) rotate(var(--sticker-3-rotate, -2deg));
-	}
+                top: var(--sticker-3-top, 50%);
+                right: var(--sticker-3-right, auto);
+                left: var(--sticker-3-left, 50%);
+                bottom: var(--sticker-3-bottom, auto);
+                transform: translate(-50%, -50%) rotate(var(--sticker-3-rotate, -2deg));
             }
             
             // Die-cut style override for sticker 3
@@ -575,10 +571,8 @@ $notebook-brands: (
                     var(--sticker-4-rotate, 8deg),
                     var(--sticker-4-shape, 'circle')
                 );
-	& {
-		top: var(--sticker-4-top, auto);
-		right: var(--sticker-4-right, 30px);
-	} // More spacing
+                top: var(--sticker-4-top, auto);
+                right: var(--sticker-4-right, 30px);
                 left: var(--sticker-4-left, auto);
                 bottom: var(--sticker-4-bottom, 100px); // Higher to avoid overlap
                 transform: rotate(var(--sticker-4-rotate, 8deg));
@@ -763,33 +757,7 @@ $notebook-brands: (
         }
     }
     
-    // Fix for notebooks with texture overlays - they affect child positioning
-    .portfolio-item-wrapper[data-notebook-texture] {
-        .notebook .front-cover {
-            // Force proper stacking context for textured notebooks
-            transform-style: flat !important;
-            
-            // Ensure all positioned children maintain their positions
-            &::before,
-            &::after,
-            .notebook-year-label,
-            .sticker-1-svg,
-            .sticker-3,
-            .sticker-4 {
-                // Higher z-index to appear above texture layers
-                z-index: 10 !important;
-                // Prevent position shift from texture backgrounds
-                position: absolute !important;
-            }
-            
-            // Year label specific fix for textured notebooks
-            .notebook-year-label {
-                bottom: 25px !important;
-                left: 25px !important;
-                transform: rotate(-1deg) !important; // Only rotation, no translate
-            }
-        }
-    }
+    // Remove the broad texture overlay fix - it's breaking other notebooks
     
     // Specific fix for centered stickers (like Human Interest)
     .portfolio-item-wrapper {
@@ -809,16 +777,26 @@ $notebook-brands: (
         }
     }
     
-    // Human Interest (foreground) specific adjustments - properly center sticker on mobile
-    .portfolio-item-wrapper[data-project-id="foreground"] {
-        .notebook .front-cover[data-sticker-1]::before {
-            // Properly center the sticker on the notebook cover
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) rotate(0deg) !important;
-            // Keep sticker at reasonable size on mobile
-            font-size: var(--font-size-xs) !important;
-            padding: 4px 10px !important;
+    // Human Interest specific adjustments using its notebook attributes
+    .portfolio-item-wrapper[data-notebook-color="offwhite"][data-notebook-texture="worn"] {
+        .notebook .front-cover {
+            // Fix centered sticker position
+            &[data-sticker-1]::before {
+                // Properly center the sticker on the notebook cover
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) rotate(0deg) !important;
+                // Keep sticker at reasonable size on mobile
+                font-size: var(--font-size-xs) !important;
+                padding: 4px 10px !important;
+            }
+            
+            // Ensure date label stays in correct position
+            .notebook-year-label {
+                bottom: 25px !important;
+                left: 25px !important;
+                transform: rotate(-1deg) !important;
+            }
         }
     }
     
