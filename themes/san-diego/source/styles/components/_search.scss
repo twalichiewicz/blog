@@ -164,6 +164,32 @@
 		.search-icon {
 			left: 9px;
 		}
+		
+		// Ensure search input and button have matching heights
+		.search-input {
+			height: 36px; // Explicit height
+			padding: 0 36px 0 32px; // Remove vertical padding, rely on height
+			line-height: 36px; // Match the height
+		}
+		
+		.posts-only-button {
+			height: 36px; // Match search input height
+			padding: 0 16px; // Remove vertical padding
+			line-height: 34px; // Account for border (36px - 2px border)
+			display: inline-flex;
+			align-items: center;
+			
+			// Show shortened text on very small screens
+			@media (max-width: 480px) {
+				.button-text-full {
+					display: none;
+				}
+				
+				&::after {
+					content: "Posts";
+				}
+			}
+		}
 	}
 	
 	// Very small screens
