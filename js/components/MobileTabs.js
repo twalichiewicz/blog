@@ -76,7 +76,6 @@ export default class MobileTabs {
 		this.tabContainer = document.querySelector(this.config.tabContainerSelector);
 
 		if (!this.tabContainer) {
-			console.log('[MobileTabs] No tab container found, exiting');
 			return;
 		}
 
@@ -105,19 +104,16 @@ export default class MobileTabs {
 		this.boundListeners.handleOrientationChange = this.handleDeviceChange.bind(this);
 
 		// Tab button click events
-		console.log('[MobileTabs] Setting up click listeners for', this.tabButtons.length, 'buttons');
 		this.tabButtons.forEach((button, index) => {
 			// Create a unique bound handler for each button to manage individually if needed,
 			// or use a shared one if parameters aren't button-specific.
 			// Here, we use a shared handler factory approach.
 			const handler = (e) => {
-				console.log('[MobileTabs] Tab clicked:', e.currentTarget.dataset.type);
 				const type = e.currentTarget.dataset.type;
 				this.switchTab(type, true);
 			};
 			this.tabClickListeners.set(button, handler); // Store handler associated with button
 			button.addEventListener('click', handler);
-			console.log('[MobileTabs] Added listener to button', index, 'type:', button.dataset.type);
 		});
 
 		// Window resize event
@@ -150,13 +146,11 @@ export default class MobileTabs {
 	 * Destroy the component instance, removing listeners.
 	 */
 	destroy() {
-		console.log('[MobileTabs] Destroying instance');
 		this.removeEventListeners();
 		
 		// Remove the slider element to ensure clean state
 		const slider = this.tabContainer?.querySelector('.mobile-tabs-slider');
 		if (slider) {
-			console.log('[MobileTabs] Removing slider element');
 			slider.remove();
 		}
 		this.tabContainer?.classList.remove('has-slider-element');
@@ -317,10 +311,8 @@ export default class MobileTabs {
 	validateActiveState() {
 		// Safari fix: Ensure we have valid tab buttons before proceeding
 		if (!this.tabButtons || this.tabButtons.length === 0) {
-			console.log('[MobileTabs] No tab buttons available, re-caching elements');
 			this.cacheElements();
 			if (!this.tabButtons || this.tabButtons.length === 0) {
-				console.warn('[MobileTabs] Still no tab buttons after re-caching');
 				return null;
 			}
 		}
@@ -417,11 +409,9 @@ export default class MobileTabs {
 	showContent(type) {
 		// Safari fix: Re-cache elements if they became null after DOM replacement
 		if (!this.postsContent || !this.projectsContent) {
-			console.log('[MobileTabs] Content elements are null, re-caching DOM elements');
 			this.cacheElements();
 			// If still null after re-caching, exit
 			if (!this.postsContent || !this.projectsContent) {
-				console.warn('[MobileTabs] Content elements still null after re-caching, skipping showContent');
 				return;
 			}
 		}
@@ -496,12 +486,10 @@ export default class MobileTabs {
 			
 			// Dispatch portfolio-loaded event to trigger carousel initialization
 			setTimeout(() => {
-				console.log('[MobileTabs] Dispatching portfolio-loaded event');
 				document.dispatchEvent(new Event('portfolio-loaded'));
 				
 				// Also check if carousel needs position restoration
 				if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
-					console.log('[MobileTabs] Triggering carousel reinitialization');
 					window._notebookCarousel.reinitialize();
 				}
 			}, 50);

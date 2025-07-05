@@ -141,7 +141,6 @@
         const visible = document.querySelectorAll('.portfolio-item-wrapper:not(.filtered-out)').length;
         
         // Could add a visible count indicator if desired
-        console.log(`Showing ${visible} of ${total} projects`);
     }
     
     // Initialize on DOM ready
