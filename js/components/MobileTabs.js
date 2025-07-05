@@ -60,15 +60,37 @@ export default class MobileTabs {
 	 * Cache DOM elements for better performance
 	 */
 	cacheElements() {
+		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+		console.log('[MobileTabs] Caching DOM elements (Safari:', isSafari + ')');
+		
+		// Clear existing references first (Safari fix)
+		this.tabsWrapper = null;
+		this.tabContainer = null;
+		this.tabButtons = null;
+		this.postsContent = null;
+		this.projectsContent = null;
+		this.searchBar = null;
+		
+		// Re-query all elements
 		this.tabsWrapper = document.querySelector(this.config.tabsWrapperSelector);
 		this.tabContainer = document.querySelector(this.config.tabContainerSelector);
 
-		if (!this.tabContainer) return;
+		if (!this.tabContainer) {
+			console.log('[MobileTabs] No tab container found, exiting');
+			return;
+		}
 
 		this.tabButtons = document.querySelectorAll(this.config.tabButtonSelector);
 		this.postsContent = document.getElementById(this.config.postsContentId);
 		this.projectsContent = document.getElementById(this.config.projectsContentId);
 		this.searchBar = document.querySelector(this.config.searchBarSelector);
+		
+		console.log('[MobileTabs] Cached elements:', {
+			tabButtons: this.tabButtons.length,
+			postsContent: !!this.postsContent,
+			projectsContent: !!this.projectsContent,
+			isSafari: isSafari
+		});
 	}
 
 	/**
@@ -83,16 +105,19 @@ export default class MobileTabs {
 		this.boundListeners.handleOrientationChange = this.handleDeviceChange.bind(this);
 
 		// Tab button click events
-		this.tabButtons.forEach(button => {
+		console.log('[MobileTabs] Setting up click listeners for', this.tabButtons.length, 'buttons');
+		this.tabButtons.forEach((button, index) => {
 			// Create a unique bound handler for each button to manage individually if needed,
 			// or use a shared one if parameters aren't button-specific.
 			// Here, we use a shared handler factory approach.
 			const handler = (e) => {
+				console.log('[MobileTabs] Tab clicked:', e.currentTarget.dataset.type);
 				const type = e.currentTarget.dataset.type;
 				this.switchTab(type, true);
 			};
 			this.tabClickListeners.set(button, handler); // Store handler associated with button
 			button.addEventListener('click', handler);
+			console.log('[MobileTabs] Added listener to button', index, 'type:', button.dataset.type);
 		});
 
 		// Window resize event
@@ -125,13 +150,34 @@ export default class MobileTabs {
 	 * Destroy the component instance, removing listeners.
 	 */
 	destroy() {
+		console.log('[MobileTabs] Destroying instance');
 		this.removeEventListeners();
-		// Optional: Add any other cleanup logic here (e.g., removing added elements)
+		
+		// Remove the slider element to ensure clean state
 		const slider = this.tabContainer?.querySelector('.mobile-tabs-slider');
 		if (slider) {
-			// slider.remove(); // Decide if the slider element should be removed on destroy
+			console.log('[MobileTabs] Removing slider element');
+			slider.remove();
 		}
 		this.tabContainer?.classList.remove('has-slider-element');
+		
+		// Clear all timeouts
+		if (this.sliderUpdateTimeout) {
+			clearTimeout(this.sliderUpdateTimeout);
+			this.sliderUpdateTimeout = null;
+		}
+		
+		// Clear cached elements
+		this.tabsWrapper = null;
+		this.tabContainer = null;
+		this.tabButtons = null;
+		this.postsContent = null;
+		this.projectsContent = null;
+		this.searchBar = null;
+		
+		// Clear state
+		this.userSelectedTab = null;
+		this.currentDeviceType = null;
 	}
 
 	/**
@@ -223,7 +269,11 @@ export default class MobileTabs {
 	 * Update the slider width and position based on active button
 	 */
 	updateSlider() {
-		if (!this.tabContainer || this.tabButtons.length < 2) return;
+		// Safari fix: Re-check elements if they became null
+		if (!this.tabContainer) {
+			this.cacheElements();
+		}
+		if (!this.tabContainer || !this.tabButtons || this.tabButtons.length < 2) return;
 
 		const activeButton = this.tabContainer.querySelector(
 			`${this.config.tabButtonSelector}.${this.config.activeClass}`
@@ -265,9 +315,19 @@ export default class MobileTabs {
 	 * @returns {string} The active tab type
 	 */
 	validateActiveState() {
+		// Safari fix: Ensure we have valid tab buttons before proceeding
+		if (!this.tabButtons || this.tabButtons.length === 0) {
+			console.log('[MobileTabs] No tab buttons available, re-caching elements');
+			this.cacheElements();
+			if (!this.tabButtons || this.tabButtons.length === 0) {
+				console.warn('[MobileTabs] Still no tab buttons after re-caching');
+				return null;
+			}
+		}
+		
 		let activeButtons = [];
 		this.tabButtons.forEach(button => {
-			if (button.classList.contains(this.config.activeClass)) {
+			if (button && button.classList && button.classList.contains(this.config.activeClass)) {
 				activeButtons.push(button);
 			}
 		});
@@ -299,7 +359,19 @@ export default class MobileTabs {
 				targetTabType = tabParam;
 				// Using URL parameter tab
 			} else {
-				// Fallback to referrer check
+				// Check if we're on a standalone project page (not dynamic content)
+				const currentPath = window.location.pathname;
+				const isStandaloneProjectPage = currentPath.includes('/20') && 
+												currentPath !== '/' && 
+												!currentPath.includes('?') &&
+												!document.querySelector('.blog-content'); // No dynamic content container
+				
+				if (isStandaloneProjectPage) {
+					// We're on a standalone project page, don't interfere with tab logic
+					return null;
+				}
+				
+				// Fallback to referrer check for home page
 				const referrer = document.referrer;
 				const isFromProject = referrer && (
 					referrer.includes('/20') && // matches year-based URLs like /2023/01/01/project-name
@@ -307,11 +379,8 @@ export default class MobileTabs {
 					referrer !== window.location.href // not the same page
 				);
 				
-				// Referrer detection complete
-				
 				// If coming from a project, default to 'portfolio', otherwise 'blog'
 				targetTabType = isFromProject ? 'portfolio' : 'blog';
-				// Setting default tab
 			}
 		}
 
@@ -346,18 +415,31 @@ export default class MobileTabs {
 	 * @param {string} type - The tab type to show
 	 */
 	showContent(type) {
-		if (!this.postsContent || !this.projectsContent) return;
+		// Safari fix: Re-cache elements if they became null after DOM replacement
+		if (!this.postsContent || !this.projectsContent) {
+			console.log('[MobileTabs] Content elements are null, re-caching DOM elements');
+			this.cacheElements();
+			// If still null after re-caching, exit
+			if (!this.postsContent || !this.projectsContent) {
+				console.warn('[MobileTabs] Content elements still null after re-caching, skipping showContent');
+				return;
+			}
+		}
 
 		// Apply CSS transitions for smoother content changes
-		this.postsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
-		this.projectsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
+		if (this.postsContent && this.projectsContent) {
+			this.postsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
+			this.projectsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
+		}
 
 		// EMERGENCY FIX: Device-desktop class no longer exists, check by device type instead
 		if (this.currentDeviceType === 'desktop') {
-			this.postsContent.style.opacity = '1';
-			this.projectsContent.style.opacity = '1';
-			this.postsContent.style.display = 'block';
-			this.projectsContent.style.display = 'block';
+			if (this.postsContent && this.projectsContent) {
+				this.postsContent.style.opacity = '1';
+				this.projectsContent.style.opacity = '1';
+				this.postsContent.style.display = 'block';
+				this.projectsContent.style.display = 'block';
+			}
 			if (this.searchBar) this.searchBar.style.display = 'block';
 
 			// Hide tabs wrapper on desktop
@@ -370,14 +452,19 @@ export default class MobileTabs {
 
 		// On mobile/tablet, show only the active tab
 		if (type === 'blog') {
-			this.postsContent.style.opacity = '1';
-			this.projectsContent.style.opacity = '0';
+			if (this.postsContent && this.projectsContent) {
+				this.postsContent.style.opacity = '1';
+				this.projectsContent.style.opacity = '0';
 
-			// Use setTimeout to prevent content flashing
-			setTimeout(() => {
-				this.postsContent.style.display = 'block';
-				this.projectsContent.style.display = 'none';
-			}, this.config.transitionDuration);
+				// Use setTimeout to prevent content flashing
+				setTimeout(() => {
+					// Double-check elements still exist before setting styles
+					if (this.postsContent && this.projectsContent) {
+						this.postsContent.style.display = 'block';
+						this.projectsContent.style.display = 'none';
+					}
+				}, this.config.transitionDuration);
+			}
 
 			if (this.searchBar) this.searchBar.style.display = 'block';
 			
@@ -386,14 +473,19 @@ export default class MobileTabs {
 				window.initializePostsOnlyButton();
 			}
 		} else if (type === 'portfolio') {
-			this.postsContent.style.opacity = '0';
-			this.projectsContent.style.opacity = '1';
+			if (this.postsContent && this.projectsContent) {
+				this.postsContent.style.opacity = '0';
+				this.projectsContent.style.opacity = '1';
 
-			// Use setTimeout to prevent content flashing
-			setTimeout(() => {
-				this.postsContent.style.display = 'none';
-				this.projectsContent.style.display = 'block';
-			}, this.config.transitionDuration);
+				// Use setTimeout to prevent content flashing
+				setTimeout(() => {
+					// Double-check elements still exist before setting styles
+					if (this.postsContent && this.projectsContent) {
+						this.postsContent.style.display = 'none';
+						this.projectsContent.style.display = 'block';
+					}
+				}, this.config.transitionDuration);
+			}
 
 			if (this.searchBar) this.searchBar.style.display = 'none';
 			

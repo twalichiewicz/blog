@@ -63,7 +63,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// --- Carousels (Delegate to global carousel.js initializer) ---
 		if (typeof initializeCarousels === 'function') {
-			initializeCarousels(container);
+			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+			const isDynamicContent = container !== document;
+			
+			if (isSafari && isDynamicContent) {
+				// Safari needs a delay for dynamic content to ensure images are in DOM
+				setTimeout(() => {
+					initializeCarousels(container);
+				}, 100);
+			} else {
+				initializeCarousels(container);
+			}
 		}
 
 		// --- Video Autoplay --- Only refresh if there are videos in the container
@@ -272,6 +282,13 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 				}
 				
+				// Clean up existing mobile tabs instance before transition
+				if (window.mobileTabs && typeof window.mobileTabs.destroy === 'function') {
+					console.log('[Blog] Destroying existing mobile tabs before back navigation');
+					window.mobileTabs.destroy();
+					window.mobileTabs = null;
+				}
+				
 				// Start screen wipe transition (back navigation variant)
 				let transitionData = null;
 				if (window.ScreenWipeTransition) {
@@ -285,8 +302,23 @@ document.addEventListener('DOMContentLoaded', function () {
 						initializeBlogFeatures(blogContentElement);
 						initializeLinkListeners(blogContentElement);
 						
-						// Initialize mobile tabs
-						initializeMobileTabs();
+						// Initialize mobile tabs with proper timing to ensure DOM is ready
+						// Use requestAnimationFrame to ensure browser has rendered the new content
+						requestAnimationFrame(() => {
+							requestAnimationFrame(() => {
+								console.log('[Blog] Reinitializing mobile tabs after back navigation');
+								initializeMobileTabs();
+								
+								// Force a check to ensure tabs are working
+								setTimeout(() => {
+									const tabButtons = document.querySelectorAll('.tab-button');
+									console.log('[Blog] Verifying tab buttons after init:', tabButtons.length, 'buttons found');
+									if (tabButtons.length === 0) {
+										console.error('[Blog] No tab buttons found after initialization!');
+									}
+								}, 200);
+							});
+						});
 						
 						// Re-initialize toggles
 						initializeProjectToggle();
@@ -365,6 +397,18 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 				
 				history.pushState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
+				
+				// Final verification that mobile tabs are working
+				setTimeout(() => {
+					const buttons = document.querySelectorAll('.tab-button');
+					const instance = window.mobileTabs;
+					console.log('[Blog] Final mobile tabs check:', {
+						buttonsInDOM: buttons.length,
+						instanceExists: !!instance,
+						listenersAttached: instance?.tabClickListeners?.size || 0,
+						tabsVisible: document.querySelector('.tabs-wrapper')?.style.display !== 'none'
+					});
+				}, 500);
 			};
 
 			const oldHandler = backButton._clickHandler;
@@ -433,6 +477,33 @@ document.addEventListener('DOMContentLoaded', function () {
 					// Content container found, proceeding with insertion
 					// Container classes logged
 					// Container HTML preview logged
+					
+					// Safari fix: Fix image paths BEFORE cloning
+					const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+					if (isSafari && isProject) {
+						const carouselImages = newContentContainer.querySelectorAll('.carousel img');
+						
+						// For project pages, we need to build the full path including the project directory
+						// Parse the URL to get just the pathname
+						const urlObj = new URL(url, window.location.origin);
+						const pathname = urlObj.pathname;
+						// Remove .html extension and ensure trailing slash
+						const projectPath = pathname.replace(/\.html$/, '').replace(/\/?$/, '/');
+						
+						carouselImages.forEach((img, index) => {
+							const originalSrc = img.getAttribute('src') || '';
+							if (originalSrc.startsWith('./')) {
+								// Remove './' and prepend the project path
+								const filename = originalSrc.substring(2);
+								const resolvedSrc = projectPath + filename;
+								img.setAttribute('src', resolvedSrc);
+							} else if (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')) {
+								// Relative path without './'
+								const resolvedSrc = projectPath + originalSrc;
+								img.setAttribute('src', resolvedSrc);
+							}
+						});
+					}
 
 					const contentFragment = document.createDocumentFragment();
 
