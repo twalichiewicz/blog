@@ -10,10 +10,7 @@ What if YouTube borrowed SoundCloud's timecode comments—letting viewers pin in
 
 YouTube comments already lean heavily on timestamps. Livestream VODs use third-party tools to overlay chat reactions. And if a user doesn't want to see them? Just add a toggle in settings.
 
-{% raw %}
-<!-- Code Sandbox Wrapper -->
-<div class="code-sandbox-wrapper">
-  <div class="code-sandbox-content">
+{% code_sandbox label="YouTube Timecode Comments Demo" %}
 
 <div class="youtube-demo" data-playing="false" data-current-time="5" data-duration="15" style="margin: 0; background: #0f0f0f; max-width: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; border-radius: 8px; overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);">
   
@@ -238,19 +235,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
   </div>
   
 </div>
-  </div><!-- End of code-sandbox-content -->
-  
-  <!-- Minimalist chin with controls -->
-  <div class="code-sandbox-chin">
-    <div class="code-sandbox-brand">
-      <svg width="288" height="273" viewBox="0 0 288 273" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M192 0C245.019 0 288 42.9807 288 96V177C288 230.019 245.019 273 192 273H96C42.9807 273 1.3048e-06 230.019 0 177V96C0 42.9807 42.9807 1.54624e-06 96 0H192ZM75 45C58.4315 45 45 58.4315 45 75V198C45 214.569 58.4315 228 75 228C91.5685 228 105 214.569 105 198V75C105 58.4315 91.5685 45 75 45ZM144 105C127.431 105 114 118.431 114 135V198C114 214.569 127.431 228 144 228C160.569 228 174 214.569 174 198V135C174 118.431 160.569 105 144 105ZM213 45C196.431 45 183 58.4315 183 75V198C183 214.569 196.431 228 213 228C229.569 228 243 214.569 243 198V75C243 58.4315 229.569 45 213 45Z" fill="currentColor"/>
-      </svg>
-      <span>Code sandbox</span>
-    </div>
-    <div class="code-sandbox-toggle active" tabindex="0" role="switch" aria-checked="true"></div>
-  </div>
-</div><!-- End of code-sandbox-wrapper -->
+{% endcode_sandbox %}
 
 
 <style>
@@ -1532,78 +1517,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // YouTube demo specific handlers
 document.addEventListener('DOMContentLoaded', function() {
-  const sandboxWrapper = document.querySelector('.code-sandbox-wrapper');
+  // Find the youtube demo element
   const youtubeDemo = document.querySelector('.youtube-demo');
+  if (!youtubeDemo) return;
   
-  if (sandboxWrapper && youtubeDemo && typeof CodeSandbox !== 'undefined') {
-    // Initialize with custom handlers for YouTube demo
-    const sandbox = new CodeSandbox(sandboxWrapper, {
-      autoToggleOnScroll: true,
-      suspendOnHide: true,
-      resetOnShow: true,
-      
-      onShow: function(content) {
-        const demo = content.querySelector('.youtube-demo');
-        if (demo && demo.youtubeDemo) {
-          // Reset time to 5 seconds
-          demo.youtubeDemo.currentTime = 5;
-          
-          // Ensure demo is paused
-          const playBtn = demo.querySelector('.play-btn');
-          if (demo.dataset.playing === 'true' && playBtn) {
-            playBtn.click();
-          }
-          
-          // Reset controls visibility
-          demo.classList.add('controls-visible');
-          
-          // Re-enable community commentary
-          demo.youtubeDemo.resetCommunity();
-          const communityToggle = demo.querySelector('.community-toggle');
-          if (communityToggle) {
-            const toggle = communityToggle.querySelector('.toggle');
-            const toggleBtn = toggle.querySelector('div');
-            toggle.style.background = '#ffeb3b';
-            toggleBtn.style.left = '';
-            toggleBtn.style.right = '2px';
-          }
-          
-          // Hide all tooltips and comments
-          demo.youtubeDemo.hideAllComments();
-          
-          // Restart autoplay after a delay
-          setTimeout(() => {
-            if (playBtn && demo.dataset.playing !== 'true') {
-              playBtn.click();
-            }
-          }, 500);
+  // Find the parent code-sandbox-content div
+  const sandboxContent = youtubeDemo.closest('.code-sandbox-content');
+  if (!sandboxContent) return;
+  
+  // The wrapper is the parent of content
+  const sandboxWrapper = sandboxContent.parentElement;
+  
+  if (sandboxWrapper && sandboxWrapper.classList.contains('code-sandbox-wrapper')) {
+    // Listen for suspend event (when hiding)
+    sandboxContent.addEventListener('sandbox:suspend', function() {
+      const demo = youtubeDemo;
+      if (demo) {
+        // Pause the demo if it's playing
+        const playBtn = demo.querySelector('.play-btn');
+        if (demo.dataset.playing === 'true' && playBtn) {
+          playBtn.click();
         }
-      },
-      
-      onHide: function(content) {
-        const demo = content.querySelector('.youtube-demo');
-        if (demo) {
-          // Pause the demo if it's playing
-          const playBtn = demo.querySelector('.play-btn');
-          if (demo.dataset.playing === 'true' && playBtn) {
-            playBtn.click();
-          }
+        
+        // Cancel any animation frames used by the demo
+        if (demo.youtubeDemo && demo.youtubeDemo.playInterval) {
+          cancelAnimationFrame(demo.youtubeDemo.playInterval);
         }
       }
     });
     
-    // Listen for suspend/resume events to handle animation frames
-    youtubeDemo.addEventListener('sandbox:suspend', function() {
-      // Cancel any animation frames used by the demo
-      if (youtubeDemo.playInterval) {
-        cancelAnimationFrame(youtubeDemo.playInterval);
+    // Listen for resume event (when showing)
+    sandboxContent.addEventListener('sandbox:resume', function() {
+      const demo = youtubeDemo;
+      if (demo && demo.youtubeDemo) {
+        // Reset time to 5 seconds
+        demo.youtubeDemo.currentTime = 5;
+        
+        // Ensure demo is paused initially
+        const playBtn = demo.querySelector('.play-btn');
+        if (demo.dataset.playing === 'true' && playBtn) {
+          playBtn.click();
+        }
+        
+        // Reset controls visibility
+        demo.classList.add('controls-visible');
+        
+        // Re-enable community commentary
+        demo.youtubeDemo.resetCommunity();
+        const communityToggle = demo.querySelector('.community-toggle');
+        if (communityToggle) {
+          const toggle = communityToggle.querySelector('.toggle');
+          const toggleBtn = toggle.querySelector('div');
+          toggle.style.background = '#ffeb3b';
+          toggleBtn.style.left = '';
+          toggleBtn.style.right = '2px';
+        }
+        
+        // Hide all tooltips and comments
+        demo.youtubeDemo.hideAllComments();
+        
+        // Restart autoplay after a delay
+        setTimeout(() => {
+          if (playBtn && demo.dataset.playing !== 'true') {
+            playBtn.click();
+          }
+        }, 500);
       }
-    });
-    
-    youtubeDemo.addEventListener('sandbox:resume', function() {
-      // Demo will restart via the onShow handler
     });
   }
 });
 </script>
-{% endraw %}
