@@ -140,12 +140,17 @@ class Carousel {
 				// Image src is broken even if not relative
 				console.warn(`[Carousel] Broken image src for image ${index}:`, currentSrc);
 				if (originalSrc) {
-					const resolvedSrc = basePath + originalSrc;
+					// If it starts with '/', it's already absolute from root - don't add basePath
+					const resolvedSrc = originalSrc.startsWith('/') ? originalSrc : basePath + originalSrc;
 					img.removeAttribute('src');
 					void img.offsetHeight;
 					img.setAttribute('src', resolvedSrc);
 					img.src = resolvedSrc;
 				}
+			} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/')) {
+				// This is an absolute path from root that needs the project path prepended
+				console.warn(`[Carousel] Absolute root path needs project path for image ${index}:`, originalSrc);
+				// Don't modify - let the browser handle it
 			}
 		});
 	}

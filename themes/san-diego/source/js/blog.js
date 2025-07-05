@@ -481,20 +481,35 @@ document.addEventListener('DOMContentLoaded', function () {
 					
 					// Safari fix: Fix image paths BEFORE cloning
 					const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-					if (isSafari) {
+					if (isSafari && isProject) {
 						console.log('[Blog] Safari: Fixing carousel image paths before cloning');
 						const carouselImages = newContentContainer.querySelectorAll('.carousel img');
-						const currentPath = window.location.pathname;
-						const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+						
+						// For project pages, we need to build the full path including the project directory
+						const pathParts = url.split('/').filter(part => part);
+						const projectPath = '/' + pathParts.slice(0, -1).join('/') + '/'; // Remove .html, keep trailing slash
+						
+						console.log('[Blog] Project path for images:', projectPath);
 						
 						carouselImages.forEach((img, index) => {
 							const originalSrc = img.getAttribute('src') || '';
-							if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
-								const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
-								const resolvedSrc = basePath + filename;
+							if (originalSrc.startsWith('./')) {
+								// Remove './' and prepend the project path
+								const filename = originalSrc.substring(2);
+								const resolvedSrc = projectPath + filename;
 								console.log(`[Blog] Pre-clone fix - Image ${index}:`, {
 									original: originalSrc,
-									resolved: resolvedSrc
+									resolved: resolvedSrc,
+									projectPath: projectPath
+								});
+								img.setAttribute('src', resolvedSrc);
+							} else if (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')) {
+								// Relative path without './'
+								const resolvedSrc = projectPath + originalSrc;
+								console.log(`[Blog] Pre-clone fix - Image ${index}:`, {
+									original: originalSrc,
+									resolved: resolvedSrc,
+									projectPath: projectPath
 								});
 								img.setAttribute('src', resolvedSrc);
 							}
