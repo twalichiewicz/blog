@@ -486,8 +486,11 @@ document.addEventListener('DOMContentLoaded', function () {
 						const carouselImages = newContentContainer.querySelectorAll('.carousel img');
 						
 						// For project pages, we need to build the full path including the project directory
-						const pathParts = url.split('/').filter(part => part);
-						const projectPath = '/' + pathParts.slice(0, -1).join('/') + '/'; // Remove .html, keep trailing slash
+						// Parse the URL to get just the pathname
+						const urlObj = new URL(url, window.location.origin);
+						const pathname = urlObj.pathname;
+						// Remove .html extension and ensure trailing slash
+						const projectPath = pathname.replace(/\.html$/, '').replace(/\/?$/, '/');
 						
 						console.log('[Blog] Project path for images:', projectPath);
 						
