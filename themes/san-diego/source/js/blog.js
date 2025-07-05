@@ -492,7 +492,12 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Remove .html extension and ensure trailing slash
 						const projectPath = pathname.replace(/\.html$/, '').replace(/\/?$/, '/');
 						
-						console.log('[Blog] Project path for images:', projectPath);
+						console.log('[Blog] Safari image fix debug:', {
+							originalUrl: url,
+							parsedPathname: pathname,
+							projectPath: projectPath,
+							currentLocation: window.location.href
+						});
 						
 						carouselImages.forEach((img, index) => {
 							const originalSrc = img.getAttribute('src') || '';

@@ -20,18 +20,29 @@ class Carousel {
 				
 				// Check if we have a relative path that needs resolution
 				if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
-					const currentPath = window.location.pathname;
-					// Ensure we have a trailing slash for proper path resolution
-					const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+					// Try to detect project path from carousel context
+					let projectPath = '/';
+					const carouselContainer = this.carousel.closest('.project-wrapper');
+					if (carouselContainer) {
+						const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
+						if (fixedImg) {
+							const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
+							if (match) projectPath = match[1];
+						}
+					}
+					// Fallback to window location if on project page
+					if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
+						projectPath = window.location.pathname.endsWith('/') ? 
+							window.location.pathname : window.location.pathname + '/';
+					}
 					
 					// Remove './' if present, otherwise use the original src
 					const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
-					imgSrc = basePath + filename;
+					imgSrc = projectPath + filename;
 					
 					console.log('[Carousel] updateCarouselImages - Resolving path:', {
 						original: originalSrc,
-						currentPath: currentPath,
-						basePath: basePath,
+						projectPath: projectPath,
 						filename: filename,
 						resolved: imgSrc
 					});
@@ -41,15 +52,27 @@ class Carousel {
 					img.setAttribute('src', imgSrc);
 				} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/') && !originalSrc.includes('/20')) {
 					// This is an absolute path from root that should be relative to the project
-					const currentPath = window.location.pathname;
-					const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+					// Use same project path detection as above
+					let projectPath = '/';
+					const carouselContainer = this.carousel.closest('.project-wrapper');
+					if (carouselContainer) {
+						const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
+						if (fixedImg) {
+							const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
+							if (match) projectPath = match[1];
+						}
+					}
+					if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
+						projectPath = window.location.pathname.endsWith('/') ? 
+							window.location.pathname : window.location.pathname + '/';
+					}
+					
 					const filename = originalSrc.substring(1); // Remove leading slash
-					imgSrc = basePath + filename;
+					imgSrc = projectPath + filename;
 					
 					console.log('[Carousel] updateCarouselImages - Fixing absolute path:', {
 						original: originalSrc,
-						currentPath: currentPath,
-						basePath: basePath,
+						projectPath: projectPath,
 						filename: filename,
 						resolved: imgSrc
 					});
@@ -62,9 +85,21 @@ class Carousel {
 					console.warn('[Carousel] Invalid image src detected:', imgSrc);
 					// Try to fix by using the original src with proper path
 					if (originalSrc) {
-						const currentPath = window.location.pathname;
-						const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
-						imgSrc = basePath + originalSrc;
+						// Use project path detection
+						let projectPath = '/';
+						const carouselContainer = this.carousel.closest('.project-wrapper');
+						if (carouselContainer) {
+							const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
+							if (fixedImg) {
+								const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
+								if (match) projectPath = match[1];
+							}
+						}
+						if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
+							projectPath = window.location.pathname.endsWith('/') ? 
+								window.location.pathname : window.location.pathname + '/';
+						}
+						imgSrc = projectPath + originalSrc;
 						img.src = imgSrc;
 						img.setAttribute('src', imgSrc);
 					}
@@ -107,32 +142,56 @@ class Carousel {
 	fixImagePathsImmediately() {
 		// Immediate synchronous fix for Safari
 		const images = this.carousel.querySelectorAll('img');
-		const currentPath = window.location.pathname;
-		const basePath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+		
+		// Try to detect the project path from already-fixed images or data attributes
+		let projectPath = '/';
+		
+		// Method 1: Check if any image already has a proper project path
+		const fixedImage = this.carousel.querySelector('img[src*="/2019/"], img[src*="/20"]');
+		if (fixedImage) {
+			const src = fixedImage.getAttribute('src');
+			const match = src.match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
+			if (match) {
+				projectPath = match[1];
+			}
+		}
+		
+		// Method 2: Fallback to window.location if we're on a project page
+		if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
+			projectPath = window.location.pathname.endsWith('/') ? 
+				window.location.pathname : window.location.pathname + '/';
+		}
 		
 		console.log('[Carousel] fixImagePathsImmediately called:', {
 			imageCount: images.length,
-			currentPath: currentPath,
-			basePath: basePath
+			detectedProjectPath: projectPath,
+			windowPath: window.location.pathname
 		});
 		
 		images.forEach((img, index) => {
 			const originalSrc = img.getAttribute('src') || '';
 			const currentSrc = img.src || '';
 			
+			// Check if the path is already absolute and valid (pre-fixed by blog.js)
+			const isAlreadyFixed = originalSrc.startsWith('/') && 
+				(originalSrc.includes('/2019/') || originalSrc.includes('/20'));
+			
 			console.log(`[Carousel] Checking image ${index}:`, {
 				originalSrc: originalSrc,
 				currentSrc: currentSrc,
-				needsFixing: originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))
+				isAlreadyFixed: isAlreadyFixed,
+				needsFixing: !isAlreadyFixed && (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')))
 			});
 			
-			if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
+			// Only fix if not already fixed by blog.js pre-clone process
+			if (!isAlreadyFixed && (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')))) {
 				const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
-				const resolvedSrc = basePath + filename;
+				const resolvedSrc = projectPath + filename;
 				
 				console.log(`[Carousel] Safari immediate fix - Image ${index}:`, {
 					original: originalSrc,
-					resolved: resolvedSrc
+					resolved: resolvedSrc,
+					projectPath: projectPath
 				});
 				
 				// Remove src first for Safari to force reload
