@@ -181,12 +181,12 @@
 			
 			// Show shortened text on very small screens
 			@media (max-width: 480px) {
-				.button-text-full {
-					display: none;
-				}
+				// Hide original text and show shortened version
+				font-size: 0; // Hide original text
 				
 				&::after {
 					content: "Posts";
+					font-size: var(--font-size-sm); // Restore font size for pseudo element
 				}
 			}
 		}

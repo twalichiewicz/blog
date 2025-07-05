@@ -176,9 +176,14 @@
     
     .modal-byline-text {
         font-size: var(--font-size-base);
-        line-height: var(--line-height-tight).6;
+        line-height: 1.6;
         color: variables.$text-color;
         margin: 0;
+        
+        // Increase font size on mobile
+        @media (max-width: variables.$mobile-breakpoint) {
+            font-size: var(--font-size-lg);
+        }
         
         @media (prefers-color-scheme: dark) {
             color: variables.$text-color-dark;

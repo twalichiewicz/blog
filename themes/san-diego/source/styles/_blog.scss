@@ -671,6 +671,11 @@
 				font-size: var(--font-size-base);
 				margin: 0.25rem 0;
 				line-height: 1.3;
+				
+				// Increase font size on mobile for better readability
+				@media (max-width: variables.$mobile-breakpoint) {
+					font-size: var(--font-size-lg);
+				}
 			}
 		}
 
