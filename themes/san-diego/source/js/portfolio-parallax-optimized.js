@@ -44,13 +44,11 @@
       
       // Skip notebook items - they have their own hover animation
       if (hasNotebook) {
-        console.log('Skipping parallax for notebook item');
         return;
       }
       
       // Skip if in mobile carousel mode
       if (portfolioGrid && portfolioGrid.classList.contains('notebook-carousel-mobile')) {
-        console.log('Skipping parallax - mobile carousel mode active');
         return;
       }
       

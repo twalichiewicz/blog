@@ -34,6 +34,15 @@ Before making ANY changes, you MUST:
 3. If on main: IMMEDIATELY create worktree or feature branch
 4. NEVER use `git commit` while on main branch
 
+### 📋 PLAN FIRST, CODE SECOND
+**NEW REQUIREMENT**: For any non-trivial task (more than a simple typo fix):
+1. **ALWAYS create a plan FIRST** before writing any code
+2. Present the plan to the user for approval
+3. Only proceed with implementation after plan approval
+4. This leads to better outcomes and fewer revisions
+
+See [Plan-First Development Process](#plan-first-development-process) for details.
+
 ## 🚀 Quick Reference Card
 
 ### ⚠️ CRITICAL: Check Branch Before Any Work
@@ -215,24 +224,72 @@ git worktree remove ../blog-new-feature
 - Each commit to a PR branch triggers a new preview build
 
 ### Plan-First Development Process
-1. **Planning Phase** (REQUIRED)
-   - Create `feature-name-plan.md` with:
-     - Problem statement
-     - Proposed solution
-     - Files to be modified
-     - Potential risks
-     - Testing strategy
-   - Get user approval before proceeding
+**IMPORTANT**: This is now the DEFAULT approach for all non-trivial tasks. Always plan before coding.
 
-2. **Implementation Phase**
-   - Work in git worktree
-   - Follow the approved plan exactly
-   - Test thoroughly before merging
+#### When to Create a Plan
+- **ALWAYS**: For any feature, fix, or change involving multiple files
+- **ALWAYS**: When the task involves architecture decisions
+- **ALWAYS**: For tasks that will take more than 15 minutes
+- **OPTIONAL**: Only skip for trivial fixes (typos, single-line CSS changes)
 
-3. **Verification Phase**
-   - Run all tests
-   - Build and verify locally
-   - Check for unintended side effects
+#### How to Create an Effective Plan
+1. **Analyze the current state**
+   - Search and understand existing code patterns
+   - Identify all files that need modification
+   - Note potential conflicts or dependencies
+
+2. **Present a structured plan** including:
+   ```markdown
+   ## Task: [Brief description]
+   
+   ### Current State Analysis
+   - What exists now
+   - Problems identified
+   - Relevant files examined
+   
+   ### Proposed Solution
+   - High-level approach
+   - Architecture decisions
+   - Why this approach vs alternatives
+   
+   ### Implementation Steps
+   1. Step-by-step breakdown
+   2. Each step should be atomic
+   3. Include verification after each step
+   
+   ### Files to Modify
+   - `/path/to/file1.js` - what changes
+   - `/path/to/file2.scss` - what changes
+   
+   ### Potential Risks
+   - What could break
+   - Browser compatibility concerns
+   - Performance implications
+   
+   ### Testing Strategy
+   - How to verify success
+   - What to test manually
+   - Expected outcomes
+   ```
+
+3. **Get approval before proceeding**
+   - Wait for user to review and approve
+   - Incorporate feedback if needed
+   - Create `feature-name-plan.md` if requested
+
+#### Benefits of Planning First
+- **Fewer revisions**: Clear understanding before coding
+- **Better architecture**: Think through implications
+- **User confidence**: They see your approach upfront
+- **Documentation**: Plan serves as implementation record
+- **Risk mitigation**: Identify issues before they occur
+
+#### Example Good Plan vs Bad Plan
+**❌ Bad Plan (too vague):**
+"I'll create a sound library and consolidate the code"
+
+**✅ Good Plan (specific and actionable):**
+"I'll analyze the 3 duplicate sound implementations, design a centralized API that maintains backward compatibility, implement it as an ES6 module with lazy loading, and provide migration paths for existing usage patterns"
 
 ### Build Requirements
 **ALWAYS run `npm run build` before committing ANY changes**
