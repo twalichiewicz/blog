@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Carousel Test</title>
+    <link rel="stylesheet" href="themes/san-diego/source/styles/_carousel.scss">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .carousel {
+            position: relative;
+            width: 100%;
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #000;
+        }
+        
+        .carousel-track {
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .carousel-button {
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-button.prev::before {
+            content: '‹';
+            font-size: 20px;
+        }
+        
+        .carousel-button.next::before {
+            content: '›';
+            font-size: 20px;
+        }
+        
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background: #007AFF;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Modern Carousel Integration Test</h1>
+        
+        <div class="carousel" aria-label="Test gallery">
+            <div class="carousel-track">
+                <div class="carousel-slide active">
+                    <img src="https://picsum.photos/800/400?random=1" alt="Test Image 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://picsum.photos/800/400?random=2" alt="Test Image 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://picsum.photos/800/400?random=3" alt="Test Image 3">
+                </div>
+            </div>
+            
+            <div class="carousel-indicators">
+                <button class="carousel-button prev" aria-label="Previous slide"></button>
+                <button class="indicator active" aria-label="Go to slide 1"></button>
+                <button class="indicator" aria-label="Go to slide 2"></button>
+                <button class="indicator" aria-label="Go to slide 3"></button>
+                <button class="carousel-button next" aria-label="Next slide"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test modern carousel -->
+    <script type="module">
+        console.log('Loading modern carousel test...');
+        
+        try {
+            // Import the modern carousel
+            import('./themes/san-diego/source/js/carousel.js')
+                .then(module => {
+                    console.log('Carousel module loaded:', module);
+                    
+                    // Initialize carousel
+                    if (module.initializeCarousels) {
+                        const instances = module.initializeCarousels();
+                        console.log('Carousel instances:', instances);
+                    } else if (window.initializeCarousels) {
+                        const instances = window.initializeCarousels();
+                        console.log('Carousel instances from window:', instances);
+                    } else {
+                        console.error('initializeCarousels not found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Failed to load carousel:', error);
+                });
+        } catch (error) {
+            console.error('Module import error:', error);
+        }
+        
+        // Also test if window.Carousel is available for legacy support
+        setTimeout(() => {
+            if (window.Carousel) {
+                console.log('Legacy Carousel class available');
+                const carouselElement = document.querySelector('.carousel');
+                if (carouselElement) {
+                    try {
+                        const instance = new window.Carousel(carouselElement);
+                        console.log('Legacy carousel instance created:', instance);
+                    } catch (error) {
+                        console.error('Legacy carousel creation failed:', error);
+                    }
+                }
+            } else {
+                console.log('Legacy Carousel class not found');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
