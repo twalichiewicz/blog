@@ -690,6 +690,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		initializeLinkListeners(blogContentElement);
+		
+		// Also initialize listeners on the entire document for portfolio items
+		initializeLinkListeners(document);
 
 		// Resize listener removed - dynamic content now works on all screen sizes
 
@@ -789,6 +792,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		if (!history.state || (!history.state.isDynamic && !history.state.isInitial)) {
 			history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
+		}
+		
+		// Check for ?post= parameter and load post dynamically
+		const urlParams = new URLSearchParams(window.location.search);
+		const postPath = urlParams.get('post');
+		if (postPath) {
+			// Clean up URL to remove the parameter
+			history.replaceState({ path: '/', isInitial: true, isDynamic: false }, '', '/');
+			// Load the post dynamically
+			const postUrl = postPath.startsWith('/') ? postPath : '/' + postPath;
+			fetchAndDisplayContent(postUrl, true, false);
 		}
 	}
 

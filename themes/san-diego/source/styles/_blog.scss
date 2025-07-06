@@ -592,6 +592,10 @@
 					opacity: 1;
 					color: variables.$text-color;
 					
+					@media (prefers-color-scheme: dark) {
+						color: variables.$text-color-dark;
+					}
+					
 					img {
 						margin: 0; // Remove margin from images in lists
 						display: inline-block; // Allow images to flow with text

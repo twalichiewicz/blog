@@ -1,4 +1,5 @@
 @use 'variables';
+@import 'carousel-modern';
 
 .carousel {
 	position: relative;
@@ -560,6 +561,3 @@
 		margin: 0;
 	}
 }
-
-// Import modern carousel enhancements
-@import 'carousel-modern';
