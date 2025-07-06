@@ -4,183 +4,193 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Carousel Test</title>
+    <link rel="stylesheet" href="themes/san-diego/source/styles/_carousel.scss">
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 2rem;
-            background: #f5f5f7;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
         
-        .container {
+        .test-container {
             max-width: 1200px;
             margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
         }
         
         h1 {
+            color: white;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
         
-        .test-section {
-            margin-bottom: 4rem;
+        .carousel {
+            position: relative;
+            width: 100%;
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            background: #000;
         }
         
-        .test-section h2 {
-            margin-bottom: 1rem;
-        }
-        
-        /* Test image styles */
-        .test-image {
+        .carousel-track {
+            position: relative;
             width: 100%;
             height: 400px;
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            font-weight: bold;
-            color: white;
-            border-radius: 12px;
         }
         
-        .test-image-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .test-image-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .test-image-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .test-image-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
-        .test-image-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .carousel-button {
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-button.prev::before {
+            content: '‹';
+            font-size: 20px;
+        }
+        
+        .carousel-button.next::before {
+            content: '›';
+            font-size: 20px;
+        }
+        
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background: #007AFF;
+            transform: scale(1.2);
+        }
     </style>
-    
-    <!-- Include carousel styles -->
-    <link rel="stylesheet" href="themes/san-diego/source/styles/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Modern Carousel Component Test</h1>
+    <div class="test-container">
+        <h1>Modern Carousel Integration Test</h1>
         
-        <!-- Test 1: Basic Image Carousel -->
-        <div class="test-section">
-            <h2>Test 1: Basic Image Carousel</h2>
-            <div class="carousel" data-test="basic">
-                <div class="carousel-container">
-                    <div class="carousel-track">
-                        <div class="carousel-slide active">
-                            <div class="test-image test-image-1">Slide 1</div>
-                        </div>
-                        <div class="carousel-slide">
-                            <div class="test-image test-image-2">Slide 2</div>
-                        </div>
-                        <div class="carousel-slide">
-                            <div class="test-image test-image-3">Slide 3</div>
-                        </div>
-                        <div class="carousel-slide">
-                            <div class="test-image test-image-4">Slide 4</div>
-                        </div>
-                        <div class="carousel-slide">
-                            <div class="test-image test-image-5">Slide 5</div>
-                        </div>
-                    </div>
+        <div class="carousel" aria-label="Test gallery">
+            <div class="carousel-track">
+                <div class="carousel-slide active">
+                    <img src="https://picsum.photos/800/400?random=1" alt="Test Image 1">
                 </div>
-                <button class="carousel-button prev" aria-label="Previous slide">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <button class="carousel-button next" aria-label="Next slide">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <div class="carousel-indicators">
-                    <button class="indicator active" aria-label="Go to slide 1"></button>
-                    <button class="indicator" aria-label="Go to slide 2"></button>
-                    <button class="indicator" aria-label="Go to slide 3"></button>
-                    <button class="indicator" aria-label="Go to slide 4"></button>
-                    <button class="indicator" aria-label="Go to slide 5"></button>
+                <div class="carousel-slide">
+                    <img src="https://picsum.photos/800/400?random=2" alt="Test Image 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://picsum.photos/800/400?random=3" alt="Test Image 3">
                 </div>
             </div>
-        </div>
-        
-        <!-- Test 2: Single Slide -->
-        <div class="test-section">
-            <h2>Test 2: Single Slide (No Navigation)</h2>
-            <div class="carousel" data-test="single">
-                <div class="carousel-container">
-                    <div class="carousel-track">
-                        <div class="carousel-slide active">
-                            <div class="test-image test-image-1">Single Slide</div>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-button prev" aria-label="Previous slide">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <button class="carousel-button next" aria-label="Next slide">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <div class="carousel-indicators">
-                    <button class="indicator active" aria-label="Go to slide 1"></button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Test Results -->
-        <div class="test-section">
-            <h2>Test Results</h2>
-            <div id="test-results">
-                <p>JavaScript loading...</p>
+            
+            <div class="carousel-indicators">
+                <button class="carousel-button prev" aria-label="Previous slide"></button>
+                <button class="indicator active" aria-label="Go to slide 1"></button>
+                <button class="indicator" aria-label="Go to slide 2"></button>
+                <button class="indicator" aria-label="Go to slide 3"></button>
+                <button class="carousel-button next" aria-label="Next slide"></button>
             </div>
         </div>
     </div>
-    
-    <!-- Include carousel JavaScript -->
+
+    <!-- Test modern carousel -->
     <script type="module">
-        // Import modern carousel
-        import './themes/san-diego/source/js/carousel.js';
+        console.log('Loading modern carousel test...');
         
-        // Wait for initialization
+        try {
+            // Import the modern carousel
+            import('./themes/san-diego/source/js/carousel.js')
+                .then(module => {
+                    console.log('Carousel module loaded:', module);
+                    
+                    // Initialize carousel
+                    if (module.initializeCarousels) {
+                        const instances = module.initializeCarousels();
+                        console.log('Carousel instances:', instances);
+                    } else if (window.initializeCarousels) {
+                        const instances = window.initializeCarousels();
+                        console.log('Carousel instances from window:', instances);
+                    } else {
+                        console.error('initializeCarousels not found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Failed to load carousel:', error);
+                });
+        } catch (error) {
+            console.error('Module import error:', error);
+        }
+        
+        // Also test if window.Carousel is available for legacy support
         setTimeout(() => {
-            const results = document.getElementById('test-results');
-            const tests = [];
-            
-            // Test 1: Check if carousels are initialized
-            const carousels = document.querySelectorAll('.carousel');
-            tests.push(`✓ Found ${carousels.length} carousels`);
-            
-            // Test 2: Check if carousels have initialized class
-            const initialized = document.querySelectorAll('.carousel-initialized');
-            tests.push(`${initialized.length === carousels.length ? '✓' : '✗'} All carousels initialized`);
-            
-            // Test 3: Check navigation functionality
-            const firstCarousel = window.ModernCarousel.getInstance(carousels[0]);
-            if (firstCarousel) {
-                tests.push('✓ Modern carousel instance accessible');
-                
-                // Test navigation
-                const startIndex = firstCarousel.state.currentIndex;
-                firstCarousel.next();
-                const afterNext = firstCarousel.state.currentIndex;
-                tests.push(`${afterNext === startIndex + 1 ? '✓' : '✗'} Next navigation works`);
-                
-                firstCarousel.prev();
-                const afterPrev = firstCarousel.state.currentIndex;
-                tests.push(`${afterPrev === startIndex ? '✓' : '✗'} Previous navigation works`);
+            if (window.Carousel) {
+                console.log('Legacy Carousel class available');
+                const carouselElement = document.querySelector('.carousel');
+                if (carouselElement) {
+                    try {
+                        const instance = new window.Carousel(carouselElement);
+                        console.log('Legacy carousel instance created:', instance);
+                    } catch (error) {
+                        console.error('Legacy carousel creation failed:', error);
+                    }
+                }
             } else {
-                tests.push('✗ Could not access carousel instance');
+                console.log('Legacy Carousel class not found');
             }
-            
-            // Test 4: Check touch gesture support
-            const hasGestures = carousels[0].classList.contains('carousel-modern');
-            tests.push(`${hasGestures ? '✓' : '✗'} Modern features applied`);
-            
-            // Display results
-            results.innerHTML = '<ul>' + tests.map(test => `<li>${test}</li>`).join('') + '</ul>';
-            
-            // Log for debugging
-            console.log('Carousel test results:', tests);
         }, 1000);
     </script>
 </body>

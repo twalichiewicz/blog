@@ -212,13 +212,14 @@ export class ModernCarousel {
 }
 
 // Auto-initialization
-export function initializeCarousels() {
-	const carousels = document.querySelectorAll('.carousel:not(.carousel-initialized)');
+export function initializeCarousels(container = document) {
+	const carousels = container.querySelectorAll('.carousel:not(.carousel-initialized)');
 	const instances = [];
 
 	carousels.forEach(carousel => {
 		try {
 			const instance = new ModernCarousel(carousel);
+			carousel.classList.add('carousel-initialized');
 			instances.push(instance);
 		} catch (error) {
 			console.error('Failed to initialize carousel:', error);

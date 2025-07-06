@@ -1,44 +1,565 @@
 @use 'variables';
 
-// Import modern carousel styles
-@use 'carousel-modern';
-
-// Legacy carousel styles for backward compatibility
-// These will be gradually phased out
-
 .carousel {
-	@extend .carousel-modern;
-	
-	// Legacy class mappings
+	position: relative;
+	width: 100%;
+	margin: 2rem 0;
+	border-radius: 12px;
+	overflow: hidden;
+	max-width: 1800px;
+	min-height: 300px;
+	border: 1px solid rgb(200 200 200 / 20%);
+	background-color: hsl(24deg 20% 85%);
+
+	&-container {
+		position: relative;
+		width: 100%;
+		padding-bottom: 66.67%; // 3:2 aspect ratio
+		height: 0;
+		overflow: hidden;
+	}
+
 	&-track {
-		@extend .carousel-modern-track;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
 	}
-	
+
 	&-slide {
-		@extend .carousel-modern-slide;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		transition: opacity 0.3s ease-in-out;
+		pointer-events: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&.active {
+			opacity: 1;
+			pointer-events: auto;
+			z-index: 1;
+		}
+
+		img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+			margin: auto;
+		}
 	}
-	
+
+	// Remove margins for images in carousels
+	img {
+		margin: 0;
+	}
+
+	// Also handle images wrapped in paragraphs inside carousels
+	p {
+		&:has(> img:only-child) {
+			margin: 0;
+			padding: 0;
+		}
+
+		>img {
+			margin: 0;
+		}
+	}
+
 	&-button {
-		@extend .carousel-modern-button;
+		// Default styles for standalone buttons (spotlight, etc.)
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 33px;
+		height: 33px;
+		border: none;
+		background: rgb(0 0 0 / 30%);
+		backdrop-filter: blur(20px);
+		backdrop-filter: blur(20px);
+		border-radius: 50%;
+		color: #fff;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 2;
+		transition: all 0.3s ease;
+
+		&:hover {
+			background: rgb(0 0 0 / 40%);
+			transform: translateY(-50%) scale(1.05);
+		}
+
+		&.prev,
+		&.spotlight-prev {
+			left: 1rem;
+		}
+
+		&.next,
+		&.spotlight-next {
+			right: 1rem;
+		}
+
+		&.prev::before,
+		&.next::before,
+		&.spotlight-prev::before,
+		&.spotlight-next::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			border: 2px solid variables.$white;
+			border-left: 0;
+			border-bottom: 0;
+			position: absolute;
+		}
+
+		&.prev::before,
+		&.spotlight-prev::before {
+			transform: rotate(-135deg);
+			right: 10px;
+		}
+
+		&.next::before,
+		&.spotlight-next::before {
+			transform: rotate(45deg);
+			left: 10px;
+		}
+
+		svg {
+			display: none;
+		}
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			background: rgb(0 0 0 / 30%);
+		}
 	}
-	
+
+	// Override standalone button styles for buttons inside indicators
+	&-indicators &-button {
+		position: static !important;
+		transform: none !important;
+		width: 16px !important;
+		height: 16px !important;
+		background: rgb(255 255 255 / 50%) !important;
+		border-radius: 50% !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		top: auto !important;
+		left: auto !important;
+		right: auto !important;
+
+		&:hover {
+			background: rgb(255 255 255 / 80%) !important;
+			transform: scale(1.1) !important;
+		}
+
+		&.prev::before,
+		&.next::before {
+			content: '';
+			width: 4px !important;
+			height: 4px !important;
+			border: 1px solid variables.$white !important;
+			border-left: 0 !important;
+			border-bottom: 0 !important;
+			position: absolute;
+		}
+
+		&.prev::before {
+			transform: rotate(-135deg) !important;
+			right: 5px !important;
+		}
+
+		&.next::before {
+			transform: rotate(45deg) !important;
+			left: 5px !important;
+		}
+	}
+
 	&-indicators {
-		@extend .carousel-modern-indicators;
+		position: absolute;
+		bottom: 3px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		z-index: 3;
+		background-color: rgb(0 0 0 / 60%);
+		padding: 6px;
+		border-radius: 12px;
+		margin-bottom: 0;
+
+		.indicator {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: rgb(255 255 255 / 50%);
+			border: none;
+			padding: 0;
+			cursor: pointer;
+
+			&.active {
+				background: variables.$white;
+			}
+		}
+
+		// Styles for carousel buttons when inside indicators
+		.carousel-button {
+			position: static;
+			transform: none;
+			width: 16px;
+			height: 16px;
+			background: rgb(255 255 255 / 50%);
+			border-radius: 50%;
+			padding: 0;
+			margin: 0;
+
+			&:hover {
+				background: rgb(255 255 255 / 80%);
+				transform: scale(1.1);
+			}
+
+			&.prev::before,
+			&.next::before {
+				width: 4px;
+				height: 4px;
+				border: 1px solid variables.$white;
+				border-left: 0;
+				border-bottom: 0;
+			}
+
+			&.prev::before {
+				transform: rotate(-135deg);
+				right: 5px;
+			}
+
+			&.next::before {
+				transform: rotate(45deg);
+				left: 5px;
+			}
+		}
+	}
+
+	&-caption {
+		display: none; // Hidden for now
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgb(0 0 0 / 70%);
+		color: #fff;
+		padding: 0.75rem;
+		text-align: center;
+		font-size: 0.9rem;
+		backdrop-filter: blur(5px);
+		backdrop-filter: blur(5px);
+		z-index: 2;
+		border-radius: 6px;
 	}
 	
-	// Override some legacy styles that might conflict
-	background-color: transparent;
-	min-height: 400px; // Updated from 300px
-}
+	// Overall caption for the entire carousel
+	&-overall-caption {
+		text-align: center;
+		font-size: 0.9rem;
+		color: variables.$text-color-secondary;
+		margin-top: 0.75rem;
+		font-style: italic;
+		line-height: var(--line-height-normal);
+		
+		// Tighter line-height on mobile for better spacing
+		@media (max-width: variables.$mobile-breakpoint) {
+			line-height: var(--line-height-tight);
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			color: variables.$text-color-secondary-dark;
+		}
+	}
 
-// Ensure spotlight modal works with legacy markup
-.spotlight-modal {
-	@extend .carousel-spotlight-modal;
-}
+	.aspect-ratio-fallback {
+		display: none;
+	}
 
-// Legacy mobile styles
-@media (max-width: 768px) {
-	.carousel {
-		// Mobile optimizations are handled by modern styles
+	@supports not (aspect-ratio: 16 / 9) {
+		.aspect-ratio-fallback {
+			display: block;
+			width: 100%;
+			padding-top: 56.25%; // 16:9
+			pointer-events: none;
+			user-select: none;
+		}
 	}
 }
+
+.project-gallery {
+	margin-bottom: 2rem;
+
+	.carousel {
+		width: 100%;
+		max-width: 1000px;
+		margin: 0 auto;
+		border-radius: 9px;
+		background-color: #111;
+		border: none;
+		position: relative;
+		z-index: 20;
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+
+		@supports not (aspect-ratio: 16 / 9) {
+			&::before {
+				content: '';
+				display: block;
+				padding-top: 56.25%;
+			}
+		}
+
+		.carousel-track {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		.carousel-slide {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			pointer-events: none;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: opacity 0.3s;
+			box-sizing: border-box;
+
+			&.active {
+				opacity: 1;
+				pointer-events: auto;
+				z-index: 1;
+			}
+
+			img,
+			video,
+			iframe {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+				display: block;
+				margin: auto;
+				box-sizing: border-box;
+				border-radius: 0;
+				background: #111;
+				max-width: 100%;
+				max-height: 100%;
+			}
+		}
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.carousel {
+		&:not(.project-gallery .carousel) {
+			background: variables.$card-bg-dark;
+		}
+	}
+}
+
+.spotlight-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgb(0 0 0 / 90%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+
+	&.active {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	img {
+		max-width: 90vw;
+		max-height: 90dvh;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			max-width: 95vw;
+			max-height: 80dvh;
+		}
+	}
+
+	&-close {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		width: 33px;
+		height: 33px;
+		border: none;
+		border-radius: 50%;
+		background: rgb(255 255 255 / 20%);
+		color: variables.$white;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background-color 0.3s ease;
+
+		&:hover {
+			background: rgb(255 255 255 / 30%);
+		}
+
+		svg {
+			width: 33px;
+			height: 33px;
+
+			path {
+				fill: currentcolor;
+			}
+		}
+	}
+
+	&.single-image {
+		.carousel-button {
+			display: none;
+		}
+	}
+
+	.carousel-indicators {
+		position: absolute;
+		bottom: 16px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		z-index: 2;
+		background-color: rgb(0 0 0 / 60%);
+		padding: 6px;
+		border-radius: 12px;
+
+		.indicator {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: rgb(255 255 255 / 50%);
+			border: none;
+			padding: 0;
+			cursor: pointer;
+
+			&.active {
+				background: #fff;
+			}
+		}
+
+		// Styles for carousel buttons when inside spotlight indicators
+		.carousel-button {
+			position: static;
+			transform: none;
+			width: 16px;
+			height: 16px;
+			background: rgb(255 255 255 / 50%);
+			border-radius: 50%;
+			padding: 0;
+			margin: 0;
+
+			&:hover {
+				background: rgb(255 255 255 / 80%);
+				transform: scale(1.1);
+			}
+
+			&.prev::before,
+			&.next::before {
+				width: 4px;
+				height: 4px;
+				border: 1px solid variables.$white;
+				border-left: 0;
+				border-bottom: 0;
+			}
+
+			&.prev::before {
+				transform: rotate(-135deg);
+				right: 5px;
+			}
+
+			&.next::before {
+				transform: rotate(45deg);
+				left: 5px;
+			}
+		}
+	}
+}
+
+.physics-simulation {
+	.carousel {
+		background: transparent;
+
+		iframe {
+			min-height: 500px; // Adjust this value based on your simulation needs
+			aspect-ratio: 16/9;
+		}
+	}
+}
+
+// Spotlight buttons now use .carousel-button class directly
+
+.spotlight-modal-close {
+	@extend .carousel-button;
+
+	top: 20px;
+	right: 20px;
+	transform: none;
+
+	&:hover {
+		transform: scale(1.05);
+	}
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		width: 16px;
+		height: 2px;
+		background-color: #fff;
+		top: 50%;
+		left: 50%;
+	}
+
+	&::before {
+		transform: translate(-50%, -50%) rotate(45deg);
+	}
+
+	&::after {
+		transform: translate(-50%, -50%) rotate(-45deg);
+	}
+}
+
+// Spotlight component (similar to carousel)
+.spotlight {
+	background-color: hsl(24deg 20% 85%);
+
+	img {
+		margin: 0;
+	}
+}
+
+// Import modern carousel enhancements
+@import 'carousel-modern';

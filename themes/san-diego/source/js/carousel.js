@@ -4,5 +4,8 @@
 // Import and re-export the migration layer for backward compatibility
 import './carousel-migration.js';
 
+// Re-export the public API from migration layer
+export { initializeCarousels, cleanupCarouselInstances } from './carousel-migration.js';
+
 // The modern carousel system is now loaded and initialized
 // All legacy code is handled through the migration layer

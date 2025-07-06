@@ -30,10 +30,13 @@ export class CarouselView {
 			const iframe = slide.querySelector('iframe');
 			
 			if (img) {
+				// Fix image paths using the original carousel logic
+				let imgSrc = this.resolveImagePath(img);
+				
 				media.push({
 					type: 'image',
 					element: img,
-					src: img.src,
+					src: imgSrc,
 					alt: img.alt || '',
 					slideIndex: index
 				});
@@ -216,5 +219,82 @@ export class CarouselView {
 				}
 			});
 		});
+	}
+
+	// Resolve image paths (from original carousel.js)
+	resolveImagePath(img) {
+		let imgSrc = img.src;
+		let originalSrc = img.getAttribute('src') || '';
+		
+		// Check if we have a relative path that needs resolution
+		if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
+			// Try to detect project path from carousel context
+			let projectPath = '/';
+			const carouselContainer = this.element.closest('.project-wrapper');
+			if (carouselContainer) {
+				const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
+				if (fixedImg) {
+					const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
+					if (match) projectPath = match[1];
+				}
+			}
+			// Fallback to window location if on project page
+			if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
+				projectPath = window.location.pathname.endsWith('/') ? 
+					window.location.pathname : window.location.pathname + '/';
+			}
+			
+			// Remove './' if present, otherwise use the original src
+			const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
+			imgSrc = projectPath + filename;
+			
+			// Update the actual img element's src attribute
+			img.src = imgSrc;
+			img.setAttribute('src', imgSrc);
+		} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/') && !originalSrc.includes('/20')) {
+			// This is an absolute path from root that should be relative to the project
+			let projectPath = '/';
+			const carouselContainer = this.element.closest('.project-wrapper');
+			if (carouselContainer) {
+				const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
+				if (fixedImg) {
+					const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
+					if (match) projectPath = match[1];
+				}
+			}
+			if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
+				projectPath = window.location.pathname.endsWith('/') ? 
+					window.location.pathname : window.location.pathname + '/';
+			}
+			
+			const filename = originalSrc.substring(1); // Remove leading slash
+			imgSrc = projectPath + filename;
+			
+			// Update the actual img element's src attribute
+			img.src = imgSrc;
+			img.setAttribute('src', imgSrc);
+		} else if (!imgSrc || imgSrc === window.location.href || imgSrc.endsWith('.html')) {
+			// If src is empty, equals current page, or ends with .html, it's broken
+			if (originalSrc) {
+				let projectPath = '/';
+				const carouselContainer = this.element.closest('.project-wrapper');
+				if (carouselContainer) {
+					const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
+					if (fixedImg) {
+						const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
+						if (match) projectPath = match[1];
+					}
+				}
+				if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
+					projectPath = window.location.pathname.endsWith('/') ? 
+						window.location.pathname : window.location.pathname + '/';
+				}
+				imgSrc = projectPath + originalSrc;
+				img.src = imgSrc;
+				img.setAttribute('src', imgSrc);
+			}
+		}
+		
+		return imgSrc;
 	}
 }
