@@ -22,7 +22,6 @@
         }
 
         init() {
-            console.log('[DemoWalkthrough] Initializing walkthrough system');
             
             // Clean up previous initialization if any
             this.cleanup();
@@ -30,14 +29,12 @@
             // Check if we're on a project page with demo
             const demoContainer = document.querySelector('.demo-inline-container');
             if (!demoContainer) {
-                console.log('[DemoWalkthrough] No demo container found - waiting for dynamic content');
                 return;
             }
 
             // Wait for demo to load
             const iframe = demoContainer.querySelector('.demo-inline-iframe');
             if (!iframe) {
-                console.log('[DemoWalkthrough] No demo iframe found - waiting for iframe creation');
                 // Set up observer to wait for iframe
                 this.observeForIframe(demoContainer);
                 return;
@@ -45,7 +42,6 @@
 
             this.demoIframe = iframe;
             this.isInitialized = true;
-            console.log('[DemoWalkthrough] Demo iframe found, setting up listeners');
 
             // Listen for demo ready messages
             this.messageHandler = this.handleMessage.bind(this);
@@ -62,7 +58,6 @@
         }
 
         cleanup() {
-            console.log('[DemoWalkthrough] Cleaning up walkthrough system');
             
             // Remove existing message listener
             if (this.messageHandler) {
@@ -97,7 +92,6 @@
                     if (mutation.type === 'childList') {
                         const iframe = container.querySelector('.demo-inline-iframe');
                         if (iframe) {
-                            console.log('[DemoWalkthrough] Iframe detected via observer');
                             observer.disconnect();
                             this.demoIframe = iframe;
                             this.isInitialized = true;
@@ -124,7 +118,6 @@
         }
 
         setupWalkthrough() {
-            console.log('[DemoWalkthrough] Setting up walkthrough, sending checkWalkthroughSupport message');
             // Check if demo supports walkthrough
             setTimeout(() => {
                 if (this.demoIframe && this.demoIframe.contentWindow) {
@@ -138,12 +131,10 @@
         handleMessage(event) {
             if (!event.data || typeof event.data !== 'object') return;
 
-            console.log('[DemoWalkthrough] Received message:', event.data.type, event.data);
 
             switch (event.data.type) {
                 case 'walkthroughSupported':
                     this.steps = event.data.steps || [];
-                    console.log('[DemoWalkthrough] Steps received:', this.steps.length);
                     if (this.steps.length > 0) {
                         this.createToolbar();
                     }
@@ -164,7 +155,6 @@
             // Check if toolbar already exists in DOM (singleton pattern)
             const existingToolbar = document.querySelector('.demo-walkthrough-toolbar');
             if (existingToolbar) {
-                console.log('[DemoWalkthrough] Toolbar already exists, reusing it');
                 this.toolbar = existingToolbar;
                 // Update UI with current steps
                 this.updateUI();
@@ -173,7 +163,6 @@
 
             if (this.toolbar) return;
 
-            console.log('[DemoWalkthrough] Creating toolbar with', this.steps.length, 'steps');
 
             // Create toolbar element
             this.toolbar = document.createElement('div');
@@ -254,18 +243,14 @@
             // Show toolbar when demo button is clicked (with auto-start)
             const demoBtn = document.getElementById('demoBtn');
             if (demoBtn) {
-                console.log('[DemoWalkthrough] Found demo button, checking if handler needed');
                 // Only add listener if not already added
                 if (!demoBtn.hasAttribute('data-walkthrough-listener')) {
-                    console.log('[DemoWalkthrough] Adding click listener to demo button');
                     demoBtn.setAttribute('data-walkthrough-listener', 'true');
                     demoBtn.addEventListener('click', () => {
-                        console.log('[DemoWalkthrough] Demo button clicked, showing toolbar with auto-start after delay');
                         setTimeout(() => this.showToolbar(true), 600);
                     });
                 }
             } else {
-                console.log('[DemoWalkthrough] Demo button not found - may be added later');
             }
         }
 
@@ -308,7 +293,6 @@
         }
 
         showToolbar(autoStart = false) {
-            console.log('[DemoWalkthrough] showToolbar called, toolbar:', !!this.toolbar, 'isVisible:', this.isVisible, 'autoStart:', autoStart);
             if (!this.toolbar) return;
 
             // Always ensure toolbar is visible when called
@@ -316,7 +300,6 @@
             this.isMinimized = false; // Show in full state
             this.toolbar.classList.add('visible');
             this.toolbar.classList.remove('minimized');
-            console.log('[DemoWalkthrough] Toolbar made visible');
 
             // Start walkthrough
             this.currentStep = 0;
@@ -515,7 +498,6 @@
 
         // Method to trigger toolbar when entering fullscreen
         handleFullscreenEntry() {
-            console.log('[DemoWalkthrough] Handling fullscreen entry');
             if (this.steps.length > 0) {
                 // Always show toolbar when entering fullscreen, regardless of current state
                 this.showToolbar(false);
@@ -524,7 +506,6 @@
 
         // Method to handle when exiting fullscreen
         handleFullscreenExit() {
-            console.log('[DemoWalkthrough] Handling fullscreen exit');
             if (this.toolbar && this.isVisible) {
                 // Hide the toolbar when exiting fullscreen
                 this.hideToolbar();
@@ -535,7 +516,6 @@
         hideToolbar() {
             if (!this.toolbar) return;
 
-            console.log('[DemoWalkthrough] Hiding toolbar');
             this.isVisible = false;
             this.isMinimized = false;
             this.toolbar.classList.remove('visible');
@@ -561,7 +541,6 @@
     
     // Initialize on DOM ready
     function initDemoWalkthrough() {
-        console.log('[DemoWalkthrough] initDemoWalkthrough called');
         
         // Create singleton instance
         if (!walkthroughInstance) {
@@ -572,7 +551,6 @@
             
             // Add manual trigger function for debugging
             window.triggerWalkthrough = function() {
-                console.log('[DemoWalkthrough] Manual trigger called');
                 if (walkthroughInstance.demoIframe) {
                     walkthroughInstance.setupWalkthrough();
                 } else {
@@ -595,14 +573,12 @@
 
     // Re-initialize on dynamic content load
     document.addEventListener('contentLoaded', function() {
-        console.log('[DemoWalkthrough] contentLoaded event received');
         // Give time for demo to be inserted into DOM
         setTimeout(initDemoWalkthrough, 500);
     });
     
     // Also listen for the custom demo load event
     document.addEventListener('loadInlineDemoComponent', function(event) {
-        console.log('[DemoWalkthrough] loadInlineDemoComponent event received', event.detail);
         // Re-initialize after demo is loaded
         setTimeout(initDemoWalkthrough, 1000);
     });

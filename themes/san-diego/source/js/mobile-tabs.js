@@ -11,7 +11,6 @@ let initializationTimeout = null;
 let isInitializing = false;
 
 export function initializeMobileTabs() {
-	console.log('[MobileTabs] initializeMobileTabs called');
 	
 	// Clear any pending initialization
 	if (initializationTimeout) {
@@ -21,7 +20,6 @@ export function initializeMobileTabs() {
 	
 	// Prevent concurrent initialization
 	if (isInitializing) {
-		console.log('[MobileTabs] Already initializing, queuing for later');
 		initializationTimeout = setTimeout(() => initializeMobileTabs(), 300);
 		return;
 	}
@@ -34,7 +32,6 @@ export function initializeMobileTabs() {
 									!document.querySelector('.blog-content'); // No dynamic content container
 	
 	if (isStandaloneProjectPage) {
-		console.log('[MobileTabs] On standalone project page, skipping initialization');
 		isInitializing = false;
 		return;
 	}
@@ -57,12 +54,10 @@ export function initializeMobileTabs() {
 		
 		// If we don't have the required tab elements, don't initialize
 		if (!tabsWrapper || !postsContent || !projectsContent) {
-			console.log('[MobileTabs] Required tab elements not found, skipping initialization');
 			isInitializing = false;
 			return;
 		}
 		
-		console.log('[MobileTabs] All elements found, proceeding with initialization');
 		initializeTabsInternal();
 		isInitializing = false;
 	};
@@ -71,7 +66,6 @@ export function initializeMobileTabs() {
 	if (document.querySelector('.tabs-wrapper')) {
 		checkAndInitialize();
 	} else {
-		console.log('[MobileTabs] Elements not ready, trying with delay');
 		setTimeout(() => {
 			checkAndInitialize();
 			// If still not initialized after delay, clear the flag
@@ -88,17 +82,14 @@ export function initializeMobileTabs() {
 }
 
 function initializeTabsInternal() {
-	console.log('[MobileTabs] initializeTabsInternal starting');
 
 	// If an old instance exists and has a destroy method, call it
 	if (window.mobileTabs && typeof window.mobileTabs.destroy === 'function') {
 		try {
-			console.log('[MobileTabs] Destroying existing instance');
 			window.mobileTabs.destroy();
 			window.mobileTabs = null; // Clear the reference
 		} catch (error) {
 			// Error handling tabs - non-critical UI component
-			console.warn('[MobileTabs] Error destroying existing instance:', error);
 			window.mobileTabs = null; // Clear anyway
 		}
 	}
@@ -107,14 +98,8 @@ function initializeTabsInternal() {
 	const tabContainer = document.querySelector('.mobile-tabs');
 	const tabButtons = document.querySelectorAll('.tab-button');
 	
-	console.log('[MobileTabs] Pre-creation check:', {
-		tabContainer: !!tabContainer,
-		tabButtons: tabButtons.length,
-		DOM: document.readyState
-	});
 
 	try {
-		console.log('[MobileTabs] Creating new MobileTabs instance');
 		// Initialize mobile tabs component with default configuration
 		const tabs = new MobileTabs({
 			tabsWrapperSelector: '.tabs-wrapper',
@@ -127,17 +112,11 @@ function initializeTabsInternal() {
 
 		// Store the new tabs instance in window for potential external access
 		window.mobileTabs = tabs;
-		console.log('[MobileTabs] New instance created and stored');
 		
 		// Verify the instance is working
 		setTimeout(() => {
 			if (window.mobileTabs) {
 				const buttons = document.querySelectorAll('.tab-button');
-				console.log('[MobileTabs] Post-creation verification:', {
-					instanceExists: !!window.mobileTabs,
-					buttonsFound: buttons.length,
-					listenersMap: window.mobileTabs.tabClickListeners?.size || 0
-				});
 			}
 		}, 100);
 
@@ -147,29 +126,23 @@ function initializeTabsInternal() {
 		
 		if (tabParam === 'portfolio' || tabParam === 'works') {
 			// Switch to Works tab
-			console.log('[MobileTabs] Switching to portfolio tab from URL param');
 			tabs.switchTab('portfolio', false);
 		} else if (tabParam === 'blog' || tabParam === 'words') {
 			// Switch to Words tab
-			console.log('[MobileTabs] Switching to blog tab from URL param');
 			tabs.switchTab('blog', false);
 		}
 		
-		console.log('[MobileTabs] Initialization complete');
 	} catch (error) {
-		console.error('[MobileTabs] Error during initialization:', error);
 		window.mobileTabs = null;
 	}
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	console.log('[MobileTabs] DOMContentLoaded fired');
 	initializeMobileTabs();
 });
 
 window.addEventListener('pageshow', function (event) {
 	if (event.persisted) {
-		console.log('[MobileTabs] Pageshow with persisted=true');
 		// Page is loaded from bfcache, re-initialize mobile tabs
 		initializeMobileTabs();
 	}
@@ -196,9 +169,7 @@ if (typeof window._mobiletabs_diagnostic === 'undefined') {
 			if (isSafari && window.mobileTabs) {
 				const button = e.target.closest('.tab-button');
 				const hasListener = window.mobileTabs.tabClickListeners.has(button);
-				console.log('[Safari-Debug] Button has listener:', hasListener);
 				if (!hasListener) {
-					console.error('[Safari-Debug] Button missing click listener! Re-caching elements...');
 					window.mobileTabs.cacheElements();
 					window.mobileTabs.setupEventListeners();
 				}

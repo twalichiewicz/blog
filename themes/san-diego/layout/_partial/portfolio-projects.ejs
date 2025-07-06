@@ -55,7 +55,6 @@
                    data-skills="<%- (post.tags?.skills || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>"
                    data-industry="<%- (post.tags?.industry || []).join(' ').toLowerCase().replace(/\s+/g, '-') %>"
                    <% if (post.notebook_color) { %>data-notebook-color="<%- post.notebook_color %>"<% } %>
-                   <% if (post.notebook_texture) { %>data-notebook-texture="<%- post.notebook_texture %>"<% } %>
                    <% if (post.notebook_brand) { %>data-notebook-brand="<%- post.notebook_brand %>"<% } %>
                    <% if (post.notebook_brand_text) { %>data-notebook-brand-text="<%- post.notebook_brand_text %>"<% } %>
                    <% if (post.notebook_effect) { %>data-notebook-effect="<%- post.notebook_effect %>"<% } %>

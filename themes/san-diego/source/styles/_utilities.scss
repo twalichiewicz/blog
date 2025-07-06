@@ -98,11 +98,11 @@ html {
 		z-index: -1; // Behind content to avoid darkening date bars
 		
 		@media (max-width: 768px) {
-			// Pull in padding on mobile
-			top: -12px;
-			right: -12px;
-			bottom: -12px;
-			left: -12px;
+			// Provide proper padding on mobile
+			top: -16px;
+			right: -16px;
+			bottom: -16px;
+			left: -16px;
 		}
 		
 		@media (prefers-color-scheme: dark) {
@@ -152,11 +152,11 @@ article.anchor-destination-highlight {
 		z-index: -1; // Behind all content
 		
 		@media (max-width: 768px) {
-			// Account for existing padding on mobile (12px) and reduce highlight padding
-			top: -8px;
-			right: 0;
-			bottom: -8px;
-			left: 0;
+			// Add proper padding for mobile highlight
+			top: -16px;
+			right: -16px;
+			bottom: -16px;
+			left: -16px;
 		}
 		
 		@media (prefers-color-scheme: dark) {

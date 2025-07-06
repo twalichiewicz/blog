@@ -175,12 +175,12 @@
 			}
 			
 			.preview-excerpt {
-				font-size: var(--font-size-sm);
+				font-size: var(--font-size-base);
 				-webkit-line-clamp: 2; // Show only 2 lines on mobile
 				
 				// Specific override for Words page
 				#postsContent & {
-					font-size: var(--font-size-xs) !important;
+					font-size: var(--font-size-sm) !important;
 				}
 			}
 			

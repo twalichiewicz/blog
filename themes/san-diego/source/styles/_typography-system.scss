@@ -16,6 +16,7 @@
   --font-size-2xs: 0.5625rem; // 9px  - small labels, pills, bylines
   --font-size-xs: 0.625rem;   // 10px - adjusted for better scale
   --font-size-sm: 0.75rem;    // 12px - small text, captions
+  --font-size-md: 0.8125rem;  // 13px - medium text, between sm and base
   --font-size-base: 0.875rem; // 14px - body text (scaled down from 18px)
   --font-size-lg: 1rem;       // 16px - large body text
   --font-size-xl: 1.125rem;   // 18px - headings
@@ -147,6 +148,11 @@ h6, .h6 {
   font-size: var(--font-size-xs);
   line-height: var(--line-height-normal);
   letter-spacing: var(--letter-spacing-wide);
+  
+  // Tighter line-height on mobile for better spacing
+  @media (max-width: 768px) {
+    line-height: var(--line-height-tight);
+  }
 }
 
 // Paragraphs
@@ -229,6 +235,7 @@ blockquote {
 .text-2xs { font-size: var(--font-size-2xs) !important; }
 .text-xs { font-size: var(--font-size-xs) !important; }
 .text-sm { font-size: var(--font-size-sm) !important; }
+.text-md { font-size: var(--font-size-md) !important; }
 .text-base { font-size: var(--font-size-base) !important; }
 .text-lg { font-size: var(--font-size-lg) !important; }
 .text-xl { font-size: var(--font-size-xl) !important; }

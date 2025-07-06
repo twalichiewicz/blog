@@ -20,7 +20,6 @@ cover_image: ./cover.jpg
 byline: A complete redesign of our enterprise design system
 company: Autodesk
 notebook_color: nordic-blue
-notebook_texture: worn
 notebook_brand: leuchtturm
 notebook_effect: metallic
 notebook_stickers:

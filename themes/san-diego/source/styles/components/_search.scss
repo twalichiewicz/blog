@@ -159,10 +159,34 @@
 	// Mobile responsive styles
 	@media (max-width: variables.$mobile-breakpoint) {
 		padding: 0 15px;
-		gap: 12px;
+		gap: 8px;
 		
 		.search-icon {
 			left: 9px;
+		}
+		
+		// Ensure search input and button have matching heights
+		.search-input {
+			height: auto; // Let content determine height
+			padding: 6px 36px 6px 32px; // Reasonable padding
+			line-height: normal; // Normal line height
+		}
+		
+		.posts-only-button {
+			height: auto; // Let content determine height
+			padding: 6px 12px; // Reasonable padding
+			line-height: normal; // Normal line height
+			display: inline-flex;
+			align-items: center;
+		}
+	}
+	
+	// Medium mobile screens - prevent wrapping
+	@media (max-width: 480px) {
+		.posts-only-button {
+			// Keep original text, just adjust size if needed
+			font-size: var(--font-size-xs);
+			padding: 6px 10px;
 		}
 	}
 	
@@ -178,6 +202,10 @@
 		
 		.search-icon {
 			left: 9px;
+		}
+		
+		.posts-only-button::after {
+			content: "Posts only"; // Restore full text when stacked
 		}
 	}
 }

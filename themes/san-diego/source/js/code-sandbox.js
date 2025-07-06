@@ -13,7 +13,6 @@
       this.toggle = element.querySelector('.code-sandbox-toggle');
       
       if (!this.content || !this.toggle) {
-        console.warn('CodeSandbox: Missing required elements');
         return;
       }
 
@@ -58,6 +57,11 @@
       e.stopPropagation();
       this.setToggleState(!this.isOn, false);
       this.wasAutoToggled = false;
+      
+      // Play small click sound
+      if (window.playSmallClickSound) {
+        window.playSmallClickSound();
+      }
     }
 
     handleToggleKeydown(e) {

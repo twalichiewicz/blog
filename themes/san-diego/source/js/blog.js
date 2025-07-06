@@ -284,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				
 				// Clean up existing mobile tabs instance before transition
 				if (window.mobileTabs && typeof window.mobileTabs.destroy === 'function') {
-					console.log('[Blog] Destroying existing mobile tabs before back navigation');
 					window.mobileTabs.destroy();
 					window.mobileTabs = null;
 				}
@@ -306,15 +305,12 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Use requestAnimationFrame to ensure browser has rendered the new content
 						requestAnimationFrame(() => {
 							requestAnimationFrame(() => {
-								console.log('[Blog] Reinitializing mobile tabs after back navigation');
 								initializeMobileTabs();
 								
 								// Force a check to ensure tabs are working
 								setTimeout(() => {
 									const tabButtons = document.querySelectorAll('.tab-button');
-									console.log('[Blog] Verifying tab buttons after init:', tabButtons.length, 'buttons found');
 									if (tabButtons.length === 0) {
-										console.error('[Blog] No tab buttons found after initialization!');
 									}
 								}, 200);
 							});
@@ -398,17 +394,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				
 				history.pushState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
 				
-				// Final verification that mobile tabs are working
-				setTimeout(() => {
-					const buttons = document.querySelectorAll('.tab-button');
-					const instance = window.mobileTabs;
-					console.log('[Blog] Final mobile tabs check:', {
-						buttonsInDOM: buttons.length,
-						instanceExists: !!instance,
-						listenersAttached: instance?.tabClickListeners?.size || 0,
-						tabsVisible: document.querySelector('.tabs-wrapper')?.style.display !== 'none'
-					});
-				}, 500);
 			};
 
 			const oldHandler = backButton._clickHandler;
@@ -596,6 +581,10 @@ document.addEventListener('DOMContentLoaded', function () {
 							// Add new handler
 							scrollButton.onclick = function (e) {
 								e.preventDefault();
+								// Play button sound (same as View impact report)
+								if (window.playButtonSound) {
+									window.playButtonSound();
+								}
 								// Dynamic scroll button clicked
 								if (window.scrollToFullStory) {
 									window.scrollToFullStory();
@@ -672,6 +661,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 				if (isPostLink || isProjectLink) {
 					event.preventDefault();
+					
+					// Play book sound for post links
+					if (isPostLink && window.playBookSound) {
+						window.playBookSound();
+					}
+					
 					const url = link.href;
 					// Fetching content
 					fetchAndDisplayContent(url, true, isProjectLink);
