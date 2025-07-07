@@ -17,7 +17,7 @@ body .project-edge-wrapper,
 	// Remove all borders from project-edge-wrapper
 	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
 		border: none;
-		border-radius: none;
+		border-radius: 0;
 		background: variables.$card-bg;
 		
 		@media (prefers-color-scheme: dark) {
