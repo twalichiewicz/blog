@@ -802,23 +802,22 @@ function App() {
 
   return (
     <ToastProvider>
-      <div 
-        ref={demoRef}
-        className="transition-transform origin-center"
-        style={{ transform: `scale(${zoom})` }}
+      <DemoWrapper 
+        url="manage.autodesk.com/products/deployments"
+        browserTheme="mac"
+        showBackground={true}
       >
-        <DemoWrapper 
-          url="manage.autodesk.com/products/deployments"
-          browserTheme="mac"
-          showBackground={true}
+        <div 
+          ref={demoRef}
+          className="h-full bg-background transition-transform origin-center"
+          style={{ transform: `scale(${zoom})` }}
         >
-          <div className="h-full bg-background">
-            {/* Simple header */}
-            <header className="bg-foreground text-background">
-              <div className="h-14 flex items-center px-6 border-b border-gray-800">
-                <h1 className="text-sm font-medium tracking-wide">AUTODESK DEPLOY AT SCALE</h1>
-              </div>
-            </header>
+          {/* Simple header */}
+          <header className="bg-foreground text-background">
+            <div className="h-14 flex items-center px-6 border-b border-gray-800">
+              <h1 className="text-sm font-medium tracking-wide">AUTODESK DEPLOY AT SCALE</h1>
+            </div>
+          </header>
 
           {/* Main content */}
           <div className="p-6">
@@ -830,7 +829,6 @@ function App() {
           </div>
         </div>
       </DemoWrapper>
-      </div>
       <Toaster />
     </ToastProvider>
   );
