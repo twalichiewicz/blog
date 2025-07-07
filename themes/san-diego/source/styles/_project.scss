@@ -14,10 +14,10 @@
 // Project edge wrapper styles
 body .project-edge-wrapper,
 .project-edge-wrapper {
-	// Remove all borders from project-edge-wrapper
+	// Remove all borders from project-edge-wrapper but keep top-left radius
 	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
 		border: none;
-		border-radius: 0;
+		border-radius: 12px 0 0 0;
 		background: variables.$card-bg;
 		
 		@media (prefers-color-scheme: dark) {
