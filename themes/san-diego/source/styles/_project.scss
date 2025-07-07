@@ -88,8 +88,8 @@ body .project-edge-wrapper {
 	.blog-content {
 		// Desktop/tablet: Only structural styles, no borders
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-			// No border-radius since we only have top/left borders
-			border-radius: 0;
+			// Top-left border radius to match the top/left borders
+			border-radius: 12px 0 0 0;
 			margin: 12px;
 			background: variables.$white;
 			height: auto; // Override default blog-content height

@@ -95,8 +95,8 @@
 	}
 
 	.blog-content {
-		// No border-radius - borders are handled in _blog-content-borders.scss
-		border-radius: 0;
+		// Top-left border radius only (matching the top/left borders)
+		border-radius: 12px 0 0 0;
 		position: relative;
 		transition: opacity 0.3s ease-in-out;
 		margin-top: 12px;
