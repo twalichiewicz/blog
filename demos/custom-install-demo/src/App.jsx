@@ -218,7 +218,7 @@ function App() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b bg-gray-50">
-                    <th className="text-left p-4 w-12">
+                    <th className="text-left p-2 w-12">
                       <Checkbox 
                         checked={selectedPackages.size === packages.length}
                         onCheckedChange={(checked) => {
@@ -230,10 +230,10 @@ function App() {
                         }}
                       />
                     </th>
-                    <th className="text-left p-4 font-medium text-sm text-gray-700">Package Name</th>
-                    <th className="text-left p-4 font-medium text-sm text-gray-700">Installs</th>
-                    <th className="text-left p-4 font-medium text-sm text-gray-700">Created</th>
-                    <th className="text-left p-4 font-medium text-sm text-gray-700">Modified</th>
+                    <th className="text-left p-2 font-medium text-xs text-gray-700">Package Name</th>
+                    <th className="text-left p-2 font-medium text-xs text-gray-700">Installs</th>
+                    <th className="text-left p-2 font-medium text-xs text-gray-700">Created</th>
+                    <th className="text-left p-2 font-medium text-xs text-gray-700">Modified</th>
                     <th className="w-20"></th>
                   </tr>
                 </thead>
@@ -251,7 +251,7 @@ function App() {
                       onMouseLeave={() => setHoveredRow(null)}
                       onClick={() => handleEditPackage(pkg)}
                     >
-                      <td className="p-4">
+                      <td className="p-2">
                         <Checkbox 
                           checked={selectedPackages.has(pkg.id)}
                           onCheckedChange={(checked) => {
@@ -266,7 +266,7 @@ function App() {
                           onClick={(e) => e.stopPropagation()}
                         />
                       </td>
-                      <td className="p-4 relative">
+                      <td className="p-2 relative">
                         {editingName === pkg.id ? (
                           <Input
                             value={tempName}
@@ -287,13 +287,13 @@ function App() {
                           </span>
                         )}
                         {pkg.isNew && (
-                          <span className="ml-2 px-2 py-0.5 text-xs bg-blue-100 text-blue-700 rounded-full">New</span>
+                          <span className="ml-2 px-2 py-0.5 text-[10px] bg-blue-100 text-blue-700 rounded-full">New</span>
                         )}
                       </td>
-                      <td className="p-4 text-gray-600">{pkg.installs.toLocaleString()}</td>
-                      <td className="p-4 text-gray-600">{pkg.created}</td>
-                      <td className="p-4 text-gray-600">{pkg.modified}</td>
-                      <td className="p-4 relative">
+                      <td className="p-2 text-xs text-gray-600">{pkg.installs.toLocaleString()}</td>
+                      <td className="p-2 text-xs text-gray-600">{pkg.created}</td>
+                      <td className="p-2 text-xs text-gray-600">{pkg.modified}</td>
+                      <td className="p-2 relative">
                         <Button 
                           variant="ghost" 
                           size="sm" 
@@ -562,7 +562,7 @@ function App() {
           <h2 className="text-2xl font-light">Create Deployment Package</h2>
         </div>
 
-        <div className="grid grid-cols-[1fr,400px] gap-6">
+        <div className={`grid ${currentStep === 2 ? 'grid-cols-1' : 'grid-cols-[1fr,400px]'} gap-6`}>
           {/* Left Column - Steps */}
           <div className="space-y-4">
             <Accordion 
@@ -575,7 +575,7 @@ function App() {
               className="space-y-4"
             >
               {/* Step 1 - Select Applications */}
-              <AccordionItem value="step-1" className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+              <AccordionItem value="step-1" className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
                 <AccordionTrigger className="px-6 py-4 hover:no-underline">
                   <div className="flex items-center gap-4 text-left">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
@@ -592,11 +592,18 @@ function App() {
                 <AccordionContent className="px-6 pb-6">
                   <div className="mt-4">
                     <div className="mb-4">
-                      <Input 
-                        placeholder="Search applications..."
-                        className="w-full"
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                      />
+                      <div className="flex items-center justify-between mb-2">
+                        <Input 
+                          placeholder="Search applications..."
+                          className="flex-1"
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        {selectedApps.length > 0 && (
+                          <span className="ml-3 text-sm text-gray-600">
+                            {selectedApps.length} selected
+                          </span>
+                        )}
+                      </div>
                     </div>
                     <div className="border border-gray-200 rounded-lg overflow-hidden">
                       <div className="max-h-96 overflow-y-auto">
@@ -621,8 +628,8 @@ function App() {
                             }`}>
                               {app.initials}
                             </div>
-                            <div className="flex-1">
-                              <div className="font-medium text-sm">{app.name}</div>
+                            <div className="flex-1 min-w-0">
+                              <div className="font-medium text-sm truncate">{app.name}</div>
                               <div className="text-xs text-gray-500">{app.category}</div>
                             </div>
                           </div>
@@ -641,7 +648,7 @@ function App() {
               </AccordionItem>
               
               {/* Step 2 - Deployment Settings */}
-              <AccordionItem value="step-2" className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+              <AccordionItem value="step-2" className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
                 <AccordionTrigger className="px-6 py-4 hover:no-underline">
                   <div className="flex items-center gap-4 text-left">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
@@ -659,35 +666,48 @@ function App() {
                   <div className="space-y-6 mt-4">
                     <div>
                       <h4 className="font-medium mb-3">Deployment Type</h4>
-                      <div className="space-y-2">
-                        <label className="flex items-start gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
-                          <input 
-                            type="radio" 
-                            name="deploy-type" 
-                            value="install"
-                            checked={deploymentSettings.type === 'install'}
-                            onChange={(e) => setDeploymentSettings({...deploymentSettings, type: e.target.value})}
-                            className="mt-1"
-                          />
+                      <div className="bg-gray-100 p-1 rounded-lg flex mb-4">
+                        <button
+                          className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                            deploymentSettings.type === 'install'
+                              ? 'bg-white text-gray-900 shadow-sm'
+                              : 'text-gray-600 hover:text-gray-900'
+                          }`}
+                          onClick={() => setDeploymentSettings({...deploymentSettings, type: 'install'})}
+                        >
+                          User Install
+                        </button>
+                        <button
+                          className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
+                            deploymentSettings.type === 'deploy'
+                              ? 'bg-white text-gray-900 shadow-sm'
+                              : 'text-gray-600 hover:text-gray-900'
+                          }`}
+                          onClick={() => setDeploymentSettings({...deploymentSettings, type: 'deploy'})}
+                        >
+                          Admin Deployment
+                        </button>
+                      </div>
+                      <div className="border border-gray-200 rounded-lg p-4 -mt-6 pt-8 bg-gray-50">
+                        {deploymentSettings.type === 'install' ? (
                           <div>
-                            <div className="font-medium">User Install</div>
-                            <div className="text-sm text-gray-600">Users can run installer with customizations</div>
+                            <p className="text-sm text-gray-600 mb-2">Users can run installer with customizations</p>
+                            <ul className="text-xs text-gray-500 space-y-1 ml-4">
+                              <li>• Interactive installation wizard</li>
+                              <li>• User-selected components</li>
+                              <li>• Local machine installation</li>
+                            </ul>
                           </div>
-                        </label>
-                        <label className="flex items-start gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
-                          <input 
-                            type="radio" 
-                            name="deploy-type" 
-                            value="deploy"
-                            checked={deploymentSettings.type === 'deploy'}
-                            onChange={(e) => setDeploymentSettings({...deploymentSettings, type: e.target.value})}
-                            className="mt-1"
-                          />
+                        ) : (
                           <div>
-                            <div className="font-medium">Admin Deployment</div>
-                            <div className="text-sm text-gray-600">Silent installation via SCCM/network</div>
+                            <p className="text-sm text-gray-600 mb-2">Silent installation via SCCM/network</p>
+                            <ul className="text-xs text-gray-500 space-y-1 ml-4">
+                              <li>• Automated deployment</li>
+                              <li>• No user interaction required</li>
+                              <li>• Enterprise-wide rollout</li>
+                            </ul>
                           </div>
-                        </label>
+                        )}
                       </div>
                     </div>
                     
@@ -770,7 +790,7 @@ function App() {
               <div className="bg-white border border-gray-200 rounded-lg p-6">
                 {selectedAppForDetails === null ? (
                   <div className="text-center py-8">
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <div className="w-12 h-12 bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-inner border border-gray-200">
                       <Package className="w-6 h-6 text-gray-400" />
                     </div>
                     <p className="text-gray-500">Click on an application to view details</p>
