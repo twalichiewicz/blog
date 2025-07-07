@@ -356,6 +356,12 @@
         // Get demo component name for zoom persistence
         const demoComponent = container.getAttribute('data-demo-component') || 'default';
         
+        // Check if zoom controls already initialized (avoid re-init on fullscreen toggle)
+        if (container.hasAttribute('data-zoom-initialized')) {
+            return;
+        }
+        container.setAttribute('data-zoom-initialized', 'true');
+        
         // Fullscreen button handler - animate existing demo instead of modal
         if (fullscreenBtn) {
             fullscreenBtn.addEventListener('click', function() {
@@ -392,10 +398,14 @@
             // Persist zoom level
             demoZoomLevels.set(demoComponent, currentZoom);
             
-            // Update all zoom displays for this demo
-            const allZoomDisplays = container.querySelectorAll('.demo-zoom-level');
-            allZoomDisplays.forEach(display => {
-                display.textContent = `${currentZoom}%`;
+            // Update all zoom displays for this demo (including in fullscreen)
+            const trailerHero = container.closest('.project-trailer-hero');
+            const allContainers = trailerHero ? [trailerHero] : [container];
+            allContainers.forEach(cont => {
+                const displays = cont.querySelectorAll('.demo-zoom-level');
+                displays.forEach(display => {
+                    display.textContent = `${currentZoom}%`;
+                });
             });
             
             // Send zoom message to iframe
@@ -418,15 +428,24 @@
             setTimeout(() => updateZoom(currentZoom), 100);
         }
         
-        if (zoomInBtn) {
-            zoomInBtn.addEventListener('click', () => {
-                updateZoom(currentZoom + zoomStep);
-            });
-        }
+        // Use event delegation for zoom controls to work in fullscreen
+        const trailerHero = container.closest('.project-trailer-hero') || container;
         
-        if (zoomOutBtn) {
-            zoomOutBtn.addEventListener('click', () => {
-                updateZoom(currentZoom - zoomStep);
+        if (!trailerHero.hasAttribute('data-zoom-handlers')) {
+            trailerHero.setAttribute('data-zoom-handlers', 'true');
+            
+            trailerHero.addEventListener('click', function(e) {
+                const target = e.target.closest('.demo-zoom-in, .demo-zoom-out');
+                if (!target) return;
+                
+                // Get current zoom from persisted value
+                const currentZoom = demoZoomLevels.get(demoComponent) || 100;
+                
+                if (target.classList.contains('demo-zoom-in')) {
+                    updateZoom(currentZoom + zoomStep);
+                } else if (target.classList.contains('demo-zoom-out')) {
+                    updateZoom(currentZoom - zoomStep);
+                }
             });
         }
         

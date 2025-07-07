@@ -218,7 +218,7 @@ function App() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b bg-gray-50">
-                    <th className="text-left p-2 w-12">
+                    <th className="text-left p-2 w-10">
                       <Checkbox 
                         checked={selectedPackages.size === packages.length}
                         onCheckedChange={(checked) => {
@@ -230,10 +230,10 @@ function App() {
                         }}
                       />
                     </th>
-                    <th className="text-left p-2 font-medium text-xs text-gray-700">Package Name</th>
-                    <th className="text-left p-2 font-medium text-xs text-gray-700">Installs</th>
-                    <th className="text-left p-2 font-medium text-xs text-gray-700">Created</th>
-                    <th className="text-left p-2 font-medium text-xs text-gray-700">Modified</th>
+                    <th className="text-left p-2 pl-0 font-medium text-[11px] text-gray-700">Package Name</th>
+                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Installs</th>
+                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Created</th>
+                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Modified</th>
                     <th className="w-20"></th>
                   </tr>
                 </thead>
@@ -244,12 +244,14 @@ function App() {
                       className="border-b hover:bg-gray-50 cursor-pointer relative group"
                       onMouseEnter={() => {
                         setHoveredRow(pkg.id);
+                      }}
+                      onMouseLeave={() => setHoveredRow(null)}
+                      onClick={() => {
+                        handleEditPackage(pkg);
                         if (pkg.isNew) {
                           setPackages(packages.map(p => p.id === pkg.id ? { ...p, isNew: false } : p));
                         }
                       }}
-                      onMouseLeave={() => setHoveredRow(null)}
-                      onClick={() => handleEditPackage(pkg)}
                     >
                       <td className="p-2">
                         <Checkbox 
@@ -266,7 +268,7 @@ function App() {
                           onClick={(e) => e.stopPropagation()}
                         />
                       </td>
-                      <td className="p-2 relative">
+                      <td className="p-2 pl-0 relative">
                         {editingName === pkg.id ? (
                           <Input
                             value={tempName}
@@ -279,7 +281,7 @@ function App() {
                           />
                         ) : (
                           <span 
-                            className="hover:bg-gray-100 px-2 py-1 rounded cursor-text inline-block"
+                            className="hover:bg-gray-100 px-2 py-1 rounded cursor-text inline-block text-[11px]"
                             onClick={(e) => handleStartEdit(pkg, e)}
                             title="Click to edit"
                           >
@@ -287,12 +289,12 @@ function App() {
                           </span>
                         )}
                         {pkg.isNew && (
-                          <span className="ml-2 px-2 py-0.5 text-[10px] bg-blue-100 text-blue-700 rounded-full">New</span>
+                          <span className="ml-2 px-2 py-0.5 text-[10px] bg-black text-white rounded-full">New</span>
                         )}
                       </td>
-                      <td className="p-2 text-xs text-gray-600">{pkg.installs.toLocaleString()}</td>
-                      <td className="p-2 text-xs text-gray-600">{pkg.created}</td>
-                      <td className="p-2 text-xs text-gray-600">{pkg.modified}</td>
+                      <td className="p-2 text-[11px] text-gray-600">{pkg.installs.toLocaleString()}</td>
+                      <td className="p-2 text-[11px] text-gray-600">{pkg.created}</td>
+                      <td className="p-2 text-[11px] text-gray-600">{pkg.modified}</td>
                       <td className="p-2 relative">
                         <Button 
                           variant="ghost" 
@@ -1022,7 +1024,8 @@ function App() {
       >
         <div 
           ref={demoRef}
-          className="h-full bg-background flex flex-col overflow-hidden"
+          className="h-full bg-background flex flex-col overflow-hidden font-[Inter]"
+          style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
         >
           {/* Simple header */}
           <header className="bg-foreground text-background flex-shrink-0">
