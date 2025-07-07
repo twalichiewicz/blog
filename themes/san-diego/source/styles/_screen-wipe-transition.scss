@@ -13,7 +13,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border-radius: 0; // No border radius needed
+	border-radius: 12px 0 0 0; // Match blog-content border radius
 	overflow: hidden;
 	
 	// Wipe panels (left and right)
