@@ -558,7 +558,7 @@ function App() {
             >
               {/* Step 1 - Select Applications */}
               <AccordionItem value="step-1" className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                <AccordionTrigger className="px-4 py-3 hover:no-underline">
                   <div className="flex items-center gap-4 text-left">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                       currentStep >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
@@ -571,7 +571,7 @@ function App() {
                     </div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="px-6 pb-6">
+                <AccordionContent className="px-4 pb-4">
                   <div className="mt-4">
                     <div className="mb-4">
                       <div className="flex items-center justify-between mb-2">
@@ -633,7 +633,7 @@ function App() {
               
               {/* Step 2 - Deployment Settings */}
               <AccordionItem value="step-2" className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                <AccordionTrigger className="px-4 py-3 hover:no-underline">
                   <div className="flex items-center gap-4 text-left">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                       currentStep >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
@@ -646,7 +646,7 @@ function App() {
                     </div>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="px-6 pb-6">
+                <AccordionContent className="px-4 pb-4">
                   <div className="space-y-6 mt-4">
                     <div>
                       <h4 className="font-medium mb-3">Deployment Type</h4>
@@ -796,7 +796,7 @@ function App() {
           <div className="sticky top-4 h-fit">
             {currentStep === 1 ? (
               /* Product Details */
-              <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
                 {selectedAppForDetails === null ? (
                   <div className="text-center py-8">
                     <div className="w-12 h-12 bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-inner border border-gray-200">
@@ -968,7 +968,7 @@ function App() {
               </div>
             ) : (
               /* Checkout Summary */
-              <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
                 <h3 className="font-medium text-lg mb-4">Package Summary</h3>
                 
                 <div className="space-y-3 mb-6">
