@@ -14,20 +14,14 @@
 // Project edge wrapper styles
 body .project-edge-wrapper,
 .project-edge-wrapper {
-	// NUCLEAR OVERRIDE: Reset ALL borders first
+	// Remove all borders from project-edge-wrapper
 	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
 		border: none !important;
-		
-		// Then apply only the borders we want (top and left only)
-		border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
-		border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
 		border-radius: 12px 0 0 0;
 		background: variables.$card-bg;
 		
 		@media (prefers-color-scheme: dark) {
 			border: none !important;
-			border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-			border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
 			background: rgb(24, 24, 24);
 		}
 	}
@@ -88,16 +82,12 @@ body .project-edge-wrapper,
 	}
 }
 
-// Double-border effect for project pages
-// When viewing a project, the structure is: project-edge-wrapper > blog-content
+// Project pages - remove conflicting borders
+// The border styles are now handled in theme mode files
 body .project-edge-wrapper {
 	.blog-content {
-		// Desktop/tablet: Apply inner border to blog-content when inside project-edge-wrapper (top and left only)
+		// Desktop/tablet: Only structural styles, no borders
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-			border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
-			border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
-			border-right: none !important;
-			border-bottom: none !important;
 			border-radius: 12px 0 0 0;
 			margin: 12px;
 			background: variables.$white;
@@ -105,31 +95,8 @@ body .project-edge-wrapper {
 			overflow: visible; // Override default overflow
 			
 			@media (prefers-color-scheme: dark) {
-				border-top-color: rgba(255, 255, 255, 0.03) !important;
-				border-left-color: rgba(255, 255, 255, 0.03) !important;
-				border-right: none !important;
-				border-bottom: none !important;
 				background: rgb(9, 9, 9);
 			}
-		}
-	}
-}
-
-// Additional specificity override to defeat theme mode borders
-.blog .project-edge-wrapper .blog-content,
-body .project-edge-wrapper .blog-content {
-	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-		// Override any general blog-content border styles
-		@media (prefers-color-scheme: light) {
-			border: none !important;
-			border-top: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
-			border-left: 1px solid rgba(87.975, 78.4125, 65.025, 0.05) !important;
-		}
-		
-		@media (prefers-color-scheme: dark) {
-			border: none !important;
-			border-top: 1px solid rgba(255, 255, 255, 0.03) !important;
-			border-left: 1px solid rgba(255, 255, 255, 0.03) !important;
 		}
 	}
 }

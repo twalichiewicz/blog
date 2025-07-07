@@ -169,12 +169,16 @@
 			}
 		}
 
-		/* Dark mode for basic blog content - only on mobile */
-		@media (max-width: variables.$mobile-breakpoint) {
+		/* Dark mode for blog content - non-mobile only */
+		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
 			.blog-content {
 				background-color: variables.$grey-dark;
 				box-shadow: 0 2px 15px rgb(0 0 0 / 15%);
-				border: 1px solid rgb(255 255 255 / 10%);
+				/* Top and left border only */
+				border-top: 1px solid rgb(255 255 255 / 10%);
+				border-left: 1px solid rgb(255 255 255 / 10%);
+				border-right: none;
+				border-bottom: none;
 			}
 		}
 		
