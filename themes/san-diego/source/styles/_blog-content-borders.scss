@@ -1,0 +1,45 @@
+// Blog content border styles
+// This file manages the specific border requirements for .blog-content
+// Must be imported AFTER border-system.scss to properly override
+
+@use 'variables';
+
+// Blog content borders - non-mobile only, top and left only
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  // Target both regular and dynamic content
+  .blog .blog-content.has-dynamic-content,
+  .blog .blog-content,
+  body .blog-content.has-dynamic-content,
+  body .blog-content {
+    // Light mode
+    @media (prefers-color-scheme: light) {
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.03);
+      border-left: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    
+    // Dark mode
+    @media (prefers-color-scheme: dark) {
+      border: none;
+      border-top: 1px solid rgb(255 255 255 / 5%);
+      border-left: 1px solid rgb(255 255 255 / 5%);
+    }
+    
+    // Default to light mode for systems without preference
+    @media not all and (prefers-color-scheme) {
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.03);
+      border-left: 1px solid rgba(0, 0, 0, 0.03);
+    }
+  }
+}
+
+// Ensure no borders on mobile
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog .blog-content.has-dynamic-content,
+  .blog .blog-content,
+  body .blog-content.has-dynamic-content,
+  body .blog-content {
+    border: none;
+  }
+}

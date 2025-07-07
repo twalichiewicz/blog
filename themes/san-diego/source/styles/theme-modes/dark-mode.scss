@@ -169,17 +169,10 @@
 			}
 		}
 
-		/* Dark mode for blog content - non-mobile only */
-		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-			.blog-content.has-dynamic-content,
-			.blog-content {
-				background-color: variables.$grey-dark;
-				box-shadow: 0 2px 15px rgb(0 0 0 / 15%);
-				/* Very subtle top and left border only */
-				border: none !important;
-				border-top: 1px solid rgb(255 255 255 / 5%) !important;
-				border-left: 1px solid rgb(255 255 255 / 5%) !important;
-			}
+		/* Dark mode for blog content background */
+		.blog-content {
+			background-color: variables.$grey-dark;
+			box-shadow: 0 2px 15px rgb(0 0 0 / 15%);
 		}
 		
 		/* Dark mode for separators */
