@@ -292,7 +292,7 @@ function App() {
                           />
                         ) : (
                           <span 
-                            className="hover:bg-gray-100 px-2 py-1 rounded cursor-text inline-block text-[11px]"
+                            className="hover:bg-gray-100 px-2 py-1 rounded cursor-text inline-block text-xs"
                             onClick={(e) => handleStartEdit(pkg, e)}
                             title="Click to edit"
                           >
