@@ -15,7 +15,14 @@ import { Toaster } from './components/Toaster';
 function App() {
   const [currentView, setCurrentView] = useState('library'); // 'library' or 'creator'
   const [currentStep, setCurrentStep] = useState(1);
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(() => {
+    // Check if parent window has a stored zoom level
+    if (window.parent && window.parent.demoZoomManager) {
+      const storedZoom = window.parent.demoZoomManager.getZoom('custom-install-demo');
+      return storedZoom ? storedZoom / 100 : 1;
+    }
+    return 1;
+  });
   const demoRef = useRef(null);
   
   // Generate more realistic random data
@@ -241,7 +248,7 @@ function App() {
                   {filteredPackages.map((pkg) => (
                     <tr 
                       key={pkg.id} 
-                      className="border-b hover:bg-gray-50 cursor-pointer relative group"
+                      className={`border-b hover:bg-gray-50 cursor-pointer relative group ${pkg.isNew ? 'animate-pulse bg-green-50' : ''}`}
                       onMouseEnter={() => {
                         setHoveredRow(pkg.id);
                       }}
@@ -251,6 +258,10 @@ function App() {
                         if (pkg.isNew) {
                           setPackages(packages.map(p => p.id === pkg.id ? { ...p, isNew: false } : p));
                         }
+                      }}
+                      style={{
+                        animation: pkg.isNew ? 'fadeIn 0.6s ease-out, pulse 2s ease-in-out' : undefined,
+                        transition: 'background-color 0.3s ease-out'
                       }}
                     >
                       <td className="p-2">
@@ -368,78 +379,7 @@ function App() {
               </table>
             </div>
             
-            {/* Multi-select action bar */}
-            {selectedPackages.size > 0 && (
-              <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-lg p-2 z-50">
-                <div className="flex items-center justify-between px-4">
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs text-gray-600">
-                      {selectedPackages.size} package{selectedPackages.size > 1 ? 's' : ''} selected
-                    </span>
-                    <button 
-                      onClick={() => setSelectedPackages(new Set())}
-                      className="text-xs text-blue-600 hover:text-blue-700"
-                    >
-                      Clear selection
-                    </button>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Button 
-                      variant="outline"
-                      size="sm"
-                      className="h-7 text-xs"
-                      onClick={() => {
-                        const selectedPkgs = packages.filter(p => selectedPackages.has(p.id));
-                        const duplicatedPkgs = selectedPkgs.map(pkg => ({
-                          ...pkg,
-                          id: `${pkg.id}-${Date.now()}`,
-                          name: `${pkg.name} (Copy)`,
-                          isNew: true,
-                          modified: new Date().toLocaleDateString()
-                        }));
-                        setPackages([...packages, ...duplicatedPkgs]);
-                        setSelectedPackages(new Set());
-                        toast({
-                          title: "Packages Duplicated",
-                          description: `Successfully duplicated ${selectedPkgs.length} package${selectedPkgs.length > 1 ? 's' : ''}`,
-                        });
-                      }}
-                    >
-                      Duplicate
-                    </Button>
-                    <Button 
-                      variant="outline"
-                      size="sm"
-                      className="h-7 text-xs text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
-                      onClick={() => {
-                        const toDelete = selectedPackages.size;
-                        setPackages(packages.filter(p => !selectedPackages.has(p.id)));
-                        setSelectedPackages(new Set());
-                        toast({
-                          title: "Packages Deleted",
-                          description: `Successfully deleted ${toDelete} package${toDelete > 1 ? 's' : ''}`,
-                        });
-                      }}
-                    >
-                      <Trash2 className="w-3 h-3 mr-1" />
-                      Delete
-                    </Button>
-                    <Button 
-                      size="sm"
-                      className="h-7 text-xs bg-black hover:bg-gray-800 text-white"
-                      onClick={() => {
-                        toast({
-                          title: "Deploy Packages",
-                          description: `Deploying ${selectedPackages.size} packages...`,
-                        });
-                      }}
-                    >
-                      Deploy
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            )}
+            {/* Multi-select action bar - moved outside table container to be positioned relative to browser chrome */}
           </TabsContent>
 
           <TabsContent value="team-library" className="mt-0">
@@ -536,24 +476,61 @@ function App() {
     const handleSaveDownload = async (isDownload) => {
       const buttonText = isDownload ? 'Downloading...' : 'Saving...';
       
+      // Create package name
+      const packageName = editingPackage ? editingPackage.name : `Custom Package ${new Date().toLocaleDateString()}`;
+      
       toast({
         title: isDownload ? "Preparing Download" : "Saving Package",
         description: buttonText,
       });
       
       // Simulate save/download
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
-      if (isDownload) {
-        // Show walkthrough modal
-        toast({
-          title: "Download Ready",
-          description: "Your deployment package has been compiled. In a real scenario, the installer would download now.",
-        });
+      // Create new package entry
+      const newPackage = {
+        id: `pkg-${Date.now()}`,
+        name: packageName,
+        installs: 0,
+        type: 'package',
+        created: new Date().toLocaleDateString(),
+        modified: new Date().toLocaleDateString(),
+        status: 'active',
+        isNew: true
+      };
+      
+      // Add to packages if not editing
+      if (!editingPackage) {
+        // Return to library first
+        handleBackToLibrary();
+        
+        // Add package with slight delay for animation
+        setTimeout(() => {
+          setPackages(prev => {
+            const updated = [newPackage, ...prev];
+            // Trigger re-render to show animation
+            return updated;
+          });
+        }, 100);
+      } else {
+        // Update existing package
+        setPackages(prev => prev.map(p => p.id === editingPackage.id ? { ...p, ...newPackage, modified: new Date().toLocaleDateString() } : p));
+        handleBackToLibrary();
       }
       
-      // Return to library
-      handleBackToLibrary();
+      if (isDownload) {
+        // Show download ready toast
+        toast({
+          title: "Download Ready",
+          description: "Your deployment package has been compiled and downloaded.",
+        });
+      } else {
+        // Show save success
+        toast({
+          title: "Package Saved",
+          description: `"${packageName}" has been added to your library.`,
+        });
+      }
     };
 
     return (
@@ -568,7 +545,7 @@ function App() {
           <h2 className="text-2xl font-light">Create Deployment Package</h2>
         </div>
 
-        <div className={`grid ${currentStep === 2 ? 'grid-cols-1' : 'grid-cols-[1fr,400px]'} gap-6`}>
+        <div className="grid grid-cols-[1fr,400px] gap-6">
           {/* Left Column - Steps */}
           <div className="space-y-4">
             <Accordion 
@@ -643,13 +620,15 @@ function App() {
                       </div>
                     </div>
                   </div>
-                  <Button 
-                    className="mt-6 bg-blue-600 hover:bg-blue-700 text-white"
-                    onClick={() => setCurrentStep(2)}
-                    disabled={selectedApps.length === 0}
-                  >
-                    Next: Configure Deployment →
-                  </Button>
+                  <div className="flex justify-end mt-6">
+                    <Button 
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      onClick={() => setCurrentStep(2)}
+                      disabled={selectedApps.length === 0}
+                    >
+                      Next: Configure Deployment →
+                    </Button>
+                  </div>
                 </AccordionContent>
               </AccordionItem>
               
@@ -715,60 +694,85 @@ function App() {
                           </div>
                         )}
                       </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-medium mb-3">Installation Options</h4>
-                      <div className="space-y-2">
-                        <label className="flex items-center gap-3">
-                          <Checkbox 
-                            checked={deploymentSettings.createShortcuts}
-                            onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, createShortcuts: checked})}
-                          />
-                          <span>Create desktop shortcuts</span>
-                        </label>
-                        <label className="flex items-center gap-3">
-                          <Checkbox 
-                            checked={deploymentSettings.addToStartMenu}
-                            onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, addToStartMenu: checked})}
-                          />
-                          <span>Add to Start menu</span>
-                        </label>
-                        <label className="flex items-center gap-3">
-                          <Checkbox 
-                            checked={deploymentSettings.createRestorePoint}
-                            onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, createRestorePoint: checked})}
-                          />
-                          <span>Create system restore point</span>
-                        </label>
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-medium mb-3">Log Settings</h4>
-                      <div className="space-y-3">
+                      
+                      {/* Conditional options based on deployment type */}
+                      <div className="ml-8 mt-4 space-y-4">
+                        {deploymentSettings.type === 'install' ? (
+                          <div>
+                            <h5 className="font-medium text-sm mb-2">Installation Options</h5>
+                            <div className="space-y-2 pl-4">
+                              <label className="flex items-center gap-3">
+                                <Checkbox 
+                                  checked={deploymentSettings.createShortcuts}
+                                  onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, createShortcuts: checked})}
+                                />
+                                <span className="text-sm">Create desktop shortcuts</span>
+                              </label>
+                              <label className="flex items-center gap-3">
+                                <Checkbox 
+                                  checked={deploymentSettings.addToStartMenu}
+                                  onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, addToStartMenu: checked})}
+                                />
+                                <span className="text-sm">Add to Start menu</span>
+                              </label>
+                              <label className="flex items-center gap-3">
+                                <Checkbox 
+                                  checked={deploymentSettings.createRestorePoint}
+                                  onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, createRestorePoint: checked})}
+                                />
+                                <span className="text-sm">Create system restore point</span>
+                              </label>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <h5 className="font-medium text-sm mb-2">Deployment Configuration</h5>
+                            <div className="space-y-2 pl-4">
+                              <label className="flex items-center gap-3">
+                                <Checkbox 
+                                  checked={deploymentSettings.silentInstall || false}
+                                  onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, silentInstall: checked})}
+                                />
+                                <span className="text-sm">Silent installation</span>
+                              </label>
+                              <label className="flex items-center gap-3">
+                                <Checkbox 
+                                  checked={deploymentSettings.forceReboot || false}
+                                  onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, forceReboot: checked})}
+                                />
+                                <span className="text-sm">Force reboot after installation</span>
+                              </label>
+                            </div>
+                          </div>
+                        )}
+                        
                         <div>
-                          <label className="text-sm font-medium">Log file location</label>
-                          <Input 
-                            value={deploymentSettings.logLocation}
-                            onChange={(e) => setDeploymentSettings({...deploymentSettings, logLocation: e.target.value})}
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium">Network share path</label>
-                          <Input 
-                            value={deploymentSettings.networkPath}
-                            onChange={(e) => setDeploymentSettings({...deploymentSettings, networkPath: e.target.value})}
-                            placeholder="\\\\server\\deployments"
-                            className="mt-1"
-                          />
+                          <h5 className="font-medium text-sm mb-2">Log Settings</h5>
+                          <div className="space-y-3 pl-4">
+                            <div>
+                              <label className="text-sm text-gray-600">Log file location</label>
+                              <Input 
+                                value={deploymentSettings.logLocation}
+                                onChange={(e) => setDeploymentSettings({...deploymentSettings, logLocation: e.target.value})}
+                                className="mt-1 text-sm"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-sm text-gray-600">Network share path</label>
+                              <Input 
+                                value={deploymentSettings.networkPath}
+                                onChange={(e) => setDeploymentSettings({...deploymentSettings, networkPath: e.target.value})}
+                                placeholder="\\\\server\\deployments"
+                                className="mt-1 text-sm"
+                              />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="flex gap-3 mt-6">
+                  <div className="flex gap-3 mt-6 justify-end">
                     <Button 
                       variant="outline"
                       onClick={() => handleSaveDownload(false)}
@@ -997,6 +1001,10 @@ function App() {
     const handleMessage = (event) => {
       if (event.data.type === 'setDemoZoom') {
         setZoom(event.data.zoom);
+        // Also update parent's zoom manager if available
+        if (window.parent && window.parent.demoZoomManager) {
+          window.parent.demoZoomManager.setZoom('custom-install-demo', event.data.zoom * 100);
+        }
       }
     };
     
@@ -1017,6 +1025,18 @@ function App() {
 
   return (
     <ToastProvider>
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}} />
       <DemoWrapper 
         url="manage.autodesk.com/products/deployments"
         browserTheme="mac"
@@ -1042,6 +1062,81 @@ function App() {
               <CreatorView />
             )}
           </div>
+          {/* Multi-select action bar - positioned relative to browser chrome */}
+          {selectedPackages.size > 0 && (
+            <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-lg p-2 z-50">
+              <div className="flex items-center justify-between px-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs text-gray-600">
+                    {selectedPackages.size} package{selectedPackages.size > 1 ? 's' : ''} selected
+                  </span>
+                  <button 
+                    onClick={() => setSelectedPackages(new Set())}
+                    className="text-xs text-blue-600 hover:text-blue-700"
+                  >
+                    Clear selection
+                  </button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    className="h-7 text-xs"
+                    onClick={() => {
+                      const selectedPkgs = packages.filter(p => selectedPackages.has(p.id));
+                      const duplicatedPkgs = selectedPkgs.map(pkg => ({
+                        ...pkg,
+                        id: `${pkg.id}-${Date.now()}`,
+                        name: `${pkg.name} (Copy)`,
+                        isNew: true,
+                        modified: new Date().toLocaleDateString()
+                      }));
+                      setPackages([...duplicatedPkgs, ...packages]);
+                      setSelectedPackages(new Set());
+                      toast({
+                        title: "Packages Duplicated",
+                        description: `${selectedPkgs.length} package${selectedPkgs.length > 1 ? 's' : ''} duplicated successfully.`,
+                      });
+                    }}
+                  >
+                    <Copy className="w-3 h-3 mr-1" />
+                    Duplicate
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    className="h-7 text-xs"
+                    onClick={() => {
+                      toast({
+                        title: "Deploy Packages",
+                        description: `Deploying ${selectedPackages.size} package${selectedPackages.size > 1 ? 's' : ''}...`,
+                      });
+                      setSelectedPackages(new Set());
+                    }}
+                  >
+                    <Package className="w-3 h-3 mr-1" />
+                    Deploy
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    className="h-7 text-xs text-red-600 hover:text-red-700"
+                    onClick={() => {
+                      setPackages(packages.filter(p => !selectedPackages.has(p.id)));
+                      toast({
+                        title: "Packages Deleted",
+                        description: `${selectedPackages.size} package${selectedPackages.size > 1 ? 's' : ''} deleted.`,
+                      });
+                      setSelectedPackages(new Set());
+                    }}
+                  >
+                    <Trash2 className="w-3 h-3 mr-1" />
+                    Delete
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
           <Toaster />
         </div>
       </DemoWrapper>

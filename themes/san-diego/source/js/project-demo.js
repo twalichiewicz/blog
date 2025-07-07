@@ -158,19 +158,26 @@
             // Re-initialize zoom controls to ensure zoom level persists
             const demoComponent = container.getAttribute('data-demo-component') || 'default';
             const currentZoom = demoZoomLevels.get(demoComponent) || 100;
-            const zoomLevelDisplay = container.querySelector('.demo-zoom-level');
-            if (zoomLevelDisplay) {
-                zoomLevelDisplay.textContent = `${currentZoom}%`;
-            }
             
-            // Send current zoom to iframe
-            const iframe = container.querySelector('.demo-inline-iframe');
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage({
-                    type: 'setDemoZoom',
-                    zoom: currentZoom / 100
-                }, '*');
-            }
+            // Update all zoom displays in fullscreen mode
+            setTimeout(() => {
+                const trailerHero = container.closest('.project-trailer-hero');
+                if (trailerHero) {
+                    const zoomDisplays = trailerHero.querySelectorAll('.demo-zoom-level');
+                    zoomDisplays.forEach(display => {
+                        display.textContent = `${currentZoom}%`;
+                    });
+                }
+                
+                // Send current zoom to iframe
+                const iframe = container.querySelector('.demo-inline-iframe');
+                if (iframe && iframe.contentWindow) {
+                    iframe.contentWindow.postMessage({
+                        type: 'setDemoZoom',
+                        zoom: currentZoom / 100
+                    }, '*');
+                }
+            }, 100);
             
             // Update controls for fullscreen mode
             if (controls) {
@@ -346,6 +353,16 @@
     // Store zoom level globally per demo
     const demoZoomLevels = new Map();
     
+    // Global zoom handler that works across all demo instances
+    window.demoZoomManager = {
+        getZoom: function(demoComponent) {
+            return demoZoomLevels.get(demoComponent) || 100;
+        },
+        setZoom: function(demoComponent, zoom) {
+            demoZoomLevels.set(demoComponent, zoom);
+        }
+    };
+    
     // Setup inline demo controls
     function setupInlineDemoControls(container) {
         const fullscreenBtn = container.querySelector('.demo-fullscreen-button');
@@ -382,7 +399,7 @@
         }
         
         // Zoom controls - retrieve persisted zoom or default to 100
-        let currentZoom = demoZoomLevels.get(demoComponent) || 100;
+        let currentZoom = window.demoZoomManager.getZoom(demoComponent);
         const zoomStep = 10;
         const minZoom = 50;
         const maxZoom = 200;
@@ -396,26 +413,26 @@
             currentZoom = Math.max(minZoom, Math.min(maxZoom, newZoom));
             
             // Persist zoom level
-            demoZoomLevels.set(demoComponent, currentZoom);
+            window.demoZoomManager.setZoom(demoComponent, currentZoom);
             
             // Update all zoom displays for this demo (including in fullscreen)
             const trailerHero = container.closest('.project-trailer-hero');
-            const allContainers = trailerHero ? [trailerHero] : [container];
+            const allContainers = trailerHero ? trailerHero.querySelectorAll('.demo-inline-container') : [container];
             allContainers.forEach(cont => {
                 const displays = cont.querySelectorAll('.demo-zoom-level');
                 displays.forEach(display => {
                     display.textContent = `${currentZoom}%`;
                 });
+                
+                // Send zoom message to iframe in each container
+                const iframe = cont.querySelector('.demo-inline-iframe');
+                if (iframe && iframe.contentWindow) {
+                    iframe.contentWindow.postMessage({
+                        type: 'setDemoZoom',
+                        zoom: currentZoom / 100
+                    }, '*');
+                }
             });
-            
-            // Send zoom message to iframe
-            const iframe = container.querySelector('.demo-inline-iframe');
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage({
-                    type: 'setDemoZoom',
-                    zoom: currentZoom / 100
-                }, '*');
-            }
             
             // Play tiny button sound
             if (window.playSmallClickSound) {
