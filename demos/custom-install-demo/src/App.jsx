@@ -238,9 +238,9 @@ function App() {
                       />
                     </th>
                     <th className="text-left p-2 pl-0 font-medium text-[11px] text-gray-700">Package Name</th>
-                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Installs</th>
-                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Created</th>
-                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Modified</th>
+                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Type</th>
+                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Last Saved</th>
+                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Products</th>
                     <th className="w-20"></th>
                   </tr>
                 </thead>
@@ -292,7 +292,7 @@ function App() {
                           />
                         ) : (
                           <span 
-                            className="hover:bg-gray-100 px-2 py-1 rounded cursor-text inline-block"
+                            className="hover:bg-gray-100 px-2 py-1 rounded cursor-text inline-block text-[11px]"
                             onClick={(e) => handleStartEdit(pkg, e)}
                             title="Click to edit"
                           >
@@ -303,9 +303,9 @@ function App() {
                           <span className="ml-2 px-2 py-0.5 text-[10px] bg-black text-white rounded-full">New</span>
                         )}
                       </td>
-                      <td className="p-2 text-[11px] text-gray-600">{pkg.installs.toLocaleString()}</td>
-                      <td className="p-2 text-[11px] text-gray-600">{pkg.created}</td>
+                      <td className="p-2 text-[11px] text-gray-600 capitalize">{pkg.type === 'deployment' ? 'Deploy' : 'Install'}</td>
                       <td className="p-2 text-[11px] text-gray-600">{pkg.modified}</td>
+                      <td className="p-2 text-[11px] text-gray-600">{pkg.type === 'deployment' ? pkg.installs.toLocaleString() : '2'}</td>
                       <td className="p-2 relative">
                         <Button 
                           variant="ghost" 
@@ -536,13 +536,12 @@ function App() {
     return (
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
-          <button 
-            onClick={handleBackToLibrary} 
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-4"
-          >
-            ← Back to Library
-          </button>
-          <h2 className="text-2xl font-light">Create Deployment Package</h2>
+          <div className="text-sm text-gray-600 mb-2">
+            <span className="hover:underline cursor-pointer" onClick={handleBackToLibrary}>Custom Install</span>
+            <span className="mx-2">/</span>
+            <span>{editingPackage ? editingPackage.name : 'Create New Package'}</span>
+          </div>
+          <h2 className="text-2xl font-light">{editingPackage ? editingPackage.name : 'Create Deployment Package'}</h2>
         </div>
 
         <div className="grid grid-cols-[1fr,400px] gap-6">
@@ -875,63 +874,90 @@ function App() {
                     </div>
                     
                     <Accordion type="single" collapsible className="space-y-2">
-                      <AccordionItem value="customization" className="border rounded-lg">
-                        <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
-                          App Customization
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-3">
-                          <div className="space-y-2">
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox defaultChecked />
-                              <span>Express Tools</span>
-                            </label>
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox />
-                              <span>Batch Standards Checker</span>
-                            </label>
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox defaultChecked />
-                              <span>Reference Manager</span>
-                            </label>
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                      
                       <AccordionItem value="extensions" className="border rounded-lg">
                         <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
                           Extensions
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-3">
+                          <div className="text-sm text-gray-500 mb-2">Search and add extensions</div>
+                          <div className="flex gap-2 flex-wrap">
+                            <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
+                              Substance ×
+                            </button>
+                            <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
+                              Civil View ×
+                            </button>
+                            <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
+                              Material Library ×
+                            </button>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                      
+                      <AccordionItem value="plugins" className="border rounded-lg">
+                        <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
+                          Plug-ins
+                        </AccordionTrigger>
+                        <AccordionContent className="px-4 pb-3">
                           <div className="space-y-2">
                             <label className="flex items-center gap-2 text-sm">
                               <Checkbox />
-                              <span>Advance Steel</span>
+                              <span>Autodesk FBX Plug-in</span>
                             </label>
                             <label className="flex items-center gap-2 text-sm">
                               <Checkbox />
-                              <span>MEP Toolkit</span>
+                              <span>Autodesk Material Library</span>
                             </label>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                      
+                      <AccordionItem value="customizations" className="border rounded-lg">
+                        <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
+                          Customizations
+                        </AccordionTrigger>
+                        <AccordionContent className="px-4 pb-3">
+                          <div className="space-y-3">
+                            <label className="flex items-center gap-2 text-sm">
+                              <Checkbox defaultChecked />
+                              <span>Install Vault Microsoft Office/Outlook Add-ins</span>
+                            </label>
+                            <div className="ml-6">
+                              <div className="text-xs text-gray-600 mb-2">Create Desktop Shortcut</div>
+                              <label className="flex items-center gap-2 text-sm">
+                                <Checkbox defaultChecked />
+                                <span>Vault Basic Client</span>
+                              </label>
+                            </div>
                           </div>
                         </AccordionContent>
                       </AccordionItem>
                       
                       <AccordionItem value="languages" className="border rounded-lg">
                         <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
-                          Language Packs
+                          Language packs
                         </AccordionTrigger>
                         <AccordionContent className="px-4 pb-3">
                           <div className="space-y-2">
                             <label className="flex items-center gap-2 text-sm">
                               <Checkbox />
-                              <span>French</span>
+                              <span>Chinese-Simplified Language Pack for Vault 2026</span>
                             </label>
                             <label className="flex items-center gap-2 text-sm">
                               <Checkbox />
-                              <span>German</span>
+                              <span>Chinese-Traditional Language Pack for Vault 2026</span>
                             </label>
                             <label className="flex items-center gap-2 text-sm">
                               <Checkbox />
-                              <span>Spanish</span>
+                              <span>Czech Language Pack for Vault 2026</span>
+                            </label>
+                            <label className="flex items-center gap-2 text-sm">
+                              <Checkbox />
+                              <span>French Language Pack for Vault 2026</span>
+                            </label>
+                            <label className="flex items-center gap-2 text-sm">
+                              <Checkbox />
+                              <span>German Language Pack for Vault 2026</span>
                             </label>
                           </div>
                         </AccordionContent>
