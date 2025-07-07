@@ -536,12 +536,12 @@ function App() {
     return (
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
-          <div className="text-sm text-gray-600 mb-2">
-            <span className="hover:underline cursor-pointer" onClick={handleBackToLibrary}>Custom Install</span>
-            <span className="mx-2">/</span>
-            <span>{editingPackage ? editingPackage.name : 'Create New Package'}</span>
+          <div className="text-sm text-gray-500 mb-4">
+            <span className="text-blue-600 hover:underline cursor-pointer" onClick={handleBackToLibrary}>Custom Install</span>
+            <span className="mx-1 text-gray-400">/</span>
+            <span className="text-gray-700">{editingPackage ? editingPackage.name : 'New Package'}</span>
           </div>
-          <h2 className="text-2xl font-light">{editingPackage ? editingPackage.name : 'Create Deployment Package'}</h2>
+          <h1 className="text-2xl font-medium mb-1">{editingPackage ? editingPackage.name : 'New Package'}</h1>
         </div>
 
         <div className="grid grid-cols-[1fr,400px] gap-6">
@@ -575,16 +575,14 @@ function App() {
                   <div className="mt-4">
                     <div className="mb-4">
                       <div className="flex items-center justify-between mb-2">
-                        <Input 
-                          placeholder="Search applications..."
-                          className="flex-1"
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        {selectedApps.length > 0 && (
-                          <span className="ml-3 text-sm text-gray-600">
-                            {selectedApps.length} selected
-                          </span>
-                        )}
+                        <div className="relative flex-1">
+                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <Input 
+                            placeholder="Search..."
+                            className="pl-10 h-9 text-sm"
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                          />
+                        </div>
                       </div>
                     </div>
                     <div className="border border-gray-200 rounded-lg overflow-hidden">
@@ -647,9 +645,10 @@ function App() {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-4 pb-4">
-                  <div className="space-y-6 mt-4">
+                  <div className="grid grid-cols-[1fr,300px] gap-6 mt-4">
+                    {/* Main Content */}
                     <div>
-                      <h4 className="font-medium mb-3">Deployment Type</h4>
+                      <h4 className="text-sm font-medium mb-2">Deployment Type</h4>
                       <div className="bg-gray-100 p-1 rounded-lg flex mb-4">
                         <button
                           className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
@@ -705,21 +704,21 @@ function App() {
                                   checked={deploymentSettings.createShortcuts}
                                   onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, createShortcuts: checked})}
                                 />
-                                <span className="text-sm">Create desktop shortcuts</span>
+                                <span className="text-xs">Create desktop shortcuts</span>
                               </label>
                               <label className="flex items-center gap-3">
                                 <Checkbox 
                                   checked={deploymentSettings.addToStartMenu}
                                   onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, addToStartMenu: checked})}
                                 />
-                                <span className="text-sm">Add to Start menu</span>
+                                <span className="text-xs">Add to Start menu</span>
                               </label>
                               <label className="flex items-center gap-3">
                                 <Checkbox 
                                   checked={deploymentSettings.createRestorePoint}
                                   onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, createRestorePoint: checked})}
                                 />
-                                <span className="text-sm">Create system restore point</span>
+                                <span className="text-xs">Create system restore point</span>
                               </label>
                             </div>
                           </div>
@@ -732,14 +731,14 @@ function App() {
                                   checked={deploymentSettings.silentInstall || false}
                                   onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, silentInstall: checked})}
                                 />
-                                <span className="text-sm">Silent installation</span>
+                                <span className="text-xs">Silent installation</span>
                               </label>
                               <label className="flex items-center gap-3">
                                 <Checkbox 
                                   checked={deploymentSettings.forceReboot || false}
                                   onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, forceReboot: checked})}
                                 />
-                                <span className="text-sm">Force reboot after installation</span>
+                                <span className="text-xs">Force reboot after installation</span>
                               </label>
                             </div>
                           </div>
@@ -749,7 +748,7 @@ function App() {
                           <h5 className="font-medium text-sm mb-2">Log Settings</h5>
                           <div className="space-y-3 pl-4">
                             <div>
-                              <label className="text-sm text-gray-600">Log file location</label>
+                              <label className="text-xs text-gray-600">Log file location</label>
                               <Input 
                                 value={deploymentSettings.logLocation}
                                 onChange={(e) => setDeploymentSettings({...deploymentSettings, logLocation: e.target.value})}
@@ -757,7 +756,7 @@ function App() {
                               />
                             </div>
                             <div>
-                              <label className="text-sm text-gray-600">Network share path</label>
+                              <label className="text-xs text-gray-600">Network share path</label>
                               <Input 
                                 value={deploymentSettings.networkPath}
                                 onChange={(e) => setDeploymentSettings({...deploymentSettings, networkPath: e.target.value})}
@@ -766,6 +765,31 @@ function App() {
                               />
                             </div>
                           </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Right Sidebar - Deployment Summary */}
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <h4 className="font-medium mb-3">Deployment Summary</h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Type:</span>
+                          <span className="font-medium">{deploymentSettings.type === 'install' ? 'User Install' : 'Admin Deploy'}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Target:</span>
+                          <span className="font-medium">{deploymentSettings.type === 'install' ? 'End Users' : 'IT Admins'}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Method:</span>
+                          <span className="font-medium">{deploymentSettings.type === 'install' ? 'Interactive' : 'Silent'}</span>
+                        </div>
+                        <hr className="my-3" />
+                        <div className="text-xs text-gray-500">
+                          {deploymentSettings.type === 'install' ? 
+                            'Package will include installer wizard for end-user installation' : 
+                            'Package optimized for enterprise deployment tools (SCCM, etc.)'}
                         </div>
                       </div>
                     </div>
@@ -806,11 +830,33 @@ function App() {
                   </div>
                 ) : (
                   <div>
-                    <h3 className="font-medium text-lg mb-4">{products.find(p => p.id === selectedAppForDetails)?.name} Details</h3>
+                    <div className="flex items-center gap-3 mb-4">
+                    <div className={`w-10 h-10 rounded flex items-center justify-center text-xs font-semibold ${
+                      ['bg-blue-100 text-blue-700', 'bg-green-100 text-green-700', 'bg-purple-100 text-purple-700', 
+                       'bg-orange-100 text-orange-700', 'bg-pink-100 text-pink-700'][selectedAppForDetails?.charCodeAt(0) % 5]
+                    }`}>
+                      {products.find(p => p.id === selectedAppForDetails)?.initials}
+                    </div>
+                    <h3 className="font-medium text-base">{products.find(p => p.id === selectedAppForDetails)?.name}</h3>
+                  </div>
                     
                     <div className="space-y-3 mb-6">
                       <div className="py-2 border-b">
-                        <span className="text-gray-600 block mb-3">Version:</span>
+                        <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs text-gray-600">Language:</span>
+                      <Select defaultValue="en">
+                        <SelectTrigger className="w-24 h-7 text-xs">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="en">English</SelectItem>
+                          <SelectItem value="fr">French</SelectItem>
+                          <SelectItem value="de">German</SelectItem>
+                          <SelectItem value="es">Spanish</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <span className="text-xs text-gray-600 block mb-2">Version to install:</span>
                         <div className="space-y-2">
                           <label className="flex items-center gap-2">
                             <input
@@ -822,7 +868,8 @@ function App() {
                                 [selectedAppForDetails]: { type: 'latest', specificVersion: null }
                               }))}
                             />
-                            <span className="text-sm">Latest version (2024.3)</span>
+                            <span className="text-xs">Latest version</span>
+                            <span className="text-xs text-gray-500 ml-auto">{products.find(p => p.id === selectedAppForDetails)?.name}</span>
                           </label>
                           <label className="flex items-center gap-2">
                             <input
@@ -834,20 +881,21 @@ function App() {
                                 [selectedAppForDetails]: { type: 'specific', specificVersion: products.find(p => p.id === selectedAppForDetails)?.versions[0] }
                               }))}
                             />
-                            <span className="text-sm">Specific version</span>
+                            <span className="text-xs">Specific version...</span>
                           </label>
                           {appVersionSettings[selectedAppForDetails]?.type === 'specific' && (
-                            <Select
-                              value={appVersionSettings[selectedAppForDetails]?.specificVersion}
-                              onValueChange={(value) => setAppVersionSettings(prev => ({
-                                ...prev,
-                                [selectedAppForDetails]: { ...prev[selectedAppForDetails], specificVersion: value }
-                              }))}
-                            >
-                              <SelectTrigger className="w-full ml-6">
-                                <SelectValue placeholder="Select version" />
-                              </SelectTrigger>
-                              <SelectContent>
+                            <div className="ml-6 flex justify-end">
+                              <Select
+                                value={appVersionSettings[selectedAppForDetails]?.specificVersion}
+                                onValueChange={(value) => setAppVersionSettings(prev => ({
+                                  ...prev,
+                                  [selectedAppForDetails]: { ...prev[selectedAppForDetails], specificVersion: value }
+                                }))}
+                              >
+                                <SelectTrigger className="w-40 h-7 text-xs">
+                                  <SelectValue placeholder="Select version" />
+                                </SelectTrigger>
+                                <SelectContent>
                                 <div className="px-2 py-1 text-xs text-gray-500 font-medium">2024 Releases</div>
                                 <SelectItem value="2024.3">2024.3</SelectItem>
                                 <SelectItem value="2024.2">2024.2</SelectItem>
@@ -859,17 +907,13 @@ function App() {
                                 <div className="px-2 py-1 text-xs text-gray-500 font-medium">2022 Releases</div>
                                 <SelectItem value="2022.3">2022.3</SelectItem>
                               </SelectContent>
-                            </Select>
+                              </Select>
+                            </div>
                           )}
                         </div>
                       </div>
-                      <div className="flex justify-between py-2 border-b">
-                        <span className="text-gray-600">Language:</span>
-                        <span className="font-medium">English</span>
-                      </div>
-                      <div className="flex justify-between py-2 border-b">
-                        <span className="text-gray-600">License Type:</span>
-                        <span className="font-medium">Network</span>
+                      <div className="text-xs text-gray-500 mt-2">
+                        License managed by Autodesk ID. Users must sign in to access this product.
                       </div>
                     </div>
                     
@@ -1093,7 +1137,7 @@ function App() {
               <div className="flex items-center justify-between px-4">
                 <div className="flex items-center gap-3">
                   <span className="text-xs text-gray-600">
-                    {selectedPackages.size} package{selectedPackages.size > 1 ? 's' : ''} selected
+                    {selectedPackages.size} package{selectedPackages.size > 1 ? 's' : ''} added
                   </span>
                   <button 
                     onClick={() => setSelectedPackages(new Set())}
