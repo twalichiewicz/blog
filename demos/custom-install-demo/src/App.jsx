@@ -11,6 +11,7 @@ import { Search, Plus, MoreHorizontal, ChevronDown, ChevronRight, X, Package, Se
 import { ToastProvider } from './components/ui/toast';
 import { useToast } from './components/use-toast';
 import { Toaster } from './components/Toaster';
+import { ChromePortal } from './components/ChromePortal';
 
 function App() {
   const [currentView, setCurrentView] = useState('library'); // 'library' or 'creator'
@@ -1042,102 +1043,108 @@ function App() {
         browserTheme="mac"
         showBackground={true}
       >
-        <div 
-          ref={demoRef}
-          className="h-full bg-background flex flex-col overflow-hidden font-[Inter]"
-          style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
-        >
-          {/* Simple header */}
-          <header className="bg-foreground text-background flex-shrink-0">
-            <div className="h-14 flex items-center px-6 border-b border-gray-800">
-              <h1 className="text-sm font-medium tracking-wide">AUTODESK ACCOUNT</h1>
-            </div>
-          </header>
+        <div className="relative h-full">
+          <div 
+            ref={demoRef}
+            className="h-full bg-background flex flex-col overflow-hidden font-[Inter]"
+            style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
+          >
+            {/* Simple header */}
+            <header className="bg-foreground text-background flex-shrink-0">
+              <div className="h-14 flex items-center px-6 border-b border-gray-800">
+                <h1 className="text-sm font-medium tracking-wide">AUTODESK ACCOUNT</h1>
+              </div>
+            </header>
 
-          {/* Main content */}
-          <div className="flex-1 overflow-auto p-6">
-            {currentView === 'library' ? (
-              <LibraryView />
-            ) : (
-              <CreatorView />
-            )}
+            {/* Main content */}
+            <div className="flex-1 overflow-auto p-6">
+              {currentView === 'library' ? (
+                <LibraryView />
+              ) : (
+                <CreatorView />
+              )}
+            </div>
           </div>
-          {/* Multi-select action bar - positioned relative to browser chrome */}
-          {selectedPackages.size > 0 && (
-            <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-lg p-2 z-50">
-              <div className="flex items-center justify-between px-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs text-gray-600">
-                    {selectedPackages.size} package{selectedPackages.size > 1 ? 's' : ''} selected
-                  </span>
-                  <button 
-                    onClick={() => setSelectedPackages(new Set())}
-                    className="text-xs text-blue-600 hover:text-blue-700"
-                  >
-                    Clear selection
-                  </button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button 
-                    variant="outline"
-                    size="sm"
-                    className="h-7 text-xs"
-                    onClick={() => {
-                      const selectedPkgs = packages.filter(p => selectedPackages.has(p.id));
-                      const duplicatedPkgs = selectedPkgs.map(pkg => ({
-                        ...pkg,
-                        id: `${pkg.id}-${Date.now()}`,
-                        name: `${pkg.name} (Copy)`,
-                        isNew: true,
-                        modified: new Date().toLocaleDateString()
-                      }));
-                      setPackages([...duplicatedPkgs, ...packages]);
-                      setSelectedPackages(new Set());
-                      toast({
-                        title: "Packages Duplicated",
-                        description: `${selectedPkgs.length} package${selectedPkgs.length > 1 ? 's' : ''} duplicated successfully.`,
-                      });
-                    }}
-                  >
-                    <Copy className="w-3 h-3 mr-1" />
-                    Duplicate
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    size="sm"
-                    className="h-7 text-xs"
-                    onClick={() => {
-                      toast({
-                        title: "Deploy Packages",
-                        description: `Deploying ${selectedPackages.size} package${selectedPackages.size > 1 ? 's' : ''}...`,
-                      });
-                      setSelectedPackages(new Set());
-                    }}
-                  >
-                    <Package className="w-3 h-3 mr-1" />
-                    Deploy
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    size="sm"
-                    className="h-7 text-xs text-red-600 hover:text-red-700"
-                    onClick={() => {
-                      setPackages(packages.filter(p => !selectedPackages.has(p.id)));
-                      toast({
-                        title: "Packages Deleted",
-                        description: `${selectedPackages.size} package${selectedPackages.size > 1 ? 's' : ''} deleted.`,
-                      });
-                      setSelectedPackages(new Set());
-                    }}
-                  >
-                    <Trash2 className="w-3 h-3 mr-1" />
-                    Delete
-                  </Button>
+          
+          {/* Multi-select action bar and Toaster rendered in browser chrome via portal */}
+          <ChromePortal>
+            {selectedPackages.size > 0 && (
+              <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-lg p-2 z-50">
+                <div className="flex items-center justify-between px-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-gray-600">
+                      {selectedPackages.size} package{selectedPackages.size > 1 ? 's' : ''} selected
+                    </span>
+                    <button 
+                      onClick={() => setSelectedPackages(new Set())}
+                      className="text-xs text-blue-600 hover:text-blue-700"
+                    >
+                      Clear selection
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button 
+                      variant="outline"
+                      size="sm"
+                      className="h-7 text-xs"
+                      onClick={() => {
+                        const selectedPkgs = packages.filter(p => selectedPackages.has(p.id));
+                        const duplicatedPkgs = selectedPkgs.map(pkg => ({
+                          ...pkg,
+                          id: `${pkg.id}-${Date.now()}`,
+                          name: `${pkg.name} (Copy)`,
+                          isNew: true,
+                          modified: new Date().toLocaleDateString()
+                        }));
+                        setPackages([...duplicatedPkgs, ...packages]);
+                        setSelectedPackages(new Set());
+                        toast({
+                          title: "Packages Duplicated",
+                          description: `${selectedPkgs.length} package${selectedPkgs.length > 1 ? 's' : ''} duplicated successfully.`,
+                        });
+                      }}
+                    >
+                      <Copy className="w-3 h-3 mr-1" />
+                      Duplicate
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      size="sm"
+                      className="h-7 text-xs"
+                      onClick={() => {
+                        toast({
+                          title: "Deploy Packages",
+                          description: `Deploying ${selectedPackages.size} package${selectedPackages.size > 1 ? 's' : ''}...`,
+                        });
+                        setSelectedPackages(new Set());
+                      }}
+                    >
+                      <Package className="w-3 h-3 mr-1" />
+                      Deploy
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      size="sm"
+                      className="h-7 text-xs text-red-600 hover:text-red-700"
+                      onClick={() => {
+                        setPackages(packages.filter(p => !selectedPackages.has(p.id)));
+                        toast({
+                          title: "Packages Deleted",
+                          description: `${selectedPackages.size} package${selectedPackages.size > 1 ? 's' : ''} deleted.`,
+                        });
+                        setSelectedPackages(new Set());
+                      }}
+                    >
+                      <Trash2 className="w-3 h-3 mr-1" />
+                      Delete
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-          <Toaster />
+            )}
+            {/* Toaster positioned in top-right of browser chrome */}
+            <Toaster />
+          </ChromePortal>
         </div>
       </DemoWrapper>
     </ToastProvider>
