@@ -20,33 +20,43 @@ function App() {
   
   // Generate more realistic random data
   const generateRandomPackages = () => {
-    const products = ['AutoCAD', 'Revit', 'Civil 3D', 'Inventor', 'Navisworks', 'Fusion 360', '3ds Max', 'Maya'];
-    const versions = ['2024', '2023', '2022'];
-    const languages = ['English', 'French', 'German', 'Spanish', 'Italian', 'Japanese'];
-    const statuses = ['Active', 'Testing', 'Archived'];
+    const packageNames = [
+      'Engineering Suite 2024 - Standard',
+      'AEC Collection - Enterprise',
+      'Manufacturing Bundle - Premium',
+      'Media & Entertainment Pack',
+      'Civil Infrastructure Tools',
+      'Product Design Collection',
+      'Architecture Essentials',
+      'Construction Cloud Suite'
+    ];
     
-    return Array(3).fill(null).map((_, i) => {
-      const numProducts = Math.floor(Math.random() * 5) + 1;
-      const selectedProducts = [];
-      for (let j = 0; j < numProducts; j++) {
-        const product = products[Math.floor(Math.random() * products.length)];
-        const version = versions[Math.floor(Math.random() * versions.length)];
-        selectedProducts.push(`${product} ${version}`);
-      }
+    const deploymentNames = [
+      'Q1 2024 Global Rollout',
+      'Engineering Dept Update',
+      'Remote Worker Package',
+      'New Hire Onboarding Kit',
+      'Field Office Deployment',
+      'Design Team Refresh',
+      'Contractor Portal Access',
+      'Student Lab Installation'
+    ];
+    
+    return Array(5).fill(null).map((_, i) => {
+      const isDeployment = Math.random() > 0.5;
+      const name = isDeployment 
+        ? deploymentNames[i % deploymentNames.length]
+        : packageNames[i % packageNames.length];
       
       return {
         id: `pkg-${i + 1}`,
-        name: selectedProducts.join(', '),
-        product: selectedProducts[0].split(' ')[0],
-        version: selectedProducts[0].split(' ')[1],
-        language: languages[Math.floor(Math.random() * languages.length)],
-        type: Math.random() > 0.5 ? 'deployment' : 'install',
+        name: name,
+        installs: Math.floor(Math.random() * 10000) + 100,
+        type: isDeployment ? 'deployment' : 'package',
         created: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString(),
         modified: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
-        deployments: Math.floor(Math.random() * 500) + 10,
-        status: statuses[Math.floor(Math.random() * statuses.length)],
-        products: numProducts,
-        shared: Math.random() > 0.7
+        status: Math.random() > 0.8 ? 'active' : 'inactive',
+        isNew: false
       };
     });
   };
@@ -55,6 +65,8 @@ function App() {
   const [editingPackage, setEditingPackage] = useState(null);
   const [selectedPackages, setSelectedPackages] = useState(new Set());
   const [selectedApps, setSelectedApps] = useState([]);
+  const [selectedAppForDetails, setSelectedAppForDetails] = useState(null);
+  const [appVersionSettings, setAppVersionSettings] = useState({});
   const [customizations, setCustomizations] = useState({});
   const [deploymentSettings, setDeploymentSettings] = useState({
     type: 'install',
@@ -64,6 +76,7 @@ function App() {
     logLocation: '%TEMP%\\Autodesk\\Install.log',
     networkPath: ''
   });
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleCreateNew = () => {
     setEditingPackage(null);
@@ -83,7 +96,7 @@ function App() {
     if (editingPackage) {
       setPackages(packages.map(p => p.id === editingPackage.id ? { ...p, ...newPackage } : p));
     } else {
-      setPackages([...packages, { ...newPackage, id: Date.now().toString() }]);
+      setPackages([...packages, { ...newPackage, id: Date.now().toString(), isNew: true }]);
     }
     setCurrentView('library');
     setCurrentStep(1);
@@ -98,6 +111,7 @@ function App() {
     const newPackage = {
       ...pkg,
       id: Date.now().toString(),
+      isNew: true,
       name: `${pkg.name} (Copy)`,
       modified: new Date().toLocaleDateString()
     };
@@ -217,7 +231,7 @@ function App() {
                       />
                     </th>
                     <th className="text-left p-4 font-medium text-sm text-gray-700">Package Name</th>
-                    <th className="text-left p-4 font-medium text-sm text-gray-700">Product</th>
+                    <th className="text-left p-4 font-medium text-sm text-gray-700">Installs</th>
                     <th className="text-left p-4 font-medium text-sm text-gray-700">Created</th>
                     <th className="text-left p-4 font-medium text-sm text-gray-700">Modified</th>
                     <th className="w-20"></th>
@@ -228,8 +242,14 @@ function App() {
                     <tr 
                       key={pkg.id} 
                       className="border-b hover:bg-gray-50 cursor-pointer relative group"
-                      onMouseEnter={() => setHoveredRow(pkg.id)}
+                      onMouseEnter={() => {
+                        setHoveredRow(pkg.id);
+                        if (pkg.isNew) {
+                          setPackages(packages.map(p => p.id === pkg.id ? { ...p, isNew: false } : p));
+                        }
+                      }}
                       onMouseLeave={() => setHoveredRow(null)}
+                      onClick={() => handleEditPackage(pkg)}
                     >
                       <td className="p-4">
                         <Checkbox 
@@ -266,8 +286,11 @@ function App() {
                             {pkg.name}
                           </span>
                         )}
+                        {pkg.isNew && (
+                          <span className="ml-2 px-2 py-0.5 text-xs bg-blue-100 text-blue-700 rounded-full">New</span>
+                        )}
                       </td>
-                      <td className="p-4 text-gray-600">{pkg.product}</td>
+                      <td className="p-4 text-gray-600">{pkg.installs.toLocaleString()}</td>
                       <td className="p-4 text-gray-600">{pkg.created}</td>
                       <td className="p-4 text-gray-600">{pkg.modified}</td>
                       <td className="p-4 relative">
@@ -280,8 +303,8 @@ function App() {
                           <MoreHorizontal className="w-4 h-4" />
                         </Button>
                         
-                        {/* Hover menu that expands from right to left */}
-                        <div className={`absolute right-full mr-2 top-1/2 -translate-y-1/2 flex items-center gap-1 bg-white border border-gray-200 rounded-md shadow-lg p-1 transition-all duration-200 z-50 ${
+                        {/* Hover menu aligned with kebab */}
+                        <div className={`absolute right-8 top-1/2 -translate-y-1/2 flex items-center gap-1 bg-white border border-gray-200 rounded-md shadow-lg p-1 transition-all duration-200 z-50 ${
                           hoveredRow === pkg.id ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2 pointer-events-none'
                         }`}>
                           <Button
@@ -362,9 +385,19 @@ function App() {
                     <Button 
                       variant="outline"
                       onClick={() => {
+                        const selectedPkgs = packages.filter(p => selectedPackages.has(p.id));
+                        const duplicatedPkgs = selectedPkgs.map(pkg => ({
+                          ...pkg,
+                          id: `${pkg.id}-${Date.now()}`,
+                          name: `${pkg.name} (Copy)`,
+                          isNew: true,
+                          modified: new Date().toLocaleDateString()
+                        }));
+                        setPackages([...packages, ...duplicatedPkgs]);
+                        setSelectedPackages(new Set());
                         toast({
-                          title: "Duplicate Packages",
-                          description: `Duplicating ${selectedPackages.size} packages...`,
+                          title: "Packages Duplicated",
+                          description: `Successfully duplicated ${selectedPkgs.length} package${selectedPkgs.length > 1 ? 's' : ''}`,
                         });
                       }}
                     >
@@ -372,14 +405,19 @@ function App() {
                     </Button>
                     <Button 
                       variant="outline"
+                      className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
                       onClick={() => {
+                        const toDelete = selectedPackages.size;
+                        setPackages(packages.filter(p => !selectedPackages.has(p.id)));
+                        setSelectedPackages(new Set());
                         toast({
-                          title: "Archive Packages",
-                          description: `Archiving ${selectedPackages.size} packages...`,
+                          title: "Packages Deleted",
+                          description: `Successfully deleted ${toDelete} package${toDelete > 1 ? 's' : ''}`,
                         });
                       }}
                     >
-                      Archive
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Delete
                     </Button>
                     <Button 
                       className="bg-black hover:bg-gray-800 text-white"
@@ -413,16 +451,62 @@ function App() {
   // Creator View Component
   const CreatorView = () => {
     const { toast } = useToast();
-    const products = [
-      { id: 'autocad', name: 'AutoCAD 2024', icon: '🔧' },
-      { id: 'revit', name: 'Revit 2024', icon: '🏗️' },
-      { id: 'civil3d', name: 'Civil 3D 2024', icon: '🛣️' },
-      { id: 'inventor', name: 'Inventor 2024', icon: '⚙️' },
-      { id: 'navisworks', name: 'Navisworks 2024', icon: '🔍' },
-      { id: 'fusion360', name: 'Fusion 360', icon: '🔄' },
-      { id: '3dsmax', name: '3ds Max 2024', icon: '🎨' },
-      { id: 'maya', name: 'Maya 2024', icon: '🎬' }
-    ];
+    // Generate a comprehensive list of Autodesk products
+    const generateProducts = () => {
+      const productList = [
+        { id: 'autocad', name: 'AutoCAD', initials: 'AC', category: 'Design' },
+        { id: 'revit', name: 'Revit', initials: 'RV', category: 'Architecture' },
+        { id: 'civil3d', name: 'Civil 3D', initials: 'C3D', category: 'Infrastructure' },
+        { id: 'inventor', name: 'Inventor', initials: 'IV', category: 'Manufacturing' },
+        { id: 'navisworks', name: 'Navisworks', initials: 'NW', category: 'Construction' },
+        { id: 'fusion360', name: 'Fusion 360', initials: 'F360', category: 'Manufacturing' },
+        { id: '3dsmax', name: '3ds Max', initials: '3DS', category: 'Media' },
+        { id: 'maya', name: 'Maya', initials: 'MY', category: 'Media' },
+        { id: 'autocadlt', name: 'AutoCAD LT', initials: 'ALT', category: 'Design' },
+        { id: 'advance-steel', name: 'Advance Steel', initials: 'AS', category: 'Manufacturing' },
+        { id: 'alias', name: 'Alias', initials: 'AL', category: 'Design' },
+        { id: 'arnold', name: 'Arnold', initials: 'AR', category: 'Media' },
+        { id: 'bim-collaborate', name: 'BIM Collaborate', initials: 'BC', category: 'Construction' },
+        { id: 'cfd', name: 'CFD', initials: 'CFD', category: 'Simulation' },
+        { id: 'flame', name: 'Flame', initials: 'FL', category: 'Media' },
+        { id: 'formit', name: 'FormIt', initials: 'FI', category: 'Architecture' },
+        { id: 'helius', name: 'Helius PFA', initials: 'HP', category: 'Simulation' },
+        { id: 'infraworks', name: 'InfraWorks', initials: 'IW', category: 'Infrastructure' },
+        { id: 'motionbuilder', name: 'MotionBuilder', initials: 'MB', category: 'Media' },
+        { id: 'mudbox', name: 'Mudbox', initials: 'MX', category: 'Media' },
+        { id: 'netfabb', name: 'Netfabb', initials: 'NF', category: 'Manufacturing' },
+        { id: 'powerinspect', name: 'PowerInspect', initials: 'PI', category: 'Manufacturing' },
+        { id: 'powermill', name: 'PowerMill', initials: 'PM', category: 'Manufacturing' },
+        { id: 'powershape', name: 'PowerShape', initials: 'PS', category: 'Manufacturing' },
+        { id: 'recap', name: 'ReCap', initials: 'RC', category: 'Reality Capture' },
+        { id: 'robot', name: 'Robot Structural', initials: 'RS', category: 'Infrastructure' },
+        { id: 'showcase', name: 'Showcase', initials: 'SC', category: 'Design' },
+        { id: 'shotgrid', name: 'ShotGrid', initials: 'SG', category: 'Media' },
+        { id: 'sketchbook', name: 'SketchBook', initials: 'SB', category: 'Design' },
+        { id: 'stingray', name: 'Stingray', initials: 'SR', category: 'Media' },
+        { id: 'structural-bridge', name: 'Structural Bridge', initials: 'SBD', category: 'Infrastructure' },
+        { id: 'vault', name: 'Vault', initials: 'VT', category: 'Data Management' },
+        { id: 'vred', name: 'VRED', initials: 'VR', category: 'Manufacturing' },
+      ];
+      
+      // Add more products to reach 100+
+      const additionalProducts = [];
+      for (let i = 1; i <= 70; i++) {
+        additionalProducts.push({
+          id: `product-${i}`,
+          name: `Product ${i}`,
+          initials: `P${i}`,
+          category: ['Design', 'Architecture', 'Manufacturing', 'Media', 'Infrastructure'][i % 5]
+        });
+      }
+      
+      return [...productList, ...additionalProducts].map(p => ({
+        ...p,
+        versions: ['2024.3', '2024.2', '2024.1', '2023.3', '2023.2', '2023.1', '2022.3']
+      }));
+    };
+    
+    const products = generateProducts();
 
     const toggleApp = (appId) => {
       setSelectedApps(prev =>
@@ -430,6 +514,17 @@ function App() {
           ? prev.filter(id => id !== appId)
           : [...prev, appId]
       );
+    };
+    
+    const handleAppClick = (appId) => {
+      setSelectedAppForDetails(appId);
+      // Initialize version settings if not exists
+      if (!appVersionSettings[appId]) {
+        setAppVersionSettings(prev => ({
+          ...prev,
+          [appId]: { type: 'latest', specificVersion: null }
+        }));
+      }
     };
     
     const handleSaveDownload = async (isDownload) => {
@@ -495,29 +590,45 @@ function App() {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-6">
-                  <div className="grid grid-cols-2 gap-4 mt-4">
-                    {products.map((app) => (
-                      <div 
-                        key={app.id}
-                        className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
-                          selectedApps.includes(app.id) 
-                            ? 'border-blue-600 bg-blue-50' 
-                            : 'border-gray-200 hover:border-gray-300'
-                        }`}
-                        onClick={() => toggleApp(app.id)}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="text-2xl">{app.icon}</div>
-                          <div className="flex-1">
-                            <div className="font-medium">{app.name}</div>
+                  <div className="mt-4">
+                    <div className="mb-4">
+                      <Input 
+                        placeholder="Search applications..."
+                        className="w-full"
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                      />
+                    </div>
+                    <div className="border border-gray-200 rounded-lg overflow-hidden">
+                      <div className="max-h-96 overflow-y-auto">
+                        {products
+                          .filter(app => !searchTerm || app.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                          .map((app) => (
+                          <div 
+                            key={app.id}
+                            className={`flex items-center gap-3 p-3 border-b border-gray-100 cursor-pointer hover:bg-gray-50 ${
+                              selectedAppForDetails === app.id ? 'bg-gray-50' : ''
+                            }`}
+                            onClick={() => handleAppClick(app.id)}
+                          >
+                            <Checkbox 
+                              checked={selectedApps.includes(app.id)}
+                              onCheckedChange={() => toggleApp(app.id)}
+                              onClick={(e) => e.stopPropagation()}
+                            />
+                            <div className={`w-10 h-10 rounded flex items-center justify-center text-xs font-semibold ${
+                              ['bg-blue-100 text-blue-700', 'bg-green-100 text-green-700', 'bg-purple-100 text-purple-700', 
+                               'bg-orange-100 text-orange-700', 'bg-pink-100 text-pink-700'][app.id.charCodeAt(0) % 5]
+                            }`}>
+                              {app.initials}
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-medium text-sm">{app.name}</div>
+                              <div className="text-xs text-gray-500">{app.category}</div>
+                            </div>
                           </div>
-                          <Checkbox 
-                            checked={selectedApps.includes(app.id)}
-                            onCheckedChange={() => toggleApp(app.id)}
-                          />
-                        </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
                   <Button 
                     className="mt-6 bg-blue-600 hover:bg-blue-700 text-white"
@@ -657,21 +768,71 @@ function App() {
             {currentStep === 1 ? (
               /* Product Details */
               <div className="bg-white border border-gray-200 rounded-lg p-6">
-                {selectedApps.length === 0 ? (
+                {selectedAppForDetails === null ? (
                   <div className="text-center py-8">
                     <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                       <Package className="w-6 h-6 text-gray-400" />
                     </div>
-                    <p className="text-gray-500">Select an application to view details</p>
+                    <p className="text-gray-500">Click on an application to view details</p>
                   </div>
                 ) : (
                   <div>
-                    <h3 className="font-medium text-lg mb-4">{products.find(p => p.id === selectedApps[0])?.name} Details</h3>
+                    <h3 className="font-medium text-lg mb-4">{products.find(p => p.id === selectedAppForDetails)?.name} Details</h3>
                     
                     <div className="space-y-3 mb-6">
-                      <div className="flex justify-between py-2 border-b">
-                        <span className="text-gray-600">Version:</span>
-                        <span className="font-medium">2024.1.2</span>
+                      <div className="py-2 border-b">
+                        <span className="text-gray-600 block mb-3">Version:</span>
+                        <div className="space-y-2">
+                          <label className="flex items-center gap-2">
+                            <input
+                              type="radio"
+                              name={`version-${selectedAppForDetails}`}
+                              checked={appVersionSettings[selectedAppForDetails]?.type === 'latest'}
+                              onChange={() => setAppVersionSettings(prev => ({
+                                ...prev,
+                                [selectedAppForDetails]: { type: 'latest', specificVersion: null }
+                              }))}
+                            />
+                            <span className="text-sm">Latest version (2024.3)</span>
+                          </label>
+                          <label className="flex items-center gap-2">
+                            <input
+                              type="radio"
+                              name={`version-${selectedAppForDetails}`}
+                              checked={appVersionSettings[selectedAppForDetails]?.type === 'specific'}
+                              onChange={() => setAppVersionSettings(prev => ({
+                                ...prev,
+                                [selectedAppForDetails]: { type: 'specific', specificVersion: products.find(p => p.id === selectedAppForDetails)?.versions[0] }
+                              }))}
+                            />
+                            <span className="text-sm">Specific version</span>
+                          </label>
+                          {appVersionSettings[selectedAppForDetails]?.type === 'specific' && (
+                            <Select
+                              value={appVersionSettings[selectedAppForDetails]?.specificVersion}
+                              onValueChange={(value) => setAppVersionSettings(prev => ({
+                                ...prev,
+                                [selectedAppForDetails]: { ...prev[selectedAppForDetails], specificVersion: value }
+                              }))}
+                            >
+                              <SelectTrigger className="w-full ml-6">
+                                <SelectValue placeholder="Select version" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <div className="px-2 py-1 text-xs text-gray-500 font-medium">2024 Releases</div>
+                                <SelectItem value="2024.3">2024.3</SelectItem>
+                                <SelectItem value="2024.2">2024.2</SelectItem>
+                                <SelectItem value="2024.1">2024.1</SelectItem>
+                                <div className="px-2 py-1 text-xs text-gray-500 font-medium">2023 Releases</div>
+                                <SelectItem value="2023.3">2023.3</SelectItem>
+                                <SelectItem value="2023.2">2023.2</SelectItem>
+                                <SelectItem value="2023.1">2023.1</SelectItem>
+                                <div className="px-2 py-1 text-xs text-gray-500 font-medium">2022 Releases</div>
+                                <SelectItem value="2022.3">2022.3</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          )}
+                        </div>
                       </div>
                       <div className="flex justify-between py-2 border-b">
                         <span className="text-gray-600">Language:</span>
