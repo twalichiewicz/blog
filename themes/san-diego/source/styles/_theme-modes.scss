@@ -366,8 +366,7 @@
 					variables.$shadow-soft-dark,
 					0 0 20px rgba(variables.$link-color-dark, 0.05);
 
-				/* Subtle border highlight */
-				border: 1px solid rgba(variables.$link-color-dark, 0.1);
+				/* Border removed - handled by blog-content-borders.scss */
 
 				#postsContent,
 				#projectsContent {
@@ -1136,8 +1135,7 @@
 					variables.$shadow-soft,
 					0 0 20px rgba(variables.$accent-gold, 0.05);
 
-				/* Subtle border highlight */
-				border: 1px solid rgba(variables.$accent-gold, 0.1);
+				/* Border removed - handled by blog-content-borders.scss */
 			}
 		}
 
