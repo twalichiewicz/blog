@@ -14,22 +14,22 @@
     // Light mode
     @media (prefers-color-scheme: light) {
       border: none;
-      border-top: 1px solid rgba(0, 0, 0, 0.03);
-      border-left: 1px solid rgba(0, 0, 0, 0.03);
+      border-top: 1px solid #CCC;
+      border-left: 1px solid #CCC;
     }
     
     // Dark mode
     @media (prefers-color-scheme: dark) {
       border: none;
-      border-top: 1px solid rgb(255 255 255 / 5%);
-      border-left: 1px solid rgb(255 255 255 / 5%);
+      border-top: 1px solid #3f3f3f;
+      border-left: 1px solid #3f3f3f;
     }
     
     // Default to light mode for systems without preference
     @media not all and (prefers-color-scheme) {
       border: none;
-      border-top: 1px solid rgba(0, 0, 0, 0.03);
-      border-left: 1px solid rgba(0, 0, 0, 0.03);
+      border-top: 1px solid #CCC;
+      border-left: 1px solid #CCC;
     }
   }
 }
@@ -40,22 +40,22 @@
     // Light mode
     @media (prefers-color-scheme: light) {
       border: none;
-      border-top: 1px solid rgba(0, 0, 0, 0.03);
-      border-left: 1px solid rgba(0, 0, 0, 0.03);
+      border-top: 1px solid #CCC;
+      border-left: 1px solid #CCC;
     }
     
     // Dark mode
     @media (prefers-color-scheme: dark) {
       border: none;
-      border-top: 1px solid rgb(255 255 255 / 5%);
-      border-left: 1px solid rgb(255 255 255 / 5%);
+      border-top: 1px solid #3f3f3f;
+      border-left: 1px solid #3f3f3f;
     }
     
     // Default to light mode for systems without preference
     @media not all and (prefers-color-scheme) {
       border: none;
-      border-top: 1px solid rgba(0, 0, 0, 0.03);
-      border-left: 1px solid rgba(0, 0, 0, 0.03);
+      border-top: 1px solid #CCC;
+      border-left: 1px solid #CCC;
     }
   }
 }
