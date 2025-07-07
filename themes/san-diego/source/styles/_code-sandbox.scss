@@ -66,6 +66,27 @@
     }
   }
   
+  // Show/hide logos based on color scheme
+  .code-sandbox-logo-light {
+    display: block;
+    width: 14px;
+    height: 14px;
+    
+    @media (prefers-color-scheme: dark) {
+      display: none;
+    }
+  }
+  
+  .code-sandbox-logo-dark {
+    display: none;
+    width: 14px;
+    height: 14px;
+    
+    @media (prefers-color-scheme: dark) {
+      display: block;
+    }
+  }
+  
   span {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
     font-size: 11px;
