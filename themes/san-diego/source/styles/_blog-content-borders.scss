@@ -34,6 +34,32 @@
   }
 }
 
+// Tablet-specific borders for device-tablet class
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  .device-tablet .blog .blog-content {
+    // Light mode
+    @media (prefers-color-scheme: light) {
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.03);
+      border-left: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    
+    // Dark mode
+    @media (prefers-color-scheme: dark) {
+      border: none;
+      border-top: 1px solid rgb(255 255 255 / 5%);
+      border-left: 1px solid rgb(255 255 255 / 5%);
+    }
+    
+    // Default to light mode for systems without preference
+    @media not all and (prefers-color-scheme) {
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.03);
+      border-left: 1px solid rgba(0, 0, 0, 0.03);
+    }
+  }
+}
+
 // Ensure no borders on mobile
 @media (max-width: variables.$mobile-breakpoint) {
   .blog .blog-content.has-dynamic-content,
