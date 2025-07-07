@@ -42,8 +42,7 @@
     @apply border-border;
   }
   body {
-    @apply text-foreground;
-    background-color: transparent;
+    @apply bg-background text-foreground;
   }
 }
 
