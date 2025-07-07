@@ -7,7 +7,7 @@ import { Checkbox } from './components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './components/ui/accordion';
-import { Search, Plus, MoreHorizontal, ChevronDown, ChevronRight, X, ZoomIn, ZoomOut, Maximize2, Package, Settings, Download, Save, Check, Trash2, Copy, Edit3 } from 'lucide-react';
+import { Search, Plus, MoreHorizontal, ChevronDown, ChevronRight, X, Package, Settings, Download, Save, Check, Trash2, Copy, Edit3 } from 'lucide-react';
 import { ToastProvider } from './components/ui/toast';
 import { useToast } from './components/use-toast';
 import { Toaster } from './components/Toaster';
@@ -16,7 +16,6 @@ function App() {
   const [currentView, setCurrentView] = useState('library'); // 'library' or 'creator'
   const [currentStep, setCurrentStep] = useState(1);
   const [zoom, setZoom] = useState(1);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const demoRef = useRef(null);
   
   // Generate more realistic random data
@@ -112,33 +111,6 @@ function App() {
   const handleRenamePackage = (id, newName) => {
     setPackages(packages.map(p => p.id === id ? { ...p, name: newName } : p));
   };
-  
-  // Zoom and fullscreen handlers
-  const handleZoomIn = () => setZoom(Math.min(zoom + 0.1, 2));
-  const handleZoomOut = () => setZoom(Math.max(zoom - 0.1, 0.5));
-  const handleZoomReset = () => setZoom(1);
-  
-  const handleFullscreen = () => {
-    if (!isFullscreen) {
-      if (demoRef.current?.requestFullscreen) {
-        demoRef.current.requestFullscreen();
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
-    }
-    setIsFullscreen(!isFullscreen);
-  };
-  
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
-    
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
-  }, []);
 
   // Library View Component
   const LibraryView = () => {
@@ -816,64 +788,37 @@ function App() {
   };
 
 
+  // Listen for zoom messages from parent window
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.data.type === 'setDemoZoom') {
+        setZoom(event.data.zoom);
+      }
+    };
+    
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
   return (
     <ToastProvider>
       <div 
         ref={demoRef}
-        className={`relative transition-all duration-500 ease-in-out ${
-          isFullscreen ? 'fixed inset-0 z-50 bg-gray-100' : ''
-        }`}
+        className="transition-transform origin-center"
+        style={{ transform: `scale(${zoom})` }}
       >
-        {/* Zoom and Fullscreen Controls */}
-        <div className="absolute top-4 right-4 z-50 flex gap-2">
-          <div className="flex bg-white border border-gray-200 rounded-lg divide-x divide-gray-200">
-            <button
-              onClick={handleZoomOut}
-              className="p-2 hover:bg-gray-50 transition-colors"
-              title="Zoom Out"
-            >
-              <ZoomOut className="w-4 h-4" />
-            </button>
-            <button
-              onClick={handleZoomReset}
-              className="px-3 py-2 hover:bg-gray-50 transition-colors text-sm font-medium"
-              title="Reset Zoom"
-            >
-              {Math.round(zoom * 100)}%
-            </button>
-            <button
-              onClick={handleZoomIn}
-              className="p-2 hover:bg-gray-50 transition-colors"
-              title="Zoom In"
-            >
-              <ZoomIn className="w-4 h-4" />
-            </button>
-          </div>
-          <button
-            onClick={handleFullscreen}
-            className="p-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-            title="Toggle Fullscreen"
-          >
-            <Maximize2 className="w-4 h-4" />
-          </button>
-        </div>
-        
-        <div 
-          className="transition-transform origin-center"
-          style={{ transform: `scale(${zoom})` }}
+        <DemoWrapper 
+          url="manage.autodesk.com/products/deployments"
+          browserTheme="mac"
+          showBackground={true}
         >
-          <DemoWrapper 
-            url="manage.autodesk.com/products/deployments"
-            browserTheme="mac"
-            showBackground={false}
-          >
-            <div className="h-full bg-background">
-              {/* Simple header */}
-              <header className="bg-foreground text-background">
-                <div className="h-14 flex items-center px-6 border-b border-gray-800">
-                  <h1 className="text-sm font-medium tracking-wide">AUTODESK DEPLOY AT SCALE</h1>
-                </div>
-              </header>
+          <div className="h-full bg-background">
+            {/* Simple header */}
+            <header className="bg-foreground text-background">
+              <div className="h-14 flex items-center px-6 border-b border-gray-800">
+                <h1 className="text-sm font-medium tracking-wide">AUTODESK DEPLOY AT SCALE</h1>
+              </div>
+            </header>
 
           {/* Main content */}
           <div className="p-6">
@@ -885,7 +830,6 @@ function App() {
           </div>
         </div>
       </DemoWrapper>
-        </div>
       </div>
       <Toaster />
     </ToastProvider>
