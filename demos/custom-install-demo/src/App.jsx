@@ -279,7 +279,7 @@ function App() {
                           onClick={(e) => e.stopPropagation()}
                         />
                       </td>
-                      <td className="p-2 pl-0 relative">
+                      <td className="p-2 pl-0 relative text-[11px]">
                         {editingName === pkg.id ? (
                           <Input
                             value={tempName}
@@ -287,12 +287,12 @@ function App() {
                             onBlur={() => handleSaveEdit(pkg.id)}
                             onKeyDown={(e) => handleKeyDown(e, pkg.id)}
                             onClick={(e) => e.stopPropagation()}
-                            className="h-8 px-2"
+                            className="h-8 px-2 text-[11px]"
                             autoFocus
                           />
                         ) : (
                           <span 
-                            className="hover:bg-gray-100 px-2 py-1 rounded cursor-text inline-block text-[11px]"
+                            className="hover:bg-gray-100 px-2 py-1 rounded cursor-text inline-block"
                             onClick={(e) => handleStartEdit(pkg, e)}
                             title="Click to edit"
                           >
