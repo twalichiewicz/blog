@@ -155,6 +155,23 @@
             trailerHero.classList.add('demo-fullscreen');
             document.body.classList.add('demo-fullscreen-active');
             
+            // Re-initialize zoom controls to ensure zoom level persists
+            const demoComponent = container.getAttribute('data-demo-component') || 'default';
+            const currentZoom = demoZoomLevels.get(demoComponent) || 100;
+            const zoomLevelDisplay = container.querySelector('.demo-zoom-level');
+            if (zoomLevelDisplay) {
+                zoomLevelDisplay.textContent = `${currentZoom}%`;
+            }
+            
+            // Send current zoom to iframe
+            const iframe = container.querySelector('.demo-inline-iframe');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({
+                    type: 'setDemoZoom',
+                    zoom: currentZoom / 100
+                }, '*');
+            }
+            
             // Update controls for fullscreen mode
             if (controls) {
                 // Update existing controls
@@ -249,6 +266,23 @@
             // Exit fullscreen
             trailerHero.classList.remove('demo-fullscreen');
             document.body.classList.remove('demo-fullscreen-active');
+            
+            // Ensure zoom level persists when exiting fullscreen
+            const demoComponent = container.getAttribute('data-demo-component') || 'default';
+            const currentZoom = demoZoomLevels.get(demoComponent) || 100;
+            const zoomLevelDisplay = container.querySelector('.demo-zoom-level');
+            if (zoomLevelDisplay) {
+                zoomLevelDisplay.textContent = `${currentZoom}%`;
+            }
+            
+            // Send current zoom to iframe
+            const iframe = container.querySelector('.demo-inline-iframe');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({
+                    type: 'setDemoZoom',
+                    zoom: currentZoom / 100
+                }, '*');
+            }
             
             // Restore original position if it was moved
             const originalParentId = trailerHero.dataset.originalParent;
