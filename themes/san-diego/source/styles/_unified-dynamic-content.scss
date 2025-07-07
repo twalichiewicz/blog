@@ -89,6 +89,9 @@
 
 // Parent container adjustments when dynamic content is loaded
 .blog-content[data-has-dynamic-content="true"] {
+  // Ensure border-radius is maintained for dynamic content
+  border-radius: 12px 0 0 0;
+  
   // Desktop/Tablet
   @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
     display: flex;
