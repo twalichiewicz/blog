@@ -799,6 +799,17 @@ function App() {
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
   }, []);
+  
+  // Apply zoom as root font size change for proper browser-style zoom
+  useEffect(() => {
+    // Default browser font size is 16px, so we scale from there
+    const rootFontSize = 16 * zoom;
+    document.documentElement.style.fontSize = `${rootFontSize}px`;
+    
+    return () => {
+      document.documentElement.style.fontSize = '';
+    };
+  }, [zoom]);
 
   return (
     <ToastProvider>
@@ -809,18 +820,17 @@ function App() {
       >
         <div 
           ref={demoRef}
-          className="h-full bg-background transition-transform origin-center"
-          style={{ transform: `scale(${zoom})` }}
+          className="h-full bg-background flex flex-col overflow-hidden"
         >
           {/* Simple header */}
-          <header className="bg-foreground text-background">
+          <header className="bg-foreground text-background flex-shrink-0">
             <div className="h-14 flex items-center px-6 border-b border-gray-800">
               <h1 className="text-sm font-medium tracking-wide">AUTODESK DEPLOY AT SCALE</h1>
             </div>
           </header>
 
           {/* Main content */}
-          <div className="p-6">
+          <div className="flex-1 overflow-auto p-6">
             {currentView === 'library' ? (
               <LibraryView />
             ) : (
