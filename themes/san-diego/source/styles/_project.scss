@@ -16,12 +16,12 @@ body .project-edge-wrapper,
 .project-edge-wrapper {
 	// Remove all borders from project-edge-wrapper
 	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-		border: none !important;
-		border-radius: 12px 0 0 0;
+		border: none;
+		border-radius: none;
 		background: variables.$card-bg;
 		
 		@media (prefers-color-scheme: dark) {
-			border: none !important;
+			border: none;
 			background: rgb(24, 24, 24);
 		}
 	}
@@ -88,7 +88,8 @@ body .project-edge-wrapper {
 	.blog-content {
 		// Desktop/tablet: Only structural styles, no borders
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-			border-radius: 12px 0 0 0;
+			// No border-radius since we only have top/left borders
+			border-radius: 0;
 			margin: 12px;
 			background: variables.$white;
 			height: auto; // Override default blog-content height
