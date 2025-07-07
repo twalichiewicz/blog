@@ -25,7 +25,7 @@ body {
 			left: 20px;
 			width: 20px;
 			height: 20px;
-			background-image: url('/img/TWDesignLogo.svg');
+			background-image: url('/img/triglavis_light.svg');
 			background-size: contain;
 			background-repeat: no-repeat;
 			background-position: center;
@@ -58,6 +58,7 @@ body {
 		// Adjust brand mark for dark mode
 		@media (min-width: 768px) {
 			&::before {
+				background-image: url('/img/triglavis_dark.svg');
 				filter: none;
 				opacity: 0.08;
 				// Adjust inner shadows for dark mode - more subtle highlights
