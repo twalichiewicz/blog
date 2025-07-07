@@ -25,7 +25,7 @@ function App() {
     const languages = ['English', 'French', 'German', 'Spanish', 'Italian', 'Japanese'];
     const statuses = ['Active', 'Testing', 'Archived'];
     
-    return Array(15).fill(null).map((_, i) => {
+    return Array(3).fill(null).map((_, i) => {
       const numProducts = Math.floor(Math.random() * 5) + 1;
       const selectedProducts = [];
       for (let j = 0; j < numProducts; j++) {
@@ -149,7 +149,7 @@ function App() {
     return (
       <div className="max-w-7xl mx-auto">
         <div className="mb-6">
-          <h2 className="text-2xl font-light">Deploy at Scale</h2>
+          <h2 className="text-2xl font-light">Custom Install</h2>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -182,7 +182,7 @@ function App() {
             <div className="flex justify-between items-center mb-6">
               <Button 
                 onClick={handleCreateNew}
-                className="bg-white hover:bg-gray-50 text-blue-600 border border-blue-600"
+                className="bg-black hover:bg-gray-800 text-white"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Create Package
@@ -218,12 +218,8 @@ function App() {
                     </th>
                     <th className="text-left p-4 font-medium text-sm text-gray-700">Package Name</th>
                     <th className="text-left p-4 font-medium text-sm text-gray-700">Product</th>
-                    <th className="text-left p-4 font-medium text-sm text-gray-700">Version</th>
-                    <th className="text-left p-4 font-medium text-sm text-gray-700">Language</th>
                     <th className="text-left p-4 font-medium text-sm text-gray-700">Created</th>
                     <th className="text-left p-4 font-medium text-sm text-gray-700">Modified</th>
-                    <th className="text-left p-4 font-medium text-sm text-gray-700">Deployments</th>
-                    <th className="text-left p-4 font-medium text-sm text-gray-700">Status</th>
                     <th className="w-20"></th>
                   </tr>
                 </thead>
@@ -272,20 +268,8 @@ function App() {
                         )}
                       </td>
                       <td className="p-4 text-gray-600">{pkg.product}</td>
-                      <td className="p-4 text-gray-600">{pkg.version}</td>
-                      <td className="p-4 text-gray-600">{pkg.language}</td>
                       <td className="p-4 text-gray-600">{pkg.created}</td>
                       <td className="p-4 text-gray-600">{pkg.modified}</td>
-                      <td className="p-4 text-gray-600">{pkg.deployments}</td>
-                      <td className="p-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                          pkg.status === 'Active' ? 'bg-green-100 text-green-800' :
-                          pkg.status === 'Testing' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-gray-100 text-gray-800'
-                        }`}>
-                          {pkg.status}
-                        </span>
-                      </td>
                       <td className="p-4 relative">
                         <Button 
                           variant="ghost" 
@@ -359,26 +343,59 @@ function App() {
               </table>
             </div>
             
-            <div className="flex justify-end gap-3 mt-6">
-              <Button 
-                variant="outline"
-                disabled={selectedPackages.size === 0}
-                onClick={() => {
-                  toast({
-                    title: "Deploy Selected",
-                    description: `Deploying ${selectedPackages.size} packages...`,
-                  });
-                }}
-              >
-                Deploy Selected
-              </Button>
-              <Button 
-                onClick={handleCreateNew}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                Create New Package
-              </Button>
-            </div>
+            {/* Multi-select action bar */}
+            {selectedPackages.size > 0 && (
+              <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-lg p-4 z-50">
+                <div className="max-w-7xl mx-auto flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm text-gray-600">
+                      {selectedPackages.size} package{selectedPackages.size > 1 ? 's' : ''} selected
+                    </span>
+                    <button 
+                      onClick={() => setSelectedPackages(new Set())}
+                      className="text-sm text-blue-600 hover:text-blue-700"
+                    >
+                      Clear selection
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Button 
+                      variant="outline"
+                      onClick={() => {
+                        toast({
+                          title: "Duplicate Packages",
+                          description: `Duplicating ${selectedPackages.size} packages...`,
+                        });
+                      }}
+                    >
+                      Duplicate
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      onClick={() => {
+                        toast({
+                          title: "Archive Packages",
+                          description: `Archiving ${selectedPackages.size} packages...`,
+                        });
+                      }}
+                    >
+                      Archive
+                    </Button>
+                    <Button 
+                      className="bg-black hover:bg-gray-800 text-white"
+                      onClick={() => {
+                        toast({
+                          title: "Deploy Packages",
+                          description: `Deploying ${selectedPackages.size} packages...`,
+                        });
+                      }}
+                    >
+                      Deploy
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="team-library" className="mt-0">
@@ -825,7 +842,7 @@ function App() {
           {/* Simple header */}
           <header className="bg-foreground text-background flex-shrink-0">
             <div className="h-14 flex items-center px-6 border-b border-gray-800">
-              <h1 className="text-sm font-medium tracking-wide">AUTODESK DEPLOY AT SCALE</h1>
+              <h1 className="text-sm font-medium tracking-wide">AUTODESK ACCOUNT</h1>
             </div>
           </header>
 
