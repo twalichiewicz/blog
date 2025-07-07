@@ -279,7 +279,7 @@ function App() {
                           onClick={(e) => e.stopPropagation()}
                         />
                       </td>
-                      <td className="p-2 pl-0 relative text-[11px]">
+                      <td className="p-2 pl-0 relative">
                         {editingName === pkg.id ? (
                           <Input
                             value={tempName}
