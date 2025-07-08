@@ -6,4 +6,4 @@ tags:
   - blog
 ---
 
-Took a little while, but I've added inline demoes to the Works page! Started with one of the tricker ones, [Custom Install](/Deploy-at-Scale/).
+Took a little while, but I've added inline demoes to the Works page! Started with one of the tricker ones, [Custom Install](/2021/08/30/Custom-Install/).
