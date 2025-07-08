@@ -11,13 +11,7 @@ layout: project_gallery
 has_writeup: true
 notebook_color: "tangerine"
 notebook_brand: "rhodia"
-notebook_stickers:
-  - text: "DEMO"
-    color: "#fff"
-    bg: "#000000"
-    rotate: "2deg"
-    style: "die-cut"
-    shape: "circle"
+notebook_stickers: []
 cover_image: sspp_cover.jpg
 # demo_component: "self-service-publishing-demo"  # Temporarily disabled
 stats:
