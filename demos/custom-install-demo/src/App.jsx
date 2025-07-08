@@ -767,7 +767,7 @@ function App() {
                       onClick={() => setCurrentStep(2)}
                       disabled={selectedApps.length === 0}
                     >
-                      <span className="font-medium">Next: Configure Deployment →</span>
+                      <span className="font-medium">Configure package →</span>
                     </Button>
                   </div>
                 </AccordionContent>
@@ -1077,10 +1077,8 @@ function App() {
                         License managed by Autodesk ID. Users must sign in to access this product.
                       </div>
                       
-                      <hr className="my-4" />
-                      
                       {/* Licensing customization */}
-                      <div className="mt-4">
+                      <div className="mt-3">
                         <label className="flex items-center gap-2">
                           <Checkbox 
                             checked={customizations[selectedAppForDetails]?.customLicensing || false}
