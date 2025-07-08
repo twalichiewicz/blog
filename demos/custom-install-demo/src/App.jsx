@@ -139,7 +139,9 @@ function App() {
       });
     } else {
       // Generate default configuration
-      const productIds = products.slice(0, pkg.productCount || 2).map(p => p.id);
+      // Use the first few products from the static list
+      const productList = ['autocad', 'revit', 'civil3d', 'maya', '3dsmax', 'inventor', 'fusion360', 'navisworks'];
+      const productIds = productList.slice(0, pkg.productCount || 2);
       setSelectedApps(productIds);
       
       // Set random configurations for loaded products
