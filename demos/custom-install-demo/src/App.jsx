@@ -164,8 +164,14 @@ function App() {
   };
 
   const handleBackToLibrary = () => {
+    // Preserve scroll position
+    const scrollY = window.scrollY;
     setCurrentView('library');
     setCurrentStep(1);
+    // Restore scroll position after state update
+    requestAnimationFrame(() => {
+      window.scrollTo(0, scrollY);
+    });
   };
 
   const handleDuplicatePackage = (pkg) => {
@@ -923,7 +929,10 @@ function App() {
                   <div className="flex gap-3 mt-6 justify-end">
                     <Button 
                       variant="outline"
-                      onClick={() => handleSaveDownload(false)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleSaveDownload(false);
+                      }}
                       disabled={isDownloading || isSaving}
                       className="h-8 px-3 text-sm"
                     >
@@ -938,7 +947,10 @@ function App() {
                     </Button>
                     <Button 
                       className="bg-black hover:bg-gray-800 text-white h-8 px-3 text-sm"
-                      onClick={() => handleSaveDownload(true)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleSaveDownload(true);
+                      }}
                       disabled={isDownloading || isSaving}
                     >
                       {isDownloading ? (
