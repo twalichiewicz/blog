@@ -129,6 +129,12 @@ function App() {
 
   const handleDeletePackage = (id) => {
     setPackages(packages.filter(p => p.id !== id));
+    // Clear from selection if it was selected
+    if (selectedPackages.has(id)) {
+      const newSelection = new Set(selectedPackages);
+      newSelection.delete(id);
+      setSelectedPackages(newSelection);
+    }
   };
 
   const handleRenamePackage = (id, newName) => {
@@ -362,9 +368,8 @@ function App() {
                             Deploy
                           </Button>
                           <Button
-                            variant="ghost"
                             size="sm"
-                            className="h-8 px-2 text-xs text-red-600 hover:text-red-700"
+                            className="h-8 px-2 text-xs bg-red-600 hover:bg-red-700 text-white"
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDeletePackage(pkg.id);
@@ -1249,7 +1254,7 @@ function App() {
                   </span>
                   <button 
                     onClick={() => setSelectedPackages(new Set())}
-                    className="text-xs text-blue-600 hover:text-blue-700"
+                    className="text-xs text-black hover:text-gray-700"
                   >
                     Clear selection
                   </button>
@@ -1296,9 +1301,8 @@ function App() {
                     Deploy
                   </Button>
                   <Button 
-                    variant="outline"
                     size="sm"
-                    className="h-7 text-xs text-red-600 hover:text-red-700"
+                    className="h-7 text-xs bg-red-600 hover:bg-red-700 text-white"
                     onClick={() => {
                       const deleteCount = selectedPackages.size;
                       setPackages(packages.filter(p => !selectedPackages.has(p.id)));
