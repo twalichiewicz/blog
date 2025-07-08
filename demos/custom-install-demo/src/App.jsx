@@ -1094,7 +1094,7 @@ function App() {
                       
                       {/* Licensing customization */}
                       <div className="mt-3">
-                        <label className="flex items-center gap-2 text-sm">
+                        <label className="flex items-center gap-2 text-xs">
                           <Checkbox 
                             checked={customizations[selectedAppForDetails]?.customLicensing || false}
                             onCheckedChange={(checked) => setCustomizations(prev => ({
