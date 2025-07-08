@@ -620,14 +620,14 @@ function App() {
       
       // Create new package entry with configuration
       const newPackage = {
-        id: `pkg-${Date.now()}`,
+        id: editingPackage ? editingPackage.id : `pkg-${Date.now()}`,
         name: packageName,
-        installs: 0,
+        installs: editingPackage ? editingPackage.installs : 0,
         type: deploymentSettings.type === 'deploy' ? 'deployment' : 'package',
-        created: new Date().toLocaleDateString(),
+        created: editingPackage ? editingPackage.created : new Date().toLocaleDateString(),
         modified: new Date().toLocaleDateString(),
         status: 'active',
-        isNew: true,
+        isNew: !editingPackage,
         productCount: selectedApps.length,
         configuration: {
           selectedApps: selectedApps,
@@ -652,18 +652,7 @@ function App() {
         }, 100);
       } else {
         // Update existing package
-        setPackages(prev => prev.map(p => p.id === editingPackage.id ? { 
-          ...p, 
-          ...newPackage, 
-          productCount: selectedApps.length, 
-          modified: new Date().toLocaleDateString(),
-          configuration: {
-            selectedApps: selectedApps,
-            versionSettings: appVersionSettings,
-            customizations: customizations,
-            deploymentSettings: deploymentSettings
-          }
-        } : p));
+        setPackages(prev => prev.map(p => p.id === editingPackage.id ? newPackage : p));
         handleBackToLibrary();
       }
       
