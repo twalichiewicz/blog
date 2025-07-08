@@ -68,7 +68,14 @@ function App() {
     });
   };
   
-  const [packages, setPackages] = useState(generateRandomPackages());
+  const [packages, setPackages] = useState(() => {
+    const pkgs = generateRandomPackages();
+    // Assign stable product counts (A)
+    return pkgs.map(pkg => ({
+      ...pkg,
+      productCount: Math.floor(Math.random() * 8) + 1
+    }));
+  });
   const [editingPackage, setEditingPackage] = useState(null);
   const [selectedPackages, setSelectedPackages] = useState(new Set());
   const [selectedApps, setSelectedApps] = useState([]);
@@ -86,6 +93,8 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [sortField, setSortField] = useState('modified');
+  const [sortDirection, setSortDirection] = useState('desc');
 
   const handleCreateNew = () => {
     setEditingPackage(null);
@@ -98,6 +107,25 @@ function App() {
   const handleEditPackage = (pkg) => {
     setEditingPackage(pkg);
     setCurrentStep(1);
+    
+    // Load previous configuration (J)
+    const productIds = products.slice(0, pkg.productCount || 2).map(p => p.id);
+    setSelectedApps(productIds);
+    
+    // Set random configurations for loaded products
+    const settings = {};
+    const customizationsData = {};
+    productIds.forEach(id => {
+      settings[id] = { type: 'latest', specificVersion: null };
+      customizationsData[id] = {
+        customLicensing: Math.random() > 0.7,
+        serialNumber: Math.random() > 0.7 ? 'XXX-XXXXXXXX' : '',
+        productKey: Math.random() > 0.7 ? 'XXXXX' : ''
+      };
+    });
+    setAppVersionSettings(settings);
+    setCustomizations(customizationsData);
+    
     setCurrentView('creator');
   };
 
@@ -122,7 +150,8 @@ function App() {
       id: Date.now().toString(),
       isNew: true,
       name: `${pkg.name} (Copy)`,
-      modified: new Date().toLocaleDateString()
+      modified: new Date().toLocaleDateString(),
+      productCount: pkg.productCount
     };
     setPackages([...packages, newPackage]);
   };
@@ -138,7 +167,7 @@ function App() {
   };
 
   const handleRenamePackage = (id, newName) => {
-    setPackages(packages.map(p => p.id === id ? { ...p, name: newName } : p));
+    setPackages(packages.map(p => p.id === id ? { ...p, name: newName, isNew: false } : p));
   };
 
   // Library View Component
@@ -150,9 +179,38 @@ function App() {
     const [tempName, setTempName] = useState('');
     const [hoveredRow, setHoveredRow] = useState(null);
     
-    const filteredPackages = packages.filter(pkg => 
-      pkg.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const handleSort = (field) => {
+      if (sortField === field) {
+        setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+      } else {
+        setSortField(field);
+        setSortDirection('asc');
+      }
+    };
+    
+    const filteredPackages = packages
+      .filter(pkg => pkg.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      .sort((a, b) => {
+        let aVal = a[sortField];
+        let bVal = b[sortField];
+        
+        // Convert dates for proper sorting
+        if (sortField === 'modified') {
+          aVal = new Date(aVal);
+          bVal = new Date(bVal);
+        }
+        
+        if (sortField === 'productCount') {
+          aVal = a.productCount || 0;
+          bVal = b.productCount || 0;
+        }
+        
+        if (sortDirection === 'asc') {
+          return aVal > bVal ? 1 : -1;
+        } else {
+          return aVal < bVal ? 1 : -1;
+        }
+      });
 
     const handleStartEdit = (pkg, e) => {
       e.stopPropagation();
@@ -245,10 +303,26 @@ function App() {
                         }}
                       />
                     </th>
-                    <th className="text-left p-2 pl-0 font-medium text-[11px] text-gray-700">Package Name</th>
-                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Type</th>
-                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Last Saved</th>
-                    <th className="text-right p-2 pr-3 font-medium text-[11px] text-gray-700">Products</th>
+                    <th className="text-left p-2 pl-0 font-medium text-[11px] text-gray-700 cursor-pointer hover:bg-gray-100" onClick={() => handleSort('name')}>
+                      <span className="flex items-center gap-1">
+                        Package Name {sortField === 'name' && (sortDirection === 'asc' ? '↑' : '↓')}
+                      </span>
+                    </th>
+                    <th className="text-left p-2 font-medium text-[11px] text-gray-700 cursor-pointer hover:bg-gray-100" onClick={() => handleSort('type')}>
+                      <span className="flex items-center gap-1">
+                        Type {sortField === 'type' && (sortDirection === 'asc' ? '↑' : '↓')}
+                      </span>
+                    </th>
+                    <th className="text-left p-2 font-medium text-[11px] text-gray-700 cursor-pointer hover:bg-gray-100" onClick={() => handleSort('modified')}>
+                      <span className="flex items-center gap-1">
+                        Last Saved {sortField === 'modified' && (sortDirection === 'asc' ? '↑' : '↓')}
+                      </span>
+                    </th>
+                    <th className="text-right p-2 pr-3 font-medium text-[11px] text-gray-700 cursor-pointer hover:bg-gray-100" onClick={() => handleSort('productCount')}>
+                      <span className="flex items-center justify-end gap-1">
+                        Products {sortField === 'productCount' && (sortDirection === 'asc' ? '↑' : '↓')}
+                      </span>
+                    </th>
                     <th className="w-10 p-2"></th>
                   </tr>
                 </thead>
@@ -313,7 +387,7 @@ function App() {
                       </td>
                       <td className="p-2 text-[11px] text-gray-600 capitalize">{pkg.type === 'deployment' ? 'Deploy' : 'Install'}</td>
                       <td className="p-2 text-[11px] text-gray-600">{pkg.modified}</td>
-                      <td className="p-2 pr-3 text-[11px] text-gray-600 text-right">{Math.floor(Math.random() * 8) + 1}</td>
+                      <td className="p-2 pr-3 text-[11px] text-gray-600 text-right">{pkg.productCount || 2}</td>
                       <td className="p-2 relative">
                         <Button 
                           variant="ghost" 
@@ -498,7 +572,8 @@ function App() {
         created: new Date().toLocaleDateString(),
         modified: new Date().toLocaleDateString(),
         status: 'active',
-        isNew: true
+        isNew: true,
+        productCount: selectedApps.length
       };
       
       // Add to packages if not editing
@@ -516,7 +591,7 @@ function App() {
         }, 100);
       } else {
         // Update existing package
-        setPackages(prev => prev.map(p => p.id === editingPackage.id ? { ...p, ...newPackage, modified: new Date().toLocaleDateString() } : p));
+        setPackages(prev => prev.map(p => p.id === editingPackage.id ? { ...p, ...newPackage, productCount: selectedApps.length, modified: new Date().toLocaleDateString() } : p));
         handleBackToLibrary();
       }
       
@@ -1307,12 +1382,13 @@ function App() {
                     className="h-7 text-xs"
                     onClick={() => {
                       const selectedPkgs = packages.filter(p => selectedPackages.has(p.id));
-                      const duplicatedPkgs = selectedPkgs.map(pkg => ({
+                      const duplicatedPkgs = selectedPkgs.map((pkg, idx) => ({
                         ...pkg,
-                        id: `${pkg.id}-${Date.now()}`,
+                        id: `${pkg.id}-${Date.now()}-${idx}`,
                         name: `${pkg.name} (Copy)`,
                         isNew: true,
-                        modified: new Date().toLocaleDateString()
+                        modified: new Date().toLocaleDateString(),
+                        productCount: pkg.productCount
                       }));
                       setPackages([...duplicatedPkgs, ...packages]);
                       toast({
