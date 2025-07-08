@@ -1404,23 +1404,23 @@ function App() {
                 </div>
                 
                 {/* Deployment Summary */}
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="font-medium mb-3 text-sm">Deployment Summary</h4>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
+                <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
+                  <h3 className="font-medium text-lg mb-4">Deployment Summary</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Type:</span>
                       <span className="font-medium">{deploymentSettings.type === 'install' ? 'Install' : 'Deploy'}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Target:</span>
                       <span className="font-medium">{deploymentSettings.type === 'install' ? 'End Users' : 'IT Admins'}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Method:</span>
                       <span className="font-medium">{deploymentSettings.type === 'install' ? 'Interactive' : 'Silent'}</span>
                     </div>
                     <hr className="my-3" />
-                    <div className="text-[11px] text-gray-500">
+                    <div className="text-xs text-gray-500">
                       {deploymentSettings.type === 'install' ? 
                         'Package will include installer wizard for end-user installation' : 
                         'Package optimized for enterprise deployment tools (SCCM, etc.)'}
