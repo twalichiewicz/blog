@@ -1137,38 +1137,470 @@ function App() {
                       <hr className="my-4" />
                     </div>
                     {(() => {
-                      // Generate random accordions for each product
-                      const allAccordions = [
-                        {
-                          id: 'customizations',
-                          title: 'Customizations',
-                          content: (
-                            <div className="space-y-3">
-                              <label className="flex items-center gap-2 text-sm">
-                                <Checkbox defaultChecked />
-                                <span>Install {products.find(p => p.id === selectedAppForDetails)?.name} Microsoft Office/Outlook Add-ins</span>
-                              </label>
-                              <div className="ml-6 space-y-2">
-                                <div className="text-xs text-gray-600 mb-2">Create Desktop Shortcuts</div>
+                      // Generate product-specific accordions
+                      const productCustomizations = {
+                        autocad: [
+                          {
+                            id: 'customizations',
+                            title: 'Customizations',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Configurable Folders</div>
+                                  <div className="ml-4 space-y-2">
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Content Root:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="C:\ProgramData\Autodesk\" />
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Data Folder:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="C:\AutoCAD Data\" />
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Projects Working:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="%USERPROFILE%\Projects\" />
+                                    </div>
+                                  </div>
+                                </div>
+                                <hr className="my-3" />
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Support Content</div>
+                                  <div className="ml-4 space-y-2">
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Install support content in:</span>
+                                      <Select>
+                                        <SelectTrigger className="w-40 h-6 text-xs">
+                                          <SelectValue placeholder="Local User Profile" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                          <SelectItem value="user">Local User Profile</SelectItem>
+                                          <SelectItem value="all">All Users</SelectItem>
+                                          <SelectItem value="custom">Custom Location</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <hr className="my-3" />
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Security Settings</div>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox />
+                                    <span>Lock security settings</span>
+                                  </label>
+                                  <div className="ml-4 flex items-center justify-between">
+                                    <span className="text-xs">Security Level:</span>
+                                    <Select>
+                                      <SelectTrigger className="w-32 h-6 text-xs">
+                                        <SelectValue placeholder="Medium" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        <SelectItem value="low">Low</SelectItem>
+                                        <SelectItem value="medium">Medium</SelectItem>
+                                        <SelectItem value="high">High</SelectItem>
+                                      </SelectContent>
+                                    </Select>
+                                  </div>
+                                </div>
+                                <hr className="my-3" />
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Trusted Locations</div>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox defaultChecked />
+                                    <span>Add network paths to trusted locations</span>
+                                  </label>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox />
+                                    <span>Trust subfolders automatically</span>
+                                  </label>
+                                </div>
+                              </div>
+                            )
+                          },
+                          {
+                            id: 'plugins',
+                            title: 'Plug-ins',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="flex items-start gap-2">
+                                  <Checkbox defaultChecked />
+                                  <div>
+                                    <div className="text-sm">Express Tools</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Extended set of productivity tools for layer management, text manipulation, and dimensioning</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Checkbox />
+                                  <div>
+                                    <div className="text-sm">Sheet Set Manager</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Organize, manage, and share drawing sheets efficiently</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Checkbox />
+                                  <div>
+                                    <div className="text-sm">CAD Standards Tools</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Maintain consistency across drawings with automated standards checking</div>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          }
+                        ],
+                        revit: [
+                          {
+                            id: 'customizations',
+                            title: 'Customizations',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Content Libraries</div>
+                                  <div className="ml-4 space-y-2">
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Family Templates:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="C:\ProgramData\Autodesk\RVT\" />
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Material Library:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="C:\Revit Materials\" />
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Project Templates:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="%USERPROFILE%\Templates\" />
+                                    </div>
+                                  </div>
+                                </div>
+                                <hr className="my-3" />
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">BIM 360 Integration</div>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox defaultChecked />
+                                    <span>Enable cloud collaboration</span>
+                                  </label>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox />
+                                    <span>Install Desktop Connector</span>
+                                  </label>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox />
+                                    <span>Configure worksharing monitor</span>
+                                  </label>
+                                </div>
+                                <hr className="my-3" />
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Rendering Settings</div>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox defaultChecked />
+                                    <span>Install Autodesk Raytracer</span>
+                                  </label>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox />
+                                    <span>Download appearance libraries</span>
+                                  </label>
+                                </div>
+                              </div>
+                            )
+                          },
+                          {
+                            id: 'extensions',
+                            title: 'Extensions',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="flex items-start gap-2">
+                                  <Checkbox />
+                                  <div>
+                                    <div className="text-sm">Dynamo for Revit</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Visual programming for BIM workflows and computational design</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Checkbox defaultChecked />
+                                  <div>
+                                    <div className="text-sm">Insight Energy Analysis</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Whole building energy and environmental analysis tools</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Checkbox />
+                                  <div>
+                                    <div className="text-sm">Structural Analysis Tools</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Advanced structural modeling and analysis capabilities</div>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          }
+                        ],
+                        maya: [
+                          {
+                            id: 'customizations',
+                            title: 'Customizations',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Workspace Configuration</div>
+                                  <div className="ml-4 space-y-2">
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Scripts Path:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="~/maya/scripts/" />
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Projects Directory:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="~/Documents/maya/projects/" />
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Shelves Location:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="~/maya/prefs/shelves/" />
+                                    </div>
+                                  </div>
+                                </div>
+                                <hr className="my-3" />
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Performance Preferences</div>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox defaultChecked />
+                                    <span>Enable GPU caching</span>
+                                  </label>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox defaultChecked />
+                                    <span>Use parallel evaluation</span>
+                                  </label>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox />
+                                    <span>Enable viewport 2.0</span>
+                                  </label>
+                                </div>
+                                <hr className="my-3" />
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Python Environment</div>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox />
+                                    <span>Install Maya Python API 2.0</span>
+                                  </label>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox defaultChecked />
+                                    <span>Configure PyMEL</span>
+                                  </label>
+                                </div>
+                              </div>
+                            )
+                          },
+                          {
+                            id: 'plugins',
+                            title: 'Plug-ins',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="flex items-start gap-2">
+                                  <Checkbox defaultChecked />
+                                  <div>
+                                    <div className="text-sm">Arnold Renderer</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Production-quality ray tracing renderer for photorealistic results</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Checkbox />
+                                  <div>
+                                    <div className="text-sm">Bifrost Graph Editor</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Visual programming environment for creating custom effects</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Checkbox />
+                                  <div>
+                                    <div className="text-sm">MASH Motion Graphics</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Procedural animation toolkit for motion design</div>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          }
+                        ],
+                        '3dsmax': [
+                          {
+                            id: 'customizations',
+                            title: 'Customizations',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Viewport Configuration</div>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox defaultChecked />
+                                    <span>Enable Nitrous viewport</span>
+                                  </label>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox />
+                                    <span>Configure DirectX 11</span>
+                                  </label>
+                                </div>
+                                <hr className="my-3" />
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Asset Tracking</div>
+                                  <div className="ml-4 flex items-center justify-between">
+                                    <span className="text-xs">Asset Library Path:</span>
+                                    <Input className="h-6 text-xs w-48" defaultValue="C:\3dsMax\AssetLibrary\" />
+                                  </div>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox defaultChecked />
+                                    <span>Enable automatic asset tracking</span>
+                                  </label>
+                                </div>
+                              </div>
+                            )
+                          },
+                          {
+                            id: 'plugins',
+                            title: 'Plug-ins',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="flex items-start gap-2">
+                                  <Checkbox defaultChecked />
+                                  <div>
+                                    <div className="text-sm">V-Ray Renderer</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Industry-standard photorealistic rendering engine</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Checkbox />
+                                  <div>
+                                    <div className="text-sm">Phoenix FD</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Fluid dynamics simulation for fire, smoke, and liquids</div>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          }
+                        ],
+                        inventor: [
+                          {
+                            id: 'customizations',
+                            title: 'Customizations',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Design Data Management</div>
+                                  <div className="ml-4 space-y-2">
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Workspace Path:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="C:\Inventor\Workspace\" />
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Library Path:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="C:\Inventor\Libraries\" />
+                                    </div>
+                                  </div>
+                                </div>
+                                <hr className="my-3" />
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Content Center</div>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox defaultChecked />
+                                    <span>Install standard parts library</span>
+                                  </label>
+                                  <label className="flex items-center gap-2 text-sm">
+                                    <Checkbox />
+                                    <span>Configure custom content center</span>
+                                  </label>
+                                </div>
+                              </div>
+                            )
+                          },
+                          {
+                            id: 'extensions',
+                            title: 'Extensions',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="flex items-start gap-2">
+                                  <Checkbox />
+                                  <div>
+                                    <div className="text-sm">Frame Generator</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Automate structural frame design and documentation</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Checkbox defaultChecked />
+                                  <div>
+                                    <div className="text-sm">Tube & Pipe</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Routed systems design tools for piping and tubing</div>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          }
+                        ],
+                        civil3d: [
+                          {
+                            id: 'customizations',
+                            title: 'Customizations',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Survey Database</div>
+                                  <div className="ml-4 space-y-2">
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-xs">Survey Folder:</span>
+                                      <Input className="h-6 text-xs w-48" defaultValue="C:\Civil 3D Projects\Survey\" />
+                                    </div>
+                                    <label className="flex items-center gap-2 text-sm">
+                                      <Checkbox defaultChecked />
+                                      <span>Import survey database settings</span>
+                                    </label>
+                                  </div>
+                                </div>
+                                <hr className="my-3" />
+                                <div className="space-y-2">
+                                  <div className="text-xs text-gray-600 mb-2">Country Kits</div>
+                                  <Select>
+                                    <SelectTrigger className="w-full h-7 text-xs">
+                                      <SelectValue placeholder="Select country kit" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      <SelectItem value="us">United States (Imperial)</SelectItem>
+                                      <SelectItem value="uk">United Kingdom</SelectItem>
+                                      <SelectItem value="de">Germany (DIN)</SelectItem>
+                                      <SelectItem value="au">Australia</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+                              </div>
+                            )
+                          },
+                          {
+                            id: 'extensions',
+                            title: 'Extensions',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="flex items-start gap-2">
+                                  <Checkbox defaultChecked />
+                                  <div>
+                                    <div className="text-sm">Geotechnical Module</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Subsurface data visualization and analysis tools</div>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Checkbox />
+                                  <div>
+                                    <div className="text-sm">Bridge Module</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Integrated bridge design and analysis tools</div>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          }
+                        ],
+                        // Default customizations for other products
+                        default: [
+                          {
+                            id: 'customizations',
+                            title: 'Customizations',
+                            content: (
+                              <div className="space-y-3">
                                 <label className="flex items-center gap-2 text-sm">
                                   <Checkbox defaultChecked />
-                                  <span>{products.find(p => p.id === selectedAppForDetails)?.name} Basic Client</span>
+                                  <span>Create desktop shortcuts</span>
                                 </label>
                                 <label className="flex items-center gap-2 text-sm">
                                   <Checkbox />
-                                  <span>{products.find(p => p.id === selectedAppForDetails)?.name} Project Manager</span>
-                                </label>
-                                <label className="flex items-center gap-2 text-sm">
-                                  <Checkbox />
-                                  <span>{products.find(p => p.id === selectedAppForDetails)?.name} Content Browser</span>
-                                </label>
-                              </div>
-                              <hr className="my-3" />
-                              <div className="space-y-2">
-                                <div className="text-xs text-gray-600 mb-2">Installation Preferences</div>
-                                <label className="flex items-center gap-2 text-sm">
-                                  <Checkbox />
-                                  <span>Create file associations</span>
+                                  <span>Add to Start Menu</span>
                                 </label>
                                 <label className="flex items-center gap-2 text-sm">
                                   <Checkbox defaultChecked />
@@ -1178,95 +1610,29 @@ function App() {
                                   <Checkbox />
                                   <span>Enable automatic updates</span>
                                 </label>
-                                <label className="flex items-center gap-2 text-sm">
+                              </div>
+                            )
+                          },
+                          {
+                            id: 'plugins',
+                            title: 'Plug-ins',
+                            content: (
+                              <div className="space-y-3">
+                                <div className="flex items-start gap-2">
                                   <Checkbox />
-                                  <span>Install offline help documentation</span>
-                                </label>
-                              </div>
-                              <hr className="my-3" />
-                              <div className="space-y-2">
-                                <div className="text-xs text-gray-600 mb-2">Performance Settings</div>
-                                <label className="flex items-center gap-2 text-sm">
-                                  <Checkbox />
-                                  <span>Enable hardware acceleration</span>
-                                </label>
-                                <label className="flex items-center gap-2 text-sm">
-                                  <Checkbox defaultChecked />
-                                  <span>Use multi-threaded processing</span>
-                                </label>
-                                <label className="flex items-center gap-2 text-sm">
-                                  <Checkbox />
-                                  <span>Cache cloud content locally</span>
-                                </label>
-                              </div>
-                            </div>
-                          )
-                        },
-                        {
-                          id: 'plugins',
-                          title: 'Plug-ins',
-                          content: (
-                            <div className="space-y-3">
-                              <div className="flex items-start gap-2">
-                                <Checkbox />
-                                <div>
-                                  <div className="text-sm">Autodesk FBX Plug-in</div>
-                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Enables import and export of FBX files for 3D animation and modeling workflows with industry-standard compatibility</div>
+                                  <div>
+                                    <div className="text-sm">General plug-in support</div>
+                                    <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Enable third-party plug-ins and extensions</div>
+                                  </div>
                                 </div>
                               </div>
-                              <div className="flex items-start gap-2">
-                                <Checkbox />
-                                <div>
-                                  <div className="text-sm">Autodesk Material Library</div>
-                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Access to thousands of physically accurate materials for realistic rendering and visualization projects</div>
-                                </div>
-                              </div>
-                              <div className="flex items-start gap-2">
-                                <Checkbox />
-                                <div>
-                                  <div className="text-sm">Advanced Rendering Engine</div>
-                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">High-performance ray tracing renderer with global illumination and photorealistic output capabilities</div>
-                                </div>
-                              </div>
-                            </div>
-                          )
-                        },
-                        {
-                          id: 'extensions',
-                          title: 'Extensions',
-                          content: (
-                            <div className="space-y-3">
-                              <div className="flex items-start gap-2">
-                                <Checkbox />
-                                <div>
-                                  <div className="text-sm">Substance Extension</div>
-                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Advanced material creation and texturing tools with procedural generation capabilities</div>
-                                </div>
-                              </div>
-                              <div className="flex items-start gap-2">
-                                <Checkbox />
-                                <div>
-                                  <div className="text-sm">Civil View Extension</div>
-                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Specialized tools for civil engineering visualization and infrastructure project planning</div>
-                                </div>
-                              </div>
-                              <div className="flex items-start gap-2">
-                                <Checkbox />
-                                <div>
-                                  <div className="text-sm">BIM 360 Connector</div>
-                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Cloud-based collaboration platform integration for construction document management</div>
-                                </div>
-                              </div>
-                              <div className="flex items-start gap-2">
-                                <Checkbox />
-                                <div>
-                                  <div className="text-sm">Structural Analysis Toolkit</div>
-                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Advanced finite element analysis tools for structural engineering calculations</div>
-                                </div>
-                              </div>
-                            </div>
-                          )
-                        },
+                            )
+                          }
+                        ]
+                      };
+                      
+                      // Additional accordions that can appear for any product
+                      const commonAccordions = [
                         {
                           id: 'languages',
                           title: 'Language packs',
@@ -1274,19 +1640,23 @@ function App() {
                             <div className="space-y-2">
                               <label className="flex items-center gap-2 text-sm">
                                 <Checkbox />
-                                <span>Chinese-Simplified Language Pack for {products.find(p => p.id === selectedAppForDetails)?.name} 2026</span>
+                                <span>Chinese-Simplified Language Pack</span>
                               </label>
                               <label className="flex items-center gap-2 text-sm">
                                 <Checkbox />
-                                <span>French Language Pack for {products.find(p => p.id === selectedAppForDetails)?.name} 2026</span>
+                                <span>French Language Pack</span>
                               </label>
                               <label className="flex items-center gap-2 text-sm">
                                 <Checkbox />
-                                <span>German Language Pack for {products.find(p => p.id === selectedAppForDetails)?.name} 2026</span>
+                                <span>German Language Pack</span>
                               </label>
                               <label className="flex items-center gap-2 text-sm">
                                 <Checkbox />
-                                <span>Spanish Language Pack for {products.find(p => p.id === selectedAppForDetails)?.name} 2026</span>
+                                <span>Spanish Language Pack</span>
+                              </label>
+                              <label className="flex items-center gap-2 text-sm">
+                                <Checkbox />
+                                <span>Japanese Language Pack</span>
                               </label>
                             </div>
                           )
@@ -1299,15 +1669,15 @@ function App() {
                               <div className="flex items-start gap-2">
                                 <Checkbox />
                                 <div>
-                                  <div className="text-sm">Microsoft Office Integration</div>
-                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Seamlessly embed and edit {products.find(p => p.id === selectedAppForDetails)?.name} content within Office applications</div>
+                                  <div className="text-sm">Autodesk Desktop App</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Manage software updates and access cloud services</div>
                                 </div>
                               </div>
                               <div className="flex items-start gap-2">
-                                <Checkbox />
+                                <Checkbox defaultChecked />
                                 <div>
-                                  <div className="text-sm">Cloud Collaboration Tools</div>
-                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Real-time collaboration features with automatic syncing and version control for team projects</div>
+                                  <div className="text-sm">Single Sign-On (SSO)</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Configure enterprise authentication</div>
                                 </div>
                               </div>
                             </div>
@@ -1315,14 +1685,29 @@ function App() {
                         }
                       ];
                       
-                      // Randomize which accordions to show (always include customizations first)
-                      const hash = selectedAppForDetails?.charCodeAt(0) || 0;
-                      const numAccordions = 2 + (hash % 3); // 2-4 accordions
-                      const selectedAccordions = [allAccordions[0]]; // Always include customizations first
+                      // Get product-specific accordions or use default
+                      const productAccordions = productCustomizations[selectedAppForDetails] || productCustomizations.default;
                       
-                      // Add random selection of other accordions
-                      const otherAccordions = allAccordions.slice(1);
-                      const shuffled = [...otherAccordions].sort(() => (hash % 7) - 3.5);
+                      // Combine product-specific and common accordions
+                      const allAccordions = [...productAccordions, ...commonAccordions];
+                      
+                      // Randomize which accordions to show
+                      const hash = selectedAppForDetails?.charCodeAt(0) || 0;
+                      const numAccordions = Math.min(2 + (hash % 2), allAccordions.length); // 2-3 accordions
+                      const selectedAccordions = [];
+                      
+                      // Always include first product-specific accordion (customizations)
+                      if (productAccordions.length > 0) {
+                        selectedAccordions.push(productAccordions[0]);
+                      }
+                      
+                      // Add other accordions based on hash
+                      const remainingAccordions = [...productAccordions.slice(1), ...commonAccordions];
+                      const shuffled = [...remainingAccordions].sort((a, b) => {
+                        const aHash = (hash + a.id.charCodeAt(0)) % 7;
+                        const bHash = (hash + b.id.charCodeAt(0)) % 7;
+                        return aHash - bHash;
+                      });
                       
                       for (let i = 0; i < Math.min(numAccordions - 1, shuffled.length); i++) {
                         selectedAccordions.push(shuffled[i]);
