@@ -272,19 +272,19 @@ function App() {
             <div className="flex justify-between items-center mb-6">
               <Button 
                 onClick={handleCreateNew}
-                className="bg-black hover:bg-gray-800 text-white pl-3 pr-4"
+                className="bg-black hover:bg-gray-800 text-white pl-2 pr-3 h-8 text-xs"
               >
-                <Plus className="w-4 h-4 mr-1.5" />
+                <Plus className="w-3 h-3 mr-1" />
                 Create Package
               </Button>
-              <div className="relative w-80">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <div className="relative w-64">
+                <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3" />
                 <Input
                   type="text"
                   placeholder="Search packages"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4"
+                  className="pl-7 pr-3 h-8 text-xs"
                 />
               </div>
             </div>
@@ -316,13 +316,13 @@ function App() {
                         Type {sortField === 'type' && (sortDirection === 'asc' ? '↑' : '↓')}
                       </span>
                     </th>
-                    <th className="text-left p-2 font-medium text-[11px] text-gray-700 cursor-pointer hover:bg-gray-100" onClick={() => handleSort('modified')}>
-                      <span className="flex items-center gap-1">
+                    <th className="text-right p-2 pr-3 font-medium text-[11px] text-gray-700 cursor-pointer hover:bg-gray-100 w-auto" onClick={() => handleSort('modified')}>
+                      <span className="flex items-center justify-end gap-1 whitespace-nowrap">
                         Last Saved {sortField === 'modified' && (sortDirection === 'asc' ? '↑' : '↓')}
                       </span>
                     </th>
-                    <th className="text-right p-2 pr-3 font-medium text-[11px] text-gray-700 cursor-pointer hover:bg-gray-100" onClick={() => handleSort('productCount')}>
-                      <span className="flex items-center justify-end gap-1">
+                    <th className="text-right p-2 pr-3 font-medium text-[11px] text-gray-700 cursor-pointer hover:bg-gray-100 w-auto" onClick={() => handleSort('productCount')}>
+                      <span className="flex items-center justify-end gap-1 whitespace-nowrap">
                         Products {sortField === 'productCount' && (sortDirection === 'asc' ? '↑' : '↓')}
                       </span>
                     </th>
@@ -389,7 +389,7 @@ function App() {
                         )}
                       </td>
                       <td className="p-2 text-[11px] text-gray-600 capitalize">{pkg.type === 'deployment' ? 'Deploy' : 'Install'}</td>
-                      <td className="p-2 text-[11px] text-gray-600">{pkg.modified}</td>
+                      <td className="p-2 pr-3 text-[11px] text-gray-600 text-right whitespace-nowrap">{pkg.modified}</td>
                       <td className="p-2 pr-3 text-[11px] text-gray-600 text-right">{pkg.productCount || 2}</td>
                       <td className="p-2 relative">
                         <Button 
@@ -402,7 +402,7 @@ function App() {
                         </Button>
                         
                         {/* Hover menu aligned with kebab */}
-                        <div className={`absolute right-8 top-1/2 -translate-y-1/2 flex items-center gap-1 bg-white border border-gray-200 rounded-md shadow-lg p-1 transition-all duration-200 z-50 ${
+                        <div className={`absolute right-10 top-1/2 -translate-y-1/2 flex items-center gap-1 bg-white border border-gray-200 rounded-md shadow-lg p-1 transition-all duration-200 z-50 ${
                           hoveredRow === pkg.id ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2 pointer-events-none'
                         }`}>
                           <Button
@@ -671,9 +671,10 @@ function App() {
                       </div>
                     </div>
                     <div className="border border-gray-200 rounded-lg overflow-hidden">
-                      <div className="max-h-96 overflow-y-auto">
+                      <div className="max-h-64 overflow-y-auto">
                         {products
                           .filter(app => !searchTerm || app.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                          .sort((a, b) => a.name.localeCompare(b.name))
                           .map((app) => (
                           <div 
                             key={app.id}
@@ -695,7 +696,6 @@ function App() {
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="font-medium text-sm truncate">{app.name}</div>
-                              <div className="text-xs text-gray-500">{app.category}</div>
                             </div>
                           </div>
                         ))}
@@ -973,19 +973,19 @@ function App() {
                                 }
                               }}
                             />
-                            <span className="text-xs">Specific version...</span>
-                            {appVersionSettings[selectedAppForDetails]?.type === 'specific' && (
-                              <Select
-                                value={appVersionSettings[selectedAppForDetails]?.specificVersion}
-                                onValueChange={(value) => setAppVersionSettings(prev => ({
-                                  ...prev,
-                                  [selectedAppForDetails]: { ...prev[selectedAppForDetails], specificVersion: value }
-                                }))}
-                                className="ml-auto"
-                              >
-                                <SelectTrigger className="w-40 h-7 text-xs">
-                                  <SelectValue placeholder="Select version" />
-                                </SelectTrigger>
+                            <div className="flex items-center justify-between flex-1">
+                              <span className="text-xs">Specific version...</span>
+                              {appVersionSettings[selectedAppForDetails]?.type === 'specific' && (
+                                <Select
+                                  value={appVersionSettings[selectedAppForDetails]?.specificVersion}
+                                  onValueChange={(value) => setAppVersionSettings(prev => ({
+                                    ...prev,
+                                    [selectedAppForDetails]: { ...prev[selectedAppForDetails], specificVersion: value }
+                                  }))}
+                                >
+                                  <SelectTrigger className="w-auto min-w-[100px] h-7 text-xs">
+                                    <SelectValue placeholder="Select version" />
+                                  </SelectTrigger>
                                 <SelectContent>
                                 <div className="px-2 py-1 text-xs text-gray-500 font-medium">2024 Releases</div>
                                 <SelectItem value="2024.3">2024.3</SelectItem>
@@ -998,14 +998,17 @@ function App() {
                                 <div className="px-2 py-1 text-xs text-gray-500 font-medium">2022 Releases</div>
                                 <SelectItem value="2022.3">2022.3</SelectItem>
                               </SelectContent>
-                              </Select>
-                            )}
+                                  </Select>
+                              )}
+                            </div>
                           </label>
                         </div>
                       </div>
                       <div className="text-xs text-gray-500 mt-2">
                         License managed by Autodesk ID. Users must sign in to access this product.
                       </div>
+                      
+                      <hr className="my-4" />
                       
                       {/* Licensing customization */}
                       <div className="mt-4">
