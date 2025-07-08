@@ -84,6 +84,8 @@ function App() {
     networkPath: ''
   });
   const [searchTerm, setSearchTerm] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const handleCreateNew = () => {
     setEditingPackage(null);
@@ -174,13 +176,13 @@ function App() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <div className="border-b mb-6">
-            <div className="flex -mb-px">
+          <div className="border-b mb-6 -mx-6 px-6">
+            <div className="flex -mb-px -ml-4">
               <button
                 onClick={() => setActiveTab('my-library')}
-                className={`px-6 py-3 text-sm font-medium border-b-2 transition-all ${
+                className={`px-4 py-3 text-sm font-medium border-b-2 transition-all ${
                   activeTab === 'my-library'
-                    ? 'border-blue-600 text-blue-600'
+                    ? 'border-black text-black'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -188,9 +190,9 @@ function App() {
               </button>
               <button
                 onClick={() => setActiveTab('team-library')}
-                className={`px-6 py-3 text-sm font-medium border-b-2 transition-all ${
+                className={`px-4 py-3 text-sm font-medium border-b-2 transition-all ${
                   activeTab === 'team-library'
-                    ? 'border-blue-600 text-blue-600'
+                    ? 'border-black text-black'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -474,6 +476,12 @@ function App() {
     };
     
     const handleSaveDownload = async (isDownload) => {
+      if (isDownload) {
+        setIsDownloading(true);
+      } else {
+        setIsSaving(true);
+      }
+      
       const buttonText = isDownload ? 'Downloading...' : 'Saving...';
       
       // Create package name
@@ -524,12 +532,14 @@ function App() {
           title: "Download Ready",
           description: "Your deployment package has been compiled and downloaded.",
         });
+        setIsDownloading(false);
       } else {
         // Show save success
         toast({
           title: "Package Saved",
           description: `"${packageName}" has been added to your library.`,
         });
+        setIsSaving(false);
       }
     };
 
@@ -544,7 +554,7 @@ function App() {
           <h1 className="text-2xl font-medium mb-1">{editingPackage ? editingPackage.name : 'New Package'}</h1>
         </div>
 
-        <div className="grid grid-cols-[1fr,400px] gap-6">
+        <div className="grid grid-cols-2 gap-8" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           {/* Left Column - Steps */}
           <div className="space-y-4">
             <Accordion 
@@ -630,16 +640,25 @@ function App() {
               {/* Step 2 - Deployment Settings */}
               <AccordionItem value="step-2" className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
                 <AccordionTrigger className="px-4 py-3 hover:no-underline">
-                  <div className="flex items-center gap-4 text-left">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                      currentStep >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
-                    }`}>
-                      {currentStep > 2 ? <Check className="w-4 h-4" /> : '2'}
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center gap-4 text-left">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                        currentStep >= 2 ? 'bg-black text-white' : 'bg-gray-200 text-gray-600'
+                      }`}>
+                        {currentStep > 2 ? <Check className="w-4 h-4" /> : '2'}
+                      </div>
+                      <div>
+                        <h3 className="font-medium">Deployment Settings</h3>
+                        <p className="text-sm text-gray-600">Configure installation options</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-medium">Deployment Settings</h3>
-                      <p className="text-sm text-gray-600">Configure installation options</p>
-                    </div>
+                    {currentStep === 2 && (
+                      <button className="text-xs text-gray-600 hover:text-gray-800 mr-2" onClick={(e) => {
+                        e.stopPropagation();
+                      }}>
+                        [Edit]
+                      </button>
+                    )}
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-4 pb-4">
@@ -833,10 +852,16 @@ function App() {
                               type="radio"
                               name={`version-${selectedAppForDetails}`}
                               checked={appVersionSettings[selectedAppForDetails]?.type === 'latest'}
-                              onChange={() => setAppVersionSettings(prev => ({
-                                ...prev,
-                                [selectedAppForDetails]: { type: 'latest', specificVersion: null }
-                              }))}
+                              onChange={() => {
+                                setAppVersionSettings(prev => ({
+                                  ...prev,
+                                  [selectedAppForDetails]: { type: 'latest', specificVersion: null }
+                                }));
+                                // Auto-add if not already selected
+                                if (!selectedApps.includes(selectedAppForDetails)) {
+                                  setSelectedApps(prev => [...prev, selectedAppForDetails]);
+                                }
+                              }}
                             />
                             <span className="text-xs">Latest version</span>
                             <span className="text-xs text-gray-500 ml-auto">{products.find(p => p.id === selectedAppForDetails)?.name}</span>
@@ -846,10 +871,16 @@ function App() {
                               type="radio"
                               name={`version-${selectedAppForDetails}`}
                               checked={appVersionSettings[selectedAppForDetails]?.type === 'specific'}
-                              onChange={() => setAppVersionSettings(prev => ({
-                                ...prev,
-                                [selectedAppForDetails]: { type: 'specific', specificVersion: products.find(p => p.id === selectedAppForDetails)?.versions[0] }
-                              }))}
+                              onChange={() => {
+                                setAppVersionSettings(prev => ({
+                                  ...prev,
+                                  [selectedAppForDetails]: { type: 'specific', specificVersion: products.find(p => p.id === selectedAppForDetails)?.versions[0] }
+                                }));
+                                // Auto-add if not already selected
+                                if (!selectedApps.includes(selectedAppForDetails)) {
+                                  setSelectedApps(prev => [...prev, selectedAppForDetails]);
+                                }
+                              }}
                             />
                             <span className="text-xs">Specific version...</span>
                           </label>
@@ -1043,9 +1074,17 @@ function App() {
                       return (
                         <div key={appId} className="p-3 bg-gray-50 rounded-lg">
                           <div className="flex items-center justify-between">
-                            <div>
-                              <div className="font-medium text-sm">{app?.name}</div>
-                              <div className="text-xs text-gray-600">3 customizations, 2 extensions</div>
+                            <div className="flex items-center gap-3">
+                              <div className={`w-8 h-8 rounded flex items-center justify-center text-xs font-semibold ${
+                                ['bg-blue-100 text-blue-700', 'bg-green-100 text-green-700', 'bg-purple-100 text-purple-700', 
+                                 'bg-orange-100 text-orange-700', 'bg-pink-100 text-pink-700'][appId.charCodeAt(0) % 5]
+                              }`}>
+                                {app?.initials}
+                              </div>
+                              <div>
+                                <div className="font-medium text-sm">{app?.name}</div>
+                                <div className="text-xs text-gray-600">3 customizations, 2 extensions</div>
+                              </div>
                             </div>
                             <Button 
                               variant="ghost" 
