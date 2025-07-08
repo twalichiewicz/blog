@@ -1,6 +1,6 @@
 ---
 title: "Deploy at Scale demo now live"
-date: 2025-01-08
+date: 2025-07-08
 tags:
   - musings
   - demos
