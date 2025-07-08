@@ -1092,9 +1092,11 @@ function App() {
                         License managed by Autodesk ID. Users must sign in to access this product.
                       </div>
                       
+                      <hr className="my-4" />
+                      
                       {/* Licensing customization */}
-                      <div className="mt-3">
-                        <label className="flex items-center gap-2">
+                      <div>
+                        <label className="flex items-center gap-2 text-sm">
                           <Checkbox 
                             checked={customizations[selectedAppForDetails]?.customLicensing || false}
                             onCheckedChange={(checked) => setCustomizations(prev => ({
@@ -1102,7 +1104,7 @@ function App() {
                               [selectedAppForDetails]: { ...prev[selectedAppForDetails], customLicensing: checked }
                             }))}
                           />
-                          <span className="text-xs font-medium">Customize licensing</span>
+                          <span>Customize licensing</span>
                         </label>
                         {customizations[selectedAppForDetails]?.customLicensing && (
                           <div className="mt-3 flex gap-3">
