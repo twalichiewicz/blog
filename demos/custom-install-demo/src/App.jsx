@@ -586,10 +586,13 @@ function App() {
       // Create package name
       const packageName = editingPackage ? editingPackage.name : `Custom Package ${new Date().toLocaleDateString()}`;
       
-      toast({
-        title: isDownload ? "Preparing Download" : "Saving Package",
-        description: buttonText,
-      });
+      if (isDownload) {
+        toast({
+          title: "Preparing Download",
+          description: "Download ready",
+          showSpinner: true,
+        });
+      }
       
       // Simulate save/download
       await new Promise(resolve => setTimeout(resolve, 1500));
@@ -1713,11 +1716,11 @@ function App() {
                     className="h-7 text-xs"
                     onClick={() => {
                       const deployCount = selectedPackages.size;
+                      setSelectedPackages(new Set());
                       toast({
                         title: "Deploy Packages",
                         description: `Deploying ${deployCount} package${deployCount > 1 ? 's' : ''}...`,
                       });
-                      setSelectedPackages(new Set());
                     }}
                   >
                     <Package className="w-3 h-3 mr-1" />
@@ -1728,12 +1731,12 @@ function App() {
                     className="h-7 text-xs bg-red-600 hover:bg-red-700 text-white"
                     onClick={() => {
                       const deleteCount = selectedPackages.size;
+                      setSelectedPackages(new Set());
                       setPackages(packages.filter(p => !selectedPackages.has(p.id)));
                       toast({
                         title: "Packages Deleted",
                         description: `${deleteCount} package${deleteCount > 1 ? 's' : ''} deleted.`,
                       });
-                      setSelectedPackages(new Set());
                     }}
                   >
                     <Trash2 className="w-3 h-3 mr-1" />
