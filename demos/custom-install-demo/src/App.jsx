@@ -442,18 +442,7 @@ function App() {
         { id: 'vred', name: 'VRED', initials: 'VR', category: 'Manufacturing' },
       ];
       
-      // Add more products to reach 100+
-      const additionalProducts = [];
-      for (let i = 1; i <= 70; i++) {
-        additionalProducts.push({
-          id: `product-${i}`,
-          name: `Product ${i}`,
-          initials: `P${i}`,
-          category: ['Design', 'Architecture', 'Manufacturing', 'Media', 'Infrastructure'][i % 5]
-        });
-      }
-      
-      return [...productList, ...additionalProducts].map(p => ({
+      return productList.map(p => ({
         ...p,
         versions: ['2024.3', '2024.2', '2024.1', '2023.3', '2023.2', '2023.1', '2022.3']
       }));
@@ -717,7 +706,7 @@ function App() {
                         {deploymentSettings.type === 'install' ? (
                           <div>
                             <h5 className="font-medium text-sm mb-2">Installation Options</h5>
-                            <div className="space-y-2 pl-4">
+                            <div className="space-y-2">
                               <label className="flex items-center gap-3">
                                 <Checkbox 
                                   checked={deploymentSettings.createShortcuts}
@@ -732,19 +721,12 @@ function App() {
                                 />
                                 <span className="text-xs">Add to Start menu</span>
                               </label>
-                              <label className="flex items-center gap-3">
-                                <Checkbox 
-                                  checked={deploymentSettings.createRestorePoint}
-                                  onCheckedChange={(checked) => setDeploymentSettings({...deploymentSettings, createRestorePoint: checked})}
-                                />
-                                <span className="text-xs">Create system restore point</span>
-                              </label>
                             </div>
                           </div>
                         ) : (
                           <div>
                             <h5 className="font-medium text-sm mb-2">Deployment Configuration</h5>
-                            <div className="space-y-2 pl-4">
+                            <div className="space-y-2">
                               <label className="flex items-center gap-3">
                                 <Checkbox 
                                   checked={deploymentSettings.silentInstall || false}
@@ -763,10 +745,25 @@ function App() {
                           </div>
                         )}
                         
-                        <div>
-                          <h5 className="font-medium text-sm mb-2">Log Settings</h5>
-                          <div className="space-y-3 pl-4">
-                            <div>
+                        {deploymentSettings.type === 'install' ? (
+                          <div>
+                            <h5 className="font-medium text-sm mb-2">Default Install Location</h5>
+                            <div className="space-y-3">
+                              <div>
+                                <label className="text-xs text-gray-600">Install directory</label>
+                                <Input 
+                                  value={deploymentSettings.installLocation || 'C:\\Program Files\\Autodesk'}
+                                  onChange={(e) => setDeploymentSettings({...deploymentSettings, installLocation: e.target.value})}
+                                  className="mt-1 text-sm"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <h5 className="font-medium text-sm mb-2">Log Settings</h5>
+                            <div className="space-y-3">
+                              <div>
                               <label className="text-xs text-gray-600">Log file location</label>
                               <Input 
                                 value={deploymentSettings.logLocation}
@@ -782,9 +779,10 @@ function App() {
                                 placeholder="\\\\server\\deployments"
                                 className="mt-1 text-sm"
                               />
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -804,7 +802,7 @@ function App() {
                       ) : (
                         <>
                           <Save className="w-3 h-3 mr-1.5" />
-                          Save Package
+                          Save
                         </>
                       )}
                     </Button>
@@ -821,7 +819,7 @@ function App() {
                       ) : (
                         <>
                           <Download className="w-3 h-3 mr-1.5" />
-                          Download Installer
+                          Download
                         </>
                       )}
                     </Button>
@@ -845,20 +843,16 @@ function App() {
                   </div>
                 ) : (
                   <div>
-                    <div className="flex items-center gap-3 mb-4">
-                    <div className={`w-10 h-10 rounded flex items-center justify-center text-xs font-semibold ${
-                      ['bg-blue-100 text-blue-700', 'bg-green-100 text-green-700', 'bg-purple-100 text-purple-700', 
-                       'bg-orange-100 text-orange-700', 'bg-pink-100 text-pink-700'][selectedAppForDetails?.charCodeAt(0) % 5]
-                    }`}>
-                      {products.find(p => p.id === selectedAppForDetails)?.initials}
-                    </div>
-                    <h3 className="font-medium text-base">{products.find(p => p.id === selectedAppForDetails)?.name}</h3>
-                  </div>
-                    
-                    <div className="space-y-3 mb-6">
-                      <div className="py-2 border-b">
-                        <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs text-gray-600">Language:</span>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded flex items-center justify-center text-xs font-semibold ${
+                          ['bg-blue-100 text-blue-700', 'bg-green-100 text-green-700', 'bg-purple-100 text-purple-700', 
+                           'bg-orange-100 text-orange-700', 'bg-pink-100 text-pink-700'][selectedAppForDetails?.charCodeAt(0) % 5]
+                        }`}>
+                          {products.find(p => p.id === selectedAppForDetails)?.initials}
+                        </div>
+                        <h3 className="font-medium text-base">{products.find(p => p.id === selectedAppForDetails)?.name}</h3>
+                      </div>
                       <Select defaultValue="en">
                         <SelectTrigger className="w-24 h-7 text-xs">
                           <SelectValue />
@@ -871,7 +865,10 @@ function App() {
                         </SelectContent>
                       </Select>
                     </div>
-                    <span className="text-xs text-gray-600 block mb-2">Version to install:</span>
+                    
+                    <div className="space-y-3 mb-6">
+                      <div className="py-2 border-b">
+                        <span className="text-xs text-gray-600 block mb-2">Version to install:</span>
                         <div className="space-y-2">
                           <label className={`flex items-center gap-2 p-2 rounded ${appVersionSettings[selectedAppForDetails]?.type === 'latest' ? 'bg-blue-50 border border-blue-200' : ''}`}>
                             <input
@@ -986,7 +983,6 @@ function App() {
                       </div>
                     </div>
                     
-                    <hr className="my-4" />
                     
                     <Accordion type="single" collapsible className="space-y-2">
                       <AccordionItem value="extensions" className="border rounded-lg">
@@ -1009,7 +1005,6 @@ function App() {
                         </AccordionContent>
                       </AccordionItem>
                       
-                      <hr className="my-2" />
                       
                       <AccordionItem value="plugins" className="border rounded-lg">
                         <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
@@ -1029,7 +1024,6 @@ function App() {
                         </AccordionContent>
                       </AccordionItem>
                       
-                      <hr className="my-2" />
                       
                       <AccordionItem value="customizations" className="border rounded-lg">
                         <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
@@ -1052,7 +1046,6 @@ function App() {
                         </AccordionContent>
                       </AccordionItem>
                       
-                      <hr className="my-2" />
                       
                       <AccordionItem value="languages" className="border rounded-lg">
                         <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
@@ -1115,6 +1108,7 @@ function App() {
                             <Button 
                               variant="ghost" 
                               size="sm"
+                              className="text-xs text-gray-500 hover:text-gray-700"
                               onClick={() => {
                                 toast({
                                   title: "View Details",
@@ -1122,7 +1116,7 @@ function App() {
                                 });
                               }}
                             >
-                              <span className="text-xs">View Details</span>
+                              View Details
                             </Button>
                           </div>
                         </div>
