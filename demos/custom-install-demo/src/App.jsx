@@ -213,7 +213,7 @@ function App() {
                 onClick={handleCreateNew}
                 className="bg-black hover:bg-gray-800 text-white pl-3 pr-4"
               >
-                <Plus className="w-4 h-4 mr-2" />
+                <Plus className="w-4 h-4 mr-1.5" />
                 Create Package
               </Button>
               <div className="relative w-80">
@@ -228,7 +228,7 @@ function App() {
               </div>
             </div>
             
-            <div className="relative bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+            <div className="relative bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
 
               <table className="w-full">
                 <thead>
@@ -248,8 +248,8 @@ function App() {
                     <th className="text-left p-2 pl-0 font-medium text-[11px] text-gray-700">Package Name</th>
                     <th className="text-left p-2 font-medium text-[11px] text-gray-700">Type</th>
                     <th className="text-left p-2 font-medium text-[11px] text-gray-700">Last Saved</th>
-                    <th className="text-right p-2 font-medium text-[11px] text-gray-700">Products</th>
-                    <th className="w-10"></th>
+                    <th className="text-right p-2 pr-3 font-medium text-[11px] text-gray-700">Products</th>
+                    <th className="w-10 p-2"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -313,7 +313,7 @@ function App() {
                       </td>
                       <td className="p-2 text-[11px] text-gray-600 capitalize">{pkg.type === 'deployment' ? 'Deploy' : 'Install'}</td>
                       <td className="p-2 text-[11px] text-gray-600">{pkg.modified}</td>
-                      <td className="p-2 text-[11px] text-gray-600 text-right">{Math.floor(Math.random() * 8) + 1}</td>
+                      <td className="p-2 pr-3 text-[11px] text-gray-600 text-right">{Math.floor(Math.random() * 8) + 1}</td>
                       <td className="p-2 relative">
                         <Button 
                           variant="ghost" 
@@ -576,7 +576,7 @@ function App() {
                       </div>
                     </div>
                     {currentStep === 2 && (
-                      <button className="text-xs text-gray-600 hover:text-gray-800 mr-2" onClick={(e) => {
+                      <button className="text-xs text-black hover:text-gray-800 mr-2" onClick={(e) => {
                         e.stopPropagation();
                         setCurrentStep(1);
                       }}>
@@ -635,7 +635,7 @@ function App() {
                       onClick={() => setCurrentStep(2)}
                       disabled={selectedApps.length === 0}
                     >
-                      Next: Configure Deployment →
+                      <span className="font-medium">Next: Configure Deployment →</span>
                     </Button>
                   </div>
                 </AccordionContent>
@@ -683,7 +683,7 @@ function App() {
                           Deploy
                         </button>
                       </div>
-                      <div className="border border-gray-200 rounded-lg p-4 -mt-6 pt-6 bg-gray-50">
+                      <div className="border border-gray-200 rounded-lg p-4 -mt-6 pt-4 bg-gray-50">
                         {deploymentSettings.type === 'install' ? (
                           <div>
                             <p className="text-sm text-gray-600 mb-2">Users can run installer with customizations</p>
@@ -803,9 +803,7 @@ function App() {
                           Saving...
                         </>
                       ) : (
-                        <>
-                          Save
-                        </>
+                        <>Save</>
                       )}
                     </Button>
                     <Button 
@@ -819,9 +817,7 @@ function App() {
                           Downloading...
                         </>
                       ) : (
-                        <>
-                          Download
-                        </>
+                        <>Download</>
                       )}
                     </Button>
                   </div>
@@ -837,9 +833,7 @@ function App() {
               <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
                 {selectedAppForDetails === null ? (
                   <div className="text-center py-8">
-                    <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3">
-                      <Package className="w-6 h-6 text-gray-400" />
-                    </div>
+                    <Package className="w-6 h-6 text-gray-400 mx-auto mb-3" />
                     <p className="text-gray-500">Click on an application to view details</p>
                   </div>
                 ) : (
@@ -1199,7 +1193,7 @@ function App() {
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Type:</span>
-                      <span className="font-medium">{deploymentSettings.type === 'install' ? 'User Install' : 'Admin Deploy'}</span>
+                      <span className="font-medium">{deploymentSettings.type === 'install' ? 'Install' : 'Deploy'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Target:</span>
