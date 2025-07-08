@@ -572,17 +572,15 @@ function App() {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-4 pb-4">
-                  <div className="mt-4">
-                    <div className="mb-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="relative flex-1">
-                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                          <Input 
-                            placeholder="Search..."
-                            className="pl-10 h-9 text-sm"
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                          />
-                        </div>
+                  <div className="mt-2">
+                    <div className="mb-2">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Input 
+                          placeholder="Search applications..."
+                          className="pl-10 h-8 text-sm"
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                        />
                       </div>
                     </div>
                     <div className="border border-gray-200 rounded-lg overflow-hidden">
@@ -645,9 +643,7 @@ function App() {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-4 pb-4">
-                  <div className="grid grid-cols-[1fr,300px] gap-6 mt-4">
-                    {/* Main Content */}
-                    <div>
+                  <div className="mt-4">
                       <h4 className="text-sm font-medium mb-2">Deployment Type</h4>
                       <div className="bg-gray-100 p-1 rounded-lg flex mb-4">
                         <button
@@ -691,10 +687,9 @@ function App() {
                             </ul>
                           </div>
                         )}
-                      </div>
-                      
-                      {/* Conditional options based on deployment type */}
-                      <div className="ml-8 mt-4 space-y-4">
+                        
+                        {/* Conditional options based on deployment type */}
+                        <div className="mt-4 space-y-4">
                         {deploymentSettings.type === 'install' ? (
                           <div>
                             <h5 className="font-medium text-sm mb-2">Installation Options</h5>
@@ -768,31 +763,6 @@ function App() {
                         </div>
                       </div>
                     </div>
-                    
-                    {/* Right Sidebar - Deployment Summary */}
-                    <div className="bg-gray-50 rounded-lg p-4">
-                      <h4 className="font-medium mb-3">Deployment Summary</h4>
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Type:</span>
-                          <span className="font-medium">{deploymentSettings.type === 'install' ? 'User Install' : 'Admin Deploy'}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Target:</span>
-                          <span className="font-medium">{deploymentSettings.type === 'install' ? 'End Users' : 'IT Admins'}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Method:</span>
-                          <span className="font-medium">{deploymentSettings.type === 'install' ? 'Interactive' : 'Silent'}</span>
-                        </div>
-                        <hr className="my-3" />
-                        <div className="text-xs text-gray-500">
-                          {deploymentSettings.type === 'install' ? 
-                            'Package will include installer wizard for end-user installation' : 
-                            'Package optimized for enterprise deployment tools (SCCM, etc.)'}
-                        </div>
-                      </div>
-                    </div>
                   </div>
                   
                   <div className="flex gap-3 mt-6 justify-end">
@@ -858,7 +828,7 @@ function App() {
                     </div>
                     <span className="text-xs text-gray-600 block mb-2">Version to install:</span>
                         <div className="space-y-2">
-                          <label className="flex items-center gap-2">
+                          <label className={`flex items-center gap-2 p-2 rounded ${appVersionSettings[selectedAppForDetails]?.type === 'latest' ? 'bg-blue-50 border border-blue-200' : ''}`}>
                             <input
                               type="radio"
                               name={`version-${selectedAppForDetails}`}
@@ -871,7 +841,7 @@ function App() {
                             <span className="text-xs">Latest version</span>
                             <span className="text-xs text-gray-500 ml-auto">{products.find(p => p.id === selectedAppForDetails)?.name}</span>
                           </label>
-                          <label className="flex items-center gap-2">
+                          <label className={`flex items-center gap-2 p-2 rounded ${appVersionSettings[selectedAppForDetails]?.type === 'specific' ? 'bg-blue-50 border border-blue-200' : ''}`}>
                             <input
                               type="radio"
                               name={`version-${selectedAppForDetails}`}
@@ -915,7 +885,51 @@ function App() {
                       <div className="text-xs text-gray-500 mt-2">
                         License managed by Autodesk ID. Users must sign in to access this product.
                       </div>
+                      
+                      {/* Licensing customization */}
+                      <div className="mt-4">
+                        <label className="flex items-center gap-2">
+                          <Checkbox 
+                            checked={customizations[selectedAppForDetails]?.customLicensing || false}
+                            onCheckedChange={(checked) => setCustomizations(prev => ({
+                              ...prev,
+                              [selectedAppForDetails]: { ...prev[selectedAppForDetails], customLicensing: checked }
+                            }))}
+                          />
+                          <span className="text-xs font-medium">Customize licensing</span>
+                        </label>
+                        {customizations[selectedAppForDetails]?.customLicensing && (
+                          <div className="mt-3 flex gap-3">
+                            <div className="flex-1">
+                              <label className="text-xs text-gray-600 block mb-1">Serial Number</label>
+                              <Input 
+                                className="h-7 text-xs"
+                                placeholder="XXX-XXXXXXXX"
+                                value={customizations[selectedAppForDetails]?.serialNumber || ''}
+                                onChange={(e) => setCustomizations(prev => ({
+                                  ...prev,
+                                  [selectedAppForDetails]: { ...prev[selectedAppForDetails], serialNumber: e.target.value }
+                                }))}
+                              />
+                            </div>
+                            <div className="flex-1">
+                              <label className="text-xs text-gray-600 block mb-1">Product Key</label>
+                              <Input 
+                                className="h-7 text-xs"
+                                placeholder="XXXXX"
+                                value={customizations[selectedAppForDetails]?.productKey || ''}
+                                onChange={(e) => setCustomizations(prev => ({
+                                  ...prev,
+                                  [selectedAppForDetails]: { ...prev[selectedAppForDetails], productKey: e.target.value }
+                                }))}
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
+                    
+                    <hr className="my-4" />
                     
                     <Accordion type="single" collapsible className="space-y-2">
                       <AccordionItem value="extensions" className="border rounded-lg">
@@ -938,6 +952,8 @@ function App() {
                         </AccordionContent>
                       </AccordionItem>
                       
+                      <hr className="my-2" />
+                      
                       <AccordionItem value="plugins" className="border rounded-lg">
                         <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
                           Plug-ins
@@ -955,6 +971,8 @@ function App() {
                           </div>
                         </AccordionContent>
                       </AccordionItem>
+                      
+                      <hr className="my-2" />
                       
                       <AccordionItem value="customizations" className="border rounded-lg">
                         <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
@@ -976,6 +994,8 @@ function App() {
                           </div>
                         </AccordionContent>
                       </AccordionItem>
+                      
+                      <hr className="my-2" />
                       
                       <AccordionItem value="languages" className="border rounded-lg">
                         <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
@@ -1011,50 +1031,78 @@ function App() {
                 )}
               </div>
             ) : (
-              /* Checkout Summary */
-              <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
-                <h3 className="font-medium text-lg mb-4">Package Summary</h3>
-                
-                <div className="space-y-3 mb-6">
-                  {selectedApps.map(appId => {
-                    const app = products.find(p => p.id === appId);
-                    return (
-                      <div key={appId} className="p-3 bg-gray-50 rounded-lg">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="font-medium">{app?.name}</div>
-                            <div className="text-sm text-gray-600">3 customizations, 2 extensions</div>
+              /* Step 2 - Deployment Summary */
+              <div className="space-y-4">
+                {/* Package Summary */}
+                <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
+                  <h3 className="font-medium text-lg mb-4">Package Summary</h3>
+                  
+                  <div className="space-y-3 mb-6">
+                    {selectedApps.map(appId => {
+                      const app = products.find(p => p.id === appId);
+                      return (
+                        <div key={appId} className="p-3 bg-gray-50 rounded-lg">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <div className="font-medium text-sm">{app?.name}</div>
+                              <div className="text-xs text-gray-600">3 customizations, 2 extensions</div>
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => {
+                                toast({
+                                  title: "View Details",
+                                  description: `Showing details for ${app?.name}`,
+                                });
+                              }}
+                            >
+                              <span className="text-xs">View Details</span>
+                            </Button>
                           </div>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => {
-                              toast({
-                                title: "View Details",
-                                description: `Showing details for ${app?.name}`,
-                              });
-                            }}
-                          >
-                            View Details
-                          </Button>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
+                  
+                  <div className="space-y-3 pt-6 border-t">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Total Size:</span>
+                      <span className="font-medium">4.2 GB</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Install Time:</span>
+                      <span className="font-medium">~45 min</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Applications:</span>
+                      <span className="font-medium">{selectedApps.length}</span>
+                    </div>
+                  </div>
                 </div>
                 
-                <div className="space-y-3 pt-6 border-t">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Total Size:</span>
-                    <span className="font-medium">4.2 GB</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Install Time:</span>
-                    <span className="font-medium">~45 min</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Applications:</span>
-                    <span className="font-medium">{selectedApps.length}</span>
+                {/* Deployment Summary */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="font-medium mb-3">Deployment Summary</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Type:</span>
+                      <span className="font-medium">{deploymentSettings.type === 'install' ? 'User Install' : 'Admin Deploy'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Target:</span>
+                      <span className="font-medium">{deploymentSettings.type === 'install' ? 'End Users' : 'IT Admins'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Method:</span>
+                      <span className="font-medium">{deploymentSettings.type === 'install' ? 'Interactive' : 'Silent'}</span>
+                    </div>
+                    <hr className="my-3" />
+                    <div className="text-xs text-gray-500">
+                      {deploymentSettings.type === 'install' ? 
+                        'Package will include installer wizard for end-user installation' : 
+                        'Package optimized for enterprise deployment tools (SCCM, etc.)'}
+                    </div>
                   </div>
                 </div>
               </div>
