@@ -1180,7 +1180,7 @@ function App() {
           </div>
           
           {/* Multi-select action bar - positioned at bottom of browser chrome */}
-          {selectedPackages.size > 0 && (
+          {selectedPackages.size > 0 && currentView === 'library' && (
             <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-lg p-2 z-50">
               <div className="flex items-center justify-between px-4">
                 <div className="flex items-center gap-3">
@@ -1257,9 +1257,9 @@ function App() {
             </div>
           )}
           
+          {/* Toaster positioned in top-right */}
+          <Toaster />
         </div>
-        {/* Toaster positioned in top-right */}
-        <Toaster />
       </DemoWrapper>
     </ToastProvider>
   );
