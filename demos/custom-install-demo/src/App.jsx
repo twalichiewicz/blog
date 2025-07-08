@@ -737,7 +737,7 @@ function App() {
                           .map((app) => (
                           <div 
                             key={app.id}
-                            className={`flex items-center gap-3 p-3 border-b border-gray-100 cursor-pointer hover:bg-gray-50 ${
+                            className={`flex items-center gap-2 p-2 border-b border-gray-100 cursor-pointer hover:bg-gray-50 ${
                               selectedAppForDetails === app.id ? 'bg-gray-50' : ''
                             }`}
                             onClick={() => handleAppClick(app.id)}
@@ -747,14 +747,14 @@ function App() {
                               onCheckedChange={() => toggleApp(app.id)}
                               onClick={(e) => e.stopPropagation()}
                             />
-                            <div className={`w-10 h-10 rounded flex items-center justify-center text-xs font-semibold ${
+                            <div className={`w-8 h-8 rounded flex items-center justify-center text-[10px] font-semibold ${
                               ['bg-blue-100 text-blue-700', 'bg-green-100 text-green-700', 'bg-purple-100 text-purple-700', 
                                'bg-orange-100 text-orange-700', 'bg-pink-100 text-pink-700'][app.id.charCodeAt(0) % 5]
                             }`}>
                               {app.initials}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="font-medium text-sm truncate">{app.name}</div>
+                              <div className="font-medium text-xs truncate">{app.name}</div>
                             </div>
                           </div>
                         ))}
