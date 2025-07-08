@@ -1647,11 +1647,11 @@ function App() {
                         productCount: pkg.productCount
                       }));
                       setPackages([...duplicatedPkgs, ...packages]);
+                      setSelectedPackages(new Set());
                       toast({
                         title: "Packages Duplicated",
                         description: `${selectedPkgs.length} package${selectedPkgs.length > 1 ? 's' : ''} duplicated successfully.`,
                       });
-                      setSelectedPackages(new Set());
                     }}
                   >
                     <Copy className="w-3 h-3 mr-1" />
