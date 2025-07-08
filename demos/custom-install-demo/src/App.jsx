@@ -111,23 +111,44 @@ function App() {
     setCurrentStep(1);
     setCurrentView('creator');
     
-    // Load previous configuration (J)
-    const productIds = products.slice(0, pkg.productCount || 2).map(p => p.id);
-    setSelectedApps(productIds);
-    
-    // Set random configurations for loaded products
-    const settings = {};
-    const customizationsData = {};
-    productIds.forEach(id => {
-      settings[id] = { type: 'latest', specificVersion: null };
-      customizationsData[id] = {
-        customLicensing: Math.random() > 0.7,
-        serialNumber: Math.random() > 0.7 ? 'XXX-XXXXXXXX' : '',
-        productKey: Math.random() > 0.7 ? 'XXXXX' : ''
-      };
-    });
-    setAppVersionSettings(settings);
-    setCustomizations(customizationsData);
+    // Load saved configuration or generate default
+    if (pkg.configuration) {
+      // Load saved configuration
+      setSelectedApps(pkg.configuration.selectedApps || []);
+      setAppVersionSettings(pkg.configuration.versionSettings || {});
+      setCustomizations(pkg.configuration.customizations || {});
+      setDeploymentSettings(pkg.configuration.deploymentSettings || {
+        type: pkg.type === 'deployment' ? 'deploy' : 'install',
+        createShortcuts: true,
+        installPath: 'C:\\Program Files\\Autodesk',
+        logLocation: 'C:\\ProgramData\\Autodesk\\Logs',
+        networkPath: ''
+      });
+    } else {
+      // Generate default configuration
+      const productIds = products.slice(0, pkg.productCount || 2).map(p => p.id);
+      setSelectedApps(productIds);
+      
+      // Set random configurations for loaded products
+      const settings = {};
+      const customizationsData = {};
+      productIds.forEach(id => {
+        settings[id] = { type: 'latest', specificVersion: null };
+        customizationsData[id] = {
+          customLicensing: Math.random() > 0.7,
+          serialNumber: Math.random() > 0.7 ? 'XXX-XXXXXXXX' : '',
+          productKey: Math.random() > 0.7 ? 'XXXXX' : ''
+        };
+      });
+      setAppVersionSettings(settings);
+      setCustomizations(customizationsData);
+      
+      // Set deployment type based on package type
+      setDeploymentSettings(prev => ({
+        ...prev,
+        type: pkg.type === 'deployment' ? 'deploy' : 'install'
+      }));
+    }
     
     setCurrentView('creator');
   };
@@ -528,11 +549,18 @@ function App() {
     const products = generateProducts();
 
     const toggleApp = (appId) => {
-      setSelectedApps(prev =>
-        prev.includes(appId)
+      setSelectedApps(prev => {
+        const newSelection = prev.includes(appId)
           ? prev.filter(id => id !== appId)
-          : [...prev, appId]
-      );
+          : [...prev, appId];
+        
+        // Auto-select the app in the right pane when checked
+        if (!prev.includes(appId)) {
+          setSelectedAppForDetails(appId);
+        }
+        
+        return newSelection;
+      });
     };
     
     const handleAppClick = (appId) => {
@@ -566,17 +594,23 @@ function App() {
       // Simulate save/download
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Create new package entry
+      // Create new package entry with configuration
       const newPackage = {
         id: `pkg-${Date.now()}`,
         name: packageName,
         installs: 0,
-        type: 'package',
+        type: deploymentSettings.type === 'deploy' ? 'deployment' : 'package',
         created: new Date().toLocaleDateString(),
         modified: new Date().toLocaleDateString(),
         status: 'active',
         isNew: true,
-        productCount: selectedApps.length
+        productCount: selectedApps.length,
+        configuration: {
+          selectedApps: selectedApps,
+          versionSettings: appVersionSettings,
+          customizations: customizations,
+          deploymentSettings: deploymentSettings
+        }
       };
       
       // Add to packages if not editing
@@ -594,7 +628,18 @@ function App() {
         }, 100);
       } else {
         // Update existing package
-        setPackages(prev => prev.map(p => p.id === editingPackage.id ? { ...p, ...newPackage, productCount: selectedApps.length, modified: new Date().toLocaleDateString() } : p));
+        setPackages(prev => prev.map(p => p.id === editingPackage.id ? { 
+          ...p, 
+          ...newPackage, 
+          productCount: selectedApps.length, 
+          modified: new Date().toLocaleDateString(),
+          configuration: {
+            selectedApps: selectedApps,
+            versionSettings: appVersionSettings,
+            customizations: customizations,
+            deploymentSettings: deploymentSettings
+          }
+        } : p));
         handleBackToLibrary();
       }
       
@@ -649,12 +694,17 @@ function App() {
                       </div>
                     </div>
                     {currentStep === 2 && (
-                      <button className="text-xs text-black hover:text-gray-800 mr-2" onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentStep(1);
-                      }}>
-                        [Edit]
-                      </button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-6 px-2 text-xs -mr-2"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentStep(1);
+                        }}
+                      >
+                        Edit
+                      </Button>
                     )}
                   </div>
                 </AccordionTrigger>
@@ -739,7 +789,7 @@ function App() {
                           <button
                             type="button"
                             onClick={() => setDeploymentSettings({...deploymentSettings, type: 'install'})}
-                            className={`flex-1 py-2 text-sm font-medium rounded-l-md border ${
+                            className={`flex-1 py-1.5 text-xs font-medium rounded-l-md border ${
                               deploymentSettings.type === 'install'
                                 ? 'bg-gray-900 text-white border-gray-900'
                                 : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
@@ -750,7 +800,7 @@ function App() {
                           <button
                             type="button"
                             onClick={() => setDeploymentSettings({...deploymentSettings, type: 'deploy'})}
-                            className={`flex-1 py-2 text-sm font-medium rounded-r-md border-t border-r border-b ${
+                            className={`flex-1 py-1.5 text-xs font-medium rounded-r-md border-t border-r border-b ${
                               deploymentSettings.type === 'deploy'
                                 ? 'bg-gray-900 text-white border-gray-900'
                                 : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
