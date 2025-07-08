@@ -165,7 +165,7 @@
                 if (trailerHero) {
                     const zoomDisplays = trailerHero.querySelectorAll('.demo-zoom-level');
                     zoomDisplays.forEach(display => {
-                        display.textContent = `${currentZoom}%`;
+                        display.textContent = `${Math.round(currentZoom)}%`;
                     });
                 }
                 
@@ -279,7 +279,7 @@
             const currentZoom = demoZoomLevels.get(demoComponent) || 100;
             const zoomLevelDisplay = container.querySelector('.demo-zoom-level');
             if (zoomLevelDisplay) {
-                zoomLevelDisplay.textContent = `${currentZoom}%`;
+                zoomLevelDisplay.textContent = `${Math.round(currentZoom)}%`;
             }
             
             // Send current zoom to iframe
@@ -359,7 +359,7 @@
             return demoZoomLevels.get(demoComponent) || 100;
         },
         setZoom: function(demoComponent, zoom) {
-            demoZoomLevels.set(demoComponent, zoom);
+            demoZoomLevels.set(demoComponent, Math.round(zoom));
         }
     };
     
@@ -406,7 +406,7 @@
         
         // Initialize display with current zoom
         if (zoomLevelDisplay) {
-            zoomLevelDisplay.textContent = `${currentZoom}%`;
+            zoomLevelDisplay.textContent = `${Math.round(currentZoom)}%`;
         }
         
         const updateZoom = (newZoom) => {
