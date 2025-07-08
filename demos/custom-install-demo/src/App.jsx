@@ -987,11 +987,11 @@ function App() {
           <div className="sticky top-4 h-fit">
             {currentStep === 1 ? (
               /* Product Details */
-              <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
+              <div className={`${selectedAppForDetails === null ? 'bg-gray-50' : 'bg-white'} border border-gray-200 rounded-xl shadow-sm p-4`}>
                 {selectedAppForDetails === null ? (
                   <div className="text-center py-8">
-                    <Package className="w-6 h-6 text-gray-400 mx-auto mb-3" />
-                    <p className="text-gray-500">Click on an application to view details</p>
+                    <Package className="w-6 h-6 text-gray-300 mx-auto mb-3" />
+                    <p className="text-xs text-gray-400">Click on an application to view details</p>
                   </div>
                 ) : (
                   <div>
