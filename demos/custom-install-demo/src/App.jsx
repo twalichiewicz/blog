@@ -1314,18 +1314,18 @@ function App() {
                       }
                       
                       return (
-                        <AccordionNoChevron type="single" collapsible className="space-y-2">
+                        <Accordion type="single" collapsible className="space-y-2">
                           {selectedAccordions.map((accordion) => (
-                            <AccordionItemNoChevron key={accordion.id} value={accordion.id} className="border rounded-lg">
-                              <AccordionTriggerNoChevron className="px-4 py-3 text-sm font-medium hover:no-underline">
+                            <AccordionItem key={accordion.id} value={accordion.id} className="border rounded-lg">
+                              <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
                                 {accordion.title}
-                              </AccordionTriggerNoChevron>
-                              <AccordionContentNoChevron className="px-4 pb-3">
+                              </AccordionTrigger>
+                              <AccordionContent className="px-4 pb-3">
                                 {accordion.content}
-                              </AccordionContentNoChevron>
-                            </AccordionItemNoChevron>
+                              </AccordionContent>
+                            </AccordionItem>
                           ))}
-                        </AccordionNoChevron>
+                        </Accordion>
                       );
                     })()}
                   </div>
