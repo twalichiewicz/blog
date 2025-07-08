@@ -7,6 +7,7 @@ import { Checkbox } from './components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './components/ui/accordion';
+import { AccordionNoChevron, AccordionContentNoChevron, AccordionItemNoChevron, AccordionTriggerNoChevron } from './components/ui/accordion-no-chevron';
 import { Search, Plus, MoreHorizontal, ChevronDown, ChevronRight, X, Package, Settings, Download, Save, Check, Trash2, Copy, Edit3 } from 'lucide-react';
 import { ToastProvider } from './components/ui/toast';
 import { useToast } from './components/use-toast';
@@ -95,6 +96,7 @@ function App() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [sortField, setSortField] = useState('modified');
   const [sortDirection, setSortDirection] = useState('desc');
+  const [showDetailsModal, setShowDetailsModal] = useState(null);
 
   const handleCreateNew = () => {
     setEditingPackage(null);
@@ -736,31 +738,31 @@ function App() {
                 <AccordionContent className="px-4 pb-4">
                   <div className="mt-4">
                       <h4 className="text-sm font-medium mb-2">Deployment Type</h4>
-                      <div className="bg-gray-100 p-1 rounded-lg flex mb-4">
-                        <button
-                          className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
-                            deploymentSettings.type === 'install'
-                              ? 'bg-white text-gray-900 shadow-sm'
-                              : 'text-gray-600 hover:text-gray-900'
-                          }`}
-                          onClick={() => setDeploymentSettings({...deploymentSettings, type: 'install'})}
-                        >
-                          Install
-                        </button>
-                        <button
-                          className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
-                            deploymentSettings.type === 'deploy'
-                              ? 'bg-white text-gray-900 shadow-sm'
-                              : 'text-gray-600 hover:text-gray-900'
-                          }`}
-                          onClick={() => setDeploymentSettings({...deploymentSettings, type: 'deploy'})}
-                        >
-                          Deploy
-                        </button>
+                      <div className="flex items-center gap-6 mb-4">
+                        <label className="flex items-center gap-3 cursor-pointer">
+                          <span className={`text-sm ${deploymentSettings.type === 'install' ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
+                            Install
+                          </span>
+                          <button
+                            className={`relative w-12 h-7 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ${
+                              deploymentSettings.type === 'deploy' ? 'bg-gray-900' : 'bg-gray-300'
+                            }`}
+                            onClick={() => setDeploymentSettings({...deploymentSettings, type: deploymentSettings.type === 'install' ? 'deploy' : 'install'})}
+                            role="switch"
+                            aria-checked={deploymentSettings.type === 'deploy'}
+                          >
+                            <span className={`absolute left-0.5 top-0.5 w-6 h-6 bg-white rounded-full shadow-sm transition-transform duration-200 ${
+                              deploymentSettings.type === 'deploy' ? 'translate-x-5' : 'translate-x-0'
+                            }`} />
+                          </button>
+                          <span className={`text-sm ${deploymentSettings.type === 'deploy' ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
+                            Deploy
+                          </span>
+                        </label>
                       </div>
-                      <div className="border border-gray-200 rounded-lg p-4 -mt-6 pt-4 bg-gray-50">
+                      <div className="border border-gray-200 rounded-lg p-4 mt-4 bg-gray-50">
                         {deploymentSettings.type === 'install' ? (
-                          <div>
+                          <div className="border border-gray-300 rounded-md p-3 bg-white">
                             <p className="text-sm text-gray-600 mb-2">Users can run installer with customizations</p>
                             <ul className="text-xs text-gray-500 space-y-1 ml-4">
                               <li>• Interactive installation wizard</li>
@@ -769,7 +771,7 @@ function App() {
                             </ul>
                           </div>
                         ) : (
-                          <div>
+                          <div className="border border-gray-300 rounded-md p-3 bg-white">
                             <p className="text-sm text-gray-600 mb-2">Silent installation via SCCM/network</p>
                             <ul className="text-xs text-gray-500 space-y-1 ml-4">
                               <li>• Automated deployment</li>
@@ -976,15 +978,14 @@ function App() {
                               }}
                             />
                             <span className="text-xs">Specific version...</span>
-                          </label>
-                          {appVersionSettings[selectedAppForDetails]?.type === 'specific' && (
-                            <div className="ml-6 flex justify-end">
+                            {appVersionSettings[selectedAppForDetails]?.type === 'specific' && (
                               <Select
                                 value={appVersionSettings[selectedAppForDetails]?.specificVersion}
                                 onValueChange={(value) => setAppVersionSettings(prev => ({
                                   ...prev,
                                   [selectedAppForDetails]: { ...prev[selectedAppForDetails], specificVersion: value }
                                 }))}
+                                className="ml-auto"
                               >
                                 <SelectTrigger className="w-40 h-7 text-xs">
                                   <SelectValue placeholder="Select version" />
@@ -1002,8 +1003,8 @@ function App() {
                                 <SelectItem value="2022.3">2022.3</SelectItem>
                               </SelectContent>
                               </Select>
-                            </div>
-                          )}
+                            )}
+                          </label>
                         </div>
                       </div>
                       <div className="text-xs text-gray-500 mt-2">
@@ -1064,11 +1065,55 @@ function App() {
                                 <Checkbox defaultChecked />
                                 <span>Install {products.find(p => p.id === selectedAppForDetails)?.name} Microsoft Office/Outlook Add-ins</span>
                               </label>
-                              <div className="ml-6">
-                                <div className="text-xs text-gray-600 mb-2">Create Desktop Shortcut</div>
+                              <div className="ml-6 space-y-2">
+                                <div className="text-xs text-gray-600 mb-2">Create Desktop Shortcuts</div>
                                 <label className="flex items-center gap-2 text-sm">
                                   <Checkbox defaultChecked />
                                   <span>{products.find(p => p.id === selectedAppForDetails)?.name} Basic Client</span>
+                                </label>
+                                <label className="flex items-center gap-2 text-sm">
+                                  <Checkbox />
+                                  <span>{products.find(p => p.id === selectedAppForDetails)?.name} Project Manager</span>
+                                </label>
+                                <label className="flex items-center gap-2 text-sm">
+                                  <Checkbox />
+                                  <span>{products.find(p => p.id === selectedAppForDetails)?.name} Content Browser</span>
+                                </label>
+                              </div>
+                              <hr className="my-3" />
+                              <div className="space-y-2">
+                                <div className="text-xs text-gray-600 mb-2">Installation Preferences</div>
+                                <label className="flex items-center gap-2 text-sm">
+                                  <Checkbox />
+                                  <span>Create file associations</span>
+                                </label>
+                                <label className="flex items-center gap-2 text-sm">
+                                  <Checkbox defaultChecked />
+                                  <span>Install templates and samples</span>
+                                </label>
+                                <label className="flex items-center gap-2 text-sm">
+                                  <Checkbox />
+                                  <span>Enable automatic updates</span>
+                                </label>
+                                <label className="flex items-center gap-2 text-sm">
+                                  <Checkbox />
+                                  <span>Install offline help documentation</span>
+                                </label>
+                              </div>
+                              <hr className="my-3" />
+                              <div className="space-y-2">
+                                <div className="text-xs text-gray-600 mb-2">Performance Settings</div>
+                                <label className="flex items-center gap-2 text-sm">
+                                  <Checkbox />
+                                  <span>Enable hardware acceleration</span>
+                                </label>
+                                <label className="flex items-center gap-2 text-sm">
+                                  <Checkbox defaultChecked />
+                                  <span>Use multi-threaded processing</span>
+                                </label>
+                                <label className="flex items-center gap-2 text-sm">
+                                  <Checkbox />
+                                  <span>Cache cloud content locally</span>
                                 </label>
                               </div>
                             </div>
@@ -1107,18 +1152,34 @@ function App() {
                           id: 'extensions',
                           title: 'Extensions',
                           content: (
-                            <div>
-                              <div className="text-sm text-gray-500 mb-3">Search and add extensions</div>
-                              <div className="flex gap-2 flex-wrap">
-                                <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
-                                  Substance ×
-                                </button>
-                                <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
-                                  Civil View ×
-                                </button>
-                                <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
-                                  Material Library ×
-                                </button>
+                            <div className="space-y-3">
+                              <div className="flex items-start gap-2">
+                                <Checkbox />
+                                <div>
+                                  <div className="text-sm">Substance Extension</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Advanced material creation and texturing tools with procedural generation capabilities</div>
+                                </div>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <Checkbox />
+                                <div>
+                                  <div className="text-sm">Civil View Extension</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Specialized tools for civil engineering visualization and infrastructure project planning</div>
+                                </div>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <Checkbox />
+                                <div>
+                                  <div className="text-sm">BIM 360 Connector</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Cloud-based collaboration platform integration for construction document management</div>
+                                </div>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <Checkbox />
+                                <div>
+                                  <div className="text-sm">Structural Analysis Toolkit</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Advanced finite element analysis tools for structural engineering calculations</div>
+                                </div>
                               </div>
                             </div>
                           )
@@ -1185,18 +1246,18 @@ function App() {
                       }
                       
                       return (
-                        <Accordion type="single" collapsible className="space-y-2">
+                        <AccordionNoChevron type="single" collapsible className="space-y-2">
                           {selectedAccordions.map((accordion) => (
-                            <AccordionItem key={accordion.id} value={accordion.id} className="border rounded-lg">
-                              <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
+                            <AccordionItemNoChevron key={accordion.id} value={accordion.id} className="border rounded-lg">
+                              <AccordionTriggerNoChevron className="px-4 py-3 text-sm font-medium hover:no-underline">
                                 {accordion.title}
-                              </AccordionTrigger>
-                              <AccordionContent className="px-4 pb-3">
+                              </AccordionTriggerNoChevron>
+                              <AccordionContentNoChevron className="px-4 pb-3">
                                 {accordion.content}
-                              </AccordionContent>
-                            </AccordionItem>
+                              </AccordionContentNoChevron>
+                            </AccordionItemNoChevron>
                           ))}
-                        </Accordion>
+                        </AccordionNoChevron>
                       );
                     })()}
                   </div>
@@ -1232,10 +1293,7 @@ function App() {
                               size="sm"
                               className="text-xs text-gray-500 hover:text-gray-700"
                               onClick={() => {
-                                toast({
-                                  title: "View Details",
-                                  description: `Showing details for ${app?.name}`,
-                                });
+                                setShowDetailsModal(appId);
                               }}
                             >
                               View Details
@@ -1264,8 +1322,8 @@ function App() {
                 
                 {/* Deployment Summary */}
                 <div className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="font-medium mb-3">Deployment Summary</h4>
-                  <div className="space-y-2 text-sm">
+                  <h4 className="font-medium mb-3 text-sm">Deployment Summary</h4>
+                  <div className="space-y-2 text-xs">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Type:</span>
                       <span className="font-medium">{deploymentSettings.type === 'install' ? 'Install' : 'Deploy'}</span>
@@ -1279,7 +1337,7 @@ function App() {
                       <span className="font-medium">{deploymentSettings.type === 'install' ? 'Interactive' : 'Silent'}</span>
                     </div>
                     <hr className="my-3" />
-                    <div className="text-xs text-gray-500">
+                    <div className="text-[11px] text-gray-500">
                       {deploymentSettings.type === 'install' ? 
                         'Package will include installer wizard for end-user installation' : 
                         'Package optimized for enterprise deployment tools (SCCM, etc.)'}
@@ -1290,6 +1348,201 @@ function App() {
             )}
           </div>
         </div>
+        
+        {/* Details Modal */}
+        {showDetailsModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowDetailsModal(null)}>
+            <div className="bg-white rounded-lg p-6 max-w-3xl w-full mx-4 max-h-[90vh] overflow-hidden flex flex-col" onClick={e => e.stopPropagation()}>
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h3 className="text-lg font-medium">Package Configuration Details</h3>
+                  <p className="text-sm text-gray-500 mt-1">Complete summary of selected products and settings</p>
+                </div>
+                <button
+                  onClick={() => setShowDetailsModal(null)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <div className="flex-1 overflow-y-auto">
+                <div className="space-y-4">
+                  {selectedApps.map(appId => {
+                    const app = products.find(p => p.id === appId);
+                    const version = appVersionSettings[appId];
+                    const customization = customizations[appId];
+                    
+                    return (
+                      <div key={appId} className="border border-gray-200 rounded-lg overflow-hidden">
+                        <div className="bg-gray-50 px-4 py-3 flex items-center gap-3">
+                          <div className={`w-8 h-8 rounded flex items-center justify-center text-xs font-semibold ${
+                            ['bg-blue-100 text-blue-700', 'bg-green-100 text-green-700', 'bg-purple-100 text-purple-700', 
+                             'bg-orange-100 text-orange-700', 'bg-pink-100 text-pink-700'][appId.charCodeAt(0) % 5]
+                          }`}>
+                            {app?.initials}
+                          </div>
+                          <h4 className="font-medium">{app?.name}</h4>
+                          <span className="ml-auto text-sm text-gray-500">
+                            {version?.type === 'latest' ? 'Latest (2024.3)' : version?.specificVersion || '2024.3'}
+                          </span>
+                        </div>
+                        
+                        <div className="p-4 space-y-4">
+                          {/* Version and Licensing */}
+                          <div className="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                              <span className="text-gray-600">Version Type:</span>
+                              <p className="font-medium">{version?.type === 'latest' ? 'Always Latest' : 'Specific Version'}</p>
+                            </div>
+                            <div>
+                              <span className="text-gray-600">Language:</span>
+                              <p className="font-medium">English</p>
+                            </div>
+                          </div>
+                          
+                          {customization?.customLicensing && (
+                            <div className="bg-blue-50 rounded-md p-3">
+                              <div className="text-sm font-medium text-blue-900 mb-1">Custom Licensing Configured</div>
+                              <div className="text-xs text-blue-700 space-y-1">
+                                {customization.serialNumber && (
+                                  <div>Serial Number: {customization.serialNumber}</div>
+                                )}
+                                {customization.productKey && (
+                                  <div>Product Key: {customization.productKey}</div>
+                                )}
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Customizations Summary */}
+                          <div>
+                            <h5 className="text-sm font-medium mb-2">Selected Customizations</h5>
+                            <div className="bg-gray-50 rounded-md p-3">
+                              <ul className="text-xs text-gray-600 space-y-1">
+                                <li className="flex items-center gap-2">
+                                  <Check className="w-3 h-3 text-green-600" />
+                                  Microsoft Office/Outlook Add-ins
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <Check className="w-3 h-3 text-green-600" />
+                                  Desktop shortcuts created
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <Check className="w-3 h-3 text-green-600" />
+                                  Templates and samples included
+                                </li>
+                                <li className="flex items-center gap-2">
+                                  <Check className="w-3 h-3 text-green-600" />
+                                  Multi-threaded processing enabled
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          
+                          {/* Plug-ins and Extensions */}
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <h5 className="text-sm font-medium mb-2">Plug-ins (3)</h5>
+                              <ul className="text-xs text-gray-600 space-y-1">
+                                <li>• FBX Plug-in</li>
+                                <li>• Material Library</li>
+                                <li>• Rendering Engine</li>
+                              </ul>
+                            </div>
+                            <div>
+                              <h5 className="text-sm font-medium mb-2">Extensions (2)</h5>
+                              <ul className="text-xs text-gray-600 space-y-1">
+                                <li>• Substance Extension</li>
+                                <li>• BIM 360 Connector</li>
+                              </ul>
+                            </div>
+                          </div>
+                          
+                          {/* Technical Details */}
+                          <div className="border-t pt-3">
+                            <div className="grid grid-cols-3 gap-4 text-xs">
+                              <div>
+                                <span className="text-gray-500">Install Size:</span>
+                                <p className="font-medium text-gray-700">{(1.2 + Math.random() * 2).toFixed(1)} GB</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">Install Time:</span>
+                                <p className="font-medium text-gray-700">~{15 + Math.floor(Math.random() * 10)} min</p>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">Components:</span>
+                                <p className="font-medium text-gray-700">{8 + Math.floor(Math.random() * 5)}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                
+                {/* Overall Package Summary */}
+                <div className="mt-6 border-t pt-6">
+                  <h4 className="font-medium mb-3">Package Summary</h4>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Total Applications:</span>
+                        <span className="font-medium">{selectedApps.length}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Total Install Size:</span>
+                        <span className="font-medium">{(selectedApps.length * 1.5).toFixed(1)} GB</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Estimated Install Time:</span>
+                        <span className="font-medium">~{selectedApps.length * 15} minutes</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Deployment Type:</span>
+                        <span className="font-medium">{deploymentSettings.type === 'install' ? 'Install' : 'Deploy'}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Target Audience:</span>
+                        <span className="font-medium">{deploymentSettings.type === 'install' ? 'End Users' : 'IT Administrators'}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Installation Method:</span>
+                        <span className="font-medium">{deploymentSettings.type === 'install' ? 'Interactive Wizard' : 'Silent/Automated'}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-6 flex justify-end gap-3 border-t pt-4">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    // Copy configuration to clipboard
+                    toast({
+                      title: "Configuration Copied",
+                      description: "Package configuration has been copied to clipboard",
+                    });
+                  }}
+                  className="text-sm"
+                >
+                  <Copy className="w-4 h-4 mr-2" />
+                  Copy Configuration
+                </Button>
+                <Button
+                  onClick={() => setShowDetailsModal(null)}
+                  className="bg-black hover:bg-gray-800 text-sm"
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   };
