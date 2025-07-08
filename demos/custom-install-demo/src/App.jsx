@@ -767,7 +767,7 @@ function App() {
                       onClick={() => setCurrentStep(2)}
                       disabled={selectedApps.length === 0}
                     >
-                      <span className="font-medium">Configure package →</span>
+                      <span className="font-medium">Configure package</span>
                     </Button>
                   </div>
                 </AccordionContent>
