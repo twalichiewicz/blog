@@ -1366,7 +1366,9 @@ function App() {
                               </div>
                               <div>
                                 <div className="font-medium text-sm">{app?.name}</div>
-                                <div className="text-xs text-gray-600">3 customizations, 2 extensions</div>
+                                <div className="text-xs text-gray-600">
+                                  {((appId.charCodeAt(0) + appId.charCodeAt(1)) % 4) + 1} customizations, {(appId.charCodeAt(0) % 3) + 1} extensions
+                                </div>
                               </div>
                             </div>
                             <Button 
