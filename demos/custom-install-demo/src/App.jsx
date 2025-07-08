@@ -982,101 +982,153 @@ function App() {
                         )}
                       </div>
                     </div>
-                    
-                    
-                    <Accordion type="single" collapsible className="space-y-2">
-                      <AccordionItem value="extensions" className="border rounded-lg">
-                        <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
-                          Extensions
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-3">
-                          <div className="text-sm text-gray-500 mb-2">Search and add extensions</div>
-                          <div className="flex gap-2 flex-wrap">
-                            <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
-                              Substance ×
-                            </button>
-                            <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
-                              Civil View ×
-                            </button>
-                            <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
-                              Material Library ×
-                            </button>
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                      
-                      
-                      <AccordionItem value="plugins" className="border rounded-lg">
-                        <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
-                          Plug-ins
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-3">
-                          <div className="space-y-2">
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox />
-                              <span>Autodesk FBX Plug-in</span>
-                            </label>
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox />
-                              <span>Autodesk Material Library</span>
-                            </label>
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                      
-                      
-                      <AccordionItem value="customizations" className="border rounded-lg">
-                        <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
-                          Customizations
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-3">
-                          <div className="space-y-3">
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox defaultChecked />
-                              <span>Install Vault Microsoft Office/Outlook Add-ins</span>
-                            </label>
-                            <div className="ml-6">
-                              <div className="text-xs text-gray-600 mb-2">Create Desktop Shortcut</div>
+                    {(() => {
+                      // Generate random accordions for each product
+                      const allAccordions = [
+                        {
+                          id: 'customizations',
+                          title: 'Customizations',
+                          content: (
+                            <div className="space-y-3">
                               <label className="flex items-center gap-2 text-sm">
                                 <Checkbox defaultChecked />
-                                <span>Vault Basic Client</span>
+                                <span>Install {products.find(p => p.id === selectedAppForDetails)?.name} Microsoft Office/Outlook Add-ins</span>
+                              </label>
+                              <div className="ml-6">
+                                <div className="text-xs text-gray-600 mb-2">Create Desktop Shortcut</div>
+                                <label className="flex items-center gap-2 text-sm">
+                                  <Checkbox defaultChecked />
+                                  <span>{products.find(p => p.id === selectedAppForDetails)?.name} Basic Client</span>
+                                </label>
+                              </div>
+                            </div>
+                          )
+                        },
+                        {
+                          id: 'plugins',
+                          title: 'Plug-ins',
+                          content: (
+                            <div className="space-y-3">
+                              <div className="flex items-start gap-2">
+                                <Checkbox />
+                                <div>
+                                  <div className="text-sm">Autodesk FBX Plug-in</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Enables import and export of FBX files for 3D animation and modeling workflows with industry-standard compatibility</div>
+                                </div>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <Checkbox />
+                                <div>
+                                  <div className="text-sm">Autodesk Material Library</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Access to thousands of physically accurate materials for realistic rendering and visualization projects</div>
+                                </div>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <Checkbox />
+                                <div>
+                                  <div className="text-sm">Advanced Rendering Engine</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">High-performance ray tracing renderer with global illumination and photorealistic output capabilities</div>
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        },
+                        {
+                          id: 'extensions',
+                          title: 'Extensions',
+                          content: (
+                            <div>
+                              <div className="text-sm text-gray-500 mb-3">Search and add extensions</div>
+                              <div className="flex gap-2 flex-wrap">
+                                <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
+                                  Substance ×
+                                </button>
+                                <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
+                                  Civil View ×
+                                </button>
+                                <button className="px-3 py-1 text-xs border rounded-full bg-gray-100 hover:bg-gray-200">
+                                  Material Library ×
+                                </button>
+                              </div>
+                            </div>
+                          )
+                        },
+                        {
+                          id: 'languages',
+                          title: 'Language packs',
+                          content: (
+                            <div className="space-y-2">
+                              <label className="flex items-center gap-2 text-sm">
+                                <Checkbox />
+                                <span>Chinese-Simplified Language Pack for {products.find(p => p.id === selectedAppForDetails)?.name} 2026</span>
+                              </label>
+                              <label className="flex items-center gap-2 text-sm">
+                                <Checkbox />
+                                <span>French Language Pack for {products.find(p => p.id === selectedAppForDetails)?.name} 2026</span>
+                              </label>
+                              <label className="flex items-center gap-2 text-sm">
+                                <Checkbox />
+                                <span>German Language Pack for {products.find(p => p.id === selectedAppForDetails)?.name} 2026</span>
+                              </label>
+                              <label className="flex items-center gap-2 text-sm">
+                                <Checkbox />
+                                <span>Spanish Language Pack for {products.find(p => p.id === selectedAppForDetails)?.name} 2026</span>
                               </label>
                             </div>
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
+                          )
+                        },
+                        {
+                          id: 'integrations',
+                          title: 'Integrations',
+                          content: (
+                            <div className="space-y-3">
+                              <div className="flex items-start gap-2">
+                                <Checkbox />
+                                <div>
+                                  <div className="text-sm">Microsoft Office Integration</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Seamlessly embed and edit {products.find(p => p.id === selectedAppForDetails)?.name} content within Office applications</div>
+                                </div>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <Checkbox />
+                                <div>
+                                  <div className="text-sm">Cloud Collaboration Tools</div>
+                                  <div className="text-xs text-gray-500 leading-relaxed max-w-sm">Real-time collaboration features with automatic syncing and version control for team projects</div>
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        }
+                      ];
                       
+                      // Randomize which accordions to show (always include customizations first)
+                      const hash = selectedAppForDetails?.charCodeAt(0) || 0;
+                      const numAccordions = 2 + (hash % 3); // 2-4 accordions
+                      const selectedAccordions = [allAccordions[0]]; // Always include customizations first
                       
-                      <AccordionItem value="languages" className="border rounded-lg">
-                        <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
-                          Language packs
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 pb-3">
-                          <div className="space-y-2">
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox />
-                              <span>Chinese-Simplified Language Pack for Vault 2026</span>
-                            </label>
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox />
-                              <span>Chinese-Traditional Language Pack for Vault 2026</span>
-                            </label>
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox />
-                              <span>Czech Language Pack for Vault 2026</span>
-                            </label>
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox />
-                              <span>French Language Pack for Vault 2026</span>
-                            </label>
-                            <label className="flex items-center gap-2 text-sm">
-                              <Checkbox />
-                              <span>German Language Pack for Vault 2026</span>
-                            </label>
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
+                      // Add random selection of other accordions
+                      const otherAccordions = allAccordions.slice(1);
+                      const shuffled = [...otherAccordions].sort(() => (hash % 7) - 3.5);
+                      
+                      for (let i = 0; i < Math.min(numAccordions - 1, shuffled.length); i++) {
+                        selectedAccordions.push(shuffled[i]);
+                      }
+                      
+                      return (
+                        <Accordion type="single" collapsible className="space-y-2">
+                          {selectedAccordions.map((accordion) => (
+                            <AccordionItem key={accordion.id} value={accordion.id} className="border rounded-lg">
+                              <AccordionTrigger className="px-4 py-3 text-sm font-medium hover:no-underline">
+                                {accordion.title}
+                              </AccordionTrigger>
+                              <AccordionContent className="px-4 pb-3">
+                                {accordion.content}
+                              </AccordionContent>
+                            </AccordionItem>
+                          ))}
+                        </Accordion>
+                      );
+                    })()}
                   </div>
                 )}
               </div>
