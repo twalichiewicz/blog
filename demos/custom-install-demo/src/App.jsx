@@ -109,6 +109,7 @@ function App() {
   const handleEditPackage = (pkg) => {
     setEditingPackage(pkg);
     setCurrentStep(1);
+    setCurrentView('creator');
     
     // Load previous configuration (J)
     const productIds = products.slice(0, pkg.productCount || 2).map(p => p.id);
@@ -605,11 +606,6 @@ function App() {
         });
         setIsDownloading(false);
       } else {
-        // Show save success
-        toast({
-          title: "Package Saved",
-          description: `"${packageName}" has been added to your library.`,
-        });
         setIsSaving(false);
       }
     };

@@ -34,32 +34,36 @@ const toastVariants = cva(
   }
 )
 
-const Toast = React.forwardRef(({ className, variant, ...props }, ref) => {
+const Toast = React.forwardRef(({ className, variant, showSpinner, ...props }, ref) => {
   const [progress, setProgress] = React.useState(100);
   
   React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev <= 0) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 2; // Decrease by 2% every 100ms for 5 second duration
-      });
-    }, 100);
-    
-    return () => clearInterval(timer);
-  }, []);
+    if (!showSpinner) {
+      const timer = setInterval(() => {
+        setProgress((prev) => {
+          if (prev <= 0) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 2; // Decrease by 2% every 100ms for 5 second duration
+        });
+      }, 100);
+      
+      return () => clearInterval(timer);
+    }
+  }, [showSpinner]);
   
   return (
     <ToastPrimitives.Root
       ref={ref}
       className={cn(toastVariants({ variant }), "relative overflow-hidden", className)}
-      duration={5000}
+      duration={showSpinner ? 1000000 : 5000}
       {...props}
     >
       {props.children}
-      <div className="absolute bottom-0 left-0 h-1 bg-blue-500 transition-all duration-100 ease-linear" style={{ width: `${progress}%` }} />
+      {!showSpinner && (
+        <div className="absolute bottom-0 left-0 h-1 bg-blue-500 transition-all duration-100 ease-linear" style={{ width: `${progress}%` }} />
+      )}
     </ToastPrimitives.Root>
   )
 })
