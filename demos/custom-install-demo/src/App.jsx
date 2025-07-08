@@ -401,8 +401,8 @@ function App() {
                           <MoreHorizontal className="w-4 h-4" />
                         </Button>
                         
-                        {/* Hover menu aligned with kebab */}
-                        <div className={`absolute right-10 top-1/2 -translate-y-1/2 flex items-center gap-1 bg-white border border-gray-200 rounded-md shadow-lg p-1 transition-all duration-200 z-50 ${
+                        {/* Hover menu overlapping kebab */}
+                        <div className={`absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-1 bg-white border border-gray-200 rounded-md shadow-lg p-1 transition-all duration-200 z-50 ${
                           hoveredRow === pkg.id ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2 pointer-events-none'
                         }`}>
                           <Button
