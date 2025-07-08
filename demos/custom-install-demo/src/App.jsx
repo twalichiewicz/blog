@@ -211,7 +211,7 @@ function App() {
             <div className="flex justify-between items-center mb-6">
               <Button 
                 onClick={handleCreateNew}
-                className="bg-black hover:bg-gray-800 text-white"
+                className="bg-black hover:bg-gray-800 text-white pl-3 pr-4"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Create Package
@@ -228,7 +228,7 @@ function App() {
               </div>
             </div>
             
-            <div className="relative bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="relative bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
 
               <table className="w-full">
                 <thead>
@@ -248,8 +248,8 @@ function App() {
                     <th className="text-left p-2 pl-0 font-medium text-[11px] text-gray-700">Package Name</th>
                     <th className="text-left p-2 font-medium text-[11px] text-gray-700">Type</th>
                     <th className="text-left p-2 font-medium text-[11px] text-gray-700">Last Saved</th>
-                    <th className="text-left p-2 font-medium text-[11px] text-gray-700">Products</th>
-                    <th className="w-20"></th>
+                    <th className="text-right p-2 font-medium text-[11px] text-gray-700">Products</th>
+                    <th className="w-10"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -313,7 +313,7 @@ function App() {
                       </td>
                       <td className="p-2 text-[11px] text-gray-600 capitalize">{pkg.type === 'deployment' ? 'Deploy' : 'Install'}</td>
                       <td className="p-2 text-[11px] text-gray-600">{pkg.modified}</td>
-                      <td className="p-2 text-[11px] text-gray-600">{pkg.type === 'deployment' ? pkg.installs.toLocaleString() : '2'}</td>
+                      <td className="p-2 text-[11px] text-gray-600 text-right">{Math.floor(Math.random() * 8) + 1}</td>
                       <td className="p-2 relative">
                         <Button 
                           variant="ghost" 
@@ -563,16 +563,26 @@ function App() {
               {/* Step 1 - Select Applications */}
               <AccordionItem value="step-1" className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
                 <AccordionTrigger className="px-4 py-3 hover:no-underline">
-                  <div className="flex items-center gap-4 text-left">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                      currentStep >= 1 ? 'bg-black text-white' : 'bg-gray-200 text-gray-600'
-                    }`}>
-                      {currentStep > 1 ? <Check className="w-4 h-4" /> : '1'}
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center gap-4 text-left">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                        currentStep >= 1 ? 'bg-black text-white' : 'bg-gray-200 text-gray-600'
+                      }`}>
+                        {currentStep > 1 ? <Check className="w-4 h-4" /> : '1'}
+                      </div>
+                      <div>
+                        <h3 className="font-medium">Select Applications</h3>
+                        <p className="text-xs text-gray-600">Choose products and customize settings</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-medium">Select Applications</h3>
-                      <p className="text-xs text-gray-600">Choose products and customize settings</p>
-                    </div>
+                    {currentStep === 2 && (
+                      <button className="text-xs text-gray-600 hover:text-gray-800 mr-2" onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentStep(1);
+                      }}>
+                        [Edit]
+                      </button>
+                    )}
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-4 pb-4">
@@ -621,7 +631,7 @@ function App() {
                   </div>
                   <div className="flex justify-end mt-6">
                     <Button 
-                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      className="bg-black hover:bg-gray-800 text-white h-8 px-3 text-sm"
                       onClick={() => setCurrentStep(2)}
                       disabled={selectedApps.length === 0}
                     >
@@ -646,13 +656,6 @@ function App() {
                         <p className="text-xs text-gray-600">Configure installation options</p>
                       </div>
                     </div>
-                    {currentStep === 2 && (
-                      <button className="text-xs text-gray-600 hover:text-gray-800 mr-2" onClick={(e) => {
-                        e.stopPropagation();
-                      }}>
-                        [Edit]
-                      </button>
-                    )}
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-4 pb-4">
@@ -667,7 +670,7 @@ function App() {
                           }`}
                           onClick={() => setDeploymentSettings({...deploymentSettings, type: 'install'})}
                         >
-                          User Install
+                          Install
                         </button>
                         <button
                           className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
@@ -677,10 +680,10 @@ function App() {
                           }`}
                           onClick={() => setDeploymentSettings({...deploymentSettings, type: 'deploy'})}
                         >
-                          Admin Deployment
+                          Deploy
                         </button>
                       </div>
-                      <div className="border border-gray-200 rounded-lg p-4 -mt-6 pt-8 bg-gray-50">
+                      <div className="border border-gray-200 rounded-lg p-4 -mt-6 pt-6 bg-gray-50">
                         {deploymentSettings.type === 'install' ? (
                           <div>
                             <p className="text-sm text-gray-600 mb-2">Users can run installer with customizations</p>
@@ -801,7 +804,6 @@ function App() {
                         </>
                       ) : (
                         <>
-                          <Save className="w-3 h-3 mr-1.5" />
                           Save
                         </>
                       )}
@@ -818,7 +820,6 @@ function App() {
                         </>
                       ) : (
                         <>
-                          <Download className="w-3 h-3 mr-1.5" />
                           Download
                         </>
                       )}
@@ -836,7 +837,7 @@ function App() {
               <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
                 {selectedAppForDetails === null ? (
                   <div className="text-center py-8">
-                    <div className="w-12 h-12 bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-inner border border-gray-200">
+                    <div className="w-12 h-12 flex items-center justify-center mx-auto mb-3">
                       <Package className="w-6 h-6 text-gray-400" />
                     </div>
                     <p className="text-gray-500">Click on an application to view details</p>
@@ -887,7 +888,7 @@ function App() {
                               }}
                             />
                             <span className="text-xs">Latest version</span>
-                            <span className="text-xs text-gray-500 ml-auto">{products.find(p => p.id === selectedAppForDetails)?.name}</span>
+                            <span className="text-xs text-gray-500 ml-auto">2024.3</span>
                           </label>
                           <label className={`flex items-center gap-2 p-2 rounded ${appVersionSettings[selectedAppForDetails]?.type === 'specific' ? 'bg-blue-50 border border-blue-200' : ''}`}>
                             <input
