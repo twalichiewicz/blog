@@ -1092,10 +1092,8 @@ function App() {
                         License managed by Autodesk ID. Users must sign in to access this product.
                       </div>
                       
-                      <hr className="my-4" />
-                      
                       {/* Licensing customization */}
-                      <div>
+                      <div className="mt-3">
                         <label className="flex items-center gap-2 text-sm">
                           <Checkbox 
                             checked={customizations[selectedAppForDetails]?.customLicensing || false}
@@ -1135,6 +1133,8 @@ function App() {
                           </div>
                         )}
                       </div>
+                      
+                      <hr className="my-4" />
                     </div>
                     {(() => {
                       // Generate random accordions for each product
