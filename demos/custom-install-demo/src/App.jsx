@@ -107,6 +107,19 @@ function App() {
   };
 
   const handleEditPackage = (pkg) => {
+    // Reset state first
+    setSelectedApps([]);
+    setAppVersionSettings({});
+    setCustomizations({});
+    setDeploymentSettings({
+      type: 'install',
+      createShortcuts: true,
+      addToStartMenu: true,
+      createRestorePoint: false,
+      logLocation: '%TEMP%\\Autodesk\\Install.log',
+      networkPath: ''
+    });
+    
     setEditingPackage(pkg);
     setCurrentStep(1);
     setCurrentView('creator');
