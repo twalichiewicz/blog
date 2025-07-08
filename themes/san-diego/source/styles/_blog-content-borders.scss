@@ -1,0 +1,71 @@
+// Blog content border styles
+// This file manages the specific border requirements for .blog-content
+// Must be imported AFTER border-system.scss to properly override
+
+@use 'variables';
+
+// Blog content borders - non-mobile only, top and left only
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  // Target both regular and dynamic content
+  .blog .blog-content.has-dynamic-content,
+  .blog .blog-content,
+  body .blog-content.has-dynamic-content,
+  body .blog-content {
+    // Light mode
+    @media (prefers-color-scheme: light) {
+      border: none;
+      border-top: 1px solid #CCC;
+      border-left: 1px solid #CCC;
+    }
+    
+    // Dark mode
+    @media (prefers-color-scheme: dark) {
+      border: none;
+      border-top: 1px solid #3f3f3f;
+      border-left: 1px solid #3f3f3f;
+    }
+    
+    // Default to light mode for systems without preference
+    @media not all and (prefers-color-scheme) {
+      border: none;
+      border-top: 1px solid #CCC;
+      border-left: 1px solid #CCC;
+    }
+  }
+}
+
+// Tablet-specific borders for device-tablet class
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  .device-tablet .blog .blog-content {
+    // Light mode
+    @media (prefers-color-scheme: light) {
+      border: none;
+      border-top: 1px solid #CCC;
+      border-left: 1px solid #CCC;
+    }
+    
+    // Dark mode
+    @media (prefers-color-scheme: dark) {
+      border: none;
+      border-top: 1px solid #3f3f3f;
+      border-left: 1px solid #3f3f3f;
+    }
+    
+    // Default to light mode for systems without preference
+    @media not all and (prefers-color-scheme) {
+      border: none;
+      border-top: 1px solid #CCC;
+      border-left: 1px solid #CCC;
+    }
+  }
+}
+
+// Ensure no borders on mobile
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog .blog-content.has-dynamic-content,
+  .blog .blog-content,
+  body .blog-content.has-dynamic-content,
+  body .blog-content {
+    border: none;
+  }
+}

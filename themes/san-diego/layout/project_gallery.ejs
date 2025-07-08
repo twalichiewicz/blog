@@ -453,10 +453,12 @@
 		}
 		
 		function loadCustomComponent(name, container) {
-			// Load custom demo as iframe
+			// Load custom demo as iframe with relative path
+			const pathSegments = window.location.pathname.split('/').filter(s => s);
+			const levelsUp = pathSegments.length > 0 ? '../'.repeat(pathSegments.length) : '';
 			container.innerHTML = `
 				<div class="demo-custom">
-					<iframe src="/demos/${name}/" 
+					<iframe src="${levelsUp}demos/${name}/index.html" 
 						frameborder="0" 
 						allowfullscreen
 						style="width: 100%; height: 100%;"

@@ -94,3 +94,19 @@ html, body, #root {
   padding: 0;
   overflow: hidden;
 }
+
+/* Browser-style zoom behavior */
+.demo-wrapper {
+  height: 100%;
+  overflow: auto;
+}
+
+/* Ensure content fills available space */
+.h-full {
+  min-height: 100%;
+}
+
+/* Override fixed heights to be responsive */
+.browser-content {
+  overflow: auto !important;
+}

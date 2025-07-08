@@ -169,13 +169,10 @@
 			}
 		}
 
-		/* Dark mode for basic blog content - only on mobile */
-		@media (max-width: variables.$mobile-breakpoint) {
-			.blog-content {
-				background-color: variables.$grey-dark;
-				box-shadow: 0 2px 15px rgb(0 0 0 / 15%);
-				border: 1px solid rgb(255 255 255 / 10%);
-			}
+		/* Dark mode for blog content background */
+		.blog-content {
+			background-color: variables.$grey-dark;
+			box-shadow: 0 2px 15px rgb(0 0 0 / 15%);
 		}
 		
 		/* Dark mode for separators */

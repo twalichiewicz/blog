@@ -11,7 +11,7 @@ tags:
   - portfolio
 layout: project_gallery
 notebook_color: "dark-lime-green"
-# demo_component: "custom-install-demo"  # Temporarily disabled due to build error
+demo_component: "custom-install-demo"
 notebook_stickers:
   - text: "🌲"
     color: "#2e7d32"
@@ -25,10 +25,12 @@ notebook_stickers:
     left: "auto"
   - text: "DEMO"
     color: "#fff"
-    bg: "#4caf50"
-    rotate: "1deg"
+    bg: "#000000"
+    rotate: "2deg"
     style: "die-cut"
     shape: "circle"
+    bottom: "80px"
+    right: "25px"
 notebook_sticker_image: "/img/stickers/bonsai.svg"
 notebook_sticker_image_width: "45px"
 notebook_sticker_image_height: "45px"

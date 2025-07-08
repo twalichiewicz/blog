@@ -1,0 +1,256 @@
+/* Package Library Styles */
+.package-library {
+  background: #f5f6f7;
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* Tab Bar - Full Width Underline Style */
+.library-tabs {
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  width: 100%;
+  padding: 0 24px;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 16px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-button:hover {
+  color: #2c2c2c;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.tab-button.active {
+  color: #0696d7;
+  border-bottom-color: #0696d7;
+  background: rgba(6, 150, 215, 0.05);
+}
+
+/* Actions Bar */
+.actions-bar {
+  background: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.create-package-btn {
+  background: #0696d7;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.create-package-btn:hover {
+  background: #0584c2;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(6, 150, 215, 0.3);
+}
+
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 8px 12px 8px 36px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 300px;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #0696d7;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: #999;
+  pointer-events: none;
+}
+
+/* Package Grid */
+.package-grid {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.package-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.package-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #d0d0d0;
+}
+
+.package-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.package-type {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.package-name {
+  margin-bottom: 16px;
+}
+
+.package-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+
+.package-title:hover {
+  color: #0696d7;
+}
+
+.edit-icon {
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: #999;
+}
+
+.package-title:hover .edit-icon {
+  opacity: 1;
+}
+
+.name-input {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c2c2c;
+  border: 2px solid #0696d7;
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+  background: white;
+}
+
+.name-input:focus {
+  outline: none;
+}
+
+.package-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #666;
+}
+
+.meta-item svg {
+  color: #999;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 80px 40px;
+  color: #666;
+}
+
+.empty-state svg {
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.empty-state h3 {
+  color: #2c2c2c;
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .library-tabs {
+    padding: 0 16px;
+  }
+  
+  .tab-button {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+  
+  .actions-bar {
+    padding: 12px 16px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .search-wrapper {
+    width: 100%;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  .package-grid {
+    padding: 16px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

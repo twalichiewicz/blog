@@ -12,7 +12,20 @@
 }
 
 // Project edge wrapper styles
-body .project-edge-wrapper {
+body .project-edge-wrapper,
+.project-edge-wrapper {
+	// Remove all borders from project-edge-wrapper but keep top-left radius
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		border: none;
+		border-radius: 12px 0 0 0;
+		background: variables.$card-bg;
+		
+		@media (prefers-color-scheme: dark) {
+			border: none;
+			background: rgb(24, 24, 24);
+		}
+	}
+	
 	.above-fold-content-wrapper {
 		.project-title {
 			.project-byline {
@@ -68,6 +81,27 @@ body .project-edge-wrapper {
 		}
 	}
 }
+
+// Project pages - remove conflicting borders
+// The border styles are now handled in theme mode files
+body .project-edge-wrapper {
+	.blog-content {
+		// Desktop/tablet: Only structural styles, no borders
+		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			// Top-left border radius to match the top/left borders
+			border-radius: 12px 0 0 0;
+			margin: 12px;
+			background: variables.$white;
+			height: auto; // Override default blog-content height
+			overflow: visible; // Override default overflow
+			
+			@media (prefers-color-scheme: dark) {
+				background: rgb(9, 9, 9);
+			}
+		}
+	}
+}
+
 
 // Ensure short articles take full viewport height when loaded
 body.loaded .project-wrapper {
@@ -2407,10 +2441,21 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		min-height: unset;
 		max-height: unset;
 		padding: 36px;
-		background-color: rgba(0, 0, 0, 0.03); // Subtle light mode background
 		
-		@media (prefers-color-scheme: dark) {
-			background-color: rgba(255, 255, 255, 0.03); // Subtle dark mode background
+		// Create full-width background that extends to edges
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -100vw;
+			right: -100vw;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.03); // Subtle light mode background
+			z-index: -1;
+			
+			@media (prefers-color-scheme: dark) {
+				background-color: rgba(255, 255, 255, 0.03); // Subtle dark mode background
+			}
 		}
 		
 		// Responsive padding overrides

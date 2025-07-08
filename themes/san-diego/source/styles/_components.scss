@@ -2743,7 +2743,8 @@ table {
 // Desktop: custom border-radius for content-inner-wrapper
 @media screen and (min-width: 1025px) {
 	.content-inner-wrapper {
-		border-radius: 12px 0 0 0;
+		/* Border-radius handled by parent blog-content */
+		border-radius: 0;
 	}
 }
 

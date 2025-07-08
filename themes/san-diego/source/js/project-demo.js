@@ -75,7 +75,11 @@
         
         // Create iframe for inline demo
         const iframe = document.createElement('iframe');
-        iframe.src = `/demos/${componentName}/`;
+        // Use relative path that works on all deployment environments
+        // For a post at /2021/08/30/Custom-Install/, we need to go up 4 levels
+        const pathSegments = window.location.pathname.split('/').filter(s => s);
+        const levelsUp = pathSegments.length > 0 ? '../'.repeat(pathSegments.length) : '';
+        iframe.src = `${levelsUp}demos/${componentName}/index.html`;
         iframe.frameBorder = '0';
         iframe.allowFullscreen = true;
         iframe.style.width = '100%';
@@ -150,6 +154,30 @@
             
             trailerHero.classList.add('demo-fullscreen');
             document.body.classList.add('demo-fullscreen-active');
+            
+            // Re-initialize zoom controls to ensure zoom level persists
+            const demoComponent = container.getAttribute('data-demo-component') || 'default';
+            const currentZoom = demoZoomLevels.get(demoComponent) || 100;
+            
+            // Update all zoom displays in fullscreen mode
+            setTimeout(() => {
+                const trailerHero = container.closest('.project-trailer-hero');
+                if (trailerHero) {
+                    const zoomDisplays = trailerHero.querySelectorAll('.demo-zoom-level');
+                    zoomDisplays.forEach(display => {
+                        display.textContent = `${Math.round(currentZoom)}%`;
+                    });
+                }
+                
+                // Send current zoom to iframe
+                const iframe = container.querySelector('.demo-inline-iframe');
+                if (iframe && iframe.contentWindow) {
+                    iframe.contentWindow.postMessage({
+                        type: 'setDemoZoom',
+                        zoom: currentZoom / 100
+                    }, '*');
+                }
+            }, 100);
             
             // Update controls for fullscreen mode
             if (controls) {
@@ -246,6 +274,23 @@
             trailerHero.classList.remove('demo-fullscreen');
             document.body.classList.remove('demo-fullscreen-active');
             
+            // Ensure zoom level persists when exiting fullscreen
+            const demoComponent = container.getAttribute('data-demo-component') || 'default';
+            const currentZoom = demoZoomLevels.get(demoComponent) || 100;
+            const zoomLevelDisplay = container.querySelector('.demo-zoom-level');
+            if (zoomLevelDisplay) {
+                zoomLevelDisplay.textContent = `${Math.round(currentZoom)}%`;
+            }
+            
+            // Send current zoom to iframe
+            const iframe = container.querySelector('.demo-inline-iframe');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({
+                    type: 'setDemoZoom',
+                    zoom: currentZoom / 100
+                }, '*');
+            }
+            
             // Restore original position if it was moved
             const originalParentId = trailerHero.dataset.originalParent;
             if (originalParentId) {
@@ -308,6 +353,16 @@
     // Store zoom level globally per demo
     const demoZoomLevels = new Map();
     
+    // Global zoom handler that works across all demo instances
+    window.demoZoomManager = {
+        getZoom: function(demoComponent) {
+            return demoZoomLevels.get(demoComponent) || 100;
+        },
+        setZoom: function(demoComponent, zoom) {
+            demoZoomLevels.set(demoComponent, Math.round(zoom));
+        }
+    };
+    
     // Setup inline demo controls
     function setupInlineDemoControls(container) {
         const fullscreenBtn = container.querySelector('.demo-fullscreen-button');
@@ -317,6 +372,12 @@
         
         // Get demo component name for zoom persistence
         const demoComponent = container.getAttribute('data-demo-component') || 'default';
+        
+        // Check if zoom controls already initialized (avoid re-init on fullscreen toggle)
+        if (container.hasAttribute('data-zoom-initialized')) {
+            return;
+        }
+        container.setAttribute('data-zoom-initialized', 'true');
         
         // Fullscreen button handler - animate existing demo instead of modal
         if (fullscreenBtn) {
@@ -338,36 +399,40 @@
         }
         
         // Zoom controls - retrieve persisted zoom or default to 100
-        let currentZoom = demoZoomLevels.get(demoComponent) || 100;
+        let currentZoom = window.demoZoomManager.getZoom(demoComponent);
         const zoomStep = 10;
         const minZoom = 50;
         const maxZoom = 200;
         
         // Initialize display with current zoom
         if (zoomLevelDisplay) {
-            zoomLevelDisplay.textContent = `${currentZoom}%`;
+            zoomLevelDisplay.textContent = `${Math.round(currentZoom)}%`;
         }
         
         const updateZoom = (newZoom) => {
             currentZoom = Math.max(minZoom, Math.min(maxZoom, newZoom));
             
             // Persist zoom level
-            demoZoomLevels.set(demoComponent, currentZoom);
+            window.demoZoomManager.setZoom(demoComponent, currentZoom);
             
-            // Update all zoom displays for this demo
-            const allZoomDisplays = container.querySelectorAll('.demo-zoom-level');
-            allZoomDisplays.forEach(display => {
-                display.textContent = `${currentZoom}%`;
+            // Update all zoom displays for this demo (including in fullscreen)
+            const trailerHero = container.closest('.project-trailer-hero');
+            const allContainers = trailerHero ? trailerHero.querySelectorAll('.demo-inline-container') : [container];
+            allContainers.forEach(cont => {
+                const displays = cont.querySelectorAll('.demo-zoom-level');
+                displays.forEach(display => {
+                    display.textContent = `${currentZoom}%`;
+                });
+                
+                // Send zoom message to iframe in each container
+                const iframe = cont.querySelector('.demo-inline-iframe');
+                if (iframe && iframe.contentWindow) {
+                    iframe.contentWindow.postMessage({
+                        type: 'setDemoZoom',
+                        zoom: currentZoom / 100
+                    }, '*');
+                }
             });
-            
-            // Send zoom message to iframe
-            const iframe = container.querySelector('.demo-inline-iframe');
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage({
-                    type: 'setDemoZoom',
-                    zoom: currentZoom / 100
-                }, '*');
-            }
             
             // Play tiny button sound
             if (window.playSmallClickSound) {
@@ -380,15 +445,24 @@
             setTimeout(() => updateZoom(currentZoom), 100);
         }
         
-        if (zoomInBtn) {
-            zoomInBtn.addEventListener('click', () => {
-                updateZoom(currentZoom + zoomStep);
-            });
-        }
+        // Use event delegation for zoom controls to work in fullscreen
+        const trailerHero = container.closest('.project-trailer-hero') || container;
         
-        if (zoomOutBtn) {
-            zoomOutBtn.addEventListener('click', () => {
-                updateZoom(currentZoom - zoomStep);
+        if (!trailerHero.hasAttribute('data-zoom-handlers')) {
+            trailerHero.setAttribute('data-zoom-handlers', 'true');
+            
+            trailerHero.addEventListener('click', function(e) {
+                const target = e.target.closest('.demo-zoom-in, .demo-zoom-out');
+                if (!target) return;
+                
+                // Get current zoom from persisted value
+                const currentZoom = demoZoomLevels.get(demoComponent) || 100;
+                
+                if (target.classList.contains('demo-zoom-in')) {
+                    updateZoom(currentZoom + zoomStep);
+                } else if (target.classList.contains('demo-zoom-out')) {
+                    updateZoom(currentZoom - zoomStep);
+                }
             });
         }
         
