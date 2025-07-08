@@ -1185,7 +1185,7 @@ function App() {
               <div className="flex items-center justify-between px-4">
                 <div className="flex items-center gap-3">
                   <span className="text-xs text-gray-600">
-                    {selectedPackages.size} package{selectedPackages.size > 1 ? 's' : ''} added
+                    {selectedPackages.size} package{selectedPackages.size > 1 ? 's' : ''} selected
                   </span>
                   <button 
                     onClick={() => setSelectedPackages(new Set())}
@@ -1209,11 +1209,11 @@ function App() {
                         modified: new Date().toLocaleDateString()
                       }));
                       setPackages([...duplicatedPkgs, ...packages]);
-                      setSelectedPackages(new Set());
                       toast({
                         title: "Packages Duplicated",
                         description: `${selectedPkgs.length} package${selectedPkgs.length > 1 ? 's' : ''} duplicated successfully.`,
                       });
+                      setSelectedPackages(new Set());
                     }}
                   >
                     <Copy className="w-3 h-3 mr-1" />
@@ -1224,9 +1224,10 @@ function App() {
                     size="sm"
                     className="h-7 text-xs"
                     onClick={() => {
+                      const deployCount = selectedPackages.size;
                       toast({
                         title: "Deploy Packages",
-                        description: `Deploying ${selectedPackages.size} package${selectedPackages.size > 1 ? 's' : ''}...`,
+                        description: `Deploying ${deployCount} package${deployCount > 1 ? 's' : ''}...`,
                       });
                       setSelectedPackages(new Set());
                     }}
@@ -1239,10 +1240,11 @@ function App() {
                     size="sm"
                     className="h-7 text-xs text-red-600 hover:text-red-700"
                     onClick={() => {
+                      const deleteCount = selectedPackages.size;
                       setPackages(packages.filter(p => !selectedPackages.has(p.id)));
                       toast({
                         title: "Packages Deleted",
-                        description: `${selectedPackages.size} package${selectedPackages.size > 1 ? 's' : ''} deleted.`,
+                        description: `${deleteCount} package${deleteCount > 1 ? 's' : ''} deleted.`,
                       });
                       setSelectedPackages(new Set());
                     }}
@@ -1255,9 +1257,9 @@ function App() {
             </div>
           )}
           
-          {/* Toaster positioned in top-right */}
-          <Toaster />
         </div>
+        {/* Toaster positioned in top-right */}
+        <Toaster />
       </DemoWrapper>
     </ToastProvider>
   );
