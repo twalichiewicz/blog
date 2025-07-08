@@ -734,27 +734,31 @@ function App() {
                 <AccordionContent className="px-4 pb-4">
                   <div className="mt-4">
                       <h4 className="text-sm font-medium mb-2">Deployment Type</h4>
-                      <div className="flex items-center gap-6 mb-4">
-                        <label className="flex items-center gap-3 cursor-pointer">
-                          <span className={`text-sm ${deploymentSettings.type === 'install' ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
-                            Install
-                          </span>
+                      <div className="mb-4">
+                        <div className="flex rounded-md shadow-sm w-full" role="group">
                           <button
-                            className={`relative w-12 h-7 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ${
-                              deploymentSettings.type === 'deploy' ? 'bg-gray-900' : 'bg-gray-300'
+                            type="button"
+                            onClick={() => setDeploymentSettings({...deploymentSettings, type: 'install'})}
+                            className={`flex-1 py-2 text-sm font-medium rounded-l-md border ${
+                              deploymentSettings.type === 'install'
+                                ? 'bg-gray-900 text-white border-gray-900'
+                                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                             }`}
-                            onClick={() => setDeploymentSettings({...deploymentSettings, type: deploymentSettings.type === 'install' ? 'deploy' : 'install'})}
-                            role="switch"
-                            aria-checked={deploymentSettings.type === 'deploy'}
                           >
-                            <span className={`absolute left-0.5 top-0.5 w-6 h-6 bg-white rounded-full shadow-sm transition-transform duration-200 ${
-                              deploymentSettings.type === 'deploy' ? 'translate-x-5' : 'translate-x-0'
-                            }`} />
+                            Install
                           </button>
-                          <span className={`text-sm ${deploymentSettings.type === 'deploy' ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
+                          <button
+                            type="button"
+                            onClick={() => setDeploymentSettings({...deploymentSettings, type: 'deploy'})}
+                            className={`flex-1 py-2 text-sm font-medium rounded-r-md border-t border-r border-b ${
+                              deploymentSettings.type === 'deploy'
+                                ? 'bg-gray-900 text-white border-gray-900'
+                                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                            }`}
+                          >
                             Deploy
-                          </span>
-                        </label>
+                          </button>
+                        </div>
                       </div>
                       <div className="border border-gray-200 rounded-lg p-4 mt-4 bg-gray-50">
                         {deploymentSettings.type === 'install' ? (
@@ -844,7 +848,7 @@ function App() {
                               <Input 
                                 value={deploymentSettings.logLocation}
                                 onChange={(e) => setDeploymentSettings({...deploymentSettings, logLocation: e.target.value})}
-                                className="mt-1 text-sm"
+                                className="mt-1 h-8 text-xs"
                               />
                             </div>
                             <div>
@@ -853,7 +857,7 @@ function App() {
                                 value={deploymentSettings.networkPath}
                                 onChange={(e) => setDeploymentSettings({...deploymentSettings, networkPath: e.target.value})}
                                 placeholder="\\\\server\\deployments"
-                                className="mt-1 text-sm"
+                                className="mt-1 h-8 text-xs"
                               />
                               </div>
                             </div>
@@ -1350,9 +1354,9 @@ function App() {
         
         {/* Details Modal */}
         {showDetailsModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowDetailsModal(null)}>
-            <div className="bg-white rounded-lg p-6 max-w-3xl w-full mx-4 max-h-[90vh] overflow-hidden flex flex-col" onClick={e => e.stopPropagation()}>
-              <div className="flex justify-between items-start mb-4">
+          <div className="absolute inset-0 z-50" onClick={() => setShowDetailsModal(null)}>
+            <div className="absolute top-0 right-0 w-96 h-full bg-white shadow-2xl border-l border-gray-200 overflow-hidden flex flex-col" onClick={e => e.stopPropagation()}>
+              <div className="flex justify-between items-start p-6 border-b">
                 <div>
                   <h3 className="text-lg font-medium">Package Configuration Details</h3>
                   <p className="text-sm text-gray-500 mt-1">Complete summary of selected products and settings</p>
@@ -1365,7 +1369,7 @@ function App() {
                 </button>
               </div>
               
-              <div className="flex-1 overflow-y-auto">
+              <div className="flex-1 overflow-y-auto p-6">
                 <div className="space-y-4">
                   {selectedApps.map(appId => {
                     const app = products.find(p => p.id === appId);
@@ -1517,7 +1521,7 @@ function App() {
                 </div>
               </div>
               
-              <div className="mt-6 flex justify-end gap-3 border-t pt-4">
+              <div className="p-6 flex justify-end gap-3 border-t">
                 <Button
                   variant="outline"
                   onClick={() => {
