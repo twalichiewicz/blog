@@ -20,26 +20,16 @@ class Carousel {
 				
 				// Check if we have a relative path that needs resolution
 				if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
-					// Try to detect project path from carousel context
-					let projectPath = '/';
-					const carouselContainer = this.carousel.closest('.project-wrapper');
-					if (carouselContainer) {
-						const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
-						if (fixedImg) {
-							const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
-							if (match) projectPath = match[1];
-						}
-					}
-					// Fallback to window location if on project page
-					if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
-						projectPath = window.location.pathname.endsWith('/') ? 
-							window.location.pathname : window.location.pathname + '/';
+					// For relative paths, we need to resolve them based on the page URL
+					// Special handling for date mismatches (e.g., foreground project)
+					let projectPath = window.location.pathname;
+					if (!projectPath.endsWith('/')) {
+						projectPath += '/';
 					}
 					
 					// Remove './' if present, otherwise use the original src
 					const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
 					imgSrc = projectPath + filename;
-					
 					
 					// Update the actual img element's src attribute
 					img.src = imgSrc;
@@ -181,6 +171,23 @@ class Carousel {
 		});
 	}
 
+	fixRelativePathsImmediately() {
+		// Fix relative paths immediately on construction
+		const images = this.carousel.querySelectorAll('img');
+		const currentPath = window.location.pathname.endsWith('/') ? 
+			window.location.pathname : window.location.pathname + '/';
+		
+		images.forEach(img => {
+			const src = img.getAttribute('src') || '';
+			if (src.startsWith('./')) {
+				const filename = src.substring(2);
+				const resolvedSrc = currentPath + filename;
+				img.setAttribute('src', resolvedSrc);
+				img.src = resolvedSrc;
+			}
+		});
+	}
+
 	fixImagePathsImmediately() {
 		// Immediate synchronous fix for Safari
 		const images = this.carousel.querySelectorAll('img');
@@ -217,8 +224,11 @@ class Carousel {
 			
 			// Only fix if not already fixed by blog.js pre-clone process OR if image is broken
 			if (isBroken || (!isAlreadyFixed && (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))))) {
+				// For relative paths, always use the current page URL
+				const pageProjectPath = window.location.pathname.endsWith('/') ? 
+					window.location.pathname : window.location.pathname + '/';
 				const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
-				const resolvedSrc = projectPath + filename;
+				const resolvedSrc = pageProjectPath + filename;
 				
 				// Remove src first for Safari to force reload
 				img.removeAttribute('src');
@@ -288,6 +298,10 @@ class Carousel {
 		this.activeMedia = null;
 
 		this.currentSpotlightIndex = 0;
+		
+		// CRITICAL: Fix relative image paths immediately for all browsers
+		// This is especially important for the Foreground project
+		this.fixRelativePathsImmediately();
 		
 		// Safari fix: Fix image paths BEFORE collecting them
 		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
