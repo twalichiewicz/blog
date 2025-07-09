@@ -57,45 +57,8 @@ class Carousel {
 	}
 
 	fixRelativePathsImmediately() {
-		// Fix relative paths by replacing the entire image element
-		const images = this.carousel.querySelectorAll('img');
-		const currentPath = window.location.pathname.endsWith('/') ? 
-			window.location.pathname : window.location.pathname + '/';
-		
-		images.forEach(img => {
-			// Skip if already processed
-			if (img.dataset.pathFixed === 'true') return;
-			
-			const src = img.getAttribute('src') || '';
-			// Handle both ./ relative paths and / paths that should be relative to current page
-			if (src.startsWith('./') || (src.startsWith('/') && !src.includes('/2019/') && src.split('/').length === 2)) {
-				// For ./ paths, remove the ./ prefix
-				// For / paths like /brand-LOGO.jpg, remove the leading /
-				const filename = src.startsWith('./') ? src.substring(2) : src.substring(1);
-				const resolvedSrc = currentPath + filename;
-				
-				// Create a new image element to bypass browser's failed load cache
-				const newImg = document.createElement('img');
-				newImg.src = resolvedSrc;
-				newImg.alt = img.alt;
-				newImg.className = img.className;
-				newImg.loading = 'lazy';
-				newImg.decoding = 'async';
-				newImg.dataset.pathFixed = 'true';
-				
-				// Copy all other attributes
-				Array.from(img.attributes).forEach(attr => {
-					if (attr.name !== 'src' && attr.name !== 'alt' && attr.name !== 'class') {
-						newImg.setAttribute(attr.name, attr.value);
-					}
-				});
-				
-				// Replace the old image with the new one
-				img.parentNode.replaceChild(newImg, img);
-				
-				console.log(`Replaced image with fixed path: ${src} -> ${resolvedSrc}`);
-			}
-		});
+		// Disabled - causing more problems than it solves
+		return;
 	}
 
 	fixImagePathsImmediately() {
@@ -119,9 +82,7 @@ class Carousel {
 
 		this.currentSpotlightIndex = 0;
 		
-		// CRITICAL: Fix relative image paths immediately for all browsers
-		// This is especially important for the Foreground project
-		this.fixRelativePathsImmediately();
+		// Removed - was causing path duplication issues
 		
 		// Disabled Safari-specific fixes - may be causing issues
 		
