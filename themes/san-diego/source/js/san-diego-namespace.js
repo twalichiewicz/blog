@@ -28,9 +28,8 @@
         toastContainer.id = 'toast-container';
         toastContainer.style.cssText = `
           position: fixed;
-          top: 20px;
-          left: 50%;
-          transform: translateX(-50%);
+          top: 12px;
+          right: 12px;
           z-index: 9999;
           display: flex;
           flex-direction: column;
