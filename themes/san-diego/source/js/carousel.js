@@ -128,33 +128,55 @@ class Carousel {
 	ensureImagesLoaded() {
 		const images = this.carousel.querySelectorAll('img');
 		images.forEach((img) => {
-			// If image is not complete or has zero dimensions, it failed to load
-			if (!img.complete || img.naturalWidth === 0) {
-				const originalSrc = img.getAttribute('src') || '';
-				
-				// Add error handler
-				img.onerror = () => {
-					console.warn(`Failed to load carousel image: ${originalSrc}`);
-					// Try to reload with cache-busting parameter
-					if (originalSrc && !originalSrc.includes('?t=')) {
-						img.src = originalSrc + '?t=' + Date.now();
+			const originalSrc = img.getAttribute('src') || img.src || '';
+			
+			// Add both load and error handlers
+			const setupHandlers = () => {
+				img.onload = () => {
+					// Image loaded successfully, update carousel if needed
+					if (img.naturalWidth > 0) {
+						this.updateCarouselImages();
 					}
 				};
 				
+				img.onerror = () => {
+					console.warn(`Failed to load carousel image: ${originalSrc}`);
+					// Try alternative loading strategies
+					if (originalSrc) {
+						// Strategy 1: Try with cache-busting
+						if (!originalSrc.includes('?t=')) {
+							setTimeout(() => {
+								img.src = originalSrc + '?t=' + Date.now();
+							}, 100);
+						}
+						// Strategy 2: Create new Image object to preload
+						else {
+							const preloader = new Image();
+							preloader.onload = () => {
+								img.src = preloader.src;
+							};
+							preloader.src = originalSrc;
+						}
+					}
+				};
+			};
+			
+			// If image is not complete or has zero dimensions, it failed to load
+			if (!img.complete || img.naturalWidth === 0) {
+				setupHandlers();
+				
 				// Force reload by resetting src
 				if (originalSrc) {
-					img.src = '';
-					void img.offsetHeight; // Force reflow
-					img.src = originalSrc;
+					// Use requestAnimationFrame for better timing
+					requestAnimationFrame(() => {
+						img.src = '';
+						void img.offsetHeight; // Force reflow
+						img.src = originalSrc;
+					});
 				}
-			}
-			
-			// Add load handler to ensure image is ready
-			if (!img.complete) {
-				img.onload = () => {
-					// Image loaded successfully, update carousel if needed
-					this.updateCarouselImages();
-				};
+			} else {
+				// Even if image appears loaded, add handlers for future issues
+				setupHandlers();
 			}
 		});
 	}
@@ -316,6 +338,32 @@ class Carousel {
 		
 		// Ensure all images are loaded or have error handlers
 		this.ensureImagesLoaded();
+		
+		// Add aggressive retry for problematic pages (like Human Interest)
+		const isProblematicPage = window.location.pathname.includes('foreground') || 
+								  window.location.pathname.includes('human-interest') ||
+								  this.carousel.closest('[href*="foreground"], [data-title*="Human Interest"]') !== null;
+		
+		if (isProblematicPage) {
+			// Multiple retry attempts with increasing delays
+			[50, 150, 300, 500, 1000, 2000].forEach(delay => {
+				setTimeout(() => {
+					if (this.carousel && document.contains(this.carousel)) {
+						// Check if any images are still broken
+						const brokenImages = Array.from(this.carousel.querySelectorAll('img')).filter(img => 
+							!img.complete || img.naturalWidth === 0
+						);
+						
+						if (brokenImages.length > 0) {
+							console.log(`Retrying ${brokenImages.length} broken images after ${delay}ms`);
+							this.fixImagePathsImmediately();
+							this.ensureImagesLoaded();
+							this.updateCarouselImages();
+						}
+					}
+				}, delay);
+			});
+		}
 		
 		// Store bound versions of handlers for easy removal
 		this.boundPrev = this.prev.bind(this);
@@ -1305,9 +1353,73 @@ window.addEventListener('pageshow', (event) => {
 	}
 });
 
+// Helper function to wait for images to start loading
+function waitForImagesToLoad(container, callback, timeout = 3000) {
+	const images = container.querySelectorAll('img');
+	let loadedCount = 0;
+	let totalImages = images.length;
+	let timeoutId;
+	
+	const checkComplete = () => {
+		if (loadedCount >= totalImages || loadedCount >= totalImages * 0.8) { // 80% loaded is good enough
+			clearTimeout(timeoutId);
+			callback();
+		}
+	};
+	
+	if (totalImages === 0) {
+		callback();
+		return;
+	}
+	
+	images.forEach(img => {
+		if (img.complete && img.naturalWidth > 0) {
+			loadedCount++;
+		} else {
+			// Add temporary handlers
+			const loadHandler = () => {
+				loadedCount++;
+				checkComplete();
+				img.removeEventListener('load', loadHandler);
+				img.removeEventListener('error', errorHandler);
+			};
+			const errorHandler = () => {
+				loadedCount++; // Count errors too to avoid hanging
+				checkComplete();
+				img.removeEventListener('load', loadHandler);
+				img.removeEventListener('error', errorHandler);
+			};
+			img.addEventListener('load', loadHandler);
+			img.addEventListener('error', errorHandler);
+			
+			// Force a reload attempt
+			if (!img.src && img.getAttribute('src')) {
+				img.src = img.getAttribute('src');
+			}
+		}
+	});
+	
+	// Fallback timeout
+	timeoutId = setTimeout(() => {
+		console.log('Image loading timeout, initializing carousels anyway');
+		callback();
+	}, timeout);
+	
+	// Check if already loaded
+	checkComplete();
+}
+
 // Initialize on initial load (since this is a module, it runs once) - Moved pageshow logic here
 if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', () => initializeCarousels(document));
+	document.addEventListener('DOMContentLoaded', () => {
+		// Wait a bit for images to start loading
+		waitForImagesToLoad(document, () => {
+			initializeCarousels(document);
+		});
+	});
 } else {
-	initializeCarousels(document); // Initialize if DOM is already ready
+	// If DOM is ready, still wait for images
+	waitForImagesToLoad(document, () => {
+		initializeCarousels(document);
+	});
 }
