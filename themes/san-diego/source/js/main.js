@@ -5,6 +5,7 @@
 import { initSectionAnimations, initColumnTitleScrollDetection } from './utils/animations.js';
 import { initializeSoundEffects } from './utils/sound-effects.js';
 import { initResponsiveTables } from './components/responsive-tables.js';
+import ViewportResizeHandler from './utils/viewport-resize-handler.js';
 
 document.addEventListener('DOMContentLoaded', function () {
 	// Initialize sound effects first

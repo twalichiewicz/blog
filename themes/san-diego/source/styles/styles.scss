@@ -90,6 +90,9 @@
 // Dynamic content scroll fixes - MUST come after responsive-layouts to override
 @use 'dynamic-content-scroll-fix';
 
+// Fix for double scrollbar on resize
+@use 'resize-scrollbar-fix';
+
 // Component Library
 @use '../components/index' as component-lib;
 
