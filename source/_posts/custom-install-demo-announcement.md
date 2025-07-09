@@ -6,4 +6,4 @@ tags:
   - blog
 ---
 
-Took a little while, but I've added inline demoes to the Works page! Started with one of the tricker ones, [Custom Install](https://thomas.design/?tab=portfolio) (look for the (DEMO) sticker).
+Took a little while, but I've added inline demoes to the Works page! Started with one of the tricker ones, <a href="#" onclick="event.preventDefault(); if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') { window.mobileTabs.switchTab('portfolio', true); } else { const worksButton = document.querySelector('.tab-button[data-type=portfolio]'); if (worksButton) worksButton.click(); } return false;">Custom Install</a> (look for the (DEMO) sticker).
