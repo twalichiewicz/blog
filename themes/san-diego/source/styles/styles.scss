@@ -93,6 +93,9 @@
 // Fix for double scrollbar on resize
 @use 'resize-scrollbar-fix';
 
+// Fix for search highlighting breaking layout
+@use 'search-highlight-fix';
+
 // Component Library
 @use '../components/index' as component-lib;
 

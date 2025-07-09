@@ -337,6 +337,20 @@ document.addEventListener('DOMContentLoaded', function () {
 						initializeProjectToggle();
 						initializePostsOnlyButton();
 						
+						// Force re-initialization of ALL prototypes after content swap
+						// This is critical for prototypes that were destroyed during dynamic navigation
+						setTimeout(() => {
+							// First, clear any existing initialization markers
+							document.querySelectorAll('.prototype-initialized').forEach(el => {
+								el.classList.remove('prototype-initialized');
+							});
+							
+							// Then force a full re-initialization
+							if (window.PrototypeSandbox && typeof window.PrototypeSandbox.autoInit === 'function') {
+								window.PrototypeSandbox.autoInit();
+							}
+						}, 100);
+						
 						// Ensure tabs are visible again on mobile
 						if (window.innerWidth <= 768) {
 							const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
@@ -818,77 +832,116 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (!searchTerm) return;
 		
 		const regex = new RegExp(`(${escapeRegExp(searchTerm)})`, 'gi');
-		const walker = document.createTreeWalker(
-			element,
-			NodeFilter.SHOW_TEXT,
-			{
-				acceptNode: function(node) {
-					// Skip script and style elements
-					const parent = node.parentNode;
-					if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE') {
-						return NodeFilter.FILTER_REJECT;
-					}
-					// Skip if already highlighted
-					if (parent.classList && parent.classList.contains('search-highlight')) {
-						return NodeFilter.FILTER_REJECT;
-					}
-					// Skip if inside an anchor tag
-					let currentNode = node.parentNode;
-					while (currentNode && currentNode !== element) {
-						if (currentNode.tagName === 'A') {
-							return NodeFilter.FILTER_REJECT;
+		
+		// Process all elements, including anchor links
+		const processElement = (el) => {
+			// Skip script, style, and already processed elements
+			if (el.tagName === 'SCRIPT' || 
+				el.tagName === 'STYLE' || 
+				el.classList.contains('search-highlight-processed')) {
+				return;
+			}
+			
+			// Mark as processed to avoid infinite loops
+			el.classList.add('search-highlight-processed');
+			
+			// Handle anchor links specially to preserve functionality
+			if (el.tagName === 'A') {
+				// For anchor links, we'll highlight the text but keep the link functional
+				const childNodes = Array.from(el.childNodes);
+				childNodes.forEach(child => {
+					if (child.nodeType === Node.TEXT_NODE && regex.test(child.textContent)) {
+						const fragment = document.createDocumentFragment();
+						let lastIndex = 0;
+						let match;
+						const text = child.textContent;
+						regex.lastIndex = 0;
+						
+						while ((match = regex.exec(text)) !== null) {
+							// Add text before match
+							if (match.index > lastIndex) {
+								fragment.appendChild(
+									document.createTextNode(text.slice(lastIndex, match.index))
+								);
+							}
+							
+							// Add highlighted match
+							const highlight = document.createElement('mark');
+							highlight.className = 'search-highlight search-highlight-in-link';
+							highlight.textContent = match[0];
+							fragment.appendChild(highlight);
+							
+							lastIndex = regex.lastIndex;
 						}
-						currentNode = currentNode.parentNode;
+						
+						// Add remaining text
+						if (lastIndex < text.length) {
+							fragment.appendChild(
+								document.createTextNode(text.slice(lastIndex))
+							);
+						}
+						
+						el.replaceChild(fragment, child);
+					} else if (child.nodeType === Node.ELEMENT_NODE) {
+						processElement(child);
 					}
-					// Accept if contains search term
-					if (regex.test(node.textContent)) {
-						return NodeFilter.FILTER_ACCEPT;
+				});
+			} else {
+				// For non-anchor elements, process child nodes
+				const childNodes = Array.from(el.childNodes);
+				childNodes.forEach(child => {
+					if (child.nodeType === Node.TEXT_NODE && regex.test(child.textContent)) {
+						const parent = child.parentNode;
+						
+						// Skip if parent already has highlight
+						if (parent.classList && parent.classList.contains('search-highlight')) {
+							return;
+						}
+						
+						const fragment = document.createDocumentFragment();
+						let lastIndex = 0;
+						let match;
+						const text = child.textContent;
+						regex.lastIndex = 0;
+						
+						while ((match = regex.exec(text)) !== null) {
+							// Add text before match
+							if (match.index > lastIndex) {
+								fragment.appendChild(
+									document.createTextNode(text.slice(lastIndex, match.index))
+								);
+							}
+							
+							// Add highlighted match
+							const highlight = document.createElement('mark');
+							highlight.className = 'search-highlight';
+							highlight.textContent = match[0];
+							fragment.appendChild(highlight);
+							
+							lastIndex = regex.lastIndex;
+						}
+						
+						// Add remaining text
+						if (lastIndex < text.length) {
+							fragment.appendChild(
+								document.createTextNode(text.slice(lastIndex))
+							);
+						}
+						
+						parent.replaceChild(fragment, child);
+					} else if (child.nodeType === Node.ELEMENT_NODE) {
+						processElement(child);
 					}
-					return NodeFilter.FILTER_REJECT;
-				}
+				});
 			}
-		);
-
-		const nodesToReplace = [];
-		let node;
-		while (node = walker.nextNode()) {
-			nodesToReplace.push(node);
-		}
-
-		nodesToReplace.forEach(textNode => {
-			const parent = textNode.parentNode;
-			const fragment = document.createDocumentFragment();
-			let lastIndex = 0;
-			let match;
-
-			regex.lastIndex = 0; // Reset regex
-			const text = textNode.textContent;
-
-			while ((match = regex.exec(text)) !== null) {
-				// Add text before match
-				if (match.index > lastIndex) {
-					fragment.appendChild(
-						document.createTextNode(text.slice(lastIndex, match.index))
-					);
-				}
-
-				// Add highlighted match
-				const highlight = document.createElement('mark');
-				highlight.className = 'search-highlight';
-				highlight.textContent = match[0];
-				fragment.appendChild(highlight);
-
-				lastIndex = regex.lastIndex;
-			}
-
-			// Add remaining text
-			if (lastIndex < text.length) {
-				fragment.appendChild(
-					document.createTextNode(text.slice(lastIndex))
-				);
-			}
-
-			parent.replaceChild(fragment, textNode);
+		};
+		
+		// Start processing from the root element
+		processElement(element);
+		
+		// Clean up the temporary processing class
+		element.querySelectorAll('.search-highlight-processed').forEach(el => {
+			el.classList.remove('search-highlight-processed');
 		});
 	}
 

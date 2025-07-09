@@ -127,14 +127,35 @@
 
 // Fix for Works/portfolio specific scrolling issues
 #projectsContent {
-  // Portfolio grid should not create its own scroll context
-  .portfolio-featured-grid,
-  .portfolio-list {
+  // Portfolio grid should not create its own scroll context on mobile
+  @media (max-width: variables.$mobile-breakpoint) {
     overflow: visible !important;
     
-    // Ensure items don't cause overflow
-    .portfolio-item {
-      overflow: hidden; // But individual items should clip content
+    .portfolio-featured-grid,
+    .portfolio-list {
+      overflow: visible !important;
+      
+      // Ensure items don't cause overflow
+      .portfolio-item {
+        overflow: hidden; // But individual items should clip content
+      }
+    }
+  }
+  
+  // On tablet/desktop, contain the content properly
+  @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+    // When displayed, ensure content doesn't escape
+    &[style*="display: block"] {
+      overflow: hidden !important;
+      contain: layout style;
+      
+      // Inner content can scroll if needed
+      .portfolio-featured-grid,
+      .portfolio-list {
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 100%;
+      }
     }
   }
 }

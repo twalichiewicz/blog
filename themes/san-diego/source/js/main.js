@@ -15,17 +15,25 @@ document.addEventListener('DOMContentLoaded', function () {
 	const urlParams = new URLSearchParams(window.location.search);
 	if (urlParams.get('error') === '404') {
 		const path = urlParams.get('path') || 'the requested page';
-		setTimeout(() => {
+		
+		// Function to show toast when SD namespace is ready
+		const showToastWhenReady = () => {
 			if (window.SD && window.SD.ui && window.SD.ui.showToast) {
 				window.SD.ui.showToast(`Page not found: ${path}`, 'error', 5000);
+				
+				// Clean up URL after showing toast
+				urlParams.delete('error');
+				urlParams.delete('path');
+				const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '') + window.location.hash;
+				window.history.replaceState({}, '', newUrl);
+			} else {
+				// Try again in 100ms if SD namespace not ready
+				setTimeout(showToastWhenReady, 100);
 			}
-		}, 500); // Small delay to ensure everything is loaded
+		};
 		
-		// Clean up URL
-		urlParams.delete('error');
-		urlParams.delete('path');
-		const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '') + window.location.hash;
-		window.history.replaceState({}, '', newUrl);
+		// Start trying after a small initial delay
+		setTimeout(showToastWhenReady, 300);
 	}
 
 	// Initialize color scheme functionality
