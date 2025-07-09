@@ -7,14 +7,14 @@
 .demo-iframe-wrapper,
 .code-sandbox-content {
   // Default cursor
-  cursor: url('/cursors/default.svg') 0 0, auto;
+  cursor: url('/themes/san-diego/source/cursors/default.svg') 0 0, auto;
   
   // Interactive elements
   a,
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   .clickable {
-    cursor: url('/cursors/pointer.svg') 0 0, pointer;
+    cursor: url('/themes/san-diego/source/cursors/pointer.svg') 0 0, pointer;
   }
   
   // Text inputs
@@ -25,41 +25,41 @@
   input[type="url"],
   textarea,
   [contenteditable="true"] {
-    cursor: url('/cursors/text.svg') 0 0, text;
+    cursor: url('/themes/san-diego/source/cursors/text.svg') 0 0, text;
   }
   
   // Help elements
   [title]:not(button):not(a),
   .help,
   abbr {
-    cursor: url('/cursors/help.svg') 0 0, help;
+    cursor: url('/themes/san-diego/source/cursors/help.svg') 0 0, help;
   }
   
   // Draggable elements
   [draggable="true"],
   .draggable {
-    cursor: url('/cursors/grab.svg') 12 12, grab;
+    cursor: url('/themes/san-diego/source/cursors/grab.svg') 12 12, grab;
     
     &:active {
-      cursor: url('/cursors/grabbing.svg') 12 12, grabbing;
+      cursor: url('/themes/san-diego/source/cursors/grabbing.svg') 12 12, grabbing;
     }
   }
   
   // Movable elements
   .movable {
-    cursor: url('/cursors/move.svg') 12 12, move;
+    cursor: url('/themes/san-diego/source/cursors/move.svg') 12 12, move;
   }
   
   // Loading states
   &.loading,
   [aria-busy="true"],
   .busy {
-    cursor: url('/cursors/busy.svg') 0 0, wait;
+    cursor: url('/themes/san-diego/source/cursors/busy.svg') 0 0, wait;
   }
   
   // Background loading
   &.background-loading {
-    cursor: url('/cursors/background-busy.svg') 0 0, progress;
+    cursor: url('/themes/san-diego/source/cursors/background-busy.svg') 0 0, progress;
   }
   
   // Disabled elements
@@ -67,31 +67,31 @@
   [aria-disabled="true"],
   .disabled,
   [disabled] {
-    cursor: url('/cursors/disabled.svg') 0 0, not-allowed;
+    cursor: url('/themes/san-diego/source/cursors/disabled.svg') 0 0, not-allowed;
   }
   
   // Resizable areas
   .resizable,
   .resize-handle {
-    cursor: url('/cursors/resize.svg') 12 12, nwse-resize;
+    cursor: url('/themes/san-diego/source/cursors/resize.svg') 12 12, nwse-resize;
   }
   
   .resizable-alt {
-    cursor: url('/cursors/resize-alt.svg') 12 12, nesw-resize;
+    cursor: url('/themes/san-diego/source/cursors/resize-alt.svg') 12 12, nesw-resize;
   }
   
   // Zoomable content
   .zoomable,
   img[data-zoomable="true"] {
-    cursor: url('/cursors/zoom-in.svg') 12 12, zoom-in;
+    cursor: url('/themes/san-diego/source/cursors/zoom-in.svg') 12 12, zoom-in;
     
     &.zoomed {
-      cursor: url('/cursors/zoom-out.svg') 12 12, zoom-out;
+      cursor: url('/themes/san-diego/source/cursors/zoom-out.svg') 12 12, zoom-out;
     }
   }
 }
 
 // Special case: Apply pointer cursor to iframe wrapper toggle buttons
 .code-sandbox-toggle {
-  cursor: url('/cursors/pointer.svg') 0 0, pointer;
+  cursor: url('/themes/san-diego/source/cursors/pointer.svg') 0 0, pointer;
 }
