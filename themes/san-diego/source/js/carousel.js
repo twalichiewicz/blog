@@ -105,48 +105,28 @@ class Carousel {
 	}
 
 	ensureImagesLoaded() {
-		const images = this.carousel.querySelectorAll('img');
-		images.forEach((img) => {
-			// Skip if already has data-retried to prevent infinite loops
-			if (img.dataset.retried === 'true') return;
-			
-			const originalSrc = img.getAttribute('src') || img.src || '';
-			
-			// Simple error handler without infinite retries
-			img.onerror = () => {
-				console.warn(`Failed to load carousel image: ${originalSrc}`);
-				img.dataset.retried = 'true'; // Mark as retried to prevent loops
-			};
-			
-			// If image is not complete or has zero dimensions, try once more
-			if (!img.complete || img.naturalWidth === 0) {
-				// Single retry attempt
-				const tempSrc = img.src;
-				img.src = '';
-				void img.offsetHeight; // Force reflow
-				img.src = tempSrc;
-			}
-		});
+		// Disabled - this is causing strobing
+		return;
 	}
 
 	fixRelativePathsImmediately() {
-		// Fix relative paths immediately on construction
+		// Fix relative paths immediately on construction - ONLY ONCE
 		const images = this.carousel.querySelectorAll('img');
 		const currentPath = window.location.pathname.endsWith('/') ? 
 			window.location.pathname : window.location.pathname + '/';
 		
 		images.forEach(img => {
+			// Skip if already processed
+			if (img.dataset.pathFixed === 'true') return;
+			
 			const src = img.getAttribute('src') || '';
-			if (src.startsWith('./') || (src && !src.startsWith('/') && !src.startsWith('http'))) {
-				// Remove ./ prefix if present
-				const filename = src.startsWith('./') ? src.substring(2) : src;
+			if (src.startsWith('./')) {
+				const filename = src.substring(2);
 				const resolvedSrc = currentPath + filename;
 				
-				// Force immediate update
-				img.removeAttribute('src');
-				void img.offsetHeight; // Force reflow
-				img.setAttribute('src', resolvedSrc);
+				// Just update the src attribute, don't force reflows
 				img.src = resolvedSrc;
+				img.dataset.pathFixed = 'true'; // Mark as processed
 				
 				console.log(`Fixed relative path: ${src} -> ${resolvedSrc}`);
 			}
@@ -268,25 +248,7 @@ class Carousel {
 		// This is especially important for the Foreground project
 		this.fixRelativePathsImmediately();
 		
-		// Safari fix: Fix image paths BEFORE collecting them
-		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-		if (isSafari) {
-			this.fixImagePathsImmediately();
-			
-			// Safari first image fix: Force load the first image immediately
-			const firstImage = this.carousel.querySelector('.carousel-slide:first-child img');
-			if (firstImage && (!firstImage.complete || firstImage.naturalWidth === 0)) {
-				const src = firstImage.src;
-				// Create a new Image to force load
-				const preloader = new Image();
-				preloader.onload = () => {
-					// Force the carousel image to update
-					firstImage.src = src + '?t=' + Date.now();
-				};
-				preloader.onerror = () => {};
-				preloader.src = src;
-			}
-		}
+		// Disabled Safari-specific fixes - may be causing issues
 		
 		// Store images for this specific carousel - only from carousel slides
 		this.updateCarouselImages();
@@ -318,17 +280,7 @@ class Carousel {
 		// Ensure all images are loaded or have error handlers
 		this.ensureImagesLoaded();
 		
-		// Single delayed check for image loading issues
-		setTimeout(() => {
-			const brokenImages = Array.from(this.carousel.querySelectorAll('img')).filter(img => 
-				!img.complete || img.naturalWidth === 0
-			);
-			
-			if (brokenImages.length > 0) {
-				console.log(`Found ${brokenImages.length} broken images, attempting single fix`);
-				this.updateCarouselImages();
-			}
-		}, 500);
+		// Removed - causing issues
 		
 		// Store bound versions of handlers for easy removal
 		this.boundPrev = this.prev.bind(this);
@@ -1244,36 +1196,7 @@ export function initializeCarousels(container = document) {
 			initializedCarousels.add(carouselElement);
 			carouselInstances.push(newInstance);
 			
-			// Safari fix: For dynamically loaded content, force additional image loading attempts
-			// Also check for Human Interest projects which seem to have timing issues
-			const isHumanInterest = carouselElement.closest('[href*="Human-Interest"], [data-title*="Human Interest"]') !== null;
-			if ((isSafari && isDynamicContent) || isHumanInterest) {
-				
-				// Try multiple times with different delays
-				[100, 300, 500, 1000].forEach(delay => {
-					setTimeout(() => {
-						if (newInstance.carousel && document.contains(newInstance.carousel)) {
-							newInstance.fixImagePathsImmediately();
-							newInstance.updateCarouselImages();
-							
-							// Also try to force image loading by manipulating display
-							const images = newInstance.carousel.querySelectorAll('img');
-							images.forEach(img => {
-								if (!img.complete || img.naturalWidth === 0) {
-									const src = img.src;
-									img.style.display = 'none';
-									img.offsetHeight; // Force reflow
-									img.style.display = '';
-									// Add timestamp to force reload
-									if (src && !src.includes('?t=')) {
-										img.src = src + '?t=' + Date.now();
-									}
-								}
-							});
-						}
-					}, delay);
-				});
-			}
+			// Removed - this was causing strobing
 		} catch (error) {
 			// Error initializing carousel - log for debugging
 			
@@ -1318,73 +1241,9 @@ window.addEventListener('pageshow', (event) => {
 	}
 });
 
-// Helper function to wait for images to start loading
-function waitForImagesToLoad(container, callback, timeout = 3000) {
-	const images = container.querySelectorAll('img');
-	let loadedCount = 0;
-	let totalImages = images.length;
-	let timeoutId;
-	
-	const checkComplete = () => {
-		if (loadedCount >= totalImages || loadedCount >= totalImages * 0.8) { // 80% loaded is good enough
-			clearTimeout(timeoutId);
-			callback();
-		}
-	};
-	
-	if (totalImages === 0) {
-		callback();
-		return;
-	}
-	
-	images.forEach(img => {
-		if (img.complete && img.naturalWidth > 0) {
-			loadedCount++;
-		} else {
-			// Add temporary handlers
-			const loadHandler = () => {
-				loadedCount++;
-				checkComplete();
-				img.removeEventListener('load', loadHandler);
-				img.removeEventListener('error', errorHandler);
-			};
-			const errorHandler = () => {
-				loadedCount++; // Count errors too to avoid hanging
-				checkComplete();
-				img.removeEventListener('load', loadHandler);
-				img.removeEventListener('error', errorHandler);
-			};
-			img.addEventListener('load', loadHandler);
-			img.addEventListener('error', errorHandler);
-			
-			// Force a reload attempt
-			if (!img.src && img.getAttribute('src')) {
-				img.src = img.getAttribute('src');
-			}
-		}
-	});
-	
-	// Fallback timeout
-	timeoutId = setTimeout(() => {
-		console.log('Image loading timeout, initializing carousels anyway');
-		callback();
-	}, timeout);
-	
-	// Check if already loaded
-	checkComplete();
-}
-
-// Initialize on initial load (since this is a module, it runs once) - Moved pageshow logic here
+// Initialize on initial load
 if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', () => {
-		// Wait a bit for images to start loading
-		waitForImagesToLoad(document, () => {
-			initializeCarousels(document);
-		});
-	});
+	document.addEventListener('DOMContentLoaded', () => initializeCarousels(document));
 } else {
-	// If DOM is ready, still wait for images
-	waitForImagesToLoad(document, () => {
-		initializeCarousels(document);
-	});
+	initializeCarousels(document);
 }
