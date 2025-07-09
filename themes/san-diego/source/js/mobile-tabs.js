@@ -127,6 +127,15 @@ function initializeTabsInternal() {
 		if (tabParam === 'portfolio' || tabParam === 'works') {
 			// Switch to Works tab
 			tabs.switchTab('portfolio', false);
+		}
+		
+		// Check sessionStorage for tab switch request from other pages
+		if (sessionStorage.getItem('switchToPortfolio') === 'true') {
+			sessionStorage.removeItem('switchToPortfolio');
+			// Small delay to ensure everything is loaded
+			setTimeout(() => {
+				tabs.switchTab('portfolio', true);
+			}, 100);
 		} else if (tabParam === 'blog' || tabParam === 'words') {
 			// Switch to Words tab
 			tabs.switchTab('blog', false);
