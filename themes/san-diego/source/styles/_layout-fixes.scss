@@ -253,21 +253,5 @@
   }
 }
 
-// Dynamic back button positioning fix
-.dynamic-back-button {
-  @media (min-width: variables.$tablet-breakpoint) {
-    position: fixed !important;
-    top: 30px !important;
-    left: 306px !important; // Positioned after the 300px blog-header + 6px padding
-    z-index: 1000;
-  }
-  
-  @media (max-width: variables.$mobile-breakpoint) {
-    position: absolute !important;
-    top: 6px !important;
-    left: 6px !important;
-    z-index: 1000;
-  }
-}
 
 // Removed highest specificity rule - now handled in _dynamic-content-scroll-fix.scss

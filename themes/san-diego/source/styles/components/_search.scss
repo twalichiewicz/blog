@@ -306,6 +306,16 @@ mark.search-highlight {
 	}
 }
 
+// Anchor link highlighting (preserves functionality)
+.search-highlight-anchor {
+	background-color: rgba(variables.$link-color, 0.3);
+	border-radius: 2px;
+	
+	@media (prefers-color-scheme: dark) {
+		background-color: rgba(variables.$link-color-dark, 0.4);
+	}
+}
+
 // Ensure search highlights don't break post title layouts
 .post-list-item {
 	h3 .search-highlight,
