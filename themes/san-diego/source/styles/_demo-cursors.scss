@@ -16,7 +16,20 @@
   a,
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
-  .clickable {
+  .clickable,
+  .timeline-marker,
+  .progress-bar,
+  .play-btn,
+  .loop-btn,
+  .settings-btn,
+  .toggle-comments,
+  .comment-sort,
+  .comment-cancel,
+  .comment-submit,
+  .comment-time-link,
+  .menu-item,
+  .community-toggle,
+  .toggle {
     cursor: url('/cursors/pointer.svg') 0 0, pointer;
   }
   
@@ -27,7 +40,8 @@
   input[type="search"],
   input[type="url"],
   textarea,
-  [contenteditable="true"] {
+  [contenteditable="true"],
+  .comment-input {
     cursor: url('/cursors/text.svg') 0 0, text;
   }
   
@@ -94,7 +108,10 @@
   }
 }
 
-// Special case: Apply pointer cursor to iframe wrapper toggle buttons
-.code-sandbox-toggle {
+// Special case: Apply pointer cursor to iframe wrapper toggle buttons and back button
+.code-sandbox-toggle,
+.dynamic-back-button,
+.project-home-button,
+.demo-control-button {
   cursor: url('/cursors/pointer.svg') 0 0, pointer;
 }
