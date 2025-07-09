@@ -149,6 +149,10 @@
 			flex-shrink: 0;
 			min-width: fit-content;
 		}
+		
+		&:hover {
+			transform: none; // Override any inherited transform
+		}
 	}
 	
 	// Reusable bordered button class
