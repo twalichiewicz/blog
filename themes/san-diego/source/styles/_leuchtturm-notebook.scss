@@ -3,6 +3,16 @@
 
 // Leuchtturm notebook styles for portfolio items
 .portfolio-featured-grid {
+    // Prevent any opacity changes on hover
+    .portfolio-item-wrapper:hover {
+        opacity: 1 !important;
+        
+        .portfolio-item--featured,
+        .notebook,
+        .notebook * {
+            opacity: 1 !important;
+        }
+    }
     // Force grid to respect fixed item sizes
     grid-auto-rows: auto !important; // Let rows expand based on content
     align-items: start !important; // Align items to top of their cells
