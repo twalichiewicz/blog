@@ -352,13 +352,18 @@
         
         // Hover state - only for desktop/tablet with actual hover capability
         @media (hover: hover) and (pointer: fine) {
-            &:hover .notebook {
+            &:hover {
+                opacity: 1 !important; // Ensure wrapper never becomes transparent
+                
+                .notebook {
                 transform: scale(0.9) translateX(15%) !important; // Shift right as it opens
+                opacity: 1 !important; // Ensure notebook never becomes transparent
                 
                 // Layer 1: Front cover - swaps to z-index 5 later in animation
                 .front-cover {
                     transform: translateZ(5px) rotateY(-150deg);
                     z-index: 5; // Swap happens later to keep cover visible longer
+                    opacity: 1 !important; // Ensure full opacity
                     // Delay z-index swap to 1.4s (near end of 1.8s animation)
                     transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.05s, z-index 0s linear 1.4s;
                 }
@@ -368,15 +373,23 @@
                 .inside-front-cover {
                     transform: translateZ(4px) rotateY(-150deg);
                     z-index: 6; // Swap happens at same time as front cover
+                    opacity: 1 !important; // Ensure full opacity
                     transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.05s, z-index 0s linear 1.4s;
                 }
                 
                 // Layer 3: Left inner page - animates open
                 .inner-page-left {
                     transform: translateZ(3px) rotateY(-140deg);
+                    opacity: 1 !important; // Ensure full opacity
                     transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
                     pointer-events: none; // Prevent interaction issues
                 }
+                
+                // Ensure all notebook elements maintain full opacity
+                * {
+                    opacity: 1 !important;
+                }
+            }
             }
         }
         
