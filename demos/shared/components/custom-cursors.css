@@ -7,7 +7,7 @@
 .demo-wrapper,
 .demo-background,
 .browser-chrome {
-  cursor: url('/cursors/default.svg') 0 0, auto;
+  cursor: url('./cursors/default.svg') 0 0, auto;
 }
 
 /* Interactive elements */
@@ -59,7 +59,7 @@
 .App .tabs-trigger,
 .App [data-state="open"],
 .App [data-state="closed"] {
-  cursor: url('/cursors/pointer.svg') 0 0, pointer;
+  cursor: url('./cursors/pointer.svg') 0 0, pointer;
 }
 
 /* Text inputs */
@@ -85,7 +85,7 @@
 .App .form-input,
 .App .name-input,
 .App .comment-input {
-  cursor: url('/cursors/text.svg') 0 0, text;
+  cursor: url('./cursors/text.svg') 0 0, text;
 }
 
 /* Help elements */
@@ -95,7 +95,7 @@
 .App [title]:not(button):not(a),
 .App .help,
 .App abbr {
-  cursor: url('/cursors/help.svg') 0 0, help;
+  cursor: url('./cursors/help.svg') 0 0, help;
 }
 
 /* Draggable elements */
@@ -103,7 +103,7 @@
 #root .draggable,
 .App [draggable="true"],
 .App .draggable {
-  cursor: url('/cursors/grab.svg') 12 12, grab;
+  cursor: url('./cursors/grab.svg') 12 12, grab;
 }
 
 #root [draggable="true"]:active,
@@ -112,13 +112,13 @@
 .App [draggable="true"]:active,
 .App .draggable:active,
 .App .dragging {
-  cursor: url('/cursors/grabbing.svg') 12 12, grabbing;
+  cursor: url('./cursors/grabbing.svg') 12 12, grabbing;
 }
 
 /* Movable elements */
 #root .movable,
 .App .movable {
-  cursor: url('/cursors/move.svg') 12 12, move;
+  cursor: url('./cursors/move.svg') 12 12, move;
 }
 
 /* Loading states */
@@ -128,13 +128,13 @@
 .App.loading,
 .App [aria-busy="true"],
 .App .busy {
-  cursor: url('/cursors/busy.svg') 0 0, wait;
+  cursor: url('./cursors/busy.svg') 0 0, wait;
 }
 
 /* Background loading */
 #root.background-loading,
 .App.background-loading {
-  cursor: url('/cursors/background-busy.svg') 0 0, progress;
+  cursor: url('./cursors/background-busy.svg') 0 0, progress;
 }
 
 /* Disabled elements */
@@ -146,7 +146,7 @@
 .App [aria-disabled="true"],
 .App .disabled,
 .App [disabled] {
-  cursor: url('/cursors/disabled.svg') 0 0, not-allowed;
+  cursor: url('./cursors/disabled.svg') 0 0, not-allowed;
 }
 
 /* Resizable areas */
@@ -154,12 +154,12 @@
 #root .resize-handle,
 .App .resizable,
 .App .resize-handle {
-  cursor: url('/cursors/resize.svg') 12 12, nwse-resize;
+  cursor: url('./cursors/resize.svg') 12 12, nwse-resize;
 }
 
 #root .resizable-alt,
 .App .resizable-alt {
-  cursor: url('/cursors/resize-alt.svg') 12 12, nesw-resize;
+  cursor: url('./cursors/resize-alt.svg') 12 12, nesw-resize;
 }
 
 /* Zoomable content */
@@ -167,10 +167,10 @@
 #root img[data-zoomable="true"],
 .App .zoomable,
 .App img[data-zoomable="true"] {
-  cursor: url('/cursors/zoom-in.svg') 12 12, zoom-in;
+  cursor: url('./cursors/zoom-in.svg') 12 12, zoom-in;
 }
 
 #root .zoomable.zoomed,
 .App .zoomable.zoomed {
-  cursor: url('/cursors/zoom-out.svg') 12 12, zoom-out;
+  cursor: url('./cursors/zoom-out.svg') 12 12, zoom-out;
 }
