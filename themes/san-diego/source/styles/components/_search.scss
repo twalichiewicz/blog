@@ -300,6 +300,7 @@ mark.search-highlight {
 	font-weight: var(--font-weight-medium);
 	display: inline; // Ensure it doesn't break layout
 	line-height: inherit; // Preserve line height
+	pointer-events: none; // Don't interfere with anchor link clicks
 	
 	@media (prefers-color-scheme: dark) {
 		background-color: rgba(variables.$link-color-dark, 0.4);
