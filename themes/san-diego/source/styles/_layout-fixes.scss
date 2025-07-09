@@ -63,8 +63,9 @@
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-    // Important: contain overflow to prevent content escaping
-    overflow: hidden !important;
+    // Only prevent horizontal overflow, allow vertical scrolling
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
     height: auto !important;
   }
   
@@ -162,6 +163,19 @@
       min-height: 0 !important;
       display: flex !important;
       flex-direction: column !important;
+      
+      // Prevent double scrollbar on resize
+      &.has-dynamic-content {
+        overflow: visible !important;
+        
+        .content-wrapper {
+          overflow: visible !important;
+        }
+        
+        .content-inner-wrapper {
+          overflow: visible !important;
+        }
+      }
       
       .content-wrapper {
         overflow: visible !important;
