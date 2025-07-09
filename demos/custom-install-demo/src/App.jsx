@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import DemoWrapper from '../../shared/components/DemoWrapper.jsx';
 import '../../shared/components/demo-wrapper.css';
+import '../../shared/components/custom-cursors.css';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
 import { Checkbox } from './components/ui/checkbox';

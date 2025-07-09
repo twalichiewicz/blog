@@ -3,17 +3,12 @@
  * Applies custom cursors to demo wrapper areas and portfolio prototypes
  */
 
-// Custom cursor definitions for demo areas
+// Custom cursor definitions for demo areas only
 .demo-inline-iframe,
 .demo-inline-container,
+.demo-inline-container.demo-loaded,
 .code-sandbox-wrapper .code-sandbox-content,
-.code-sandbox-content,
-.portfolio-item,
-.portfolio-item-wrapper,
-.notebook,
-.front-cover,
-.inner-page-left,
-.inner-page-right {
+.code-sandbox-content {
   // Default cursor
   cursor: url('/cursors/default.svg') 0 0, auto;
   

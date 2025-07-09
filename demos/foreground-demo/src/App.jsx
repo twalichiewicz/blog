@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import './App.css'
+import '../../shared/components/custom-cursors.css'
 
 // Components
 import FauxdalEnrollment from './components/FauxdalEnrollment'
