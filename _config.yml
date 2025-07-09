@@ -24,6 +24,7 @@ category_dir: blog/categories
 skip_render: 
   - "themes/san-diego/source/demos/**"
   - "docs/**"
+  - "scripts/**"
 
 # Writing
 default_layout: post
