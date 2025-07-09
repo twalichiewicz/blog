@@ -9,6 +9,23 @@ import { initResponsiveTables } from './components/responsive-tables.js';
 document.addEventListener('DOMContentLoaded', function () {
 	// Initialize sound effects first
 	initializeSoundEffects();
+	
+	// Check for 404 redirect and show toast
+	const urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.get('error') === '404') {
+		const path = urlParams.get('path') || 'the requested page';
+		setTimeout(() => {
+			if (window.SD && window.SD.ui && window.SD.ui.showToast) {
+				window.SD.ui.showToast(`Page not found: ${path}`, 'error', 5000);
+			}
+		}, 500); // Small delay to ensure everything is loaded
+		
+		// Clean up URL
+		urlParams.delete('error');
+		urlParams.delete('path');
+		const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '') + window.location.hash;
+		window.history.replaceState({}, '', newUrl);
+	}
 
 	// Initialize color scheme functionality
 	// Theme system removed - using prefers-color-scheme only
