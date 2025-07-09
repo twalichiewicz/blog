@@ -63,8 +63,8 @@
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-    // Remove individual scroll - let content-wrapper handle it
-    overflow: visible !important;
+    // Important: contain overflow to prevent content escaping
+    overflow: hidden !important;
     height: auto !important;
   }
   

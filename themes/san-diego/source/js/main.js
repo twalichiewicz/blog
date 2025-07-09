@@ -5,7 +5,6 @@
 import { initSectionAnimations, initColumnTitleScrollDetection } from './utils/animations.js';
 import { initializeSoundEffects } from './utils/sound-effects.js';
 import { initResponsiveTables } from './components/responsive-tables.js';
-import ViewportResizeHandler from './utils/viewport-resize-handler.js';
 
 document.addEventListener('DOMContentLoaded', function () {
 	// Initialize sound effects first
@@ -13,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 	// Check for 404 redirect and show toast
 	const urlParams = new URLSearchParams(window.location.search);
-	if (urlParams.get('error') === '404') {
+	if (urlParams.get('error') === '404' && !window._404ToastShown) {
+		window._404ToastShown = true; // Prevent duplicate toasts
 		const path = urlParams.get('path') || 'the requested page';
 		
 		// Function to show toast when SD namespace is ready

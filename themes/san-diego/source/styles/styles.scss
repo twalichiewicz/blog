@@ -90,11 +90,8 @@
 // Dynamic content scroll fixes - MUST come after responsive-layouts to override
 @use 'dynamic-content-scroll-fix';
 
-// Fix for double scrollbar on resize
-@use 'resize-scrollbar-fix';
-
-// Fix for search highlighting breaking layout
-@use 'search-highlight-fix';
+// Layout fixes for content wrapper and posts content
+@use 'layout-fixes';
 
 // Component Library
 @use '../components/index' as component-lib;
