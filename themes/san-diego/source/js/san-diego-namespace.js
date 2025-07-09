@@ -43,18 +43,21 @@
       const toast = document.createElement('div');
       toast.className = `toast toast-${type}`;
       toast.style.cssText = `
-        background: ${type === 'error' ? '#dc2626' : '#1f2937'};
-        color: white;
+        background: #ffffff;
+        color: #1f2937;
         padding: 16px 24px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         opacity: 0;
-        transform: translateX(100%);
-        transition: all 0.3s ease;
+        transform: translateY(-10px);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         pointer-events: auto;
         cursor: pointer;
         max-width: 350px;
         word-wrap: break-word;
+        font-size: 14px;
+        font-weight: 500;
       `;
       
       // Add message
@@ -66,13 +69,13 @@
       // Trigger animation
       requestAnimationFrame(() => {
         toast.style.opacity = '1';
-        toast.style.transform = 'translateX(0)';
+        toast.style.transform = 'translateY(0)';
       });
       
       // Auto remove
       const removeToast = () => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateX(100%)';
+        toast.style.transform = 'translateY(-10px)';
         setTimeout(() => {
           toast.remove();
           // Remove container if empty
