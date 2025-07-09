@@ -815,6 +815,14 @@ document.addEventListener('DOMContentLoaded', function () {
 					if (parent.classList && parent.classList.contains('search-highlight')) {
 						return NodeFilter.FILTER_REJECT;
 					}
+					// Skip if inside an anchor tag
+					let currentNode = node.parentNode;
+					while (currentNode && currentNode !== element) {
+						if (currentNode.tagName === 'A') {
+							return NodeFilter.FILTER_REJECT;
+						}
+						currentNode = currentNode.parentNode;
+					}
 					// Accept if contains search term
 					if (regex.test(node.textContent)) {
 						return NodeFilter.FILTER_ACCEPT;
