@@ -244,15 +244,7 @@ export class CarouselMedia {
 		
 		// Force reload first image in Safari
 		const firstImage = this.element.querySelector('.carousel-slide:first-child img');
-		if (firstImage && (!firstImage.complete || firstImage.naturalWidth === 0)) {
-			const src = firstImage.src;
-			const tempImg = new Image();
-			tempImg.onload = () => {
-				// Force refresh with cache buster
-				firstImage.src = src + '?t=' + Date.now();
-			};
-			tempImg.src = src;
-		}
+		// Removed problematic cache-busting code
 		
 		// Safari image flicker fix
 		this.element.style.webkitTransform = 'translateZ(0)';
