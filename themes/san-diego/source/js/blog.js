@@ -555,11 +555,9 @@ document.addEventListener('DOMContentLoaded', function () {
 						innerWrapper.className = 'content-inner-wrapper';
 						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
 						
-						// Apply border-radius directly on mobile
-						if (window.innerWidth <= 768) {
-							innerWrapper.style.borderRadius = '12px';
-							innerWrapper.style.overflow = 'hidden';
-						}
+						// Apply border-radius for mobile and desktop
+						innerWrapper.style.borderRadius = '12px 12px 0 0';
+						innerWrapper.style.overflow = 'hidden';
 
 						// Handle project-wrapper inside regular content
 						let projectWrapperInstance = null;
@@ -863,10 +861,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 					// Skip if already highlighted
 					if (parent.classList && parent.classList.contains('search-highlight')) {
-						return NodeFilter.FILTER_REJECT;
-					}
-					// Skip if inside an anchor link to preserve functionality
-					if (parent.tagName === 'A' || parent.closest('a')) {
 						return NodeFilter.FILTER_REJECT;
 					}
 					// Accept if contains search term
