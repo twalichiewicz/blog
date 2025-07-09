@@ -110,7 +110,7 @@ class Carousel {
 	}
 
 	fixRelativePathsImmediately() {
-		// Fix relative paths immediately on construction - ONLY ONCE
+		// Fix relative paths by replacing the entire image element
 		const images = this.carousel.querySelectorAll('img');
 		const currentPath = window.location.pathname.endsWith('/') ? 
 			window.location.pathname : window.location.pathname + '/';
@@ -124,11 +124,26 @@ class Carousel {
 				const filename = src.substring(2);
 				const resolvedSrc = currentPath + filename;
 				
-				// Just update the src attribute, don't force reflows
-				img.src = resolvedSrc;
-				img.dataset.pathFixed = 'true'; // Mark as processed
+				// Create a new image element to bypass browser's failed load cache
+				const newImg = document.createElement('img');
+				newImg.src = resolvedSrc;
+				newImg.alt = img.alt;
+				newImg.className = img.className;
+				newImg.loading = 'lazy';
+				newImg.decoding = 'async';
+				newImg.dataset.pathFixed = 'true';
 				
-				console.log(`Fixed relative path: ${src} -> ${resolvedSrc}`);
+				// Copy all other attributes
+				Array.from(img.attributes).forEach(attr => {
+					if (attr.name !== 'src' && attr.name !== 'alt' && attr.name !== 'class') {
+						newImg.setAttribute(attr.name, attr.value);
+					}
+				});
+				
+				// Replace the old image with the new one
+				img.parentNode.replaceChild(newImg, img);
+				
+				console.log(`Replaced image with fixed path: ${src} -> ${resolvedSrc}`);
 			}
 		});
 	}
