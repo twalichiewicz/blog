@@ -67,8 +67,11 @@ class Carousel {
 			if (img.dataset.pathFixed === 'true') return;
 			
 			const src = img.getAttribute('src') || '';
-			if (src.startsWith('./')) {
-				const filename = src.substring(2);
+			// Handle both ./ relative paths and / paths that should be relative to current page
+			if (src.startsWith('./') || (src.startsWith('/') && !src.includes('/2019/') && src.split('/').length === 2)) {
+				// For ./ paths, remove the ./ prefix
+				// For / paths like /brand-LOGO.jpg, remove the leading /
+				const filename = src.startsWith('./') ? src.substring(2) : src.substring(1);
 				const resolvedSrc = currentPath + filename;
 				
 				// Create a new image element to bypass browser's failed load cache
