@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Function to show toast when SD namespace is ready
 		const showToastWhenReady = () => {
 			if (window.SD && window.SD.ui && window.SD.ui.showToast) {
-				window.SD.ui.showToast(`404: that page isn't found`, 'info', 5000);
+				window.SD.ui.showToast(`<strong>404</strong><br>That page isn't found`, 'info', 5000);
 				
 				// Clean up URL after showing toast
 				urlParams.delete('error');

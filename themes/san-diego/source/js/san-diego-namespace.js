@@ -29,7 +29,8 @@
         toastContainer.style.cssText = `
           position: fixed;
           top: 20px;
-          right: 20px;
+          left: 50%;
+          transform: translateX(-50%);
           z-index: 9999;
           display: flex;
           flex-direction: column;
@@ -50,7 +51,7 @@
         border: 1px solid #e5e7eb;
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-100%);
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         pointer-events: auto;
         cursor: pointer;
@@ -75,7 +76,7 @@
       // Auto remove
       const removeToast = () => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateY(-10px)';
+        toast.style.transform = 'translateY(-100%)';
         setTimeout(() => {
           toast.remove();
           // Remove container if empty
