@@ -880,19 +880,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		nodesToReplace.forEach(textNode => {
 			const parent = textNode.parentNode;
-			
-			// Check if we're inside an anchor link
-			const isInsideAnchor = parent.tagName === 'A' || parent.closest('a');
-			
-			if (isInsideAnchor) {
-				// For anchor links, apply highlighting to the entire anchor element
-				const anchorElement = parent.tagName === 'A' ? parent : parent.closest('a');
-				if (anchorElement && !anchorElement.classList.contains('search-highlight-anchor')) {
-					anchorElement.classList.add('search-highlight-anchor');
-				}
-				return; // Skip modifying the text nodes inside anchors
-			}
-			
 			const fragment = document.createDocumentFragment();
 			let lastIndex = 0;
 			let match;
@@ -930,19 +917,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Remove all highlights
 	function removeAllHighlights(container) {
-		// Remove mark highlights
 		const highlights = container.querySelectorAll('.search-highlight');
 		highlights.forEach(highlight => {
 			const parent = highlight.parentNode;
 			const textNode = document.createTextNode(highlight.textContent);
 			parent.replaceChild(textNode, highlight);
 			parent.normalize(); // Merge adjacent text nodes
-		});
-		
-		// Remove anchor highlights
-		const anchorHighlights = container.querySelectorAll('.search-highlight-anchor');
-		anchorHighlights.forEach(anchor => {
-			anchor.classList.remove('search-highlight-anchor');
 		});
 	}
 
