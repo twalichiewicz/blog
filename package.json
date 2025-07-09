@@ -106,7 +106,7 @@
     "uuid": "^9.0.1",
     "sharp": "^0.34.2",
     "html-minifier-terser": "^7.2.0",
-    "terser": "^5.43.0"
+    "terser": "^5.43.1"
   },
   "overrides": {
     "minimatch": "^3.1.2",
