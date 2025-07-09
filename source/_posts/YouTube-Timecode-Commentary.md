@@ -25,35 +25,35 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
     </div>
     
     <div class="controls-wrapper">
-      <div class="progress-bar" style="position: relative; height: 3px; background: rgba(255,255,255,0.3); margin-bottom: 8px; cursor: pointer;">
+      <div class="progress-bar" style="position: relative; height: 3px; background: rgba(255,255,255,0.3); margin-bottom: 8px;">
         <div class="progress-fill" style="height: 100%; background: #ff0000; width: 33%; transition: width 0.1s linear; position: relative;">
           <div style="position: absolute; right: -6px; top: -5px; width: 12px; height: 12px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255,0,0,0.2);"></div>
         </div>
         <!-- Timeline markers for all comments -->
-        <div class="timeline-marker" data-time="2" data-comment-id="1" data-username="@TomNook" data-full-text="Already vibing 🎶" style="position: absolute; left: 13.33%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
-        <div class="timeline-marker" data-time="4" data-comment-id="2" data-username="@CatLover2024" data-full-text="The way crumb bobs to the beat here is EVERYTHING 😸" style="position: absolute; left: 26.67%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
-        <div class="timeline-marker" data-time="6" data-comment-id="3" data-username="@NostalgicGamer" data-full-text="This takes me back to Saturday afternoons" style="position: absolute; left: 40%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
+        <div class="timeline-marker" data-time="2" data-comment-id="1" data-username="@TomNook" data-full-text="Already vibing 🎶" style="position: absolute; left: 13.33%; top: -6px; width: 4px; height: 15px; background: #ffeb3b;"></div>
+        <div class="timeline-marker" data-time="4" data-comment-id="2" data-username="@CatLover2024" data-full-text="The way crumb bobs to the beat here is EVERYTHING 😸" style="position: absolute; left: 26.67%; top: -6px; width: 4px; height: 15px; background: #ffeb3b;"></div>
+        <div class="timeline-marker" data-time="6" data-comment-id="3" data-username="@NostalgicGamer" data-full-text="This takes me back to Saturday afternoons" style="position: absolute; left: 40%; top: -6px; width: 4px; height: 15px; background: #ffeb3b;"></div>
         
         <!-- Dense cluster for popular section (8-10 seconds) -->
-        <div class="timeline-marker" data-time="8" data-comment-id="4" data-username="@VirtuallyVibe" data-full-text="HERE COMES THE BEST PART!! 🔥🔥🔥" style="position: absolute; left: 53.33%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
-        <div class="timeline-marker" data-time="9" data-comment-id="5" data-username="@DanceCat" data-full-text="My cat literally stopped what he was doing to dance" style="position: absolute; left: 60%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
-        <div class="timeline-marker" data-time="10" data-comment-id="6" data-username="@BeatDropper" data-full-text="This drop hits different at 2x speed 😤" style="position: absolute; left: 66.67%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
-        <div class="timeline-marker" data-time="13" data-comment-id="7" data-username="@MemeMaster" data-full-text="POV: It's 2008 and you're spending your allowance on Wii Points 🥲" style="position: absolute; left: 86.67%; top: -6px; width: 4px; height: 15px; background: #ffeb3b; cursor: pointer;"></div>
+        <div class="timeline-marker" data-time="8" data-comment-id="4" data-username="@VirtuallyVibe" data-full-text="HERE COMES THE BEST PART!! 🔥🔥🔥" style="position: absolute; left: 53.33%; top: -6px; width: 4px; height: 15px; background: #ffeb3b;"></div>
+        <div class="timeline-marker" data-time="9" data-comment-id="5" data-username="@DanceCat" data-full-text="My cat literally stopped what he was doing to dance" style="position: absolute; left: 60%; top: -6px; width: 4px; height: 15px; background: #ffeb3b;"></div>
+        <div class="timeline-marker" data-time="10" data-comment-id="6" data-username="@BeatDropper" data-full-text="This drop hits different at 2x speed 😤" style="position: absolute; left: 66.67%; top: -6px; width: 4px; height: 15px; background: #ffeb3b;"></div>
+        <div class="timeline-marker" data-time="13" data-comment-id="7" data-username="@MemeMaster" data-full-text="POV: It's 2008 and you're spending your allowance on Wii Points 🥲" style="position: absolute; left: 86.67%; top: -6px; width: 4px; height: 15px; background: #ffeb3b;"></div>
       </div>
       
       <div style="display: flex; align-items: center; justify-content: space-between;">
         <div style="display: flex; align-items: center; gap: 12px;">
-          <button class="play-btn" style="background: none; border: none; color: white; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center;">
+          <button class="play-btn" style="background: none; border: none; color: white; padding: 0; display: flex; align-items: center; justify-content: center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M8 5v14l11-7z"/>
             </svg>
           </button>
-          <button style="background: none; border: none; color: white; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center;">
+          <button style="background: none; border: none; color: white; padding: 0; display: flex; align-items: center; justify-content: center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M6 4l10 8L6 20V4z M18 4v16h2V4h-2z"/>
             </svg>
           </button>
-          <button style="background: none; border: none; color: white; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center;">
+          <button style="background: none; border: none; color: white; padding: 0; display: flex; align-items: center; justify-content: center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
             </svg>
@@ -62,35 +62,35 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
         </div>
         
         <div style="display: flex; align-items: center; gap: 8px;">
-          <button class="loop-btn" style="background: none; border: none; color: #ff0000; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center;" title="Loop">
+          <button class="loop-btn" style="background: none; border: none; color: #ff0000; padding: 0; display: flex; align-items: center; justify-content: center;" title="Loop">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
             </svg>
           </button>
-          <button style="background: none; border: none; color: white; cursor: pointer; padding: 4px 8px; font-size: 13px; font-weight: 400;">CC</button>
-          <button class="settings-btn" style="background: none; border: none; color: white; cursor: pointer; padding: 0; position: relative; display: flex; align-items: center; justify-content: center;">
+          <button style="background: none; border: none; color: white; padding: 4px 8px; font-size: 13px; font-weight: 400;">CC</button>
+          <button class="settings-btn" style="background: none; border: none; color: white; padding: 0; position: relative; display: flex; align-items: center; justify-content: center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
             </svg>
             <div class="settings-menu" style="position: absolute; bottom: 30px; right: 0; background: rgba(28,28,28,0.98); border-radius: 8px; padding: 8px 0; min-width: 260px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.5);">
               <div style="color: #aaa; font-size: 11px; padding: 8px 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">Settings</div>
-              <div class="menu-item community-toggle" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; cursor: pointer; background: rgba(255,235,59,0.1);">
+              <div class="menu-item community-toggle" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: rgba(255,235,59,0.1);">
                 <span style="color: #ffeb3b; font-size: 14px;">Community Commentary</span>
                 <div class="toggle active" style="width: 36px; height: 20px; background: #ffeb3b; border-radius: 10px; position: relative; transition: background 0.2s;">
                   <div style="width: 16px; height: 16px; background: #212121; border-radius: 50%; position: absolute; top: 2px; right: 2px; transition: all 0.2s;"></div>
                 </div>
               </div>
-              <div class="menu-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; cursor: pointer;">
+              <div class="menu-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px;">
                 <span style="color: white; font-size: 14px;">Playback speed</span>
                 <span style="color: #aaa; font-size: 14px;">Normal ›</span>
               </div>
-              <div class="menu-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; cursor: pointer;">
+              <div class="menu-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px;">
                 <span style="color: white; font-size: 14px;">Quality</span>
                 <span style="color: #aaa; font-size: 14px;">Auto ›</span>
               </div>
             </div>
           </button>
-          <button style="background: none; border: none; color: white; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center;">
+          <button style="background: none; border: none; color: white; padding: 0; display: flex; align-items: center; justify-content: center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
             </svg>
@@ -108,7 +108,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
         <span>•</span>
         <span>3 months ago</span>
       </div>
-      <button class="toggle-comments" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+      <button class="toggle-comments" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 4px; font-size: 12px; display: flex; align-items: center; gap: 6px;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
         </svg>
@@ -121,7 +121,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
   <div class="comments-section" style="display: none; border-top: 1px solid rgba(255,255,255,0.1); padding: 16px; max-height: 210px; overflow-y: auto;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
       <h4 style="margin: 0; font-size: 16px;">Comments</h4>
-      <select class="comment-sort" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 4px 8px; font-size: 12px; cursor: pointer; outline: none;">
+      <select class="comment-sort" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 4px 8px; font-size: 12px; outline: none;">
         <option value="newest">Newest</option>
         <option value="timecode">By timecode</option>
       </select>
@@ -133,8 +133,8 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
       <div class="comment-actions" style="display: none; justify-content: space-between; align-items: center; margin-top: 8px;">
         <span class="comment-timecode" style="font-size: 12px;">@ 0:00</span>
         <div style="display: flex; gap: 8px;">
-          <button class="comment-cancel" style="background: transparent; color: #909090; border: none; padding: 6px 16px; border-radius: 4px; font-size: 14px; cursor: pointer;">Cancel</button>
-          <button class="comment-submit" style="background: #065fd4; color: white; border: none; padding: 6px 16px; border-radius: 4px; font-size: 14px; cursor: pointer; opacity: 0.5;" disabled>Comment</button>
+          <button class="comment-cancel" style="background: transparent; color: #909090; border: none; padding: 6px 16px; border-radius: 4px; font-size: 14px;">Cancel</button>
+          <button class="comment-submit" style="background: #065fd4; color: white; border: none; padding: 6px 16px; border-radius: 4px; font-size: 14px; opacity: 0.5;" disabled>Comment</button>
         </div>
       </div>
     </div>
