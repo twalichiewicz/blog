@@ -85,6 +85,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		
 		// --- Anchor Links ---
 		// Now handled by ScrollUtility which auto-initializes
+		
+		// --- Prototype Sandboxes ---
+		// Reinitialize prototype sandboxes for dynamic content
+		if (window.PrototypeSandbox && typeof window.PrototypeSandbox.autoInit === 'function') {
+			// Find prototype sandboxes within the container
+			const prototypes = container.querySelectorAll('[data-prototype-sandbox]');
+			if (prototypes.length > 0) {
+				prototypes.forEach(element => {
+					// Check if already initialized
+					if (!element.classList.contains('prototype-initialized')) {
+						const options = JSON.parse(element.dataset.prototypeSandbox || '{}');
+						new window.PrototypeSandbox(element, options);
+						element.classList.add('prototype-initialized');
+					}
+				});
+			}
+		}
 	}
 	// --- End of Refactored Initialization Function ---
 
