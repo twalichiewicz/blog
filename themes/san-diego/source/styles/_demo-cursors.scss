@@ -1,12 +1,19 @@
 /**
  * Demo/Prototype Custom Cursor System
- * Applies custom cursors to demo wrapper areas
+ * Applies custom cursors to demo wrapper areas and portfolio prototypes
  */
 
 // Custom cursor definitions for demo areas
-.demo-iframe-wrapper,
+.demo-inline-iframe,
+.demo-inline-container,
 .code-sandbox-wrapper .code-sandbox-content,
-.code-sandbox-content {
+.code-sandbox-content,
+.portfolio-item,
+.portfolio-item-wrapper,
+.notebook,
+.front-cover,
+.inner-page-left,
+.inner-page-right {
   // Default cursor
   cursor: url('/cursors/default.svg') 0 0, auto;
   
