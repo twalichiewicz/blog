@@ -49,21 +49,35 @@ hexo.extend.tag.register('carousel', function (args) {
                                   title="${item.caption || 'Embedded content'}">
             </iframe>`;
 			} else {
-				// For images, resolve the path relative to the post
+				// For images, use the src as-is since paths should already be correct
 				let imageSrc = item.url || item.src;
 				
-				// If it's a relative path (doesn't start with http:// or https:// or /)
+				// Normalize paths that start with ./ by removing the ./
+				if (imageSrc.startsWith('./')) {
+					imageSrc = imageSrc.substring(2);
+				}
+				
+				// Only process truly relative paths (no leading slash, no protocol)
 				if (!imageSrc.match(/^https?:\/\//) && !imageSrc.startsWith('/')) {
-					// Build the full path based on the post's permalink
-					if (postPath && postPath.includes('://')) {
-						// If permalink is a full URL, extract just the path part
-						const url = new URL(postPath);
-						const pathOnly = url.pathname.replace(/\.html$/, '').replace(/\/$/, '') + '/';
-						imageSrc = pathOnly + imageSrc;
-					} else if (postPath) {
-						// If it's already a path, use it
-						const cleanPath = postPath.replace(/\.html$/, '').replace(/\/$/, '') + '/';
-						imageSrc = '/' + cleanPath + imageSrc;
+					// This is a relative path like "image.png" or "subfolder/image.png"
+					if (postPath) {
+						// Extract just the directory path from the post
+						let basePath = '';
+						if (postPath.includes('://')) {
+							// Full URL - extract pathname
+							const url = new URL(postPath);
+							basePath = url.pathname;
+						} else {
+							// Already a path
+							basePath = postPath;
+						}
+						// Remove index.html and ensure it ends with /
+						basePath = basePath.replace(/index\.html$/, '').replace(/\/$/, '') + '/';
+						// Ensure the path starts with /
+						if (!basePath.startsWith('/')) {
+							basePath = '/' + basePath;
+						}
+						imageSrc = basePath + imageSrc;
 					}
 				}
 				
@@ -153,21 +167,35 @@ hexo.extend.tag.register('carousel_with_caption', function (args, content) {
                                   title="${item.caption || 'Embedded content'}">
             </iframe>`;
 			} else {
-				// For images, resolve the path relative to the post
+				// For images, use the src as-is since paths should already be correct
 				let imageSrc = item.url || item.src;
 				
-				// If it's a relative path (doesn't start with http:// or https:// or /)
+				// Normalize paths that start with ./ by removing the ./
+				if (imageSrc.startsWith('./')) {
+					imageSrc = imageSrc.substring(2);
+				}
+				
+				// Only process truly relative paths (no leading slash, no protocol)
 				if (!imageSrc.match(/^https?:\/\//) && !imageSrc.startsWith('/')) {
-					// Build the full path based on the post's permalink
-					if (postPath && postPath.includes('://')) {
-						// If permalink is a full URL, extract just the path part
-						const url = new URL(postPath);
-						const pathOnly = url.pathname.replace(/\.html$/, '').replace(/\/$/, '') + '/';
-						imageSrc = pathOnly + imageSrc;
-					} else if (postPath) {
-						// If it's already a path, use it
-						const cleanPath = postPath.replace(/\.html$/, '').replace(/\/$/, '') + '/';
-						imageSrc = '/' + cleanPath + imageSrc;
+					// This is a relative path like "image.png" or "subfolder/image.png"
+					if (postPath) {
+						// Extract just the directory path from the post
+						let basePath = '';
+						if (postPath.includes('://')) {
+							// Full URL - extract pathname
+							const url = new URL(postPath);
+							basePath = url.pathname;
+						} else {
+							// Already a path
+							basePath = postPath;
+						}
+						// Remove index.html and ensure it ends with /
+						basePath = basePath.replace(/index\.html$/, '').replace(/\/$/, '') + '/';
+						// Ensure the path starts with /
+						if (!basePath.startsWith('/')) {
+							basePath = '/' + basePath;
+						}
+						imageSrc = basePath + imageSrc;
 					}
 				}
 				

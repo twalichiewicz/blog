@@ -1,4 +1,7 @@
 // Fix carousel image paths at build time
+// DISABLED: This filter was causing path duplication issues
+// hexo.extend.filter.register('after_post_render', function(data) {
+/*
 hexo.extend.filter.register('after_post_render', function(data) {
   // Only process if the post has carousel markup
   if (!data.content.includes('carousel')) {
@@ -28,3 +31,4 @@ hexo.extend.filter.register('after_post_render', function(data) {
 
   return data;
 });
+*/
