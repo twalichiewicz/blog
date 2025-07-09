@@ -125,6 +125,40 @@ class Carousel {
 		return this.carouselImages;
 	}
 
+	ensureImagesLoaded() {
+		const images = this.carousel.querySelectorAll('img');
+		images.forEach((img) => {
+			// If image is not complete or has zero dimensions, it failed to load
+			if (!img.complete || img.naturalWidth === 0) {
+				const originalSrc = img.getAttribute('src') || '';
+				
+				// Add error handler
+				img.onerror = () => {
+					console.warn(`Failed to load carousel image: ${originalSrc}`);
+					// Try to reload with cache-busting parameter
+					if (originalSrc && !originalSrc.includes('?t=')) {
+						img.src = originalSrc + '?t=' + Date.now();
+					}
+				};
+				
+				// Force reload by resetting src
+				if (originalSrc) {
+					img.src = '';
+					void img.offsetHeight; // Force reflow
+					img.src = originalSrc;
+				}
+			}
+			
+			// Add load handler to ensure image is ready
+			if (!img.complete) {
+				img.onload = () => {
+					// Image loaded successfully, update carousel if needed
+					this.updateCarouselImages();
+				};
+			}
+		});
+	}
+
 	fixImagePathsImmediately() {
 		// Immediate synchronous fix for Safari
 		const images = this.carousel.querySelectorAll('img');
@@ -156,8 +190,11 @@ class Carousel {
 			const isAlreadyFixed = originalSrc.startsWith('/') && 
 				(originalSrc.includes('/2019/') || originalSrc.includes('/20'));
 			
-			// Only fix if not already fixed by blog.js pre-clone process
-			if (!isAlreadyFixed && (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')))) {
+			// Check if image failed to load (naturalWidth is 0 for broken images)
+			const isBroken = !img.complete || img.naturalWidth === 0;
+			
+			// Only fix if not already fixed by blog.js pre-clone process OR if image is broken
+			if (isBroken || (!isAlreadyFixed && (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))))) {
 				const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
 				const resolvedSrc = projectPath + filename;
 				
@@ -276,6 +313,9 @@ class Carousel {
 		
 		// Refresh carousel images in case they weren't loaded during construction
 		this.updateCarouselImages();
+		
+		// Ensure all images are loaded or have error handlers
+		this.ensureImagesLoaded();
 		
 		// Store bound versions of handlers for easy removal
 		this.boundPrev = this.prev.bind(this);
@@ -1192,7 +1232,9 @@ export function initializeCarousels(container = document) {
 			carouselInstances.push(newInstance);
 			
 			// Safari fix: For dynamically loaded content, force additional image loading attempts
-			if (isSafari && isDynamicContent) {
+			// Also check for Human Interest projects which seem to have timing issues
+			const isHumanInterest = carouselElement.closest('[href*="Human-Interest"], [data-title*="Human Interest"]') !== null;
+			if ((isSafari && isDynamicContent) || isHumanInterest) {
 				
 				// Try multiple times with different delays
 				[100, 300, 500, 1000].forEach(delay => {
