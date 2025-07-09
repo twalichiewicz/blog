@@ -1,0 +1,121 @@
+// Fix for search highlighting breaking layout
+@use 'variables';
+
+// Search highlight styles that preserve layout
+.search-highlight,
+mark.search-highlight {
+  background-color: variables.$link-color;
+  color: white;
+  padding: 0 2px;
+  border-radius: 2px;
+  // Ensure highlights don't break layout
+  display: inline;
+  line-height: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  
+  // Dark mode
+  @media (prefers-color-scheme: dark) {
+    background-color: variables.$link-color-dark;
+    color: variables.$black;
+  }
+}
+
+// Special handling for highlights within links
+.search-highlight-in-link {
+  // Keep link styles but add highlight background
+  color: inherit;
+  text-decoration: inherit;
+  cursor: pointer;
+  
+  // Make highlight visible but not disruptive
+  background-color: rgba(variables.$link-color, 0.3);
+  
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(variables.$link-color-dark, 0.3);
+  }
+}
+
+// Fix for highlights in post titles
+.post-list-item {
+  .post-link-wrapper {
+    // Ensure proper layout even with highlights
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    
+    h4 {
+      // Prevent title from breaking layout
+      flex: 1 1 auto;
+      min-width: 0;
+      
+      .search-highlight {
+        // Ensure highlights in titles don't affect size
+        vertical-align: baseline;
+      }
+    }
+    
+    .external-link {
+      // Keep external link icon in place
+      flex-shrink: 0;
+      align-self: center;
+    }
+  }
+  
+  // Long post variant
+  &.post-long {
+    .post-link-wrapper {
+      // Ensure long posts maintain layout with highlights
+      h4 {
+        display: inline;
+        
+        .search-highlight {
+          // Inline highlights for long titles
+          display: inline;
+        }
+      }
+    }
+  }
+}
+
+// Ensure anchor links remain clickable with highlights
+a {
+  .search-highlight,
+  .search-highlight-in-link {
+    // Highlights shouldn't interfere with link clicking
+    pointer-events: none;
+    
+    // But the link itself should remain clickable
+    & + *,
+    & ~ * {
+      pointer-events: auto;
+    }
+  }
+}
+
+// Fix any z-index issues
+.search-highlight {
+  position: relative;
+  z-index: 1;
+}
+
+// Ensure highlights work in all content areas
+#postsContent,
+#projectsContent,
+.blog-content,
+.content-wrapper {
+  .search-highlight {
+    // Consistent highlight appearance
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      // Subtle hover effect
+      background-color: rgba(variables.$link-color, 0.8);
+      
+      @media (prefers-color-scheme: dark) {
+        background-color: rgba(variables.$link-color-dark, 0.8);
+      }
+    }
+  }
+}
