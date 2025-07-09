@@ -695,14 +695,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		function handleLinkClick(event) {
-			// If clicking on a highlighted element inside the link, ensure we handle it properly
-			const clickedElement = event.target;
 			const link = event.currentTarget;
-			
-			// Debug logging to understand the click issue
-			if (clickedElement.classList.contains('search-highlight')) {
-				console.log('Clicked on highlighted text inside link:', link.href);
-			}
 			
 			// Link clicked
 			if (link.hostname === window.location.hostname &&
@@ -1008,6 +1001,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// First, remove any existing highlights
 		removeAllHighlights(blogContent);
+		
+		// If search is empty, show all posts and related elements
+		if (!query) {
+			posts.forEach(post => {
+				post.style.display = '';
+				
+				// Show related link-share elements
+				if (post.classList.contains('post-link')) {
+					let sibling = post.nextElementSibling;
+					while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
+						if (sibling.classList.contains('link-share')) {
+							sibling.style.display = '';
+							break;
+						}
+						sibling = sibling.nextElementSibling;
+					}
+				}
+			});
+			postSeparators.forEach(sep => sep.style.display = '');
+			if (noResultsMessage) {
+				noResultsMessage.style.display = 'none';
+			}
+			return;
+		}
 
 		posts.forEach(post => {
 			const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
@@ -1027,12 +1044,54 @@ document.addEventListener('DOMContentLoaded', function () {
 				visibleCount++;
 				visiblePosts.push(post);
 				
+				// For link posts, ensure all related elements are shown
+				if (post.classList.contains('post-link')) {
+					// Check for link-share element that might be a sibling
+					let linkShare = post.querySelector('.link-share');
+					if (!linkShare) {
+						// Look for link-share as a sibling element
+						let sibling = post.nextElementSibling;
+						while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
+							if (sibling.classList.contains('link-share')) {
+								linkShare = sibling;
+								sibling.style.display = '';
+								break;
+							}
+							sibling = sibling.nextElementSibling;
+						}
+					}
+				}
+				
 				// Highlight matching terms if there's a query
 				if (query) {
 					highlightSearchTerms(post, query);
+					
+					// Also highlight in link-share elements if they exist
+					if (post.classList.contains('post-link')) {
+						let sibling = post.nextElementSibling;
+						while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
+							if (sibling.classList.contains('link-share')) {
+								highlightSearchTerms(sibling, query);
+								break;
+							}
+							sibling = sibling.nextElementSibling;
+						}
+					}
 				}
 			} else {
 				post.style.display = 'none';
+				
+				// Also hide related link-share elements for link posts
+				if (post.classList.contains('post-link')) {
+					let sibling = post.nextElementSibling;
+					while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
+						if (sibling.classList.contains('link-share')) {
+							sibling.style.display = 'none';
+							break;
+						}
+						sibling = sibling.nextElementSibling;
+					}
+				}
 			}
 		});
 
