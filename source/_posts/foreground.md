@@ -5,7 +5,7 @@ display_description: "From rebrand to product to system—building the design fo
 layout: project_gallery
 company: Human Interest
 byline: Led comprehensive design transformation as founding designer, creating brand identity, reimagining core 401(k) products, and building "Foreground" design system that enabled company growth from startup to growth stage
-date: 2019-02-01 00:00:00
+date: 2019-01-31 00:00:00
 cover_image: foreground-preview.svg
 cover_video_poster: 
 has_writeup: true

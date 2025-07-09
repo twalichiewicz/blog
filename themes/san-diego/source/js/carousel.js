@@ -14,82 +14,8 @@ class Carousel {
 			const video = slide.querySelector('video');
 			
 			if (img) {
-				// Ensure image src is properly resolved for relative paths
-				let imgSrc = img.src;
-				let originalSrc = img.getAttribute('src') || '';
-				
-				// Check if we have a relative path that needs resolution
-				if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
-					// Try to detect project path from carousel context
-					let projectPath = '/';
-					const carouselContainer = this.carousel.closest('.project-wrapper');
-					if (carouselContainer) {
-						const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
-						if (fixedImg) {
-							const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
-							if (match) projectPath = match[1];
-						}
-					}
-					// Fallback to window location if on project page
-					if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
-						projectPath = window.location.pathname.endsWith('/') ? 
-							window.location.pathname : window.location.pathname + '/';
-					}
-					
-					// Remove './' if present, otherwise use the original src
-					const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
-					imgSrc = projectPath + filename;
-					
-					
-					// Update the actual img element's src attribute
-					img.src = imgSrc;
-					img.setAttribute('src', imgSrc);
-				} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/') && !originalSrc.includes('/20')) {
-					// This is an absolute path from root that should be relative to the project
-					// Use same project path detection as above
-					let projectPath = '/';
-					const carouselContainer = this.carousel.closest('.project-wrapper');
-					if (carouselContainer) {
-						const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
-						if (fixedImg) {
-							const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
-							if (match) projectPath = match[1];
-						}
-					}
-					if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
-						projectPath = window.location.pathname.endsWith('/') ? 
-							window.location.pathname : window.location.pathname + '/';
-					}
-					
-					const filename = originalSrc.substring(1); // Remove leading slash
-					imgSrc = projectPath + filename;
-					
-					// Update the actual img element's src attribute
-					img.src = imgSrc;
-					img.setAttribute('src', imgSrc);
-				} else if (!imgSrc || imgSrc === window.location.href || imgSrc.endsWith('.html')) {
-					// If src is empty, equals current page, or ends with .html, it's broken
-					// Try to fix by using the original src with proper path
-					if (originalSrc) {
-						// Use project path detection
-						let projectPath = '/';
-						const carouselContainer = this.carousel.closest('.project-wrapper');
-						if (carouselContainer) {
-							const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
-							if (fixedImg) {
-								const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
-								if (match) projectPath = match[1];
-							}
-						}
-						if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
-							projectPath = window.location.pathname.endsWith('/') ? 
-								window.location.pathname : window.location.pathname + '/';
-						}
-						imgSrc = projectPath + originalSrc;
-						img.src = imgSrc;
-						img.setAttribute('src', imgSrc);
-					}
-				}
+				// Just use the image src as-is - path fixing is done in fixRelativePathsImmediately()
+				const imgSrc = img.src;
 				
 				this.carouselImages.push({
 					type: 'image',
@@ -125,93 +51,19 @@ class Carousel {
 		return this.carouselImages;
 	}
 
+	ensureImagesLoaded() {
+		// Disabled - this is causing strobing
+		return;
+	}
+
+	fixRelativePathsImmediately() {
+		// Disabled - causing more problems than it solves
+		return;
+	}
+
 	fixImagePathsImmediately() {
-		// Immediate synchronous fix for Safari
-		const images = this.carousel.querySelectorAll('img');
-		
-		// Try to detect the project path from already-fixed images or data attributes
-		let projectPath = '/';
-		
-		// Method 1: Check if any image already has a proper project path
-		const fixedImage = this.carousel.querySelector('img[src*="/2019/"], img[src*="/20"]');
-		if (fixedImage) {
-			const src = fixedImage.getAttribute('src');
-			const match = src.match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
-			if (match) {
-				projectPath = match[1];
-			}
-		}
-		
-		// Method 2: Fallback to window.location if we're on a project page
-		if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
-			projectPath = window.location.pathname.endsWith('/') ? 
-				window.location.pathname : window.location.pathname + '/';
-		}
-		
-		images.forEach((img, index) => {
-			const originalSrc = img.getAttribute('src') || '';
-			const currentSrc = img.src || '';
-			
-			// Check if the path is already absolute and valid (pre-fixed by blog.js)
-			const isAlreadyFixed = originalSrc.startsWith('/') && 
-				(originalSrc.includes('/2019/') || originalSrc.includes('/20'));
-			
-			// Only fix if not already fixed by blog.js pre-clone process
-			if (!isAlreadyFixed && (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')))) {
-				const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
-				const resolvedSrc = projectPath + filename;
-				
-				// Remove src first for Safari to force reload
-				img.removeAttribute('src');
-				void img.offsetHeight; // Force reflow
-				
-				// Set both attribute and property
-				img.setAttribute('src', resolvedSrc);
-				img.src = resolvedSrc;
-				
-				// Force load by creating new Image
-				const preloader = new Image();
-				preloader.onload = () => {
-					// Set src again after preload
-					img.src = resolvedSrc;
-				};
-				preloader.onerror = () => {};
-				preloader.src = resolvedSrc;
-			} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/') && !originalSrc.includes('/20')) {
-				// Absolute path that needs project path prepended
-				const filename = originalSrc.substring(1); // Remove leading slash
-				const resolvedSrc = projectPath + filename;
-				
-				// Remove src first for Safari to force reload
-				img.removeAttribute('src');
-				void img.offsetHeight; // Force reflow
-				
-				// Set both attribute and property
-				img.setAttribute('src', resolvedSrc);
-				img.src = resolvedSrc;
-				
-				// Force load by creating new Image
-				const preloader = new Image();
-				preloader.onload = () => {
-					img.src = resolvedSrc;
-				};
-				preloader.onerror = () => {};
-				preloader.src = resolvedSrc;
-			} else if (!currentSrc || currentSrc === window.location.href || currentSrc.endsWith('.html')) {
-				// Image src is broken even if not relative
-				if (originalSrc) {
-					// If it starts with '/', it's already absolute from root - don't add projectPath
-					const resolvedSrc = originalSrc.startsWith('/') ? originalSrc : projectPath + originalSrc;
-					img.removeAttribute('src');
-					void img.offsetHeight;
-					img.setAttribute('src', resolvedSrc);
-					img.src = resolvedSrc;
-				}
-			} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/')) {
-				// This is an absolute path from root that needs the project path prepended
-				// Don't modify - let the browser handle it
-			}
-		});
+		// Disabled - not needed since we handle relative paths in fixRelativePathsImmediately
+		return;
 	}
 
 	constructor(element) {
@@ -230,25 +82,9 @@ class Carousel {
 
 		this.currentSpotlightIndex = 0;
 		
-		// Safari fix: Fix image paths BEFORE collecting them
-		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-		if (isSafari) {
-			this.fixImagePathsImmediately();
-			
-			// Safari first image fix: Force load the first image immediately
-			const firstImage = this.carousel.querySelector('.carousel-slide:first-child img');
-			if (firstImage && (!firstImage.complete || firstImage.naturalWidth === 0)) {
-				const src = firstImage.src;
-				// Create a new Image to force load
-				const preloader = new Image();
-				preloader.onload = () => {
-					// Force the carousel image to update
-					firstImage.src = src + '?t=' + Date.now();
-				};
-				preloader.onerror = () => {};
-				preloader.src = src;
-			}
-		}
+		// Removed - was causing path duplication issues
+		
+		// Disabled Safari-specific fixes - may be causing issues
 		
 		// Store images for this specific carousel - only from carousel slides
 		this.updateCarouselImages();
@@ -276,6 +112,11 @@ class Carousel {
 		
 		// Refresh carousel images in case they weren't loaded during construction
 		this.updateCarouselImages();
+		
+		// Ensure all images are loaded or have error handlers
+		this.ensureImagesLoaded();
+		
+		// Removed - causing issues
 		
 		// Store bound versions of handlers for easy removal
 		this.boundPrev = this.prev.bind(this);
@@ -1191,34 +1032,7 @@ export function initializeCarousels(container = document) {
 			initializedCarousels.add(carouselElement);
 			carouselInstances.push(newInstance);
 			
-			// Safari fix: For dynamically loaded content, force additional image loading attempts
-			if (isSafari && isDynamicContent) {
-				
-				// Try multiple times with different delays
-				[100, 300, 500, 1000].forEach(delay => {
-					setTimeout(() => {
-						if (newInstance.carousel && document.contains(newInstance.carousel)) {
-							newInstance.fixImagePathsImmediately();
-							newInstance.updateCarouselImages();
-							
-							// Also try to force image loading by manipulating display
-							const images = newInstance.carousel.querySelectorAll('img');
-							images.forEach(img => {
-								if (!img.complete || img.naturalWidth === 0) {
-									const src = img.src;
-									img.style.display = 'none';
-									img.offsetHeight; // Force reflow
-									img.style.display = '';
-									// Add timestamp to force reload
-									if (src && !src.includes('?t=')) {
-										img.src = src + '?t=' + Date.now();
-									}
-								}
-							});
-						}
-					}, delay);
-				});
-			}
+			// Removed - this was causing strobing
 		} catch (error) {
 			// Error initializing carousel - log for debugging
 			
@@ -1263,9 +1077,9 @@ window.addEventListener('pageshow', (event) => {
 	}
 });
 
-// Initialize on initial load (since this is a module, it runs once) - Moved pageshow logic here
+// Initialize on initial load
 if (document.readyState === 'loading') {
 	document.addEventListener('DOMContentLoaded', () => initializeCarousels(document));
 } else {
-	initializeCarousels(document); // Initialize if DOM is already ready
+	initializeCarousels(document);
 }
