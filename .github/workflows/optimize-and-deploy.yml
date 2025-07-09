@@ -65,6 +65,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
         cname: thomas.design
+        force_orphan: true
     
     - name: Create production deployment status
       if: github.ref == 'refs/heads/main'
