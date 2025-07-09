@@ -18,22 +18,11 @@ class Carousel {
 				let imgSrc = img.src;
 				let originalSrc = img.getAttribute('src') || '';
 				
-				// Check if we have a relative path that needs resolution
-				if (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))) {
-					// For relative paths, we need to resolve them based on the page URL
-					// Special handling for date mismatches (e.g., foreground project)
-					let projectPath = window.location.pathname;
-					if (!projectPath.endsWith('/')) {
-						projectPath += '/';
-					}
-					
-					// Remove './' if present, otherwise use the original src
-					const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
-					imgSrc = projectPath + filename;
-					
-					// Update the actual img element's src attribute
-					img.src = imgSrc;
-					img.setAttribute('src', imgSrc);
+				// Skip relative path resolution here - it's already done in fixRelativePathsImmediately()
+				// Just use the current src which should already be fixed
+				if (imgSrc && !imgSrc.startsWith('http') && !imgSrc.startsWith('/')) {
+					// If we still have a relative path, use the already-resolved src property
+					imgSrc = img.src;
 				} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/') && !originalSrc.includes('/20')) {
 					// This is an absolute path from root that should be relative to the project
 					// Use same project path detection as above
@@ -118,55 +107,24 @@ class Carousel {
 	ensureImagesLoaded() {
 		const images = this.carousel.querySelectorAll('img');
 		images.forEach((img) => {
+			// Skip if already has data-retried to prevent infinite loops
+			if (img.dataset.retried === 'true') return;
+			
 			const originalSrc = img.getAttribute('src') || img.src || '';
 			
-			// Add both load and error handlers
-			const setupHandlers = () => {
-				img.onload = () => {
-					// Image loaded successfully, update carousel if needed
-					if (img.naturalWidth > 0) {
-						this.updateCarouselImages();
-					}
-				};
-				
-				img.onerror = () => {
-					console.warn(`Failed to load carousel image: ${originalSrc}`);
-					// Try alternative loading strategies
-					if (originalSrc) {
-						// Strategy 1: Try with cache-busting
-						if (!originalSrc.includes('?t=')) {
-							setTimeout(() => {
-								img.src = originalSrc + '?t=' + Date.now();
-							}, 100);
-						}
-						// Strategy 2: Create new Image object to preload
-						else {
-							const preloader = new Image();
-							preloader.onload = () => {
-								img.src = preloader.src;
-							};
-							preloader.src = originalSrc;
-						}
-					}
-				};
+			// Simple error handler without infinite retries
+			img.onerror = () => {
+				console.warn(`Failed to load carousel image: ${originalSrc}`);
+				img.dataset.retried = 'true'; // Mark as retried to prevent loops
 			};
 			
-			// If image is not complete or has zero dimensions, it failed to load
+			// If image is not complete or has zero dimensions, try once more
 			if (!img.complete || img.naturalWidth === 0) {
-				setupHandlers();
-				
-				// Force reload by resetting src
-				if (originalSrc) {
-					// Use requestAnimationFrame for better timing
-					requestAnimationFrame(() => {
-						img.src = '';
-						void img.offsetHeight; // Force reflow
-						img.src = originalSrc;
-					});
-				}
-			} else {
-				// Even if image appears loaded, add handlers for future issues
-				setupHandlers();
+				// Single retry attempt
+				const tempSrc = img.src;
+				img.src = '';
+				void img.offsetHeight; // Force reflow
+				img.src = tempSrc;
 			}
 		});
 	}
@@ -179,11 +137,18 @@ class Carousel {
 		
 		images.forEach(img => {
 			const src = img.getAttribute('src') || '';
-			if (src.startsWith('./')) {
-				const filename = src.substring(2);
+			if (src.startsWith('./') || (src && !src.startsWith('/') && !src.startsWith('http'))) {
+				// Remove ./ prefix if present
+				const filename = src.startsWith('./') ? src.substring(2) : src;
 				const resolvedSrc = currentPath + filename;
+				
+				// Force immediate update
+				img.removeAttribute('src');
+				void img.offsetHeight; // Force reflow
 				img.setAttribute('src', resolvedSrc);
 				img.src = resolvedSrc;
+				
+				console.log(`Fixed relative path: ${src} -> ${resolvedSrc}`);
 			}
 		});
 	}
@@ -353,31 +318,17 @@ class Carousel {
 		// Ensure all images are loaded or have error handlers
 		this.ensureImagesLoaded();
 		
-		// Add aggressive retry for problematic pages (like Human Interest)
-		const isProblematicPage = window.location.pathname.includes('foreground') || 
-								  window.location.pathname.includes('human-interest') ||
-								  this.carousel.closest('[href*="foreground"], [data-title*="Human Interest"]') !== null;
-		
-		if (isProblematicPage) {
-			// Multiple retry attempts with increasing delays
-			[50, 150, 300, 500, 1000, 2000].forEach(delay => {
-				setTimeout(() => {
-					if (this.carousel && document.contains(this.carousel)) {
-						// Check if any images are still broken
-						const brokenImages = Array.from(this.carousel.querySelectorAll('img')).filter(img => 
-							!img.complete || img.naturalWidth === 0
-						);
-						
-						if (brokenImages.length > 0) {
-							console.log(`Retrying ${brokenImages.length} broken images after ${delay}ms`);
-							this.fixImagePathsImmediately();
-							this.ensureImagesLoaded();
-							this.updateCarouselImages();
-						}
-					}
-				}, delay);
-			});
-		}
+		// Single delayed check for image loading issues
+		setTimeout(() => {
+			const brokenImages = Array.from(this.carousel.querySelectorAll('img')).filter(img => 
+				!img.complete || img.naturalWidth === 0
+			);
+			
+			if (brokenImages.length > 0) {
+				console.log(`Found ${brokenImages.length} broken images, attempting single fix`);
+				this.updateCarouselImages();
+			}
+		}, 500);
 		
 		// Store bound versions of handlers for easy removal
 		this.boundPrev = this.prev.bind(this);
