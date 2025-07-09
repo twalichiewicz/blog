@@ -14,61 +14,8 @@ class Carousel {
 			const video = slide.querySelector('video');
 			
 			if (img) {
-				// Ensure image src is properly resolved for relative paths
-				let imgSrc = img.src;
-				let originalSrc = img.getAttribute('src') || '';
-				
-				// Skip relative path resolution here - it's already done in fixRelativePathsImmediately()
-				// Just use the current src which should already be fixed
-				if (imgSrc && !imgSrc.startsWith('http') && !imgSrc.startsWith('/')) {
-					// If we still have a relative path, use the already-resolved src property
-					imgSrc = img.src;
-				} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/') && !originalSrc.includes('/20')) {
-					// This is an absolute path from root that should be relative to the project
-					// Use same project path detection as above
-					let projectPath = '/';
-					const carouselContainer = this.carousel.closest('.project-wrapper');
-					if (carouselContainer) {
-						const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
-						if (fixedImg) {
-							const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
-							if (match) projectPath = match[1];
-						}
-					}
-					if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
-						projectPath = window.location.pathname.endsWith('/') ? 
-							window.location.pathname : window.location.pathname + '/';
-					}
-					
-					const filename = originalSrc.substring(1); // Remove leading slash
-					imgSrc = projectPath + filename;
-					
-					// Update the actual img element's src attribute
-					img.src = imgSrc;
-					img.setAttribute('src', imgSrc);
-				} else if (!imgSrc || imgSrc === window.location.href || imgSrc.endsWith('.html')) {
-					// If src is empty, equals current page, or ends with .html, it's broken
-					// Try to fix by using the original src with proper path
-					if (originalSrc) {
-						// Use project path detection
-						let projectPath = '/';
-						const carouselContainer = this.carousel.closest('.project-wrapper');
-						if (carouselContainer) {
-							const fixedImg = carouselContainer.querySelector('img[src*="/2019/"], img[src*="/20"]');
-							if (fixedImg) {
-								const match = fixedImg.getAttribute('src').match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
-								if (match) projectPath = match[1];
-							}
-						}
-						if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
-							projectPath = window.location.pathname.endsWith('/') ? 
-								window.location.pathname : window.location.pathname + '/';
-						}
-						imgSrc = projectPath + originalSrc;
-						img.src = imgSrc;
-						img.setAttribute('src', imgSrc);
-					}
-				}
+				// Just use the image src as-is - path fixing is done in fixRelativePathsImmediately()
+				const imgSrc = img.src;
 				
 				this.carouselImages.push({
 					type: 'image',
@@ -149,98 +96,8 @@ class Carousel {
 	}
 
 	fixImagePathsImmediately() {
-		// Immediate synchronous fix for Safari
-		const images = this.carousel.querySelectorAll('img');
-		
-		// Try to detect the project path from already-fixed images or data attributes
-		let projectPath = '/';
-		
-		// Method 1: Check if any image already has a proper project path
-		const fixedImage = this.carousel.querySelector('img[src*="/2019/"], img[src*="/20"]');
-		if (fixedImage) {
-			const src = fixedImage.getAttribute('src');
-			const match = src.match(/^(\/\d{4}\/\d{2}\/\d{2}\/[^/]+\/)/);
-			if (match) {
-				projectPath = match[1];
-			}
-		}
-		
-		// Method 2: Fallback to window.location if we're on a project page
-		if (projectPath === '/' && window.location.pathname.match(/^\/\d{4}\/\d{2}\/\d{2}\/[^/]+\//)) {
-			projectPath = window.location.pathname.endsWith('/') ? 
-				window.location.pathname : window.location.pathname + '/';
-		}
-		
-		images.forEach((img, index) => {
-			const originalSrc = img.getAttribute('src') || '';
-			const currentSrc = img.src || '';
-			
-			// Check if the path is already absolute and valid (pre-fixed by blog.js)
-			const isAlreadyFixed = originalSrc.startsWith('/') && 
-				(originalSrc.includes('/2019/') || originalSrc.includes('/20'));
-			
-			// Check if image failed to load (naturalWidth is 0 for broken images)
-			const isBroken = !img.complete || img.naturalWidth === 0;
-			
-			// Only fix if not already fixed by blog.js pre-clone process OR if image is broken
-			if (isBroken || (!isAlreadyFixed && (originalSrc.startsWith('./') || (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http'))))) {
-				// For relative paths, always use the current page URL
-				const pageProjectPath = window.location.pathname.endsWith('/') ? 
-					window.location.pathname : window.location.pathname + '/';
-				const filename = originalSrc.startsWith('./') ? originalSrc.substring(2) : originalSrc;
-				const resolvedSrc = pageProjectPath + filename;
-				
-				// Remove src first for Safari to force reload
-				img.removeAttribute('src');
-				void img.offsetHeight; // Force reflow
-				
-				// Set both attribute and property
-				img.setAttribute('src', resolvedSrc);
-				img.src = resolvedSrc;
-				
-				// Force load by creating new Image
-				const preloader = new Image();
-				preloader.onload = () => {
-					// Set src again after preload
-					img.src = resolvedSrc;
-				};
-				preloader.onerror = () => {};
-				preloader.src = resolvedSrc;
-			} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/') && !originalSrc.includes('/20')) {
-				// Absolute path that needs project path prepended
-				const filename = originalSrc.substring(1); // Remove leading slash
-				const resolvedSrc = projectPath + filename;
-				
-				// Remove src first for Safari to force reload
-				img.removeAttribute('src');
-				void img.offsetHeight; // Force reflow
-				
-				// Set both attribute and property
-				img.setAttribute('src', resolvedSrc);
-				img.src = resolvedSrc;
-				
-				// Force load by creating new Image
-				const preloader = new Image();
-				preloader.onload = () => {
-					img.src = resolvedSrc;
-				};
-				preloader.onerror = () => {};
-				preloader.src = resolvedSrc;
-			} else if (!currentSrc || currentSrc === window.location.href || currentSrc.endsWith('.html')) {
-				// Image src is broken even if not relative
-				if (originalSrc) {
-					// If it starts with '/', it's already absolute from root - don't add projectPath
-					const resolvedSrc = originalSrc.startsWith('/') ? originalSrc : projectPath + originalSrc;
-					img.removeAttribute('src');
-					void img.offsetHeight;
-					img.setAttribute('src', resolvedSrc);
-					img.src = resolvedSrc;
-				}
-			} else if (originalSrc.startsWith('/') && !originalSrc.includes('/2019/')) {
-				// This is an absolute path from root that needs the project path prepended
-				// Don't modify - let the browser handle it
-			}
-		});
+		// Disabled - not needed since we handle relative paths in fixRelativePathsImmediately
+		return;
 	}
 
 	constructor(element) {
