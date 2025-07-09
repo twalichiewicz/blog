@@ -23,6 +23,7 @@ tag_dir: blog/tags
 category_dir: blog/categories
 skip_render: 
   - "themes/san-diego/source/demos/**"
+  - "docs/**"
 
 # Writing
 default_layout: post
