@@ -300,11 +300,18 @@ mark.search-highlight {
 	font-weight: var(--font-weight-medium);
 	display: inline; // Ensure it doesn't break layout
 	line-height: inherit; // Preserve line height
-	pointer-events: none; // Don't interfere with anchor link clicks
+	pointer-events: none !important; // Don't interfere with anchor link clicks
 	
 	@media (prefers-color-scheme: dark) {
 		background-color: rgba(variables.$link-color-dark, 0.4);
 	}
+}
+
+// Ensure search highlights inside links don't interfere with clicks
+a .search-highlight,
+.post-link-wrapper .search-highlight {
+	pointer-events: none !important;
+	cursor: pointer !important; // Show link cursor
 }
 
 // Ensure search highlights don't break post title layouts

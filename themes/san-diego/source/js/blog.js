@@ -695,7 +695,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		function handleLinkClick(event) {
+			// If clicking on a highlighted element inside the link, ensure we handle it properly
+			const clickedElement = event.target;
 			const link = event.currentTarget;
+			
+			// Debug logging to understand the click issue
+			if (clickedElement.classList.contains('search-highlight')) {
+				console.log('Clicked on highlighted text inside link:', link.href);
+			}
+			
 			// Link clicked
 			if (link.hostname === window.location.hostname &&
 				!link.getAttribute('target') &&
