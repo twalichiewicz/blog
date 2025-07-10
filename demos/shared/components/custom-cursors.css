@@ -1,6 +1,24 @@
 /* Custom Cursor System for React Demo Apps */
 /* This file should be imported by all React demo apps to enable custom cursors inside iframes */
 
+/* Preload cursor images to reduce delay */
+body::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  z-index: -1;
+  background-image: 
+    url('./cursors/default.svg'),
+    url('./cursors/pointer.svg'),
+    url('./cursors/text.svg'),
+    url('./cursors/grab.svg'),
+    url('./cursors/grabbing.svg'),
+    url('./cursors/zoom-in.svg'),
+    url('./cursors/zoom-out.svg');
+}
+
 /* Root app should use custom cursors */
 #root,
 .App,
