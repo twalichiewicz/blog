@@ -1002,54 +1002,24 @@ document.addEventListener('DOMContentLoaded', function () {
 		// First, remove any existing highlights
 		removeAllHighlights(blogContent);
 		
-		// If search is empty, apply only the posts filter if active
+		// If search is empty, show all posts and related elements
 		if (!query) {
 			posts.forEach(post => {
-				// Check if it's a regular post by looking for preview card
-				// Regular posts have .post-preview-card, link posts don't
-				const hasPreviewCard = post.querySelector('.post-preview-card') !== null;
-				const isPostType = hasPreviewCard;
+				post.style.display = '';
 				
-				// Show/hide based on filter
-				if (!isPostsOnly || isPostType) {
-					post.style.display = ''; // This resets to default CSS display value
-					visibleCount++;
-					visiblePosts.push(post);
-					
-					// For link posts, link-share is nested inside
-					if (post.classList.contains('post-link')) {
-						const linkShare = post.querySelector('.link-share');
-						if (linkShare) {
-							linkShare.style.display = '';
+				// Show related link-share elements
+				if (post.classList.contains('post-link')) {
+					let sibling = post.nextElementSibling;
+					while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
+						if (sibling.classList.contains('link-share')) {
+							sibling.style.display = '';
+							break;
 						}
-					}
-				} else {
-					post.style.display = 'none';
-					
-					// Hide link-share elements for filtered link posts
-					if (post.classList.contains('post-link')) {
-						const linkShare = post.querySelector('.link-share');
-						if (linkShare) {
-							linkShare.style.display = 'none';
-						}
+						sibling = sibling.nextElementSibling;
 					}
 				}
 			});
-			
-			// Update separators for visible posts
-			postSeparators.forEach(sep => sep.style.display = 'none');
-			visiblePosts.forEach((post, index) => {
-				if (index < visiblePosts.length - 1) {
-					let nextSibling = post.nextElementSibling;
-					while (nextSibling && !nextSibling.classList.contains('post-separator')) {
-						nextSibling = nextSibling.nextElementSibling;
-					}
-					if (nextSibling && nextSibling.classList.contains('post-separator')) {
-						nextSibling.style.display = '';
-					}
-				}
-			});
-			
+			postSeparators.forEach(sep => sep.style.display = '');
 			if (noResultsMessage) {
 				noResultsMessage.style.display = 'none';
 			}
@@ -1061,9 +1031,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			const content = post.textContent.toLowerCase();
 			const isMatch = title.includes(query) || content.includes(query);
 			
-			// Check if it's a regular post by looking for preview card
-			// Regular posts have .post-preview-card, link posts don't
-			const hasPreviewCard = post.querySelector('.post-preview-card') !== null;
+			// Check if it's specifically a "post-long post-preview-card" type
+			// Look for the preview card either on the post itself OR nested inside
+			const hasPreviewCard = post.querySelector('.post-long.post-preview-card') || 
+								  (post.classList.contains('post-long') && post.classList.contains('post-preview-card'));
 			
 			// It's a regular post if it has the preview card structure
 			const isPostType = hasPreviewCard;
@@ -1073,11 +1044,21 @@ document.addEventListener('DOMContentLoaded', function () {
 				visibleCount++;
 				visiblePosts.push(post);
 				
-				// For link posts, ensure link-share element is shown
+				// For link posts, ensure all related elements are shown
 				if (post.classList.contains('post-link')) {
-					const linkShare = post.querySelector('.link-share');
-					if (linkShare) {
-						linkShare.style.display = '';
+					// Check for link-share element that might be a sibling
+					let linkShare = post.querySelector('.link-share');
+					if (!linkShare) {
+						// Look for link-share as a sibling element
+						let sibling = post.nextElementSibling;
+						while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
+							if (sibling.classList.contains('link-share')) {
+								linkShare = sibling;
+								sibling.style.display = '';
+								break;
+							}
+							sibling = sibling.nextElementSibling;
+						}
 					}
 				}
 				
@@ -1087,20 +1068,28 @@ document.addEventListener('DOMContentLoaded', function () {
 					
 					// Also highlight in link-share elements if they exist
 					if (post.classList.contains('post-link')) {
-						const linkShare = post.querySelector('.link-share');
-						if (linkShare) {
-							highlightSearchTerms(linkShare, query);
+						let sibling = post.nextElementSibling;
+						while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
+							if (sibling.classList.contains('link-share')) {
+								highlightSearchTerms(sibling, query);
+								break;
+							}
+							sibling = sibling.nextElementSibling;
 						}
 					}
 				}
 			} else {
 				post.style.display = 'none';
 				
-				// Also hide link-share elements for link posts
+				// Also hide related link-share elements for link posts
 				if (post.classList.contains('post-link')) {
-					const linkShare = post.querySelector('.link-share');
-					if (linkShare) {
-						linkShare.style.display = 'none';
+					let sibling = post.nextElementSibling;
+					while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
+						if (sibling.classList.contains('link-share')) {
+							sibling.style.display = 'none';
+							break;
+						}
+						sibling = sibling.nextElementSibling;
 					}
 				}
 			}
