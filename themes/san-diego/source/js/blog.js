@@ -415,6 +415,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			// Add has-dynamic-content class to enable proper scrolling
 			blogContentElement.classList.add('has-dynamic-content');
+			
+			// Ensure existing content-inner-wrapper has border-radius during transition
+			const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+			if (existingInnerWrapper) {
+				existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+			}
 
 			// Start screen wipe transition
 			let transitionData = null;
