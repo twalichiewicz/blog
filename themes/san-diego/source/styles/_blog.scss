@@ -1027,3 +1027,19 @@ p {
 		}
 	}
 }
+
+// Fix double margin when "Posts only" is active
+// When showing only posts with preview cards, reduce margin on the wrapper
+body:has(.posts-only-button.active) {
+	#postsContent {
+		.post-list-item {
+			// Reduce margin to account for post-link-wrapper's margin
+			margin: 2rem 0;
+			
+			// Ensure the preview card link doesn't add extra margin
+			.post-link-wrapper {
+				margin: 0;
+			}
+		}
+	}
+}
