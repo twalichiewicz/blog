@@ -1063,5 +1063,13 @@ body:has(.posts-only-button.active) {
 			visibility: visible !important;
 			opacity: 1 !important;
 		}
+		
+		// Ensure anchor links remain clickable
+		a[href^="#"] {
+			pointer-events: auto !important;
+			cursor: pointer !important;
+			z-index: 10;
+			position: relative;
+		}
 	}
 }
