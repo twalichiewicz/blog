@@ -12,8 +12,8 @@
 .youtube-demo,
 .prototype-sandbox,
 .advanced-prototype {
-  // Default cursor
-  cursor: url('/cursors/default.svg') 4 4, auto;
+  // Default cursor (arrow tip at ~10,6)
+  cursor: url('/cursors/default.svg') 10 6, auto;
   
   // Interactive elements
   a,
@@ -33,7 +33,7 @@
   .menu-item,
   .community-toggle,
   .toggle {
-    cursor: url('/cursors/pointer.svg') 7 3, pointer;
+    cursor: url('/cursors/pointer.svg') 12 7, pointer;
   }
   
   // Text inputs
@@ -82,7 +82,7 @@
   
   // Background loading
   &.background-loading {
-    cursor: url('/cursors/background-busy.svg') 4 4, progress;
+    cursor: url('/cursors/background-busy.svg') 10 6, progress;
   }
   
   // Disabled elements
@@ -130,7 +130,7 @@
 
 // Spotlight modal cursors
 .carousel-spotlight-modal {
-  cursor: url('/cursors/default.svg') 4 4, auto;
+  cursor: url('/cursors/default.svg') 10 6, auto;
   
   // Close button and navigation
   .spotlight-close,

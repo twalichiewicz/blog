@@ -7,7 +7,7 @@
 .demo-wrapper,
 .demo-background,
 .browser-chrome {
-  cursor: url('./cursors/default.svg') 4 4, auto;
+  cursor: url('./cursors/default.svg') 10 6, auto;
 }
 
 /* Interactive elements */
@@ -69,7 +69,7 @@
 .App [role="tab"],
 .App [role="option"],
 .App [data-radix-collection-item] {
-  cursor: url('./cursors/pointer.svg') 7 3, pointer;
+  cursor: url('./cursors/pointer.svg') 12 7, pointer;
 }
 
 /* Text inputs */
@@ -144,7 +144,7 @@
 /* Background loading */
 #root.background-loading,
 .App.background-loading {
-  cursor: url('./cursors/background-busy.svg') 4 4, progress;
+  cursor: url('./cursors/background-busy.svg') 10 6, progress;
 }
 
 /* Disabled elements */
