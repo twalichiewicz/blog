@@ -514,6 +514,8 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Apply border-radius (top-left only as per design)
 						innerWrapper.style.borderRadius = '12px 0 0 0';
 						innerWrapper.style.overflow = 'hidden';
+						// Force border-radius with higher specificity
+						innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
 
 						// Handle project-wrapper inside regular content
 						let projectWrapperInstance = null;
