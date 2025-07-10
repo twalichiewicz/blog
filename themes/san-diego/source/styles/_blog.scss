@@ -1048,28 +1048,102 @@ body:has(.posts-only-button.active) {
 // Ensure all search results show their full content
 #postsContent.search-active {
 	.post-list-item.search-result {
-		// Force display of all content within search results
-		* {
+		// Ensure preview cards are fully visible without affecting other elements
+		.post-preview-card {
 			visibility: visible !important;
 			opacity: 1 !important;
+			
+			.preview-cover-image,
+			.preview-content {
+				visibility: visible !important;
+				opacity: 1 !important;
+			}
+		}
+	}
+}
+
+// Threaded anchor results styling
+.threaded-anchor-results {
+	margin-left: 2rem;
+	margin-bottom: 1.5rem;
+	
+	@media (max-width: variables.$mobile-breakpoint) {
+		margin-left: 1rem;
+	}
+}
+
+.threaded-anchor-result {
+	display: flex;
+	gap: 0.75rem;
+	padding: 0.75rem 0;
+	border-left: 2px solid variables.$border-color;
+	padding-left: 1rem;
+	margin-bottom: 0.5rem;
+	
+	&:last-child {
+		margin-bottom: 0;
+	}
+	
+	.thread-indicator {
+		color: variables.$text-color-secondary;
+		font-size: var(--font-size-lg);
+		line-height: 1;
+		flex-shrink: 0;
+	}
+	
+	.threaded-content {
+		flex: 1;
+		min-width: 0;
+	}
+	
+	.threaded-meta {
+		display: flex;
+		align-items: baseline;
+		gap: 0.5rem;
+		margin-bottom: 0.25rem;
+		font-size: var(--font-size-sm);
+		
+		.threaded-title {
+			font-weight: var(--font-weight-medium);
+			color: variables.$text-color;
 		}
 		
-		// Ensure preview cards are fully visible
-		.post-link-wrapper,
-		.post-preview-card,
-		.preview-cover-image,
-		.preview-content {
-			display: block !important;
-			visibility: visible !important;
-			opacity: 1 !important;
+		.threaded-date {
+			color: variables.$text-color-secondary;
+			font-size: var(--font-size-xs);
+		}
+	}
+	
+	.threaded-context {
+		font-size: var(--font-size-sm);
+		line-height: 1.4;
+		
+		.threaded-link {
+			color: variables.$text-color-secondary;
+			text-decoration: none;
+			display: block;
+			
+			&:hover {
+				color: variables.$link-color;
+				text-decoration: underline;
+			}
+		}
+	}
+	
+	// Dark mode
+	@media (prefers-color-scheme: dark) {
+		border-left-color: variables.$border-color-dark;
+		
+		.threaded-meta .threaded-title {
+			color: variables.$text-color-dark;
 		}
 		
-		// Ensure anchor links remain clickable
-		a[href^="#"] {
-			pointer-events: auto !important;
-			cursor: pointer !important;
-			z-index: 10;
-			position: relative;
+		.threaded-context .threaded-link {
+			color: variables.$text-color-secondary-dark;
+			
+			&:hover {
+				color: variables.$link-color-dark;
+			}
 		}
 	}
 }

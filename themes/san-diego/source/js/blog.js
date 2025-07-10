@@ -827,10 +827,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					if (parent.classList && parent.classList.contains('search-highlight')) {
 						return NodeFilter.FILTER_REJECT;
 					}
-					// Skip if inside an anchor link to preserve functionality
-					if (parent.tagName === 'A' || parent.closest('a')) {
-						return NodeFilter.FILTER_REJECT;
-					}
 					// Accept if contains search term
 					if (regex.test(node.textContent)) {
 						return NodeFilter.FILTER_ACCEPT;
@@ -892,6 +888,116 @@ document.addEventListener('DOMContentLoaded', function () {
 			parent.replaceChild(textNode, highlight);
 			parent.normalize(); // Merge adjacent text nodes
 		});
+		
+		// Also remove any threaded anchor results
+		const threadedResults = container.querySelectorAll('.threaded-anchor-results');
+		threadedResults.forEach(result => result.remove());
+	}
+	
+	// Find and display anchor destinations as threaded results
+	function findAndDisplayAnchorDestinations(post, searchTerm) {
+		// Remove any existing threaded results for this post
+		const nextElement = post.nextElementSibling;
+		if (nextElement && nextElement.classList.contains('threaded-anchor-results')) {
+			nextElement.remove();
+		}
+		
+		// Find all anchor links in the post
+		const anchorLinks = post.querySelectorAll('a[href^="#"]');
+		if (anchorLinks.length === 0) return;
+		
+		const threadedResults = [];
+		
+		anchorLinks.forEach(link => {
+			const targetId = link.getAttribute('href').substring(1);
+			if (!targetId) return;
+			
+			// Find the target element
+			const target = document.getElementById(targetId);
+			if (!target) return;
+			
+			// Check if the target contains the search term
+			const targetText = target.textContent.toLowerCase();
+			if (!targetText.includes(searchTerm.toLowerCase())) return;
+			
+			// Get the target post
+			const targetPost = target.closest('.post-list-item');
+			if (!targetPost || targetPost === post) return; // Skip if same post
+			
+			// Create a threaded result
+			const threadedResult = createThreadedAnchorResult(link, target, targetPost);
+			if (threadedResult) {
+				threadedResults.push(threadedResult);
+			}
+		});
+		
+		// Insert threaded results after the post
+		if (threadedResults.length > 0) {
+			const container = document.createElement('div');
+			container.className = 'threaded-anchor-results';
+			threadedResults.forEach(result => container.appendChild(result));
+			
+			// Insert after the post
+			post.parentNode.insertBefore(container, post.nextSibling);
+		}
+	}
+	
+	// Create a threaded anchor result element
+	function createThreadedAnchorResult(anchorLink, target, targetPost) {
+		const result = document.createElement('div');
+		result.className = 'threaded-anchor-result';
+		
+		// Get post title and date
+		const postTitle = targetPost.querySelector('h3')?.textContent || 'Untitled';
+		const postDate = targetPost.querySelector('.post-byline')?.textContent || '';
+		
+		// Get surrounding context from target
+		const contextText = getTextContext(target, 150); // 150 chars of context
+		
+		// Build the result HTML
+		result.innerHTML = `
+			<div class="thread-indicator">↳</div>
+			<div class="threaded-content">
+				<div class="threaded-meta">
+					<span class="threaded-title">${escapeHtml(postTitle)}</span>
+					<span class="threaded-date">${escapeHtml(postDate)}</span>
+				</div>
+				<div class="threaded-context">
+					<a href="#${target.id}" class="threaded-link">
+						${escapeHtml(contextText)}
+					</a>
+				</div>
+			</div>
+		`;
+		
+		return result;
+	}
+	
+	// Get text context around an element
+	function getTextContext(element, maxLength) {
+		let text = element.textContent.trim();
+		
+		// If the element itself is short, try to get context from parent
+		if (text.length < 50) {
+			const parent = element.parentElement;
+			if (parent) {
+				text = parent.textContent.trim();
+			}
+		}
+		
+		// Truncate if too long
+		if (text.length > maxLength) {
+			text = text.substring(0, maxLength) + '...';
+		}
+		
+		return text;
+	}
+	
+	// Escape HTML for safe insertion
+	function escapeHtml(text) {
+		const div = document.createElement('div');
+		div.textContent = text;
+		return div.innerHTML;
 	}
 
 	// Escape special regex characters
@@ -1001,6 +1107,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				// Highlight matching terms if there's a query
 				if (query) {
 					highlightSearchTerms(post, query);
+					// Check for anchor links and find their destinations
+					findAndDisplayAnchorDestinations(post, query);
 				}
 			} else {
 				post.style.display = 'none';
