@@ -1,9 +1,121 @@
 /**
  * Demo/Prototype Custom Cursor System
- * Only applies custom cursors within iframe demos
- * Note: These styles won't affect iframe content directly,
- * each demo must include its own cursor styles
+ * Applies custom cursors to demo wrapper areas and portfolio prototypes
  */
 
-// Remove any custom cursors from the main site
-// The demos will handle their own cursors internally
+// Custom cursor definitions for demo areas only
+.demo-inline-iframe,
+.demo-inline-container,
+.demo-inline-container.demo-loaded,
+.code-sandbox-wrapper .code-sandbox-content,
+.code-sandbox-content,
+.youtube-demo,
+.prototype-sandbox,
+.advanced-prototype {
+  // Default cursor
+  cursor: url('/cursors/default.svg') 0 0, auto;
+  
+  // Interactive elements
+  a,
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  .clickable,
+  .timeline-marker,
+  .progress-bar,
+  .play-btn,
+  .loop-btn,
+  .settings-btn,
+  .toggle-comments,
+  .comment-sort,
+  .comment-cancel,
+  .comment-submit,
+  .comment-time-link,
+  .menu-item,
+  .community-toggle,
+  .toggle {
+    cursor: url('/cursors/pointer.svg') 0 0, pointer;
+  }
+  
+  // Text inputs
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="url"],
+  textarea,
+  [contenteditable="true"],
+  .comment-input {
+    cursor: url('/cursors/text.svg') 0 0, text;
+  }
+  
+  // Help elements
+  [title]:not(button):not(a),
+  .help,
+  abbr {
+    cursor: url('/cursors/help.svg') 0 0, help;
+  }
+  
+  // Draggable elements
+  [draggable="true"],
+  .draggable {
+    cursor: url('/cursors/grab.svg') 12 12, grab;
+    
+    &:active {
+      cursor: url('/cursors/grabbing.svg') 12 12, grabbing;
+    }
+  }
+  
+  // Movable elements
+  .movable {
+    cursor: url('/cursors/move.svg') 12 12, move;
+  }
+  
+  // Loading states
+  &.loading,
+  [aria-busy="true"],
+  .busy {
+    cursor: url('/cursors/busy.svg') 0 0, wait;
+  }
+  
+  // Background loading
+  &.background-loading {
+    cursor: url('/cursors/background-busy.svg') 0 0, progress;
+  }
+  
+  // Disabled elements
+  button:disabled,
+  [aria-disabled="true"],
+  .disabled,
+  [disabled] {
+    cursor: url('/cursors/disabled.svg') 0 0, not-allowed;
+  }
+  
+  // Resizable areas
+  .resizable,
+  .resize-handle {
+    cursor: url('/cursors/resize.svg') 12 12, nwse-resize;
+  }
+  
+  .resizable-alt {
+    cursor: url('/cursors/resize-alt.svg') 12 12, nesw-resize;
+  }
+  
+  // Zoomable content
+  .zoomable,
+  img[data-zoomable="true"] {
+    cursor: url('/cursors/zoom-in.svg') 12 12, zoom-in;
+    
+    &.zoomed {
+      cursor: url('/cursors/zoom-out.svg') 12 12, zoom-out;
+    }
+  }
+}
+
+// Special case: Apply pointer cursor to iframe wrapper toggle buttons and back button
+.code-sandbox-toggle,
+.dynamic-back-button,
+.project-home-button,
+.demo-control-button {
+  cursor: url('/cursors/pointer.svg') 0 0, pointer;
+}
+

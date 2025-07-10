@@ -1,0 +1,176 @@
+/* Custom Cursor System for React Demo Apps */
+/* This file should be imported by all React demo apps to enable custom cursors inside iframes */
+
+/* Root app should use custom cursors */
+#root,
+.App,
+.demo-wrapper,
+.demo-background,
+.browser-chrome {
+  cursor: url('./cursors/default.svg') 0 0, auto;
+}
+
+/* Interactive elements */
+#root a,
+#root button:not(:disabled),
+#root [role="button"]:not([aria-disabled="true"]),
+#root .clickable,
+#root th,
+#root thead th,
+#root .tab-button,
+#root .create-package-btn,
+#root .package-title,
+#root .edit-icon,
+#root .demo-button,
+#root .package-card,
+#root .comment-cancel,
+#root .comment-submit,
+#root .action-btn,
+#root .checkbox-label,
+#root .radio-label,
+#root select,
+#root .form-select,
+#root .SelectTrigger,
+#root .AccordionTrigger,
+#root .tabs-trigger,
+#root [data-state="open"],
+#root [data-state="closed"],
+.App a,
+.App button:not(:disabled),
+.App [role="button"]:not([aria-disabled="true"]),
+.App .clickable,
+.App th,
+.App thead th,
+.App .tab-button,
+.App .create-package-btn,
+.App .package-title,
+.App .edit-icon,
+.App .demo-button,
+.App .package-card,
+.App .comment-cancel,
+.App .comment-submit,
+.App .action-btn,
+.App .checkbox-label,
+.App .radio-label,
+.App select,
+.App .form-select,
+.App .SelectTrigger,
+.App .AccordionTrigger,
+.App .tabs-trigger,
+.App [data-state="open"],
+.App [data-state="closed"] {
+  cursor: url('./cursors/pointer.svg') 0 0, pointer;
+}
+
+/* Text inputs */
+#root input[type="text"],
+#root input[type="email"],
+#root input[type="password"],
+#root input[type="search"],
+#root input[type="url"],
+#root textarea,
+#root [contenteditable="true"],
+#root .search-input,
+#root .form-input,
+#root .name-input,
+#root .comment-input,
+.App input[type="text"],
+.App input[type="email"],
+.App input[type="password"],
+.App input[type="search"],
+.App input[type="url"],
+.App textarea,
+.App [contenteditable="true"],
+.App .search-input,
+.App .form-input,
+.App .name-input,
+.App .comment-input {
+  cursor: url('./cursors/text.svg') 0 0, text;
+}
+
+/* Help elements */
+#root [title]:not(button):not(a),
+#root .help,
+#root abbr,
+.App [title]:not(button):not(a),
+.App .help,
+.App abbr {
+  cursor: url('./cursors/help.svg') 0 0, help;
+}
+
+/* Draggable elements */
+#root [draggable="true"],
+#root .draggable,
+.App [draggable="true"],
+.App .draggable {
+  cursor: url('./cursors/grab.svg') 12 12, grab;
+}
+
+#root [draggable="true"]:active,
+#root .draggable:active,
+#root .dragging,
+.App [draggable="true"]:active,
+.App .draggable:active,
+.App .dragging {
+  cursor: url('./cursors/grabbing.svg') 12 12, grabbing;
+}
+
+/* Movable elements */
+#root .movable,
+.App .movable {
+  cursor: url('./cursors/move.svg') 12 12, move;
+}
+
+/* Loading states */
+#root.loading,
+#root [aria-busy="true"],
+#root .busy,
+.App.loading,
+.App [aria-busy="true"],
+.App .busy {
+  cursor: url('./cursors/busy.svg') 0 0, wait;
+}
+
+/* Background loading */
+#root.background-loading,
+.App.background-loading {
+  cursor: url('./cursors/background-busy.svg') 0 0, progress;
+}
+
+/* Disabled elements */
+#root button:disabled,
+#root [aria-disabled="true"],
+#root .disabled,
+#root [disabled],
+.App button:disabled,
+.App [aria-disabled="true"],
+.App .disabled,
+.App [disabled] {
+  cursor: url('./cursors/disabled.svg') 0 0, not-allowed;
+}
+
+/* Resizable areas */
+#root .resizable,
+#root .resize-handle,
+.App .resizable,
+.App .resize-handle {
+  cursor: url('./cursors/resize.svg') 12 12, nwse-resize;
+}
+
+#root .resizable-alt,
+.App .resizable-alt {
+  cursor: url('./cursors/resize-alt.svg') 12 12, nesw-resize;
+}
+
+/* Zoomable content */
+#root .zoomable,
+#root img[data-zoomable="true"],
+.App .zoomable,
+.App img[data-zoomable="true"] {
+  cursor: url('./cursors/zoom-in.svg') 12 12, zoom-in;
+}
+
+#root .zoomable.zoomed,
+.App .zoomable.zoomed {
+  cursor: url('./cursors/zoom-out.svg') 12 12, zoom-out;
+}

@@ -39,7 +39,6 @@ function App() {
             padding: '12px 24px',
             borderRadius: '6px',
             fontSize: '16px',
-            cursor: 'pointer',
             transition: 'background 0.2s'
           }}
           onMouseOver={(e) => e.target.style.background = '#0056b3'}

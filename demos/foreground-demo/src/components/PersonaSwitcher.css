@@ -27,7 +27,6 @@
   color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
   font-weight: 500;
-  cursor: pointer;
   transition: color 0.2s ease;
   z-index: 2;
   border-radius: var(--radius-md);

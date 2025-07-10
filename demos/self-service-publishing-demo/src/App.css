@@ -58,7 +58,6 @@ body {
   width: 24px;
   height: 24px;
   color: #999;
-  cursor: pointer;
   transition: color 0.2s;
 }
 
@@ -145,7 +144,6 @@ body {
   font-size: 14px;
   color: #2c2c2c;
   background: white;
-  cursor: pointer;
   transition: border-color 0.2s;
 }
 
@@ -247,7 +245,6 @@ body {
   justify-content: center;
   margin-bottom: 24px;
   min-height: 200px;
-  cursor: pointer;
   transition: all 0.2s;
 }
 
@@ -263,7 +260,6 @@ body {
   padding: 12px 24px;
   border-radius: 4px;
   font-size: 14px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -282,7 +278,6 @@ body {
   padding: 8px 16px;
   border-radius: 4px;
   font-size: 14px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -351,7 +346,6 @@ body {
   gap: 8px;
   font-size: 14px;
   color: #2c2c2c;
-  cursor: pointer;
 }
 
 .radio-label input[type="radio"] {
@@ -382,7 +376,6 @@ body {
   gap: 8px;
   font-size: 14px;
   color: #2c2c2c;
-  cursor: pointer;
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -395,7 +388,6 @@ body {
   border-radius: 4px;
   font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
   transition: all 0.2s;
   border: none;
   display: inline-flex;
@@ -431,7 +423,6 @@ body {
   color: #0696d7;
   padding: 4px 8px;
   font-size: 13px;
-  cursor: pointer;
   text-decoration: none;
 }
 
