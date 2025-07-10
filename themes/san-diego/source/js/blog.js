@@ -555,8 +555,8 @@ document.addEventListener('DOMContentLoaded', function () {
 						innerWrapper.className = 'content-inner-wrapper';
 						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
 						
-						// Apply border-radius for mobile and desktop
-						innerWrapper.style.borderRadius = '12px 12px 0 0';
+						// Apply border-radius (top-left only as per design)
+						innerWrapper.style.borderRadius = '12px 0 0 0';
 						innerWrapper.style.overflow = 'hidden';
 
 						// Handle project-wrapper inside regular content
@@ -1002,24 +1002,61 @@ document.addEventListener('DOMContentLoaded', function () {
 		// First, remove any existing highlights
 		removeAllHighlights(blogContent);
 		
-		// If search is empty, show all posts and related elements
+		// If search is empty, apply only the posts filter if active
 		if (!query) {
 			posts.forEach(post => {
-				post.style.display = '';
+				// Check if it's a regular post
+				const hasPreviewCard = post.querySelector('.post-long.post-preview-card') !== null;
+				const isPostType = hasPreviewCard;
 				
-				// Show related link-share elements
-				if (post.classList.contains('post-link')) {
-					let sibling = post.nextElementSibling;
-					while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
-						if (sibling.classList.contains('link-share')) {
-							sibling.style.display = '';
-							break;
+				// Show/hide based on filter
+				if (!isPostsOnly || isPostType) {
+					post.style.display = '';
+					visibleCount++;
+					visiblePosts.push(post);
+					
+					// Show related link-share elements
+					if (post.classList.contains('post-link')) {
+						let sibling = post.nextElementSibling;
+						while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
+							if (sibling.classList.contains('link-share')) {
+								sibling.style.display = '';
+								break;
+							}
+							sibling = sibling.nextElementSibling;
 						}
-						sibling = sibling.nextElementSibling;
+					}
+				} else {
+					post.style.display = 'none';
+					
+					// Hide related link-share elements for filtered posts
+					if (post.classList.contains('post-link')) {
+						let sibling = post.nextElementSibling;
+						while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
+							if (sibling.classList.contains('link-share')) {
+								sibling.style.display = 'none';
+								break;
+							}
+							sibling = sibling.nextElementSibling;
+						}
 					}
 				}
 			});
-			postSeparators.forEach(sep => sep.style.display = '');
+			
+			// Update separators for visible posts
+			postSeparators.forEach(sep => sep.style.display = 'none');
+			visiblePosts.forEach((post, index) => {
+				if (index < visiblePosts.length - 1) {
+					let nextSibling = post.nextElementSibling;
+					while (nextSibling && !nextSibling.classList.contains('post-separator')) {
+						nextSibling = nextSibling.nextElementSibling;
+					}
+					if (nextSibling && nextSibling.classList.contains('post-separator')) {
+						nextSibling.style.display = '';
+					}
+				}
+			});
+			
 			if (noResultsMessage) {
 				noResultsMessage.style.display = 'none';
 			}
@@ -1031,10 +1068,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			const content = post.textContent.toLowerCase();
 			const isMatch = title.includes(query) || content.includes(query);
 			
-			// Check if it's specifically a "post-long post-preview-card" type
-			// Look for the preview card either on the post itself OR nested inside
-			const hasPreviewCard = post.querySelector('.post-long.post-preview-card') || 
-								  (post.classList.contains('post-long') && post.classList.contains('post-preview-card'));
+			// Check if it's a regular post by looking for the preview card structure
+			// For regular posts, there's a nested div with classes "post-long post-preview-card"
+			const hasPreviewCard = post.querySelector('.post-long.post-preview-card') !== null;
 			
 			// It's a regular post if it has the preview card structure
 			const isPostType = hasPreviewCard;
