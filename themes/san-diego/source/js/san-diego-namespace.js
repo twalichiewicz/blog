@@ -19,7 +19,80 @@
     modals: {},
     tabs: {},
     carousels: {},
-    animations: {}
+    animations: {},
+    showToast: function(message, type = 'info', duration = 4000) {
+      // Create toast container if it doesn't exist
+      let toastContainer = document.getElementById('toast-container');
+      if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        toastContainer.style.cssText = `
+          position: fixed;
+          top: 12px;
+          right: 12px;
+          z-index: 9999;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          pointer-events: none;
+        `;
+        document.body.appendChild(toastContainer);
+      }
+      
+      // Create toast element
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.style.cssText = `
+        background: #ffffff;
+        color: #1f2937;
+        padding: 16px 24px;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        opacity: 0;
+        transform: translateY(-100%);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: auto;
+        cursor: pointer;
+        max-width: 350px;
+        word-wrap: break-word;
+        font-size: 14px;
+        font-weight: 500;
+      `;
+      
+      // Add message
+      toast.innerHTML = message;
+      
+      // Add to container
+      toastContainer.appendChild(toast);
+      
+      // Trigger animation
+      requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+      });
+      
+      // Auto remove
+      const removeToast = () => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-100%)';
+        setTimeout(() => {
+          toast.remove();
+          // Remove container if empty
+          if (toastContainer.children.length === 0) {
+            toastContainer.remove();
+          }
+        }, 300);
+      };
+      
+      // Click to dismiss
+      toast.addEventListener('click', removeToast);
+      
+      // Auto dismiss after duration
+      setTimeout(removeToast, duration);
+      
+      return toast;
+    }
   };
 
   // Utilities namespace

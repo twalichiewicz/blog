@@ -2743,8 +2743,8 @@ table {
 // Desktop: custom border-radius for content-inner-wrapper
 @media screen and (min-width: 1025px) {
 	.content-inner-wrapper {
-		/* Border-radius handled by parent blog-content */
-		border-radius: 0;
+		/* Apply top-left border-radius as per design */
+		border-radius: 12px 0 0 0;
 	}
 }
 
@@ -2753,6 +2753,7 @@ table {
 	.device-tablet .blog-content>.content-inner-wrapper {
 		height: 100%;
 		overflow: hidden auto;
+		border-radius: 12px 0 0 0; /* Apply top-left border-radius for tablets too */
 	}
 }
 

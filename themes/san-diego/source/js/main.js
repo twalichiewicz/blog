@@ -9,6 +9,32 @@ import { initResponsiveTables } from './components/responsive-tables.js';
 document.addEventListener('DOMContentLoaded', function () {
 	// Initialize sound effects first
 	initializeSoundEffects();
+	
+	// Check for 404 redirect and show toast
+	const urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.get('error') === '404' && !window._404ToastShown) {
+		window._404ToastShown = true; // Prevent duplicate toasts
+		const path = urlParams.get('path') || 'the requested page';
+		
+		// Function to show toast when SD namespace is ready
+		const showToastWhenReady = () => {
+			if (window.SD && window.SD.ui && window.SD.ui.showToast) {
+				window.SD.ui.showToast(`<strong>404</strong><br>That page isn't found`, 'info', 5000);
+				
+				// Clean up URL after showing toast
+				urlParams.delete('error');
+				urlParams.delete('path');
+				const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '') + window.location.hash;
+				window.history.replaceState({}, '', newUrl);
+			} else {
+				// Try again in 100ms if SD namespace not ready
+				setTimeout(showToastWhenReady, 100);
+			}
+		};
+		
+		// Start trying after a small initial delay
+		setTimeout(showToastWhenReady, 300);
+	}
 
 	// Initialize color scheme functionality
 	// Theme system removed - using prefers-color-scheme only

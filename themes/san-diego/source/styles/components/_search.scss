@@ -149,6 +149,10 @@
 			flex-shrink: 0;
 			min-width: fit-content;
 		}
+		
+		&:hover {
+			transform: none; // Override any inherited transform
+		}
 	}
 	
 	// Reusable bordered button class
@@ -294,9 +298,35 @@ mark.search-highlight {
 	padding: 0 2px;
 	border-radius: 2px;
 	font-weight: var(--font-weight-medium);
+	display: inline; // Ensure it doesn't break layout
+	line-height: inherit; // Preserve line height
+	pointer-events: none !important; // Don't interfere with anchor link clicks
 	
 	@media (prefers-color-scheme: dark) {
 		background-color: rgba(variables.$link-color-dark, 0.4);
+	}
+}
+
+// Ensure search highlights inside links don't interfere with clicks
+a .search-highlight,
+.post-link-wrapper .search-highlight {
+	pointer-events: none !important;
+	cursor: pointer !important; // Show link cursor
+}
+
+// Ensure search highlights don't break post title layouts
+.post-list-item {
+	h3 .search-highlight,
+	.post-title .search-highlight {
+		display: inline; // Keep inline in titles
+		vertical-align: baseline; // Align properly
+	}
+	
+	// Fix for post-link-wrapper layout issues
+	.post-link-wrapper {
+		.search-highlight {
+			display: inline;
+		}
 	}
 }
 

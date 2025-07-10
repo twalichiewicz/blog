@@ -63,8 +63,9 @@
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-    // Remove individual scroll - let content-wrapper handle it
-    overflow: visible !important;
+    // Only prevent horizontal overflow, allow vertical scrolling
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
     height: auto !important;
   }
   
@@ -163,6 +164,19 @@
       display: flex !important;
       flex-direction: column !important;
       
+      // Prevent double scrollbar on resize
+      &.has-dynamic-content {
+        overflow: visible !important;
+        
+        .content-wrapper {
+          overflow: visible !important;
+        }
+        
+        .content-inner-wrapper {
+          overflow: visible !important;
+        }
+      }
+      
       .content-wrapper {
         overflow: visible !important;
         height: auto !important;
@@ -226,6 +240,7 @@
       overflow-y: scroll !important; // Inner wrapper handles scroll for dynamic content
       overflow-x: hidden !important;
       height: 100%;
+      border-radius: 12px 0 0 0; // Ensure border-radius for shutter animation
     }
   }
 }
@@ -239,21 +254,5 @@
   }
 }
 
-// Dynamic back button positioning fix
-.dynamic-back-button {
-  @media (min-width: variables.$tablet-breakpoint) {
-    position: fixed !important;
-    top: 30px !important;
-    left: 306px !important; // Positioned after the 300px blog-header + 6px padding
-    z-index: 1000;
-  }
-  
-  @media (max-width: variables.$mobile-breakpoint) {
-    position: absolute !important;
-    top: 6px !important;
-    left: 6px !important;
-    z-index: 1000;
-  }
-}
 
 // Removed highest specificity rule - now handled in _dynamic-content-scroll-fix.scss

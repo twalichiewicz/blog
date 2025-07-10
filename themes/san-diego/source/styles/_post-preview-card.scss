@@ -217,3 +217,28 @@
 		}
 	}
 }
+
+// Fix for dynamically loaded posts to maintain border-radius
+.content-inner-wrapper {
+	// The wrapper itself needs border-radius on mobile when showing dynamic content
+	@media (max-width: variables.$mobile-breakpoint) {
+		&:has(.post-wrapper),
+		&:has(.project-wrapper) {
+			border-radius: 12px;
+			overflow: hidden;
+		}
+	}
+	
+	.post-list-item {
+		&:has(.post-preview-card) {
+			overflow: hidden;
+			border-radius: 12px;
+		}
+	}
+	
+	// Ensure the post-preview-card within dynamic content maintains proper styling
+	.post-preview-card {
+		border-radius: 12px;
+		overflow: hidden;
+	}
+}

@@ -90,6 +90,9 @@
 // Dynamic content scroll fixes - MUST come after responsive-layouts to override
 @use 'dynamic-content-scroll-fix';
 
+// Layout fixes for content wrapper and posts content
+@use 'layout-fixes';
+
 // Component Library
 @use '../components/index' as component-lib;
 

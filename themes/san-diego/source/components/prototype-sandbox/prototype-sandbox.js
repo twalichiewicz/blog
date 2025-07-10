@@ -195,8 +195,12 @@ class PrototypeSandbox {
   // Static method to auto-initialize all prototypes
   static autoInit() {
     document.querySelectorAll('[data-prototype-sandbox]').forEach(element => {
-      const options = JSON.parse(element.dataset.prototypeSandbox || '{}');
-      new PrototypeSandbox(element, options);
+      // Skip if already initialized
+      if (!element.classList.contains('prototype-initialized')) {
+        const options = JSON.parse(element.dataset.prototypeSandbox || '{}');
+        new PrototypeSandbox(element, options);
+        element.classList.add('prototype-initialized');
+      }
     });
   }
 }
