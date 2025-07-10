@@ -57,7 +57,10 @@
   
   // Draggable elements
   [draggable="true"],
-  .draggable {
+  .draggable,
+  .progress-bar,
+  .timeline-scrubber,
+  .slider-handle {
     cursor: url('/cursors/grab.svg') 12 12, grab;
     
     &:active {
@@ -108,6 +111,43 @@
     &.zoomed {
       cursor: url('/cursors/zoom-out.svg') 12 12, zoom-out;
     }
+  }
+}
+
+// Carousel-specific cursor overrides
+.carousel {
+  // Make carousel images zoomable
+  .carousel-slide img {
+    cursor: url('/cursors/zoom-in.svg') 12 12, zoom-in;
+  }
+  
+  // Navigation buttons
+  .carousel-button,
+  .indicator {
+    cursor: url('/cursors/pointer.svg') 0 0, pointer !important;
+  }
+}
+
+// Spotlight modal cursors
+.carousel-spotlight-modal {
+  cursor: url('/cursors/default.svg') 0 0, auto;
+  
+  // Close button and navigation
+  .spotlight-close,
+  .spotlight-prev,
+  .spotlight-next,
+  .spotlight-indicator {
+    cursor: url('/cursors/pointer.svg') 0 0, pointer !important;
+  }
+  
+  // Zoomed image can be closed
+  .spotlight-media-container img {
+    cursor: url('/cursors/zoom-out.svg') 12 12, zoom-out;
+  }
+  
+  // Backdrop click to close
+  .spotlight-backdrop {
+    cursor: url('/cursors/zoom-out.svg') 12 12, zoom-out;
   }
 }
 
