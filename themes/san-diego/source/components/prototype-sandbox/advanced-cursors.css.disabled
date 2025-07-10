@@ -3,25 +3,25 @@
 /* Base cursor definitions as CSS variables for easy reuse */
 :root {
   /* Default arrow cursor (no accent) - using external SVG file */
-  --cursor-default: url('/themes/san-diego/source/components/prototype-sandbox/cursors/default-cursor.svg') 4 4, default;
+  --cursor-default: url('/components/prototype-sandbox/cursors/default-cursor.svg') 4 4, default;
   
   /* Interactive cursor with blue dot - using external SVG file */
-  --cursor-interactive: url('/themes/san-diego/source/components/prototype-sandbox/cursors/interactive-cursor.svg') 4 4, pointer;
+  --cursor-interactive: url('/components/prototype-sandbox/cursors/interactive-cursor.svg') 4 4, pointer;
   
   /* Active/pressed cursor with filled blue dot - using external SVG file */
-  --cursor-active: url('/themes/san-diego/source/components/prototype-sandbox/cursors/active-cursor.svg') 4 4, pointer;
+  --cursor-active: url('/components/prototype-sandbox/cursors/active-cursor.svg') 4 4, pointer;
   
   /* Grab cursor for draggable elements - using external SVG file */
-  --cursor-grab: url('/themes/san-diego/source/components/prototype-sandbox/cursors/grab-cursor.svg') 12 12, grab;
+  --cursor-grab: url('/components/prototype-sandbox/cursors/grab-cursor.svg') 12 12, grab;
   
   /* Grabbing cursor (when dragging) - using external SVG file */
-  --cursor-grabbing: url('/themes/san-diego/source/components/prototype-sandbox/cursors/grabbing-cursor.svg') 12 12, grabbing;
+  --cursor-grabbing: url('/components/prototype-sandbox/cursors/grabbing-cursor.svg') 12 12, grabbing;
   
   /* Loading/wait cursor with spinning animation - using external SVG file */
-  --cursor-loading: url('/themes/san-diego/source/components/prototype-sandbox/cursors/loading-cursor.svg') 4 4, wait;
+  --cursor-loading: url('/components/prototype-sandbox/cursors/loading-cursor.svg') 4 4, wait;
   
   /* Disabled cursor - using external SVG file */
-  --cursor-disabled: url('/themes/san-diego/source/components/prototype-sandbox/cursors/disabled-cursor.svg') 4 4, not-allowed;
+  --cursor-disabled: url('/components/prototype-sandbox/cursors/disabled-cursor.svg') 4 4, not-allowed;
 }
 
 /* Example usage with hover and active states */

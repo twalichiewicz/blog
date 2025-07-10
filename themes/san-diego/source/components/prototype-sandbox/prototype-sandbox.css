@@ -1,5 +1,8 @@
 /* Prototype Sandbox Styles */
 
+/* Import advanced cursor system */
+@import './advanced-cursors.css';
+
 .prototype-sandbox {
   position: relative;
   margin: 32px 0;
@@ -8,6 +11,8 @@
   background: #000;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
               0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* Apply default cursor to sandbox */
+  cursor: var(--cursor-default);
 }
 
 .sandbox-preview {
@@ -30,6 +35,8 @@
 /* Prevent content from escaping */
 .sandbox-content * {
   max-width: 100%;
+  /* Inherit cursor by default */
+  cursor: inherit !important;
 }
 
 /* Overlay for play button */
@@ -60,7 +67,7 @@
   color: white;
   padding: 20px 32px;
   border-radius: 12px;
-  cursor: pointer;
+  cursor: var(--cursor-interactive) !important;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -104,7 +111,7 @@
   color: white;
   padding: 8px;
   border-radius: 8px;
-  cursor: pointer;
+  cursor: var(--cursor-interactive) !important;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
@@ -201,4 +208,71 @@ body.prototype-fullscreen-active {
 
 @keyframes spin {
   to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Custom cursor support for prototype content */
+.prototype-sandbox button,
+.prototype-sandbox a,
+.prototype-sandbox [role="button"],
+.prototype-sandbox .clickable,
+.prototype-sandbox input[type="submit"],
+.prototype-sandbox input[type="button"] {
+  cursor: var(--cursor-interactive) !important;
+}
+
+.prototype-sandbox button:active,
+.prototype-sandbox a:active,
+.prototype-sandbox [role="button"]:active,
+.prototype-sandbox .clickable:active {
+  cursor: var(--cursor-active) !important;
+}
+
+.prototype-sandbox input[type="text"],
+.prototype-sandbox input[type="email"],
+.prototype-sandbox input[type="password"],
+.prototype-sandbox textarea,
+.prototype-sandbox [contenteditable="true"] {
+  cursor: text !important;
+}
+
+.prototype-sandbox button:disabled,
+.prototype-sandbox [disabled],
+.prototype-sandbox .disabled {
+  cursor: var(--cursor-disabled) !important;
+  opacity: 0.5;
+}
+
+.prototype-sandbox .draggable,
+.prototype-sandbox [draggable="true"] {
+  cursor: var(--cursor-grab) !important;
+}
+
+.prototype-sandbox .draggable:active,
+.prototype-sandbox [draggable="true"]:active,
+.prototype-sandbox .dragging {
+  cursor: var(--cursor-grabbing) !important;
+}
+
+/* Special case for zoom buttons */
+.prototype-sandbox .zoom-button,
+.prototype-sandbox button[title*="zoom"],
+.prototype-sandbox button[title*="Zoom"] {
+  cursor: var(--cursor-interactive) !important;
+}
+
+/* Special case for back/close buttons */
+.prototype-sandbox .back-button,
+.prototype-sandbox .close-button,
+.prototype-sandbox button[title*="back"],
+.prototype-sandbox button[title*="Back"],
+.prototype-sandbox button[title*="close"],
+.prototype-sandbox button[title*="Close"] {
+  cursor: var(--cursor-interactive) !important;
+}
+
+/* Special case for fullscreen buttons */
+.prototype-sandbox .fullscreen-button,
+.prototype-sandbox button[title*="fullscreen"],
+.prototype-sandbox button[title*="Fullscreen"] {
+  cursor: var(--cursor-interactive) !important;
 }

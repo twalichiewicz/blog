@@ -9,9 +9,11 @@
 .demo-inline-container.demo-loaded,
 .code-sandbox-wrapper .code-sandbox-content,
 .code-sandbox-content,
-.youtube-demo {
+.youtube-demo,
+.prototype-sandbox,
+.advanced-prototype {
   // Default cursor
-  cursor: url('../../cursors/default.svg') 0 0, auto;
+  cursor: url('/cursors/default.svg') 0 0, auto;
   
   // Interactive elements
   a,
@@ -31,7 +33,7 @@
   .menu-item,
   .community-toggle,
   .toggle {
-    cursor: url('../../cursors/pointer.svg') 0 0, pointer;
+    cursor: url('/cursors/pointer.svg') 0 0, pointer;
   }
   
   // Text inputs
@@ -43,41 +45,41 @@
   textarea,
   [contenteditable="true"],
   .comment-input {
-    cursor: url('../../cursors/text.svg') 0 0, text;
+    cursor: url('/cursors/text.svg') 0 0, text;
   }
   
   // Help elements
   [title]:not(button):not(a),
   .help,
   abbr {
-    cursor: url('../../cursors/help.svg') 0 0, help;
+    cursor: url('/cursors/help.svg') 0 0, help;
   }
   
   // Draggable elements
   [draggable="true"],
   .draggable {
-    cursor: url('../../cursors/grab.svg') 12 12, grab;
+    cursor: url('/cursors/grab.svg') 12 12, grab;
     
     &:active {
-      cursor: url('../../cursors/grabbing.svg') 12 12, grabbing;
+      cursor: url('/cursors/grabbing.svg') 12 12, grabbing;
     }
   }
   
   // Movable elements
   .movable {
-    cursor: url('../../cursors/move.svg') 12 12, move;
+    cursor: url('/cursors/move.svg') 12 12, move;
   }
   
   // Loading states
   &.loading,
   [aria-busy="true"],
   .busy {
-    cursor: url('../../cursors/busy.svg') 0 0, wait;
+    cursor: url('/cursors/busy.svg') 0 0, wait;
   }
   
   // Background loading
   &.background-loading {
-    cursor: url('../../cursors/background-busy.svg') 0 0, progress;
+    cursor: url('/cursors/background-busy.svg') 0 0, progress;
   }
   
   // Disabled elements
@@ -85,26 +87,26 @@
   [aria-disabled="true"],
   .disabled,
   [disabled] {
-    cursor: url('../../cursors/disabled.svg') 0 0, not-allowed;
+    cursor: url('/cursors/disabled.svg') 0 0, not-allowed;
   }
   
   // Resizable areas
   .resizable,
   .resize-handle {
-    cursor: url('../../cursors/resize.svg') 12 12, nwse-resize;
+    cursor: url('/cursors/resize.svg') 12 12, nwse-resize;
   }
   
   .resizable-alt {
-    cursor: url('../../cursors/resize-alt.svg') 12 12, nesw-resize;
+    cursor: url('/cursors/resize-alt.svg') 12 12, nesw-resize;
   }
   
   // Zoomable content
   .zoomable,
   img[data-zoomable="true"] {
-    cursor: url('../../cursors/zoom-in.svg') 12 12, zoom-in;
+    cursor: url('/cursors/zoom-in.svg') 12 12, zoom-in;
     
     &.zoomed {
-      cursor: url('../../cursors/zoom-out.svg') 12 12, zoom-out;
+      cursor: url('/cursors/zoom-out.svg') 12 12, zoom-out;
     }
   }
 }
@@ -114,5 +116,6 @@
 .dynamic-back-button,
 .project-home-button,
 .demo-control-button {
-  cursor: url('../../cursors/pointer.svg') 0 0, pointer;
+  cursor: url('/cursors/pointer.svg') 0 0, pointer;
 }
+
