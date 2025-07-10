@@ -79,6 +79,8 @@ export const ScrollUtility = {
         const link = e.target.closest('a[href^="#"]');
         if (!link) return;
         
+        // Skip external anchor links
+        if (link.getAttribute('href') === '#') return;
         
         e.preventDefault();
         e.stopPropagation();
@@ -87,6 +89,11 @@ export const ScrollUtility = {
         const target = document.getElementById(targetId);
         
         if (!target) {
+            // Try to find target by looking for elements with matching id or name
+            const alternateTarget = document.querySelector(`[name="${targetId}"]`);
+            if (alternateTarget) {
+                this.scrollToTarget(alternateTarget);
+            }
             return;
         }
         
