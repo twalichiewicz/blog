@@ -1043,3 +1043,25 @@ body:has(.posts-only-button.active) {
 		}
 	}
 }
+
+// Fix for search results display
+// Ensure all search results show their full content
+#postsContent.search-active {
+	.post-list-item.search-result {
+		// Force display of all content within search results
+		* {
+			visibility: visible !important;
+			opacity: 1 !important;
+		}
+		
+		// Ensure preview cards are fully visible
+		.post-link-wrapper,
+		.post-preview-card,
+		.preview-cover-image,
+		.preview-content {
+			display: block !important;
+			visibility: visible !important;
+			opacity: 1 !important;
+		}
+	}
+}

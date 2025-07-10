@@ -958,12 +958,22 @@ document.addEventListener('DOMContentLoaded', function () {
 		const noResultsMessage = blogContent.querySelector('.no-results-message');
 		const postsOnlyButton = blogContent.querySelector('.posts-only-button');
 		const isPostsOnly = postsOnlyButton && postsOnlyButton.classList.contains('active');
+		const postsContent = document.querySelector('#postsContent');
 
 		let visibleCount = 0;
 		const visiblePosts = [];
 
 		// First, remove any existing highlights
 		removeAllHighlights(blogContent);
+
+		// Add/remove search active class to posts container
+		if (postsContent) {
+			if (query) {
+				postsContent.classList.add('search-active');
+			} else {
+				postsContent.classList.remove('search-active');
+			}
+		}
 
 		posts.forEach(post => {
 			const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
@@ -980,6 +990,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			if (isMatch && (!isPostsOnly || isPostType)) {
 				post.style.display = '';
+				post.classList.add('search-result');
 				visibleCount++;
 				visiblePosts.push(post);
 				
@@ -989,6 +1000,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			} else {
 				post.style.display = 'none';
+				post.classList.remove('search-result');
 			}
 		});
 
