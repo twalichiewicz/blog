@@ -13,7 +13,7 @@
 .prototype-sandbox,
 .advanced-prototype {
   // Default cursor
-  cursor: url('/cursors/default.svg') 0 0, auto;
+  cursor: url('/cursors/default.svg') 4 4, auto;
   
   // Interactive elements
   a,
@@ -33,7 +33,7 @@
   .menu-item,
   .community-toggle,
   .toggle {
-    cursor: url('/cursors/pointer.svg') 0 0, pointer;
+    cursor: url('/cursors/pointer.svg') 7 3, pointer;
   }
   
   // Text inputs
@@ -45,14 +45,14 @@
   textarea,
   [contenteditable="true"],
   .comment-input {
-    cursor: url('/cursors/text.svg') 0 0, text;
+    cursor: url('/cursors/text.svg') 15 15, text;
   }
   
   // Help elements
   [title]:not(button):not(a),
   .help,
   abbr {
-    cursor: url('/cursors/help.svg') 0 0, help;
+    cursor: url('/cursors/help.svg') 15 15, help;
   }
   
   // Draggable elements
@@ -77,12 +77,12 @@
   &.loading,
   [aria-busy="true"],
   .busy {
-    cursor: url('/cursors/busy.svg') 0 0, wait;
+    cursor: url('/cursors/busy.svg') 15 15, wait;
   }
   
   // Background loading
   &.background-loading {
-    cursor: url('/cursors/background-busy.svg') 0 0, progress;
+    cursor: url('/cursors/background-busy.svg') 4 4, progress;
   }
   
   // Disabled elements
@@ -90,7 +90,7 @@
   [aria-disabled="true"],
   .disabled,
   [disabled] {
-    cursor: url('/cursors/disabled.svg') 0 0, not-allowed;
+    cursor: url('/cursors/disabled.svg') 15 15, not-allowed;
   }
   
   // Resizable areas
@@ -106,10 +106,10 @@
   // Zoomable content
   .zoomable,
   img[data-zoomable="true"] {
-    cursor: url('/cursors/zoom-in.svg') 12 12, zoom-in;
+    cursor: url('/cursors/zoom-in.svg') 15 15, zoom-in;
     
     &.zoomed {
-      cursor: url('/cursors/zoom-out.svg') 12 12, zoom-out;
+      cursor: url('/cursors/zoom-out.svg') 15 15, zoom-out;
     }
   }
 }
@@ -118,36 +118,36 @@
 .carousel {
   // Make carousel images zoomable
   .carousel-slide img {
-    cursor: url('/cursors/zoom-in.svg') 12 12, zoom-in;
+    cursor: url('/cursors/zoom-in.svg') 15 15, zoom-in;
   }
   
   // Navigation buttons
   .carousel-button,
   .indicator {
-    cursor: url('/cursors/pointer.svg') 0 0, pointer !important;
+    cursor: url('/cursors/pointer.svg') 7 3, pointer !important;
   }
 }
 
 // Spotlight modal cursors
 .carousel-spotlight-modal {
-  cursor: url('/cursors/default.svg') 0 0, auto;
+  cursor: url('/cursors/default.svg') 4 4, auto;
   
   // Close button and navigation
   .spotlight-close,
   .spotlight-prev,
   .spotlight-next,
   .spotlight-indicator {
-    cursor: url('/cursors/pointer.svg') 0 0, pointer !important;
+    cursor: url('/cursors/pointer.svg') 7 3, pointer !important;
   }
   
   // Zoomed image can be closed
   .spotlight-media-container img {
-    cursor: url('/cursors/zoom-out.svg') 12 12, zoom-out;
+    cursor: url('/cursors/zoom-out.svg') 15 15, zoom-out;
   }
   
   // Backdrop click to close
   .spotlight-backdrop {
-    cursor: url('/cursors/zoom-out.svg') 12 12, zoom-out;
+    cursor: url('/cursors/zoom-out.svg') 15 15, zoom-out;
   }
 }
 
@@ -156,6 +156,6 @@
 .dynamic-back-button,
 .project-home-button,
 .demo-control-button {
-  cursor: url('/cursors/pointer.svg') 0 0, pointer;
+  cursor: url('/cursors/pointer.svg') 7 3, pointer;
 }
 
