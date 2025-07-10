@@ -85,23 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		
 		// --- Anchor Links ---
 		// Now handled by ScrollUtility which auto-initializes
-		
-		// --- Prototype Sandboxes ---
-		// Reinitialize prototype sandboxes for dynamic content
-		if (window.PrototypeSandbox && typeof window.PrototypeSandbox.autoInit === 'function') {
-			// Find prototype sandboxes within the container
-			const prototypes = container.querySelectorAll('[data-prototype-sandbox]');
-			if (prototypes.length > 0) {
-				prototypes.forEach(element => {
-					// Check if already initialized
-					if (!element.classList.contains('prototype-initialized')) {
-						const options = JSON.parse(element.dataset.prototypeSandbox || '{}');
-						new window.PrototypeSandbox(element, options);
-						element.classList.add('prototype-initialized');
-					}
-				});
-			}
-		}
 	}
 	// --- End of Refactored Initialization Function ---
 
@@ -336,33 +319,6 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Re-initialize toggles
 						initializeProjectToggle();
 						initializePostsOnlyButton();
-						
-						// Force re-initialization of ALL prototypes after content swap
-						// This is critical for prototypes that were destroyed during dynamic navigation
-						setTimeout(() => {
-							// First, clear any existing initialization markers
-							document.querySelectorAll('.prototype-initialized').forEach(el => {
-								el.classList.remove('prototype-initialized');
-							});
-							
-							// Manually find and initialize all prototype sandboxes
-							const prototypes = document.querySelectorAll('[data-prototype-sandbox]');
-							prototypes.forEach(element => {
-								try {
-									// Parse options and create new instance
-									const options = JSON.parse(element.dataset.prototypeSandbox || '{}');
-									new window.PrototypeSandbox(element, options);
-									element.classList.add('prototype-initialized');
-								} catch (e) {
-									console.error('Failed to initialize prototype:', e);
-								}
-							});
-							
-							// Also try autoInit as fallback
-							if (window.PrototypeSandbox && typeof window.PrototypeSandbox.autoInit === 'function') {
-								window.PrototypeSandbox.autoInit();
-							}
-						}, 200); // Slightly longer delay for DOM stability
 						
 						// Ensure tabs are visible again on mobile
 						if (window.innerWidth <= 768) {
@@ -696,7 +652,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		function handleLinkClick(event) {
 			const link = event.currentTarget;
-			
 			// Link clicked
 			if (link.hostname === window.location.hostname &&
 				!link.getAttribute('target') &&
@@ -1001,30 +956,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// First, remove any existing highlights
 		removeAllHighlights(blogContent);
-		
-		// If search is empty, show all posts and related elements
-		if (!query) {
-			posts.forEach(post => {
-				post.style.display = '';
-				
-				// Show related link-share elements
-				if (post.classList.contains('post-link')) {
-					let sibling = post.nextElementSibling;
-					while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
-						if (sibling.classList.contains('link-share')) {
-							sibling.style.display = '';
-							break;
-						}
-						sibling = sibling.nextElementSibling;
-					}
-				}
-			});
-			postSeparators.forEach(sep => sep.style.display = '');
-			if (noResultsMessage) {
-				noResultsMessage.style.display = 'none';
-			}
-			return;
-		}
 
 		posts.forEach(post => {
 			const title = post.querySelector('h3')?.textContent.toLowerCase() || '';
@@ -1044,54 +975,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				visibleCount++;
 				visiblePosts.push(post);
 				
-				// For link posts, ensure all related elements are shown
-				if (post.classList.contains('post-link')) {
-					// Check for link-share element that might be a sibling
-					let linkShare = post.querySelector('.link-share');
-					if (!linkShare) {
-						// Look for link-share as a sibling element
-						let sibling = post.nextElementSibling;
-						while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
-							if (sibling.classList.contains('link-share')) {
-								linkShare = sibling;
-								sibling.style.display = '';
-								break;
-							}
-							sibling = sibling.nextElementSibling;
-						}
-					}
-				}
-				
 				// Highlight matching terms if there's a query
 				if (query) {
 					highlightSearchTerms(post, query);
-					
-					// Also highlight in link-share elements if they exist
-					if (post.classList.contains('post-link')) {
-						let sibling = post.nextElementSibling;
-						while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
-							if (sibling.classList.contains('link-share')) {
-								highlightSearchTerms(sibling, query);
-								break;
-							}
-							sibling = sibling.nextElementSibling;
-						}
-					}
 				}
 			} else {
 				post.style.display = 'none';
-				
-				// Also hide related link-share elements for link posts
-				if (post.classList.contains('post-link')) {
-					let sibling = post.nextElementSibling;
-					while (sibling && !sibling.classList.contains('post-list-item') && !sibling.classList.contains('post-separator')) {
-						if (sibling.classList.contains('link-share')) {
-							sibling.style.display = 'none';
-							break;
-						}
-						sibling = sibling.nextElementSibling;
-					}
-				}
 			}
 		});
 
