@@ -6,23 +6,7 @@
 	<title><%= config.title %><% if (config.subtitle) { %> | <%= config.subtitle %><% } %></title>
 	<%- partial('_partial/head') %>
 	<style>
-		/* Fade-in animation styles */
-		.page-transition-overlay {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: #000;
-			z-index: 9999;
-			opacity: 1;
-			transition: opacity 1s ease-out;
-		}
-		
-		.page-transition-overlay.fade-out {
-			opacity: 0;
-		}
-		
+		/* Initial body state for loading */
 		body {
 			opacity: 0;
 			transition: opacity 0.5s ease-in;
@@ -36,8 +20,8 @@
 <body>
 <%- partial('_partial/skip-navigation') %>
 
-<!-- Page transition overlay -->
-<div class="page-transition-overlay"></div>
+<!-- Loading screen with skull indicator -->
+<%- partial('_partial/loading-skull') %>
 
 <main class="blog" id="main-content">
     <div class="blog-header">
@@ -101,14 +85,14 @@
 			animationComplete = true;
 
 			document.body.classList.add('loaded');
-			const overlay = document.querySelector('.page-transition-overlay');
-			if (overlay) {
-				overlay.classList.add('fade-out');
+			const loadingScreen = document.querySelector('.loading-screen');
+			if (loadingScreen) {
+				loadingScreen.style.opacity = '0';
 				setTimeout(function() {
-					if (overlay) overlay.style.display = 'none';
-				}, 1000); // Match CSS transition
+					if (loadingScreen) loadingScreen.style.display = 'none';
+				}, 300); // 300ms fade out
 			} else {
-				// If somehow overlay is not there, ensure body is visible
+				// If somehow loading screen is not there, ensure body is visible
 				document.body.style.opacity = '1';
 			}
 		}
@@ -125,9 +109,9 @@
 		setTimeout(function() {
 			document.body.style.opacity = '1';
 			document.body.classList.add('loaded');
-			const overlay = document.querySelector('.page-transition-overlay');
-			if (overlay) {
-				overlay.style.display = 'none';
+			const loadingScreen = document.querySelector('.loading-screen');
+			if (loadingScreen) {
+				loadingScreen.style.display = 'none';
 			}
 		}, 4000);
 	}
@@ -143,12 +127,11 @@
 			document.body.classList.add('loaded');
 			document.body.classList.add('fade-in-initialized');
 
-			// Hide the overlay immediately
-			const overlay = document.querySelector('.page-transition-overlay');
-			if (overlay) {
-				overlay.style.display = 'none';
-				overlay.style.opacity = '0';
-				overlay.classList.add('fade-out');
+			// Hide the loading screen immediately
+			const loadingScreen = document.querySelector('.loading-screen');
+			if (loadingScreen) {
+				loadingScreen.style.display = 'none';
+				loadingScreen.style.opacity = '0';
 			}
 		} else {
 			// Normal page load - ensure fade-in happens

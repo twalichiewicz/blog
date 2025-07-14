@@ -127,6 +127,13 @@
   <link rel="preload" href="<%- url_for('styles/styles.css') %>?v=<%= Date.now() %>" as="style">
   <link rel="stylesheet" href="<%- url_for('styles/styles.css') %>?v=<%= Date.now() %>">
   
+  <!-- Initial loading state -->
+  <style>
+    body:not(.loaded) {
+      overflow: hidden;
+    }
+  </style>
+  
   <!-- Project-specific Scripts -->
   <% if (page.layout === 'project') { %>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" 
