@@ -249,7 +249,7 @@
 		}
 		
 		.loading-screen.hidden {
-			opacity: 0;
+			opacity: 0 !important;
 			pointer-events: none;
 		}
 		
@@ -481,6 +481,8 @@
 			if (loadingScreen) {
 				console.log('Found loading screen, adding hidden class');
 				loadingScreen.classList.add('hidden');
+				// Force opacity to 0 immediately
+				loadingScreen.style.opacity = '0';
 				setTimeout(function() {
 					loadingScreen.style.display = 'none';
 					console.log('Loading screen display set to none');
