@@ -338,111 +338,42 @@
 </div>
 
 <script>
-// Make loading screen visible immediately
+// Simplified loading screen management
 (function() {
-	var loadingScreen = document.querySelector('.loading-screen');
-	if (loadingScreen) {
-		loadingScreen.style.display = 'flex';
-		console.log('Loading screen made visible');
-		
-		// Store reference globally for easier access
-		window._loadingScreen = loadingScreen;
-	}
+	console.log('Loading screen script starting...');
 	
-	// Enhanced progress tracking
-	var progress = 0;
+	// Just show progress at 100% and hide after a delay
 	var progressBar = document.getElementById('loadingProgress');
-	var isProgressComplete = false;
-	
-	// Track different loading stages
-	var stages = {
-		dom: false,      // DOM ready
-		resources: false, // Resources loaded
-		complete: false  // Window load complete
-	};
-	
-	// Make stages and updateProgress globally accessible
-	window.stages = stages;
-	
-	function updateProgress() {
-		if (isProgressComplete) return;
-		
-		var newProgress = 0;
-		
-		// Calculate progress based on stages
-		if (stages.dom) newProgress += 30;
-		if (stages.resources) newProgress += 50;
-		if (stages.complete) newProgress = 100;
-		
-		// Smooth progress increase - never decrease
-		if (newProgress > progress) {
-			progress = newProgress;
-			if (progressBar) {
-				progressBar.style.width = progress + '%';
-				console.log('Progress updated to:', progress + '%');
-			}
-		}
-		
-		if (progress >= 100) {
-			isProgressComplete = true;
-		}
+	if (progressBar) {
+		// Animate to 100% quickly
+		setTimeout(function() {
+			progressBar.style.width = '100%';
+			console.log('Progress bar set to 100%');
+		}, 500);
 	}
 	
-	// Make updateProgress globally accessible
-	window.updateProgress = updateProgress;
-	
-	// Track DOM ready state
-	function checkDOMReady() {
-		if (document.readyState === 'interactive' || document.readyState === 'complete') {
-			stages.dom = true;
-			updateProgress();
+	// Simple hide function
+	function hideLoadingScreen() {
+		console.log('Simple hide loading screen called');
+		var loadingScreen = document.querySelector('.loading-screen');
+		if (loadingScreen) {
+			loadingScreen.remove();
+			console.log('Loading screen removed');
 		}
-	}
-	
-	// Track resource loading completion
-	function checkResourcesReady() {
-		var images = document.querySelectorAll('img');
-		var stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
-		var scripts = document.querySelectorAll('script[src]');
+		document.body.classList.add('loaded');
+		document.body.style.overflow = 'auto';
 		
-		var totalResources = images.length + stylesheets.length + scripts.length;
-		var loadedResources = 0;
-		
-		// Count loaded images
-		images.forEach(function(img) {
-			if (img.complete) loadedResources++;
+		// Make everything visible
+		var allElements = document.querySelectorAll('.blog, .blog-content, .content-inner-wrapper');
+		allElements.forEach(function(el) {
+			el.style.opacity = '1';
+			el.style.visibility = 'visible';
+			el.style.display = '';
 		});
-		
-		// For stylesheets and scripts, assume they're loaded if we can access them
-		loadedResources += stylesheets.length + scripts.length;
-		
-		// Mark resources as ready when most are loaded
-		if (totalResources === 0 || loadedResources >= totalResources * 0.8) {
-			stages.resources = true;
-			updateProgress();
-		}
 	}
 	
-	// Initial check
-	checkDOMReady();
-	
-	// Listen for DOM state changes
-	document.addEventListener('readystatechange', function() {
-		console.log('ReadyState changed to:', document.readyState);
-		checkDOMReady();
-		if (document.readyState === 'complete') {
-			checkResourcesReady();
-		}
-	});
-	
-	// Set up periodic checking for resources
-	var resourceCheckInterval = setInterval(function() {
-		if (!stages.resources) {
-			checkResourcesReady();
-		} else {
-			clearInterval(resourceCheckInterval);
-		}
-	}, 100);
+	// Hide after 1.5 seconds
+	setTimeout(hideLoadingScreen, 1500);
 })();
 </script>
 
@@ -491,8 +422,8 @@
 <script src="<%- url_for('js/anchor-links-simple.js') %>"></script>
 
 <script>
-	// Inline loading screen management - runs immediately
-	(function() {
+	// Additional loading screen management - disabled in favor of simpler approach above
+	/* (function() {
 		var isLoadingComplete = false;
 		
 		// Check for debug mode
@@ -505,47 +436,35 @@
 			debugMode: debugLoading,
 			delay: loadingDelay + 'ms'
 		});
+		
+		// Immediate check if loading screen exists
+		var loadingScreenCheck = document.querySelector('.loading-screen');
+		console.log('Loading screen found:', !!loadingScreenCheck);
 
 		function hideLoadingScreen() {
-			if (isLoadingComplete) return;
-			isLoadingComplete = true;
-
-			console.log('Hiding loading screen...');
-			
-			// Show body content
-			document.body.classList.add('loaded');
-			console.log('Added loaded class to body:', document.body.classList);
-			
-			// Hide loading screen - try multiple methods
-			var loadingScreen = window._loadingScreen || document.querySelector('.loading-screen');
-			
-			if (loadingScreen) {
-				console.log('Found loading screen, forcing hide');
-				// Use multiple inline styles to ensure it's hidden
-				loadingScreen.style.cssText = 'display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;';
-				
-				// Also try to remove it entirely after a short delay
-				setTimeout(function() {
-					try {
-						if (loadingScreen && loadingScreen.parentNode) {
-							loadingScreen.parentNode.removeChild(loadingScreen);
-							console.log('Loading screen removed from DOM');
-						}
-					} catch (e) {
-						console.error('Error removing loading screen:', e);
-					}
-				}, 100);
-			} else {
-				console.error('Loading screen not found!');
-				// Try one more time with a different selector
-				var allDivs = document.querySelectorAll('div');
-				for (var i = 0; i < allDivs.length; i++) {
-					if (allDivs[i].className && allDivs[i].className.indexOf('loading-screen') !== -1) {
-						console.log('Found loading screen via fallback');
-						allDivs[i].style.cssText = 'display: none !important;';
-					}
+			try {
+				if (isLoadingComplete) {
+					console.log('hideLoadingScreen already called, returning');
+					return;
 				}
-			}
+				isLoadingComplete = true;
+
+				console.log('Hiding loading screen NOW...');
+				
+				// First, immediately hide the loading screen
+				var loadingScreen = document.querySelector('.loading-screen');
+				if (loadingScreen) {
+					console.log('Removing loading screen from DOM');
+					loadingScreen.parentNode.removeChild(loadingScreen);
+				}
+				
+				// Then show body content
+				document.body.classList.add('loaded');
+				console.log('Added loaded class to body');
+				
+				// Force body overflow
+				document.body.style.overflow = 'auto';
+				document.body.style.position = 'static';
 			
 			// Force visibility of main content
 			var blog = document.querySelector('.blog');
@@ -626,10 +545,35 @@
 			
 			// Force a reflow to ensure styles are applied
 			document.body.offsetHeight;
+			
+			console.log('hideLoadingScreen completed successfully');
+			} catch (error) {
+				console.error('Error in hideLoadingScreen:', error);
+				// Even if there's an error, try to remove the loading screen
+				try {
+					var loadingScreen = document.querySelector('.loading-screen');
+					if (loadingScreen) {
+						loadingScreen.style.display = 'none';
+					}
+					document.body.classList.add('loaded');
+				} catch (e) {
+					console.error('Critical error hiding loading screen:', e);
+				}
+			}
 		}
 		
 		// Store function globally for other scripts to call
 		window.hideLoadingScreen = hideLoadingScreen;
+		
+		// Aggressive fallback - hide loading screen after 2 seconds no matter what
+		setTimeout(function() {
+			console.log('2-second failsafe triggered');
+			var loadingScreen = document.querySelector('.loading-screen');
+			if (loadingScreen && loadingScreen.style.display !== 'none') {
+				console.log('Loading screen still visible after 2 seconds, forcing hide');
+				hideLoadingScreen();
+			}
+		}, 2000);
 
 		// Wait for DOM to be fully loaded before considering hiding
 		document.addEventListener('DOMContentLoaded', function() {
@@ -708,7 +652,7 @@
 				hideLoadingScreen();
 			}
 		});
-	})();
+	})(); */
 </script>
 
 <script>
