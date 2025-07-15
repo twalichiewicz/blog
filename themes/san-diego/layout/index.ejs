@@ -281,6 +281,7 @@
 		body:not(.loaded) .blog,
 		body:not(.loaded) .skip-navigation {
 			opacity: 0;
+			visibility: hidden;
 		}
 		
 		body.loaded {
@@ -291,7 +292,20 @@
 		body.loaded .skip-navigation {
 			opacity: 1 !important;
 			visibility: visible !important;
+			display: block !important;
 			transition: opacity 0.5s ease-in;
+		}
+		
+		/* Ensure blog-content specifically is visible */
+		body.loaded .blog-content {
+			opacity: 1 !important;
+			visibility: visible !important;
+			display: block !important;
+		}
+		
+		/* Ensure all child elements are visible */
+		body.loaded .blog * {
+			visibility: visible !important;
 		}
 		
 		/* Ensure body is visible */
@@ -531,11 +545,35 @@
 				console.log('Forced blog visibility');
 			}
 			
+			// Force visibility of blog-content specifically
+			var blogContent = document.querySelector('.blog-content');
+			if (blogContent) {
+				blogContent.style.opacity = '1';
+				blogContent.style.visibility = 'visible';
+				blogContent.style.display = 'block';
+				console.log('Forced blog-content visibility');
+			}
+			
+			// Force visibility of blog-header
+			var blogHeader = document.querySelector('.blog-header');
+			if (blogHeader) {
+				blogHeader.style.opacity = '1';
+				blogHeader.style.visibility = 'visible';
+				blogHeader.style.display = 'block';
+				console.log('Forced blog-header visibility');
+			}
+			
 			// Also force skip navigation
 			var skipNav = document.querySelector('.skip-navigation');
 			if (skipNav) {
 				skipNav.style.opacity = '1';
 				skipNav.style.visibility = 'visible';
+			}
+			
+			// Force all blog children to be visible
+			var allBlogElements = document.querySelectorAll('.blog *');
+			for (var i = 0; i < allBlogElements.length; i++) {
+				allBlogElements[i].style.visibility = 'visible';
 			}
 			
 			// Remove any potential overlay issues
