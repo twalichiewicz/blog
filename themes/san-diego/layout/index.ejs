@@ -23,16 +23,23 @@
 			to { transform: rotate(360deg); }
 		}
 		/* Loading state management */
+		/* CRITICAL: Override any body opacity from compiled CSS */
+		body {
+			opacity: 1 !important; /* Body must be visible for loading screen */
+		}
+		
 		body:not(.loaded) {
 			overflow: hidden;
 		}
 		
 		/* Hide main content during loading, not the entire body */
-		body:not(.loaded) .blog {
+		body:not(.loaded) .blog,
+		body:not(.loaded) .skip-navigation {
 			opacity: 0;
 		}
 		
-		body.loaded .blog {
+		body.loaded .blog,
+		body.loaded .skip-navigation {
 			opacity: 1;
 			transition: opacity 0.5s ease-in;
 		}

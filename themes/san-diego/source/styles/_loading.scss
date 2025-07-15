@@ -17,13 +17,13 @@
 	opacity: 0;
 }
 
+/* Remove body opacity - only hide main content */
 body {
-	opacity: 0;
-	transition: opacity 0.5s ease-in;
+	/* Body stays visible so loading screen can show */
 }
 
 body.loaded {
-	opacity: 1;
+	/* Body is always visible */
 }
 
 .loading-screen {
