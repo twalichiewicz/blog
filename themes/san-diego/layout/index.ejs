@@ -1,27 +1,412 @@
+<!--
+                         8888  8888888
+                  888888888888888888888888
+               8888:::8888888888888888888888888
+             8888::::::8888888888888888888888888888
+            88::::::::888:::8888888888888888888888888
+          88888888::::8:::::::::::88888888888888888888
+        888 8::888888::::::::::::::::::88888888888   888
+           88::::88888888::::m::::::::::88888888888    8
+         888888888888888888:M:::::::::::8888888888888
+        88888888888888888888::::::::::::M88888888888888
+        8888888888888888888888:::::::::M8888888888888888
+         8888888888888888888888:::::::M888888888888888888
+        8888888888888888::88888::::::M88888888888888888888
+      88888888888888888:::88888:::::M888888888888888   8888
+     88888888888888888:::88888::::M::;o*M*o;888888888    88
+    88888888888888888:::8888:::::M:::::::::::88888888    8
+   88888888888888888::::88::::::M:;:::::::::::888888888
+  8888888888888888888:::8::::::M::aAa::::::::M8888888888       8
+  88   8888888888::88::::8::::M:::::::::::::888888888888888 8888
+ 88  88888888888:::8:::::::::M::::::::::;::88:88888888888888888
+ 8  8888888888888:::::::::::M::"@@@@@@"::::8w8888888888888888
+  88888888888:888::::::::::M:::::"@a@":::::M8i8888888888888888
+ 8888888888::::88:::::::::M88:::::::::::::M88z88888888888888888
+8888888888:::::8:::::::::M88888:::::::::MM888!888888888888888888
+888888888:::::8:::::::::M8888888MAmmmAMVMM888*88888888   88888888
+888888 M:::::::::::::::M888888888:::::::MM88888888888888   8888888
+8888   M::::::::::::::M88888888888::::::MM888888888888888    88888
+ 888   M:::::::::::::M8888888888888M:::::mM888888888888888    8888
+  888  M::::::::::::M8888:888888888888::::m::Mm88888 888888   8888
+   88  M::::::::::::8888:88888888888888888::::::Mm8   88888   888
+   88  M::::::::::8888M::88888::888888888888:::::::Mm88888    88
+   8   MM::::::::8888M:::8888:::::888888888888::::::::Mm8     4
+       8M:::::::8888M:::::888:::::::88:::8888888::::::::Mm    2
+      88MM:::::8888M:::::::88::::::::8:::::888888:::M:::::M
+     8888M:::::888MM::::::::8:::::::::::M::::8888::::M::::M
+    88888M:::::88:M::::::::::8:::::::::::M:::8888::::::M::M
+   88 888MM:::888:M:::::::::::::::::::::::M:8888:::::::::M:
+   8 88888M:::88::M:::::::::::::::::::::::MM:88::::::::::::M
+     88888M:::88::M::::::::::*88*::::::::::M:88::::::::::::::M
+    888888M:::88::M:::::::::88@@88:::::::::M::88::::::::::::::M
+    888888MM::88::MM::::::::88@@88:::::::::M:::8::::::::::::::*8
+    88888  M:::8::MM:::::::::*88*::::::::::M:::::::::::::::::88@@
+    8888   MM::::::MM:::::::::::::::::::::MM:::::::::::::::::88@@
+     888    M:::::::MM:::::::::::::::::::MM::M::::::::::::::::*8
+     888    MM:::::::MMM::::::::::::::::MM:::MM:::::::::::::::M
+      88     M::::::::MMMM:::::::::::MMMM:::::MM::::::::::::MM
+       88    MM:::::::::MMMMMMMMMMMMMMM::::::::MMM::::::::MMM
+        88    MM::::::::::::MMMMMMM::::::::::::::MMMMMMMMMM
+         88   8MM::::::::::::::::::::::::::::::::::MMMMMM
+          8   88MM::::::::::::::::::::::M:::M::::::::MM
+              888MM::::::::::::::::::MM::::::MM::::::MM
+             88888MM:::::::::::::::MMM:::::::mM:::::MM
+             888888MM:::::::::::::MMM:::::::::MMM:::M
+            88888888MM:::::::::::MMM:::::::::::MM:::M
+           88 8888888M:::::::::MMM::::::::::::::M:::M
+           8  888888 M:::::::MM:::::::::::::::::M:::M:
+              888888 M::::::M:::::::::::::::::::M:::MM
+             888888  M:::::M::::::::::::::::::::::::M:M
+             888888  M:::::M:::::::::@::::::::::::::M::M
+             88888   M::::::::::::::@@:::::::::::::::M::M
+            88888   M::::::::::::::@@@::::::::::::::::M::M
+           88888   M:::::::::::::::@@::::::::::::::::::M::M
+          88888   M:::::m::::::::::@::::::::::Mm:::::::M:::M
+          8888   M:::::M:::::::::::::::::::::::MM:::::::M:::M
+         8888   M:::::M:::::::::::::::::::::::MMM::::::::M:::M
+        888    M:::::Mm::::::::::::::::::::::MMM:::::::::M::::M
+      8888    MM::::Mm:::::::::::::::::::::MMMM:::::::::m::m:::M
+     888      M:::::M::::::::::::::::::::MMM::::::::::::M::mm:::M
+  8888       MM:::::::::::::::::::::::::MM:::::::::::::mM::MM:::M:
+             M:::::::::::::::::::::::::M:::::::::::::::mM::MM:::Mm
+            MM::::::m:::::::::::::::::::::::::::::::::::M::MM:::MM
+            M::::::::M:::::::::::::::::::::::::::::::::::M::M:::MM
+           MM:::::::::M:::::::::::::M:::::::::::::::::::::M:M:::MM
+           M:::::::::::M88:::::::::M:::::::::::::::::::::::MM::MMM
+           M::::::::::::8888888888M::::::::::::::::::::::::MM::MM
+           M:::::::::::::88888888M:::::::::::::::::::::::::M::MM
+           M::::::::::::::888888M:::::::::::::::::::::::::M::MM
+           M:::::::::::::::88888M:::::::::::::::::::::::::M:MM
+           M:::::::::::::::::88M::::::::::::::::::::::::::MMM
+           M:::::::::::::::::::M::::::::::::::::::::::::::MMM
+           MM:::::::::::::::::M::::::::::::::::::::::::::MMM
+            M:::::::::::::::::M::::::::::::::::::::::::::MMM
+            MM:::::::::::::::M::::::::::::::::::::::::::MMM
+             M:::::::::::::::M:::::::::::::::::::::::::MMM
+             MM:::::::::::::M:::::::::::::::::::::::::MMM
+              M:::::::::::::M::::::::::::::::::::::::MMM
+              MM:::::::::::M::::::::::::::::::::::::MMM
+               M:::::::::::M:::::::::::::::::::::::MMM
+               MM:::::::::M:::::::::::::::::::::::MMM
+                M:::::::::M::::::::::::::::::::::MMM
+                MM:::::::M::::::::::::::::::::::MMM
+                 MM::::::M:::::::::::::::::::::MMM
+                 MM:::::M:::::::::::::::::::::MMM
+                  MM::::M::::::::::::::::::::MMM
+                  MM:::M::::::::::::::::::::MMM
+                   MM::M:::::::::::::::::::MMM
+                   MM:M:::::::::::::::::::MMM
+                    MMM::::::::::::::::::MMM
+                    MM::::::::::::::::::MMM
+                     M:::::::::::::::::MMM
+                    MM::::::::::::::::MMM
+                    MM:::::::::::::::MMM
+                    MM::::M:::::::::MMM:
+                    mMM::::MM:::::::MMMM
+                     MMM:::::::::::MMM:M
+                     mMM:::M:::::::M:M:M
+                      MM::MMMM:::::::M:M
+                      MM::MMM::::::::M:M
+                      mMM::MM::::::::M:M
+                       MM::MM:::::::::M:M
+                       MM::MM::::::::::M:m
+                       MM:::M:::::::::::MM
+                       MMM:::::::::::::::M:
+                       MMM:::::::::::::::M:
+                       MMM::::::::::::::::M
+                       MMM::::::::::::::::M
+                       MMM::::::::::::::::Mm
+                        MM::::::::::::::::MM
+                        MMM:::::::::::::::MM
+                        MMM:::::::::::::::MM
+                        MMM:::::::::::::::MM
+                        MMM:::::::::::::::MM
+                         MM::::::::::::::MMM
+                         MMM:::::::::::::MM
+                         MMM:::::::::::::MM
+                         MMM::::::::::::MM
+                          MM::::::::::::MM
+                          MM::::::::::::MM
+                          MM:::::::::::MM
+                          MMM::::::::::MM
+                          MMM::::::::::MM
+                           MM:::::::::MM
+                           MMM::::::::MM
+                           MMM::::::::MM
+                            MM::::::::MM
+                            MMM::::::MM
+                            MMM::::::MM
+                             MM::::::MM
+                             MM::::::MM
+                              MM:::::MM
+                              MM:::::MM:
+                              MM:::::M:M
+                              MM:::::M:M
+                              :M::::::M:
+                             M:M:::::::M
+                            M:::M::::::M
+                           M::::M::::::M
+                          M:::::M:::::::M
+                         M::::::MM:::::::M
+                         M:::::::M::::::::M
+                         M;:;::::M:::::::::M
+                         M:m:;:::M::::::::::M
+                         MM:m:m::M::::::::;:M
+                          MM:m::MM:::::::;:;M
+                           MM::MMM::::::;:m:M
+                            MMMM MM::::m:m:MM
+                                  MM::::m:MM
+                                   MM::::MM
+                                    MM::MM
+                                     MMMM
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><%= config.title %><% if (config.subtitle) { %> | <%= config.subtitle %><% } %></title>
-	<%- partial('_partial/head') %>
 	<style>
-		/* Initial body state for loading */
-		body {
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		body { overflow: hidden; }
+		.loading-screen {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: #e4e1db;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 99999;
+			transition: opacity 0.3s ease-out;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			.loading-screen {
+				background: hsl(40.1, 8.4%, 35.98%);
+			}
+		}
+		
+		.loading-container {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 20px;
+		}
+		
+		.loading-skull {
+			width: 30px;
+			height: 30px;
+			max-width: 30px;
+			max-height: 30px;
+			border-radius: 0;
+		}
+		
+		.loading-skull-dark {
+			display: none;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			.loading-skull-light {
+				display: none;
+			}
+			.loading-skull-dark {
+				display: block;
+			}
+		}
+		
+		.progress-container {
+			width: 100px;
+			height: 4px;
+			background: rgba(91, 88, 86, 0.2);
+			border-radius: 2px;
+			overflow: hidden;
 			opacity: 0;
-			transition: opacity 0.5s ease-in;
+			animation: fadeInProgress 0.3s ease-out 0.2s forwards;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			.progress-container {
+				background: rgba(228, 225, 219, 0.2);
+			}
+		}
+		
+		.progress-bar {
+			height: 100%;
+			background: #5b5856;
+			border-radius: 2px;
+			width: 0%;
+			transition: width 0.3s ease-out;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			.progress-bar {
+				background: #e4e1db;
+			}
+		}
+		
+		.loading-screen.hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+		
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 1;
+			}
+		}
+		
+		@keyframes fadeInProgress {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 1;
+			}
+		}
+		
+		/* Hide content until loaded */
+		body:not(.loaded) .blog,
+		body:not(.loaded) .skip-navigation {
+			opacity: 0;
 		}
 		
 		body.loaded {
+			overflow: auto;
+		}
+		
+		body.loaded .blog,
+		body.loaded .skip-navigation {
 			opacity: 1;
+			transition: opacity 0.5s ease-in;
 		}
 	</style>
 </head>
 <body>
-<%- partial('_partial/skip-navigation') %>
+<div class="loading-screen">
+    <div class="loading-container">
+        <img src="/img/triglavis_light.svg" alt="Triglavis logo" class="loading-skull loading-skull-light" />
+        <img src="/img/triglavis_dark.svg" alt="Triglavis logo" class="loading-skull loading-skull-dark" />
+        <div class="progress-container">
+            <div class="progress-bar" id="loadingProgress"></div>
+        </div>
+    </div>
+</div>
 
-<!-- Loading screen with skull indicator -->
-<%- partial('_partial/loading-skull') %>
+<script>
+// Make loading screen visible immediately
+(function() {
+	var loadingScreen = document.querySelector('.loading-screen');
+	if (loadingScreen) {
+		loadingScreen.style.display = 'flex';
+		console.log('Loading screen made visible');
+	}
+	
+	// Enhanced progress tracking
+	var progress = 0;
+	var progressBar = document.getElementById('loadingProgress');
+	var isProgressComplete = false;
+	
+	// Track different loading stages
+	var stages = {
+		dom: false,      // DOM ready
+		resources: false, // Resources loaded
+		complete: false  // Window load complete
+	};
+	
+	// Make stages and updateProgress globally accessible
+	window.stages = stages;
+	
+	function updateProgress() {
+		if (isProgressComplete) return;
+		
+		var newProgress = 0;
+		
+		// Calculate progress based on stages
+		if (stages.dom) newProgress += 30;
+		if (stages.resources) newProgress += 50;
+		if (stages.complete) newProgress = 100;
+		
+		// Smooth progress increase - never decrease
+		if (newProgress > progress) {
+			progress = newProgress;
+			if (progressBar) {
+				progressBar.style.width = progress + '%';
+				console.log('Progress updated to:', progress + '%');
+			}
+		}
+		
+		if (progress >= 100) {
+			isProgressComplete = true;
+		}
+	}
+	
+	// Make updateProgress globally accessible
+	window.updateProgress = updateProgress;
+	
+	// Track DOM ready state
+	function checkDOMReady() {
+		if (document.readyState === 'interactive' || document.readyState === 'complete') {
+			stages.dom = true;
+			updateProgress();
+		}
+	}
+	
+	// Track resource loading completion
+	function checkResourcesReady() {
+		var images = document.querySelectorAll('img');
+		var stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+		var scripts = document.querySelectorAll('script[src]');
+		
+		var totalResources = images.length + stylesheets.length + scripts.length;
+		var loadedResources = 0;
+		
+		// Count loaded images
+		images.forEach(function(img) {
+			if (img.complete) loadedResources++;
+		});
+		
+		// For stylesheets and scripts, assume they're loaded if we can access them
+		loadedResources += stylesheets.length + scripts.length;
+		
+		// Mark resources as ready when most are loaded
+		if (totalResources === 0 || loadedResources >= totalResources * 0.8) {
+			stages.resources = true;
+			updateProgress();
+		}
+	}
+	
+	// Initial check
+	checkDOMReady();
+	
+	// Listen for DOM state changes
+	document.addEventListener('readystatechange', function() {
+		console.log('ReadyState changed to:', document.readyState);
+		checkDOMReady();
+		if (document.readyState === 'complete') {
+			checkResourcesReady();
+		}
+	});
+	
+	// Set up periodic checking for resources
+	var resourceCheckInterval = setInterval(function() {
+		if (!stages.resources) {
+			checkResourcesReady();
+		} else {
+			clearInterval(resourceCheckInterval);
+		}
+	}, 100);
+})();
+</script>
+
+<%- partial('_partial/head') %>
+<%- partial('_partial/skip-navigation') %>
 
 <main class="blog" id="main-content">
     <div class="blog-header">
@@ -65,113 +450,118 @@
 <script src="<%- url_for('js/anchor-links-simple.js') %>"></script>
 
 <script>
-	// Page fade-in animation
-	function initiatePageFadeIn() {
-		// Ensure this runs only once if called multiple times rapidly
-		if (document.body.classList.contains('fade-in-initialized')) {
-			// If already loaded and overlay is gone, ensure body is opaque
-			if (document.body.classList.contains('loaded') && 
-			    (!document.querySelector('.page-transition-overlay') || document.querySelector('.page-transition-overlay').style.display === 'none')) {
-				document.body.style.opacity = '1'; // Ensure body is visible if animation was completed
-			}
-			return;
-		}
-		document.body.classList.add('fade-in-initialized');
-
-		let animationComplete = false;
-
-		function completeAnimation() {
-			if (animationComplete) return;
-			animationComplete = true;
-
-			document.body.classList.add('loaded');
-			const loadingScreen = document.querySelector('.loading-screen');
-			if (loadingScreen) {
-				loadingScreen.style.opacity = '0';
-				setTimeout(function() {
-					if (loadingScreen) loadingScreen.style.display = 'none';
-				}, 300); // 300ms fade out
-			} else {
-				// If somehow loading screen is not there, ensure body is visible
-				document.body.style.opacity = '1';
-			}
-		}
-
-		// Wait for images to load (primary trigger)
-		window.addEventListener('load', function() {
-			setTimeout(completeAnimation, 800); // 800ms delay
+	// Inline loading screen management - runs immediately
+	(function() {
+		var isLoadingComplete = false;
+		
+		// Check for debug mode
+		var urlParams = new URLSearchParams(window.location.search);
+		var debugLoading = urlParams.get('debug-loading') === 'true';
+		var loadingDelay = debugLoading ? 5000 : 1500;
+		
+		// Log loading screen presence
+		console.log('Loading screen initialized:', {
+			debugMode: debugLoading,
+			delay: loadingDelay + 'ms'
 		});
-		
-		// Fallback in case load event doesn't fire or is too slow
-		setTimeout(completeAnimation, 3000); // Increased timeout
-		
-		// Additional safeguard - ensure content is visible after max wait time
-		setTimeout(function() {
-			document.body.style.opacity = '1';
+
+		function hideLoadingScreen() {
+			if (isLoadingComplete) return;
+			isLoadingComplete = true;
+
+			console.log('Hiding loading screen...');
+			
+			// Show body content
 			document.body.classList.add('loaded');
-			const loadingScreen = document.querySelector('.loading-screen');
+			
+			// Hide loading screen
+			var loadingScreen = document.querySelector('.loading-screen');
+			
 			if (loadingScreen) {
-				loadingScreen.style.display = 'none';
-			}
-		}, 4000);
-	}
-
-	document.addEventListener('DOMContentLoaded', function() {
-		initiatePageFadeIn();
-	});
-
-	window.addEventListener('pageshow', function(event) {
-		if (event.persisted) {
-            // Page is loaded from bfcache - ensure content is visible immediately
-			document.body.style.opacity = '1';
-			document.body.classList.add('loaded');
-			document.body.classList.add('fade-in-initialized');
-
-			// Hide the loading screen immediately
-			const loadingScreen = document.querySelector('.loading-screen');
-			if (loadingScreen) {
-				loadingScreen.style.display = 'none';
-				loadingScreen.style.opacity = '0';
-			}
-		} else {
-			// Normal page load - ensure fade-in happens
-			if (!document.body.classList.contains('fade-in-initialized')) {
-				initiatePageFadeIn();
+				loadingScreen.classList.add('hidden');
+				setTimeout(function() {
+					loadingScreen.style.display = 'none';
+				}, 300);
 			}
 		}
-	});
-	// Handle direct navigation to blog posts and projects via URL parameter
-	document.addEventListener('DOMContentLoaded', function() {
-	    // Check if we have a post or project parameter
-	    const urlParams = new URLSearchParams(window.location.search);
-	    const postPath = urlParams.get('post');
-	    const projectPath = urlParams.get('project');
+		
+		// Store function globally for other scripts to call
+		window.hideLoadingScreen = hideLoadingScreen;
 
-	    if (postPath || projectPath) {
-	        const path = postPath || projectPath;
-	        const isProject = !!projectPath;
-        
-        // Load the content
-        setTimeout(function() {
-            const blogContent = document.querySelector('.blog-content');
-            if (blogContent && window.fetchAndDisplayContent) {
-                // Switch to appropriate tab first
-                if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-                    window.mobileTabs.switchTab(isProject ? 'portfolio' : 'blog', true);
-                }
-                // Load the content
-                window.fetchAndDisplayContent(path, false, isProject);
-                
-                // Clean up the URL to show the actual post/project path
-                window.history.replaceState({ path: path, isDynamic: true, isProject: isProject }, '', path);
-            }
-        }, 500); // Small delay to ensure everything is initialized
-    }
+		// Wait for DOM to be fully loaded before considering hiding
+		document.addEventListener('DOMContentLoaded', function() {
+			if (debugLoading) {
+				console.log('DEBUG MODE: Loading screen will stay visible for 5 seconds');
+				setTimeout(hideLoadingScreen, loadingDelay);
+			} else {
+				console.log('DOM loaded, will wait for window.load event...');
+			}
+		});
+
+		window.addEventListener('load', function() {
+			console.log('Window load event fired');
+			// Mark complete stage
+			if (window.stages) {
+				window.stages.complete = true;
+				if (window.updateProgress) {
+					window.updateProgress();
+				}
+			}
+			
+			// Fallback: Complete progress bar directly
+			var progressBar = document.getElementById('loadingProgress');
+			if (progressBar) {
+				progressBar.style.width = '100%';
+			}
+			
+			if (!debugLoading) {
+				console.log('Window loaded, hiding loading screen...');
+				setTimeout(hideLoadingScreen, 800);
+			}
+		});
+
+		// Safety fallback
+		setTimeout(function() {
+			if (debugLoading) {
+				console.log('Debug mode complete, hiding loading screen...');
+			} else {
+				console.log('Safety timeout, forcing loading screen to hide...');
+			}
+			hideLoadingScreen();
+		}, debugLoading ? 6000 : 3000);
+
+		// Handle browser back/forward
+		window.addEventListener('pageshow', function(event) {
+			if (event.persisted) {
+				console.log('Page from cache, hiding loading screen immediately...');
+				hideLoadingScreen();
+			}
+		});
+	})();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const urlParams = new URLSearchParams(window.location.search);
+	const postPath = urlParams.get('post');
+	const projectPath = urlParams.get('project');
+	if (postPath || projectPath) {
+		const path = postPath || projectPath;
+		const isProject = !!projectPath;
+		setTimeout(function() {
+			const blogContent = document.querySelector('.blog-content');
+			if (blogContent && window.fetchAndDisplayContent) {
+				if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+					window.mobileTabs.switchTab(isProject ? 'portfolio' : 'blog', true);
+				}
+				window.fetchAndDisplayContent(path, false, isProject);
+				window.history.replaceState({ path: path, isDynamic: true, isProject: isProject }, '', path);
+			}
+		}, 500);
+	}
 });
 </script>
 
-<!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e8fdac6a36f74464bcf2d55fbb7f0ca2"}'></script>
-<!-- End Cloudflare Web Analytics -->
 </body>
 </html>
