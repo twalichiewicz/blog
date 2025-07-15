@@ -5,23 +5,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><%= config.title %><% if (config.subtitle) { %> | <%= config.subtitle %><% } %></title>
 	<style>
-		/* Immediate loading state */
-		html { background: #000; }
-		body { margin: 0; background: #000; }
+		/* Immediate loading state - match site background */
 		.init-loading {
 			position: fixed;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background: #000;
+			background: #e4e1db;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			z-index: 99999;
 		}
 		.init-loading-text {
-			color: rgba(255,255,255,0.4);
+			color: #5b5856;
 			font-family: monospace;
 			font-size: 14px;
 			letter-spacing: 4px;
@@ -75,7 +73,7 @@
 			left: 0 !important;
 			width: 100% !important;
 			height: 100% !important;
-			background: #000 !important;
+			background: #e4e1db !important;
 			display: flex !important;
 			align-items: center !important;
 			justify-content: center !important;
@@ -104,7 +102,7 @@
 			width: 80px !important;
 			height: 80px !important;
 			/* Remove opacity override to allow animation */
-			filter: invert(1) !important;
+			/* No invert - keep skull black on beige background */
 			animation: fadeIn 0.3s ease-out forwards !important;
 		}
 		
@@ -121,7 +119,7 @@
 		
 		/* Ensure text is visible */
 		.loading-screen .circular-text text {
-			fill: rgba(255, 255, 255, 0.4) !important;
+			fill: #5b5856 !important;
 			font-size: 8px !important;
 			letter-spacing: 8px !important;
 			text-transform: uppercase !important;
@@ -136,12 +134,12 @@
 </div>
 
 <!-- Full loading screen with skull (loads after initial) -->
-<div class="loading-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:none;align-items:center;justify-content:center;z-index:9999;">
+<div class="loading-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#e4e1db;display:none;align-items:center;justify-content:center;z-index:9999;">
     <div class="loading-container" style="position:relative;width:120px;height:120px;">
-        <img src="/img/skully.svg" alt="Skull logo" class="loading-skull" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;filter:invert(1);animation:fadeIn 0.3s ease-out forwards;" />
+        <img src="/img/skully.svg" alt="Skull logo" class="loading-skull" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;animation:fadeIn 0.3s ease-out forwards;" />
         <svg class="circular-text" viewBox="0 0 100 100" style="position:absolute;top:0;left:0;width:100%;height:100%;animation:spin 8s linear infinite;">
             <path id="textPath" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0" fill="none"/>
-            <text style="fill:rgba(255,255,255,0.4);font-size:8px;letter-spacing:8px;text-transform:uppercase;font-family:monospace;">
+            <text style="fill:#5b5856;font-size:8px;letter-spacing:8px;text-transform:uppercase;font-family:monospace;">
                 <textPath href="#textPath">
                 • L O A D I N G • ▼
                 </textPath>
@@ -244,10 +242,6 @@
 				loadingScreen.style.display = 'none';
 			}, 300);
 		}
-		
-		// Reset background colors
-		document.documentElement.style.backgroundColor = '';
-		document.body.style.backgroundColor = '';
 	}
 
 	// Multiple triggers to ensure loading screen hides

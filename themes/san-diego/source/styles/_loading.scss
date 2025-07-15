@@ -29,7 +29,7 @@ body.loaded {
 .loading-screen {
 	position: fixed;
 	inset: 0;
-	background: #000;
+	background: #e4e1db;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -47,9 +47,7 @@ body.loaded {
 	width: 80px;
 	height: 80px;
 	opacity: 0;
-	filter: invert(1);
-
-	/* Make skull white */
+	/* No invert - keep skull black on beige */
 	animation: fadeIn 0.3s ease-out forwards;
 	position: absolute;
 	top: 50%;
@@ -130,7 +128,7 @@ body.loaded {
 	animation: spin 10s linear infinite;
 
 	text {
-		fill: rgb(255 255 255 / 40%);
+		fill: #5b5856;
 		font-size: 8px;
 		letter-spacing: 8px;
 		text-transform: uppercase;
