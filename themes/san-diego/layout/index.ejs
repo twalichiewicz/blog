@@ -340,7 +340,7 @@
 		// Check for debug mode
 		var urlParams = new URLSearchParams(window.location.search);
 		var debugLoading = urlParams.get('debug-loading') === 'true';
-		var loadingDelay = debugLoading ? 5000 : 300;
+		var loadingDelay = debugLoading ? 5000 : 1500;
 		
 		// Log loading screen presence
 		console.log('Loading screen initialized:', {
@@ -371,19 +371,20 @@
 		// Store function globally for other scripts to call
 		window.hideLoadingScreen = hideLoadingScreen;
 
-		// Multiple triggers to ensure loading screen hides
+		// Wait for DOM to be fully loaded before considering hiding
 		document.addEventListener('DOMContentLoaded', function() {
 			if (debugLoading) {
 				console.log('DEBUG MODE: Loading screen will stay visible for 5 seconds');
+				setTimeout(hideLoadingScreen, loadingDelay);
+			} else {
+				console.log('DOM loaded, will wait for window.load event...');
 			}
-			console.log('DOM loaded, hiding loading screen in ' + loadingDelay + 'ms...');
-			setTimeout(hideLoadingScreen, loadingDelay);
 		});
 
 		window.addEventListener('load', function() {
 			if (!debugLoading) {
 				console.log('Window loaded, hiding loading screen...');
-				setTimeout(hideLoadingScreen, 100);
+				setTimeout(hideLoadingScreen, 800);
 			}
 		});
 
@@ -395,7 +396,7 @@
 				console.log('Safety timeout, forcing loading screen to hide...');
 			}
 			hideLoadingScreen();
-		}, debugLoading ? 6000 : 2000);
+		}, debugLoading ? 6000 : 3000);
 
 		// Handle browser back/forward
 		window.addEventListener('pageshow', function(event) {
