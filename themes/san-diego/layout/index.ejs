@@ -11,13 +11,14 @@
 			overflow: hidden;
 		}
 		
-		body {
+		/* Hide main content during loading, not the entire body */
+		body:not(.loaded) .blog {
 			opacity: 0;
-			transition: opacity 0.5s ease-in;
 		}
 		
-		body.loaded {
+		body.loaded .blog {
 			opacity: 1;
+			transition: opacity 0.5s ease-in;
 		}
 		
 		/* Fix loading screen positioning and ensure proper display */
@@ -81,6 +82,15 @@
 			height: 100% !important;
 			transform: none !important;
 			animation: spin 8s linear infinite !important;
+		}
+		
+		/* Ensure text is visible */
+		.loading-screen .circular-text text {
+			fill: rgba(255, 255, 255, 0.4) !important;
+			font-size: 8px !important;
+			letter-spacing: 8px !important;
+			text-transform: uppercase !important;
+			font-family: monospace !important;
 		}
 		
 		/* Ensure spin animation is defined */
