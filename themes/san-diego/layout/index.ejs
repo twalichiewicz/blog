@@ -5,8 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><%= config.title %><% if (config.subtitle) { %> | <%= config.subtitle %><% } %></title>
 	<style>
-		/* Immediate loading state - match site background */
-		.init-loading {
+		/* Critical loading styles - inline for immediate display */
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		body { overflow: hidden; }
+		
+		/* Loading screen - absolutely first thing to display */
+		.loading-screen {
 			position: fixed;
 			top: 0;
 			left: 0;
@@ -17,35 +21,58 @@
 			align-items: center;
 			justify-content: center;
 			z-index: 99999;
+			transition: opacity 0.3s ease-out;
 		}
-		.init-loading-text {
-			color: #5b5856;
-			font-family: monospace;
-			font-size: 14px;
-			letter-spacing: 4px;
-			text-transform: uppercase;
-		}
-		/* Dark mode support */
+		
 		@media (prefers-color-scheme: dark) {
-			.init-loading {
+			.loading-screen {
 				background: hsl(40.1, 8.4%, 35.98%);
 			}
-			.init-loading-text {
-				color: #e4e1db;
+		}
+		
+		.loading-container {
+			position: relative;
+			width: 80px;
+			height: 80px;
+		}
+		
+		.loading-skull {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 24px;
+			height: 24px;
+			max-width: 24px;
+			max-height: 24px;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			.loading-skull {
+				filter: invert(1);
 			}
 		}
-	</style>
-	<%- partial('_partial/head') %>
-	<style>
-		/* Critical animations for loading screen */
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-				transform: translate(-50%, -50%) scale(0.95);
-			}
-			to {
-				opacity: 1;
-				transform: translate(-50%, -50%) scale(1);
+		
+		.circular-text {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			animation: spin 8s linear infinite;
+		}
+		
+		.circular-text text {
+			fill: #5b5856;
+			font-size: 6px;
+			letter-spacing: 6px;
+			text-transform: uppercase;
+			font-family: monospace;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			.circular-text text {
+				fill: #e4e1db;
 			}
 		}
 		
@@ -53,20 +80,20 @@
 			from { transform: rotate(0deg); }
 			to { transform: rotate(360deg); }
 		}
-		/* Loading state management */
-		/* CRITICAL: Override any body opacity from compiled CSS */
-		body {
-			opacity: 1 !important; /* Body must be visible for loading screen */
+		
+		.loading-screen.hidden {
+			opacity: 0;
+			pointer-events: none;
 		}
 		
-		body:not(.loaded) {
-			overflow: hidden;
-		}
-		
-		/* Hide main content during loading, not the entire body */
+		/* Hide content until loaded */
 		body:not(.loaded) .blog,
 		body:not(.loaded) .skip-navigation {
 			opacity: 0;
+		}
+		
+		body.loaded {
+			overflow: auto;
 		}
 		
 		body.loaded .blog,
@@ -74,104 +101,17 @@
 			opacity: 1;
 			transition: opacity 0.5s ease-in;
 		}
-		
-		/* Fix loading screen positioning and ensure proper display */
-		.loading-screen {
-			position: fixed !important;
-			top: 0 !important;
-			left: 0 !important;
-			width: 100% !important;
-			height: 100% !important;
-			background: #e4e1db !important;
-			display: flex !important;
-			align-items: center !important;
-			justify-content: center !important;
-			z-index: 9999 !important;
-			transition: opacity 0.3s ease-out !important;
-		}
-		
-		/* Dark mode support for loading screen */
-		@media (prefers-color-scheme: dark) {
-			.loading-screen {
-				background: hsl(40.1, 8.4%, 35.98%) !important;
-			}
-		}
-		
-		.loading-screen.hidden {
-			opacity: 0;
-			pointer-events: none;
-		}
-		
-		/* Fix loading container positioning - reduced for smaller skull */
-		.loading-container {
-			position: relative !important;
-			width: 80px !important;
-			height: 80px !important;
-		}
-		
-		/* Fix skull positioning - reduced to 24px */
-		.loading-skull {
-			position: absolute !important;
-			top: 50% !important;
-			left: 50% !important;
-			transform: translate(-50%, -50%) !important;
-			width: 24px !important;
-			height: 24px !important;
-			max-width: 24px !important;
-			max-height: 24px !important;
-			/* Remove opacity override to allow animation */
-			/* No invert - keep skull black on beige background */
-			animation: fadeIn 0.3s ease-out forwards !important;
-		}
-		
-		/* Invert skull in dark mode for visibility */
-		@media (prefers-color-scheme: dark) {
-			.loading-skull {
-				filter: invert(1);
-			}
-		}
-		
-		/* Fix circular text positioning */
-		.loading-screen .circular-text {
-			position: absolute !important;
-			top: 0 !important;
-			left: 0 !important;
-			width: 100% !important;
-			height: 100% !important;
-			transform: none !important;
-			animation: spin 8s linear infinite !important;
-		}
-		
-		/* Ensure text is visible */
-		.loading-screen .circular-text text {
-			fill: #5b5856 !important;
-			font-size: 6px !important;
-			letter-spacing: 6px !important;
-			text-transform: uppercase !important;
-			font-family: monospace !important;
-		}
-		
-		/* Light text in dark mode */
-		@media (prefers-color-scheme: dark) {
-			.loading-screen .circular-text text {
-				fill: #e4e1db !important;
-			}
-		}
 	</style>
+	<%- partial('_partial/head') %>
 </head>
 <body>
-<!-- Simple initial loading indicator -->
-<div class="init-loading">
-	<div class="init-loading-text">LOADING</div>
-</div>
-
-<!-- Full loading screen with skull (loads after initial) -->
-<div class="loading-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#e4e1db;display:none;align-items:center;justify-content:center;z-index:9999;">
-    <div class="loading-container" style="position:relative;width:80px;height:80px;">
-        <img src="/img/skully.svg" alt="Skull logo" class="loading-skull" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:24px;height:24px;max-width:24px;max-height:24px;animation:fadeIn 0.3s ease-out forwards;" />
-        <svg class="circular-text" viewBox="0 0 100 100" style="position:absolute;top:0;left:0;width:100%;height:100%;animation:spin 8s linear infinite;">
+<!-- Loading screen with inline SVG - displays immediately -->
+<div class="loading-screen">
+    <div class="loading-container">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjcwIiBoZWlnaHQ9IjMyNSIgdmlld0JveD0iMCAwIDI3MCAzMjUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMzYuNSAyNTBDMzYuNzQ2OCAyNDkuNzc0IDM2Ljk4MzEgMjQ5LjUzNiAzNy4yMDkxIDI0OS4yODlDMzYuNzg5OSAyNTAuMTA4IDM2LjUgMjUwLjUgMzYuNSAyNTAuNUMzNi41IDI1MC41IDcwIDIyOS41IDU5LjUgMTk2LjVDNTAuMTIyNSAxNjcuMDI4IDE2LjgxNiAxNzcuNDM3IDkuODAyMzIgMTc5Ljk5OUM5LjY4NTk1IDE4MCA5LjU2OTY5IDE4MCA5LjQ1MzU0IDE4MEMzLjQzNTU2IDE2NC45NjYgMCAxNDcuNTg1IDAgMTI5LjVDLTIuNzA5NzhlLTA2IDEwNi41MzQgMi41NzQ2OCA4NS41NDU2IDkuMTQ4NzUgNjkuNzI1NUMyMi45MTMyIDI5LjU1MTYgNjkuMzQyNiAzLjA1MTc2ZS0wNSAxMjQuNSAzLjA1MTc2ZS0wNUMxMjYuMzA5IDMuMDUxNzZlLTA1IDEyOC4xMDggMC4wMzE4MTI4IDEyOS44OTggMC4wOTQ3MTA3QzEzMS41ODkgMC4wMzE4MDEgMTMzLjI5IDAgMTM1IDBDMTQzLjMyMyAwIDE1MS40MjggMC43NTMxMzMgMTU5LjIxNyAyLjE3OTU5QzIxOC45ODkgNS42Mjk3NSAyNzAgNTguMjE1MiAyNzAgMTEwQzI3MCAxMzguMDM1IDI1Ni4xNDUgMTYzLjI5MiAyMzMuOTkyIDE4MS4wMDFMMjM0IDE4MUMyMzQgMTgxIDIxMi41IDE5OSAyMDYgMjA0QzIwMy4yNjMgMjA4Ljc5IDIwMS4wNzkgMjQxLjkwOSAxOTkuNTk0IDI2NC40MjdMMTk5LjU5NCAyNjQuNDI3QzE5OC45MDkgMjc0LjgxNiAxOTguMzczIDI4Mi45NDggMTk4IDI4NUMxOTggMjg1LjUgMTk2IDMwMi41IDE5MyAzMDdDMTkyLjY0MSAzMDcuNTM4IDE5Mi4yNjggMzA4LjEyIDE5MS44NzkgMzA4LjcyNkMxODkuMDE0IDMxMy4xODcgMTg1LjI4MiAzMTkgMTgwIDMxOUMxNzYuNTk4IDMxOSAxNzUuNDQ3IDMxNS4xNDMgMTc0LjQ0OSAzMTEuODAyQzE3My42ODcgMzA5LjI1IDE3My4wMTYgMzA3IDE3MS41IDMwN0MxNjkuNjg3IDMwNyAxNjcuNjA2IDMxMC4yMiAxNjUuNDY1IDMxMy41MzJDMTYzLjQ3MiAzMTYuNjE1IDE2MS40MjggMzE5Ljc3NyAxNTkuNSAzMjAuNUMxNTUuNSAzMjIgMTUxLjUgMzIyLjUgMTQ3IDMyMUMxNDUuMDU1IDMyMC4zNTIgMTQ0LjEzOCAzMTguNDg5IDE0My4yMzggMzE2LjY2NEMxNDIuMDU3IDMxNC4yNjYgMTQwLjkwNyAzMTEuOTMyIDEzNy41IDMxMi41QzEzNC43NTMgMzEyLjk1OCAxMzQuNTIxIDMxMy44MzUgMTM0LjE2NiAzMTUuMTc5QzEzMy43NDUgMzE2Ljc3MSAxMzMuMTUxIDMxOS4wMTggMTI4IDMyMkMxMTguNSAzMjcuNSAxMDYuNSAzMjMuNSAxMDMgMzIwQzEwMS4zMTkgMzE4LjMxOSAxMDEuMjUzIDMxNS44MyAxMDEuMTk1IDMxMy42NDJDMTAxLjE1NyAzMTIuMjE1IDEwMS4xMjIgMzEwLjkxNyAxMDAuNjQ2IDMxMC4wNTNDOTkuNDA2MiAzMDkuODg3IDk4LjE4ODYgMzA5LjcwOCA5Ni45OTMxIDMwOS41MThDOTYuNDA2OSAzMDkuOTc2IDk1LjkzOTEgMzEwLjY4MiA5NS40MTE4IDMxMS40NzdDOTQuMTgyNiAzMTMuMzMyIDkyLjYzMDEgMzE1LjY3NCA4OC41IDMxNi41QzgxIDMxOCA3NiAzMTUgNzIuNSAzMTIuNUM3MC44ODk5IDMxMS4zNSA2OS4zODU3IDMwOC41MDcgNjcuOTM4NiAzMDUuNzcyQzY2LjIzOTkgMzAyLjU2MiA2NC42MiAyOTkuNSA2MyAyOTkuNUM2MS4zOTYzIDI5OS41IDYwLjM2NDEgMzAxLjc4NiA1OS4zNjg4IDMwMy45OTFDNTguNTAyMiAzMDUuOTEgNTcuNjYzNiAzMDcuNzY3IDU2LjUgMzA4QzU0IDMwOC41IDUxLjUgMzA4IDQ4IDMwNC41QzQ0LjUgMzAxIDQyLjUgMjg1IDQyLjUgMjg1QzQyLjUgMjg1IDM1LjUgMjU2LjUgMzYuNSAyNTBaTTExNSAxNzRDMTMxLjUgMTYwIDE1Ni41IDE2MSAxNTcgMTY4QzE1Ny4yMTggMTcxLjA0OSAxNTIuOTc4IDE3My44MTMgMTQ4LjI4NyAxNzYuODcxQzE0Mi4yMDcgMTgwLjgzNCAxMzUuMzcxIDE4NS4yOTEgMTM2LjUgMTkxLjVDMTM3LjgxMSAxOTguNzA5IDE0Ny45MjYgMTk5LjQ3NSAxNTQuNzQzIDE5OS45OTJIMTU0Ljc0M0MxNTguMzI4IDIwMC4yNjQgMTYxIDIwMC40NjYgMTYxIDIwMS41QzE2MSAyMDIuNDg2IDE1OS4yNyAyMDMuNjg5IDE1Ni45NDggMjA1LjMwNEMxNTIuMjA4IDIwOC41OTkgMTQ1IDIxMy42MSAxNDUgMjIyQzE0NSAyMjguOTEzIDE1MS43MjkgMjMwLjAxNSAxNTcuNTc1IDIzMC45NzJDMTYyLjI5OSAyMzEuNzQ1IDE2Ni40NDcgMjMyLjQyNCAxNjYgMjM2QzE2NSAyNDQgMTUxIDI0NyAxNDQgMjQ3QzE0My42ODggMjQ3IDE0My4zNzMgMjQ3LjAwMSAxNDMuMDU1IDI0Ny4wMDJMMTQzLjA0NiAyNDcuMDAyQzEzNi4yMzEgMjQ3LjAyNCAxMjguMDI3IDI0Ny4wNSAxMTggMjM3LjVDMTA3LjUgMjI3LjUgOTguNSAxODggMTE1IDE3NFpNODUuOTE3IDIxOS45MjJDODQuMDMxNyAyMTIuNTcxIDgyLjY2OTIgMjA3LjI1OSA4MC43NDg0IDIwNy40OTlDNzguNDM2NyAyMDcuNzg4IDc4LjAzMDQgMjE0LjgyMSA3Ny40ODA2IDIyNC4zMzdDNzcuMDc5IDIzMS4yODcgNzYuNjAxIDIzOS41NjEgNzUuMjQ4NCAyNDcuNDk5QzczLjkyNTMgMjU1LjI2NCA3MS4wNTIzIDI2My42MzggNjguODY3IDI3MC4wMDhMNjguODY2OSAyNzAuMDA4QzY2Ljc0MjIgMjc2LjIwMiA2NS4yNjc2IDI4MC41IDY2LjUgMjgwLjVDNjcuNTI3MSAyODAuNSA3Mi41IDI4MC41IDc2IDI2OUM3Ny4yNDg3IDI2NC44OTcgNzguMTkxNiAyNjAuODU4IDc5LjAwODMgMjU3LjM1OUM4MC40ODA3IDI1MS4wNTEgODEuNTQzIDI0Ni40OTkgODMuMjQ4NCAyNDYuNDk5Qzg0LjQyOTcgMjQ2LjQ5OSA4NS40MDUgMjQ5LjExNyA4Ni43NzY0IDI1Mi43OTlMODYuNzc2NCAyNTIuNzk5Qzg4LjQyNzMgMjU3LjIzIDkwLjY1MTggMjYzLjIwMiA5NC41IDI2OEM5OS42MzM0IDI3NC40MDEgMTEwLjE2NiAyNzguNzE0IDExMy43NDggMjc0LjQ5OUMxMTYuMDY2IDI3MS43NzIgMTEyLjcyOSAyNjguMTQ3IDEwNy44MzYgMjYyLjgzMUMxMDMuOTM3IDI1OC41OTUgOTkuMDQ5NCAyNTMuMjg1IDk1LjI0ODQgMjQ2LjUwMUM5MC42MTEyIDIzOC4yMjQgODcuOTU3OCAyMjcuODc5IDg1LjkxNyAyMTkuOTIyWk0yMC42NDI0IDIwMy41ODNDMjYuNzA3NSAyMDEuNTA3IDQxLjM0NzkgMTk3LjYxMiA0NC41IDIwNy4wNjlDNDcuNTg1NyAyMTYuMzI2IDM1LjE5ODYgMjI0LjA5NSAyOS4zNzQ4IDIyNy4xNjNDMjcuODM4NyAyMjcuOTczIDI2LjAwODQgMjI3LjE4MSAyNS40Mjg3IDIyNS41NDRMMTguOTQ0IDIwNy4yMzRDMTguNDEzOSAyMDUuNzM3IDE5LjE0IDIwNC4wOTggMjAuNjQyNCAyMDMuNTgzWiIgZmlsbD0iYmxhY2siLz4KPC9zdmc+Cg==" alt="Skull logo" class="loading-skull" />
+        <svg class="circular-text" viewBox="0 0 100 100">
             <path id="textPath" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0" fill="none"/>
-            <text style="fill:#5b5856;font-size:6px;letter-spacing:6px;text-transform:uppercase;font-family:monospace;">
+            <text>
                 <textPath href="#textPath">
                 • L O A D I N G • ▼
                 </textPath>
@@ -181,14 +121,13 @@
 </div>
 
 <script>
-// Swap to full loading screen when skull image is available
+// Make loading screen visible immediately
 (function() {
-	var img = new Image();
-	img.onload = function() {
-		document.querySelector('.init-loading').style.display = 'none';
-		document.querySelector('.loading-screen').style.display = 'flex';
-	};
-	img.src = '/img/skully.svg';
+	var loadingScreen = document.querySelector('.loading-screen');
+	if (loadingScreen) {
+		loadingScreen.style.display = 'flex';
+		console.log('Loading screen made visible');
+	}
 })();
 </script>
 
@@ -236,79 +175,79 @@
 <script src="<%- url_for('js/anchor-links-simple.js') %>"></script>
 
 <script>
-	// Simple loading screen management
-	let isLoadingComplete = false;
-	
-	// Check for debug mode
-	const urlParams = new URLSearchParams(window.location.search);
-	const debugLoading = urlParams.get('debug-loading') === 'true';
-	const loadingDelay = debugLoading ? 5000 : 300; // 5 seconds in debug mode
-	
-	// Log loading screen presence immediately
-	console.log('Loading screen check:', {
-		exists: !!document.querySelector('.loading-screen'),
-		debugMode: debugLoading,
-		visibility: document.querySelector('.loading-screen') ? window.getComputedStyle(document.querySelector('.loading-screen')).display : 'not found'
-	});
-
-	function hideLoadingScreen() {
-		if (isLoadingComplete) return;
-		isLoadingComplete = true;
-
-		console.log('Hiding loading screen...');
+	// Inline loading screen management - runs immediately
+	(function() {
+		var isLoadingComplete = false;
 		
-		// Show body content
-		document.body.classList.add('loaded');
+		// Check for debug mode
+		var urlParams = new URLSearchParams(window.location.search);
+		var debugLoading = urlParams.get('debug-loading') === 'true';
+		var loadingDelay = debugLoading ? 5000 : 300;
 		
-		// Hide both loading screens
-		const initLoading = document.querySelector('.init-loading');
-		const loadingScreen = document.querySelector('.loading-screen');
+		// Log loading screen presence
+		console.log('Loading screen initialized:', {
+			debugMode: debugLoading,
+			delay: loadingDelay + 'ms'
+		});
+
+		function hideLoadingScreen() {
+			if (isLoadingComplete) return;
+			isLoadingComplete = true;
+
+			console.log('Hiding loading screen...');
+			
+			// Show body content
+			document.body.classList.add('loaded');
+			
+			// Hide loading screen
+			var loadingScreen = document.querySelector('.loading-screen');
+			
+			if (loadingScreen) {
+				loadingScreen.classList.add('hidden');
+				setTimeout(function() {
+					loadingScreen.style.display = 'none';
+				}, 300);
+			}
+		}
 		
-		if (initLoading) {
-			initLoading.style.display = 'none';
-		}
-		
-		if (loadingScreen) {
-			loadingScreen.classList.add('hidden');
-			setTimeout(function() {
-				loadingScreen.style.display = 'none';
-			}, 300);
-		}
-	}
+		// Store function globally for other scripts to call
+		window.hideLoadingScreen = hideLoadingScreen;
 
-	// Multiple triggers to ensure loading screen hides
-	document.addEventListener('DOMContentLoaded', function() {
-		if (debugLoading) {
-			console.log('DEBUG MODE: Loading screen will stay visible for 5 seconds');
-		}
-		console.log('DOM loaded, hiding loading screen in ' + loadingDelay + 'ms...');
-		setTimeout(hideLoadingScreen, loadingDelay);
-	});
+		// Multiple triggers to ensure loading screen hides
+		document.addEventListener('DOMContentLoaded', function() {
+			if (debugLoading) {
+				console.log('DEBUG MODE: Loading screen will stay visible for 5 seconds');
+			}
+			console.log('DOM loaded, hiding loading screen in ' + loadingDelay + 'ms...');
+			setTimeout(hideLoadingScreen, loadingDelay);
+		});
 
-	window.addEventListener('load', function() {
-		if (!debugLoading) {
-			console.log('Window loaded, hiding loading screen...');
-			setTimeout(hideLoadingScreen, 100);
-		}
-	});
+		window.addEventListener('load', function() {
+			if (!debugLoading) {
+				console.log('Window loaded, hiding loading screen...');
+				setTimeout(hideLoadingScreen, 100);
+			}
+		});
 
-	// Safety fallback
-	setTimeout(function() {
-		if (debugLoading) {
-			console.log('Debug mode complete, hiding loading screen...');
-		} else {
-			console.log('Safety timeout, forcing loading screen to hide...');
-		}
-		hideLoadingScreen();
-	}, debugLoading ? 6000 : 2000);
-
-	// Handle browser back/forward
-	window.addEventListener('pageshow', function(event) {
-		if (event.persisted) {
-			console.log('Page from cache, hiding loading screen immediately...');
+		// Safety fallback
+		setTimeout(function() {
+			if (debugLoading) {
+				console.log('Debug mode complete, hiding loading screen...');
+			} else {
+				console.log('Safety timeout, forcing loading screen to hide...');
+			}
 			hideLoadingScreen();
-		}
-	});
+		}, debugLoading ? 6000 : 2000);
+
+		// Handle browser back/forward
+		window.addEventListener('pageshow', function(event) {
+			if (event.persisted) {
+				console.log('Page from cache, hiding loading screen immediately...');
+				hideLoadingScreen();
+			}
+		});
+	})();
+</script>
 	// Handle direct navigation to blog posts and projects via URL parameter
 	document.addEventListener('DOMContentLoaded', function() {
 	    // Check if we have a post or project parameter
