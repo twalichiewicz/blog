@@ -277,8 +277,12 @@
 			}
 		}
 		
-		/* Hide content until loaded */
-		body:not(.loaded) .blog,
+		/* Hide content until loaded - but not too aggressively */
+		body:not(.loaded) .blog {
+			opacity: 0;
+			visibility: hidden;
+		}
+		
 		body:not(.loaded) .skip-navigation {
 			opacity: 0;
 			visibility: hidden;
@@ -306,6 +310,13 @@
 		/* Ensure all child elements are visible */
 		body.loaded .blog * {
 			visibility: visible !important;
+		}
+		
+		/* Ensure content-inner-wrapper is visible */
+		body.loaded .content-inner-wrapper {
+			opacity: 1 !important;
+			visibility: visible !important;
+			display: block !important;
 		}
 		
 		/* Ensure body is visible */
@@ -570,15 +581,51 @@
 				skipNav.style.visibility = 'visible';
 			}
 			
-			// Force all blog children to be visible
-			var allBlogElements = document.querySelectorAll('.blog *');
-			for (var i = 0; i < allBlogElements.length; i++) {
-				allBlogElements[i].style.visibility = 'visible';
+			// Force visibility of content-inner-wrapper specifically
+			var contentInnerWrapper = document.querySelector('.content-inner-wrapper');
+			if (contentInnerWrapper) {
+				contentInnerWrapper.style.opacity = '1';
+				contentInnerWrapper.style.visibility = 'visible';
+				contentInnerWrapper.style.display = 'block';
+				console.log('Forced content-inner-wrapper visibility');
+			}
+			
+			// Force visibility on all content containers that might be hidden
+			var contentContainers = [
+				'.blog-list',
+				'.column-title',
+				'.search-container',
+				'.content-wrapper',
+				'.tabs-wrapper',
+				'.mobile-tabs',
+				'#postsContent',
+				'#projectsContent'
+			];
+			
+			contentContainers.forEach(function(selector) {
+				var elements = document.querySelectorAll(selector);
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].style.opacity = '1';
+					elements[i].style.visibility = 'visible';
+					elements[i].style.display = '';
+				}
+			});
+			
+			// Force all blog children to be visible - but be more selective
+			var blogChildren = document.querySelectorAll('.blog > *, .blog-content > *, .content-inner-wrapper > *');
+			for (var i = 0; i < blogChildren.length; i++) {
+				if (blogChildren[i].style.visibility === 'hidden' || blogChildren[i].style.opacity === '0') {
+					blogChildren[i].style.visibility = 'visible';
+					blogChildren[i].style.opacity = '1';
+				}
 			}
 			
 			// Remove any potential overlay issues
 			document.body.style.overflow = 'auto';
 			document.body.style.position = 'static';
+			
+			// Force a reflow to ensure styles are applied
+			document.body.offsetHeight;
 		}
 		
 		// Store function globally for other scripts to call
@@ -611,8 +658,12 @@
 			}
 			
 			if (!debugLoading) {
-				console.log('Window loaded, hiding loading screen...');
-				setTimeout(hideLoadingScreen, 800);
+				console.log('Window loaded, waiting for blog initialization...');
+				// Give blog.js time to initialize after window load
+				setTimeout(function() {
+					console.log('Blog should be initialized, hiding loading screen...');
+					hideLoadingScreen();
+				}, 1200);
 			}
 		});
 
@@ -624,6 +675,30 @@
 				console.log('Safety timeout, forcing loading screen to hide...');
 			}
 			hideLoadingScreen();
+			
+			// Extra safety: ensure content is visible after everything settles
+			setTimeout(function() {
+				console.log('Final visibility check...');
+				// Force blog-content to be visible if it's still hidden
+				var blogContent = document.querySelector('.blog-content');
+				if (blogContent) {
+					var computedStyle = window.getComputedStyle(blogContent);
+					if (computedStyle.opacity === '0' || computedStyle.visibility === 'hidden') {
+						console.log('Blog content still hidden, forcing visibility');
+						blogContent.style.cssText += 'opacity: 1 !important; visibility: visible !important; display: block !important;';
+					}
+				}
+				
+				// Also check content-inner-wrapper
+				var contentInner = document.querySelector('.content-inner-wrapper');
+				if (contentInner) {
+					var computedStyle = window.getComputedStyle(contentInner);
+					if (computedStyle.opacity === '0' || computedStyle.visibility === 'hidden') {
+						console.log('Content inner wrapper still hidden, forcing visibility');
+						contentInner.style.cssText += 'opacity: 1 !important; visibility: visible !important; display: block !important;';
+					}
+				}
+			}, 500);
 		}, debugLoading ? 6000 : 3000);
 
 		// Handle browser back/forward
