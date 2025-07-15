@@ -127,6 +127,18 @@
 <script>
 	// Simple loading screen management
 	let isLoadingComplete = false;
+	
+	// Check for debug mode
+	const urlParams = new URLSearchParams(window.location.search);
+	const debugLoading = urlParams.get('debug-loading') === 'true';
+	const loadingDelay = debugLoading ? 5000 : 300; // 5 seconds in debug mode
+	
+	// Log loading screen presence immediately
+	console.log('Loading screen check:', {
+		exists: !!document.querySelector('.loading-screen'),
+		debugMode: debugLoading,
+		visibility: document.querySelector('.loading-screen') ? window.getComputedStyle(document.querySelector('.loading-screen')).display : 'not found'
+	});
 
 	function hideLoadingScreen() {
 		if (isLoadingComplete) return;
@@ -149,20 +161,29 @@
 
 	// Multiple triggers to ensure loading screen hides
 	document.addEventListener('DOMContentLoaded', function() {
-		console.log('DOM loaded, hiding loading screen in 300ms...');
-		setTimeout(hideLoadingScreen, 300);
+		if (debugLoading) {
+			console.log('DEBUG MODE: Loading screen will stay visible for 5 seconds');
+		}
+		console.log('DOM loaded, hiding loading screen in ' + loadingDelay + 'ms...');
+		setTimeout(hideLoadingScreen, loadingDelay);
 	});
 
 	window.addEventListener('load', function() {
-		console.log('Window loaded, hiding loading screen...');
-		setTimeout(hideLoadingScreen, 100);
+		if (!debugLoading) {
+			console.log('Window loaded, hiding loading screen...');
+			setTimeout(hideLoadingScreen, 100);
+		}
 	});
 
 	// Safety fallback
 	setTimeout(function() {
-		console.log('Safety timeout, forcing loading screen to hide...');
+		if (debugLoading) {
+			console.log('Debug mode complete, hiding loading screen...');
+		} else {
+			console.log('Safety timeout, forcing loading screen to hide...');
+		}
 		hideLoadingScreen();
-	}, 2000);
+	}, debugLoading ? 6000 : 2000);
 
 	// Handle browser back/forward
 	window.addEventListener('pageshow', function(event) {
