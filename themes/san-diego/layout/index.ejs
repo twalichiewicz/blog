@@ -319,6 +319,9 @@
 	if (loadingScreen) {
 		loadingScreen.style.display = 'flex';
 		console.log('Loading screen made visible');
+		
+		// Store reference globally for easier access
+		window._loadingScreen = loadingScreen;
 	}
 	
 	// Enhanced progress tracking
@@ -488,20 +491,35 @@
 			document.body.classList.add('loaded');
 			console.log('Added loaded class to body:', document.body.classList);
 			
-			// Hide loading screen
-			var loadingScreen = document.querySelector('.loading-screen');
+			// Hide loading screen - try multiple methods
+			var loadingScreen = window._loadingScreen || document.querySelector('.loading-screen');
 			
 			if (loadingScreen) {
-				console.log('Found loading screen, adding hidden class');
-				loadingScreen.classList.add('hidden');
-				// Force opacity to 0 immediately
-				loadingScreen.style.opacity = '0';
+				console.log('Found loading screen, forcing hide');
+				// Use multiple inline styles to ensure it's hidden
+				loadingScreen.style.cssText = 'display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;';
+				
+				// Also try to remove it entirely after a short delay
 				setTimeout(function() {
-					loadingScreen.style.display = 'none';
-					console.log('Loading screen display set to none');
-				}, 300);
+					try {
+						if (loadingScreen && loadingScreen.parentNode) {
+							loadingScreen.parentNode.removeChild(loadingScreen);
+							console.log('Loading screen removed from DOM');
+						}
+					} catch (e) {
+						console.error('Error removing loading screen:', e);
+					}
+				}, 100);
 			} else {
 				console.error('Loading screen not found!');
+				// Try one more time with a different selector
+				var allDivs = document.querySelectorAll('div');
+				for (var i = 0; i < allDivs.length; i++) {
+					if (allDivs[i].className && allDivs[i].className.indexOf('loading-screen') !== -1) {
+						console.log('Found loading screen via fallback');
+						allDivs[i].style.cssText = 'display: none !important;';
+					}
+				}
 			}
 			
 			// Force visibility of main content
