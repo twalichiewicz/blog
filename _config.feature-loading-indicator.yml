@@ -1,0 +1,4 @@
+
+# Dev config for feature/loading-indicator
+server:
+  port: 4005

@@ -73,7 +73,7 @@ body.loaded {
 	border-radius: 2px;
 	overflow: hidden;
 	opacity: 0;
-	animation: fadeIn 0.3s ease-out 0.2s forwards;
+	animation: fadeInProgress 0.3s ease-out 0.2s forwards;
 	
 	@media (prefers-color-scheme: dark) {
 		background: rgba(228, 225, 219, 0.2);
@@ -111,6 +111,16 @@ body.loaded {
 	to {
 		opacity: 1;
 		transform: translate(-50%, -50%) scale(1);
+	}
+}
+
+@keyframes fadeInProgress {
+	from {
+		opacity: 0;
+	}
+	
+	to {
+		opacity: 1;
 	}
 }
 
