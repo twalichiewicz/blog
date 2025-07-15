@@ -25,6 +25,15 @@
 			letter-spacing: 4px;
 			text-transform: uppercase;
 		}
+		/* Dark mode support */
+		@media (prefers-color-scheme: dark) {
+			.init-loading {
+				background: hsl(40.1, 8.4%, 35.98%);
+			}
+			.init-loading-text {
+				color: #e4e1db;
+			}
+		}
 	</style>
 	<%- partial('_partial/head') %>
 	<style>
@@ -81,29 +90,45 @@
 			transition: opacity 0.3s ease-out !important;
 		}
 		
+		/* Dark mode support for loading screen */
+		@media (prefers-color-scheme: dark) {
+			.loading-screen {
+				background: hsl(40.1, 8.4%, 35.98%) !important;
+			}
+		}
+		
 		.loading-screen.hidden {
 			opacity: 0;
 			pointer-events: none;
 		}
 		
-		/* Fix loading container positioning */
+		/* Fix loading container positioning - reduced for smaller skull */
 		.loading-container {
 			position: relative !important;
-			width: 120px !important;
-			height: 120px !important;
+			width: 80px !important;
+			height: 80px !important;
 		}
 		
-		/* Fix skull positioning */
+		/* Fix skull positioning - reduced to 24px */
 		.loading-skull {
 			position: absolute !important;
 			top: 50% !important;
 			left: 50% !important;
 			transform: translate(-50%, -50%) !important;
-			width: 80px !important;
-			height: 80px !important;
+			width: 24px !important;
+			height: 24px !important;
+			max-width: 24px !important;
+			max-height: 24px !important;
 			/* Remove opacity override to allow animation */
 			/* No invert - keep skull black on beige background */
 			animation: fadeIn 0.3s ease-out forwards !important;
+		}
+		
+		/* Invert skull in dark mode for visibility */
+		@media (prefers-color-scheme: dark) {
+			.loading-skull {
+				filter: invert(1);
+			}
 		}
 		
 		/* Fix circular text positioning */
@@ -120,10 +145,17 @@
 		/* Ensure text is visible */
 		.loading-screen .circular-text text {
 			fill: #5b5856 !important;
-			font-size: 8px !important;
-			letter-spacing: 8px !important;
+			font-size: 6px !important;
+			letter-spacing: 6px !important;
 			text-transform: uppercase !important;
 			font-family: monospace !important;
+		}
+		
+		/* Light text in dark mode */
+		@media (prefers-color-scheme: dark) {
+			.loading-screen .circular-text text {
+				fill: #e4e1db !important;
+			}
 		}
 	</style>
 </head>
@@ -135,11 +167,11 @@
 
 <!-- Full loading screen with skull (loads after initial) -->
 <div class="loading-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#e4e1db;display:none;align-items:center;justify-content:center;z-index:9999;">
-    <div class="loading-container" style="position:relative;width:120px;height:120px;">
-        <img src="/img/skully.svg" alt="Skull logo" class="loading-skull" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;animation:fadeIn 0.3s ease-out forwards;" />
+    <div class="loading-container" style="position:relative;width:80px;height:80px;">
+        <img src="/img/skully.svg" alt="Skull logo" class="loading-skull" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:24px;height:24px;max-width:24px;max-height:24px;animation:fadeIn 0.3s ease-out forwards;" />
         <svg class="circular-text" viewBox="0 0 100 100" style="position:absolute;top:0;left:0;width:100%;height:100%;animation:spin 8s linear infinite;">
             <path id="textPath" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0" fill="none"/>
-            <text style="fill:#5b5856;font-size:8px;letter-spacing:8px;text-transform:uppercase;font-family:monospace;">
+            <text style="fill:#5b5856;font-size:6px;letter-spacing:6px;text-transform:uppercase;font-family:monospace;">
                 <textPath href="#textPath">
                 • L O A D I N G • ▼
                 </textPath>
