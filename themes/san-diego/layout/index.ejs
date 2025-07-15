@@ -283,7 +283,7 @@
 		
 		body.loaded .blog,
 		body.loaded .skip-navigation {
-			opacity: 1;
+			opacity: 1 !important;
 			transition: opacity 0.5s ease-in;
 		}
 	</style>
@@ -473,15 +473,27 @@
 			
 			// Show body content
 			document.body.classList.add('loaded');
+			console.log('Added loaded class to body:', document.body.classList);
 			
 			// Hide loading screen
 			var loadingScreen = document.querySelector('.loading-screen');
 			
 			if (loadingScreen) {
+				console.log('Found loading screen, adding hidden class');
 				loadingScreen.classList.add('hidden');
 				setTimeout(function() {
 					loadingScreen.style.display = 'none';
+					console.log('Loading screen display set to none');
 				}, 300);
+			} else {
+				console.error('Loading screen not found!');
+			}
+			
+			// Force visibility of main content
+			var blog = document.querySelector('.blog');
+			if (blog) {
+				blog.style.opacity = '1';
+				console.log('Forced blog opacity to 1');
 			}
 		}
 		

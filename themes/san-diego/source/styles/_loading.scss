@@ -39,6 +39,11 @@ body.loaded {
 	@media (prefers-color-scheme: dark) {
 		background: hsl(40.1, 8.4%, 35.98%);
 	}
+	
+	&.hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
 }
 
 .loading-container {
