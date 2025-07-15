@@ -6,7 +6,11 @@
 	<title><%= config.title %><% if (config.subtitle) { %> | <%= config.subtitle %><% } %></title>
 	<%- partial('_partial/head') %>
 	<style>
-		/* Initial body state for loading */
+		/* Loading state management */
+		body:not(.loaded) {
+			overflow: hidden;
+		}
+		
 		body {
 			opacity: 0;
 			transition: opacity 0.5s ease-in;
@@ -14,6 +18,62 @@
 		
 		body.loaded {
 			opacity: 1;
+		}
+		
+		/* Fix loading screen positioning and ensure proper display */
+		.loading-screen {
+			position: fixed !important;
+			top: 0 !important;
+			left: 0 !important;
+			width: 100% !important;
+			height: 100% !important;
+			background: #000 !important;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: center !important;
+			z-index: 9999 !important;
+			transition: opacity 0.3s ease-out !important;
+		}
+		
+		.loading-screen.hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+		
+		/* Fix loading container positioning */
+		.loading-container {
+			position: relative !important;
+			width: 120px !important;
+			height: 120px !important;
+		}
+		
+		/* Fix skull positioning */
+		.loading-skull {
+			position: absolute !important;
+			top: 50% !important;
+			left: 50% !important;
+			transform: translate(-50%, -50%) !important;
+			width: 80px !important;
+			height: 80px !important;
+			opacity: 1 !important;
+			filter: invert(1) !important;
+		}
+		
+		/* Fix circular text positioning */
+		.loading-screen .circular-text {
+			position: absolute !important;
+			top: 0 !important;
+			left: 0 !important;
+			width: 100% !important;
+			height: 100% !important;
+			transform: none !important;
+			animation: spin 8s linear infinite !important;
+		}
+		
+		/* Ensure spin animation is defined */
+		@keyframes spin {
+			from { transform: rotate(0deg); }
+			to { transform: rotate(360deg); }
 		}
 	</style>
 </head>
@@ -65,79 +125,50 @@
 <script src="<%- url_for('js/anchor-links-simple.js') %>"></script>
 
 <script>
-	// Page fade-in animation
-	function initiatePageFadeIn() {
-		// Ensure this runs only once if called multiple times rapidly
-		if (document.body.classList.contains('fade-in-initialized')) {
-			// If already loaded and overlay is gone, ensure body is opaque
-			if (document.body.classList.contains('loaded') && 
-			    (!document.querySelector('.page-transition-overlay') || document.querySelector('.page-transition-overlay').style.display === 'none')) {
-				document.body.style.opacity = '1'; // Ensure body is visible if animation was completed
-			}
-			return;
-		}
-		document.body.classList.add('fade-in-initialized');
+	// Simple loading screen management
+	let isLoadingComplete = false;
 
-		let animationComplete = false;
+	function hideLoadingScreen() {
+		if (isLoadingComplete) return;
+		isLoadingComplete = true;
 
-		function completeAnimation() {
-			if (animationComplete) return;
-			animationComplete = true;
-
-			document.body.classList.add('loaded');
-			const loadingScreen = document.querySelector('.loading-screen');
-			if (loadingScreen) {
-				loadingScreen.style.opacity = '0';
-				setTimeout(function() {
-					if (loadingScreen) loadingScreen.style.display = 'none';
-				}, 300); // 300ms fade out
-			} else {
-				// If somehow loading screen is not there, ensure body is visible
-				document.body.style.opacity = '1';
-			}
-		}
-
-		// Wait for images to load (primary trigger)
-		window.addEventListener('load', function() {
-			setTimeout(completeAnimation, 800); // 800ms delay
-		});
+		console.log('Hiding loading screen...');
 		
-		// Fallback in case load event doesn't fire or is too slow
-		setTimeout(completeAnimation, 3000); // Increased timeout
+		// Show body content
+		document.body.classList.add('loaded');
 		
-		// Additional safeguard - ensure content is visible after max wait time
-		setTimeout(function() {
-			document.body.style.opacity = '1';
-			document.body.classList.add('loaded');
-			const loadingScreen = document.querySelector('.loading-screen');
-			if (loadingScreen) {
+		// Hide loading screen
+		const loadingScreen = document.querySelector('.loading-screen');
+		if (loadingScreen) {
+			loadingScreen.classList.add('hidden');
+			setTimeout(function() {
 				loadingScreen.style.display = 'none';
-			}
-		}, 4000);
+			}, 300);
+		}
 	}
 
+	// Multiple triggers to ensure loading screen hides
 	document.addEventListener('DOMContentLoaded', function() {
-		initiatePageFadeIn();
+		console.log('DOM loaded, hiding loading screen in 300ms...');
+		setTimeout(hideLoadingScreen, 300);
 	});
 
+	window.addEventListener('load', function() {
+		console.log('Window loaded, hiding loading screen...');
+		setTimeout(hideLoadingScreen, 100);
+	});
+
+	// Safety fallback
+	setTimeout(function() {
+		console.log('Safety timeout, forcing loading screen to hide...');
+		hideLoadingScreen();
+	}, 2000);
+
+	// Handle browser back/forward
 	window.addEventListener('pageshow', function(event) {
 		if (event.persisted) {
-            // Page is loaded from bfcache - ensure content is visible immediately
-			document.body.style.opacity = '1';
-			document.body.classList.add('loaded');
-			document.body.classList.add('fade-in-initialized');
-
-			// Hide the loading screen immediately
-			const loadingScreen = document.querySelector('.loading-screen');
-			if (loadingScreen) {
-				loadingScreen.style.display = 'none';
-				loadingScreen.style.opacity = '0';
-			}
-		} else {
-			// Normal page load - ensure fade-in happens
-			if (!document.body.classList.contains('fade-in-initialized')) {
-				initiatePageFadeIn();
-			}
+			console.log('Page from cache, hiding loading screen immediately...');
+			hideLoadingScreen();
 		}
 	});
 	// Handle direct navigation to blog posts and projects via URL parameter
