@@ -183,6 +183,12 @@
 			transition: opacity 0.3s ease-out;
 		}
 		
+		/* Ensure main content is below loading screen initially */
+		.blog {
+			position: relative;
+			z-index: 1;
+		}
+		
 		@media (prefers-color-scheme: dark) {
 			.loading-screen {
 				background: hsl(40.1, 8.4%, 35.98%);
@@ -284,7 +290,14 @@
 		body.loaded .blog,
 		body.loaded .skip-navigation {
 			opacity: 1 !important;
+			visibility: visible !important;
 			transition: opacity 0.5s ease-in;
+		}
+		
+		/* Ensure body is visible */
+		body {
+			opacity: 1 !important;
+			visibility: visible !important;
 		}
 	</style>
 </head>
@@ -495,8 +508,21 @@
 			var blog = document.querySelector('.blog');
 			if (blog) {
 				blog.style.opacity = '1';
-				console.log('Forced blog opacity to 1');
+				blog.style.visibility = 'visible';
+				blog.style.display = 'block';
+				console.log('Forced blog visibility');
 			}
+			
+			// Also force skip navigation
+			var skipNav = document.querySelector('.skip-navigation');
+			if (skipNav) {
+				skipNav.style.opacity = '1';
+				skipNav.style.visibility = 'visible';
+			}
+			
+			// Remove any potential overlay issues
+			document.body.style.overflow = 'auto';
+			document.body.style.position = 'static';
 		}
 		
 		// Store function globally for other scripts to call
