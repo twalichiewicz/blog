@@ -191,15 +191,13 @@
 		
 		.loading-container {
 			position: relative;
-			width: 80px;
-			height: 80px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 20px;
 		}
 		
 		.loading-skull {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
 			width: 24px;
 			height: 24px;
 			max-width: 24px;
@@ -212,38 +210,48 @@
 			}
 		}
 		
-		.circular-text {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			animation: spin 8s linear infinite;
-			transform-origin: center center;
-		}
-		
-		.circular-text text {
-			fill: #5b5856;
-			font-size: 6px;
-			letter-spacing: 6px;
-			text-transform: uppercase;
-			font-family: monospace;
+		.progress-container {
+			width: 100px;
+			height: 4px;
+			background: rgba(91, 88, 86, 0.2);
+			border-radius: 2px;
+			overflow: hidden;
+			opacity: 0;
+			animation: fadeIn 0.3s ease-out 0.2s forwards;
 		}
 		
 		@media (prefers-color-scheme: dark) {
-			.circular-text text {
-				fill: #e4e1db;
+			.progress-container {
+				background: rgba(228, 225, 219, 0.2);
 			}
 		}
 		
-		@keyframes spin {
-			from { transform: rotate(0deg); }
-			to { transform: rotate(360deg); }
+		.progress-bar {
+			height: 100%;
+			background: #5b5856;
+			border-radius: 2px;
+			width: 0%;
+			transition: width 0.3s ease-out;
+		}
+		
+		@media (prefers-color-scheme: dark) {
+			.progress-bar {
+				background: #e4e1db;
+			}
 		}
 		
 		.loading-screen.hidden {
 			opacity: 0;
 			pointer-events: none;
+		}
+		
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 1;
+			}
 		}
 		
 		/* Hide content until loaded */
@@ -267,14 +275,9 @@
 <div class="loading-screen">
     <div class="loading-container">
         <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjcwIiBoZWlnaHQ9IjMyNSIgdmlld0JveD0iMCAwIDI3MCAzMjUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMzYuNSAyNTBDMzYuNzQ2OCAyNDkuNzc0IDM2Ljk4MzEgMjQ5LjUzNiAzNy4yMDkxIDI0OS4yODlDMzYuNzg5OSAyNTAuMTA4IDM2LjUgMjUwLjUgMzYuNSAyNTAuNUMzNi41IDI1MC41IDcwIDIyOS41IDU5LjUgMTk2LjVDNTAuMTIyNSAxNjcuMDI4IDE2LjgxNiAxNzcuNDM3IDkuODAyMzIgMTc5Ljk5OUM5LjY4NTk1IDE4MCA5LjU2OTY5IDE4MCA5LjQ1MzU0IDE4MEMzLjQzNTU2IDE2NC45NjYgMCAxNDcuNTg1IDAgMTI5LjVDLTIuNzA5NzhlLTA2IDEwNi41MzQgMi41NzQ2OCA4NS41NDU2IDkuMTQ4NzUgNjkuNzI1NUMyMi45MTMyIDI5LjU1MTYgNjkuMzQyNiAzLjA1MTc2ZS0wNSAxMjQuNSAzLjA1MTc2ZS0wNUMxMjYuMzA5IDMuMDUxNzZlLTA1IDEyOC4xMDggMC4wMzE4MTI4IDEyOS44OTggMC4wOTQ3MTA3QzEzMS41ODkgMC4wMzE4MDEgMTMzLjI5IDAgMTM1IDBDMTQzLjMyMyAwIDE1MS40MjggMC43NTMxMzMgMTU5LjIxNyAyLjE3OTU5QzIxOC45ODkgNS42Mjk3NSAyNzAgNTguMjE1MiAyNzAgMTEwQzI3MCAxMzguMDM1IDI1Ni4xNDUgMTYzLjI5MiAyMzMuOTkyIDE4MS4wMDFMMjM0IDE4MUMyMzQgMTgxIDIxMi41IDE5OSAyMDYgMjA0QzIwMy4yNjMgMjA4Ljc5IDIwMS4wNzkgMjQxLjkwOSAxOTkuNTk0IDI2NC40MjdMMTk5LjU5NCAyNjQuNDI3QzE5OC45MDkgMjc0LjgxNiAxOTguMzczIDI4Mi45NDggMTk4IDI4NUMxOTggMjg1LjUgMTk2IDMwMi41IDE5MyAzMDdDMTkyLjY0MSAzMDcuNTM4IDE5Mi4yNjggMzA4LjEyIDE5MS44NzkgMzA4LjcyNkMxODkuMDE0IDMxMy4xODcgMTg1LjI4MiAzMTkgMTgwIDMxOUMxNzYuNTk4IDMxOSAxNzUuNDQ3IDMxNS4xNDMgMTc0LjQ0OSAzMTEuODAyQzE3My42ODcgMzA5LjI1IDE3My4wMTYgMzA3IDE3MS41IDMwN0MxNjkuNjg3IDMwNyAxNjcuNjA2IDMxMC4yMiAxNjUuNDY1IDMxMy41MzJDMTYzLjQ3MiAzMTYuNjE1IDE2MS40MjggMzE5Ljc3NyAxNTkuNSAzMjAuNUMxNTUuNSAzMjIgMTUxLjUgMzIyLjUgMTQ3IDMyMUMxNDUuMDU1IDMyMC4zNTIgMTQ0LjEzOCAzMTguNDg5IDE0My4yMzggMzE2LjY2NEMxNDIuMDU3IDMxNC4yNjYgMTQwLjkwNyAzMTEuOTMyIDEzNy41IDMxMi41QzEzNC43NTMgMzEyLjk1OCAxMzQuNTIxIDMxMy44MzUgMTM0LjE2NiAzMTUuMTc5QzEzMy43NDUgMzE2Ljc3MSAxMzMuMTUxIDMxOS4wMTggMTI4IDMyMkMxMTguNSAzMjcuNSAxMDYuNSAzMjMuNSAxMDMgMzIwQzEwMS4zMTkgMzE4LjMxOSAxMDEuMjUzIDMxNS44MyAxMDEuMTk1IDMxMy42NDJDMTAxLjE1NyAzMTIuMjE1IDEwMS4xMjIgMzEwLjkxNyAxMDAuNjQ2IDMxMC4wNTNDOTkuNDA2MiAzMDkuODg3IDk4LjE4ODYgMzA5LjcwOCA5Ni45OTMxIDMwOS41MThDOTYuNDA2OSAzMDkuOTc2IDk1LjkzOTEgMzEwLjY4MiA5NS40MTE4IDMxMS40NzdDOTQuMTgyNiAzMTMuMzMyIDkyLjYzMDEgMzE1LjY3NCA4OC41IDMxNi41QzgxIDMxOCA3NiAzMTUgNzIuNSAzMTIuNUM3MC44ODk5IDMxMS4zNSA2OS4zODU3IDMwOC41MDcgNjcuOTM4NiAzMDUuNzcyQzY2LjIzOTkgMzAyLjU2MiA2NC42MiAyOTkuNSA2MyAyOTkuNUM2MS4zOTYzIDI5OS41IDYwLjM2NDEgMzAxLjc4NiA1OS4zNjg4IDMwMy45OTFDNTguNTAyMiAzMDUuOTEgNTcuNjYzNiAzMDcuNzY3IDU2LjUgMzA4QzU0IDMwOC41IDUxLjUgMzA4IDQ4IDMwNC41QzQ0LjUgMzAxIDQyLjUgMjg1IDQyLjUgMjg1QzQyLjUgMjg1IDM1LjUgMjU2LjUgMzYuNSAyNTBaTTExNSAxNzRDMTMxLjUgMTYwIDE1Ni41IDE2MSAxNTcgMTY4QzE1Ny4yMTggMTcxLjA0OSAxNTIuOTc4IDE3My44MTMgMTQ4LjI4NyAxNzYuODcxQzE0Mi4yMDcgMTgwLjgzNCAxMzUuMzcxIDE4NS4yOTEgMTM2LjUgMTkxLjVDMTM3LjgxMSAxOTguNzA5IDE0Ny45MjYgMTk5LjQ3NSAxNTQuNzQzIDE5OS45OTJIMTU0Ljc0M0MxNTguMzI4IDIwMC4yNjQgMTYxIDIwMC40NjYgMTYxIDIwMS41QzE2MSAyMDIuNDg2IDE1OS4yNyAyMDMuNjg5IDE1Ni45NDggMjA1LjMwNEMxNTIuMjA4IDIwOC41OTkgMTQ1IDIxMy42MSAxNDUgMjIyQzE0NSAyMjguOTEzIDE1MS43MjkgMjMwLjAxNSAxNTcuNTc1IDIzMC45NzJDMTYyLjI5OSAyMzEuNzQ1IDE2Ni40NDcgMjMyLjQyNCAxNjYgMjM2QzE2NSAyNDQgMTUxIDI0NyAxNDQgMjQ3QzE0My42ODggMjQ3IDE0My4zNzMgMjQ3LjAwMSAxNDMuMDU1IDI0Ny4wMDJMMTQzLjA0NiAyNDcuMDAyQzEzNi4yMzEgMjQ3LjAyNCAxMjguMDI3IDI0Ny4wNSAxMTggMjM3LjVDMTA3LjUgMjI3LjUgOTguNSAxODggMTE1IDE3NFpNODUuOTE3IDIxOS45MjJDODQuMDMxNyAyMTIuNTcxIDgyLjY2OTIgMjA3LjI1OSA4MC43NDg0IDIwNy40OTlDNzguNDM2NyAyMDcuNzg4IDc4LjAzMDQgMjE0LjgyMSA3Ny40ODA2IDIyNC4zMzdDNzcuMDc5IDIzMS4yODcgNzYuNjAxIDIzOS41NjEgNzUuMjQ4NCAyNDcuNDk5QzczLjkyNTMgMjU1LjI2NCA3MS4wNTIzIDI2My42MzggNjguODY3IDI3MC4wMDhMNjguODY2OSAyNzAuMDA4QzY2Ljc0MjIgMjc2LjIwMiA2NS4yNjc2IDI4MC41IDY2LjUgMjgwLjVDNjcuNTI3MSAyODAuNSA3Mi41IDI4MC41IDc2IDI2OUM3Ny4yNDg3IDI2NC44OTcgNzguMTkxNiAyNjAuODU4IDc5LjAwODMgMjU3LjM1OUM4MC40ODA3IDI1MS4wNTEgODEuNTQzIDI0Ni40OTkgODMuMjQ4NCAyNDYuNDk5Qzg0LjQyOTcgMjQ2LjQ5OSA4NS40MDUgMjQ5LjExNyA4Ni43NzY0IDI1Mi43OTlMODYuNzc2NCAyNTIuNzk5Qzg4LjQyNzMgMjU3LjIzIDkwLjY1MTggMjYzLjIwMiA5NC41IDI2OEM5OS42MzM0IDI3NC40MDEgMTEwLjE2NiAyNzguNzE0IDExMy43NDggMjc0LjQ5OUMxMTYuMDY2IDI3MS43NzIgMTEyLjcyOSAyNjguMTQ3IDEwNy44MzYgMjYyLjgzMUMxMDMuOTM3IDI1OC41OTUgOTkuMDQ5NCAyNTMuMjg1IDk1LjI0ODQgMjQ2LjUwMUM5MC42MTEyIDIzOC4yMjQgODcuOTU3OCAyMjcuODc5IDg1LjkxNyAyMTkuOTIyWk0yMC42NDI0IDIwMy41ODNDMjYuNzA3NSAyMDEuNTA3IDQxLjM0NzkgMTk3LjYxMiA0NC41IDIwNy4wNjlDNDcuNTg1NyAyMTYuMzI2IDM1LjE5ODYgMjI0LjA5NSAyOS4zNzQ4IDIyNy4xNjNDMjcuODM4NyAyMjcuOTczIDI2LjAwODQgMjI3LjE4MSAyNS40Mjg3IDIyNS41NDRMMTguOTQ0IDIwNy4yMzRDMTguNDEzOSAyMDUuNzM3IDE5LjE0IDIwNC4wOTggMjAuNjQyNCAyMDMuNTgzWiIgZmlsbD0iYmxhY2siLz4KPC9zdmc+Cg==" alt="Skull logo" class="loading-skull" />
-        <svg class="circular-text" viewBox="0 0 100 100">
-            <path id="textPath" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0" fill="none"/>
-            <text>
-                <textPath href="#textPath">
-                • L O A D I N G • ▼
-                </textPath>
-            </text>
-        </svg>
+        <div class="progress-container">
+            <div class="progress-bar" id="loadingProgress"></div>
+        </div>
     </div>
 </div>
 
@@ -286,6 +289,104 @@
 		loadingScreen.style.display = 'flex';
 		console.log('Loading screen made visible');
 	}
+	
+	// Progress tracking
+	var progress = 0;
+	var progressBar = document.getElementById('loadingProgress');
+	var resourcesLoaded = 0;
+	var totalResources = 0;
+	
+	// Track resource loading
+	function updateProgress() {
+		if (totalResources > 0) {
+			progress = Math.min((resourcesLoaded / totalResources) * 100, 90); // Cap at 90% until window.load
+			if (progressBar) {
+				progressBar.style.width = progress + '%';
+			}
+		}
+	}
+	
+	// Monitor resource loading via PerformanceObserver if available
+	if ('PerformanceObserver' in window) {
+		var observer = new PerformanceObserver(function(list) {
+			var entries = list.getEntries();
+			entries.forEach(function(entry) {
+				if (entry.entryType === 'resource') {
+					totalResources++;
+					if (entry.responseEnd > 0) {
+						resourcesLoaded++;
+					}
+					updateProgress();
+				}
+			});
+		});
+		observer.observe({ entryTypes: ['resource'] });
+	}
+	
+	// Fallback: estimate progress based on document readyState
+	document.addEventListener('readystatechange', function() {
+		if (document.readyState === 'interactive') {
+			progress = Math.max(progress, 30);
+			if (progressBar) progressBar.style.width = progress + '%';
+		} else if (document.readyState === 'complete') {
+			progress = Math.max(progress, 60);
+			if (progressBar) progressBar.style.width = progress + '%';
+		}
+	});
+	
+	// Track images separately
+	var images = document.querySelectorAll('img');
+	var imagesLoaded = 0;
+	totalResources += images.length;
+	
+	images.forEach(function(img) {
+		if (img.complete) {
+			imagesLoaded++;
+			resourcesLoaded++;
+			updateProgress();
+		} else {
+			img.addEventListener('load', function() {
+				imagesLoaded++;
+				resourcesLoaded++;
+				updateProgress();
+			});
+			img.addEventListener('error', function() {
+				imagesLoaded++;
+				resourcesLoaded++;
+				updateProgress();
+			});
+		}
+	});
+	
+	// Track stylesheets
+	var stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+	totalResources += stylesheets.length;
+	
+	stylesheets.forEach(function(link) {
+		link.addEventListener('load', function() {
+			resourcesLoaded++;
+			updateProgress();
+		});
+		link.addEventListener('error', function() {
+			resourcesLoaded++;
+			updateProgress();
+		});
+	});
+	
+	// Track scripts
+	var scripts = document.querySelectorAll('script[src]');
+	totalResources += scripts.length;
+	
+	scripts.forEach(function(script) {
+		script.addEventListener('load', function() {
+			resourcesLoaded++;
+			updateProgress();
+		});
+		script.addEventListener('error', function() {
+			resourcesLoaded++;
+			updateProgress();
+		});
+	});
 })();
 </script>
 
@@ -383,6 +484,12 @@
 		});
 
 		window.addEventListener('load', function() {
+			// Complete progress bar
+			var progressBar = document.getElementById('loadingProgress');
+			if (progressBar) {
+				progressBar.style.width = '100%';
+			}
+			
 			if (!debugLoading) {
 				console.log('Window loaded, hiding loading screen...');
 				setTimeout(hideLoadingScreen, 800);

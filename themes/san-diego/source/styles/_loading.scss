@@ -65,34 +65,30 @@ body.loaded {
 	}
 }
 
-.circular-text {
-	position: absolute;
-	width: 100%;
+/* Progress bar styles */
+.progress-container {
+	width: 100px;
+	height: 4px;
+	background: rgba(91, 88, 86, 0.2);
+	border-radius: 2px;
+	overflow: hidden;
+	opacity: 0;
+	animation: fadeIn 0.3s ease-out 0.2s forwards;
+	
+	@media (prefers-color-scheme: dark) {
+		background: rgba(228, 225, 219, 0.2);
+	}
+}
+
+.progress-bar {
 	height: 100%;
-	animation: spin 8s linear infinite;
-	top: 0;
-	left: 0;
-
-	path {
-		fill: none;
-	}
-
-	text {
-		fill: #5b5856;
-		font-size: 6px;
-		text-transform: uppercase;
-		font-family: var(--font-mono);
-		letter-spacing: 6px;
-
-		/* Increased letter spacing for better distribution */
-		
-		@media (prefers-color-scheme: dark) {
-			fill: #e4e1db;
-		}
-	}
-
-	&::before {
-		display: none;
+	background: #5b5856;
+	border-radius: 2px;
+	width: 0%;
+	transition: width 0.3s ease-out;
+	
+	@media (prefers-color-scheme: dark) {
+		background: #e4e1db;
 	}
 }
 
@@ -131,25 +127,3 @@ body.loaded {
 	display: none !important;
 }
 
-/* Additional loading styles from blog.scss */
-.circular-text {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 80px;
-	height: 80px;
-	animation: spin 10s linear infinite;
-
-	text {
-		fill: #5b5856;
-		font-size: 6px;
-		letter-spacing: 6px;
-		text-transform: uppercase;
-		font-family: var(--font-mono);
-		
-		@media (prefers-color-scheme: dark) {
-			fill: #e4e1db;
-		}
-	}
-}
