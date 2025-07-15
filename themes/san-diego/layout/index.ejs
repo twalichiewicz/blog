@@ -406,33 +406,26 @@
 		});
 	})();
 </script>
-	// Handle direct navigation to blog posts and projects via URL parameter
-	document.addEventListener('DOMContentLoaded', function() {
-	    // Check if we have a post or project parameter
-	    const urlParams = new URLSearchParams(window.location.search);
-	    const postPath = urlParams.get('post');
-	    const projectPath = urlParams.get('project');
 
-	    if (postPath || projectPath) {
-	        const path = postPath || projectPath;
-	        const isProject = !!projectPath;
-        
-        // Load the content
-        setTimeout(function() {
-            const blogContent = document.querySelector('.blog-content');
-            if (blogContent && window.fetchAndDisplayContent) {
-                // Switch to appropriate tab first
-                if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-                    window.mobileTabs.switchTab(isProject ? 'portfolio' : 'blog', true);
-                }
-                // Load the content
-                window.fetchAndDisplayContent(path, false, isProject);
-                
-                // Clean up the URL to show the actual post/project path
-                window.history.replaceState({ path: path, isDynamic: true, isProject: isProject }, '', path);
-            }
-        }, 500); // Small delay to ensure everything is initialized
-    }
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const urlParams = new URLSearchParams(window.location.search);
+	const postPath = urlParams.get('post');
+	const projectPath = urlParams.get('project');
+	if (postPath || projectPath) {
+		const path = postPath || projectPath;
+		const isProject = !!projectPath;
+		setTimeout(function() {
+			const blogContent = document.querySelector('.blog-content');
+			if (blogContent && window.fetchAndDisplayContent) {
+				if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+					window.mobileTabs.switchTab(isProject ? 'portfolio' : 'blog', true);
+				}
+				window.fetchAndDisplayContent(path, false, isProject);
+				window.history.replaceState({ path: path, isDynamic: true, isProject: isProject }, '', path);
+			}
+		}, 500);
+	}
 });
 </script>
 
