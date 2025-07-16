@@ -241,12 +241,12 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 <style>
 /* Default cursor for the prototype (non-interactive areas) */
 .youtube-demo {
-  cursor: url('/cursors/default.svg') 0 0, default;
+  cursor: url('/cursors/default.svg') 10 6, default;
 }
 
 /* Apply default cursor to all elements within the prototype */
 .youtube-demo * {
-  cursor: inherit !important;
+  cursor: inherit;
 }
 
 /* Clickable elements get the interactive cursor with blue dot */
@@ -265,7 +265,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 .youtube-demo input[type="submit"],
 .youtube-demo input[type="button"],
 .youtube-demo .clickable {
-  cursor: url('/cursors/pointer.svg') 0 0, pointer !important;
+  cursor: url('/cursors/pointer.svg') 15 7, pointer;
 }
 
 /* Text selection areas get text cursor */
@@ -273,20 +273,20 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 .youtube-demo textarea,
 .youtube-demo [contenteditable="true"],
 .youtube-demo .comment-input {
-  cursor: url('/cursors/text.svg') 0 0, text !important;
+  cursor: url('/cursors/text.svg') 15 15, text;
 }
 
 /* Draggable elements get grab cursor */
 .youtube-demo .progress-bar,
 .youtube-demo .progress-fill {
-  cursor: url('/cursors/grab.svg') 12 12, grab !important;
+  cursor: url('/cursors/grab.svg') 12 12, grab;
 }
 
 /* Disabled elements get not-allowed cursor */
 .youtube-demo button:disabled,
 .youtube-demo [disabled],
 .youtube-demo .disabled {
-  cursor: url('/cursors/disabled.svg') 0 0, not-allowed !important;
+  cursor: url('/cursors/disabled.svg') 15 15, not-allowed;
   opacity: 0.5;
 }
 
