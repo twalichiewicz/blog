@@ -249,6 +249,17 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
   cursor: inherit;
 }
 
+/* Force cursor refresh on hover with minimal transform */
+.youtube-demo button:hover,
+.youtube-demo a:hover,
+.youtube-demo .timeline-marker:hover,
+.youtube-demo .clickable:hover,
+.youtube-demo .menu-item:hover,
+.youtube-demo .comment-time-link:hover {
+  cursor: url('/cursors/pointer.svg') 8 4, pointer;
+  transform: translateZ(0); /* Force GPU layer for cursor refresh */
+}
+
 /* Clickable elements get the interactive cursor with blue dot */
 .youtube-demo button,
 .youtube-demo a,
