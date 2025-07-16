@@ -290,7 +290,13 @@
 			overflow: auto;
 		}
 		
-		body.loaded .blog,
+		body.loaded .blog {
+			opacity: 1 !important;
+			visibility: visible !important;
+			display: flex !important;
+			transition: opacity 0.5s ease-in;
+		}
+		
 		body.loaded .skip-navigation {
 			opacity: 1 !important;
 			visibility: visible !important;
@@ -329,10 +335,10 @@
 			overflow: visible !important;
 		}
 		
-		/* Ensure main element doesn't restrict height */
+		/* Ensure main element uses proper flex layout */
 		main.blog {
-			height: auto !important;
-			min-height: 100vh;
+			display: flex !important;
+			flex-direction: column;
 		}
 	</style>
 </head>
@@ -390,7 +396,7 @@
 			});
 			
 			// Force it visible with highest specificity
-			blogContent.setAttribute('style', 'opacity: 1 !important; visibility: visible !important; display: block !important;');
+			blogContent.setAttribute('style', 'opacity: 1 !important; visibility: visible !important;');
 			
 			console.log('Computed styles after fix:', {
 				opacity: window.getComputedStyle(blogContent).opacity,
@@ -406,7 +412,7 @@
 		var contentInner = document.querySelector('.content-inner-wrapper');
 		if (contentInner) {
 			console.log('content-inner-wrapper found');
-			contentInner.setAttribute('style', 'opacity: 1 !important; visibility: visible !important; display: block !important;');
+			contentInner.setAttribute('style', 'opacity: 1 !important; visibility: visible !important;');
 		}
 		
 		// Check all children
