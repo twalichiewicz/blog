@@ -304,11 +304,20 @@
 			transition: opacity 0.5s ease-in;
 		}
 		
-		/* Ensure blog-content specifically is visible */
+		/* Ensure blog-content specifically is visible and scrollable */
 		body.loaded .blog-content {
 			opacity: 1 !important;
 			visibility: visible !important;
 			display: block !important;
+		}
+		
+		/* Ensure blog-content is scrollable on desktop/tablet */
+		@media (min-width: 769px) {
+			.blog-content {
+				height: calc(100vh - 12px) !important;
+				overflow-y: auto !important;
+				-webkit-overflow-scrolling: touch;
+			}
 		}
 		
 		/* Ensure all child elements are visible */
@@ -339,6 +348,25 @@
 		main.blog {
 			display: flex !important;
 			flex-direction: column;
+		}
+		
+		/* Desktop/tablet layout */
+		@media (min-width: 769px) {
+			main.blog {
+				flex-direction: row !important;
+				height: 100vh !important;
+				overflow: hidden !important;
+			}
+			
+			.blog-header {
+				flex-shrink: 0;
+				width: 400px; /* Fixed width for header on desktop */
+			}
+			
+			.blog-content {
+				flex: 1;
+				min-width: 0; /* Prevent flex item from overflowing */
+			}
 		}
 	</style>
 </head>
@@ -442,8 +470,14 @@
 			// Check if we're on desktop/tablet
 			var isDesktop = window.innerWidth > 768;
 			if (isDesktop) {
-				// Ensure proper height calculation for desktop
-				blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: calc(100vh - 12px) !important; overflow-y: auto !important;';
+				// Ensure proper height calculation and scrolling for desktop
+				blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: calc(100vh - 12px) !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important;';
+				
+				// Also ensure the content-inner-wrapper doesn't interfere with scrolling
+				var innerWrapper = blogContent.querySelector('.content-inner-wrapper');
+				if (innerWrapper) {
+					innerWrapper.style.minHeight = '100%';
+				}
 			} else {
 				// Mobile styles
 				blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: auto !important; overflow: visible !important;';
@@ -493,6 +527,25 @@
 			}
 		}
 	}, 2000);
+	
+	// Debug function to check scrollability
+	window.checkScrollability = function() {
+		var blogContent = document.querySelector('.blog-content');
+		if (blogContent) {
+			console.log('Blog content scroll debug:', {
+				scrollHeight: blogContent.scrollHeight,
+				clientHeight: blogContent.clientHeight,
+				offsetHeight: blogContent.offsetHeight,
+				scrollTop: blogContent.scrollTop,
+				overflowY: window.getComputedStyle(blogContent).overflowY,
+				height: window.getComputedStyle(blogContent).height,
+				isScrollable: blogContent.scrollHeight > blogContent.clientHeight
+			});
+		}
+	};
+	
+	// Check scrollability after everything loads
+	setTimeout(window.checkScrollability, 3000);
 })();
 </script>
 
