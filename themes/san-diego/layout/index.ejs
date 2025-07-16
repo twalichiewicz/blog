@@ -402,8 +402,21 @@
 		console.log('Simple hide loading screen called');
 		var loadingScreen = document.querySelector('.loading-screen');
 		if (loadingScreen) {
-			loadingScreen.remove();
-			console.log('Loading screen removed');
+			// Force hide with inline styles first, then remove
+			loadingScreen.style.display = 'none';
+			loadingScreen.style.opacity = '0';
+			loadingScreen.style.visibility = 'hidden';
+			loadingScreen.style.pointerEvents = 'none';
+			loadingScreen.style.position = 'absolute';
+			loadingScreen.style.left = '-9999px';
+			
+			// Remove from DOM after a short delay
+			setTimeout(function() {
+				if (loadingScreen && loadingScreen.parentNode) {
+					loadingScreen.parentNode.removeChild(loadingScreen);
+					console.log('Loading screen removed from DOM');
+				}
+			}, 100);
 		}
 		document.body.classList.add('loaded');
 		
@@ -458,6 +471,20 @@
 	
 	// Hide after 1.5 seconds
 	setTimeout(hideLoadingScreen, 1500);
+	
+	// Additional immediate check for page refreshes or back navigation
+	window.addEventListener('pageshow', function(event) {
+		if (event.persisted || document.querySelector('.loading-screen')) {
+			console.log('Pageshow event - forcing loading screen removal');
+			hideLoadingScreen();
+		}
+	});
+	
+	// Check if we're coming from browser history
+	if (window.performance && window.performance.navigation.type === 2) {
+		console.log('Page loaded from back/forward cache');
+		setTimeout(hideLoadingScreen, 100);
+	}
 	
 	// Extra safety check after 2 seconds
 	setTimeout(function() {
@@ -549,6 +576,33 @@
 	
 	// Check scrollability after everything loads
 	setTimeout(window.checkScrollability, 3000);
+	
+	// Set up mutation observer to prevent loading screen from reappearing
+	var observer = new MutationObserver(function(mutations) {
+		mutations.forEach(function(mutation) {
+			if (mutation.addedNodes) {
+				mutation.addedNodes.forEach(function(node) {
+					if (node.classList && node.classList.contains('loading-screen')) {
+						console.log('Loading screen was added to DOM, removing it immediately');
+						node.remove();
+					}
+				});
+			}
+		});
+	});
+	
+	// Start observing once body is loaded
+	observer.observe(document.body, {
+		childList: true,
+		subtree: true
+	});
+	
+	// Also ensure loading screen is removed if it exists on load
+	var existingLoadingScreen = document.querySelector('.loading-screen');
+	if (existingLoadingScreen && window.performance.timing.loadEventEnd > 0) {
+		console.log('Page already loaded but loading screen exists, removing');
+		hideLoadingScreen();
+	}
 })();
 </script>
 
