@@ -122,3 +122,6 @@
 
 // Demo cursors (only apply within demos/prototypes)
 @use 'demo-cursors';
+
+// Comprehensive scroll fix for all viewports - MUST be last for highest specificity
+@use 'scroll-fix-all-viewports';

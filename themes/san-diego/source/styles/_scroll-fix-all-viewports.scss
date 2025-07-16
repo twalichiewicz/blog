@@ -1,0 +1,137 @@
+// Comprehensive scroll fix for all viewports
+@use 'variables';
+
+// Desktop (> 1024px)
+@media (min-width: calc(variables.$tablet-breakpoint + 1px)) {
+  .blog {
+    .blog-content {
+      // Blog content should not scroll, just contain
+      overflow: hidden !important;
+      height: calc(100dvh - 24px); // Account for margins
+      
+      // Not when dynamic content is loaded
+      &:not(.has-dynamic-content) {
+        .content-inner-wrapper {
+          // Inner wrapper should fill parent and not scroll
+          height: 100% !important;
+          overflow: hidden !important;
+          display: flex;
+          flex-direction: column;
+          
+          .tabs-wrapper {
+            flex-shrink: 0;
+          }
+          
+          .content-wrapper {
+            // Content wrapper handles all scrolling
+            flex: 1;
+            min-height: 0; // Important for flexbox
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch;
+            
+            // Scrollbar styling
+            &::-webkit-scrollbar {
+              width: 6px;
+            }
+            
+            &::-webkit-scrollbar-track {
+              background: transparent;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+              background-color: rgb(0 0 0 / 20%);
+              border-radius: 3px;
+              
+              @media (prefers-color-scheme: dark) {
+                background-color: rgb(255 255 255 / 20%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Tablet (769px - 1024px)
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) and (max-width: variables.$tablet-breakpoint) {
+  .blog {
+    .blog-content {
+      // Same as desktop - no scroll on blog-content
+      overflow: hidden !important;
+      
+      &:not(.has-dynamic-content) {
+        .content-inner-wrapper {
+          height: 100% !important;
+          overflow: hidden !important;
+          display: flex;
+          flex-direction: column;
+          
+          .tabs-wrapper {
+            flex-shrink: 0;
+          }
+          
+          .content-wrapper {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobile (<= 768px)
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog {
+    // Mobile uses body scroll, not container scroll
+    height: auto !important;
+    min-height: 100dvh !important;
+    overflow: visible !important;
+    
+    .blog-header {
+      // Fix excessive height on mobile
+      height: auto !important;
+      min-height: auto !important;
+      // Remove any margins that might be causing extra space
+      margin-bottom: 0 !important;
+    }
+    
+    .blog-content {
+      overflow: visible !important;
+      height: auto !important;
+      
+      .content-inner-wrapper {
+        overflow: visible !important;
+        height: auto !important;
+        // Add border-radius for mobile
+        border-radius: 12px 12px 0 0 !important;
+        
+        .content-wrapper {
+          overflow: visible !important;
+          height: auto !important;
+        }
+      }
+    }
+  }
+}
+
+// Fix for dynamic content (posts/projects opened)
+.blog-content.has-dynamic-content {
+  @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+    .content-wrapper {
+      overflow: hidden !important;
+      height: 100%;
+    }
+    
+    .content-inner-wrapper {
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      height: 100%;
+    }
+  }
+}
