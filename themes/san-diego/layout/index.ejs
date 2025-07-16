@@ -309,6 +309,7 @@
 			opacity: 1 !important;
 			visibility: visible !important;
 			display: block !important;
+			border-radius: 12px 0 0 0 !important;
 		}
 		
 		/* Ensure blog-content is scrollable on desktop/tablet */
@@ -423,8 +424,8 @@
 				height: window.getComputedStyle(blogContent).height
 			});
 			
-			// Force it visible with highest specificity
-			blogContent.setAttribute('style', 'opacity: 1 !important; visibility: visible !important;');
+			// Force it visible with highest specificity, preserving border-radius
+			blogContent.setAttribute('style', 'opacity: 1 !important; visibility: visible !important; border-radius: 12px 0 0 0 !important;');
 			
 			console.log('Computed styles after fix:', {
 				opacity: window.getComputedStyle(blogContent).opacity,
@@ -471,16 +472,18 @@
 			var isDesktop = window.innerWidth > 768;
 			if (isDesktop) {
 				// Ensure proper height calculation and scrolling for desktop
-				blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: calc(100vh - 12px) !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important;';
+				blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: calc(100vh - 12px) !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; border-radius: 12px 0 0 0 !important;';
 				
 				// Also ensure the content-inner-wrapper doesn't interfere with scrolling
 				var innerWrapper = blogContent.querySelector('.content-inner-wrapper');
 				if (innerWrapper) {
 					innerWrapper.style.minHeight = '100%';
+					// Preserve border-radius on inner wrapper too
+					innerWrapper.style.borderRadius = '12px 0 0 0';
 				}
 			} else {
 				// Mobile styles
-				blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: auto !important; overflow: visible !important;';
+				blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: auto !important; overflow: visible !important; border-radius: 12px 0 0 0 !important;';
 			}
 			
 			// Check actual computed height
