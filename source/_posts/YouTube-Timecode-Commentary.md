@@ -25,7 +25,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
     </div>
     
     <div class="controls-wrapper">
-      <div class="progress-bar" style="position: relative; height: 3px; background: rgba(255,255,255,0.3); margin-bottom: 8px;">
+      <div class="progress-bar" style="position: relative; height: 3px; background: rgba(255,255,255,0.3); margin: 0 -12px 8px -12px;">
         <div class="progress-fill" style="height: 100%; background: #ff0000; width: 33%; transition: width 0.1s linear; position: relative;">
           <div style="position: absolute; right: -6px; top: -5px; width: 12px; height: 12px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255,0,0,0.2);"></div>
         </div>
@@ -246,7 +246,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 
 /* Apply default cursor to all elements within the prototype */
 .youtube-demo * {
-  cursor: inherit !important;
+  cursor: inherit;
 }
 
 /* Clickable elements get the interactive cursor with blue dot */
@@ -265,7 +265,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 .youtube-demo input[type="submit"],
 .youtube-demo input[type="button"],
 .youtube-demo .clickable {
-  cursor: url('/cursors/pointer.svg') 0 0, pointer !important;
+  cursor: url('/cursors/pointer.svg') 0 0, pointer;
 }
 
 /* Text selection areas get text cursor */
@@ -273,20 +273,20 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 .youtube-demo textarea,
 .youtube-demo [contenteditable="true"],
 .youtube-demo .comment-input {
-  cursor: url('/cursors/text.svg') 0 0, text !important;
+  cursor: url('/cursors/text.svg') 0 0, text;
 }
 
 /* Draggable elements get grab cursor */
 .youtube-demo .progress-bar,
 .youtube-demo .progress-fill {
-  cursor: url('/cursors/grab.svg') 12 12, grab !important;
+  cursor: url('/cursors/grab.svg') 12 12, grab;
 }
 
 /* Disabled elements get not-allowed cursor */
 .youtube-demo button:disabled,
 .youtube-demo [disabled],
 .youtube-demo .disabled {
-  cursor: url('/cursors/disabled.svg') 0 0, not-allowed !important;
+  cursor: url('/cursors/disabled.svg') 0 0, not-allowed;
   opacity: 0.5;
 }
 
@@ -312,19 +312,19 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 
 .youtube-demo .comments-section .comment-item p,
 .youtube-demo .comments-section .comment-item span {
-  color: black !important;
+  color: black;
 }
 
 .youtube-demo .comments-section .comment-input-box {
-  background: rgba(0,0,0,0.05) !important;
+  background: rgba(0,0,0,0.05);
 }
 
 .youtube-demo .comments-section .comment-input {
-  color: black !important;
+  color: black;
 }
 
 .youtube-demo .comments-section .comment-timecode {
-  color: #606060 !important;
+  color: #606060;
 }
 
 .youtube-demo .comment-sort {
@@ -354,25 +354,25 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
   
   .youtube-demo .comments-section .comment-item p,
   .youtube-demo .comments-section .comment-item span {
-    color: #f1f1f1 !important;
+    color: #f1f1f1;
   }
   
   .youtube-demo .comments-section .comment-input-box {
-    background: rgba(255,255,255,0.05) !important;
+    background: rgba(255,255,255,0.05);
   }
   
   .youtube-demo .comments-section .comment-input {
-    color: #f1f1f1 !important;
+    color: #f1f1f1;
   }
   
   .youtube-demo .comments-section .comment-timecode {
-    color: #aaa !important;
+    color: #aaa;
   }
   
   .youtube-demo .comment-sort {
     color: #f1f1f1;
-    background: rgb(15, 15, 15) !important;
-    border-color: rgba(255,255,255,0.2) !important;
+    background: rgb(15, 15, 15);
+    border-color: rgba(255,255,255,0.2);
   }
   
   .youtube-demo .comment-sort option {
@@ -400,16 +400,16 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 
 /* Ensure image has no hover effects */
 .youtube-demo img {
-  transform: none !important;
-  transition: none !important;
+  transform: none;
+  transition: none;
 }
 
 /* Clean button styles */
 .youtube-demo button {
   transition: opacity 0.15s ease;
   outline: none;
-  box-shadow: none !important;
-  border: none !important;
+  box-shadow: none;
+  border: none;
 }
 
 .youtube-demo button:hover {
@@ -425,9 +425,9 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 }
 
 .youtube-demo .progress-bar:hover .progress-fill::after {
-  width: 16px !important;
-  height: 16px !important;
-  right: -8px !important;
+  width: 16px;
+  height: 16px;
+  right: -8px;
 }
 
 /* Timeline marker hover effects */
@@ -435,9 +435,9 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
   transform-origin: center bottom;
   transition: all 0.2s ease;
   /* Ensure consistent positioning */
-  top: -6px !important;
-  height: 15px !important;
-  width: 4px !important;
+  top: -6px;
+  height: 15px;
+  width: 4px;
   vertical-align: baseline;
 }
 
@@ -537,7 +537,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 }
 
 .comment-item.highlighted {
-  background: rgba(255,235,59,0.1) !important;
+  background: rgba(255,235,59,0.1);
   animation: highlightPulse 2s ease;
 }
 
@@ -556,7 +556,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 
 .comment-time-link:hover {
   background: rgba(62, 166, 255, 0.2);
-  text-decoration: none !important;
+  text-decoration: none;
 }
 
 /* Countdown circle overlay */
@@ -598,7 +598,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 
 /* Position tooltips close to timeline */
 .youtube-demo .timeline-marker .timeline-tooltip {
-  bottom: 25px !important;
+  bottom: 25px;
 }
 
 .sc-comment-header {
