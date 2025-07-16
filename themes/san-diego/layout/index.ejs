@@ -385,7 +385,6 @@
 <script>
 // Simplified loading screen management
 (function() {
-	console.log('Loading screen script starting...');
 	
 	// Just show progress at 100% and hide after a delay
 	var progressBar = document.getElementById('loadingProgress');
@@ -393,13 +392,13 @@
 		// Animate to 100% quickly
 		setTimeout(function() {
 			progressBar.style.width = '100%';
-			console.log('Progress bar set to 100%');
+			// Progress bar set to 100%
 		}, 500);
 	}
 	
 	// Simple hide function
 	function hideLoadingScreen() {
-		console.log('Simple hide loading screen called');
+		// Hide loading screen
 		var loadingScreen = document.querySelector('.loading-screen');
 		if (loadingScreen) {
 			// Force hide with inline styles first, then remove
@@ -414,7 +413,7 @@
 			setTimeout(function() {
 				if (loadingScreen && loadingScreen.parentNode) {
 					loadingScreen.parentNode.removeChild(loadingScreen);
-					console.log('Loading screen removed from DOM');
+					// Loading screen removed from DOM
 				}
 			}, 100);
 		}
@@ -429,44 +428,27 @@
 		// Debug: Check what's happening with blog-content
 		var blogContent = document.querySelector('.blog-content');
 		if (blogContent) {
-			console.log('blog-content found');
-			console.log('Computed styles before fix:', {
-				opacity: window.getComputedStyle(blogContent).opacity,
-				visibility: window.getComputedStyle(blogContent).visibility,
-				display: window.getComputedStyle(blogContent).display,
-				height: window.getComputedStyle(blogContent).height
-			});
+			// blog-content found
+			// Check computed styles before fix
 			
 			// Force it visible with highest specificity, preserving border-radius
 			blogContent.setAttribute('style', 'opacity: 1 !important; visibility: visible !important; border-radius: 12px 0 0 0 !important;');
 			
-			console.log('Computed styles after fix:', {
-				opacity: window.getComputedStyle(blogContent).opacity,
-				visibility: window.getComputedStyle(blogContent).visibility,
-				display: window.getComputedStyle(blogContent).display,
-				height: window.getComputedStyle(blogContent).height
-			});
+			// Styles applied
 		} else {
-			console.error('blog-content not found!');
+			// blog-content not found
 		}
 		
 		// Also check content-inner-wrapper
 		var contentInner = document.querySelector('.content-inner-wrapper');
 		if (contentInner) {
-			console.log('content-inner-wrapper found');
+			// content-inner-wrapper found
 			contentInner.setAttribute('style', 'opacity: 1 !important; visibility: visible !important;');
 		}
 		
 		// Check all children
 		var blogChildren = document.querySelectorAll('.blog-content > *');
-		console.log('blog-content children count:', blogChildren.length);
-		blogChildren.forEach(function(child, index) {
-			console.log('Child ' + index + ':', child.className, {
-				opacity: window.getComputedStyle(child).opacity,
-				visibility: window.getComputedStyle(child).visibility,
-				display: window.getComputedStyle(child).display
-			});
-		});
+		// Check blog-content children
 	}
 	
 	// Hide after 1.5 seconds
@@ -475,20 +457,20 @@
 	// Additional immediate check for page refreshes or back navigation
 	window.addEventListener('pageshow', function(event) {
 		if (event.persisted || document.querySelector('.loading-screen')) {
-			console.log('Pageshow event - forcing loading screen removal');
+			// Pageshow event - forcing loading screen removal
 			hideLoadingScreen();
 		}
 	});
 	
 	// Check if we're coming from browser history
 	if (window.performance && window.performance.navigation.type === 2) {
-		console.log('Page loaded from back/forward cache');
+		// Page loaded from back/forward cache
 		setTimeout(hideLoadingScreen, 100);
 	}
 	
 	// Extra safety check after 2 seconds
 	setTimeout(function() {
-		console.log('2-second safety check');
+		// 2-second safety check
 		// Force blog-content visible again
 		var blogContent = document.querySelector('.blog-content');
 		if (blogContent) {
@@ -515,11 +497,11 @@
 			
 			// Check actual computed height
 			var computedHeight = window.getComputedStyle(blogContent).height;
-			console.log('blog-content computed height:', computedHeight);
+			// Check blog-content computed height
 			
 			// If height is 0 or very small, force a minimum height
 			if (parseInt(computedHeight) < 100) {
-				console.log('blog-content height too small, forcing minimum height');
+				// blog-content height too small, forcing minimum height
 				blogContent.style.minHeight = '500px';
 			}
 			
@@ -541,41 +523,23 @@
 			
 			// Check blog dimensions
 			var blogHeight = window.getComputedStyle(blog).height;
-			console.log('blog element height:', blogHeight);
+			// Check blog element height
 		}
 		
 		// Final check - ensure blog-header isn't taking all the space
 		var blogHeader = document.querySelector('.blog-header');
 		if (blogHeader) {
 			var headerHeight = window.getComputedStyle(blogHeader).height;
-			console.log('blog-header height:', headerHeight);
+			// Check blog-header height
 			
 			// If header is taking full viewport, fix it
 			if (parseInt(headerHeight) >= window.innerHeight - 50) {
-				console.log('blog-header taking too much space, adjusting');
+				// blog-header taking too much space, adjusting
 				blogHeader.style.height = '50vh';
 			}
 		}
 	}, 2000);
 	
-	// Debug function to check scrollability
-	window.checkScrollability = function() {
-		var blogContent = document.querySelector('.blog-content');
-		if (blogContent) {
-			console.log('Blog content scroll debug:', {
-				scrollHeight: blogContent.scrollHeight,
-				clientHeight: blogContent.clientHeight,
-				offsetHeight: blogContent.offsetHeight,
-				scrollTop: blogContent.scrollTop,
-				overflowY: window.getComputedStyle(blogContent).overflowY,
-				height: window.getComputedStyle(blogContent).height,
-				isScrollable: blogContent.scrollHeight > blogContent.clientHeight
-			});
-		}
-	};
-	
-	// Check scrollability after everything loads
-	setTimeout(window.checkScrollability, 3000);
 	
 	// Set up mutation observer to prevent loading screen from reappearing
 	var observer = new MutationObserver(function(mutations) {
@@ -583,7 +547,7 @@
 			if (mutation.addedNodes) {
 				mutation.addedNodes.forEach(function(node) {
 					if (node.classList && node.classList.contains('loading-screen')) {
-						console.log('Loading screen was added to DOM, removing it immediately');
+						// Loading screen was added to DOM, removing it immediately
 						node.remove();
 					}
 				});
@@ -600,7 +564,7 @@
 	// Also ensure loading screen is removed if it exists on load
 	var existingLoadingScreen = document.querySelector('.loading-screen');
 	if (existingLoadingScreen && window.performance.timing.loadEventEnd > 0) {
-		console.log('Page already loaded but loading screen exists, removing');
+		// Page already loaded but loading screen exists, removing
 		hideLoadingScreen();
 	}
 })();
@@ -649,241 +613,7 @@
 <script src="<%- url_for('js/portfolio-filters.js') %>"></script>
 <script src="<%- url_for('js/blog-init.js') %>"></script>
 <script src="<%- url_for('js/anchor-links-simple.js') %>"></script>
-<script src="<%- url_for('js/visibility-debug.js') %>"></script>
 
-<script>
-	// Additional loading screen management - disabled in favor of simpler approach above
-	/* (function() {
-		var isLoadingComplete = false;
-		
-		// Check for debug mode
-		var urlParams = new URLSearchParams(window.location.search);
-		var debugLoading = urlParams.get('debug-loading') === 'true';
-		var loadingDelay = debugLoading ? 5000 : 1500;
-		
-		// Log loading screen presence
-		console.log('Loading screen initialized:', {
-			debugMode: debugLoading,
-			delay: loadingDelay + 'ms'
-		});
-		
-		// Immediate check if loading screen exists
-		var loadingScreenCheck = document.querySelector('.loading-screen');
-		console.log('Loading screen found:', !!loadingScreenCheck);
-
-		function hideLoadingScreen() {
-			try {
-				if (isLoadingComplete) {
-					console.log('hideLoadingScreen already called, returning');
-					return;
-				}
-				isLoadingComplete = true;
-
-				console.log('Hiding loading screen NOW...');
-				
-				// First, immediately hide the loading screen
-				var loadingScreen = document.querySelector('.loading-screen');
-				if (loadingScreen) {
-					console.log('Removing loading screen from DOM');
-					loadingScreen.parentNode.removeChild(loadingScreen);
-				}
-				
-				// Then show body content
-				document.body.classList.add('loaded');
-				console.log('Added loaded class to body');
-				
-				// Force body overflow
-				document.body.style.overflow = 'auto';
-				document.body.style.position = 'static';
-			
-			// Force visibility of main content
-			var blog = document.querySelector('.blog');
-			if (blog) {
-				blog.style.opacity = '1';
-				blog.style.visibility = 'visible';
-				blog.style.display = 'block';
-				console.log('Forced blog visibility');
-			}
-			
-			// Force visibility of blog-content specifically
-			var blogContent = document.querySelector('.blog-content');
-			if (blogContent) {
-				blogContent.style.opacity = '1';
-				blogContent.style.visibility = 'visible';
-				blogContent.style.display = 'block';
-				console.log('Forced blog-content visibility');
-			}
-			
-			// Force visibility of blog-header
-			var blogHeader = document.querySelector('.blog-header');
-			if (blogHeader) {
-				blogHeader.style.opacity = '1';
-				blogHeader.style.visibility = 'visible';
-				blogHeader.style.display = 'block';
-				console.log('Forced blog-header visibility');
-			}
-			
-			// Also force skip navigation
-			var skipNav = document.querySelector('.skip-navigation');
-			if (skipNav) {
-				skipNav.style.opacity = '1';
-				skipNav.style.visibility = 'visible';
-			}
-			
-			// Force visibility of content-inner-wrapper specifically
-			var contentInnerWrapper = document.querySelector('.content-inner-wrapper');
-			if (contentInnerWrapper) {
-				contentInnerWrapper.style.opacity = '1';
-				contentInnerWrapper.style.visibility = 'visible';
-				contentInnerWrapper.style.display = 'block';
-				console.log('Forced content-inner-wrapper visibility');
-			}
-			
-			// Force visibility on all content containers that might be hidden
-			var contentContainers = [
-				'.blog-list',
-				'.column-title',
-				'.search-container',
-				'.content-wrapper',
-				'.tabs-wrapper',
-				'.mobile-tabs',
-				'#postsContent',
-				'#projectsContent'
-			];
-			
-			contentContainers.forEach(function(selector) {
-				var elements = document.querySelectorAll(selector);
-				for (var i = 0; i < elements.length; i++) {
-					elements[i].style.opacity = '1';
-					elements[i].style.visibility = 'visible';
-					elements[i].style.display = '';
-				}
-			});
-			
-			// Force all blog children to be visible - but be more selective
-			var blogChildren = document.querySelectorAll('.blog > *, .blog-content > *, .content-inner-wrapper > *');
-			for (var i = 0; i < blogChildren.length; i++) {
-				if (blogChildren[i].style.visibility === 'hidden' || blogChildren[i].style.opacity === '0') {
-					blogChildren[i].style.visibility = 'visible';
-					blogChildren[i].style.opacity = '1';
-				}
-			}
-			
-			// Remove any potential overlay issues
-			document.body.style.overflow = 'auto';
-			document.body.style.position = 'static';
-			
-			// Force a reflow to ensure styles are applied
-			document.body.offsetHeight;
-			
-			console.log('hideLoadingScreen completed successfully');
-			} catch (error) {
-				console.error('Error in hideLoadingScreen:', error);
-				// Even if there's an error, try to remove the loading screen
-				try {
-					var loadingScreen = document.querySelector('.loading-screen');
-					if (loadingScreen) {
-						loadingScreen.style.display = 'none';
-					}
-					document.body.classList.add('loaded');
-				} catch (e) {
-					console.error('Critical error hiding loading screen:', e);
-				}
-			}
-		}
-		
-		// Store function globally for other scripts to call
-		window.hideLoadingScreen = hideLoadingScreen;
-		
-		// Aggressive fallback - hide loading screen after 2 seconds no matter what
-		setTimeout(function() {
-			console.log('2-second failsafe triggered');
-			var loadingScreen = document.querySelector('.loading-screen');
-			if (loadingScreen && loadingScreen.style.display !== 'none') {
-				console.log('Loading screen still visible after 2 seconds, forcing hide');
-				hideLoadingScreen();
-			}
-		}, 2000);
-
-		// Wait for DOM to be fully loaded before considering hiding
-		document.addEventListener('DOMContentLoaded', function() {
-			if (debugLoading) {
-				console.log('DEBUG MODE: Loading screen will stay visible for 5 seconds');
-				setTimeout(hideLoadingScreen, loadingDelay);
-			} else {
-				console.log('DOM loaded, will wait for window.load event...');
-			}
-		});
-
-		window.addEventListener('load', function() {
-			console.log('Window load event fired');
-			// Mark complete stage
-			if (window.stages) {
-				window.stages.complete = true;
-				if (window.updateProgress) {
-					window.updateProgress();
-				}
-			}
-			
-			// Fallback: Complete progress bar directly
-			var progressBar = document.getElementById('loadingProgress');
-			if (progressBar) {
-				progressBar.style.width = '100%';
-			}
-			
-			if (!debugLoading) {
-				console.log('Window loaded, waiting for blog initialization...');
-				// Give blog.js time to initialize after window load
-				setTimeout(function() {
-					console.log('Blog should be initialized, hiding loading screen...');
-					hideLoadingScreen();
-				}, 1200);
-			}
-		});
-
-		// Safety fallback
-		setTimeout(function() {
-			if (debugLoading) {
-				console.log('Debug mode complete, hiding loading screen...');
-			} else {
-				console.log('Safety timeout, forcing loading screen to hide...');
-			}
-			hideLoadingScreen();
-			
-			// Extra safety: ensure content is visible after everything settles
-			setTimeout(function() {
-				console.log('Final visibility check...');
-				// Force blog-content to be visible if it's still hidden
-				var blogContent = document.querySelector('.blog-content');
-				if (blogContent) {
-					var computedStyle = window.getComputedStyle(blogContent);
-					if (computedStyle.opacity === '0' || computedStyle.visibility === 'hidden') {
-						console.log('Blog content still hidden, forcing visibility');
-						blogContent.style.cssText += 'opacity: 1 !important; visibility: visible !important; display: block !important;';
-					}
-				}
-				
-				// Also check content-inner-wrapper
-				var contentInner = document.querySelector('.content-inner-wrapper');
-				if (contentInner) {
-					var computedStyle = window.getComputedStyle(contentInner);
-					if (computedStyle.opacity === '0' || computedStyle.visibility === 'hidden') {
-						console.log('Content inner wrapper still hidden, forcing visibility');
-						contentInner.style.cssText += 'opacity: 1 !important; visibility: visible !important; display: block !important;';
-					}
-				}
-			}, 500);
-		}, debugLoading ? 6000 : 3000);
-
-		// Handle browser back/forward
-		window.addEventListener('pageshow', function(event) {
-			if (event.persisted) {
-				console.log('Page from cache, hiding loading screen immediately...');
-				hideLoadingScreen();
-			}
-		});
-	})(); */
-</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
