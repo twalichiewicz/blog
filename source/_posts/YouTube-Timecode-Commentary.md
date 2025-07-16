@@ -265,7 +265,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
 .youtube-demo input[type="submit"],
 .youtube-demo input[type="button"],
 .youtube-demo .clickable {
-  cursor: url('/cursors/pointer.svg') 10 6, pointer;
+  cursor: url('/cursors/pointer.svg') 8 4, pointer;
 }
 
 /* Text selection areas get text cursor */
