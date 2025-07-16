@@ -217,25 +217,29 @@ export const ScrollUtility = {
             let scrollContainer = container;
             
             if (!scrollContainer) {
-                // First check if blog-content should be scrollable
-                const blogContent = document.querySelector('.blog-content');
-                if (blogContent) {
-                    const computedStyle = window.getComputedStyle(blogContent);
-                    const hasScrollableContent = blogContent.scrollHeight > blogContent.clientHeight;
+                // First check if content-wrapper is scrollable (primary scroll container)
+                const contentWrapper = document.querySelector('.content-wrapper');
+                if (contentWrapper) {
+                    const computedStyle = window.getComputedStyle(contentWrapper);
+                    const hasScrollableContent = contentWrapper.scrollHeight > contentWrapper.clientHeight;
                     const hasOverflowScroll = computedStyle.overflowY === 'scroll' || computedStyle.overflowY === 'auto';
-                    // Blog content scroll check
                     
-                    // Force blog-content to be scrollable if it should be based on screen size
-                    if (window.innerWidth > 768 && !hasOverflowScroll) {
-                        blogContent.style.overflowY = 'auto';
-                        blogContent.style.height = 'calc(100dvh - 12px)';
-                        // Recheck after forcing
-                        const newHasScrollableContent = blogContent.scrollHeight > blogContent.clientHeight;
-                        if (newHasScrollableContent) {
+                    if (hasScrollableContent && hasOverflowScroll) {
+                        scrollContainer = contentWrapper;
+                    }
+                }
+                
+                // Fallback to blog-content only if content-wrapper isn't found or scrollable
+                if (!scrollContainer) {
+                    const blogContent = document.querySelector('.blog-content');
+                    if (blogContent) {
+                        const computedStyle = window.getComputedStyle(blogContent);
+                        const hasScrollableContent = blogContent.scrollHeight > blogContent.clientHeight;
+                        const hasOverflowScroll = computedStyle.overflowY === 'scroll' || computedStyle.overflowY === 'auto';
+                        
+                        if (hasScrollableContent && hasOverflowScroll) {
                             scrollContainer = blogContent;
                         }
-                    } else if (hasScrollableContent && hasOverflowScroll) {
-                        scrollContainer = blogContent;
                     }
                 }
                 
