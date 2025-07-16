@@ -277,15 +277,13 @@
 			}
 		}
 		
-		/* Hide content until loaded - but not too aggressively */
+		/* Hide content until loaded */
 		body:not(.loaded) .blog {
 			opacity: 0;
-			visibility: hidden;
 		}
 		
 		body:not(.loaded) .skip-navigation {
 			opacity: 0;
-			visibility: hidden;
 		}
 		
 		body.loaded {
@@ -363,17 +361,79 @@
 		document.body.classList.add('loaded');
 		document.body.style.overflow = 'auto';
 		
-		// Make everything visible
-		var allElements = document.querySelectorAll('.blog, .blog-content, .content-inner-wrapper');
-		allElements.forEach(function(el) {
-			el.style.opacity = '1';
-			el.style.visibility = 'visible';
-			el.style.display = '';
+		// Debug: Check what's happening with blog-content
+		var blogContent = document.querySelector('.blog-content');
+		if (blogContent) {
+			console.log('blog-content found');
+			console.log('Computed styles before fix:', {
+				opacity: window.getComputedStyle(blogContent).opacity,
+				visibility: window.getComputedStyle(blogContent).visibility,
+				display: window.getComputedStyle(blogContent).display,
+				height: window.getComputedStyle(blogContent).height
+			});
+			
+			// Force it visible with highest specificity
+			blogContent.setAttribute('style', 'opacity: 1 !important; visibility: visible !important; display: block !important;');
+			
+			console.log('Computed styles after fix:', {
+				opacity: window.getComputedStyle(blogContent).opacity,
+				visibility: window.getComputedStyle(blogContent).visibility,
+				display: window.getComputedStyle(blogContent).display,
+				height: window.getComputedStyle(blogContent).height
+			});
+		} else {
+			console.error('blog-content not found!');
+		}
+		
+		// Also check content-inner-wrapper
+		var contentInner = document.querySelector('.content-inner-wrapper');
+		if (contentInner) {
+			console.log('content-inner-wrapper found');
+			contentInner.setAttribute('style', 'opacity: 1 !important; visibility: visible !important; display: block !important;');
+		}
+		
+		// Check all children
+		var blogChildren = document.querySelectorAll('.blog-content > *');
+		console.log('blog-content children count:', blogChildren.length);
+		blogChildren.forEach(function(child, index) {
+			console.log('Child ' + index + ':', child.className, {
+				opacity: window.getComputedStyle(child).opacity,
+				visibility: window.getComputedStyle(child).visibility,
+				display: window.getComputedStyle(child).display
+			});
 		});
 	}
 	
 	// Hide after 1.5 seconds
 	setTimeout(hideLoadingScreen, 1500);
+	
+	// Extra safety check after 2 seconds
+	setTimeout(function() {
+		console.log('2-second safety check');
+		// Force blog-content visible again
+		var blogContent = document.querySelector('.blog-content');
+		if (blogContent) {
+			// Remove ALL inline styles and re-apply visibility
+			blogContent.removeAttribute('style');
+			blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important;';
+			
+			// Do the same for all children
+			var allChildren = blogContent.querySelectorAll('*');
+			allChildren.forEach(function(child) {
+				if (child.style.opacity === '0' || child.style.visibility === 'hidden') {
+					child.style.opacity = '1';
+					child.style.visibility = 'visible';
+				}
+			});
+		}
+		
+		// Also ensure blog has no hiding styles
+		var blog = document.querySelector('.blog');
+		if (blog) {
+			blog.style.opacity = '1';
+			blog.style.visibility = 'visible';
+		}
+	}, 2000);
 })();
 </script>
 
@@ -420,6 +480,7 @@
 <script src="<%- url_for('js/portfolio-filters.js') %>"></script>
 <script src="<%- url_for('js/blog-init.js') %>"></script>
 <script src="<%- url_for('js/anchor-links-simple.js') %>"></script>
+<script src="<%- url_for('js/visibility-debug.js') %>"></script>
 
 <script>
 	// Additional loading screen management - disabled in favor of simpler approach above
