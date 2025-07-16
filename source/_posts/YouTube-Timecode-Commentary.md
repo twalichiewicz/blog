@@ -25,7 +25,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
     </div>
     
     <div class="controls-wrapper">
-      <div class="progress-bar" style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.3); cursor: pointer; z-index: 15;">
+      <div class="progress-bar" style="position: relative; height: 3px; background: rgba(255,255,255,0.3); margin-bottom: 8px;">
         <div class="progress-fill" style="height: 100%; background: #ff0000; width: 33%; transition: width 0.1s linear; position: relative;">
           <div style="position: absolute; right: -6px; top: -5px; width: 12px; height: 12px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255,0,0,0.2);"></div>
         </div>
@@ -41,7 +41,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
         <div class="timeline-marker" data-time="13" data-comment-id="7" data-username="@MemeMaster" data-full-text="POV: It's 2008 and you're spending your allowance on Wii Points 🥲" style="position: absolute; left: 86.67%; top: -6px; width: 4px; height: 15px; background: #ffeb3b;"></div>
       </div>
       
-      <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 12px;">
+      <div style="display: flex; align-items: center; justify-content: space-between;">
         <div style="display: flex; align-items: center; gap: 12px;">
           <button class="play-btn" style="background: none; border: none; color: white; padding: 0; display: flex; align-items: center; justify-content: center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
