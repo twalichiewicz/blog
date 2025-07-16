@@ -25,7 +25,7 @@ YouTube comments already lean heavily on timestamps. Livestream VODs use third-p
     </div>
     
     <div class="controls-wrapper">
-      <div class="progress-bar" style="position: relative; height: 3px; background: rgba(255,255,255,0.3); margin-bottom: 8px;">
+      <div class="progress-bar" style="position: relative; width: 100%; height: 3px; background: rgba(255,255,255,0.3); margin-bottom: 8px;">
         <div class="progress-fill" style="height: 100%; background: #ff0000; width: 33%; transition: width 0.1s linear; position: relative;">
           <div style="position: absolute; right: -6px; top: -5px; width: 12px; height: 12px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255,0,0,0.2);"></div>
         </div>
