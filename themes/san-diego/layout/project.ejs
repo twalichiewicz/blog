@@ -50,6 +50,13 @@
 				</div>
 			</div>
 		</div>
+		<% } else if (page.cover_image) { %>
+		<!-- Project Preview Image Section -->
+		<div class="project-preview-hero">
+			<div class="preview-image-container">
+				<img src="<%= url_for(page.path.replace('index.html', '') + page.cover_image.replace('./', '')) %>" alt="<%= page.title %> preview" class="project-preview-image" />
+			</div>
+		</div>
 		<% } %>
 		
 		<div class="project-content">
@@ -223,6 +230,27 @@
             margin-bottom: 2rem;
             border-radius: 8px;
             overflow: hidden;
+        }
+        
+        /* Preview image styles */
+        .project-preview-hero {
+            width: 100%;
+            background: var(--card-background-color, #fff);
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .preview-image-container {
+            width: 100%;
+            position: relative;
+        }
+        
+        .project-preview-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
         }
         
         .trailer-content {
