@@ -105,7 +105,7 @@
 		                                }
 		                                const finalPosterSrc = galleryItemPosterPath ? url_for(galleryItemPosterPath) : '';
 										%>
-										<video preload="auto" playsinline crossorigin="anonymous" <%= finalPosterSrc ? `poster="${finalPosterSrc}"` : '' %> <%= autoplay ? 'autoplay' : '' %> <%= loop ? 'loop' : '' %> <%= muted ? 'muted' : '' %> data-autoplay="true" style="pointer-events: none;">
+										<video preload="auto" playsinline crossorigin="anonymous" <%= finalPosterSrc ? `poster="${finalPosterSrc}"` : '' %> <%= autoplay ? 'autoplay' : '' %> <%= loop ? 'loop' : '' %> <%= muted ? 'muted' : '' %> data-autoplay="true" style="pointer-events: none;" onloadeddata="this.style.opacity='1'" onerror="this.style.display='none'; if(this.nextElementSibling && this.nextElementSibling.classList.contains('video-fallback-image')) this.nextElementSibling.style.display='block';">
 											<% 
 											let videoPath = item.url;
 											if (item.url && !item.url.startsWith('/') && !item.url.startsWith('http')) {
@@ -115,6 +115,21 @@
 											<source src="<%- url_for(videoPath) %>" type="video/webm">
 											<p>Your browser does not support the video tag. <a href="<%- url_for(videoPath) %>" target="_blank">Download the video</a> instead.</p>
 										</video>
+										<!-- Fallback cover image for videos -->
+										<% if (page.cover_image) { %>
+											<%
+											let videoCoverImagePath = page.cover_image;
+											if (videoCoverImagePath && !videoCoverImagePath.startsWith('/') && !videoCoverImagePath.startsWith('http')) {
+												videoCoverImagePath = page.path + videoCoverImagePath;
+											}
+											%>
+											<img src="<%- url_for(videoCoverImagePath) %>" 
+												alt="<%= page.title %> cover image"
+												loading="lazy"
+												decoding="async"
+												class="video-fallback-image"
+												style="display: none; width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1;">
+										<% } %>
 									<% } else if (item.type === 'iframe') { %>
 										<iframe src="<%= item.url %>" 
 											frameborder="0"
