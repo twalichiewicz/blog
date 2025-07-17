@@ -7,7 +7,6 @@
     </head>
     <body>
         <%- partial('_partial/skip-navigation') %>
-        <%- partial('_partial/loading-skull') %>
 		<%- body %>
 
         <%- js('js/device-detection.js') %>
@@ -39,37 +38,29 @@
         <!-- End Cloudflare Web Analytics -->
         
         <script>
-        // Loading screen management for all pages
-        function hideLoadingScreen() {
+        // Page loaded state management
+        function setPageLoaded() {
             document.body.classList.add('loaded');
-            const loadingScreen = document.querySelector('.loading-screen');
-            if (loadingScreen) {
-                loadingScreen.style.opacity = '0';
-                setTimeout(function() {
-                    if (loadingScreen) loadingScreen.style.display = 'none';
-                }, 300);
-            }
         }
 
-        // Hide loading screen when page is ready
+        // Set loaded state when page is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', function() {
-                setTimeout(hideLoadingScreen, 500);
+                setTimeout(setPageLoaded, 100);
             });
         } else {
-            setTimeout(hideLoadingScreen, 100);
+            setTimeout(setPageLoaded, 100);
         }
 
         // Additional safeguard
         window.addEventListener('load', function() {
-            setTimeout(hideLoadingScreen, 200);
+            setPageLoaded();
         });
 
         // Handle back/forward navigation
         window.addEventListener('pageshow', function(event) {
             if (event.persisted) {
-                document.body.classList.add('loaded');
-                hideLoadingScreen();
+                setPageLoaded();
             }
         });
         </script>
