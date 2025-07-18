@@ -21,7 +21,7 @@
 	<!-- Edge-to-edge wrapper -->
 	<div class="project-edge-wrapper" id="main-content">
 				<!-- Above the fold preview - 100vh -->
-		<div class="above-the-fold-preview">
+		<div class="above-the-fold-preview" <% if (page.cover_image && !page.demo_component) { %>style="background-image: url('<%- url_for(page.cover_image.startsWith('/') || page.cover_image.startsWith('http') ? page.cover_image : page.path + page.cover_image) %>');"<% } %>>
 			<!-- Project navigation positioned absolutely -->
 			<% if (!page.demo_component) { %>
 			<div class="project-navigation">
@@ -39,7 +39,7 @@
 			</div>
 			<% } %>
 			<!-- Project trailer (single hero item) -->
-			<div class="project-trailer-hero<%= !page.trailer && !page.cover_image && !page.demo_component ? ' hidden' : '' %>" id="trailerHero">
+			<div class="project-trailer-hero" id="trailerHero">
 				<div class="trailer-content" id="trailerContent">
 						<% if (page.demo_component) { %>
 							<!-- Inline demo mode - always show demos inline for preview -->
@@ -139,22 +139,9 @@
 									<% if (item.caption) { %>
 										<div class="carousel-caption"><%= item.caption %></div>
 									<% } %>
-						<% } else if (page.cover_image) { %>
-							<%
-							// Use cover image as fallback
-							let coverImagePath = page.cover_image;
-							if (coverImagePath && !coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
-								coverImagePath = page.path + coverImagePath;
-							}
-							%>
-							<img src="<%- url_for(coverImagePath) %>" 
-								alt="<%= page.title %> cover image"
-								loading="lazy"
-								decoding="async">
-						<% } else { %>
-							<div class="trailer-empty">
-								<p>No trailer available</p>
-							</div>
+						<% } else if (page.cover_image && !page.demo_component) { %>
+							<!-- Cover image is displayed as background on above-the-fold-preview -->
+							<div class="cover-image-placeholder"></div>
 						<% } %>
 				</div>
 			</div>

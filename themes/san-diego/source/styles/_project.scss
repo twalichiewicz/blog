@@ -1646,11 +1646,15 @@ blockquote.pullquote {
 	margin-right: auto;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: stretch; // Ensure children fill height
+	gap: 2rem; // Add gap between project-title and project-info-wrapper
 	
 	// When content gets too close, switch to column
 	@media (max-width: 1000px) {
 		flex-direction: column;
 		justify-content: flex-end;
+		align-items: flex-start;
+		gap: 1rem; // Smaller gap on smaller screens
 	}
 	
 	// Ensure responsive behavior on mobile
@@ -1671,6 +1675,7 @@ blockquote.pullquote {
 			// Read story button container - remove margin on larger screens
 			.read-story-button-container {
 				margin: 0;
+				// Don't use margin-top: auto here as gap handles spacing
 			}
 		}
 	}
@@ -1683,6 +1688,7 @@ blockquote.pullquote {
 	gap: 0.5rem; // Tighter gap between byline and stats
 	align-items: flex-start;
 	justify-content: flex-end; // Bottom align the content
+	margin-top: auto; // Push to bottom of flex container
 	
 	// Within blog content, align to the right
 	.blog-content .project-edge-wrapper & {
@@ -1692,11 +1698,11 @@ blockquote.pullquote {
 			font-size: var(--font-size-md);
 			text-align: right;
 			max-width: 450px;
-			color: variables.$grey-light; // Use light grey color
+			color: white;
 			text-shadow: none; // Remove text shadow in blog context
 			
 			@media (prefers-color-scheme: dark) {
-				color: variables.$grey-dark;
+				color: white;
 			}
 		}
 		
@@ -1812,6 +1818,11 @@ body.loaded .project-wrapper {
 	flex-direction: column;
 	background: #000;
 	overflow: hidden;
+	
+	// Background image styling when cover image is present
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 // Project trailer hero - video background with adjusted height
@@ -1820,12 +1831,19 @@ body.loaded .project-wrapper {
 	width: 100%;
 	position: relative;
 	z-index: 1;
+	min-height: 400px; // Ensure minimum visibility
+	background: transparent; // Make transparent to show background image
+	
+	// Override hidden class when it shouldn't be hidden
+	&:not(.hidden) {
+		display: block !important;
+	}
 
 	.trailer-content {
 		width: 100%;
 		height: 100%;
 		position: relative;
-		background: #000;
+		background: transparent; // Changed from #000 to show background
 		overflow: hidden;
 		
 		// Ensure video/content fills entire background with fade-in
@@ -1836,6 +1854,7 @@ body.loaded .project-wrapper {
 			position: absolute;
 			top: 0;
 			left: 0;
+			min-height: 400px; // Ensure minimum visibility for images
 			opacity: 0;
 			animation: trailerFadeIn 2.5s ease-out 0.5s forwards;
 			border-radius: 0;
@@ -1859,6 +1878,30 @@ body.loaded .project-wrapper {
 			height: 100%;
 			opacity: 1;
 			// No animation for interactive demos - they should appear immediately
+		}
+		
+		// Empty trailer fallback - ensure minimum height
+		.trailer-empty {
+			width: 100%;
+			height: 100%;
+			min-height: 400px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #f5f5f5;
+			
+			p {
+				color: #666;
+				font-size: 1rem;
+			}
+			
+			@media (prefers-color-scheme: dark) {
+				background: #1a1a1a;
+				
+				p {
+					color: #999;
+				}
+			}
 		}
 	}
 }
@@ -1888,15 +1931,33 @@ body.loaded .project-wrapper {
 	box-sizing: border-box;
 	text-align: left;
 	
-	// Solid background overlay for readability
-	background: linear-gradient(
-		180deg,
-		rgba(0, 0, 0, 0) 0%,
-		rgba(0, 0, 0, 0.3) 30%,
-		rgba(0, 0, 0, 0.6) 60%,
-		rgba(0, 0, 0, 0.8) 85%,
-		rgba(0, 0, 0, 0.9) 100%
-	);
+	// Dark overlay with blur for text readability
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 0.4) 30%,
+			rgba(0, 0, 0, 0.7) 60%,
+			rgba(0, 0, 0, 0.85) 85%,
+			rgba(0, 0, 0, 0.95) 100%
+		);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		z-index: -1;
+		pointer-events: none; // Ensure it doesn't interfere with content
+	}
+	
+	// Ensure all content is above the overlay
+	> * {
+		position: relative;
+		z-index: 1;
+	}
 	
 	// Responsive adjustments for all sizes
 	@media (max-width: 1200px) {
@@ -1979,6 +2040,11 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 	margin: 0 0 clamp(2rem, 4vw, 3rem) 0;
 	text-align: left;
 	max-width: 100%;
+	flex: 1; // Make it fill available height
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 24px; // Minimum gap between children
 
 	.project-category {
 		font-size: clamp(11px, 1.4vw, 14px);
@@ -2014,6 +2080,12 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 
 // Project edge wrapper specific overrides - flat white styling for video overlay
 .project-edge-wrapper .above-fold-content-wrapper .project-title {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex: 1; // Fill available height
+	gap: 24px; // Minimum gap between project-company-title and read-story-button-container
+	
 	// Company and title in flex column
 	.project-company-title {
 		display: flex;
