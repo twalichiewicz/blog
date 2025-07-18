@@ -8,8 +8,8 @@
     "test:scss": "sass themes/san-diego/source/styles/styles.scss /tmp/test-scss-output.css",
     "build": "npm run test:scss && npm run build:demos && hexo clean && hexo generate",
     "build:full": "npm run build:demos && npm run build",
-    "build:prod": "npm run test:scss && NODE_ENV=production npm run pre-deploy && npm run build:demos:safe && hexo clean && NODE_ENV=production hexo generate && (npm run optimize || echo 'Optimization failed, continuing...')",
-    "build:prod:strict": "npm run test:scss && NODE_ENV=production npm run pre-deploy && npm run build:demos && hexo clean && NODE_ENV=production hexo generate && npm run optimize",
+    "build:prod": "npm run test:scss && NODE_ENV=production npm run pre-deploy && npm run build:demos:safe && hexo clean && NODE_ENV=production hexo generate && npm run inject:analytics && (npm run optimize || echo 'Optimization failed, continuing...')",
+    "build:prod:strict": "npm run test:scss && NODE_ENV=production npm run pre-deploy && npm run build:demos && hexo clean && NODE_ENV=production hexo generate && npm run inject:analytics && npm run optimize",
     "pre-deploy": "node build-system/pre-deploy-check.js",
     "pre-deploy:force": "node build-system/pre-deploy-check.js --force",
     "optimize": "npm run optimize:images && npm run minify",
@@ -64,7 +64,8 @@
     "build:clear-cache": "node build-system/build-utils.js clear-cache",
     "build:install-deps": "node build-system/build-utils.js install-deps",
     "build:all": "node build-system/build-utils.js build-all",
-    "fix:sass-warnings": "node tools/fix-sass-warnings.js"
+    "fix:sass-warnings": "node tools/fix-sass-warnings.js",
+    "inject:analytics": "node scripts/inject-analytics-token.js"
   },
   "hexo": {
     "version": "7.3.0"
