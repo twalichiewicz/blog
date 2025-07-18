@@ -105,7 +105,7 @@
     "tough-cookie": "^5.1.2",
     "two.js": "^0.8.19",
     "uuid": "^9.0.1",
-    "sharp": "^0.34.2",
+    "sharp": "^0.34.3",
     "html-minifier-terser": "^7.2.0",
     "terser": "^5.43.1"
   },
