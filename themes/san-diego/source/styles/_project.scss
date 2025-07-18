@@ -1692,11 +1692,11 @@ blockquote.pullquote {
 			font-size: var(--font-size-md);
 			text-align: right;
 			max-width: 450px;
-			color: variables.$grey-light; // Use light grey color
+			color: white;
 			text-shadow: none; // Remove text shadow in blog context
 			
 			@media (prefers-color-scheme: dark) {
-				color: variables.$grey-dark;
+				color: white;
 			}
 		}
 		
