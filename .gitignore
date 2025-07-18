@@ -1,6 +1,12 @@
 # OS-specific files
 .DS_Store
 Thumbs.db
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+.AppleDouble
+.LSOverride
 
 # Hexo files
 db.json
@@ -28,6 +34,13 @@ node_modules/
 .idea/
 .cursor/
 *.mdc
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+.loadpath
+.recommenders
 
 # Netlify
 .netlify/
@@ -51,6 +64,11 @@ node_modules/
 *.bak
 temp/
 tmp/
+*.pid
+*.seed
+*.pid.lock
+.temp/
+.tmp/
 
 # Test coverage
 coverage/
@@ -78,3 +96,37 @@ screenshots/
 !screenshots/baseline/
 !screenshots/.gitkeep
 CLAUDE.md
+
+# Git worktrees (already covered by directory pattern but being explicit)
+/worktrees/
+worktrees/
+
+# Large media files (consider using Git LFS for these instead)
+# *.mov
+# *.mp4
+# *.avi
+# *.wmv
+# *.webm
+
+# Cache files
+.cache/
+*.cache
+
+# macOS specific
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows specific  
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
