@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Ensure existing content-inner-wrapper has border-radius during transition
 			const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
 			if (existingInnerWrapper) {
-				const isMobile = window.innerWidth <= 768;
+				const isMobile = window.matchMedia('(max-width: 768px)').matches;
 				if (isMobile) {
 					existingInnerWrapper.style.setProperty('border-radius', '12px', 'important');
 				} else {
@@ -523,7 +523,8 @@ document.addEventListener('DOMContentLoaded', function () {
 						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
 						
 						// Apply border-radius based on screen size
-						const isMobile = window.innerWidth <= 768;
+						// Use matchMedia for better mobile detection that matches CSS
+						const isMobile = window.matchMedia('(max-width: 768px)').matches;
 						const borderRadius = isMobile ? '12px' : '12px 0 0 0';
 						innerWrapper.style.borderRadius = borderRadius;
 						innerWrapper.style.overflow = 'hidden';
@@ -559,7 +560,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					// Content inserted successfully
 					
 					// Move back button inside content-inner-wrapper on mobile
-					const isMobile = window.innerWidth <= 768;
+					const isMobile = window.matchMedia('(max-width: 768px)').matches;
 					if (isMobile && backButton) {
 						const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
 						if (innerWrapper && innerWrapper.parentNode === blogContentElement) {
@@ -1231,7 +1232,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			const blogContentElement = document.querySelector('.blog-content');
 			if (!blogContentElement) return;
 			
-			const isMobile = window.innerWidth <= 768;
+			const isMobile = window.matchMedia('(max-width: 768px)').matches;
 			const backButton = blogContentElement.querySelector('.dynamic-back-button');
 			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
 			
