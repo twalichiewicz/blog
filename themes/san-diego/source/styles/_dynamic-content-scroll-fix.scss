@@ -89,8 +89,18 @@
     .content-inner-wrapper {
       overflow: visible !important;
       height: auto !important;
-      // Add border radius for proper mobile styling
+      // Add border radius for proper mobile styling - force with higher specificity
       border-radius: 12px !important;
+    }
+    
+    // Specific targeting for the content inner wrapper to ensure border radius is applied
+    .content-inner-wrapper {
+      border-radius: 12px 12px 12px 12px !important;
+      // Force the border radius on all sides
+      border-top-left-radius: 12px !important;
+      border-top-right-radius: 12px !important;
+      border-bottom-left-radius: 12px !important;
+      border-bottom-right-radius: 12px !important;
     }
     
     // Remove any scroll from post/project wrappers
@@ -100,8 +110,18 @@
       overflow: visible !important;
       height: auto !important;
       
-      // Reduce excessive bottom padding on mobile
-      padding-bottom: 1rem;
+      // Reduce excessive bottom padding on mobile - with higher specificity
+      padding-bottom: 1rem !important;
+      margin-bottom: 0 !important;
+    }
+    
+    // Fix the project sticky nav positioning on mobile
+    .project-sticky-nav {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      padding: 1rem 1rem 0 1rem !important;
+      margin: 0 !important;
     }
     
   }
