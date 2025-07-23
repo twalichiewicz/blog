@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Ensure existing content-inner-wrapper has border-radius during transition
 			const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
 			if (existingInnerWrapper) {
-				const isMobile = window.innerWidth <= 600;
+				const isMobile = window.innerWidth <= 768;
 				if (isMobile) {
 					existingInnerWrapper.style.setProperty('border-radius', '12px', 'important');
 				} else {
@@ -522,16 +522,13 @@ document.addEventListener('DOMContentLoaded', function () {
 						innerWrapper.className = 'content-inner-wrapper';
 						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
 						
-						// Apply border-radius - mobile gets full radius, desktop gets top-left only
-						const isMobile = window.innerWidth <= 600;
-						if (isMobile) {
-							innerWrapper.style.borderRadius = '12px';
-							innerWrapper.style.setProperty('border-radius', '12px', 'important');
-						} else {
-							innerWrapper.style.borderRadius = '12px 0 0 0';
-							innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
-						}
+						// Apply border-radius based on screen size
+						const isMobile = window.innerWidth <= 768;
+						const borderRadius = isMobile ? '12px' : '12px 0 0 0';
+						innerWrapper.style.borderRadius = borderRadius;
 						innerWrapper.style.overflow = 'hidden';
+						// Force border-radius with higher specificity
+						innerWrapper.style.setProperty('border-radius', borderRadius, 'important');
 
 						// Handle project-wrapper inside regular content
 						let projectWrapperInstance = null;
@@ -560,6 +557,17 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 
 					// Content inserted successfully
+					
+					// Move back button inside content-inner-wrapper on mobile
+					const isMobile = window.innerWidth <= 768;
+					if (isMobile && backButton) {
+						const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+						if (innerWrapper && innerWrapper.parentNode === blogContentElement) {
+							// Move back button inside inner wrapper as first child
+							innerWrapper.insertBefore(backButton, innerWrapper.firstChild);
+						}
+					}
+					
 					initializeBlogFeatures(blogContentElement); // This will now delegate carousel init
 					
 					// Initialize project tabs for dynamically loaded content
@@ -1214,5 +1222,34 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (initialSearchInput) {
 		initializeSearchClearButton(initialSearchInput);
 	}
+	
+	// Handle responsive updates on window resize
+	let resizeTimeout;
+	window.addEventListener('resize', function() {
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(function() {
+			const blogContentElement = document.querySelector('.blog-content');
+			if (!blogContentElement) return;
+			
+			const isMobile = window.innerWidth <= 768;
+			const backButton = blogContentElement.querySelector('.dynamic-back-button');
+			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+			
+			if (backButton && innerWrapper) {
+				// Update border-radius
+				const borderRadius = isMobile ? '12px' : '12px 0 0 0';
+				innerWrapper.style.setProperty('border-radius', borderRadius, 'important');
+				
+				// Reposition back button based on screen size
+				if (isMobile && backButton.parentNode === blogContentElement) {
+					// Move back button inside inner wrapper on mobile
+					innerWrapper.insertBefore(backButton, innerWrapper.firstChild);
+				} else if (!isMobile && backButton.parentNode === innerWrapper) {
+					// Move back button outside inner wrapper on desktop
+					blogContentElement.insertBefore(backButton, innerWrapper);
+				}
+			}
+		}, 250); // Debounce resize events
+	});
 
 }); 
