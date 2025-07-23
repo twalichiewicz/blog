@@ -1007,7 +1007,12 @@ body.loaded .project-wrapper {
 	pointer-events: auto;
 
 	@media (max-width: variables.$mobile-breakpoint) {
-		padding: 0;
+		// Fix mobile positioning - place inside content area instead of absolute positioning
+		position: relative;
+		top: auto;
+		left: auto;
+		padding: 1rem 1rem 0 1rem;
+		margin: 0;
 	}
 
 	.project-mini-bio {

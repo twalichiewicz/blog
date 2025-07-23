@@ -15,7 +15,8 @@
       overflow-y: auto !important;
       overflow-x: hidden !important;
       -webkit-overflow-scrolling: touch !important;
-      height: calc(100dvh - 88px) !important; // Account for margins and back button
+      min-height: calc(100dvh - 88px) !important; // Account for margins and back button
+      height: auto !important; // Allow content to determine height
       position: relative !important;
       opacity: 1 !important; // Override the initial opacity: 0
       
@@ -83,11 +84,25 @@
     // Ensure all containers expand naturally
     overflow: visible !important;
     height: auto !important;
+    // Apply border radius to the main blog-content container on mobile
+    border-radius: 12px !important;
     
     .content-wrapper,
     .content-inner-wrapper {
       overflow: visible !important;
       height: auto !important;
+      // Add border radius for proper mobile styling - force with higher specificity
+      border-radius: 12px !important;
+    }
+    
+    // Specific targeting for the content inner wrapper to ensure border radius is applied
+    .content-inner-wrapper {
+      border-radius: 12px 12px 12px 12px !important;
+      // Force the border radius on all sides
+      border-top-left-radius: 12px !important;
+      border-top-right-radius: 12px !important;
+      border-bottom-left-radius: 12px !important;
+      border-bottom-right-radius: 12px !important;
     }
     
     // Remove any scroll from post/project wrappers
@@ -97,9 +112,25 @@
       overflow: visible !important;
       height: auto !important;
       
-      // Ensure content has proper spacing
-      padding-bottom: 2rem;
+      // Reduce excessive bottom padding on mobile - with higher specificity
+      padding-bottom: 1rem !important;
+      margin-bottom: 0 !important;
     }
     
+    // Fix the dynamic back button positioning on mobile - override all other positioning rules
+    .dynamic-back-button {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      margin: 0 0 1rem 0 !important;
+      display: block !important;
+      width: fit-content !important;
+    }
+  }
+  
+  // Additional rule to ensure blog-content itself has border radius on mobile
+  .blog-content {
+    border-radius: 12px !important;
+    overflow: hidden !important; // Ensure child content respects border radius
   }
 }

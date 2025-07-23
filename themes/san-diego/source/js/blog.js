@@ -419,7 +419,12 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Ensure existing content-inner-wrapper has border-radius during transition
 			const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
 			if (existingInnerWrapper) {
-				existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+				const isMobile = window.innerWidth <= 600;
+				if (isMobile) {
+					existingInnerWrapper.style.setProperty('border-radius', '12px', 'important');
+				} else {
+					existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+				}
 			}
 
 			// Start screen wipe transition
@@ -517,11 +522,16 @@ document.addEventListener('DOMContentLoaded', function () {
 						innerWrapper.className = 'content-inner-wrapper';
 						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
 						
-						// Apply border-radius (top-left only as per design)
-						innerWrapper.style.borderRadius = '12px 0 0 0';
+						// Apply border-radius - mobile gets full radius, desktop gets top-left only
+						const isMobile = window.innerWidth <= 600;
+						if (isMobile) {
+							innerWrapper.style.borderRadius = '12px';
+							innerWrapper.style.setProperty('border-radius', '12px', 'important');
+						} else {
+							innerWrapper.style.borderRadius = '12px 0 0 0';
+							innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+						}
 						innerWrapper.style.overflow = 'hidden';
-						// Force border-radius with higher specificity
-						innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
 
 						// Handle project-wrapper inside regular content
 						let projectWrapperInstance = null;
