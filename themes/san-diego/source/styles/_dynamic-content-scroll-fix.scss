@@ -15,7 +15,8 @@
       overflow-y: auto !important;
       overflow-x: hidden !important;
       -webkit-overflow-scrolling: touch !important;
-      height: calc(100dvh - 88px) !important; // Account for margins and back button
+      min-height: calc(100dvh - 88px) !important; // Account for margins and back button
+      height: auto !important; // Allow content to determine height
       position: relative !important;
       opacity: 1 !important; // Override the initial opacity: 0
       
