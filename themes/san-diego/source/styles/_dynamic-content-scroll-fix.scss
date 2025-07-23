@@ -84,6 +84,8 @@
     // Ensure all containers expand naturally
     overflow: visible !important;
     height: auto !important;
+    // Apply border radius to the main blog-content container on mobile
+    border-radius: 12px !important;
     
     .content-wrapper,
     .content-inner-wrapper {
@@ -115,14 +117,20 @@
       margin-bottom: 0 !important;
     }
     
-    // Fix the project sticky nav positioning on mobile
-    .project-sticky-nav {
+    // Fix the dynamic back button positioning on mobile - override all other positioning rules
+    .dynamic-back-button {
       position: relative !important;
       top: auto !important;
       left: auto !important;
-      padding: 1rem 1rem 0 1rem !important;
-      margin: 0 !important;
+      margin: 0 0 1rem 0 !important;
+      display: block !important;
+      width: fit-content !important;
     }
-    
+  }
+  
+  // Additional rule to ensure blog-content itself has border radius on mobile
+  .blog-content {
+    border-radius: 12px !important;
+    overflow: hidden !important; // Ensure child content respects border radius
   }
 }
