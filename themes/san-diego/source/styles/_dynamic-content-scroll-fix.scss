@@ -89,6 +89,8 @@
     .content-inner-wrapper {
       overflow: visible !important;
       height: auto !important;
+      // Add border radius for proper mobile styling
+      border-radius: 12px !important;
     }
     
     // Remove any scroll from post/project wrappers
@@ -98,8 +100,8 @@
       overflow: visible !important;
       height: auto !important;
       
-      // Ensure content has proper spacing
-      padding-bottom: 2rem;
+      // Reduce excessive bottom padding on mobile
+      padding-bottom: 1rem;
     }
     
   }
