@@ -421,9 +421,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (existingInnerWrapper) {
 				const isMobile = window.matchMedia('(max-width: 768px)').matches;
 				if (isMobile) {
+					// Mobile: all corners rounded
 					existingInnerWrapper.style.setProperty('border-radius', '12px', 'important');
 				} else {
-					existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+					// Desktop/tablet: only top-left corner rounded
+					existingInnerWrapper.style.setProperty('border-top-left-radius', '12px', 'important');
+					existingInnerWrapper.style.setProperty('border-top-right-radius', '0', 'important');
+					existingInnerWrapper.style.setProperty('border-bottom-left-radius', '0', 'important');
+					existingInnerWrapper.style.setProperty('border-bottom-right-radius', '0', 'important');
 				}
 			}
 
@@ -525,11 +530,19 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Apply border-radius based on screen size
 						// Use matchMedia for better mobile detection that matches CSS
 						const isMobile = window.matchMedia('(max-width: 768px)').matches;
-						const borderRadius = isMobile ? '12px' : '12px 0 0 0';
-						innerWrapper.style.borderRadius = borderRadius;
+						
 						innerWrapper.style.overflow = 'hidden';
-						// Force border-radius with higher specificity
-						innerWrapper.style.setProperty('border-radius', borderRadius, 'important');
+						
+						if (isMobile) {
+							// Mobile: all corners rounded
+							innerWrapper.style.setProperty('border-radius', '12px', 'important');
+						} else {
+							// Desktop/tablet: only top-left corner rounded
+							innerWrapper.style.setProperty('border-top-left-radius', '12px', 'important');
+							innerWrapper.style.setProperty('border-top-right-radius', '0', 'important');
+							innerWrapper.style.setProperty('border-bottom-left-radius', '0', 'important');
+							innerWrapper.style.setProperty('border-bottom-right-radius', '0', 'important');
+						}
 
 						// Handle project-wrapper inside regular content
 						let projectWrapperInstance = null;
@@ -1238,8 +1251,16 @@ document.addEventListener('DOMContentLoaded', function () {
 			
 			if (backButton && innerWrapper) {
 				// Update border-radius
-				const borderRadius = isMobile ? '12px' : '12px 0 0 0';
-				innerWrapper.style.setProperty('border-radius', borderRadius, 'important');
+				if (isMobile) {
+					// Mobile: all corners rounded
+					innerWrapper.style.setProperty('border-radius', '12px', 'important');
+				} else {
+					// Desktop/tablet: only top-left corner rounded
+					innerWrapper.style.setProperty('border-top-left-radius', '12px', 'important');
+					innerWrapper.style.setProperty('border-top-right-radius', '0', 'important');
+					innerWrapper.style.setProperty('border-bottom-left-radius', '0', 'important');
+					innerWrapper.style.setProperty('border-bottom-right-radius', '0', 'important');
+				}
 				
 				// Reposition back button based on screen size
 				if (isMobile && backButton.parentNode === blogContentElement) {
