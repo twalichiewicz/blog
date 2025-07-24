@@ -123,8 +123,8 @@ jobs:
               repo: context.repo.repo,
               deployment_id: deployment.data.id,
               state: 'success',
-              environment_url: `https://deploy-preview-${context.issue.number}--whimsical-cheesecake-adfa17.netlify.app/`,
-              description: 'Build validated - see Netlify for preview',
+              environment_url: `https://pr-${context.issue.number}.thomas-design.pages.dev/`,
+              description: 'Build validated - see Cloudflare Pages for preview',
               auto_inactive: false
             });
           } catch (error) {
