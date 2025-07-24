@@ -12,11 +12,11 @@
 ## Testing
 - [ ] Tested locally with `npm run dev`
 - [ ] Ran `npm run pre-deploy` (no errors)
-- [ ] Tested on Netlify preview URL
+- [ ] Tested on Cloudflare Pages preview URL
 - [ ] Checked in multiple browsers
 
 ## Preview Checklist
-Once Netlify deploys, please verify:
+Once Cloudflare Pages deploys, please verify:
 - [ ] Site loads without redirect issues
 - [ ] No console errors
 - [ ] Features work as expected
@@ -30,4 +30,4 @@ Once Netlify deploys, please verify:
 <!-- Any additional context -->
 
 ---
-⏳ Netlify will comment with a preview URL once the build completes.
+⏳ Cloudflare Pages will deploy a preview once the build completes.
