@@ -425,10 +425,8 @@ document.addEventListener('DOMContentLoaded', function () {
 					existingInnerWrapper.style.setProperty('border-radius', '12px', 'important');
 				} else {
 					// Desktop/tablet: only top-left corner rounded
-					existingInnerWrapper.style.setProperty('border-top-left-radius', '12px', 'important');
-					existingInnerWrapper.style.setProperty('border-top-right-radius', '0', 'important');
-					existingInnerWrapper.style.setProperty('border-bottom-left-radius', '0', 'important');
-					existingInnerWrapper.style.setProperty('border-bottom-right-radius', '0', 'important');
+					// First clear any existing border-radius shorthand
+					existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
 				}
 			}
 
@@ -538,10 +536,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							innerWrapper.style.setProperty('border-radius', '12px', 'important');
 						} else {
 							// Desktop/tablet: only top-left corner rounded
-							innerWrapper.style.setProperty('border-top-left-radius', '12px', 'important');
-							innerWrapper.style.setProperty('border-top-right-radius', '0', 'important');
-							innerWrapper.style.setProperty('border-bottom-left-radius', '0', 'important');
-							innerWrapper.style.setProperty('border-bottom-right-radius', '0', 'important');
+							innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
 						}
 
 						// Handle project-wrapper inside regular content
@@ -1256,20 +1251,10 @@ document.addEventListener('DOMContentLoaded', function () {
 					innerWrapper.style.setProperty('border-radius', '12px', 'important');
 				} else {
 					// Desktop/tablet: only top-left corner rounded
-					innerWrapper.style.setProperty('border-top-left-radius', '12px', 'important');
-					innerWrapper.style.setProperty('border-top-right-radius', '0', 'important');
-					innerWrapper.style.setProperty('border-bottom-left-radius', '0', 'important');
-					innerWrapper.style.setProperty('border-bottom-right-radius', '0', 'important');
+					innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
 				}
 				
-				// Reposition back button based on screen size
-				if (isMobile && backButton.parentNode === blogContentElement) {
-					// Move back button inside inner wrapper on mobile
-					innerWrapper.insertBefore(backButton, innerWrapper.firstChild);
-				} else if (!isMobile && backButton.parentNode === innerWrapper) {
-					// Move back button outside inner wrapper on desktop
-					blogContentElement.insertBefore(backButton, innerWrapper);
-				}
+				// Don't move the back button - keep it in its original position
 			}
 		}, 250); // Debounce resize events
 	});
