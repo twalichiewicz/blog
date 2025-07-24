@@ -75,8 +75,8 @@ body .project-edge-wrapper,
 
 		.dynamic-back-button {
 			position: absolute;
-			top: 6px;
-			left: 6px;
+			top: 16px;
+			left: 16px;
 			border-radius: 12px;
 		}
 	}
@@ -2561,8 +2561,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 // Dynamic back button positioning - persist in top left corner
 .blog-content .dynamic-back-button {
 	position: absolute;
-	top: 12px;
-	left: 12px;
+	top: 16px;
+	left: 16px;
 	z-index: 1000;
 }
 

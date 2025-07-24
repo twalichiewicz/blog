@@ -84,26 +84,16 @@
     // Ensure all containers expand naturally
     overflow: visible !important;
     height: auto !important;
-    // Apply border radius to the main blog-content container on mobile
-    border-radius: 12px !important;
+    // Border radius handled by JavaScript
     
     .content-wrapper,
     .content-inner-wrapper {
       overflow: visible !important;
       height: auto !important;
-      // Add border radius for proper mobile styling - force with higher specificity
-      border-radius: 12px !important;
+      // Border radius handled by JavaScript
     }
     
-    // Specific targeting for the content inner wrapper to ensure border radius is applied
-    .content-inner-wrapper {
-      border-radius: 12px 12px 12px 12px !important;
-      // Force the border radius on all sides
-      border-top-left-radius: 12px !important;
-      border-top-right-radius: 12px !important;
-      border-bottom-left-radius: 12px !important;
-      border-bottom-right-radius: 12px !important;
-    }
+    // Border radius for content-inner-wrapper is handled by JavaScript
     
     // Remove any scroll from post/project wrappers
     .post-wrapper,
@@ -117,20 +107,16 @@
       margin-bottom: 0 !important;
     }
     
-    // Fix the dynamic back button positioning on mobile - override all other positioning rules
+    // Keep dynamic back button in absolute position on mobile too
     .dynamic-back-button {
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      margin: 0 0 1rem 0 !important;
+      position: absolute !important;
+      top: 16px !important;
+      left: 16px !important;
+      margin: 0 !important;
       display: block !important;
       width: fit-content !important;
     }
   }
   
-  // Additional rule to ensure blog-content itself has border radius on mobile
-  .blog-content {
-    border-radius: 12px !important;
-    overflow: hidden !important; // Ensure child content respects border radius
-  }
+  // Border radius is handled by JavaScript
 }

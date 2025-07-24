@@ -136,7 +136,7 @@
 			border-right: none;
 			border-bottom: none;
 			margin-bottom: 0;
-			border-radius: 0;
+			// Removed border-radius: 0 to allow dynamic border-radius from JS
 		}
 	}
 
@@ -849,8 +849,8 @@ p {
 .dynamic-back-button {
 	// Positioning 
 	position: absolute;
-	top: 6px;
-	left: 6px;
+	top: 16px;
+	left: 16px;
 	z-index: 1000;
 
 	// Appearance - always black button with white text
