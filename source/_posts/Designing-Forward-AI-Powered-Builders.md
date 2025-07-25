@@ -90,7 +90,7 @@ The four-pillar system above is a strong MVP. But what really unlocks long-term 
 
 In the vision I sketched, the future of AI-powered builders isn't a single black box that you prompt and hope for the best. It's a collaborative system where multiple AI agents operate in parallel—each specializing in a distinct layer of the software creation process, just like real product teams.
 
-### 1. The Lightweight Agent: Your Product Strategist in the Loop
+### A. The Lightweight Agent: Your Product Strategist in the Loop
 
 This agent's job isn't to build. It's to understand, scope, prioritize, and clarify.
 It constantly monitors what the user is trying to achieve and translates that intent into something actionable. Think of it as:
@@ -110,7 +110,7 @@ This agent could live in the prompt input itself, or as a side-thread/chat layer
 
 The point isn't just to fill gaps—it's to make sure the user is solving the right problem in the right way.
 
-### 2. The Heavyweight Agent: Your Builder, Deployer, and Debugger
+### B. The Heavyweight Agent: Your Builder, Deployer, and Debugger
 
 Once intent is clear, the second agent takes over execution—handling everything from scaffold generation to deployment to runtime configuration. It doesn't just generate code, it operationalizes it.
 
