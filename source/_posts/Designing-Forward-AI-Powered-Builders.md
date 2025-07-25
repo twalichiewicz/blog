@@ -12,11 +12,11 @@ excerpt: "The real UX bottleneck isn't the model—it's the conversation."
 
 When I was invited to an onsite at Replit, the design challenge was deceptively simple:
 
-<br><br>
+<br>
 
 <span style="font-style: italic; font-size: 15px;">"How might we help users reach a successful outcome faster?"</span>
 
-<br><br>
+<br>
 
 That question gets at the heart of a much bigger issue: the invisible UX failures baked into today's AI-native software creation tools.
 
@@ -58,9 +58,7 @@ The goal is clarity without disruption.
 
 ### 2. Mini-Agent Co-Pilot
 
-A lightweight agent parses input in real time, suggesting interventions or clarifications before the user hits "Build."
-
-Think of it like a product manager embedded in the input box—nudging scope, reusing successful templates, and reducing ambiguity proactively.
+A lightweight agent parses input in real time, suggesting interventions or clarifications before the user hits "Build." Think of it like a product manager embedded in the input box—nudging scope, reusing successful templates, and reducing ambiguity proactively.
 
 ### 3. Confidence Meter on the Build Button
 
@@ -93,6 +91,4 @@ AI-native creation tools are poised to reshape how we build—but only if users 
 
 That won't happen by scaling compute alone. It will happen by designing systems that understand, clarify, and teach. Systems that treat ambiguity as a design problem—not a user error.
 
-Because at the end of the day, the true unlock isn't faster builds.
-
-It's better conversations.
+Because at the end of the day, the true unlock isn't faster builds. It's better conversations.
