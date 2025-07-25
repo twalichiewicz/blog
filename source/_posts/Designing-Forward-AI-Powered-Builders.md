@@ -12,11 +12,7 @@ excerpt: "The real UX bottleneck isn't the model, it's the conversation."
 
 When I was invited to an onsite at Replit, the design challenge they posed was simple on paper:
 
-<br>
-
 <span style="font-style: italic; font-size: 15px;">"How might we help users reach a successful outcome faster?"</span>
-
-<br>
 
 In practice, that question cuts to the heart of a major problem in AI-native creation tools. Users enter a vague idea, hit "Build," and are met with silence or a failed attempt. They're not just asking a system to generate code, they're trying to collaborate with something that gives them no real sense of whether it understood what they meant.
 
