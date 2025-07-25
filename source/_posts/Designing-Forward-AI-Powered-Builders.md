@@ -7,85 +7,78 @@ tags:
   - AI
   - product-design
 date: 2025-07-23 15:00:00
-excerpt: "A deep dive into solving the UX bottleneck in AI builders—moving from prompt-in, failure-out to conversational, transparent interfaces that guide users to success."
+excerpt: "The real UX bottleneck isn't the model—it's the conversation."
 ---
 
-When I was invited to an onsite at Replit, the prompt was simple:
+When I was invited to an onsite at Replit, the design challenge was deceptively simple:
 "How might we help users reach a successful outcome faster?"
 
-It's a deceptively hard question—especially in the context of AI-native software creation, where the user doesn't always know what they want, the system doesn't always understand what's being asked, and failed attempts can quickly spiral into frustration.
+That question gets at the heart of a much bigger issue: the invisible UX failures baked into today's AI-native software creation tools.
+Because when users type in a prompt and hit "Build," they're not just asking a system to execute—they're entering a black box. And when that box misfires, the result isn't just a failed build. It's a loss of confidence, clarity, and momentum.
 
-Over the course of the day, I mapped the problem, explored root causes, and sketched out a future-facing system that combined better UX scaffolding with a foundational shift in how AI tooling communicates intent. I spent hours in their office mapping these flows in real-time on whiteboards. I took the problem seriously. I still believe it's one of the most exciting design challenges in the world.
+Over the course of several hours onsite, I mapped out the problem, traced it to its root causes, and proposed a layered system to close the gap between what users mean and what the system delivers. That work informed everything from UI flow to deeper architecture.
 
-Some of those ideas now seem to have made their way into Replit's product. But if companies are going to incorporate designer contributions into their product, they should be equally willing to recognize them. So I'm sharing the original thinking here—not just to document authorship, but because it only seems fair that OpenAI, Meta, Perplexity, Apple Intelligence, and Google DeepMind get these thoughts too. Let's invite broader conversation on how AI product design should evolve next.
+Some of those ideas have since started showing up in the product. And maybe that's coincidence—or maybe it just means this thinking is timely. Either way, I'm publishing my original solution here not just to document it, but because this problem space is far too important to solve in silos. If we want to help AI tooling reach its full potential, we need to push the conversation industry-wide. That includes teams at OpenAI, Meta, Apple, Perplexity, and DeepMind too.
 
-## The Core Problem:
+## The Core Problem: Prompt-in, failure-out
 
-**Prompt-in, failure-out.**
+Most AI builders still rely on a barebones text box as the primary interface. The user types something vague, hits enter, and hopes the system understands. But too often:
 
-Most AI builders rely on a text input as the starting point. In Replit's case, users type a short description of the app they want to build, then hit "Build." But too often:
-- The system misunderstands what they meant
-- The output is technically broken or misaligned
-- The user doesn't know why it failed or what to try next
+- The prompt is ambiguous
+- The output is broken or misaligned
+- The system offers no path to course-correct
 
-This friction loop is worse for non-technical users, who don't have the vocabulary to retry efficiently. And when they don't succeed in the first few tries, they leave.
+This friction disproportionately affects non-technical users—those without the vocabulary to refine their ask or troubleshoot the result. And when success feels like guesswork, people give up.
 
-## Insight:
+## Insight: The failure isn't in the build engine—it's in the mapping layer.
 
-**The real UX bottleneck isn't the build engine—it's the mapping layer.**
+Before an AI model can generate something useful, it needs a crisp interpretation of intent. But most prompt interfaces are one-way streets. There's no feedback, no preflight check, no signal of whether the system gets it.
 
-AI can't deliver useful output unless it has a clear, actionable understanding of what the user wants. But today's prompt boxes are blind to ambiguity, and the system gives no feedback about confidence, feasibility, or interpretation before triggering an action.
+That's not how people work. That's not how teams build. It's time we stopped treating AI prompts as monologues—and started designing them as conversations.
 
-We need to stop treating prompt input as a monologue and instead treat it like a conversation.
+## The Proposal: A Layered UX System for Interpretation and Guidance
 
-## The Design Solution: A Layered System of Interpretation & Feedback
+Here's the framework I presented during my Replit onsite—designed to shift from black-box execution to transparent, confidence-building interaction:
 
-Over the course of several hours at Replit's HQ, I sketched and iterated on a proposal to address this. My solution had four core pillars:
+### 1. Inline Prompt Validation
+Think password strength meters, but for buildable prompts. As users type, the system gives live feedback:
 
-### 1. Inline Prompt Validation (Inspired by password strength patterns)
-
-As users type their request, the system actively evaluates it against known buildable patterns, surfacing suggestions, clarifying questions, or warnings in real time.
 - "Try adding more detail about the UI"
-- "Looks like you're building a CRUD app — which data model?"
-- "Ambiguous term detected: do you mean X or Y?"
+- "Looks like a CRUD app—what's the data model?"
+- "Ambiguous term detected: X or Y?"
 
-This brings clarity without interrupting flow.
+The goal is clarity without disruption.
 
-### 2. Mini-Agent Co-Pilot (Always Parsing Input)
-
-A lightweight agent runs in the background, interpreting the prompt continuously and surfacing micro-interventions. Think of it as a Product Manager in your input box, asking just-in-time questions and identifying likely blockers before they happen.
-
-This agent could also reuse known successful prompt templates or nudge users toward proven paths.
+### 2. Mini-Agent Co-Pilot
+A lightweight agent parses input in real time, suggesting interventions or clarifications before the user hits "Build."
+Think of it like a product manager embedded in the input box—nudging scope, reusing successful templates, and reducing ambiguity proactively.
 
 ### 3. Confidence Meter on the Build Button
-
-Rather than a binary "Build" action, users see a dynamic signal of how confident the system is in its ability to deliver a viable result.
-This reduces anxiety and adds trust. It also teaches users what the system needs to succeed.
+Instead of a blind "go" button, users see a confidence readout based on input clarity and system readiness.
+This reframes the interaction from binary success/failure to informed collaboration.
 
 ### 4. Netflix-Style App Preview Cards
+Above the prompt, the system shows 2–3 interpretations of what it thinks the user is asking for:
 
-Above the prompt box, users are shown 2–3 interpretations of what the system thinks they want to build—based on the input so far.
 - A chat app with login + chatroom
-- A note-taking app with tags and markdown
-- A portfolio site with sections + deployment config
+- A note-taking app with tags + markdown
+- A portfolio site with sections + deploy config
 
-This turns abstract prompts into tangible outcomes, helps users course-correct, and gives the system a chance to show its understanding.
+This gives users a chance to course-correct—or confirm the system's understanding—before resources are spent.
 
-## The North Star Vision: Dual-Agent Design
+## North Star: Parallel Agents, Real Collaboration
 
-While the above solution is a pragmatic short-term MVP, I also proposed a future architecture based on parallel AI agents:
-- **A Lightweight Agent** acts like a PM, constantly asking clarifying questions, managing scope, and helping users prioritize.
-- **A Heavyweight Agent** acts as the builder—performing deeper operations like scaffolding, deploying, or reconfiguring environments.
+The long-term vision builds on this with a dual-agent model:
 
-These agents would run in parallel, offering guidance and execution simultaneously. This mirrors how real product teams operate: not just building quickly, but building the right thing.
+- A Lightweight Agent manages context, asks questions, and helps users scope their goals—like a PM guiding feature development.
+- A Heavyweight Agent handles the actual build, leveraging infrastructure and deeper model capabilities.
+
+They run in parallel, mirroring real-world team dynamics: insight + execution.
 
 ## Why This Matters
 
-AI builders like Replit are uniquely positioned to democratize software creation. But if we want to truly enable anyone to build apps, we need to acknowledge that the front-end UX layer is just as important as the model underneath.
+AI-native creation tools are poised to reshape how we build—but only if users can succeed.
+That won't happen by scaling compute alone. It will happen by designing systems that understand, clarify, and teach. Systems that treat ambiguity as a design problem—not a user error.
 
-Without better interpretation tools, intent gets lost. Without transparency and guidance, users flail.
-And without thoughtful design, even the most powerful models will fail to deliver on their potential.
-
-—
-Thomas Walichiewicz
-thomas.design
+Because at the end of the day, the true unlock isn't faster builds.
+It's better conversations.
