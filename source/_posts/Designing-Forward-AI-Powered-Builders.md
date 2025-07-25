@@ -46,7 +46,7 @@ We need to stop designing prompts as one-way input and start treating them like 
 
 ## The Solution I Proposed: A Layered UX System for Clarity and Feedback
 
-At Replit's office, I presented a design framework structured around four key elements. The goal was simple—help users move from ambiguity to alignment before anything is built.
+I presented a design framework structured around four key elements. The goal was simple—help users move from ambiguity to alignment before anything is built.
 
 ### 1. Inline Prompt Validation
 
