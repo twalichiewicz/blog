@@ -90,7 +90,7 @@
     .content-inner-wrapper {
       overflow: visible !important;
       height: auto !important;
-      // Border radius handled by JavaScript
+      border-radius: 12px !important;
     }
     
     // Border radius for content-inner-wrapper is handled by JavaScript
@@ -119,4 +119,11 @@
   }
   
   // Border radius is handled by JavaScript
+}
+
+// More specific rule to override any conflicting styles
+@media screen and (max-width: 768px) {
+  .blog .blog-content .content-inner-wrapper {
+    border-radius: 12px !important;
+  }
 }
