@@ -140,4 +140,4 @@ AI-native builders have the potential to fundamentally change how software gets 
 
 The frontier isn't more horsepower. It's better conversation.
 
-If the system doesn't clarify, guide, or explain, then intent gets lost, trust breaks down, and even the best model can't deliver.
+If the system doesn't clarify, guide, or explain, then intent gets lost, trust breaks down, and even the best model won't be able to deliver.
