@@ -11,9 +11,15 @@ excerpt: "The real UX bottleneck isn't the model—it's the conversation."
 ---
 
 When I was invited to an onsite at Replit, the design challenge was deceptively simple:
-"How might we help users reach a successful outcome faster?"
+
+<br><br>
+
+<span style="font-style: italic; font-size: 15px;">"How might we help users reach a successful outcome faster?"</span>
+
+<br><br>
 
 That question gets at the heart of a much bigger issue: the invisible UX failures baked into today's AI-native software creation tools.
+
 Because when users type in a prompt and hit "Build," they're not just asking a system to execute—they're entering a black box. And when that box misfires, the result isn't just a failed build. It's a loss of confidence, clarity, and momentum.
 
 Over the course of several hours onsite, I mapped out the problem, traced it to its root causes, and proposed a layered system to close the gap between what users mean and what the system delivers. That work informed everything from UI flow to deeper architecture.
