@@ -41,6 +41,7 @@ That's not how people work. That's not how teams build. It's time we stopped tre
 Here's the framework I presented during my Replit onsite—designed to shift from black-box execution to transparent, confidence-building interaction:
 
 ### 1. Inline Prompt Validation
+
 Think password strength meters, but for buildable prompts. As users type, the system gives live feedback:
 
 - "Try adding more detail about the UI"
@@ -50,14 +51,19 @@ Think password strength meters, but for buildable prompts. As users type, the sy
 The goal is clarity without disruption.
 
 ### 2. Mini-Agent Co-Pilot
+
 A lightweight agent parses input in real time, suggesting interventions or clarifications before the user hits "Build."
+
 Think of it like a product manager embedded in the input box—nudging scope, reusing successful templates, and reducing ambiguity proactively.
 
 ### 3. Confidence Meter on the Build Button
+
 Instead of a blind "go" button, users see a confidence readout based on input clarity and system readiness.
+
 This reframes the interaction from binary success/failure to informed collaboration.
 
 ### 4. Netflix-Style App Preview Cards
+
 Above the prompt, the system shows 2–3 interpretations of what it thinks the user is asking for:
 
 - A chat app with login + chatroom
@@ -78,7 +84,9 @@ They run in parallel, mirroring real-world team dynamics: insight + execution.
 ## Why This Matters
 
 AI-native creation tools are poised to reshape how we build—but only if users can succeed.
+
 That won't happen by scaling compute alone. It will happen by designing systems that understand, clarify, and teach. Systems that treat ambiguity as a design problem—not a user error.
 
 Because at the end of the day, the true unlock isn't faster builds.
+
 It's better conversations.
