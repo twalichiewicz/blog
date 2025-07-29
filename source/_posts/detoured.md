@@ -7,4 +7,4 @@ short: true
 date: 2025-07-28 19:41:36
 ---
 
-![detoured](detoured.gif)
+![](detoured.gif)
