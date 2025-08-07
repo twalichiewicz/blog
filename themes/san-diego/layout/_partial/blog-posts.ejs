@@ -129,12 +129,32 @@
                                         
                                         const ctx = canvas.getContext('2d');
                                         let stars = [];
-                                        const starCount = 40; // More stars for better warp effect
+                                        const starCount = 35;
                                         let isWarping = false;
-                                        let warpSpeed = 0;
-                                        let targetWarpSpeed = 0;
-                                        const maxWarpSpeed = 50;
-                                        const warpAcceleration = 0.15; // How fast we enter/exit warp
+                                        let isReturning = false;
+                                        let fadeOpacity = 1;
+                                        let warpProgress = 0; // 0 to 1 for logarithmic curve
+                                        let targetWarpProgress = 0;
+                                        const maxWarpSpeed = 15; // Reduced from 50 for less chaos
+                                        const warpAcceleration = 0.08; // Slower acceleration
+                                        
+                                        function createStar(rect) {
+                                            // Create star with random distribution
+                                            const x = Math.random() * rect.width;
+                                            const y = Math.random() * rect.height;
+                                            
+                                            return {
+                                                x: x,
+                                                y: y,
+                                                originX: x,
+                                                originY: y,
+                                                baseSize: 0.3 + Math.random() * 0.7,
+                                                twinkleSpeed: 0.5 + Math.random() * 1.5,
+                                                twinkleOffset: Math.random() * Math.PI * 2,
+                                                brightness: 0.6 + Math.random() * 0.4,
+                                                speed: 0.3 + Math.random() * 0.7, // Reduced speed range
+                                            };
+                                        }
                                         
                                         function setupCanvas() {
                                             const rect = canvas.getBoundingClientRect();
@@ -145,33 +165,10 @@
                                             
                                             ctx.scale(dpr, dpr);
                                             
-                                            // Recreate stars for new dimensions
+                                            // Create stars with random distribution
                                             stars = [];
-                                            const centerX = rect.width / 2;
-                                            const centerY = rect.height / 2;
-                                            
                                             for (let i = 0; i < starCount; i++) {
-                                                // Position stars in 3D space (x, y, z)
-                                                const angle = Math.random() * Math.PI * 2;
-                                                const distance = Math.random() * Math.max(rect.width, rect.height);
-                                                
-                                                stars.push({
-                                                    // Starting position
-                                                    x: centerX + Math.cos(angle) * distance,
-                                                    y: centerY + Math.sin(angle) * distance,
-                                                    z: Math.random() * 1000, // Depth
-                                                    // Store original position for warp calculations
-                                                    originX: centerX + Math.cos(angle) * distance,
-                                                    originY: centerY + Math.sin(angle) * distance,
-                                                    // Star properties
-                                                    baseSize: 0.3 + Math.random() * 0.7,
-                                                    twinkleSpeed: 0.5 + Math.random() * 1.5,
-                                                    twinkleOffset: Math.random() * Math.PI * 2,
-                                                    brightness: 0.6 + Math.random() * 0.4,
-                                                    speed: 0.5 + Math.random() * 1.5,
-                                                    // Trail properties for warp effect
-                                                    trail: []
-                                                });
+                                                stars.push(createStar(rect));
                                             }
                                         }
                                         
@@ -180,9 +177,9 @@
                                             const centerX = rect.width / 2;
                                             const centerY = rect.height / 2;
                                             
-                                            // Fade out instead of clear for trail effect during warp
-                                            if (isWarping || warpSpeed > 0.1) {
-                                                ctx.fillStyle = 'rgba(5, 11, 26, 0.3)';
+                                            // Clear or fade based on warp state
+                                            if (isWarping || warpProgress > 0.01) {
+                                                ctx.fillStyle = 'rgba(5, 11, 26, 0.4)';
                                                 ctx.fillRect(0, 0, rect.width, rect.height);
                                             } else {
                                                 ctx.clearRect(0, 0, rect.width, rect.height);
@@ -190,17 +187,40 @@
                                             
                                             const time = Date.now() * 0.001;
                                             
-                                            // Smoothly transition warp speed
-                                            if (Math.abs(warpSpeed - targetWarpSpeed) > 0.1) {
-                                                warpSpeed += (targetWarpSpeed - warpSpeed) * warpAcceleration;
+                                            // Update warp progress with smooth transition
+                                            if (Math.abs(warpProgress - targetWarpProgress) > 0.001) {
+                                                warpProgress += (targetWarpProgress - warpProgress) * warpAcceleration;
                                             } else {
-                                                warpSpeed = targetWarpSpeed;
+                                                warpProgress = targetWarpProgress;
+                                            }
+                                            
+                                            // Calculate actual warp speed using logarithmic curve
+                                            // This creates the acceleration feel
+                                            const logCurve = warpProgress > 0 ? Math.log(1 + warpProgress * 9) / Math.log(10) : 0;
+                                            const warpSpeed = logCurve * maxWarpSpeed;
+                                            
+                                            // Handle fade effect when returning from warp
+                                            if (isReturning) {
+                                                fadeOpacity -= 0.05;
+                                                if (fadeOpacity <= 0) {
+                                                    fadeOpacity = 0;
+                                                    // Reset all stars to random positions
+                                                    stars.forEach(star => {
+                                                        star.x = Math.random() * rect.width;
+                                                        star.y = Math.random() * rect.height;
+                                                        star.originX = star.x;
+                                                        star.originY = star.y;
+                                                    });
+                                                    isReturning = false;
+                                                }
+                                            } else if (!isWarping && fadeOpacity < 1) {
+                                                fadeOpacity = Math.min(1, fadeOpacity + 0.03);
                                             }
                                             
                                             stars.forEach(star => {
-                                                // Move stars
-                                                if (warpSpeed > 0) {
-                                                    // Warp movement - stars fly past from center
+                                                // Move stars during warp
+                                                if (warpSpeed > 0.5 && !isReturning) {
+                                                    // Calculate direction from center
                                                     const dx = star.x - centerX;
                                                     const dy = star.y - centerY;
                                                     const angle = Math.atan2(dy, dx);
@@ -211,35 +231,37 @@
                                                     
                                                     // Reset star if it goes off screen
                                                     const dist = Math.sqrt(dx * dx + dy * dy);
-                                                    if (dist > Math.max(rect.width, rect.height)) {
+                                                    if (dist > Math.max(rect.width, rect.height) * 0.7) {
                                                         const newAngle = Math.random() * Math.PI * 2;
-                                                        const startDist = 10;
+                                                        const startDist = 5 + Math.random() * 20;
                                                         star.x = centerX + Math.cos(newAngle) * startDist;
                                                         star.y = centerY + Math.sin(newAngle) * startDist;
-                                                        star.originX = star.x;
-                                                        star.originY = star.y;
                                                     }
-                                                } else {
-                                                    // Return to original positions when not warping
-                                                    star.x += (star.originX - star.x) * 0.1;
-                                                    star.y += (star.originY - star.y) * 0.1;
                                                 }
                                                 
                                                 // Calculate star appearance
                                                 const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
-                                                const warpMultiplier = 1 + (warpSpeed / maxWarpSpeed) * 3; // Bigger during warp
+                                                const warpMultiplier = 1 + (warpSpeed / maxWarpSpeed) * 1.5; // Less extreme size change
                                                 const currentSize = star.baseSize * twinkle * warpMultiplier;
-                                                const opacity = star.brightness * twinkle;
+                                                const baseOpacity = star.brightness * twinkle * fadeOpacity;
                                                 
                                                 // Draw star trail during warp
-                                                if (warpSpeed > 5) {
-                                                    const trailLength = Math.min(warpSpeed * 2, 40);
+                                                if (warpSpeed > 3 && !isReturning) {
+                                                    const trailLength = Math.min(warpSpeed * 3, 30); // Shorter trails
                                                     const dx = star.x - centerX;
                                                     const dy = star.y - centerY;
                                                     const angle = Math.atan2(dy, dx);
                                                     
-                                                    // Draw trail
-                                                    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.5})`;
+                                                    // Draw trail with gradient
+                                                    const gradient = ctx.createLinearGradient(
+                                                        star.x, star.y,
+                                                        star.x - Math.cos(angle) * trailLength,
+                                                        star.y - Math.sin(angle) * trailLength
+                                                    );
+                                                    gradient.addColorStop(0, `rgba(255, 255, 255, ${baseOpacity * 0.6})`);
+                                                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                                                    
+                                                    ctx.strokeStyle = gradient;
                                                     ctx.lineWidth = currentSize * 2;
                                                     ctx.lineCap = 'round';
                                                     ctx.beginPath();
@@ -252,15 +274,15 @@
                                                 }
                                                 
                                                 // Draw star
-                                                ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                                                ctx.fillStyle = `rgba(255, 255, 255, ${baseOpacity})`;
                                                 ctx.beginPath();
                                                 ctx.arc(star.x, star.y, currentSize, 0, Math.PI * 2);
                                                 ctx.fill();
                                                 
-                                                // Glow effect (enhanced during warp)
-                                                if (star.baseSize > 0.8 && star.brightness > 0.9) {
-                                                    const glowSize = warpSpeed > 0 ? 5 : 3;
-                                                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.05 * (1 + warpSpeed/maxWarpSpeed)})`;
+                                                // Subtle glow effect
+                                                if (star.baseSize > 0.8 && star.brightness > 0.9 && !isReturning) {
+                                                    const glowSize = 3 + (warpSpeed / maxWarpSpeed) * 2;
+                                                    ctx.fillStyle = `rgba(255, 255, 255, ${baseOpacity * 0.03})`;
                                                     ctx.beginPath();
                                                     ctx.arc(star.x, star.y, currentSize * glowSize, 0, Math.PI * 2);
                                                     ctx.fill();
@@ -275,23 +297,29 @@
                                         // Hover event handlers
                                         container.addEventListener('mouseenter', () => {
                                             isWarping = true;
-                                            targetWarpSpeed = maxWarpSpeed;
+                                            isReturning = false;
+                                            targetWarpProgress = 1;
+                                            fadeOpacity = 1;
                                         });
                                         
                                         container.addEventListener('mouseleave', () => {
                                             isWarping = false;
-                                            targetWarpSpeed = 0;
+                                            isReturning = true;
+                                            targetWarpProgress = 0;
                                         });
                                         
                                         // Touch support for mobile
                                         container.addEventListener('touchstart', () => {
                                             isWarping = true;
-                                            targetWarpSpeed = maxWarpSpeed;
+                                            isReturning = false;
+                                            targetWarpProgress = 1;
+                                            fadeOpacity = 1;
                                         });
                                         
                                         container.addEventListener('touchend', () => {
                                             isWarping = false;
-                                            targetWarpSpeed = 0;
+                                            isReturning = true;
+                                            targetWarpProgress = 0;
                                         });
                                         
                                         // Setup and start
