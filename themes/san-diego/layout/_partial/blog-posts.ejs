@@ -71,11 +71,14 @@
                                 <% if (post.workspace_os_special) { %>
                                     <canvas class="starfield-canvas"></canvas>
                                     <style>
-                                    .workspace-os-starfield {
+                                    /* WorkspaceOS starfield styling - always dark mode */
+                                    .workspace-os-starfield,
+                                    [data-theme="light"] .workspace-os-starfield,
+                                    [data-theme="dark"] .workspace-os-starfield {
                                         position: relative;
-                                        background: radial-gradient(ellipse at center, #0B1426 0%, #050B1A 70%, #000205 100%);
+                                        background: radial-gradient(ellipse at center, #0B1426 0%, #050B1A 70%, #000205 100%) !important;
                                         overflow: hidden;
-                                        border: 1px solid rgba(255, 255, 255, 0.1);
+                                        border: 1px solid rgba(255, 255, 255, 0.1) !important;
                                         min-height: 80px;
                                     }
                                     .starfield-canvas {
@@ -86,16 +89,28 @@
                                         height: 100%;
                                         pointer-events: none;
                                     }
-                                    .workspace-os-starfield .link-text-group {
-                                        color: white;
+                                    .workspace-os-starfield .link-text-group,
+                                    [data-theme="light"] .workspace-os-starfield .link-text-group,
+                                    [data-theme="dark"] .workspace-os-starfield .link-text-group {
+                                        color: white !important;
                                         position: relative;
                                         z-index: 2;
                                     }
-                                    .workspace-os-starfield .link-url {
-                                        color: rgba(255, 255, 255, 0.7);
+                                    .workspace-os-starfield .link-url,
+                                    [data-theme="light"] .workspace-os-starfield .link-url,
+                                    [data-theme="dark"] .workspace-os-starfield .link-url {
+                                        color: rgba(255, 255, 255, 0.7) !important;
                                     }
-                                    .workspace-os-starfield .external-icon {
-                                        color: white;
+                                    .workspace-os-starfield .external-icon,
+                                    [data-theme="light"] .workspace-os-starfield .external-icon,
+                                    [data-theme="dark"] .workspace-os-starfield .external-icon {
+                                        color: white !important;
+                                    }
+                                    /* Ensure hover states also maintain dark styling */
+                                    .workspace-os-starfield:hover,
+                                    [data-theme="light"] .workspace-os-starfield:hover,
+                                    [data-theme="dark"] .workspace-os-starfield:hover {
+                                        background: radial-gradient(ellipse at center, #0B1426 0%, #050B1A 70%, #000205 100%) !important;
                                     }
                                     </style>
                                     <script>
