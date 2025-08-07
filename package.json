@@ -2,11 +2,14 @@
   "name": "thomas.design blog",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "check-branch": "bash scripts/ensure-safe-branch.sh",
     "postinstall": "echo '🤖 Remember to run: npm run check-branch before making changes!'",
     "test:scss": "sass themes/san-diego/source/styles/styles.scss /tmp/test-scss-output.css",
-    "build": "npm run test:scss && npm run build:demos && hexo clean && hexo generate",
+    "build": "npm run test:scss && npm run build:demos:safe && hexo clean && hexo generate",
     "build:full": "npm run build:demos && npm run build",
     "build:prod": "npm run test:scss && NODE_ENV=production npm run pre-deploy && npm run build:demos:safe && hexo clean && NODE_ENV=production hexo generate && npm run inject:analytics && (npm run optimize || echo 'Optimization failed, continuing...')",
     "build:prod:strict": "npm run test:scss && NODE_ENV=production npm run pre-deploy && npm run build:demos && hexo clean && NODE_ENV=production hexo generate && npm run inject:analytics && npm run optimize",
@@ -73,11 +76,10 @@
   "dependencies": {
     "@hapi/hoek": "^11.0.4",
     "ajv": "^8.17.1",
-    "blessed": "^0.1.81",
-    "blessed-contrib": "^4.11.0",
     "braces": "^3.0.3",
     "chart.js": "^4.5.0",
     "cli-table3": "^0.6.5",
+    "glob": "^11.0.3",
     "hawk": "^9.0.2",
     "hexo": "^7.3.0",
     "hexo-deployer-git": "^4.0.0",
@@ -97,17 +99,16 @@
     "hexo-theme-landscape": "^1.1.0",
     "hexo-util": "^3.3.0",
     "highlight.js": "^11.11.1",
-    "glob": "^11.0.3",
+    "html-minifier-terser": "^7.2.0",
     "js-yaml": "^4.1.0",
     "minimatch": "^3.1.2",
     "ora": "^8.2.0",
     "sass": "^1.90.0",
+    "sharp": "^0.34.3",
+    "terser": "^5.43.1",
     "tough-cookie": "^5.1.2",
     "two.js": "^0.8.19",
-    "uuid": "^9.0.1",
-    "sharp": "^0.34.3",
-    "html-minifier-terser": "^7.2.0",
-    "terser": "^5.43.1"
+    "uuid": "^9.0.1"
   },
   "overrides": {
     "minimatch": "^3.1.2",

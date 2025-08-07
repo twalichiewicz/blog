@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const blessed = require('blessed');
-const contrib = require('blessed-contrib');
+// Note: blessed-contrib removed due to security vulnerabilities
+// This is now a simple text-based health check
 const SelfHealingManager = require('./self-healing-manager');
 const { execSync } = require('child_process');
 const path = require('path');
@@ -25,7 +25,27 @@ class HealthDashboard {
   }
 
   async start() {
-    // Create screen
+    console.log(chalk.blue.bold('\n📊 Health Dashboard\n'));
+    console.log(chalk.gray('Note: Interactive dashboard temporarily disabled due to security fixes'));
+    console.log(chalk.gray('Use npm run doctor for health checks\n'));
+    
+    // Run health check instead
+    const checkResult = await this.selfHealing.runHealthCheck();
+    
+    if (checkResult.healthy) {
+      console.log(chalk.green('✅ System is healthy!'));
+    } else {
+      console.log(chalk.yellow('⚠️ Issues detected:'));
+      checkResult.issues.forEach(issue => {
+        console.log(chalk.yellow(`  - ${issue.message}`));
+      });
+    }
+    
+    process.exit(0);
+    return;
+    
+    // Original blessed code disabled
+    /*
     this.screen = blessed.screen({
       smartCSR: true,
       title: 'Thomas.design Health Dashboard'
@@ -523,6 +543,8 @@ if (require.main === module) {
     console.error('Dashboard failed:', error);
     process.exit(1);
   });
+    */
+  }
 }
 
 module.exports = HealthDashboard;
