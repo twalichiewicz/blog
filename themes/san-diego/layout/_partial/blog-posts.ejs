@@ -114,20 +114,12 @@
                                         background: rgba(255, 255, 255, 0.2) !important;
                                         border-color: rgba(255, 255, 255, 0.3) !important;
                                     }
-                                    /* Ensure hover states also maintain dark styling */
-                                    .workspace-os-starfield:hover,
-                                    [data-theme="light"] .workspace-os-starfield:hover,
-                                    [data-theme="dark"] .workspace-os-starfield:hover {
+                                    /* Override the a:hover opacity from typography-system */
+                                    a.workspace-os-starfield:hover,
+                                    [data-theme="light"] a.workspace-os-starfield:hover,
+                                    [data-theme="dark"] a.workspace-os-starfield:hover {
+                                        opacity: 1 !important; /* Prevent opacity: 0.8 on hover */
                                         background: radial-gradient(ellipse at center, #0B1426 0%, #050B1A 70%, #000205 100%) !important;
-                                        background-color: transparent !important; /* Override theme hover background */
-                                        filter: none !important; /* Remove any brightness filters */
-                                        transform: none !important; /* Prevent scale effects */
-                                    }
-                                    /* Override theme-modes hover effect */
-                                    .workspace-os-starfield.post-long:hover,
-                                    [data-theme="light"] .workspace-os-starfield.post-long:hover,
-                                    [data-theme="dark"] .workspace-os-starfield.post-long:hover {
-                                        background-color: transparent !important;
                                     }
                                     </style>
                                     <script>
