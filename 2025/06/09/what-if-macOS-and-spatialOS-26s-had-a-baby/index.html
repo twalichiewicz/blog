@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <head>
+  
+  
+  <!-- Primary Meta Tags -->
+  <title>Design in Everything - by Thomas Walichiewicz</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Thomas Walichiewicz - Designer, Developer, Thinker">
+  <meta name="author" content="Thomas Walichiewicz">
+  
+  <meta name="keywords" content="design, portfolio, blog, developer">
+  
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/index.html">
+  
+  <!-- Resource Hints for Performance -->
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  
+  <!-- Theme and Color -->
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/index.html">
+  <meta property="og:title" content="macOS + spatialOS = ?">
+  <meta property="og:description" content="Thomas Walichiewicz - Designer, Developer, Thinker">
+  <meta property="og:image" content="https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/macOSspatialOSPreview.png">
+  <meta property="og:site_name" content="Thomas Walichiewicz">
+  
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/index.html">
+  <meta name="twitter:title" content="macOS + spatialOS = ?">
+  <meta name="twitter:description" content="Thomas Walichiewicz - Designer, Developer, Thinker">
+  <meta name="twitter:image" content="https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/macOSspatialOSPreview.png">
+  
+  
+  <!-- Cache Control - Prevent aggressive caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Security Headers (Meta Tag Equivalents) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+  
+  <!-- Robots Meta -->
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  
+  <!-- Stylesheets -->
+  <link rel="preload" href="/styles/styles.css?v=1754601236317" as="style">
+  <link rel="stylesheet" href="/styles/styles.css?v=1754601236317">
+  
+  <!-- Initial loading state -->
+  <style>
+    body:not(.loaded) {
+      overflow: hidden;
+    }
+  </style>
+  
+  <!-- Project-specific Scripts -->
+  
+  
+  <!-- Theme now relies on prefers-color-scheme media queries -->
+
+  <!-- Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/+esm",
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
+    }
+  }
+  </script>
+
+  <!-- Core Scripts -->
+  <script src="/js/san-diego-namespace.js?v=1754601236317"></script>
+  <script type="module" src="/js/main.js?v=1754601236317"></script>
+  <script type="module" src="/js/components/HomeVisuals.js?v=1754601236317"></script>
+  <script type="module" src="/js/mobile-tabs.js?v=1754601236317"></script>
+  <script type="module" src="/js/carousel.js?v=1754601236317"></script>
+  <script type="module" src="/js/utils/animations.js?v=1754601236317"></script>
+  <script src="/js/project-tabs.js?v=1754601236317"></script>
+  <script src="/js/project-summary.js?v=1754601236317"></script>
+  <script type="module" src="/js/scroll.js?v=1754601236317"></script>
+  <script src="/js/sound-effects.js?v=1754601236317"></script>
+  <script src="/js/screen-wipe-transition.js?v=1754601236317"></script>
+  <script src="/js/external-links.js?v=1754601236317"></script>
+  <script src="/js/project-demo.js?v=1754601236317"></script>
+  <script src="/js/project-demo-walkthrough.js?v=1754601236317"></script>
+  <script src="/js/byline-modal.js?v=1754601236317"></script>
+  <script src="/js/portfolio-parallax-optimized.js?v=1754601236317"></script>
+  <script src="/js/portfolio-filters.js?v=1754601236317"></script>
+  <script src="/js/portfolio-filters-dropdown.js?v=1754601236317"></script>
+  <script src="/js/portfolio-notebook-carousel-state.js?v=1754601236317"></script>
+  <script src="/js/notebook-skeleton-loader.js?v=1754601236317"></script>
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://twalichiewicz.github.io/#website",
+        "url": "https://twalichiewicz.github.io",
+        "name": "Thomas Walichiewicz",
+        "description": "Thomas Walichiewicz - Designer, Developer, Thinker",
+        "publisher": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://twalichiewicz.github.io/#person",
+        "name": "Thomas Walichiewicz",
+        "url": "https://twalichiewicz.github.io",
+        "sameAs": [
+          
+          
+          
+        ],
+        "jobTitle": "Designer & Developer",
+        "description": "Designer, researcher, and relentless problem solver"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- RSS Feed -->
+  
+  <link rel="alternate" type="application/rss+xml" title="Thomas Walichiewicz" href="/rss2.xml">
+  
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+    </head>
+    <body>
+        <!-- Skip Navigation Links for Accessibility -->
+<a href="#main-content" class="skip-nav-link">Skip to main content</a>
+
+
+<style>
+.skip-nav-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--text-color, #000);
+  color: var(--background-color, #fff);
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 100;
+  font-weight: 500;
+  font-size: 14px;
+  transition: top 0.2s ease;
+}
+
+.skip-nav-link:focus {
+  top: 0;
+  outline: 2px solid var(--accent-color, #f0b90b);
+  outline-offset: 2px;
+}
+
+/* Ensure links are visible when using keyboard navigation */
+.skip-nav-link:focus-visible {
+  top: 0;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .skip-nav-link {
+  background: #fff;
+  color: #000;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skip-nav-link {
+    transition: top 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+</style>
+		<!DOCTYPE html>
+<html>
+    <head>
+  
+  
+  <!-- Primary Meta Tags -->
+  <title>Design in Everything - by Thomas Walichiewicz</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Thomas Walichiewicz - Designer, Developer, Thinker">
+  <meta name="author" content="Thomas Walichiewicz">
+  
+  <meta name="keywords" content="design, portfolio, blog, developer">
+  
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/index.html">
+  
+  <!-- Resource Hints for Performance -->
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  
+  <!-- Theme and Color -->
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/index.html">
+  <meta property="og:title" content="macOS + spatialOS = ?">
+  <meta property="og:description" content="Thomas Walichiewicz - Designer, Developer, Thinker">
+  <meta property="og:image" content="https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/macOSspatialOSPreview.png">
+  <meta property="og:site_name" content="Thomas Walichiewicz">
+  
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/index.html">
+  <meta name="twitter:title" content="macOS + spatialOS = ?">
+  <meta name="twitter:description" content="Thomas Walichiewicz - Designer, Developer, Thinker">
+  <meta name="twitter:image" content="https://twalichiewicz.github.io/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/macOSspatialOSPreview.png">
+  
+  
+  <!-- Cache Control - Prevent aggressive caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Security Headers (Meta Tag Equivalents) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+  
+  <!-- Robots Meta -->
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  
+  <!-- Stylesheets -->
+  <link rel="preload" href="/styles/styles.css?v=1754601235240" as="style">
+  <link rel="stylesheet" href="/styles/styles.css?v=1754601235240">
+  
+  <!-- Initial loading state -->
+  <style>
+    body:not(.loaded) {
+      overflow: hidden;
+    }
+  </style>
+  
+  <!-- Project-specific Scripts -->
+  
+  
+  <!-- Theme now relies on prefers-color-scheme media queries -->
+
+  <!-- Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/+esm",
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
+    }
+  }
+  </script>
+
+  <!-- Core Scripts -->
+  <script src="/js/san-diego-namespace.js?v=1754601235240"></script>
+  <script type="module" src="/js/main.js?v=1754601235240"></script>
+  <script type="module" src="/js/components/HomeVisuals.js?v=1754601235240"></script>
+  <script type="module" src="/js/mobile-tabs.js?v=1754601235240"></script>
+  <script type="module" src="/js/carousel.js?v=1754601235240"></script>
+  <script type="module" src="/js/utils/animations.js?v=1754601235240"></script>
+  <script src="/js/project-tabs.js?v=1754601235240"></script>
+  <script src="/js/project-summary.js?v=1754601235240"></script>
+  <script type="module" src="/js/scroll.js?v=1754601235240"></script>
+  <script src="/js/sound-effects.js?v=1754601235240"></script>
+  <script src="/js/screen-wipe-transition.js?v=1754601235240"></script>
+  <script src="/js/external-links.js?v=1754601235240"></script>
+  <script src="/js/project-demo.js?v=1754601235240"></script>
+  <script src="/js/project-demo-walkthrough.js?v=1754601235240"></script>
+  <script src="/js/byline-modal.js?v=1754601235240"></script>
+  <script src="/js/portfolio-parallax-optimized.js?v=1754601235240"></script>
+  <script src="/js/portfolio-filters.js?v=1754601235240"></script>
+  <script src="/js/portfolio-filters-dropdown.js?v=1754601235240"></script>
+  <script src="/js/portfolio-notebook-carousel-state.js?v=1754601235240"></script>
+  <script src="/js/notebook-skeleton-loader.js?v=1754601235240"></script>
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://twalichiewicz.github.io/#website",
+        "url": "https://twalichiewicz.github.io",
+        "name": "Thomas Walichiewicz",
+        "description": "Thomas Walichiewicz - Designer, Developer, Thinker",
+        "publisher": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://twalichiewicz.github.io/#person",
+        "name": "Thomas Walichiewicz",
+        "url": "https://twalichiewicz.github.io",
+        "sameAs": [
+          
+          
+          
+        ],
+        "jobTitle": "Designer & Developer",
+        "description": "Designer, researcher, and relentless problem solver"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- RSS Feed -->
+  
+  <link rel="alternate" type="application/rss+xml" title="Thomas Walichiewicz" href="/rss2.xml">
+  
+  
+</head>
+    <body>
+        <script>
+            // Redirect to homepage with post path
+            (function() {
+                const currentPath = window.location.pathname;
+                const isDirectAccess = !document.referrer || !document.referrer.includes(window.location.origin);
+                const isRefresh = window.performance && window.performance.navigation && window.performance.navigation.type === 1;
+                
+                // Redirect if accessing directly OR on refresh (not from within the site)
+                if ((isDirectAccess || isRefresh) && currentPath !== '/') {
+                    // Redirect to homepage with post parameter
+                    window.location.href = '/?post=' + encodeURIComponent(currentPath);
+                }
+            })();
+        </script>
+        
+        <div class="page-transition-overlay"></div>
+        
+        <div class="post-wrapper dynamic-loaded" id="main-content">
+            <!-- Dynamic content will extract this wrapper -->
+            <div class="post-content-wrapper">
+                
+                <article class="substack-post" id="post-content">
+            <!-- Post header content -->
+            <header class="post-header">
+                <div class="post-header-container">
+                    <!-- Title -->
+                    <h1 class="post-title">macOS + spatialOS = ?</h1>
+                    
+                    <!-- Subtitle/excerpt if available -->
+                    
+                    <div class="post-subtitle">
+                        Apple bringing 3D window management from SpatialOS to macOS has me thinking, why not add a z-axis to desktop interactions?
+                    </div>
+                    
+                    
+                    <!-- Author info and metadata -->
+                    <div class="post-byline">
+                        <div class="author-info">
+                            <div class="author-details">
+                                <div class="post-metadata">
+                                    
+                                    <time class="post-date" datetime="2025-06-09">
+                                        Jun 9, 2025
+                                    </time>
+                                    
+                                    
+                                    
+                                    
+                                    <span class="reading-time-separator">·</span>
+                                    <span class="post-reading-time">
+                                        2 min read
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Cover image section -->
+            
+            <div class="post-cover-image">
+                <img src="/2025/06/09/what-if-macOS-and-spatialOS-26s-had-a-baby/macOSspatialOSPreview.png" alt="macOS + spatialOS = ?" loading="eager" / decoding="async">
+            </div>
+            
+            <!-- Post content -->
+            <div class="post-content-container">
+                <div class="post-content">
+                    <p>Apple bringing 3D window management from SpatialOS to macOS has me thinking: why not add a z-axis to desktop interactions?</p>
+<p>The current 2D window stack feels increasingly limiting. We’re managing dozens of apps, countless browser tabs, and multiple workspaces (all constrained to x and y coordinates). Meanwhile, our spatial reasoning capabilities remain largely untapped.</p>
+<p>Imagine grabbing a window by its title bar and pushing it “back” into space, where it scales down and slides behind your active work. Not hidden, not minimized (just contextually receded). Designers could keep inspiration boards floating behind their canvas. Developers could layer documentation behind their IDE.</p>
+<div class="video-container">
+  <video controls playsinline style="width: 100%; height: auto; margin: 24px 0;" autoplay loop muted>
+    
+    <source src="macOS26_spatialOS26.webm" type="video/webm">
+    <source src="macOS26_spatialOS26.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+<p style="text-align: center; color: #666; font-size: 0.9em; margin-top: -16px;">A window being dragged "into" the screen, shrinking as it moves behind other windows on the z-axis</p>
+
+<p>Here’s where it gets interesting: with shared spatial metadata between macOS and SpatialOS, your window arrangements could persist across devices. And if they leverage their foveated rendering tech, we could get natural parallax effects as you move your cursor (or your head in Vision Pro). Mission Control transforms from a flat grid into a truly spatial command center.</p>
+<h2 id="The-clever-bits"><a href="#The-clever-bits" class="headerlink" title="The clever bits"></a>The <span style="background: linear-gradient(90deg, #9D00FF 0%, #FF00F5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;">clever</span> bits</h2><ul>
+<li>Window depth as process priority: That Gmail tab five layers back becomes a literal background process. macOS could throttle CPU cycles based on z-position.</li>
+<li>Eye tracking and foveated rendering mean that peripheral windows could render at lower resolution so your computer stops wasting resources on things you’re not looking at</li>
+<li>Ultra Wideband positioning could make window arrangements location-aware. Walk into the kitchen with your laptop, and your cooking videos and recipe tabs automatically move forward. Head to the office, and work documents take focus. The z-axis becomes context-aware.</li>
+</ul>
+<p>I’m starting to think we’ve been stuck in flatland for too long.</p>
+
+                </div>
+            </div>
+                </article>
+                
+            </div><!-- .post-content-wrapper -->
+        </div><!-- .post-wrapper -->
+        
+        
+        <script>
+            // Handle page transition overlay
+            document.addEventListener('DOMContentLoaded', function() {
+                const overlay = document.querySelector('.page-transition-overlay');
+                const body = document.body;
+                
+                // Add loaded class to body after a short delay
+                setTimeout(() => {
+                    overlay.classList.add('fade-out');
+                    body.classList.add('loaded');
+                    
+                    // Remove overlay after fade out
+                    setTimeout(() => {
+                        overlay.remove();
+                    }, 1000);
+                }, 100);
+            });
+        </script>
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e8fdac6a36f74464bcf2d55fbb7f0ca2"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+    </body>
+</html>
+
+
+        
+<script src="/js/device-detection.js"></script>
+
+        
+<script src="/js/profile-header-compact.js"></script>
+
+        
+<script src="/js/code-sandbox.js"></script>
+
+        <!-- main.js already loaded in head.ejs -->
+        
+
+        
+
+        <!-- mobile-tabs.js and sound-effects.js already loaded in head.ejs -->
+        <!-- Additional scripts -->
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e8fdac6a36f74464bcf2d55fbb7f0ca2"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+        
+        <script>
+        // Simple page load handler
+        document.body.classList.add('loaded');
+        </script>
+    </body>
+</html>

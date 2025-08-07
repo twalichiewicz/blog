@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <head>
+  
+  
+  <!-- Primary Meta Tags -->
+  <title>Overlay | Autodesk - Design in Everything</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage">
+  <meta name="author" content="Thomas Walichiewicz">
+  
+  <meta name="keywords" content="design, portfolio, blog, developer">
+  
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://twalichiewicz.github.io/2024/06/01/Overlay/index.html">
+  
+  <!-- Resource Hints for Performance -->
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  
+  <!-- Theme and Color -->
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://twalichiewicz.github.io/2024/06/01/Overlay/index.html">
+  <meta property="og:title" content="Overlay">
+  <meta property="og:description" content="Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage">
+  <meta property="og:image" content="https://twalichiewicz.github.io/2024/06/01/Overlay/overlayPreview_cover.jpg">
+  <meta property="og:site_name" content="Thomas Walichiewicz">
+  
+  <meta property="article:author" content="Thomas Walichiewicz">
+  <meta property="article:published_time" content="2024-06-01T00:00:00.000Z">
+  
+  <meta property="article:modified_time" content="2025-08-07T21:12:43.088Z">
+  
+  
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://twalichiewicz.github.io/2024/06/01/Overlay/index.html">
+  <meta name="twitter:title" content="Overlay">
+  <meta name="twitter:description" content="Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage">
+  <meta name="twitter:image" content="https://twalichiewicz.github.io/2024/06/01/Overlay/overlayPreview_cover.jpg">
+  
+  
+  <!-- Cache Control - Prevent aggressive caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Security Headers (Meta Tag Equivalents) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+  
+  <!-- Robots Meta -->
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  
+  <!-- Stylesheets -->
+  <link rel="preload" href="/styles/styles.css?v=1754601236338" as="style">
+  <link rel="stylesheet" href="/styles/styles.css?v=1754601236338">
+  
+  <!-- Initial loading state -->
+  <style>
+    body:not(.loaded) {
+      overflow: hidden;
+    }
+  </style>
+  
+  <!-- Project-specific Scripts -->
+  
+  
+  <!-- Theme now relies on prefers-color-scheme media queries -->
+
+  <!-- Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/+esm",
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
+    }
+  }
+  </script>
+
+  <!-- Core Scripts -->
+  <script src="/js/san-diego-namespace.js?v=1754601236338"></script>
+  <script type="module" src="/js/main.js?v=1754601236338"></script>
+  <script type="module" src="/js/components/HomeVisuals.js?v=1754601236338"></script>
+  <script type="module" src="/js/mobile-tabs.js?v=1754601236338"></script>
+  <script type="module" src="/js/carousel.js?v=1754601236338"></script>
+  <script type="module" src="/js/utils/animations.js?v=1754601236338"></script>
+  <script src="/js/project-tabs.js?v=1754601236338"></script>
+  <script src="/js/project-summary.js?v=1754601236338"></script>
+  <script type="module" src="/js/scroll.js?v=1754601236338"></script>
+  <script src="/js/sound-effects.js?v=1754601236338"></script>
+  <script src="/js/screen-wipe-transition.js?v=1754601236338"></script>
+  <script src="/js/external-links.js?v=1754601236338"></script>
+  <script src="/js/project-demo.js?v=1754601236338"></script>
+  <script src="/js/project-demo-walkthrough.js?v=1754601236338"></script>
+  <script src="/js/byline-modal.js?v=1754601236338"></script>
+  <script src="/js/portfolio-parallax-optimized.js?v=1754601236338"></script>
+  <script src="/js/portfolio-filters.js?v=1754601236338"></script>
+  <script src="/js/portfolio-filters-dropdown.js?v=1754601236338"></script>
+  <script src="/js/portfolio-notebook-carousel-state.js?v=1754601236338"></script>
+  <script src="/js/notebook-skeleton-loader.js?v=1754601236338"></script>
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://twalichiewicz.github.io/#website",
+        "url": "https://twalichiewicz.github.io",
+        "name": "Thomas Walichiewicz",
+        "description": "Thomas Walichiewicz - Designer, Developer, Thinker",
+        "publisher": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://twalichiewicz.github.io/#person",
+        "name": "Thomas Walichiewicz",
+        "url": "https://twalichiewicz.github.io",
+        "sameAs": [
+          
+          
+          
+        ],
+        "jobTitle": "Designer & Developer",
+        "description": "Designer, researcher, and relentless problem solver"
+      },
+      {
+        "@type": "Article",
+        "@id": "https://twalichiewicz.github.io/2024/06/01/Overlay/index.html#article",
+        "isPartOf": {
+          "@id": "https://twalichiewicz.github.io/#website"
+        },
+        "author": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        },
+        "headline": "Overlay",
+        "description": "Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage",
+        "image": "https://twalichiewicz.github.io/2024/06/01/Overlay/overlayPreview_cover.jpg",
+        "datePublished": "2024-06-01T00:00:00.000Z",
+        
+        "dateModified": "2025-08-07T21:12:43.088Z",
+        
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://twalichiewicz.github.io/2024/06/01/Overlay/index.html"
+        },
+        "publisher": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://twalichiewicz.github.io/2024/06/01/Overlay/index.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://twalichiewicz.github.io"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Portfolio",
+            "item": "https://twalichiewicz.github.io/?tab=portfolio"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Overlay",
+            "item": "https://twalichiewicz.github.io/2024/06/01/Overlay/index.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  
+  <!-- RSS Feed -->
+  
+  <link rel="alternate" type="application/rss+xml" title="Thomas Walichiewicz" href="/rss2.xml">
+  
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+    </head>
+    <body>
+        <!-- Skip Navigation Links for Accessibility -->
+<a href="#main-content" class="skip-nav-link">Skip to main content</a>
+
+<a href="#post-content" class="skip-nav-link">Skip to article content</a>
+
+
+<style>
+.skip-nav-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--text-color, #000);
+  color: var(--background-color, #fff);
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 100;
+  font-weight: 500;
+  font-size: 14px;
+  transition: top 0.2s ease;
+}
+
+.skip-nav-link:focus {
+  top: 0;
+  outline: 2px solid var(--accent-color, #f0b90b);
+  outline-offset: 2px;
+}
+
+/* Ensure links are visible when using keyboard navigation */
+.skip-nav-link:focus-visible {
+  top: 0;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .skip-nav-link {
+  background: #fff;
+  color: #000;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skip-nav-link {
+    transition: top 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+</style>
+		<!DOCTYPE html>
+<html>
+<head>
+  
+  
+  <!-- Primary Meta Tags -->
+  <title>Overlay | Autodesk - Design in Everything</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage">
+  <meta name="author" content="Thomas Walichiewicz">
+  
+  <meta name="keywords" content="design, portfolio, blog, developer">
+  
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://twalichiewicz.github.io/2024/06/01/Overlay/index.html">
+  
+  <!-- Resource Hints for Performance -->
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  
+  <!-- Theme and Color -->
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://twalichiewicz.github.io/2024/06/01/Overlay/index.html">
+  <meta property="og:title" content="Overlay">
+  <meta property="og:description" content="Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage">
+  <meta property="og:image" content="https://twalichiewicz.github.io/2024/06/01/Overlay/overlayPreview_cover.jpg">
+  <meta property="og:site_name" content="Thomas Walichiewicz">
+  
+  <meta property="article:author" content="Thomas Walichiewicz">
+  <meta property="article:published_time" content="2024-06-01T00:00:00.000Z">
+  
+  <meta property="article:modified_time" content="2025-08-07T21:12:43.088Z">
+  
+  
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://twalichiewicz.github.io/2024/06/01/Overlay/index.html">
+  <meta name="twitter:title" content="Overlay">
+  <meta name="twitter:description" content="Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage">
+  <meta name="twitter:image" content="https://twalichiewicz.github.io/2024/06/01/Overlay/overlayPreview_cover.jpg">
+  
+  
+  <!-- Cache Control - Prevent aggressive caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Security Headers (Meta Tag Equivalents) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+  
+  <!-- Robots Meta -->
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  
+  <!-- Stylesheets -->
+  <link rel="preload" href="/styles/styles.css?v=1754601235271" as="style">
+  <link rel="stylesheet" href="/styles/styles.css?v=1754601235271">
+  
+  <!-- Initial loading state -->
+  <style>
+    body:not(.loaded) {
+      overflow: hidden;
+    }
+  </style>
+  
+  <!-- Project-specific Scripts -->
+  
+  
+  <!-- Theme now relies on prefers-color-scheme media queries -->
+
+  <!-- Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/+esm",
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
+    }
+  }
+  </script>
+
+  <!-- Core Scripts -->
+  <script src="/js/san-diego-namespace.js?v=1754601235271"></script>
+  <script type="module" src="/js/main.js?v=1754601235271"></script>
+  <script type="module" src="/js/components/HomeVisuals.js?v=1754601235271"></script>
+  <script type="module" src="/js/mobile-tabs.js?v=1754601235271"></script>
+  <script type="module" src="/js/carousel.js?v=1754601235271"></script>
+  <script type="module" src="/js/utils/animations.js?v=1754601235271"></script>
+  <script src="/js/project-tabs.js?v=1754601235271"></script>
+  <script src="/js/project-summary.js?v=1754601235271"></script>
+  <script type="module" src="/js/scroll.js?v=1754601235271"></script>
+  <script src="/js/sound-effects.js?v=1754601235271"></script>
+  <script src="/js/screen-wipe-transition.js?v=1754601235271"></script>
+  <script src="/js/external-links.js?v=1754601235271"></script>
+  <script src="/js/project-demo.js?v=1754601235271"></script>
+  <script src="/js/project-demo-walkthrough.js?v=1754601235271"></script>
+  <script src="/js/byline-modal.js?v=1754601235271"></script>
+  <script src="/js/portfolio-parallax-optimized.js?v=1754601235271"></script>
+  <script src="/js/portfolio-filters.js?v=1754601235271"></script>
+  <script src="/js/portfolio-filters-dropdown.js?v=1754601235271"></script>
+  <script src="/js/portfolio-notebook-carousel-state.js?v=1754601235271"></script>
+  <script src="/js/notebook-skeleton-loader.js?v=1754601235271"></script>
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://twalichiewicz.github.io/#website",
+        "url": "https://twalichiewicz.github.io",
+        "name": "Thomas Walichiewicz",
+        "description": "Thomas Walichiewicz - Designer, Developer, Thinker",
+        "publisher": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://twalichiewicz.github.io/#person",
+        "name": "Thomas Walichiewicz",
+        "url": "https://twalichiewicz.github.io",
+        "sameAs": [
+          
+          
+          
+        ],
+        "jobTitle": "Designer & Developer",
+        "description": "Designer, researcher, and relentless problem solver"
+      },
+      {
+        "@type": "Article",
+        "@id": "https://twalichiewicz.github.io/2024/06/01/Overlay/index.html#article",
+        "isPartOf": {
+          "@id": "https://twalichiewicz.github.io/#website"
+        },
+        "author": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        },
+        "headline": "Overlay",
+        "description": "Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage",
+        "image": "https://twalichiewicz.github.io/2024/06/01/Overlay/overlayPreview_cover.jpg",
+        "datePublished": "2024-06-01T00:00:00.000Z",
+        
+        "dateModified": "2025-08-07T21:12:43.088Z",
+        
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://twalichiewicz.github.io/2024/06/01/Overlay/index.html"
+        },
+        "publisher": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://twalichiewicz.github.io/2024/06/01/Overlay/index.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://twalichiewicz.github.io"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Portfolio",
+            "item": "https://twalichiewicz.github.io/?tab=portfolio"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Overlay",
+            "item": "https://twalichiewicz.github.io/2024/06/01/Overlay/index.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  
+  <!-- RSS Feed -->
+  
+  <link rel="alternate" type="application/rss+xml" title="Thomas Walichiewicz" href="/rss2.xml">
+  
+  
+</head>
+<body class="project-page">
+	<script>
+		// Redirect to homepage with project path
+		(function() {
+			const currentPath = window.location.pathname;
+			const isDirectAccess = !document.referrer || !document.referrer.includes(window.location.origin);
+			const isRefresh = window.performance && window.performance.navigation && window.performance.navigation.type === 1;
+			
+			// Redirect if accessing directly OR on refresh (not from within the site)
+			if ((isDirectAccess || isRefresh) && currentPath !== '/') {
+				// Redirect to homepage with project parameter
+				window.location.href = '/?project=' + encodeURIComponent(currentPath) + '&tab=portfolio';
+			}
+		})();
+	</script>
+	
+	<div class="page-transition-overlay"></div>
+	<!-- Edge-to-edge wrapper -->
+	<div class="project-edge-wrapper" id="main-content">
+				<!-- Above the fold preview - 100vh -->
+		<div class="above-the-fold-preview" style="background-image: url('/2024/06/01/Overlay/overlayPreview_cover.jpg');">
+			<!-- Project navigation positioned absolutely -->
+			
+			<div class="project-navigation">
+				<div class="project-mini-bio">
+					<div class="button-stack">
+						<a href="/?tab=portfolio" class="project-home-button" title="Home">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+								<path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+							</svg>
+							<span>Home</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Project trailer (single hero item) -->
+			<div class="project-trailer-hero" id="trailerHero">
+				<div class="trailer-content" id="trailerContent">
+						
+							
+									
+										
+										<video preload="auto" playsinline crossorigin="anonymous" poster=&#34;/2024/06/01/Overlay/overlayPreview_poster.jpg&#34; autoplay loop muted data-autoplay="true" style="pointer-events: none;">
+											
+											<source src="/2024/06/01/Overlay/overlayExplainer_web.webm" type="video/webm">
+											<p>Your browser does not support the video tag. <a href="/2024/06/01/Overlay/overlayExplainer_web.webm" target="_blank">Download the video</a> instead.</p>
+										</video>
+									
+									
+						
+				</div>
+			</div>
+			
+			<!-- Above the fold content wrapper -->
+			<div class="above-fold-content-wrapper">
+				<!-- Project title -->
+				<div class="project-title">
+					<div class="project-company-title">
+						<span class="project-category">Autodesk</span>
+						<h2>Overlay</h2>
+					</div>
+					
+					<!-- Read full story button and demo button moved here -->
+					<div class="read-story-button-container">
+						
+						<button class="read-story-button" id="scrollToFullStoryBtn">
+							Read the full story
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<line x1="12" y1="5" x2="12" y2="19"></line>
+								<polyline points="19 12 12 19 5 12"></polyline>
+							</svg>
+						</button>
+					</div>
+					
+				</div>
+				
+				<!-- Project info wrapper (byline and stats) -->
+				<div class="project-info-wrapper">
+					
+						<p class="project-byline">Designed a universal cloud overlay system architecture for 60+ Autodesk desktop applications—creating a shared platform layer concept that reached production-ready POC stage</p>
+					
+					
+					<!-- Project impact stats -->
+					
+						<div class="project-impact-stats">
+							
+								<div class="stat-item-wrapper">
+									<div class="stat-item">
+										<div class="stat-value">VP-Level</div>
+										<div class="stat-label stat-label--impact">Executive Sponsorship</div>
+									</div>
+								</div>
+							
+								<div class="stat-item-wrapper">
+									<div class="stat-item">
+										<div class="stat-value">$10M+</div>
+										<div class="stat-label stat-label--impact">Identified Savings</div>
+									</div>
+								</div>
+							
+						</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<!-- Full story content -->
+		<div class="project-wrapper" id="full-story">
+		<div class="project-content">
+			<div class="project-details">
+				
+
+<!-- Project Stats Grid Section -->
+
+  <div class="project-stats-section">
+    
+
+
+<div class="project-stats-container">
+  
+  <!-- Problem/Solution Row -->
+  <div class="project-stats-grid project-stats-grid--two-col">
+    
+      <div class="project-stat-item">
+        <div class="stat-label">Problem</div>
+        <div class="stat-value">60+ siloed applications each rebuilding the same AI features</div>
+      </div>
+    
+      <div class="project-stat-item">
+        <div class="stat-label">Solution</div>
+        <div class="stat-value">Universal overlay platform serving AI capabilities across all products</div>
+      </div>
+    
+  </div>
+  
+  
+  
+  <!-- Context Row: Team takes left side, Timeline/Platform stack on right -->
+  <div class="project-stats-grid project-stats-grid--team-context">
+    
+      
+        <div class="project-stat-item stat-team">
+          <div class="stat-label">Team</div>
+          <div class="stat-value stat-value--list">
+            
+              <ul>
+                
+                  <li>
+                    Principal Product Designer (me)
+                    <span class="team-member-role">Led solo initiative, interviewed teams across the organization to identify commonalities</span>
+                  </li>
+                
+              </ul>
+            
+          </div>
+        </div>
+      
+    
+    
+    
+      <div class="stat-timeline-platform-stack">
+        
+          <div class="project-stat-item">
+            <div class="stat-label">Timeline</div>
+            <div class="stat-value">6 months (Early 2024 - Late 2024)</div>
+          </div>
+        
+          <div class="project-stat-item">
+            <div class="stat-label">Platform</div>
+            <div class="stat-value">Cross-platform desktop overlay</div>
+          </div>
+        
+      </div>
+    
+  </div>
+  
+  
+  
+  <!-- Leadership Row (full width tags) -->
+  <div class="project-stats-grid project-stats-grid--full-width project-stats-grid--leadership">
+    
+      <div class="project-stat-item stat-span-full">
+        <div class="stat-label">Leadership</div>
+        <div class="stat-value stat-value--tags">
+          
+            
+              <span class="stat-tag">Strategic Innovation: Platform Architecture Vision</span>
+            
+              <span class="stat-tag">Executive Partnership: VP-Level Sponsorship</span>
+            
+              <span class="stat-tag">Cross-Org Influence: 60+ Product Teams</span>
+            
+              <span class="stat-tag">Technical Leadership: POC Architecture</span>
+            
+              <span class="stat-tag">Process Innovation: Solo Initiative Impact</span>
+            
+          
+        </div>
+      </div>
+    
+  </div>
+  
+  
+  
+  <!-- Skills Row (full width tags) -->
+  <div class="project-stats-grid project-stats-grid--full-width project-stats-grid--skills">
+    
+      <div class="project-stat-item stat-span-full">
+        <div class="stat-label">Skills</div>
+        <div class="stat-value stat-value--tags">
+          
+            
+              <span class="stat-tag">Systems Design</span>
+            
+              <span class="stat-tag">AI/ML Integration</span>
+            
+              <span class="stat-tag">Cross-platform UX</span>
+            
+              <span class="stat-tag">Technical Architecture</span>
+            
+              <span class="stat-tag">Platform Strategy</span>
+            
+              <span class="stat-tag">User Research</span>
+            
+          
+        </div>
+      </div>
+    
+  </div>
+  
+  
+  
+</div>
+
+  </div>
+
+
+<!-- Gallery section - always render if gallery_images exist, regardless of summary -->
+
+
+
+  <!-- No explicit summary metadata - just render content normally without auto-generating SummaryTron -->
+  
+    <div class="project-writeup">
+      <div class="writeup-content">
+        <h2 id="The-Problem-Isolated-Product-Silos"><a href="#The-Problem-Isolated-Product-Silos" class="headerlink" title="The Problem: Isolated Product Silos"></a>The Problem: Isolated Product Silos</h2><p>Autodesk’s array of desktop products operated as completely isolated silos. Users lost context switching between applications, couldn’t access shared functionality across their workflows, and had to relearn basic tasks in every product. Meanwhile, engineering teams rebuilt identical features dozens of times—smart assistance in one product remained trapped there while users struggled with the same problems in adjacent tools.</p>
+<h2 id="Solution-Cross-Application-Intelligence-Platform"><a href="#Solution-Cross-Application-Intelligence-Platform" class="headerlink" title="Solution: Cross-Application Intelligence Platform"></a>Solution: Cross-Application Intelligence Platform</h2><p>I designed and prototyped a universal overlay system that would run as a cloud-connected singleton across all Autodesk desktop applications. Like Steam’s overlay for gaming, this concept creates a persistent application layer that follows users everywhere—enabling shared functionality, contextual assistance, and seamless workflows while maintaining bidirectional communication with host applications.</p>
+<div class="video-container">
+  <video controls playsinline style="width: 100%; height: auto; margin: 24px 0;" autoplay loop muted>
+    
+    <source src="overlayExplainer_web.webm" type="video/webm">
+    <source src="overlayExplainer_web.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<p>The Overlay concept represented a fundamental shift in how Autodesk could approach desktop software architecture. Rather than maintaining isolated applications, I designed a shared platform layer that could enhance any desktop product with cloud-connected capabilities.</p>
+<h2 id="Technical-Design-Prototyping"><a href="#Technical-Design-Prototyping" class="headerlink" title="Technical Design &amp; Prototyping"></a>Technical Design &amp; Prototyping</h2><p>Working closely with engineering teams across the organization, I designed a React-based overlay architecture that could theoretically integrate with native desktop applications. The conceptual system uses a singleton pattern to maintain state across applications while respecting each product’s unique interface requirements.</p>
+<p>The architecture featured several breakthrough innovations:</p>
+<ul>
+<li><strong>Universal React Architecture:</strong> A conceptual single codebase that could deploy components across different desktop applications with native-feeling integration</li>
+<li><strong>Persistent Cloud State:</strong> Designed system for user context, preferences, and work history to synchronize across entire product ecosystem in real-time</li>
+<li><strong>Bidirectional Communication:</strong> Architected overlay to read application state, trigger host actions, and respond to application events seamlessly</li>
+<li><strong>Contextual Intelligence Engine:</strong> Designed system to understand current user tasks and proactively surface relevant tools, shortcuts, and guidance</li>
+<li><strong>Adaptive Integration:</strong> Designed overlay to respect each product’s unique interface language while maintaining consistent core functionality</li>
+</ul>
+<p>The proposed overlay would communicate bidirectionally with host applications through a standardized API, allowing it to both read application state and trigger native actions. This design approach creates experiences that would feel truly integrated rather than bolted-on.</p>
+<h2 id="Envisioned-User-Experience-Impact"><a href="#Envisioned-User-Experience-Impact" class="headerlink" title="Envisioned User Experience Impact"></a>Envisioned User Experience Impact</h2><p>The concept’s most significant potential was eliminating context loss between applications. Users would access their project history, smart suggestions, and collaborative tools from any Autodesk desktop product, transforming fragmented workflows into cohesive experiences.</p>
+<p>The designed contextual intelligence engine would analyze user behavior patterns to proactively surface relevant tools and guidance. Instead of forcing users to remember different workflows across products, the overlay would adapt to their current task and provide consistent assistance.</p>
+<h2 id="Project-Impact-Executive-Vision"><a href="#Project-Impact-Executive-Vision" class="headerlink" title="Project Impact &amp; Executive Vision"></a>Project Impact &amp; Executive Vision</h2><p>The Overlay initiative secured VP-level sponsorship and achieved critical milestones:</p>
+<ul>
+<li><strong>Executive Buy-in</strong>: Presented directly to VP of Platform, securing funding and resources for POC development</li>
+<li><strong>Production-Ready POC</strong>: Delivered fully functional prototype demonstrating cross-application intelligence</li>
+<li><strong>Architectural Innovation</strong>: Designed framework serving 60+ desktop applications with single codebase</li>
+<li><strong>$10M+ Savings Potential</strong>: Identified duplicate feature development across teams that platform would eliminate</li>
+</ul>
+<p>The project successfully reached production-ready POC stage with demonstrated ROI and technical feasibility. Following a strategic reorganization, the company pivoted to an alternative implementation approach. The foundational architecture and design principles I established continue to influence Autodesk’s platform strategy.</p>
+
+      </div>
+    </div>
+  
+ 
+			</div>
+		</div>
+
+	</div>
+	</div>
+
+	<style>
+		/* Page fade-in animation styles */
+		.page-transition-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #000;
+			z-index: 9999;
+			opacity: 1;
+			transition: opacity 1s ease-out;
+		}
+		
+		.page-transition-overlay.fade-out {
+			opacity: 0;
+		}
+		
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+		
+		body {
+			opacity: 0;
+			transition: opacity 0.5s ease-in;
+		}
+		
+		body.loaded {
+			opacity: 1;
+		}
+		
+		.project-wrapper {
+			min-height: auto;
+			transform: translateY(20px);
+			transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+						opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+			opacity: 0;
+		}
+		
+		body.loaded .project-wrapper {
+			transform: translateY(0);
+			opacity: 1;
+		}
+		
+		.project-navigation {
+			transform: translateY(-10px);
+			transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+						opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+			opacity: 0;
+		}
+		
+		body.loaded .project-navigation {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	</style>
+
+	<script>
+		// Define scroll function for standalone pages (fallback if blog.js not loaded)
+		function scrollToFullStory() {
+			const fullStoryElement = document.getElementById('full-story');
+			if (!fullStoryElement) {
+				return;
+			}
+			
+			// Simple scroll with smooth behavior
+			fullStoryElement.scrollIntoView({ 
+				behavior: 'smooth', 
+				block: 'start' 
+			});
+		}
+
+		// Make function globally available (for both standalone and dynamic contexts)
+		if (!window.scrollToFullStory) {
+			window.scrollToFullStory = scrollToFullStory;
+		}
+
+		// Set up scroll button for standalone pages
+		function setupStandaloneScrollButton() {
+			const button = document.getElementById('scrollToFullStoryBtn');
+			if (button) {
+				button.onclick = function(e) {
+					e.preventDefault();
+					// Play button sound (same as View impact report)
+					if (window.playButtonSound) {
+						window.playButtonSound();
+					}
+					window.scrollToFullStory();
+				};
+			}
+			
+		}
+		
+		// Demo button functionality
+		function setupDemoButton(button) {
+			button.addEventListener('click', function(e) {
+				e.preventDefault();
+				
+				const demoUrl = button.getAttribute('data-demo-url');
+				const demoComponent = button.getAttribute('data-demo-component');
+				
+				if (demoUrl) {
+					// External demo - open in new window
+					window.open(demoUrl, '_blank', 'noopener,noreferrer');
+				} else if (demoComponent) {
+					// Dynamic component demo
+					loadDemoComponent(demoComponent);
+				}
+			});
+		}
+		
+		// Load demo component
+		function loadDemoComponent(componentName) {
+			
+			// Create fullscreen modal
+			const modal = document.createElement('div');
+			modal.className = 'demo-modal';
+			modal.innerHTML = `
+				<div class="demo-modal-overlay"></div>
+				<div class="demo-modal-content">
+					<button class="demo-modal-close" aria-label="Close demo">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+						</svg>
+					</button>
+					<div class="demo-modal-body">
+						<div class="demo-loading">Loading demo...</div>
+					</div>
+				</div>
+			`;
+			
+			// Add modal to body
+			document.body.appendChild(modal);
+			document.body.classList.add('demo-modal-open');
+			
+			// Get the modal body for content
+			const modalBody = modal.querySelector('.demo-modal-body');
+			
+			// Set up close button
+			const closeBtn = modal.querySelector('.demo-modal-close');
+			const overlay = modal.querySelector('.demo-modal-overlay');
+			
+			const closeModal = () => {
+				document.body.classList.remove('demo-modal-open');
+				modal.classList.add('closing');
+				setTimeout(() => {
+					modal.remove();
+				}, 300);
+			};
+			
+			closeBtn.addEventListener('click', closeModal);
+			overlay.addEventListener('click', closeModal);
+			
+			// Handle escape key
+			const handleEscape = (e) => {
+				if (e.key === 'Escape') {
+					closeModal();
+					document.removeEventListener('keydown', handleEscape);
+				}
+			};
+			document.addEventListener('keydown', handleEscape);
+			
+			// Load the demo component
+			switch(componentName) {
+				case 'interactive-prototype':
+					loadInteractivePrototype(modalBody);
+					break;
+				case 'code-sandbox':
+					loadCodeSandbox(modalBody);
+					break;
+				case 'figma-embed':
+					loadFigmaEmbed(modalBody);
+					break;
+				default:
+					// Try to load custom component
+					loadCustomComponent(componentName, modalBody);
+			}
+		}
+		
+		// Example demo loaders
+		function loadInteractivePrototype(container) {
+			container.innerHTML = `
+				<div class="demo-prototype">
+					<iframe src="/demos/prototype.html" 
+						frameborder="0" 
+						allowfullscreen
+						title="Interactive Prototype">
+					</iframe>
+				</div>
+			`;
+		}
+		
+		function loadCodeSandbox(container) {
+			container.innerHTML = `
+				<div class="demo-codesandbox">
+					<iframe src="https://codesandbox.io/embed/" 
+						frameborder="0" 
+						allowfullscreen
+						sandbox="allow-scripts allow-same-origin"
+						title="Code Sandbox Demo">
+					</iframe>
+				</div>
+			`;
+		}
+		
+		function loadFigmaEmbed(container) {
+			container.innerHTML = `
+				<div class="demo-figma">
+					<iframe src="https://www.figma.com/embed" 
+						frameborder="0" 
+						allowfullscreen
+						title="Figma Prototype">
+					</iframe>
+				</div>
+			`;
+		}
+		
+		function loadCustomComponent(name, container) {
+			// Load custom demo as iframe with relative path
+			const pathSegments = window.location.pathname.split('/').filter(s => s);
+			const levelsUp = pathSegments.length > 0 ? '../'.repeat(pathSegments.length) : '';
+			container.innerHTML = `
+				<div class="demo-custom">
+					<iframe src="${levelsUp}demos/${name}/index.html" 
+						frameborder="0" 
+						allowfullscreen
+						style="width: 100%; height: 100%;"
+						title="${name} Demo">
+					</iframe>
+				</div>
+			`;
+			
+			// Also dispatch event for any additional handlers
+			const event = new CustomEvent('loadDemoComponent', {
+				detail: { name, container }
+			});
+			document.dispatchEvent(event);
+		}
+
+		// Set up immediately or on DOM ready
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupStandaloneScrollButton);
+		} else {
+			setupStandaloneScrollButton();
+		}
+
+		// Page fade-in animation
+		document.addEventListener('DOMContentLoaded', function() {
+			// Wait for images to load
+			window.addEventListener('load', function() {
+				// Add a slight delay before starting the animation
+				setTimeout(function() {
+					// Add loaded class to body
+					document.body.classList.add('loaded');
+					
+					// Fade out the overlay
+					const overlay = document.querySelector('.page-transition-overlay');
+					overlay.classList.add('fade-out');
+					
+					// Remove overlay after animation completes
+					setTimeout(function() {
+						overlay.style.display = 'none';
+					}, 1000);
+				}, 400); // 400ms delay before starting the animation
+			});
+			
+			// Fallback in case load event doesn't fire
+			setTimeout(function() {
+				document.body.classList.add('loaded');
+				const overlay = document.querySelector('.page-transition-overlay');
+				overlay.classList.add('fade-out');
+				setTimeout(function() {
+					overlay.style.display = 'none';
+				}, 1000);
+			}, 2000); // Fallback timeout
+		});
+
+		// Collapse/Expand functionality
+		document.addEventListener('DOMContentLoaded', function() {
+			const collapseButton = document.querySelector('.project-collapse-button');
+			const projectMiniBio = document.querySelector('.project-mini-bio');
+			
+			if (collapseButton && projectMiniBio) {
+				collapseButton.addEventListener('click', function() {
+					projectMiniBio.classList.toggle('collapsed');
+					const isCollapsed = projectMiniBio.classList.contains('collapsed');
+					
+					// Update button text and icon
+					const buttonText = collapseButton.querySelector('span');
+					if (buttonText) {
+						buttonText.textContent = isCollapsed ? 'Expand' : 'Collapse';
+					}
+					
+					// Update aria-label
+					collapseButton.setAttribute('aria-label', 
+						isCollapsed ? 'Expand navigation' : 'Collapse navigation'
+					);
+				});
+			}
+		});
+	</script>
+	
+	<!-- Cloudflare Web Analytics -->
+	<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e8fdac6a36f74464bcf2d55fbb7f0ca2"}'></script>
+	<!-- End Cloudflare Web Analytics -->
+</body>
+</html> 
+
+        
+<script src="/js/device-detection.js"></script>
+
+        
+<script src="/js/profile-header-compact.js"></script>
+
+        
+<script src="/js/code-sandbox.js"></script>
+
+        <!-- main.js already loaded in head.ejs -->
+        
+
+        
+
+        <!-- mobile-tabs.js and sound-effects.js already loaded in head.ejs -->
+        <!-- Additional scripts -->
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e8fdac6a36f74464bcf2d55fbb7f0ca2"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+        
+        <script>
+        // Simple page load handler
+        document.body.classList.add('loaded');
+        </script>
+    </body>
+</html>
