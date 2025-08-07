@@ -71,11 +71,14 @@
                                 <% if (post.workspace_os_special) { %>
                                     <canvas class="starfield-canvas"></canvas>
                                     <style>
-                                    .workspace-os-starfield {
+                                    /* WorkspaceOS starfield styling - always dark mode */
+                                    .workspace-os-starfield,
+                                    [data-theme="light"] .workspace-os-starfield,
+                                    [data-theme="dark"] .workspace-os-starfield {
                                         position: relative;
-                                        background: radial-gradient(ellipse at center, #0B1426 0%, #050B1A 70%, #000205 100%);
+                                        background: radial-gradient(ellipse at center, #0B1426 0%, #050B1A 70%, #000205 100%) !important;
                                         overflow: hidden;
-                                        border: 1px solid rgba(255, 255, 255, 0.1);
+                                        border: 1px solid rgba(255, 255, 255, 0.1) !important;
                                         min-height: 80px;
                                     }
                                     .starfield-canvas {
@@ -86,26 +89,68 @@
                                         height: 100%;
                                         pointer-events: none;
                                     }
-                                    .workspace-os-starfield .link-text-group {
-                                        color: white;
+                                    .workspace-os-starfield .link-text-group,
+                                    [data-theme="light"] .workspace-os-starfield .link-text-group,
+                                    [data-theme="dark"] .workspace-os-starfield .link-text-group {
+                                        color: white !important;
                                         position: relative;
                                         z-index: 2;
                                     }
-                                    .workspace-os-starfield .link-url {
-                                        color: rgba(255, 255, 255, 0.7);
+                                    .workspace-os-starfield .link-url,
+                                    [data-theme="light"] .workspace-os-starfield .link-url,
+                                    [data-theme="dark"] .workspace-os-starfield .link-url {
+                                        color: rgba(255, 255, 255, 0.7) !important;
                                     }
-                                    .workspace-os-starfield .external-icon {
-                                        color: white;
+                                    .workspace-os-starfield .external-icon,
+                                    [data-theme="light"] .workspace-os-starfield .external-icon,
+                                    [data-theme="dark"] .workspace-os-starfield .external-icon {
+                                        color: white !important;
+                                        background: rgba(255, 255, 255, 0.1) !important;
+                                        border-color: rgba(255, 255, 255, 0.2) !important;
+                                    }
+                                    .workspace-os-starfield:hover .external-icon,
+                                    [data-theme="light"] .workspace-os-starfield:hover .external-icon,
+                                    [data-theme="dark"] .workspace-os-starfield:hover .external-icon {
+                                        background: rgba(255, 255, 255, 0.2) !important;
+                                        border-color: rgba(255, 255, 255, 0.3) !important;
+                                    }
+                                    /* Override the a:hover opacity from typography-system */
+                                    a.workspace-os-starfield:hover,
+                                    [data-theme="light"] a.workspace-os-starfield:hover,
+                                    [data-theme="dark"] a.workspace-os-starfield:hover {
+                                        opacity: 1 !important; /* Prevent opacity: 0.8 on hover */
+                                        background: radial-gradient(ellipse at center, #0B1426 0%, #050B1A 70%, #000205 100%) !important;
                                     }
                                     </style>
                                     <script>
                                     (function() {
+                                        const container = document.querySelector('.workspace-os-starfield');
                                         const canvas = document.querySelector('.workspace-os-starfield .starfield-canvas');
-                                        if (!canvas) return;
+                                        if (!canvas || !container) return;
                                         
                                         const ctx = canvas.getContext('2d');
                                         let stars = [];
-                                        const starCount = 25;
+                                        const starCount = 50;
+                                        let speedMultiplier = 0; // 0 = normal drift, 1 = warp speed
+                                        let targetSpeedMultiplier = 0;
+                                        const acceleration = 0.08; // How fast to change speed
+                                        
+                                        function createStar(rect) {
+                                            // Create star with random angle and distance from center
+                                            const angle = Math.random() * Math.PI * 2;
+                                            const maxRadius = Math.sqrt(rect.width * rect.width + rect.height * rect.height) / 2;
+                                            
+                                            return {
+                                                // Polar coordinates
+                                                angle: angle,
+                                                distance: Math.random() * maxRadius, // How far from center (0 = center, maxRadius = edge)
+                                                
+                                                // Star properties
+                                                baseSize: 0.2 + Math.random() * 0.5,
+                                                brightness: 0.4 + Math.random() * 0.6,
+                                                speed: 0.5 + Math.random() * 0.5, // Individual speed multiplier
+                                            };
+                                        }
                                         
                                         function setupCanvas() {
                                             const rect = canvas.getBoundingClientRect();
@@ -116,44 +161,96 @@
                                             
                                             ctx.scale(dpr, dpr);
                                             
-                                            // Recreate stars for new dimensions
+                                            // Create stars spread throughout z-depth
                                             stars = [];
                                             for (let i = 0; i < starCount; i++) {
-                                                stars.push({
-                                                    x: Math.random() * rect.width,
-                                                    y: Math.random() * rect.height,
-                                                    baseSize: 0.3 + Math.random() * 0.7,  // Much smaller: 0.3-1px
-                                                    twinkleSpeed: 0.5 + Math.random() * 1.5,  // Slower twinkling
-                                                    twinkleOffset: Math.random() * Math.PI * 2,
-                                                    brightness: 0.6 + Math.random() * 0.4
-                                                });
+                                                stars.push(createStar(rect));
                                             }
                                         }
                                         
                                         function animate() {
                                             const rect = canvas.getBoundingClientRect();
-                                            ctx.clearRect(0, 0, rect.width, rect.height);
+                                            const centerX = rect.width / 2;
+                                            const centerY = rect.height / 2;
                                             
-                                            const time = Date.now() * 0.001;
+                                            // Smooth speed transition
+                                            if (Math.abs(speedMultiplier - targetSpeedMultiplier) > 0.001) {
+                                                speedMultiplier += (targetSpeedMultiplier - speedMultiplier) * acceleration;
+                                            } else {
+                                                speedMultiplier = targetSpeedMultiplier;
+                                            }
+                                            
+                                            // Clear with fade effect during warp
+                                            if (speedMultiplier > 0.1) {
+                                                ctx.fillStyle = `rgba(5, 11, 26, ${0.15 + speedMultiplier * 0.2})`;
+                                                ctx.fillRect(0, 0, rect.width, rect.height);
+                                            } else {
+                                                ctx.clearRect(0, 0, rect.width, rect.height);
+                                            }
+                                            
+                                            const maxRadius = Math.sqrt(rect.width * rect.width + rect.height * rect.height) / 2;
                                             
                                             stars.forEach(star => {
-                                                // Subtle twinkling effect
-                                                const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
-                                                const currentSize = star.baseSize * twinkle;
-                                                const opacity = star.brightness * twinkle;
+                                                // Move star outward from center
+                                                const baseSpeed = 0.3; // Slow drift when not hovering
+                                                const warpSpeed = 8; // Fast movement when hovering
+                                                const speed = (baseSpeed + (warpSpeed * speedMultiplier)) * star.speed;
                                                 
-                                                // Draw star as a point of light
-                                                ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-                                                ctx.beginPath();
-                                                ctx.arc(star.x, star.y, currentSize, 0, Math.PI * 2);
-                                                ctx.fill();
+                                                star.distance += speed;
                                                 
-                                                // Very subtle glow only for the brightest stars
-                                                if (star.baseSize > 0.8 && star.brightness > 0.9) {
-                                                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.05})`;
+                                                // Reset star if it goes off screen
+                                                if (star.distance > maxRadius) {
+                                                    // Reset to center area
+                                                    star.distance = Math.random() * 20; // Start near center
+                                                    star.angle = Math.random() * Math.PI * 2; // New random angle
+                                                }
+                                                
+                                                // Convert polar to cartesian
+                                                const x = centerX + Math.cos(star.angle) * star.distance;
+                                                const y = centerY + Math.sin(star.angle) * star.distance;
+                                                
+                                                // Size and opacity based on distance
+                                                const normalizedDist = star.distance / maxRadius;
+                                                const size = star.baseSize * (0.5 + normalizedDist * 2); // Grow as moving outward
+                                                const opacity = star.brightness * Math.min(1, normalizedDist * 2); // Fade in from center
+                                                
+                                                // Draw motion streak during warp
+                                                if (speedMultiplier > 0.2 && star.distance > 30) {
+                                                    // Calculate trail length based on speed
+                                                    const trailLength = speed * 5 * speedMultiplier;
+                                                    
+                                                    // Trail points inward (opposite of movement)
+                                                    const trailX = x - Math.cos(star.angle) * trailLength;
+                                                    const trailY = y - Math.sin(star.angle) * trailLength;
+                                                    
+                                                    // Draw streak
+                                                    const gradient = ctx.createLinearGradient(x, y, trailX, trailY);
+                                                    gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity * speedMultiplier * 0.8})`);
+                                                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                                                    
+                                                    ctx.strokeStyle = gradient;
+                                                    ctx.lineWidth = size * 1.5;
+                                                    ctx.lineCap = 'round';
                                                     ctx.beginPath();
-                                                    ctx.arc(star.x, star.y, currentSize * 3, 0, Math.PI * 2);
+                                                    ctx.moveTo(x, y);
+                                                    ctx.lineTo(trailX, trailY);
+                                                    ctx.stroke();
+                                                }
+                                                
+                                                // Draw star
+                                                if (opacity > 0.05) {
+                                                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                                                    ctx.beginPath();
+                                                    ctx.arc(x, y, size, 0, Math.PI * 2);
                                                     ctx.fill();
+                                                    
+                                                    // Add glow for bright stars during warp
+                                                    if (speedMultiplier > 0.5 && star.brightness > 0.7 && normalizedDist > 0.3) {
+                                                        ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.05})`;
+                                                        ctx.beginPath();
+                                                        ctx.arc(x, y, size * 4, 0, Math.PI * 2);
+                                                        ctx.fill();
+                                                    }
                                                 }
                                             });
                                             
@@ -161,6 +258,24 @@
                                                 requestAnimationFrame(animate);
                                             }
                                         }
+                                        
+                                        // Hover event handlers
+                                        container.addEventListener('mouseenter', () => {
+                                            targetSpeedMultiplier = 1;
+                                        });
+                                        
+                                        container.addEventListener('mouseleave', () => {
+                                            targetSpeedMultiplier = 0;
+                                        });
+                                        
+                                        // Touch support for mobile
+                                        container.addEventListener('touchstart', () => {
+                                            targetSpeedMultiplier = 1;
+                                        });
+                                        
+                                        container.addEventListener('touchend', () => {
+                                            targetSpeedMultiplier = 0;
+                                        });
                                         
                                         // Setup and start
                                         setupCanvas();
