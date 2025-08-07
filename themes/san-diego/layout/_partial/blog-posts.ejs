@@ -119,6 +119,8 @@
                                     [data-theme="light"] .workspace-os-starfield:hover,
                                     [data-theme="dark"] .workspace-os-starfield:hover {
                                         background: radial-gradient(ellipse at center, #0B1426 0%, #050B1A 70%, #000205 100%) !important;
+                                        filter: none !important; /* Remove any brightness filters */
+                                        transform: none !important; /* Prevent scale effects */
                                     }
                                     </style>
                                     <script>
@@ -218,22 +220,28 @@
                                             }
                                             
                                             stars.forEach(star => {
+                                                // Calculate distance from center
+                                                const dx = star.x - centerX;
+                                                const dy = star.y - centerY;
+                                                const distFromCenter = Math.sqrt(dx * dx + dy * dy);
+                                                const maxDist = Math.max(rect.width, rect.height) * 0.7;
+                                                
                                                 // Move stars during warp
                                                 if (warpSpeed > 0.5 && !isReturning) {
-                                                    // Calculate direction from center
-                                                    const dx = star.x - centerX;
-                                                    const dy = star.y - centerY;
                                                     const angle = Math.atan2(dy, dx);
-                                                    const speed = star.speed * warpSpeed;
+                                                    
+                                                    // Speed increases with distance from center (tunnel effect)
+                                                    // Stars near center move slower, stars at edges move faster
+                                                    const distanceMultiplier = Math.pow(distFromCenter / maxDist, 0.5);
+                                                    const speed = star.speed * warpSpeed * (0.2 + 0.8 * distanceMultiplier);
                                                     
                                                     star.x += Math.cos(angle) * speed;
                                                     star.y += Math.sin(angle) * speed;
                                                     
                                                     // Reset star if it goes off screen
-                                                    const dist = Math.sqrt(dx * dx + dy * dy);
-                                                    if (dist > Math.max(rect.width, rect.height) * 0.7) {
+                                                    if (distFromCenter > maxDist) {
                                                         const newAngle = Math.random() * Math.PI * 2;
-                                                        const startDist = 5 + Math.random() * 20;
+                                                        const startDist = 2 + Math.random() * 10; // Start very close to center
                                                         star.x = centerX + Math.cos(newAngle) * startDist;
                                                         star.y = centerY + Math.sin(newAngle) * startDist;
                                                     }
@@ -241,15 +249,23 @@
                                                 
                                                 // Calculate star appearance
                                                 const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
-                                                const warpMultiplier = 1 + (warpSpeed / maxWarpSpeed) * 1.5; // Less extreme size change
+                                                // Reduce max size during warp (half the multiplier)
+                                                const warpMultiplier = 1 + (warpSpeed / maxWarpSpeed) * 0.5; 
                                                 const currentSize = star.baseSize * twinkle * warpMultiplier;
-                                                const baseOpacity = star.brightness * twinkle * fadeOpacity;
+                                                
+                                                // Opacity based on distance from center during warp
+                                                // Stars start invisible at center and fade in as they move outward
+                                                let distanceOpacity = 1;
+                                                if (warpSpeed > 0.5 && !isReturning) {
+                                                    // Fade in from center: 0 opacity at center, full opacity at edges
+                                                    distanceOpacity = Math.min(1, distFromCenter / (maxDist * 0.3));
+                                                }
+                                                
+                                                const baseOpacity = star.brightness * twinkle * fadeOpacity * distanceOpacity;
                                                 
                                                 // Draw star trail during warp
-                                                if (warpSpeed > 3 && !isReturning) {
-                                                    const trailLength = Math.min(warpSpeed * 3, 30); // Shorter trails
-                                                    const dx = star.x - centerX;
-                                                    const dy = star.y - centerY;
+                                                if (warpSpeed > 3 && !isReturning && distanceOpacity > 0.1) {
+                                                    const trailLength = Math.min(warpSpeed * 2 * distanceOpacity, 25);
                                                     const angle = Math.atan2(dy, dx);
                                                     
                                                     // Draw trail with gradient
@@ -262,7 +278,7 @@
                                                     gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
                                                     
                                                     ctx.strokeStyle = gradient;
-                                                    ctx.lineWidth = currentSize * 2;
+                                                    ctx.lineWidth = currentSize * 1.5;
                                                     ctx.lineCap = 'round';
                                                     ctx.beginPath();
                                                     ctx.moveTo(star.x, star.y);
@@ -274,18 +290,20 @@
                                                 }
                                                 
                                                 // Draw star
-                                                ctx.fillStyle = `rgba(255, 255, 255, ${baseOpacity})`;
-                                                ctx.beginPath();
-                                                ctx.arc(star.x, star.y, currentSize, 0, Math.PI * 2);
-                                                ctx.fill();
-                                                
-                                                // Subtle glow effect
-                                                if (star.baseSize > 0.8 && star.brightness > 0.9 && !isReturning) {
-                                                    const glowSize = 3 + (warpSpeed / maxWarpSpeed) * 2;
-                                                    ctx.fillStyle = `rgba(255, 255, 255, ${baseOpacity * 0.03})`;
+                                                if (baseOpacity > 0.05) {
+                                                    ctx.fillStyle = `rgba(255, 255, 255, ${baseOpacity})`;
                                                     ctx.beginPath();
-                                                    ctx.arc(star.x, star.y, currentSize * glowSize, 0, Math.PI * 2);
+                                                    ctx.arc(star.x, star.y, currentSize, 0, Math.PI * 2);
                                                     ctx.fill();
+                                                    
+                                                    // Subtle glow effect
+                                                    if (star.baseSize > 0.8 && star.brightness > 0.9 && !isReturning) {
+                                                        const glowSize = 2.5 + (warpSpeed / maxWarpSpeed) * 1.5;
+                                                        ctx.fillStyle = `rgba(255, 255, 255, ${baseOpacity * 0.02})`;
+                                                        ctx.beginPath();
+                                                        ctx.arc(star.x, star.y, currentSize * glowSize, 0, Math.PI * 2);
+                                                        ctx.fill();
+                                                    }
                                                 }
                                             });
                                             
