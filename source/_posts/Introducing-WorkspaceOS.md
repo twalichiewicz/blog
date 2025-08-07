@@ -1,40 +1,76 @@
 ---
-title: Introducing WorkspaceOS
+title: WorkspaceOS
 author: Thomas Walichiewicz
 tags:
   - blog
   - product launch
-  - productivity
-  - workspace
 date: 2025-08-06 10:00:00
-subtitle: A new approach to managing your digital workspace
 cover_image:
 post_type: link
 link_url: https://tryworkspaceos.com
 categories:
   - announcements
+workspace_os_special: true
 ---
 
-I'm excited to share [WorkspaceOS](https://tryworkspaceos.com) – a new approach to managing your digital workspace that I've been working on.
+<style>
+#post-WorkspaceOS .post-content {
+  position: relative;
+  overflow: hidden;
+}
 
-<!-- more -->
+#post-WorkspaceOS .post-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0.05;
+  z-index: -1;
+}
 
-## What is WorkspaceOS?
+#post-WorkspaceOS .post-content a {
+  display: inline-block;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: #4a5568;
+  text-decoration: none;
+  padding: 12px 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
 
-WorkspaceOS reimagines how we interact with our digital tools and workflows. Instead of juggling dozens of apps and browser tabs, it creates a unified workspace where everything works together seamlessly.
+#post-WorkspaceOS .post-content a:hover {
+  color: #667eea;
+  transform: translateY(-1px);
+}
 
-## Key Features
+#post-WorkspaceOS .post-content a::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
 
-**Smart Organization** – Your projects, files, and communications organize themselves based on context and relevance.
+#post-WorkspaceOS .post-content a:hover::after {
+  transform: scaleX(1);
+}
 
-**Unified Search** – Find anything across all your tools instantly, without switching between apps.
+@media (prefers-color-scheme: dark) {
+  #post-WorkspaceOS .post-content a {
+    color: #e2e8f0;
+  }
+  #post-WorkspaceOS .post-content a:hover {
+    color: #90cdf4;
+  }
+}
+</style>
 
-**Workflow Automation** – Common tasks and routines happen automatically in the background.
-
-**Privacy-First** – Your data stays yours. No training AI models on your work.
-
-## Why Now?
-
-After years of designing interfaces and building tools, I kept seeing the same pattern: people spending more time managing their tools than using them. WorkspaceOS is my attempt to flip that equation.
-
-Check it out at [tryworkspaceos.com](https://tryworkspaceos.com) and let me know what you think.
+[WorkspaceOS](https://tryworkspaceos.com)
