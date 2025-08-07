@@ -5,7 +5,7 @@ tags:
   - product launch
   - productivity
   - workspace
-date: 2025-01-07
+date: 2025-01-07 10:00:00
 subtitle: A new approach to managing your digital workspace
 cover_image:
 post_type: link
