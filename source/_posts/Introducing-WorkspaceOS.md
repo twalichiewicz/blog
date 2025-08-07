@@ -2,6 +2,7 @@
 title: Introducing WorkspaceOS
 author: Thomas Walichiewicz
 tags:
+  - blog
   - product launch
   - productivity
   - workspace
