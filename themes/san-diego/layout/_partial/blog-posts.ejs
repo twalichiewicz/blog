@@ -130,30 +130,26 @@
                                         
                                         const ctx = canvas.getContext('2d');
                                         let stars = [];
-                                        const starCount = 35;
-                                        let isWarping = false;
-                                        let isReturning = false;
-                                        let fadeOpacity = 1;
-                                        let warpProgress = 0; // 0 to 1 for logarithmic curve
+                                        const starCount = 40;
+                                        let warpProgress = 0; // 0 = normal, 1 = full warp
                                         let targetWarpProgress = 0;
-                                        const maxWarpSpeed = 15; // Reduced from 50 for less chaos
-                                        const warpAcceleration = 0.08; // Slower acceleration
+                                        const warpAcceleration = 0.06; // How fast to transition
                                         
                                         function createStar(rect) {
-                                            // Create star with random distribution
-                                            const x = Math.random() * rect.width;
-                                            const y = Math.random() * rect.height;
+                                            const angle = Math.random() * Math.PI * 2;
+                                            const distance = Math.random() * Math.max(rect.width, rect.height) * 0.7;
+                                            const centerX = rect.width / 2;
+                                            const centerY = rect.height / 2;
                                             
                                             return {
-                                                x: x,
-                                                y: y,
-                                                originX: x,
-                                                originY: y,
+                                                angle: angle,
+                                                distance: distance,
+                                                baseDistance: distance,
                                                 baseSize: 0.3 + Math.random() * 0.7,
                                                 twinkleSpeed: 0.5 + Math.random() * 1.5,
                                                 twinkleOffset: Math.random() * Math.PI * 2,
                                                 brightness: 0.6 + Math.random() * 0.4,
-                                                speed: 0.3 + Math.random() * 0.7, // Reduced speed range
+                                                speed: 0.5 + Math.random() * 0.5,
                                             };
                                         }
                                         
@@ -166,7 +162,7 @@
                                             
                                             ctx.scale(dpr, dpr);
                                             
-                                            // Create stars with random distribution
+                                            // Create stars with polar coordinates
                                             stars = [];
                                             for (let i = 0; i < starCount; i++) {
                                                 stars.push(createStar(rect));
@@ -177,10 +173,18 @@
                                             const rect = canvas.getBoundingClientRect();
                                             const centerX = rect.width / 2;
                                             const centerY = rect.height / 2;
+                                            const maxDist = Math.max(rect.width, rect.height) * 0.7;
                                             
-                                            // Clear or fade based on warp state
-                                            if (isWarping || warpProgress > 0.01) {
-                                                ctx.fillStyle = 'rgba(5, 11, 26, 0.4)';
+                                            // Smooth transition of warp progress
+                                            if (Math.abs(warpProgress - targetWarpProgress) > 0.001) {
+                                                warpProgress += (targetWarpProgress - warpProgress) * warpAcceleration;
+                                            } else {
+                                                warpProgress = targetWarpProgress;
+                                            }
+                                            
+                                            // Clear with fade trail during warp
+                                            if (warpProgress > 0.01) {
+                                                ctx.fillStyle = `rgba(5, 11, 26, ${0.2 + warpProgress * 0.3})`;
                                                 ctx.fillRect(0, 0, rect.width, rect.height);
                                             } else {
                                                 ctx.clearRect(0, 0, rect.width, rect.height);
@@ -188,120 +192,80 @@
                                             
                                             const time = Date.now() * 0.001;
                                             
-                                            // Update warp progress with smooth transition
-                                            if (Math.abs(warpProgress - targetWarpProgress) > 0.001) {
-                                                warpProgress += (targetWarpProgress - warpProgress) * warpAcceleration;
-                                            } else {
-                                                warpProgress = targetWarpProgress;
-                                            }
-                                            
-                                            // Calculate actual warp speed using logarithmic curve
-                                            // This creates the acceleration feel
-                                            const logCurve = warpProgress > 0 ? Math.log(1 + warpProgress * 9) / Math.log(10) : 0;
-                                            const warpSpeed = logCurve * maxWarpSpeed;
-                                            
-                                            // Handle fade effect when returning from warp
-                                            if (isReturning) {
-                                                fadeOpacity -= 0.05;
-                                                if (fadeOpacity <= 0) {
-                                                    fadeOpacity = 0;
-                                                    // Reset all stars to random positions
-                                                    stars.forEach(star => {
-                                                        star.x = Math.random() * rect.width;
-                                                        star.y = Math.random() * rect.height;
-                                                        star.originX = star.x;
-                                                        star.originY = star.y;
-                                                    });
-                                                    isReturning = false;
-                                                }
-                                            } else if (!isWarping && fadeOpacity < 1) {
-                                                fadeOpacity = Math.min(1, fadeOpacity + 0.03);
-                                            }
-                                            
                                             stars.forEach(star => {
-                                                // Calculate distance from center
-                                                const dx = star.x - centerX;
-                                                const dy = star.y - centerY;
-                                                const distFromCenter = Math.sqrt(dx * dx + dy * dy);
-                                                const maxDist = Math.max(rect.width, rect.height) * 0.7;
+                                                // Calculate warp effect on distance
+                                                // During warp, stars move outward; during reverse, they come back
+                                                const warpEffect = warpProgress * warpProgress; // Quadratic for smooth acceleration
+                                                const stretchFactor = 1 + warpEffect * 10 * star.speed;
                                                 
-                                                // Move stars during warp
-                                                if (warpSpeed > 0.5 && !isReturning) {
-                                                    const angle = Math.atan2(dy, dx);
-                                                    
-                                                    // Speed increases with distance from center (tunnel effect)
-                                                    // Stars near center move slower, stars at edges move faster
-                                                    const distanceMultiplier = Math.pow(distFromCenter / maxDist, 0.5);
-                                                    const speed = star.speed * warpSpeed * (0.2 + 0.8 * distanceMultiplier);
-                                                    
-                                                    star.x += Math.cos(angle) * speed;
-                                                    star.y += Math.sin(angle) * speed;
-                                                    
-                                                    // Reset star if it goes off screen
-                                                    if (distFromCenter > maxDist) {
-                                                        const newAngle = Math.random() * Math.PI * 2;
-                                                        const startDist = 2 + Math.random() * 10; // Start very close to center
-                                                        star.x = centerX + Math.cos(newAngle) * startDist;
-                                                        star.y = centerY + Math.sin(newAngle) * startDist;
-                                                    }
+                                                // Update star distance based on warp
+                                                star.distance = star.baseDistance * stretchFactor;
+                                                
+                                                // If star goes off screen, wrap it around from center
+                                                if (star.distance > maxDist) {
+                                                    star.distance = star.distance % maxDist;
+                                                    star.baseDistance = star.distance / stretchFactor;
                                                 }
                                                 
-                                                // Calculate star appearance
+                                                // Convert polar to cartesian
+                                                const x = centerX + Math.cos(star.angle) * star.distance;
+                                                const y = centerY + Math.sin(star.angle) * star.distance;
+                                                
+                                                // Calculate appearance
                                                 const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
-                                                // Reduce max size during warp (half the multiplier)
-                                                const warpMultiplier = 1 + (warpSpeed / maxWarpSpeed) * 0.5; 
-                                                const currentSize = star.baseSize * twinkle * warpMultiplier;
+                                                const sizeMultiplier = 1 + warpEffect * 0.5;
+                                                const currentSize = star.baseSize * twinkle * sizeMultiplier;
                                                 
-                                                // Opacity based on distance from center during warp
-                                                // Stars start invisible at center and fade in as they move outward
-                                                let distanceOpacity = 1;
-                                                if (warpSpeed > 0.5 && !isReturning) {
-                                                    // Fade in from center: 0 opacity at center, full opacity at edges
-                                                    distanceOpacity = Math.min(1, distFromCenter / (maxDist * 0.3));
-                                                }
+                                                // Distance-based opacity - stars far from center are more visible
+                                                // During warp, this creates natural fade as stars stretch outward
+                                                const normalizedDist = star.distance / maxDist;
+                                                const distanceOpacity = 0.2 + normalizedDist * 0.8;
                                                 
-                                                const baseOpacity = star.brightness * twinkle * fadeOpacity * distanceOpacity;
+                                                // Fade based on warp progress - stars near center fade during warp
+                                                const centerFade = star.distance < 50 ? 
+                                                    Math.max(0, 1 - warpProgress * 2) : 1;
                                                 
-                                                // Draw star trail during warp
-                                                // Only draw trails for stars that are far enough from center
-                                                if (warpSpeed > 3 && !isReturning && distanceOpacity > 0.2 && distFromCenter > 20) {
-                                                    const trailLength = Math.min(warpSpeed * 2 * distanceOpacity, 25);
-                                                    const angle = Math.atan2(dy, dx);
+                                                const baseOpacity = star.brightness * twinkle * distanceOpacity * centerFade;
+                                                
+                                                // Draw motion trail during warp
+                                                if (warpProgress > 0.1 && star.distance > 30) {
+                                                    const trailLength = warpProgress * 20 * normalizedDist;
+                                                    const trailOpacity = baseOpacity * warpProgress * 0.6;
                                                     
-                                                    // Draw trail with gradient
+                                                    // Create gradient for trail
                                                     const gradient = ctx.createLinearGradient(
-                                                        star.x, star.y,
-                                                        star.x - Math.cos(angle) * trailLength,
-                                                        star.y - Math.sin(angle) * trailLength
+                                                        x, y,
+                                                        x - Math.cos(star.angle) * trailLength,
+                                                        y - Math.sin(star.angle) * trailLength
                                                     );
-                                                    gradient.addColorStop(0, `rgba(255, 255, 255, ${baseOpacity * 0.6})`);
+                                                    gradient.addColorStop(0, `rgba(255, 255, 255, ${trailOpacity})`);
                                                     gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
                                                     
                                                     ctx.strokeStyle = gradient;
                                                     ctx.lineWidth = currentSize * 1.5;
                                                     ctx.lineCap = 'round';
                                                     ctx.beginPath();
-                                                    ctx.moveTo(star.x, star.y);
+                                                    ctx.moveTo(x, y);
                                                     ctx.lineTo(
-                                                        star.x - Math.cos(angle) * trailLength,
-                                                        star.y - Math.sin(angle) * trailLength
+                                                        x - Math.cos(star.angle) * trailLength,
+                                                        y - Math.sin(star.angle) * trailLength
                                                     );
                                                     ctx.stroke();
                                                 }
                                                 
                                                 // Draw star
-                                                if (baseOpacity > 0.05) {
+                                                if (baseOpacity > 0.01) {
                                                     ctx.fillStyle = `rgba(255, 255, 255, ${baseOpacity})`;
                                                     ctx.beginPath();
-                                                    ctx.arc(star.x, star.y, currentSize, 0, Math.PI * 2);
+                                                    ctx.arc(x, y, currentSize, 0, Math.PI * 2);
                                                     ctx.fill();
                                                     
-                                                    // Subtle glow effect
-                                                    if (star.baseSize > 0.8 && star.brightness > 0.9 && !isReturning) {
-                                                        const glowSize = 2.5 + (warpSpeed / maxWarpSpeed) * 1.5;
-                                                        ctx.fillStyle = `rgba(255, 255, 255, ${baseOpacity * 0.02})`;
+                                                    // Glow during warp
+                                                    if (warpProgress > 0.3 && star.baseSize > 0.7) {
+                                                        const glowSize = 3 + warpProgress * 2;
+                                                        ctx.fillStyle = `rgba(255, 255, 255, ${baseOpacity * 0.03})`;
                                                         ctx.beginPath();
-                                                        ctx.arc(star.x, star.y, currentSize * glowSize, 0, Math.PI * 2);
+                                                        ctx.arc(x, y, currentSize * glowSize, 0, Math.PI * 2);
                                                         ctx.fill();
                                                     }
                                                 }
@@ -314,29 +278,19 @@
                                         
                                         // Hover event handlers
                                         container.addEventListener('mouseenter', () => {
-                                            isWarping = true;
-                                            isReturning = false;
                                             targetWarpProgress = 1;
-                                            fadeOpacity = 1;
                                         });
                                         
                                         container.addEventListener('mouseleave', () => {
-                                            isWarping = false;
-                                            isReturning = true;
                                             targetWarpProgress = 0;
                                         });
                                         
                                         // Touch support for mobile
                                         container.addEventListener('touchstart', () => {
-                                            isWarping = true;
-                                            isReturning = false;
                                             targetWarpProgress = 1;
-                                            fadeOpacity = 1;
                                         });
                                         
                                         container.addEventListener('touchend', () => {
-                                            isWarping = false;
-                                            isReturning = true;
                                             targetWarpProgress = 0;
                                         });
                                         
