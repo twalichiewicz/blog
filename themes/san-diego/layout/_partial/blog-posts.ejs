@@ -123,12 +123,18 @@
                                     </style>
                                     <script>
                                     (function() {
+                                        const container = document.querySelector('.workspace-os-starfield');
                                         const canvas = document.querySelector('.workspace-os-starfield .starfield-canvas');
-                                        if (!canvas) return;
+                                        if (!canvas || !container) return;
                                         
                                         const ctx = canvas.getContext('2d');
                                         let stars = [];
-                                        const starCount = 25;
+                                        const starCount = 40; // More stars for better warp effect
+                                        let isWarping = false;
+                                        let warpSpeed = 0;
+                                        let targetWarpSpeed = 0;
+                                        const maxWarpSpeed = 50;
+                                        const warpAcceleration = 0.15; // How fast we enter/exit warp
                                         
                                         function setupCanvas() {
                                             const rect = canvas.getBoundingClientRect();
@@ -141,41 +147,122 @@
                                             
                                             // Recreate stars for new dimensions
                                             stars = [];
+                                            const centerX = rect.width / 2;
+                                            const centerY = rect.height / 2;
+                                            
                                             for (let i = 0; i < starCount; i++) {
+                                                // Position stars in 3D space (x, y, z)
+                                                const angle = Math.random() * Math.PI * 2;
+                                                const distance = Math.random() * Math.max(rect.width, rect.height);
+                                                
                                                 stars.push({
-                                                    x: Math.random() * rect.width,
-                                                    y: Math.random() * rect.height,
-                                                    baseSize: 0.3 + Math.random() * 0.7,  // Much smaller: 0.3-1px
-                                                    twinkleSpeed: 0.5 + Math.random() * 1.5,  // Slower twinkling
+                                                    // Starting position
+                                                    x: centerX + Math.cos(angle) * distance,
+                                                    y: centerY + Math.sin(angle) * distance,
+                                                    z: Math.random() * 1000, // Depth
+                                                    // Store original position for warp calculations
+                                                    originX: centerX + Math.cos(angle) * distance,
+                                                    originY: centerY + Math.sin(angle) * distance,
+                                                    // Star properties
+                                                    baseSize: 0.3 + Math.random() * 0.7,
+                                                    twinkleSpeed: 0.5 + Math.random() * 1.5,
                                                     twinkleOffset: Math.random() * Math.PI * 2,
-                                                    brightness: 0.6 + Math.random() * 0.4
+                                                    brightness: 0.6 + Math.random() * 0.4,
+                                                    speed: 0.5 + Math.random() * 1.5,
+                                                    // Trail properties for warp effect
+                                                    trail: []
                                                 });
                                             }
                                         }
                                         
                                         function animate() {
                                             const rect = canvas.getBoundingClientRect();
-                                            ctx.clearRect(0, 0, rect.width, rect.height);
+                                            const centerX = rect.width / 2;
+                                            const centerY = rect.height / 2;
+                                            
+                                            // Fade out instead of clear for trail effect during warp
+                                            if (isWarping || warpSpeed > 0.1) {
+                                                ctx.fillStyle = 'rgba(5, 11, 26, 0.3)';
+                                                ctx.fillRect(0, 0, rect.width, rect.height);
+                                            } else {
+                                                ctx.clearRect(0, 0, rect.width, rect.height);
+                                            }
                                             
                                             const time = Date.now() * 0.001;
                                             
+                                            // Smoothly transition warp speed
+                                            if (Math.abs(warpSpeed - targetWarpSpeed) > 0.1) {
+                                                warpSpeed += (targetWarpSpeed - warpSpeed) * warpAcceleration;
+                                            } else {
+                                                warpSpeed = targetWarpSpeed;
+                                            }
+                                            
                                             stars.forEach(star => {
-                                                // Subtle twinkling effect
+                                                // Move stars
+                                                if (warpSpeed > 0) {
+                                                    // Warp movement - stars fly past from center
+                                                    const dx = star.x - centerX;
+                                                    const dy = star.y - centerY;
+                                                    const angle = Math.atan2(dy, dx);
+                                                    const speed = star.speed * warpSpeed;
+                                                    
+                                                    star.x += Math.cos(angle) * speed;
+                                                    star.y += Math.sin(angle) * speed;
+                                                    
+                                                    // Reset star if it goes off screen
+                                                    const dist = Math.sqrt(dx * dx + dy * dy);
+                                                    if (dist > Math.max(rect.width, rect.height)) {
+                                                        const newAngle = Math.random() * Math.PI * 2;
+                                                        const startDist = 10;
+                                                        star.x = centerX + Math.cos(newAngle) * startDist;
+                                                        star.y = centerY + Math.sin(newAngle) * startDist;
+                                                        star.originX = star.x;
+                                                        star.originY = star.y;
+                                                    }
+                                                } else {
+                                                    // Return to original positions when not warping
+                                                    star.x += (star.originX - star.x) * 0.1;
+                                                    star.y += (star.originY - star.y) * 0.1;
+                                                }
+                                                
+                                                // Calculate star appearance
                                                 const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
-                                                const currentSize = star.baseSize * twinkle;
+                                                const warpMultiplier = 1 + (warpSpeed / maxWarpSpeed) * 3; // Bigger during warp
+                                                const currentSize = star.baseSize * twinkle * warpMultiplier;
                                                 const opacity = star.brightness * twinkle;
                                                 
-                                                // Draw star as a point of light
+                                                // Draw star trail during warp
+                                                if (warpSpeed > 5) {
+                                                    const trailLength = Math.min(warpSpeed * 2, 40);
+                                                    const dx = star.x - centerX;
+                                                    const dy = star.y - centerY;
+                                                    const angle = Math.atan2(dy, dx);
+                                                    
+                                                    // Draw trail
+                                                    ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.5})`;
+                                                    ctx.lineWidth = currentSize * 2;
+                                                    ctx.lineCap = 'round';
+                                                    ctx.beginPath();
+                                                    ctx.moveTo(star.x, star.y);
+                                                    ctx.lineTo(
+                                                        star.x - Math.cos(angle) * trailLength,
+                                                        star.y - Math.sin(angle) * trailLength
+                                                    );
+                                                    ctx.stroke();
+                                                }
+                                                
+                                                // Draw star
                                                 ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
                                                 ctx.beginPath();
                                                 ctx.arc(star.x, star.y, currentSize, 0, Math.PI * 2);
                                                 ctx.fill();
                                                 
-                                                // Very subtle glow only for the brightest stars
+                                                // Glow effect (enhanced during warp)
                                                 if (star.baseSize > 0.8 && star.brightness > 0.9) {
-                                                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.05})`;
+                                                    const glowSize = warpSpeed > 0 ? 5 : 3;
+                                                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 0.05 * (1 + warpSpeed/maxWarpSpeed)})`;
                                                     ctx.beginPath();
-                                                    ctx.arc(star.x, star.y, currentSize * 3, 0, Math.PI * 2);
+                                                    ctx.arc(star.x, star.y, currentSize * glowSize, 0, Math.PI * 2);
                                                     ctx.fill();
                                                 }
                                             });
@@ -184,6 +271,28 @@
                                                 requestAnimationFrame(animate);
                                             }
                                         }
+                                        
+                                        // Hover event handlers
+                                        container.addEventListener('mouseenter', () => {
+                                            isWarping = true;
+                                            targetWarpSpeed = maxWarpSpeed;
+                                        });
+                                        
+                                        container.addEventListener('mouseleave', () => {
+                                            isWarping = false;
+                                            targetWarpSpeed = 0;
+                                        });
+                                        
+                                        // Touch support for mobile
+                                        container.addEventListener('touchstart', () => {
+                                            isWarping = true;
+                                            targetWarpSpeed = maxWarpSpeed;
+                                        });
+                                        
+                                        container.addEventListener('touchend', () => {
+                                            isWarping = false;
+                                            targetWarpSpeed = 0;
+                                        });
                                         
                                         // Setup and start
                                         setupCanvas();
