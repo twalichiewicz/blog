@@ -1,6 +1,61 @@
 @use 'variables';
 
-// This file is kept for compatibility but the styles have been moved
-// to _project.scss for the back link container
+// Project sticky navigation styles
+.project-sticky-nav {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 1000;
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    // Fix mobile positioning - place inside content area
+    position: relative;
+    top: auto;
+    left: auto;
+    padding: 1rem 1rem 0 1rem;
+    margin: 0;
+  }
+}
 
-// The project-sticky-nav has been removed in favor of a simpler back link
+.project-nav-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.project-nav-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 600;
+}
+
+.project-nav-back {
+  color: variables.$link-color;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    color: variables.$hover-color;
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    color: variables.$link-color-dark;
+    background: rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+    
+    &:hover {
+      color: variables.$hover-color-dark;
+      background: rgba(0, 0, 0, 0.9);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}

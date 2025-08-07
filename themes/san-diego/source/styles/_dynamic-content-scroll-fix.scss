@@ -15,7 +15,8 @@
       overflow-y: auto !important;
       overflow-x: hidden !important;
       -webkit-overflow-scrolling: touch !important;
-      height: calc(100dvh - 88px) !important; // Account for margins and back button
+      min-height: calc(100dvh - 88px) !important; // Account for margins and back button
+      height: auto !important; // Allow content to determine height
       position: relative !important;
       opacity: 1 !important; // Override the initial opacity: 0
       
@@ -83,12 +84,16 @@
     // Ensure all containers expand naturally
     overflow: visible !important;
     height: auto !important;
+    // Border radius handled by JavaScript
     
     .content-wrapper,
     .content-inner-wrapper {
       overflow: visible !important;
       height: auto !important;
+      border-radius: 12px !important;
     }
+    
+    // Border radius for content-inner-wrapper is handled by JavaScript
     
     // Remove any scroll from post/project wrappers
     .post-wrapper,
@@ -97,9 +102,28 @@
       overflow: visible !important;
       height: auto !important;
       
-      // Ensure content has proper spacing
-      padding-bottom: 2rem;
+      // Reduce excessive bottom padding on mobile - with higher specificity
+      padding-bottom: 1rem !important;
+      margin-bottom: 0 !important;
     }
     
+    // Keep dynamic back button in absolute position on mobile too
+    .dynamic-back-button {
+      position: absolute !important;
+      top: 16px !important;
+      left: 16px !important;
+      margin: 0 !important;
+      display: block !important;
+      width: fit-content !important;
+    }
+  }
+  
+  // Border radius is handled by JavaScript
+}
+
+// More specific rule to override any conflicting styles
+@media screen and (max-width: 768px) {
+  .blog .blog-content .content-inner-wrapper {
+    border-radius: 12px !important;
   }
 }

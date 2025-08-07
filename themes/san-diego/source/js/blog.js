@@ -419,7 +419,15 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Ensure existing content-inner-wrapper has border-radius during transition
 			const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
 			if (existingInnerWrapper) {
-				existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+				const isMobile = window.matchMedia('(max-width: 768px)').matches;
+				if (isMobile) {
+					// Mobile: all corners rounded
+					existingInnerWrapper.style.setProperty('border-radius', '12px', 'important');
+				} else {
+					// Desktop/tablet: only top-left corner rounded
+					// First clear any existing border-radius shorthand
+					existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+				}
 			}
 
 			// Start screen wipe transition
@@ -517,11 +525,19 @@ document.addEventListener('DOMContentLoaded', function () {
 						innerWrapper.className = 'content-inner-wrapper';
 						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
 						
-						// Apply border-radius (top-left only as per design)
-						innerWrapper.style.borderRadius = '12px 0 0 0';
+						// Apply border-radius based on screen size
+						// Use matchMedia for better mobile detection that matches CSS
+						const isMobile = window.matchMedia('(max-width: 768px)').matches;
+						
 						innerWrapper.style.overflow = 'hidden';
-						// Force border-radius with higher specificity
-						innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+						
+						if (isMobile) {
+							// Mobile: all corners rounded
+							innerWrapper.style.setProperty('border-radius', '12px', 'important');
+						} else {
+							// Desktop/tablet: only top-left corner rounded
+							innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+						}
 
 						// Handle project-wrapper inside regular content
 						let projectWrapperInstance = null;
@@ -550,6 +566,17 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 
 					// Content inserted successfully
+					
+					// Move back button inside content-inner-wrapper on mobile
+					const isMobile = window.matchMedia('(max-width: 768px)').matches;
+					if (isMobile && backButton) {
+						const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+						if (innerWrapper && innerWrapper.parentNode === blogContentElement) {
+							// Move back button inside inner wrapper as first child
+							innerWrapper.insertBefore(backButton, innerWrapper.firstChild);
+						}
+					}
+					
 					initializeBlogFeatures(blogContentElement); // This will now delegate carousel init
 					
 					// Initialize project tabs for dynamically loaded content
@@ -1204,5 +1231,32 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (initialSearchInput) {
 		initializeSearchClearButton(initialSearchInput);
 	}
+	
+	// Handle responsive updates on window resize
+	let resizeTimeout;
+	window.addEventListener('resize', function() {
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(function() {
+			const blogContentElement = document.querySelector('.blog-content');
+			if (!blogContentElement) return;
+			
+			const isMobile = window.matchMedia('(max-width: 768px)').matches;
+			const backButton = blogContentElement.querySelector('.dynamic-back-button');
+			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+			
+			if (backButton && innerWrapper) {
+				// Update border-radius
+				if (isMobile) {
+					// Mobile: all corners rounded
+					innerWrapper.style.setProperty('border-radius', '12px', 'important');
+				} else {
+					// Desktop/tablet: only top-left corner rounded
+					innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+				}
+				
+				// Don't move the back button - keep it in its original position
+			}
+		}, 250); // Debounce resize events
+	});
 
 }); 

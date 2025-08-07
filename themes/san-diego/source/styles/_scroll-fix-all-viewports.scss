@@ -108,8 +108,7 @@
       .content-inner-wrapper {
         overflow: visible !important;
         height: auto !important;
-        // Add border-radius for mobile
-        border-radius: 12px 12px 0 0 !important;
+        // Border radius handled by JavaScript
         
         .content-wrapper {
           overflow: visible !important;

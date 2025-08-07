@@ -122,16 +122,16 @@
   },
   "notes": "All vulnerabilities have been addressed by removing hexo-admin and hexo-pdf, and replacing hoek with @hapi/hoek.",
   "devDependencies": {
-    "chalk": "^5.4.1",
+    "chalk": "^5.5.0",
     "chokidar": "^4.0.3",
     "clean-css": "^5.3.3",
     "concurrently": "^9.2.0",
-    "fs-extra": "^11.3.0",
+    "fs-extra": "^11.3.1",
     "gray-matter": "^4.0.3",
     "pixelmatch": "^7.1.0",
     "pngjs": "^7.0.0",
-    "puppeteer": "^24.11.1",
-    "stylelint": "^16.21.1",
+    "puppeteer": "^24.16.0",
+    "stylelint": "^16.22.0",
     "stylelint-config-standard-scss": "^15.0.1",
     "stylelint-formatter-html": "^1.0.1"
   }
