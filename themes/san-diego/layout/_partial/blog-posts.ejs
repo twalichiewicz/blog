@@ -119,8 +119,15 @@
                                     [data-theme="light"] .workspace-os-starfield:hover,
                                     [data-theme="dark"] .workspace-os-starfield:hover {
                                         background: radial-gradient(ellipse at center, #0B1426 0%, #050B1A 70%, #000205 100%) !important;
+                                        background-color: transparent !important; /* Override theme hover background */
                                         filter: none !important; /* Remove any brightness filters */
                                         transform: none !important; /* Prevent scale effects */
+                                    }
+                                    /* Override theme-modes hover effect */
+                                    .workspace-os-starfield.post-long:hover,
+                                    [data-theme="light"] .workspace-os-starfield.post-long:hover,
+                                    [data-theme="dark"] .workspace-os-starfield.post-long:hover {
+                                        background-color: transparent !important;
                                     }
                                     </style>
                                     <script>
@@ -264,7 +271,8 @@
                                                 const baseOpacity = star.brightness * twinkle * fadeOpacity * distanceOpacity;
                                                 
                                                 // Draw star trail during warp
-                                                if (warpSpeed > 3 && !isReturning && distanceOpacity > 0.1) {
+                                                // Only draw trails for stars that are far enough from center
+                                                if (warpSpeed > 3 && !isReturning && distanceOpacity > 0.2 && distFromCenter > 20) {
                                                     const trailLength = Math.min(warpSpeed * 2 * distanceOpacity, 25);
                                                     const angle = Math.atan2(dy, dx);
                                                     
