@@ -12,5 +12,3 @@ categories:
   - announcements
 workspace_os_special: true
 ---
-
-WorkspaceOS
