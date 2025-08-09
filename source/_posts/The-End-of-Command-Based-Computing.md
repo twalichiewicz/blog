@@ -23,15 +23,13 @@ Here's what this has cost us: According to Asana's 2023 study of 9,615 knowledge
 
 I'm developing WorkspaceOS—software that observes patterns in how you work and begins acting on them without being asked. Not automation (which follows preset rules), but pattern recognition that compounds over time.
 
-Here's what's currently working in my development environment:
+Here's how it works:
 
-**Pattern Detection:** The system watches my debugging sessions. After seeing me check the same three log files whenever our payment system throws errors, it now pre-fetches and highlights relevant sections when similar errors occur. This isn't programmed behavior—it emerged from observation.
+WorkspaceOS uses computer vision to understand what's on your screen—no API integrations needed. This means it works with legacy enterprise software, brand new tools, and everything in between. Processing happens locally on your device, your data never leaves your control. The system observes sequences of actions and their contexts: when I check the same three log files whenever our payment system throws errors, it learns to pre-fetch and highlight relevant sections when similar errors occur. When I switch between projects and open our analytics dashboard after modifying the pricing model, it knows I'm checking for impact and prepares the relevant comparisons without being asked.
 
-**Context Preservation:** When I switch between projects, WorkspaceOS maintains context. It knows that when I open our analytics dashboard after modifying the pricing model, I'm checking for impact. It prepares the relevant comparisons without being asked.
+Instead of sending every action to expensive cloud models, WorkspaceOS caches learned patterns locally. First time processing an invoice type: $0.10. After pattern recognition: $0.001. This isn't a discount—it's architectural. The system gets more valuable with use, not through updates, but through interaction.
 
-**Incremental Learning:** Each interaction teaches the system. What required explicit commands last month happens automatically today. The system gets more valuable with use, not through updates, but through interaction.
-
-## The Technical Approach
+## Three Key Capabilities
 
 <style>
 .pillars-container {
@@ -124,36 +122,46 @@ Here's what's currently working in my development environment:
 
 <div class="pillar">
 <div class="pillar-number">1</div>
-<div class="pillar-title">Screen Understanding</div>
-<div class="pillar-subtitle">Works with what you have</div>
+<div class="pillar-title">Universal Compatibility</div>
+<div class="pillar-subtitle">Works with any software</div>
 <div class="pillar-content">
-WorkspaceOS uses computer vision to understand what's on your screen. No API integrations needed. This means it works with legacy enterprise software, brand new tools, and everything in between. Processing happens locally on your device—your data never leaves your control. <span class="pillar-highlight">Currently achieving 94% accuracy in UI element recognition.</span>
+Computer vision at the OS level means every application that has ever existed or will exist works instantly. <span class="pillar-highlight">Currently achieving 94% accuracy in UI element recognition.</span>
 </div>
 </div>
 
 <div class="pillar">
 <div class="pillar-number">2</div>
-<div class="pillar-title">Pattern Learning</div>
-<div class="pillar-subtitle">Your workflows become its knowledge</div>
+<div class="pillar-title">Pattern Recognition</div>
+<div class="pillar-subtitle">Learns from repetition</div>
 <div class="pillar-content">
-The system observes sequences of actions and their contexts. When you check sales figures before updating forecasts, it learns this pattern. When you review similar code before implementing features, it notices. Over time, these patterns compound into anticipatory actions. <span class="pillar-highlight">Average time to pattern recognition: 5-7 repetitions.</span>
+Over time, patterns compound into anticipatory actions. <span class="pillar-highlight">Average time to pattern recognition: 5-7 repetitions.</span>
 </div>
 </div>
 
 <div class="pillar">
 <div class="pillar-number">3</div>
-<div class="pillar-title">Cost Reduction</div>
-<div class="pillar-subtitle">Economics that make sense</div>
+<div class="pillar-title">Local Processing</div>
+<div class="pillar-subtitle">Gets cheaper with use</div>
 <div class="pillar-content">
-Instead of sending every action to expensive cloud models, WorkspaceOS caches learned patterns locally. First time processing an invoice type: $0.10. After pattern recognition: $0.001. This isn't a discount—it's architectural. <span class="pillar-highlight">Local pattern matching eliminates 90% of API calls.</span>
+Cached patterns eliminate expensive API calls for repeated tasks. <span class="pillar-highlight">Local pattern matching eliminates 90% of API calls.</span>
 </div>
 </div>
 
 </div>
 
-## Current Limitations
+<style>
+.limitations {
+  font-size: 9px;
+  opacity: 0.6;
+  margin: 2rem 0;
+  line-height: 1.4;
+  max-width: 65ch;
+}
+</style>
 
-WorkspaceOS learns from patterns, which means it can't handle completely novel situations without references. It removes friction, not judgment. The privacy-preserving pattern sharing between users is still in research—your patterns stay yours for now.
+<div class="limitations">
+<strong>Current Limitations:</strong> WorkspaceOS learns from patterns, which means it can't handle completely novel situations without references. It removes friction, not judgment. Privacy-preserving pattern sharing between users is still in research—your patterns stay yours for now.
+</div>
 
 ## The Trajectory
 
