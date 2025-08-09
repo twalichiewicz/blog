@@ -17,7 +17,7 @@ In 1975, when Bill Gates and Paul Allen created BASIC for the Altair 8800, they 
 
 But somewhere along the way, we stopped questioning whether this should remain true. We've spent fifty years making commands easier—GUIs, voice assistants, chatbots—without asking if commands themselves are the problem.
 
-Here's what this has cost us: According to Asana's 2023 study of 9,615 knowledge workers, we spend 58% of our workday on "work about work." Not creating. Not solving. Just coordinating. McKinsey found we waste 9.3 hours weekly just searching for information. We've built a $50 trillion global economy where most work isn't work at all.
+Here's what this has cost us: According to Asana's 2023 study of 9,615 knowledge workers, we spend 58% of our workday on "work about work." Not creating. Not solving. Just coordinating. Research shows we waste nearly a full workday each week just searching for information. Those juggling 16 or more apps could save almost 10 hours weekly through better processes. We've built a $50 trillion global economy where most work isn't work at all.
 
 ## What I'm Building
 
