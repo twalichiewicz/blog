@@ -27,7 +27,7 @@ Here's how it works:
 
 WorkspaceOS uses computer vision to understand what's on your screen—no API integrations needed. This means it works with legacy enterprise software, brand new tools, and everything in between. Processing happens locally on your device, your data never leaves your control. The system observes sequences of actions and their contexts: when I check the same three log files whenever our payment system throws errors, it learns to pre-fetch and highlight relevant sections when similar errors occur. When I switch between projects and open our analytics dashboard after modifying the pricing model, it knows I'm checking for impact and prepares the relevant comparisons without being asked.
 
-Instead of sending every action to expensive cloud models, WorkspaceOS caches learned patterns locally. First time processing an invoice type: $0.10. After pattern recognition: $0.001. This isn't a discount—it's architectural. The system gets more valuable with use, not through updates, but through interaction.
+Instead of sending every action to expensive cloud models, WorkspaceOS caches learned patterns locally. First time WorkspaceOS sees a pattern: $0.10. Every time after: $0.001. This isn't a discount—it's architectural. The system gets more valuable with use, not through updates, but through interaction.
 
 ## Three Key Capabilities
 
@@ -125,7 +125,7 @@ Instead of sending every action to expensive cloud models, WorkspaceOS caches le
 <div class="pillar-title">Universal Compatibility</div>
 <div class="pillar-subtitle">Works with any software</div>
 <div class="pillar-content">
-Computer vision at the OS level means every application that has ever existed or will exist works instantly. <span class="pillar-highlight">Currently achieving 94% accuracy in UI element recognition.</span>
+Computer vision at the OS level means every application that has ever existed or will exist works instantly. No integrations needed—ever. <span class="pillar-highlight">Universal capture layer understands everything on your screen.</span>
 </div>
 </div>
 
@@ -134,7 +134,7 @@ Computer vision at the OS level means every application that has ever existed or
 <div class="pillar-title">Pattern Recognition</div>
 <div class="pillar-subtitle">Learns from repetition</div>
 <div class="pillar-content">
-Over time, patterns compound into anticipatory actions. <span class="pillar-highlight">Average time to pattern recognition: 5-7 repetitions.</span>
+Every action is connected across time. Pattern recognition across time reveals intent before you express it. <span class="pillar-highlight">10,000x semantic compression of work history.</span>
 </div>
 </div>
 
@@ -143,7 +143,7 @@ Over time, patterns compound into anticipatory actions. <span class="pillar-high
 <div class="pillar-title">Local Processing</div>
 <div class="pillar-subtitle">Gets cheaper with use</div>
 <div class="pillar-content">
-Cached patterns eliminate expensive API calls for repeated tasks. <span class="pillar-highlight">Local pattern matching eliminates 90% of API calls.</span>
+Cached patterns eliminate expensive API calls for repeated tasks. <span class="pillar-highlight">100x cost reduction as patterns become reusable.</span>
 </div>
 </div>
 
