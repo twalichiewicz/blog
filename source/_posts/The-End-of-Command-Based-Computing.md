@@ -1,7 +1,8 @@
 ---
 layout: post
 title: The End of Command-Based Computing
-date: 2025-08-08 12:00:00
+date: 2025-08-09 12:00:00
+excerpt: After fifty years of telling computers what to do, I'm building WorkspaceOS—software that observes your work patterns and acts on them without being asked. Here's what anticipatory computing looks like in practice.
 tags:
   - vision
   - WorkspaceOS
