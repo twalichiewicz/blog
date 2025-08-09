@@ -46,10 +46,10 @@ Instead of sending every action to expensive cloud models, WorkspaceOS caches le
 
 .pillar-number {
   position: absolute;
-  left: 0;
-  top: 0.25rem;
-  width: 2.5rem;
-  height: 2.5rem;
+  left: 3px;
+  top: -6px;
+  width: 36px;
+  height: 36px;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
@@ -65,7 +65,8 @@ Instead of sending every action to expensive cloud models, WorkspaceOS caches le
 .pillar-title {
   font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 0.25rem;
+  line-height: 111%;
+  margin-bottom: 3px;
   color: var(--text-primary);
   letter-spacing: -0.02em;
 }
@@ -75,12 +76,13 @@ Instead of sending every action to expensive cloud models, WorkspaceOS caches le
   text-transform: uppercase;
   letter-spacing: 0.08em;
   opacity: 0.6;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
   font-weight: 600;
 }
 
 .pillar-content {
-  line-height: 1.7;
+  margin-top: 9px;
+  line-height: 1.5;
   color: var(--text-secondary);
 }
 
@@ -111,8 +113,8 @@ Instead of sending every action to expensive cloud models, WorkspaceOS caches le
     padding-left: 3rem;
   }
   .pillar-number {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 32px;
+    height: 32px;
     font-size: 1rem;
   }
 }
