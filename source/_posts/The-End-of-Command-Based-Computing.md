@@ -71,7 +71,7 @@ Instead of sending every action to expensive cloud models, WorkspaceOS caches le
 }
 
 .pillar-subtitle {
-  font-size: 0.875rem;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   opacity: 0.6;
