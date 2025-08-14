@@ -182,8 +182,22 @@
 		/* Dark mode for blog header on mobile */
 		@media (max-width: variables.$mobile-breakpoint) {
 			.blog-header {
-				background: linear-gradient(to bottom right, hsl(28deg 8% 18%) 0%, hsl(28deg 10% 15%) 100%) !important;
+				background: black !important;
 				box-shadow: 0 4px 12px rgb(0 0 0 / 25%) !important;
+				position: relative;
+				/* Extend background above safe area for mobile Safari */
+				padding-top: calc(12px + env(safe-area-inset-top));
+				/* Add pseudo element to fill the safe area with black */
+				&::before {
+					content: '';
+					position: absolute;
+					top: calc(-1 * env(safe-area-inset-top));
+					left: 0;
+					right: 0;
+					height: calc(env(safe-area-inset-top) + 1px);
+					background: black;
+					z-index: 1;
+				}
 			}
 		}
 

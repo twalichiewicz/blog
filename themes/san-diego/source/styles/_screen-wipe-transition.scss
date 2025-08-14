@@ -86,6 +86,13 @@
 		}
 	}
 	
+	// Content expansion support
+	&.content-expanding {
+		.blog-content {
+			transition: transform 0.3s ease-out;
+		}
+	}
+	
 	// Loading symbol
 	.loading-symbol {
 		position: relative;
