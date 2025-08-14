@@ -25,13 +25,14 @@
         return transitionElement;
     }
     
-    // Start transition
+    // Start transition with sequenced animations
     async function startTransition() {
         if (isTransitioning) return;
         isTransitioning = true;
         
         const element = createTransitionElement();
         const blogContent = document.querySelector('.blog-content');
+        const blogHeader = document.querySelector('.blog-header');
         
         // Get blog-content position and dimensions
         if (blogContent) {
@@ -45,7 +46,7 @@
             blogContent.classList.add('transitioning');
         }
         
-        // Use requestAnimationFrame to ensure smooth start
+        // SEQUENCE 1: Start wipe animation (slider effect)
         await new Promise(resolve => {
             requestAnimationFrame(() => {
                 // Force reflow
@@ -59,12 +60,38 @@
             });
         });
         
-        // Wait for panels to close
+        // Wait for slider panels to close
         await new Promise(resolve => setTimeout(resolve, 600));
+        
+        // SEQUENCE 2: Header slide away animation (on mobile project pages)
+        if (blogHeader && window.innerWidth <= 768) {
+            // Check if this should be a project page (has project elements)
+            const hasProjectContent = document.querySelector('.project-edge-wrapper') || 
+                                    document.querySelector('.project-wrapper.dynamic-loaded') ||
+                                    document.body.classList.contains('project-page');
+            
+            if (hasProjectContent) {
+                blogHeader.classList.add('visible'); // Ensure it's visible first
+                blogHeader.classList.remove('hidden');
+                
+                // Small delay, then animate out
+                await new Promise(resolve => setTimeout(resolve, 100));
+                
+                blogHeader.classList.add('animate-out');
+                
+                // Wait for header animation
+                await new Promise(resolve => setTimeout(resolve, 400));
+                
+                // Now hide completely
+                blogHeader.classList.remove('animate-out', 'visible');
+                blogHeader.classList.add('hidden');
+            }
+        }
         
         return {
             element,
-            blogContent
+            blogContent,
+            blogHeader
         };
     }
     
@@ -72,16 +99,32 @@
     async function endTransition(transitionData) {
         if (!transitionData || !isTransitioning) return;
         
-        const { element, blogContent } = transitionData;
+        const { element, blogContent, blogHeader } = transitionData;
         
-        // Hide loading symbol and start reverse wipe
-        element.classList.remove('active');
-        element.classList.add('reverse');
-        
-        // Mark content as ready
+        // SEQUENCE 3: Content fills space and reveals
         if (blogContent) {
             blogContent.classList.add('content-ready');
+            blogContent.style.transition = 'height 0.3s ease-out, transform 0.3s ease-out';
+            
+            // If header was hidden, content should expand to fill the space
+            if (blogHeader && blogHeader.classList.contains('hidden') && window.innerWidth <= 768) {
+                // Content expands smoothly
+                blogContent.style.transform = 'translateY(-64px)'; // Header height compensation
+                
+                // Wait for content expansion
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                // Reset transform for final state
+                blogContent.style.transform = '';
+            }
         }
+        
+        // Small delay before revealing content
+        await new Promise(resolve => setTimeout(resolve, 200));
+        
+        // Start reverse wipe to reveal content
+        element.classList.remove('active');
+        element.classList.add('reverse');
         
         // Wait for reverse animation
         await new Promise(resolve => setTimeout(resolve, 700));
@@ -90,6 +133,8 @@
         element.classList.remove('reverse');
         if (blogContent) {
             blogContent.classList.remove('transitioning', 'content-ready');
+            blogContent.style.transition = '';
+            blogContent.style.transform = '';
         }
         
         // Remove the transition element from DOM

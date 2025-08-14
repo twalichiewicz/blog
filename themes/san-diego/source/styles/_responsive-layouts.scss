@@ -862,11 +862,23 @@
 
 /* Mobile-specific media queries */
 @media screen and (max-width: variables.$mobile-breakpoint) {
-	// Hide blog-header on project pages
+	// Hide blog-header on project pages with animation support
 	body.project-page .blog-header,
 	.blog:has(.project-edge-wrapper) .blog-header,
 	.blog:has(.project-wrapper.dynamic-loaded) .blog-header {
-		display: none !important;
+		// Support for animated hiding
+		&.animate-out {
+			transform: translateY(-100%);
+			opacity: 0;
+			transition: transform 0.4s ease-out, opacity 0.3s ease-out;
+			pointer-events: none;
+		}
+		
+		// Fallback immediate hide
+		&.hidden,
+		&:not(.animate-out):not(.visible) {
+			display: none !important;
+		}
 	}
 	
 	.mobile-hide {
