@@ -2575,7 +2575,6 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 @media (max-width: variables.$tablet-breakpoint) {
 	.above-fold-content-wrapper {
 		padding: 30px clamp(1rem, 3vw, 2rem) 45px;
-		margin-bottom: 1.5rem; // Add bottom margin to prevent overlap with dynamic content
 
 		.project-title {
 			max-width: 90%;
