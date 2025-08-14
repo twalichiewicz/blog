@@ -2506,8 +2506,9 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		
 		// Mobile-specific fixes for dynamic loading
 		@media (max-width: variables.$mobile-breakpoint) {
-			height: 100vh; // Fallback for older browsers
-			height: 100dvh;
+			min-height: 100vh; // Fallback for older browsers
+			min-height: 100dvh;
+			height: auto; // Allow container to grow with content
 		}
 	}
 
@@ -2592,7 +2593,8 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 
 @media (max-width: variables.$mobile-breakpoint) {
 	.above-the-fold-preview {
-		height: 100dvh;
+		min-height: 100dvh;
+		height: auto; // Allow container to grow with content
 	}
 
 	.project-gallery-hero {
