@@ -2594,6 +2594,9 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 	.above-the-fold-preview {
 		min-height: 100dvh;
 		height: auto; // Allow container to grow with content
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end; // Ensure content aligns to bottom
 	}
 
 	.project-gallery-hero {
@@ -2603,6 +2606,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 	.above-fold-content-wrapper {
 		// Mobile styles now handled in the main .blog-content .project-edge-wrapper block
 		// to maintain consistency with 36px padding
+		margin-top: auto; // Push content to bottom on mobile
 
 		.project-title {
 			max-width: 95%;
