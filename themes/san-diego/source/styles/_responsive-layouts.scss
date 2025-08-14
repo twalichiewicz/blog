@@ -330,6 +330,11 @@
 			border-radius: 12px 12px 0 0;
 			margin-bottom: 0;
 			max-width: 600px;
+			border-bottom: 1px solid #e6e6e6;
+			
+			@media (prefers-color-scheme: dark) {
+				border-bottom-color: #242424;
+			}
 			margin-left: auto;
 			margin-right: auto;
 		}
@@ -541,6 +546,11 @@
 			margin-left: auto;
 			margin-right: auto;
 			flex-shrink: 0;
+			border-bottom: 1px solid #e6e6e6;
+			
+			@media (prefers-color-scheme: dark) {
+				border-bottom-color: #242424;
+			}
 		}
 
 		.content-wrapper {
@@ -920,6 +930,11 @@
 				margin-left: auto;
 				margin-right: auto;
 				flex-shrink: 0;
+				border-bottom: 1px solid #e6e6e6;
+				
+				@media (prefers-color-scheme: dark) {
+					border-bottom-color: #242424;
+				}
 			}
 
 			.content-wrapper {
