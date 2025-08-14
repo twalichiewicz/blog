@@ -1752,6 +1752,10 @@ blockquote.pullquote {
 // Ensure dynamically loaded project wrapper has proper height
 .project-wrapper.dynamic-loaded {
 	// No display: flex, no flex-direction, no height/min-height/overflow overrides
+	// Add top margin on mobile to prevent overlap with above-fold-content-wrapper
+	@media (max-width: variables.$tablet-breakpoint) {
+		margin-top: 2rem;
+	}
 }
 
 // Ensure project wrapper has full height when body is loaded
@@ -2570,6 +2574,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 @media (max-width: variables.$tablet-breakpoint) {
 	.above-fold-content-wrapper {
 		padding: 30px clamp(1rem, 3vw, 2rem) 45px;
+		margin-bottom: 1.5rem; // Add bottom margin to prevent overlap with dynamic content
 
 		.project-title {
 			max-width: 90%;
