@@ -852,6 +852,11 @@
 
 /* Mobile-specific media queries */
 @media screen and (max-width: variables.$mobile-breakpoint) {
+	// Hide blog-header on project pages
+	body.project-page .blog-header {
+		display: none !important;
+	}
+	
 	.mobile-hide {
 		display: none !important;
 	}
