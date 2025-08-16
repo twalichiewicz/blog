@@ -1,0 +1,1 @@
+import ScrollUtility from"./utils/scroll-utility.js";document.addEventListener("DOMContentLoaded",function(){window.ScrollUtility=ScrollUtility});

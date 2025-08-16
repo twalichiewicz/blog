@@ -1,0 +1,174 @@
+# MAP Framework Workshop Template
+
+## Pre-Workshop Preparation
+
+### Participants Needed
+- [ ] Design Lead (facilitator)
+- [ ] Product Manager(s)
+- [ ] Engineering Lead
+- [ ] Key stakeholders
+- [ ] User researcher (if available)
+
+### Materials to Gather
+- [ ] Recent user research findings
+- [ ] Analytics data
+- [ ] Competitive analysis
+- [ ] Technical constraints documentation
+- [ ] Business objectives & KPIs
+
+---
+
+## Phase 1: MAPPING (4-6 hours)
+
+### 1.1 Problem Space Definition (60 min)
+**Objective**: Align on the problem we're solving
+
+#### User Problems
+- Primary problem:
+- Secondary problems:
+- Non-goals:
+
+#### Success Metrics
+- Primary metric:
+- Secondary metrics:
+- Baseline measurements:
+
+### 1.2 Solution Exploration (120 min)
+**Objective**: Generate multiple solution approaches
+
+#### Approach A: [Name]
+- Core concept:
+- Key features:
+- User journey:
+- Technical considerations:
+- Rough effort estimate:
+
+#### Approach B: [Name]
+- Core concept:
+- Key features:
+- User journey:
+- Technical considerations:
+- Rough effort estimate:
+
+#### Approach C: [Name]
+- Core concept:
+- Key features:
+- User journey:
+- Technical considerations:
+- Rough effort estimate:
+
+### 1.3 Rapid Prototyping (90 min)
+**Objective**: Make ideas tangible
+
+- [ ] Create low-fi mockups for each approach
+- [ ] Identify key user flows
+- [ ] Document critical interactions
+- [ ] Note technical dependencies
+
+### 1.4 Initial Validation (60 min)
+**Objective**: Quick gut-check on feasibility
+
+Technical feasibility scorecard (1-5):
+| Approach | Frontend | Backend | Integration | Data | Overall |
+|----------|----------|---------|-------------|------|---------|
+| A        |          |         |             |      |         |
+| B        |          |         |             |      |         |
+| C        |          |         |             |      |         |
+
+---
+
+## Phase 2: ASSESSING (2-3 hours)
+
+### 2.1 Business Impact Analysis (60 min)
+**Objective**: Evaluate approaches against business goals
+
+| Approach | Revenue Impact | Cost to Build | Time to Market | Strategic Fit | Risk Level |
+|----------|---------------|---------------|----------------|---------------|------------|
+| A        |               |               |                |               |            |
+| B        |               |               |                |               |            |
+| C        |               |               |                |               |            |
+
+### 2.2 Roadmap Segmentation (60 min)
+**Objective**: Break chosen approach into deliverable chunks
+
+#### MVP (Month 1-2)
+- Core features:
+- Success criteria:
+- Dependencies:
+
+#### Enhancement 1 (Month 3-4)
+- Additional features:
+- Success criteria:
+- Dependencies:
+
+#### Enhancement 2 (Month 5-6)
+- Additional features:
+- Success criteria:
+- Dependencies:
+
+### 2.3 Resource Planning (30 min)
+**Objective**: Determine team needs
+
+- Design resources needed:
+- Engineering resources needed:
+- Other resources:
+- Timeline risks:
+
+---
+
+## Phase 3: PRODUCING (Ongoing)
+
+### 3.1 Handoff Checklist
+- [ ] Detailed designs complete
+- [ ] Edge cases documented
+- [ ] Error states defined
+- [ ] Component specifications
+- [ ] API requirements
+- [ ] Performance targets
+- [ ] Accessibility requirements
+
+### 3.2 Implementation Tracking
+| Feature | Status | Blockers | ETA |
+|---------|--------|----------|-----|
+|         |        |          |     |
+|         |        |          |     |
+|         |        |          |     |
+
+### 3.3 Quality Checkpoints
+- [ ] Design review completed
+- [ ] Technical review completed
+- [ ] Accessibility audit
+- [ ] Performance testing
+- [ ] User acceptance testing
+
+---
+
+## Post-Workshop Actions
+
+### Immediate (Within 48 hours)
+- [ ] Distribute workshop outputs
+- [ ] Schedule follow-up meetings
+- [ ] Create project brief
+- [ ] Update roadmap
+
+### Week 1
+- [ ] Finalize designs for MVP
+- [ ] Create development tickets
+- [ ] Set up tracking dashboards
+- [ ] Communicate plan to stakeholders
+
+### Ongoing
+- [ ] Weekly design-dev sync
+- [ ] Bi-weekly stakeholder updates
+- [ ] Monthly metrics review
+- [ ] Quarterly retrospective
+
+---
+
+## Reflection Questions
+
+1. What worked well in this MAP process?
+2. Where did we encounter friction?
+3. How accurate were our estimates?
+4. What would we do differently next time?
+5. Did we achieve our intended outcomes?
