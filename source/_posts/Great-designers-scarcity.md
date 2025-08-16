@@ -3,7 +3,7 @@ title: Great designers are scarce
 tags:
   - blog
   - design
-date: 2025-08-16 10:00:00
+date: 2025-08-15 10:00:00
 short: true
 excerpt: "A reflection on the scarcity and value of truly great designers."
 ---
