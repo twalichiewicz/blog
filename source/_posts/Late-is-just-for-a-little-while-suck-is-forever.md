@@ -12,6 +12,7 @@ excerpt: "Gabe Newell's timeless wisdom on prioritizing quality over deadlines."
 
 <iframe 
   class="youtube-video"
+  style="width:100%;height:300px;"
   src="https://www.youtube-nocookie.com/embed/lA1H_GycBTE" 
   title="Gabe Newell - Late is just for a little while, suck is forever"
   frameborder="0" 
