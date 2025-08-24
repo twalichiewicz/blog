@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <head>
+  
+  
+  <!-- Primary Meta Tags -->
+  <title>End-user experience | Lyra Health - Design in Everything</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers">
+  <meta name="author" content="Thomas Walichiewicz">
+  
+  <meta name="keywords" content="design, portfolio, blog, developer">
+  
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html">
+  
+  <!-- Resource Hints for Performance -->
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  
+  <!-- Theme and Color -->
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html">
+  <meta property="og:title" content="End-user experience">
+  <meta property="og:description" content="Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers">
+  <meta property="og:image" content="https://twalichiewicz.github.io/2017/01/01/End-user-experience/./lyra-preview.png">
+  <meta property="og:site_name" content="Thomas Walichiewicz">
+  
+  <meta property="article:author" content="Thomas Walichiewicz">
+  <meta property="article:published_time" content="2017-01-01T20:52:01.000Z">
+  
+  <meta property="article:modified_time" content="2025-08-24T05:43:29.021Z">
+  
+  
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html">
+  <meta name="twitter:title" content="End-user experience">
+  <meta name="twitter:description" content="Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers">
+  <meta name="twitter:image" content="https://twalichiewicz.github.io/2017/01/01/End-user-experience/./lyra-preview.png">
+  
+  
+  <!-- Cache Control - Prevent aggressive caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Security Headers (Meta Tag Equivalents) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+  
+  <!-- Robots Meta -->
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  
+  <!-- Stylesheets -->
+  <link rel="preload" href="/styles/styles.css?v=1756014285601" as="style">
+  <link rel="stylesheet" href="/styles/styles.css?v=1756014285601">
+  
+  <!-- Initial loading state -->
+  <style>
+    body:not(.loaded) {
+      overflow: hidden;
+    }
+  </style>
+  
+  <!-- Project-specific Scripts -->
+  
+  
+  <!-- Theme now relies on prefers-color-scheme media queries -->
+
+  <!-- Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/+esm",
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
+    }
+  }
+  </script>
+
+  <!-- Core Scripts -->
+  <script src="/js/san-diego-namespace.js?v=1756014285601"></script>
+  <script type="module" src="/js/main.js?v=1756014285601"></script>
+  <script type="module" src="/js/components/HomeVisuals.js?v=1756014285601"></script>
+  <script type="module" src="/js/mobile-tabs.js?v=1756014285601"></script>
+  <script type="module" src="/js/carousel.js?v=1756014285601"></script>
+  <script type="module" src="/js/utils/animations.js?v=1756014285601"></script>
+  <script src="/js/project-tabs.js?v=1756014285601"></script>
+  <script src="/js/project-summary.js?v=1756014285601"></script>
+  <script type="module" src="/js/scroll.js?v=1756014285601"></script>
+  <script src="/js/sound-effects.js?v=1756014285601"></script>
+  <script src="/js/screen-wipe-transition.js?v=1756014285601"></script>
+  <script src="/js/external-links.js?v=1756014285601"></script>
+  <script src="/js/project-demo.js?v=1756014285601"></script>
+  <script src="/js/project-demo-walkthrough.js?v=1756014285601"></script>
+  <script src="/js/byline-modal.js?v=1756014285601"></script>
+  <script src="/js/portfolio-parallax-optimized.js?v=1756014285601"></script>
+  <script src="/js/portfolio-filters.js?v=1756014285601"></script>
+  <script src="/js/portfolio-filters-dropdown.js?v=1756014285601"></script>
+  <script src="/js/portfolio-notebook-carousel-state.js?v=1756014285601"></script>
+  <script src="/js/notebook-skeleton-loader.js?v=1756014285601"></script>
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://twalichiewicz.github.io/#website",
+        "url": "https://twalichiewicz.github.io",
+        "name": "Thomas Walichiewicz",
+        "description": "Thomas Walichiewicz - Designer, Developer, Thinker",
+        "publisher": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://twalichiewicz.github.io/#person",
+        "name": "Thomas Walichiewicz",
+        "url": "https://twalichiewicz.github.io",
+        "sameAs": [
+          
+          
+          
+        ],
+        "jobTitle": "Designer & Developer",
+        "description": "Designer, researcher, and relentless problem solver"
+      },
+      {
+        "@type": "Article",
+        "@id": "https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html#article",
+        "isPartOf": {
+          "@id": "https://twalichiewicz.github.io/#website"
+        },
+        "author": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        },
+        "headline": "End-user experience",
+        "description": "Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers",
+        "image": "https://twalichiewicz.github.io/2017/01/01/End-user-experience/./lyra-preview.png",
+        "datePublished": "2017-01-01T20:52:01.000Z",
+        
+        "dateModified": "2025-08-24T05:43:29.021Z",
+        
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html"
+        },
+        "publisher": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://twalichiewicz.github.io"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Portfolio",
+            "item": "https://twalichiewicz.github.io/?tab=portfolio"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "End-user experience",
+            "item": "https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  
+  <!-- RSS Feed -->
+  
+  <link rel="alternate" type="application/rss+xml" title="Thomas Walichiewicz" href="/rss2.xml">
+  
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+    </head>
+    <body>
+        <!-- Skip Navigation Links for Accessibility -->
+<a href="#main-content" class="skip-nav-link">Skip to main content</a>
+
+<a href="#post-content" class="skip-nav-link">Skip to article content</a>
+
+
+<style>
+.skip-nav-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--text-color, #000);
+  color: var(--background-color, #fff);
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 100;
+  font-weight: 500;
+  font-size: 14px;
+  transition: top 0.2s ease;
+}
+
+.skip-nav-link:focus {
+  top: 0;
+  outline: 2px solid var(--accent-color, #f0b90b);
+  outline-offset: 2px;
+}
+
+/* Ensure links are visible when using keyboard navigation */
+.skip-nav-link:focus-visible {
+  top: 0;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .skip-nav-link {
+  background: #fff;
+  color: #000;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skip-nav-link {
+    transition: top 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+</style>
+		<!DOCTYPE html>
+<html>
+<head>
+  
+  
+  <!-- Primary Meta Tags -->
+  <title>End-user experience | Lyra Health - Design in Everything</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers">
+  <meta name="author" content="Thomas Walichiewicz">
+  
+  <meta name="keywords" content="design, portfolio, blog, developer">
+  
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html">
+  
+  <!-- Resource Hints for Performance -->
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  
+  <!-- Theme and Color -->
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="rgb(245, 240, 235)" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="rgb(0, 0, 0)" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html">
+  <meta property="og:title" content="End-user experience">
+  <meta property="og:description" content="Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers">
+  <meta property="og:image" content="https://twalichiewicz.github.io/2017/01/01/End-user-experience/./lyra-preview.png">
+  <meta property="og:site_name" content="Thomas Walichiewicz">
+  
+  <meta property="article:author" content="Thomas Walichiewicz">
+  <meta property="article:published_time" content="2017-01-01T20:52:01.000Z">
+  
+  <meta property="article:modified_time" content="2025-08-24T05:43:29.021Z">
+  
+  
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html">
+  <meta name="twitter:title" content="End-user experience">
+  <meta name="twitter:description" content="Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers">
+  <meta name="twitter:image" content="https://twalichiewicz.github.io/2017/01/01/End-user-experience/./lyra-preview.png">
+  
+  
+  <!-- Cache Control - Prevent aggressive caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Security Headers (Meta Tag Equivalents) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; media-src 'self'; object-src 'none'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
+  
+  <!-- Robots Meta -->
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  
+  <!-- Stylesheets -->
+  <link rel="preload" href="/styles/styles.css?v=1756014284388" as="style">
+  <link rel="stylesheet" href="/styles/styles.css?v=1756014284388">
+  
+  <!-- Initial loading state -->
+  <style>
+    body:not(.loaded) {
+      overflow: hidden;
+    }
+  </style>
+  
+  <!-- Project-specific Scripts -->
+  
+  
+  <!-- Theme now relies on prefers-color-scheme media queries -->
+
+  <!-- Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "canvas-confetti": "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/+esm",
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
+    }
+  }
+  </script>
+
+  <!-- Core Scripts -->
+  <script src="/js/san-diego-namespace.js?v=1756014284388"></script>
+  <script type="module" src="/js/main.js?v=1756014284388"></script>
+  <script type="module" src="/js/components/HomeVisuals.js?v=1756014284388"></script>
+  <script type="module" src="/js/mobile-tabs.js?v=1756014284388"></script>
+  <script type="module" src="/js/carousel.js?v=1756014284388"></script>
+  <script type="module" src="/js/utils/animations.js?v=1756014284388"></script>
+  <script src="/js/project-tabs.js?v=1756014284388"></script>
+  <script src="/js/project-summary.js?v=1756014284388"></script>
+  <script type="module" src="/js/scroll.js?v=1756014284388"></script>
+  <script src="/js/sound-effects.js?v=1756014284388"></script>
+  <script src="/js/screen-wipe-transition.js?v=1756014284388"></script>
+  <script src="/js/external-links.js?v=1756014284388"></script>
+  <script src="/js/project-demo.js?v=1756014284388"></script>
+  <script src="/js/project-demo-walkthrough.js?v=1756014284388"></script>
+  <script src="/js/byline-modal.js?v=1756014284388"></script>
+  <script src="/js/portfolio-parallax-optimized.js?v=1756014284388"></script>
+  <script src="/js/portfolio-filters.js?v=1756014284388"></script>
+  <script src="/js/portfolio-filters-dropdown.js?v=1756014284388"></script>
+  <script src="/js/portfolio-notebook-carousel-state.js?v=1756014284388"></script>
+  <script src="/js/notebook-skeleton-loader.js?v=1756014284388"></script>
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://twalichiewicz.github.io/#website",
+        "url": "https://twalichiewicz.github.io",
+        "name": "Thomas Walichiewicz",
+        "description": "Thomas Walichiewicz - Designer, Developer, Thinker",
+        "publisher": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://twalichiewicz.github.io/#person",
+        "name": "Thomas Walichiewicz",
+        "url": "https://twalichiewicz.github.io",
+        "sameAs": [
+          
+          
+          
+        ],
+        "jobTitle": "Designer & Developer",
+        "description": "Designer, researcher, and relentless problem solver"
+      },
+      {
+        "@type": "Article",
+        "@id": "https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html#article",
+        "isPartOf": {
+          "@id": "https://twalichiewicz.github.io/#website"
+        },
+        "author": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        },
+        "headline": "End-user experience",
+        "description": "Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers",
+        "image": "https://twalichiewicz.github.io/2017/01/01/End-user-experience/./lyra-preview.png",
+        "datePublished": "2017-01-01T20:52:01.000Z",
+        
+        "dateModified": "2025-08-24T05:43:29.021Z",
+        
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html"
+        },
+        "publisher": {
+          "@id": "https://twalichiewicz.github.io/#person"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://twalichiewicz.github.io"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Portfolio",
+            "item": "https://twalichiewicz.github.io/?tab=portfolio"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "End-user experience",
+            "item": "https://twalichiewicz.github.io/2017/01/01/End-user-experience/index.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  
+  <!-- RSS Feed -->
+  
+  <link rel="alternate" type="application/rss+xml" title="Thomas Walichiewicz" href="/rss2.xml">
+  
+  
+</head>
+<body class="project-page">
+	<script>
+		// Redirect to homepage with project path
+		(function() {
+			const currentPath = window.location.pathname;
+			const isDirectAccess = !document.referrer || !document.referrer.includes(window.location.origin);
+			const isRefresh = window.performance && window.performance.navigation && window.performance.navigation.type === 1;
+			
+			// Redirect if accessing directly OR on refresh (not from within the site)
+			if ((isDirectAccess || isRefresh) && currentPath !== '/') {
+				// Redirect to homepage with project parameter
+				window.location.href = '/?project=' + encodeURIComponent(currentPath) + '&tab=portfolio';
+			}
+		})();
+	</script>
+	
+	<div class="page-transition-overlay"></div>
+	<!-- Edge-to-edge wrapper -->
+	<div class="project-edge-wrapper" id="main-content">
+				<!-- Above the fold preview - 100vh -->
+		<div class="above-the-fold-preview" style="background-image: url('/2017/01/01/End-user-experience/./lyra-preview.png');">
+			<!-- Project navigation positioned absolutely -->
+			
+			<div class="project-navigation">
+				<div class="project-mini-bio">
+					<div class="button-stack">
+						<a href="/?tab=portfolio" class="project-home-button" title="Home">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+								<path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+							</svg>
+							<span>Home</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Project trailer (single hero item) -->
+			<div class="project-trailer-hero" id="trailerHero">
+				<div class="trailer-content" id="trailerContent">
+						
+							<!-- Cover image is displayed as background on above-the-fold-preview -->
+							<div class="cover-image-placeholder"></div>
+						
+				</div>
+			</div>
+			
+			<!-- Above the fold content wrapper -->
+			<div class="above-fold-content-wrapper">
+				<!-- Project title -->
+				<div class="project-title">
+					<div class="project-company-title">
+						<span class="project-category">Lyra Health</span>
+						<h2>End-user experience</h2>
+					</div>
+					
+					<!-- Read full story button and demo button moved here -->
+					<div class="read-story-button-container">
+						
+						<button class="read-story-button" id="scrollToFullStoryBtn">
+							Read the full story
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<line x1="12" y1="5" x2="12" y2="19"></line>
+								<polyline points="19 12 12 19 5 12"></polyline>
+							</svg>
+						</button>
+					</div>
+					
+				</div>
+				
+				<!-- Project info wrapper (byline and stats) -->
+				<div class="project-info-wrapper">
+					
+						<p class="project-byline">Streamlined telemedicine platform enabling secure video consultations and care coordination between patients and healthcare providers</p>
+					
+					
+					<!-- Project impact stats -->
+					
+				</div>
+			</div>
+		</div>
+		
+		<!-- Full story content -->
+		<div class="project-wrapper" id="full-story">
+		<div class="project-content">
+			<div class="project-details">
+				
+
+<!-- Project Stats Grid Section -->
+
+  <div class="project-stats-section">
+    
+
+
+<div class="project-stats-container">
+  
+  
+  
+  <!-- Context Row: Team takes left side, Timeline/Platform stack on right -->
+  <div class="project-stats-grid project-stats-grid--team-context">
+    
+      
+        <div class="project-stat-item stat-team">
+          <div class="stat-label">Team</div>
+          <div class="stat-value stat-value--list">
+            
+              <ul>
+                
+                  <li>
+                    User Experience Lead (me)
+                    <span class="team-member-role">Healthcare UX design, user research, HIPAA compliance</span>
+                  </li>
+                
+                  <li>
+                    3 Engineers
+                    <span class="team-member-role">Frontend development, video conferencing integration, security implementation</span>
+                  </li>
+                
+                  <li>
+                    Clinical Advisory Team
+                    <span class="team-member-role">Mental health expertise, clinical workflow validation, care protocols</span>
+                  </li>
+                
+              </ul>
+            
+          </div>
+        </div>
+      
+    
+    
+    
+      <div class="stat-timeline-platform-stack">
+        
+          <div class="project-stat-item">
+            <div class="stat-label">Timeline</div>
+            <div class="stat-value">6 months (2016)</div>
+          </div>
+        
+          <div class="project-stat-item">
+            <div class="stat-label">Platform</div>
+            <div class="stat-value">Web application (responsive)</div>
+          </div>
+        
+      </div>
+    
+  </div>
+  
+  
+  
+  
+  
+  <!-- Skills Row (full width tags) -->
+  <div class="project-stats-grid project-stats-grid--full-width project-stats-grid--skills">
+    
+      <div class="project-stat-item stat-span-full">
+        <div class="stat-label">Skills</div>
+        <div class="stat-value stat-value--tags">
+          
+            
+              <span class="stat-tag">Healthcare UX</span>
+            
+              <span class="stat-tag">HIPAA Compliance</span>
+            
+              <span class="stat-tag">Video Conferencing</span>
+            
+              <span class="stat-tag">Accessibility</span>
+            
+          
+        </div>
+      </div>
+    
+  </div>
+  
+  
+  
+</div>
+
+  </div>
+
+
+<!-- Gallery section - always render if gallery_images exist, regardless of summary -->
+
+  <div class="project-gallery-section">
+    <h2>Gallery</h2>
+    <div class="project-gallery-full">
+      <div class="carousel" aria-label="Project gallery">
+        <div class="carousel-track">
+          
+            <div class="carousel-slide active" aria-hidden="false">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./000_.png" 
+                  alt="Project gallery image 1"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./010_.png" 
+                  alt="Project gallery image 2"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./011_.png" 
+                  alt="Project gallery image 3"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./012_.png" 
+                  alt="Project gallery image 4"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./013_.png" 
+                  alt="Project gallery image 5"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./020_.png" 
+                  alt="Project gallery image 6"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./021_.png" 
+                  alt="Project gallery image 7"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./022_.png" 
+                  alt="Project gallery image 8"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./023_.png" 
+                  alt="Project gallery image 9"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./024_.png" 
+                  alt="Project gallery image 10"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./030_.png" 
+                  alt="Project gallery image 11"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./031_.png" 
+                  alt="Project gallery image 12"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./032_.png" 
+                  alt="Project gallery image 13"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./033_.png" 
+                  alt="Project gallery image 14"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+            <div class="carousel-slide " aria-hidden="true">
+              
+                
+                <img src="/2017/01/01/End-user-experience/./040_.png" 
+                  alt="Project gallery image 15"
+                  loading="lazy"
+                  decoding="async">
+              
+              
+            </div>
+          
+          
+            <div class="carousel-indicators">
+              <button class="carousel-button prev" aria-label="Previous slide"></button>
+              
+                <button class="indicator active" aria-label="Go to slide 1"></button>
+              
+                <button class="indicator " aria-label="Go to slide 2"></button>
+              
+                <button class="indicator " aria-label="Go to slide 3"></button>
+              
+                <button class="indicator " aria-label="Go to slide 4"></button>
+              
+                <button class="indicator " aria-label="Go to slide 5"></button>
+              
+                <button class="indicator " aria-label="Go to slide 6"></button>
+              
+                <button class="indicator " aria-label="Go to slide 7"></button>
+              
+                <button class="indicator " aria-label="Go to slide 8"></button>
+              
+                <button class="indicator " aria-label="Go to slide 9"></button>
+              
+                <button class="indicator " aria-label="Go to slide 10"></button>
+              
+                <button class="indicator " aria-label="Go to slide 11"></button>
+              
+                <button class="indicator " aria-label="Go to slide 12"></button>
+              
+                <button class="indicator " aria-label="Go to slide 13"></button>
+              
+                <button class="indicator " aria-label="Go to slide 14"></button>
+              
+                <button class="indicator " aria-label="Go to slide 15"></button>
+              
+              <button class="carousel-button next" aria-label="Next slide"></button>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- No explicit summary metadata - just render content normally without auto-generating SummaryTron -->
+  
+    <div class="project-writeup">
+      <div class="writeup-content">
+        <h2 id="Opportunity"><a href="#Opportunity" class="headerlink" title="Opportunity"></a>Opportunity</h2><p>As Lyra began its journey in transforming mental healthcare access, the need was clear: simplify the experience for users seeking support. This project covers the end-user experience—making it effortless for users to schedule appointments with their case managers or doctors, seamlessly accept calls, and navigate sensitive topics through a positive, reassuring visual approach. The challenge was to create an interface that demystifies the process and instills clarity and empathy from the very first interaction.</p>
+<h2 id="Process-Key-Findings"><a href="#Process-Key-Findings" class="headerlink" title="Process &amp; Key Findings"></a>Process &amp; Key Findings</h2><p>Working closely with Lyra’s leadership, I dove into competitive analysis and conducted user interviews and feedback sessions. These efforts uncovered some crucial insights:</p>
+<ul>
+<li><strong>Accessibility &amp; Privacy:</strong> Users demanded discreet, on-demand support that assured them of complete privacy.</li>
+<li><strong>Streamlined Onboarding:</strong> Feedback pointed to the frustration of finding the right provider, underlining the need for a seamless, guided onboarding experience.</li>
+<li><strong>Emotional Tone:</strong> The design had to balance warmth and professionalism, ensuring that the platform felt both inviting and trustworthy.</li>
+</ul>
+<h2 id="Design-Execution"><a href="#Design-Execution" class="headerlink" title="Design &amp; Execution"></a>Design &amp; Execution</h2><p>Guided by these insights and early leadership input, I developed a prototype focused exclusively on the end-user experience. The design was crafted to simplify interactions and foster a supportive, reassuring atmosphere. Key elements included:</p>
+<ul>
+<li><strong>Streamlined Scheduling &amp; Communication:</strong> I created an intuitive flow that made it effortless for users to schedule meetings with their case managers or doctors, and to accept calls seamlessly—ensuring timely and stress-free interactions.</li>
+<li><strong>Positive Visual Approach:</strong> Recognizing that mental health topics can be distressing, I employed a calming visual language with soft color palettes and thoughtful typography to help maintain a positive, reassuring ambiance.</li>
+<li><strong>User-Centered Interactions:</strong> Every element was designed with the user in mind, from clear call-to-action buttons to logical navigation, making it easy for users to access the care they need when they need it.</li>
+</ul>
+<h2 id="Key-Deliverables"><a href="#Key-Deliverables" class="headerlink" title="Key Deliverables"></a>Key Deliverables</h2><ul>
+<li><strong>High-Fidelity Wireframes &amp; Interactive Prototypes:</strong> Detailed deliverables that mapped the complete user journey, from initial sign-up to accessing mental health resources. These prototypes were essential for usability testing and stakeholder alignment.</li>
+<li><strong>Responsive Design Implementation:</strong> Ensured that every aspect of the user interface delivered a consistent and intuitive experience across all devices.</li>
+<li><strong>End-to-End User Flow Documentation:</strong> Comprehensive flow maps outlining every user touchpoint—from streamlined onboarding to appointment scheduling and content exploration.</li>
+</ul>
+<h2 id="Outcomes"><a href="#Outcomes" class="headerlink" title="Outcomes"></a>Outcomes</h2><ul>
+<li><strong>Positive Qualitative Feedback:</strong> Usability testing and stakeholder reviews underscored the intuitive layout and clear design approach.</li>
+<li><strong>Validation of the Approach:</strong> Early prototype evaluations confirmed that the streamlined onboarding and calming visual language were effective in addressing user needs.</li>
+<li><strong>Foundation for Future Enhancements:</strong> The design set a robust basis for future iterations, paving the way for additional features like personalized care plans and expanded support channels.</li>
+</ul>
+
+      </div>
+    </div>
+  
+ 
+			</div>
+		</div>
+
+	</div>
+	</div>
+
+	<style>
+		/* Page fade-in animation styles */
+		.page-transition-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #000;
+			z-index: 9999;
+			opacity: 1;
+			transition: opacity 1s ease-out;
+		}
+		
+		.page-transition-overlay.fade-out {
+			opacity: 0;
+		}
+		
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+		
+		body {
+			opacity: 0;
+			transition: opacity 0.5s ease-in;
+		}
+		
+		body.loaded {
+			opacity: 1;
+		}
+		
+		.project-wrapper {
+			min-height: auto;
+			transform: translateY(20px);
+			transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+						opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+			opacity: 0;
+		}
+		
+		body.loaded .project-wrapper {
+			transform: translateY(0);
+			opacity: 1;
+		}
+		
+		.project-navigation {
+			transform: translateY(-10px);
+			transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+						opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+			opacity: 0;
+		}
+		
+		body.loaded .project-navigation {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	</style>
+
+	<script>
+		// Define scroll function for standalone pages (fallback if blog.js not loaded)
+		function scrollToFullStory() {
+			const fullStoryElement = document.getElementById('full-story');
+			if (!fullStoryElement) {
+				return;
+			}
+			
+			// Simple scroll with smooth behavior
+			fullStoryElement.scrollIntoView({ 
+				behavior: 'smooth', 
+				block: 'start' 
+			});
+		}
+
+		// Make function globally available (for both standalone and dynamic contexts)
+		if (!window.scrollToFullStory) {
+			window.scrollToFullStory = scrollToFullStory;
+		}
+
+		// Set up scroll button for standalone pages
+		function setupStandaloneScrollButton() {
+			const button = document.getElementById('scrollToFullStoryBtn');
+			if (button) {
+				button.onclick = function(e) {
+					e.preventDefault();
+					// Play button sound (same as View impact report)
+					if (window.playButtonSound) {
+						window.playButtonSound();
+					}
+					window.scrollToFullStory();
+				};
+			}
+			
+		}
+		
+		// Demo button functionality
+		function setupDemoButton(button) {
+			button.addEventListener('click', function(e) {
+				e.preventDefault();
+				
+				const demoUrl = button.getAttribute('data-demo-url');
+				const demoComponent = button.getAttribute('data-demo-component');
+				
+				if (demoUrl) {
+					// External demo - open in new window
+					window.open(demoUrl, '_blank', 'noopener,noreferrer');
+				} else if (demoComponent) {
+					// Dynamic component demo
+					loadDemoComponent(demoComponent);
+				}
+			});
+		}
+		
+		// Load demo component
+		function loadDemoComponent(componentName) {
+			
+			// Create fullscreen modal
+			const modal = document.createElement('div');
+			modal.className = 'demo-modal';
+			modal.innerHTML = `
+				<div class="demo-modal-overlay"></div>
+				<div class="demo-modal-content">
+					<button class="demo-modal-close" aria-label="Close demo">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+						</svg>
+					</button>
+					<div class="demo-modal-body">
+						<div class="demo-loading">Loading demo...</div>
+					</div>
+				</div>
+			`;
+			
+			// Add modal to body
+			document.body.appendChild(modal);
+			document.body.classList.add('demo-modal-open');
+			
+			// Get the modal body for content
+			const modalBody = modal.querySelector('.demo-modal-body');
+			
+			// Set up close button
+			const closeBtn = modal.querySelector('.demo-modal-close');
+			const overlay = modal.querySelector('.demo-modal-overlay');
+			
+			const closeModal = () => {
+				document.body.classList.remove('demo-modal-open');
+				modal.classList.add('closing');
+				setTimeout(() => {
+					modal.remove();
+				}, 300);
+			};
+			
+			closeBtn.addEventListener('click', closeModal);
+			overlay.addEventListener('click', closeModal);
+			
+			// Handle escape key
+			const handleEscape = (e) => {
+				if (e.key === 'Escape') {
+					closeModal();
+					document.removeEventListener('keydown', handleEscape);
+				}
+			};
+			document.addEventListener('keydown', handleEscape);
+			
+			// Load the demo component
+			switch(componentName) {
+				case 'interactive-prototype':
+					loadInteractivePrototype(modalBody);
+					break;
+				case 'code-sandbox':
+					loadCodeSandbox(modalBody);
+					break;
+				case 'figma-embed':
+					loadFigmaEmbed(modalBody);
+					break;
+				default:
+					// Try to load custom component
+					loadCustomComponent(componentName, modalBody);
+			}
+		}
+		
+		// Example demo loaders
+		function loadInteractivePrototype(container) {
+			container.innerHTML = `
+				<div class="demo-prototype">
+					<iframe src="/demos/prototype.html" 
+						frameborder="0" 
+						allowfullscreen
+						title="Interactive Prototype">
+					</iframe>
+				</div>
+			`;
+		}
+		
+		function loadCodeSandbox(container) {
+			container.innerHTML = `
+				<div class="demo-codesandbox">
+					<iframe src="https://codesandbox.io/embed/" 
+						frameborder="0" 
+						allowfullscreen
+						sandbox="allow-scripts allow-same-origin"
+						title="Code Sandbox Demo">
+					</iframe>
+				</div>
+			`;
+		}
+		
+		function loadFigmaEmbed(container) {
+			container.innerHTML = `
+				<div class="demo-figma">
+					<iframe src="https://www.figma.com/embed" 
+						frameborder="0" 
+						allowfullscreen
+						title="Figma Prototype">
+					</iframe>
+				</div>
+			`;
+		}
+		
+		function loadCustomComponent(name, container) {
+			// Load custom demo as iframe with relative path
+			const pathSegments = window.location.pathname.split('/').filter(s => s);
+			const levelsUp = pathSegments.length > 0 ? '../'.repeat(pathSegments.length) : '';
+			container.innerHTML = `
+				<div class="demo-custom">
+					<iframe src="${levelsUp}demos/${name}/index.html" 
+						frameborder="0" 
+						allowfullscreen
+						style="width: 100%; height: 100%;"
+						title="${name} Demo">
+					</iframe>
+				</div>
+			`;
+			
+			// Also dispatch event for any additional handlers
+			const event = new CustomEvent('loadDemoComponent', {
+				detail: { name, container }
+			});
+			document.dispatchEvent(event);
+		}
+
+		// Set up immediately or on DOM ready
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setupStandaloneScrollButton);
+		} else {
+			setupStandaloneScrollButton();
+		}
+
+		// Page fade-in animation
+		document.addEventListener('DOMContentLoaded', function() {
+			// Wait for images to load
+			window.addEventListener('load', function() {
+				// Add a slight delay before starting the animation
+				setTimeout(function() {
+					// Add loaded class to body
+					document.body.classList.add('loaded');
+					
+					// Fade out the overlay
+					const overlay = document.querySelector('.page-transition-overlay');
+					overlay.classList.add('fade-out');
+					
+					// Remove overlay after animation completes
+					setTimeout(function() {
+						overlay.style.display = 'none';
+					}, 1000);
+				}, 400); // 400ms delay before starting the animation
+			});
+			
+			// Fallback in case load event doesn't fire
+			setTimeout(function() {
+				document.body.classList.add('loaded');
+				const overlay = document.querySelector('.page-transition-overlay');
+				overlay.classList.add('fade-out');
+				setTimeout(function() {
+					overlay.style.display = 'none';
+				}, 1000);
+			}, 2000); // Fallback timeout
+		});
+
+		// Collapse/Expand functionality
+		document.addEventListener('DOMContentLoaded', function() {
+			const collapseButton = document.querySelector('.project-collapse-button');
+			const projectMiniBio = document.querySelector('.project-mini-bio');
+			
+			if (collapseButton && projectMiniBio) {
+				collapseButton.addEventListener('click', function() {
+					projectMiniBio.classList.toggle('collapsed');
+					const isCollapsed = projectMiniBio.classList.contains('collapsed');
+					
+					// Update button text and icon
+					const buttonText = collapseButton.querySelector('span');
+					if (buttonText) {
+						buttonText.textContent = isCollapsed ? 'Expand' : 'Collapse';
+					}
+					
+					// Update aria-label
+					collapseButton.setAttribute('aria-label', 
+						isCollapsed ? 'Expand navigation' : 'Collapse navigation'
+					);
+				});
+			}
+		});
+	</script>
+	
+	<!-- Cloudflare Web Analytics -->
+	<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e8fdac6a36f74464bcf2d55fbb7f0ca2"}'></script>
+	<!-- End Cloudflare Web Analytics -->
+</body>
+</html> 
+
+        
+<script src="/js/device-detection.js"></script>
+
+        
+<script src="/js/profile-header-compact.js"></script>
+
+        
+<script src="/js/code-sandbox.js"></script>
+
+        <!-- main.js already loaded in head.ejs -->
+        
+
+        
+
+        <!-- mobile-tabs.js and sound-effects.js already loaded in head.ejs -->
+        <!-- Additional scripts -->
+        
+        <!-- Cloudflare Web Analytics -->
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e8fdac6a36f74464bcf2d55fbb7f0ca2"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+        
+        <script>
+        // Simple page load handler
+        document.body.classList.add('loaded');
+        </script>
+    </body>
+</html>
