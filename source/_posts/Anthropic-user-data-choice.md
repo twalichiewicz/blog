@@ -1,5 +1,5 @@
 ---
-title: Anthropic gives users data control choice  
+title: Claude will now train on your chats by default  
 short: true
 type: link
 url: https://www.anthropic.com/news/updates-to-our-consumer-terms
