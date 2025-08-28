@@ -8,4 +8,4 @@ tags:
 date: 2025-08-28 16:45:00
 ---
 
-We're now giving users the choice to allow their data to be used yeah fuck you too
+Starting to smell a little like enshittification
