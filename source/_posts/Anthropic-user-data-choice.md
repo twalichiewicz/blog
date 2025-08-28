@@ -8,4 +8,4 @@ tags:
 date: 2025-08-28 16:45:00
 ---
 
-Starting to smell a little like enshittification
+Starting to smell a little like enshittification.
