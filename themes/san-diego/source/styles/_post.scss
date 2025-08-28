@@ -37,7 +37,36 @@
 
 	@include project.content-area-styles;
 	
-	// Video container styling
+	// YouTube video styling - simple fixed height approach with higher specificity
+	iframe.youtube-video,
+	.video-container iframe {
+		width: 100% !important;
+		height: 300px !important;
+		border: 0 !important;
+		
+		// Larger on desktop
+		@media screen and (min-width: 769px) {
+			height: 400px !important;
+		}
+	}
+	
+	iframe.youtube-video {
+		margin: 24px 0;
+		border-radius: 12px;
+		box-shadow: variables.$shadow-soft;
+		
+		@media (prefers-color-scheme: dark) {
+			box-shadow: variables.$shadow-soft-dark;
+		}
+		
+		@media screen and (max-width: 768px) {
+			margin: 16px 0;
+			border-radius: 8px;
+			box-shadow: none;
+		}
+	}
+	
+	// Legacy video container wrapper
 	.video-container {
 		margin: 24px 0;
 		border-radius: 12px;
@@ -45,18 +74,32 @@
 		box-shadow: variables.$shadow-soft;
 		border: 1px solid #ccc;
 		
+		@media (prefers-color-scheme: dark) {
+			box-shadow: variables.$shadow-soft-dark;
+			border-color: variables.$border-color-dark;
+		}
+		
+		@media screen and (max-width: 768px) {
+			margin: 16px 0;
+			border-radius: 8px;
+			box-shadow: none;
+			border: none;
+		}
+		
 		video {
 			display: block;
 			width: 100%;
 			height: auto;
+			border-radius: 12px;
+			box-shadow: variables.$shadow-soft;
+			border: 1px solid #ccc;
 			background: variables.$body-bg;
 		}
 		
 		@media (prefers-color-scheme: dark) {
-			box-shadow: variables.$shadow-soft-dark;
-			border-color: variables.$border-color-dark;
-			
 			video {
+				box-shadow: variables.$shadow-soft-dark;
+				border-color: variables.$border-color-dark;
 				background: variables.$body-bg-dark;
 			}
 		}
