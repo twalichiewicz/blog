@@ -131,7 +131,7 @@
     "gray-matter": "^4.0.3",
     "pixelmatch": "^7.1.0",
     "pngjs": "^7.0.0",
-    "puppeteer": "^24.16.0",
+    "puppeteer": "^24.20.0",
     "stylelint": "^16.22.0",
     "stylelint-config-standard-scss": "^15.0.1",
     "stylelint-formatter-html": "^1.0.1"
