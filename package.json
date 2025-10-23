@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.19.0"
   },
   "scripts": {
     "check-branch": "bash scripts/ensure-safe-branch.sh",
@@ -71,7 +71,7 @@
     "inject:analytics": "node scripts/inject-analytics-token.js"
   },
   "hexo": {
-    "version": "7.3.0"
+    "version": "8.0.0"
   },
   "dependencies": {
     "@hapi/hoek": "^11.0.4",
@@ -81,7 +81,7 @@
     "cli-table3": "^0.6.5",
     "glob": "^11.0.3",
     "hawk": "^9.0.2",
-    "hexo": "^7.3.0",
+    "hexo": "^8.0.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
