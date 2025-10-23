@@ -1,0 +1,25 @@
+diff --git a/node_modules/hexo/dist/plugins/console/list/common.js b/node_modules/hexo/dist/plugins/console/list/common.js
+index b37e38e..1d4fff1 100644
+--- a/node_modules/hexo/dist/plugins/console/list/common.js
++++ b/node_modules/hexo/dist/plugins/console/list/common.js
+@@ -1,12 +1,15 @@
+ "use strict";
+-var __importDefault = (this && this.__importDefault) || function (mod) {
+-    return (mod && mod.__esModule) ? mod : { "default": mod };
+-};
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.stringLength = void 0;
+-const strip_ansi_1 = __importDefault(require("strip-ansi"));
++const STRIP_ANSI_REGEX = /\u001B\[[0-?]*[ -/]*[@-~]/g;
++function stripAnsiFallback(value) {
++    if (typeof value !== 'string') {
++        return value;
++    }
++    return value.replace(STRIP_ANSI_REGEX, '');
++}
+ function stringLength(str) {
+-    str = (0, strip_ansi_1.default)(str);
++    str = stripAnsiFallback(str);
+     const len = str.length;
+     let result = len;
+     // Detect double-byte characters

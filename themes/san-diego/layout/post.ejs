@@ -80,9 +80,11 @@
                 coverImagePath = '/img/blogPostDefaultCover.png';
             }
             %>
+            <% if (page.long !== true) { %>
             <div class="post-cover-image">
                 <img src="<%- url_for(coverImagePath) %>" alt="<%= page.title %>" loading="eager" />
             </div>
+            <% } %>
             
             <!-- Post content -->
             <div class="post-content-container">
