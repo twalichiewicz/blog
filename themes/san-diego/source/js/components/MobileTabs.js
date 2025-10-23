@@ -70,6 +70,8 @@ export default class MobileTabs {
 		this.postsContent = null;
 		this.projectsContent = null;
 		this.searchBar = null;
+		this.blogContent = null;
+		this.contentWrapper = null;
 		
 		// Re-query all elements
 		this.tabsWrapper = document.querySelector(this.config.tabsWrapperSelector);
@@ -83,6 +85,8 @@ export default class MobileTabs {
 		this.postsContent = document.getElementById(this.config.postsContentId);
 		this.projectsContent = document.getElementById(this.config.projectsContentId);
 		this.searchBar = document.querySelector(this.config.searchBarSelector);
+		this.blogContent = document.querySelector('.blog-content');
+		this.contentWrapper = document.querySelector('.blog-content .content-wrapper');
 		
 		console.log('[MobileTabs] Cached elements:', {
 			tabButtons: this.tabButtons.length,
@@ -168,6 +172,8 @@ export default class MobileTabs {
 		this.postsContent = null;
 		this.projectsContent = null;
 		this.searchBar = null;
+		this.blogContent = null;
+		this.contentWrapper = null;
 		
 		// Clear state
 		this.userSelectedTab = null;
@@ -603,6 +609,8 @@ export default class MobileTabs {
 
 			// Update the slider for the active tab
 			setTimeout(() => this.updateSlider(), 50);
+
+			this.applyMobileOverflowFixes();
 		} else {
 			// On desktop, show both sections and hide tabs
 			if (this.postsContent && this.projectsContent) {
@@ -614,6 +622,8 @@ export default class MobileTabs {
 
 			if (this.tabsWrapper) this.tabsWrapper.style.display = 'none';
 			if (this.searchBar) this.searchBar.style.display = 'block';
+
+			this.clearMobileOverflowFixes();
 		}
 	}
 
@@ -629,6 +639,44 @@ export default class MobileTabs {
 		} else if (this.currentDeviceType === 'desktop') {
 			// In desktop mode, always hide the tabs
 			this.tabsWrapper.style.display = 'none';
+		}
+	}
+
+	applyMobileOverflowFixes() {
+		if (!this.blogContent || !this.contentWrapper) return;
+
+		if (this.currentDeviceType === 'mobile') {
+			if (this.tabsWrapper) {
+				this.tabsWrapper.style.position = 'sticky';
+				this.tabsWrapper.style.top = '0px';
+			}
+
+			this.blogContent.style.overflow = 'visible';
+			this.blogContent.style.height = 'auto';
+
+			this.contentWrapper.style.position = 'relative';
+			this.contentWrapper.style.height = 'auto';
+			this.contentWrapper.style.overflow = 'visible';
+		} else {
+			this.clearMobileOverflowFixes();
+		}
+	}
+
+	clearMobileOverflowFixes() {
+		if (this.tabsWrapper) {
+			this.tabsWrapper.style.position = '';
+			this.tabsWrapper.style.top = '';
+		}
+
+		if (this.blogContent) {
+			this.blogContent.style.overflow = '';
+			this.blogContent.style.height = '';
+		}
+
+		if (this.contentWrapper) {
+			this.contentWrapper.style.position = '';
+			this.contentWrapper.style.height = '';
+			this.contentWrapper.style.overflow = '';
 		}
 	}
 } 
