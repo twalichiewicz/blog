@@ -80,7 +80,12 @@ export const ScrollUtility = {
         if (!link) return;
 
         const href = link.getAttribute('href');
-        if (!href || href === '#') {
+        if (!href) {
+            return;
+        }
+
+        if (href === '#') {
+            e.preventDefault();
             return;
         }
 
@@ -88,6 +93,7 @@ export const ScrollUtility = {
         const target = document.getElementById(targetId);
 
         if (!target) {
+            e.preventDefault();
             return;
         }
 
