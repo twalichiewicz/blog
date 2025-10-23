@@ -575,6 +575,10 @@ export default class MobileTabs {
 
 		// Re-validate active state
 		this.validateActiveState();
+
+		if (this.currentDeviceType === 'mobile') {
+			this.applyMobileOverflowFixes();
+		}
 	}
 
 	/**
@@ -583,7 +587,11 @@ export default class MobileTabs {
 	 */
 	getDeviceType() {
 		const width = window.innerWidth;
-		if (width < 600) return 'mobile';
+
+		if (width <= 767) {
+			return 'mobile';
+		}
+
 		// EMERGENCY FIX: Force tablet mode instead of desktop due to Chrome rendering issues
 		// Desktop mode causes: flickering, broken rendering, project items not displaying
 		// TODO: Re-enable after fixing backdrop-filter, contain, and transform issues
