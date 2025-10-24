@@ -389,13 +389,14 @@
 		.mobile-compact-header {
 			width: 100%;
 			display: flex;
-			align-items: stretch;
+			align-items: center;
 			gap: 16px;
-			flex-wrap: wrap;
+			flex-wrap: nowrap;
 			
 			.mobile-compact-info,
 			.mobile-buttons-container {
 				width: 50%;
+				flex: 0 0 50%;
 			}
 			
 			.mobile-compact-info {
@@ -404,18 +405,18 @@
 				align-items: center;
 			}
 			
-			.mobile-profile-photo {
-				width: 72px;
-				height: 72px;
-				flex-shrink: 0;
-				
-				.profile-photo {
-					width: 100%;
-					height: 100%;
-					border-radius: 18px;
-					object-fit: cover;
+				.mobile-profile-photo {
+					width: 72px;
+					height: 72px;
+					flex-shrink: 0;
+					
+					.profile-photo {
+						width: 100%;
+						height: 100%;
+						border-radius: 50%;
+						object-fit: cover;
+					}
 				}
-			}
 			
 			.mobile-profile-text {
 				flex: 1;
@@ -444,6 +445,7 @@
 				flex-direction: column;
 				justify-content: center;
 				gap: 12px;
+				align-self: stretch;
 				
 				.mobile-impact-button,
 				.mobile-contact-button {
@@ -452,9 +454,12 @@
 			}
 			
 			@media (max-width: 420px) {
+				flex-direction: column;
+				
 				.mobile-compact-info,
 				.mobile-buttons-container {
 					width: 100%;
+					flex: 1 1 auto;
 				}
 			}
 		}
