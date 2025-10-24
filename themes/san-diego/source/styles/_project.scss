@@ -2024,6 +2024,8 @@ body.demo-inline-active .project-edge-wrapper .project-trailer-hero {
 	height: auto;
 	min-height: clamp(320px, 70dvh, 560px);
 	max-height: none;
+	display: flex;
+	flex-direction: column;
 
 	@media (max-width: variables.$mobile-breakpoint) {
 		min-height: max(300px, 70dvh);
@@ -2033,11 +2035,16 @@ body.demo-inline-active .project-edge-wrapper .project-trailer-hero {
 		height: 100%;
 		display: flex;
 		flex-direction: column;
+		flex: 1 1 auto;
+		min-height: 0;
 
 		.demo-inline-container {
 			height: 100%;
 			border-radius: 0;
+			display: flex;
+			flex-direction: column;
 			flex: 1 1 auto;
+			min-height: 0;
 
 			&.demo-loaded {
 				.demo-inline-iframe {
@@ -4679,6 +4686,8 @@ body.demo-modal-open {
     height: auto;
     min-height: clamp(360px, 70dvh, 800px);
     max-height: none;
+    display: flex;
+    flex-direction: column;
     
     @media (max-width: variables.$mobile-breakpoint) {
       min-height: max(320px, 65dvh);
@@ -4686,10 +4695,18 @@ body.demo-modal-open {
     
     .trailer-content {
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-height: 0;
       
       .demo-inline-container {
         height: 100%;
         border-radius: 0;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
         
         &.demo-loaded {
           // Ensure loaded demos respect the container height
