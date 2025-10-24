@@ -4556,7 +4556,7 @@ body.demo-modal-open {
     height: 100%;
     z-index: 100; // Above grid pattern
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     overflow: hidden; // Clip scaled content
   }
@@ -4566,6 +4566,7 @@ body.demo-modal-open {
     height: 100%;
     border: none;
     background: transparent;
+    flex: 1 1 auto;
   }
   
   &.demo-loaded {
