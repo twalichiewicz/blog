@@ -2013,21 +2013,21 @@ body.loaded .project-wrapper {
 // When demo is inline, adjust the above-fold content wrapper
 body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fold-content-wrapper {
 	// Note: Blur overlay is now disabled globally, so no special handling needed
-	
+
 	// Reduce padding since demo provides visual interest
-	padding: clamp(1rem, 3dvh, 3rem) 36px clamp(1rem, 3dvh, 3rem) 36px;
+	padding: clamp(0.25rem, 2dvh, 1.25rem) 32px clamp(1rem, 3dvh, 3rem) 32px;
 	
 	// Adjust responsive padding
 	@media (max-width: 1200px) {
-		padding: clamp(1.5rem, 3dvh, 3rem) 32px 32px 32px;
+		padding: clamp(0.25rem, 2dvh, 1.25rem) 28px clamp(1rem, 3dvh, 3rem) 28px;
 	}
-	
+
 	@media (max-width: 768px) {
-		padding: clamp(1rem, 2dvh, 2rem) 24px 24px 24px;
+		padding: clamp(0.25rem, 2dvh, 0.75rem) 20px clamp(0.75rem, 2.5dvh, 2rem) 20px;
 	}
-	
+
 	@media (max-width: 480px) {
-		padding: 1.5rem 20px 20px 20px;
+		padding: 0.5rem 16px clamp(0.75rem, 2.5dvh, 1.5rem) 16px;
 	}
 	
 	// Adjust for very small heights
@@ -4719,16 +4719,17 @@ body.demo-modal-open {
 }
 
 .project-trailer-hero.has-inline-demo + .above-fold-content-wrapper {
-  position: relative;
-  bottom: auto;
-  flex: 0 0 auto;
-  min-height: auto;
-  height: auto;
-  margin-top: 0;
+	position: relative;
+	bottom: auto;
+	flex: 0 0 auto;
+	min-height: auto;
+	height: auto;
+	margin-top: 0;
+	padding: clamp(0.25rem, 2dvh, 1.25rem) 32px clamp(1rem, 3dvh, 3rem) 32px;
 
-  &::before {
-    display: none !important;
-  }
+	&::before {
+		display: none !important;
+	}
 }
 
 // Fullscreen demo mode styles - high specificity to override spotlight modal
