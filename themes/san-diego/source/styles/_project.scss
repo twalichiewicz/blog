@@ -2031,6 +2031,8 @@ body.demo-inline-active .project-edge-wrapper .project-trailer-hero {
 
 	.trailer-content {
 		height: 100%;
+		display: flex;
+		flex-direction: column;
 
 		.demo-inline-container {
 			height: 100%;
@@ -4379,8 +4381,10 @@ body.demo-modal-open {
   background: #f5f5f5;
   border-radius: 0;
   overflow: hidden;
-	min-height: clamp(320px, 70dvh, 560px);
-	z-index: 10; // Ensure container is above trailer content
+  min-height: clamp(320px, 70dvh, 560px);
+  z-index: 10; // Ensure container is above trailer content
+  display: flex;
+  flex-direction: column;
   
   // Blueprint/drafting table background - on the container, not scaled
   &::before {
@@ -4588,26 +4592,21 @@ body.demo-modal-open {
   
   // Iframe wrapper for proper zoom scaling
   .demo-iframe-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: relative;
     width: 100%;
     height: 100%;
+    flex: 1 1 auto;
     z-index: 100; // Above grid pattern
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
     overflow: hidden; // Clip scaled content
   }
 
   .demo-inline-iframe {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     border: none;
     background: transparent;
-    flex: 1 1 auto;
   }
   
   &.demo-loaded {
@@ -4741,6 +4740,8 @@ body.demo-modal-open {
 
   .trailer-content {
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     .demo-inline-container {
       height: 100%;
