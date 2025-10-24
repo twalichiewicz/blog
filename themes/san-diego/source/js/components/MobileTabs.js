@@ -70,8 +70,6 @@ export default class MobileTabs {
 		this.postsContent = null;
 		this.projectsContent = null;
 		this.searchBar = null;
-		this.blogContent = null;
-		this.contentWrapper = null;
 		
 		// Re-query all elements
 		this.tabsWrapper = document.querySelector(this.config.tabsWrapperSelector);
@@ -85,8 +83,6 @@ export default class MobileTabs {
 		this.postsContent = document.getElementById(this.config.postsContentId);
 		this.projectsContent = document.getElementById(this.config.projectsContentId);
 		this.searchBar = document.querySelector(this.config.searchBarSelector);
-		this.blogContent = document.querySelector('.blog-content');
-		this.contentWrapper = document.querySelector('.blog-content .content-wrapper');
 		
 		console.log('[MobileTabs] Cached elements:', {
 			tabButtons: this.tabButtons.length,
@@ -172,12 +168,11 @@ export default class MobileTabs {
 		this.postsContent = null;
 		this.projectsContent = null;
 		this.searchBar = null;
-		this.blogContent = null;
-		this.contentWrapper = null;
 		
 		// Clear state
 		this.userSelectedTab = null;
 		this.currentDeviceType = null;
+		this._mobileStickyState = null;
 	}
 
 	/**
@@ -651,40 +646,40 @@ export default class MobileTabs {
 	}
 
 	applyMobileOverflowFixes() {
-		if (!this.blogContent || !this.contentWrapper) return;
+		if (!this.tabsWrapper) return;
 
-		if (this.currentDeviceType === 'mobile') {
-			if (this.tabsWrapper) {
-				this.tabsWrapper.style.position = 'sticky';
-				this.tabsWrapper.style.top = '0px';
-			}
-
-			this.blogContent.style.overflow = 'visible';
-			this.blogContent.style.height = 'auto';
-
-			this.contentWrapper.style.position = 'relative';
-			this.contentWrapper.style.height = 'auto';
-			this.contentWrapper.style.overflow = 'visible';
-		} else {
+		if (this.currentDeviceType !== 'mobile') {
 			this.clearMobileOverflowFixes();
+			return;
+		}
+
+		if (!this._mobileStickyState) {
+			this._mobileStickyState = {
+				position: this.tabsWrapper.style.position || '',
+				top: this.tabsWrapper.style.top || '',
+				zIndex: this.tabsWrapper.style.zIndex || ''
+			};
+		}
+
+		this.tabsWrapper.style.position = 'sticky';
+		this.tabsWrapper.style.top = '0px';
+		if (!this.tabsWrapper.style.zIndex) {
+			this.tabsWrapper.style.zIndex = '100';
 		}
 	}
 
 	clearMobileOverflowFixes() {
-		if (this.tabsWrapper) {
+		if (!this.tabsWrapper) return;
+
+		if (this._mobileStickyState) {
+			const { position, top, zIndex } = this._mobileStickyState;
+			this.tabsWrapper.style.position = position;
+			this.tabsWrapper.style.top = top;
+			this.tabsWrapper.style.zIndex = zIndex;
+		} else {
 			this.tabsWrapper.style.position = '';
 			this.tabsWrapper.style.top = '';
-		}
-
-		if (this.blogContent) {
-			this.blogContent.style.overflow = '';
-			this.blogContent.style.height = '';
-		}
-
-		if (this.contentWrapper) {
-			this.contentWrapper.style.position = '';
-			this.contentWrapper.style.height = '';
-			this.contentWrapper.style.overflow = '';
+			this.tabsWrapper.style.zIndex = '';
 		}
 	}
 } 
