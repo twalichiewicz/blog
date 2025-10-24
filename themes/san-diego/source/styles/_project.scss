@@ -4629,18 +4629,16 @@ body.demo-modal-open {
     overflow: hidden;
   }
   
-  .project-trailer-hero {
+ .project-trailer-hero {
     // Switch from absolute to relative positioning
     position: relative;
-    height: 70%; // Increased to give more space to demo
-    min-height: 450px;
-    max-height: 75vh; // Increased cap for better demo visibility
-    flex: 0 0 auto;
+    flex: 1 1 auto;
+    height: auto;
+    min-height: clamp(360px, 70dvh, 800px);
+    max-height: none;
     
     @media (max-width: variables.$mobile-breakpoint) {
-      height: 65%; // More space on mobile too
-      min-height: 350px;
-      max-height: 65vh;
+      min-height: clamp(320px, 65dvh, 90dvh);
     }
     
     .trailer-content {
@@ -4864,4 +4862,3 @@ body.demo-fullscreen-active .project-trailer-hero.demo-fullscreen {
     opacity: 0;
   }
 }
-
