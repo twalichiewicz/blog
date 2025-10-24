@@ -394,10 +394,14 @@
 			gap: 16px;
 			flex-wrap: nowrap;
 			
-			.mobile-compact-info,
+			.mobile-compact-info {
+				width: 75%;
+				flex: 0 0 75%;
+			}
+			
 			.mobile-buttons-container {
-				width: 50%;
-				flex: 0 0 50%;
+				width: 25%;
+				flex: 0 0 25%;
 			}
 			
 			.mobile-compact-info {
