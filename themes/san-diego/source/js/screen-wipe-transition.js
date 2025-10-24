@@ -11,10 +11,26 @@
     
     function setViewportDimensions(element) {
         if (!element) return;
-        element.style.setProperty('--blog-top', '0px');
-        element.style.setProperty('--blog-left', '0px');
-        element.style.setProperty('--blog-width', '100vw');
-        element.style.setProperty('--blog-height', '100dvh');
+
+        const blogContent = document.querySelector('.blog-content');
+
+        if (window.innerWidth <= 768 || document.body.classList.contains('mobile-page')) {
+            element.style.setProperty('--blog-top', '0px');
+            element.style.setProperty('--blog-left', '0px');
+            element.style.setProperty('--blog-width', '100vw');
+            element.style.setProperty('--blog-height', '100dvh');
+        } else if (blogContent) {
+            const rect = blogContent.getBoundingClientRect();
+            element.style.setProperty('--blog-top', `${rect.top + window.scrollY}px`);
+            element.style.setProperty('--blog-left', `${rect.left + window.scrollX}px`);
+            element.style.setProperty('--blog-width', `${rect.width}px`);
+            element.style.setProperty('--blog-height', `${rect.height}px`);
+        } else {
+            element.style.setProperty('--blog-top', '0px');
+            element.style.setProperty('--blog-left', '0px');
+            element.style.setProperty('--blog-width', '100vw');
+            element.style.setProperty('--blog-height', '100dvh');
+        }
     }
     
     // Create transition element
