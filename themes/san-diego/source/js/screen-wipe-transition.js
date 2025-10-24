@@ -9,6 +9,14 @@
     let transitionElement = null;
     let isTransitioning = false;
     
+    function setViewportDimensions(element) {
+        if (!element) return;
+        element.style.setProperty('--blog-top', '0px');
+        element.style.setProperty('--blog-left', '0px');
+        element.style.setProperty('--blog-width', '100vw');
+        element.style.setProperty('--blog-height', '100dvh');
+    }
+    
     // Create transition element
     function createTransitionElement() {
         if (transitionElement) return transitionElement;
@@ -31,18 +39,12 @@
         isTransitioning = true;
         
         const element = createTransitionElement();
+        setViewportDimensions(element);
         const blogContent = document.querySelector('.blog-content');
         const blogHeader = document.querySelector('.blog-header');
         
         // Get blog-content position and dimensions
         if (blogContent) {
-            const rect = blogContent.getBoundingClientRect();
-            
-            // Use viewport-relative coordinates for fixed positioning
-            element.style.setProperty('--blog-top', rect.top + 'px');
-            element.style.setProperty('--blog-left', rect.left + 'px');
-            element.style.setProperty('--blog-width', rect.width + 'px');
-            element.style.setProperty('--blog-height', rect.height + 'px');
             blogContent.classList.add('transitioning');
         }
         
@@ -149,18 +151,8 @@
     // Quick transition (for faster loads)
     async function quickTransition() {
         const element = createTransitionElement();
+        setViewportDimensions(element);
         const blogContent = document.querySelector('.blog-content');
-        
-        // Get blog-content position and dimensions
-        if (blogContent) {
-            const rect = blogContent.getBoundingClientRect();
-            
-            // Use viewport-relative coordinates for fixed positioning
-            element.style.setProperty('--blog-top', rect.top + 'px');
-            element.style.setProperty('--blog-left', rect.left + 'px');
-            element.style.setProperty('--blog-width', rect.width + 'px');
-            element.style.setProperty('--blog-height', rect.height + 'px');
-        }
         
         // Quick flash effect
         element.classList.add('active');
@@ -179,17 +171,11 @@
         isTransitioning = true;
         
         const element = createTransitionElement();
+        setViewportDimensions(element);
         const blogContent = document.querySelector('.blog-content');
         
         // Get blog-content position and dimensions
         if (blogContent) {
-            const rect = blogContent.getBoundingClientRect();
-            
-            // Use viewport-relative coordinates for fixed positioning
-            element.style.setProperty('--blog-top', rect.top + 'px');
-            element.style.setProperty('--blog-left', rect.left + 'px');
-            element.style.setProperty('--blog-width', rect.width + 'px');
-            element.style.setProperty('--blog-height', rect.height + 'px');
             blogContent.classList.add('transitioning');
         }
         
