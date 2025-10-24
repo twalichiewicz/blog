@@ -2037,6 +2037,7 @@ body.demo-inline-active .project-edge-wrapper .project-trailer-hero {
 		.demo-inline-container {
 			height: 100%;
 			border-radius: 0;
+			flex: 1 1 auto;
 
 			&.demo-loaded {
 				.demo-inline-iframe {
@@ -4385,6 +4386,7 @@ body.demo-modal-open {
   z-index: 10; // Ensure container is above trailer content
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   
   // Blueprint/drafting table background - on the container, not scaled
   &::before {
@@ -4746,6 +4748,7 @@ body.demo-modal-open {
     .demo-inline-container {
       height: 100%;
       border-radius: 0;
+      flex: 1 1 auto;
 
       &.demo-loaded {
         .demo-inline-iframe {
