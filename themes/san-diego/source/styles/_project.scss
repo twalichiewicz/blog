@@ -4629,7 +4629,7 @@ body.demo-modal-open {
     justify-content: flex-start;
     overflow: hidden;
   }
- 
+
  .project-trailer-hero {
     // Switch from absolute to relative positioning
     position: relative;
@@ -4676,6 +4676,58 @@ body.demo-modal-open {
     &::before {
       display: none !important; // Force removal of overlay
     }
+  }
+}
+
+// Support inline demos when body class isn't present (e.g. dynamically loaded projects)
+.above-the-fold-preview.has-inline-demo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.project-trailer-hero.has-inline-demo {
+  position: relative;
+  flex: 1 1 auto;
+  height: auto;
+  min-height: clamp(360px, 70dvh, 800px);
+  max-height: none;
+
+  @media (max-width: variables.$mobile-breakpoint) {
+    min-height: clamp(320px, 65dvh, 90dvh);
+  }
+
+  .trailer-content {
+    height: 100%;
+
+    .demo-inline-container {
+      height: 100%;
+      border-radius: 0;
+
+      &.demo-loaded {
+        .demo-inline-iframe {
+          max-height: 100%;
+
+          @media (max-width: variables.$mobile-breakpoint) {
+            max-height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.project-trailer-hero.has-inline-demo + .above-fold-content-wrapper {
+  position: relative;
+  bottom: auto;
+  flex: 0 0 auto;
+  min-height: auto;
+  height: auto;
+  margin-top: 0;
+
+  &::before {
+    display: none !important;
   }
 }
 
