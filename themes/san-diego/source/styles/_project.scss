@@ -2015,7 +2015,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 	// Note: Blur overlay is now disabled globally, so no special handling needed
 	
 	// Reduce padding since demo provides visual interest
-	padding: clamp(2rem, 4dvh, 4rem) 36px 36px 36px;
+	padding: clamp(1rem, 3dvh, 3rem) 36px clamp(1rem, 3dvh, 3rem) 36px;
 	
 	// Adjust responsive padding
 	@media (max-width: 1200px) {
@@ -4625,10 +4625,10 @@ body.demo-modal-open {
   .above-the-fold-preview {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     overflow: hidden;
   }
-  
+ 
  .project-trailer-hero {
     // Switch from absolute to relative positioning
     position: relative;
@@ -4669,6 +4669,7 @@ body.demo-modal-open {
     flex: 0 0 auto;
     min-height: auto; // Let content determine height
     height: auto;
+    margin-top: 0;
     
     // Completely remove the gradient overlay for inline demos
     &::before {
