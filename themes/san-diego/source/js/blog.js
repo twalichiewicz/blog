@@ -116,9 +116,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	// === Dynamic Content Loader for Blog Posts/Projects ===
 	function setupDynamicBlogNavigation() {
 		const blogContentElement = document.querySelector('.blog-content');
+		const blogRootElement = document.querySelector('.blog');
 		if (!blogContentElement) {
 			return;
 		}
+		
+		function toggleLongFormLayout(isLongForm) {
+			if (!blogRootElement) return;
+			if (isLongForm) {
+				blogRootElement.classList.add('long-form-active');
+			} else {
+				blogRootElement.classList.remove('long-form-active');
+			}
+		}
+		toggleLongFormLayout(false);
 
 		let initialBlogContentHTML = blogContentElement.innerHTML;
 		let initialBlogContentURL = window.location.pathname + window.location.search + window.location.hash; // More robust URL capture
@@ -325,6 +336,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						blogContentElement.innerHTML = initialBlogContentHTML;
 						initializeBlogFeatures(blogContentElement);
 						initializeLinkListeners(blogContentElement);
+						toggleLongFormLayout(false);
 						
 						// Initialize mobile tabs with proper timing to ensure DOM is ready
 						// Use requestAnimationFrame to ensure browser has rendered the new content
@@ -498,6 +510,11 @@ document.addEventListener('DOMContentLoaded', function () {
 				// Back button created
 
 				if (newContentContainer) {
+					const containsPostWrapper = newContentContainer && (
+						newContentContainer.classList.contains('post-wrapper') ||
+						newContentContainer.querySelector('.post-wrapper')
+					);
+					const isLongFormContent = !isProject && containsPostWrapper;
 					// Content container found, proceeding with insertion
 					// Container classes logged
 					// Container HTML preview logged
@@ -589,6 +606,8 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Appending content directly to blog element
 						blogContentElement.appendChild(contentFragment);
 					}
+					
+					toggleLongFormLayout(isLongFormContent);
 
 					// Content inserted successfully
 					
@@ -665,6 +684,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						setTimeout(setupDynamicScrollButton, 500);
 					}
 				} else {
+					toggleLongFormLayout(false);
 					// ERROR: No content container found
 					// Available elements in doc logged
 					// isProject flag logged
@@ -687,6 +707,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				let backBtn = blogContentElement.querySelector('.dynamic-back-button');
 				if (!backBtn) backBtn = addOrUpdateBackButton();
 				if (backBtn) { backBtn.after(errorTechnical); } else { blogContentElement.appendChild(errorTechnical); }
+				toggleLongFormLayout(false);
 			}
 			
 			// End screen wipe transition
@@ -753,6 +774,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		const handlePopstate = async function (event) {
 			// If we're returning to the home page (no state or initial state)
 			if (!event.state || event.state.isInitial) {
+				toggleLongFormLayout(false);
 				// Ensure the page is visible
 				document.body.style.opacity = '1';
 				document.body.classList.add('loaded');
