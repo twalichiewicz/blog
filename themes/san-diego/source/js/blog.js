@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	// --- End of Refactored Initialization Function ---
 
+	let updateDynamicBackButtonPlacement = () => {};
+
 	// Device detection (usually needed only once)
 	const isMobile = window.innerWidth <= 768;
 	const isDesktop = document.body.classList.contains('device-desktop');
@@ -120,6 +122,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		let initialBlogContentHTML = blogContentElement.innerHTML;
 		let initialBlogContentURL = window.location.pathname + window.location.search + window.location.hash; // More robust URL capture
+
+		updateDynamicBackButtonPlacement = function() {
+			if (!blogContentElement) return;
+
+			const backButton = blogContentElement.querySelector('.dynamic-back-button');
+			if (!backButton) return;
+
+			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+			const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
+
+			if (isMobileViewport && innerWrapper && backButton.parentElement !== innerWrapper) {
+				innerWrapper.insertBefore(backButton, innerWrapper.firstChild);
+				backButton.classList.add('is-mobile');
+				return;
+			}
+
+			if (!isMobileViewport && backButton.parentElement !== blogContentElement) {
+				blogContentElement.insertBefore(backButton, blogContentElement.firstChild);
+			}
+			backButton.classList.remove('is-mobile');
+		};
 
 		async function fadeOutElement(element, duration = 300) {
 			if (!element) return;
@@ -261,6 +284,8 @@ document.addEventListener('DOMContentLoaded', function () {
 					blogContentElement.appendChild(backButton);
 				}
 			}
+
+			updateDynamicBackButtonPlacement();
 
 			const backButtonClickHandler = async function (event) {
 				event.preventDefault();
@@ -567,15 +592,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 					// Content inserted successfully
 					
-					// Move back button inside content-inner-wrapper on mobile
-					const isMobile = window.matchMedia('(max-width: 768px)').matches;
-					if (isMobile && backButton) {
-						const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
-						if (innerWrapper && innerWrapper.parentNode === blogContentElement) {
-							// Move back button inside inner wrapper as first child
-							innerWrapper.insertBefore(backButton, innerWrapper.firstChild);
-						}
-					}
+					// Move back button to appropriate container based on viewport
+					updateDynamicBackButtonPlacement();
 					
 					initializeBlogFeatures(blogContentElement); // This will now delegate carousel init
 					
@@ -1256,6 +1274,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				
 				// Don't move the back button - keep it in its original position
 			}
+
+			updateDynamicBackButtonPlacement();
 		}, 250); // Debounce resize events
 	});
 
