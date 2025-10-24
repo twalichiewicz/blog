@@ -80,7 +80,17 @@
                 coverImagePath = '/img/blogPostDefaultCover.png';
             }
             %>
-            <% if (page.long !== true) { %>
+            <% 
+            const tagCollection = page.tags ? (typeof page.tags.toArray === 'function' ? page.tags.toArray() : page.tags) : [];
+            const hasBlogTag = Array.isArray(tagCollection) ? tagCollection.some(tag => {
+                if (!tag) return false;
+                if (typeof tag === 'string') return tag.toLowerCase() === 'blog';
+                if (typeof tag.name === 'string') return tag.name.toLowerCase() === 'blog';
+                return false;
+            }) : false;
+            const hideCoverImage = page.long === true || hasBlogTag;
+            %>
+            <% if (!hideCoverImage) { %>
             <div class="post-cover-image">
                 <img src="<%- url_for(coverImagePath) %>" alt="<%= page.title %>" loading="eager" />
             </div>
