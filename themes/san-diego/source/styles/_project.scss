@@ -2026,7 +2026,7 @@ body.demo-inline-active .project-edge-wrapper .project-trailer-hero {
 	max-height: none;
 
 	@media (max-width: variables.$mobile-breakpoint) {
-		min-height: clamp(300px, 70dvh, 520px);
+		min-height: max(300px, 70dvh);
 	}
 
 	.trailer-content {
@@ -4412,9 +4412,9 @@ body.demo-modal-open {
 		pointer-events: none;
 		z-index: 1;
 	}
-	
+
 	@media (max-width: variables.$mobile-breakpoint) {
-		min-height: clamp(300px, 70dvh, 520px);
+		min-height: max(300px, 70dvh);
 	}
   
   // Demo controls overlay
@@ -4681,7 +4681,7 @@ body.demo-modal-open {
     max-height: none;
     
     @media (max-width: variables.$mobile-breakpoint) {
-      min-height: clamp(320px, 65dvh, 90dvh);
+      min-height: max(320px, 65dvh);
     }
     
     .trailer-content {
@@ -4735,15 +4735,19 @@ body.demo-modal-open {
   height: auto;
   min-height: clamp(320px, 70dvh, 560px);
   max-height: none;
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: variables.$mobile-breakpoint) {
-    min-height: clamp(300px, 70dvh, 520px);
+    min-height: max(300px, 70dvh);
   }
 
   .trailer-content {
     height: 100%;
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
 
     .demo-inline-container {
       height: 100%;
