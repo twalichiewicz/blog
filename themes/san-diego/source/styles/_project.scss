@@ -2011,12 +2011,52 @@ body.loaded .project-wrapper {
 }
 
 // When demo is inline, adjust the above-fold content wrapper
-body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fold-content-wrapper {
-	// Note: Blur overlay is now disabled globally, so no special handling needed
+body.demo-inline-active .project-edge-wrapper .above-the-fold-preview {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	overflow: hidden;
+}
 
-	// Reduce padding since demo provides visual interest
+body.demo-inline-active .project-edge-wrapper .project-trailer-hero {
+	position: relative;
+	flex: 1 1 auto;
+	height: auto;
+	min-height: clamp(320px, 70dvh, 560px);
+	max-height: none;
+
+	@media (max-width: variables.$mobile-breakpoint) {
+		min-height: clamp(300px, 70dvh, 520px);
+	}
+
+	.trailer-content {
+		height: 100%;
+
+		.demo-inline-container {
+			height: 100%;
+			border-radius: 0;
+
+			&.demo-loaded {
+				.demo-inline-iframe {
+					max-height: 100%;
+
+					@media (max-width: variables.$mobile-breakpoint) {
+						max-height: 100%;
+					}
+				}
+			}
+		}
+	}
+}
+
+body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fold-content-wrapper {
+	// Reduce padding since demo provides visual interest and ensure the text block hugs the demo
 	padding: clamp(0.25rem, 2dvh, 1.25rem) 32px clamp(1rem, 3dvh, 3rem) 32px;
-	
+	margin-top: 0;
+	flex: 0 0 auto;
+	min-height: auto;
+	height: auto;
+
 	// Adjust responsive padding
 	@media (max-width: 1200px) {
 		padding: clamp(0.25rem, 2dvh, 1.25rem) 28px clamp(1rem, 3dvh, 3rem) 28px;
@@ -2029,7 +2069,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 	@media (max-width: 480px) {
 		padding: 0.5rem 16px clamp(0.75rem, 2.5dvh, 1.5rem) 16px;
 	}
-	
+
 	// Adjust for very small heights
 	@media (max-height: 600px) {
 		padding: 15px clamp(0.5rem, 3vw, 2rem) 20px;
@@ -2041,6 +2081,10 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 
 	@media (max-height: 400px) {
 		padding: 8px clamp(0.5rem, 2vw, 1rem) 12px;
+	}
+
+	&::before {
+		display: none !important;
 	}
 }
 
