@@ -4335,8 +4335,8 @@ body.demo-modal-open {
   background: #f5f5f5;
   border-radius: 0;
   overflow: hidden;
-  min-height: 500px;
-  z-index: 10; // Ensure container is above trailer content
+	min-height: clamp(320px, 70dvh, 560px);
+	z-index: 10; // Ensure container is above trailer content
   
   // Blueprint/drafting table background - on the container, not scaled
   &::before {
@@ -4352,23 +4352,20 @@ body.demo-modal-open {
     z-index: 1;
   }
   
-  // Border frame - also fixed, not scaled
-  &::after {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    border-radius: 2px;
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-  @media (max-width: variables.$mobile-breakpoint) {
-    min-height: 300px;
-  }
+	// Border frame - also fixed, not scaled
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border: 1px solid rgba(0, 0, 0, 0.03);
+		border-radius: 2px;
+		pointer-events: none;
+		z-index: 1;
+	}
+	
+	@media (max-width: variables.$mobile-breakpoint) {
+		min-height: clamp(300px, 70dvh, 520px);
+	}
   
   // Demo controls overlay
   .demo-inline-controls {
@@ -4691,11 +4688,11 @@ body.demo-modal-open {
   position: relative;
   flex: 1 1 auto;
   height: auto;
-  min-height: clamp(360px, 70dvh, 800px);
+  min-height: clamp(320px, 70dvh, 560px);
   max-height: none;
 
   @media (max-width: variables.$mobile-breakpoint) {
-    min-height: clamp(320px, 65dvh, 90dvh);
+    min-height: clamp(300px, 70dvh, 520px);
   }
 
   .trailer-content {
@@ -4726,6 +4723,18 @@ body.demo-modal-open {
 	height: auto;
 	margin-top: 0;
 	padding: clamp(0.25rem, 2dvh, 1.25rem) 32px clamp(1rem, 3dvh, 3rem) 32px;
+
+	@media (max-width: 1200px) {
+		padding: clamp(0.25rem, 2dvh, 1.25rem) 28px clamp(1rem, 3dvh, 3rem) 28px;
+	}
+
+	@media (max-width: 768px) {
+		padding: clamp(0.25rem, 2dvh, 0.75rem) 20px clamp(0.75rem, 2.5dvh, 2rem) 20px;
+	}
+
+	@media (max-width: 480px) {
+		padding: 0.5rem 16px clamp(0.75rem, 2.5dvh, 1.5rem) 16px;
+	}
 
 	&::before {
 		display: none !important;
