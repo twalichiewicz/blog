@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sound Compatibility Test</title>
+	<style>
+		body {
+			font-family: system-ui, -apple-system, sans-serif;
+			max-width: 800px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+			line-height: 1.6;
+		}
+		.test-section {
+			background: #f5f5f5;
+			padding: 1rem;
+			margin: 1rem 0;
+			border-radius: 8px;
+		}
+		button {
+			padding: 0.5rem 1rem;
+			margin: 0.25rem;
+			border: none;
+			background: #0066cc;
+			color: white;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		button:hover {
+			background: #0052a3;
+		}
+		.status {
+			padding: 0.5rem;
+			margin: 0.5rem 0;
+			border-radius: 4px;
+		}
+		.status.success { background: #d4edda; color: #155724; }
+		.status.error { background: #f8d7da; color: #721c24; }
+		pre {
+			background: #f8f8f8;
+			padding: 1rem;
+			overflow-x: auto;
+			border-radius: 4px;
+			font-size: 0.875rem;
+		}
+		.comparison {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1rem;
+		}
+		.comparison > div {
+			background: white;
+			padding: 1rem;
+			border-radius: 8px;
+			border: 1px solid #ddd;
+		}
+		h3 {
+			margin-top: 0;
+			color: #333;
+		}
+	</style>
+</head>
+<body>
+	<h1>Sound Service Compatibility Layer Test</h1>
+	
+	<div class="test-section">
+		<h2>Compatibility Status</h2>
+		<div id="compat-status" class="status">Checking compatibility...</div>
+		<pre id="api-check"></pre>
+	</div>
+
+	<div class="test-section">
+		<h2>Test Legacy API</h2>
+		<div class="comparison">
+			<div>
+				<h3>Direct soundEffects API</h3>
+				<button onclick="testLegacyPlay()">soundEffects.play('toggle')</button>
+				<button onclick="testLegacyVolume()">Set Volume 0.3</button>
+				<button onclick="testLegacyEnable()">Toggle Enable/Disable</button>
+				<button onclick="testLegacyPreload()">Preload Sounds</button>
+			</div>
+			<div>
+				<h3>Global Functions</h3>
+				<button onclick="playButtonSound()">playButtonSound()</button>
+				<button onclick="playToggleSound()">playToggleSound()</button>
+				<button onclick="playBookSound()">playBookSound()</button>
+				<button onclick="playSmallClickSound()">playSmallClickSound()</button>
+				<button onclick="playSliderSound()">playSliderSound()</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="test-section">
+		<h2>Test New API (for comparison)</h2>
+		<button onclick="testNewAPI()">soundService.play('button')</button>
+		<button onclick="testNewCategories()">Test Categories</button>
+		<button onclick="testNewRegistry()">Test Registry</button>
+	</div>
+
+	<div class="test-section">
+		<h2>Test Results</h2>
+		<div id="results"></div>
+	</div>
+
+	<!-- Load the compatibility layer -->
+	<script type="module">
+		import './sound-compatibility.js';
+		
+		// Make functions available globally for onclick handlers
+		window.results = document.getElementById('results');
+		
+		window.addResult = function(test, success, message) {
+			const div = document.createElement('div');
+			div.className = `status ${success ? 'success' : 'error'}`;
+			div.textContent = `${test}: ${message}`;
+			results.appendChild(div);
+		};
+		
+		// Check compatibility
+		setTimeout(() => {
+			const compatStatus = document.getElementById('compat-status');
+			const apiCheck = document.getElementById('api-check');
+			
+			const checks = {
+				'window.soundEffects': !!window.soundEffects,
+				'soundEffects.play': typeof window.soundEffects?.play === 'function',
+				'soundEffects.setEnabled': typeof window.soundEffects?.setEnabled === 'function',
+				'soundEffects.setVolume': typeof window.soundEffects?.setVolume === 'function',
+				'playButtonSound': typeof window.playButtonSound === 'function',
+				'playToggleSound': typeof window.playToggleSound === 'function',
+				'playBookSound': typeof window.playBookSound === 'function',
+				'playSmallClickSound': typeof window.playSmallClickSound === 'function',
+				'playSliderSound': typeof window.playSliderSound === 'function',
+				'initializeSoundEffects': typeof window.initializeSoundEffects === 'function',
+				'window.soundService': !!window.soundService
+			};
+			
+			const allPassed = Object.values(checks).every(v => v === true);
+			
+			compatStatus.className = `status ${allPassed ? 'success' : 'error'}`;
+			compatStatus.textContent = allPassed 
+				? '✅ All compatibility APIs are available!' 
+				: '❌ Some APIs are missing';
+			
+			apiCheck.textContent = JSON.stringify(checks, null, 2);
+		}, 100);
+		
+		// Legacy API tests
+		window.testLegacyPlay = function() {
+			try {
+				window.soundEffects.play('toggle');
+				addResult('Legacy play()', true, 'Called successfully');
+			} catch (e) {
+				addResult('Legacy play()', false, e.message);
+			}
+		};
+		
+		window.testLegacyVolume = function() {
+			try {
+				window.soundEffects.setVolume(0.3);
+				const vol = window.soundEffects.getVolume();
+				addResult('Legacy volume', vol === 0.3, `Volume is ${vol}`);
+			} catch (e) {
+				addResult('Legacy volume', false, e.message);
+			}
+		};
+		
+		window.testLegacyEnable = function() {
+			try {
+				const wasEnabled = window.soundEffects.isEnabled();
+				window.soundEffects.setEnabled(!wasEnabled);
+				const isEnabled = window.soundEffects.isEnabled();
+				addResult('Legacy enable/disable', isEnabled !== wasEnabled, 
+					`Changed from ${wasEnabled} to ${isEnabled}`);
+			} catch (e) {
+				addResult('Legacy enable/disable', false, e.message);
+			}
+		};
+		
+		window.testLegacyPreload = function() {
+			try {
+				window.soundEffects.preloadCommonSounds();
+				addResult('Legacy preload', true, 'Called successfully');
+			} catch (e) {
+				addResult('Legacy preload', false, e.message);
+			}
+		};
+		
+		// New API tests
+		window.testNewAPI = function() {
+			try {
+				if (window.soundService) {
+					window.soundService.play('button');
+					addResult('New API play()', true, 'Called successfully');
+				} else {
+					addResult('New API play()', false, 'soundService not available');
+				}
+			} catch (e) {
+				addResult('New API play()', false, e.message);
+			}
+		};
+		
+		window.testNewCategories = function() {
+			try {
+				if (window.soundService) {
+					const categories = window.soundService.getSoundsByCategory('ui');
+					addResult('Categories', true, `UI sounds: ${Object.keys(categories).length}`);
+				} else {
+					addResult('Categories', false, 'soundService not available');
+				}
+			} catch (e) {
+				addResult('Categories', false, e.message);
+			}
+		};
+		
+		window.testNewRegistry = function() {
+			try {
+				if (window.soundService) {
+					const sounds = window.soundService.getAvailableSounds();
+					addResult('Registry', true, `Available sounds: ${sounds.length}`);
+				} else {
+					addResult('Registry', false, 'soundService not available');
+				}
+			} catch (e) {
+				addResult('Registry', false, e.message);
+			}
+		};
+	</script>
+</body>
+</html>
