@@ -15,6 +15,12 @@
 
 // Core blog layout styles
 .blog {
+	--blog-list-text-color: variables.$grey-dark;
+
+	@media (prefers-color-scheme: dark) {
+		--blog-list-text-color: hsl(24, 4.49%, 78.01%);
+	}
+
 	width: 100%;
 	box-sizing: border-box;
 	height: auto;
@@ -198,7 +204,7 @@
 
 			li {
 				margin-bottom: 0.5rem;
-				color: variables.$grey-dark;
+				color: var(--blog-list-text-color);
 				font-size: var(--font-size-md);
 				line-height: 1.4;
 				// Ensure list items don't inherit byline styles
@@ -461,6 +467,13 @@
 	margin: 1.5rem 0;
 	width: 100%;
 	@include post-separator-base;
+}
+
+.blog .post-list-item ul li,
+.blog .post-list-item ol li,
+.blog .blog-list .post-list-item ul li,
+.blog .blog-list .post-list-item ol li {
+	color: var(--blog-list-text-color);
 }
 
 @media (max-width: variables.$mobile-breakpoint) {
@@ -1033,13 +1046,3 @@ p {
 		}
 	}
 }
-	@media (prefers-color-scheme: dark) {
-		.post-list-item {
-			ul,
-			ol {
-				li {
-					color: hsl(24, 4.49%, 78.01%);
-				}
-			}
-		}
-	}
