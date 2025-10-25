@@ -15,12 +15,6 @@
 
 // Core blog layout styles
 .blog {
-	--blog-list-text-color: variables.$grey-dark;
-
-	@media (prefers-color-scheme: dark) {
-		--blog-list-text-color: hsl(24, 4.49%, 78.01%);
-	}
-
 	width: 100%;
 	box-sizing: border-box;
 	height: auto;
