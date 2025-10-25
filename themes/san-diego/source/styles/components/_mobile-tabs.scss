@@ -108,36 +108,6 @@
 			}
 		}
 
-		// Beta pill styling for portfolio tab only - positioned inline after text
-		&#tab-portfolio::after {
-			content: 'BETA';
-			display: inline-block;
-			position: relative;
-			background-color: lightgrey;
-			color: white;
-			font-size: var(--font-size-2xs);
-			font-weight: var(--font-weight-semibold);
-			padding: 3px 4px 3px 6px;
-			border-radius: 9px;
-			text-transform: uppercase;
-			letter-spacing: 0.5px;
-			line-height: var(--line-height-tight);
-			margin-left: 4px;
-			vertical-align: middle;
-			top: -1px;
-		}
-		
-		// On mobile, make beta tag smaller
-		@media screen and (max-width: variables.$mobile-breakpoint) {
-			&#tab-portfolio::after {
-				font-size: 6px;
-				padding: 1px 2px;
-				border-radius: 4px;
-				letter-spacing: 0.2px;
-				margin-left: 2px;
-			}
-		}
-
 		// Beta pill active state styling
 		&#tab-portfolio.active::after {
 			background-color: white;

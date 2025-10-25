@@ -382,62 +382,99 @@
 			transition: all 0.3s ease;
 		}
 		
-		.mobile-compact-header {
-			width: 100%;
-			
-			.location-pill {
-				padding: 3px 0;
-				font-size: var(--font-size-xs);
-				margin-bottom: 3px;
-				// Base transition for opacity changes
-				transition: opacity 0.3s ease;
-				
-				.location-icon {
-					width: 10px;
-					height: 10px;
-				}
-			}
-			
-			.profile-byline {
-				font-size: var(--font-size-sm);
-				font-weight: var(--font-weight-normal);
-				margin: 3px 0;
-				color: variables.$text-color-secondary;
-				line-height: var(--line-height-tight).5;
-				display: block;
-				// Base transition for opacity changes
-				transition: opacity 0.3s ease;
-			}
+		> .profile-photo-wrapper {
+			display: none;
 		}
 		
-		.mobile-buttons-container {
-			position: absolute;
-			top: 8px; // Balanced position for both light and dark modes
-			right: 12px;
-			display: flex;
-			gap: 8px;
-			margin-top: 0;
-			flex-shrink: 0;
-			max-width: none;
+		.mobile-compact-header {
+			display: flex !important;
+			flex-direction: row !important;
+			width: 100%;
+			align-items: center;
+			gap: 16px;
+			flex-wrap: nowrap;
 			
-			// Further optimize for smaller screens
-			@media (max-width: 480px) {
-				gap: 6px;
-				right: 8px;
+			.mobile-compact-info {
+				flex: 1 1 auto;
+				min-width: 0;
+			}
+			
+			.mobile-buttons-container {
+				flex: 0 0 auto;
+				width: 150px;
+				max-width: 150px;
+				display: flex;
+				flex-direction: column;
+				align-items: stretch;
+				justify-content: center;
+				gap: 12px;
+			}
+			
+			.mobile-compact-info {
+				display: flex;
+				gap: 12px;
+				align-items: center;
+			}
+			
+				.mobile-profile-photo {
+					width: 72px;
+					height: 72px;
+					flex-shrink: 0;
+					
+					.profile-photo {
+						width: 100%;
+						height: 100%;
+						border-radius: 50%;
+						object-fit: cover;
+					}
+				}
+			
+			.mobile-profile-text {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 0;
 				
-				// Reduce button size on very small screens
-				.mobile-impact-button,
-				.mobile-contact-button {
-					font-size: 0.625rem !important; // 10px
-					padding: 5px 10px !important;
+				.mobile-compact-name {
+					font-size: clamp(1.1rem, 4vw, 1.6rem);
+					line-height: var(--line-height-tight);
+					margin: 0;
+					font-weight: var(--font-weight-semibold);
+				}
+				
+				.profile-byline {
+					font-size: var(--font-size-xs);
+					font-weight: var(--font-weight-medium);
+					margin: 0;
+					color: variables.$text-color-secondary;
+					line-height: 120%;
+					max-width: 45ch;
 				}
 			}
 			
-			@media (max-width: 375px) {
-				top: 12px; // Move down slightly on very small screens
-				flex-direction: column; // Stack vertically if needed
-				align-items: flex-end;
-				gap: 4px;
+			.mobile-buttons-container {
+				align-self: stretch;
+				margin-top: 0 !important;
+				gap: 6px;
+				
+				.mobile-impact-button,
+				.mobile-contact-button {
+					width: 100% !important;
+					font-size: 9px !important;
+					box-sizing: border-box !important;
+					display: block;
+					text-align: center;
+				}
+			}
+			
+			@media (max-width: 420px) {
+				flex-direction: column;
+				
+				.mobile-compact-info,
+				.mobile-buttons-container {
+					width: 100%;
+					flex: 1 1 auto;
+				}
 			}
 		}
 		

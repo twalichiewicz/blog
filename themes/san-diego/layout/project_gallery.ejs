@@ -21,7 +21,7 @@
 	<!-- Edge-to-edge wrapper -->
 	<div class="project-edge-wrapper" id="main-content">
 				<!-- Above the fold preview - 100vh -->
-		<div class="above-the-fold-preview" <% if (page.cover_image && !page.demo_component) { %>style="background-image: url('<%- url_for(page.cover_image.startsWith('/') || page.cover_image.startsWith('http') ? page.cover_image : page.path + page.cover_image) %>');"<% } %>>
+		<div class="above-the-fold-preview<%= page.demo_component ? ' has-inline-demo' : '' %>" <% if (page.cover_image && !page.demo_component) { %>style="background-image: url('<%- url_for(page.cover_image.startsWith('/') || page.cover_image.startsWith('http') ? page.cover_image : page.path + page.cover_image) %>');"<% } %>>
 			<!-- Project navigation positioned absolutely -->
 			<% if (!page.demo_component) { %>
 			<div class="project-navigation">
@@ -39,7 +39,7 @@
 			</div>
 			<% } %>
 			<!-- Project trailer (single hero item) -->
-			<div class="project-trailer-hero" id="trailerHero">
+			<div class="project-trailer-hero<%= page.demo_component ? ' has-inline-demo' : '' %>" id="trailerHero">
 				<div class="trailer-content" id="trailerContent">
 						<% if (page.demo_component) { %>
 							<!-- Inline demo mode - always show demos inline for preview -->

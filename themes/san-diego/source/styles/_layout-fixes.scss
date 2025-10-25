@@ -230,10 +230,10 @@
 
 // When dynamic content is loaded, make content-inner-wrapper scrollable
 .blog-content.has-dynamic-content {
-  @media (min-width: variables.$tablet-breakpoint) {
-    .content-wrapper {
-      overflow: hidden !important; // Wrapper doesn't scroll
-      height: 100%;
+	@media (min-width: variables.$tablet-breakpoint) {
+		.content-wrapper {
+			overflow: hidden !important; // Wrapper doesn't scroll
+			height: 100%;
     }
     
     .content-inner-wrapper {
@@ -242,14 +242,31 @@
       height: 100%;
       border-radius: 12px 0 0 0; // Ensure border-radius for shutter animation
     }
-  }
+	}
+}
+
+.blog.long-form-active {
+	@media (max-width: variables.$mobile-breakpoint) {
+		.blog-header {
+			display: none !important;
+		}
+
+		.blog-content {
+			flex: 1 1 auto;
+			width: 100%;
+		}
+
+		.content-inner-wrapper {
+			margin: 30px 30px 0;
+		}
+	}
 }
 
 // Removed conflicting device-specific rules - these are now handled in _dynamic-content-scroll-fix.scss
 
 // Fix for project pages
 .project-edge-wrapper {
-  .content-wrapper {
+	.content-wrapper {
     overflow-y: auto !important;
   }
 }

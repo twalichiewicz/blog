@@ -3,6 +3,33 @@
  * Provides cross-browser compatible audio playback for UI interactions
  */
 
+const memoryStore = new Map();
+
+function createSafeStorage() {
+	try {
+		if (typeof window === 'undefined' || !window.localStorage) {
+			throw new Error('localStorage unavailable');
+		}
+
+		const testKey = '__sound-effects-test__';
+		window.localStorage.setItem(testKey, testKey);
+		window.localStorage.removeItem(testKey);
+		return window.localStorage;
+	} catch (error) {
+		return {
+			getItem: (key) => (memoryStore.has(key) ? memoryStore.get(key) : null),
+			setItem: (key, value) => {
+				memoryStore.set(key, value);
+			},
+			removeItem: (key) => {
+				memoryStore.delete(key);
+			}
+		};
+	}
+}
+
+const safeStorage = createSafeStorage();
+
 class SoundEffects {
 	constructor() {
 		this.sounds = new Map();
@@ -10,10 +37,10 @@ class SoundEffects {
 		this.volume = 0.5;
 
 		// Load user preference for sound effects
-		const soundPref = localStorage.getItem('sound-effects-enabled');
+		const soundPref = safeStorage.getItem('sound-effects-enabled');
 		this.enabled = soundPref !== null ? soundPref === 'true' : true;
 
-		const volumePref = localStorage.getItem('sound-effects-volume');
+		const volumePref = safeStorage.getItem('sound-effects-volume');
 		this.volume = volumePref !== null ? parseFloat(volumePref) : 0.5;
 	}
 
@@ -93,7 +120,7 @@ class SoundEffects {
 	 */
 	setEnabled(enabled) {
 		this.enabled = enabled;
-		localStorage.setItem('sound-effects-enabled', enabled.toString());
+		safeStorage.setItem('sound-effects-enabled', enabled.toString());
 	}
 
 	/**
@@ -102,7 +129,7 @@ class SoundEffects {
 	 */
 	setVolume(volume) {
 		this.volume = Math.max(0, Math.min(1, volume));
-		localStorage.setItem('sound-effects-volume', this.volume.toString());
+		safeStorage.setItem('sound-effects-volume', this.volume.toString());
 
 		// Update volume for all loaded sounds
 		this.sounds.forEach(sound => {

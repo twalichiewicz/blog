@@ -162,55 +162,88 @@
 	
 	// Mobile responsive styles
 	@media (max-width: variables.$mobile-breakpoint) {
-		padding: 0 15px;
-		gap: 8px;
+		position: fixed;
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+		width: calc(100% - 24px);
+		max-width: 600px;
+		padding: 6px;
+		margin: 0;
+		margin-bottom: 0;
+		gap: 6px;
+		background: variables.$card-bg;
+		border-radius: 32px;
+		border: 1px solid rgb(255 255 255 / 10%);
+		box-shadow:
+			0 1px 3px rgb(0 0 0 / 15%),
+			0 20px 30px rgb(0 0 0 / 25%),
+			inset 0 1px 3px rgb(255 255 255 / 20%);
+		z-index: 1100;
 		
-		.search-icon {
-			left: 9px;
+		.search-input-wrapper {
+			flex: 1 1 auto;
+			background: rgba(variables.$white, 0.9);
+			border-radius: 22px;
+			padding: 0;
+			height: 36px;
+			box-sizing: border-box;
+			box-shadow: inset 0 1px 1px rgb(0 0 0 / 12%);
 		}
 		
-		// Ensure search input and button have matching heights
+		.search-icon {
+			left: 16px;
+		}
+
 		.search-input {
-			height: auto; // Let content determine height
-			padding: 6px 36px 6px 32px; // Reasonable padding
-			line-height: normal; // Normal line height
-		}
-		
-		.posts-only-button {
-			height: auto; // Let content determine height
-			padding: 6px 12px; // Reasonable padding
-			line-height: normal; // Normal line height
-			display: inline-flex;
-			align-items: center;
-		}
-	}
-	
-	// Medium mobile screens - prevent wrapping
-	@media (max-width: 480px) {
-		.posts-only-button {
-			// Keep original text, just adjust size if needed
+			border: none;
+			background: transparent;
+			padding: 0 32px 0 32px;
+			height: 100%;
+			line-height: 36px;
 			font-size: var(--font-size-xs);
-			padding: 6px 10px;
+		}
+		
+		.posts-only-button {
+			height: 36px;
+			padding: 0 16px;
+			border-radius: 20px;
+			border: none;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(variables.$card-bg, 0.95);
+			box-shadow: none;
+			font-size: var(--font-size-xs);
+			font-weight: var(--font-weight-medium);
+			color: variables.$text-color-secondary;
+			transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+
+			&:hover {
+				background: rgba(variables.$card-bg, 1);
+			}
+
+			&:active {
+				transform: scale(0.97);
+				background: color.adjust(variables.$card-bg, $lightness: -2%);
+			}
+
+			&.active {
+				background: variables.$black;
+				color: variables.$white;
+				box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+			}
+		}
+		
+		.search-clear {
+			right: 18px;
 		}
 	}
-	
-	// Very small screens
-	@media (max-width: 350px) {
-		flex-direction: column;
-		gap: 8px;
-		
-		.search-input,
-		.posts-only-button {
-			width: 100%;
-		}
-		
-		.search-icon {
-			left: 9px;
-		}
-		
-		.posts-only-button::after {
-			content: "Posts only"; // Restore full text when stacked
-		}
+}
+
+@media (max-width: variables.$mobile-breakpoint) {
+	.blog {
+		padding-bottom: calc(160px + env(safe-area-inset-bottom, 0px));
 	}
 }
 
@@ -238,6 +271,36 @@
 
 		.posts-only-button {
 			color: hsl(0, 0%, 75%);
+		}
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			background: rgba(variables.$card-bg-dark, 0.95);
+			border-color: rgba(variables.$border-color-dark, 0.5);
+
+			.search-input-wrapper {
+				background: rgba(variables.$black, 0.55);
+				box-shadow: inset 0 1px 3px rgb(0 0 0 / 50%);
+			}
+
+		.posts-only-button {
+			color: variables.$text-color-dark;
+			background: rgba(variables.$card-bg-dark, 0.8);
+			transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+
+			&.active {
+				background: linear-gradient(to bottom, hsl(40, 90%, 60%), hsl(40, 90%, 50%));
+				color: hsl(0, 0%, 10%);
+			}
+
+			&:hover {
+				background: linear-gradient(hsl(40, 18.9%, 44.42%) 0.84%, hsl(40, 18.54%, 35.47%));
+			}
+
+			&:active {
+				background: linear-gradient(hsl(40, 46.07%, 35.81%) 0.84%, hsl(40, 48.29%, 28.36%));
+				color: hsl(0, 0%, 10%);
+			}
+		}
 		}
 
 		.search-input {
@@ -329,4 +392,3 @@ a .search-highlight,
 		}
 	}
 }
-

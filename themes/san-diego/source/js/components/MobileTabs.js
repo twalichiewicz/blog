@@ -172,6 +172,7 @@ export default class MobileTabs {
 		// Clear state
 		this.userSelectedTab = null;
 		this.currentDeviceType = null;
+		this._mobileStickyState = null;
 	}
 
 	/**
@@ -569,6 +570,10 @@ export default class MobileTabs {
 
 		// Re-validate active state
 		this.validateActiveState();
+
+		if (this.currentDeviceType === 'mobile') {
+			this.applyMobileOverflowFixes();
+		}
 	}
 
 	/**
@@ -577,7 +582,11 @@ export default class MobileTabs {
 	 */
 	getDeviceType() {
 		const width = window.innerWidth;
-		if (width < 600) return 'mobile';
+
+		if (width <= 767) {
+			return 'mobile';
+		}
+
 		// EMERGENCY FIX: Force tablet mode instead of desktop due to Chrome rendering issues
 		// Desktop mode causes: flickering, broken rendering, project items not displaying
 		// TODO: Re-enable after fixing backdrop-filter, contain, and transform issues
@@ -603,6 +612,8 @@ export default class MobileTabs {
 
 			// Update the slider for the active tab
 			setTimeout(() => this.updateSlider(), 50);
+
+			this.applyMobileOverflowFixes();
 		} else {
 			// On desktop, show both sections and hide tabs
 			if (this.postsContent && this.projectsContent) {
@@ -614,6 +625,8 @@ export default class MobileTabs {
 
 			if (this.tabsWrapper) this.tabsWrapper.style.display = 'none';
 			if (this.searchBar) this.searchBar.style.display = 'block';
+
+			this.clearMobileOverflowFixes();
 		}
 	}
 
@@ -629,6 +642,44 @@ export default class MobileTabs {
 		} else if (this.currentDeviceType === 'desktop') {
 			// In desktop mode, always hide the tabs
 			this.tabsWrapper.style.display = 'none';
+		}
+	}
+
+	applyMobileOverflowFixes() {
+		if (!this.tabsWrapper) return;
+
+		if (this.currentDeviceType !== 'mobile') {
+			this.clearMobileOverflowFixes();
+			return;
+		}
+
+		if (!this._mobileStickyState) {
+			this._mobileStickyState = {
+				position: this.tabsWrapper.style.position || '',
+				top: this.tabsWrapper.style.top || '',
+				zIndex: this.tabsWrapper.style.zIndex || ''
+			};
+		}
+
+		this.tabsWrapper.style.position = 'sticky';
+		this.tabsWrapper.style.top = '0px';
+		if (!this.tabsWrapper.style.zIndex) {
+			this.tabsWrapper.style.zIndex = '100';
+		}
+	}
+
+	clearMobileOverflowFixes() {
+		if (!this.tabsWrapper) return;
+
+		if (this._mobileStickyState) {
+			const { position, top, zIndex } = this._mobileStickyState;
+			this.tabsWrapper.style.position = position;
+			this.tabsWrapper.style.top = top;
+			this.tabsWrapper.style.zIndex = zIndex;
+		} else {
+			this.tabsWrapper.style.position = '';
+			this.tabsWrapper.style.top = '';
+			this.tabsWrapper.style.zIndex = '';
 		}
 	}
 } 

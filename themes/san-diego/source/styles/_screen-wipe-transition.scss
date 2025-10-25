@@ -13,7 +13,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border-radius: 12px 0 0 0; // Match blog-content border radius
+	border-radius: 0;
 	overflow: hidden;
 	
 	// Wipe panels (left and right)
@@ -37,7 +37,7 @@
 	&::before {
 		left: 0;
 		transform: translateX(-100%);
-		border-radius: 12px 0 0 0; // Match container top-left radius
+		border-radius: 0;
 	}
 	
 	// Right panel

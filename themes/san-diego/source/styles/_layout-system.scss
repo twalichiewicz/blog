@@ -295,8 +295,17 @@ body.modal-open {
 // Mobile blog list separators
 @media (max-width: variables.$mobile-breakpoint) {
   .blog-list .post-separator {
-    margin: 0.75rem 0;
+    margin: 30px 0;
     opacity: 0.5;
+  }
+
+  .blog-list .post-list-item {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .blog-list .post-list-item:not(:last-child) {
+    margin-bottom: 0 !important;
   }
 }
 

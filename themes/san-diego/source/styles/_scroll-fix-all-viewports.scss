@@ -134,3 +134,11 @@
     }
   }
 }
+
+// Ensure blog post list items always use the unified text color token
+.blog .post-list-item ul li,
+.blog .post-list-item ol li,
+.blog .blog-list .post-list-item ul li,
+.blog .blog-list .post-list-item ol li {
+	color: var(--blog-list-text-color) !important;
+}
