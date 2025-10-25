@@ -457,11 +457,17 @@
 		}
 	}
 
+.post-separator {
+	margin: 1.5rem 0;
+	width: 100%;
+	@include post-separator-base;
+}
+
+@media (max-width: variables.$mobile-breakpoint) {
 	.post-separator {
-		margin: 1.5rem 0;
-		width: 100%;
-		@include post-separator-base;
+		margin: 30px 0;
 	}
+}
 
 	.project-separator {
 		border: none;
