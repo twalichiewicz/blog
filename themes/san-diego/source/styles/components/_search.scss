@@ -212,12 +212,21 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background: transparent;
+			background: rgba(variables.$card-bg, 0.85);
 			box-shadow: none;
 			font-size: var(--font-size-xs);
 			font-weight: var(--font-weight-medium);
 			color: variables.$text-color-secondary;
-			transition: background 0.2s ease, color 0.2s ease;
+			transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+
+			&:hover {
+				background: rgba(variables.$card-bg, 0.95);
+			}
+
+			&:active {
+				transform: scale(0.97);
+				background: rgba(variables.$card-bg, 1);
+			}
 
 			&.active {
 				background: variables.$black;
@@ -275,6 +284,7 @@
 
 			.posts-only-button {
 				color: variables.$text-color-dark;
+				background: rgba(variables.$card-bg-dark, 0.7);
 
 				&.active {
 					background: variables.$link-color-dark;
