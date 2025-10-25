@@ -668,7 +668,7 @@
 			ul,
 			ol {
 				li {
-					color: variables.$grey-dark !important;
+					color: var(--blog-list-text-color, hsl(24, 4.49%, 78.01%)) !important;
 
 					a {
 						color: variables.$link-color-dark;
