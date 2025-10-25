@@ -121,6 +121,24 @@ document.addEventListener('DOMContentLoaded', function () {
 			return;
 		}
 		
+		const mobileViewportQuery = window.matchMedia('(max-width: 768px)');
+		
+		function resetInnerWrapperScrollStyles() {
+			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+			if (!innerWrapper) return;
+			innerWrapper.style.removeProperty('height');
+			innerWrapper.style.removeProperty('overflow');
+		}
+		
+		resetInnerWrapperScrollStyles();
+		
+		const handleViewportChange = () => resetInnerWrapperScrollStyles();
+		if (mobileViewportQuery.addEventListener) {
+			mobileViewportQuery.addEventListener('change', handleViewportChange);
+		} else if (mobileViewportQuery.addListener) {
+			mobileViewportQuery.addListener(handleViewportChange);
+		}
+		
 		function toggleLongFormLayout(isLongForm) {
 			if (!blogRootElement) return;
 			if (isLongForm) {
@@ -128,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			} else {
 				blogRootElement.classList.remove('long-form-active');
 			}
+			resetInnerWrapperScrollStyles();
 		}
 		toggleLongFormLayout(false);
 
@@ -336,6 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						blogContentElement.innerHTML = initialBlogContentHTML;
 						initializeBlogFeatures(blogContentElement);
 						initializeLinkListeners(blogContentElement);
+						resetInnerWrapperScrollStyles();
 						toggleLongFormLayout(false);
 						
 						// Initialize mobile tabs with proper timing to ensure DOM is ready
@@ -608,6 +628,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 					
 					toggleLongFormLayout(isLongFormContent);
+					resetInnerWrapperScrollStyles();
 
 					// Content inserted successfully
 					
