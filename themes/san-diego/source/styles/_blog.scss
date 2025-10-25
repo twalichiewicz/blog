@@ -1033,3 +1033,13 @@ p {
 		}
 	}
 }
+	@media (prefers-color-scheme: dark) {
+		.post-list-item {
+			ul,
+			ol {
+				li {
+					color: hsl(24, 4.49%, 78.01%);
+				}
+			}
+		}
+	}
