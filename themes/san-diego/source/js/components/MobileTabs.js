@@ -2,6 +2,7 @@
  * Mobile Tabs Component
  * A unified tab handling solution for mobile devices
  */
+import ScrollUtility from '../utils/scroll-utility.js';
 export default class MobileTabs {
 	/**
 	 * Constructor
@@ -34,6 +35,7 @@ export default class MobileTabs {
 		this.currentDeviceType = '';
 		this.initialRenderComplete = false;
 		this.initialRenderTimer = null;
+		this.tabScrollStates = new Map(); // Track whether each tab has already applied scroll-reset logic
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -444,6 +446,8 @@ export default class MobileTabs {
 
 			// Hide tabs wrapper on desktop
 			if (this.tabsWrapper) this.tabsWrapper.style.display = 'none';
+			this.resetScrollPositionIfNeeded('blog', this.postsContent);
+			this.resetScrollPositionIfNeeded('portfolio', this.projectsContent);
 			return;
 		}
 
@@ -464,6 +468,7 @@ export default class MobileTabs {
 						this.postsContent.style.display = 'block';
 						this.projectsContent.style.display = 'none';
 						this.markInitialRenderComplete(type);
+						this.resetScrollPositionIfNeeded('blog', this.postsContent);
 					}
 				}, this.config.transitionDuration);
 			}
@@ -487,6 +492,7 @@ export default class MobileTabs {
 						this.postsContent.style.display = 'none';
 						this.projectsContent.style.display = 'block';
 						this.markInitialRenderComplete(type);
+						this.resetScrollPositionIfNeeded('portfolio', this.projectsContent);
 					}
 				}, this.config.transitionDuration);
 			}
@@ -724,5 +730,41 @@ export default class MobileTabs {
 		} catch (error) {
 			// CustomEvent might fail in very old browsers; ignore silently.
 		}
+	}
+
+	resetScrollPositionIfNeeded(tabType, contentElement) {
+		if (!contentElement) {
+			return;
+		}
+
+		const contentWrapper = contentElement.closest('.content-wrapper');
+		if (!contentWrapper) {
+			return;
+		}
+
+		const currentState = this.tabScrollStates.get(tabType);
+		if (currentState?.initialScrollResetDone) {
+			return;
+		}
+
+		const behavior = this.initialRenderComplete ? 'smooth' : 'instant';
+
+		requestAnimationFrame(() => {
+			if (ScrollUtility && typeof ScrollUtility.scrollToElement === 'function') {
+				ScrollUtility.scrollToElement(contentWrapper, {
+					behavior,
+					block: 'start'
+				});
+			} else if (typeof contentWrapper.scrollTo === 'function') {
+				contentWrapper.scrollTo({
+					top: 0,
+					behavior: behavior === 'smooth' ? 'smooth' : 'auto'
+				});
+			} else {
+				contentWrapper.scrollTop = 0;
+			}
+
+			this.tabScrollStates.set(tabType, { initialScrollResetDone: true });
+		});
 	}
 }

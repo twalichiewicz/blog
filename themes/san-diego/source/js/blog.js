@@ -628,6 +628,25 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 					
 					toggleLongFormLayout(isLongFormContent);
+
+					// Ensure newly loaded content starts at the top
+					const targetScrollContainer = blogContentElement.querySelector('.content-wrapper');
+					if (targetScrollContainer) {
+						requestAnimationFrame(() => {
+							if (typeof ScrollUtility !== 'undefined' && ScrollUtility?.scrollToElement) {
+								ScrollUtility.scrollToElement(targetScrollContainer, {
+									behavior: 'instant',
+									block: 'start'
+								});
+							} else {
+								targetScrollContainer.scrollTo({
+									top: 0,
+									behavior: 'auto'
+								});
+							}
+						});
+					}
+
 					resetInnerWrapperScrollStyles();
 
 					// Content inserted successfully
