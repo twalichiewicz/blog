@@ -10,7 +10,7 @@ export const ScrollUtility = {
         defaultBlock: 'center',
         defaultInline: 'nearest',
         glowDuration: 2000,
-        tabSwitchDelay: 300,
+        tabSwitchDelay: 1000,
         headerOffset: 0
     },
 

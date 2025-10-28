@@ -174,7 +174,7 @@
 .mobile-tab-pane {
 	opacity: 0;
 	pointer-events: none;
-	transition: opacity 220ms ease;
+	transition: opacity 400ms ease;
 	will-change: opacity;
 
 	&.is-visible {
