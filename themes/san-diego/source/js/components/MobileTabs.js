@@ -32,6 +32,8 @@ export default class MobileTabs {
 		// Initialize state
 		this.userSelectedTab = null;
 		this.currentDeviceType = '';
+		this.initialRenderComplete = false;
+		this.initialRenderTimer = null;
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -413,6 +415,7 @@ export default class MobileTabs {
 			this.cacheElements();
 			// If still null after re-caching, exit
 			if (!this.postsContent || !this.projectsContent) {
+				this.markInitialRenderComplete(type);
 				return;
 			}
 		}
@@ -423,6 +426,11 @@ export default class MobileTabs {
 			this.projectsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
 		}
 
+		if (this.initialRenderTimer) {
+			clearTimeout(this.initialRenderTimer);
+			this.initialRenderTimer = null;
+		}
+
 		// EMERGENCY FIX: Device-desktop class no longer exists, check by device type instead
 		if (this.currentDeviceType === 'desktop') {
 			if (this.postsContent && this.projectsContent) {
@@ -430,6 +438,7 @@ export default class MobileTabs {
 				this.projectsContent.style.opacity = '1';
 				this.postsContent.style.display = 'block';
 				this.projectsContent.style.display = 'block';
+				this.markInitialRenderComplete(type);
 			}
 			if (this.searchBar) this.searchBar.style.display = 'block';
 
@@ -448,11 +457,13 @@ export default class MobileTabs {
 				this.projectsContent.style.opacity = '0';
 
 				// Use setTimeout to prevent content flashing
-				setTimeout(() => {
+				this.initialRenderTimer = setTimeout(() => {
+					this.initialRenderTimer = null;
 					// Double-check elements still exist before setting styles
 					if (this.postsContent && this.projectsContent) {
 						this.postsContent.style.display = 'block';
 						this.projectsContent.style.display = 'none';
+						this.markInitialRenderComplete(type);
 					}
 				}, this.config.transitionDuration);
 			}
@@ -469,11 +480,13 @@ export default class MobileTabs {
 				this.projectsContent.style.opacity = '1';
 
 				// Use setTimeout to prevent content flashing
-				setTimeout(() => {
+				this.initialRenderTimer = setTimeout(() => {
+					this.initialRenderTimer = null;
 					// Double-check elements still exist before setting styles
 					if (this.postsContent && this.projectsContent) {
 						this.postsContent.style.display = 'none';
 						this.projectsContent.style.display = 'block';
+						this.markInitialRenderComplete(type);
 					}
 				}, this.config.transitionDuration);
 			}
@@ -682,4 +695,34 @@ export default class MobileTabs {
 			this.tabsWrapper.style.zIndex = '';
 		}
 	}
-} 
+
+	markInitialRenderComplete(type) {
+		if (this.initialRenderComplete) {
+			return;
+		}
+
+		this.initialRenderComplete = true;
+		this.initialRenderTimer = null;
+
+		const activeTab =
+			type ||
+			this.tabContainer?.dataset?.activeTab ||
+			(Array.from(this.tabButtons || []).find(btn => btn.classList?.contains(this.config.activeClass))?.dataset?.type) ||
+			null;
+
+		if (typeof document !== 'undefined' && document.body) {
+			document.body.classList.add('tabs-initial-rendered');
+
+			if (activeTab) {
+				document.body.setAttribute('data-active-tab', activeTab);
+			}
+		}
+
+		try {
+			const eventDetail = { activeTab };
+			document.dispatchEvent(new CustomEvent('mobileTabs:initial-render', { detail: eventDetail }));
+		} catch (error) {
+			// CustomEvent might fail in very old browsers; ignore silently.
+		}
+	}
+}

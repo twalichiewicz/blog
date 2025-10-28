@@ -451,94 +451,126 @@
 		// Check blog-content children
 	}
 	
-	// Hide after 1.5 seconds
-	setTimeout(hideLoadingScreen, 1500);
-	
-	// Additional immediate check for page refreshes or back navigation
-	window.addEventListener('pageshow', function(event) {
-		if (event.persisted || document.querySelector('.loading-screen')) {
-			// Pageshow event - forcing loading screen removal
+		var loadingResolved = false;
+		var tabsReady = false;
+		
+		function resolveLoading(reason) {
+			if (loadingResolved) {
+				return;
+			}
+			loadingResolved = true;
 			hideLoadingScreen();
 		}
-	});
-	
-	// Check if we're coming from browser history
-	if (window.performance && window.performance.navigation.type === 2) {
-		// Page loaded from back/forward cache
-		setTimeout(hideLoadingScreen, 100);
-	}
-	
-	// Extra safety check after 2 seconds
-	setTimeout(function() {
-		// 2-second safety check
-		// Force blog-content visible again
-		var blogContent = document.querySelector('.blog-content');
-		if (blogContent) {
-			// Remove ALL inline styles and re-apply visibility
-			blogContent.removeAttribute('style');
-			
-			// Check if we're on desktop/tablet
-			var isDesktop = window.innerWidth > 768;
-			if (isDesktop) {
-				// Ensure proper height calculation and scrolling for desktop
-				blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: calc(100vh - 12px) !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; border-radius: 12px 0 0 0 !important;';
+		
+		function handleTabsReady() {
+			if (tabsReady) {
+				return;
+			}
+			tabsReady = true;
+			resolveLoading('tabs-ready');
+		}
+		
+		if (document.body && document.body.classList.contains('tabs-initial-rendered')) {
+			tabsReady = true;
+			resolveLoading('tabs-ready-existing');
+		} else {
+			document.addEventListener('mobileTabs:initial-render', handleTabsReady, { once: true });
+		}
+		
+		setTimeout(function() {
+			if (!tabsReady) {
+				tabsReady = true;
+				resolveLoading('tabs-timeout');
+			}
+		}, 4000);
+		
+		// Additional immediate check for page refreshes or back navigation
+		window.addEventListener('pageshow', function(event) {
+			if (event.persisted || document.querySelector('.loading-screen')) {
+				// Pageshow event - forcing loading screen removal
+				resolveLoading('pageshow');
+			}
+		});
+		
+		// Check if we're coming from browser history
+		if (window.performance && window.performance.navigation.type === 2) {
+			// Page loaded from back/forward cache
+			setTimeout(function() {
+				resolveLoading('bfcache');
+			}, 100);
+		}
+		
+		// Extra safety check after 2 seconds
+		setTimeout(function() {
+			// 2-second safety check
+			// Force blog-content visible again
+			var blogContent = document.querySelector('.blog-content');
+			if (blogContent) {
+				// Remove ALL inline styles and re-apply visibility
+				blogContent.removeAttribute('style');
 				
-				// Also ensure the content-inner-wrapper doesn't interfere with scrolling
-				var innerWrapper = blogContent.querySelector('.content-inner-wrapper');
-				if (innerWrapper) {
-					innerWrapper.style.minHeight = '100%';
-					// Preserve border-radius on inner wrapper too
-					innerWrapper.style.borderRadius = '12px 0 0 0';
+				// Check if we're on desktop/tablet
+				var isDesktop = window.innerWidth > 768;
+				if (isDesktop) {
+					// Ensure proper height calculation and scrolling for desktop
+					blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: calc(100vh - 12px) !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; border-radius: 12px 0 0 0 !important;';
+					
+					// Also ensure the content-inner-wrapper doesn't interfere with scrolling
+					var innerWrapper = blogContent.querySelector('.content-inner-wrapper');
+					if (innerWrapper) {
+						innerWrapper.style.minHeight = '100%';
+						// Preserve border-radius on inner wrapper too
+						innerWrapper.style.borderRadius = '12px 0 0 0';
+					}
+				} else {
+					// Mobile styles
+					blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: auto !important; overflow: visible !important; border-radius: 12px 0 0 0 !important;';
 				}
-			} else {
-				// Mobile styles
-				blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: auto !important; overflow: visible !important; border-radius: 12px 0 0 0 !important;';
-			}
-			
-			// Check actual computed height
-			var computedHeight = window.getComputedStyle(blogContent).height;
-			// Check blog-content computed height
-			
-			// If height is 0 or very small, force a minimum height
-			if (parseInt(computedHeight) < 100) {
-				// blog-content height too small, forcing minimum height
-				blogContent.style.minHeight = '500px';
-			}
-			
-			// Do the same for all children
-			var allChildren = blogContent.querySelectorAll('*');
-			allChildren.forEach(function(child) {
-				if (child.style.opacity === '0' || child.style.visibility === 'hidden') {
-					child.style.opacity = '1';
-					child.style.visibility = 'visible';
+				
+				// Check actual computed height
+				var computedHeight = window.getComputedStyle(blogContent).height;
+				// Check blog-content computed height
+				
+				// If height is 0 or very small, force a minimum height
+				if (parseInt(computedHeight) < 100) {
+					// blog-content height too small, forcing minimum height
+					blogContent.style.minHeight = '500px';
 				}
-			});
-		}
-		
-		// Also ensure blog has no hiding styles
-		var blog = document.querySelector('.blog');
-		if (blog) {
-			blog.style.opacity = '1';
-			blog.style.visibility = 'visible';
-			
-			// Check blog dimensions
-			var blogHeight = window.getComputedStyle(blog).height;
-			// Check blog element height
-		}
-		
-		// Final check - ensure blog-header isn't taking all the space
-		var blogHeader = document.querySelector('.blog-header');
-		if (blogHeader) {
-			var headerHeight = window.getComputedStyle(blogHeader).height;
-			// Check blog-header height
-			
-			// If header is taking full viewport, fix it
-			if (parseInt(headerHeight) >= window.innerHeight - 50) {
-				// blog-header taking too much space, adjusting
-				blogHeader.style.height = '50vh';
+				
+				// Do the same for all children
+				var allChildren = blogContent.querySelectorAll('*');
+				allChildren.forEach(function(child) {
+					if (child.style.opacity === '0' || child.style.visibility === 'hidden') {
+						child.style.opacity = '1';
+						child.style.visibility = 'visible';
+					}
+				});
 			}
-		}
-	}, 2000);
+			
+			// Also ensure blog has no hiding styles
+			var blog = document.querySelector('.blog');
+			if (blog) {
+				blog.style.opacity = '1';
+				blog.style.visibility = 'visible';
+				
+				// Check blog dimensions
+				var blogHeight = window.getComputedStyle(blog).height;
+				// Check blog element height
+			}
+			
+			// Final check - ensure blog-header isn't taking all the space
+			var blogHeader = document.querySelector('.blog-header');
+			if (blogHeader) {
+				var headerHeight = window.getComputedStyle(blogHeader).height;
+				// Check blog-header height
+				
+				// If header is taking full viewport, fix it
+				if (parseInt(headerHeight) >= window.innerHeight - 50) {
+					// blog-header taking too much space, adjusting
+					blogHeader.style.height = '50vh';
+				}
+			}
+		}, 2000);
 	
 	
 	// Set up mutation observer to prevent loading screen from reappearing
@@ -565,7 +597,7 @@
 	var existingLoadingScreen = document.querySelector('.loading-screen');
 	if (existingLoadingScreen && window.performance.timing.loadEventEnd > 0) {
 		// Page already loaded but loading screen exists, removing
-		hideLoadingScreen();
+		resolveLoading('existing-load-event');
 	}
 })();
 </script>
