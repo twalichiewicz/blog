@@ -635,7 +635,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						requestAnimationFrame(() => {
 							if (typeof ScrollUtility !== 'undefined' && ScrollUtility?.scrollToElement) {
 								ScrollUtility.scrollToElement(targetScrollContainer, {
-									behavior: 'instant',
+									behavior: 'auto',
 									block: 'start'
 								});
 							} else {

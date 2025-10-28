@@ -18,7 +18,7 @@ export default class MobileTabs {
 			projectsContentId: 'projectsContent',
 			searchBarSelector: '.search-bar',
 			activeClass: 'active',
-			transitionDuration: 150,
+			transitionDuration: 220,
 			...options
 		};
 
@@ -34,8 +34,8 @@ export default class MobileTabs {
 		this.userSelectedTab = null;
 		this.currentDeviceType = '';
 		this.initialRenderComplete = false;
-		this.initialRenderTimer = null;
 		this.tabScrollStates = new Map(); // Track whether each tab has already applied scroll-reset logic
+		this.fadeTimeout = null;
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -87,6 +87,8 @@ export default class MobileTabs {
 		this.postsContent = document.getElementById(this.config.postsContentId);
 		this.projectsContent = document.getElementById(this.config.projectsContentId);
 		this.searchBar = document.querySelector(this.config.searchBarSelector);
+
+		this.ensurePaneClasses();
 		
 		console.log('[MobileTabs] Cached elements:', {
 			tabButtons: this.tabButtons.length,
@@ -164,6 +166,11 @@ export default class MobileTabs {
 			clearTimeout(this.sliderUpdateTimeout);
 			this.sliderUpdateTimeout = null;
 		}
+
+		if (this.fadeTimeout) {
+			clearTimeout(this.fadeTimeout);
+			this.fadeTimeout = null;
+		}
 		
 		// Clear cached elements
 		this.tabsWrapper = null;
@@ -177,6 +184,9 @@ export default class MobileTabs {
 		this.userSelectedTab = null;
 		this.currentDeviceType = null;
 		this._mobileStickyState = null;
+		if (this.tabScrollStates) {
+			this.tabScrollStates.clear();
+		}
 	}
 
 	/**
@@ -184,18 +194,24 @@ export default class MobileTabs {
 	 */
 	initializeDesktopView() {
 		if (this.currentDeviceType === 'desktop') {
-			// On desktop, both sections should be visible
-			if (this.postsContent && this.projectsContent) {
-				this.postsContent.style.opacity = '1';
-				this.projectsContent.style.opacity = '1';
-				this.postsContent.style.display = 'block';
-				this.projectsContent.style.display = 'block';
+			this.ensurePaneClasses();
 
-				// Add desktop content rendering check with delay to allow for layout
-				setTimeout(() => {
-					this.checkDesktopContentRendering();
-				}, 1000);
+			// On desktop, both sections should be visible
+			if (this.postsContent) {
+				this.postsContent.style.display = 'block';
+				this.postsContent.classList.add('is-visible');
+				this.postsContent.setAttribute('aria-hidden', 'false');
 			}
+			if (this.projectsContent) {
+				this.projectsContent.style.display = 'block';
+				this.projectsContent.classList.add('is-visible');
+				this.projectsContent.setAttribute('aria-hidden', 'false');
+			}
+
+			// Add desktop content rendering check with delay to allow for layout
+			setTimeout(() => {
+				this.checkDesktopContentRendering();
+			}, 1000);
 
 			// Hide tabs wrapper on desktop
 			if (this.tabsWrapper) {
@@ -422,25 +438,21 @@ export default class MobileTabs {
 			}
 		}
 
-		// Apply CSS transitions for smoother content changes
-		if (this.postsContent && this.projectsContent) {
-			this.postsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
-			this.projectsContent.style.transition = `opacity ${this.config.transitionDuration}ms ease-in-out`;
-		}
+		this.ensurePaneClasses();
 
-		if (this.initialRenderTimer) {
-			clearTimeout(this.initialRenderTimer);
-			this.initialRenderTimer = null;
-		}
+		const shouldAnimate = this.initialRenderComplete;
 
-		// EMERGENCY FIX: Device-desktop class no longer exists, check by device type instead
+		// Desktop mode: show both panes side-by-side without animation
 		if (this.currentDeviceType === 'desktop') {
-			if (this.postsContent && this.projectsContent) {
-				this.postsContent.style.opacity = '1';
-				this.projectsContent.style.opacity = '1';
+			if (this.postsContent) {
 				this.postsContent.style.display = 'block';
+				this.postsContent.classList.add('is-visible');
+				this.postsContent.setAttribute('aria-hidden', 'false');
+			}
+			if (this.projectsContent) {
 				this.projectsContent.style.display = 'block';
-				this.markInitialRenderComplete(type);
+				this.projectsContent.classList.add('is-visible');
+				this.projectsContent.setAttribute('aria-hidden', 'false');
 			}
 			if (this.searchBar) this.searchBar.style.display = 'block';
 
@@ -448,72 +460,46 @@ export default class MobileTabs {
 			if (this.tabsWrapper) this.tabsWrapper.style.display = 'none';
 			this.resetScrollPositionIfNeeded('blog', this.postsContent);
 			this.resetScrollPositionIfNeeded('portfolio', this.projectsContent);
+			this.markInitialRenderComplete(type);
 			return;
 		}
 
-		// Show tabs wrapper on mobile/tablet
+		// Tablet/mobile: ensure tabs wrapper is visible
 		if (this.tabsWrapper) this.tabsWrapper.style.display = 'block';
 
-		// On mobile/tablet, show only the active tab
 		if (type === 'blog') {
-			if (this.postsContent && this.projectsContent) {
-				this.postsContent.style.opacity = '1';
-				this.projectsContent.style.opacity = '0';
-
-				// Use setTimeout to prevent content flashing
-				this.initialRenderTimer = setTimeout(() => {
-					this.initialRenderTimer = null;
-					// Double-check elements still exist before setting styles
-					if (this.postsContent && this.projectsContent) {
-						this.postsContent.style.display = 'block';
-						this.projectsContent.style.display = 'none';
-						this.markInitialRenderComplete(type);
-						this.resetScrollPositionIfNeeded('blog', this.postsContent);
-					}
-				}, this.config.transitionDuration);
-			}
+			this.applyTabFade(this.postsContent, this.projectsContent, shouldAnimate);
 
 			if (this.searchBar) this.searchBar.style.display = 'block';
-			
-			// Initialize posts only button when blog tab is shown
+
 			if (window.initializePostsOnlyButton) {
 				window.initializePostsOnlyButton();
 			}
-		} else if (type === 'portfolio') {
-			if (this.postsContent && this.projectsContent) {
-				this.postsContent.style.opacity = '0';
-				this.projectsContent.style.opacity = '1';
 
-				// Use setTimeout to prevent content flashing
-				this.initialRenderTimer = setTimeout(() => {
-					this.initialRenderTimer = null;
-					// Double-check elements still exist before setting styles
-					if (this.postsContent && this.projectsContent) {
-						this.postsContent.style.display = 'none';
-						this.projectsContent.style.display = 'block';
-						this.markInitialRenderComplete(type);
-						this.resetScrollPositionIfNeeded('portfolio', this.projectsContent);
-					}
-				}, this.config.transitionDuration);
-			}
+			this.resetScrollPositionIfNeeded('blog', this.postsContent);
+		} else if (type === 'portfolio') {
+			this.applyTabFade(this.projectsContent, this.postsContent, shouldAnimate);
 
 			if (this.searchBar) this.searchBar.style.display = 'none';
-			
-			// Initialize project toggle when portfolio tab is shown
+
 			if (window.initializeProjectToggle) {
 				window.initializeProjectToggle();
 			}
-			
+
+			this.resetScrollPositionIfNeeded('portfolio', this.projectsContent);
+
 			// Dispatch portfolio-loaded event to trigger carousel initialization
 			setTimeout(() => {
 				document.dispatchEvent(new Event('portfolio-loaded'));
-				
+
 				// Also check if carousel needs position restoration
 				if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
 					window._notebookCarousel.reinitialize();
 				}
 			}, 50);
 		}
+
+		this.markInitialRenderComplete(type);
 	}
 
 	/**
@@ -708,7 +694,6 @@ export default class MobileTabs {
 		}
 
 		this.initialRenderComplete = true;
-		this.initialRenderTimer = null;
 
 		const activeTab =
 			type ||
@@ -732,6 +717,70 @@ export default class MobileTabs {
 		}
 	}
 
+	ensurePaneClasses() {
+		[this.postsContent, this.projectsContent].forEach(pane => {
+			if (pane && !pane.classList.contains('mobile-tab-pane')) {
+				pane.classList.add('mobile-tab-pane');
+			}
+		});
+	}
+
+	applyTabFade(showElement, hideElement, animate) {
+		if (!showElement) {
+			return;
+		}
+
+		this.ensurePaneClasses();
+
+		if (this.fadeTimeout) {
+			clearTimeout(this.fadeTimeout);
+			this.fadeTimeout = null;
+		}
+
+		const duration = this.config.transitionDuration;
+		const paneToHide = hideElement && hideElement !== showElement ? hideElement : null;
+
+		if (!animate) {
+			showElement.style.display = 'block';
+			showElement.classList.add('is-visible');
+			showElement.setAttribute('aria-hidden', 'false');
+
+			if (paneToHide) {
+				paneToHide.classList.remove('is-visible');
+				paneToHide.style.display = 'none';
+				paneToHide.setAttribute('aria-hidden', 'true');
+			}
+
+			return;
+		}
+
+		showElement.style.display = 'block';
+		showElement.setAttribute('aria-hidden', 'false');
+		showElement.classList.remove('is-visible');
+
+		if (paneToHide) {
+			paneToHide.style.display = 'block';
+			paneToHide.setAttribute('aria-hidden', 'true');
+		}
+
+		requestAnimationFrame(() => {
+			showElement.classList.add('is-visible');
+
+			if (paneToHide) {
+				paneToHide.classList.remove('is-visible');
+			}
+		});
+
+		if (paneToHide) {
+			this.fadeTimeout = window.setTimeout(() => {
+				if (!paneToHide.classList.contains('is-visible')) {
+					paneToHide.style.display = 'none';
+				}
+				this.fadeTimeout = null;
+			}, duration);
+		}
+	}
+
 	resetScrollPositionIfNeeded(tabType, contentElement) {
 		if (!contentElement) {
 			return;
@@ -747,7 +796,7 @@ export default class MobileTabs {
 			return;
 		}
 
-		const behavior = this.initialRenderComplete ? 'smooth' : 'instant';
+		const behavior = 'auto';
 
 		requestAnimationFrame(() => {
 			if (ScrollUtility && typeof ScrollUtility.scrollToElement === 'function') {
@@ -758,7 +807,7 @@ export default class MobileTabs {
 			} else if (typeof contentWrapper.scrollTo === 'function') {
 				contentWrapper.scrollTo({
 					top: 0,
-					behavior: behavior === 'smooth' ? 'smooth' : 'auto'
+					behavior
 				});
 			} else {
 				contentWrapper.scrollTop = 0;
