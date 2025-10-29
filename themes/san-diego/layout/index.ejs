@@ -655,14 +655,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	if (postPath || projectPath) {
 		const path = postPath || projectPath;
 		const isProject = !!projectPath;
+		const originatingTab = isProject ? 'portfolio' : 'blog';
 		setTimeout(function() {
 			const blogContent = document.querySelector('.blog-content');
 			if (blogContent && window.fetchAndDisplayContent) {
 				if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-					window.mobileTabs.switchTab(isProject ? 'portfolio' : 'blog', true);
+					window.mobileTabs.switchTab(originatingTab, true);
 				}
-				window.fetchAndDisplayContent(path, false, isProject);
-				window.history.replaceState({ path: path, isDynamic: true, isProject: isProject }, '', path);
+				window.fetchAndDisplayContent(path, false, isProject, originatingTab);
+				window.history.replaceState({ path: path, isDynamic: true, isProject: isProject, fromTab: originatingTab }, '', path);
 			}
 		}, 500);
 	}

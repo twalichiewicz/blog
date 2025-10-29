@@ -152,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		let initialBlogContentHTML = blogContentElement.innerHTML;
 		let initialBlogContentURL = window.location.pathname + window.location.search + window.location.hash; // More robust URL capture
+		let lastTabBeforeDynamicLoad = 'blog';
 
 		updateDynamicBackButtonPlacement = function() {
 			if (!blogContentElement) return;
@@ -413,20 +414,20 @@ document.addEventListener('DOMContentLoaded', function () {
 									if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
 										window._notebookCarousel.reinitialize();
 									}
-								}, 300); // Longer delay to ensure scroll restoration completes
-							}, 50);
-						} else {
-							// Coming from a blog post, show blog tab and clean URL
-							setTimeout(() => {
-								if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-									window.mobileTabs.switchTab('blog', false);
-								}
-								// Clean up URL parameter if coming from blog post
-								if (window.location.search.includes('tab=portfolio')) {
-									history.replaceState({ path: '/', isInitial: true, isDynamic: false }, '', '/');
-								}
-							}, 50);
-						}
+				}, 300); // Longer delay to ensure scroll restoration completes
+			}, 50);
+		} else {
+			// Coming from a blog post, show the originating tab and clean URL
+			setTimeout(() => {
+				if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+					window.mobileTabs.switchTab(lastTabBeforeDynamicLoad, false);
+				}
+				// Clean up URL parameter if coming from blog post
+				if (window.location.search.includes('tab=portfolio')) {
+					history.replaceState({ path: '/', isInitial: true, isDynamic: false, fromTab: lastTabBeforeDynamicLoad }, '', '/');
+				}
+			}, 50);
+		}
 						
 						// Re-initialize sound effects when returning to home page
 						if (window.initializeSoundEffects) {
@@ -461,171 +462,146 @@ document.addEventListener('DOMContentLoaded', function () {
 			return backButton;
 		}
 
-		async function fetchAndDisplayContent(url, isPushState = true, isProject = false) {
-			if (!blogContentElement) return;
+async function fetchAndDisplayContent(url, isPushState = true, isProject = false, originatingTab = null) {
+	if (!blogContentElement) return;
 
-			// Before clearing content, cleanup any carousel instances managed by carousel.js
-			if (typeof cleanupCarouselInstances === 'function') {
-				// Cleaning up carousel instances from blogContentElement
-				cleanupCarouselInstances(blogContentElement);
+	// Before clearing content, cleanup any carousel instances managed by carousel.js
+	if (typeof cleanupCarouselInstances === 'function') {
+		cleanupCarouselInstances(blogContentElement);
+	}
+
+	// Add has-dynamic-content class to enable proper scrolling
+	blogContentElement.classList.add('has-dynamic-content');
+
+	// Ensure existing content-inner-wrapper has border-radius during transition
+	const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+	if (existingInnerWrapper) {
+		const isMobile = window.matchMedia('(max-width: 768px)').matches;
+		if (isMobile) {
+			// Mobile: all corners rounded
+			existingInnerWrapper.style.setProperty('border-radius', '12px', 'important');
+		} else {
+			// Desktop/tablet: only top-left corner rounded
+			// First clear any existing border-radius shorthand
+			existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+		}
+	}
+
+	// Start screen wipe transition
+	let transitionData = null;
+	if (window.ScreenWipeTransition) {
+		transitionData = await window.ScreenWipeTransition.start();
+	}
+
+	// Clear content after transition starts
+	blogContentElement.innerHTML = '';
+
+	try {
+		const response = await fetch(url);
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		const htmlText = await response.text();
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(htmlText, 'text/html');
+
+		// Updated selector to handle new Substack-style posts
+		let contentToExtractSelector = isProject ? 'div.project-edge-wrapper' : 'div.post-wrapper';
+		let newContentContainer = doc.querySelector(contentToExtractSelector);
+
+		// Fallback for projects: if project-edge-wrapper is not found, try project-wrapper
+		if (!newContentContainer && isProject) {
+			contentToExtractSelector = 'div.project-wrapper';
+			newContentContainer = doc.querySelector(contentToExtractSelector);
+		}
+
+		// Fallback: if loading a post and article.post is not found, try div.project-wrapper
+		if (!newContentContainer && !isProject) {
+			newContentContainer = doc.querySelector('div.project-wrapper');
+		}
+
+		const backButton = addOrUpdateBackButton();
+		// Back button created
+
+		if (newContentContainer) {
+			const containsPostWrapper = newContentContainer && (
+				newContentContainer.classList.contains('post-wrapper') ||
+				newContentContainer.querySelector('.post-wrapper')
+			);
+			const isLongFormContent = !isProject && containsPostWrapper;
+			const resolvedOriginatingTab = originatingTab || (isProject ? 'portfolio' : 'blog');
+			lastTabBeforeDynamicLoad = resolvedOriginatingTab;
+			if (history.state && history.state.isInitial) {
+				const currentState = { ...history.state, fromTab: resolvedOriginatingTab };
+				history.replaceState(currentState, '', currentState.path || initialBlogContentURL);
+			}
+			// Safari fix: Fix image paths BEFORE cloning
+			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+			if (isSafari && isProject) {
+				const carouselImages = newContentContainer.querySelectorAll('.carousel img');
+
+				// For project pages, we need to build the full path including the project directory
+				const urlObj = new URL(url, window.location.origin);
+				const pathname = urlObj.pathname;
+				const projectPath = pathname.replace(/\.html$/, '').replace(/\/?$/, '/');
+
+				carouselImages.forEach((img) => {
+					const originalSrc = img.getAttribute('src') || '';
+					if (originalSrc.startsWith('./')) {
+						const filename = originalSrc.substring(2);
+						const resolvedSrc = projectPath + filename;
+						img.setAttribute('src', resolvedSrc);
+					} else if (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')) {
+						const resolvedSrc = projectPath + originalSrc;
+						img.setAttribute('src', resolvedSrc);
+					}
+				});
 			}
 
-			// Add has-dynamic-content class to enable proper scrolling
-			blogContentElement.classList.add('has-dynamic-content');
-			
-			// Ensure existing content-inner-wrapper has border-radius during transition
-			const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
-			if (existingInnerWrapper) {
+			const contentFragment = document.createDocumentFragment();
+
+			// Special handling for project-edge-wrapper: don't add extra wrappers
+			if (newContentContainer.classList.contains('project-edge-wrapper')) {
+				const projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
+				if (projectWrapperInstance) {
+					projectWrapperInstance.classList.add('dynamic-loaded');
+				}
+
+				const clonedContent = newContentContainer.cloneNode(true);
+				contentFragment.appendChild(clonedContent);
+			} else {
+				const innerWrapper = document.createElement('div');
+				innerWrapper.className = 'content-inner-wrapper';
+				innerWrapper.style.opacity = '0'; // Start transparent for fade-in
+				innerWrapper.style.overflow = 'hidden';
+
 				const isMobile = window.matchMedia('(max-width: 768px)').matches;
 				if (isMobile) {
-					// Mobile: all corners rounded
-					existingInnerWrapper.style.setProperty('border-radius', '12px', 'important');
+					innerWrapper.style.setProperty('border-radius', '12px', 'important');
 				} else {
-					// Desktop/tablet: only top-left corner rounded
-					// First clear any existing border-radius shorthand
-					existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+					innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
 				}
+
+				let projectWrapperInstance = null;
+				if (newContentContainer.classList.contains('project-wrapper')) {
+					projectWrapperInstance = newContentContainer;
+				} else {
+					projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
+				}
+
+				if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
+					projectWrapperInstance.classList.add('dynamic-loaded');
+				}
+
+				innerWrapper.appendChild(newContentContainer.cloneNode(true));
+				contentFragment.appendChild(innerWrapper);
 			}
 
-			// Start screen wipe transition
-			let transitionData = null;
-			if (window.ScreenWipeTransition) {
-				transitionData = await window.ScreenWipeTransition.start();
+			if (backButton) {
+				backButton.after(contentFragment);
+			} else {
+				blogContentElement.appendChild(contentFragment);
 			}
-
-			// Clear content after transition starts
-			blogContentElement.innerHTML = '';
-
-			try {
-				const response = await fetch(url);
-				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`);
-				}
-				const htmlText = await response.text();
-				const parser = new DOMParser();
-				const doc = parser.parseFromString(htmlText, 'text/html');
-
-				// Updated selector to handle new Substack-style posts
-					let contentToExtractSelector = isProject ? 'div.project-edge-wrapper' : 'div.post-wrapper';
-				let newContentContainer = doc.querySelector(contentToExtractSelector);
-
-				// Initial selector determined
-				// Found content container
-
-				// Fallback for projects: if project-edge-wrapper is not found, try project-wrapper
-				if (!newContentContainer && isProject) {
-					contentToExtractSelector = 'div.project-wrapper';
-					newContentContainer = doc.querySelector(contentToExtractSelector);
-					// Fallback selector
-					// Fallback content container
-				}
-
-				// Fallback: if loading a post and article.post is not found, try div.project-wrapper
-				if (!newContentContainer && !isProject) {
-					newContentContainer = doc.querySelector('div.project-wrapper');
-					// Post fallback to project-wrapper
-				}
-
-				const backButton = addOrUpdateBackButton();
-				// Back button created
-
-				if (newContentContainer) {
-					const containsPostWrapper = newContentContainer && (
-						newContentContainer.classList.contains('post-wrapper') ||
-						newContentContainer.querySelector('.post-wrapper')
-					);
-					const isLongFormContent = !isProject && containsPostWrapper;
-					// Content container found, proceeding with insertion
-					// Container classes logged
-					// Container HTML preview logged
-					
-					// Safari fix: Fix image paths BEFORE cloning
-					const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-					if (isSafari && isProject) {
-						const carouselImages = newContentContainer.querySelectorAll('.carousel img');
-						
-						// For project pages, we need to build the full path including the project directory
-						// Parse the URL to get just the pathname
-						const urlObj = new URL(url, window.location.origin);
-						const pathname = urlObj.pathname;
-						// Remove .html extension and ensure trailing slash
-						const projectPath = pathname.replace(/\.html$/, '').replace(/\/?$/, '/');
-						
-						carouselImages.forEach((img, index) => {
-							const originalSrc = img.getAttribute('src') || '';
-							if (originalSrc.startsWith('./')) {
-								// Remove './' and prepend the project path
-								const filename = originalSrc.substring(2);
-								const resolvedSrc = projectPath + filename;
-								img.setAttribute('src', resolvedSrc);
-							} else if (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')) {
-								// Relative path without './'
-								const resolvedSrc = projectPath + originalSrc;
-								img.setAttribute('src', resolvedSrc);
-							}
-						});
-					}
-
-					const contentFragment = document.createDocumentFragment();
-
-					// Special handling for project-edge-wrapper: don't add extra wrappers
-					if (newContentContainer.classList.contains('project-edge-wrapper')) {
-						// Project edge wrapper detected, inserting without extra wrappers
-
-						// Find and mark project-wrapper inside edge-wrapper with dynamic-loaded
-						const projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
-						if (projectWrapperInstance) {
-							projectWrapperInstance.classList.add('dynamic-loaded');
-							// Added dynamic-loaded to project-wrapper inside edge-wrapper
-						}
-
-						const clonedContent = newContentContainer.cloneNode(true);
-						contentFragment.appendChild(clonedContent);
-					} else {
-						// Regular content handling - Use same simple structure for all devices
-						const innerWrapper = document.createElement('div');
-						innerWrapper.className = 'content-inner-wrapper';
-						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
-						
-						// Apply border-radius based on screen size
-						// Use matchMedia for better mobile detection that matches CSS
-						const isMobile = window.matchMedia('(max-width: 768px)').matches;
-						
-						innerWrapper.style.overflow = 'hidden';
-						
-						if (isMobile) {
-							// Mobile: all corners rounded
-							innerWrapper.style.setProperty('border-radius', '12px', 'important');
-						} else {
-							// Desktop/tablet: only top-left corner rounded
-							innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
-						}
-
-						// Handle project-wrapper inside regular content
-						let projectWrapperInstance = null;
-						if (newContentContainer.classList.contains('project-wrapper')) {
-							projectWrapperInstance = newContentContainer;
-						} else {
-							projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
-						}
-
-						if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
-							projectWrapperInstance.classList.add('dynamic-loaded');
-							// Added dynamic-loaded to project wrapper
-						}
-
-						innerWrapper.appendChild(newContentContainer.cloneNode(true));
-						contentFragment.appendChild(innerWrapper);
-					}
-
-					// Insert content consistently for all devices
-					if (backButton) {
-						// Inserting content after back button
-						backButton.after(contentFragment);
-					} else {
-						// Appending content directly to blog element
-						blogContentElement.appendChild(contentFragment);
-					}
 					
 					toggleLongFormLayout(isLongFormContent);
 
@@ -737,9 +713,9 @@ document.addEventListener('DOMContentLoaded', function () {
 					if (backButton) { backButton.after(errorMsg); } else { blogContentElement.appendChild(errorMsg); }
 				}
 
-				if (isPushState) {
-					history.pushState({ path: url, isProject: isProject, isDynamic: true }, '', url);
-				}
+		if (isPushState) {
+			history.pushState({ path: url, isProject: isProject, isDynamic: true, fromTab: resolvedOriginatingTab }, '', url);
+		}
 			} catch (error) {
 				// Error fetching or displaying content
 				const errorTechnical = document.createElement('p');
@@ -785,9 +761,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						window.playBookSound();
 					}
 					
-					const url = link.href;
-					// Fetching content
-					fetchAndDisplayContent(url, true, isProjectLink);
+				const url = link.href;
+				// Fetching content
+				const originatingTab = isProjectLink ? 'portfolio' : 'blog';
+				fetchAndDisplayContent(url, true, isProjectLink, originatingTab);
 				}
 			}
 		}
@@ -811,9 +788,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Resize listener removed - dynamic content now works on all screen sizes
 
-		const handlePopstate = async function (event) {
-			// If we're returning to the home page (no state or initial state)
-			if (!event.state || event.state.isInitial) {
+	const handlePopstate = async function (event) {
+		if (event.state && event.state.fromTab) {
+			lastTabBeforeDynamicLoad = event.state.fromTab;
+		}
+		// If we're returning to the home page (no state or initial state)
+		if (!event.state || event.state.isInitial) {
 				toggleLongFormLayout(false);
 				// Ensure the page is visible
 				document.body.style.opacity = '1';
@@ -832,11 +812,12 @@ document.addEventListener('DOMContentLoaded', function () {
 					}
 				}
 				
-				// Check if we're coming back from a project (portfolio was likely active)
-				const currentHistoryState = history.state;
-				const wasOnProject = window.location.pathname.includes('/20'); // Year-based URLs
-				
-				if (wasOnProject || (currentHistoryState && currentHistoryState.isProject)) {
+			// Check if we're coming back from a project (portfolio was likely active)
+			const currentHistoryState = history.state;
+			const wasOnProject = window.location.pathname.includes('/20'); // Year-based URLs
+			const cameFromPortfolioTab = (event.state && event.state.fromTab === 'portfolio') || (currentHistoryState && currentHistoryState.fromTab === 'portfolio');
+
+			if (wasOnProject || (currentHistoryState && currentHistoryState.isProject) || cameFromPortfolioTab) {
 					// Mark as back navigation for carousel
 					sessionStorage.setItem('portfolio-back-navigation', 'true');
 					
@@ -906,9 +887,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Expose fetchAndDisplayContent globally for direct navigation
 		window.fetchAndDisplayContent = fetchAndDisplayContent;
 
-		if (!history.state || (!history.state.isDynamic && !history.state.isInitial)) {
-			history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
-		}
+	if (!history.state || (!history.state.isDynamic && !history.state.isInitial)) {
+		history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: 'blog' }, '', initialBlogContentURL);
+	}
 	}
 
 	if (document.querySelector('.blog-content')) {
