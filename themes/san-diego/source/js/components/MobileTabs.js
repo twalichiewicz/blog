@@ -37,6 +37,7 @@ export default class MobileTabs {
 		this.tabScrollStates = new Map(); // Track whether each tab has already applied scroll-reset logic
 		this.fadeTimeout = null;
 		this.fadeInTimeout = null;
+		this.initialRenderTimeout = null;
 		this.scrollResetTimeouts = new Map(); // Track pending scroll resets per tab
 
 		// Cache DOM elements
@@ -177,6 +178,11 @@ export default class MobileTabs {
 		if (this.fadeInTimeout) {
 			clearTimeout(this.fadeInTimeout);
 			this.fadeInTimeout = null;
+		}
+
+		if (this.initialRenderTimeout) {
+			clearTimeout(this.initialRenderTimeout);
+			this.initialRenderTimeout = null;
 		}
 
 		if (this.scrollResetTimeouts) {
@@ -445,7 +451,7 @@ export default class MobileTabs {
 			this.cacheElements();
 			// If still null after re-caching, exit
 			if (!this.postsContent || !this.projectsContent) {
-				this.markInitialRenderComplete(type);
+				this.markInitialRenderComplete(type, 0);
 				return;
 			}
 		}
@@ -472,7 +478,7 @@ export default class MobileTabs {
 			if (this.tabsWrapper) this.tabsWrapper.style.display = 'none';
 			this.resetScrollPositionIfNeeded('blog', this.postsContent);
 			this.resetScrollPositionIfNeeded('portfolio', this.projectsContent);
-			this.markInitialRenderComplete(type);
+			this.markInitialRenderComplete(type, 0);
 			return;
 		}
 
@@ -489,6 +495,7 @@ export default class MobileTabs {
 			}
 
 			this.scheduleScrollReset('blog', this.postsContent, shouldAnimate, transitionTime);
+			this.markInitialRenderComplete(type, transitionTime);
 		} else if (type === 'portfolio') {
 			const transitionTime = this.applyTabFade(this.projectsContent, this.postsContent, shouldAnimate);
 
@@ -499,6 +506,7 @@ export default class MobileTabs {
 			}
 
 			this.scheduleScrollReset('portfolio', this.projectsContent, shouldAnimate, transitionTime);
+			this.markInitialRenderComplete(type, transitionTime);
 
 			// Dispatch portfolio-loaded event to trigger carousel initialization
 			setTimeout(() => {
@@ -509,9 +517,9 @@ export default class MobileTabs {
 					window._notebookCarousel.reinitialize();
 				}
 			}, 50);
+		} else {
+			this.markInitialRenderComplete(type, 0);
 		}
-
-		this.markInitialRenderComplete(type);
 	}
 
 	/**
@@ -700,35 +708,6 @@ export default class MobileTabs {
 		}
 	}
 
-	markInitialRenderComplete(type) {
-		if (this.initialRenderComplete) {
-			return;
-		}
-
-		this.initialRenderComplete = true;
-
-		const activeTab =
-			type ||
-			this.tabContainer?.dataset?.activeTab ||
-			(Array.from(this.tabButtons || []).find(btn => btn.classList?.contains(this.config.activeClass))?.dataset?.type) ||
-			null;
-
-		if (typeof document !== 'undefined' && document.body) {
-			document.body.classList.add('tabs-initial-rendered');
-
-			if (activeTab) {
-				document.body.setAttribute('data-active-tab', activeTab);
-			}
-		}
-
-		try {
-			const eventDetail = { activeTab };
-			document.dispatchEvent(new CustomEvent('mobileTabs:initial-render', { detail: eventDetail }));
-		} catch (error) {
-			// CustomEvent might fail in very old browsers; ignore silently.
-		}
-	}
-
 	ensurePaneClasses() {
 		[this.postsContent, this.projectsContent].forEach(pane => {
 			if (pane && !pane.classList.contains('mobile-tab-pane')) {
@@ -856,5 +835,55 @@ export default class MobileTabs {
 
 			this.tabScrollStates.set(tabType, { initialScrollResetDone: true });
 		});
+	}
+
+	markInitialRenderComplete(type, delay = 0) {
+		if (this.initialRenderComplete) {
+			return;
+		}
+
+		let effectiveDelay = delay;
+		if (!effectiveDelay || effectiveDelay < 0) {
+			effectiveDelay = Math.max(250, this.config.transitionDuration + 150);
+		}
+
+		const finalize = () => {
+			if (this.initialRenderComplete) {
+				return;
+			}
+
+			this.initialRenderComplete = true;
+			this.initialRenderTimeout = null;
+
+			const activeTab =
+				type ||
+				this.tabContainer?.dataset?.activeTab ||
+				(Array.from(this.tabButtons || []).find(btn => btn.classList?.contains(this.config.activeClass))?.dataset?.type) ||
+				null;
+
+			if (typeof document !== 'undefined' && document.body) {
+				document.body.classList.add('tabs-initial-rendered');
+
+				if (activeTab) {
+					document.body.setAttribute('data-active-tab', activeTab);
+				}
+			}
+
+			try {
+				const eventDetail = { activeTab };
+				document.dispatchEvent(new CustomEvent('mobileTabs:initial-render', { detail: eventDetail }));
+			} catch (error) {
+				// CustomEvent might fail in very old browsers; ignore silently.
+			}
+		};
+
+		if (effectiveDelay > 0) {
+			if (this.initialRenderTimeout) {
+				clearTimeout(this.initialRenderTimeout);
+			}
+			this.initialRenderTimeout = window.setTimeout(finalize, effectiveDelay);
+		} else {
+			finalize();
+		}
 	}
 }
