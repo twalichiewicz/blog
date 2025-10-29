@@ -496,6 +496,8 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 	// Clear content after transition starts
 	blogContentElement.innerHTML = '';
 
+	let contentInserted = false;
+
 	try {
 		const response = await fetch(url);
 		if (!response.ok) {
@@ -602,6 +604,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 			} else {
 				blogContentElement.appendChild(contentFragment);
 			}
+			contentInserted = true;
 					
 					toggleLongFormLayout(isLongFormContent);
 
@@ -716,15 +719,17 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		if (isPushState) {
 			history.pushState({ path: url, isProject: isProject, isDynamic: true, fromTab: resolvedOriginatingTab }, '', url);
 		}
-			} catch (error) {
-				// Error fetching or displaying content
-				const errorTechnical = document.createElement('p');
-				errorTechnical.textContent = 'There was an error loading the page.';
-				let backBtn = blogContentElement.querySelector('.dynamic-back-button');
-				if (!backBtn) backBtn = addOrUpdateBackButton();
-				if (backBtn) { backBtn.after(errorTechnical); } else { blogContentElement.appendChild(errorTechnical); }
-				toggleLongFormLayout(false);
-			}
+	} catch (error) {
+		console.error('[fetchAndDisplayContent] Failed to load dynamic content:', error);
+		if (!contentInserted) {
+			const errorTechnical = document.createElement('p');
+			errorTechnical.textContent = 'There was an error loading the page.';
+			let backBtn = blogContentElement.querySelector('.dynamic-back-button');
+			if (!backBtn) backBtn = addOrUpdateBackButton();
+			if (backBtn) { backBtn.after(errorTechnical); } else { blogContentElement.appendChild(errorTechnical); }
+			toggleLongFormLayout(false);
+		}
+	}
 			
 			// End screen wipe transition
 			if (window.ScreenWipeTransition && transitionData) {
