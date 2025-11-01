@@ -148,6 +148,11 @@
   .device-mobile .blog {
     display: flex !important;
     flex-direction: column !important;
+    position: static !important;
+    width: 100% !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
     height: auto !important; // Changed from 100dvh to auto
     min-height: 100dvh !important;
     overflow: visible !important; // Changed from hidden
@@ -156,9 +161,11 @@
       flex-shrink: 0;
       height: auto;
     }
-    
+
     .blog-content {
       flex: 1 1 auto !important;
+      position: static !important;
+      width: 100% !important;
       overflow: visible !important; // Changed from auto
       min-height: 0 !important;
       display: flex !important;

@@ -653,6 +653,7 @@ export default class MobileTabs {
 
 			// Update tab container visible state
 			this.ensureTabsVisibleInTabletMode();
+			this.resetScrollContainersForDevice();
 
 			// Update the slider for the active tab
 			setTimeout(() => this.updateSlider(), 50);
@@ -671,6 +672,7 @@ export default class MobileTabs {
 			if (this.searchBar) this.searchBar.style.display = 'block';
 
 			this.clearMobileOverflowFixes();
+			this.resetScrollContainersForDevice();
 		}
 	}
 
@@ -725,6 +727,43 @@ export default class MobileTabs {
 			this.tabsWrapper.style.top = '';
 			this.tabsWrapper.style.zIndex = '';
 		}
+	}
+
+	resetScrollContainersForDevice() {
+		const clearScrollableInlineStyles = (element) => {
+			if (!element) return;
+			element.style.removeProperty('height');
+			element.style.removeProperty('max-height');
+			element.style.removeProperty('min-height');
+			element.style.removeProperty('overflow');
+			element.style.removeProperty('overflow-y');
+			element.style.removeProperty('overflow-x');
+			element.style.removeProperty('position');
+			element.style.removeProperty('top');
+			element.style.removeProperty('right');
+			element.style.removeProperty('bottom');
+			element.style.removeProperty('left');
+			element.style.removeProperty('width');
+		};
+
+		const normalize = () => {
+			const blogElement = document.querySelector('.blog');
+			if (!blogElement) return;
+
+			const blogContent = blogElement.querySelector('.blog-content');
+			const contentWrappers = blogElement.querySelectorAll('.content-wrapper');
+			const innerWrappers = blogElement.querySelectorAll('.content-inner-wrapper');
+
+			clearScrollableInlineStyles(blogElement);
+			clearScrollableInlineStyles(blogContent);
+			contentWrappers.forEach(clearScrollableInlineStyles);
+			innerWrappers.forEach(clearScrollableInlineStyles);
+		};
+
+		// Defer to next frame so media queries have applied before we clear inline overrides
+		requestAnimationFrame(() => {
+			requestAnimationFrame(normalize);
+		});
 	}
 
 	ensurePaneClasses() {
