@@ -130,15 +130,30 @@
   
   // Fix cutoff at bottom for both Words and Works
   .content-wrapper {
-    padding-bottom: 24px; // Add padding to wrapper to show bottom content
+    padding-bottom: variables.$space-md; // Provide breathing room for scroll container
   }
-  
-  #postsContent {
-    padding-bottom: 48px !important; // Extra padding for posts
-  }
-  
+}
+
+// Provide consistent vertical padding for tab panels on all viewports
+#postsContent,
+#projectsContent {
+  padding-top: variables.$space-sm;
+  padding-bottom: calc(variables.$space-sm + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  #postsContent,
   #projectsContent {
-    padding-bottom: 48px !important; // Extra padding for projects
+    padding-top: variables.$space-md;
+    padding-bottom: variables.$space-md;
+  }
+}
+
+@media (min-width: variables.$tablet-breakpoint) {
+  #postsContent,
+  #projectsContent {
+    padding-top: variables.$space-xl;
+    padding-bottom: variables.$space-xl;
   }
 }
 
@@ -191,6 +206,7 @@
         min-height: calc(100dvh - var(--blog-header-height, 100vh));
         flex: 1 1 auto;
         background-color: variables.$white; // Ensure background extends
+        padding-bottom: 0 !important; // Prevent excess bottom padding on mobile
         
         // Dark mode background
         @media (prefers-color-scheme: dark) {
