@@ -796,7 +796,7 @@ export default class MobileTabs {
 		}
 
 		const delay = animate ? transitionTime + 120 : 80;
-		const behavior = animate ? 'smooth' : 'auto';
+		const behavior = 'auto';
 
 		if (this.scrollResetTimeouts.has(tabType)) {
 			clearTimeout(this.scrollResetTimeouts.get(tabType));
@@ -824,6 +824,12 @@ export default class MobileTabs {
 
 		const currentState = this.tabScrollStates.get(tabType);
 		if (currentState?.initialScrollResetDone) {
+			return;
+		}
+
+		const currentScrollTop = contentWrapper.scrollTop || 0;
+		if (currentScrollTop <= 0) {
+			this.tabScrollStates.set(tabType, { initialScrollResetDone: true });
 			return;
 		}
 
