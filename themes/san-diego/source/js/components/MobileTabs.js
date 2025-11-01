@@ -39,6 +39,7 @@ export default class MobileTabs {
 		this.fadeInTimeout = null;
 		this.initialRenderTimeout = null;
 		this.scrollResetTimeouts = new Map(); // Track pending scroll resets per tab
+		this.animationSuppressedUntil = 0;
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -205,6 +206,7 @@ export default class MobileTabs {
 		if (this.tabScrollStates) {
 			this.tabScrollStates.clear();
 		}
+		this.animationSuppressedUntil = 0;
 	}
 
 	/**
@@ -459,7 +461,7 @@ export default class MobileTabs {
 
 		this.ensurePaneClasses();
 
-		const shouldAnimate = animate && this.initialRenderComplete;
+		const shouldAnimate = animate && this.initialRenderComplete && !this.areAnimationsSuppressed();
 
 		// Desktop mode: show both panes side-by-side without animation
 		if (this.currentDeviceType === 'desktop') {
@@ -574,6 +576,7 @@ export default class MobileTabs {
 	 * Handle window resize event
 	 */
 	handleResize() {
+		this.suppressAnimations();
 		const newDeviceType = this.getDeviceType();
 		if (newDeviceType !== this.currentDeviceType) {
 			this.currentDeviceType = newDeviceType;
@@ -626,6 +629,9 @@ export default class MobileTabs {
 	 * @param {boolean} isDeviceTypeChange - Whether this was triggered by a device type change
 	 */
 	handleDeviceChange(isDeviceTypeChange = false) {
+		if (isDeviceTypeChange) {
+			this.suppressAnimations();
+		}
 		// For mobile and tablet, ensure tabs are properly shown and active tab has content displayed
 		if (this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet') {
 			if (this.tabsWrapper) this.tabsWrapper.style.display = 'block';
@@ -887,5 +893,31 @@ export default class MobileTabs {
 		} else {
 			finalize();
 		}
+	}
+
+	suppressAnimations(duration = this.config.transitionDuration + 200) {
+		if (typeof Date === 'undefined') {
+			return;
+		}
+
+		const now = Date.now();
+		const safeDuration = Math.max(0, duration);
+		const suppressionUntil = now + safeDuration;
+
+		this.animationSuppressedUntil = Math.max(this.animationSuppressedUntil || 0, suppressionUntil);
+	}
+
+	areAnimationsSuppressed() {
+		if (!this.animationSuppressedUntil) {
+			return false;
+		}
+
+		const now = Date.now();
+		if (now >= this.animationSuppressedUntil) {
+			this.animationSuppressedUntil = 0;
+			return false;
+		}
+
+		return true;
 	}
 }
