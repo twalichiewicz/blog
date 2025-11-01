@@ -367,7 +367,7 @@ export default class MobileTabs {
 
 		// If a user selection exists and the UI matches it, we're good.
 		if (targetTabType && activeButtons.length === 1 && activeButtons[0].dataset.type === targetTabType) {
-			this.showContent(targetTabType); // Ensure content is consistent
+			this.showContent(targetTabType, { animate: false }); // Ensure content is consistent
 			this.updateSlider();
 			return targetTabType;
 		}
@@ -423,7 +423,7 @@ export default class MobileTabs {
 			targetButton.classList.add(this.config.activeClass);
 			targetButton.setAttribute('aria-selected', 'true');
 			this.tabContainer.setAttribute('data-active-tab', targetTabType);
-			this.showContent(targetTabType);
+			this.showContent(targetTabType, { animate: false });
 			this.updateSlider();
 			return targetTabType;
 		} else if (this.tabButtons.length > 0) {
@@ -433,7 +433,7 @@ export default class MobileTabs {
 			firstButton.classList.add(this.config.activeClass);
 			firstButton.setAttribute('aria-selected', 'true');
 			this.tabContainer.setAttribute('data-active-tab', targetTabType);
-			this.showContent(targetTabType);
+			this.showContent(targetTabType, { animate: false });
 			this.updateSlider();
 			return targetTabType;
 		}
@@ -445,7 +445,8 @@ export default class MobileTabs {
 	 * Show the appropriate content based on tab type
 	 * @param {string} type - The tab type to show
 	 */
-	showContent(type) {
+	showContent(type, options = {}) {
+		const { animate = true } = options;
 		// Safari fix: Re-cache elements if they became null after DOM replacement
 		if (!this.postsContent || !this.projectsContent) {
 			this.cacheElements();
@@ -458,7 +459,7 @@ export default class MobileTabs {
 
 		this.ensurePaneClasses();
 
-		const shouldAnimate = this.initialRenderComplete;
+		const shouldAnimate = animate && this.initialRenderComplete;
 
 		// Desktop mode: show both panes side-by-side without animation
 		if (this.currentDeviceType === 'desktop') {
@@ -630,7 +631,8 @@ export default class MobileTabs {
 			if (this.tabsWrapper) this.tabsWrapper.style.display = 'block';
 
 			const activeTab = this.validateActiveState();
-			this.showContent(activeTab);
+			const disableAnimation = Boolean(isDeviceTypeChange);
+			this.showContent(activeTab, { animate: !disableAnimation });
 
 			// Update tab container visible state
 			this.ensureTabsVisibleInTabletMode();
