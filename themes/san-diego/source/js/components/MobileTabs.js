@@ -796,23 +796,26 @@ export default class MobileTabs {
 		}
 
 		const delay = animate ? transitionTime + 120 : 80;
+		const behavior = animate ? 'smooth' : 'auto';
 
 		if (this.scrollResetTimeouts.has(tabType)) {
 			clearTimeout(this.scrollResetTimeouts.get(tabType));
 		}
 
 		const timeoutId = window.setTimeout(() => {
-			this.resetScrollPositionIfNeeded(tabType, contentElement);
+			this.resetScrollPositionIfNeeded(tabType, contentElement, { behavior });
 			this.scrollResetTimeouts.delete(tabType);
 		}, delay);
 
 		this.scrollResetTimeouts.set(tabType, timeoutId);
 	}
 
-	resetScrollPositionIfNeeded(tabType, contentElement) {
+	resetScrollPositionIfNeeded(tabType, contentElement, options = {}) {
 		if (!contentElement) {
 			return;
 		}
+
+		const { behavior = 'smooth' } = options;
 
 		const contentWrapper = contentElement.closest('.content-wrapper');
 		if (!contentWrapper) {
@@ -823,8 +826,6 @@ export default class MobileTabs {
 		if (currentState?.initialScrollResetDone) {
 			return;
 		}
-
-		const behavior = 'smooth';
 
 		requestAnimationFrame(() => {
 			if (ScrollUtility && typeof ScrollUtility.scrollToElement === 'function') {
