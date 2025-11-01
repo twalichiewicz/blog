@@ -40,6 +40,7 @@ export default class MobileTabs {
 		this.initialRenderTimeout = null;
 		this.scrollResetTimeouts = new Map(); // Track pending scroll resets per tab
 		this.animationSuppressedUntil = 0;
+		this.searchBarVisibilityTimeout = null;
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -207,6 +208,10 @@ export default class MobileTabs {
 			this.tabScrollStates.clear();
 		}
 		this.animationSuppressedUntil = 0;
+		if (this.searchBarVisibilityTimeout) {
+			clearTimeout(this.searchBarVisibilityTimeout);
+			this.searchBarVisibilityTimeout = null;
+		}
 	}
 
 	/**
@@ -489,27 +494,27 @@ export default class MobileTabs {
 		if (this.tabsWrapper) this.tabsWrapper.style.display = 'block';
 
 		if (type === 'blog') {
-			const transitionTime = this.applyTabFade(this.postsContent, this.projectsContent, shouldAnimate);
+			const { totalDuration, fadeOutDuration } = this.applyTabFade(this.postsContent, this.projectsContent, shouldAnimate);
 
-			if (this.searchBar) this.searchBar.style.display = 'block';
+			this.scheduleSearchBarVisibility(true, shouldAnimate ? fadeOutDuration : 0);
 
 			if (window.initializePostsOnlyButton) {
 				window.initializePostsOnlyButton();
 			}
 
-			this.scheduleScrollReset('blog', this.postsContent, shouldAnimate, transitionTime);
-			this.markInitialRenderComplete(type, transitionTime);
+			this.scheduleScrollReset('blog', this.postsContent, shouldAnimate, totalDuration);
+			this.markInitialRenderComplete(type, totalDuration);
 		} else if (type === 'portfolio') {
-			const transitionTime = this.applyTabFade(this.projectsContent, this.postsContent, shouldAnimate);
+			const { totalDuration, fadeOutDuration } = this.applyTabFade(this.projectsContent, this.postsContent, shouldAnimate);
 
-			if (this.searchBar) this.searchBar.style.display = 'none';
+			this.scheduleSearchBarVisibility(false, shouldAnimate ? fadeOutDuration : 0);
 
 			if (window.initializeProjectToggle) {
 				window.initializeProjectToggle();
 			}
 
-			this.scheduleScrollReset('portfolio', this.projectsContent, shouldAnimate, transitionTime);
-			this.markInitialRenderComplete(type, transitionTime);
+			this.scheduleScrollReset('portfolio', this.projectsContent, shouldAnimate, totalDuration);
+			this.markInitialRenderComplete(type, totalDuration);
 
 			// Dispatch portfolio-loaded event to trigger carousel initialization
 			setTimeout(() => {
@@ -745,6 +750,7 @@ export default class MobileTabs {
 		const paneToHide = hideElement && hideElement !== showElement ? hideElement : null;
 		const gapBetweenFades = Math.max(120, Math.round(duration * 0.35));
 		const totalTransitionTime = paneToHide ? (duration * 2) + gapBetweenFades : duration;
+		const fadeOutDuration = animate && paneToHide ? duration : 0;
 
 		// Immediate switch without animation (initial render)
 		if (!animate || !paneToHide) {
@@ -758,7 +764,10 @@ export default class MobileTabs {
 				paneToHide.setAttribute('aria-hidden', 'true');
 			}
 
-			return 0;
+			return {
+				totalDuration: 0,
+				fadeOutDuration: 0
+			};
 		}
 
 		// Prepare panes for sequential fade
@@ -787,7 +796,32 @@ export default class MobileTabs {
 			this.fadeInTimeout = null;
 		}, duration + gapBetweenFades);
 
-		return totalTransitionTime;
+		return {
+			totalDuration: totalTransitionTime,
+			fadeOutDuration
+		};
+	}
+
+	scheduleSearchBarVisibility(isVisible, delay = 0) {
+		if (!this.searchBar) {
+			return;
+		}
+
+		if (this.searchBarVisibilityTimeout) {
+			clearTimeout(this.searchBarVisibilityTimeout);
+			this.searchBarVisibilityTimeout = null;
+		}
+
+		const applyVisibility = () => {
+			this.searchBar.style.display = isVisible ? 'block' : 'none';
+			this.searchBarVisibilityTimeout = null;
+		};
+
+		if (delay > 0) {
+			this.searchBarVisibilityTimeout = window.setTimeout(applyVisibility, delay);
+		} else {
+			applyVisibility();
+		}
 	}
 
 	scheduleScrollReset(tabType, contentElement, animate, transitionTime = 0) {
