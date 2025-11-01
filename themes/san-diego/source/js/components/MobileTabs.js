@@ -41,6 +41,7 @@ export default class MobileTabs {
 		this.scrollResetTimeouts = new Map(); // Track pending scroll resets per tab
 		this.animationSuppressedUntil = 0;
 		this.searchBarVisibilityTimeout = null;
+		this.pendingLayoutCleanup = null;
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -157,6 +158,10 @@ export default class MobileTabs {
 	 * Destroy the component instance, removing listeners.
 	 */
 	destroy() {
+		if (typeof this.pendingLayoutCleanup === 'function') {
+			this.pendingLayoutCleanup();
+			this.pendingLayoutCleanup = null;
+		}
 		this.removeEventListeners();
 		
 		// Remove the slider element to ensure clean state
@@ -212,6 +217,7 @@ export default class MobileTabs {
 			clearTimeout(this.searchBarVisibilityTimeout);
 			this.searchBarVisibilityTimeout = null;
 		}
+		this.pendingLayoutCleanup = null;
 	}
 
 	/**
@@ -731,7 +737,7 @@ export default class MobileTabs {
 
 	applyTabFade(showElement, hideElement, animate) {
 		if (!showElement) {
-			return 0;
+			return { totalDuration: 0, fadeOutDuration: 0 };
 		}
 
 		this.ensurePaneClasses();
@@ -751,8 +757,18 @@ export default class MobileTabs {
 		const gapBetweenFades = Math.max(120, Math.round(duration * 0.35));
 		const totalTransitionTime = paneToHide ? (duration * 2) + gapBetweenFades : duration;
 		const fadeOutDuration = animate && paneToHide ? duration : 0;
+		let cleanupLayout = null;
 
-		// Immediate switch without animation (initial render)
+		if (typeof this.pendingLayoutCleanup === 'function') {
+			try {
+				this.pendingLayoutCleanup();
+			} catch (error) {
+				// Best-effort cleanup; ignore failures
+			}
+			this.pendingLayoutCleanup = null;
+		}
+
+		// Immediate switch without animation (initial render or missing counterpart)
 		if (!animate || !paneToHide) {
 			showElement.style.display = 'block';
 			showElement.classList.add('is-visible');
@@ -779,22 +795,110 @@ export default class MobileTabs {
 		paneToHide.classList.add('is-visible');
 		paneToHide.setAttribute('aria-hidden', 'true');
 
+		// Stabilize layout during overlap so panes can fade without reflowing content
+		try {
+			const container = paneToHide.parentElement || showElement.parentElement;
+			if (container) {
+				const containerStyles = window.getComputedStyle(container);
+				const originalContainerPosition = container.style.position;
+				const originalContainerHeight = container.style.height;
+				const originalShowStyles = {
+					position: showElement.style.position,
+					top: showElement.style.top,
+					left: showElement.style.left,
+					right: showElement.style.right,
+					bottom: showElement.style.bottom,
+					width: showElement.style.width
+				};
+				const originalHideStyles = {
+					position: paneToHide.style.position,
+					top: paneToHide.style.top,
+					left: paneToHide.style.left,
+					right: paneToHide.style.right,
+					bottom: paneToHide.style.bottom,
+					width: paneToHide.style.width
+				};
+
+				const needsRelativePosition = containerStyles.position === 'static' || !containerStyles.position;
+				const containerHeight = container.offsetHeight;
+				const showHeight = showElement.offsetHeight;
+				const hideHeight = paneToHide.offsetHeight;
+				const targetHeight = Math.max(containerHeight, showHeight, hideHeight);
+
+				if (needsRelativePosition) {
+					container.style.position = 'relative';
+				}
+				if (!Number.isNaN(targetHeight) && targetHeight > 0) {
+					container.style.height = `${targetHeight}px`;
+				}
+
+				const applyOverlayStyles = (element) => {
+					element.style.position = 'absolute';
+					element.style.top = '0';
+					element.style.left = '0';
+					element.style.right = '0';
+					element.style.width = '100%';
+				};
+
+				applyOverlayStyles(showElement);
+				applyOverlayStyles(paneToHide);
+
+				cleanupLayout = () => {
+					showElement.style.position = originalShowStyles.position || '';
+					showElement.style.top = originalShowStyles.top || '';
+					showElement.style.left = originalShowStyles.left || '';
+					showElement.style.right = originalShowStyles.right || '';
+					showElement.style.bottom = originalShowStyles.bottom || '';
+					showElement.style.width = originalShowStyles.width || '';
+
+					paneToHide.style.position = originalHideStyles.position || '';
+					paneToHide.style.top = originalHideStyles.top || '';
+					paneToHide.style.left = originalHideStyles.left || '';
+					paneToHide.style.right = originalHideStyles.right || '';
+					paneToHide.style.bottom = originalHideStyles.bottom || '';
+					paneToHide.style.width = originalHideStyles.width || '';
+
+					if (needsRelativePosition) {
+						container.style.position = originalContainerPosition || '';
+					}
+					if (originalContainerHeight) {
+						container.style.height = originalContainerHeight;
+					} else {
+						container.style.removeProperty('height');
+					}
+				};
+			}
+		} catch (error) {
+			cleanupLayout = null;
+		}
+
 		// Start fade out on the currently visible pane
 		requestAnimationFrame(() => {
 			paneToHide.classList.remove('is-visible');
 		});
 
-		// After fade out completes, hide old pane and fade in the new one
+		// After fade out completes, hide old pane
 		this.fadeTimeout = window.setTimeout(() => {
 			paneToHide.style.display = 'none';
 			this.fadeTimeout = null;
 		}, duration);
 
+		// Fade in the new pane after the gap, then restore layout
 		this.fadeInTimeout = window.setTimeout(() => {
 			showElement.setAttribute('aria-hidden', 'false');
 			showElement.classList.add('is-visible');
+			if (typeof cleanupLayout === 'function') {
+				cleanupLayout();
+				if (this.pendingLayoutCleanup === cleanupLayout) {
+					this.pendingLayoutCleanup = null;
+				}
+			}
 			this.fadeInTimeout = null;
 		}, duration + gapBetweenFades);
+
+		if (typeof cleanupLayout === 'function') {
+			this.pendingLayoutCleanup = cleanupLayout;
+		}
 
 		return {
 			totalDuration: totalTransitionTime,
@@ -812,31 +916,31 @@ export default class MobileTabs {
 			this.searchBarVisibilityTimeout = null;
 		}
 
-	const applyVisibility = () => {
-		const computedDisplay = window.getComputedStyle(this.searchBar).display;
-		const currentlyVisible = computedDisplay !== 'none';
-		if (isVisible && !currentlyVisible) {
-			const originalDisplay = this.searchBar.dataset.originalDisplay || '';
-			this.searchBar.style.display = originalDisplay;
-			delete this.searchBar.dataset.originalDisplay;
-		} else if (!isVisible && currentlyVisible) {
-			if (!this.searchBar.dataset.originalDisplay) {
-				this.searchBar.dataset.originalDisplay = computedDisplay === 'none' ? '' : computedDisplay;
+		const applyVisibility = () => {
+			const computedDisplay = window.getComputedStyle(this.searchBar).display;
+			const currentlyVisible = computedDisplay !== 'none';
+			if (isVisible && !currentlyVisible) {
+				const originalDisplay = this.searchBar.dataset.originalDisplay || '';
+				this.searchBar.style.display = originalDisplay;
+				delete this.searchBar.dataset.originalDisplay;
+			} else if (!isVisible && currentlyVisible) {
+				if (!this.searchBar.dataset.originalDisplay) {
+					this.searchBar.dataset.originalDisplay = computedDisplay === 'none' ? '' : computedDisplay;
+				}
+				this.searchBar.style.display = 'none';
 			}
-			this.searchBar.style.display = 'none';
+			this.searchBarVisibilityTimeout = null;
+		};
+
+		const additionalDelay = isVisible ? 100 : 0;
+		const totalDelay = Math.max(0, delay + additionalDelay);
+
+		if (totalDelay > 0) {
+			this.searchBarVisibilityTimeout = window.setTimeout(applyVisibility, totalDelay);
+		} else {
+			applyVisibility();
 		}
-		this.searchBarVisibilityTimeout = null;
-	};
-
-	const additionalDelay = isVisible ? 100 : 0;
-	const totalDelay = Math.max(0, delay + additionalDelay);
-
-	if (totalDelay > 0) {
-		this.searchBarVisibilityTimeout = window.setTimeout(applyVisibility, totalDelay);
-	} else {
-		applyVisibility();
 	}
-}
 
 	scheduleScrollReset(tabType, contentElement, animate, transitionTime = 0) {
 		if (!contentElement) {
