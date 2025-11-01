@@ -494,9 +494,9 @@ export default class MobileTabs {
 		if (this.tabsWrapper) this.tabsWrapper.style.display = 'block';
 
 		if (type === 'blog') {
-			const { totalDuration, fadeOutDuration } = this.applyTabFade(this.postsContent, this.projectsContent, shouldAnimate);
+		const { totalDuration, fadeOutDuration } = this.applyTabFade(this.postsContent, this.projectsContent, shouldAnimate);
 
-			this.scheduleSearchBarVisibility(true, shouldAnimate ? fadeOutDuration : 0);
+		this.scheduleSearchBarVisibility(true, shouldAnimate ? fadeOutDuration : 0);
 
 			if (window.initializePostsOnlyButton) {
 				window.initializePostsOnlyButton();
@@ -505,9 +505,9 @@ export default class MobileTabs {
 			this.scheduleScrollReset('blog', this.postsContent, shouldAnimate, totalDuration);
 			this.markInitialRenderComplete(type, totalDuration);
 		} else if (type === 'portfolio') {
-			const { totalDuration, fadeOutDuration } = this.applyTabFade(this.projectsContent, this.postsContent, shouldAnimate);
+		const { totalDuration, fadeOutDuration } = this.applyTabFade(this.projectsContent, this.postsContent, shouldAnimate);
 
-			this.scheduleSearchBarVisibility(false, shouldAnimate ? fadeOutDuration : 0);
+		this.scheduleSearchBarVisibility(false, shouldAnimate ? fadeOutDuration : 0);
 
 			if (window.initializeProjectToggle) {
 				window.initializeProjectToggle();
@@ -812,17 +812,31 @@ export default class MobileTabs {
 			this.searchBarVisibilityTimeout = null;
 		}
 
-		const applyVisibility = () => {
-			this.searchBar.style.display = isVisible ? 'block' : 'none';
-			this.searchBarVisibilityTimeout = null;
-		};
-
-		if (delay > 0) {
-			this.searchBarVisibilityTimeout = window.setTimeout(applyVisibility, delay);
-		} else {
-			applyVisibility();
+	const applyVisibility = () => {
+		const computedDisplay = window.getComputedStyle(this.searchBar).display;
+		const currentlyVisible = computedDisplay !== 'none';
+		if (isVisible && !currentlyVisible) {
+			const originalDisplay = this.searchBar.dataset.originalDisplay || '';
+			this.searchBar.style.display = originalDisplay;
+			delete this.searchBar.dataset.originalDisplay;
+		} else if (!isVisible && currentlyVisible) {
+			if (!this.searchBar.dataset.originalDisplay) {
+				this.searchBar.dataset.originalDisplay = computedDisplay === 'none' ? '' : computedDisplay;
+			}
+			this.searchBar.style.display = 'none';
 		}
+		this.searchBarVisibilityTimeout = null;
+	};
+
+	const additionalDelay = isVisible ? 100 : 0;
+	const totalDelay = Math.max(0, delay + additionalDelay);
+
+	if (totalDelay > 0) {
+		this.searchBarVisibilityTimeout = window.setTimeout(applyVisibility, totalDelay);
+	} else {
+		applyVisibility();
 	}
+}
 
 	scheduleScrollReset(tabType, contentElement, animate, transitionTime = 0) {
 		if (!contentElement) {
