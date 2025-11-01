@@ -39,6 +39,9 @@ export default class MobileTabs {
 		this.fadeInTimeout = null;
 		this.initialRenderTimeout = null;
 		this.scrollResetTimeouts = new Map(); // Track pending scroll resets per tab
+		this.animationSuppressedUntil = 0;
+		this.searchBarVisibilityTimeout = null;
+		this.pendingLayoutCleanup = null;
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -155,6 +158,10 @@ export default class MobileTabs {
 	 * Destroy the component instance, removing listeners.
 	 */
 	destroy() {
+		if (typeof this.pendingLayoutCleanup === 'function') {
+			this.pendingLayoutCleanup();
+			this.pendingLayoutCleanup = null;
+		}
 		this.removeEventListeners();
 		
 		// Remove the slider element to ensure clean state
@@ -205,6 +212,12 @@ export default class MobileTabs {
 		if (this.tabScrollStates) {
 			this.tabScrollStates.clear();
 		}
+		this.animationSuppressedUntil = 0;
+		if (this.searchBarVisibilityTimeout) {
+			clearTimeout(this.searchBarVisibilityTimeout);
+			this.searchBarVisibilityTimeout = null;
+		}
+		this.pendingLayoutCleanup = null;
 	}
 
 	/**
@@ -367,7 +380,7 @@ export default class MobileTabs {
 
 		// If a user selection exists and the UI matches it, we're good.
 		if (targetTabType && activeButtons.length === 1 && activeButtons[0].dataset.type === targetTabType) {
-			this.showContent(targetTabType); // Ensure content is consistent
+			this.showContent(targetTabType, { animate: false }); // Ensure content is consistent
 			this.updateSlider();
 			return targetTabType;
 		}
@@ -423,7 +436,7 @@ export default class MobileTabs {
 			targetButton.classList.add(this.config.activeClass);
 			targetButton.setAttribute('aria-selected', 'true');
 			this.tabContainer.setAttribute('data-active-tab', targetTabType);
-			this.showContent(targetTabType);
+			this.showContent(targetTabType, { animate: false });
 			this.updateSlider();
 			return targetTabType;
 		} else if (this.tabButtons.length > 0) {
@@ -433,7 +446,7 @@ export default class MobileTabs {
 			firstButton.classList.add(this.config.activeClass);
 			firstButton.setAttribute('aria-selected', 'true');
 			this.tabContainer.setAttribute('data-active-tab', targetTabType);
-			this.showContent(targetTabType);
+			this.showContent(targetTabType, { animate: false });
 			this.updateSlider();
 			return targetTabType;
 		}
@@ -445,7 +458,8 @@ export default class MobileTabs {
 	 * Show the appropriate content based on tab type
 	 * @param {string} type - The tab type to show
 	 */
-	showContent(type) {
+	showContent(type, options = {}) {
+		const { animate = true } = options;
 		// Safari fix: Re-cache elements if they became null after DOM replacement
 		if (!this.postsContent || !this.projectsContent) {
 			this.cacheElements();
@@ -458,7 +472,7 @@ export default class MobileTabs {
 
 		this.ensurePaneClasses();
 
-		const shouldAnimate = this.initialRenderComplete;
+		const shouldAnimate = animate && this.initialRenderComplete && !this.areAnimationsSuppressed();
 
 		// Desktop mode: show both panes side-by-side without animation
 		if (this.currentDeviceType === 'desktop') {
@@ -486,27 +500,27 @@ export default class MobileTabs {
 		if (this.tabsWrapper) this.tabsWrapper.style.display = 'block';
 
 		if (type === 'blog') {
-			const transitionTime = this.applyTabFade(this.postsContent, this.projectsContent, shouldAnimate);
+		const { totalDuration, fadeOutDuration } = this.applyTabFade(this.postsContent, this.projectsContent, shouldAnimate);
 
-			if (this.searchBar) this.searchBar.style.display = 'block';
+		this.scheduleSearchBarVisibility(true, shouldAnimate ? fadeOutDuration : 0);
 
 			if (window.initializePostsOnlyButton) {
 				window.initializePostsOnlyButton();
 			}
 
-			this.scheduleScrollReset('blog', this.postsContent, shouldAnimate, transitionTime);
-			this.markInitialRenderComplete(type, transitionTime);
+			this.scheduleScrollReset('blog', this.postsContent, shouldAnimate, totalDuration);
+			this.markInitialRenderComplete(type, totalDuration);
 		} else if (type === 'portfolio') {
-			const transitionTime = this.applyTabFade(this.projectsContent, this.postsContent, shouldAnimate);
+		const { totalDuration, fadeOutDuration } = this.applyTabFade(this.projectsContent, this.postsContent, shouldAnimate);
 
-			if (this.searchBar) this.searchBar.style.display = 'none';
+		this.scheduleSearchBarVisibility(false, shouldAnimate ? fadeOutDuration : 0);
 
 			if (window.initializeProjectToggle) {
 				window.initializeProjectToggle();
 			}
 
-			this.scheduleScrollReset('portfolio', this.projectsContent, shouldAnimate, transitionTime);
-			this.markInitialRenderComplete(type, transitionTime);
+			this.scheduleScrollReset('portfolio', this.projectsContent, shouldAnimate, totalDuration);
+			this.markInitialRenderComplete(type, totalDuration);
 
 			// Dispatch portfolio-loaded event to trigger carousel initialization
 			setTimeout(() => {
@@ -573,6 +587,7 @@ export default class MobileTabs {
 	 * Handle window resize event
 	 */
 	handleResize() {
+		this.suppressAnimations();
 		const newDeviceType = this.getDeviceType();
 		if (newDeviceType !== this.currentDeviceType) {
 			this.currentDeviceType = newDeviceType;
@@ -625,12 +640,16 @@ export default class MobileTabs {
 	 * @param {boolean} isDeviceTypeChange - Whether this was triggered by a device type change
 	 */
 	handleDeviceChange(isDeviceTypeChange = false) {
+		if (isDeviceTypeChange) {
+			this.suppressAnimations();
+		}
 		// For mobile and tablet, ensure tabs are properly shown and active tab has content displayed
 		if (this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet') {
 			if (this.tabsWrapper) this.tabsWrapper.style.display = 'block';
 
 			const activeTab = this.validateActiveState();
-			this.showContent(activeTab);
+			const disableAnimation = Boolean(isDeviceTypeChange);
+			this.showContent(activeTab, { animate: !disableAnimation });
 
 			// Update tab container visible state
 			this.ensureTabsVisibleInTabletMode();
@@ -718,7 +737,7 @@ export default class MobileTabs {
 
 	applyTabFade(showElement, hideElement, animate) {
 		if (!showElement) {
-			return 0;
+			return { totalDuration: 0, fadeOutDuration: 0 };
 		}
 
 		this.ensurePaneClasses();
@@ -737,8 +756,19 @@ export default class MobileTabs {
 		const paneToHide = hideElement && hideElement !== showElement ? hideElement : null;
 		const gapBetweenFades = Math.max(120, Math.round(duration * 0.35));
 		const totalTransitionTime = paneToHide ? (duration * 2) + gapBetweenFades : duration;
+		const fadeOutDuration = animate && paneToHide ? duration : 0;
+		let cleanupLayout = null;
 
-		// Immediate switch without animation (initial render)
+		if (typeof this.pendingLayoutCleanup === 'function') {
+			try {
+				this.pendingLayoutCleanup();
+			} catch (error) {
+				// Best-effort cleanup; ignore failures
+			}
+			this.pendingLayoutCleanup = null;
+		}
+
+		// Immediate switch without animation (initial render or missing counterpart)
 		if (!animate || !paneToHide) {
 			showElement.style.display = 'block';
 			showElement.classList.add('is-visible');
@@ -750,7 +780,10 @@ export default class MobileTabs {
 				paneToHide.setAttribute('aria-hidden', 'true');
 			}
 
-			return 0;
+			return {
+				totalDuration: 0,
+				fadeOutDuration: 0
+			};
 		}
 
 		// Prepare panes for sequential fade
@@ -762,24 +795,151 @@ export default class MobileTabs {
 		paneToHide.classList.add('is-visible');
 		paneToHide.setAttribute('aria-hidden', 'true');
 
+		// Stabilize layout during overlap so panes can fade without reflowing content
+		try {
+			const container = paneToHide.parentElement || showElement.parentElement;
+			if (container) {
+				const containerStyles = window.getComputedStyle(container);
+				const originalContainerPosition = container.style.position;
+				const originalContainerHeight = container.style.height;
+				const originalShowStyles = {
+					position: showElement.style.position,
+					top: showElement.style.top,
+					left: showElement.style.left,
+					right: showElement.style.right,
+					bottom: showElement.style.bottom,
+					width: showElement.style.width
+				};
+				const originalHideStyles = {
+					position: paneToHide.style.position,
+					top: paneToHide.style.top,
+					left: paneToHide.style.left,
+					right: paneToHide.style.right,
+					bottom: paneToHide.style.bottom,
+					width: paneToHide.style.width
+				};
+
+				const needsRelativePosition = containerStyles.position === 'static' || !containerStyles.position;
+				const containerHeight = container.offsetHeight;
+				const showHeight = showElement.offsetHeight;
+				const hideHeight = paneToHide.offsetHeight;
+				const targetHeight = Math.max(containerHeight, showHeight, hideHeight);
+
+				if (needsRelativePosition) {
+					container.style.position = 'relative';
+				}
+				if (!Number.isNaN(targetHeight) && targetHeight > 0) {
+					container.style.height = `${targetHeight}px`;
+				}
+
+				const applyOverlayStyles = (element) => {
+					element.style.position = 'absolute';
+					element.style.top = '0';
+					element.style.left = '0';
+					element.style.right = '0';
+					element.style.width = '100%';
+				};
+
+				applyOverlayStyles(showElement);
+				applyOverlayStyles(paneToHide);
+
+				cleanupLayout = () => {
+					showElement.style.position = originalShowStyles.position || '';
+					showElement.style.top = originalShowStyles.top || '';
+					showElement.style.left = originalShowStyles.left || '';
+					showElement.style.right = originalShowStyles.right || '';
+					showElement.style.bottom = originalShowStyles.bottom || '';
+					showElement.style.width = originalShowStyles.width || '';
+
+					paneToHide.style.position = originalHideStyles.position || '';
+					paneToHide.style.top = originalHideStyles.top || '';
+					paneToHide.style.left = originalHideStyles.left || '';
+					paneToHide.style.right = originalHideStyles.right || '';
+					paneToHide.style.bottom = originalHideStyles.bottom || '';
+					paneToHide.style.width = originalHideStyles.width || '';
+
+					if (needsRelativePosition) {
+						container.style.position = originalContainerPosition || '';
+					}
+					if (originalContainerHeight) {
+						container.style.height = originalContainerHeight;
+					} else {
+						container.style.removeProperty('height');
+					}
+				};
+			}
+		} catch (error) {
+			cleanupLayout = null;
+		}
+
 		// Start fade out on the currently visible pane
 		requestAnimationFrame(() => {
 			paneToHide.classList.remove('is-visible');
 		});
 
-		// After fade out completes, hide old pane and fade in the new one
+		// After fade out completes, hide old pane
 		this.fadeTimeout = window.setTimeout(() => {
 			paneToHide.style.display = 'none';
 			this.fadeTimeout = null;
 		}, duration);
 
+		// Fade in the new pane after the gap, then restore layout
 		this.fadeInTimeout = window.setTimeout(() => {
 			showElement.setAttribute('aria-hidden', 'false');
 			showElement.classList.add('is-visible');
+			if (typeof cleanupLayout === 'function') {
+				cleanupLayout();
+				if (this.pendingLayoutCleanup === cleanupLayout) {
+					this.pendingLayoutCleanup = null;
+				}
+			}
 			this.fadeInTimeout = null;
 		}, duration + gapBetweenFades);
 
-		return totalTransitionTime;
+		if (typeof cleanupLayout === 'function') {
+			this.pendingLayoutCleanup = cleanupLayout;
+		}
+
+		return {
+			totalDuration: totalTransitionTime,
+			fadeOutDuration
+		};
+	}
+
+	scheduleSearchBarVisibility(isVisible, delay = 0) {
+		if (!this.searchBar) {
+			return;
+		}
+
+		if (this.searchBarVisibilityTimeout) {
+			clearTimeout(this.searchBarVisibilityTimeout);
+			this.searchBarVisibilityTimeout = null;
+		}
+
+		const applyVisibility = () => {
+			const computedDisplay = window.getComputedStyle(this.searchBar).display;
+			const currentlyVisible = computedDisplay !== 'none';
+			if (isVisible && !currentlyVisible) {
+				const originalDisplay = this.searchBar.dataset.originalDisplay || '';
+				this.searchBar.style.display = originalDisplay;
+				delete this.searchBar.dataset.originalDisplay;
+			} else if (!isVisible && currentlyVisible) {
+				if (!this.searchBar.dataset.originalDisplay) {
+					this.searchBar.dataset.originalDisplay = computedDisplay === 'none' ? '' : computedDisplay;
+				}
+				this.searchBar.style.display = 'none';
+			}
+			this.searchBarVisibilityTimeout = null;
+		};
+
+		const additionalDelay = isVisible ? 100 : 0;
+		const totalDelay = Math.max(0, delay + additionalDelay);
+
+		if (totalDelay > 0) {
+			this.searchBarVisibilityTimeout = window.setTimeout(applyVisibility, totalDelay);
+		} else {
+			applyVisibility();
+		}
 	}
 
 	scheduleScrollReset(tabType, contentElement, animate, transitionTime = 0) {
@@ -788,23 +948,26 @@ export default class MobileTabs {
 		}
 
 		const delay = animate ? transitionTime + 120 : 80;
+		const behavior = 'auto';
 
 		if (this.scrollResetTimeouts.has(tabType)) {
 			clearTimeout(this.scrollResetTimeouts.get(tabType));
 		}
 
 		const timeoutId = window.setTimeout(() => {
-			this.resetScrollPositionIfNeeded(tabType, contentElement);
+			this.resetScrollPositionIfNeeded(tabType, contentElement, { behavior });
 			this.scrollResetTimeouts.delete(tabType);
 		}, delay);
 
 		this.scrollResetTimeouts.set(tabType, timeoutId);
 	}
 
-	resetScrollPositionIfNeeded(tabType, contentElement) {
+	resetScrollPositionIfNeeded(tabType, contentElement, options = {}) {
 		if (!contentElement) {
 			return;
 		}
+
+		const { behavior = 'smooth' } = options;
 
 		const contentWrapper = contentElement.closest('.content-wrapper');
 		if (!contentWrapper) {
@@ -816,7 +979,11 @@ export default class MobileTabs {
 			return;
 		}
 
-		const behavior = 'smooth';
+		const currentScrollTop = contentWrapper.scrollTop || 0;
+		if (currentScrollTop <= 0) {
+			this.tabScrollStates.set(tabType, { initialScrollResetDone: true });
+			return;
+		}
 
 		requestAnimationFrame(() => {
 			if (ScrollUtility && typeof ScrollUtility.scrollToElement === 'function') {
@@ -885,5 +1052,31 @@ export default class MobileTabs {
 		} else {
 			finalize();
 		}
+	}
+
+	suppressAnimations(duration = this.config.transitionDuration + 200) {
+		if (typeof Date === 'undefined') {
+			return;
+		}
+
+		const now = Date.now();
+		const safeDuration = Math.max(0, duration);
+		const suppressionUntil = now + safeDuration;
+
+		this.animationSuppressedUntil = Math.max(this.animationSuppressedUntil || 0, suppressionUntil);
+	}
+
+	areAnimationsSuppressed() {
+		if (!this.animationSuppressedUntil) {
+			return false;
+		}
+
+		const now = Date.now();
+		if (now >= this.animationSuppressedUntil) {
+			this.animationSuppressedUntil = 0;
+			return false;
+		}
+
+		return true;
 	}
 }
