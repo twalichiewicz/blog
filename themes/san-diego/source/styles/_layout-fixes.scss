@@ -134,6 +134,11 @@
   }
 }
 
+// Remove bottom padding from the main blog container
+.blog#main-content {
+  padding-bottom: 0 !important;
+}
+
 // Provide consistent vertical padding for tab panels on all viewports
 #postsContent,
 #projectsContent {
@@ -155,6 +160,10 @@
     padding-top: variables.$space-xl;
     padding-bottom: variables.$space-xl;
   }
+}
+
+#postsContent.blog-list.mobile-tab-pane.is-visible {
+  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
 // Mobile-specific fixes
