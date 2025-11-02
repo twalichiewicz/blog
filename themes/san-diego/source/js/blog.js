@@ -158,19 +158,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		function cleanupDynamicScrollContainer() {
 			if (!activeDynamicScroll) return;
 
-			window.removeEventListener('resize', activeDynamicScroll.resizeHandler);
-
-			const target = activeDynamicScroll.element;
-			if (target) {
-				target.style.removeProperty('height');
-				target.style.removeProperty('max-height');
-				target.style.removeProperty('overflow-y');
-				target.style.removeProperty('overflow-x');
-				target.style.removeProperty('-webkit-overflow-scrolling');
-				target.style.removeProperty('overscroll-behavior');
-				target.removeAttribute('data-dynamic-scroll');
-			}
-
+			const target = activeDynamicScroll;
+			target.style.removeProperty('overflow-y');
+			target.style.removeProperty('overflow-x');
+			target.style.removeProperty('-webkit-overflow-scrolling');
+			target.removeAttribute('data-dynamic-scroll');
 			activeDynamicScroll = null;
 		}
 
@@ -184,29 +176,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			cleanupDynamicScrollContainer();
-
-			const applyDimensions = () => {
-				const rect = wrapper.getBoundingClientRect();
-				const padding = 16;
-				const availableHeight = Math.max(window.innerHeight - rect.top - padding, 320);
-				wrapper.style.setProperty('height', `${availableHeight}px`, 'important');
-				wrapper.style.setProperty('max-height', `${availableHeight}px`, 'important');
-				wrapper.style.setProperty('overflow-y', 'auto', 'important');
-				wrapper.style.setProperty('overflow-x', 'hidden', 'important');
-				wrapper.style.webkitOverflowScrolling = 'touch';
-				wrapper.style.setProperty('overscroll-behavior', 'contain', 'important');
-			};
-
+			wrapper.style.removeProperty('height');
+			wrapper.style.removeProperty('max-height');
+			wrapper.style.setProperty('overflow-y', 'auto', 'important');
+			wrapper.style.setProperty('overflow-x', 'hidden', 'important');
+			wrapper.style.webkitOverflowScrolling = 'touch';
 			wrapper.setAttribute('data-dynamic-scroll', 'true');
-			applyDimensions();
-			requestAnimationFrame(applyDimensions);
-
-			const resizeHandler = () => applyDimensions();
-			window.addEventListener('resize', resizeHandler);
-			activeDynamicScroll = {
-				element: wrapper,
-				resizeHandler
-			};
+			activeDynamicScroll = wrapper;
 		}
 
 		function restoreInitialView(options = {}) {
