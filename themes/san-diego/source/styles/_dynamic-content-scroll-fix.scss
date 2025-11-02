@@ -1,113 +1,94 @@
-// Fix for dynamic content scrolling on all devices
+// Simplified dynamic content scrollbar handling
 @use 'variables';
 
-// Desktop/Tablet: Container-based scrolling
-@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-  // For tablet view specifically
-  .device-tablet .blog .blog-content.has-dynamic-content {
-    // Override the parent's overflow: hidden
-    overflow: visible !important;
-    
-    // Dark mode background removed - should be on project-edge-wrapper instead
-    
-    // Content inner wrapper becomes the scroll container
-    .content-inner-wrapper {
-      overflow-y: auto !important;
-      overflow-x: hidden !important;
-      -webkit-overflow-scrolling: touch !important;
-      min-height: calc(100dvh - 88px) !important; // Account for margins and back button
-      height: auto !important; // Allow content to determine height
-      position: relative !important;
-      opacity: 1 !important; // Override the initial opacity: 0
-      
-      // Scrollbar styling
-      &::-webkit-scrollbar {
-        width: 6px;
-      }
+.blog .blog-content.has-dynamic-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100vh;
+  height: 100%;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
 
-      &::-webkit-scrollbar-track {
-        background: transparent;
-      }
+  .dynamic-scroll-host {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    position: relative;
+    opacity: 1 !important;
 
-      &::-webkit-scrollbar-thumb {
-        background-color: rgb(0 0 0 / 20%);
-        border-radius: 3px;
-        
-        @media (prefers-color-scheme: dark) {
-          background-color: rgb(255 255 255 / 20%);
-        }
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgb(0 0 0 / 20%);
+      border-radius: 3px;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: rgb(255 255 255 / 20%);
       }
     }
-    
+
+    .post-wrapper,
+    .substack-post,
+    .project-wrapper {
+      overflow: visible !important;
+      max-height: none !important;
+      padding-bottom: 2rem;
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
   }
-  
-  // Generic rule for all views (non-device-specific)
-  .blog .blog-content.has-dynamic-content {
-    // Blog content becomes a flex container
-    display: flex !important;
-    flex-direction: column !important;
-    height: calc(100dvh - 12px) !important;
-    position: relative !important;
-    
-    // Dark mode background removed - should be on project-edge-wrapper instead
-    
-    
-    // Content inner wrapper fills remaining space and scrolls
-    .content-inner-wrapper {
-      flex: 1;
-      overflow-y: auto !important;
-      overflow-x: hidden !important;
-      -webkit-overflow-scrolling: touch !important;
-      min-height: 0 !important; // Critical for flexbox child scrolling
-      position: relative !important;
-      opacity: 1 !important; // Override the initial opacity: 0
-      
-      // Ensure content inside has proper spacing
-      .post-wrapper,
-      .substack-post,
-      .project-wrapper {
-        padding-bottom: 2rem;
-        
-        // Make sure images don't overflow
-        img {
-          max-width: 100%;
-          height: auto;
-        }
-      }
-    }
+
+  .content-inner-wrapper.dynamic-scroll-host {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
   }
 }
 
-// Mobile: Everything expands, only body scrolls
+.device-desktop .blog .blog-content.has-dynamic-content .content-inner-wrapper.dynamic-scroll-host,
+.device-tablet .blog .blog-content.has-dynamic-content .content-inner-wrapper.dynamic-scroll-host {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
 @media (max-width: variables.$mobile-breakpoint) {
   .blog .blog-content.has-dynamic-content {
-    // Ensure all containers expand naturally
-    overflow: visible !important;
-    height: auto !important;
-    // Border radius handled by JavaScript
-    
-    .content-wrapper,
-    .content-inner-wrapper {
-      overflow: visible !important;
-      height: auto !important;
-      border-radius: 12px !important;
+    min-height: auto;
+
+    .dynamic-scroll-host {
+      overflow: visible;
+      height: auto;
+      max-height: none;
+
+      .post-wrapper,
+      .project-wrapper,
+      .substack-post {
+        overflow: visible !important;
+        height: auto !important;
+        max-height: none !important;
+        padding-bottom: 1rem !important;
+        margin-bottom: 0 !important;
+      }
     }
-    
-    // Border radius for content-inner-wrapper is handled by JavaScript
-    
-    // Remove any scroll from post/project wrappers
-    .post-wrapper,
-    .project-wrapper,
-    .substack-post {
-      overflow: visible !important;
-      height: auto !important;
-      
-      // Reduce excessive bottom padding on mobile - with higher specificity
-      padding-bottom: 1rem !important;
-      margin-bottom: 0 !important;
-    }
-    
-    // Keep dynamic back button in absolute position on mobile too
+
     .dynamic-back-button {
       position: absolute !important;
       top: 16px !important;
@@ -117,12 +98,7 @@
       width: fit-content !important;
     }
   }
-  
-  // Border radius is handled by JavaScript
-}
 
-// More specific rule to override any conflicting styles
-@media screen and (max-width: 768px) {
   .blog .blog-content .content-inner-wrapper {
     border-radius: 12px !important;
   }

@@ -20,6 +20,16 @@
     height: 100%;
     position: relative; // For absolute positioned back button
     
+    &.has-dynamic-content {
+      overflow: auto !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      
+      @media (max-width: variables.$mobile-breakpoint) {
+        overflow: visible !important;
+      }
+    }
+    
     // Desktop/tablet: content-wrapper handles the scroll
     @media (min-width: variables.$tablet-breakpoint) {
       // Default state - content-wrapper scrolls
@@ -260,22 +270,7 @@
   }
 }
 
-// When dynamic content is loaded, make content-inner-wrapper scrollable
-.blog-content.has-dynamic-content {
-	@media (min-width: variables.$tablet-breakpoint) {
-		.content-wrapper {
-			overflow: hidden !important; // Wrapper doesn't scroll
-			height: 100%;
-    }
-    
-    .content-inner-wrapper {
-      overflow-y: scroll !important; // Inner wrapper handles scroll for dynamic content
-      overflow-x: hidden !important;
-      height: 100%;
-      border-radius: 12px 0 0 0; // Ensure border-radius for shutter animation
-    }
-	}
-}
+// Dynamic content uses dedicated scroll host styles (see _dynamic-content-scroll-fix.scss)
 
 .blog.long-form-active {
 	@media (max-width: variables.$mobile-breakpoint) {

@@ -122,12 +122,25 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 		
 		const mobileViewportQuery = window.matchMedia('(max-width: 768px)');
-		
+		let activeDynamicScroll = null;
+
+		const sizingProperties = ['height', 'min-height', 'max-height', 'overflow', 'overflow-y', 'overflow-x', 'width'];
+
+		function clearInlineSizing(element) {
+			if (!element) return;
+			sizingProperties.forEach(prop => element.style.removeProperty(prop));
+		}
+
+		function scheduleInlineSizingClear(element, attempts = [0, 16, 32, 64, 128, 256, 400]) {
+			attempts.forEach(delay => {
+				setTimeout(() => clearInlineSizing(element), delay);
+			});
+		}
+
 		function resetInnerWrapperScrollStyles() {
 			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
 			if (!innerWrapper) return;
-			innerWrapper.style.removeProperty('height');
-			innerWrapper.style.removeProperty('overflow');
+			clearInlineSizing(innerWrapper);
 		}
 		
 		resetInnerWrapperScrollStyles();
@@ -153,6 +166,171 @@ document.addEventListener('DOMContentLoaded', function () {
 		let initialBlogContentHTML = blogContentElement.innerHTML;
 		let initialBlogContentURL = window.location.pathname + window.location.search + window.location.hash; // More robust URL capture
 		let lastTabBeforeDynamicLoad = 'blog';
+
+	function cleanupDynamicScrollContainer() {
+		if (!activeDynamicScroll) return;
+
+		const host = activeDynamicScroll.host;
+		if (host && host.isConnected) {
+			host.classList.remove('dynamic-scroll-host');
+			host.removeAttribute('data-dynamic-scroll');
+			host.style.removeProperty('height');
+			host.style.removeProperty('min-height');
+			host.style.removeProperty('max-height');
+			host.style.removeProperty('overflow');
+			host.style.removeProperty('overflow-y');
+			host.style.removeProperty('overflow-x');
+			host.style.removeProperty('-webkit-overflow-scrolling');
+		}
+
+		if (activeDynamicScroll.cleanup) {
+			activeDynamicScroll.cleanup();
+		}
+
+		activeDynamicScroll = null;
+	}
+
+	function setupDynamicScrollContainer() {
+		const primaryScrollHost =
+			blogContentElement.querySelector('.project-edge-wrapper') ||
+			blogContentElement.querySelector('.content-inner-wrapper') ||
+			blogContentElement.querySelector('.project-edge-wrapper .project-wrapper');
+
+		if (!primaryScrollHost) {
+			return;
+		}
+
+		cleanupDynamicScrollContainer();
+
+		clearInlineSizing(primaryScrollHost);
+		scheduleInlineSizingClear(primaryScrollHost);
+
+		const styleSanitizer = new MutationObserver((mutations) => {
+			for (const mutation of mutations) {
+				if (mutation.attributeName === 'style') {
+					clearInlineSizing(primaryScrollHost);
+				}
+			}
+		});
+		styleSanitizer.observe(primaryScrollHost, { attributes: true, attributeFilter: ['style'] });
+
+		activeDynamicScroll = {
+			host: primaryScrollHost,
+			cleanup: () => styleSanitizer.disconnect()
+		};
+
+		primaryScrollHost.classList.add('dynamic-scroll-host');
+		primaryScrollHost.setAttribute('data-dynamic-scroll', 'true');
+	}
+
+		function restoreInitialView(options = {}) {
+			const {
+				fromProject = false,
+				originatingTab = lastTabBeforeDynamicLoad
+			} = options;
+
+			if (typeof cleanupCarouselInstances === 'function') {
+				cleanupCarouselInstances(blogContentElement);
+			}
+			cleanupDynamicScrollContainer();
+			blogContentElement.classList.remove('has-dynamic-content');
+			blogContentElement.style.removeProperty('overflow');
+			blogContentElement.style.removeProperty('overflow-y');
+			blogContentElement.style.removeProperty('overflow-x');
+			document.body.classList.remove('has-dynamic-content-active');
+
+			blogContentElement.innerHTML = initialBlogContentHTML;
+			initializeBlogFeatures(blogContentElement);
+			initializeLinkListeners(blogContentElement);
+			resetInnerWrapperScrollStyles();
+			toggleLongFormLayout(false);
+
+			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+			if (innerWrapper) {
+				innerWrapper.style.opacity = '1';
+				innerWrapper.style.removeProperty('overflow');
+			}
+			blogContentElement.style.opacity = '1';
+
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					initializeMobileTabs();
+					setTimeout(() => {
+						const tabButtons = document.querySelectorAll('.tab-button');
+						if (!tabButtons.length) {
+							// Tabs not present yet; keep parity with existing timing logic.
+						}
+					}, 200);
+				});
+			});
+
+			initializeProjectToggle();
+			initializePostsOnlyButton();
+
+			if (window.innerWidth <= 768) {
+				const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
+				if (tabsWrapper) {
+					tabsWrapper.style.display = '';
+				}
+			}
+
+			const switchToTab = () => {
+				if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+					if (fromProject) {
+						window.mobileTabs.switchTab('portfolio', false);
+					} else {
+						window.mobileTabs.switchTab(originatingTab, false);
+					}
+				}
+			};
+
+			if (fromProject) {
+				sessionStorage.setItem('portfolio-back-navigation', 'true');
+				setTimeout(() => {
+					switchToTab();
+					window.dispatchEvent(new Event('portfolio-loaded'));
+					document.dispatchEvent(new Event('contentLoaded'));
+
+					setTimeout(() => {
+						if (window.projectDemo && window.projectDemo.init) {
+							window.projectDemo.init();
+						}
+					}, 100);
+
+					setTimeout(() => {
+						if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
+							window._notebookCarousel.reinitialize();
+						}
+					}, 300);
+				}, 50);
+			} else {
+				setTimeout(() => {
+					switchToTab();
+					if (window.location.search.includes('tab=portfolio') && originatingTab !== 'portfolio') {
+						history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: originatingTab }, '', initialBlogContentURL);
+					}
+				}, 50);
+			}
+
+			if (window.initializeSoundEffects) {
+				window.initializeSoundEffects();
+			} else {
+				setTimeout(() => {
+					if (window.initializeSoundEffects) {
+						window.initializeSoundEffects();
+					}
+				}, 100);
+			}
+
+			document.body.style.opacity = '1';
+			document.body.classList.add('loaded');
+			const overlay = document.querySelector('.page-transition-overlay');
+			if (overlay) {
+				overlay.style.display = 'none';
+			}
+
+			document.dispatchEvent(new Event('dynamic-content-unloaded'));
+		}
 
 		updateDynamicBackButtonPlacement = function() {
 			if (!blogContentElement) return;
@@ -348,100 +526,15 @@ document.addEventListener('DOMContentLoaded', function () {
 				let transitionData = null;
 				if (window.ScreenWipeTransition) {
 					transitionData = await window.ScreenWipeTransition.startBack(() => {
-						// This callback fires when panels meet in the middle
-						// Remove has-dynamic-content class to restore scroll behavior
-						blogContentElement.classList.remove('has-dynamic-content');
-						
-						// Swap content while panels are covering the screen
-						blogContentElement.innerHTML = initialBlogContentHTML;
-						initializeBlogFeatures(blogContentElement);
-						initializeLinkListeners(blogContentElement);
-						resetInnerWrapperScrollStyles();
-						toggleLongFormLayout(false);
-						
-						// Initialize mobile tabs with proper timing to ensure DOM is ready
-						// Use requestAnimationFrame to ensure browser has rendered the new content
-						requestAnimationFrame(() => {
-							requestAnimationFrame(() => {
-								initializeMobileTabs();
-								
-								// Force a check to ensure tabs are working
-								setTimeout(() => {
-									const tabButtons = document.querySelectorAll('.tab-button');
-									if (tabButtons.length === 0) {
-									}
-								}, 200);
-							});
+						restoreInitialView({
+							fromProject: isReturningFromProject,
+							originatingTab: lastTabBeforeDynamicLoad
 						});
-						
-						// Re-initialize toggles
-						initializeProjectToggle();
-						initializePostsOnlyButton();
-						
-						// Ensure tabs are visible again on mobile
-						if (window.innerWidth <= 768) {
-							const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
-							if (tabsWrapper) {
-								tabsWrapper.style.display = '';
-							}
-						}
-						
-						// Set the appropriate tab based on content type
-						if (isReturningFromProject) {
-							// Mark as back navigation for carousel
-							sessionStorage.setItem('portfolio-back-navigation', 'true');
-							
-							// Coming from a project, show portfolio tab
-							setTimeout(() => {
-								if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-									window.mobileTabs.switchTab('portfolio', false);
-								}
-								// Emit portfolio-loaded event for parallax initialization
-								window.dispatchEvent(new Event('portfolio-loaded'));
-								
-								// Also emit contentLoaded to ensure carousel initializes
-								document.dispatchEvent(new Event('contentLoaded'));
-								
-								// Initialize demo button if project has one
-								setTimeout(() => {
-									if (window.projectDemo && window.projectDemo.init) {
-										window.projectDemo.init();
-									}
-								}, 100);
-								
-								// Give browser time to restore scroll, then check active notebook
-								setTimeout(() => {
-									if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
-										window._notebookCarousel.reinitialize();
-									}
-				}, 300); // Longer delay to ensure scroll restoration completes
-			}, 50);
-		} else {
-			// Coming from a blog post, show the originating tab and clean URL
-			setTimeout(() => {
-				if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-					window.mobileTabs.switchTab(lastTabBeforeDynamicLoad, false);
-				}
-				// Clean up URL parameter if coming from blog post
-				if (window.location.search.includes('tab=portfolio')) {
-					history.replaceState({ path: '/', isInitial: true, isDynamic: false, fromTab: lastTabBeforeDynamicLoad }, '', '/');
-				}
-			}, 50);
-		}
-						
-						// Re-initialize sound effects when returning to home page
-						if (window.initializeSoundEffects) {
-							// Re-initializing sound effects for back navigation
-							window.initializeSoundEffects();
-						} else {
-							// Fallback: try again after a short delay in case sound effects script is still loading
-							setTimeout(() => {
-								if (window.initializeSoundEffects) {
-									// Re-initializing sound effects for back navigation (delayed)
-									window.initializeSoundEffects();
-								}
-							}, 100);
-						}
+					});
+				} else {
+					restoreInitialView({
+						fromProject: isReturningFromProject,
+						originatingTab: lastTabBeforeDynamicLoad
 					});
 				}
 				
@@ -469,9 +562,12 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 	if (typeof cleanupCarouselInstances === 'function') {
 		cleanupCarouselInstances(blogContentElement);
 	}
+	cleanupDynamicScrollContainer();
 
 	// Add has-dynamic-content class to enable proper scrolling
 	blogContentElement.classList.add('has-dynamic-content');
+	blogContentElement.style.overflowY = 'auto';
+	blogContentElement.style.overflowX = 'hidden';
 
 	// Ensure existing content-inner-wrapper has border-radius during transition
 	const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
@@ -494,6 +590,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 	}
 
 	// Clear content after transition starts
+	cleanupDynamicScrollContainer();
 	blogContentElement.innerHTML = '';
 
 	let contentInserted = false;
@@ -627,6 +724,11 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 					}
 
 					resetInnerWrapperScrollStyles();
+					setupDynamicScrollContainer();
+					const freshInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+					if (freshInnerWrapper) {
+						scheduleInlineSizingClear(freshInnerWrapper);
+					}
 
 					// Content inserted successfully
 					
@@ -702,6 +804,9 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 						setTimeout(setupDynamicScrollButton, 300);
 						setTimeout(setupDynamicScrollButton, 500);
 					}
+
+					document.body.classList.add('has-dynamic-content-active');
+					document.dispatchEvent(new Event('dynamic-content-loaded'));
 				} else {
 					toggleLongFormLayout(false);
 					// ERROR: No content container found
@@ -719,17 +824,24 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		if (isPushState) {
 			history.pushState({ path: url, isProject: isProject, isDynamic: true, fromTab: resolvedOriginatingTab }, '', url);
 		}
-	} catch (error) {
-		console.error('[fetchAndDisplayContent] Failed to load dynamic content:', error);
-		if (!contentInserted) {
-			const errorTechnical = document.createElement('p');
-			errorTechnical.textContent = 'There was an error loading the page.';
-			let backBtn = blogContentElement.querySelector('.dynamic-back-button');
-			if (!backBtn) backBtn = addOrUpdateBackButton();
-			if (backBtn) { backBtn.after(errorTechnical); } else { blogContentElement.appendChild(errorTechnical); }
-			toggleLongFormLayout(false);
+		} catch (error) {
+			console.error('[fetchAndDisplayContent] Failed to load dynamic content:', error);
+			if (!contentInserted) {
+				const errorTechnical = document.createElement('p');
+				errorTechnical.textContent = 'There was an error loading the page.';
+				let backBtn = blogContentElement.querySelector('.dynamic-back-button');
+				if (!backBtn) backBtn = addOrUpdateBackButton();
+				if (backBtn) { backBtn.after(errorTechnical); } else { blogContentElement.appendChild(errorTechnical); }
+				toggleLongFormLayout(false);
+				cleanupDynamicScrollContainer();
+				blogContentElement.classList.remove('has-dynamic-content');
+				blogContentElement.style.removeProperty('overflow');
+				blogContentElement.style.removeProperty('overflow-y');
+				blogContentElement.style.removeProperty('overflow-x');
+				document.body.classList.remove('has-dynamic-content-active');
+				document.dispatchEvent(new Event('dynamic-content-unloaded'));
+			}
 		}
-	}
 			
 			// End screen wipe transition
 			if (window.ScreenWipeTransition && transitionData) {
@@ -791,7 +903,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 		initializeLinkListeners(blogContentElement);
 
-		// Resize listener removed - dynamic content now works on all screen sizes
+	// Resize listener removed - dynamic content now works on all screen sizes
 
 	const handlePopstate = async function (event) {
 		if (event.state && event.state.fromTab) {
@@ -799,52 +911,21 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		}
 		// If we're returning to the home page (no state or initial state)
 		if (!event.state || event.state.isInitial) {
-				toggleLongFormLayout(false);
-				// Ensure the page is visible
-				document.body.style.opacity = '1';
-				document.body.classList.add('loaded');
-				const overlay = document.querySelector('.page-transition-overlay');
-				if (overlay) {
-					overlay.style.display = 'none';
-				}
-				
-				// If blog content was hidden, show it
-				if (blogContentElement) {
-					blogContentElement.style.opacity = '1';
-					const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
-					if (innerWrapper) {
-						innerWrapper.style.opacity = '1';
-					}
-				}
-				
 			// Check if we're coming back from a project (portfolio was likely active)
 			const currentHistoryState = history.state;
 			const wasOnProject = window.location.pathname.includes('/20'); // Year-based URLs
 			const cameFromPortfolioTab = (event.state && event.state.fromTab === 'portfolio') || (currentHistoryState && currentHistoryState.fromTab === 'portfolio');
 
-			if (wasOnProject || (currentHistoryState && currentHistoryState.isProject) || cameFromPortfolioTab) {
-					// Mark as back navigation for carousel
-					sessionStorage.setItem('portfolio-back-navigation', 'true');
-					
-					// Emit events to trigger carousel re-initialization
-					setTimeout(() => {
-						document.dispatchEvent(new Event('contentLoaded'));
-						window.dispatchEvent(new Event('portfolio-loaded'));
-						
-						// Give browser time to restore scroll, then check active notebook
-						setTimeout(() => {
-							if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
-								window._notebookCarousel.reinitialize();
-							}
-						}, 300);
-					}, 100);
-				}
-				
-				return;
-			}
-			
-			if (event.state && event.state.page) {
-				const targetUrl = event.state.page;
+			restoreInitialView({
+				fromProject: wasOnProject || (currentHistoryState && currentHistoryState.isProject) || cameFromPortfolioTab,
+				originatingTab: lastTabBeforeDynamicLoad
+			});
+
+			return;
+		}
+		
+		if (event.state && event.state.page) {
+			const targetUrl = event.state.page;
 				// Navigating to target URL
 
 				// Perform fade out
