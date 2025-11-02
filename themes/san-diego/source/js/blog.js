@@ -124,11 +124,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		const mobileViewportQuery = window.matchMedia('(max-width: 768px)');
 		let activeDynamicScroll = null;
 
+		const sizingProperties = ['height', 'min-height', 'max-height', 'overflow', 'overflow-y', 'overflow-x', 'width'];
+
+		function clearInlineSizing(element) {
+			if (!element) return;
+			sizingProperties.forEach(prop => element.style.removeProperty(prop));
+		}
+
+		function scheduleInlineSizingClear(element, attempts = [0, 16, 32, 64, 128, 256, 400]) {
+			attempts.forEach(delay => {
+				setTimeout(() => clearInlineSizing(element), delay);
+			});
+		}
+
 		function resetInnerWrapperScrollStyles() {
 			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
 			if (!innerWrapper) return;
-			innerWrapper.style.removeProperty('height');
-			innerWrapper.style.removeProperty('overflow');
+			clearInlineSizing(innerWrapper);
 		}
 		
 		resetInnerWrapperScrollStyles();
@@ -158,30 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	function cleanupDynamicScrollContainer() {
 		if (!activeDynamicScroll) return;
 
-		const {
-			resizeHandler,
-			viewportHandler,
-			scrollHandler,
-			cancelLayout
-		} = activeDynamicScroll;
-
-		if (resizeHandler) {
-			window.removeEventListener('resize', resizeHandler);
-		}
-		if (viewportHandler) {
-			if (mobileViewportQuery.removeEventListener) {
-				mobileViewportQuery.removeEventListener('change', viewportHandler);
-			} else if (mobileViewportQuery.removeListener) {
-				mobileViewportQuery.removeListener(viewportHandler);
-			}
-		}
-		if (scrollHandler) {
-			window.removeEventListener('scroll', scrollHandler);
-		}
-		if (cancelLayout) {
-			cancelLayout();
-		}
-
 		const host = activeDynamicScroll.host;
 		if (host && host.isConnected) {
 			host.classList.remove('dynamic-scroll-host');
@@ -195,18 +183,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			host.style.removeProperty('-webkit-overflow-scrolling');
 		}
 
-		if (activeDynamicScroll.cssVarKey) {
-			document.documentElement.style.removeProperty(activeDynamicScroll.cssVarKey);
+		if (activeDynamicScroll.cleanup) {
+			activeDynamicScroll.cleanup();
 		}
-
-		blogContentElement.classList.remove('has-dynamic-scroll-host');
 
 		activeDynamicScroll = null;
 	}
 
 	function setupDynamicScrollContainer() {
-		const blogHeaderElement = document.querySelector('.blog-header');
-
 		const primaryScrollHost =
 			blogContentElement.querySelector('.project-edge-wrapper') ||
 			blogContentElement.querySelector('.content-inner-wrapper') ||
@@ -218,92 +202,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		cleanupDynamicScrollContainer();
 
-		const getTopOffset = () => {
-			const headerBottom = blogHeaderElement ? blogHeaderElement.getBoundingClientRect().bottom : 0;
-			const blogContentTop = blogContentElement.getBoundingClientRect().top;
-			return Math.max(headerBottom, blogContentTop);
-		};
+		clearInlineSizing(primaryScrollHost);
+		scheduleInlineSizingClear(primaryScrollHost);
 
-		const cssVarKey = '--blog-dynamic-viewport-height';
-
-		let layoutFrameId = null;
-		const cancelLayout = () => {
-			if (!layoutFrameId) return;
-			cancelAnimationFrame(layoutFrameId);
-			layoutFrameId = null;
-		};
-		const scheduleLayout = () => {
-			if (layoutFrameId) return;
-			layoutFrameId = requestAnimationFrame(() => {
-				layoutFrameId = null;
-				applyLayout();
-			});
-		};
-
-		const applyLayout = () => {
-			if (!primaryScrollHost.isConnected) {
-				return;
+		const styleSanitizer = new MutationObserver((mutations) => {
+			for (const mutation of mutations) {
+				if (mutation.attributeName === 'style') {
+					clearInlineSizing(primaryScrollHost);
+				}
 			}
-
-			const isMobileViewport = mobileViewportQuery.matches;
-
-			primaryScrollHost.classList.remove('dynamic-scroll-host');
-			primaryScrollHost.removeAttribute('data-dynamic-scroll');
-			primaryScrollHost.style.removeProperty('height');
-			primaryScrollHost.style.removeProperty('min-height');
-			primaryScrollHost.style.removeProperty('max-height');
-			primaryScrollHost.style.removeProperty('overflow');
-			primaryScrollHost.style.removeProperty('overflow-y');
-			primaryScrollHost.style.removeProperty('overflow-x');
-			primaryScrollHost.style.removeProperty('-webkit-overflow-scrolling');
-
-			if (isMobileViewport) {
-				document.documentElement.style.removeProperty(cssVarKey);
-				return;
-			}
-
-			const topOffset = getTopOffset();
-			const spacing = 24;
-			const availableHeight = Math.max(window.innerHeight - topOffset - spacing, 320);
-
-			document.documentElement.style.setProperty(cssVarKey, `${availableHeight}px`);
-
-			primaryScrollHost.classList.add('dynamic-scroll-host');
-			primaryScrollHost.setAttribute('data-dynamic-scroll', 'true');
-			primaryScrollHost.style.setProperty('height', `${availableHeight}px`, 'important');
-			primaryScrollHost.style.setProperty('min-height', `${availableHeight}px`, 'important');
-			primaryScrollHost.style.setProperty('max-height', `${availableHeight}px`, 'important');
-			primaryScrollHost.style.setProperty('overflow-y', 'auto', 'important');
-			primaryScrollHost.style.setProperty('overflow-x', 'hidden', 'important');
-			primaryScrollHost.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
-		};
-
-		scheduleLayout();
-		requestAnimationFrame(scheduleLayout);
-		setTimeout(scheduleLayout, 64);
-		setTimeout(scheduleLayout, 240);
-
-		const resizeHandler = () => scheduleLayout();
-		window.addEventListener('resize', resizeHandler);
-
-		const viewportHandler = () => scheduleLayout();
-		if (mobileViewportQuery.addEventListener) {
-			mobileViewportQuery.addEventListener('change', viewportHandler);
-		} else if (mobileViewportQuery.addListener) {
-			mobileViewportQuery.addListener(viewportHandler);
-		}
-
-		const scrollHandler = () => scheduleLayout();
-		window.addEventListener('scroll', scrollHandler, { passive: true });
+		});
+		styleSanitizer.observe(primaryScrollHost, { attributes: true, attributeFilter: ['style'] });
 
 		activeDynamicScroll = {
 			host: primaryScrollHost,
-			resizeHandler,
-			viewportHandler,
-			scrollHandler,
-			cancelLayout,
-			cssVarKey
+			cleanup: () => styleSanitizer.disconnect()
 		};
+
+		primaryScrollHost.classList.add('dynamic-scroll-host');
+		primaryScrollHost.setAttribute('data-dynamic-scroll', 'true');
 	}
 
 		function restoreInitialView(options = {}) {
@@ -318,6 +235,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			cleanupDynamicScrollContainer();
 			blogContentElement.classList.remove('has-dynamic-content');
 			blogContentElement.style.removeProperty('overflow');
+			blogContentElement.style.removeProperty('overflow-y');
+			blogContentElement.style.removeProperty('overflow-x');
 			document.body.classList.remove('has-dynamic-content-active');
 
 			blogContentElement.innerHTML = initialBlogContentHTML;
@@ -647,6 +566,8 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 	// Add has-dynamic-content class to enable proper scrolling
 	blogContentElement.classList.add('has-dynamic-content');
+	blogContentElement.style.overflowY = 'auto';
+	blogContentElement.style.overflowX = 'hidden';
 
 	// Ensure existing content-inner-wrapper has border-radius during transition
 	const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
@@ -804,6 +725,10 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 					resetInnerWrapperScrollStyles();
 					setupDynamicScrollContainer();
+					const freshInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+					if (freshInnerWrapper) {
+						scheduleInlineSizingClear(freshInnerWrapper);
+					}
 
 					// Content inserted successfully
 					
@@ -911,6 +836,8 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 				cleanupDynamicScrollContainer();
 				blogContentElement.classList.remove('has-dynamic-content');
 				blogContentElement.style.removeProperty('overflow');
+				blogContentElement.style.removeProperty('overflow-y');
+				blogContentElement.style.removeProperty('overflow-x');
 				document.body.classList.remove('has-dynamic-content-active');
 				document.dispatchEvent(new Event('dynamic-content-unloaded'));
 			}

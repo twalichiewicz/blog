@@ -147,16 +147,11 @@ $layout-levels: (
 // Dynamic content behavior (level 3)
 .blog-content.has-dynamic-content {
   @media (min-width: variables.$tablet-breakpoint) {
-    .content-wrapper {
-      overflow: hidden;
-      height: 100%;
-    }
-    
+    .content-wrapper,
     .content-inner-wrapper {
-      overflow-y: scroll;
-      overflow-x: hidden;
-      height: 100%;
-      -webkit-overflow-scrolling: touch;
+      height: auto;
+      min-height: 0;
+      overflow: visible;
     }
   }
   
@@ -176,7 +171,6 @@ $layout-levels: (
         margin-top: 0;
         padding-top: 24px;
       }
-      
     }
     
     // Override for mobile carousel - allow it to take full control
@@ -185,7 +179,6 @@ $layout-levels: (
       position: relative;
     }
   }
-  
 }
 
 // Content width management

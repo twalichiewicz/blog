@@ -1,23 +1,23 @@
-// Unified dynamic scroll behaviour for dynamically loaded blog content
+// Simplified dynamic content scrollbar handling
 @use 'variables';
-
-:root {
-  --blog-dynamic-viewport-height: auto;
-}
 
 .blog .blog-content.has-dynamic-content {
   display: flex;
   flex-direction: column;
   position: relative;
+  min-height: 100vh;
+  height: 100%;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
 
   .dynamic-scroll-host {
     flex: 1 1 auto;
+    min-height: 0;
+    height: auto !important;
+    max-height: none !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    min-height: 0;
-    height: var(--blog-dynamic-viewport-height, calc(100vh - 140px));
-    max-height: none;
     position: relative;
     opacity: 1 !important;
 
@@ -51,27 +51,32 @@
       }
     }
   }
+
+  .content-inner-wrapper.dynamic-scroll-host {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+}
+
+.device-desktop .blog .blog-content.has-dynamic-content .content-inner-wrapper.dynamic-scroll-host,
+.device-tablet .blog .blog-content.has-dynamic-content .content-inner-wrapper.dynamic-scroll-host {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
 }
 
 @media (max-width: variables.$mobile-breakpoint) {
   .blog .blog-content.has-dynamic-content {
-    overflow: visible !important;
-    height: auto !important;
-    min-height: auto !important;
-    max-height: none !important;
-
-    .content-wrapper,
-    .content-inner-wrapper {
-      overflow: visible !important;
-      height: auto !important;
-      max-height: none !important;
-      border-radius: 12px !important;
-    }
+    min-height: auto;
 
     .dynamic-scroll-host {
-      overflow: visible !important;
-      height: auto !important;
-      max-height: none !important;
+      overflow: visible;
+      height: auto;
+      max-height: none;
 
       .post-wrapper,
       .project-wrapper,
