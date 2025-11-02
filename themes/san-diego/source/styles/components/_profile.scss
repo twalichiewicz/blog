@@ -903,7 +903,6 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			gap: 6px;
 			padding: 12px 14px 16px;
 			min-height: 80px;
 			border-radius: 10px;
@@ -919,6 +918,7 @@
 			transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 			flex: 1 1 0;
 			min-width: 0;
+			overflow: visible;
 		}
 
 		.desktop-contact-chin .contact-chin-btn:hover {
@@ -942,6 +942,63 @@
 			outline-offset: 2px;
 		}
 
+		.desktop-contact-chin .contact-chin-btn::after {
+			content: attr(data-label);
+			position: absolute;
+			bottom: calc(100% + 12px);
+			left: 50%;
+			transform: translate(-50%, 8px);
+			padding: 6px 12px;
+			background: rgba(15, 15, 15, 0.95);
+			border-radius: 6px;
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			color: rgba(255, 255, 255, 0.9);
+			font-size: var(--font-size-xs);
+			font-weight: var(--font-weight-semibold);
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			opacity: 0;
+			pointer-events: none;
+			white-space: nowrap;
+			transition: opacity 0.2s ease, transform 0.2s ease;
+			box-shadow:
+				0 6px 12px rgba(0, 0, 0, 0.35),
+				inset 0 1px 0 rgba(255, 255, 255, 0.08);
+		}
+
+		.desktop-contact-chin .contact-chin-btn::before {
+			content: '';
+			position: absolute;
+			bottom: calc(100% + 2px);
+			left: 50%;
+			transform: translate(-50%, 8px) rotate(45deg);
+			width: 12px;
+			height: 12px;
+			background: rgba(15, 15, 15, 0.95);
+			border-left: 1px solid rgba(255, 255, 255, 0.15);
+			border-top: 1px solid rgba(255, 255, 255, 0.15);
+			border-right: none;
+			border-bottom: none;
+			border-radius: 2px 0 0 0;
+			opacity: 0;
+			pointer-events: none;
+			transform-origin: center;
+			transition: opacity 0.2s ease, transform 0.2s ease;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+		}
+
+		.desktop-contact-chin .contact-chin-btn:hover::after,
+		.desktop-contact-chin .contact-chin-btn:focus-visible::after {
+			opacity: 1;
+			transform: translate(-50%, 0);
+		}
+
+		.desktop-contact-chin .contact-chin-btn:hover::before,
+		.desktop-contact-chin .contact-chin-btn:focus-visible::before {
+			opacity: 1;
+			transform: translate(-50%, 0) rotate(45deg);
+		}
+
 		.desktop-contact-chin .contact-chin-btn .contact-icon {
 			display: inline-flex;
 			align-items: center;
@@ -958,12 +1015,6 @@
 			}
 		}
 
-		.desktop-contact-chin .contact-chin-btn .contact-label {
-			font-size: var(--font-size-2xs);
-			letter-spacing: 0.16em;
-			text-transform: uppercase;
-			opacity: 0.85;
-		}
 	}
 }
 
@@ -1016,8 +1067,20 @@
 			color: variables.$link-color;
 		}
 
-		.desktop-contact-chin .contact-chin-btn .contact-label {
-			color: variables.$text-color-secondary;
+		.desktop-contact-chin .contact-chin-btn::after {
+			background: rgba(255, 255, 255, 0.98);
+			border-color: rgba(variables.$border-color, 0.5);
+			color: variables.$text-color;
+			box-shadow:
+				0 6px 12px rgba(0, 0, 0, 0.08),
+				inset 0 1px 0 rgba(255, 255, 255, 0.9);
+		}
+
+		.desktop-contact-chin .contact-chin-btn::before {
+			background: rgba(255, 255, 255, 0.98);
+			border-left-color: rgba(variables.$border-color, 0.5);
+			border-top-color: rgba(variables.$border-color, 0.5);
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 		}
 	}
 }
