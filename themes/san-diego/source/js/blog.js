@@ -274,22 +274,52 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			}
 
-			const switchToTab = () => {
-				if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-					if (fromProject) {
-						window.mobileTabs.switchTab('portfolio', false);
-					} else {
-						window.mobileTabs.switchTab(originatingTab, false);
-					}
-				}
-			};
+		const manualTabSwitch = (targetType) => {
+			const tabButtons = document.querySelectorAll('.tab-button');
+			const postsContent = document.getElementById('postsContent');
+			const projectsContent = document.getElementById('projectsContent');
+			tabButtons.forEach(button => {
+				if (!button) return;
+				const isTarget = button.dataset.type === targetType;
+				button.classList.toggle('active', isTarget);
+				button.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+			});
 
-			if (fromProject) {
-				sessionStorage.setItem('portfolio-back-navigation', 'true');
-				setTimeout(() => {
-					switchToTab();
-					window.dispatchEvent(new Event('portfolio-loaded'));
-					document.dispatchEvent(new Event('contentLoaded'));
+			if (postsContent && projectsContent) {
+				if (targetType === 'portfolio') {
+					postsContent.style.display = 'none';
+					postsContent.setAttribute('aria-hidden', 'true');
+					projectsContent.style.display = 'block';
+					projectsContent.setAttribute('aria-hidden', 'false');
+				} else {
+					projectsContent.style.display = 'none';
+					projectsContent.setAttribute('aria-hidden', 'true');
+					postsContent.style.display = 'block';
+					postsContent.setAttribute('aria-hidden', 'false');
+				}
+			}
+		};
+
+		const requestTabSwitch = (targetType, attempt = 0) => {
+			if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+				window.mobileTabs.switchTab(targetType, false);
+				return;
+			}
+			if (attempt < 6) {
+				setTimeout(() => requestTabSwitch(targetType, attempt + 1), 50 * (attempt + 1));
+			} else {
+				manualTabSwitch(targetType);
+			}
+		};
+
+		const switchTargetTab = fromProject ? 'portfolio' : originatingTab;
+
+		if (fromProject) {
+			sessionStorage.setItem('portfolio-back-navigation', 'true');
+			setTimeout(() => {
+				requestTabSwitch(switchTargetTab);
+				window.dispatchEvent(new Event('portfolio-loaded'));
+				document.dispatchEvent(new Event('contentLoaded'));
 
 					setTimeout(() => {
 						if (window.projectDemo && window.projectDemo.init) {
@@ -303,14 +333,14 @@ document.addEventListener('DOMContentLoaded', function () {
 						}
 					}, 300);
 				}, 50);
-			} else {
-				setTimeout(() => {
-					switchToTab();
-					if (window.location.search.includes('tab=portfolio') && originatingTab !== 'portfolio') {
-						history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: originatingTab }, '', initialBlogContentURL);
-					}
-				}, 50);
-			}
+		} else {
+			setTimeout(() => {
+				requestTabSwitch(switchTargetTab);
+				if (window.location.search.includes('tab=portfolio') && originatingTab !== 'portfolio') {
+					history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: originatingTab }, '', initialBlogContentURL);
+				}
+			}, 50);
+		}
 
 			if (window.initializeSoundEffects) {
 				window.initializeSoundEffects();
