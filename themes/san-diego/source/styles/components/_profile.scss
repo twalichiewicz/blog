@@ -844,8 +844,8 @@
 
 		.desktop-contact-chin .contact-chin-inner {
 			position: relative;
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			display: flex;
+			align-items: stretch;
 			gap: 12px;
 			width: 100%;
 			padding: 16px 18px;
@@ -917,6 +917,8 @@
 			text-decoration: none;
 			text-align: center;
 			transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+			flex: 1 1 0;
+			min-width: 0;
 		}
 
 		.desktop-contact-chin .contact-chin-btn:hover {
