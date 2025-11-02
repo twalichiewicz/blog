@@ -155,35 +155,125 @@ document.addEventListener('DOMContentLoaded', function () {
 		let initialBlogContentURL = window.location.pathname + window.location.search + window.location.hash; // More robust URL capture
 		let lastTabBeforeDynamicLoad = 'blog';
 
-		function cleanupDynamicScrollContainer() {
-			if (!activeDynamicScroll) return;
+	function cleanupDynamicScrollContainer() {
+		if (!activeDynamicScroll) return;
 
-			const target = activeDynamicScroll;
+		if (activeDynamicScroll.resizeHandler) {
+			window.removeEventListener('resize', activeDynamicScroll.resizeHandler);
+		}
+
+		const targets = activeDynamicScroll.containers || [];
+		targets.forEach(target => {
+			if (!target) return;
+			target.style.removeProperty('height');
+			target.style.removeProperty('min-height');
+			target.style.removeProperty('max-height');
 			target.style.removeProperty('overflow-y');
 			target.style.removeProperty('overflow-x');
 			target.style.removeProperty('-webkit-overflow-scrolling');
 			target.removeAttribute('data-dynamic-scroll');
-			activeDynamicScroll = null;
+		});
+
+		if (activeDynamicScroll.blogContentStyled) {
+			blogContentElement.style.removeProperty('height');
+			blogContentElement.style.removeProperty('min-height');
+			blogContentElement.style.removeProperty('max-height');
+			blogContentElement.style.removeProperty('overflow');
 		}
 
-		function setupDynamicScrollContainer() {
-			const wrapper = blogContentElement.querySelector('.content-inner-wrapper') ||
-				blogContentElement.querySelector('.project-edge-wrapper .project-wrapper') ||
-				blogContentElement.querySelector('.project-edge-wrapper');
+		activeDynamicScroll = null;
+	}
 
-			if (!wrapper) {
+	function setupDynamicScrollContainer() {
+		const blogHeaderElement = document.querySelector('.blog-header');
+
+		const primaryScrollHost = blogContentElement.querySelector('.project-edge-wrapper') ||
+			blogContentElement.querySelector('.content-inner-wrapper') ||
+			blogContentElement.querySelector('.project-edge-wrapper .project-wrapper');
+
+		if (!primaryScrollHost) {
+			return;
+		}
+
+		const additionalScrollTargets = [];
+		if (primaryScrollHost.classList.contains('project-edge-wrapper')) {
+			const nestedProjectWrapper = primaryScrollHost.querySelector('.project-wrapper');
+			if (nestedProjectWrapper) {
+				additionalScrollTargets.push(nestedProjectWrapper);
+			}
+		}
+
+		cleanupDynamicScrollContainer();
+
+		const getTopOffset = () => {
+			const headerBottom = blogHeaderElement ? blogHeaderElement.getBoundingClientRect().bottom : 0;
+			const blogContentTop = blogContentElement.getBoundingClientRect().top;
+			return Math.max(headerBottom, blogContentTop);
+		};
+
+		const scrollState = {
+			containers: [primaryScrollHost, ...additionalScrollTargets],
+			resizeHandler: null,
+			blogContentStyled: false
+		};
+
+		const applyDimensions = () => {
+			const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
+			const targets = new Set(scrollState.containers);
+
+			if (isMobileViewport) {
+				blogContentElement.style.removeProperty('height');
+				blogContentElement.style.removeProperty('min-height');
+				blogContentElement.style.removeProperty('max-height');
+				blogContentElement.style.removeProperty('overflow');
+
+				targets.forEach(target => {
+					if (!target) return;
+					target.style.removeProperty('height');
+					target.style.removeProperty('min-height');
+					target.style.removeProperty('max-height');
+					target.style.removeProperty('overflow-y');
+					target.style.removeProperty('overflow-x');
+					target.style.removeProperty('-webkit-overflow-scrolling');
+					target.removeAttribute('data-dynamic-scroll');
+				});
+
+				scrollState.blogContentStyled = false;
 				return;
 			}
 
-			cleanupDynamicScrollContainer();
-			wrapper.style.removeProperty('height');
-			wrapper.style.removeProperty('max-height');
-			wrapper.style.setProperty('overflow-y', 'auto', 'important');
-			wrapper.style.setProperty('overflow-x', 'hidden', 'important');
-			wrapper.style.webkitOverflowScrolling = 'touch';
-			wrapper.setAttribute('data-dynamic-scroll', 'true');
-			activeDynamicScroll = wrapper;
-		}
+			const topOffset = getTopOffset();
+			const spacing = 24;
+			const availableHeight = Math.max(window.innerHeight - topOffset - spacing, 320);
+
+			blogContentElement.style.setProperty('height', `${availableHeight}px`, 'important');
+			blogContentElement.style.setProperty('min-height', `${availableHeight}px`, 'important');
+			blogContentElement.style.setProperty('max-height', `${availableHeight}px`, 'important');
+			blogContentElement.style.setProperty('overflow', 'hidden', 'important');
+
+			targets.forEach(target => {
+				if (!target) return;
+				target.setAttribute('data-dynamic-scroll', 'true');
+				target.style.setProperty('height', `${availableHeight}px`, 'important');
+				target.style.setProperty('min-height', `${availableHeight}px`, 'important');
+				target.style.setProperty('max-height', `${availableHeight}px`, 'important');
+				target.style.setProperty('overflow-y', 'auto', 'important');
+				target.style.setProperty('overflow-x', 'hidden', 'important');
+				target.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+			});
+
+			scrollState.blogContentStyled = true;
+		};
+
+		applyDimensions();
+		requestAnimationFrame(applyDimensions);
+
+		const resizeHandler = () => applyDimensions();
+		scrollState.resizeHandler = resizeHandler;
+		window.addEventListener('resize', resizeHandler);
+
+		activeDynamicScroll = scrollState;
+	}
 
 		function restoreInitialView(options = {}) {
 			const {
@@ -196,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 			cleanupDynamicScrollContainer();
 			blogContentElement.classList.remove('has-dynamic-content');
+			blogContentElement.style.removeProperty('overflow');
 			document.body.classList.remove('has-dynamic-content-active');
 
 			blogContentElement.innerHTML = initialBlogContentHTML;
@@ -525,6 +616,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 	// Add has-dynamic-content class to enable proper scrolling
 	blogContentElement.classList.add('has-dynamic-content');
+	blogContentElement.style.overflow = 'hidden';
 
 	// Ensure existing content-inner-wrapper has border-radius during transition
 	const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
@@ -547,6 +639,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 	}
 
 	// Clear content after transition starts
+	cleanupDynamicScrollContainer();
 	blogContentElement.innerHTML = '';
 
 	let contentInserted = false;
@@ -787,6 +880,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 				toggleLongFormLayout(false);
 				cleanupDynamicScrollContainer();
 				blogContentElement.classList.remove('has-dynamic-content');
+				blogContentElement.style.removeProperty('overflow');
 				document.body.classList.remove('has-dynamic-content-active');
 				document.dispatchEvent(new Event('dynamic-content-unloaded'));
 			}
