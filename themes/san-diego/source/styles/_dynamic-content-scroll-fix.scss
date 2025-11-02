@@ -16,7 +16,8 @@
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
     min-height: 0;
-    max-height: var(--blog-dynamic-viewport-height, calc(100vh - 140px));
+    height: var(--blog-dynamic-viewport-height, calc(100vh - 140px));
+    max-height: none;
     position: relative;
     opacity: 1 !important;
 
@@ -49,12 +50,6 @@
         height: auto;
       }
     }
-  }
-
-  &.has-dynamic-scroll-host {
-    height: var(--blog-dynamic-viewport-height, calc(100vh - 12px));
-    min-height: var(--blog-dynamic-viewport-height, calc(100vh - 12px));
-    max-height: var(--blog-dynamic-viewport-height, calc(100vh - 12px));
   }
 }
 

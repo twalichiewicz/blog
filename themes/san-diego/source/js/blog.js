@@ -186,8 +186,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.documentElement.style.removeProperty(activeDynamicScroll.cssVarKey);
 		}
 
-		blogContentElement.classList.remove('has-dynamic-scroll-host');
-
 		activeDynamicScroll = null;
 	}
 
@@ -228,7 +226,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			if (isMobileViewport) {
 				document.documentElement.style.removeProperty(cssVarKey);
-				blogContentElement.classList.remove('has-dynamic-scroll-host');
 				return;
 			}
 
@@ -237,7 +234,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			const availableHeight = Math.max(window.innerHeight - topOffset - spacing, 320);
 
 			document.documentElement.style.setProperty(cssVarKey, `${availableHeight}px`);
-			blogContentElement.classList.add('has-dynamic-scroll-host');
 
 			primaryScrollHost.classList.add('dynamic-scroll-host');
 			primaryScrollHost.setAttribute('data-dynamic-scroll', 'true');
