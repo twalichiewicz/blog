@@ -846,7 +846,7 @@
 			position: relative;
 			display: flex;
 			align-items: stretch;
-			gap: 12px;
+			gap: 6px;
 			width: 100%;
 			padding: 16px 18px;
 			border-radius: 12px;
@@ -1009,6 +1009,8 @@
 			width: 26px;
 			height: 26px;
 			color: inherit;
+			opacity: 0.78;
+			transition: color 0.25s ease, opacity 0.25s ease;
 
 			svg {
 				width: 100%;
@@ -1016,6 +1018,15 @@
 				display: block;
 				color: inherit;
 			}
+		}
+
+		.desktop-contact-chin .contact-chin-btn:hover .contact-icon,
+		.desktop-contact-chin .contact-chin-btn:focus-visible .contact-icon {
+			opacity: 1;
+		}
+
+		.desktop-contact-chin .contact-chin-inner:hover .contact-chin-btn:not(:hover) .contact-icon {
+			opacity: 0.6;
 		}
 
 	}
