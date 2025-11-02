@@ -825,6 +825,201 @@
 	}
 }
 
+.blog {
+	.desktop-contact-chin {
+		display: none;
+	}
+}
+
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+	.blog {
+		.desktop-contact-chin {
+			display: flex;
+			width: 100%;
+			padding: 0 24px calc(24px + env(safe-area-inset-bottom, 0px));
+			box-sizing: border-box;
+			position: relative;
+			margin-top: auto;
+		}
+
+		.desktop-contact-chin .contact-chin-inner {
+			position: relative;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+			gap: 12px;
+			width: 100%;
+			padding: 16px 18px;
+			border-radius: 18px 18px 16px 16px;
+			background: linear-gradient(
+				180deg,
+				rgba(10, 10, 10, 0.95) 0%,
+				rgba(20, 20, 20, 0.98) 45%,
+				rgba(12, 12, 12, 0.94) 100%
+			);
+			border: 1px solid rgba(0, 0, 0, 0.35);
+			border-top: 1px solid rgba(255, 255, 255, 0.22);
+			box-shadow:
+				inset 0 1px 0 rgba(255, 255, 255, 0.06),
+				inset 0 -1px 2px rgba(0, 0, 0, 0.85),
+				0 6px 18px rgba(0, 0, 0, 0.4),
+				1px 0 22px rgba(255, 255, 255, 0.12);
+			overflow: hidden;
+		}
+
+		.desktop-contact-chin .contact-chin-inner::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 55%;
+			background: linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 0.18) 0%,
+				rgba(255, 255, 255, 0.08) 45%,
+				transparent 100%
+			);
+			pointer-events: none;
+		}
+
+		.desktop-contact-chin .contact-chin-inner::after {
+			content: '';
+			position: absolute;
+			bottom: -50%;
+			left: -10%;
+			width: 120%;
+			height: 100%;
+			background: radial-gradient(
+				ellipse at center,
+				rgba(255, 255, 255, 0.04) 0%,
+				transparent 70%
+			);
+			pointer-events: none;
+		}
+
+		.desktop-contact-chin .contact-chin-btn {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 6px;
+			padding: 12px 14px 16px;
+			min-height: 80px;
+			border-radius: 10px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			background: rgba(255, 255, 255, 0.04);
+			color: rgba(255, 255, 255, 0.88);
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			font-size: var(--font-size-2xs);
+			font-weight: var(--font-weight-semibold);
+			text-decoration: none;
+			text-align: center;
+			transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+		}
+
+		.desktop-contact-chin .contact-chin-btn:hover {
+			background: rgba(255, 255, 255, 0.08);
+			border-color: rgba(255, 255, 255, 0.2);
+			box-shadow:
+				inset 0 1px 0 rgba(255, 255, 255, 0.16),
+				0 6px 14px rgba(0, 0, 0, 0.35),
+				0 0 18px rgba(255, 255, 255, 0.1);
+			transform: translateY(-2px);
+			color: variables.$white;
+		}
+
+		.desktop-contact-chin .contact-chin-btn:active {
+			transform: translateY(0);
+			background: rgba(255, 255, 255, 0.12);
+		}
+
+		.desktop-contact-chin .contact-chin-btn:focus-visible {
+			outline: 2px solid variables.$link-color;
+			outline-offset: 2px;
+		}
+
+		.desktop-contact-chin .contact-chin-btn .contact-icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 26px;
+			height: 26px;
+			color: inherit;
+
+			svg {
+				width: 100%;
+				height: 100%;
+				display: block;
+				color: inherit;
+			}
+		}
+
+		.desktop-contact-chin .contact-chin-btn .contact-label {
+			font-size: var(--font-size-2xs);
+			letter-spacing: 0.16em;
+			text-transform: uppercase;
+			opacity: 0.85;
+		}
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	.blog {
+		.desktop-contact-chin .contact-chin-inner {
+			background: linear-gradient(
+				180deg,
+				rgba(245, 245, 245, 0.9) 0%,
+				rgba(234, 234, 234, 0.95) 40%,
+				rgba(228, 228, 228, 0.92) 100%
+			);
+			border: 1px solid rgba(variables.$border-color, 0.4);
+			border-top: 1px solid rgba(255, 255, 255, 0.75);
+			box-shadow:
+				inset 0 1px 0 rgba(255, 255, 255, 0.7),
+				inset 0 -1px 2px rgba(0, 0, 0, 0.05),
+				0 6px 18px rgba(0, 0, 0, 0.08);
+		}
+
+		.desktop-contact-chin .contact-chin-inner::before {
+			background: linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 0.85) 0%,
+				rgba(255, 255, 255, 0.35) 45%,
+				transparent 100%
+			);
+		}
+
+		.desktop-contact-chin .contact-chin-inner::after {
+			background: radial-gradient(
+				ellipse at center,
+				rgba(255, 255, 255, 0.3) 0%,
+				transparent 70%
+			);
+		}
+
+		.desktop-contact-chin .contact-chin-btn {
+			background: rgba(255, 255, 255, 0.75);
+			border: 1px solid rgba(variables.$border-color, 0.5);
+			color: variables.$text-color;
+			box-shadow:
+				inset 0 1px 0 rgba(255, 255, 255, 0.8),
+				0 2px 6px rgba(0, 0, 0, 0.08);
+		}
+
+		.desktop-contact-chin .contact-chin-btn:hover {
+			background: rgba(255, 255, 255, 0.95);
+			border-color: rgba(variables.$border-color, 0.7);
+			color: variables.$link-color;
+		}
+
+		.desktop-contact-chin .contact-chin-btn .contact-label {
+			color: variables.$text-color-secondary;
+		}
+	}
+}
+
 /* Dark mode styles for mobile expandable header */
 @media (prefers-color-scheme: dark) {
 	@media screen and (max-width: variables.$mobile-breakpoint) {
