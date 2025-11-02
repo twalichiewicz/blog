@@ -61,6 +61,7 @@
       min-height: 0 !important; // Critical for flexbox child scrolling
       position: relative !important;
       opacity: 1 !important; // Override the initial opacity: 0
+      max-height: calc(100vh - 140px) !important;
       
       // Ensure content inside has proper spacing
       .post-wrapper,
@@ -73,8 +74,22 @@
           max-width: 100%;
           height: auto;
         }
+
+        & {
+          max-height: calc(100vh - 140px) !important;
+          overflow-y: auto !important;
+          overflow-x: hidden !important;
+          -webkit-overflow-scrolling: touch !important;
+        }
       }
     }
+  }
+
+  .blog .blog-content.has-dynamic-content .project-edge-wrapper {
+    max-height: calc(100vh - 140px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 }
 
@@ -91,6 +106,7 @@
       overflow: visible !important;
       height: auto !important;
       border-radius: 12px !important;
+      max-height: none !important;
     }
     
     // Border radius for content-inner-wrapper is handled by JavaScript
@@ -101,6 +117,7 @@
     .substack-post {
       overflow: visible !important;
       height: auto !important;
+      max-height: none !important;
       
       // Reduce excessive bottom padding on mobile - with higher specificity
       padding-bottom: 1rem !important;

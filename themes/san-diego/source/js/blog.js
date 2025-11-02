@@ -122,7 +122,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 		
 		const mobileViewportQuery = window.matchMedia('(max-width: 768px)');
-		
+		let activeDynamicScroll = null;
+
 		function resetInnerWrapperScrollStyles() {
 			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
 			if (!innerWrapper) return;
@@ -154,6 +155,60 @@ document.addEventListener('DOMContentLoaded', function () {
 		let initialBlogContentURL = window.location.pathname + window.location.search + window.location.hash; // More robust URL capture
 		let lastTabBeforeDynamicLoad = 'blog';
 
+		function cleanupDynamicScrollContainer() {
+			if (!activeDynamicScroll) return;
+
+			window.removeEventListener('resize', activeDynamicScroll.resizeHandler);
+
+			const target = activeDynamicScroll.element;
+			if (target) {
+				target.style.removeProperty('height');
+				target.style.removeProperty('max-height');
+				target.style.removeProperty('overflow-y');
+				target.style.removeProperty('overflow-x');
+				target.style.removeProperty('-webkit-overflow-scrolling');
+				target.style.removeProperty('overscroll-behavior');
+				target.removeAttribute('data-dynamic-scroll');
+			}
+
+			activeDynamicScroll = null;
+		}
+
+		function setupDynamicScrollContainer() {
+			const wrapper = blogContentElement.querySelector('.content-inner-wrapper') ||
+				blogContentElement.querySelector('.project-edge-wrapper .project-wrapper') ||
+				blogContentElement.querySelector('.project-edge-wrapper');
+
+			if (!wrapper) {
+				return;
+			}
+
+			cleanupDynamicScrollContainer();
+
+			const applyDimensions = () => {
+				const rect = wrapper.getBoundingClientRect();
+				const padding = 16;
+				const availableHeight = Math.max(window.innerHeight - rect.top - padding, 320);
+				wrapper.style.setProperty('height', `${availableHeight}px`, 'important');
+				wrapper.style.setProperty('max-height', `${availableHeight}px`, 'important');
+				wrapper.style.setProperty('overflow-y', 'auto', 'important');
+				wrapper.style.setProperty('overflow-x', 'hidden', 'important');
+				wrapper.style.webkitOverflowScrolling = 'touch';
+				wrapper.style.setProperty('overscroll-behavior', 'contain', 'important');
+			};
+
+			wrapper.setAttribute('data-dynamic-scroll', 'true');
+			applyDimensions();
+			requestAnimationFrame(applyDimensions);
+
+			const resizeHandler = () => applyDimensions();
+			window.addEventListener('resize', resizeHandler);
+			activeDynamicScroll = {
+				element: wrapper,
+				resizeHandler
+			};
+		}
+
 		function restoreInitialView(options = {}) {
 			const {
 				fromProject = false,
@@ -163,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (typeof cleanupCarouselInstances === 'function') {
 				cleanupCarouselInstances(blogContentElement);
 			}
-
+			cleanupDynamicScrollContainer();
 			blogContentElement.classList.remove('has-dynamic-content');
 			document.body.classList.remove('has-dynamic-content-active');
 
@@ -490,6 +545,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 	if (typeof cleanupCarouselInstances === 'function') {
 		cleanupCarouselInstances(blogContentElement);
 	}
+	cleanupDynamicScrollContainer();
 
 	// Add has-dynamic-content class to enable proper scrolling
 	blogContentElement.classList.add('has-dynamic-content');
@@ -648,6 +704,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 					}
 
 					resetInnerWrapperScrollStyles();
+					setupDynamicScrollContainer();
 
 					// Content inserted successfully
 					
@@ -752,6 +809,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 				if (!backBtn) backBtn = addOrUpdateBackButton();
 				if (backBtn) { backBtn.after(errorTechnical); } else { blogContentElement.appendChild(errorTechnical); }
 				toggleLongFormLayout(false);
+				cleanupDynamicScrollContainer();
 				blogContentElement.classList.remove('has-dynamic-content');
 				document.body.classList.remove('has-dynamic-content-active');
 				document.dispatchEvent(new Event('dynamic-content-unloaded'));
