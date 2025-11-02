@@ -161,25 +161,32 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (activeDynamicScroll.resizeHandler) {
 			window.removeEventListener('resize', activeDynamicScroll.resizeHandler);
 		}
-
-		const targets = activeDynamicScroll.containers || [];
-		targets.forEach(target => {
-			if (!target) return;
-			target.style.removeProperty('height');
-			target.style.removeProperty('min-height');
-			target.style.removeProperty('max-height');
-			target.style.removeProperty('overflow-y');
-			target.style.removeProperty('overflow-x');
-			target.style.removeProperty('-webkit-overflow-scrolling');
-			target.removeAttribute('data-dynamic-scroll');
-		});
-
-		if (activeDynamicScroll.blogContentStyled) {
-			blogContentElement.style.removeProperty('height');
-			blogContentElement.style.removeProperty('min-height');
-			blogContentElement.style.removeProperty('max-height');
-			blogContentElement.style.removeProperty('overflow');
+		if (activeDynamicScroll.viewportHandler) {
+			if (mobileViewportQuery.removeEventListener) {
+				mobileViewportQuery.removeEventListener('change', activeDynamicScroll.viewportHandler);
+			} else if (mobileViewportQuery.removeListener) {
+				mobileViewportQuery.removeListener(activeDynamicScroll.viewportHandler);
+			}
 		}
+
+		const host = activeDynamicScroll.host;
+		if (host && host.isConnected) {
+			host.classList.remove('dynamic-scroll-host');
+			host.removeAttribute('data-dynamic-scroll');
+			host.style.removeProperty('height');
+			host.style.removeProperty('min-height');
+			host.style.removeProperty('max-height');
+			host.style.removeProperty('overflow');
+			host.style.removeProperty('overflow-y');
+			host.style.removeProperty('overflow-x');
+			host.style.removeProperty('-webkit-overflow-scrolling');
+		}
+
+		if (activeDynamicScroll.cssVarKey) {
+			document.documentElement.style.removeProperty(activeDynamicScroll.cssVarKey);
+		}
+
+		blogContentElement.classList.remove('has-dynamic-scroll-host');
 
 		activeDynamicScroll = null;
 	}
@@ -187,20 +194,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	function setupDynamicScrollContainer() {
 		const blogHeaderElement = document.querySelector('.blog-header');
 
-		const primaryScrollHost = blogContentElement.querySelector('.project-edge-wrapper') ||
+		const primaryScrollHost =
+			blogContentElement.querySelector('.project-edge-wrapper') ||
 			blogContentElement.querySelector('.content-inner-wrapper') ||
 			blogContentElement.querySelector('.project-edge-wrapper .project-wrapper');
 
 		if (!primaryScrollHost) {
 			return;
-		}
-
-		const additionalScrollTargets = [];
-		if (primaryScrollHost.classList.contains('project-edge-wrapper')) {
-			const nestedProjectWrapper = primaryScrollHost.querySelector('.project-wrapper');
-			if (nestedProjectWrapper) {
-				additionalScrollTargets.push(nestedProjectWrapper);
-			}
 		}
 
 		cleanupDynamicScrollContainer();
@@ -211,34 +211,24 @@ document.addEventListener('DOMContentLoaded', function () {
 			return Math.max(headerBottom, blogContentTop);
 		};
 
-		const scrollState = {
-			containers: [primaryScrollHost, ...additionalScrollTargets],
-			resizeHandler: null,
-			blogContentStyled: false
-		};
+		const cssVarKey = '--blog-dynamic-viewport-height';
 
-		const applyDimensions = () => {
-			const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
-			const targets = new Set(scrollState.containers);
+		const applyLayout = () => {
+			const isMobileViewport = mobileViewportQuery.matches;
+
+			primaryScrollHost.classList.remove('dynamic-scroll-host');
+			primaryScrollHost.removeAttribute('data-dynamic-scroll');
+			primaryScrollHost.style.removeProperty('height');
+			primaryScrollHost.style.removeProperty('min-height');
+			primaryScrollHost.style.removeProperty('max-height');
+			primaryScrollHost.style.removeProperty('overflow');
+			primaryScrollHost.style.removeProperty('overflow-y');
+			primaryScrollHost.style.removeProperty('overflow-x');
+			primaryScrollHost.style.removeProperty('-webkit-overflow-scrolling');
 
 			if (isMobileViewport) {
-				blogContentElement.style.removeProperty('height');
-				blogContentElement.style.removeProperty('min-height');
-				blogContentElement.style.removeProperty('max-height');
-				blogContentElement.style.removeProperty('overflow');
-
-				targets.forEach(target => {
-					if (!target) return;
-					target.style.removeProperty('height');
-					target.style.removeProperty('min-height');
-					target.style.removeProperty('max-height');
-					target.style.removeProperty('overflow-y');
-					target.style.removeProperty('overflow-x');
-					target.style.removeProperty('-webkit-overflow-scrolling');
-					target.removeAttribute('data-dynamic-scroll');
-				});
-
-				scrollState.blogContentStyled = false;
+				document.documentElement.style.removeProperty(cssVarKey);
+				blogContentElement.classList.remove('has-dynamic-scroll-host');
 				return;
 			}
 
@@ -246,33 +236,32 @@ document.addEventListener('DOMContentLoaded', function () {
 			const spacing = 24;
 			const availableHeight = Math.max(window.innerHeight - topOffset - spacing, 320);
 
-			blogContentElement.style.setProperty('height', `${availableHeight}px`, 'important');
-			blogContentElement.style.setProperty('min-height', `${availableHeight}px`, 'important');
-			blogContentElement.style.setProperty('max-height', `${availableHeight}px`, 'important');
-			blogContentElement.style.setProperty('overflow', 'hidden', 'important');
+			document.documentElement.style.setProperty(cssVarKey, `${availableHeight}px`);
+			blogContentElement.classList.add('has-dynamic-scroll-host');
 
-			targets.forEach(target => {
-				if (!target) return;
-				target.setAttribute('data-dynamic-scroll', 'true');
-				target.style.setProperty('height', `${availableHeight}px`, 'important');
-				target.style.setProperty('min-height', `${availableHeight}px`, 'important');
-				target.style.setProperty('max-height', `${availableHeight}px`, 'important');
-				target.style.setProperty('overflow-y', 'auto', 'important');
-				target.style.setProperty('overflow-x', 'hidden', 'important');
-				target.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
-			});
-
-			scrollState.blogContentStyled = true;
+			primaryScrollHost.classList.add('dynamic-scroll-host');
+			primaryScrollHost.setAttribute('data-dynamic-scroll', 'true');
 		};
 
-		applyDimensions();
-		requestAnimationFrame(applyDimensions);
+		applyLayout();
+		requestAnimationFrame(applyLayout);
 
-		const resizeHandler = () => applyDimensions();
-		scrollState.resizeHandler = resizeHandler;
+		const resizeHandler = () => applyLayout();
 		window.addEventListener('resize', resizeHandler);
 
-		activeDynamicScroll = scrollState;
+		const viewportHandler = () => applyLayout();
+		if (mobileViewportQuery.addEventListener) {
+			mobileViewportQuery.addEventListener('change', viewportHandler);
+		} else if (mobileViewportQuery.addListener) {
+			mobileViewportQuery.addListener(viewportHandler);
+		}
+
+		activeDynamicScroll = {
+			host: primaryScrollHost,
+			resizeHandler,
+			viewportHandler,
+			cssVarKey
+		};
 	}
 
 		function restoreInitialView(options = {}) {
@@ -616,7 +605,6 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 	// Add has-dynamic-content class to enable proper scrolling
 	blogContentElement.classList.add('has-dynamic-content');
-	blogContentElement.style.overflow = 'hidden';
 
 	// Ensure existing content-inner-wrapper has border-radius during transition
 	const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
