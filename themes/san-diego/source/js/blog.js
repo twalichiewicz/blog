@@ -158,15 +158,28 @@ document.addEventListener('DOMContentLoaded', function () {
 	function cleanupDynamicScrollContainer() {
 		if (!activeDynamicScroll) return;
 
-		if (activeDynamicScroll.resizeHandler) {
-			window.removeEventListener('resize', activeDynamicScroll.resizeHandler);
+		const {
+			resizeHandler,
+			viewportHandler,
+			scrollHandler,
+			cancelLayout
+		} = activeDynamicScroll;
+
+		if (resizeHandler) {
+			window.removeEventListener('resize', resizeHandler);
 		}
-		if (activeDynamicScroll.viewportHandler) {
+		if (viewportHandler) {
 			if (mobileViewportQuery.removeEventListener) {
-				mobileViewportQuery.removeEventListener('change', activeDynamicScroll.viewportHandler);
+				mobileViewportQuery.removeEventListener('change', viewportHandler);
 			} else if (mobileViewportQuery.removeListener) {
-				mobileViewportQuery.removeListener(activeDynamicScroll.viewportHandler);
+				mobileViewportQuery.removeListener(viewportHandler);
 			}
+		}
+		if (scrollHandler) {
+			window.removeEventListener('scroll', scrollHandler);
+		}
+		if (cancelLayout) {
+			cancelLayout();
 		}
 
 		const host = activeDynamicScroll.host;
@@ -185,6 +198,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (activeDynamicScroll.cssVarKey) {
 			document.documentElement.style.removeProperty(activeDynamicScroll.cssVarKey);
 		}
+
+		blogContentElement.classList.remove('has-dynamic-scroll-host');
 
 		activeDynamicScroll = null;
 	}
@@ -211,7 +226,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const cssVarKey = '--blog-dynamic-viewport-height';
 
+		let layoutFrameId = null;
+		const cancelLayout = () => {
+			if (!layoutFrameId) return;
+			cancelAnimationFrame(layoutFrameId);
+			layoutFrameId = null;
+		};
+		const scheduleLayout = () => {
+			if (layoutFrameId) return;
+			layoutFrameId = requestAnimationFrame(() => {
+				layoutFrameId = null;
+				applyLayout();
+			});
+		};
+
 		const applyLayout = () => {
+			if (!primaryScrollHost.isConnected) {
+				return;
+			}
+
 			const isMobileViewport = mobileViewportQuery.matches;
 
 			primaryScrollHost.classList.remove('dynamic-scroll-host');
@@ -237,25 +270,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			primaryScrollHost.classList.add('dynamic-scroll-host');
 			primaryScrollHost.setAttribute('data-dynamic-scroll', 'true');
+			primaryScrollHost.style.setProperty('height', `${availableHeight}px`, 'important');
+			primaryScrollHost.style.setProperty('min-height', `${availableHeight}px`, 'important');
+			primaryScrollHost.style.setProperty('max-height', `${availableHeight}px`, 'important');
+			primaryScrollHost.style.setProperty('overflow-y', 'auto', 'important');
+			primaryScrollHost.style.setProperty('overflow-x', 'hidden', 'important');
+			primaryScrollHost.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
 		};
 
-		applyLayout();
-		requestAnimationFrame(applyLayout);
+		scheduleLayout();
+		requestAnimationFrame(scheduleLayout);
+		setTimeout(scheduleLayout, 64);
+		setTimeout(scheduleLayout, 240);
 
-		const resizeHandler = () => applyLayout();
+		const resizeHandler = () => scheduleLayout();
 		window.addEventListener('resize', resizeHandler);
 
-		const viewportHandler = () => applyLayout();
+		const viewportHandler = () => scheduleLayout();
 		if (mobileViewportQuery.addEventListener) {
 			mobileViewportQuery.addEventListener('change', viewportHandler);
 		} else if (mobileViewportQuery.addListener) {
 			mobileViewportQuery.addListener(viewportHandler);
 		}
 
+		const scrollHandler = () => scheduleLayout();
+		window.addEventListener('scroll', scrollHandler, { passive: true });
+
 		activeDynamicScroll = {
 			host: primaryScrollHost,
 			resizeHandler,
 			viewportHandler,
+			scrollHandler,
+			cancelLayout,
 			cssVarKey
 		};
 	}
