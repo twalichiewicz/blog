@@ -1,3 +1,6 @@
+<%
+    const contactLinks = (site && site.data && site.data.contact_links) || [];
+%>
 <!-- Contact Modal -->
 <div id="contact-modal" class="contact-modal no-external-indicators" style="display: none;">
     <div class="contact-modal-backdrop" onclick="closeContactModal()"></div>
@@ -10,27 +13,31 @@
             </button>
             <div class="contact-modal-title">Get in touch</div>
         </div>
-        <div class="contact-modal-options">
-            <a href="mailto:hey@thomas.design" class="contact-option email">
-                <img src="/img/email.png" alt="Email" class="contact-icon">
-                <span class="contact-label">Email</span>
-                <span class="contact-sublabel">hey@thomas.design</span>
-            </a>
-            <a href="https://linkedin.com/in/twalichiewicz" target="_blank" class="contact-option linkedin">
-                <img src="/img/linkedin.png" alt="LinkedIn" class="contact-icon">
-                <span class="contact-label">LinkedIn</span>
-                <span class="contact-sublabel">twalichiewicz</span>
-            </a>
-            <a href="https://github.com/twalichiewicz" target="_blank" class="contact-option github">
-                <img src="/img/github.svg" alt="GitHub" class="contact-icon">
-                <span class="contact-label">GitHub</span>
-                <span class="contact-sublabel">twalichiewicz</span>
-            </a>
-            <a href="/docs/Thomas Walichiewicz CV Q2 2025.pdf" target="_blank" class="contact-option resume">
-                <img src="/img/resume.png" alt="Resume" class="contact-icon">
-                <span class="contact-label">Resume</span>
-                <span class="contact-sublabel">PDF Download</span>
-            </a>
-        </div>
+        <% if (contactLinks.length) { %>
+            <div class="contact-modal-options">
+                <% contactLinks.forEach((link) => {
+                    const isExternal = Boolean(link.external);
+                    const optionClasses = ['contact-option'];
+                    if (link.modifier) {
+                        optionClasses.push(link.modifier);
+                    }
+                %>
+                    <a
+                        href="<%= link.href %>"
+                        class="<%= optionClasses.join(' ') %>"
+                        aria-label="<%= link.aria_label || link.label %>"
+                        <% if (isExternal) { %>target="_blank" rel="noopener"<% } %>
+                    >
+                        <span class="contact-icon" aria-hidden="true">
+                            <%- partial('_partial/contact-icon', { icon: link.id, size: 48 }) %>
+                        </span>
+                        <span class="contact-label"><%= link.label %></span>
+                        <% if (link.sublabel) { %>
+                            <span class="contact-sublabel"><%= link.sublabel %></span>
+                        <% } %>
+                    </a>
+                <% }) %>
+            </div>
+        <% } %>
     </div>
 </div>
