@@ -438,8 +438,10 @@
 
 // Full post specific styles
 .post-wrapper.dynamic-loaded {
-	margin-top: 64px;
-	margin-bottom: 128px;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 64px;
+	padding-bottom: 128px;
 }
 
 .post-wrapper.dynamic-loaded .substack-post {
