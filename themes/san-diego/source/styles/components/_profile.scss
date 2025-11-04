@@ -836,7 +836,7 @@
 		.desktop-contact-chin {
 			display: flex;
 			width: 100%;
-			padding: 0 24px calc(24px + env(safe-area-inset-bottom, 0px));
+			padding: 0 24px 0;
 			box-sizing: border-box;
 			position: relative;
 			margin-top: auto;
