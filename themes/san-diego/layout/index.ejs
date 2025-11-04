@@ -564,10 +564,9 @@
 				var headerHeight = window.getComputedStyle(blogHeader).height;
 				// Check blog-header height
 				
-				// If header is taking full viewport, fix it
+				// If header is taking full viewport, allow CSS layout to handle sizing
 				if (parseInt(headerHeight) >= window.innerHeight - 50) {
-					// blog-header taking too much space, adjusting
-					blogHeader.style.height = '50vh';
+					blogHeader.style.removeProperty('height');
 				}
 			}
 		}, 2000);
