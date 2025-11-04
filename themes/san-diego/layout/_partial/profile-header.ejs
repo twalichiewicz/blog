@@ -80,6 +80,9 @@
                 if (isExternal && link.no_external_indicator) {
                     classNames.push('no-external-indicators');
                 }
+                if (link.modifier) {
+                    classNames.push(`contact-chin-btn--${link.modifier}`);
+                }
             %>
                 <a
                     href="<%= link.href %>"

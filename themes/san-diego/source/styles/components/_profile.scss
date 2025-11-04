@@ -848,7 +848,7 @@
 			align-items: stretch;
 			gap: 6px;
 			width: 100%;
-			padding: 16px 18px;
+			padding: 9px 18px;
 			border-radius: 12px;
 			background: #1a1a1a;
 			background: linear-gradient(
@@ -882,8 +882,8 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			padding: 12px 14px 16px;
-			min-height: 45px;
+			padding: 9px 12px;
+			min-height: 30px;
 			border-radius: 10px;
 			border: 1px solid rgba(255, 255, 255, 0.18);
 			background: linear-gradient(180deg,
@@ -909,20 +909,23 @@
 				inset 0 1px 0 rgba(255, 255, 255, 0.18),
 				inset 0 -2px 5px rgba(0, 0, 0, 0.55),
 				0 3px 6px rgba(0, 0, 0, 0.4);
+			--contact-btn-accent-rgb: 196, 210, 255;
 		}
 
-		.desktop-contact-chin .contact-chin-btn:hover {
+		.desktop-contact-chin .contact-chin-btn:hover,
+		.desktop-contact-chin .contact-chin-btn:focus-visible {
 			background: linear-gradient(180deg,
 				rgba(120, 122, 134, 0.26) 0%,
 				rgba(74, 76, 86, 0.22) 50%,
 				rgba(42, 42, 52, 0.26) 100%);
-			border-color: rgba(255, 255, 255, 0.28);
+			border-color: rgba(var(--contact-btn-accent-rgb), 0.65);
 			box-shadow:
 				inset 0 1px 0 rgba(255, 255, 255, 0.28),
 				inset 0 -3px 6px rgba(0, 0, 0, 0.6),
 				0 0 0 1px rgba(18, 18, 24, 0.55),
-				0 8px 16px rgba(0, 0, 0, 0.48);
-			color: rgba(255, 255, 255, 0.95);
+				0 8px 16px rgba(0, 0, 0, 0.48),
+				0 0 18px rgba(var(--contact-btn-accent-rgb), 0.35);
+			color: rgb(var(--contact-btn-accent-rgb));
 		}
 
 		.desktop-contact-chin .contact-chin-btn:active {
@@ -933,8 +936,11 @@
 			box-shadow:
 				inset 0 1px 0 rgba(255, 255, 255, 0.3),
 				inset 0 -2px 6px rgba(0, 0, 0, 0.7),
-				0 0 0 1px rgba(0, 0, 0, 0.55),
-				0 2px 6px rgba(0, 0, 0, 0.45);
+				0 0 0 1px rgba(var(--contact-btn-accent-rgb), 0.45),
+				0 2px 6px rgba(0, 0, 0, 0.45),
+				0 0 10px rgba(var(--contact-btn-accent-rgb), 0.25);
+			border-color: rgba(var(--contact-btn-accent-rgb), 0.55);
+			color: rgb(var(--contact-btn-accent-rgb));
 		}
 
 		.desktop-contact-chin .contact-chin-btn:focus-visible {
@@ -994,12 +1000,20 @@
 		.desktop-contact-chin .contact-chin-btn:focus-visible::after {
 			opacity: 1;
 			transform: translate(-50%, 0);
+			border-color: rgba(var(--contact-btn-accent-rgb), 0.5);
+			box-shadow:
+				0 8px 14px rgba(0, 0, 0, 0.45),
+				inset 0 1px 0 rgba(255, 255, 255, 0.15),
+				0 0 14px rgba(var(--contact-btn-accent-rgb), 0.3);
 		}
 
 		.desktop-contact-chin .contact-chin-btn:hover::before,
 		.desktop-contact-chin .contact-chin-btn:focus-visible::before {
 			opacity: 1;
 			transform: translate(-50%, 0) rotate(45deg);
+			border-left-color: rgba(var(--contact-btn-accent-rgb), 0.5);
+			border-top-color: rgba(var(--contact-btn-accent-rgb), 0.5);
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25), 0 0 10px rgba(var(--contact-btn-accent-rgb), 0.25);
 		}
 
 		.desktop-contact-chin .contact-chin-btn .contact-icon {
@@ -1023,10 +1037,27 @@
 		.desktop-contact-chin .contact-chin-btn:hover .contact-icon,
 		.desktop-contact-chin .contact-chin-btn:focus-visible .contact-icon {
 			opacity: 1;
+			color: currentColor;
 		}
 
 		.desktop-contact-chin .contact-chin-inner:hover .contact-chin-btn:not(:hover) .contact-icon {
 			opacity: 0.6;
+		}
+
+		.desktop-contact-chin .contact-chin-btn--email {
+			--contact-btn-accent-rgb: 128, 255, 229;
+		}
+
+		.desktop-contact-chin .contact-chin-btn--linkedin {
+			--contact-btn-accent-rgb: 128, 179, 255;
+		}
+
+		.desktop-contact-chin .contact-chin-btn--github {
+			--contact-btn-accent-rgb: 179, 229, 255;
+		}
+
+		.desktop-contact-chin .contact-chin-btn--resume {
+			--contact-btn-accent-rgb: 255, 179, 128;
 		}
 
 	}
