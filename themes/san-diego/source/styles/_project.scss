@@ -2257,7 +2257,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 			font-weight: var(--font-weight-medium); // Updated font-weight as requested
 			line-height: var(--line-height-tight);
 			color: #ffffff;
-			margin-bottom: 0.25rem;
+			margin-bottom: 0;
 			letter-spacing: -0.01em;
 			text-shadow: none;
 			position: relative;
@@ -2279,7 +2279,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 		// Special class for project impact stats labels - no margin bottom
 		.stat-label--impact {
 			font-size: var(--font-size-xs);
-			font-weight: var(--font-weight-normal);
+			font-weight: var(--font-weight-semibold);
 			text-transform: uppercase;
 			letter-spacing: 0.08em;
 			color: rgba(255, 255, 255, 0.7);
