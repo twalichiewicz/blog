@@ -12,4 +12,4 @@ url: https://onefoottsunami.com/2025/11/05/tahoes-terrible-icons/
 url_label: via One Foot Tsunami
 ---
 
-This is what happens when you don't have a dictator with taste somewhere in the org chart—every committee meeting ships a slightly worse icon, and suddenly the whole UI looks like it was art-directed by a HOA board. The Tahoe team deserves an intervention.
+Very progressive of Apple to hire blind designers to do their icons.
