@@ -97,7 +97,7 @@
     "hexo-renderer-sass": "^0.5.0",
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^1.1.0",
-    "hexo-util": "^3.3.0",
+    "hexo-util": "^4.0.0",
     "highlight.js": "^11.11.1",
     "html-minifier-terser": "^7.2.0",
     "js-yaml": "^4.1.0",
