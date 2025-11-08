@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	
 	// Initialize responsive table enhancements
 	initResponsiveTables();
+	document.addEventListener('contentLoaded', initResponsiveTables);
+	document.addEventListener('portfolio-loaded', initResponsiveTables);
 	
 	// Initialize notebook hover sounds
 	initNotebookHoverSounds();
@@ -247,6 +249,7 @@ let scrollInterval = null;
 function togglePartyMode() {
     const audio = document.getElementById('impact-audio');
     const button = document.querySelector('.impact-modal-party-mode');
+    const grid = document.querySelector('.impact-grid');
     
     if (!audio || !button) return;
     
@@ -286,7 +289,6 @@ function togglePartyMode() {
         startBeatAnimations();
         
         // Add party class to grid for CSS animations
-        const grid = document.querySelector('.impact-grid');
         if (grid) {
             grid.classList.add('party-mode');
         }
@@ -308,7 +310,9 @@ function togglePartyMode() {
         stopAutoScroll();
         
         // Remove party class
-        document.querySelector('.impact-grid').classList.remove('party-mode');
+        if (grid) {
+            grid.classList.remove('party-mode');
+        }
     }
 }
 
@@ -682,13 +686,7 @@ function animateExtend(tile) {
     const calendarBar = tile.querySelector('.calendar-bar');
     if (calendarBar) {
         setTimeout(() => {
-            calendarBar.style.width = '30%';
-            setTimeout(() => {
-                const afterElement = calendarBar.querySelector('::after');
-                if (afterElement) {
-                    afterElement.style.opacity = '1';
-                }
-            }, 500);
+            calendarBar.classList.add('is-filled');
         }, 300);
     }
 }
@@ -697,13 +695,7 @@ function animateRace(tile) {
     const velocityBars = tile.querySelectorAll('.velocity-bar');
     velocityBars.forEach((bar, index) => {
         setTimeout(() => {
-            bar.style.transform = 'scaleY(1)';
-            setTimeout(() => {
-                const afterElement = bar.querySelector('::after');
-                if (afterElement) {
-                    afterElement.style.opacity = '1';
-                }
-            }, 300);
+            bar.classList.add('is-active');
         }, 300 + index * 300);
     });
 }
@@ -712,13 +704,7 @@ function animateSpark(tile) {
     const items = tile.querySelectorAll('.innovation-item');
     items.forEach((item, index) => {
         setTimeout(() => {
-            item.style.transform = 'scale(1)';
-            setTimeout(() => {
-                const afterElement = item.querySelector('::after');
-                if (afterElement) {
-                    afterElement.style.opacity = '1';
-                }
-            }, 200);
+            item.classList.add('is-active');
         }, 300 + index * 150);
     });
 }

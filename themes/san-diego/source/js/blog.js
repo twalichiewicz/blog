@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	// --- End of Refactored Initialization Function ---
 
+	let updateDynamicBackButtonPlacement = () => {};
+
 	// Device detection (usually needed only once)
 	const isMobile = window.innerWidth <= 768;
 	const isDesktop = document.body.classList.contains('device-desktop');
@@ -114,12 +116,272 @@ document.addEventListener('DOMContentLoaded', function () {
 	// === Dynamic Content Loader for Blog Posts/Projects ===
 	function setupDynamicBlogNavigation() {
 		const blogContentElement = document.querySelector('.blog-content');
+		const blogRootElement = document.querySelector('.blog');
 		if (!blogContentElement) {
 			return;
 		}
+		
+		const mobileViewportQuery = window.matchMedia('(max-width: 768px)');
+		let activeDynamicScroll = null;
+
+		const sizingProperties = ['height', 'min-height', 'max-height', 'overflow', 'overflow-y', 'overflow-x', 'width'];
+
+		function clearInlineSizing(element) {
+			if (!element) return;
+			sizingProperties.forEach(prop => element.style.removeProperty(prop));
+		}
+
+		function scheduleInlineSizingClear(element, attempts = [0, 16, 32, 64, 128, 256, 400]) {
+			attempts.forEach(delay => {
+				setTimeout(() => clearInlineSizing(element), delay);
+			});
+		}
+
+		function resetInnerWrapperScrollStyles() {
+			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+			if (!innerWrapper) return;
+			clearInlineSizing(innerWrapper);
+		}
+		
+		resetInnerWrapperScrollStyles();
+		
+		const handleViewportChange = () => resetInnerWrapperScrollStyles();
+		if (mobileViewportQuery.addEventListener) {
+			mobileViewportQuery.addEventListener('change', handleViewportChange);
+		} else if (mobileViewportQuery.addListener) {
+			mobileViewportQuery.addListener(handleViewportChange);
+		}
+		
+		function toggleLongFormLayout(isLongForm) {
+			if (!blogRootElement) return;
+			if (isLongForm) {
+				blogRootElement.classList.add('long-form-active');
+			} else {
+				blogRootElement.classList.remove('long-form-active');
+			}
+			resetInnerWrapperScrollStyles();
+		}
+		toggleLongFormLayout(false);
 
 		let initialBlogContentHTML = blogContentElement.innerHTML;
 		let initialBlogContentURL = window.location.pathname + window.location.search + window.location.hash; // More robust URL capture
+		let lastTabBeforeDynamicLoad = 'blog';
+
+	function cleanupDynamicScrollContainer() {
+		if (!activeDynamicScroll) return;
+
+		const host = activeDynamicScroll.host;
+		if (host && host.isConnected) {
+			host.classList.remove('dynamic-scroll-host');
+			host.removeAttribute('data-dynamic-scroll');
+			host.style.removeProperty('height');
+			host.style.removeProperty('min-height');
+			host.style.removeProperty('max-height');
+			host.style.removeProperty('overflow');
+			host.style.removeProperty('overflow-y');
+			host.style.removeProperty('overflow-x');
+			host.style.removeProperty('-webkit-overflow-scrolling');
+		}
+
+		if (activeDynamicScroll.cleanup) {
+			activeDynamicScroll.cleanup();
+		}
+
+		activeDynamicScroll = null;
+	}
+
+	function setupDynamicScrollContainer() {
+		const primaryScrollHost =
+			blogContentElement.querySelector('.project-edge-wrapper') ||
+			blogContentElement.querySelector('.content-inner-wrapper') ||
+			blogContentElement.querySelector('.project-edge-wrapper .project-wrapper');
+
+		if (!primaryScrollHost) {
+			return;
+		}
+
+		cleanupDynamicScrollContainer();
+
+		clearInlineSizing(primaryScrollHost);
+		scheduleInlineSizingClear(primaryScrollHost);
+
+		const styleSanitizer = new MutationObserver((mutations) => {
+			for (const mutation of mutations) {
+				if (mutation.attributeName === 'style') {
+					clearInlineSizing(primaryScrollHost);
+				}
+			}
+		});
+		styleSanitizer.observe(primaryScrollHost, { attributes: true, attributeFilter: ['style'] });
+
+		activeDynamicScroll = {
+			host: primaryScrollHost,
+			cleanup: () => styleSanitizer.disconnect()
+		};
+
+		primaryScrollHost.classList.add('dynamic-scroll-host');
+		primaryScrollHost.setAttribute('data-dynamic-scroll', 'true');
+	}
+
+		function restoreInitialView(options = {}) {
+			const {
+				fromProject = false,
+				originatingTab = lastTabBeforeDynamicLoad
+			} = options;
+
+			if (typeof cleanupCarouselInstances === 'function') {
+				cleanupCarouselInstances(blogContentElement);
+			}
+			cleanupDynamicScrollContainer();
+			blogContentElement.classList.remove('has-dynamic-content');
+			blogContentElement.style.removeProperty('overflow');
+			blogContentElement.style.removeProperty('overflow-y');
+			blogContentElement.style.removeProperty('overflow-x');
+			document.body.classList.remove('has-dynamic-content-active');
+
+			blogContentElement.innerHTML = initialBlogContentHTML;
+			initializeBlogFeatures(blogContentElement);
+			initializeLinkListeners(blogContentElement);
+			resetInnerWrapperScrollStyles();
+			toggleLongFormLayout(false);
+
+			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+			if (innerWrapper) {
+				innerWrapper.style.opacity = '1';
+				innerWrapper.style.removeProperty('overflow');
+			}
+			blogContentElement.style.opacity = '1';
+
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					initializeMobileTabs();
+					setTimeout(() => {
+						const tabButtons = document.querySelectorAll('.tab-button');
+						if (!tabButtons.length) {
+							// Tabs not present yet; keep parity with existing timing logic.
+						}
+					}, 200);
+				});
+			});
+
+			initializeProjectToggle();
+			initializePostsOnlyButton();
+
+			if (window.innerWidth <= 768) {
+				const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
+				if (tabsWrapper) {
+					tabsWrapper.style.display = '';
+				}
+			}
+
+		const manualTabSwitch = (targetType) => {
+			const tabButtons = document.querySelectorAll('.tab-button');
+			const postsContent = document.getElementById('postsContent');
+			const projectsContent = document.getElementById('projectsContent');
+			tabButtons.forEach(button => {
+				if (!button) return;
+				const isTarget = button.dataset.type === targetType;
+				button.classList.toggle('active', isTarget);
+				button.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+			});
+
+			if (postsContent && projectsContent) {
+				if (targetType === 'portfolio') {
+					postsContent.style.display = 'none';
+					postsContent.setAttribute('aria-hidden', 'true');
+					projectsContent.style.display = 'block';
+					projectsContent.setAttribute('aria-hidden', 'false');
+				} else {
+					projectsContent.style.display = 'none';
+					projectsContent.setAttribute('aria-hidden', 'true');
+					postsContent.style.display = 'block';
+					postsContent.setAttribute('aria-hidden', 'false');
+				}
+			}
+		};
+
+		const requestTabSwitch = (targetType, attempt = 0) => {
+			if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
+				window.mobileTabs.switchTab(targetType, false);
+				return;
+			}
+			if (attempt < 6) {
+				setTimeout(() => requestTabSwitch(targetType, attempt + 1), 50 * (attempt + 1));
+			} else {
+				manualTabSwitch(targetType);
+			}
+		};
+
+		const switchTargetTab = fromProject ? 'portfolio' : originatingTab;
+
+		if (fromProject) {
+			sessionStorage.setItem('portfolio-back-navigation', 'true');
+			setTimeout(() => {
+				requestTabSwitch(switchTargetTab);
+				window.dispatchEvent(new Event('portfolio-loaded'));
+				document.dispatchEvent(new Event('contentLoaded'));
+
+					setTimeout(() => {
+						if (window.projectDemo && window.projectDemo.init) {
+							window.projectDemo.init();
+						}
+					}, 100);
+
+					setTimeout(() => {
+						if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
+							window._notebookCarousel.reinitialize();
+						}
+					}, 300);
+				}, 50);
+		} else {
+			setTimeout(() => {
+				requestTabSwitch(switchTargetTab);
+				if (window.location.search.includes('tab=portfolio') && originatingTab !== 'portfolio') {
+					history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: originatingTab }, '', initialBlogContentURL);
+				}
+			}, 50);
+		}
+
+			if (window.initializeSoundEffects) {
+				window.initializeSoundEffects();
+			} else {
+				setTimeout(() => {
+					if (window.initializeSoundEffects) {
+						window.initializeSoundEffects();
+					}
+				}, 100);
+			}
+
+			document.body.style.opacity = '1';
+			document.body.classList.add('loaded');
+			const overlay = document.querySelector('.page-transition-overlay');
+			if (overlay) {
+				overlay.style.display = 'none';
+			}
+
+			document.dispatchEvent(new Event('dynamic-content-unloaded'));
+		}
+
+		updateDynamicBackButtonPlacement = function() {
+			if (!blogContentElement) return;
+
+			const backButton = blogContentElement.querySelector('.dynamic-back-button');
+			if (!backButton) return;
+
+			const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+			const isMobileViewport = window.matchMedia('(max-width: 768px)').matches;
+
+			if (isMobileViewport && innerWrapper && backButton.parentElement !== innerWrapper) {
+				innerWrapper.insertBefore(backButton, innerWrapper.firstChild);
+				backButton.classList.add('is-mobile');
+				return;
+			}
+
+			if (!isMobileViewport && backButton.parentElement !== blogContentElement) {
+				blogContentElement.insertBefore(backButton, blogContentElement.firstChild);
+			}
+			backButton.classList.remove('is-mobile');
+		};
 
 		async function fadeOutElement(element, duration = 300) {
 			if (!element) return;
@@ -262,6 +524,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			}
 
+			updateDynamicBackButtonPlacement();
+
 			const backButtonClickHandler = async function (event) {
 				event.preventDefault();
 				
@@ -292,98 +556,15 @@ document.addEventListener('DOMContentLoaded', function () {
 				let transitionData = null;
 				if (window.ScreenWipeTransition) {
 					transitionData = await window.ScreenWipeTransition.startBack(() => {
-						// This callback fires when panels meet in the middle
-						// Remove has-dynamic-content class to restore scroll behavior
-						blogContentElement.classList.remove('has-dynamic-content');
-						
-						// Swap content while panels are covering the screen
-						blogContentElement.innerHTML = initialBlogContentHTML;
-						initializeBlogFeatures(blogContentElement);
-						initializeLinkListeners(blogContentElement);
-						
-						// Initialize mobile tabs with proper timing to ensure DOM is ready
-						// Use requestAnimationFrame to ensure browser has rendered the new content
-						requestAnimationFrame(() => {
-							requestAnimationFrame(() => {
-								initializeMobileTabs();
-								
-								// Force a check to ensure tabs are working
-								setTimeout(() => {
-									const tabButtons = document.querySelectorAll('.tab-button');
-									if (tabButtons.length === 0) {
-									}
-								}, 200);
-							});
+						restoreInitialView({
+							fromProject: isReturningFromProject,
+							originatingTab: lastTabBeforeDynamicLoad
 						});
-						
-						// Re-initialize toggles
-						initializeProjectToggle();
-						initializePostsOnlyButton();
-						
-						// Ensure tabs are visible again on mobile
-						if (window.innerWidth <= 768) {
-							const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
-							if (tabsWrapper) {
-								tabsWrapper.style.display = '';
-							}
-						}
-						
-						// Set the appropriate tab based on content type
-						if (isReturningFromProject) {
-							// Mark as back navigation for carousel
-							sessionStorage.setItem('portfolio-back-navigation', 'true');
-							
-							// Coming from a project, show portfolio tab
-							setTimeout(() => {
-								if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-									window.mobileTabs.switchTab('portfolio', false);
-								}
-								// Emit portfolio-loaded event for parallax initialization
-								window.dispatchEvent(new Event('portfolio-loaded'));
-								
-								// Also emit contentLoaded to ensure carousel initializes
-								document.dispatchEvent(new Event('contentLoaded'));
-								
-								// Initialize demo button if project has one
-								setTimeout(() => {
-									if (window.projectDemo && window.projectDemo.init) {
-										window.projectDemo.init();
-									}
-								}, 100);
-								
-								// Give browser time to restore scroll, then check active notebook
-								setTimeout(() => {
-									if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
-										window._notebookCarousel.reinitialize();
-									}
-								}, 300); // Longer delay to ensure scroll restoration completes
-							}, 50);
-						} else {
-							// Coming from a blog post, show blog tab and clean URL
-							setTimeout(() => {
-								if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
-									window.mobileTabs.switchTab('blog', false);
-								}
-								// Clean up URL parameter if coming from blog post
-								if (window.location.search.includes('tab=portfolio')) {
-									history.replaceState({ path: '/', isInitial: true, isDynamic: false }, '', '/');
-								}
-							}, 50);
-						}
-						
-						// Re-initialize sound effects when returning to home page
-						if (window.initializeSoundEffects) {
-							// Re-initializing sound effects for back navigation
-							window.initializeSoundEffects();
-						} else {
-							// Fallback: try again after a short delay in case sound effects script is still loading
-							setTimeout(() => {
-								if (window.initializeSoundEffects) {
-									// Re-initializing sound effects for back navigation (delayed)
-									window.initializeSoundEffects();
-								}
-							}, 100);
-						}
+					});
+				} else {
+					restoreInitialView({
+						fromProject: isReturningFromProject,
+						originatingTab: lastTabBeforeDynamicLoad
 					});
 				}
 				
@@ -404,178 +585,185 @@ document.addEventListener('DOMContentLoaded', function () {
 			return backButton;
 		}
 
-		async function fetchAndDisplayContent(url, isPushState = true, isProject = false) {
-			if (!blogContentElement) return;
+async function fetchAndDisplayContent(url, isPushState = true, isProject = false, originatingTab = null) {
+	if (!blogContentElement) return;
 
-			// Before clearing content, cleanup any carousel instances managed by carousel.js
-			if (typeof cleanupCarouselInstances === 'function') {
-				// Cleaning up carousel instances from blogContentElement
-				cleanupCarouselInstances(blogContentElement);
+	// Before clearing content, cleanup any carousel instances managed by carousel.js
+	if (typeof cleanupCarouselInstances === 'function') {
+		cleanupCarouselInstances(blogContentElement);
+	}
+	cleanupDynamicScrollContainer();
+
+	// Add has-dynamic-content class to enable proper scrolling
+	blogContentElement.classList.add('has-dynamic-content');
+	blogContentElement.style.overflowY = 'auto';
+	blogContentElement.style.overflowX = 'hidden';
+
+	// Ensure existing content-inner-wrapper has border-radius during transition
+	const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+	if (existingInnerWrapper) {
+		const isMobile = window.matchMedia('(max-width: 768px)').matches;
+		if (isMobile) {
+			// Mobile: all corners rounded
+			existingInnerWrapper.style.setProperty('border-radius', '12px', 'important');
+		} else {
+			// Desktop/tablet: only top-left corner rounded
+			// First clear any existing border-radius shorthand
+			existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+		}
+	}
+
+	// Start screen wipe transition
+	let transitionData = null;
+	if (window.ScreenWipeTransition) {
+		transitionData = await window.ScreenWipeTransition.start();
+	}
+
+	// Clear content after transition starts
+	cleanupDynamicScrollContainer();
+	blogContentElement.innerHTML = '';
+
+	let contentInserted = false;
+
+	try {
+		const response = await fetch(url);
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		const htmlText = await response.text();
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(htmlText, 'text/html');
+
+		// Updated selector to handle new Substack-style posts
+		let contentToExtractSelector = isProject ? 'div.project-edge-wrapper' : 'div.post-wrapper';
+		let newContentContainer = doc.querySelector(contentToExtractSelector);
+
+		// Fallback for projects: if project-edge-wrapper is not found, try project-wrapper
+		if (!newContentContainer && isProject) {
+			contentToExtractSelector = 'div.project-wrapper';
+			newContentContainer = doc.querySelector(contentToExtractSelector);
+		}
+
+		// Fallback: if loading a post and article.post is not found, try div.project-wrapper
+		if (!newContentContainer && !isProject) {
+			newContentContainer = doc.querySelector('div.project-wrapper');
+		}
+
+		const backButton = addOrUpdateBackButton();
+		// Back button created
+
+		if (newContentContainer) {
+			const containsPostWrapper = newContentContainer && (
+				newContentContainer.classList.contains('post-wrapper') ||
+				newContentContainer.querySelector('.post-wrapper')
+			);
+			const isLongFormContent = !isProject && containsPostWrapper;
+			const resolvedOriginatingTab = originatingTab || (isProject ? 'portfolio' : 'blog');
+			lastTabBeforeDynamicLoad = resolvedOriginatingTab;
+			if (history.state && history.state.isInitial) {
+				const currentState = { ...history.state, fromTab: resolvedOriginatingTab };
+				history.replaceState(currentState, '', currentState.path || initialBlogContentURL);
+			}
+			// Safari fix: Fix image paths BEFORE cloning
+			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+			if (isSafari && isProject) {
+				const carouselImages = newContentContainer.querySelectorAll('.carousel img');
+
+				// For project pages, we need to build the full path including the project directory
+				const urlObj = new URL(url, window.location.origin);
+				const pathname = urlObj.pathname;
+				const projectPath = pathname.replace(/\.html$/, '').replace(/\/?$/, '/');
+
+				carouselImages.forEach((img) => {
+					const originalSrc = img.getAttribute('src') || '';
+					if (originalSrc.startsWith('./')) {
+						const filename = originalSrc.substring(2);
+						const resolvedSrc = projectPath + filename;
+						img.setAttribute('src', resolvedSrc);
+					} else if (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')) {
+						const resolvedSrc = projectPath + originalSrc;
+						img.setAttribute('src', resolvedSrc);
+					}
+				});
 			}
 
-			// Add has-dynamic-content class to enable proper scrolling
-			blogContentElement.classList.add('has-dynamic-content');
-			
-			// Ensure existing content-inner-wrapper has border-radius during transition
-			const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
-			if (existingInnerWrapper) {
+			const contentFragment = document.createDocumentFragment();
+
+			// Special handling for project-edge-wrapper: don't add extra wrappers
+			if (newContentContainer.classList.contains('project-edge-wrapper')) {
+				const projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
+				if (projectWrapperInstance) {
+					projectWrapperInstance.classList.add('dynamic-loaded');
+				}
+
+				const clonedContent = newContentContainer.cloneNode(true);
+				contentFragment.appendChild(clonedContent);
+			} else {
+				const innerWrapper = document.createElement('div');
+				innerWrapper.className = 'content-inner-wrapper';
+				innerWrapper.style.opacity = '0'; // Start transparent for fade-in
+				innerWrapper.style.overflow = 'hidden';
+
 				const isMobile = window.matchMedia('(max-width: 768px)').matches;
 				if (isMobile) {
-					// Mobile: all corners rounded
-					existingInnerWrapper.style.setProperty('border-radius', '12px', 'important');
+					innerWrapper.style.setProperty('border-radius', '12px', 'important');
 				} else {
-					// Desktop/tablet: only top-left corner rounded
-					// First clear any existing border-radius shorthand
-					existingInnerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
+					innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
 				}
+
+				let projectWrapperInstance = null;
+				if (newContentContainer.classList.contains('project-wrapper')) {
+					projectWrapperInstance = newContentContainer;
+				} else {
+					projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
+				}
+
+				if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
+					projectWrapperInstance.classList.add('dynamic-loaded');
+				}
+
+				innerWrapper.appendChild(newContentContainer.cloneNode(true));
+				contentFragment.appendChild(innerWrapper);
 			}
 
-			// Start screen wipe transition
-			let transitionData = null;
-			if (window.ScreenWipeTransition) {
-				transitionData = await window.ScreenWipeTransition.start();
+			if (backButton) {
+				backButton.after(contentFragment);
+			} else {
+				blogContentElement.appendChild(contentFragment);
 			}
-
-			// Clear content after transition starts
-			blogContentElement.innerHTML = '';
-
-			try {
-				const response = await fetch(url);
-				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`);
-				}
-				const htmlText = await response.text();
-				const parser = new DOMParser();
-				const doc = parser.parseFromString(htmlText, 'text/html');
-
-				// Updated selector to handle new Substack-style posts
-					let contentToExtractSelector = isProject ? 'div.project-edge-wrapper' : 'div.post-wrapper';
-				let newContentContainer = doc.querySelector(contentToExtractSelector);
-
-				// Initial selector determined
-				// Found content container
-
-				// Fallback for projects: if project-edge-wrapper is not found, try project-wrapper
-				if (!newContentContainer && isProject) {
-					contentToExtractSelector = 'div.project-wrapper';
-					newContentContainer = doc.querySelector(contentToExtractSelector);
-					// Fallback selector
-					// Fallback content container
-				}
-
-				// Fallback: if loading a post and article.post is not found, try div.project-wrapper
-				if (!newContentContainer && !isProject) {
-					newContentContainer = doc.querySelector('div.project-wrapper');
-					// Post fallback to project-wrapper
-				}
-
-				const backButton = addOrUpdateBackButton();
-				// Back button created
-
-				if (newContentContainer) {
-					// Content container found, proceeding with insertion
-					// Container classes logged
-					// Container HTML preview logged
+			contentInserted = true;
 					
-					// Safari fix: Fix image paths BEFORE cloning
-					const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-					if (isSafari && isProject) {
-						const carouselImages = newContentContainer.querySelectorAll('.carousel img');
-						
-						// For project pages, we need to build the full path including the project directory
-						// Parse the URL to get just the pathname
-						const urlObj = new URL(url, window.location.origin);
-						const pathname = urlObj.pathname;
-						// Remove .html extension and ensure trailing slash
-						const projectPath = pathname.replace(/\.html$/, '').replace(/\/?$/, '/');
-						
-						carouselImages.forEach((img, index) => {
-							const originalSrc = img.getAttribute('src') || '';
-							if (originalSrc.startsWith('./')) {
-								// Remove './' and prepend the project path
-								const filename = originalSrc.substring(2);
-								const resolvedSrc = projectPath + filename;
-								img.setAttribute('src', resolvedSrc);
-							} else if (originalSrc && !originalSrc.startsWith('/') && !originalSrc.startsWith('http')) {
-								// Relative path without './'
-								const resolvedSrc = projectPath + originalSrc;
-								img.setAttribute('src', resolvedSrc);
+					toggleLongFormLayout(isLongFormContent);
+
+					// Ensure newly loaded content starts at the top
+					const targetScrollContainer = blogContentElement.querySelector('.content-wrapper');
+					if (targetScrollContainer) {
+						requestAnimationFrame(() => {
+							if (typeof ScrollUtility !== 'undefined' && ScrollUtility?.scrollToElement) {
+								ScrollUtility.scrollToElement(targetScrollContainer, {
+									behavior: 'auto',
+									block: 'start'
+								});
+							} else {
+								targetScrollContainer.scrollTo({
+									top: 0,
+									behavior: 'auto'
+								});
 							}
 						});
 					}
 
-					const contentFragment = document.createDocumentFragment();
-
-					// Special handling for project-edge-wrapper: don't add extra wrappers
-					if (newContentContainer.classList.contains('project-edge-wrapper')) {
-						// Project edge wrapper detected, inserting without extra wrappers
-
-						// Find and mark project-wrapper inside edge-wrapper with dynamic-loaded
-						const projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
-						if (projectWrapperInstance) {
-							projectWrapperInstance.classList.add('dynamic-loaded');
-							// Added dynamic-loaded to project-wrapper inside edge-wrapper
-						}
-
-						const clonedContent = newContentContainer.cloneNode(true);
-						contentFragment.appendChild(clonedContent);
-					} else {
-						// Regular content handling - Use same simple structure for all devices
-						const innerWrapper = document.createElement('div');
-						innerWrapper.className = 'content-inner-wrapper';
-						innerWrapper.style.opacity = '0'; // Start transparent for fade-in
-						
-						// Apply border-radius based on screen size
-						// Use matchMedia for better mobile detection that matches CSS
-						const isMobile = window.matchMedia('(max-width: 768px)').matches;
-						
-						innerWrapper.style.overflow = 'hidden';
-						
-						if (isMobile) {
-							// Mobile: all corners rounded
-							innerWrapper.style.setProperty('border-radius', '12px', 'important');
-						} else {
-							// Desktop/tablet: only top-left corner rounded
-							innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
-						}
-
-						// Handle project-wrapper inside regular content
-						let projectWrapperInstance = null;
-						if (newContentContainer.classList.contains('project-wrapper')) {
-							projectWrapperInstance = newContentContainer;
-						} else {
-							projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
-						}
-
-						if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
-							projectWrapperInstance.classList.add('dynamic-loaded');
-							// Added dynamic-loaded to project wrapper
-						}
-
-						innerWrapper.appendChild(newContentContainer.cloneNode(true));
-						contentFragment.appendChild(innerWrapper);
-					}
-
-					// Insert content consistently for all devices
-					if (backButton) {
-						// Inserting content after back button
-						backButton.after(contentFragment);
-					} else {
-						// Appending content directly to blog element
-						blogContentElement.appendChild(contentFragment);
+					resetInnerWrapperScrollStyles();
+					setupDynamicScrollContainer();
+					const freshInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
+					if (freshInnerWrapper) {
+						scheduleInlineSizingClear(freshInnerWrapper);
 					}
 
 					// Content inserted successfully
 					
-					// Move back button inside content-inner-wrapper on mobile
-					const isMobile = window.matchMedia('(max-width: 768px)').matches;
-					if (isMobile && backButton) {
-						const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
-						if (innerWrapper && innerWrapper.parentNode === blogContentElement) {
-							// Move back button inside inner wrapper as first child
-							innerWrapper.insertBefore(backButton, innerWrapper.firstChild);
-						}
-					}
+					// Move back button to appropriate container based on viewport
+					updateDynamicBackButtonPlacement();
 					
 					initializeBlogFeatures(blogContentElement); // This will now delegate carousel init
 					
@@ -646,7 +834,11 @@ document.addEventListener('DOMContentLoaded', function () {
 						setTimeout(setupDynamicScrollButton, 300);
 						setTimeout(setupDynamicScrollButton, 500);
 					}
+
+					document.body.classList.add('has-dynamic-content-active');
+					document.dispatchEvent(new Event('dynamic-content-loaded'));
 				} else {
+					toggleLongFormLayout(false);
 					// ERROR: No content container found
 					// Available elements in doc logged
 					// isProject flag logged
@@ -659,17 +851,27 @@ document.addEventListener('DOMContentLoaded', function () {
 					if (backButton) { backButton.after(errorMsg); } else { blogContentElement.appendChild(errorMsg); }
 				}
 
-				if (isPushState) {
-					history.pushState({ path: url, isProject: isProject, isDynamic: true }, '', url);
-				}
-			} catch (error) {
-				// Error fetching or displaying content
+		if (isPushState) {
+			history.pushState({ path: url, isProject: isProject, isDynamic: true, fromTab: resolvedOriginatingTab }, '', url);
+		}
+		} catch (error) {
+			console.error('[fetchAndDisplayContent] Failed to load dynamic content:', error);
+			if (!contentInserted) {
 				const errorTechnical = document.createElement('p');
 				errorTechnical.textContent = 'There was an error loading the page.';
 				let backBtn = blogContentElement.querySelector('.dynamic-back-button');
 				if (!backBtn) backBtn = addOrUpdateBackButton();
 				if (backBtn) { backBtn.after(errorTechnical); } else { blogContentElement.appendChild(errorTechnical); }
+				toggleLongFormLayout(false);
+				cleanupDynamicScrollContainer();
+				blogContentElement.classList.remove('has-dynamic-content');
+				blogContentElement.style.removeProperty('overflow');
+				blogContentElement.style.removeProperty('overflow-y');
+				blogContentElement.style.removeProperty('overflow-x');
+				document.body.classList.remove('has-dynamic-content-active');
+				document.dispatchEvent(new Event('dynamic-content-unloaded'));
 			}
+		}
 			
 			// End screen wipe transition
 			if (window.ScreenWipeTransition && transitionData) {
@@ -706,9 +908,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						window.playBookSound();
 					}
 					
-					const url = link.href;
-					// Fetching content
-					fetchAndDisplayContent(url, true, isProjectLink);
+				const url = link.href;
+				// Fetching content
+				const originatingTab = isProjectLink ? 'portfolio' : 'blog';
+				fetchAndDisplayContent(url, true, isProjectLink, originatingTab);
 				}
 			}
 		}
@@ -730,55 +933,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		initializeLinkListeners(blogContentElement);
 
-		// Resize listener removed - dynamic content now works on all screen sizes
+	// Resize listener removed - dynamic content now works on all screen sizes
 
-		const handlePopstate = async function (event) {
-			// If we're returning to the home page (no state or initial state)
-			if (!event.state || event.state.isInitial) {
-				// Ensure the page is visible
-				document.body.style.opacity = '1';
-				document.body.classList.add('loaded');
-				const overlay = document.querySelector('.page-transition-overlay');
-				if (overlay) {
-					overlay.style.display = 'none';
-				}
-				
-				// If blog content was hidden, show it
-				if (blogContentElement) {
-					blogContentElement.style.opacity = '1';
-					const innerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
-					if (innerWrapper) {
-						innerWrapper.style.opacity = '1';
-					}
-				}
-				
-				// Check if we're coming back from a project (portfolio was likely active)
-				const currentHistoryState = history.state;
-				const wasOnProject = window.location.pathname.includes('/20'); // Year-based URLs
-				
-				if (wasOnProject || (currentHistoryState && currentHistoryState.isProject)) {
-					// Mark as back navigation for carousel
-					sessionStorage.setItem('portfolio-back-navigation', 'true');
-					
-					// Emit events to trigger carousel re-initialization
-					setTimeout(() => {
-						document.dispatchEvent(new Event('contentLoaded'));
-						window.dispatchEvent(new Event('portfolio-loaded'));
-						
-						// Give browser time to restore scroll, then check active notebook
-						setTimeout(() => {
-							if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
-								window._notebookCarousel.reinitialize();
-							}
-						}, 300);
-					}, 100);
-				}
-				
-				return;
-			}
-			
-			if (event.state && event.state.page) {
-				const targetUrl = event.state.page;
+	const handlePopstate = async function (event) {
+		if (event.state && event.state.fromTab) {
+			lastTabBeforeDynamicLoad = event.state.fromTab;
+		}
+		// If we're returning to the home page (no state or initial state)
+		if (!event.state || event.state.isInitial) {
+			// Check if we're coming back from a project (portfolio was likely active)
+			const currentHistoryState = history.state;
+			const wasOnProject = window.location.pathname.includes('/20'); // Year-based URLs
+			const cameFromPortfolioTab = (event.state && event.state.fromTab === 'portfolio') || (currentHistoryState && currentHistoryState.fromTab === 'portfolio');
+
+			restoreInitialView({
+				fromProject: wasOnProject || (currentHistoryState && currentHistoryState.isProject) || cameFromPortfolioTab,
+				originatingTab: lastTabBeforeDynamicLoad
+			});
+
+			return;
+		}
+		
+		if (event.state && event.state.page) {
+			const targetUrl = event.state.page;
 				// Navigating to target URL
 
 				// Perform fade out
@@ -826,9 +1003,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Expose fetchAndDisplayContent globally for direct navigation
 		window.fetchAndDisplayContent = fetchAndDisplayContent;
 
-		if (!history.state || (!history.state.isDynamic && !history.state.isInitial)) {
-			history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
-		}
+	if (!history.state || (!history.state.isDynamic && !history.state.isInitial)) {
+		history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: 'blog' }, '', initialBlogContentURL);
+	}
 	}
 
 	if (document.querySelector('.blog-content')) {
@@ -1256,6 +1433,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				
 				// Don't move the back button - keep it in its original position
 			}
+
+			updateDynamicBackButtonPlacement();
 		}, 250); // Debounce resize events
 	});
 

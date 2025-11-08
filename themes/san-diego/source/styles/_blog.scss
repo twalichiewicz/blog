@@ -26,71 +26,19 @@
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		justify-content: start;
-		align-items: center;
+		justify-content: flex-start;
+		align-items: stretch;
+		padding: 24px 0;
+		gap: 24px;
+
+		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			justify-content: space-between;
+		}
 
 		@media (max-width: variables.$mobile-breakpoint) {
 			height: 100%;
-		}
-		
-		// Desktop contact buttons styling
-		.desktop-contact-buttons {
-			display: flex;
-			gap: 18px;
-			justify-content: start;
-			margin-top: 20px;
-			margin-bottom: 24px;
-			
-			.contact-circle-btn {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				text-decoration: none;
-				transition: all 0.2s ease;
-				
-				.contact-icon {
-					width: 36px;
-					height: 36px;
-					border-radius: 50%;
-					padding: 6px;
-					background-color: rgba(variables.$text-color, 0.1);
-					transition: all 0.2s ease;
-					box-sizing: border-box;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					
-					svg {
-						width: 80%;
-						height: 80%;
-						color: variables.$text-color;
-					}
-				}
-				
-				.contact-label {
-					margin-top: 8px;
-					font-size: var(--font-size-2xs);
-					color: variables.$text-color-secondary;
-					letter-spacing: 0.05em;
-					font-weight: var(--font-weight-normal);
-				}
-				
-				&:hover {
-					.contact-icon {
-						background-color: rgba(variables.$link-color, 0.1);
-						transform: translateY(-2px);
-						box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-						
-						svg {
-							color: variables.$link-color;
-						}
-					}
-					
-					.contact-label {
-						color: variables.$link-color;
-					}
-				}
-			}
+			padding: 0;
+			gap: 0;
 		}
 	}
 
@@ -198,7 +146,7 @@
 
 			li {
 				margin-bottom: 0.5rem;
-				color: variables.$grey-dark;
+				color: var(--blog-list-text-color);
 				font-size: var(--font-size-md);
 				line-height: 1.4;
 				// Ensure list items don't inherit byline styles
@@ -397,7 +345,6 @@
 				background-color: rgb(0 0 0 / 60%);
 				padding: 6px;
 				border-radius: 12px;
-				margin-bottom: 60px;
 
 				.indicator {
 					width: 8px;
@@ -457,11 +404,24 @@
 		}
 	}
 
+.post-separator {
+	margin: 1.5rem 0;
+	width: 100%;
+	@include post-separator-base;
+}
+
+.blog .post-list-item ul li,
+.blog .post-list-item ol li,
+.blog .blog-list .post-list-item ul li,
+.blog .blog-list .post-list-item ol li {
+	color: var(--blog-list-text-color);
+}
+
+@media (max-width: variables.$mobile-breakpoint) {
 	.post-separator {
-		margin: 1.5rem 0;
-		width: 100%;
-		@include post-separator-base;
+		margin: 30px 0;
 	}
+}
 
 	.project-separator {
 		border: none;
@@ -706,6 +666,21 @@
 			}
 
 			.link-share {
+				.link-excerpt {
+					margin: 0.25rem 0 0.5rem;
+					font-size: var(--font-size-sm);
+					line-height: 1.4;
+					color: variables.$text-color;
+
+					p {
+						margin-top: 0;
+
+						&:last-child {
+							margin-bottom: 0;
+						}
+					}
+				}
+
 				.post-link-wrapper.post-long {
 					margin: 0.25rem 0;
 					font-size: var(--font-size-sm);
