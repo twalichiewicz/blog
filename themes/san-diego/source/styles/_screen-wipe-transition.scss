@@ -15,6 +15,10 @@
 	justify-content: center;
 	border-radius: 0;
 	overflow: hidden;
+
+	@media (min-width: 769px) {
+		border-radius: 12px 0 0 0;
+	}
 	
 	// Wipe panels (left and right)
 	&::before,
