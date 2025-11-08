@@ -49,18 +49,17 @@
   function isExternalLink(href) {
     if (!href) return false;
     
+    const normalizedHref = href.trim().toLowerCase();
+    const disallowedSchemes = ['#', 'javascript:', 'mailto:', 'tel:', 'data:', 'vbscript:'];
+    
     // Skip anchors, javascript:, mailto:, tel:, etc.
-    if (href.startsWith('#') || 
-        href.startsWith('javascript:') || 
-        href.startsWith('mailto:') || 
-        href.startsWith('tel:') ||
-        href.startsWith('data:')) {
+    if (disallowedSchemes.some(scheme => normalizedHref.startsWith(scheme))) {
       return false;
     }
     
     // Check if absolute URL
     try {
-      const url = new URL(href, window.location.href);
+      const url = new URL(href.trim(), window.location.href);
       return url.hostname !== window.location.hostname;
     } catch (e) {
       // If URL parsing fails, assume it's internal
