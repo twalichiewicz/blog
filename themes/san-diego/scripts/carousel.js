@@ -1,9 +1,22 @@
 'use strict';
 
+const { unescapeHTML } = require('hexo-util');
+
+function normalizeCarouselArgs(args) {
+	const raw = Array.isArray(args) ? args.join(' ') : String(args || '');
+	return unescapeHTML(raw)
+		.replace(/[“”]/g, '"')
+		.replace(/[‘’]/g, '\'')
+		.replace(/<br\s*\/?>/gi, '')
+		.replace(/\u00A0/g, ' ')
+		.replace(/&nbsp;/g, ' ')
+		.trim();
+}
+
 hexo.extend.tag.register('carousel', function (args) {
 	try {
 		// Parse the JSON input
-		const input = args.join(' ')
+		const input = normalizeCarouselArgs(args)
 			.replace(/([{,])\s*(\w+):/g, '$1"$2":')
 			.replace(/:([^",}\s][^,}]*)/g, ':"$1"')
 			.replace(/:"([^"]*)\s+([^"}]*)"}/g, ':"$1 $2"}')
@@ -122,7 +135,7 @@ hexo.extend.tag.register('carousel_with_caption', function (args, content) {
 		const caption = content ? content.trim() : null;
 		
 		// Parse the JSON input for images
-		const input = args.join(' ')
+		const input = normalizeCarouselArgs(args)
 			.replace(/([{,])\s*(\w+):/g, '$1"$2":')
 			.replace(/:([^",}\s][^,}]*)/g, ':"$1"')
 			.replace(/:"([^"]*)\s+([^"}]*)"}/g, ':"$1 $2"}')

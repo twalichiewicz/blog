@@ -20,6 +20,16 @@
     height: 100%;
     position: relative; // For absolute positioned back button
     
+    &.has-dynamic-content {
+      overflow: auto !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      
+      @media (max-width: variables.$mobile-breakpoint) {
+        overflow: visible !important;
+      }
+    }
+    
     // Desktop/tablet: content-wrapper handles the scroll
     @media (min-width: variables.$tablet-breakpoint) {
       // Default state - content-wrapper scrolls
@@ -130,16 +140,40 @@
   
   // Fix cutoff at bottom for both Words and Works
   .content-wrapper {
-    padding-bottom: 24px; // Add padding to wrapper to show bottom content
+    padding-bottom: variables.$space-md; // Provide breathing room for scroll container
   }
-  
-  #postsContent {
-    padding-bottom: 48px !important; // Extra padding for posts
-  }
-  
+}
+
+// Remove bottom padding from the main blog container
+.blog#main-content {
+  padding-bottom: 0 !important;
+}
+
+// Provide consistent vertical padding for tab panels on all viewports
+#postsContent,
+#projectsContent {
+  padding-top: variables.$space-sm;
+  padding-bottom: calc(variables.$space-sm + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  #postsContent,
   #projectsContent {
-    padding-bottom: 48px !important; // Extra padding for projects
+    padding-top: variables.$space-md;
+    padding-bottom: variables.$space-md;
   }
+}
+
+@media (min-width: variables.$tablet-breakpoint) {
+  #postsContent,
+  #projectsContent {
+    padding-top: variables.$space-xl;
+    padding-bottom: variables.$space-xl;
+  }
+}
+
+#postsContent.blog-list.mobile-tab-pane.is-visible {
+  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
 // Mobile-specific fixes
@@ -148,6 +182,11 @@
   .device-mobile .blog {
     display: flex !important;
     flex-direction: column !important;
+    position: static !important;
+    width: 100% !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
     height: auto !important; // Changed from 100dvh to auto
     min-height: 100dvh !important;
     overflow: visible !important; // Changed from hidden
@@ -156,9 +195,11 @@
       flex-shrink: 0;
       height: auto;
     }
-    
+
     .blog-content {
       flex: 1 1 auto !important;
+      position: static !important;
+      width: 100% !important;
       overflow: visible !important; // Changed from auto
       min-height: 0 !important;
       display: flex !important;
@@ -184,6 +225,7 @@
         min-height: calc(100dvh - var(--blog-header-height, 100vh));
         flex: 1 1 auto;
         background-color: variables.$white; // Ensure background extends
+        padding-bottom: 0 !important; // Prevent excess bottom padding on mobile
         
         // Dark mode background
         @media (prefers-color-scheme: dark) {
@@ -228,22 +270,7 @@
   }
 }
 
-// When dynamic content is loaded, make content-inner-wrapper scrollable
-.blog-content.has-dynamic-content {
-	@media (min-width: variables.$tablet-breakpoint) {
-		.content-wrapper {
-			overflow: hidden !important; // Wrapper doesn't scroll
-			height: 100%;
-    }
-    
-    .content-inner-wrapper {
-      overflow-y: scroll !important; // Inner wrapper handles scroll for dynamic content
-      overflow-x: hidden !important;
-      height: 100%;
-      border-radius: 12px 0 0 0; // Ensure border-radius for shutter animation
-    }
-	}
-}
+// Dynamic content uses dedicated scroll host styles (see _dynamic-content-scroll-fix.scss)
 
 .blog.long-form-active {
 	@media (max-width: variables.$mobile-breakpoint) {

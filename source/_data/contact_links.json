@@ -1,0 +1,42 @@
+[
+  {
+    "id": "email",
+    "label": "Email",
+    "aria_label": "Email Thomas",
+    "href": "mailto:hey@thomas.design",
+    "sublabel": "hey@thomas.design",
+    "modifier": "email",
+    "external": false,
+    "no_external_indicator": false
+  },
+  {
+    "id": "linkedin",
+    "label": "LinkedIn",
+    "aria_label": "LinkedIn profile",
+    "href": "https://linkedin.com/in/twalichiewicz",
+    "sublabel": "twalichiewicz",
+    "modifier": "linkedin",
+    "external": true,
+    "no_external_indicator": true
+  },
+  {
+    "id": "github",
+    "label": "GitHub",
+    "aria_label": "GitHub profile",
+    "href": "https://github.com/twalichiewicz",
+    "sublabel": "twalichiewicz",
+    "modifier": "github",
+    "external": true,
+    "no_external_indicator": true
+  },
+  {
+    "id": "resume",
+    "label": "Resume",
+    "aria_label": "Resume PDF",
+    "href": "/docs/Thomas Walichiewicz CV Q2 2025.pdf",
+    "sublabel": "PDF Download",
+    "modifier": "resume",
+    "external": true,
+    "no_external_indicator": false
+  }
+]
