@@ -63,8 +63,11 @@
                                 const cleanContent = post.content
                                     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
                                     .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+                                const hasRenderableContent = cleanContent.trim().length > 0;
                                 %>
-                                <p><%- cleanContent %></p>
+                                <% if (hasRenderableContent) { %>
+                                    <div class="link-excerpt"><%- cleanContent %></div>
+                                <% } %>
                             <% } %>
                             
                             <a href="<%= post.url %>" target="_blank" rel="noopener" class="post-list-item post-long post-link-wrapper <%= post.workspace_os_special ? 'workspace-os-starfield' : '' %>">
