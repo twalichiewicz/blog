@@ -695,6 +695,14 @@
 				color: variables.$text-color-dark;
 
 				.link-share {
+					.link-excerpt {
+						color: variables.$white;
+
+						p {
+							color: inherit;
+						}
+					}
+
 					.post-link-wrapper.post-long {
 						color: variables.$white;
 						text-decoration: none;

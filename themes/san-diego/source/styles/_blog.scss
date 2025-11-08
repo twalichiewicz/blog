@@ -666,6 +666,21 @@
 			}
 
 			.link-share {
+				.link-excerpt {
+					margin: 0.25rem 0 0.5rem;
+					font-size: var(--font-size-sm);
+					line-height: 1.4;
+					color: variables.$text-color;
+
+					p {
+						margin-top: 0;
+
+						&:last-child {
+							margin-bottom: 0;
+						}
+					}
+				}
+
 				.post-link-wrapper.post-long {
 					margin: 0.25rem 0;
 					font-size: var(--font-size-sm);
