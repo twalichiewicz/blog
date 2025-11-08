@@ -382,62 +382,99 @@
 			transition: all 0.3s ease;
 		}
 		
-		.mobile-compact-header {
-			width: 100%;
-			
-			.location-pill {
-				padding: 3px 0;
-				font-size: var(--font-size-xs);
-				margin-bottom: 3px;
-				// Base transition for opacity changes
-				transition: opacity 0.3s ease;
-				
-				.location-icon {
-					width: 10px;
-					height: 10px;
-				}
-			}
-			
-			.profile-byline {
-				font-size: var(--font-size-sm);
-				font-weight: var(--font-weight-normal);
-				margin: 3px 0;
-				color: variables.$text-color-secondary;
-				line-height: var(--line-height-tight).5;
-				display: block;
-				// Base transition for opacity changes
-				transition: opacity 0.3s ease;
-			}
+		> .profile-photo-wrapper {
+			display: none;
 		}
 		
-		.mobile-buttons-container {
-			position: absolute;
-			top: 8px; // Balanced position for both light and dark modes
-			right: 12px;
-			display: flex;
-			gap: 8px;
-			margin-top: 0;
-			flex-shrink: 0;
-			max-width: none;
+		.mobile-compact-header {
+			display: flex !important;
+			flex-direction: row !important;
+			width: 100%;
+			align-items: center;
+			gap: 16px;
+			flex-wrap: nowrap;
 			
-			// Further optimize for smaller screens
-			@media (max-width: 480px) {
-				gap: 6px;
-				right: 8px;
+			.mobile-compact-info {
+				flex: 1 1 auto;
+				min-width: 0;
+			}
+			
+			.mobile-buttons-container {
+				flex: 0 0 auto;
+				width: 150px;
+				max-width: 150px;
+				display: flex;
+				flex-direction: column;
+				align-items: stretch;
+				justify-content: center;
+				gap: 12px;
+			}
+			
+			.mobile-compact-info {
+				display: flex;
+				gap: 12px;
+				align-items: center;
+			}
+			
+				.mobile-profile-photo {
+					width: 72px;
+					height: 72px;
+					flex-shrink: 0;
+					
+					.profile-photo {
+						width: 100%;
+						height: 100%;
+						border-radius: 50%;
+						object-fit: cover;
+					}
+				}
+			
+			.mobile-profile-text {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 0;
 				
-				// Reduce button size on very small screens
-				.mobile-impact-button,
-				.mobile-contact-button {
-					font-size: 0.625rem !important; // 10px
-					padding: 5px 10px !important;
+				.mobile-compact-name {
+					font-size: clamp(1.1rem, 4vw, 1.6rem);
+					line-height: var(--line-height-tight);
+					margin: 0;
+					font-weight: var(--font-weight-semibold);
+				}
+				
+				.profile-byline {
+					font-size: var(--font-size-xs);
+					font-weight: var(--font-weight-medium);
+					margin: 0;
+					color: variables.$text-color-secondary;
+					line-height: 120%;
+					max-width: 45ch;
 				}
 			}
 			
-			@media (max-width: 375px) {
-				top: 12px; // Move down slightly on very small screens
-				flex-direction: column; // Stack vertically if needed
-				align-items: flex-end;
-				gap: 4px;
+			.mobile-buttons-container {
+				align-self: stretch;
+				margin-top: 0 !important;
+				gap: 6px;
+				
+				.mobile-impact-button,
+				.mobile-contact-button {
+					width: 100% !important;
+					font-size: 9px !important;
+					box-sizing: border-box !important;
+					display: block;
+					text-align: center;
+				}
+			}
+			
+			@media (max-width: 420px) {
+				flex-direction: column;
+				
+				.mobile-compact-info,
+				.mobile-buttons-container {
+					width: 100%;
+					flex: 1 1 auto;
+				}
 			}
 		}
 		
@@ -785,6 +822,244 @@
 				}
 			}
 		}
+	}
+}
+
+.blog {
+	.desktop-contact-chin {
+		display: none;
+	}
+}
+
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+	.blog {
+		.desktop-contact-chin {
+			display: flex;
+			width: 100%;
+			padding: 0 24px 0;
+			box-sizing: border-box;
+			position: relative;
+			margin-top: auto;
+		}
+
+		.desktop-contact-chin .contact-chin-inner {
+			position: relative;
+			display: flex;
+			align-items: stretch;
+			gap: 6px;
+			width: 100%;
+			padding: 9px 18px;
+			border-radius: 12px;
+			background: #1a1a1a;
+			background: linear-gradient(
+				180deg,
+				#0a0a0a 0%,
+				#1a1a1a 20%,
+				#0f0f0f 100%
+			);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-top: 1px solid rgba(255, 255, 255, 0.2);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			overflow: visible;
+		}
+
+		.desktop-contact-chin .contact-chin-inner::after {
+			content: '';
+			position: absolute;
+			bottom: -50%;
+			left: -10%;
+			width: 120%;
+			height: 100%;
+			background: radial-gradient(ellipse at center,
+				rgba(255, 255, 255, 0.02) 0%,
+				transparent 70%);
+			pointer-events: none;
+		}
+
+		.desktop-contact-chin .contact-chin-btn {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			padding: 9px 12px;
+			min-height: 30px;
+			border-radius: 10px;
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			background: linear-gradient(180deg,
+				rgba(90, 92, 106, 0.22) 0%,
+				rgba(56, 58, 68, 0.18) 45%,
+				rgba(32, 32, 40, 0.22) 100%);
+			color: rgba(255, 255, 255, 0.88);
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			font-size: var(--font-size-2xs);
+			font-weight: var(--font-weight-semibold);
+			text-decoration: none;
+			text-align: center;
+			transition:
+				color 0.25s ease,
+				background 0.25s ease,
+				border-color 0.25s ease,
+				box-shadow 0.25s ease;
+			flex: 1 1 0;
+			min-width: 0;
+			overflow: visible;
+			box-shadow:
+				inset 0 1px 0 rgba(255, 255, 255, 0.18),
+				inset 0 -2px 5px rgba(0, 0, 0, 0.55),
+				0 3px 6px rgba(0, 0, 0, 0.4);
+			--contact-btn-accent-rgb: 196, 210, 255;
+		}
+
+		.desktop-contact-chin .contact-chin-btn:hover,
+		.desktop-contact-chin .contact-chin-btn:focus-visible {
+			background: linear-gradient(180deg,
+				rgba(120, 122, 134, 0.26) 0%,
+				rgba(74, 76, 86, 0.22) 50%,
+				rgba(42, 42, 52, 0.26) 100%);
+			border-color: rgba(var(--contact-btn-accent-rgb), 0.65);
+			box-shadow:
+				inset 0 1px 0 rgba(255, 255, 255, 0.28),
+				inset 0 -3px 6px rgba(0, 0, 0, 0.6),
+				0 0 0 1px rgba(18, 18, 24, 0.55),
+				0 8px 16px rgba(0, 0, 0, 0.48),
+				0 0 18px rgba(var(--contact-btn-accent-rgb), 0.35);
+			color: rgb(var(--contact-btn-accent-rgb));
+		}
+
+		.desktop-contact-chin .contact-chin-btn:active {
+			background: linear-gradient(180deg,
+				rgba(70, 72, 84, 0.22) 0%,
+				rgba(44, 46, 56, 0.2) 55%,
+				rgba(24, 24, 32, 0.22) 100%);
+			box-shadow:
+				inset 0 1px 0 rgba(255, 255, 255, 0.3),
+				inset 0 -2px 6px rgba(0, 0, 0, 0.7),
+				0 0 0 1px rgba(var(--contact-btn-accent-rgb), 0.45),
+				0 2px 6px rgba(0, 0, 0, 0.45),
+				0 0 10px rgba(var(--contact-btn-accent-rgb), 0.25);
+			border-color: rgba(var(--contact-btn-accent-rgb), 0.55);
+			color: rgb(var(--contact-btn-accent-rgb));
+		}
+
+		.desktop-contact-chin .contact-chin-btn:focus-visible {
+			outline: 2px solid variables.$link-color;
+			outline-offset: 2px;
+		}
+
+		.desktop-contact-chin .contact-chin-btn::after {
+			content: attr(data-label);
+			position: absolute;
+			bottom: calc(100% + 6px);
+			left: 50%;
+			transform: translate(-50%, 12px);
+			padding: 6px 16px 7px;
+			background: linear-gradient(180deg,
+				rgba(20, 20, 24, 0.98) 0%,
+				rgba(15, 15, 20, 0.98) 100%);
+			border-radius: 8px;
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			color: rgba(240, 240, 245, 0.92);
+			font-size: var(--font-size-2xs);
+			font-weight: var(--font-weight-semibold);
+			letter-spacing: 0.16em;
+			text-transform: uppercase;
+			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+			opacity: 0;
+			pointer-events: none;
+			white-space: nowrap;
+			transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+			box-shadow:
+				0 8px 14px rgba(0, 0, 0, 0.45),
+				inset 0 1px 0 rgba(255, 255, 255, 0.15);
+		}
+
+		.desktop-contact-chin .contact-chin-btn::before {
+			content: '';
+			position: absolute;
+			bottom: calc(100% + 1px);
+			left: 50%;
+			transform: translate(-50%, 12px) rotate(45deg);
+			width: 14px;
+			height: 14px;
+			background: rgba(16, 16, 22, 0.98);
+			border-left: 1px solid rgba(255, 255, 255, 0.18);
+			border-top: 1px solid rgba(255, 255, 255, 0.18);
+			border-right: none;
+			border-bottom: none;
+			border-radius: 2px 0 0 0;
+			opacity: 0;
+			pointer-events: none;
+			transform-origin: center;
+			transition: opacity 0.2s ease, transform 0.2s ease;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+		}
+
+		.desktop-contact-chin .contact-chin-btn:hover::after,
+		.desktop-contact-chin .contact-chin-btn:focus-visible::after {
+			opacity: 1;
+			transform: translate(-50%, 0);
+			border-color: rgba(var(--contact-btn-accent-rgb), 0.5);
+			box-shadow:
+				0 8px 14px rgba(0, 0, 0, 0.45),
+				inset 0 1px 0 rgba(255, 255, 255, 0.15),
+				0 0 14px rgba(var(--contact-btn-accent-rgb), 0.3);
+		}
+
+		.desktop-contact-chin .contact-chin-btn:hover::before,
+		.desktop-contact-chin .contact-chin-btn:focus-visible::before {
+			opacity: 1;
+			transform: translate(-50%, 0) rotate(45deg);
+			border-left-color: rgba(var(--contact-btn-accent-rgb), 0.5);
+			border-top-color: rgba(var(--contact-btn-accent-rgb), 0.5);
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25), 0 0 10px rgba(var(--contact-btn-accent-rgb), 0.25);
+		}
+
+		.desktop-contact-chin .contact-chin-btn .contact-icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 26px;
+			height: 26px;
+			color: inherit;
+			opacity: 0.78;
+			transition: color 0.25s ease, opacity 0.25s ease;
+
+			svg {
+				width: 100%;
+				height: 100%;
+				display: block;
+				color: inherit;
+			}
+		}
+
+		.desktop-contact-chin .contact-chin-btn:hover .contact-icon,
+		.desktop-contact-chin .contact-chin-btn:focus-visible .contact-icon {
+			opacity: 1;
+			color: currentColor;
+		}
+
+		.desktop-contact-chin .contact-chin-inner:hover .contact-chin-btn:not(:hover) .contact-icon {
+			opacity: 0.6;
+		}
+
+		.desktop-contact-chin .contact-chin-btn--email {
+			--contact-btn-accent-rgb: 128, 255, 229;
+		}
+
+		.desktop-contact-chin .contact-chin-btn--linkedin {
+			--contact-btn-accent-rgb: 128, 179, 255;
+		}
+
+		.desktop-contact-chin .contact-chin-btn--github {
+			--contact-btn-accent-rgb: 179, 229, 255;
+		}
+
+		.desktop-contact-chin .contact-chin-btn--resume {
+			--contact-btn-accent-rgb: 255, 179, 128;
+		}
+
 	}
 }
 

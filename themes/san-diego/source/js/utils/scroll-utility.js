@@ -10,7 +10,7 @@ export const ScrollUtility = {
         defaultBlock: 'center',
         defaultInline: 'nearest',
         glowDuration: 2000,
-        tabSwitchDelay: 300,
+        tabSwitchDelay: 1000,
         headerOffset: 0
     },
 
@@ -78,18 +78,28 @@ export const ScrollUtility = {
     handleAnchorClick(e) {
         const link = e.target.closest('a[href^="#"]');
         if (!link) return;
-        
-        
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const targetId = link.getAttribute('href').substring(1);
-        const target = document.getElementById(targetId);
-        
-        if (!target) {
+
+        const href = link.getAttribute('href');
+        if (!href) {
             return;
         }
-        
+
+        if (href === '#') {
+            e.preventDefault();
+            return;
+        }
+
+        const targetId = href.substring(1);
+        const target = document.getElementById(targetId);
+
+        if (!target) {
+            e.preventDefault();
+            return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
         this.scrollToTarget(target);
     },
 

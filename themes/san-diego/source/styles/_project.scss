@@ -619,7 +619,7 @@ body.loaded .project-wrapper {
 
 		ul,
 		ol {
-			color: variables.$text-color-dark;
+			color: hsl(24, 4.49%, 78.01%);
 		}
 	}
 
@@ -2011,25 +2011,75 @@ body.loaded .project-wrapper {
 }
 
 // When demo is inline, adjust the above-fold content wrapper
+body.demo-inline-active .project-edge-wrapper .above-the-fold-preview {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	overflow: hidden;
+}
+
+body.demo-inline-active .project-edge-wrapper .project-trailer-hero {
+	position: relative;
+	flex: 1 1 auto;
+	height: auto;
+	min-height: clamp(320px, 70dvh, 560px);
+	max-height: none;
+	display: flex;
+	flex-direction: column;
+
+	@media (max-width: variables.$mobile-breakpoint) {
+		min-height: max(300px, 70dvh);
+	}
+
+	.trailer-content {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 auto;
+		min-height: 0;
+
+		.demo-inline-container {
+			height: 100%;
+			border-radius: 0;
+			display: flex;
+			flex-direction: column;
+			flex: 1 1 auto;
+			min-height: 0;
+
+			&.demo-loaded {
+				.demo-inline-iframe {
+					max-height: 100%;
+
+					@media (max-width: variables.$mobile-breakpoint) {
+						max-height: 100%;
+					}
+				}
+			}
+		}
+	}
+}
+
 body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fold-content-wrapper {
-	// Note: Blur overlay is now disabled globally, so no special handling needed
-	
-	// Reduce padding since demo provides visual interest
-	padding: clamp(2rem, 4dvh, 4rem) 36px 36px 36px;
-	
+	// Reduce padding since demo provides visual interest and ensure the text block hugs the demo
+	padding: clamp(0.25rem, 2dvh, 1.25rem) 32px clamp(1rem, 3dvh, 3rem) 32px;
+	margin-top: 0;
+	flex: 0 0 auto;
+	min-height: auto;
+	height: auto;
+
 	// Adjust responsive padding
 	@media (max-width: 1200px) {
-		padding: clamp(1.5rem, 3dvh, 3rem) 32px 32px 32px;
+		padding: clamp(0.25rem, 2dvh, 1.25rem) 28px clamp(1rem, 3dvh, 3rem) 28px;
 	}
-	
+
 	@media (max-width: 768px) {
-		padding: clamp(1rem, 2dvh, 2rem) 24px 24px 24px;
+		padding: clamp(0.25rem, 2dvh, 0.75rem) 20px clamp(0.75rem, 2.5dvh, 2rem) 20px;
 	}
-	
+
 	@media (max-width: 480px) {
-		padding: 1.5rem 20px 20px 20px;
+		padding: 0.5rem 16px clamp(0.75rem, 2.5dvh, 1.5rem) 16px;
 	}
-	
+
 	// Adjust for very small heights
 	@media (max-height: 600px) {
 		padding: 15px clamp(0.5rem, 3vw, 2rem) 20px;
@@ -2041,6 +2091,10 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 
 	@media (max-height: 400px) {
 		padding: 8px clamp(0.5rem, 2vw, 1rem) 12px;
+	}
+
+	&::before {
+		display: none !important;
 	}
 }
 
@@ -4335,8 +4389,11 @@ body.demo-modal-open {
   background: #f5f5f5;
   border-radius: 0;
   overflow: hidden;
-  min-height: 500px;
+  min-height: clamp(320px, 70dvh, 560px);
   z-index: 10; // Ensure container is above trailer content
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   
   // Blueprint/drafting table background - on the container, not scaled
   &::before {
@@ -4352,23 +4409,20 @@ body.demo-modal-open {
     z-index: 1;
   }
   
-  // Border frame - also fixed, not scaled
-  &::after {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    border-radius: 2px;
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-  @media (max-width: variables.$mobile-breakpoint) {
-    min-height: 300px;
-  }
+	// Border frame - also fixed, not scaled
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border: 1px solid rgba(0, 0, 0, 0.03);
+		border-radius: 2px;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	@media (max-width: variables.$mobile-breakpoint) {
+		min-height: max(300px, 70dvh);
+	}
   
   // Demo controls overlay
   .demo-inline-controls {
@@ -4547,21 +4601,17 @@ body.demo-modal-open {
   
   // Iframe wrapper for proper zoom scaling
   .demo-iframe-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: relative;
     width: 100%;
     height: 100%;
+    flex: 1 1 auto;
     z-index: 100; // Above grid pattern
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden; // Clip scaled content
   }
 
   .demo-inline-iframe {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     border: none;
@@ -4625,30 +4675,38 @@ body.demo-modal-open {
   .above-the-fold-preview {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     overflow: hidden;
   }
-  
-  .project-trailer-hero {
+
+ .project-trailer-hero {
     // Switch from absolute to relative positioning
     position: relative;
-    height: 70%; // Increased to give more space to demo
-    min-height: 450px;
-    max-height: 75vh; // Increased cap for better demo visibility
-    flex: 0 0 auto;
+    flex: 1 1 auto;
+    height: auto;
+    min-height: clamp(360px, 70dvh, 800px);
+    max-height: none;
+    display: flex;
+    flex-direction: column;
     
     @media (max-width: variables.$mobile-breakpoint) {
-      height: 65%; // More space on mobile too
-      min-height: 350px;
-      max-height: 65vh;
+      min-height: max(320px, 65dvh);
     }
     
     .trailer-content {
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-height: 0;
       
       .demo-inline-container {
         height: 100%;
         border-radius: 0;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
         
         &.demo-loaded {
           // Ensure loaded demos respect the container height
@@ -4671,12 +4729,85 @@ body.demo-modal-open {
     flex: 0 0 auto;
     min-height: auto; // Let content determine height
     height: auto;
+    margin-top: 0;
     
     // Completely remove the gradient overlay for inline demos
     &::before {
       display: none !important; // Force removal of overlay
     }
   }
+}
+
+// Support inline demos when body class isn't present (e.g. dynamically loaded projects)
+.above-the-fold-preview.has-inline-demo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.project-trailer-hero.has-inline-demo {
+  position: relative;
+  flex: 1 1 auto;
+  height: auto;
+  min-height: clamp(320px, 70dvh, 560px);
+  max-height: none;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: variables.$mobile-breakpoint) {
+    min-height: max(300px, 70dvh);
+  }
+
+  .trailer-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+
+    .demo-inline-container {
+      height: 100%;
+      border-radius: 0;
+      flex: 1 1 auto;
+
+      &.demo-loaded {
+        .demo-inline-iframe {
+          max-height: 100%;
+
+          @media (max-width: variables.$mobile-breakpoint) {
+            max-height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.project-trailer-hero.has-inline-demo + .above-fold-content-wrapper {
+	position: relative;
+	bottom: auto;
+	flex: 0 0 auto;
+	min-height: auto;
+	height: auto;
+	margin-top: 0;
+	padding: clamp(0.25rem, 2dvh, 1.25rem) 32px clamp(1rem, 3dvh, 3rem) 32px;
+
+	@media (max-width: 1200px) {
+		padding: clamp(0.25rem, 2dvh, 1.25rem) 28px clamp(1rem, 3dvh, 3rem) 28px;
+	}
+
+	@media (max-width: 768px) {
+		padding: clamp(0.25rem, 2dvh, 0.75rem) 20px clamp(0.75rem, 2.5dvh, 2rem) 20px;
+	}
+
+	@media (max-width: 480px) {
+		padding: 0.5rem 16px clamp(0.75rem, 2.5dvh, 1.5rem) 16px;
+	}
+
+	&::before {
+		display: none !important;
+	}
 }
 
 // Fullscreen demo mode styles - high specificity to override spotlight modal
@@ -4864,4 +4995,3 @@ body.demo-fullscreen-active .project-trailer-hero.demo-fullscreen {
     opacity: 0;
   }
 }
-

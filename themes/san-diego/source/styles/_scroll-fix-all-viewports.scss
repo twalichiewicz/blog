@@ -5,12 +5,11 @@
 @media (min-width: calc(variables.$tablet-breakpoint + 1px)) {
   .blog {
     .blog-content {
-      // Blog content should not scroll, just contain
-      overflow: hidden !important;
-      height: calc(100dvh - 24px); // Account for margins
-      
-      // Not when dynamic content is loaded
+      // Blog content should not scroll, just contain (unless dynamic content)
       &:not(.has-dynamic-content) {
+        overflow: hidden !important;
+        height: calc(100dvh - 24px); // Account for margins
+        
         .content-inner-wrapper {
           // Inner wrapper should fill parent and not scroll
           height: 100% !important;
@@ -58,10 +57,10 @@
 @media (min-width: calc(variables.$mobile-breakpoint + 1px)) and (max-width: variables.$tablet-breakpoint) {
   .blog {
     .blog-content {
-      // Same as desktop - no scroll on blog-content
-      overflow: hidden !important;
-      
       &:not(.has-dynamic-content) {
+        overflow: hidden !important;
+        height: calc(100dvh - 24px);
+        
         .content-inner-wrapper {
           height: 100% !important;
           overflow: hidden !important;
@@ -122,15 +121,19 @@
 // Fix for dynamic content (posts/projects opened)
 .blog-content.has-dynamic-content {
   @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-    .content-wrapper {
-      overflow: hidden !important;
-      height: 100%;
-    }
-    
+    .content-wrapper,
     .content-inner-wrapper {
-      overflow-y: auto !important;
-      overflow-x: hidden !important;
-      height: 100%;
+      height: auto !important;
+      min-height: 0 !important;
+      overflow: visible !important;
     }
   }
+}
+
+// Ensure blog post list items always use the unified text color token
+.blog .post-list-item ul li,
+.blog .post-list-item ol li,
+.blog .blog-list .post-list-item ul li,
+.blog .blog-list .post-list-item ol li {
+	color: var(--blog-list-text-color) !important;
 }

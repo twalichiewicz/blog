@@ -669,6 +669,7 @@
         border-radius: 6px;
         position: relative;
         box-shadow: 0 0 6px var(--accent-color);
+        transition: width 0.6s ease;
         
         &::after {
             content: "+3 days";
@@ -680,6 +681,15 @@
             color: var(--accent-color);
             opacity: 0;
             white-space: nowrap;
+        }
+
+        &.is-filled {
+            width: 30%;
+
+            &::after {
+                opacity: 1;
+                transition: opacity 0.3s ease 0.4s;
+            }
         }
     }
     
@@ -713,6 +723,7 @@
         transform: scaleY(0);
         transform-origin: bottom;
         box-shadow: 0 0 6px var(--accent-color);
+        transition: transform 0.6s ease, opacity 0.4s ease;
         
         &[data-value="10"] { height: 15%; opacity: 0.5; }
         &[data-value="50"] { height: 85%; background: var(--success-color); }
@@ -739,6 +750,15 @@
             color: rgba(255, 255, 255, 0.8);
             opacity: 0;
         }
+
+        &.is-active {
+            transform: scaleY(1);
+
+            &::after {
+                opacity: 1;
+                transition: opacity 0.3s ease 0.3s;
+            }
+        }
     }
     
     @media (max-width: 768px) {
@@ -761,6 +781,7 @@
         position: relative;
         transform: scale(0);
         box-shadow: 0 0 6px var(--accent-color);
+        transition: transform 0.4s ease;
         
         &::after {
             content: attr(data-label);
@@ -772,6 +793,15 @@
             color: rgba(255, 255, 255, 0.5);
             white-space: nowrap;
             opacity: 0;
+        }
+
+        &.is-active {
+            transform: scale(1);
+
+            &::after {
+                opacity: 1;
+                transition: opacity 0.3s ease 0.2s;
+            }
         }
     }
     

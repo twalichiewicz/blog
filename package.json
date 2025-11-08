@@ -7,7 +7,7 @@
   },
   "scripts": {
     "check-branch": "bash scripts/ensure-safe-branch.sh",
-    "postinstall": "echo '🤖 Remember to run: npm run check-branch before making changes!'",
+    "postinstall": "echo '🤖 Remember to run: npm run check-branch before making changes!' && patch-package",
     "test:scss": "sass themes/san-diego/source/styles/styles.scss /tmp/test-scss-output.css",
     "build": "npm run test:scss && npm run build:demos:safe && hexo clean && hexo generate",
     "build:full": "npm run build:demos && npm run build",
@@ -71,7 +71,7 @@
     "inject:analytics": "node scripts/inject-analytics-token.js"
   },
   "hexo": {
-    "version": "7.3.0"
+    "version": "8.0.0"
   },
   "dependencies": {
     "@hapi/hoek": "^11.0.4",
@@ -81,7 +81,7 @@
     "cli-table3": "^0.6.5",
     "glob": "^11.0.3",
     "hawk": "^9.0.2",
-    "hexo": "^7.3.0",
+    "hexo": "^8.0.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",
@@ -97,7 +97,7 @@
     "hexo-renderer-sass": "^0.5.0",
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^1.1.0",
-    "hexo-util": "^3.3.0",
+    "hexo-util": "^4.0.0",
     "highlight.js": "^11.11.1",
     "html-minifier-terser": "^7.2.0",
     "js-yaml": "^4.1.0",
@@ -119,7 +119,12 @@
     "ajv": "^8.17.1",
     "uuid": "^9.0.1",
     "micromatch": "^4.0.8",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "strip-ansi": "6.0.1",
+    "strip-ansi@^7.0.0": "6.0.1",
+    "hexo@^8.0.0": {
+      "strip-ansi": "6.0.1"
+    }
   },
   "notes": "All vulnerabilities have been addressed by removing hexo-admin and hexo-pdf, and replacing hoek with @hapi/hoek.",
   "devDependencies": {
@@ -131,6 +136,7 @@
     "gray-matter": "^4.0.3",
     "pixelmatch": "^7.1.0",
     "pngjs": "^7.0.0",
+    "patch-package": "^8.0.0",
     "puppeteer": "^24.24.0",
     "stylelint": "^16.25.0",
     "stylelint-config-standard-scss": "^15.0.1",

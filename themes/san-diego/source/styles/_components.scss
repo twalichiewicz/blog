@@ -2736,8 +2736,15 @@ table {
 
 // Ensure dynamically loaded content is scrollable
 .content-inner-wrapper {
-	height: 100%;
-	overflow: hidden scroll;
+	height: auto;
+	overflow: visible;
+}
+
+@media screen and (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+	.content-inner-wrapper {
+		height: 100%;
+		overflow: hidden scroll;
+	}
 }
 
 // Desktop: custom border-radius for content-inner-wrapper
