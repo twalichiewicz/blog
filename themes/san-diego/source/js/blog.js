@@ -7,6 +7,54 @@ import { initializeMobileTabs } from './mobile-tabs.js';
 import videoAutoplayManager from './components/video-autoplay.js';
 import ScrollUtility from './utils/scroll-utility.js';
 
+/**
+ * Lifecycle event helpers
+ * Ensures both legacy DOM listeners and the SD namespace receive notifications.
+ */
+function createLifecycleEvent(name, detail = {}) {
+	try {
+		return new CustomEvent(name, { detail });
+	} catch (error) {
+		const fallback = document.createEvent('CustomEvent');
+		fallback.initCustomEvent(name, true, true, detail);
+		return fallback;
+	}
+}
+
+function dispatchLifecycleEvent(name, detail, targets) {
+	targets.forEach(target => {
+		if (!target || typeof target.dispatchEvent !== 'function') {
+			return;
+		}
+		const event = createLifecycleEvent(name, detail);
+		target.dispatchEvent(event);
+	});
+}
+
+function emitSdLifecycleEvent(name, detail) {
+	if (window.SD && window.SD.events && typeof window.SD.events.emit === 'function') {
+		window.SD.events.emit(name, detail);
+	}
+}
+
+function emitBlogContentLifecycle(detail = {}) {
+	const eventDetail = { type: 'blog', ...detail };
+	dispatchLifecycleEvent('contentLoaded', eventDetail, [document, window]);
+	dispatchLifecycleEvent('blog:content-loaded', eventDetail, [document, window]);
+	emitSdLifecycleEvent('blog:content-loaded', eventDetail);
+	if (eventDetail.reinitialized) {
+		dispatchLifecycleEvent('blog:content-reinitialized', eventDetail, [document, window]);
+		emitSdLifecycleEvent('blog:content-reinitialized', eventDetail);
+	}
+}
+
+function emitPortfolioLifecycle(detail = {}) {
+	const eventDetail = { type: 'portfolio', ...detail };
+	dispatchLifecycleEvent('portfolio-loaded', eventDetail, [document, window]);
+	dispatchLifecycleEvent('portfolio:loaded', eventDetail, [document, window]);
+	emitSdLifecycleEvent('portfolio:loaded', eventDetail);
+	emitSdLifecycleEvent('portfolio:content-loaded', eventDetail);
+}
 
 document.addEventListener('DOMContentLoaded', function () {
 	// --- Refactored Initialization Function ---
@@ -313,13 +361,18 @@ document.addEventListener('DOMContentLoaded', function () {
 		};
 
 		const switchTargetTab = fromProject ? 'portfolio' : originatingTab;
+		const lifecycleDetail = {
+			source: 'restoreInitialView',
+			originatingTab: switchTargetTab,
+			fromProject
+		};
 
 		if (fromProject) {
 			sessionStorage.setItem('portfolio-back-navigation', 'true');
 			setTimeout(() => {
 				requestTabSwitch(switchTargetTab);
-				window.dispatchEvent(new Event('portfolio-loaded'));
-				document.dispatchEvent(new Event('contentLoaded'));
+				emitPortfolioLifecycle(lifecycleDetail);
+				emitBlogContentLifecycle({ ...lifecycleDetail, reinitialized: true });
 
 					setTimeout(() => {
 						if (window.projectDemo && window.projectDemo.init) {
@@ -331,11 +384,12 @@ document.addEventListener('DOMContentLoaded', function () {
 						if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
 							window._notebookCarousel.reinitialize();
 						}
-					}, 300);
-				}, 50);
+				}, 300);
+			}, 50);
 		} else {
 			setTimeout(() => {
 				requestTabSwitch(switchTargetTab);
+				emitBlogContentLifecycle({ ...lifecycleDetail, reinitialized: true });
 				if (window.location.search.includes('tab=portfolio') && originatingTab !== 'portfolio') {
 					history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: originatingTab }, '', initialBlogContentURL);
 				}
@@ -652,18 +706,24 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		const backButton = addOrUpdateBackButton();
 		// Back button created
 
-		if (newContentContainer) {
-			const containsPostWrapper = newContentContainer && (
-				newContentContainer.classList.contains('post-wrapper') ||
-				newContentContainer.querySelector('.post-wrapper')
-			);
+			if (newContentContainer) {
+				const containsPostWrapper = newContentContainer && (
+					newContentContainer.classList.contains('post-wrapper') ||
+					newContentContainer.querySelector('.post-wrapper')
+				);
 			const isLongFormContent = !isProject && containsPostWrapper;
-			const resolvedOriginatingTab = originatingTab || (isProject ? 'portfolio' : 'blog');
-			lastTabBeforeDynamicLoad = resolvedOriginatingTab;
-			if (history.state && history.state.isInitial) {
-				const currentState = { ...history.state, fromTab: resolvedOriginatingTab };
-				history.replaceState(currentState, '', currentState.path || initialBlogContentURL);
-			}
+				const resolvedOriginatingTab = originatingTab || (isProject ? 'portfolio' : 'blog');
+				const dynamicLifecycleDetail = {
+					source: 'dynamic-content',
+					url,
+					originatingTab: resolvedOriginatingTab,
+					isProject
+				};
+				lastTabBeforeDynamicLoad = resolvedOriginatingTab;
+				if (history.state && history.state.isInitial) {
+					const currentState = { ...history.state, fromTab: resolvedOriginatingTab };
+					history.replaceState(currentState, '', currentState.path || initialBlogContentURL);
+				}
 			// Safari fix: Fix image paths BEFORE cloning
 			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 			if (isSafari && isProject) {
@@ -791,7 +851,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 					// Emit portfolio-loaded event if this is a project
 					if (isProject) {
-						window.dispatchEvent(new Event('portfolio-loaded'));
+						emitPortfolioLifecycle(dynamicLifecycleDetail);
 					}
 
 					// Set up scroll button for dynamic content - multiple attempts
@@ -837,6 +897,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 					document.body.classList.add('has-dynamic-content-active');
 					document.dispatchEvent(new Event('dynamic-content-loaded'));
+					emitBlogContentLifecycle(dynamicLifecycleDetail);
 				} else {
 					toggleLongFormLayout(false);
 					// ERROR: No content container found
