@@ -1652,7 +1652,7 @@ blockquote.pullquote {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: stretch; // Ensure children fill height
-	gap: 2rem; // Add gap between project-title and project-info-wrapper
+	gap: 1rem; // Add gap between project-title and project-info-wrapper
 	
 	// When content gets too close, switch to column
 	@media (max-width: 1000px) {
