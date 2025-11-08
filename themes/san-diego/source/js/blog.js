@@ -56,6 +56,56 @@ function emitPortfolioLifecycle(detail = {}) {
 	emitSdLifecycleEvent('portfolio:content-loaded', eventDetail);
 }
 
+/**
+ * Execute inline scripts within dynamically injected content.
+ * This ensures demo-specific scripts (e.g., code sandbox initializers) re-run.
+ */
+function executeInlineScripts(rootNode) {
+	if (!rootNode || typeof rootNode.querySelectorAll !== 'function') {
+		return;
+	}
+	const executableTypes = new Set(['', 'text/javascript', 'application/javascript', 'module']);
+	const scripts = rootNode.querySelectorAll('script');
+	scripts.forEach(originalScript => {
+		const scriptType = (originalScript.type || '').trim();
+		if (scriptType && !executableTypes.has(scriptType)) {
+			return;
+		}
+		const newScript = document.createElement('script');
+		[...originalScript.attributes].forEach(attr => {
+			newScript.setAttribute(attr.name, attr.value);
+		});
+		newScript.textContent = originalScript.textContent;
+		originalScript.parentNode.replaceChild(newScript, originalScript);
+	});
+}
+
+/**
+ * Ensure late DOMContentLoaded listeners still fire on dynamic injections.
+ */
+function patchDomContentLoadedListener() {
+	if (document.documentElement.dataset.sdDomReadyPatched === 'true') {
+		return;
+	}
+	document.documentElement.dataset.sdDomReadyPatched = 'true';
+	const nativeAddEventListener = Document.prototype.addEventListener;
+	Document.prototype.addEventListener = function(type, listener, options) {
+		if (type === 'DOMContentLoaded' && document.readyState !== 'loading') {
+			setTimeout(() => {
+				try {
+					listener.call(document, new Event('DOMContentLoaded'));
+				} catch (error) {
+					// Ignore errors thrown inside third-party demos
+				}
+			}, 0);
+			return;
+		}
+		return nativeAddEventListener.call(this, type, listener, options);
+	};
+}
+
+patchDomContentLoadedListener();
+
 document.addEventListener('DOMContentLoaded', function () {
 	// --- Refactored Initialization Function ---
 	function initializeBlogFeatures(container) {
@@ -288,6 +338,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.body.classList.remove('has-dynamic-content-active');
 
 			blogContentElement.innerHTML = initialBlogContentHTML;
+			executeInlineScripts(blogContentElement);
 			initializeBlogFeatures(blogContentElement);
 			initializeLinkListeners(blogContentElement);
 			resetInnerWrapperScrollStyles();
@@ -786,6 +837,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 				contentFragment.appendChild(innerWrapper);
 			}
 
+			executeInlineScripts(contentFragment);
 			if (backButton) {
 				backButton.after(contentFragment);
 			} else {
@@ -1039,14 +1091,24 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 						const doc = parser.parseFromString(html, 'text/html');
 
 						// Update the main content
-						const newContent = doc.querySelector('.blog');
-						if (newContent) {
-							blogContentElement.innerHTML = newContent.innerHTML;
-							// Initialize features on the new content
-							initializeBlogFeatures(blogContentElement);
-							// Fade in immediately
-							await fadeInElement(blogContentElement);
-						}
+							const newContent = doc.querySelector('.blog');
+							if (newContent) {
+								const lifecycleDetail = {
+									source: 'popstate',
+									url: targetUrl,
+									isProject: !!event.state?.isProject,
+									originatingTab: event.state?.fromTab || lastTabBeforeDynamicLoad
+								};
+								blogContentElement.innerHTML = newContent.innerHTML;
+								executeInlineScripts(blogContentElement);
+								initializeBlogFeatures(blogContentElement);
+								initializeLinkListeners(blogContentElement);
+								await fadeInElement(blogContentElement);
+								if (lifecycleDetail.isProject) {
+									emitPortfolioLifecycle(lifecycleDetail);
+								}
+								emitBlogContentLifecycle({ ...lifecycleDetail, reinitialized: true });
+							}
 					}
 				} catch (error) {
 					// Error fetching page
