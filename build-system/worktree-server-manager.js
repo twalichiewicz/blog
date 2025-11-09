@@ -88,11 +88,11 @@ class WorktreeServerManager {
   async startServerForWorktree(worktree, port) {
     const { path: worktreePath, branchName } = worktree;
     
-    console.log(chalk.cyan(`\n🚀 Starting server for [${branchName}] on port ${port}...`));
+    console.log(chalk.cyan(`\nStarting server for [${branchName}] on port ${port}...`));
     
     // Check if worktree has the necessary files
     if (!fs.existsSync(path.join(worktreePath, 'package.json'))) {
-      console.log(chalk.yellow(`⚠️  Skipping ${branchName} - no package.json found`));
+      console.log(chalk.yellow(`Skipping ${branchName} - no package.json found`));
       return false;
     }
 
@@ -104,7 +104,7 @@ class WorktreeServerManager {
         stdio: 'pipe' 
       });
     } catch (e) {
-      console.log(chalk.yellow(`⚠️  Demo build failed for ${branchName}, continuing anyway`));
+      console.log(chalk.yellow(`Demo build failed for ${branchName}, continuing anyway`));
     }
 
     // Create custom config for this port
@@ -131,7 +131,7 @@ server:
     serverProcess.stdout.on('data', (data) => {
       const output = data.toString();
       if (output.includes('Hexo is running')) {
-        console.log(chalk.green(`✅ [${branchName}] Server running at http://localhost:${port}`));
+        console.log(chalk.green(`[${branchName}] Server running at http://localhost:${port}`));
       }
     });
 
@@ -172,7 +172,7 @@ server:
       return;
     }
 
-    console.log(chalk.blue(`\n📁 Found ${worktrees.length} worktree(s):`));
+    console.log(chalk.blue(`\nFound ${worktrees.length} worktree(s):`));
     worktrees.forEach((wt, i) => {
       console.log(`   ${i + 1}. ${wt.branchName} - ${wt.path}`);
     });
@@ -185,7 +185,7 @@ server:
       currentPort = port + 1;
     }
 
-    console.log(chalk.green(`\n✨ All servers started!`));
+    console.log(chalk.green(`\nAll servers started.`));
     console.log(chalk.gray('Press Ctrl+C to stop all servers\n'));
   }
 
@@ -205,7 +205,7 @@ server:
       output: process.stdout
     });
 
-    console.log(chalk.blue('\n🔄 Worktree Server Switcher\n'));
+    console.log(chalk.blue('\nWorktree Server Switcher\n'));
     
     const showMenu = () => {
       console.log(chalk.cyan('Available worktrees:'));

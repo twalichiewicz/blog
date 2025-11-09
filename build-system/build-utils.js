@@ -9,28 +9,28 @@ const BuildManager = require('./BuildManager');
 class BuildUtils extends BuildManager {
   
   async clearCache() {
-    this.log('🧹 Clearing build cache...', 'step');
+    this.log('Clearing build cache...', 'step');
     super.clearCache();
-    this.log('✅ Build cache cleared', 'success');
+    this.log('Build cache cleared', 'success');
   }
   
   async status() {
-    this.log('📊 Build System Status', 'step');
+    this.log('Build system status', 'step');
     
     // Check demos
     const demos = this.getDemos();
-    this.log(`\n📦 Demos: ${demos.length} found`, 'info');
+    this.log(`\nDemos: ${demos.length} found`, 'info');
     
     for (const demo of demos) {
       const hasDeps = require('fs').existsSync(demo.nodeModules);
       const hasBuilt = require('fs').existsSync(demo.dist);
-      const status = hasDeps ? (hasBuilt ? '✅' : '🔶') : '❌';
+      const status = hasDeps ? (hasBuilt ? '[ready]' : '[needs build]') : '[missing deps]';
       this.log(`  ${status} ${demo.name} (deps: ${hasDeps}, built: ${hasBuilt})`, 'info');
     }
     
     // Check cache
     const cacheExists = require('fs').existsSync(this.cacheDir);
-    this.log(`\n💾 Cache: ${cacheExists ? 'Present' : 'Empty'}`, 'info');
+    this.log(`\nCache: ${cacheExists ? 'Present' : 'Empty'}`, 'info');
     
     if (cacheExists) {
       const progress = this.loadProgress();
@@ -40,23 +40,23 @@ class BuildUtils extends BuildManager {
     
     // Check main site
     const publicExists = require('fs').existsSync(require('path').join(this.root, 'public'));
-    this.log(`\n🌐 Main site: ${publicExists ? 'Built' : 'Not built'}`, 'info');
+    this.log(`\nMain site: ${publicExists ? 'Built' : 'Not built'}`, 'info');
   }
   
   async installDeps() {
-    this.log('📦 Installing all demo dependencies...', 'step');
+    this.log('Installing all demo dependencies...', 'step');
     const result = await this.installDemoDependencies(true); // Force reinstall
     
     if (result) {
-      this.log('✅ All dependencies installed', 'success');
+      this.log('All dependencies installed', 'success');
     } else {
-      this.log('❌ Some dependencies failed to install', 'error');
+      this.log('Some dependencies failed to install', 'error');
       process.exit(1);
     }
   }
   
   async buildAll() {
-    this.log('🔨 Building everything...', 'step');
+    this.log('Building everything...', 'step');
     const startTime = this.startTimer();
     
     try {
@@ -71,7 +71,7 @@ class BuildUtils extends BuildManager {
       
       if (demosResult && siteResult) {
         this.endTimer(startTime, 'Complete build');
-        this.log('🎉 Everything built successfully!', 'success');
+        this.log('Everything built successfully.', 'success');
       } else {
         throw new Error('Some builds failed');
       }
@@ -110,7 +110,7 @@ async function main() {
     case 'help':
     default:
       console.log(`
-🔧 Build System Utilities
+Build System Utilities
 
 Usage: node build-system/build-utils.js <command>
 
@@ -133,7 +133,7 @@ Examples:
 
 if (require.main === module) {
   main().catch(error => {
-    console.error('❌ Command failed:', error.message);
+    console.error('Command failed:', error.message);
     process.exit(1);
   });
 }

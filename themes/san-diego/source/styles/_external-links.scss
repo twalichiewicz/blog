@@ -26,6 +26,10 @@
   }
 }
 
+.external-link.no-external-indicators::after {
+  display: none;
+}
+
 // Allow the class to work on any element without breaking layout
 body.no-external-indicators .external-link::after,
 main.no-external-indicators .external-link::after,

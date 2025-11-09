@@ -69,7 +69,7 @@ if (require.main === module) {
   }
 
   async function checkHealth() {
-    console.log(chalk.blue.bold('\n🏥 Thomas.design Health Check\n'));
+    console.log(chalk.blue.bold('\nThomas.design Health Check\n'));
     
     const spinner = ora('Running health checks...').start();
     
@@ -78,9 +78,9 @@ if (require.main === module) {
       spinner.stop();
       
       if (isHealthy) {
-        console.log(chalk.green.bold('✅ All systems healthy!\n'));
+        console.log(chalk.green.bold('All systems healthy.\n'));
       } else {
-        console.log(chalk.yellow.bold(`⚠️  Found ${selfHealing.issuesDetected.length} issues:\n`));
+        console.log(chalk.yellow.bold(`Found ${selfHealing.issuesDetected.length} issue(s):\n`));
         
         // Display issues in a table
         const table = new Table({
@@ -110,14 +110,14 @@ if (require.main === module) {
   }
 
   async function fixIssues() {
-    console.log(chalk.blue.bold('\n🔧 Thomas.design Auto-Fix\n'));
+    console.log(chalk.blue.bold('\nThomas.design Auto-Fix\n'));
     
     const checkSpinner = ora('Running health checks...').start();
     const isHealthy = await selfHealing.runHealthChecks();
     checkSpinner.stop();
     
     if (isHealthy) {
-      console.log(chalk.green('✅ No issues found - system is healthy!\n'));
+      console.log(chalk.green('No issues found - system is healthy.\n'));
       return;
     }
     
@@ -128,7 +128,7 @@ if (require.main === module) {
     fixSpinner.stop();
     
     if (fixedAny) {
-      console.log(chalk.green(`\n✅ Applied ${selfHealing.fixesApplied.length} fixes successfully!\n`));
+      console.log(chalk.green(`\nApplied ${selfHealing.fixesApplied.length} fix(es).\n`));
       
       // Show what was fixed
       const table = new Table({
@@ -149,7 +149,7 @@ if (require.main === module) {
     // Check for remaining issues
     const remainingIssues = selfHealing.issuesDetected.filter(i => !i.autoFix);
     if (remainingIssues.length > 0) {
-      console.log(chalk.yellow(`\n⚠️  ${remainingIssues.length} issues require manual intervention:\n`));
+      console.log(chalk.yellow(`\n${remainingIssues.length} issue(s) require manual intervention:\n`));
       
       remainingIssues.forEach((issue, i) => {
         console.log(chalk.yellow(`${i + 1}. ${issue.message}`));
@@ -160,7 +160,7 @@ if (require.main === module) {
   }
 
   async function generateReport() {
-    console.log(chalk.blue.bold('\n📊 Generating Health Report\n'));
+    console.log(chalk.blue.bold('\nGenerating Health Report\n'));
     
     const spinner = ora('Analyzing system...').start();
     await selfHealing.runHealthChecks();
@@ -190,7 +190,7 @@ if (require.main === module) {
   }
 
   async function monitorContinuously() {
-    console.log(chalk.blue.bold('\n👀 Continuous Health Monitoring\n'));
+    console.log(chalk.blue.bold('\nContinuous Health Monitoring\n'));
     console.log(chalk.gray('Press Ctrl+C to stop\n'));
     
     let iteration = 0;
@@ -204,14 +204,14 @@ if (require.main === module) {
       await selfHealing.runHealthChecks();
       
       if (selfHealing.issuesDetected.length === 0) {
-        console.log(chalk.green('✅ Healthy'));
+        console.log(chalk.green('Healthy'));
       } else {
-        console.log(chalk.yellow(`⚠️  ${selfHealing.issuesDetected.length} issues`));
+        console.log(chalk.yellow(`${selfHealing.issuesDetected.length} issue(s) detected`));
         
         // Auto-fix if possible
         const autoFixable = selfHealing.issuesDetected.filter(i => i.autoFix).length;
         if (autoFixable > 0) {
-          process.stdout.write(chalk.blue(`  → Auto-fixing ${autoFixable} issues... `));
+          process.stdout.write(chalk.blue(`  Auto-fixing ${autoFixable} issue(s)... `));
           await selfHealing.applyFixes();
           console.log(chalk.green('Done'));
         }
@@ -229,7 +229,7 @@ if (require.main === module) {
   }
 
   function showHelp() {
-    console.log(chalk.blue.bold('\n🏥 Thomas.design Self-Healing System\n'));
+    console.log(chalk.blue.bold('\nThomas.design Self-Healing System\n'));
     
     console.log('Usage: npm run <command>\n');
     
