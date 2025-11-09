@@ -840,6 +840,7 @@
 			box-sizing: border-box;
 			position: relative;
 			margin-top: auto;
+			--contact-chin-transition: all 0.025s ease;
 		}
 
 		.desktop-contact-chin .contact-chin-inner {
@@ -853,6 +854,7 @@
 			background: transparent;
 			border: 1px solid color(srgb 0.89 0.8722 0.8455);
 			box-shadow: none;
+			transition: var(--contact-chin-transition, all 0.025s ease);
 			overflow: visible;
 		}
 
@@ -884,6 +886,7 @@
 				rgb(229, 223, 214) 87.39%,
 				rgb(231, 227, 221)
 			);
+			background-color: rgb(238, 234, 228);
 			color: rgba(255, 255, 255, 0.88);
 			text-transform: uppercase;
 			letter-spacing: 0.12em;
@@ -891,11 +894,7 @@
 			font-weight: var(--font-weight-semibold);
 			text-decoration: none;
 			text-align: center;
-			transition:
-				color 0.15s ease,
-				background 0.15s ease,
-				border-color 0.15s ease,
-				box-shadow 0.15s ease;
+			transition: var(--contact-chin-transition, all 0.025s ease);
 			flex: 1 1 0;
 			min-width: 0;
 			overflow: visible;
@@ -909,99 +908,33 @@
 		.desktop-contact-chin .contact-chin-btn:hover,
 		.desktop-contact-chin .contact-chin-btn:focus-visible {
 			background: linear-gradient(
-				rgb(250, 248, 244),
-				rgb(236, 232, 225) 75%,
-				rgb(243, 240, 235)
+				rgb(231, 226, 216),
+				rgb(214, 210, 202) 79.83%,
+				rgb(194, 190, 184)
 			);
-			border-color: rgb(235, 231, 224);
-			color: rgba(255, 255, 255, 0.94);
+			background-color: rgb(244, 240, 234);
+			border-color: rgb(140, 135, 124);
+			color: rgba(255, 255, 255, 0.92);
 		}
 
 		.desktop-contact-chin .contact-chin-btn:active {
 			background: linear-gradient(
-				rgb(236, 232, 225),
-				rgb(228, 223, 215) 60%,
-				rgb(233, 228, 220)
+				rgb(241, 237, 231),
+				rgb(230, 225, 217) 65%,
+				rgb(234, 229, 223)
 			);
+			background-color: rgb(240, 236, 230);
 			box-shadow:
 				inset 0 1px 0 rgba(255, 255, 255, 0.35),
 				inset 0 -1px 3px rgba(0, 0, 0, 0.2),
 				0 1px 3px rgba(0, 0, 0, 0.15);
-			border-color: rgb(224, 219, 211);
+			border-color: rgb(216, 211, 203);
 			color: inherit;
 		}
 
 		.desktop-contact-chin .contact-chin-btn:focus-visible {
 			outline: 2px solid variables.$link-color;
 			outline-offset: 2px;
-		}
-
-		.desktop-contact-chin .contact-chin-btn::after {
-			content: attr(data-label);
-			position: absolute;
-			bottom: calc(100% + 6px);
-			left: 50%;
-			transform: translate(-50%, 12px);
-			padding: 6px 16px 7px;
-			background: linear-gradient(180deg,
-				rgba(20, 20, 24, 0.98) 0%,
-				rgba(15, 15, 20, 0.98) 100%);
-			border-radius: 8px;
-			border: 1px solid rgba(255, 255, 255, 0.18);
-			color: rgba(240, 240, 245, 0.92);
-			font-size: var(--font-size-2xs);
-			font-weight: var(--font-weight-semibold);
-			letter-spacing: 0.16em;
-			text-transform: uppercase;
-			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-			opacity: 0;
-			pointer-events: none;
-			white-space: nowrap;
-			transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-			box-shadow:
-				0 8px 14px rgba(0, 0, 0, 0.45),
-				inset 0 1px 0 rgba(255, 255, 255, 0.15);
-		}
-
-		.desktop-contact-chin .contact-chin-btn::before {
-			content: '';
-			position: absolute;
-			bottom: calc(100% + 1px);
-			left: 50%;
-			transform: translate(-50%, 12px) rotate(45deg);
-			width: 14px;
-			height: 14px;
-			background: rgba(16, 16, 22, 0.98);
-			border-left: 1px solid rgba(255, 255, 255, 0.18);
-			border-top: 1px solid rgba(255, 255, 255, 0.18);
-			border-right: none;
-			border-bottom: none;
-			border-radius: 2px 0 0 0;
-			opacity: 0;
-			pointer-events: none;
-			transform-origin: center;
-			transition: opacity 0.2s ease, transform 0.2s ease;
-			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-		}
-
-		.desktop-contact-chin .contact-chin-btn:hover::after,
-		.desktop-contact-chin .contact-chin-btn:focus-visible::after {
-			opacity: 1;
-			transform: translate(-50%, 0);
-			border-color: rgba(255, 255, 255, 0.45);
-			box-shadow:
-				0 8px 14px rgba(0, 0, 0, 0.45),
-				inset 0 1px 0 rgba(255, 255, 255, 0.15),
-				0 0 14px rgba(255, 255, 255, 0.35);
-		}
-
-		.desktop-contact-chin .contact-chin-btn:hover::before,
-		.desktop-contact-chin .contact-chin-btn:focus-visible::before {
-			opacity: 1;
-			transform: translate(-50%, 0) rotate(45deg);
-			border-left-color: rgba(255, 255, 255, 0.45);
-			border-top-color: rgba(255, 255, 255, 0.45);
-			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25), 0 0 10px rgba(255, 255, 255, 0.3);
 		}
 
 		.desktop-contact-chin .contact-chin-btn .contact-icon {
@@ -1012,7 +945,7 @@
 			height: 26px;
 			color: color(srgb 0.495 0.4844 0.4702);
 			opacity: 1;
-			transition: color 0.075s ease, opacity 0.075s ease;
+			transition: color 0.025s ease, opacity 0.025s ease;
 
 			svg {
 				width: 100%;
@@ -1025,7 +958,7 @@
 		.desktop-contact-chin .contact-chin-btn:hover .contact-icon,
 		.desktop-contact-chin .contact-chin-btn:focus-visible .contact-icon {
 			opacity: 1;
-			color: currentColor;
+			color: variables.$black;
 		}
 
 		.desktop-contact-chin .contact-chin-btn--email {
@@ -1044,6 +977,65 @@
 			--contact-btn-accent-rgb: 255, 179, 128;
 		}
 
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		.blog {
+			.desktop-contact-chin .contact-chin-inner {
+				background: transparent;
+				border: 1px solid rgb(47, 44, 39);
+				box-shadow: none;
+			}
+
+			.desktop-contact-chin .contact-chin-btn {
+				border: 1px solid rgb(41, 41, 41);
+				background: linear-gradient(
+					rgb(33, 31, 28),
+					rgb(47, 44, 40)
+				);
+				color: rgba(255, 255, 255, 0.92);
+				box-shadow:
+					inset 0 1px 0 rgba(0, 0, 0, 0.1),
+					inset 0 -2px 6px rgba(29, 29, 29, 0.85),
+					0 8px 20px rgba(0, 0, 0, 0.15);
+			}
+
+			.desktop-contact-chin .contact-chin-btn:hover,
+			.desktop-contact-chin .contact-chin-btn:focus-visible {
+				background: linear-gradient(
+					rgb(56, 53, 48),
+					rgb(29, 28, 26)
+				);
+				border-color: rgba(255, 255, 255, 0.35);
+				color: rgba(255, 255, 255, 0.96);
+			}
+
+			.desktop-contact-chin .contact-chin-btn:active {
+				background: linear-gradient(
+					rgb(13, 12, 11),
+					rgb(24, 22, 20)
+				);
+				box-shadow:
+					inset 0 1px 0 rgba(255, 255, 255, 0.08),
+					inset 0 -1px 3px rgba(0, 0, 0, 0.75),
+					0 4px 12px rgba(0, 0, 0, 0.5);
+				border-color: rgba(255, 255, 255, 0.18);
+				color: rgba(255, 255, 255, 0.92);
+			}
+
+			.desktop-contact-chin .contact-chin-btn .contact-icon {
+				color: hsl(0deg 0% 72%);
+				opacity: 0.9;
+				transition: color 0.025s ease, opacity 0.025s ease;
+			}
+
+			.desktop-contact-chin .contact-chin-btn:hover .contact-icon,
+			.desktop-contact-chin .contact-chin-btn:focus-visible .contact-icon {
+				color: variables.$white;
+			}
+		}
 	}
 }
 
