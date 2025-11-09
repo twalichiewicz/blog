@@ -6,7 +6,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "check-branch": "bash scripts/ensure-safe-branch.sh",
+    "check-branch": "bash shell-scripts/ensure-safe-branch.sh",
     "postinstall": "echo '🤖 Remember to run: npm run check-branch before making changes!' && patch-package",
     "test:scss": "sass themes/san-diego/source/styles/styles.scss /tmp/test-scss-output.css",
     "build": "npm run test:scss && npm run build:demos:safe && hexo clean && hexo generate",
@@ -68,7 +68,7 @@
     "build:install-deps": "node build-system/build-utils.js install-deps",
     "build:all": "node build-system/build-utils.js build-all",
     "fix:sass-warnings": "node tools/fix-sass-warnings.js",
-    "inject:analytics": "node scripts/inject-analytics-token.js"
+    "inject:analytics": "node tools/inject-analytics-token.js"
   },
   "hexo": {
     "version": "8.0.0"
