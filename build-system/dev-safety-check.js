@@ -71,9 +71,9 @@ class DevSafetyCheck {
    */
   formatWarnings(warnings) {
     return warnings.map(w => {
-      const icon = w.severity === 'high' ? '🚨' : '⚠️';
+      const label = w.severity === 'high' ? '[HIGH]' : '[WARN]';
       const color = w.severity === 'high' ? chalk.red : chalk.yellow;
-      return color(`${icon} ${w.message}`);
+      return color(`${label} ${w.message}`);
     });
   }
 

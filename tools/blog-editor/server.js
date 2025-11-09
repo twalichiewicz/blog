@@ -3,16 +3,54 @@ const session = require('express-session');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const multer = require('multer');
+const csrf = require('csurf');
 const path = require('path');
 const fs = require('fs-extra');
 const matter = require('gray-matter');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
-const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const BLOG_PATH = process.env.BLOG_PATH;
+
+if (!BLOG_PATH) {
+  throw new Error('BLOG_PATH environment variable is required for the blog editor.');
+}
+
+const POSTS_ROOT = path.resolve(BLOG_PATH, 'source/_posts');
+const csrfProtection = csrf();
+
+function createSafeSlug(value = '') {
+  return value
+    ? value
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '')
+    : '';
+}
+
+function deriveSlug(body = {}, fallback) {
+  const candidate = body.slug || body.title || fallback || '';
+  const slug = createSafeSlug(candidate);
+  return slug || `post-${Date.now()}`;
+}
+
+function ensureWithinPostsRoot(targetPath) {
+  const relative = path.relative(POSTS_ROOT, targetPath);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    throw new Error('Invalid post path detected');
+  }
+}
+
+function getPostDir(slug) {
+  const postDir = path.join(POSTS_ROOT, slug);
+  ensureWithinPostsRoot(postDir);
+  return postDir;
+}
 
 // Security middleware
 app.use(helmet({
@@ -49,6 +87,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(csrfProtection);
 
 // Passport configuration
 passport.use(new GitHubStrategy({
@@ -82,10 +121,16 @@ const requireAuth = (req, res, next) => {
 // File upload configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const postSlug = req.body.slug || 'temp';
-    const uploadPath = path.join(process.env.BLOG_PATH, 'source/_posts', postSlug);
-    fs.ensureDirSync(uploadPath);
-    cb(null, uploadPath);
+    try {
+      if (!req.safeSlug) {
+        req.safeSlug = deriveSlug(req.body, `upload-${Date.now()}`);
+      }
+      const uploadPath = getPostDir(req.safeSlug);
+      fs.ensureDirSync(uploadPath);
+      cb(null, uploadPath);
+    } catch (error) {
+      cb(error);
+    }
   },
   filename: (req, file, cb) => {
     // Keep original filename but ensure it's safe
@@ -175,6 +220,7 @@ app.get('/logout', (req, res) => {
 
 // Main editor interface
 app.get('/editor', requireAuth, (req, res) => {
+  const csrfToken = req.csrfToken();
   res.send(`
     <!DOCTYPE html>
     <html>
@@ -232,6 +278,7 @@ app.get('/editor', requireAuth, (req, res) => {
         <!-- Blog Post Form -->
         <div id="blog-tab" class="tab-content active">
           <form id="blog-form" class="form-container">
+            <input type="hidden" name="_csrf" value="${csrfToken}">
             <h2>Create Blog Post</h2>
             <div class="grid">
               <div>
@@ -274,6 +321,7 @@ app.get('/editor', requireAuth, (req, res) => {
         <!-- Portfolio Form -->
         <div id="portfolio-tab" class="tab-content">
           <form id="portfolio-form" class="form-container">
+            <input type="hidden" name="_csrf" value="${csrfToken}">
             <h2>Create Portfolio Project</h2>
             <div class="grid">
               <div>
@@ -328,6 +376,7 @@ app.get('/editor', requireAuth, (req, res) => {
         <!-- Draft Form -->
         <div id="draft-tab" class="tab-content">
           <form id="draft-form" class="form-container">
+            <input type="hidden" name="_csrf" value="${csrfToken}">
             <h2>Create Draft</h2>
             <div class="grid">
               <div>
@@ -367,6 +416,8 @@ app.get('/editor', requireAuth, (req, res) => {
       </div>
 
       <script>
+        const csrfToken = ${JSON.stringify(csrfToken)};
+        window.__csrfToken = csrfToken;
         let currentFiles = { blog: [], portfolio: [], draft: [] };
 
         function showTab(tabName) {
@@ -456,6 +507,10 @@ app.get('/editor', requireAuth, (req, res) => {
           try {
             const response = await fetch('/create-post', {
               method: 'POST',
+              headers: {
+                'CSRF-Token': window.__csrfToken
+              },
+              credentials: 'same-origin',
               body: formData
             });
 
@@ -497,14 +552,12 @@ app.post('/create-post', requireAuth, upload.array('files'), async (req, res) =>
       return res.status(400).send('Title and content are required');
     }
 
-    // Generate slug from title
-    const slug = title.toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
-
+    // Generate a sanitized slug and ensure it's safe for filesystem usage
+    const slug = createSafeSlug(req.body.slug || title) || req.safeSlug || `post-${Date.now()}`;
     const date = new Date().toISOString().split('T')[0];
-    const postDir = path.join(process.env.BLOG_PATH, 'source/_posts', slug);
+    const postDir = getPostDir(slug);
     const postFile = path.join(postDir, 'index.md');
+    ensureWithinPostsRoot(postFile);
 
     // Ensure directory exists
     await fs.ensureDir(postDir);
@@ -577,6 +630,10 @@ app.post('/create-post', requireAuth, upload.array('files'), async (req, res) =>
 
 // Error handling
 app.use((error, req, res, next) => {
+  if (error.code === 'EBADCSRFTOKEN') {
+    console.error('CSRF validation failed:', error);
+    return res.status(403).send('Invalid CSRF token');
+  }
   console.error('Error:', error);
   res.status(500).send('Internal server error');
 });

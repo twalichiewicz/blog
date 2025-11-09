@@ -15,7 +15,7 @@ class SelfHealingManager {
 
   // Main health check system
   async runHealthChecks() {
-    console.log(chalk.blue('🏥 Running system health checks...'));
+    console.log(chalk.blue('Running system health checks...'));
     
     const checks = [
       this.checkHexoWarehouse.bind(this),
@@ -256,11 +256,11 @@ class SelfHealingManager {
   // Apply automatic fixes
   async applyFixes() {
     if (this.issuesDetected.length === 0) {
-      console.log(chalk.green('✅ All systems healthy!'));
+      console.log(chalk.green('All systems healthy.'));
       return true;
     }
 
-    console.log(chalk.yellow(`\n🔧 Found ${this.issuesDetected.length} issues. Attempting auto-fixes...`));
+    console.log(chalk.yellow(`\nFound ${this.issuesDetected.length} issue(s). Attempting auto-fixes...`));
 
     for (const issue of this.issuesDetected) {
       if (issue.autoFix) {
@@ -268,10 +268,10 @@ class SelfHealingManager {
           await this.fixIssue(issue);
           this.fixesApplied.push(issue);
         } catch (error) {
-          console.log(chalk.red(`  ❌ Failed to fix ${issue.type}: ${error.message}`));
+          console.log(chalk.red(`  Failed to fix ${issue.type}: ${error.message}`));
         }
       } else {
-        console.log(chalk.yellow(`  ⚠️  ${issue.message} (manual fix required)`));
+        console.log(chalk.yellow(`  ${issue.message} (manual fix required)`));
       }
     }
 
@@ -282,12 +282,12 @@ class SelfHealingManager {
   async fixIssue(issue) {
     switch (issue.type) {
       case 'hexo-warehouse':
-        console.log(chalk.blue('  🔧 Cleaning Hexo database...'));
+        console.log(chalk.blue('  Cleaning Hexo database...'));
         execSync('npx hexo clean', { stdio: 'inherit' });
         break;
 
       case 'port-blocked':
-        console.log(chalk.blue('  🔧 Killing process on port 4000...'));
+        console.log(chalk.blue('  Killing process on port 4000...'));
         try {
           execSync('kill -9 $(lsof -t -i:4000)', { shell: true });
         } catch (error) {
@@ -296,30 +296,30 @@ class SelfHealingManager {
         break;
 
       case 'missing-demo-builds':
-        console.log(chalk.blue('  🔧 Building demos...'));
+        console.log(chalk.blue('  Building demos...'));
         execSync('npm run build:demos', { stdio: 'inherit' });
         break;
 
       case 'high-memory':
-        console.log(chalk.blue('  🔧 Running garbage collection...'));
+        console.log(chalk.blue('  Running garbage collection...'));
         if (global.gc) {
           global.gc();
         }
         break;
 
       case 'missing-dependencies':
-        console.log(chalk.blue('  🔧 Installing dependencies...'));
+        console.log(chalk.blue('  Installing dependencies...'));
         execSync('npm install', { stdio: 'inherit' });
         break;
 
       case 'stale-cache':
       case 'corrupted-cache':
-        console.log(chalk.blue('  🔧 Clearing build cache...'));
+        console.log(chalk.blue('  Clearing build cache...'));
         fs.removeSync(path.join(process.cwd(), '.build-cache'));
         break;
 
       case 'dark-mode-grid':
-        console.log(chalk.blue('  🔧 Updating dark mode styles...'));
+        console.log(chalk.blue('  Updating dark mode styles...'));
         const cssPath = path.join(process.cwd(), 'demos/shared/components/demo-wrapper.css');
         let content = fs.readFileSync(cssPath, 'utf8');
         content = content.replace(
@@ -341,13 +341,13 @@ class SelfHealingManager {
       
       // Detect warehouse errors
       if (error.includes('WarehouseError') && error.includes('has been used')) {
-        console.log(chalk.red('\n⚠️  Detected Hexo warehouse error!'));
+        console.log(chalk.red('\nDetected Hexo warehouse error!'));
         this.handleRuntimeError('warehouse-error');
       }
       
       // Detect memory errors
       if (error.includes('JavaScript heap out of memory')) {
-        console.log(chalk.red('\n⚠️  Memory limit exceeded!'));
+        console.log(chalk.red('\nMemory limit exceeded!'));
         this.handleRuntimeError('memory-error');
       }
     });
@@ -365,7 +365,7 @@ class SelfHealingManager {
     const lastHandled = this.lastErrorHandled?.[errorType] || 0;
     
     if (now - lastHandled < 10000) { // 10 second cooldown
-      console.log(chalk.yellow('⚠️  Same error detected too soon, skipping auto-fix to prevent loop'));
+      console.log(chalk.yellow('Same error detected too soon, skipping auto-fix to prevent loop'));
       return;
     }
     
@@ -374,7 +374,7 @@ class SelfHealingManager {
     
     switch (errorType) {
       case 'warehouse-error':
-        console.log(chalk.yellow('🔧 Auto-fixing: Restarting with clean database...'));
+        console.log(chalk.yellow('Auto-fixing: restarting with clean database...'));
         
         // Kill current server
         if (this.serverProcess) {
@@ -386,7 +386,7 @@ class SelfHealingManager {
           execSync('npx hexo clean', { stdio: 'inherit' });
         } catch (cleanError) {
           // If clean fails, try manual cleanup
-          console.log(chalk.yellow('⚠️  Standard clean failed, attempting manual cleanup...'));
+          console.log(chalk.yellow('Standard clean failed, attempting manual cleanup...'));
           try {
             const fs = require('fs');
             const path = require('path');
@@ -403,7 +403,7 @@ class SelfHealingManager {
               fs.unlinkSync(dbFile);
             }
             
-            console.log(chalk.green('✅ Manual cleanup successful'));
+            console.log(chalk.green('Manual cleanup successful'));
           } catch (manualError) {
             console.log(chalk.red('❌ Manual cleanup also failed:', manualError.message));
           }
@@ -412,7 +412,7 @@ class SelfHealingManager {
         break;
 
       case 'memory-error':
-        console.log(chalk.yellow('🔧 Auto-fixing: Restarting with increased memory...'));
+        console.log(chalk.yellow('Auto-fixing: restarting with increased memory...'));
         
         if (this.serverProcess) {
           this.serverProcess.kill();
@@ -432,11 +432,11 @@ class SelfHealingManager {
     
     // Warn if memory is getting high
     if (heapUsedMB > 800) {
-      console.log(chalk.yellow(`\n⚠️  High memory usage: ${Math.round(heapUsedMB)}MB`));
+      console.log(chalk.yellow(`\nHigh memory usage: ${Math.round(heapUsedMB)}MB`));
       
       // Trigger garbage collection if available
       if (global.gc) {
-        console.log(chalk.blue('  🔧 Running garbage collection...'));
+        console.log(chalk.blue('  Running garbage collection...'));
         global.gc();
       }
     }
@@ -482,7 +482,7 @@ class SelfHealingManager {
   }
 
   logSuccess(message) {
-    console.log(chalk.green(`  ✅ ${message}`));
+    console.log(chalk.green(`  ${message}`));
   }
 }
 

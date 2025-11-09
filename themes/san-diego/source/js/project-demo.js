@@ -69,6 +69,17 @@
         const controls = container.querySelector('.demo-inline-controls');
         const loading = container.querySelector('.demo-inline-loading');
         
+        // Prevent duplicate initialization (e.g., when dynamic content re-runs scripts)
+        if (container.dataset.demoInitialized === 'true' && container.querySelector('.demo-iframe-wrapper')) {
+            return;
+        }
+
+        // Remove any stale wrappers from partial loads before reinitializing
+        const existingWrapper = container.querySelector('.demo-iframe-wrapper');
+        if (existingWrapper) {
+            existingWrapper.remove();
+        }
+
         // Create wrapper div for iframe
         const iframeWrapper = document.createElement('div');
         iframeWrapper.className = 'demo-iframe-wrapper';
@@ -113,6 +124,7 @@
         if (controls) {
             container.appendChild(controls);
         }
+        container.dataset.demoInitialized = 'true';
         
         // Dispatch event for any additional handlers
         const event = new CustomEvent('loadInlineDemoComponent', {

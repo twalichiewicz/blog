@@ -113,19 +113,18 @@ class BuildManager {
       reset: '\x1b[0m'
     };
     
-    const icons = {
-      info: 'ℹ️',
-      success: '✅',
-      warning: '⚠️',
-      error: '❌',
-      step: '🔄'
-    };
-    
     const color = colors[type] || colors.info;
-    const icon = icons[type] || '';
+    const labels = {
+      info: 'INFO',
+      success: 'DONE',
+      warning: 'WARN',
+      error: 'ERR',
+      step: 'STEP'
+    };
+    const label = labels[type] || labels.info;
     const timestamp = new Date().toLocaleTimeString();
     
-    console.log(`${color}[${timestamp}] ${icon} ${message}${colors.reset}`);
+    console.log(`${color}[${timestamp}] [${label}] ${message}${colors.reset}`);
   }
   
   startTimer(label) {

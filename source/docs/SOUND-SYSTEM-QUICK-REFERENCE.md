@@ -43,7 +43,7 @@ if (window.playSliderSound) {
 ### Project Pages
 - **Demo button** → Button sound (small click)
   - File: `/themes/san-diego/source/js/project-demo.js` (line ~33)
-- **Read the full story** → Button sound (small click)
+- **Read more** → Button sound (small click)
   - Dynamic version: `/themes/san-diego/source/js/blog.js` (line ~585)
   - Standalone version: `/themes/san-diego/layout/project_gallery.ejs` (line ~322)
 

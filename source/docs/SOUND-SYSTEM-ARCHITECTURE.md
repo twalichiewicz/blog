@@ -101,7 +101,7 @@ Drop-in replacement for the old sound-effects.js that loads the new system:
 
 3. **Demo Buttons** (`project-demo.js`)
    - Demo button: plays button sound (same as View impact report)
-   - Read the full story: plays button sound
+   - Read more: plays button sound
    - Black demo controls: play tiny button sound (Minimize, Exit Fullscreen, Zoom, Fullscreen)
 
 4. **Impact Report** (`main.js`)

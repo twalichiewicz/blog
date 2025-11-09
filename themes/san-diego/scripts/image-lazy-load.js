@@ -4,13 +4,29 @@ hexo.extend.filter.register('after_render:html', function(str) {
     if (p1.includes('loading-skull') || p1.includes('skully.svg')) {
       return match;
     }
-    
+
+    const attributesToInject = [];
+
     if (!p1.includes('loading=')) {
-      match = match.replace('>', ' loading="lazy">');
+      attributesToInject.push(' loading="lazy"');
     }
     if (!p1.includes('decoding=')) {
-      match = match.replace('>', ' decoding="async">');
+      attributesToInject.push(' decoding="async"');
     }
-    return match;
+
+    if (attributesToInject.length === 0) {
+      return match;
+    }
+
+    const endIndex = match.lastIndexOf('>');
+    if (endIndex === -1) {
+      return match;
+    }
+
+    const hasSelfClosingSlash = match[endIndex - 1] === '/';
+    const insertionPoint = hasSelfClosingSlash ? endIndex - 1 : endIndex;
+    const closing = hasSelfClosingSlash ? '/>' : '>';
+
+    return match.slice(0, insertionPoint) + attributesToInject.join('') + closing;
   });
 }); 
