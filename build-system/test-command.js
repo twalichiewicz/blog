@@ -57,10 +57,10 @@ class TestCommand extends BuildManager {
       this.endTimer(startTime, 'Test suite');
       
       if (this.testResults.failed === 0) {
-        this.log('🎉 All tests passed! Ready to commit.', 'success');
+        this.log('All tests passed. Ready to commit.', 'success');
         process.exit(0);
       } else {
-        this.log(`💥 ${this.testResults.failed} test(s) failed.`, 'error');
+        this.log(`${this.testResults.failed} test(s) failed.`, 'error');
         process.exit(1);
       }
       
@@ -74,7 +74,7 @@ class TestCommand extends BuildManager {
   }
   
   async runTestPhase(phaseName, tests) {
-    this.log(`📋 Phase: ${phaseName}`, 'step');
+    this.log(`Phase: ${phaseName}`, 'step');
     const phaseStart = this.startTimer();
     
     let phaseResults = [];
@@ -110,7 +110,7 @@ class TestCommand extends BuildManager {
   
   async runSingleTest(testFunction, testName) {
     const testStart = performance.now();
-    this.log(`  🔍 ${testName}...`, 'info');
+    this.log(`  Running ${testName}...`, 'info');
     
     try {
       const result = await testFunction();
@@ -140,7 +140,7 @@ class TestCommand extends BuildManager {
     } catch (error) {
       const duration = ((performance.now() - testStart) / 1000).toFixed(1);
       this.testResults.failed++;
-      this.log(`    💥 ${testName} threw error (${duration}s)`, 'error');
+        this.log(`    ${testName} threw error (${duration}s)`, 'error');
       this.log(`    Error: ${error.message}`, 'error');
       
       this.testResults.tests.push({
@@ -165,11 +165,11 @@ class TestCommand extends BuildManager {
       
       if (!hasAllDeps) {
         // Auto-fix: Install missing dependencies
-        this.log('    🔧 Auto-fixing: Installing missing demo dependencies...', 'info');
+        this.log('    Auto-fixing: installing missing demo dependencies...', 'info');
         const installed = await this.installDemoDependencies();
         
         if (installed) {
-          this.log('    ✅ Auto-fix successful: All demo dependencies installed', 'success');
+          this.log('    Auto-fix successful: all demo dependencies installed', 'success');
           return { success: true, autoFixed: true };
         } else {
           return { success: false, error: 'Failed to install demo dependencies' };
@@ -243,7 +243,7 @@ class TestCommand extends BuildManager {
         if (errorRate > 0.5 && totalChecked > 10) {
           this.testResults.warnings++;
           this.log(`    ⚠️  High content error rate (${(errorRate * 100).toFixed(1)}% of ${totalChecked} posts have issues)`, 'warning');
-          this.log(`    💡 Run 'npm run validate:content' to see details`, 'info');
+          this.log(`    Hint: run 'npm run validate:content' to see details`, 'info');
           return { success: true, warning: true };
         }
         
@@ -308,7 +308,7 @@ class TestCommand extends BuildManager {
       }
       
       // If build failed, try to diagnose and fix common issues
-      this.log(`    🔧 Build failed, attempting auto-recovery...`, 'info');
+        this.log(`    Build failed, attempting auto-recovery...`, 'info');
       
       // Common fix 1: Clear node_modules cache
       try {
@@ -319,11 +319,11 @@ class TestCommand extends BuildManager {
         // Try build again
         result = await this.buildMainSite(true);
         if (result) {
-          this.log(`    ✅ Auto-recovery successful (cache clear fixed it)`, 'success');
+          this.log(`    Auto-recovery successful (cache clear fixed it)`, 'success');
           return { success: true, autoFixed: true };
         }
       } catch (error) {
-        this.log(`    ⚠️  Cache clear failed: ${error.message}`, 'warning');
+        this.log(`    Cache clear failed: ${error.message}`, 'warning');
       }
       
       // Common fix 2: Reinstall dependencies if needed
@@ -333,19 +333,19 @@ class TestCommand extends BuildManager {
         );
         
         if (!nodeModulesExists) {
-          this.log(`    🔧 Node modules missing, reinstalling...`, 'info');
+          this.log(`    Missing node modules detected, reinstalling...`, 'info');
           await this.runCommand('npm install', {
             description: 'Reinstalling dependencies'
           });
           
           result = await this.buildMainSite(true);
           if (result) {
-            this.log(`    ✅ Auto-recovery successful (dependency reinstall fixed it)`, 'success');
+            this.log(`    Auto-recovery successful (dependency reinstall fixed it)`, 'success');
             return { success: true, autoFixed: true };
           }
         }
       } catch (error) {
-        this.log(`    ⚠️  Dependency reinstall failed: ${error.message}`, 'warning');
+        this.log(`    Dependency reinstall failed: ${error.message}`, 'warning');
       }
       
       // If all recovery attempts failed
@@ -470,7 +470,7 @@ class TestCommand extends BuildManager {
   // ============================================
   
   printTestSummary() {
-    this.log('\n📊 Test Summary:', 'step');
+    this.log('\nTest summary:', 'step');
     console.log(`✅ Passed: ${this.testResults.passed}`);
     console.log(`❌ Failed: ${this.testResults.failed}`);
     console.log(`⚠️  Warnings: ${this.testResults.warnings}`);
@@ -478,14 +478,14 @@ class TestCommand extends BuildManager {
     // Show auto-fixes
     const autoFixed = this.testResults.tests.filter(test => test.autoFixed);
     if (autoFixed.length > 0) {
-      this.log(`\n🔧 Auto-fixes Applied:`, 'success');
+      this.log(`\nAuto-fixes applied:`, 'success');
       autoFixed.forEach(test => {
         console.log(`  ✅ ${test.name}: Fixed automatically`);
       });
     }
     
     if (this.testResults.failed > 0) {
-      this.log('\n💥 Failed Tests:', 'error');
+      this.log('\nFailed tests:', 'error');
       this.testResults.tests
         .filter(test => !test.success)
         .forEach(test => {
@@ -497,7 +497,7 @@ class TestCommand extends BuildManager {
     this.log(`\n⏱️  Total test time: ${totalTime.toFixed(1)}s`, 'info');
     
     if (autoFixed.length > 0) {
-      this.log(`\n💡 ${autoFixed.length} issue(s) were automatically fixed during testing`, 'info');
+    this.log(`\n${autoFixed.length} issue(s) were automatically fixed during testing`, 'info');
     }
   }
   

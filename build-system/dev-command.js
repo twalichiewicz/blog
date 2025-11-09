@@ -42,7 +42,7 @@ class DevCommand extends BuildManager {
     }
     
     this.branchName = branchName;
-    this.log(`🚀 Starting development mode for all worktrees...`, 'step');
+    this.log('Starting development mode for all worktrees...', 'step');
     const startTime = this.startTimer();
 
     try {
@@ -69,7 +69,7 @@ class DevCommand extends BuildManager {
       await this.runInitialSafetyCheck();
       
       this.endTimer(startTime, 'Development mode ready');
-      this.log(`🎉 Ready for development! All worktree servers started`, 'success');
+      this.log('Ready for development. All worktree servers started.', 'success');
       
       // Keep process alive
       this.keepAlive();
@@ -81,7 +81,7 @@ class DevCommand extends BuildManager {
   }
 
   async runInitialSafetyCheck() {
-    this.log('🔍 Running initial safety check...', 'step');
+    this.log('Running initial safety check...', 'step');
     
     const glob = require('glob');
     const jsFiles = glob.sync('themes/san-diego/source/js/**/*.js', { cwd: this.root });
@@ -101,7 +101,7 @@ class DevCommand extends BuildManager {
     });
     
     if (totalWarnings > 0) {
-      this.log(`⚠️  Found ${totalWarnings} safety warning${totalWarnings > 1 ? 's' : ''} in ${fileWarnings.length} file${fileWarnings.length > 1 ? 's' : ''}:`, 'warning');
+      this.log(`Found ${totalWarnings} safety warning${totalWarnings > 1 ? 's' : ''} in ${fileWarnings.length} file${fileWarnings.length > 1 ? 's' : ''}:`, 'warning');
       
       // Show first 5 files with warnings
       fileWarnings.slice(0, 5).forEach(({ file, warnings }) => {
@@ -114,14 +114,14 @@ class DevCommand extends BuildManager {
         this.log(`   ... and ${fileWarnings.length - 5} more files`, 'plain');
       }
       
-      this.log('💡 Run "npm run pre-deploy" for a full safety report', 'info');
+      this.log('Run "npm run pre-deploy" for a full safety report', 'info');
     } else {
-      this.log('✅ No critical safety issues found', 'success');
+      this.log('No critical safety issues found', 'success');
     }
   }
 
   async quickSetup() {
-    this.log('⚡ Quick setup checks...', 'step');
+    this.log('Quick setup checks...', 'step');
     
     // Check demo dependencies (but don't install unless missing)
     const needsDeps = !(await this.checkDemoDependencies());
@@ -139,20 +139,20 @@ class DevCommand extends BuildManager {
     }
     
     // Build all demos to ensure they're copied to theme directory
-    this.log('🔨 Building demos...', 'step');
+    this.log('Building demos...', 'step');
     try {
       await this.buildAllDemos();
-      this.log('✅ Demos built successfully', 'success');
+      this.log('Demos built successfully', 'success');
     } catch (error) {
       this.log(`Demo build warning: ${error.message}`, 'warning');
       // Continue anyway in dev mode
     }
     
-    this.log('✅ Quick setup complete', 'success');
+    this.log('Quick setup complete', 'success');
   }
 
   async startMainServer() {
-    this.log('🌐 Starting Hexo server...', 'step');
+    this.log('Starting Hexo server...', 'step');
     
     // Don't clean in dev mode - preserve what we can
     const needsRebuild = this.checkIfMainSiteNeedsRebuild();
@@ -176,7 +176,7 @@ class DevCommand extends BuildManager {
     hexoServer.stdout.on('data', (data) => {
       const output = data.toString().trim();
       if (output.includes('Hexo is running')) {
-        this.log(`✅ Hexo server started successfully [DEV - ${this.branchName}]`, 'success');
+        this.log(`Hexo server started successfully [DEV - ${this.branchName}]`, 'success');
       }
     });
     
@@ -187,7 +187,7 @@ class DevCommand extends BuildManager {
         
         // Check for warehouse errors
         if (error.includes('WarehouseError') && error.includes('has been used')) {
-          this.log('🔧 Detected warehouse error, auto-fixing...', 'warning');
+          this.log('Detected warehouse error, restarting with clean database...', 'warning');
           this.restartServerWithCleanDB();
         }
       }
@@ -235,7 +235,7 @@ class DevCommand extends BuildManager {
   }
 
   setupWatchersForAllWorktrees() {
-    this.log('👀 Setting up file watchers for all worktrees...', 'step');
+    this.log('Setting up file watchers for all worktrees...', 'step');
     
     const worktrees = this.worktreeManager.getWorktrees();
     
@@ -256,7 +256,7 @@ class DevCommand extends BuildManager {
       });
       
       contentWatcher.on('change', (filePath) => {
-        this.log(`📝 [${branchName}] File changed: ${filePath}`, 'info');
+        this.log(`[${branchName}] File changed: ${filePath}`, 'info');
         this.handleContentChangeForWorktree(filePath, worktree);
       });
       
@@ -267,24 +267,24 @@ class DevCommand extends BuildManager {
       });
       
       demoWatcher.on('change', (filePath) => {
-        this.log(`🔧 [${branchName}] Demo file changed: ${filePath}`, 'info');
+        this.log(`[${branchName}] Demo file changed: ${filePath}`, 'info');
         this.handleDemoChangeForWorktree(filePath, worktree);
       });
       
       this.watchers.push(contentWatcher, demoWatcher);
     });
     
-    this.log(`✅ File watchers active for ${worktrees.length} worktree(s)`, 'success');
+    this.log(`File watchers active for ${worktrees.length} worktree(s)`, 'success');
   }
   
   async handleContentChangeForWorktree(filePath, worktree) {
     // TODO: Implement worktree-specific content change handling
-    this.log(`🔄 [${worktree.branchName}] Would rebuild content...`, 'info');
+    this.log(`[${worktree.branchName}] Content change detected (rebuild placeholder)`, 'info');
   }
   
   async handleDemoChangeForWorktree(filePath, worktree) {
     // TODO: Implement worktree-specific demo change handling
-    this.log(`🔄 [${worktree.branchName}] Would rebuild demo...`, 'info');
+    this.log(`[${worktree.branchName}] Demo change detected (rebuild placeholder)`, 'info');
   }
   
   async handleContentChange(filePath) {
@@ -297,7 +297,7 @@ class DevCommand extends BuildManager {
         // Only show each unique warning once per file
         if (!this.warningsShown.has(warningKey)) {
           this.warningsShown.add(warningKey);
-          this.log(`⚠️  Safety warnings in ${filePath}:`, 'warning');
+          this.log(`Safety warnings in ${filePath}:`, 'warning');
           const formatted = this.safetyCheck.formatWarnings(warnings);
           formatted.forEach(w => this.log(`   ${w}`, 'plain'));
         }
@@ -308,9 +308,9 @@ class DevCommand extends BuildManager {
     clearTimeout(this.contentChangeTimeout);
     this.contentChangeTimeout = setTimeout(async () => {
       try {
-        this.log('🔄 Rebuilding main site...', 'step');
+        this.log('Rebuilding main site...', 'step');
         await this.buildMainSite(false);
-        this.log('✅ Main site rebuilt', 'success');
+        this.log('Main site rebuilt', 'success');
       } catch (error) {
         this.log(`Rebuild failed: ${error.message}`, 'error');
       }
@@ -326,13 +326,13 @@ class DevCommand extends BuildManager {
     
     this.demoChangeTimeouts[demoName] = setTimeout(async () => {
       try {
-        this.log(`🔄 Rebuilding ${demoName} demo...`, 'step');
+        this.log(`Rebuilding ${demoName} demo...`, 'step');
         const demos = this.getDemos();
         const demo = demos.find(d => d.name === demoName);
         
         if (demo) {
           await this.buildDemo(demo);
-          this.log(`✅ ${demoName} demo rebuilt`, 'success');
+          this.log(`${demoName} demo rebuilt`, 'success');
           // The dist watcher will handle copying to public
         }
       } catch (error) {
@@ -351,7 +351,7 @@ class DevCommand extends BuildManager {
     this.demoDistChangeTimeouts[demoName] = setTimeout(async () => {
       try {
         // CRITICAL FIX: Copy updated dist files to theme directory first
-        this.log(`📋 Copying ${demoName} from dist to theme directory...`, 'step');
+        this.log(`Copying ${demoName} from dist to theme directory...`, 'step');
         await this.copyDemoToTheme(demoName);
         
         // Check if this is a new asset hash (indicates rebuild)
@@ -359,21 +359,21 @@ class DevCommand extends BuildManager {
         
         if (isNewAsset) {
           // Proactively clean to prevent warehouse errors
-          this.log(`🔄 Demo ${demoName} has new assets, cleaning database...`, 'step');
+          this.log(`Demo ${demoName} has new assets, cleaning database...`, 'step');
           const fs = require('fs');
           const path = require('path');
           const dbFile = path.join(this.root, 'db.json');
           
           if (fs.existsSync(dbFile)) {
             fs.unlinkSync(dbFile);
-            this.log('✅ Database cleaned proactively', 'success');
+            this.log('Database cleaned proactively', 'success');
           }
         }
         
         // Regenerate Hexo to copy the new dist files
-        this.log(`🔄 Copying updated ${demoName} demo to public...`, 'step');
+        this.log(`Copying updated ${demoName} demo to public...`, 'step');
         await this.buildMainSite(false);
-        this.log(`✅ Demo updates now live at http://localhost:4000 [DEV - ${this.branchName}]`, 'success');
+        this.log(`Demo updates now live at http://localhost:4000 [DEV - ${this.branchName}]`, 'success');
       } catch (error) {
         this.log(`Failed to update public directory: ${error.message}`, 'error');
       }
@@ -388,7 +388,7 @@ class DevCommand extends BuildManager {
     const themePath = path.join(this.root, 'themes/san-diego/source/demos', demoName);
     
     if (!fs.existsSync(distPath)) {
-      this.log(`⚠️  No dist directory found for ${demoName}`, 'warning');
+      this.log(`No dist directory found for ${demoName}`, 'warning');
       return false;
     }
     
@@ -405,7 +405,7 @@ class DevCommand extends BuildManager {
     
     // Copy dist to theme
     await this.copyDirectory(distPath, themePath);
-    this.log(`✅ ${demoName} copied to theme directory`, 'success');
+    this.log(`${demoName} copied to theme directory`, 'success');
     return true;
   }
   
@@ -434,7 +434,7 @@ class DevCommand extends BuildManager {
   keepAlive() {
     // Graceful shutdown handling
     process.on('SIGINT', () => {
-      this.log('🛑 Shutting down development mode...', 'step');
+      this.log('Shutting down development mode...', 'step');
       this.cleanup();
       process.exit(0);
     });
@@ -469,25 +469,25 @@ class DevCommand extends BuildManager {
     // Generate health report
     const report = this.selfHealing.generateHealthReport();
     if (report.issuesFound > 0) {
-      this.log(`📊 Health report: ${report.fixesApplied.length}/${report.issuesFound} issues fixed`, 'info');
+      this.log(`Health report: ${report.fixesApplied.length}/${report.issuesFound} issues fixed`, 'info');
     }
     
     // Save progress
     await super.cleanup();
     
-    this.log('✅ Cleanup complete', 'success');
+    this.log('Cleanup complete', 'success');
   }
   
   async restartServerWithCleanDB() {
     // Prevent restart loops
     const now = Date.now();
     if (this.lastRestartTime && (now - this.lastRestartTime) < 5000) {
-      this.log('⚠️  Restart attempted too soon, skipping to prevent loop', 'warning');
+      this.log('Restart attempted too soon, skipping to prevent loop', 'warning');
       return;
     }
     this.lastRestartTime = now;
     
-    this.log('🔄 Restarting server with clean database...', 'warning');
+    this.log('Restarting server with clean database...', 'warning');
     
     // Kill current server
     const hexoServer = this.servers.get('hexo');
@@ -511,7 +511,7 @@ class DevCommand extends BuildManager {
             resolve();
           } else {
             // Try manual cleanup instead of rejecting
-            this.log('⚠️  Hexo clean failed, attempting manual cleanup...', 'warning');
+            this.log('Hexo clean failed, attempting manual cleanup...', 'warning');
             const fs = require('fs');
             const path = require('path');
             try {
@@ -524,7 +524,7 @@ class DevCommand extends BuildManager {
               if (fs.existsSync(dbFile)) {
                 fs.unlinkSync(dbFile);
               }
-              this.log('✅ Manual cleanup successful', 'success');
+              this.log('Manual cleanup successful', 'success');
               resolve();
             } catch (err) {
               reject(new Error(`Cleanup failed: ${err.message}`));
@@ -533,16 +533,16 @@ class DevCommand extends BuildManager {
         });
       });
     } catch (error) {
-      this.log(`❌ Cleanup failed: ${error.message}`, 'error');
+      this.log(`Cleanup failed: ${error.message}`, 'error');
       // Continue anyway - sometimes it's better to try
     }
     
     // Restart server
     try {
       await this.startMainServer();
-      this.log('✅ Server restarted successfully', 'success');
+      this.log('Server restarted successfully', 'success');
     } catch (error) {
-      this.log(`❌ Server restart failed: ${error.message}`, 'error');
+      this.log(`Server restart failed: ${error.message}`, 'error');
     }
   }
 }
@@ -550,7 +550,7 @@ class DevCommand extends BuildManager {
 // Help text
 if (process.argv.includes('--help')) {
   console.log(`
-🚀 Development Mode - Fast development with file watching for ALL worktrees
+Development Mode - Fast development with file watching for ALL worktrees
 
 Usage: npm run dev [options]
 
@@ -560,12 +560,12 @@ Options:
   --no-watch    Skip file watching
 
 This command:
-✓ Starts servers for ALL git worktrees
-✓ Assigns unique ports (4000, 4001, 4002...)
-✓ Quickly checks dependencies  
-✓ Watches files for changes in all worktrees
-✓ Rebuilds only what changed
-✓ Optimized for speed over safety
+- Starts servers for ALL git worktrees
+- Assigns unique ports (4000, 4001, 4002...)
+- Quickly checks dependencies  
+- Watches files for changes in all worktrees
+- Rebuilds only what changed
+- Optimized for speed over safety
 
 Port Allocation:
 - Main branch: port 4000

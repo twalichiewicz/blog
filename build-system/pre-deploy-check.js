@@ -224,7 +224,7 @@ function checkFile(filePath) {
 // Main execution
 function main() {
   console.log('Pre-deploy check v2.0 - Using ANSI colors');
-  console.log(colors.blue('\n🔍 Running pre-deployment safety checks...\n'));
+  console.log(colors.blue('\nRunning pre-deployment safety checks...\n'));
   
   // Get all files to check
   const jsFiles = globSync(config.jsFilePattern);
@@ -240,7 +240,7 @@ function main() {
   
   // Display results
   if (results.errors.length > 0) {
-    console.log(colors.bold.red(`\n❌ ERRORS (${results.errors.length}):`));
+    console.log(colors.bold.red(`\nERRORS (${results.errors.length}):`));
     results.errors.forEach(({ file, line, pattern, message, match }) => {
       console.log(colors.red(`  ${file}${line ? `:${line}` : ''}`));
       console.log(colors.red(`    ${pattern}: ${message}`));
@@ -251,7 +251,7 @@ function main() {
   }
   
   if (results.warnings.length > 0) {
-    console.log(colors.bold.yellow(`\n⚠️  WARNINGS (${results.warnings.length}):`));
+    console.log(colors.bold.yellow(`\nWARNINGS (${results.warnings.length}):`));
     results.warnings.forEach(({ file, line, pattern, message, match }) => {
       console.log(colors.yellow(`  ${file}${line ? `:${line}` : ''}`));
       console.log(colors.yellow(`    ${pattern}: ${message}`));
@@ -262,7 +262,7 @@ function main() {
   }
   
   if (results.info.length > 0 && process.env.VERBOSE) {
-    console.log(colors.bold.blue(`\nℹ️  INFO (${results.info.length}):`));
+    console.log(colors.bold.blue(`\nINFO (${results.info.length}):`));
     results.info.forEach(({ file, pattern, message }) => {
       console.log(colors.blue(`  ${file}`));
       console.log(colors.blue(`    ${pattern}: ${message}`));
@@ -270,14 +270,14 @@ function main() {
   }
   
   // Summary
-  console.log('\n📊 Summary:');
+  console.log('\nSummary:');
   console.log(`  Errors: ${results.errors.length}`);
   console.log(`  Warnings: ${results.warnings.length}`);
   console.log(`  Info: ${results.info.length}`);
   
   // Exit with error if errors found
   if (results.errors.length > 0) {
-    console.log(colors.bold.red('\n❌ ERRORS found that will block deployment.\n'));
+    console.log(colors.bold.red('\nERRORS found that will block deployment.\n'));
     console.log(colors.red('Please fix these critical issues before deploying:\n'));
     
     // List errors for clarity
@@ -289,11 +289,11 @@ function main() {
       console.log(colors.red('\nDeployment blocked due to critical errors.\n'));
       process.exit(1);
     } else {
-      console.log(colors.yellow('\n⚠️  FORCE FLAG DETECTED: Bypassing critical errors!'));
+      console.log(colors.yellow('\nFORCE FLAG DETECTED: Bypassing critical errors!'));
       console.log(colors.yellow('This is EXTREMELY DANGEROUS and should only be used in emergencies.\n'));
     }
   } else if (results.warnings.length > 0) {
-    console.log(colors.bold.yellow('\n⚠️  Warnings found, but deployment will continue.\n'));
+    console.log(colors.bold.yellow('\nWarnings found, but deployment will continue.\n'));
     console.log(colors.yellow('Consider fixing these issues:\n'));
     
     // List warnings for visibility
@@ -303,7 +303,7 @@ function main() {
     
     console.log(colors.gray('\nWarnings do not block deployment. Use --strict to treat warnings as errors.\n'));
   } else {
-    console.log(colors.bold.green('\n✅ All checks passed! Safe to deploy.\n'));
+    console.log(colors.bold.green('\nAll checks passed. Safe to deploy.\n'));
   }
 }
 
