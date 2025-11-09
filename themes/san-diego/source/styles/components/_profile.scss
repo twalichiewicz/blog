@@ -989,18 +989,18 @@
 				box-shadow: none;
 			}
 
-			.desktop-contact-chin .contact-chin-btn {
-				border: 1px solid rgb(41, 41, 41);
-				background: linear-gradient(
-					rgb(33, 31, 28),
-					rgb(47, 44, 40)
-				);
-				color: rgba(255, 255, 255, 0.92);
-				box-shadow:
-					inset 0 1px 0 rgba(0, 0, 0, 0.1),
-					inset 0 -2px 6px rgba(29, 29, 29, 0.85),
-					0 8px 20px rgba(0, 0, 0, 0.15);
-			}
+		.desktop-contact-chin .contact-chin-btn {
+			border: 1px solid rgb(41, 41, 41);
+			background: linear-gradient(
+				rgb(63, 60, 57),
+				rgb(30, 28, 27)
+			);
+			color: rgba(255, 255, 255, 0.92);
+			box-shadow:
+				inset 0 1px 0 rgba(0, 0, 0, 0.1),
+				inset 0 -2px 6px rgba(29, 29, 29, 0.85),
+				0 8px 20px rgba(0, 0, 0, 0.15);
+		}
 
 			.desktop-contact-chin .contact-chin-btn:hover,
 			.desktop-contact-chin .contact-chin-btn:focus-visible {
