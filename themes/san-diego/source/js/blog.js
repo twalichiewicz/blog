@@ -7,6 +7,104 @@ import { initializeMobileTabs } from './mobile-tabs.js';
 import videoAutoplayManager from './components/video-autoplay.js';
 import ScrollUtility from './utils/scroll-utility.js';
 
+/**
+ * Lifecycle event helpers
+ * Ensures both legacy DOM listeners and the SD namespace receive notifications.
+ */
+function createLifecycleEvent(name, detail = {}) {
+	try {
+		return new CustomEvent(name, { detail });
+	} catch (error) {
+		const fallback = document.createEvent('CustomEvent');
+		fallback.initCustomEvent(name, true, true, detail);
+		return fallback;
+	}
+}
+
+function dispatchLifecycleEvent(name, detail, targets) {
+	targets.forEach(target => {
+		if (!target || typeof target.dispatchEvent !== 'function') {
+			return;
+		}
+		const event = createLifecycleEvent(name, detail);
+		target.dispatchEvent(event);
+	});
+}
+
+function emitSdLifecycleEvent(name, detail) {
+	if (window.SD && window.SD.events && typeof window.SD.events.emit === 'function') {
+		window.SD.events.emit(name, detail);
+	}
+}
+
+function emitBlogContentLifecycle(detail = {}) {
+	const eventDetail = { type: 'blog', ...detail };
+	dispatchLifecycleEvent('contentLoaded', eventDetail, [document, window]);
+	dispatchLifecycleEvent('blog:content-loaded', eventDetail, [document, window]);
+	emitSdLifecycleEvent('blog:content-loaded', eventDetail);
+	if (eventDetail.reinitialized) {
+		dispatchLifecycleEvent('blog:content-reinitialized', eventDetail, [document, window]);
+		emitSdLifecycleEvent('blog:content-reinitialized', eventDetail);
+	}
+}
+
+function emitPortfolioLifecycle(detail = {}) {
+	const eventDetail = { type: 'portfolio', ...detail };
+	dispatchLifecycleEvent('portfolio-loaded', eventDetail, [document, window]);
+	dispatchLifecycleEvent('portfolio:loaded', eventDetail, [document, window]);
+	emitSdLifecycleEvent('portfolio:loaded', eventDetail);
+	emitSdLifecycleEvent('portfolio:content-loaded', eventDetail);
+}
+
+/**
+ * Execute inline scripts within dynamically injected content.
+ * This ensures demo-specific scripts (e.g., code sandbox initializers) re-run.
+ */
+function executeInlineScripts(rootNode) {
+	if (!rootNode || typeof rootNode.querySelectorAll !== 'function') {
+		return;
+	}
+	const executableTypes = new Set(['', 'text/javascript', 'application/javascript', 'module']);
+	const scripts = rootNode.querySelectorAll('script');
+	scripts.forEach(originalScript => {
+		const scriptType = (originalScript.type || '').trim();
+		if (scriptType && !executableTypes.has(scriptType)) {
+			return;
+		}
+		const newScript = document.createElement('script');
+		[...originalScript.attributes].forEach(attr => {
+			newScript.setAttribute(attr.name, attr.value);
+		});
+		newScript.textContent = originalScript.textContent;
+		originalScript.parentNode.replaceChild(newScript, originalScript);
+	});
+}
+
+/**
+ * Ensure late DOMContentLoaded listeners still fire on dynamic injections.
+ */
+function patchDomContentLoadedListener() {
+	if (document.documentElement.dataset.sdDomReadyPatched === 'true') {
+		return;
+	}
+	document.documentElement.dataset.sdDomReadyPatched = 'true';
+	const nativeAddEventListener = Document.prototype.addEventListener;
+	Document.prototype.addEventListener = function(type, listener, options) {
+		if (type === 'DOMContentLoaded' && document.readyState !== 'loading') {
+			setTimeout(() => {
+				try {
+					listener.call(document, new Event('DOMContentLoaded'));
+				} catch (error) {
+					// Ignore errors thrown inside third-party demos
+				}
+			}, 0);
+			return;
+		}
+		return nativeAddEventListener.call(this, type, listener, options);
+	};
+}
+
+patchDomContentLoadedListener();
 
 document.addEventListener('DOMContentLoaded', function () {
 	// --- Refactored Initialization Function ---
@@ -240,6 +338,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			document.body.classList.remove('has-dynamic-content-active');
 
 			blogContentElement.innerHTML = initialBlogContentHTML;
+			executeInlineScripts(blogContentElement);
 			initializeBlogFeatures(blogContentElement);
 			initializeLinkListeners(blogContentElement);
 			resetInnerWrapperScrollStyles();
@@ -313,13 +412,18 @@ document.addEventListener('DOMContentLoaded', function () {
 		};
 
 		const switchTargetTab = fromProject ? 'portfolio' : originatingTab;
+		const lifecycleDetail = {
+			source: 'restoreInitialView',
+			originatingTab: switchTargetTab,
+			fromProject
+		};
 
 		if (fromProject) {
 			sessionStorage.setItem('portfolio-back-navigation', 'true');
 			setTimeout(() => {
 				requestTabSwitch(switchTargetTab);
-				window.dispatchEvent(new Event('portfolio-loaded'));
-				document.dispatchEvent(new Event('contentLoaded'));
+				emitPortfolioLifecycle(lifecycleDetail);
+				emitBlogContentLifecycle({ ...lifecycleDetail, reinitialized: true });
 
 					setTimeout(() => {
 						if (window.projectDemo && window.projectDemo.init) {
@@ -331,11 +435,12 @@ document.addEventListener('DOMContentLoaded', function () {
 						if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
 							window._notebookCarousel.reinitialize();
 						}
-					}, 300);
-				}, 50);
+				}, 300);
+			}, 50);
 		} else {
 			setTimeout(() => {
 				requestTabSwitch(switchTargetTab);
+				emitBlogContentLifecycle({ ...lifecycleDetail, reinitialized: true });
 				if (window.location.search.includes('tab=portfolio') && originatingTab !== 'portfolio') {
 					history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: originatingTab }, '', initialBlogContentURL);
 				}
@@ -652,18 +757,24 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		const backButton = addOrUpdateBackButton();
 		// Back button created
 
-		if (newContentContainer) {
-			const containsPostWrapper = newContentContainer && (
-				newContentContainer.classList.contains('post-wrapper') ||
-				newContentContainer.querySelector('.post-wrapper')
-			);
+			if (newContentContainer) {
+				const containsPostWrapper = newContentContainer && (
+					newContentContainer.classList.contains('post-wrapper') ||
+					newContentContainer.querySelector('.post-wrapper')
+				);
 			const isLongFormContent = !isProject && containsPostWrapper;
-			const resolvedOriginatingTab = originatingTab || (isProject ? 'portfolio' : 'blog');
-			lastTabBeforeDynamicLoad = resolvedOriginatingTab;
-			if (history.state && history.state.isInitial) {
-				const currentState = { ...history.state, fromTab: resolvedOriginatingTab };
-				history.replaceState(currentState, '', currentState.path || initialBlogContentURL);
-			}
+				const resolvedOriginatingTab = originatingTab || (isProject ? 'portfolio' : 'blog');
+				const dynamicLifecycleDetail = {
+					source: 'dynamic-content',
+					url,
+					originatingTab: resolvedOriginatingTab,
+					isProject
+				};
+				lastTabBeforeDynamicLoad = resolvedOriginatingTab;
+				if (history.state && history.state.isInitial) {
+					const currentState = { ...history.state, fromTab: resolvedOriginatingTab };
+					history.replaceState(currentState, '', currentState.path || initialBlogContentURL);
+				}
 			// Safari fix: Fix image paths BEFORE cloning
 			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 			if (isSafari && isProject) {
@@ -726,6 +837,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 				contentFragment.appendChild(innerWrapper);
 			}
 
+			executeInlineScripts(contentFragment);
 			if (backButton) {
 				backButton.after(contentFragment);
 			} else {
@@ -791,7 +903,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 					// Emit portfolio-loaded event if this is a project
 					if (isProject) {
-						window.dispatchEvent(new Event('portfolio-loaded'));
+						emitPortfolioLifecycle(dynamicLifecycleDetail);
 					}
 
 					// Set up scroll button for dynamic content - multiple attempts
@@ -837,6 +949,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 					document.body.classList.add('has-dynamic-content-active');
 					document.dispatchEvent(new Event('dynamic-content-loaded'));
+					emitBlogContentLifecycle(dynamicLifecycleDetail);
 				} else {
 					toggleLongFormLayout(false);
 					// ERROR: No content container found
@@ -978,14 +1091,24 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 						const doc = parser.parseFromString(html, 'text/html');
 
 						// Update the main content
-						const newContent = doc.querySelector('.blog');
-						if (newContent) {
-							blogContentElement.innerHTML = newContent.innerHTML;
-							// Initialize features on the new content
-							initializeBlogFeatures(blogContentElement);
-							// Fade in immediately
-							await fadeInElement(blogContentElement);
-						}
+							const newContent = doc.querySelector('.blog');
+							if (newContent) {
+								const lifecycleDetail = {
+									source: 'popstate',
+									url: targetUrl,
+									isProject: !!event.state?.isProject,
+									originatingTab: event.state?.fromTab || lastTabBeforeDynamicLoad
+								};
+								blogContentElement.innerHTML = newContent.innerHTML;
+								executeInlineScripts(blogContentElement);
+								initializeBlogFeatures(blogContentElement);
+								initializeLinkListeners(blogContentElement);
+								await fadeInElement(blogContentElement);
+								if (lifecycleDetail.isProject) {
+									emitPortfolioLifecycle(lifecycleDetail);
+								}
+								emitBlogContentLifecycle({ ...lifecycleDetail, reinitialized: true });
+							}
 					}
 				} catch (error) {
 					// Error fetching page
