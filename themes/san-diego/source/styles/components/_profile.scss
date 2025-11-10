@@ -408,8 +408,9 @@
 			flex-direction: row !important;
 			width: 100%;
 			align-items: center;
-			gap: 16px;
-			flex-wrap: nowrap;
+			column-gap: 16px;
+			row-gap: 12px;
+			flex-wrap: wrap;
 			
 			.mobile-compact-info {
 				flex: 1 1 auto;
@@ -417,7 +418,7 @@
 			}
 			
 			.mobile-buttons-container {
-				flex: 0 0 auto;
+				flex: 0 1 auto;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
@@ -426,8 +427,9 @@
 				align-self: center;
 				margin-top: 0 !important;
 				width: auto;
-				max-width: none;
-				flex-wrap: nowrap;
+				max-width: 100%;
+				min-width: 0;
+				flex-wrap: wrap;
 			}
 			
 			.mobile-compact-info {
@@ -490,6 +492,8 @@
 					justify-content: center;
 					text-align: center;
 					gap: 6px;
+					flex: 0 1 auto;
+					min-width: 0;
 				}
 			}
 			
