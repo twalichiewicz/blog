@@ -653,6 +653,11 @@
 		}
 
 		.post-list-item.post-link {
+			@media (max-width: variables.$mobile-breakpoint) {
+				padding-left: 18px;
+				padding-right: 18px;
+			}
+
 			.post-link-wrapper.post-long {
 				margin-top: 6px;
 				max-width: 300px;
