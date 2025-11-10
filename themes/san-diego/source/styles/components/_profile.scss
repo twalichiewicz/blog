@@ -852,7 +852,8 @@
 			padding: 9px 18px;
 			border-radius: 12px;
 			background: transparent;
-			border: 1px solid color(srgb 0.89 0.8722 0.8455);
+			// Use hex color to survive production minifiers that strip CSS4 color() syntax
+			border: 1px solid #e3ded8;
 			box-shadow: none;
 			transition: var(--contact-chin-transition, all 0.025s ease);
 			overflow: visible;
@@ -943,7 +944,7 @@
 			justify-content: center;
 			width: 26px;
 			height: 26px;
-			color: color(srgb 0.495 0.4844 0.4702);
+			color: #7e7c78;
 			opacity: 1;
 			transition: color 0.025s ease, opacity 0.025s ease;
 
