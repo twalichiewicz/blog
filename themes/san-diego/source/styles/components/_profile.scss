@@ -385,6 +385,23 @@
 		> .profile-photo-wrapper {
 			display: none;
 		}
+
+		.blog.blog & {
+			.profile-photo {
+				box-shadow:
+					0 0 0 1px rgba(26, 26, 26, 0.05),
+					0 0 0 2px rgba(255, 255, 255, 0.5),
+					inset 0 2px 8px rgba(26, 26, 26, 0.1),
+					inset 0 -4px 8px rgba(255, 255, 255, 0.3);
+				background: linear-gradient(145deg,
+					rgba(255, 255, 255, 0.8),
+					rgba(26, 26, 26, 0.1));
+				margin-bottom: 0;
+				padding: 0;
+				width: 45px !important;
+				height: 45px !important;
+			}
+		}
 		
 		.mobile-compact-header {
 			display: flex !important;
@@ -401,13 +418,16 @@
 			
 			.mobile-buttons-container {
 				flex: 0 0 auto;
-				width: 150px;
-				max-width: 150px;
 				display: flex;
-				flex-direction: column;
-				align-items: stretch;
+				flex-direction: row;
+				align-items: center;
 				justify-content: center;
-				gap: 12px;
+				gap: 6px;
+				align-self: center;
+				margin-top: 0 !important;
+				width: auto;
+				max-width: none;
+				flex-wrap: nowrap;
 			}
 			
 			.mobile-compact-info {
@@ -417,8 +437,8 @@
 			}
 			
 				.mobile-profile-photo {
-					width: 72px;
-					height: 72px;
+					width: 45px;
+					height: 45px;
 					flex-shrink: 0;
 					
 					.profile-photo {
@@ -453,17 +473,23 @@
 			}
 			
 			.mobile-buttons-container {
-				align-self: stretch;
-				margin-top: 0 !important;
-				gap: 6px;
-				
 				.mobile-impact-button,
 				.mobile-contact-button {
-					width: 100% !important;
-					font-size: 9px !important;
+					width: auto !important;
+					min-width: auto !important;
+					max-width: none !important;
+					white-space: nowrap !important;
+					overflow: visible !important;
+					text-overflow: clip !important;
+					padding-left: 12px !important;
+					padding-right: 12px !important;
+					height: 30px !important;
 					box-sizing: border-box !important;
-					display: block;
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
 					text-align: center;
+					gap: 6px;
 				}
 			}
 			
@@ -475,6 +501,12 @@
 					width: 100%;
 					flex: 1 1 auto;
 				}
+
+				.mobile-buttons-container {
+					align-self: stretch;
+					flex-direction: column;
+					flex-wrap: nowrap;
+				}
 			}
 		}
 		
@@ -483,18 +515,17 @@
 			// Override component library default button styles to use reusable button
 			&.btn--default {
 				@include button.reusable-button;
-	& {
-		height: auto !important;
-	} // Override fixed height
+				
+				& {
+					height: 30px !important;
+				} // Override fixed height
 			}
 		}
 		
 		// Apply bordered button style to View impact report
 		.mobile-impact-button.btn--default {
 			@include button.reusable-button-bordered;
-	& {
-		width: auto !important;
-	} // Ensure button fits its text
+			width: auto !important; // Ensure button fits its text
 			min-width: auto !important;
 			max-width: none !important;
 		}
@@ -508,15 +539,14 @@
 			border-color: variables.$link-color;
 			
 			&:hover {
-				background: linear-gradient(to bottom,
-						color.adjust(variables.$link-color, $lightness: 10%),
-						color.adjust(variables.$link-color, $lightness: 5%));
-				border-color: color.scale(variables.$link-color, $lightness: 10%);
+				background: linear-gradient(to bottom, #d85226, #c34a22);
+				border-color: #c74c23;
 				color: variables.$white;
 				box-shadow:
-					0 4px 8px rgba(variables.$link-color, 0.25),
-					0 2px 4px rgba(variables.$link-color, 0.15);
+					0 4px 8px rgba(173, 66, 31, 0.25),
+					0 2px 4px rgba(173, 66, 31, 0.15);
 				transform: translateY(-2px);
+				height: 30px !important;
 			}
 			
 			@media (prefers-color-scheme: dark) {
@@ -527,14 +557,17 @@
 				border-color: variables.$link-color-dark;
 				
 				&:hover {
-					background: linear-gradient(to bottom,
-							color.adjust(variables.$link-color-dark, $lightness: 10%),
-							color.adjust(variables.$link-color-dark, $lightness: 5%));
-					border-color: color.scale(variables.$link-color-dark, $lightness: 10%);
-					color: variables.$black;
+					background: linear-gradient(
+						to bottom,
+						color.adjust(#d85226, $lightness: 5%),
+						color.adjust(#c34a22, $lightness: 0%)
+					);
+					border-color: #c74c23;
+					color: variables.$white;
 					box-shadow:
-						0 4px 8px rgba(variables.$link-color-dark, 0.3),
-						0 2px 4px rgba(variables.$link-color-dark, 0.2);
+						0 4px 8px rgba(173, 66, 31, 0.35),
+						0 2px 4px rgba(173, 66, 31, 0.2);
+					height: 30px !important;
 				}
 			}
 		}
