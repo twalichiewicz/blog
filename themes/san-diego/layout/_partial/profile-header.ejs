@@ -17,14 +17,14 @@
                 </div>
                 <div class="mobile-profile-text">
                     <p class="profile-name mobile-compact-name">Thomas Walichiewicz</p>
-                    <p class="profile-byline mobile-compact-byline">Building <a href="https://www.tryworkspaceos.com" target="_blank"><b>WorkspaceOS</b></a> @ <a href="https://www.triglavis.com" target="_blank"><b>Triglavis</b></a><br/><br/>Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</p>
+                    <p class="profile-byline mobile-compact-byline">Building <a href="https://www.tryworkspaceos.com" target="_blank"><b>WorkspaceOS</b></a> @ <a href="https://www.triglavis.com" target="_blank"><b>Triglavis</b></a></p>
                 </div>
             </div>
             <!-- Mobile buttons container -->
             <div class="mobile-buttons-container">
                 <!-- Impact Report button -->
                 <%- include('../../source/components/core/button/button', {
-                    text: 'View impact report',
+                    text: 'Stats',
                     variant: 'default',
                     size: 'md',
                     className: 'mobile-impact-button',
@@ -35,7 +35,7 @@
                 }) %>
                 <!-- Mobile contact button -->
                 <%- include('../../source/components/core/button/button', {
-                    text: 'Get in touch',
+                    text: 'Contact',
                     variant: 'default',
                     size: 'md',
                     className: 'mobile-contact-button',
@@ -48,9 +48,9 @@
         </div>
         <!-- Desktop/tablet content (always visible) -->
         <div class="desktop-content mobile-hide no-external-indicators">
-            <p class="profile-bio">Building <a href="https://www.tryworkspaceos.com" target="_blank"><b>WorkspaceOS</b></a> @ <a href="https://www.triglavis.com" target="_blank"><b>Triglavis</b></a><br/><br/>Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</p>
+            <p class="profile-bio">Building <a href="https://www.tryworkspaceos.com" target="_blank"><b>WorkspaceOS</b></a> @ <a href="https://www.triglavis.com" target="_blank"><b>Triglavis</b></a></p>
             <div class="profile-stats-container">
-                <div class="profile-stats" onclick="openImpactModal()" role="button" tabindex="0" aria-label="View impact report">
+                <div class="profile-stats" onclick="openImpactModal()" role="button" tabindex="0" aria-label="View stats">
                     <div class="stat">
                         <span class="number">12</span>
                         <span class="label">Years pro</span>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="impact-report-chin">
-                    <button class="impact-report-btn" onclick="openImpactModal(event)" aria-label="View full impact report">View impact report</button>
+                    <button class="impact-report-btn" onclick="openImpactModal(event)" aria-label="View full stats">Stats</button>
                 </div>
             </div>
         </div>
