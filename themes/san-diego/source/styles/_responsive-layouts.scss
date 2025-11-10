@@ -366,7 +366,7 @@
 	#postsContent,
 	#projectsContent {
 		width: 100%;
-		padding: variables.$space-sm 0;
+		padding: variables.$space-md 0;
 		overflow-x: hidden;
 		box-sizing: border-box;
 
@@ -1166,7 +1166,7 @@
 		text-align: left;
 		gap: 0;
 		padding: 12px 12px 9px;
-		margin-bottom: 12px;
+		margin: 0 auto 12px;
 
 		.profile-photo-wrapper {
 			flex-shrink: 0;
