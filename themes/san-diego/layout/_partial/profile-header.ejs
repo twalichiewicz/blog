@@ -1,5 +1,15 @@
 <%
     const contactLinks = (site && site.data && site.data.contact_links) || [];
+    const mobileStatsIcon = `
+        <svg class="mobile-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M7 2v8.43c0 .35.18.68.49.86l4.18 2.51-.99 2.34-3.41.29 2.59 2.24-.78 3.33L12 20.23 14.93 22l-.78-3.33 2.59-2.24-3.41-.29-.99-2.34 4.18-2.51c.31-.18.49-.51.49-.86V2H7zm4 1h2v9.23l-1 .6-1-.6V3z"/>
+        </svg>
+    `;
+    const mobileContactIcon = `
+        <svg class="mobile-button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10h5v-2h-5c-4.34 0-8-3.66-8-8s3.66-8 8-8 8 3.66 8 8v1.43c0 .79-.71 1.57-1.5 1.57s-1.5-.78-1.5-1.57V12c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.38 0 2.64-.56 3.54-1.47.65.89 1.77 1.47 2.96 1.47 1.97 0 3.5-1.6 3.5-3.57V12c0-5.52-4.48-10-10-10zm0 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
+        </svg>
+    `;
 %>
 <div class="profile-header" data-expanded="false">
     <div class="profile-photo-wrapper">
@@ -24,7 +34,9 @@
             <div class="mobile-buttons-container">
                 <!-- Impact Report button -->
                 <%- include('../../source/components/core/button/button', {
-                    text: 'Stats',
+                    icon: mobileStatsIcon,
+                    iconOnly: true,
+                    ariaLabel: 'View stats',
                     variant: 'default',
                     size: 'md',
                     className: 'mobile-impact-button',
@@ -35,7 +47,9 @@
                 }) %>
                 <!-- Mobile contact button -->
                 <%- include('../../source/components/core/button/button', {
-                    text: 'Contact',
+                    icon: mobileContactIcon,
+                    iconOnly: true,
+                    ariaLabel: 'Contact Thomas',
                     variant: 'default',
                     size: 'md',
                     className: 'mobile-contact-button',

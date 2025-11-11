@@ -495,6 +495,29 @@
 					flex: 0 1 auto;
 					min-width: 0;
 				}
+
+				.mobile-impact-button.btn--icon-only,
+				.mobile-contact-button.btn--icon-only {
+					padding: 0 !important;
+					width: 36px !important;
+					min-width: 36px !important;
+					height: 36px !important;
+					border-radius: 999px;
+				}
+
+				.mobile-impact-button.btn--icon-only .btn__icon,
+				.mobile-contact-button.btn--icon-only .btn__icon {
+					width: 18px;
+					height: 18px;
+					margin: 0;
+				}
+
+				.mobile-button-icon {
+					width: 100%;
+					height: 100%;
+					display: block;
+					fill: currentColor;
+				}
 			}
 			
 			@media (max-width: 420px) {
