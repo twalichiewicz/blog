@@ -408,29 +408,30 @@
 			flex-direction: row !important;
 			width: 100%;
 			align-items: center;
-			justify-content: space-between;
 			column-gap: 16px;
 			row-gap: 12px;
-			flex-wrap: wrap;
+			justify-content: space-between;
+			flex-wrap: nowrap;
 			
 			.mobile-compact-info {
-				flex: 0 1 auto;
+				flex: 1 1 auto;
 				min-width: 0;
+				max-width: clamp(0px, calc(100% - 60px), 100%);
 			}
 			
 			.mobile-buttons-container {
-				flex: 0 1 auto;
+				flex: 0 0 auto;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				justify-content: center;
+				justify-content: flex-end;
 				gap: 6px;
 				align-self: center;
 				margin-top: 0 !important;
 				width: auto;
 				max-width: 100%;
 				min-width: 0;
-				flex-wrap: wrap;
+				flex-wrap: nowrap;
 			}
 			
 			.mobile-compact-info {
@@ -458,8 +459,9 @@
 				flex-direction: column;
 				gap: 0;
 				width: auto;
+				width: fit-content;
 				min-width: 0;
-				max-width: min(320px, 100%);
+				max-width: clamp(0px, calc(100% - 70px), 100%);
 				align-self: flex-start;
 				
 				.mobile-compact-name {
@@ -529,21 +531,6 @@
 				}
 			}
 			
-			@media (max-width: 420px) {
-				flex-direction: column;
-				
-				.mobile-compact-info,
-				.mobile-buttons-container {
-					width: 100%;
-					flex: 1 1 auto;
-				}
-
-				.mobile-buttons-container {
-					align-self: stretch;
-					flex-direction: column;
-					flex-wrap: nowrap;
-				}
-			}
 		}
 		
 		.mobile-impact-button,
