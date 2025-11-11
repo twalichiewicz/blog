@@ -413,7 +413,7 @@
 			flex-wrap: wrap;
 			
 			.mobile-compact-info {
-				flex: 1 1 auto;
+				flex: 0 1 auto;
 				min-width: 0;
 			}
 			
@@ -452,10 +452,14 @@
 				}
 			
 			.mobile-profile-text {
-				flex: 1;
-				display: flex;
+				flex: 0 1 auto;
+				display: inline-flex;
 				flex-direction: column;
 				gap: 0;
+				width: auto;
+				min-width: 0;
+				max-width: min(320px, 100%);
+				align-self: flex-start;
 				
 				.mobile-compact-name {
 					font-size: clamp(1.1rem, 4vw, 1.6rem);
@@ -507,8 +511,8 @@
 
 				.mobile-impact-button.btn--icon-only .btn__icon,
 				.mobile-contact-button.btn--icon-only .btn__icon {
-					width: 18px;
-					height: 18px;
+					width: 20px;
+					height: 20px;
 					margin: 0;
 				}
 
@@ -517,6 +521,10 @@
 					height: 100%;
 					display: block;
 					fill: currentColor;
+				}
+
+				.mobile-button-icon--medal {
+					transform: scale(1.12);
 				}
 			}
 			
@@ -543,18 +551,29 @@
 			&.btn--default {
 				@include button.reusable-button;
 				
-				& {
+				&:not(.btn--icon-only) {
 					height: 30px !important;
-				} // Override fixed height
+				} // Keep text buttons compact without affecting icon-only versions
 			}
 		}
 		
 		// Apply bordered button style to View impact report
 		.mobile-impact-button.btn--default {
 			@include button.reusable-button-bordered;
-			width: auto !important; // Ensure button fits its text
-			min-width: auto !important;
-			max-width: none !important;
+			
+			&:not(.btn--icon-only) {
+				width: auto !important; // Ensure button fits its text
+				min-width: auto !important;
+				max-width: none !important;
+			}
+
+			&.btn--icon-only {
+				padding: 0 !important;
+				width: 36px !important;
+				min-width: 36px !important;
+				height: 36px !important;
+				border-radius: 999px;
+			}
 		}
 		
 		// Custom emphasis for Get in touch button
@@ -573,7 +592,14 @@
 					0 4px 8px rgba(173, 66, 31, 0.25),
 					0 2px 4px rgba(173, 66, 31, 0.15);
 				transform: translateY(-2px);
-				height: 30px !important;
+			}
+
+			&.btn--icon-only {
+				padding: 0 !important;
+				width: 36px !important;
+				min-width: 36px !important;
+				height: 36px !important;
+				border-radius: 999px;
 			}
 			
 			@media (prefers-color-scheme: dark) {
@@ -594,7 +620,6 @@
 					box-shadow:
 						0 4px 8px rgba(173, 66, 31, 0.35),
 						0 2px 4px rgba(173, 66, 31, 0.2);
-					height: 30px !important;
 				}
 			}
 		}
