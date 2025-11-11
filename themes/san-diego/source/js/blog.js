@@ -211,6 +211,30 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Make function globally available immediately
 	window.scrollToFullStory = scrollToFullStory;
 
+	function cleanupInteractiveComponents() {
+		// Tear down any existing notebook carousel instance so we don't duplicate listeners
+		if (window._notebookCarouselDebug && typeof window._notebookCarouselDebug.getInstance === 'function') {
+			const existingCarousel = window._notebookCarouselDebug.getInstance();
+			if (existingCarousel && typeof existingCarousel.destroy === 'function') {
+				try {
+					existingCarousel.destroy();
+				} catch (error) {
+					// Best-effort cleanup – failures shouldn't block navigation
+				}
+			}
+		}
+
+		// Destroy the current mobile tabs instance before we rebuild the DOM
+		if (window.mobileTabs && typeof window.mobileTabs.destroy === 'function') {
+			try {
+				window.mobileTabs.destroy();
+			} catch (error) {
+				// Ignore cleanup failures
+			}
+			window.mobileTabs = null;
+		}
+	}
+
 	// === Dynamic Content Loader for Blog Posts/Projects ===
 	function setupDynamicBlogNavigation() {
 		const blogContentElement = document.querySelector('.blog-content');
@@ -643,19 +667,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				const currentHistoryState = history.state;
 				const isReturningFromProject = currentHistoryState && currentHistoryState.isProject === true;
 				
-				// Clean up any existing carousel before transition
-				if (window._notebookCarouselDebug && window._notebookCarouselDebug.getInstance) {
-					const existingCarousel = window._notebookCarouselDebug.getInstance();
-					if (existingCarousel && existingCarousel.destroy) {
-						existingCarousel.destroy();
-					}
-				}
-				
-				// Clean up existing mobile tabs instance before transition
-				if (window.mobileTabs && typeof window.mobileTabs.destroy === 'function') {
-					window.mobileTabs.destroy();
-					window.mobileTabs = null;
-				}
+				cleanupInteractiveComponents();
 				
 				// Start screen wipe transition (back navigation variant)
 				let transitionData = null;
@@ -1058,6 +1070,8 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 			const currentHistoryState = history.state;
 			const wasOnProject = window.location.pathname.includes('/20'); // Year-based URLs
 			const cameFromPortfolioTab = (event.state && event.state.fromTab === 'portfolio') || (currentHistoryState && currentHistoryState.fromTab === 'portfolio');
+
+			cleanupInteractiveComponents();
 
 			restoreInitialView({
 				fromProject: wasOnProject || (currentHistoryState && currentHistoryState.isProject) || cameFromPortfolioTab,
