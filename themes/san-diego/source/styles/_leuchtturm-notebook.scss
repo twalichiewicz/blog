@@ -168,7 +168,7 @@
                     height: 100%;
                     object-fit: cover;
                     border-radius: 3px 10px 10px 3px;
-					filter: invert() saturate(0%);
+                    filter: invert(1) saturate(0%);
                     display: block;
                 }
                 
