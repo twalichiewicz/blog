@@ -189,7 +189,8 @@
                         object-fit: cover;
                         border: 2.5px solid white;
                         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-                        filter: invert(100%) saturate(0%);
+                        // Force the grayscale notebook photo to stay light in all themes
+                        filter: invert(1) saturate(0%);
                         display: block;
                     }
                     
