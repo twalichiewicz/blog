@@ -542,6 +542,20 @@ export default class MobileTabs {
 	 * @param {boolean} isUserAction - Whether this was triggered by user action
 	 */
 	switchTab(type, isUserAction = false) {
+		// If we're already on the requested tab, do nothing to avoid replaying animations
+		const activeTab =
+			this.tabContainer?.dataset?.activeTab ||
+			Array.from(this.tabButtons || []).find(btn => btn.classList?.contains(this.config.activeClass))?.dataset?.type ||
+			null;
+
+		if (!this.tabContainer || !this.tabButtons || this.tabButtons.length === 0) {
+			return;
+		}
+
+		if (activeTab === type) {
+			return;
+		}
+
 		if (isUserAction) {
 			this.userSelectedTab = type; // Remember user's choice
 			
