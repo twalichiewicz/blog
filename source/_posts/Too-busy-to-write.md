@@ -9,4 +9,4 @@ subtitle:
 cover_image:
 ---
 
-I've been generating quite a backlog of posts to finish writing for this blog. But WorkspaceOS comes first (and has, for the last 5 months).
+Backlog of design and tech topics to finish blog posts about < Keep working on WorkspaceOS
