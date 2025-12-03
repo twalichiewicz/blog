@@ -108,7 +108,7 @@
     "sharp": "^0.34.4",
     "terser": "^5.44.0",
     "tough-cookie": "^5.1.2",
-    "two.js": "^0.8.21",
+    "two.js": "^0.8.22",
     "uuid": "^9.0.1"
   },
   "overrides": {
