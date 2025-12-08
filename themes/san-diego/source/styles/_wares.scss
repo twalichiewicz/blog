@@ -147,11 +147,11 @@
 }
 
 .ware-page {
-	background: variables.$foreground-bg;
+	background: variables.$body-bg;
 	color: variables.$text-color;
 
 	@media (prefers-color-scheme: dark) {
-		background: variables.$foreground-bg-dark;
+		background: variables.$body-bg-dark;
 		color: variables.$text-color-dark;
 	}
 }
