@@ -38,7 +38,8 @@ function emitSdLifecycleEvent(name, detail) {
 }
 
 function emitBlogContentLifecycle(detail = {}) {
-	const eventDetail = { type: 'blog', ...detail };
+	const resolvedType = detail.type || detail.contentType || detail.originatingTab || 'blog';
+	const eventDetail = { type: resolvedType, ...detail };
 	dispatchLifecycleEvent('contentLoaded', eventDetail, [document, window]);
 	dispatchLifecycleEvent('blog:content-loaded', eventDetail, [document, window]);
 	emitSdLifecycleEvent('blog:content-loaded', eventDetail);
@@ -347,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		function restoreInitialView(options = {}) {
 			const {
-				fromProject = false,
+				fromContentType = null,
 				originatingTab = lastTabBeforeDynamicLoad
 			} = options;
 
@@ -399,28 +400,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		const manualTabSwitch = (targetType) => {
 			const tabButtons = document.querySelectorAll('.tab-button');
-			const postsContent = document.getElementById('postsContent');
-			const projectsContent = document.getElementById('projectsContent');
+			const paneMap = new Map();
+
 			tabButtons.forEach(button => {
 				if (!button) return;
+				const paneId = button.dataset.pane;
 				const isTarget = button.dataset.type === targetType;
 				button.classList.toggle('active', isTarget);
 				button.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+				if (paneId) {
+					const paneEl = document.getElementById(paneId);
+					if (paneEl) {
+						paneMap.set(button.dataset.type, paneEl);
+					}
+				}
 			});
 
-			if (postsContent && projectsContent) {
-				if (targetType === 'portfolio') {
-					postsContent.style.display = 'none';
-					postsContent.setAttribute('aria-hidden', 'true');
-					projectsContent.style.display = 'block';
-					projectsContent.setAttribute('aria-hidden', 'false');
-				} else {
-					projectsContent.style.display = 'none';
-					projectsContent.setAttribute('aria-hidden', 'true');
-					postsContent.style.display = 'block';
-					postsContent.setAttribute('aria-hidden', 'false');
-				}
-			}
+			paneMap.forEach((pane, type) => {
+				const isTarget = type === targetType;
+				pane.style.display = isTarget ? 'block' : 'none';
+				pane.setAttribute('aria-hidden', isTarget ? 'false' : 'true');
+				pane.classList.toggle('is-visible', isTarget);
+			});
 		};
 
 		const requestTabSwitch = (targetType, attempt = 0) => {
@@ -435,30 +436,30 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		};
 
-		const switchTargetTab = fromProject ? 'portfolio' : originatingTab;
+		const switchTargetTab = fromContentType || originatingTab;
 		const lifecycleDetail = {
 			source: 'restoreInitialView',
 			originatingTab: switchTargetTab,
-			fromProject
+			fromContentType
 		};
 
-		if (fromProject) {
+		if (fromContentType === 'portfolio') {
 			sessionStorage.setItem('portfolio-back-navigation', 'true');
 			setTimeout(() => {
 				requestTabSwitch(switchTargetTab);
 				emitPortfolioLifecycle(lifecycleDetail);
 				emitBlogContentLifecycle({ ...lifecycleDetail, reinitialized: true });
 
-					setTimeout(() => {
-						if (window.projectDemo && window.projectDemo.init) {
-							window.projectDemo.init();
-						}
-					}, 100);
+				setTimeout(() => {
+					if (window.projectDemo && window.projectDemo.init) {
+						window.projectDemo.init();
+					}
+				}, 100);
 
-					setTimeout(() => {
-						if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
-							window._notebookCarousel.reinitialize();
-						}
+				setTimeout(() => {
+					if (window._notebookCarousel && window._notebookCarousel.reinitialize) {
+						window._notebookCarousel.reinitialize();
+					}
 				}, 300);
 			}, 50);
 		} else {
@@ -466,7 +467,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				requestTabSwitch(switchTargetTab);
 				emitBlogContentLifecycle({ ...lifecycleDetail, reinitialized: true });
 				if (window.location.search.includes('tab=portfolio') && originatingTab !== 'portfolio') {
-					history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: originatingTab }, '', initialBlogContentURL);
+					history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: originatingTab, contentType: originatingTab || 'blog' }, '', initialBlogContentURL);
 				}
 			}, 50);
 		}
@@ -665,7 +666,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				
 				// Determine what type of content we're returning from
 				const currentHistoryState = history.state;
-				const isReturningFromProject = currentHistoryState && currentHistoryState.isProject === true;
+				const returningContentType = (currentHistoryState && currentHistoryState.contentType) || null;
 				
 				cleanupInteractiveComponents();
 				
@@ -674,13 +675,13 @@ document.addEventListener('DOMContentLoaded', function () {
 				if (window.ScreenWipeTransition) {
 					transitionData = await window.ScreenWipeTransition.startBack(() => {
 						restoreInitialView({
-							fromProject: isReturningFromProject,
+							fromContentType: returningContentType,
 							originatingTab: lastTabBeforeDynamicLoad
 						});
 					});
 				} else {
 					restoreInitialView({
-						fromProject: isReturningFromProject,
+						fromContentType: returningContentType,
 						originatingTab: lastTabBeforeDynamicLoad
 					});
 				}
@@ -690,7 +691,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					await window.ScreenWipeTransition.end(transitionData);
 				}
 				
-				history.pushState({ path: initialBlogContentURL, isInitial: true, isDynamic: false }, '', initialBlogContentURL);
+				history.pushState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, contentType: 'blog' }, '', initialBlogContentURL);
 				
 			};
 
@@ -702,8 +703,17 @@ document.addEventListener('DOMContentLoaded', function () {
 			return backButton;
 		}
 
-async function fetchAndDisplayContent(url, isPushState = true, isProject = false, originatingTab = null) {
+async function fetchAndDisplayContent(url, isPushState = true, contentType = 'blog', originatingTab = null) {
 	if (!blogContentElement) return;
+
+	// Backward compatibility for older boolean signature
+	if (typeof contentType === 'boolean') {
+		contentType = contentType ? 'portfolio' : 'blog';
+	}
+
+	const type = contentType || 'blog';
+	const isProject = type === 'portfolio';
+	const isWares = type === 'wares';
 
 	// Before clearing content, cleanup any carousel instances managed by carousel.js
 	if (typeof cleanupCarouselInstances === 'function') {
@@ -751,18 +761,21 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		const parser = new DOMParser();
 		const doc = parser.parseFromString(htmlText, 'text/html');
 
-		// Updated selector to handle new Substack-style posts
-		let contentToExtractSelector = isProject ? 'div.project-edge-wrapper' : 'div.post-wrapper';
-		let newContentContainer = doc.querySelector(contentToExtractSelector);
+		// Updated selector to handle new Substack-style posts and wares
+		const selectorPriority = isProject
+			? ['div.project-edge-wrapper', 'div.project-wrapper']
+			: isWares
+				? ['div.ware-wrapper']
+				: ['div.post-wrapper'];
 
-		// Fallback for projects: if project-edge-wrapper is not found, try project-wrapper
-		if (!newContentContainer && isProject) {
-			contentToExtractSelector = 'div.project-wrapper';
-			newContentContainer = doc.querySelector(contentToExtractSelector);
+		let newContentContainer = null;
+		for (const selector of selectorPriority) {
+			newContentContainer = doc.querySelector(selector);
+			if (newContentContainer) break;
 		}
 
-		// Fallback: if loading a post and article.post is not found, try div.project-wrapper
-		if (!newContentContainer && !isProject) {
+		// Fallbacks
+		if (!newContentContainer && !isProject && !isWares) {
 			newContentContainer = doc.querySelector('div.project-wrapper');
 		}
 
@@ -774,12 +787,13 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 					newContentContainer.classList.contains('post-wrapper') ||
 					newContentContainer.querySelector('.post-wrapper')
 				);
-			const isLongFormContent = !isProject && containsPostWrapper;
-				const resolvedOriginatingTab = originatingTab || (isProject ? 'portfolio' : 'blog');
+			const isLongFormContent = type === 'blog' && containsPostWrapper;
+				const resolvedOriginatingTab = originatingTab || (type === 'portfolio' ? 'portfolio' : type === 'wares' ? 'wares' : 'blog');
 				const dynamicLifecycleDetail = {
 					source: 'dynamic-content',
 					url,
 					originatingTab: resolvedOriginatingTab,
+					contentType: type,
 					isProject
 				};
 				lastTabBeforeDynamicLoad = resolvedOriginatingTab;
@@ -834,15 +848,17 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 					innerWrapper.style.setProperty('border-radius', '12px 0 0 0', 'important');
 				}
 
-				let projectWrapperInstance = null;
-				if (newContentContainer.classList.contains('project-wrapper')) {
-					projectWrapperInstance = newContentContainer;
-				} else {
-					projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
-				}
+				if (isProject) {
+					let projectWrapperInstance = null;
+					if (newContentContainer.classList.contains('project-wrapper')) {
+						projectWrapperInstance = newContentContainer;
+					} else {
+						projectWrapperInstance = newContentContainer.querySelector('.project-wrapper');
+					}
 
-				if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
-					projectWrapperInstance.classList.add('dynamic-loaded');
+					if (projectWrapperInstance && !projectWrapperInstance.classList.contains('dynamic-loaded')) {
+						projectWrapperInstance.classList.add('dynamic-loaded');
+					}
 				}
 
 				innerWrapper.appendChild(newContentContainer.cloneNode(true));
@@ -977,7 +993,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 				}
 
 		if (isPushState) {
-			history.pushState({ path: url, isProject: isProject, isDynamic: true, fromTab: resolvedOriginatingTab }, '', url);
+			history.pushState({ path: url, contentType: type, isProject: isProject, isDynamic: true, fromTab: resolvedOriginatingTab }, '', url);
 		}
 		} catch (error) {
 			console.error('[fetchAndDisplayContent] Failed to load dynamic content:', error);
@@ -1023,9 +1039,10 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 				// Updated selectors for post previews
 				const isPostLink = link.classList.contains('post-link-wrapper');
 				const isProjectLink = link.matches('a.portfolio-item-wrapper, a.portfolio-item.has-writeup');
+				const isWareLink = link.classList.contains('wares-card');
 				// Check if post or project link
 
-				if (isPostLink || isProjectLink) {
+				if (isPostLink || isProjectLink || isWareLink) {
 					event.preventDefault();
 					
 					// Play book sound for post links
@@ -1035,8 +1052,9 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 					
 				const url = link.href;
 				// Fetching content
-				const originatingTab = isProjectLink ? 'portfolio' : 'blog';
-				fetchAndDisplayContent(url, true, isProjectLink, originatingTab);
+				const contentType = link.dataset.contentType || (isProjectLink ? 'portfolio' : isWareLink ? 'wares' : 'blog');
+				const originatingTab = contentType === 'portfolio' ? 'portfolio' : contentType === 'wares' ? 'wares' : 'blog';
+				fetchAndDisplayContent(url, true, contentType, originatingTab);
 				}
 			}
 		}
@@ -1046,7 +1064,8 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 			const linksToProcess = parentElement.querySelectorAll(
 				'a.post-link-wrapper, ' +
 				'a.portfolio-item-wrapper, ' +
-				'a.portfolio-item.has-writeup'
+				'a.portfolio-item.has-writeup, ' +
+				'a.wares-card'
 			);
 			// Initializing link listeners
 
@@ -1066,15 +1085,15 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		}
 		// If we're returning to the home page (no state or initial state)
 		if (!event.state || event.state.isInitial) {
-			// Check if we're coming back from a project (portfolio was likely active)
 			const currentHistoryState = history.state;
-			const wasOnProject = window.location.pathname.includes('/20'); // Year-based URLs
+			const returningContentType = (event.state && event.state.contentType) || (currentHistoryState && currentHistoryState.contentType) || null;
+			const wasOnProject = returningContentType === 'portfolio' || window.location.pathname.includes('/20');
 			const cameFromPortfolioTab = (event.state && event.state.fromTab === 'portfolio') || (currentHistoryState && currentHistoryState.fromTab === 'portfolio');
 
 			cleanupInteractiveComponents();
 
 			restoreInitialView({
-				fromProject: wasOnProject || (currentHistoryState && currentHistoryState.isProject) || cameFromPortfolioTab,
+				fromContentType: returningContentType || (wasOnProject || cameFromPortfolioTab ? 'portfolio' : null),
 				originatingTab: lastTabBeforeDynamicLoad
 			});
 
@@ -1110,7 +1129,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 								const lifecycleDetail = {
 									source: 'popstate',
 									url: targetUrl,
-									isProject: !!event.state?.isProject,
+									contentType: event.state?.contentType || 'blog',
 									originatingTab: event.state?.fromTab || lastTabBeforeDynamicLoad
 								};
 								blogContentElement.innerHTML = newContent.innerHTML;
@@ -1118,7 +1137,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 								initializeBlogFeatures(blogContentElement);
 								initializeLinkListeners(blogContentElement);
 								await fadeInElement(blogContentElement);
-								if (lifecycleDetail.isProject) {
+								if (lifecycleDetail.contentType === 'portfolio') {
 									emitPortfolioLifecycle(lifecycleDetail);
 								}
 								emitBlogContentLifecycle({ ...lifecycleDetail, reinitialized: true });
@@ -1141,7 +1160,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		window.fetchAndDisplayContent = fetchAndDisplayContent;
 
 	if (!history.state || (!history.state.isDynamic && !history.state.isInitial)) {
-		history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: 'blog' }, '', initialBlogContentURL);
+		history.replaceState({ path: initialBlogContentURL, isInitial: true, isDynamic: false, fromTab: 'blog', contentType: 'blog' }, '', initialBlogContentURL);
 	}
 	}
 

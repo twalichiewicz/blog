@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<%- partial('_partial/head') %>
+<body class="ware-page">
+	<script>
+		// Redirect to homepage with ware path for dynamic loading
+		(function() {
+			const currentPath = window.location.pathname;
+			const isDirectAccess = !document.referrer || !document.referrer.includes(window.location.origin);
+			const isRefresh = window.performance && window.performance.navigation && window.performance.navigation.type === 1;
+			
+			if ((isDirectAccess || isRefresh) && currentPath !== '/') {
+				const params = new URLSearchParams({ ware: currentPath, tab: 'wares' });
+				window.location.href = '/?' + params.toString();
+			}
+		})();
+	</script>
+
+	<div class="page-transition-overlay"></div>
+
+	<div class="ware-wrapper dynamic-loaded" id="main-content">
+		<div class="ware-header">
+			<div class="ware-nav">
+				<a href="<%= url_for('/?tab=wares') %>" class="ware-back-link" aria-label="Back to Wares">← Back to Wares</a>
+			</div>
+			<div class="ware-meta">
+				<div class="ware-title-group">
+					<h1 class="ware-title"><%= page.title %></h1>
+					<% if (page.subtitle || page.summary) { %>
+						<p class="ware-subtitle"><%- page.subtitle || page.summary %></p>
+					<% } %>
+				</div>
+				<div class="ware-status-group">
+					<% if (page.status) { %>
+						<span class="ware-status"><%= page.status %></span>
+					<% } %>
+					<% if (page.date) { %>
+						<time class="ware-date" datetime="<%= page.date.format('YYYY-MM-DD') %>">
+							<%= page.date.format('MMM D, YYYY') %>
+						</time>
+					<% } %>
+				</div>
+				<% if (page.cta_url) { %>
+					<a href="<%= url_for(page.cta_url) %>" class="ware-cta" target="<%= page.cta_url.startsWith('http') ? '_blank' : '_self' %>">
+						<%= page.cta_label || 'Open' %>
+					</a>
+				<% } %>
+			</div>
+			<%
+				let heroImage = page.cover_image || page.header_image;
+				if (heroImage && !heroImage.startsWith('/') && !heroImage.startsWith('http')) {
+					if (/^\\d{4}\\/\\d{2}\\/\\d{2}\\//.test(heroImage)) {
+						heroImage = '/' + heroImage;
+					} else {
+						heroImage = page.path + heroImage;
+					}
+				}
+			%>
+			<% if (heroImage) { %>
+				<div class="ware-hero" style="background-image: url('<%- url_for(heroImage) %>');">
+					<div class="ware-hero-overlay"></div>
+				</div>
+			<% } %>
+		</div>
+
+		<div class="ware-content">
+			<div class="ware-body">
+				<%- page.content %>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const overlay = document.querySelector('.page-transition-overlay');
+			const body = document.body;
+
+			setTimeout(() => {
+				overlay.classList.add('fade-out');
+				body.classList.add('loaded');
+
+				setTimeout(() => {
+					overlay.remove();
+				}, 1000);
+			}, 100);
+		});
+	</script>
+
+	<!-- Cloudflare Web Analytics -->
+	<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e8fdac6a36f74464bcf2d55fbb7f0ca2"}'></script>
+	<!-- End Cloudflare Web Analytics -->
+</body>
+</html>

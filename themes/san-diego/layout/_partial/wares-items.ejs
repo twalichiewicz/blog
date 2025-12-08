@@ -1,0 +1,39 @@
+<div id="waresContent" class="wares-list mobile-tab-pane" role="tabpanel" aria-labelledby="tab-wares" aria-hidden="true">
+    <div class="column-title wares-column-title">Wares</div>
+
+    <% if (warePosts.length > 0) { %>
+        <div class="wares-grid">
+            <% warePosts.forEach(function(post) { %>
+                <%
+                    let coverImagePath = post.cover_image || post.header_image;
+                    if (coverImagePath && !coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
+                        if (/^\\d{4}\\/\\d{2}\\/\\d{2}\\//.test(coverImagePath)) {
+                            coverImagePath = '/' + coverImagePath;
+                        } else {
+                            coverImagePath = post.path + coverImagePath;
+                        }
+                    }
+                    const subtitle = post.subtitle || post.display_description || post.summary || post.excerpt || '';
+                %>
+                <a href="<%- url_for(post.path) %>" class="wares-card" data-content-type="wares">
+                    <div class="wares-card__media">
+                        <% if (coverImagePath) { %>
+                            <img src="<%- url_for(coverImagePath) %>" alt="<%- post.title %>" loading="lazy" />
+                        <% } else { %>
+                            <div class="wares-card__placeholder">Interactive preview</div>
+                        <% } %>
+                        <div class="wares-card__overlay"></div>
+                    </div>
+                    <div class="wares-card__body">
+                        <h3 class="wares-card__title"><%- post.title %></h3>
+                        <% if (subtitle) { %>
+                            <p class="wares-card__subtitle"><%- subtitle %></p>
+                        <% } %>
+                    </div>
+                </a>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p class="wares-empty">No wares published yet. Add your first ware to see it here.</p>
+    <% } %>
+</div>
