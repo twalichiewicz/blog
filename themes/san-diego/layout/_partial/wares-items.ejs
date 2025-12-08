@@ -7,7 +7,8 @@
                 <%
                     let coverImagePath = post.cover_image || post.header_image;
                     if (coverImagePath && !coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
-                        if (/^\\d{4}\\/\\d{2}\\/\\d{2}\\//.test(coverImagePath)) {
+                        const datedPathPattern = new RegExp('^\\d{4}/\\d{2}/\\d{2}/');
+                        if (datedPathPattern.test(coverImagePath)) {
                             coverImagePath = '/' + coverImagePath;
                         } else {
                             coverImagePath = post.path + coverImagePath;
