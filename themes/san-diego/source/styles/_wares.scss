@@ -7,9 +7,15 @@
 
 .wares-list {
 	padding: 12px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 60vh;
 
 	@media screen and (max-width: variables.$mobile-breakpoint) {
 		padding: 8px;
+		min-height: 0;
 	}
 }
 
@@ -23,8 +29,15 @@
 
 .wares-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	grid-template-columns: repeat(6, minmax(160px, 1fr));
 	gap: 16px;
+	justify-items: center;
+	align-items: center;
+	width: 100%;
+
+	@media screen and (max-width: variables.$tablet-breakpoint) {
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	}
 }
 
 .wares-card {
@@ -144,6 +157,12 @@
 .wares-empty {
 	color: variables.$text-color-secondary;
 	padding: 8px 0;
+	max-width: 60ch;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 40px auto;
 }
 
 .ware-page {
