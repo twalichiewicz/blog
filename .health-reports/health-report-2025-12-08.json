@@ -1,0 +1,43 @@
+{
+  "timestamp": "2025-12-08T21:56:33.102Z",
+  "issuesFound": 3,
+  "fixesApplied": 2,
+  "systemStatus": "issues-detected",
+  "details": {
+    "issues": [
+      {
+        "type": "corrupted-cache",
+        "message": "Build cache appears corrupted",
+        "autoFix": true
+      },
+      {
+        "type": "dark-mode-grid",
+        "message": "Dark mode grid might not be visible",
+        "autoFix": true
+      },
+      {
+        "type": "broken-images",
+        "message": "Found 1 potentially broken image paths",
+        "images": [
+          {
+            "post": "Adorable-iPad-college-animation.md",
+            "imagePath": "https://www.apple.com/105/media/us/home/2023/7f9f4504-ae23-4873-b01a-8f803990d57f/anim/bts-hero/small.mp4"
+          }
+        ],
+        "autoFix": false
+      }
+    ],
+    "fixes": [
+      {
+        "type": "corrupted-cache",
+        "message": "Build cache appears corrupted",
+        "autoFix": true
+      },
+      {
+        "type": "dark-mode-grid",
+        "message": "Dark mode grid might not be visible",
+        "autoFix": true
+      }
+    ]
+  }
+}

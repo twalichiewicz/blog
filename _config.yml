@@ -89,6 +89,10 @@ post_types:
     icon: 🎨
     class: project-gallery
     header_style: full-width
+  ware:
+    icon: 🛠️
+    class: ware-entry
+    header_style: card
 
 # Performance Optimizations
 # Note: hexo-minify has been removed due to security vulnerabilities

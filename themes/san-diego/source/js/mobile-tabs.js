@@ -44,16 +44,18 @@ export function initializeMobileTabs() {
 		const tabsWrapper = document.querySelector('.tabs-wrapper');
 		const postsContent = document.getElementById('postsContent');
 		const projectsContent = document.getElementById('projectsContent');
+		const waresContent = document.getElementById('waresContent');
 		
 		console.log('[MobileTabs] DOM check:', {
 			tabsWrapper: !!tabsWrapper,
 			postsContent: !!postsContent,
 			projectsContent: !!projectsContent,
+			waresContent: !!waresContent,
 			url: window.location.pathname
 		});
 		
 		// If we don't have the required tab elements, don't initialize
-		if (!tabsWrapper || !postsContent || !projectsContent) {
+		if (!tabsWrapper || !postsContent || !projectsContent || !waresContent) {
 			isInitializing = false;
 			return;
 		}
@@ -107,6 +109,7 @@ function initializeTabsInternal() {
 			tabButtonSelector: '.tab-button',
 			postsContentId: 'postsContent',
 			projectsContentId: 'projectsContent',
+			waresContentId: 'waresContent',
 			searchBarSelector: '.search-bar'
 		});
 
@@ -127,6 +130,8 @@ function initializeTabsInternal() {
 		if (tabParam === 'portfolio' || tabParam === 'works') {
 			// Switch to Works tab
 			tabs.switchTab('portfolio', false);
+		} else if (tabParam === 'wares') {
+			tabs.switchTab('wares', false);
 		} else if (tabParam === 'blog' || tabParam === 'words') {
 			// Switch to Words tab
 			tabs.switchTab('blog', false);

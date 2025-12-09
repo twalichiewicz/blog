@@ -9,7 +9,7 @@ hexo.extend.generator.register('tab_redirects', function(locals) {
 
   // Helper function to create redirect HTML
   function createRedirectPage(tabType) {
-    const sectionName = tabType === 'portfolio' ? 'works' : 'words';
+    const sectionName = tabType === 'portfolio' ? 'works' : tabType === 'wares' ? 'wares' : 'words';
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,6 +127,14 @@ hexo.extend.generator.register('tab_redirects', function(locals) {
     routes.push({
       path: path + '/index.html',
       data: createRedirectPage('portfolio')
+    });
+  });
+
+  // Generate redirects for Wares tab
+  ['wares'].forEach(path => {
+    routes.push({
+      path: path + '/index.html',
+      data: createRedirectPage('wares')
     });
   });
 
