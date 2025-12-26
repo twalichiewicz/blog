@@ -14,7 +14,11 @@ cover_image:
 We actually see this pattern fairly regularly in consumer electronics: you'll bring your hand near a set of controls and either the display will update, the button will glow brighter, etc.
 
 Example:
-`button:near(200px){
+`
+button:near(200px){
 	border: solid 1px black;
-}`
+}
+`
 
+
+**Update:** https://github.com/w3c/csswg-drafts/issues/13271
