@@ -410,26 +410,28 @@
 			align-items: center;
 			column-gap: 16px;
 			row-gap: 12px;
-			flex-wrap: wrap;
+			justify-content: space-between;
+			flex-wrap: nowrap;
 			
 			.mobile-compact-info {
 				flex: 1 1 auto;
 				min-width: 0;
+				max-width: clamp(0px, calc(100% - 60px), 100%);
 			}
 			
 			.mobile-buttons-container {
-				flex: 0 1 auto;
+				flex: 0 0 auto;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				justify-content: center;
+				justify-content: flex-end;
 				gap: 6px;
 				align-self: center;
 				margin-top: 0 !important;
 				width: auto;
 				max-width: 100%;
 				min-width: 0;
-				flex-wrap: wrap;
+				flex-wrap: nowrap;
 			}
 			
 			.mobile-compact-info {
@@ -452,10 +454,15 @@
 				}
 			
 			.mobile-profile-text {
-				flex: 1;
-				display: flex;
+				flex: 0 1 auto;
+				display: inline-flex;
 				flex-direction: column;
 				gap: 0;
+				width: auto;
+				width: fit-content;
+				min-width: 0;
+				max-width: clamp(0px, calc(100% - 70px), 100%);
+				align-self: flex-start;
 				
 				.mobile-compact-name {
 					font-size: clamp(1.1rem, 4vw, 1.6rem);
@@ -495,23 +502,35 @@
 					flex: 0 1 auto;
 					min-width: 0;
 				}
-			}
-			
-			@media (max-width: 420px) {
-				flex-direction: column;
-				
-				.mobile-compact-info,
-				.mobile-buttons-container {
-					width: 100%;
-					flex: 1 1 auto;
+
+				.mobile-impact-button.btn--icon-only,
+				.mobile-contact-button.btn--icon-only {
+					padding: 0 !important;
+					width: 36px !important;
+					min-width: 36px !important;
+					height: 36px !important;
+					border-radius: 999px;
 				}
 
-				.mobile-buttons-container {
-					align-self: stretch;
-					flex-direction: column;
-					flex-wrap: nowrap;
+				.mobile-impact-button.btn--icon-only .btn__icon,
+				.mobile-contact-button.btn--icon-only .btn__icon {
+					width: 20px;
+					height: 20px;
+					margin: 0;
+				}
+
+				.mobile-button-icon {
+					width: 100%;
+					height: 100%;
+					display: block;
+					fill: currentColor;
+				}
+
+				.mobile-button-icon--medal {
+					transform: scale(1.12);
 				}
 			}
+			
 		}
 		
 		.mobile-impact-button,
@@ -520,18 +539,29 @@
 			&.btn--default {
 				@include button.reusable-button;
 				
-				& {
+				&:not(.btn--icon-only) {
 					height: 30px !important;
-				} // Override fixed height
+				} // Keep text buttons compact without affecting icon-only versions
 			}
 		}
 		
 		// Apply bordered button style to View impact report
 		.mobile-impact-button.btn--default {
 			@include button.reusable-button-bordered;
-			width: auto !important; // Ensure button fits its text
-			min-width: auto !important;
-			max-width: none !important;
+			
+			&:not(.btn--icon-only) {
+				width: auto !important; // Ensure button fits its text
+				min-width: auto !important;
+				max-width: none !important;
+			}
+
+			&.btn--icon-only {
+				padding: 0 !important;
+				width: 36px !important;
+				min-width: 36px !important;
+				height: 36px !important;
+				border-radius: 999px;
+			}
 		}
 		
 		// Custom emphasis for Get in touch button
@@ -550,7 +580,14 @@
 					0 4px 8px rgba(173, 66, 31, 0.25),
 					0 2px 4px rgba(173, 66, 31, 0.15);
 				transform: translateY(-2px);
-				height: 30px !important;
+			}
+
+			&.btn--icon-only {
+				padding: 0 !important;
+				width: 36px !important;
+				min-width: 36px !important;
+				height: 36px !important;
+				border-radius: 999px;
 			}
 			
 			@media (prefers-color-scheme: dark) {
@@ -571,7 +608,6 @@
 					box-shadow:
 						0 4px 8px rgba(173, 66, 31, 0.35),
 						0 2px 4px rgba(173, 66, 31, 0.2);
-					height: 30px !important;
 				}
 			}
 		}
