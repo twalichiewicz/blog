@@ -172,20 +172,13 @@
 }
 
 .mobile-tab-pane {
+	opacity: 0;
 	pointer-events: none;
-	will-change: auto;
-
-	> * {
-		opacity: 0;
-		transition: opacity 400ms ease;
-		will-change: opacity;
-	}
+	transition: opacity 400ms ease;
+	will-change: opacity;
 
 	&.is-visible {
+		opacity: 1;
 		pointer-events: auto;
-
-		> * {
-			opacity: 1;
-		}
 	}
 }
