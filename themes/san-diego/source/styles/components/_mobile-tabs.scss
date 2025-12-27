@@ -184,14 +184,14 @@
 }
 
 @media screen and (max-width: variables.$mobile-breakpoint) {
-	.tabs-wrapper {
+	.mobile-tabs.has-slider-element {
 		transform-origin: center top;
 		transform-style: preserve-3d;
 		transition: transform 360ms cubic-bezier(0.4, 0, 0.2, 1), opacity 280ms ease;
 		will-change: transform, opacity;
 	}
 
-	.tabs-wrapper.is-rolling {
+	.mobile-tabs.has-slider-element.is-rolling {
 		opacity: 0;
 		transform: perspective(720px) rotateX(65deg) translateY(-12px);
 	}
@@ -227,13 +227,11 @@
 		width: 100%;
 		max-width: 600px;
 		margin: 0 auto 12px;
-		background: hsl(0deg 0.5% 9.95%);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		border-radius: 22px;
-		box-shadow:
-			0 16px 28px -18px rgba(0, 0, 0, 0.6),
-			0 0 0 1px rgba(255, 255, 255, 0.05);
-		overflow: hidden;
+		background: transparent;
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+		overflow: visible;
 	}
 
 	.mobile-action-content {
@@ -249,6 +247,9 @@
 		height: auto;
 		max-height: none;
 		border-radius: 22px;
+		background: transparent;
+		border: none;
+		box-shadow: none;
 	}
 
 	.mobile-action-content .impact-modal-sheet {
@@ -258,17 +259,274 @@
 	.mobile-action-content .contact-modal-sheet {
 		margin: 0;
 	}
+
+	.mobile-action-header .impact-modal-header,
+	.mobile-action-header .contact-modal-header {
+		background: transparent;
+		border: none;
+		padding: 6px 0;
+		min-height: 32px;
+	}
+
+	.mobile-action-header .impact-modal-title,
+	.mobile-action-header .contact-modal-title {
+		color: variables.$text-color;
+		text-shadow: none;
+		transform-origin: center top;
+		transform: perspective(720px) rotateX(65deg);
+		opacity: 0;
+		transition: transform 360ms cubic-bezier(0.4, 0, 0.2, 1), opacity 280ms ease;
+	}
+
+	.mobile-action-header.is-visible .impact-modal-title,
+	.mobile-action-header.is-visible .contact-modal-title {
+		transform: perspective(720px) rotateX(0deg);
+		opacity: 1;
+	}
+
+	.mobile-action-header .impact-modal-close.minimal-close,
+	.mobile-action-header .contact-modal-close.minimal-close {
+		background: transparent;
+		border: 1px solid rgba(variables.$border-color, 0.6);
+		box-shadow: none;
+
+		svg {
+			color: variables.$text-color;
+		}
+	}
+
+	.mobile-action-header .impact-modal-close.minimal-close:hover,
+	.mobile-action-header .contact-modal-close.minimal-close:hover {
+		background: rgba(variables.$black, 0.04);
+		border-color: rgba(variables.$border-color, 0.8);
+	}
+
+	.mobile-action-header .impact-modal-close.minimal-close:active,
+	.mobile-action-header .contact-modal-close.minimal-close:active {
+		background: rgba(variables.$black, 0.08);
+		border-color: rgba(variables.$border-color, 0.9);
+		transform: none;
+	}
+
+	.mobile-action-header .impact-modal-party-mode {
+		background: transparent;
+		border: 1px solid rgba(variables.$border-color, 0.6);
+		box-shadow: none;
+		color: variables.$text-color;
+	}
+
+	.mobile-action-header .impact-modal-party-mode:hover,
+	.mobile-action-header .impact-modal-party-mode:active {
+		background: rgba(variables.$black, 0.05);
+		border-color: rgba(variables.$border-color, 0.85);
+		box-shadow: none;
+	}
+
+	.mobile-action-content .impact-modal-subtitle {
+		background: transparent;
+		border-bottom: 1px solid rgba(variables.$border-color, 0.4);
+		color: variables.$text-color-secondary;
+		text-shadow: none;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.mobile-action-content {
+		color: variables.$text-color;
+	}
+
+	.mobile-action-content .contact-option {
+		background: variables.$card-bg;
+		border: 1px solid rgba(variables.$border-color, 0.6);
+		color: variables.$text-color;
+		box-shadow: none;
+	}
+
+	.mobile-action-content .contact-option:hover {
+		background: color.adjust(variables.$card-bg, $lightness: 2%);
+		border-color: rgba(variables.$border-color, 0.8);
+		transform: none;
+		box-shadow: none;
+	}
+
+	.mobile-action-content .contact-option .contact-icon {
+		color: variables.$text-color;
+	}
+
+	.mobile-action-content .contact-option:hover .contact-icon {
+		color: variables.$text-color;
+	}
+
+	.mobile-action-content .contact-option .contact-label,
+	.mobile-action-content .contact-option .contact-sublabel {
+		color: variables.$text-color-secondary;
+	}
+
+	.mobile-action-content .impact-section {
+		background: rgba(variables.$card-bg, 0.85);
+		border-color: rgba(variables.$border-color, 0.5);
+	}
+
+	.mobile-action-content .section-label {
+		background: variables.$card-bg;
+		color: variables.$text-color-secondary;
+	}
+
+	.mobile-action-content .impact-tile {
+		background: rgba(variables.$card-bg, 0.95);
+		border-color: rgba(variables.$border-color, 0.5);
+		box-shadow:
+			0 6px 14px rgba(0, 0, 0, 0.08),
+			inset 0 0 0 1px rgba(variables.$white, 0.2);
+	}
+
+	.mobile-action-content .impact-tile:hover {
+		background: rgba(variables.$card-bg, 0.98);
+		border-color: rgba(variables.$border-color, 0.7);
+		transform: translateY(-2px);
+		box-shadow:
+			0 8px 16px rgba(0, 0, 0, 0.12),
+			inset 0 0 0 1px rgba(variables.$white, 0.25);
+	}
+
+	.mobile-action-content .tile-label {
+		color: variables.$text-color;
+	}
+
+	.mobile-action-content .tile-detail {
+		color: variables.$text-color-secondary;
+	}
+
+	.mobile-action-content .tile-hover-content {
+		background: rgba(variables.$card-bg, 0.96);
+		border-top: 1px solid rgba(variables.$border-color, 0.4);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.mobile-action-header .impact-modal-title,
+		.mobile-action-header .contact-modal-title {
+			color: variables.$text-color-dark;
+		}
+
+		.mobile-action-header .impact-modal-close.minimal-close,
+		.mobile-action-header .contact-modal-close.minimal-close {
+			border-color: rgba(variables.$border-color-dark, 0.6);
+
+			svg {
+				color: variables.$text-color-dark;
+			}
+		}
+
+		.mobile-action-header .impact-modal-close.minimal-close:hover,
+		.mobile-action-header .contact-modal-close.minimal-close:hover {
+			background: rgba(variables.$white, 0.05);
+			border-color: rgba(variables.$border-color-dark, 0.85);
+		}
+
+		.mobile-action-header .impact-modal-close.minimal-close:active,
+		.mobile-action-header .contact-modal-close.minimal-close:active {
+			background: rgba(variables.$white, 0.1);
+			border-color: rgba(variables.$border-color-dark, 0.95);
+		}
+
+		.mobile-action-header .impact-modal-party-mode {
+			border-color: rgba(variables.$border-color-dark, 0.6);
+			color: variables.$text-color-dark;
+		}
+
+		.mobile-action-header .impact-modal-party-mode:hover,
+		.mobile-action-header .impact-modal-party-mode:active {
+			background: rgba(variables.$white, 0.06);
+			border-color: rgba(variables.$border-color-dark, 0.9);
+		}
+
+		.mobile-action-content {
+			color: variables.$text-color-dark;
+		}
+
+		.mobile-action-content .impact-modal-subtitle {
+			border-bottom-color: rgba(variables.$border-color-dark, 0.6);
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .contact-option {
+			background: variables.$card-bg-dark;
+			border-color: rgba(variables.$border-color-dark, 0.6);
+			color: variables.$text-color-dark;
+		}
+
+		.mobile-action-content .contact-option:hover {
+			background: color.adjust(variables.$card-bg-dark, $lightness: 4%);
+			border-color: rgba(variables.$border-color-dark, 0.8);
+		}
+
+		.mobile-action-content .contact-option .contact-icon {
+			color: variables.$text-color-dark;
+		}
+
+		.mobile-action-content .contact-option:hover .contact-icon {
+			color: variables.$text-color-dark;
+		}
+
+		.mobile-action-content .contact-option .contact-label,
+		.mobile-action-content .contact-option .contact-sublabel {
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .impact-section {
+			background: rgba(variables.$card-bg-dark, 0.85);
+			border-color: rgba(variables.$border-color-dark, 0.6);
+		}
+
+		.mobile-action-content .section-label {
+			background: variables.$card-bg-dark;
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .impact-tile {
+			background: rgba(variables.$card-bg-dark, 0.95);
+			border-color: rgba(variables.$border-color-dark, 0.6);
+			box-shadow:
+				0 6px 14px rgba(0, 0, 0, 0.4),
+				inset 0 0 0 1px rgba(variables.$white, 0.05);
+		}
+
+		.mobile-action-content .impact-tile:hover {
+			background: rgba(variables.$card-bg-dark, 0.98);
+			border-color: rgba(variables.$border-color-dark, 0.8);
+		}
+
+		.mobile-action-content .tile-label {
+			color: variables.$text-color-dark;
+		}
+
+		.mobile-action-content .tile-detail {
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .tile-hover-content {
+			background: rgba(variables.$card-bg-dark, 0.96);
+			border-top-color: rgba(variables.$border-color-dark, 0.6);
+		}
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.tabs-wrapper,
+	.mobile-tabs.has-slider-element,
 	.blog .blog-content .content-wrapper,
 	.mobile-action-header,
 	.mobile-action-content {
 		transition: none !important;
 	}
 
-	.tabs-wrapper.is-rolling {
+	.mobile-action-header .impact-modal-title,
+	.mobile-action-header .contact-modal-title {
+		transition: none !important;
+		transform: none;
+		opacity: 1;
+	}
+
+	.mobile-tabs.has-slider-element.is-rolling {
 		transform: none;
 	}
 }

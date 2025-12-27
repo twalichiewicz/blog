@@ -189,6 +189,7 @@ const mobileActionState = {
 	headerHost: null,
 	contentHost: null,
 	tabsWrapper: null,
+	tabsElement: null,
 	contentWrapper: null,
 	cachedNodes: {},
 	keydownHandler: null
@@ -215,6 +216,9 @@ function ensureMobileActionElements() {
 	}
 	if (!mobileActionState.tabsWrapper || !document.contains(mobileActionState.tabsWrapper)) {
 		mobileActionState.tabsWrapper = document.querySelector('.tabs-wrapper');
+	}
+	if (!mobileActionState.tabsElement || !document.contains(mobileActionState.tabsElement)) {
+		mobileActionState.tabsElement = document.querySelector('.mobile-tabs');
 	}
 	if (!mobileActionState.contentWrapper || !document.contains(mobileActionState.contentWrapper)) {
 		mobileActionState.contentWrapper = document.querySelector('.content-wrapper');
@@ -371,8 +375,8 @@ function openMobileAction(type) {
 	}
 
 	mobileActionState.isTransitioning = true;
-	if (mobileActionState.tabsWrapper) {
-		mobileActionState.tabsWrapper.classList.add('is-rolling');
+	if (mobileActionState.tabsElement?.classList.contains('has-slider-element')) {
+		mobileActionState.tabsElement.classList.add('is-rolling');
 	}
 	if (mobileActionState.contentWrapper) {
 		mobileActionState.contentWrapper.classList.add('is-fading');
@@ -391,8 +395,8 @@ function openMobileAction(type) {
 		if (!mounted) {
 			if (mobileActionState.tabsWrapper) {
 				mobileActionState.tabsWrapper.style.display = '';
-				mobileActionState.tabsWrapper.classList.remove('is-rolling');
 			}
+			mobileActionState.tabsElement?.classList.remove('is-rolling');
 			if (mobileActionState.contentWrapper) {
 				mobileActionState.contentWrapper.style.display = '';
 				mobileActionState.contentWrapper.classList.remove('is-fading');
@@ -433,9 +437,7 @@ function closeMobileAction() {
 		}
 
 		requestAnimationFrame(() => {
-			if (mobileActionState.tabsWrapper) {
-				mobileActionState.tabsWrapper.classList.remove('is-rolling');
-			}
+			mobileActionState.tabsElement?.classList.remove('is-rolling');
 			if (mobileActionState.contentWrapper) {
 				mobileActionState.contentWrapper.classList.remove('is-fading');
 			}
