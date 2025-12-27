@@ -202,8 +202,8 @@ function isMobileActionViewport() {
 function getMobileActionTimings() {
 	const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	return {
-		transition: reducedMotion ? 0 : 360,
-		fade: reducedMotion ? 0 : 320
+		transition: reducedMotion ? 0 : 320,
+		fade: reducedMotion ? 0 : 280
 	};
 }
 
@@ -384,8 +384,8 @@ function openMobileAction(type) {
 
 	const { transition } = getMobileActionTimings();
 	window.setTimeout(() => {
-		if (mobileActionState.tabsWrapper) {
-			mobileActionState.tabsWrapper.style.display = 'none';
+		if (mobileActionState.tabsElement) {
+			mobileActionState.tabsElement.style.display = 'none';
 		}
 		if (mobileActionState.contentWrapper) {
 			mobileActionState.contentWrapper.style.display = 'none';
@@ -393,8 +393,8 @@ function openMobileAction(type) {
 
 		const mounted = mountMobileActionNodes(type);
 		if (!mounted) {
-			if (mobileActionState.tabsWrapper) {
-				mobileActionState.tabsWrapper.style.display = '';
+			if (mobileActionState.tabsElement) {
+				mobileActionState.tabsElement.style.display = '';
 			}
 			mobileActionState.tabsElement?.classList.remove('is-rolling');
 			if (mobileActionState.contentWrapper) {
@@ -429,8 +429,8 @@ function closeMobileAction() {
 		mobileActionState.currentType = null;
 		mobileActionState.active = false;
 
-		if (mobileActionState.tabsWrapper) {
-			mobileActionState.tabsWrapper.style.display = '';
+		if (mobileActionState.tabsElement) {
+			mobileActionState.tabsElement.style.display = '';
 		}
 		if (mobileActionState.contentWrapper) {
 			mobileActionState.contentWrapper.style.display = '';
