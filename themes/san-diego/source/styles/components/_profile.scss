@@ -509,7 +509,7 @@
 					width: 36px !important;
 					min-width: 36px !important;
 					height: 36px !important;
-					border-radius: 999px;
+					border-radius: 999px !important;
 				}
 
 				.mobile-impact-button.btn--icon-only .btn__icon,
@@ -548,6 +548,10 @@
 		// Apply bordered button style to View impact report
 		.mobile-impact-button.btn--default {
 			@include button.reusable-button-bordered;
+
+			&:hover {
+				transform: none;
+			}
 			
 			&:not(.btn--icon-only) {
 				width: auto !important; // Ensure button fits its text
@@ -560,7 +564,7 @@
 				width: 36px !important;
 				min-width: 36px !important;
 				height: 36px !important;
-				border-radius: 999px;
+				border-radius: 999px !important;
 			}
 		}
 		
@@ -579,7 +583,7 @@
 				box-shadow:
 					0 4px 8px rgba(173, 66, 31, 0.25),
 					0 2px 4px rgba(173, 66, 31, 0.15);
-				transform: translateY(-2px);
+				transform: none;
 			}
 
 			&.btn--icon-only {
@@ -587,7 +591,7 @@
 				width: 36px !important;
 				min-width: 36px !important;
 				height: 36px !important;
-				border-radius: 999px;
+				border-radius: 999px !important;
 			}
 			
 			@media (prefers-color-scheme: dark) {
@@ -600,14 +604,15 @@
 				&:hover {
 					background: linear-gradient(
 						to bottom,
-						color.adjust(#d85226, $lightness: 5%),
-						color.adjust(#c34a22, $lightness: 0%)
+						color.adjust(variables.$link-color-dark, $lightness: 10%),
+						color.adjust(variables.$link-color-dark, $lightness: 2%)
 					);
-					border-color: #c74c23;
-					color: variables.$white;
+					border-color: color.scale(variables.$link-color-dark, $lightness: 10%);
+					color: variables.$black;
 					box-shadow:
-						0 4px 8px rgba(173, 66, 31, 0.35),
-						0 2px 4px rgba(173, 66, 31, 0.2);
+						0 4px 8px rgba(variables.$link-color-dark, 0.35),
+						0 2px 4px rgba(variables.$link-color-dark, 0.2);
+					transform: none;
 				}
 			}
 		}
