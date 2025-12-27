@@ -213,8 +213,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function cleanupInteractiveComponents() {
 		// Tear down any existing notebook carousel instance so we don't duplicate listeners
-		if (window._notebookCarouselDebug && typeof window._notebookCarouselDebug.getInstance === 'function') {
-			const existingCarousel = window._notebookCarouselDebug.getInstance();
+		[window._notebookCarousel, window._notebookCarouselDebug].forEach((carouselApi) => {
+			if (!carouselApi || typeof carouselApi.getInstance !== 'function') {
+				return;
+			}
+			const existingCarousel = carouselApi.getInstance();
 			if (existingCarousel && typeof existingCarousel.destroy === 'function') {
 				try {
 					existingCarousel.destroy();
@@ -222,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					// Best-effort cleanup – failures shouldn't block navigation
 				}
 			}
-		}
+		});
 
 		// Destroy the current mobile tabs instance before we rebuild the DOM
 		if (window.mobileTabs && typeof window.mobileTabs.destroy === 'function') {

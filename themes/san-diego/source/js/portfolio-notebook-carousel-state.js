@@ -25,6 +25,10 @@
             // Load saved state
             this.activeIndex = this.loadState();
             this.isScrolling = false;
+            this.boundHandleScroll = this.handleScroll.bind(this);
+            this.boundDocumentClick = this.handleDocumentClick.bind(this);
+            this.boundBeforeUnload = this.handleBeforeUnload.bind(this);
+            this.tabButtonHandlers = new Map();
             
             // Check if this is the first time showing portfolio tab in this session
             // This resets on new browser sessions but persists during navigation
@@ -73,30 +77,25 @@
             document.body.classList.add('notebook-carousel-active');
             
             // Set up scroll handling
-            this.container.addEventListener('scroll', this.handleScroll.bind(this));
+            this.container.addEventListener('scroll', this.boundHandleScroll);
             
             // Save state when navigating away
-            document.addEventListener('click', (e) => {
-                const link = e.target.closest('a');
-                if (link && link.href && !link.href.startsWith('#')) {
-                    this.saveState();
-                }
-            });
+            document.addEventListener('click', this.boundDocumentClick);
             
             // Save state when tab switches
-            const tabButtons = document.querySelectorAll('.tab-button');
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
+            this.tabButtons = Array.from(document.querySelectorAll('.tab-button'));
+            this.tabButtons.forEach(button => {
+                const handler = () => {
                     if (button.dataset.type !== 'portfolio') {
                         this.saveState();
                     }
-                });
+                };
+                this.tabButtonHandlers.set(button, handler);
+                button.addEventListener('click', handler);
             });
             
             // Save state before page unload
-            window.addEventListener('beforeunload', () => {
-                this.saveState();
-            });
+            window.addEventListener('beforeunload', this.boundBeforeUnload);
             
             // Restore position and activate
             requestAnimationFrame(() => {
@@ -196,6 +195,17 @@
                 this.activateNotebook(savedState);
             }
         }
+
+        handleDocumentClick(e) {
+            const link = e.target.closest('a');
+            if (link && link.href && !link.href.startsWith('#')) {
+                this.saveState();
+            }
+        }
+
+        handleBeforeUnload() {
+            this.saveState();
+        }
         
         destroy() {
             // Save state before destroying
@@ -203,10 +213,22 @@
             
             if (this.container) {
                 this.container.classList.remove('notebook-carousel-mobile');
-                this.container.removeEventListener('scroll', this.handleScroll.bind(this));
+                this.container.removeEventListener('scroll', this.boundHandleScroll);
             }
             
             document.body.classList.remove('notebook-carousel-active');
+            document.removeEventListener('click', this.boundDocumentClick);
+            window.removeEventListener('beforeunload', this.boundBeforeUnload);
+
+            if (this.tabButtons) {
+                this.tabButtons.forEach(button => {
+                    const handler = this.tabButtonHandlers.get(button);
+                    if (handler) {
+                        button.removeEventListener('click', handler);
+                    }
+                });
+            }
+            this.tabButtonHandlers.clear();
             
             this.notebooks.forEach(notebook => {
                 notebook.classList.remove('carousel-active', 'carousel-inactive');
@@ -238,6 +260,10 @@
             sessionStorage.setItem('portfolio-back-navigation', 'true');
         }
         
+        if (currentInstance && (!currentInstance.container || !currentInstance.container.isConnected || currentInstance.container !== container)) {
+            currentInstance.destroy();
+        }
+
         // Don't reinitialize if already initialized and at correct position
         if (currentInstance && currentInstance.container && currentInstance.container.classList.contains('notebook-carousel-mobile')) {
             // Just ensure the position is restored
