@@ -238,6 +238,7 @@
 		width: 100%;
 		max-width: 600px;
 		margin: 0 auto;
+		background: rgb(249, 248, 246);
 	}
 
 	.mobile-action-content .impact-modal-sheet,
@@ -246,7 +247,7 @@
 		max-width: none;
 		height: auto;
 		max-height: none;
-		border-radius: 22px;
+		border-radius: 0;
 		background: transparent;
 		border: none;
 		box-shadow: none;
@@ -337,16 +338,16 @@
 
 	.mobile-action-content .contact-option {
 		background: variables.$card-bg;
-		border: 1px solid rgba(variables.$border-color, 0.6);
+		border: 1px solid variables.$border-color;
 		color: variables.$text-color;
-		box-shadow: none;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 	}
 
 	.mobile-action-content .contact-option:hover {
-		background: color.adjust(variables.$card-bg, $lightness: 2%);
-		border-color: rgba(variables.$border-color, 0.8);
-		transform: none;
-		box-shadow: none;
+		background: color.adjust(variables.$card-bg, $lightness: 1%);
+		border-color: color.adjust(variables.$border-color, $lightness: -5%);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 	}
 
 	.mobile-action-content .contact-option .contact-icon {
@@ -363,8 +364,9 @@
 	}
 
 	.mobile-action-content .impact-section {
-		background: rgba(variables.$card-bg, 0.85);
-		border-color: rgba(variables.$border-color, 0.5);
+		background: variables.$card-bg;
+		border-color: variables.$border-color;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 	}
 
 	.mobile-action-content .section-label {
@@ -373,24 +375,40 @@
 	}
 
 	.mobile-action-content .impact-tile {
-		background: rgba(variables.$card-bg, 0.95);
-		border-color: rgba(variables.$border-color, 0.5);
+		background: variables.$card-bg;
+		border-color: variables.$border-color;
 		box-shadow:
-			0 6px 14px rgba(0, 0, 0, 0.08),
-			inset 0 0 0 1px rgba(variables.$white, 0.2);
+			0 1px 3px rgba(0, 0, 0, 0.05),
+			inset 0 0 0 1px rgba(variables.$white, 0.3);
 	}
 
 	.mobile-action-content .impact-tile:hover {
-		background: rgba(variables.$card-bg, 0.98);
-		border-color: rgba(variables.$border-color, 0.7);
+		background: color.adjust(variables.$card-bg, $lightness: 1%);
+		border-color: color.adjust(variables.$border-color, $lightness: -5%);
 		transform: translateY(-2px);
 		box-shadow:
-			0 8px 16px rgba(0, 0, 0, 0.12),
-			inset 0 0 0 1px rgba(variables.$white, 0.25);
+			0 4px 16px rgba(0, 0, 0, 0.08),
+			inset 0 0 0 1px rgba(variables.$white, 0.35);
+	}
+
+	.mobile-action-content .tile-value,
+	.mobile-action-content .counter {
+		color: variables.$link-color;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+		filter: none;
+		-webkit-text-stroke: 0;
+	}
+
+	.mobile-action-content .tile-value::before {
+		content: none;
+	}
+
+	.mobile-action-content .tile-value .unit {
+		color: color.adjust(variables.$link-color, $lightness: -6%);
 	}
 
 	.mobile-action-content .tile-label {
-		color: variables.$text-color;
+		color: variables.$text-color-secondary;
 	}
 
 	.mobile-action-content .tile-detail {
@@ -398,8 +416,12 @@
 	}
 
 	.mobile-action-content .tile-hover-content {
-		background: rgba(variables.$card-bg, 0.96);
-		border-top: 1px solid rgba(variables.$border-color, 0.4);
+		background: variables.$card-bg;
+		border-top: 1px solid variables.$border-color;
+	}
+
+	.mobile-action-content .tile-hover-content p {
+		color: variables.$text-color-secondary;
 	}
 
 	@media (prefers-color-scheme: dark) {
@@ -442,6 +464,7 @@
 
 		.mobile-action-content {
 			color: variables.$text-color-dark;
+			background: rgb(9, 9, 9);
 		}
 
 		.mobile-action-content .impact-modal-subtitle {
@@ -451,13 +474,15 @@
 
 		.mobile-action-content .contact-option {
 			background: variables.$card-bg-dark;
-			border-color: rgba(variables.$border-color-dark, 0.6);
+			border-color: variables.$border-color-dark;
 			color: variables.$text-color-dark;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 		}
 
 		.mobile-action-content .contact-option:hover {
-			background: color.adjust(variables.$card-bg-dark, $lightness: 4%);
-			border-color: rgba(variables.$border-color-dark, 0.8);
+			background: color.adjust(variables.$card-bg-dark, $lightness: 2%);
+			border-color: color.adjust(variables.$border-color-dark, $lightness: 5%);
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 		}
 
 		.mobile-action-content .contact-option .contact-icon {
@@ -474,8 +499,9 @@
 		}
 
 		.mobile-action-content .impact-section {
-			background: rgba(variables.$card-bg-dark, 0.85);
-			border-color: rgba(variables.$border-color-dark, 0.6);
+			background: variables.$card-bg-dark;
+			border-color: variables.$border-color-dark;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 		}
 
 		.mobile-action-content .section-label {
@@ -484,20 +510,30 @@
 		}
 
 		.mobile-action-content .impact-tile {
-			background: rgba(variables.$card-bg-dark, 0.95);
-			border-color: rgba(variables.$border-color-dark, 0.6);
+			background: variables.$card-bg-dark;
+			border-color: variables.$border-color-dark;
 			box-shadow:
-				0 6px 14px rgba(0, 0, 0, 0.4),
-				inset 0 0 0 1px rgba(variables.$white, 0.05);
+				0 1px 3px rgba(0, 0, 0, 0.45),
+				inset 0 0 0 1px rgba(variables.$white, 0.06);
 		}
 
 		.mobile-action-content .impact-tile:hover {
-			background: rgba(variables.$card-bg-dark, 0.98);
-			border-color: rgba(variables.$border-color-dark, 0.8);
+			background: color.adjust(variables.$card-bg-dark, $lightness: 2%);
+			border-color: color.adjust(variables.$border-color-dark, $lightness: 6%);
+		}
+
+		.mobile-action-content .tile-value,
+		.mobile-action-content .counter {
+			color: variables.$link-color-dark;
+			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+		}
+
+		.mobile-action-content .tile-value .unit {
+			color: color.adjust(variables.$link-color-dark, $lightness: -8%);
 		}
 
 		.mobile-action-content .tile-label {
-			color: variables.$text-color-dark;
+			color: variables.$text-color-secondary-dark;
 		}
 
 		.mobile-action-content .tile-detail {
@@ -505,8 +541,12 @@
 		}
 
 		.mobile-action-content .tile-hover-content {
-			background: rgba(variables.$card-bg-dark, 0.96);
-			border-top-color: rgba(variables.$border-color-dark, 0.6);
+			background: variables.$card-bg-dark;
+			border-top-color: variables.$border-color-dark;
+		}
+
+		.mobile-action-content .tile-hover-content p {
+			color: variables.$text-color-secondary-dark;
 		}
 	}
 }
