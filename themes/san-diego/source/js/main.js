@@ -775,11 +775,29 @@ function startAutoScroll() {
     
     // Check if it's actually scrollable
     const isScrollable = impactGrid.scrollHeight > impactGrid.clientHeight;
+    let scrollTarget = impactGrid;
+    let minScroll = 0;
+    let maxScroll = impactGrid.scrollHeight - impactGrid.clientHeight;
+
     if (!isScrollable) {
+        const scrollElement = document.scrollingElement || document.documentElement;
+        if (!scrollElement) {
+            return;
+        }
+        const rect = impactGrid.getBoundingClientRect();
+        const currentScroll = scrollElement.scrollTop;
+        const gridTop = currentScroll + rect.top;
+        const gridBottom = currentScroll + rect.bottom;
+        const viewportHeight = window.innerHeight;
+        minScroll = gridTop;
+        maxScroll = Math.max(gridBottom - viewportHeight, gridTop);
+        scrollTarget = scrollElement;
+    }
+
+    if (maxScroll <= minScroll) {
         return;
     }
-    
-    
+
     // Smooth scroll animation
     let scrollDirection = 1;
     let scrollSpeed = 1; // pixels per frame (increased from 0.5)
@@ -790,18 +808,17 @@ function startAutoScroll() {
             return;
         }
         
-        const currentScroll = impactGrid.scrollTop;
-        const maxScroll = impactGrid.scrollHeight - impactGrid.clientHeight;
+        const currentScroll = scrollTarget.scrollTop;
         
         // Change direction at top or bottom
         if (currentScroll >= maxScroll - 5 && scrollDirection === 1) {
             scrollDirection = -1;
-        } else if (currentScroll <= 5 && scrollDirection === -1) {
+        } else if (currentScroll <= minScroll + 5 && scrollDirection === -1) {
             scrollDirection = 1;
         }
         
         // Apply scroll
-        impactGrid.scrollTop += scrollSpeed * scrollDirection;
+        scrollTarget.scrollTop += scrollSpeed * scrollDirection;
         
         // Continue animation
         animationFrame = requestAnimationFrame(animateScroll);

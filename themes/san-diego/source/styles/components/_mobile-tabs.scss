@@ -240,7 +240,7 @@
 		width: 100%;
 		max-width: 600px;
 		margin: 0 auto;
-		background: rgb(249, 248, 246);
+		background: transparent;
 	}
 
 	.mobile-action-content .impact-modal-sheet,
@@ -343,6 +343,13 @@
 		color: variables.$text-color;
 	}
 
+	.mobile-action-content .impact-modal-sheet,
+	.mobile-action-content .impact-grid,
+	.mobile-action-content .impact-section,
+	.mobile-action-content .impact-tile {
+		color: variables.$text-color;
+	}
+
 	.mobile-action-content .contact-modal-options {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
@@ -387,9 +394,9 @@
 	}
 
 	.mobile-action-content .impact-section {
-		background: variables.$card-bg;
+		background: transparent;
 		border-color: variables.$border-color;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+		box-shadow: none;
 	}
 
 	.mobile-action-content .section-label {
@@ -487,7 +494,14 @@
 
 		.mobile-action-content {
 			color: variables.$text-color-dark;
-			background: rgb(9, 9, 9);
+			background: transparent;
+		}
+
+		.mobile-action-content .impact-modal-sheet,
+		.mobile-action-content .impact-grid,
+		.mobile-action-content .impact-section,
+		.mobile-action-content .impact-tile {
+			color: variables.$text-color-dark;
 		}
 
 		.mobile-action-content .impact-modal-subtitle {
@@ -522,9 +536,9 @@
 		}
 
 		.mobile-action-content .impact-section {
-			background: variables.$card-bg-dark;
+			background: transparent;
 			border-color: variables.$border-color-dark;
-			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+			box-shadow: none;
 		}
 
 		.mobile-action-content .section-label {
