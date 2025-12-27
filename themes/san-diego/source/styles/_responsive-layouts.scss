@@ -1752,18 +1752,7 @@
 	.profile-photo-wrapper .profile-photo {
 		border-radius: 100% !important;
 	}
-	
-	// Fix mobile impact button width
-	.mobile-buttons-container .mobile-impact-button {
-		width: auto !important;
-		min-width: auto !important;
-		max-width: none !important;
-		white-space: nowrap !important;
-		overflow: visible !important;
-		text-overflow: clip !important;
-		padding-left: 12px !important;
-		padding-right: 12px !important;
-	}
+
 }
 
 /* Dark mode styles for device-specific profile byline */

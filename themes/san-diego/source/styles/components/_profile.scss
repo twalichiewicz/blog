@@ -608,7 +608,7 @@
 						color.adjust(variables.$link-color-dark, $lightness: 2%)
 					);
 					border-color: color.scale(variables.$link-color-dark, $lightness: 10%);
-					color: variables.$black;
+					color: variables.$white;
 					box-shadow:
 						0 4px 8px rgba(variables.$link-color-dark, 0.35),
 						0 2px 4px rgba(variables.$link-color-dark, 0.2);
@@ -755,13 +755,6 @@
 					transform: rotate(180deg);
 				}
 			}
-		}
-		
-		// Mobile action buttons now use the component library
-		// Additional styles can be added here if needed
-		.mobile-impact-button,
-		.mobile-contact-button {
-			flex: 1; // Make buttons equal width in container
 		}
 		
 		@keyframes borderRotate {
