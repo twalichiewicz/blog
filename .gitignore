@@ -96,6 +96,7 @@ screenshots/
 !screenshots/baseline/
 !screenshots/.gitkeep
 CLAUDE.md
+AGENTS.md
 
 # Git worktrees (already covered by directory pattern but being explicit)
 /worktrees/
