@@ -182,3 +182,93 @@
 		pointer-events: auto;
 	}
 }
+
+@media screen and (max-width: variables.$mobile-breakpoint) {
+	.tabs-wrapper {
+		transform-origin: center top;
+		transform-style: preserve-3d;
+		transition: transform 360ms cubic-bezier(0.4, 0, 0.2, 1), opacity 280ms ease;
+		will-change: transform, opacity;
+	}
+
+	.tabs-wrapper.is-rolling {
+		opacity: 0;
+		transform: perspective(720px) rotateX(65deg) translateY(-12px);
+	}
+
+	.blog .blog-content .content-wrapper {
+		transition: opacity 320ms ease;
+		will-change: opacity;
+	}
+
+	.blog .blog-content .content-wrapper.is-fading {
+		opacity: 0;
+	}
+
+	.mobile-action-header,
+	.mobile-action-content {
+		display: none;
+		opacity: 0;
+		transform: translateY(-6px);
+		transition: opacity 320ms ease, transform 320ms ease;
+	}
+
+	.mobile-action-content {
+		transform: translateY(8px);
+	}
+
+	.mobile-action-header.is-visible,
+	.mobile-action-content.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.mobile-action-header {
+		width: 100%;
+		max-width: 600px;
+		margin: 0 auto 12px;
+		background: hsl(0deg 0.5% 9.95%);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 22px;
+		box-shadow:
+			0 16px 28px -18px rgba(0, 0, 0, 0.6),
+			0 0 0 1px rgba(255, 255, 255, 0.05);
+		overflow: hidden;
+	}
+
+	.mobile-action-content {
+		width: 100%;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.mobile-action-content .impact-modal-sheet,
+	.mobile-action-content .contact-modal-sheet {
+		width: 100%;
+		max-width: none;
+		height: auto;
+		max-height: none;
+		border-radius: 22px;
+	}
+
+	.mobile-action-content .impact-modal-sheet {
+		min-height: 0;
+	}
+
+	.mobile-action-content .contact-modal-sheet {
+		margin: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tabs-wrapper,
+	.blog .blog-content .content-wrapper,
+	.mobile-action-header,
+	.mobile-action-content {
+		transition: none !important;
+	}
+
+	.tabs-wrapper.is-rolling {
+		transform: none;
+	}
+}

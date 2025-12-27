@@ -616,6 +616,7 @@
                     <button class="tab-button" data-type="portfolio" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Works</button>
                 </div>
             </div>
+            <div class="mobile-action-header" aria-hidden="true"></div>
 
             <% 
             // Separate posts and projects
@@ -629,6 +630,7 @@
             ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
             %>
 
+            <div class="mobile-action-content" aria-hidden="true"></div>
             <div class="content-wrapper">
                 <%- partial('_partial/blog-posts', { blogPosts: blogPosts }) %>
                 <%- partial('_partial/portfolio-projects', { projectPosts: projectPosts, config: config }) %>

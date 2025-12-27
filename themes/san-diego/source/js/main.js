@@ -182,6 +182,272 @@ function initMobileExpandableHeader() {
 	profileHeader._outsideClickHandler = handleOutsideClick;
 }
 
+const mobileActionState = {
+	active: false,
+	currentType: null,
+	isTransitioning: false,
+	headerHost: null,
+	contentHost: null,
+	tabsWrapper: null,
+	contentWrapper: null,
+	cachedNodes: {},
+	keydownHandler: null
+};
+
+function isMobileActionViewport() {
+	return window.innerWidth <= 768;
+}
+
+function getMobileActionTimings() {
+	const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	return {
+		transition: reducedMotion ? 0 : 360,
+		fade: reducedMotion ? 0 : 320
+	};
+}
+
+function ensureMobileActionElements() {
+	if (!mobileActionState.headerHost || !document.contains(mobileActionState.headerHost)) {
+		mobileActionState.headerHost = document.querySelector('.mobile-action-header');
+	}
+	if (!mobileActionState.contentHost || !document.contains(mobileActionState.contentHost)) {
+		mobileActionState.contentHost = document.querySelector('.mobile-action-content');
+	}
+	if (!mobileActionState.tabsWrapper || !document.contains(mobileActionState.tabsWrapper)) {
+		mobileActionState.tabsWrapper = document.querySelector('.tabs-wrapper');
+	}
+	if (!mobileActionState.contentWrapper || !document.contains(mobileActionState.contentWrapper)) {
+		mobileActionState.contentWrapper = document.querySelector('.content-wrapper');
+	}
+	return Boolean(
+		mobileActionState.headerHost &&
+		mobileActionState.contentHost &&
+		mobileActionState.tabsWrapper &&
+		mobileActionState.contentWrapper
+	);
+}
+
+function getModalNodes(type) {
+	if (mobileActionState.cachedNodes[type]) {
+		return mobileActionState.cachedNodes[type];
+	}
+
+	const modal = document.getElementById(`${type}-modal`);
+	if (!modal) return null;
+
+	const sheet = modal.querySelector(`.${type}-modal-sheet`);
+	const header = modal.querySelector(`.${type}-modal-header`);
+	if (!sheet || !header) return null;
+
+	const nodes = { modal, sheet, header };
+	mobileActionState.cachedNodes[type] = nodes;
+	return nodes;
+}
+
+function mountMobileActionNodes(type) {
+	const nodes = getModalNodes(type);
+	if (!nodes) return false;
+
+	const { modal, sheet, header } = nodes;
+	if (modal.classList.contains('active')) {
+		modal.classList.remove('active');
+		modal.style.display = 'none';
+		document.body.style.overflow = '';
+	}
+
+	if (sheet.parentElement !== mobileActionState.contentHost) {
+		mobileActionState.contentHost.appendChild(sheet);
+	}
+	if (header.parentElement !== mobileActionState.headerHost) {
+		mobileActionState.headerHost.appendChild(header);
+	}
+
+	mobileActionState.headerHost.dataset.mode = type;
+	mobileActionState.contentHost.dataset.mode = type;
+	return true;
+}
+
+function restoreMobileActionNodes(type) {
+	const nodes = getModalNodes(type);
+	if (!nodes) return;
+
+	const { modal, sheet, header } = nodes;
+	if (sheet.parentElement !== modal) {
+		modal.appendChild(sheet);
+	}
+	if (header.parentElement !== sheet) {
+		sheet.insertBefore(header, sheet.firstChild);
+	}
+}
+
+function showMobileActionHosts() {
+	const { headerHost, contentHost } = mobileActionState;
+	if (!headerHost || !contentHost) return;
+
+	headerHost.style.display = 'block';
+	contentHost.style.display = 'block';
+	headerHost.setAttribute('aria-hidden', 'false');
+	contentHost.setAttribute('aria-hidden', 'false');
+
+	requestAnimationFrame(() => {
+		headerHost.classList.add('is-visible');
+		contentHost.classList.add('is-visible');
+	});
+}
+
+function hideMobileActionHosts(onComplete) {
+	const { headerHost, contentHost } = mobileActionState;
+	if (!headerHost || !contentHost) {
+		if (typeof onComplete === 'function') onComplete();
+		return;
+	}
+
+	headerHost.classList.remove('is-visible');
+	contentHost.classList.remove('is-visible');
+	headerHost.setAttribute('aria-hidden', 'true');
+	contentHost.setAttribute('aria-hidden', 'true');
+
+	const { fade } = getMobileActionTimings();
+	window.setTimeout(() => {
+		headerHost.style.display = 'none';
+		contentHost.style.display = 'none';
+		if (typeof onComplete === 'function') onComplete();
+	}, fade);
+}
+
+function runImpactInlineEnhancements() {
+	const delay = getMobileActionTimings().fade;
+	window.setTimeout(() => {
+		initImpactGridAnimations();
+		fitTextInTiles();
+	}, delay);
+}
+
+function attachMobileActionKeydown() {
+	if (mobileActionState.keydownHandler) return;
+	mobileActionState.keydownHandler = (event) => {
+		if (event.key === 'Escape') {
+			closeMobileAction();
+		}
+	};
+	document.addEventListener('keydown', mobileActionState.keydownHandler);
+}
+
+function detachMobileActionKeydown() {
+	if (!mobileActionState.keydownHandler) return;
+	document.removeEventListener('keydown', mobileActionState.keydownHandler);
+	mobileActionState.keydownHandler = null;
+}
+
+function openMobileAction(type) {
+	if (!isMobileActionViewport()) return false;
+	if (!ensureMobileActionElements()) return false;
+
+	if (mobileActionState.isTransitioning) {
+		return true;
+	}
+
+	if (mobileActionState.active) {
+		if (mobileActionState.currentType === type) {
+			return true;
+		}
+
+		mobileActionState.isTransitioning = true;
+		hideMobileActionHosts(() => {
+			restoreMobileActionNodes(mobileActionState.currentType);
+			const mounted = mountMobileActionNodes(type);
+			if (!mounted) {
+				mobileActionState.isTransitioning = false;
+				return;
+			}
+			showMobileActionHosts();
+			mobileActionState.currentType = type;
+			mobileActionState.isTransitioning = false;
+			if (type === 'impact') {
+				runImpactInlineEnhancements();
+			}
+		});
+		return true;
+	}
+
+	mobileActionState.isTransitioning = true;
+	if (mobileActionState.tabsWrapper) {
+		mobileActionState.tabsWrapper.classList.add('is-rolling');
+	}
+	if (mobileActionState.contentWrapper) {
+		mobileActionState.contentWrapper.classList.add('is-fading');
+	}
+
+	const { transition } = getMobileActionTimings();
+	window.setTimeout(() => {
+		if (mobileActionState.tabsWrapper) {
+			mobileActionState.tabsWrapper.style.display = 'none';
+		}
+		if (mobileActionState.contentWrapper) {
+			mobileActionState.contentWrapper.style.display = 'none';
+		}
+
+		const mounted = mountMobileActionNodes(type);
+		if (!mounted) {
+			if (mobileActionState.tabsWrapper) {
+				mobileActionState.tabsWrapper.style.display = '';
+				mobileActionState.tabsWrapper.classList.remove('is-rolling');
+			}
+			if (mobileActionState.contentWrapper) {
+				mobileActionState.contentWrapper.style.display = '';
+				mobileActionState.contentWrapper.classList.remove('is-fading');
+			}
+			mobileActionState.isTransitioning = false;
+			return;
+		}
+
+		showMobileActionHosts();
+		mobileActionState.active = true;
+		mobileActionState.currentType = type;
+		mobileActionState.isTransitioning = false;
+		attachMobileActionKeydown();
+		if (type === 'impact') {
+			runImpactInlineEnhancements();
+		}
+	}, transition);
+
+	return true;
+}
+
+function closeMobileAction() {
+	if (!mobileActionState.active || mobileActionState.isTransitioning) {
+		return false;
+	}
+
+	mobileActionState.isTransitioning = true;
+	hideMobileActionHosts(() => {
+		restoreMobileActionNodes(mobileActionState.currentType);
+		mobileActionState.currentType = null;
+		mobileActionState.active = false;
+
+		if (mobileActionState.tabsWrapper) {
+			mobileActionState.tabsWrapper.style.display = '';
+		}
+		if (mobileActionState.contentWrapper) {
+			mobileActionState.contentWrapper.style.display = '';
+		}
+
+		requestAnimationFrame(() => {
+			if (mobileActionState.tabsWrapper) {
+				mobileActionState.tabsWrapper.classList.remove('is-rolling');
+			}
+			if (mobileActionState.contentWrapper) {
+				mobileActionState.contentWrapper.classList.remove('is-fading');
+			}
+			mobileActionState.isTransitioning = false;
+		});
+
+		detachMobileActionKeydown();
+	});
+
+	return true;
+}
+
 // Impact Modal functionality
 function openImpactModal(event) {
     if (event) {
@@ -193,6 +459,10 @@ function openImpactModal(event) {
         window.playToggleSound();
     }
     
+    if (openMobileAction('impact')) {
+        return;
+    }
+
     const modal = document.getElementById('impact-modal');
     if (modal) {
         modal.style.display = 'flex';
@@ -205,6 +475,11 @@ function openImpactModal(event) {
         setTimeout(() => {
             modal.classList.add('active');
         }, 10);
+
+        setTimeout(() => {
+            initImpactGridAnimations();
+            fitTextInTiles();
+        }, 300);
     }
 }
 
@@ -219,6 +494,10 @@ function closeImpactModal() {
         togglePartyMode();
     }
     
+    if (closeMobileAction()) {
+        return;
+    }
+
     const modal = document.getElementById('impact-modal');
     if (modal) {
         modal.classList.remove('active');
@@ -503,6 +782,10 @@ function openContactModal(event) {
         window.playToggleSound();
     }
     
+    if (openMobileAction('contact')) {
+        return;
+    }
+
     const modal = document.getElementById('contact-modal');
     if (modal) {
         modal.style.display = 'flex';
@@ -523,7 +806,11 @@ function closeContactModal() {
     if (window.playSmallClickSound) {
         window.playSmallClickSound();
     }
-    
+
+    if (closeMobileAction()) {
+        return;
+    }
+
     const modal = document.getElementById('contact-modal');
     if (modal) {
         modal.classList.remove('active');
@@ -819,8 +1106,14 @@ let resizeTimeout;
 const handleWindowResize = () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
+        if (mobileActionState.active && !isMobileActionViewport()) {
+            closeMobileAction();
+            return;
+        }
+
         const modal = document.getElementById('impact-modal');
-        if (modal && modal.style.display === 'flex') {
+        const isInlineImpact = mobileActionState.active && mobileActionState.currentType === 'impact';
+        if (isInlineImpact || (modal && modal.style.display === 'flex')) {
             fitTextInTiles();
         }
     }, 250);
@@ -830,12 +1123,4 @@ window.addEventListener('resize', handleWindowResize);
 // Store handler for cleanup
 window._impactModalResizeHandler = handleWindowResize;
 
-// Add animations and text fitting to existing modal open function
-const originalOpenImpactModal = window.openImpactModal;
-window.openImpactModal = function(event) {
-    originalOpenImpactModal(event);
-    setTimeout(() => {
-        initImpactGridAnimations();
-        fitTextInTiles();
-    }, 300);
-};
+// Impact modal inline view handles animations when opened.
