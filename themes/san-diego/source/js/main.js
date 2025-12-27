@@ -191,6 +191,8 @@ const mobileActionState = {
 	tabsWrapper: null,
 	tabsElement: null,
 	contentWrapper: null,
+	impactToggle: null,
+	contactToggle: null,
 	cachedNodes: {},
 	keydownHandler: null
 };
@@ -222,6 +224,12 @@ function ensureMobileActionElements() {
 	}
 	if (!mobileActionState.contentWrapper || !document.contains(mobileActionState.contentWrapper)) {
 		mobileActionState.contentWrapper = document.querySelector('.content-wrapper');
+	}
+	if (!mobileActionState.impactToggle || !document.contains(mobileActionState.impactToggle)) {
+		mobileActionState.impactToggle = document.querySelector('.mobile-impact-button');
+	}
+	if (!mobileActionState.contactToggle || !document.contains(mobileActionState.contactToggle)) {
+		mobileActionState.contactToggle = document.querySelector('.mobile-contact-button');
 	}
 	return Boolean(
 		mobileActionState.headerHost &&
@@ -343,6 +351,45 @@ function detachMobileActionKeydown() {
 	mobileActionState.keydownHandler = null;
 }
 
+function updateMobileActionLabel(button, isActive) {
+	if (!button) return;
+	const defaultLabel = button.dataset.labelDefault;
+	const activeLabel = button.dataset.labelActive;
+	if (!defaultLabel && !activeLabel) return;
+	button.setAttribute('aria-label', isActive ? (activeLabel || defaultLabel) : (defaultLabel || activeLabel));
+}
+
+function setMobileActionToggleState(activeType) {
+	const { impactToggle, contactToggle } = mobileActionState;
+	if (!impactToggle || !contactToggle) return;
+
+	const isImpact = activeType === 'impact';
+	const isContact = activeType === 'contact';
+	const hasActive = Boolean(activeType);
+	const setDisabled = (button, disabled) => {
+		if (!button) return;
+		if (disabled) {
+			button.setAttribute('disabled', 'true');
+			button.setAttribute('aria-disabled', 'true');
+		} else {
+			button.removeAttribute('disabled');
+			button.removeAttribute('aria-disabled');
+		}
+	};
+
+	impactToggle.classList.toggle('is-active', isImpact);
+	impactToggle.classList.toggle('is-muted', hasActive && !isImpact);
+	impactToggle.setAttribute('aria-pressed', isImpact ? 'true' : 'false');
+	updateMobileActionLabel(impactToggle, isImpact);
+	setDisabled(impactToggle, hasActive && !isImpact);
+
+	contactToggle.classList.toggle('is-active', isContact);
+	contactToggle.classList.toggle('is-muted', hasActive && !isContact);
+	contactToggle.setAttribute('aria-pressed', isContact ? 'true' : 'false');
+	updateMobileActionLabel(contactToggle, isContact);
+	setDisabled(contactToggle, hasActive && !isContact);
+}
+
 function openMobileAction(type) {
 	if (!isMobileActionViewport()) return false;
 	if (!ensureMobileActionElements()) return false;
@@ -353,14 +400,18 @@ function openMobileAction(type) {
 
 	if (mobileActionState.active) {
 		if (mobileActionState.currentType === type) {
+			closeMobileAction();
 			return true;
 		}
 
+		const previousType = mobileActionState.currentType;
 		mobileActionState.isTransitioning = true;
+		setMobileActionToggleState(type);
 		hideMobileActionHosts(() => {
 			restoreMobileActionNodes(mobileActionState.currentType);
 			const mounted = mountMobileActionNodes(type);
 			if (!mounted) {
+				setMobileActionToggleState(previousType);
 				mobileActionState.isTransitioning = false;
 				return;
 			}
@@ -374,6 +425,7 @@ function openMobileAction(type) {
 		return true;
 	}
 
+	setMobileActionToggleState(type);
 	mobileActionState.isTransitioning = true;
 	if (mobileActionState.tabsElement?.classList.contains('has-slider-element')) {
 		mobileActionState.tabsElement.classList.add('is-rolling');
@@ -396,6 +448,7 @@ function openMobileAction(type) {
 			if (mobileActionState.tabsElement) {
 				mobileActionState.tabsElement.style.display = '';
 			}
+			setMobileActionToggleState(null);
 			mobileActionState.tabsElement?.classList.remove('is-rolling');
 			if (mobileActionState.contentWrapper) {
 				mobileActionState.contentWrapper.style.display = '';
@@ -424,6 +477,7 @@ function closeMobileAction() {
 	}
 
 	mobileActionState.isTransitioning = true;
+	setMobileActionToggleState(null);
 	hideMobileActionHosts(() => {
 		restoreMobileActionNodes(mobileActionState.currentType);
 		mobileActionState.currentType = null;

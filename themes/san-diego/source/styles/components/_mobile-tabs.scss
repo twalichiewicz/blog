@@ -289,6 +289,11 @@
 
 	.mobile-action-header .impact-modal-close.minimal-close,
 	.mobile-action-header .contact-modal-close.minimal-close {
+		display: none;
+	}
+
+	.mobile-action-header .impact-modal-close.minimal-close,
+	.mobile-action-header .contact-modal-close.minimal-close {
 		background: transparent;
 		border: 1px solid rgba(variables.$border-color, 0.6);
 		box-shadow: none;
