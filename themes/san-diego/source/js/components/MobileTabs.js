@@ -472,7 +472,7 @@ export default class MobileTabs {
 
 		this.ensurePaneClasses();
 
-		const shouldAnimate = animate && this.initialRenderComplete && !this.areAnimationsSuppressed() && this.currentDeviceType !== 'mobile';
+		const shouldAnimate = animate && this.initialRenderComplete && !this.areAnimationsSuppressed();
 
 		// Desktop mode: show both panes side-by-side without animation
 		if (this.currentDeviceType === 'desktop') {
