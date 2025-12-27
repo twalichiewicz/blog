@@ -19,9 +19,9 @@
                 z-index: 10; // Ensure it stays above content
                 transition: padding-top 0.3s ease;
                 
-                // Make photo wrapper block display
+                // Hide the default photo wrapper to avoid duplicate avatars
                 .profile-photo-wrapper {
-                    display: block;
+                    display: none;
                 }
                 
                 // Shrink photo with specific styles
