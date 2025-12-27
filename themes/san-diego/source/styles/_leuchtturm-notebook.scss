@@ -364,7 +364,7 @@
         }
         
         // Hover state - only for desktop/tablet with actual hover capability
-        @media (hover: hover) and (pointer: fine) {
+        @media (hover: hover) and (pointer: fine) and (min-width: 769px) {
             &:hover .notebook {
                 transform: scale(0.9) translateX(15%) !important; // Shift right as it opens
                 
@@ -394,7 +394,7 @@
         }
         
         // Ensure notebook stays visible on mouseout (only for desktop/tablet)
-        @media (hover: hover) and (pointer: fine) {
+        @media (hover: hover) and (pointer: fine) and (min-width: 769px) {
             &:not(:hover) .notebook {
                 transform: scale(0.9) translateX(0) !important;
                 
