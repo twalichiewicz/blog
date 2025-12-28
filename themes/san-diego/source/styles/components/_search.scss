@@ -226,30 +226,49 @@
 			height: 36px;
 			padding: 0 16px;
 			border-radius: 20px;
-			border: none;
+			border: 1px solid rgba(variables.$border-color, 0.55);
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background: rgba(variables.$card-bg, 0.95);
+			background: rgba(variables.$card-bg, 0.9);
 			box-shadow: none;
 			font-size: var(--font-size-xs);
 			font-weight: var(--font-weight-medium);
 			color: variables.$text-color-secondary;
-			transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+			transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
 
 			&:hover {
 				background: rgba(variables.$card-bg, 1);
+				border-color: rgba(variables.$border-color, 0.8);
+				color: variables.$text-color;
 			}
 
 			&:active {
 				transform: scale(0.97);
-				background: color.adjust(variables.$card-bg, $lightness: -2%);
+				background: color.adjust(variables.$card-bg, $lightness: -1%);
+				border-color: rgba(variables.$border-color, 0.9);
 			}
 
 			&.active {
-				background: variables.$black;
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$link-color, $lightness: 6%),
+						variables.$link-color);
+				border-color: color.adjust(variables.$link-color, $lightness: -10%);
 				color: variables.$white;
-				box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+				box-shadow: 0 2px 6px rgba(variables.$link-color, 0.25);
+			}
+
+			&.active:hover {
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$link-color, $lightness: 10%),
+						color.adjust(variables.$link-color, $lightness: 2%));
+				border-color: color.adjust(variables.$link-color, $lightness: -6%);
+			}
+
+			&.active:active {
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$link-color, $lightness: -2%),
+						color.adjust(variables.$link-color, $lightness: -8%));
 			}
 		}
 		
@@ -319,22 +338,45 @@
 			}
 
 		.posts-only-button {
-			color: variables.$text-color-dark;
+			color: variables.$text-color-secondary-dark;
 			background: rgba(variables.$card-bg-dark, 0.8);
-			transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
-
-			&.active {
-				background: linear-gradient(to bottom, hsl(40, 90%, 60%), hsl(40, 90%, 50%));
-				color: hsl(0, 0%, 10%);
-			}
+			border: 1px solid rgba(variables.$border-color-dark, 0.6);
+			transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
 
 			&:hover {
-				background: linear-gradient(hsl(40, 18.9%, 44.42%) 0.84%, hsl(40, 18.54%, 35.47%));
+				background: rgba(variables.$card-bg-dark, 0.95);
+				border-color: rgba(variables.$border-color-dark, 0.85);
+				color: variables.$text-color-dark;
 			}
 
 			&:active {
-				background: linear-gradient(hsl(40, 46.07%, 35.81%) 0.84%, hsl(40, 48.29%, 28.36%));
-				color: hsl(0, 0%, 10%);
+				background: color.adjust(variables.$card-bg-dark, $lightness: -2%);
+				border-color: rgba(variables.$border-color-dark, 0.95);
+				color: variables.$text-color-dark;
+			}
+
+			&.active {
+				background: linear-gradient(to bottom,
+						variables.$link-color-dark,
+						color.adjust(variables.$link-color-dark, $lightness: -10%));
+				border-color: color.adjust(variables.$link-color-dark, $lightness: -15%);
+				color: variables.$black;
+				box-shadow: 0 2px 6px rgba(variables.$link-color-dark, 0.25);
+			}
+
+			&.active:hover {
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$link-color-dark, $lightness: 6%),
+						color.adjust(variables.$link-color-dark, $lightness: -4%));
+				border-color: color.adjust(variables.$link-color-dark, $lightness: -10%);
+				color: variables.$black;
+			}
+
+			&.active:active {
+				background: linear-gradient(to bottom,
+						color.adjust(variables.$link-color-dark, $lightness: -2%),
+						color.adjust(variables.$link-color-dark, $lightness: -12%));
+				color: variables.$black;
 			}
 		}
 		}
