@@ -63,10 +63,10 @@
 	.search-icon {
 		position: absolute;
 		left: 9px;
-		top: 50%;
+		top: 46%;
 		transform: translateY(-50%);
-		width: 16px;
-		height: 16px;
+		width: 15px;
+		height: 15px;
 		z-index: 2;
 		opacity: 0.6;
 		transition: opacity 0.2s ease;
@@ -229,7 +229,7 @@
 		}
 		
 		.search-icon {
-			left: 16px;
+			left: 9px;
 		}
 
 		.search-input {
