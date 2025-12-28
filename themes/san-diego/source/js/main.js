@@ -232,7 +232,7 @@ function getHeaderHeight() {
 function getMobileActionTimings() {
 	const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	return {
-		transition: reducedMotion ? 0 : 320,
+		transition: reducedMotion ? 0 : 640,
 		fade: reducedMotion ? 0 : 280,
 		rollFade: reducedMotion ? 0 : 240
 	};
@@ -286,13 +286,16 @@ function syncMobileTabsBacking() {
 	tabsWrapper.style.setProperty('--mobile-tabs-height', `${tabsRect.height}px`);
 }
 
-function startMobileTabsRoll({ fadeOut = false } = {}) {
-	if (!mobileActionState.tabsElement?.classList.contains('has-slider-element')) return;
+function startMobileTabsRoll({ fadeOut = false, direction = 'forward' } = {}) {
+	const tabsElement = mobileActionState.tabsElement;
+	if (!tabsElement?.classList.contains('has-slider-element')) return;
 	syncMobileTabsBacking();
 	if (mobileActionState.tabsWrapper) {
 		mobileActionState.tabsWrapper.classList.add('is-rolling');
 		mobileActionState.tabsWrapper.classList.remove('is-rolling-out');
 	}
+	tabsElement.classList.add('is-rolling');
+	tabsElement.classList.toggle('is-rolling-back', direction === 'back');
 	if (mobileActionState.rollCleanupTimeout) {
 		clearTimeout(mobileActionState.rollCleanupTimeout);
 		mobileActionState.rollCleanupTimeout = null;
@@ -309,6 +312,7 @@ function startMobileTabsRoll({ fadeOut = false } = {}) {
 		} else {
 			mobileActionState.tabsWrapper?.classList.remove('is-rolling');
 		}
+		tabsElement.classList.remove('is-rolling', 'is-rolling-back');
 		return totalDuration;
 	}
 	if (fadeOut) {
@@ -321,7 +325,7 @@ function startMobileTabsRoll({ fadeOut = false } = {}) {
 		if (fadeOut) {
 			mobileActionState.tabsWrapper?.classList.remove('is-rolling-out');
 		}
-		mobileActionState.tabsElement?.classList.remove('is-rolling');
+		tabsElement.classList.remove('is-rolling', 'is-rolling-back');
 		mobileActionState.rollCleanupTimeout = null;
 	}, totalDuration);
 	return totalDuration;
@@ -337,7 +341,7 @@ function resetMobileTabsRollState() {
 		mobileActionState.rollOutTimeout = null;
 	}
 	mobileActionState.tabsWrapper?.classList.remove('is-rolling', 'is-rolling-out');
-	mobileActionState.tabsElement?.classList.remove('is-rolling');
+	mobileActionState.tabsElement?.classList.remove('is-rolling', 'is-rolling-back');
 }
 
 function ensureMobileContactMenuElements() {
@@ -659,7 +663,6 @@ function openMobileAction(type) {
 		if (computedDuration !== undefined) {
 			rollDuration = computedDuration;
 		}
-		mobileActionState.tabsElement.classList.add('is-rolling');
 	}
 	if (mobileActionState.contentWrapper) {
 		mobileActionState.contentWrapper.classList.add('is-fading');
@@ -719,10 +722,9 @@ function closeMobileAction() {
 		if (mobileActionState.contentWrapper) {
 			mobileActionState.contentWrapper.style.display = '';
 		}
-		startMobileTabsRoll();
+		startMobileTabsRoll({ direction: 'back' });
 
 		requestAnimationFrame(() => {
-			mobileActionState.tabsElement?.classList.remove('is-rolling');
 			if (mobileActionState.contentWrapper) {
 				mobileActionState.contentWrapper.classList.remove('is-fading');
 			}
