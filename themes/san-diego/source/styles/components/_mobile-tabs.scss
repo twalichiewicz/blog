@@ -243,7 +243,16 @@
 		background: transparent;
 	}
 
-	.mobile-action-content .impact-modal-sheet,
+	.mobile-action-content .impact-modal-sheet {
+		width: 100%;
+		max-width: none;
+		height: auto;
+		max-height: none;
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
 	.mobile-action-content .contact-modal-sheet.contact-modal-sheet {
 		width: 100%;
 		max-width: none;
@@ -333,26 +342,6 @@
 		box-shadow: none;
 	}
 
-	.mobile-action-content .impact-modal-subtitle {
-		background: transparent;
-		border-bottom: 1px solid rgba(variables.$border-color, 0.4);
-		color: variables.$text-color-secondary;
-		text-shadow: none;
-		padding-left: 0;
-		padding-right: 0;
-	}
-
-	.mobile-action-content {
-		color: variables.$text-color;
-	}
-
-	.mobile-action-content .impact-modal-sheet,
-	.mobile-action-content .impact-grid,
-	.mobile-action-content .impact-grid .impact-section,
-	.mobile-action-content .impact-grid .impact-tile {
-		color: variables.$text-color;
-	}
-
 	.mobile-action-content .contact-modal-options.contact-modal-options {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
@@ -422,77 +411,6 @@
 		text-shadow: 0 1px 0 rgb(0 0 0 / 25%);
 	}
 
-	.mobile-action-content .impact-grid .impact-section {
-		background: transparent;
-		border-color: variables.$border-color;
-		box-shadow: none;
-	}
-
-	.mobile-action-content .impact-grid .impact-tile {
-		background: transparent;
-		box-shadow: none;
-	}
-
-	.mobile-action-content .impact-grid .tile-inner {
-		background: transparent;
-	}
-
-	.mobile-action-content .impact-grid .section-label {
-		background: transparent;
-		color: variables.$text-color-secondary;
-	}
-
-	.mobile-action-content .impact-tile {
-		background: variables.$card-bg;
-		border-color: variables.$border-color;
-		box-shadow:
-			0 1px 3px rgba(0, 0, 0, 0.05),
-			inset 0 0 0 1px rgba(variables.$white, 0.3);
-	}
-
-	.mobile-action-content .impact-tile:hover {
-		background: color.adjust(variables.$card-bg, $lightness: 1%);
-		border-color: color.adjust(variables.$border-color, $lightness: -5%);
-		transform: translateY(-2px);
-		box-shadow:
-			0 4px 16px rgba(0, 0, 0, 0.08),
-			inset 0 0 0 1px rgba(variables.$white, 0.35);
-	}
-
-	.mobile-action-content .tile-value,
-	.mobile-action-content .counter {
-		color: var(--accent-color, #{variables.$link-color});
-		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
-		filter: none;
-		-webkit-text-stroke: 0;
-	}
-
-	.mobile-action-content .tile-value::before {
-		content: none;
-	}
-
-	.mobile-action-content .tile-value .unit {
-		color: currentColor;
-		opacity: 0.75;
-	}
-
-	.mobile-action-content .tile-label {
-		color: variables.$text-color-secondary;
-	}
-
-	.mobile-action-content .tile-detail {
-		color: variables.$text-color-secondary;
-	}
-
-	.mobile-action-content .tile-hover-content {
-		background: variables.$card-bg;
-		border-top: 1px solid variables.$border-color;
-	}
-
-	.mobile-action-content .tile-hover-content p {
-		color: variables.$text-color-secondary;
-	}
-
 	@media (prefers-color-scheme: dark) {
 		.mobile-action-header .impact-modal-title,
 		.mobile-action-header .contact-modal-title {
@@ -529,23 +447,6 @@
 		.mobile-action-header .impact-modal-party-mode:active {
 			background: rgba(variables.$white, 0.06);
 			border-color: rgba(variables.$border-color-dark, 0.9);
-		}
-
-		.mobile-action-content {
-			color: variables.$text-color-dark;
-			background: transparent;
-		}
-
-		.mobile-action-content .impact-modal-sheet,
-		.mobile-action-content .impact-grid,
-		.mobile-action-content .impact-grid .impact-section,
-		.mobile-action-content .impact-grid .impact-tile {
-			color: variables.$text-color-dark;
-		}
-
-		.mobile-action-content .impact-modal-subtitle {
-			border-bottom-color: rgba(variables.$border-color-dark, 0.6);
-			color: variables.$text-color-secondary-dark;
 		}
 
 		.mobile-action-content .contact-modal-options .contact-option {
@@ -601,67 +502,6 @@
 		.mobile-action-content .contact-modal-options .contact-option:hover .contact-sublabel {
 			color: variables.$black;
 			text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
-		}
-
-		.mobile-action-content .impact-grid .impact-section {
-			background: transparent;
-			border-color: variables.$border-color-dark;
-			box-shadow: none;
-		}
-
-		.mobile-action-content .impact-grid .impact-tile {
-			background: transparent;
-			box-shadow: none;
-		}
-
-		.mobile-action-content .impact-grid .tile-inner {
-			background: transparent;
-		}
-
-		.mobile-action-content .impact-grid .section-label {
-			background: transparent;
-			color: variables.$text-color-secondary-dark;
-		}
-
-		.mobile-action-content .impact-tile {
-			background: variables.$card-bg-dark;
-			border-color: variables.$border-color-dark;
-			box-shadow:
-				0 1px 3px rgba(0, 0, 0, 0.45),
-				inset 0 0 0 1px rgba(variables.$white, 0.06);
-		}
-
-		.mobile-action-content .impact-tile:hover {
-			background: color.adjust(variables.$card-bg-dark, $lightness: 2%);
-			border-color: color.adjust(variables.$border-color-dark, $lightness: 6%);
-		}
-
-		.mobile-action-content .tile-value,
-		.mobile-action-content .counter {
-			color: var(--accent-color, #{variables.$link-color-dark});
-			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
-		}
-
-		.mobile-action-content .tile-value .unit {
-			color: currentColor;
-			opacity: 0.75;
-		}
-
-		.mobile-action-content .tile-label {
-			color: variables.$text-color-secondary-dark;
-		}
-
-		.mobile-action-content .tile-detail {
-			color: variables.$text-color-secondary-dark;
-		}
-
-		.mobile-action-content .tile-hover-content {
-			background: variables.$card-bg-dark;
-			border-top-color: variables.$border-color-dark;
-		}
-
-		.mobile-action-content .tile-hover-content p {
-			color: variables.$text-color-secondary-dark;
 		}
 	}
 }
