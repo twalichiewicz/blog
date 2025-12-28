@@ -690,6 +690,18 @@
 				filter: blur(2px) brightness(0.85);
 			}
 		}
+
+		&.is-impact-open {
+			.mobile-compact-info {
+				opacity: 0.4;
+				filter: blur(2px) brightness(0.85);
+			}
+
+			.mobile-contact-button {
+				opacity: 0.35;
+				filter: blur(2px) brightness(0.85);
+			}
+		}
 		
 		.mobile-impact-button,
 		.mobile-contact-button {

@@ -605,6 +605,11 @@ function setMobileActionToggleState(activeType) {
 	contactToggle.setAttribute('aria-pressed', isContact ? 'true' : 'false');
 	updateMobileActionLabel(contactToggle, isContact);
 	setDisabled(contactToggle, hasActive && !isContact);
+
+	const profileHeader = document.querySelector('.profile-header');
+	if (profileHeader) {
+		profileHeader.classList.toggle('is-impact-open', isImpact);
+	}
 }
 
 function openMobileAction(type) {
