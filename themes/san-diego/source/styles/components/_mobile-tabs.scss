@@ -330,15 +330,16 @@
 
 	.mobile-action-header .impact-modal-party-mode {
 		background: transparent;
-		border: 1px solid rgba(variables.$border-color, 0.6);
 		box-shadow: none;
-		color: variables.$text-color;
+		border: 1px solid rgba(63.75, 63.75, 63.75, 0.6);
+		color: rgba(63.75, 63.75, 63.75, 0.9);
+		margin-right: 0;
 	}
 
 	.mobile-action-header .impact-modal-party-mode:hover,
 	.mobile-action-header .impact-modal-party-mode:active {
-		background: rgba(variables.$black, 0.05);
-		border-color: rgba(variables.$border-color, 0.85);
+		background: transparent;
+		border-color: rgba(63.75, 63.75, 63.75, 0.6);
 		box-shadow: none;
 	}
 
@@ -479,14 +480,17 @@
 		}
 
 		.mobile-action-header .impact-modal-party-mode {
-			border-color: rgba(variables.$border-color-dark, 0.6);
-			color: variables.$text-color-dark;
+			border-color: rgba(63.75, 63.75, 63.75, 0.6);
+			color: rgba(63.75, 63.75, 63.75, 0.9);
+			background: transparent;
+			box-shadow: none;
+			margin-right: 0;
 		}
 
 		.mobile-action-header .impact-modal-party-mode:hover,
 		.mobile-action-header .impact-modal-party-mode:active {
-			background: rgba(variables.$white, 0.06);
-			border-color: rgba(variables.$border-color-dark, 0.9);
+			background: transparent;
+			border-color: rgba(63.75, 63.75, 63.75, 0.6);
 		}
 
 		.mobile-action-content .contact-modal-options .contact-option {
