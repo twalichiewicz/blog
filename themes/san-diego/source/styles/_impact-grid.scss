@@ -910,179 +910,79 @@
     }
 }
 
-// Bright glowing color variants
-.tile-revenue {
-    --accent-color: #7DFFB3; // Bright mint
+// Unified impact palette aligned to site tones
+$impact-accent-primary: $link-color;
+$impact-accent-secondary: $accent-gold;
+$impact-accent-tertiary: $accent-sage;
+
+.impact-grid {
+    --impact-accent-primary: #{$impact-accent-primary};
+    --impact-accent-secondary: #{$impact-accent-secondary};
+    --impact-accent-tertiary: #{$impact-accent-tertiary};
+
+    @media (prefers-color-scheme: dark) {
+        --impact-accent-primary: #{$link-color-dark};
+        --impact-accent-secondary: #{$accent-gold-light};
+        --impact-accent-tertiary: #{$accent-sage-light};
+    }
 }
 
-.tile-savings {
-    --accent-color: #80FFE5; // Bright teal
+// Financial + growth
+.tile-revenue,
+.tile-savings,
+.tile-hours,
+.tile-conversion,
+.tile-ctr,
+.tile-retention,
+.tile-cash,
+.tile-savings-per {
+    --accent-color: var(--impact-accent-primary);
 }
 
-.tile-hours {
-    --accent-color: #B3E5FF; // Bright sky
-}
-
-.tile-borrower {
-    --accent-color: #FFE580; // Bright yellow
-}
-
-.tile-pilot {
-    --accent-color: #FFB3E6; // Bright pink
-}
-
-.tile-efficiency {
-    --accent-color: #FFB380; // Bright peach
-}
-
-.tile-support {
-    --accent-color: #FF7D7D; // Bright coral
-}
-
-.tile-tickets {
-    --accent-color: #80FFCC; // Bright mint green
-}
-
-.tile-deployment {
-    --accent-color: #E680FF; // Bright purple
-}
-
-.tile-infra {
-    --accent-color: #FF80B3; // Bright magenta
+// Efficiency + operational improvements
+.tile-efficiency,
+.tile-support,
+.tile-tickets,
+.tile-deployment,
+.tile-infra,
+.tile-velocity,
+.tile-systems,
+.tile-storage,
+.tile-covid,
+.tile-threats {
+    --accent-color: var(--impact-accent-secondary);
 }
 
 .tile-velocity {
-    --accent-color: #80FFB3; // Bright green
-    --success-color: #7DFFB3;
+    --success-color: var(--impact-accent-secondary);
 }
 
-.tile-fte {
-    --accent-color: #FFB3CC; // Bright rose
-}
-
-.tile-systems {
-    --accent-color: #FF99CC; // Bright pink
-}
-
-.tile-adoption {
-    --accent-color: #B3BBFF; // Bright periwinkle
-}
-
-.tile-storage {
-    --accent-color: #FFD97D; // Bright gold
-}
-
-.tile-users {
-    --accent-color: #80E5FF; // Bright cyan
-}
-
-.tile-teams {
-    --accent-color: #CC99FF; // Bright lavender
-}
-
-// User experience metric colors
-.tile-satisfaction {
-    --accent-color: #7DFFB3; // Bright mint - satisfaction
-}
-
-.tile-accessibility {
-    --accent-color: #80E5FF; // Bright cyan - accessibility
-}
-
-.tile-research {
-    --accent-color: #B3E5FF; // Bright sky blue - research
-}
-
-.tile-selfservice {
-    --accent-color: #80FFE5; // Bright teal - self-service
-}
-
-.tile-realimpact {
-    --accent-color: #FFE580; // Bright yellow - real impact
-}
-
-// Collaboration colors
-.tile-change {
-    --accent-color: #FF99CC; // Bright pink - change management
-}
-
-.tile-trust {
-    --accent-color: #B3BBFF; // Bright periwinkle - trust
-}
-
-.tile-technical {
-    --accent-color: #99FF99; // Bright lime green - technical
-}
-
-// Business threats
-.tile-threats {
-    --accent-color: #FF7D7D; // Bright coral - threats resolved
-}
-
-.tile-conversion {
-    --accent-color: #7DFFCC; // Bright seafoam
-}
-
-.tile-ctr {
-    --accent-color: #FFB3D9; // Bright rose
-}
-
-.tile-savings-per {
-    --accent-color: #80FF99; // Bright lime
-}
-
-.tile-retention {
-    --accent-color: #FFB3D9; // Bright rose
-}
-
-.tile-cash {
-    --accent-color: #FFE6B3; // Bright cream
-}
-
-.tile-covid {
-    --accent-color: #FF9999; // Bright red
-}
-
-// Cross-functional collaboration colors
-.tile-engineering {
-    --accent-color: #9999FF; // Bright blue-purple
-}
-
-.tile-workshops {
-    --accent-color: #FF99E6; // Bright fuchsia
-}
-
-.tile-code {
-    --accent-color: #99FF99; // Bright lime green
-}
-
-// Strategic innovation colors
-.tile-northstar {
-    --accent-color: #FFD700; // Bright gold
-}
-
-.tile-executive {
-    --accent-color: #FFD700; // Bright gold - executive recognition
-}
-
-.tile-vp-sponsor {
-    --accent-color: #FFB366; // Bright orange - VP sponsorship
-}
-
-.tile-overlay {
-    --accent-color: #99E6FF; // Bright sky blue
-}
-
-.tile-map {
-    --accent-color: #FF99B3; // Bright coral pink
-}
-
-.tile-orgdesign {
-    --accent-color: #B399FF; // Bright violet
-}
-
+// People, adoption, and strategic impact
+.tile-borrower,
+.tile-pilot,
+.tile-fte,
+.tile-adoption,
+.tile-users,
+.tile-teams,
+.tile-satisfaction,
+.tile-accessibility,
+.tile-research,
+.tile-selfservice,
+.tile-realimpact,
+.tile-change,
+.tile-trust,
+.tile-technical,
+.tile-engineering,
+.tile-workshops,
+.tile-code,
+.tile-northstar,
+.tile-executive,
+.tile-vp-sponsor,
+.tile-overlay,
+.tile-map,
+.tile-orgdesign,
 .tile-legacy {
-    --accent-color: #FFD700; // Gold
+    --accent-color: var(--impact-accent-tertiary);
 }
 
 // Party mode animations

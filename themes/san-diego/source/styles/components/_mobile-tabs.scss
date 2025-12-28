@@ -437,7 +437,7 @@
 
 	.mobile-action-content .tile-value,
 	.mobile-action-content .counter {
-		color: variables.$link-color;
+		color: var(--accent-color, #{variables.$link-color});
 		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 		filter: none;
 		-webkit-text-stroke: 0;
@@ -448,7 +448,8 @@
 	}
 
 	.mobile-action-content .tile-value .unit {
-		color: color.adjust(variables.$link-color, $lightness: -6%);
+		color: currentColor;
+		opacity: 0.75;
 	}
 
 	.mobile-action-content .tile-label {
@@ -584,12 +585,13 @@
 
 		.mobile-action-content .tile-value,
 		.mobile-action-content .counter {
-			color: variables.$link-color-dark;
+			color: var(--accent-color, #{variables.$link-color-dark});
 			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
 		}
 
 		.mobile-action-content .tile-value .unit {
-			color: color.adjust(variables.$link-color-dark, $lightness: -8%);
+			color: currentColor;
+			opacity: 0.75;
 		}
 
 		.mobile-action-content .tile-label {
