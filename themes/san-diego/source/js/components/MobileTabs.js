@@ -332,9 +332,17 @@ export default class MobileTabs {
 		if (!slider) return;
 
 		try {
+			if (this.tabContainer.offsetParent === null) {
+				return;
+			}
+
 			// Get the active button's position and dimensions
 			const buttonRect = activeButton.getBoundingClientRect();
 			const containerRect = this.tabContainer.getBoundingClientRect();
+
+			if (containerRect.width <= 0 || buttonRect.width <= 0) {
+				return;
+			}
 
 			// Get computed styles to account for potential padding differences
 			const containerStyle = window.getComputedStyle(this.tabContainer);

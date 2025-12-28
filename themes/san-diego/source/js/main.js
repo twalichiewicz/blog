@@ -602,6 +602,11 @@ function closeMobileAction() {
 			if (mobileActionState.contentWrapper) {
 				mobileActionState.contentWrapper.classList.remove('is-fading');
 			}
+			if (window.mobileTabs && typeof window.mobileTabs.updateSlider === 'function') {
+				requestAnimationFrame(() => {
+					window.mobileTabs.updateSlider();
+				});
+			}
 			mobileActionState.isTransitioning = false;
 		});
 
