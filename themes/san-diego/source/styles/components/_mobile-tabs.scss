@@ -411,6 +411,46 @@
 		text-shadow: 0 1px 0 rgb(0 0 0 / 25%);
 	}
 
+	.mobile-action-content .impact-modal-sheet,
+	.mobile-action-content .impact-grid,
+	.mobile-action-content .impact-grid .impact-section,
+	.mobile-action-content .impact-grid .impact-tile {
+		color: variables.$text-color;
+	}
+
+	.mobile-action-content .impact-modal-sheet {
+		background: transparent;
+		border-color: variables.$border-color;
+	}
+
+	.mobile-action-content .impact-grid .impact-section {
+		background: transparent;
+		border-color: variables.$border-color;
+	}
+
+	.mobile-action-content .impact-grid .impact-tile {
+		background: variables.$card-bg;
+		border-color: variables.$border-color;
+	}
+
+	.mobile-action-content .impact-grid .section-label {
+		background: transparent;
+		color: variables.$text-color-secondary;
+	}
+
+	.mobile-action-content .impact-grid .tile-detail {
+		color: variables.$text-color-secondary;
+	}
+
+	.mobile-action-content .impact-grid .tile-hover-content {
+		background: variables.$card-bg;
+		border-top-color: variables.$border-color;
+	}
+
+	.mobile-action-content .impact-grid .tile-hover-content p {
+		color: variables.$text-color-secondary;
+	}
+
 	@media (prefers-color-scheme: dark) {
 		.mobile-action-header .impact-modal-title,
 		.mobile-action-header .contact-modal-title {
@@ -502,6 +542,46 @@
 		.mobile-action-content .contact-modal-options .contact-option:hover .contact-sublabel {
 			color: variables.$black;
 			text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
+		}
+
+		.mobile-action-content .impact-modal-sheet,
+		.mobile-action-content .impact-grid,
+		.mobile-action-content .impact-grid .impact-section,
+		.mobile-action-content .impact-grid .impact-tile {
+			color: variables.$text-color-dark;
+		}
+
+		.mobile-action-content .impact-modal-sheet {
+			background: transparent;
+			border-color: variables.$border-color-dark;
+		}
+
+		.mobile-action-content .impact-grid .impact-section {
+			background: transparent;
+			border-color: variables.$border-color-dark;
+		}
+
+		.mobile-action-content .impact-grid .impact-tile {
+			background: variables.$card-bg-dark;
+			border-color: variables.$border-color-dark;
+		}
+
+		.mobile-action-content .impact-grid .section-label {
+			background: transparent;
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .impact-grid .tile-detail {
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .impact-grid .tile-hover-content {
+			background: variables.$card-bg-dark;
+			border-top-color: variables.$border-color-dark;
+		}
+
+		.mobile-action-content .impact-grid .tile-hover-content p {
+			color: variables.$text-color-secondary-dark;
 		}
 	}
 }
