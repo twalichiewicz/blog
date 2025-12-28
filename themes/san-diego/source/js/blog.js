@@ -195,7 +195,10 @@ document.addEventListener('DOMContentLoaded', function () {
 		hasInteracted: false,
 		isCollapsed: false,
 		lastScrollTop: 0,
-		scrollHandler: null
+		scrollHandler: null,
+		collapseTimeout: null,
+		collapseDelay: 600,
+		ignoreNextFocus: false
 	};
 
 	// Global scroll function available for both standalone and dynamic contexts
@@ -1431,6 +1434,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		if (!container) return;
 		container.classList.toggle('is-collapsed', shouldCollapse);
 		searchCollapseState.isCollapsed = shouldCollapse;
+		clearSearchCollapseTimeout();
 
 		const toggleButton = container.querySelector('.search-collapse-toggle');
 		if (toggleButton) {
@@ -1438,17 +1442,47 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		}
 	}
 
-	function markSearchInteraction() {
+	function markSearchInteraction(event) {
+		if (event?.type === 'focus' && searchCollapseState.ignoreNextFocus) {
+			searchCollapseState.ignoreNextFocus = false;
+			return;
+		}
+		if (searchCollapseState.hasInteracted) return;
 		searchCollapseState.hasInteracted = true;
+		clearSearchCollapseTimeout();
+	}
+
+	function clearSearchCollapseTimeout() {
+		if (searchCollapseState.collapseTimeout) {
+			clearTimeout(searchCollapseState.collapseTimeout);
+			searchCollapseState.collapseTimeout = null;
+		}
+	}
+
+	function scheduleSearchCollapse(container) {
+		if (searchCollapseState.collapseTimeout) return;
+		searchCollapseState.collapseTimeout = window.setTimeout(() => {
+			searchCollapseState.collapseTimeout = null;
+			if (!isMobileSearchViewport()) return;
+			if (searchCollapseState.hasInteracted || searchCollapseState.isCollapsed) return;
+			const activeContainer = container || getSearchContainer();
+			if (!activeContainer) return;
+			const containerStyles = window.getComputedStyle(activeContainer);
+			if (containerStyles.display === 'none' || containerStyles.visibility === 'hidden') {
+				return;
+			}
+			setSearchContainerCollapsed(activeContainer, true);
+		}, searchCollapseState.collapseDelay);
 	}
 
 	function handleSearchCollapseToggle(event) {
 		const container = event.currentTarget?.closest('.search-container') || getSearchContainer();
 		if (!container) return;
 		setSearchContainerCollapsed(container, false);
-		markSearchInteraction();
+		clearSearchCollapseTimeout();
 		const searchInput = container.querySelector('#postSearch');
 		if (searchInput) {
+			searchCollapseState.ignoreNextFocus = true;
 			setTimeout(() => searchInput.focus(), 0);
 		}
 	}
@@ -1503,25 +1537,36 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 					if (activeContainer && searchCollapseState.isCollapsed) {
 						setSearchContainerCollapsed(activeContainer, false);
 					}
+					clearSearchCollapseTimeout();
 					return;
 				}
 
-				if (searchCollapseState.hasInteracted || searchCollapseState.isCollapsed) {
+				if (searchCollapseState.hasInteracted) {
+					clearSearchCollapseTimeout();
 					return;
 				}
 
 				const activeContainer = getSearchContainer();
 				if (!activeContainer) {
+					clearSearchCollapseTimeout();
 					return;
 				}
 
 				const containerStyles = window.getComputedStyle(activeContainer);
 				if (containerStyles.display === 'none' || containerStyles.visibility === 'hidden') {
+					clearSearchCollapseTimeout();
+					return;
+				}
+
+				if (searchCollapseState.isCollapsed) {
+					clearSearchCollapseTimeout();
 					return;
 				}
 
 				if (currentScrollTop > lastScrollTop + 4 && currentScrollTop > 0) {
-					setSearchContainerCollapsed(activeContainer, true);
+					scheduleSearchCollapse(activeContainer);
+				} else if (currentScrollTop < lastScrollTop - 4 || currentScrollTop <= 0) {
+					clearSearchCollapseTimeout();
 				}
 			};
 			window.addEventListener('scroll', searchCollapseState.scrollHandler, { passive: true });
