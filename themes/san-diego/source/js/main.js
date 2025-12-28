@@ -196,7 +196,8 @@ const mobileActionState = {
 	contactToggle: null,
 	cachedNodes: {},
 	keydownHandler: null,
-	rollCleanupTimeout: null
+	rollCleanupTimeout: null,
+	rollOutTimeout: null
 };
 
 const mobileContactMenuState = {
@@ -232,7 +233,8 @@ function getMobileActionTimings() {
 	const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	return {
 		transition: reducedMotion ? 0 : 320,
-		fade: reducedMotion ? 0 : 280
+		fade: reducedMotion ? 0 : 280,
+		rollFade: reducedMotion ? 0 : 240
 	};
 }
 
@@ -284,25 +286,58 @@ function syncMobileTabsBacking() {
 	tabsWrapper.style.setProperty('--mobile-tabs-height', `${tabsRect.height}px`);
 }
 
-function startMobileTabsRoll() {
+function startMobileTabsRoll({ fadeOut = false } = {}) {
 	if (!mobileActionState.tabsElement?.classList.contains('has-slider-element')) return;
 	syncMobileTabsBacking();
 	if (mobileActionState.tabsWrapper) {
 		mobileActionState.tabsWrapper.classList.add('is-rolling');
+		mobileActionState.tabsWrapper.classList.remove('is-rolling-out');
 	}
 	if (mobileActionState.rollCleanupTimeout) {
 		clearTimeout(mobileActionState.rollCleanupTimeout);
 		mobileActionState.rollCleanupTimeout = null;
 	}
-	const { transition } = getMobileActionTimings();
+	if (mobileActionState.rollOutTimeout) {
+		clearTimeout(mobileActionState.rollOutTimeout);
+		mobileActionState.rollOutTimeout = null;
+	}
+	const { transition, rollFade } = getMobileActionTimings();
+	const totalDuration = transition + (fadeOut ? rollFade : 0);
 	if (transition === 0) {
-		mobileActionState.tabsWrapper?.classList.remove('is-rolling');
-		return;
+		if (fadeOut) {
+			mobileActionState.tabsWrapper?.classList.add('is-rolling-out');
+		} else {
+			mobileActionState.tabsWrapper?.classList.remove('is-rolling');
+		}
+		return totalDuration;
+	}
+	if (fadeOut) {
+		mobileActionState.rollOutTimeout = window.setTimeout(() => {
+			mobileActionState.tabsWrapper?.classList.add('is-rolling-out');
+		}, transition);
 	}
 	mobileActionState.rollCleanupTimeout = window.setTimeout(() => {
 		mobileActionState.tabsWrapper?.classList.remove('is-rolling');
+		if (fadeOut) {
+			mobileActionState.tabsWrapper?.classList.remove('is-rolling-out');
+		}
+		mobileActionState.tabsElement?.classList.remove('is-rolling');
 		mobileActionState.rollCleanupTimeout = null;
-	}, transition);
+	}, totalDuration);
+	return totalDuration;
+}
+
+function resetMobileTabsRollState() {
+	if (mobileActionState.rollCleanupTimeout) {
+		clearTimeout(mobileActionState.rollCleanupTimeout);
+		mobileActionState.rollCleanupTimeout = null;
+	}
+	if (mobileActionState.rollOutTimeout) {
+		clearTimeout(mobileActionState.rollOutTimeout);
+		mobileActionState.rollOutTimeout = null;
+	}
+	mobileActionState.tabsWrapper?.classList.remove('is-rolling', 'is-rolling-out');
+	mobileActionState.tabsElement?.classList.remove('is-rolling');
 }
 
 function ensureMobileContactMenuElements() {
@@ -612,15 +647,19 @@ function openMobileAction(type) {
 
 	setMobileActionToggleState(type);
 	mobileActionState.isTransitioning = true;
+	const timings = getMobileActionTimings();
+	let rollDuration = timings.transition;
 	if (mobileActionState.tabsElement?.classList.contains('has-slider-element')) {
-		startMobileTabsRoll();
+		const computedDuration = startMobileTabsRoll({ fadeOut: true });
+		if (computedDuration !== undefined) {
+			rollDuration = computedDuration;
+		}
 		mobileActionState.tabsElement.classList.add('is-rolling');
 	}
 	if (mobileActionState.contentWrapper) {
 		mobileActionState.contentWrapper.classList.add('is-fading');
 	}
 
-	const { transition } = getMobileActionTimings();
 	window.setTimeout(() => {
 		if (mobileActionState.tabsElement) {
 			mobileActionState.tabsElement.style.display = 'none';
@@ -635,7 +674,7 @@ function openMobileAction(type) {
 				mobileActionState.tabsElement.style.display = '';
 			}
 			setMobileActionToggleState(null);
-			mobileActionState.tabsElement?.classList.remove('is-rolling');
+			resetMobileTabsRollState();
 			if (mobileActionState.contentWrapper) {
 				mobileActionState.contentWrapper.style.display = '';
 				mobileActionState.contentWrapper.classList.remove('is-fading');
@@ -652,7 +691,7 @@ function openMobileAction(type) {
 		if (type === 'impact') {
 			runImpactInlineEnhancements();
 		}
-	}, transition);
+	}, rollDuration);
 
 	return true;
 }
