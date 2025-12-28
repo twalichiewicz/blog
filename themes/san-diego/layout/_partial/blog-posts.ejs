@@ -26,6 +26,16 @@
             </svg>
         </button>
     </div>
+    <div class="no-results-message" role="status" aria-live="polite" aria-hidden="true">
+        <div class="no-results-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
+            </svg>
+        </div>
+        <div class="no-results-title">No matches found</div>
+        <div class="no-results-copy">Try a different keyword or clear the filter.</div>
+    </div>
     
     <% if (blogPosts.length > 0) { %>
         <% blogPosts.forEach(function(post, index) { %>

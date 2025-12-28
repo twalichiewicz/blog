@@ -1361,7 +1361,14 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		});
 
 		if (noResultsMessage) {
-			noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+			const showNoResults = visibleCount === 0;
+			noResultsMessage.style.display = showNoResults ? 'flex' : 'none';
+			noResultsMessage.setAttribute('aria-hidden', showNoResults ? 'false' : 'true');
+		}
+
+		const postsContent = blogContent.querySelector('#postsContent');
+		if (postsContent) {
+			postsContent.classList.toggle('has-no-results', visibleCount === 0);
 		}
 
 		refreshSearchInteractionState(e.target.closest('.search-container'));
