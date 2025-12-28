@@ -196,6 +196,64 @@
 		--mobile-tabs-roll-duration: 640ms;
 	}
 
+	body {
+		transition: background-color 520ms ease, color 520ms ease;
+	}
+
+	.blog,
+	.blog-content,
+	.content-inner-wrapper,
+	.content-wrapper,
+	.tabs-wrapper,
+	.profile-header,
+	.search-container,
+	.mobile-tabs {
+		transition: background-color 520ms ease, border-color 520ms ease, color 520ms ease, box-shadow 520ms ease;
+	}
+
+	body.impact-mode {
+		background-color: variables.$body-bg-dark;
+		color: variables.$text-color-dark;
+	}
+
+	body.impact-mode .blog-content,
+	body.impact-mode .content-inner-wrapper,
+	body.impact-mode .content-wrapper {
+		background-color: variables.$card-bg-dark;
+	}
+
+	body.impact-mode .tabs-wrapper {
+		background: linear-gradient(to bottom right, #2c2c2c, #111111);
+		border-bottom-color: variables.$border-color-dark;
+	}
+
+	body.impact-mode .mobile-tabs {
+		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
+		border-color: variables.$border-color-dark;
+	}
+
+	body.impact-mode .search-container {
+		background: rgba(variables.$card-bg-dark, 0.92);
+		border-color: rgba(variables.$border-color-dark, 0.55);
+	}
+
+	body.impact-mode .profile-header .profile-name {
+		color: variables.$text-color-dark;
+		text-shadow: none;
+	}
+
+	body.impact-mode .profile-header .profile-bio,
+	body.impact-mode .profile-header .profile-byline,
+	body.impact-mode .profile-header .location-pill,
+	body.impact-mode .profile-header .profile-stats,
+	body.impact-mode .profile-header .profile-stats .profile-stat-label {
+		color: variables.$text-color-secondary-dark;
+	}
+
+	body.impact-mode .profile-header .location-pill:hover {
+		color: variables.$text-color-dark;
+	}
+
 	.mobile-tabs.has-slider-element {
 		transform-origin: center 55%;
 		transform-style: preserve-3d;
@@ -252,6 +310,57 @@
 		}
 	}
 
+	.impact-spotlights {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: -12vh;
+		height: 55vh;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 240ms ease;
+		z-index: 40;
+	}
+
+	body.impact-spotlights-active .impact-spotlights {
+		opacity: 1;
+	}
+
+	.impact-spotlight {
+		--spotlight-tilt: 0deg;
+		position: absolute;
+		bottom: 0;
+		width: 42vw;
+		height: 55vh;
+		background: radial-gradient(ellipse at bottom, rgba(255, 231, 187, 0.35) 0%, rgba(255, 231, 187, 0.18) 42%, rgba(255, 231, 187, 0.05) 68%, transparent 78%);
+		clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+		filter: blur(0.5px);
+		transform-origin: 50% 100%;
+		transform: rotate(var(--spotlight-tilt));
+		mix-blend-mode: screen;
+		animation: spotlight-flicker 2.8s ease-in-out infinite, spotlight-sway 5.2s ease-in-out infinite;
+	}
+
+	.impact-spotlight.spotlight-left {
+		--spotlight-tilt: -6deg;
+		left: -4vw;
+		animation-delay: 0.2s;
+	}
+
+	.impact-spotlight.spotlight-center {
+		--spotlight-tilt: 1deg;
+		left: 28vw;
+		width: 50vw;
+		height: 60vh;
+		animation-delay: 0.5s;
+	}
+
+	.impact-spotlight.spotlight-right {
+		--spotlight-tilt: 7deg;
+		right: -6vw;
+		animation-delay: 0.1s;
+	}
+
 	.blog .blog-content .content-wrapper {
 		transition: opacity 280ms ease;
 		will-change: opacity;
@@ -271,6 +380,20 @@
 
 	.mobile-action-content {
 		transform: translateY(8px);
+	}
+
+	.mobile-action-header[data-mode="impact"] {
+		transform: translateY(16px);
+		transition: opacity 420ms ease, transform 420ms ease;
+	}
+
+	.mobile-action-content[data-mode="impact"] {
+		transform: translateY(36px);
+		transition: opacity 420ms ease, transform 420ms ease;
+	}
+
+	.mobile-action-header[data-mode="impact"] .impact-modal-title {
+		transition: transform 420ms cubic-bezier(0.4, 0, 0.2, 1), opacity 420ms ease;
 	}
 
 	.mobile-action-header.is-visible,
@@ -684,6 +807,32 @@
 			opacity: 0;
 		}
 	}
+
+	@keyframes spotlight-flicker {
+		0%,
+		100% {
+			opacity: 0.7;
+		}
+		20% {
+			opacity: 0.9;
+		}
+		45% {
+			opacity: 0.6;
+		}
+		70% {
+			opacity: 0.95;
+		}
+	}
+
+	@keyframes spotlight-sway {
+		0%,
+		100% {
+			transform: rotate(calc(var(--spotlight-tilt) - 1deg));
+		}
+		50% {
+			transform: rotate(calc(var(--spotlight-tilt) + 2deg));
+		}
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -707,6 +856,10 @@
 	}
 
 	.mobile-tabs-backing {
+		animation: none !important;
+	}
+
+	.impact-spotlight {
 		animation: none !important;
 	}
 }

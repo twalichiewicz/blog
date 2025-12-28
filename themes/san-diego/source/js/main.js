@@ -197,7 +197,8 @@ const mobileActionState = {
 	cachedNodes: {},
 	keydownHandler: null,
 	rollCleanupTimeout: null,
-	rollOutTimeout: null
+	rollOutTimeout: null,
+	impactTimers: []
 };
 
 const mobileContactMenuState = {
@@ -234,8 +235,35 @@ function getMobileActionTimings() {
 	return {
 		transition: reducedMotion ? 0 : 640,
 		fade: reducedMotion ? 0 : 280,
-		rollFade: reducedMotion ? 0 : 240
+		rollFade: reducedMotion ? 0 : 240,
+		darkTransition: reducedMotion ? 0 : 520,
+		spotlightDelay: reducedMotion ? 0 : 200
 	};
+}
+
+function clearImpactModeTimers() {
+	if (!mobileActionState.impactTimers.length) return;
+	mobileActionState.impactTimers.forEach((timer) => window.clearTimeout(timer));
+	mobileActionState.impactTimers = [];
+}
+
+function scheduleImpactModeTimer(callback, delay) {
+	const timer = window.setTimeout(() => {
+		mobileActionState.impactTimers = mobileActionState.impactTimers.filter((id) => id !== timer);
+		callback();
+	}, delay);
+	mobileActionState.impactTimers.push(timer);
+	return timer;
+}
+
+function setImpactModeActive(isActive) {
+	if (!document.body) return;
+	document.body.classList.toggle('impact-mode', isActive);
+}
+
+function setImpactSpotlightsActive(isActive) {
+	if (!document.body) return;
+	document.body.classList.toggle('impact-spotlights-active', isActive);
 }
 
 function ensureMobileActionElements() {
@@ -636,11 +664,24 @@ function openMobileAction(type) {
 		const previousType = mobileActionState.currentType;
 		mobileActionState.isTransitioning = true;
 		setMobileActionToggleState(type);
+		if (type === 'impact') {
+			clearImpactModeTimers();
+			setImpactSpotlightsActive(false);
+			setImpactModeActive(true);
+		} else if (previousType === 'impact') {
+			clearImpactModeTimers();
+			setImpactSpotlightsActive(false);
+			setImpactModeActive(false);
+		}
 		hideMobileActionHosts(() => {
 			restoreMobileActionNodes(mobileActionState.currentType);
 			const mounted = mountMobileActionNodes(type);
 			if (!mounted) {
 				setMobileActionToggleState(previousType);
+				if (type === 'impact') {
+					setImpactSpotlightsActive(false);
+					setImpactModeActive(false);
+				}
 				mobileActionState.isTransitioning = false;
 				return;
 			}
@@ -648,58 +689,95 @@ function openMobileAction(type) {
 			mobileActionState.currentType = type;
 			mobileActionState.isTransitioning = false;
 			if (type === 'impact') {
+				setImpactSpotlightsActive(true);
 				runImpactInlineEnhancements();
 			}
 		});
 		return true;
 	}
 
+	clearImpactModeTimers();
 	setMobileActionToggleState(type);
 	mobileActionState.isTransitioning = true;
 	const timings = getMobileActionTimings();
-	let rollDuration = timings.transition;
-	if (mobileActionState.tabsElement?.classList.contains('has-slider-element')) {
-		const computedDuration = startMobileTabsRoll({ fadeOut: true });
-		if (computedDuration !== undefined) {
-			rollDuration = computedDuration;
-		}
-	}
-	if (mobileActionState.contentWrapper) {
-		mobileActionState.contentWrapper.classList.add('is-fading');
-	}
-
-	window.setTimeout(() => {
-		if (mobileActionState.tabsElement) {
-			mobileActionState.tabsElement.style.display = 'none';
+	const startRollAndFade = () => {
+		let rollDuration = timings.transition;
+		if (mobileActionState.tabsElement?.classList.contains('has-slider-element')) {
+			const computedDuration = startMobileTabsRoll({ fadeOut: true });
+			if (computedDuration !== undefined) {
+				rollDuration = computedDuration;
+			}
 		}
 		if (mobileActionState.contentWrapper) {
-			mobileActionState.contentWrapper.style.display = 'none';
+			mobileActionState.contentWrapper.classList.add('is-fading');
 		}
 
-		const mounted = mountMobileActionNodes(type);
-		if (!mounted) {
+		const finishOpen = () => {
 			if (mobileActionState.tabsElement) {
-				mobileActionState.tabsElement.style.display = '';
+				mobileActionState.tabsElement.style.display = 'none';
 			}
-			setMobileActionToggleState(null);
-			resetMobileTabsRollState();
 			if (mobileActionState.contentWrapper) {
-				mobileActionState.contentWrapper.style.display = '';
-				mobileActionState.contentWrapper.classList.remove('is-fading');
+				mobileActionState.contentWrapper.style.display = 'none';
 			}
-			mobileActionState.isTransitioning = false;
-			return;
-		}
 
-		showMobileActionHosts();
-		mobileActionState.active = true;
-		mobileActionState.currentType = type;
-		mobileActionState.isTransitioning = false;
-		attachMobileActionKeydown();
+			const mounted = mountMobileActionNodes(type);
+			if (!mounted) {
+				if (mobileActionState.tabsElement) {
+					mobileActionState.tabsElement.style.display = '';
+				}
+				setMobileActionToggleState(null);
+				resetMobileTabsRollState();
+				if (mobileActionState.contentWrapper) {
+					mobileActionState.contentWrapper.style.display = '';
+					mobileActionState.contentWrapper.classList.remove('is-fading');
+				}
+				if (type === 'impact') {
+					setImpactSpotlightsActive(false);
+					setImpactModeActive(false);
+				}
+				mobileActionState.isTransitioning = false;
+				return;
+			}
+
+			const finalizeShow = () => {
+				showMobileActionHosts();
+				mobileActionState.active = true;
+				mobileActionState.currentType = type;
+				mobileActionState.isTransitioning = false;
+				attachMobileActionKeydown();
+				if (type === 'impact') {
+					runImpactInlineEnhancements();
+				}
+			};
+
+			if (type === 'impact') {
+				setImpactSpotlightsActive(true);
+				scheduleImpactModeTimer(finalizeShow, timings.spotlightDelay);
+			} else {
+				finalizeShow();
+			}
+		};
+
 		if (type === 'impact') {
-			runImpactInlineEnhancements();
+			scheduleImpactModeTimer(finishOpen, rollDuration);
+		} else {
+			window.setTimeout(finishOpen, rollDuration);
 		}
-	}, rollDuration);
+	};
+
+	if (type === 'impact') {
+		setImpactSpotlightsActive(false);
+		setImpactModeActive(true);
+		if (timings.darkTransition > 0) {
+			scheduleImpactModeTimer(startRollAndFade, timings.darkTransition);
+		} else {
+			startRollAndFade();
+		}
+	} else {
+		setImpactSpotlightsActive(false);
+		setImpactModeActive(false);
+		startRollAndFade();
+	}
 
 	return true;
 }
@@ -709,6 +787,11 @@ function closeMobileAction() {
 		return false;
 	}
 
+	const closingImpact = mobileActionState.currentType === 'impact';
+	if (closingImpact) {
+		clearImpactModeTimers();
+		setImpactSpotlightsActive(false);
+	}
 	mobileActionState.isTransitioning = true;
 	setMobileActionToggleState(null);
 	hideMobileActionHosts(() => {
@@ -722,7 +805,17 @@ function closeMobileAction() {
 		if (mobileActionState.contentWrapper) {
 			mobileActionState.contentWrapper.style.display = '';
 		}
-		startMobileTabsRoll({ direction: 'back' });
+		const rollDuration = startMobileTabsRoll({ direction: 'back' });
+		if (closingImpact) {
+			const clearDelay = typeof rollDuration === 'number' ? rollDuration : getMobileActionTimings().transition;
+			if (clearDelay === 0) {
+				setImpactModeActive(false);
+			} else {
+				scheduleImpactModeTimer(() => {
+					setImpactModeActive(false);
+				}, clearDelay);
+			}
+		}
 
 		requestAnimationFrame(() => {
 			if (mobileActionState.contentWrapper) {
