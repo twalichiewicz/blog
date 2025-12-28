@@ -190,11 +190,13 @@ const mobileActionState = {
 	contentHost: null,
 	tabsWrapper: null,
 	tabsElement: null,
+	tabsBacking: null,
 	contentWrapper: null,
 	impactToggle: null,
 	contactToggle: null,
 	cachedNodes: {},
-	keydownHandler: null
+	keydownHandler: null,
+	rollCleanupTimeout: null
 };
 
 const mobileContactMenuState = {
@@ -247,6 +249,9 @@ function ensureMobileActionElements() {
 	if (!mobileActionState.tabsElement || !document.contains(mobileActionState.tabsElement)) {
 		mobileActionState.tabsElement = document.querySelector('.mobile-tabs');
 	}
+	if (!mobileActionState.tabsBacking || !document.contains(mobileActionState.tabsBacking)) {
+		mobileActionState.tabsBacking = document.querySelector('.mobile-tabs-backing');
+	}
 	if (!mobileActionState.contentWrapper || !document.contains(mobileActionState.contentWrapper)) {
 		mobileActionState.contentWrapper = document.querySelector('.content-wrapper');
 	}
@@ -262,6 +267,42 @@ function ensureMobileActionElements() {
 		mobileActionState.tabsWrapper &&
 		mobileActionState.contentWrapper
 	);
+}
+
+function syncMobileTabsBacking() {
+	const { tabsWrapper, tabsElement, tabsBacking } = mobileActionState;
+	if (!tabsWrapper || !tabsElement || !tabsBacking) return;
+	const tabsRect = tabsElement.getBoundingClientRect();
+	if (!tabsRect.width || !tabsRect.height) return;
+	const wrapperRect = tabsWrapper.getBoundingClientRect();
+	const left = tabsRect.left - wrapperRect.left;
+	const top = tabsRect.top - wrapperRect.top;
+
+	tabsWrapper.style.setProperty('--mobile-tabs-left', `${left}px`);
+	tabsWrapper.style.setProperty('--mobile-tabs-top', `${top}px`);
+	tabsWrapper.style.setProperty('--mobile-tabs-width', `${tabsRect.width}px`);
+	tabsWrapper.style.setProperty('--mobile-tabs-height', `${tabsRect.height}px`);
+}
+
+function startMobileTabsRoll() {
+	if (!mobileActionState.tabsElement?.classList.contains('has-slider-element')) return;
+	syncMobileTabsBacking();
+	if (mobileActionState.tabsWrapper) {
+		mobileActionState.tabsWrapper.classList.add('is-rolling');
+	}
+	if (mobileActionState.rollCleanupTimeout) {
+		clearTimeout(mobileActionState.rollCleanupTimeout);
+		mobileActionState.rollCleanupTimeout = null;
+	}
+	const { transition } = getMobileActionTimings();
+	if (transition === 0) {
+		mobileActionState.tabsWrapper?.classList.remove('is-rolling');
+		return;
+	}
+	mobileActionState.rollCleanupTimeout = window.setTimeout(() => {
+		mobileActionState.tabsWrapper?.classList.remove('is-rolling');
+		mobileActionState.rollCleanupTimeout = null;
+	}, transition);
 }
 
 function ensureMobileContactMenuElements() {
@@ -572,6 +613,7 @@ function openMobileAction(type) {
 	setMobileActionToggleState(type);
 	mobileActionState.isTransitioning = true;
 	if (mobileActionState.tabsElement?.classList.contains('has-slider-element')) {
+		startMobileTabsRoll();
 		mobileActionState.tabsElement.classList.add('is-rolling');
 	}
 	if (mobileActionState.contentWrapper) {
@@ -633,6 +675,7 @@ function closeMobileAction() {
 		if (mobileActionState.contentWrapper) {
 			mobileActionState.contentWrapper.style.display = '';
 		}
+		startMobileTabsRoll();
 
 		requestAnimationFrame(() => {
 			mobileActionState.tabsElement?.classList.remove('is-rolling');
