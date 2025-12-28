@@ -236,8 +236,8 @@
 	}
 
 	body.impact-mode .tabs-wrapper {
-		background: var(--bg-nav);
-		border-bottom-color: var(--border-color);
+		background: linear-gradient(to bottom right, #2c2c2c, #111111);
+		border-bottom-color: variables.$border-color-dark;
 	}
 
 	body.impact-mode .mobile-tabs {
@@ -387,7 +387,7 @@
 		background: radial-gradient(ellipse at bottom, rgba(255, 231, 187, 0.35) 0%, rgba(255, 231, 187, 0.18) 42%, rgba(255, 231, 187, 0.05) 68%, transparent 78%);
 		clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 		filter: blur(0.5px);
-		transform-origin: 50% 100%;
+		transform-origin: 50% 50%;
 		transform: rotate(calc(180deg + var(--spotlight-tilt)));
 		mix-blend-mode: screen;
 		animation: spotlight-flicker 2.8s ease-in-out infinite, spotlight-sway 5.2s ease-in-out infinite;
