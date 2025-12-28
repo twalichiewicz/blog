@@ -1511,7 +1511,12 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 				}
 
 				const activeContainer = getSearchContainer();
-				if (!activeContainer || activeContainer.offsetParent === null) {
+				if (!activeContainer) {
+					return;
+				}
+
+				const containerStyles = window.getComputedStyle(activeContainer);
+				if (containerStyles.display === 'none' || containerStyles.visibility === 'hidden') {
 					return;
 				}
 
