@@ -203,11 +203,27 @@ const mobileContactMenuState = {
 	wrapper: null,
 	profileHeader: null,
 	outsideClickHandler: null,
-	keydownHandler: null
+	keydownHandler: null,
+	scrollHandler: null,
+	openScrollTop: 0,
+	headerHeight: 0
 };
 
 function isMobileActionViewport() {
 	return window.innerWidth <= 768;
+}
+
+function getPageScrollTop() {
+	const scrollElement = document.scrollingElement || document.documentElement;
+	const scrollTop = window.pageYOffset || scrollElement.scrollTop || document.body.scrollTop || 0;
+	return Math.max(0, scrollTop);
+}
+
+function getHeaderHeight() {
+	const header = document.querySelector('.blog-header') || document.querySelector('.profile-header');
+	if (!header) return 0;
+	const rect = header.getBoundingClientRect();
+	return rect.height || 0;
 }
 
 function getMobileActionTimings() {
@@ -282,6 +298,8 @@ function openMobileContactMenu() {
 	mobileContactMenuState.profileHeader.classList.add('is-contact-menu-open');
 	mobileContactMenuState.menu.classList.add('is-open');
 	mobileContactMenuState.menu.setAttribute('aria-hidden', 'false');
+	mobileContactMenuState.openScrollTop = getPageScrollTop();
+	mobileContactMenuState.headerHeight = getHeaderHeight();
 	mobileContactMenuState.menu.querySelectorAll('.mobile-contact-option').forEach((item) => {
 		item.removeAttribute('tabindex');
 	});
@@ -304,6 +322,19 @@ function openMobileContactMenu() {
 			}
 		};
 		document.addEventListener('keydown', mobileContactMenuState.keydownHandler);
+	}
+
+	if (!mobileContactMenuState.scrollHandler) {
+		mobileContactMenuState.scrollHandler = () => {
+			if (!mobileContactMenuState.isOpen) return;
+			const currentScrollTop = getPageScrollTop();
+			const threshold = mobileContactMenuState.headerHeight || getHeaderHeight();
+			if (threshold <= 0) return;
+			if (currentScrollTop - mobileContactMenuState.openScrollTop >= threshold) {
+				closeMobileContactMenu();
+			}
+		};
+		window.addEventListener('scroll', mobileContactMenuState.scrollHandler, { passive: true });
 	}
 
 	return true;
@@ -332,6 +363,12 @@ function closeMobileContactMenu() {
 		document.removeEventListener('keydown', mobileContactMenuState.keydownHandler);
 		mobileContactMenuState.keydownHandler = null;
 	}
+	if (mobileContactMenuState.scrollHandler) {
+		window.removeEventListener('scroll', mobileContactMenuState.scrollHandler);
+		mobileContactMenuState.scrollHandler = null;
+	}
+	mobileContactMenuState.openScrollTop = 0;
+	mobileContactMenuState.headerHeight = 0;
 
 	return true;
 }
