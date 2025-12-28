@@ -236,8 +236,8 @@
 	}
 
 	body.impact-mode .tabs-wrapper {
-		background: linear-gradient(to bottom right, #2c2c2c, #111111);
-		border-bottom-color: variables.$border-color-dark;
+		background: var(--bg-nav);
+		border-bottom-color: var(--border-color);
 	}
 
 	body.impact-mode .mobile-tabs {
@@ -265,6 +265,45 @@
 
 	body.impact-mode .profile-header .location-pill:hover {
 		color: variables.$text-color-dark;
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.btn--default {
+		background: rgba(variables.$card-bg-dark, 0.9);
+		border-color: rgba(variables.$border-color-dark, 0.7);
+		color: variables.$text-color-secondary-dark;
+		box-shadow:
+			0 1px 2px rgb(0 0 0 / 25%),
+			0 -1px 0 rgb(255 255 255 / 6%) inset;
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.btn--default:hover {
+		background: rgba(variables.$card-bg-dark, 0.98);
+		border-color: rgba(variables.$border-color-dark, 0.9);
+		color: variables.$text-color-dark;
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.btn--default:active {
+		background: color.adjust(variables.$card-bg-dark, $lightness: -2%);
+		border-color: rgba(variables.$border-color-dark, 0.95);
+		color: variables.$text-color-dark;
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.is-active {
+		background: variables.$text-color-secondary-dark;
+		border-color: variables.$text-color-secondary-dark;
+		color: variables.$black;
+		box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.is-active:hover {
+		background: color.adjust(variables.$text-color-secondary-dark, $lightness: 6%);
+		border-color: color.adjust(variables.$text-color-secondary-dark, $lightness: 6%);
+		color: variables.$black;
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.is-active:active {
+		background: color.adjust(variables.$text-color-secondary-dark, $lightness: -6%);
+		color: variables.$black;
 	}
 
 	.mobile-tabs.has-slider-element {
@@ -349,7 +388,7 @@
 		clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 		filter: blur(0.5px);
 		transform-origin: 50% 100%;
-		transform: rotate(var(--spotlight-tilt));
+		transform: rotate(calc(180deg + var(--spotlight-tilt)));
 		mix-blend-mode: screen;
 		animation: spotlight-flicker 2.8s ease-in-out infinite, spotlight-sway 5.2s ease-in-out infinite;
 	}
@@ -911,10 +950,10 @@
 	@keyframes spotlight-sway {
 		0%,
 		100% {
-			transform: rotate(calc(var(--spotlight-tilt) - 1deg));
+			transform: rotate(calc(180deg + var(--spotlight-tilt) - 1deg));
 		}
 		50% {
-			transform: rotate(calc(var(--spotlight-tilt) + 2deg));
+			transform: rotate(calc(180deg + var(--spotlight-tilt) + 2deg));
 		}
 	}
 }
