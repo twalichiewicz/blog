@@ -91,15 +91,15 @@
         }
     }
     
-    // Party mode button - gold/yellow gradient style
+    // Party mode button - match default light/dark tones
     &-party-mode {
         height: 24px;
         padding: 0 12px;
         border-radius: 30px;
-        background: linear-gradient(to bottom, hsl(40, 90%, 60%), hsl(40, 90%, 50%));
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
-        border: 1px solid hsl(40, 90%, 45%);
-        color: white;
+        background: transparent;
+        box-shadow: none;
+        border: 1px solid rgba($border-color, 0.6);
+        color: $text-color;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -133,7 +133,7 @@
         }
         
         .party-text {
-            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+            text-shadow: none;
             letter-spacing: 0.02em;
             
             @media (max-width: 768px) {
@@ -142,32 +142,51 @@
         }
         
         &:hover {
-            background: linear-gradient(to bottom, hsl(40, 90%, 62%), hsl(40, 90%, 52%));
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 -1px 0 rgba(0, 0, 0, 0.25) inset;
+            background: rgba($black, 0.05);
+            border-color: rgba($border-color, 0.85);
+            box-shadow: none;
         }
         
-        // Pressed state
         &:active {
-            background: linear-gradient(to bottom, hsl(40, 90%, 58%), hsl(40, 90%, 48%));
-            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5) inset, 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+            background: rgba($black, 0.1);
+            border-color: rgba($border-color, 0.9);
             transform: translateY(1px);
         }
         
-        // Active/playing state - toggle state when music is playing
         &.playing {
-            background: linear-gradient(to bottom, hsl(40, 90%, 55%), hsl(40, 90%, 45%));
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.6) inset, 0 1px 0 rgba(255, 255, 255, 0.15) inset;
+            background: rgba($black, 0.12);
+            border-color: rgba($border-color, 0.95);
             
             &:hover {
-                background: linear-gradient(to bottom, hsl(40, 90%, 57%), hsl(40, 90%, 47%));
-                box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset, 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+                background: rgba($black, 0.14);
             }
             
             &:active {
-                background: linear-gradient(to bottom, hsl(40, 90%, 53%), hsl(40, 90%, 43%));
-                box-shadow: 0 0 4px rgba(0, 0, 0, 0.7) inset, 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+                background: rgba($black, 0.16);
                 transform: translateY(1px);
             }
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        &-party-mode {
+            border-color: rgba($border-color-dark, 0.6);
+            color: $text-color-dark;
+        }
+
+        &-party-mode:hover,
+        &-party-mode:active {
+            background: rgba($white, 0.06);
+            border-color: rgba($border-color-dark, 0.9);
+        }
+
+        &-party-mode.playing {
+            background: rgba($white, 0.12);
+            border-color: rgba($border-color-dark, 0.95);
+        }
+
+        &-party-mode.playing:hover {
+            background: rgba($white, 0.16);
         }
     }
     
