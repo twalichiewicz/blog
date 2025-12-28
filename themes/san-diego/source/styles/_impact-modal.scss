@@ -395,9 +395,6 @@
             opacity: 0.8;
         }
         
-        @media (max-width: 768px) {
-            margin-bottom: 0;
-        }
     }
     
     // Label styling
@@ -411,9 +408,6 @@
         opacity: 0.9;
         line-height: var(--line-height-tight).2;
         
-        @media (max-width: 768px) {
-            margin-bottom: 0;
-        }
     }
     
     // Detail styling
@@ -439,29 +433,6 @@
     
     // Tile-specific colors are now defined in _impact-grid.scss using --accent-color
     
-    // Mobile overrides for all tile sizes
-    @media (max-width: 768px) {
-        &.tile-small,
-        &.tile-medium,
-        &.tile-large {
-            .tile-inner {
-                padding: 9px 10px !important;
-                align-items: flex-start !important;
-                text-align: left !important;
-            }
-            
-            .tile-value {
-                font-size: var(--font-size-2xl) !important;
-                margin-bottom: 0 !important;
-            }
-            
-            .tile-label {
-                font-size: var(--font-size-xs) !important;
-                font-weight: 300 !important;
-                margin-bottom: 0 !important;
-            }
-        }
-    }
 }
 
 // Special tile variations
@@ -482,10 +453,6 @@
         .tile-value {
             font-size: 56px;
             
-            @media (max-width: 768px) {
-                font-size: var(--font-size-2xl);
-                margin-bottom: 0;
-            }
         }
         
         .tile-hover-content {
