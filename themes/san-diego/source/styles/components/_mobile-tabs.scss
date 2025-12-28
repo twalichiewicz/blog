@@ -205,7 +205,7 @@
 
 	.mobile-tabs.has-slider-element.is-rolling {
 		opacity: 1;
-		transform: rotate3d(1, 0, 0, -0.5turn);
+		transform: perspective(900px) rotate3d(1, 0, 0, -0.5turn);
 		z-index: 1;
 	}
 
