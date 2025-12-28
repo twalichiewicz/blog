@@ -1303,7 +1303,6 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 	// Search functionality
 	function handleSearch(e) {
-		markSearchInteraction();
 		const query = e.target.value.toLowerCase();
 		const blogContent = document.querySelector('.blog-content');
 		if (!blogContent) return;
@@ -1364,6 +1363,8 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		if (noResultsMessage) {
 			noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
 		}
+
+		refreshSearchInteractionState(e.target.closest('.search-container'));
 	}
 	
 	// Initialize posts only button
@@ -1440,14 +1441,39 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		}
 	}
 
+	function refreshSearchInteractionState(container) {
+		const activeContainer = container || getSearchContainer();
+		if (!activeContainer) {
+			searchCollapseState.hasInteracted = false;
+			return false;
+		}
+
+		const searchInput = activeContainer.querySelector('#postSearch');
+		const postsOnlyButton = activeContainer.querySelector('.posts-only-button');
+		const hasValue = Boolean(searchInput && searchInput.value.trim());
+		const postsOnlyActive = Boolean(postsOnlyButton && postsOnlyButton.classList.contains('active'));
+		const shouldHoldOpen = hasValue || postsOnlyActive;
+
+		searchCollapseState.hasInteracted = shouldHoldOpen;
+
+		if (shouldHoldOpen && searchCollapseState.isCollapsed) {
+			setSearchContainerCollapsed(activeContainer, false);
+		}
+
+		if (!shouldHoldOpen) {
+			clearSearchCollapseTimeout();
+		}
+
+		return shouldHoldOpen;
+	}
+
 	function markSearchInteraction(event) {
 		if (event?.type === 'focus' && searchCollapseState.ignoreNextFocus) {
 			searchCollapseState.ignoreNextFocus = false;
 			return;
 		}
-		if (searchCollapseState.hasInteracted) return;
-		searchCollapseState.hasInteracted = true;
-		clearSearchCollapseTimeout();
+		const container = event?.currentTarget?.closest('.search-container');
+		refreshSearchInteractionState(container);
 	}
 
 	function clearSearchCollapseTimeout() {
@@ -1493,14 +1519,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 		const searchInput = container.querySelector('#postSearch');
 
 		searchCollapseState.isCollapsed = container.classList.contains('is-collapsed');
-
-		if (searchInput && searchInput.value.trim()) {
-			searchCollapseState.hasInteracted = true;
-		}
-
-		if (searchCollapseState.hasInteracted && searchCollapseState.isCollapsed) {
-			setSearchContainerCollapsed(container, false);
-		}
+		refreshSearchInteractionState(container);
 
 		if (toggleButton) {
 			toggleButton.removeEventListener('click', handleSearchCollapseToggle);
