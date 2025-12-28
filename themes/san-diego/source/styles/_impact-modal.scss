@@ -137,7 +137,8 @@
             letter-spacing: 0.02em;
             
             @media (max-width: 768px) {
-                display: none;
+                display: inline-block;
+                font-size: 9px;
             }
         }
         
