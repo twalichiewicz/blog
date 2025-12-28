@@ -244,7 +244,7 @@
 	}
 
 	.mobile-action-content .impact-modal-sheet,
-	.mobile-action-content .contact-modal-sheet {
+	.mobile-action-content .contact-modal-sheet.contact-modal-sheet {
 		width: 100%;
 		max-width: none;
 		height: auto;
@@ -253,6 +253,9 @@
 		background: transparent;
 		border: none;
 		box-shadow: none;
+		opacity: 1;
+		transform: none;
+		transition: none;
 	}
 
 	.mobile-action-content .impact-modal-sheet {
@@ -345,62 +348,73 @@
 
 	.mobile-action-content .impact-modal-sheet,
 	.mobile-action-content .impact-grid,
-	.mobile-action-content .impact-section,
-	.mobile-action-content .impact-tile {
+	.mobile-action-content .impact-grid .impact-section,
+	.mobile-action-content .impact-grid .impact-tile {
 		color: variables.$text-color;
 	}
 
-	.mobile-action-content .contact-modal-options {
+	.mobile-action-content .contact-modal-options.contact-modal-options {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: 12px;
-		padding: 12px 0 0;
+		padding: 12px 0 24px;
 		margin: 0;
 		opacity: 1;
 		transform: none;
 		max-height: none;
 		justify-items: stretch;
+		align-content: start;
+		justify-content: stretch;
 	}
 
-	.mobile-action-content .contact-modal-options a {
+	.mobile-action-content .contact-modal-options.contact-modal-options a {
 		width: 100%;
 	}
 
-	.mobile-action-content .contact-option {
+	.mobile-action-content .contact-modal-options .contact-option {
 		background: variables.$card-bg;
 		border: 1px solid variables.$border-color;
 		color: variables.$text-color;
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 	}
 
-	.mobile-action-content .contact-option:hover {
+	.mobile-action-content .contact-modal-options .contact-option:hover {
 		background: color.adjust(variables.$card-bg, $lightness: 1%);
 		border-color: color.adjust(variables.$border-color, $lightness: -5%);
 		transform: translateY(-2px);
 		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 	}
 
-	.mobile-action-content .contact-option .contact-icon {
+	.mobile-action-content .contact-modal-options .contact-option .contact-icon {
 		color: variables.$text-color;
 	}
 
-	.mobile-action-content .contact-option:hover .contact-icon {
+	.mobile-action-content .contact-modal-options .contact-option:hover .contact-icon {
 		color: variables.$text-color;
 	}
 
-	.mobile-action-content .contact-option .contact-label,
-	.mobile-action-content .contact-option .contact-sublabel {
+	.mobile-action-content .contact-modal-options .contact-option .contact-label,
+	.mobile-action-content .contact-modal-options .contact-option .contact-sublabel {
 		color: variables.$text-color-secondary;
 	}
 
-	.mobile-action-content .impact-section {
+	.mobile-action-content .impact-grid .impact-section {
 		background: transparent;
 		border-color: variables.$border-color;
 		box-shadow: none;
 	}
 
-	.mobile-action-content .section-label {
-		background: variables.$card-bg;
+	.mobile-action-content .impact-grid .impact-tile {
+		background: transparent;
+		box-shadow: none;
+	}
+
+	.mobile-action-content .impact-grid .tile-inner {
+		background: transparent;
+	}
+
+	.mobile-action-content .impact-grid .section-label {
+		background: transparent;
 		color: variables.$text-color-secondary;
 	}
 
@@ -499,8 +513,8 @@
 
 		.mobile-action-content .impact-modal-sheet,
 		.mobile-action-content .impact-grid,
-		.mobile-action-content .impact-section,
-		.mobile-action-content .impact-tile {
+		.mobile-action-content .impact-grid .impact-section,
+		.mobile-action-content .impact-grid .impact-tile {
 			color: variables.$text-color-dark;
 		}
 
@@ -509,40 +523,49 @@
 			color: variables.$text-color-secondary-dark;
 		}
 
-		.mobile-action-content .contact-option {
+		.mobile-action-content .contact-modal-options .contact-option {
 			background: variables.$card-bg-dark;
 			border-color: variables.$border-color-dark;
 			color: variables.$text-color-dark;
 			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 		}
 
-		.mobile-action-content .contact-option:hover {
+		.mobile-action-content .contact-modal-options .contact-option:hover {
 			background: color.adjust(variables.$card-bg-dark, $lightness: 2%);
 			border-color: color.adjust(variables.$border-color-dark, $lightness: 5%);
 			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 		}
 
-		.mobile-action-content .contact-option .contact-icon {
+		.mobile-action-content .contact-modal-options .contact-option .contact-icon {
 			color: variables.$text-color-dark;
 		}
 
-		.mobile-action-content .contact-option:hover .contact-icon {
+		.mobile-action-content .contact-modal-options .contact-option:hover .contact-icon {
 			color: variables.$text-color-dark;
 		}
 
-		.mobile-action-content .contact-option .contact-label,
-		.mobile-action-content .contact-option .contact-sublabel {
+		.mobile-action-content .contact-modal-options .contact-option .contact-label,
+		.mobile-action-content .contact-modal-options .contact-option .contact-sublabel {
 			color: variables.$text-color-secondary-dark;
 		}
 
-		.mobile-action-content .impact-section {
+		.mobile-action-content .impact-grid .impact-section {
 			background: transparent;
 			border-color: variables.$border-color-dark;
 			box-shadow: none;
 		}
 
-		.mobile-action-content .section-label {
-			background: variables.$card-bg-dark;
+		.mobile-action-content .impact-grid .impact-tile {
+			background: transparent;
+			box-shadow: none;
+		}
+
+		.mobile-action-content .impact-grid .tile-inner {
+			background: transparent;
+		}
+
+		.mobile-action-content .impact-grid .section-label {
+			background: transparent;
 			color: variables.$text-color-secondary-dark;
 		}
 
