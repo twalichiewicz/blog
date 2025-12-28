@@ -1389,8 +1389,6 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 	
 	function handlePostsOnlyClick(event) {
 		// Posts only button clicked
-		markSearchInteraction();
-		
 		// Play the same sound effect as carousel buttons
 		if (window.playSmallClickSound) {
 			window.playSmallClickSound();
@@ -1493,14 +1491,10 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 		const toggleButton = container.querySelector('.search-collapse-toggle');
 		const searchInput = container.querySelector('#postSearch');
-		const postsOnlyButton = container.querySelector('.posts-only-button');
 
 		searchCollapseState.isCollapsed = container.classList.contains('is-collapsed');
 
 		if (searchInput && searchInput.value.trim()) {
-			searchCollapseState.hasInteracted = true;
-		}
-		if (postsOnlyButton && postsOnlyButton.classList.contains('active')) {
 			searchCollapseState.hasInteracted = true;
 		}
 
@@ -1519,10 +1513,6 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 			searchInput.addEventListener('input', markSearchInteraction);
 			searchInput.removeEventListener('click', markSearchInteraction);
 			searchInput.addEventListener('click', markSearchInteraction);
-		}
-		if (postsOnlyButton) {
-			postsOnlyButton.removeEventListener('click', markSearchInteraction);
-			postsOnlyButton.addEventListener('click', markSearchInteraction);
 		}
 
 		if (!searchCollapseState.scrollHandler) {
