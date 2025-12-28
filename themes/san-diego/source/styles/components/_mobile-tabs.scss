@@ -373,29 +373,40 @@
 
 	.mobile-action-content .contact-modal-options .contact-option {
 		background: variables.$card-bg;
-		border: 1px solid variables.$border-color;
-		color: variables.$text-color;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+		border: 1px solid rgb(255 255 255 / 10%);
+		border-radius: 30px;
+		color: variables.$text-color-secondary;
+		box-shadow:
+			0 1px 3px rgb(0 0 0 / 10%),
+			0 1px 2px rgb(0 0 0 / 6%),
+			inset 0 2px 4px rgb(0 0 0 / 10%),
+			inset 0 -1px 2px rgb(255 255 255 / 10%);
 	}
 
 	.mobile-action-content .contact-modal-options .contact-option:hover {
-		background: color.adjust(variables.$card-bg, $lightness: 1%);
-		border-color: color.adjust(variables.$border-color, $lightness: -5%);
-		transform: translateY(-2px);
-		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+		background: variables.$link-color;
+		border-color: color.adjust(variables.$link-color, $lightness: -10%);
+		transform: translateY(-1px);
+		box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
 	}
 
 	.mobile-action-content .contact-modal-options .contact-option .contact-icon {
-		color: variables.$text-color;
+		color: variables.$text-color-secondary;
 	}
 
 	.mobile-action-content .contact-modal-options .contact-option:hover .contact-icon {
-		color: variables.$text-color;
+		color: variables.$white;
 	}
 
 	.mobile-action-content .contact-modal-options .contact-option .contact-label,
 	.mobile-action-content .contact-modal-options .contact-option .contact-sublabel {
 		color: variables.$text-color-secondary;
+	}
+
+	.mobile-action-content .contact-modal-options .contact-option:hover .contact-label,
+	.mobile-action-content .contact-modal-options .contact-option:hover .contact-sublabel {
+		color: variables.$white;
+		text-shadow: 0 1px 0 rgb(0 0 0 / 25%);
 	}
 
 	.mobile-action-content .impact-grid .impact-section {
@@ -525,29 +536,41 @@
 		}
 
 		.mobile-action-content .contact-modal-options .contact-option {
-			background: variables.$card-bg-dark;
+			background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
 			border-color: variables.$border-color-dark;
-			color: variables.$text-color-dark;
-			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+			color: variables.$text-color-secondary-dark;
+			box-shadow:
+				0 1px 2px rgb(0 0 0 / 30%),
+				0 -1px 0 rgb(255 255 255 / 10%) inset,
+				0 2px 0 rgb(0 0 0 / 20%) inset;
 		}
 
 		.mobile-action-content .contact-modal-options .contact-option:hover {
-			background: color.adjust(variables.$card-bg-dark, $lightness: 2%);
-			border-color: color.adjust(variables.$border-color-dark, $lightness: 5%);
-			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+			border-color: color.adjust(variables.$link-color-dark, $lightness: -15%);
+			box-shadow:
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
 		}
 
 		.mobile-action-content .contact-modal-options .contact-option .contact-icon {
-			color: variables.$text-color-dark;
+			color: variables.$text-color-secondary-dark;
 		}
 
 		.mobile-action-content .contact-modal-options .contact-option:hover .contact-icon {
-			color: variables.$text-color-dark;
+			color: variables.$black;
 		}
 
 		.mobile-action-content .contact-modal-options .contact-option .contact-label,
 		.mobile-action-content .contact-modal-options .contact-option .contact-sublabel {
 			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .contact-modal-options .contact-option:hover .contact-label,
+		.mobile-action-content .contact-modal-options .contact-option:hover .contact-sublabel {
+			color: variables.$black;
+			text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
 		}
 
 		.mobile-action-content .impact-grid .impact-section {
