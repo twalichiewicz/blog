@@ -1087,33 +1087,49 @@ function fitTextInTiles() {
     
     tiles.forEach(tile => {
         const tileInner = tile.querySelector('.tile-inner');
-        const containerElement = isMobile && tile.querySelector('.tile-mobile-content') ? 
-                               tile.querySelector('.tile-mobile-content') : tileInner;
+        const mobileContent = tile.querySelector('.tile-mobile-content');
+        const useMobileContainer = Boolean(
+            isMobile &&
+            mobileContent &&
+            window.getComputedStyle(mobileContent).display !== 'contents' &&
+            mobileContent.getBoundingClientRect().width > 0 &&
+            mobileContent.getBoundingClientRect().height > 0
+        );
+        const containerElement = useMobileContainer ? mobileContent : tileInner;
+        const valueRatio = useMobileContainer ? 0.5 : 0.6;
+        const labelRatio = useMobileContainer ? 0.4 : 0.25;
         
         // Fit tile values
         const tileValue = tile.querySelector('.tile-value');
         if (tileValue && window.getComputedStyle(tileValue).display !== 'none') {
-            const heightRatio = isMobile ? 0.5 : 0.6;
-            fitTextToContainer(tileValue, containerElement || tile, heightRatio);
+            fitTextToContainer(tileValue, containerElement || tile, valueRatio, {
+                isMobile,
+                compact: useMobileContainer
+            });
         }
         
         // Fit tile labels
         const tileLabel = tile.querySelector('.tile-label');
         if (tileLabel && window.getComputedStyle(tileLabel).display !== 'none') {
-            const heightRatio = isMobile ? 0.4 : 0.25;
-            fitTextToContainer(tileLabel, containerElement || tile, heightRatio);
+            fitTextToContainer(tileLabel, containerElement || tile, labelRatio, {
+                isMobile,
+                compact: useMobileContainer
+            });
         }
     
         // Special handling for chart numbers
         const chartNumber = tile.querySelector('.chart-number');
         if (chartNumber) {
-            fitTextToContainer(chartNumber, tile.querySelector('.chart-container'), 0.5);
+            fitTextToContainer(chartNumber, tile.querySelector('.chart-container'), 0.5, {
+                isMobile
+            });
         }
     });
 }
 
-function fitTextToContainer(textElement, container, heightRatio = 0.8) {
+function fitTextToContainer(textElement, container, heightRatio = 0.8, options = {}) {
     if (!textElement || !container) return;
+    const { isMobile = false, compact = false } = options;
     
     // Get container dimensions
     const containerRect = container.getBoundingClientRect();
@@ -1153,8 +1169,8 @@ function fitTextToContainer(textElement, container, heightRatio = 0.8) {
     // Apply optimal size with slight reduction for safety
     textElement.style.fontSize = (optimal * 0.95) + 'px';
     
-    // For mobile, ensure appropriate sizes
-    if (window.innerWidth <= 768) {
+    // For compact mobile tiles, keep text readable without overfilling
+    if (isMobile && compact) {
         const currentSize = parseFloat(textElement.style.fontSize);
         if (textElement.classList.contains('tile-value')) {
             // Cap mobile value font size at 14px
