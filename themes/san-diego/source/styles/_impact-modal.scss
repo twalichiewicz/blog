@@ -385,7 +385,7 @@
     .tile-label {
         font-size: var(--font-size-base);
         font-weight: var(--font-weight-semibold);
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--text-secondary, #{$text-color-secondary});
         margin-bottom: 2px;
         letter-spacing: 0.01em;
         text-transform: uppercase;
