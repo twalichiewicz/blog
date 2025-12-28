@@ -139,6 +139,24 @@
 			}
 		}
 	}
+
+	.search-collapse-toggle {
+		@include button.reusable-button;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		width: 36px;
+		height: 36px;
+		border-radius: 999px;
+		line-height: 1;
+
+		svg {
+			width: 16px;
+			height: 16px;
+			stroke: currentColor;
+		}
+	}
 	
 	.posts-only-button {
 		@include button.reusable-button-bordered;
@@ -237,6 +255,24 @@
 		
 		.search-clear {
 			right: 18px;
+		}
+
+		&.is-collapsed {
+			width: auto;
+			padding: 0;
+			gap: 0;
+			background: transparent;
+			border: none;
+			box-shadow: none;
+		}
+
+		&.is-collapsed .search-input-wrapper,
+		&.is-collapsed .posts-only-button {
+			display: none;
+		}
+
+		&.is-collapsed .search-collapse-toggle {
+			display: inline-flex;
 		}
 	}
 }

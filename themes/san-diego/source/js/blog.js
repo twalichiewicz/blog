@@ -191,6 +191,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Device detection (usually needed only once)
 	const isMobile = window.innerWidth <= 768;
 	const isDesktop = document.body.classList.contains('device-desktop');
+	const searchCollapseState = {
+		hasInteracted: false,
+		isCollapsed: false,
+		lastScrollTop: 0,
+		scrollHandler: null
+	};
 
 	// Global scroll function available for both standalone and dynamic contexts
 	function scrollToFullStory() {
@@ -392,6 +398,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			initializeProjectToggle();
 			initializePostsOnlyButton();
+			initializeSearchCollapse();
 
 			if (window.innerWidth <= 768) {
 				const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
@@ -1293,6 +1300,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 
 	// Search functionality
 	function handleSearch(e) {
+		markSearchInteraction();
 		const query = e.target.value.toLowerCase();
 		const blogContent = document.querySelector('.blog-content');
 		if (!blogContent) return;
@@ -1378,6 +1386,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 	
 	function handlePostsOnlyClick(event) {
 		// Posts only button clicked
+		markSearchInteraction();
 		
 		// Play the same sound effect as carousel buttons
 		if (window.playSmallClickSound) {
@@ -1402,6 +1411,115 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 			if (searchContainer.classList.contains('active') && searchInput) {
 				searchInput.focus();
 			}
+		}
+	}
+
+	function isMobileSearchViewport() {
+		return window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+	}
+
+	function getSearchScrollTop() {
+		const scrollElement = document.scrollingElement || document.documentElement;
+		return Math.max(0, window.pageYOffset || scrollElement.scrollTop || 0);
+	}
+
+	function getSearchContainer() {
+		return document.querySelector('.search-container');
+	}
+
+	function setSearchContainerCollapsed(container, shouldCollapse) {
+		if (!container) return;
+		container.classList.toggle('is-collapsed', shouldCollapse);
+		searchCollapseState.isCollapsed = shouldCollapse;
+
+		const toggleButton = container.querySelector('.search-collapse-toggle');
+		if (toggleButton) {
+			toggleButton.setAttribute('aria-expanded', shouldCollapse ? 'false' : 'true');
+		}
+	}
+
+	function markSearchInteraction() {
+		searchCollapseState.hasInteracted = true;
+	}
+
+	function handleSearchCollapseToggle(event) {
+		const container = event.currentTarget?.closest('.search-container') || getSearchContainer();
+		if (!container) return;
+		setSearchContainerCollapsed(container, false);
+		markSearchInteraction();
+		const searchInput = container.querySelector('#postSearch');
+		if (searchInput) {
+			setTimeout(() => searchInput.focus(), 0);
+		}
+	}
+
+	function initializeSearchCollapse() {
+		const container = getSearchContainer();
+		if (!container) return;
+
+		const toggleButton = container.querySelector('.search-collapse-toggle');
+		const searchInput = container.querySelector('#postSearch');
+		const postsOnlyButton = container.querySelector('.posts-only-button');
+
+		searchCollapseState.isCollapsed = container.classList.contains('is-collapsed');
+
+		if (searchInput && searchInput.value.trim()) {
+			searchCollapseState.hasInteracted = true;
+		}
+		if (postsOnlyButton && postsOnlyButton.classList.contains('active')) {
+			searchCollapseState.hasInteracted = true;
+		}
+
+		if (searchCollapseState.hasInteracted && searchCollapseState.isCollapsed) {
+			setSearchContainerCollapsed(container, false);
+		}
+
+		if (toggleButton) {
+			toggleButton.removeEventListener('click', handleSearchCollapseToggle);
+			toggleButton.addEventListener('click', handleSearchCollapseToggle);
+		}
+		if (searchInput) {
+			searchInput.removeEventListener('focus', markSearchInteraction);
+			searchInput.addEventListener('focus', markSearchInteraction);
+			searchInput.removeEventListener('input', markSearchInteraction);
+			searchInput.addEventListener('input', markSearchInteraction);
+			searchInput.removeEventListener('click', markSearchInteraction);
+			searchInput.addEventListener('click', markSearchInteraction);
+		}
+		if (postsOnlyButton) {
+			postsOnlyButton.removeEventListener('click', markSearchInteraction);
+			postsOnlyButton.addEventListener('click', markSearchInteraction);
+		}
+
+		if (!searchCollapseState.scrollHandler) {
+			searchCollapseState.lastScrollTop = getSearchScrollTop();
+			searchCollapseState.scrollHandler = () => {
+				const currentScrollTop = getSearchScrollTop();
+				const lastScrollTop = searchCollapseState.lastScrollTop;
+				searchCollapseState.lastScrollTop = currentScrollTop;
+
+				if (!isMobileSearchViewport()) {
+					const activeContainer = getSearchContainer();
+					if (activeContainer && searchCollapseState.isCollapsed) {
+						setSearchContainerCollapsed(activeContainer, false);
+					}
+					return;
+				}
+
+				if (searchCollapseState.hasInteracted || searchCollapseState.isCollapsed) {
+					return;
+				}
+
+				const activeContainer = getSearchContainer();
+				if (!activeContainer || activeContainer.offsetParent === null) {
+					return;
+				}
+
+				if (currentScrollTop > lastScrollTop + 4 && currentScrollTop > 0) {
+					setSearchContainerCollapsed(activeContainer, true);
+				}
+			};
+			window.addEventListener('scroll', searchCollapseState.scrollHandler, { passive: true });
 		}
 	}
 
@@ -1541,6 +1659,7 @@ async function fetchAndDisplayContent(url, isPushState = true, isProject = false
 	initializeMobileTabs();
 	initializeProjectToggle();
 	initializePostsOnlyButton();
+	initializeSearchCollapse();
 	// Anchor links are now handled by anchor-links-simple.js
 	
 	// Initialize search clear button on page load
