@@ -343,15 +343,17 @@
         filter: blur(20px);
     }
     
-    &:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3),
-                    0 0 30px -5px var(--accent-color);
-        
-        &::before {
-            opacity: 0.3;
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3),
+                        0 0 30px -5px var(--accent-color);
+            
+            &::before {
+                opacity: 0.3;
+            }
         }
     }
     
@@ -472,9 +474,11 @@
             }
         }
         
-        &:hover .tile-hover-content {
-            opacity: 1;
-            transform: translateY(0);
+        @media (hover: hover) and (pointer: fine) {
+            &:hover .tile-hover-content {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     }
     
