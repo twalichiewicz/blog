@@ -197,6 +197,15 @@ const mobileActionState = {
 	keydownHandler: null
 };
 
+const mobileContactMenuState = {
+	isOpen: false,
+	menu: null,
+	wrapper: null,
+	profileHeader: null,
+	outsideClickHandler: null,
+	keydownHandler: null
+};
+
 function isMobileActionViewport() {
 	return window.innerWidth <= 768;
 }
@@ -237,6 +246,101 @@ function ensureMobileActionElements() {
 		mobileActionState.tabsWrapper &&
 		mobileActionState.contentWrapper
 	);
+}
+
+function ensureMobileContactMenuElements() {
+	if (!mobileContactMenuState.menu || !document.contains(mobileContactMenuState.menu)) {
+		mobileContactMenuState.menu = document.querySelector('.mobile-contact-menu');
+	}
+	if (!mobileContactMenuState.wrapper || !document.contains(mobileContactMenuState.wrapper)) {
+		mobileContactMenuState.wrapper = document.querySelector('.mobile-contact-menu-wrapper');
+	}
+	if (!mobileContactMenuState.profileHeader || !document.contains(mobileContactMenuState.profileHeader)) {
+		mobileContactMenuState.profileHeader = document.querySelector('.profile-header');
+	}
+	if (!mobileActionState.contactToggle || !document.contains(mobileActionState.contactToggle)) {
+		mobileActionState.contactToggle = document.querySelector('.mobile-contact-button');
+	}
+	if (!mobileActionState.impactToggle || !document.contains(mobileActionState.impactToggle)) {
+		mobileActionState.impactToggle = document.querySelector('.mobile-impact-button');
+	}
+
+	return Boolean(mobileContactMenuState.menu && mobileContactMenuState.wrapper && mobileContactMenuState.profileHeader);
+}
+
+function setContactMenuExpanded(isExpanded) {
+	if (!mobileActionState.contactToggle) return;
+	mobileActionState.contactToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+}
+
+function openMobileContactMenu() {
+	if (!isMobileActionViewport()) return false;
+	if (!ensureMobileContactMenuElements()) return false;
+	if (mobileContactMenuState.isOpen) return true;
+
+	mobileContactMenuState.isOpen = true;
+	mobileContactMenuState.profileHeader.classList.add('is-contact-menu-open');
+	mobileContactMenuState.menu.classList.add('is-open');
+	mobileContactMenuState.menu.setAttribute('aria-hidden', 'false');
+	mobileContactMenuState.menu.querySelectorAll('.mobile-contact-option').forEach((item) => {
+		item.removeAttribute('tabindex');
+	});
+	setMobileActionToggleState('contact');
+	setContactMenuExpanded(true);
+
+	if (!mobileContactMenuState.outsideClickHandler) {
+		mobileContactMenuState.outsideClickHandler = (event) => {
+			if (!mobileContactMenuState.isOpen) return;
+			if (mobileContactMenuState.wrapper?.contains(event.target)) return;
+			closeMobileContactMenu();
+		};
+		document.addEventListener('click', mobileContactMenuState.outsideClickHandler);
+	}
+
+	if (!mobileContactMenuState.keydownHandler) {
+		mobileContactMenuState.keydownHandler = (event) => {
+			if (event.key === 'Escape') {
+				closeMobileContactMenu();
+			}
+		};
+		document.addEventListener('keydown', mobileContactMenuState.keydownHandler);
+	}
+
+	return true;
+}
+
+function closeMobileContactMenu() {
+	if (!mobileContactMenuState.isOpen) return false;
+
+	mobileContactMenuState.isOpen = false;
+	mobileContactMenuState.profileHeader?.classList.remove('is-contact-menu-open');
+	mobileContactMenuState.menu?.classList.remove('is-open');
+	mobileContactMenuState.menu?.setAttribute('aria-hidden', 'true');
+	mobileContactMenuState.menu?.querySelectorAll('.mobile-contact-option').forEach((item) => {
+		item.setAttribute('tabindex', '-1');
+	});
+	setContactMenuExpanded(false);
+
+	const restoreType = mobileActionState.active ? mobileActionState.currentType : null;
+	setMobileActionToggleState(restoreType);
+
+	if (mobileContactMenuState.outsideClickHandler) {
+		document.removeEventListener('click', mobileContactMenuState.outsideClickHandler);
+		mobileContactMenuState.outsideClickHandler = null;
+	}
+	if (mobileContactMenuState.keydownHandler) {
+		document.removeEventListener('keydown', mobileContactMenuState.keydownHandler);
+		mobileContactMenuState.keydownHandler = null;
+	}
+
+	return true;
+}
+
+function toggleMobileContactMenu() {
+	if (mobileContactMenuState.isOpen) {
+		return closeMobileContactMenu();
+	}
+	return openMobileContactMenu();
 }
 
 function getModalNodes(type) {
@@ -393,6 +497,9 @@ function setMobileActionToggleState(activeType) {
 function openMobileAction(type) {
 	if (!isMobileActionViewport()) return false;
 	if (!ensureMobileActionElements()) return false;
+	if (mobileContactMenuState.isOpen) {
+		closeMobileContactMenu();
+	}
 
 	if (mobileActionState.isTransitioning) {
 		return true;
@@ -509,6 +616,10 @@ function openImpactModal(event) {
     if (event) {
         event.stopPropagation();
     }
+
+	if (mobileContactMenuState.isOpen) {
+		closeMobileContactMenu();
+	}
     
     // Play toggle sound when opening impact report
     if (window.playToggleSound) {
@@ -849,14 +960,23 @@ function openContactModal(event) {
     if (event) {
         event.stopPropagation();
     }
-    
+
+	if (isMobileActionViewport()) {
+		const wasOpen = mobileContactMenuState.isOpen;
+		const toggled = toggleMobileContactMenu();
+		if (toggled) {
+			if (wasOpen && window.playSmallClickSound) {
+				window.playSmallClickSound();
+			} else if (!wasOpen && window.playToggleSound) {
+				window.playToggleSound();
+			}
+			return;
+		}
+	}
+
     // Play toggle sound when opening contact modal (mobile "Get in touch")
     if (window.playToggleSound) {
         window.playToggleSound();
-    }
-    
-    if (openMobileAction('contact')) {
-        return;
     }
 
     const modal = document.getElementById('contact-modal');
@@ -879,6 +999,11 @@ function closeContactModal() {
     if (window.playSmallClickSound) {
         window.playSmallClickSound();
     }
+
+	if (isMobileActionViewport() && mobileContactMenuState.isOpen) {
+		closeMobileContactMenu();
+		return;
+	}
 
     if (closeMobileAction()) {
         return;

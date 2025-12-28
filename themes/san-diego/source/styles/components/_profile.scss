@@ -432,12 +432,58 @@
 				max-width: 100%;
 				min-width: 0;
 				flex-wrap: nowrap;
+				position: relative;
+				overflow: visible;
+			}
+
+			.mobile-contact-menu-wrapper {
+				position: relative;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.mobile-contact-menu {
+				position: absolute;
+				right: calc(100% + 6px);
+				top: 50%;
+				transform: translateY(-50%);
+				display: flex;
+				gap: 6px;
+				align-items: center;
+				pointer-events: none;
+				opacity: 0;
+				z-index: 3;
+			}
+
+			.mobile-contact-option {
+				opacity: 0;
+				transform: translateX(10px) scale(0.92);
+				transition: opacity 220ms ease, transform 240ms ease;
+				transition-delay: calc(var(--contact-menu-delay, 0) * 1ms);
+			}
+
+			.mobile-contact-menu .mobile-contact-option:nth-child(1) {
+				--contact-menu-delay: 120;
+			}
+
+			.mobile-contact-menu .mobile-contact-option:nth-child(2) {
+				--contact-menu-delay: 80;
+			}
+
+			.mobile-contact-menu .mobile-contact-option:nth-child(3) {
+				--contact-menu-delay: 40;
+			}
+
+			.mobile-contact-menu .mobile-contact-option:nth-child(4) {
+				--contact-menu-delay: 0;
 			}
 			
 			.mobile-compact-info {
 				display: flex;
 				gap: 12px;
 				align-items: center;
+				transition: opacity 220ms ease, filter 220ms ease;
 			}
 			
 				.mobile-profile-photo {
@@ -519,6 +565,27 @@
 					margin: 0;
 				}
 
+				.mobile-contact-option.btn--default {
+					@include button.reusable-button-bordered;
+				}
+
+				.mobile-contact-option.btn--icon-only {
+					padding: 0 !important;
+					width: 36px !important;
+					min-width: 36px !important;
+					height: 36px !important;
+					border-radius: 999px !important;
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+				}
+
+				.mobile-contact-option .btn__icon {
+					width: 20px;
+					height: 20px;
+					margin: 0;
+				}
+
 				.mobile-action-toggle {
 					position: relative;
 					isolation: isolate;
@@ -590,6 +657,28 @@
 				}
 			}
 			
+		}
+
+		&.is-contact-menu-open {
+			.mobile-contact-menu {
+				opacity: 1;
+				pointer-events: auto;
+			}
+
+			.mobile-contact-option {
+				opacity: 1;
+				transform: translateX(0) scale(1);
+			}
+
+			.mobile-compact-info {
+				opacity: 0.4;
+				filter: blur(2px) brightness(0.85);
+			}
+
+			.mobile-impact-button {
+				opacity: 0.35;
+				filter: blur(2px) brightness(0.85);
+			}
 		}
 		
 		.mobile-impact-button,

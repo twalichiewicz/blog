@@ -65,22 +65,44 @@
                     },
                     dataComponent: false // Don't auto-initialize since we have onclick
                 }) %>
-                <!-- Mobile contact button -->
-                <%- include('../../source/components/core/button/button', {
-                    icon: mobileContactStackIcon,
-                    iconOnly: true,
-                    ariaLabel: 'Contact Thomas',
-                    ariaPressed: false,
-                    variant: 'default',
-                    size: 'md',
-                    className: 'mobile-contact-button mobile-action-toggle',
-                    attributes: {
-                        onclick: 'openContactModal()',
-                        'data-label-default': 'Contact Thomas',
-                        'data-label-active': 'Close contact'
-                    },
-                    dataComponent: false // Don't auto-initialize since we have onclick
-                }) %>
+                <div class="mobile-contact-menu-wrapper">
+                    <% if (contactLinks.length) { %>
+                        <div class="mobile-contact-menu" aria-hidden="true">
+                            <% contactLinks.forEach((link) => {
+                                const isExternal = Boolean(link.external);
+                            %>
+                                <a
+                                    class="btn btn--default btn--md btn--icon-only btn--ripple mobile-contact-option"
+                                    href="<%= link.href %>"
+                                    aria-label="<%= link.aria_label || link.label %>"
+                                    tabindex="-1"
+                                    <% if (isExternal) { %>target="_blank" rel="noopener"<% } %>
+                                >
+                                    <span class="btn__icon" aria-hidden="true">
+                                        <%- include('_partial/contact-icon', { icon: link.id, size: 20 }) %>
+                                    </span>
+                                </a>
+                            <% }) %>
+                        </div>
+                    <% } %>
+                    <!-- Mobile contact button -->
+                    <%- include('../../source/components/core/button/button', {
+                        icon: mobileContactStackIcon,
+                        iconOnly: true,
+                        ariaLabel: 'Contact Thomas',
+                        ariaPressed: false,
+                        ariaExpanded: false,
+                        variant: 'default',
+                        size: 'md',
+                        className: 'mobile-contact-button mobile-action-toggle',
+                        attributes: {
+                            onclick: 'openContactModal(event)',
+                            'data-label-default': 'Contact Thomas',
+                            'data-label-active': 'Close contact'
+                        },
+                        dataComponent: false // Don't auto-initialize since we have onclick
+                    }) %>
+                </div>
             </div>
         </div>
         <!-- Desktop/tablet content (always visible) -->
