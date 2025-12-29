@@ -32,10 +32,6 @@ body.dark-mode-forced .blog {
 	--bg-color: rgb(20 20 20 / 70%);
 }
 
-body.dark-mode-forced .blog,
-body.dark-mode-forced .blog-header {
-	background-color: #{variables.$nav-bg-dark};
-}
 
 /* Base theme mode transitions */
 .blog {
