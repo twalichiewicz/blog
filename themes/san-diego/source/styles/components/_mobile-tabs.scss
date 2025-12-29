@@ -430,6 +430,20 @@ body.dark-mode-forced .mobile-tabs-backing {
 		opacity: 0;
 	}
 
+	.impact-inline-wrapper {
+		display: none;
+		width: 100%;
+		padding: 0 0 18px;
+	}
+
+	body.impact-inline-active .blog .blog-content > .content-inner-wrapper {
+		display: none;
+	}
+
+	body.impact-inline-active .impact-inline-wrapper {
+		display: block;
+	}
+
 	.mobile-action-header,
 	.mobile-action-content {
 		display: none;

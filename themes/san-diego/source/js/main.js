@@ -210,6 +210,11 @@ const mobileActionState = {
 	isTransitioning: false,
 	headerHost: null,
 	contentHost: null,
+	impactInlineWrapper: null,
+	impactInlineHeaderPlaceholder: null,
+	impactInlineContentPlaceholder: null,
+	blogContent: null,
+	contentInnerWrapper: null,
 	tabsWrapper: null,
 	tabsElement: null,
 	tabsBacking: null,
@@ -284,12 +289,23 @@ function setImpactModeActive(isActive) {
 	document.body.classList.toggle('dark-mode-forced', isActive);
 }
 
+function setImpactInlineActive(isActive) {
+	if (!document.body) return;
+	document.body.classList.toggle('impact-inline-active', isActive);
+}
+
 function setImpactSpotlightsActive(isActive) {
 	if (!document.body) return;
 	document.body.classList.toggle('impact-spotlights-active', isActive);
 }
 
 function ensureMobileActionElements() {
+	if (!mobileActionState.blogContent || !document.contains(mobileActionState.blogContent)) {
+		mobileActionState.blogContent = document.querySelector('.blog-content');
+	}
+	if (!mobileActionState.contentInnerWrapper || !document.contains(mobileActionState.contentInnerWrapper)) {
+		mobileActionState.contentInnerWrapper = document.querySelector('.content-inner-wrapper');
+	}
 	if (!mobileActionState.headerHost || !document.contains(mobileActionState.headerHost)) {
 		mobileActionState.headerHost = document.querySelector('.mobile-action-header');
 	}
@@ -320,6 +336,83 @@ function ensureMobileActionElements() {
 		mobileActionState.tabsWrapper &&
 		mobileActionState.contentWrapper
 	);
+}
+
+function ensureImpactInlineWrapper() {
+	const blogContent = mobileActionState.blogContent;
+	if (!blogContent) return null;
+
+	if (!mobileActionState.impactInlineWrapper || !document.contains(mobileActionState.impactInlineWrapper)) {
+		const wrapper = document.createElement('div');
+		wrapper.className = 'impact-inline-wrapper';
+		wrapper.setAttribute('aria-hidden', 'true');
+
+		if (mobileActionState.contentInnerWrapper && mobileActionState.contentInnerWrapper.parentElement === blogContent) {
+			blogContent.insertBefore(wrapper, mobileActionState.contentInnerWrapper);
+		} else {
+			blogContent.insertBefore(wrapper, blogContent.firstChild);
+		}
+		mobileActionState.impactInlineWrapper = wrapper;
+	}
+
+	return mobileActionState.impactInlineWrapper;
+}
+
+function promoteImpactInlineHosts() {
+	const wrapper = ensureImpactInlineWrapper();
+	if (!wrapper) return false;
+
+	const { headerHost, contentHost } = mobileActionState;
+	if (!headerHost || !contentHost) return false;
+
+	if (!mobileActionState.impactInlineHeaderPlaceholder || !document.contains(mobileActionState.impactInlineHeaderPlaceholder)) {
+		const placeholder = document.createElement('div');
+		placeholder.style.display = 'none';
+		placeholder.dataset.placeholder = 'mobile-action-header';
+		headerHost.parentElement?.insertBefore(placeholder, headerHost);
+		mobileActionState.impactInlineHeaderPlaceholder = placeholder;
+	}
+
+	if (!mobileActionState.impactInlineContentPlaceholder || !document.contains(mobileActionState.impactInlineContentPlaceholder)) {
+		const placeholder = document.createElement('div');
+		placeholder.style.display = 'none';
+		placeholder.dataset.placeholder = 'mobile-action-content';
+		contentHost.parentElement?.insertBefore(placeholder, contentHost);
+		mobileActionState.impactInlineContentPlaceholder = placeholder;
+	}
+
+	if (headerHost.parentElement !== wrapper) {
+		wrapper.appendChild(headerHost);
+	}
+	if (contentHost.parentElement !== wrapper) {
+		wrapper.appendChild(contentHost);
+	}
+
+	wrapper.setAttribute('aria-hidden', 'false');
+	return true;
+}
+
+function restoreImpactInlineHosts() {
+	const wrapper = mobileActionState.impactInlineWrapper;
+	if (wrapper) {
+		wrapper.setAttribute('aria-hidden', 'true');
+	}
+
+	const { headerHost, contentHost } = mobileActionState;
+
+	const headerPlaceholder = mobileActionState.impactInlineHeaderPlaceholder;
+	if (headerHost && headerPlaceholder?.parentElement) {
+		headerPlaceholder.parentElement.insertBefore(headerHost, headerPlaceholder);
+		headerPlaceholder.remove();
+	}
+	mobileActionState.impactInlineHeaderPlaceholder = null;
+
+	const contentPlaceholder = mobileActionState.impactInlineContentPlaceholder;
+	if (contentHost && contentPlaceholder?.parentElement) {
+		contentPlaceholder.parentElement.insertBefore(contentHost, contentPlaceholder);
+		contentPlaceholder.remove();
+	}
+	mobileActionState.impactInlineContentPlaceholder = null;
 }
 
 function syncMobileTabsBacking() {
@@ -693,10 +786,14 @@ function openMobileAction(type) {
 			clearImpactModeTimers();
 			setImpactSpotlightsActive(false);
 			setImpactModeActive(true);
+			promoteImpactInlineHosts();
+			setImpactInlineActive(true);
 		} else if (previousType === 'impact') {
 			stopImpactCharacter();
 			clearImpactModeTimers();
 			setImpactSpotlightsActive(false);
+			setImpactInlineActive(false);
+			restoreImpactInlineHosts();
 			setImpactModeActive(false);
 		}
 		hideMobileActionHosts(() => {
@@ -746,6 +843,11 @@ function openMobileAction(type) {
 				mobileActionState.contentWrapper.style.display = 'none';
 			}
 
+			if (type === 'impact') {
+				promoteImpactInlineHosts();
+				setImpactInlineActive(true);
+			}
+
 			const mounted = mountMobileActionNodes(type);
 			if (!mounted) {
 				if (mobileActionState.tabsElement) {
@@ -759,6 +861,8 @@ function openMobileAction(type) {
 				}
 				if (type === 'impact') {
 					setImpactSpotlightsActive(false);
+					setImpactInlineActive(false);
+					restoreImpactInlineHosts();
 					setImpactModeActive(false);
 				}
 				mobileActionState.isTransitioning = false;
@@ -801,6 +905,8 @@ function openMobileAction(type) {
 		}
 	} else {
 		setImpactSpotlightsActive(false);
+		setImpactInlineActive(false);
+		restoreImpactInlineHosts();
 		setImpactModeActive(false);
 		startRollAndFade();
 	}
@@ -822,6 +928,10 @@ function closeMobileAction() {
 	mobileActionState.isTransitioning = true;
 	setMobileActionToggleState(null);
 	hideMobileActionHosts(() => {
+		if (closingImpact) {
+			setImpactInlineActive(false);
+			restoreImpactInlineHosts();
+		}
 		restoreMobileActionNodes(mobileActionState.currentType);
 		mobileActionState.currentType = null;
 		mobileActionState.active = false;
