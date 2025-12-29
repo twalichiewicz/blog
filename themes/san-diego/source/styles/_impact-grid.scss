@@ -248,8 +248,12 @@
     color: var(--accent-color);
     margin-bottom: 4px;
     display: flex;
+    flex-wrap: nowrap;
     align-items: baseline;
     justify-content: center;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: keep-all;
     font-family: 'SF Pro Display', var(--font-sans);
     letter-spacing: -0.02em;
     // Photorealistic neon glass tube effect
@@ -295,6 +299,7 @@
         color: var(--accent-color);
         font-weight: var(--font-weight-semibold);
         opacity: 0.8;
+        white-space: nowrap;
     }
     
 }
@@ -308,7 +313,7 @@
     letter-spacing: 0.01em;
     text-transform: uppercase;
     opacity: 0.9;
-    line-height: var(--line-height-tight).2;
+    line-height: var(--line-height-tight);
     
     // Smaller in small tiles
     .tile-small & {
