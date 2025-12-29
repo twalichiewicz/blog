@@ -231,13 +231,17 @@
 }
 
 .tile-icon {
-    margin-bottom: clamp(6px, 1vw, 12px);
+    margin: clamp(10px, 1.2vw, 14px) 0 clamp(8px, 1vw, 12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--accent-color);
+    opacity: 0.85;
     filter: drop-shadow(0 0 6px var(--accent-color));
     
     svg {
-        width: clamp(24px, 4vw, 32px);
-        height: clamp(24px, 4vw, 32px);
+        width: clamp(22px, 4vw, 30px);
+        height: clamp(22px, 4vw, 30px);
     }
     
 }
