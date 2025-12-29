@@ -35,12 +35,18 @@
                                 <div class="tile-label">ARR Impacted</div>
                             </div>
                         </div>
-                        <div class="tile-viz viz-funnel" aria-hidden="true">
-                            <svg viewBox="0 0 120 44" role="presentation" focusable="false" preserveAspectRatio="none">
-                                <path class="viz-funnel-step" d="M10 2H110L92 14H28L10 2Z" />
-                                <path class="viz-funnel-step" d="M28 17H92L80 29H40L28 17Z" />
-                                <path class="viz-funnel-step" d="M40 32H80L70 42H50L40 32Z" />
-                            </svg>
+                        <div class="tile-viz viz-segments" aria-hidden="true">
+                            <div class="viz-segmented-bar">
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment"></span>
+                            </div>
+                            <div class="viz-axis">
+                                <span>$0</span>
+                                <span>$50M</span>
+                            </div>
                         </div>
                         <div class="tile-detail">Cash‑sweep flows: +18–35% conversion</div>
                     </div>
@@ -57,11 +63,15 @@
                                 <div class="tile-label">Cost Savings Delivered</div>
                             </div>
                         </div>
-                        <div class="tile-viz viz-range" aria-hidden="true" style="--viz-start: 42%; --viz-end: 78%;">
+                        <div class="tile-viz viz-range" aria-hidden="true" style="--viz-start: 60%; --viz-end: 100%; --viz-ticks: 5;">
                             <div class="viz-track">
                                 <span class="viz-band"></span>
                                 <span class="viz-dot viz-dot-start"></span>
                                 <span class="viz-dot viz-dot-end"></span>
+                            </div>
+                            <div class="viz-axis">
+                                <span>$0</span>
+                                <span>$5M/yr</span>
                             </div>
                         </div>
                         <div class="tile-detail">Annual savings in development costs</div>
@@ -79,11 +89,15 @@
                                 <div class="tile-label">Conversion Lift</div>
                             </div>
                         </div>
-                        <div class="tile-viz viz-range" aria-hidden="true" style="--viz-start: 45%; --viz-end: 88%;">
+                        <div class="tile-viz viz-range" aria-hidden="true" style="--viz-start: 45%; --viz-end: 87.5%; --viz-ticks: 4;">
                             <div class="viz-track">
                                 <span class="viz-band"></span>
                                 <span class="viz-dot viz-dot-start"></span>
                                 <span class="viz-dot viz-dot-end"></span>
+                            </div>
+                            <div class="viz-axis">
+                                <span>0%</span>
+                                <span>40%</span>
                             </div>
                         </div>
                         <div class="tile-detail">Fintech cash‑sweep flow redesign</div>
@@ -121,25 +135,27 @@
                 </div>
 
                 <!-- Support Reduction - Large tile -->
-                <div class="impact-tile tile-large tile-support" data-animate="wave" style="grid-column: span 2; grid-row: span 2;">
+                <div class="impact-tile tile-large tile-support" data-animate="none" style="grid-column: span 2; grid-row: span 2;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
-                                <div class="tile-value">85%</div>
-                                <div class="tile-label">Support Ticket Reduction</div>
+                                <div class="tile-value">1200→180</div>
+                                <div class="tile-label">Monthly Support Tickets</div>
                             </div>
                         </div>
-                        <div class="tile-viz viz-donut" aria-hidden="true">
-                            <div class="chart-container">
-                                <svg class="donut-chart" viewBox="0 0 42 42" role="presentation" focusable="false">
-                                    <g class="donut">
-                                        <circle class="donut-ring" cx="21" cy="21" r="15.9155" fill="transparent" stroke-width="3"></circle>
-                                        <circle class="donut-segment" cx="21" cy="21" r="15.9155" fill="transparent" stroke="var(--accent-color)" stroke-width="3" stroke-linecap="round" stroke-dasharray="85 100" style="stroke-dasharray: 0 100;"></circle>
-                                    </g>
-                                </svg>
+                        <div class="tile-viz viz-bars" aria-hidden="true">
+                            <div class="viz-row">
+                                <span class="viz-tag">Before</span>
+                                <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 100%;"></span></span>
+                                <span class="viz-val">1200</span>
+                            </div>
+                            <div class="viz-row">
+                                <span class="viz-tag">After</span>
+                                <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 15%;"></span></span>
+                                <span class="viz-val">180</span>
                             </div>
                         </div>
-                        <div class="tile-detail">Installer platform unification</div>
+                        <div class="tile-detail">85% reduction in support load</div>
                     </div>
                 </div>
 
@@ -177,7 +193,7 @@
                             </div>
                             <div class="viz-row">
                                 <span class="viz-tag">After</span>
-                                <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 10%;"></span></span>
+                                <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 9%;"></span></span>
                                 <span class="viz-val">45m</span>
                             </div>
                         </div>
@@ -193,16 +209,29 @@
                                 <div class="tile-label">Engineers Un‑siloed</div>
                             </div>
                         </div>
-                        <div class="tile-viz viz-network" aria-hidden="true">
-                            <svg viewBox="0 0 120 44" role="presentation" focusable="false" preserveAspectRatio="none">
-                                <path class="viz-network-line" d="M14 32L44 16L78 26L106 12" />
-                                <path class="viz-network-line" d="M14 32L60 34L106 12" />
-                                <circle class="viz-network-node" cx="14" cy="32" r="3.2" />
-                                <circle class="viz-network-node" cx="44" cy="16" r="3.2" />
-                                <circle class="viz-network-node" cx="60" cy="34" r="3.2" />
-                                <circle class="viz-network-node" cx="78" cy="26" r="3.2" />
-                                <circle class="viz-network-node" cx="106" cy="12" r="3.2" />
-                            </svg>
+                        <div class="tile-viz viz-segments" aria-hidden="true">
+                            <div class="viz-segmented-bar">
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment"></span>
+                                <span class="viz-segment"></span>
+                            </div>
+                            <div class="viz-axis">
+                                <span>0</span>
+                                <span>150</span>
+                            </div>
+                            <div class="viz-caption">10 engineers per block</div>
                         </div>
                         <div class="tile-detail">Tokenized design system ships to prod</div>
                     </div>
@@ -236,7 +265,7 @@
             <div class="impact-section" data-section="scale">
                 <div class="section-label">SCALE & ADOPTION</div>
                 <!-- Products Unified - Large tile -->
-                <div class="impact-tile tile-large tile-systems" data-animate="stack" style="grid-column: span 6;">
+                <div class="impact-tile tile-large tile-systems" data-animate="none" style="grid-column: span 6;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
@@ -244,43 +273,30 @@
                                 <div class="tile-label">Products Unified</div>
                             </div>
                         </div>
-                        <div class="tile-viz viz-mosaic" aria-hidden="true">
-                            <div class="mosaic-grid">
-                                <span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span>
-                                <span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span>
-                                <span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span>
-                                <span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span><span class="mosaic-cell"></span>
+                        <div class="tile-viz viz-segments" aria-hidden="true">
+                            <div class="viz-segmented-bar">
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
+                                <span class="viz-segment is-filled"></span>
                             </div>
+                            <div class="viz-axis">
+                                <span>0</span>
+                                <span>100</span>
+                            </div>
+                            <div class="viz-caption">10 products per block</div>
                         </div>
                         <div class="tile-detail">Universal overlay adopted org‑wide</div>
                     </div>
                 </div>
-
-                <!-- Storage Eliminated - Medium tile -->
-                <div class="impact-tile tile-medium tile-storage" data-animate="rotate" style="grid-column: span 3;">
-                    <div class="tile-inner">
-                        <div class="tile-mobile-wrapper">
-                            <div class="tile-mobile-content">
-                                <div class="tile-value">Millions</div>
-                                <div class="tile-label">Users Served</div>
-                            </div>
-                        </div>
-                        <div class="tile-viz viz-globe" aria-hidden="true">
-                            <div class="globe-visual">
-                                <div class="globe"></div>
-                                <div class="globe-dots">
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tile-detail">Enterprise platforms used globally</div>
-                    </div>
-                </div>
 				<!-- Platform Adoption - Medium tile -->
-			<div class="impact-tile tile-medium tile-adoption" data-animate="counter" style="grid-column: span 3;">
+			<div class="impact-tile tile-medium tile-adoption" data-animate="counter" style="grid-column: span 6;">
 				<div class="tile-inner">
 					<div class="tile-mobile-wrapper">
 						<div class="tile-mobile-content">
@@ -290,10 +306,17 @@
 							<div class="tile-label">Participants Reached</div>
 						</div>
 					</div>
-                    <div class="tile-viz viz-sparkline" aria-hidden="true">
-                        <svg viewBox="0 0 100 32" role="presentation" focusable="false" preserveAspectRatio="none">
-                            <path class="viz-sparkline-line" d="M2 26L18 22L34 24L50 16L66 18L82 10L98 6" />
-                        </svg>
+                    <div class="tile-viz viz-bars" aria-hidden="true">
+                        <div class="viz-row">
+                            <span class="viz-tag">Pilot</span>
+                            <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 32%;"></span></span>
+                            <span class="viz-val">150K</span>
+                        </div>
+                        <div class="viz-row">
+                            <span class="viz-tag">Prod</span>
+                            <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 100%;"></span></span>
+                            <span class="viz-val">465K</span>
+                        </div>
                     </div>
 					<div class="tile-detail">150K pilots → 465K production</div>
 				</div>
@@ -329,7 +352,7 @@
                 </div>
 
                 <!-- Borrower Savings - Large tile -->
-                <div class="impact-tile tile-large tile-borrower" data-animate="shine" style="grid-column: span 2; grid-row: span 2;">
+                <div class="impact-tile tile-large tile-borrower" data-animate="none" style="grid-column: span 2; grid-row: span 2;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
@@ -337,10 +360,17 @@
                                 <div class="tile-label">Moved Into Savings</div>
                             </div>
                         </div>
-                        <div class="tile-viz viz-sparkline" aria-hidden="true">
-                            <svg viewBox="0 0 100 32" role="presentation" focusable="false" preserveAspectRatio="none">
-                                <path class="viz-sparkline-line" d="M2 26L18 26L34 22L50 18L66 16L82 10L98 6" />
-                            </svg>
+                        <div class="tile-viz viz-bars" aria-hidden="true">
+                            <div class="viz-row">
+                                <span class="viz-tag">Moved</span>
+                                <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 100%;"></span></span>
+                                <span class="viz-val">$1M</span>
+                            </div>
+                            <div class="viz-row">
+                                <span class="viz-tag">Ret.</span>
+                                <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 85%;"></span></span>
+                                <span class="viz-val">$0.85M</span>
+                            </div>
                         </div>
                         <div class="tile-detail">85% retained after 3 months</div>
                     </div>
@@ -355,17 +385,24 @@
                                 <div class="tile-label">CTR Lift</div>
                             </div>
                         </div>
-                        <div class="tile-viz viz-sparkline" aria-hidden="true">
-                            <svg viewBox="0 0 100 32" role="presentation" focusable="false" preserveAspectRatio="none">
-                                <path class="viz-sparkline-line" d="M2 24L18 22L34 23L50 18L66 16L82 12L98 8" />
-                            </svg>
+                        <div class="tile-viz viz-bars" aria-hidden="true">
+                            <div class="viz-row">
+                                <span class="viz-tag">Base</span>
+                                <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 63%;"></span></span>
+                                <span class="viz-val">1.0×</span>
+                            </div>
+                            <div class="viz-row">
+                                <span class="viz-tag">New</span>
+                                <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 100%;"></span></span>
+                                <span class="viz-val">1.59×</span>
+                            </div>
                         </div>
                         <div class="tile-detail">Behavioral messaging framework</div>
                     </div>
                 </div>
 
                 <!-- Retention - Medium tile -->
-                <div class="impact-tile tile-medium tile-retention" data-animate="pulse" style="grid-column: span 2;">
+                <div class="impact-tile tile-medium tile-retention" data-animate="none" style="grid-column: span 2;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
@@ -373,11 +410,16 @@
                                 <div class="tile-label">3‑mo Retention</div>
                             </div>
                         </div>
-                        <div class="tile-viz viz-rings" aria-hidden="true">
-                            <div class="year-rings">
-                                <div class="ring ring-1"></div>
-                                <div class="ring ring-2"></div>
-                                <div class="ring ring-3"></div>
+                        <div class="tile-viz viz-bars viz-bars-compact" aria-hidden="true">
+                            <div class="viz-row">
+                                <span class="viz-tag">M0</span>
+                                <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 100%;"></span></span>
+                                <span class="viz-val">100%</span>
+                            </div>
+                            <div class="viz-row">
+                                <span class="viz-tag">M3</span>
+                                <span class="viz-bar"><span class="viz-fill" style="--viz-fill: 85%;"></span></span>
+                                <span class="viz-val">85%</span>
                             </div>
                         </div>
                         <div class="tile-detail">Sustained savings behavior</div>
