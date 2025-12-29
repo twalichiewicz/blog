@@ -457,6 +457,11 @@ body.dark-mode-forced .mobile-tabs-backing {
 		transform: translateY(0);
 	}
 
+	.mobile-action-content.is-visible {
+		border: none;
+		box-shadow: none;
+	}
+
 	.mobile-action-header {
 		width: 100%;
 		max-width: 600px;
@@ -482,6 +487,8 @@ body.dark-mode-forced .mobile-tabs-backing {
 		max-width: none;
 		height: auto;
 		max-height: none;
+		border: none;
+		box-shadow: none;
 		opacity: 1;
 		transform: none;
 		transition: none;

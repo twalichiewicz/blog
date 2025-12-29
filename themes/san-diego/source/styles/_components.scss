@@ -3151,8 +3151,6 @@ table {
 		width: 100%;
 		max-height: 90vh;
 		overflow-y: auto;
-		box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 
-		            0 10px 10px -5px rgba(0, 0, 0, 0.4);
 		animation: slideUpModal 0.3s ease-out;
 
 		@media (max-width: variables.$mobile-breakpoint) {
