@@ -235,7 +235,7 @@ function getMobileActionTimings() {
 	return {
 		transition: reducedMotion ? 0 : 640,
 		fade: reducedMotion ? 0 : 280,
-		rollFade: reducedMotion ? 0 : 240,
+		rollFade: reducedMotion ? 0 : 480,
 		darkTransition: reducedMotion ? 0 : 520,
 		spotlightDelay: reducedMotion ? 0 : 200
 	};

@@ -250,6 +250,7 @@ body.dark-mode-forced .mobile-tabs-backing {
 		--mobile-tabs-width: 0px;
 		--mobile-tabs-height: 0px;
 		--mobile-tabs-roll-duration: 640ms;
+		--mobile-tabs-roll-fade: 480ms;
 	}
 
 	body {
@@ -355,6 +356,7 @@ body.dark-mode-forced .mobile-tabs-backing {
 	.tabs-wrapper.is-rolling-out .mobile-tabs.has-slider-element,
 	.tabs-wrapper.is-rolling-out .mobile-tabs-backing {
 		opacity: 0;
+		transition-duration: var(--mobile-tabs-roll-fade);
 	}
 
 	@media (prefers-color-scheme: dark) {
