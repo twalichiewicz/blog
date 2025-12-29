@@ -168,6 +168,7 @@
                     height: 100%;
                     object-fit: cover;
                     border-radius: 3px 10px 10px 3px;
+                    filter: invert(1) saturate(0%);
                     display: block;
                 }
                 
@@ -188,6 +189,8 @@
                         object-fit: cover;
                         border: 2.5px solid white;
                         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+                        // Force the grayscale notebook photo to stay light in all themes
+                        filter: invert(1) saturate(0%);
                         display: block;
                     }
                     
@@ -361,7 +364,7 @@
         }
         
         // Hover state - only for desktop/tablet with actual hover capability
-        @media (hover: hover) and (pointer: fine) {
+        @media (hover: hover) and (pointer: fine) and (min-width: 769px) {
             &:hover .notebook {
                 transform: scale(0.9) translateX(15%) !important; // Shift right as it opens
                 
@@ -391,7 +394,7 @@
         }
         
         // Ensure notebook stays visible on mouseout (only for desktop/tablet)
-        @media (hover: hover) and (pointer: fine) {
+        @media (hover: hover) and (pointer: fine) and (min-width: 769px) {
             &:not(:hover) .notebook {
                 transform: scale(0.9) translateX(0) !important;
                 

@@ -542,6 +542,20 @@ export default class MobileTabs {
 	 * @param {boolean} isUserAction - Whether this was triggered by user action
 	 */
 	switchTab(type, isUserAction = false) {
+		// If we're already on the requested tab, do nothing to avoid replaying animations
+		const activeTab =
+			this.tabContainer?.dataset?.activeTab ||
+			Array.from(this.tabButtons || []).find(btn => btn.classList?.contains(this.config.activeClass))?.dataset?.type ||
+			null;
+
+		if (!this.tabContainer || !this.tabButtons || this.tabButtons.length === 0) {
+			return;
+		}
+
+		if (activeTab === type) {
+			return;
+		}
+
 		if (isUserAction) {
 			this.userSelectedTab = type; // Remember user's choice
 			
@@ -841,6 +855,7 @@ export default class MobileTabs {
 				const containerStyles = window.getComputedStyle(container);
 				const originalContainerPosition = container.style.position;
 				const originalContainerHeight = container.style.height;
+				const originalContainerMinHeight = container.style.minHeight;
 				const originalShowStyles = {
 					position: showElement.style.position,
 					top: showElement.style.top,
@@ -869,6 +884,7 @@ export default class MobileTabs {
 				}
 				if (!Number.isNaN(targetHeight) && targetHeight > 0) {
 					container.style.height = `${targetHeight}px`;
+					container.style.minHeight = `${targetHeight}px`;
 				}
 
 				const applyOverlayStyles = (element) => {
@@ -904,6 +920,11 @@ export default class MobileTabs {
 						container.style.height = originalContainerHeight;
 					} else {
 						container.style.removeProperty('height');
+					}
+					if (originalContainerMinHeight) {
+						container.style.minHeight = originalContainerMinHeight;
+					} else {
+						container.style.removeProperty('min-height');
 					}
 				};
 			}

@@ -39,6 +39,12 @@
 			height: 100%;
 			padding: 0;
 			gap: 0;
+			width: 100%;
+			max-width: 100vw;
+			margin-left: auto;
+			margin-right: auto;
+			overflow-x: hidden;
+			overflow-y: visible;
 		}
 	}
 
@@ -96,6 +102,12 @@
 	.post-list-item {
 		margin: 4.5rem 0;
 		padding: 0 1rem;
+		
+		@media (max-width: variables.$mobile-breakpoint) {
+			padding-left: 18px;
+			padding-right: 18px;
+		}
+
 		max-width: 720px;
 		margin-left: auto;
 		margin-right: auto;
@@ -104,6 +116,11 @@
 		// Override padding when used with post-preview-card
 		&.post-preview-card {
 			padding: 0;
+			
+			@media (max-width: variables.$mobile-breakpoint) {
+				padding-left: 0;
+				padding-right: 0;
+			}
 		}
 
 		.post-byline {
@@ -502,6 +519,11 @@
 			max-width: 75ch;
 			margin: 0 auto;
 			padding: 0 12px;
+			
+			@media (max-width: variables.$mobile-breakpoint) {
+				padding-left: 18px;
+				padding-right: 18px;
+			}
 			position: relative;
 
 			&:last-child {
@@ -647,6 +669,11 @@
 		}
 
 		.post-list-item.post-link {
+			@media (max-width: variables.$mobile-breakpoint) {
+				padding-left: 18px;
+				padding-right: 18px;
+			}
+
 			.post-link-wrapper.post-long {
 				margin-top: 6px;
 				max-width: 300px;
@@ -813,6 +840,18 @@ p {
 #postsContent .post-list-item {
 	margin-top: 0;
 	margin-bottom: 0;
+	
+	@media (max-width: variables.$mobile-breakpoint) {
+		padding-left: 18px;
+		padding-right: 18px;
+	}
+}
+
+#projectsContent .post-list-item {
+	@media (max-width: variables.$mobile-breakpoint) {
+		padding-left: 18px;
+		padding-right: 18px;
+	}
 }
 
 // Styles for dynamic content loading
