@@ -310,6 +310,7 @@ body.dark-mode-forced .mobile-tabs-backing {
 		transform-origin: center 55%;
 		transform-style: preserve-3d;
 		transform: none;
+		backface-visibility: hidden;
 		transition: opacity 240ms ease;
 		will-change: transform, opacity;
 		z-index: 2;
@@ -344,7 +345,7 @@ body.dark-mode-forced .mobile-tabs-backing {
 	}
 
 	.tabs-wrapper.is-rolling .mobile-tabs-backing {
-		animation: mobile-tabs-backing-forward var(--mobile-tabs-roll-duration) linear both;
+		animation: mobile-tabs-backing-forward var(--mobile-tabs-roll-duration) cubic-bezier(0.4, 0, 0.2, 1) both;
 	}
 
 	.tabs-wrapper.is-rolling .mobile-tabs.is-rolling-back ~ .mobile-tabs-backing {
@@ -911,10 +912,10 @@ body.dark-mode-forced .mobile-tabs-backing {
 
 	@keyframes mobile-tabs-backing-forward {
 		0%,
-		49% {
+		45% {
 			opacity: 0;
 		}
-		50%,
+		55%,
 		100% {
 			opacity: 1;
 		}
@@ -922,10 +923,10 @@ body.dark-mode-forced .mobile-tabs-backing {
 
 	@keyframes mobile-tabs-backing-back {
 		0%,
-		49% {
+		45% {
 			opacity: 1;
 		}
-		50%,
+		55%,
 		100% {
 			opacity: 0;
 		}
