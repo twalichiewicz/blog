@@ -133,7 +133,7 @@
     "chokidar": "^5.0.0",
     "clean-css": "^5.3.3",
     "concurrently": "^9.2.1",
-    "fs-extra": "^11.3.2",
+    "fs-extra": "^11.3.3",
     "gray-matter": "^4.0.3",
     "patch-package": "^8.0.0",
     "pixelmatch": "^7.1.0",
