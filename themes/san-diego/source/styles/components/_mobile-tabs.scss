@@ -171,6 +171,58 @@
 	}
 }
 
+body.dark-mode-forced .mobile-tabs {
+	background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
+	border-color: variables.$border-color-dark;
+	box-shadow:
+		0 1px 2px rgb(0 0 0 / 30%),
+		0 -1px 0 rgb(255 255 255 / 10%) inset,
+		0 2px 0 rgb(0 0 0 / 20%) inset;
+}
+
+body.dark-mode-forced .mobile-tabs::after {
+	background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+	box-shadow:
+		0 1px 2px rgb(0 0 0 / 40%),
+		0 1px 0 rgb(255 255 255 / 30%) inset,
+		0 -1px 0 rgb(0 0 0 / 20%) inset;
+	border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
+}
+
+body.dark-mode-forced .mobile-tabs .tab-button.active {
+	color: variables.$black !important;
+	text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
+}
+
+body.dark-mode-forced .mobile-tabs .tab-button:not(.active) {
+	color: variables.$text-color-secondary-dark !important;
+	text-shadow: 0 1px 0 rgb(0 0 0 / 50%);
+}
+
+body.dark-mode-forced .mobile-tabs .tab-button:not(.active):hover {
+	color: variables.$text-color-dark !important;
+}
+
+body.dark-mode-forced .mobile-tabs #tab-portfolio::after {
+	background-color: #757575;
+	color: white;
+	text-shadow: none;
+}
+
+body.dark-mode-forced .mobile-tabs #tab-portfolio.active::after {
+	background-color: black;
+	color: white;
+}
+
+body.dark-mode-forced .mobile-tabs .mobile-tabs-slider {
+	background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+	box-shadow:
+		0 1px 2px rgb(0 0 0 / 40%),
+		0 1px 0 rgb(255 255 255 / 30%) inset,
+		0 -1px 0 rgb(0 0 0 / 20%) inset;
+	border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
+}
+
 .mobile-tabs-backing {
 	display: none;
 }
@@ -209,39 +261,6 @@
 	.search-container,
 	.mobile-tabs {
 		transition: background-color 520ms ease, border-color 520ms ease, color 520ms ease, box-shadow 520ms ease;
-	}
-
-	body.impact-mode .blog .blog-content,
-	body.impact-mode .blog .content-inner-wrapper,
-	body.impact-mode .blog .content-wrapper {
-		background-color: variables.$card-bg-dark;
-	}
-
-	body.impact-mode .mobile-tabs {
-		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
-		border-color: variables.$border-color-dark;
-	}
-
-	body.impact-mode .search-container {
-		background: rgba(variables.$card-bg-dark, 0.92);
-		border-color: rgba(variables.$border-color-dark, 0.55);
-	}
-
-	body.impact-mode .profile-header .profile-name {
-		color: variables.$text-color-dark;
-		text-shadow: none;
-	}
-
-	body.impact-mode .profile-header .profile-bio,
-	body.impact-mode .profile-header .profile-byline,
-	body.impact-mode .profile-header .location-pill,
-	body.impact-mode .profile-header .profile-stats,
-	body.impact-mode .profile-header .profile-stats .profile-stat-label {
-		color: variables.$text-color-secondary-dark;
-	}
-
-	body.impact-mode .profile-header .location-pill:hover {
-		color: variables.$text-color-dark;
 	}
 
 	body.impact-mode .profile-header .mobile-impact-button.btn--default {

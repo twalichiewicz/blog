@@ -340,7 +340,7 @@
 	}
 }
 
-@media (prefers-color-scheme: dark) {
+@mixin search-dark-mode {
 	.search-container {
 		.search-icon {
 			svg {
@@ -455,6 +455,14 @@
 			}
 		}
 	}
+}
+
+@media (prefers-color-scheme: dark) {
+	@include search-dark-mode;
+}
+
+body.dark-mode-forced {
+	@include search-dark-mode;
 }
 
 // No results message
