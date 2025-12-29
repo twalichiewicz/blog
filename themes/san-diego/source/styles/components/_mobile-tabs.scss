@@ -393,7 +393,7 @@ body.dark-mode-forced .mobile-tabs-backing {
 		transform-origin: 50% 50%;
 		transform: rotate(calc(180deg + var(--spotlight-tilt)));
 		mix-blend-mode: screen;
-		animation: spotlight-flicker 2.8s ease-in-out infinite, spotlight-sway 5.2s ease-in-out infinite;
+		animation: spotlight-flicker 2.8s ease-in-out infinite;
 	}
 
 	.impact-spotlight.spotlight-left {
@@ -957,15 +957,6 @@ body.dark-mode-forced .mobile-tabs-backing {
 		}
 	}
 
-	@keyframes spotlight-sway {
-		0%,
-		100% {
-			transform: rotate(calc(180deg + var(--spotlight-tilt) - 1deg));
-		}
-		50% {
-			transform: rotate(calc(180deg + var(--spotlight-tilt) + 2deg));
-		}
-	}
 }
 
 @media (prefers-reduced-motion: reduce) {
