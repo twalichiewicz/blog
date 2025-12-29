@@ -734,8 +734,8 @@
 				}
 
 				.mobile-impact-button.btn--icon-only {
-					width: 100% !important;
-					min-width: 100% !important;
+					width: calc(36px * 2 + 6px) !important;
+					min-width: calc(36px * 2 + 6px) !important;
 					gap: 8px;
 				}
 
