@@ -436,12 +436,13 @@
 				overflow: visible;
 			}
 
-			.mobile-contact-menu-wrapper {
-				position: relative;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-			}
+				.mobile-contact-menu-wrapper {
+					position: relative;
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					transition: opacity 220ms ease, filter 220ms ease;
+				}
 
 			.mobile-contact-menu {
 				position: absolute;
@@ -555,21 +556,40 @@
 					min-width: 0;
 				}
 
-				.mobile-impact-button.btn--icon-only,
-				.mobile-contact-button.btn--icon-only {
-					padding: 0 !important;
-					width: 36px !important;
-					min-width: 36px !important;
-					height: 36px !important;
-					border-radius: 999px !important;
-				}
+					.mobile-impact-button.btn--icon-only,
+					.mobile-contact-button.btn--icon-only {
+						padding: 0 !important;
+						width: 36px !important;
+						min-width: 36px !important;
+						height: 36px !important;
+						border-radius: 999px !important;
+					}
 
-				.mobile-impact-button.btn--icon-only .btn__icon,
-				.mobile-contact-button.btn--icon-only .btn__icon {
-					width: 20px;
-					height: 20px;
-					margin: 0;
-				}
+					.mobile-impact-button.btn--icon-only {
+						gap: 0;
+						transition: opacity 200ms ease, transform 200ms ease, filter 200ms ease, width 340ms ease, min-width 340ms ease;
+
+						&::after {
+							content: 'Close';
+							font-size: var(--font-size-xs);
+							font-weight: var(--font-weight-semibold);
+							line-height: 1;
+							letter-spacing: 0.01em;
+							white-space: nowrap;
+							opacity: 0;
+							max-width: 0;
+							overflow: hidden;
+							transform: translateX(-6px);
+							transition: max-width 340ms ease, opacity 220ms ease, transform 340ms ease;
+						}
+					}
+
+					.mobile-impact-button.btn--icon-only .btn__icon,
+					.mobile-contact-button.btn--icon-only .btn__icon {
+						width: 20px;
+						height: 20px;
+						margin: 0;
+					}
 
 				.mobile-contact-option.btn--default {
 					@include button.reusable-button-bordered;
@@ -691,17 +711,40 @@
 			}
 		}
 
-		&.is-impact-open {
-			.mobile-compact-info {
-				opacity: 0.4;
-				filter: blur(2px) brightness(0.85);
-			}
+			&.is-impact-open {
+				.mobile-compact-info {
+					opacity: 0;
+					filter: blur(2px) brightness(0.85);
+					pointer-events: none;
+				}
 
-			.mobile-contact-button {
-				opacity: 0.35;
-				filter: blur(2px) brightness(0.85);
+				.mobile-contact-menu-wrapper {
+					position: absolute;
+					right: 0;
+					top: 50%;
+					transform: translateY(-50%);
+					opacity: 0;
+					filter: blur(2px) brightness(0.85) saturate(0);
+					pointer-events: none;
+				}
+
+				.mobile-buttons-container {
+					width: calc(36px * 2 + 6px);
+					justify-content: flex-start;
+				}
+
+				.mobile-impact-button.btn--icon-only {
+					width: 100% !important;
+					min-width: 100% !important;
+					gap: 8px;
+				}
+
+				.mobile-impact-button.is-active.btn--icon-only::after {
+					opacity: 1;
+					max-width: 80px;
+					transform: translateX(0);
+				}
 			}
-		}
 		
 		.mobile-impact-button,
 		.mobile-contact-button {
