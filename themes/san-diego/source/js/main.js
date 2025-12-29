@@ -213,6 +213,7 @@ const mobileActionState = {
 	impactInlineWrapper: null,
 	impactInlineHeaderPlaceholder: null,
 	impactInlineContentPlaceholder: null,
+	contentInnerWrapperPlaceholder: null,
 	blogContent: null,
 	contentInnerWrapper: null,
 	tabsWrapper: null,
@@ -303,7 +304,12 @@ function ensureMobileActionElements() {
 	if (!mobileActionState.blogContent || !document.contains(mobileActionState.blogContent)) {
 		mobileActionState.blogContent = document.querySelector('.blog-content');
 	}
-	if (!mobileActionState.contentInnerWrapper || !document.contains(mobileActionState.contentInnerWrapper)) {
+	if (!mobileActionState.contentInnerWrapper) {
+		mobileActionState.contentInnerWrapper = document.querySelector('.content-inner-wrapper');
+	} else if (
+		!document.contains(mobileActionState.contentInnerWrapper) &&
+		!mobileActionState.contentInnerWrapperPlaceholder
+	) {
 		mobileActionState.contentInnerWrapper = document.querySelector('.content-inner-wrapper');
 	}
 	if (!mobileActionState.headerHost || !document.contains(mobileActionState.headerHost)) {
@@ -336,6 +342,32 @@ function ensureMobileActionElements() {
 		mobileActionState.tabsWrapper &&
 		mobileActionState.contentWrapper
 	);
+}
+
+function detachContentInnerWrapper() {
+	const { blogContent, contentInnerWrapper } = mobileActionState;
+	if (!blogContent || !contentInnerWrapper) return false;
+	if (contentInnerWrapper.parentElement !== blogContent) return false;
+	if (mobileActionState.contentInnerWrapperPlaceholder) return true;
+
+	const placeholder = document.createElement('div');
+	placeholder.style.display = 'none';
+	placeholder.dataset.placeholder = 'content-inner-wrapper';
+	blogContent.insertBefore(placeholder, contentInnerWrapper);
+	mobileActionState.contentInnerWrapperPlaceholder = placeholder;
+	contentInnerWrapper.remove();
+	return true;
+}
+
+function restoreContentInnerWrapper() {
+	const { blogContent, contentInnerWrapper, contentInnerWrapperPlaceholder } = mobileActionState;
+	if (!blogContent || !contentInnerWrapper || !contentInnerWrapperPlaceholder) return false;
+	if (!contentInnerWrapperPlaceholder.parentElement) return false;
+
+	contentInnerWrapperPlaceholder.parentElement.insertBefore(contentInnerWrapper, contentInnerWrapperPlaceholder);
+	contentInnerWrapperPlaceholder.remove();
+	mobileActionState.contentInnerWrapperPlaceholder = null;
+	return true;
 }
 
 function ensureImpactInlineWrapper() {
@@ -788,26 +820,49 @@ function openMobileAction(type) {
 			setImpactModeActive(true);
 			promoteImpactInlineHosts();
 			setImpactInlineActive(true);
+			detachContentInnerWrapper();
 		} else if (previousType === 'impact') {
 			stopImpactCharacter();
 			clearImpactModeTimers();
 			setImpactSpotlightsActive(false);
-			setImpactInlineActive(false);
+			restoreContentInnerWrapper();
 			restoreImpactInlineHosts();
+			setImpactInlineActive(false);
 			setImpactModeActive(false);
 		}
 		hideMobileActionHosts(() => {
 			restoreMobileActionNodes(mobileActionState.currentType);
 			const mounted = mountMobileActionNodes(type);
 			if (!mounted) {
-				setMobileActionToggleState(previousType);
 				if (type === 'impact') {
+					restoreContentInnerWrapper();
+					restoreImpactInlineHosts();
+					setImpactInlineActive(false);
 					setImpactSpotlightsActive(false);
 					setImpactModeActive(false);
+				} else if (previousType === 'impact') {
+					clearImpactModeTimers();
+					setImpactSpotlightsActive(false);
+					setImpactModeActive(true);
+					promoteImpactInlineHosts();
+					setImpactInlineActive(true);
+					detachContentInnerWrapper();
 				}
+
+				const recoveryMounted = mountMobileActionNodes(previousType);
+				if (recoveryMounted) {
+					showMobileActionHosts();
+					if (previousType === 'impact') {
+						setImpactSpotlightsActive(true);
+						runImpactInlineEnhancements();
+					}
+				}
+
+				setMobileActionToggleState(previousType);
 				mobileActionState.isTransitioning = false;
 				return;
 			}
+
 			showMobileActionHosts();
 			mobileActionState.currentType = type;
 			mobileActionState.isTransitioning = false;
@@ -846,6 +901,7 @@ function openMobileAction(type) {
 			if (type === 'impact') {
 				promoteImpactInlineHosts();
 				setImpactInlineActive(true);
+				detachContentInnerWrapper();
 			}
 
 			const mounted = mountMobileActionNodes(type);
@@ -861,8 +917,9 @@ function openMobileAction(type) {
 				}
 				if (type === 'impact') {
 					setImpactSpotlightsActive(false);
-					setImpactInlineActive(false);
+					restoreContentInnerWrapper();
 					restoreImpactInlineHosts();
+					setImpactInlineActive(false);
 					setImpactModeActive(false);
 				}
 				mobileActionState.isTransitioning = false;
@@ -905,6 +962,7 @@ function openMobileAction(type) {
 		}
 	} else {
 		setImpactSpotlightsActive(false);
+		restoreContentInnerWrapper();
 		setImpactInlineActive(false);
 		restoreImpactInlineHosts();
 		setImpactModeActive(false);
@@ -929,8 +987,9 @@ function closeMobileAction() {
 	setMobileActionToggleState(null);
 	hideMobileActionHosts(() => {
 		if (closingImpact) {
-			setImpactInlineActive(false);
+			restoreContentInnerWrapper();
 			restoreImpactInlineHosts();
+			setImpactInlineActive(false);
 		}
 		restoreMobileActionNodes(mobileActionState.currentType);
 		mobileActionState.currentType = null;
