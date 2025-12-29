@@ -223,6 +223,10 @@ body.dark-mode-forced .mobile-tabs .mobile-tabs-slider {
 	border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
 }
 
+body.dark-mode-forced .mobile-tabs-backing {
+	background: linear-gradient(rgb(66, 66, 66), rgb(46, 46, 46));
+}
+
 .mobile-tabs-backing {
 	display: none;
 }
@@ -354,7 +358,7 @@ body.dark-mode-forced .mobile-tabs .mobile-tabs-slider {
 
 	@media (prefers-color-scheme: dark) {
 		.mobile-tabs-backing {
-			background: color(srgb 0.9696 0.9662 0.9628);
+			background: linear-gradient(rgb(66, 66, 66), rgb(46, 46, 46));
 		}
 	}
 

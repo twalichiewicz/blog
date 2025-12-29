@@ -231,6 +231,10 @@
         @media (prefers-color-scheme: dark) {
           background-color: variables.$white-dark;
         }
+
+        body.dark-mode-forced & {
+          background-color: variables.$white-dark;
+        }
       }
       
       .content-inner-wrapper {
