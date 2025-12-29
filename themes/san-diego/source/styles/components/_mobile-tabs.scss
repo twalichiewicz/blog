@@ -383,6 +383,7 @@ body.dark-mode-forced .mobile-tabs-backing {
 
 	.impact-spotlight {
 		--spotlight-tilt: 0deg;
+		--spotlight-spread: 15%;
 		position: absolute;
 		bottom: 0;
 		width: 42vw;
@@ -390,12 +391,12 @@ body.dark-mode-forced .mobile-tabs-backing {
 		background:
 			radial-gradient(ellipse at top, rgba(255, 231, 187, 0.45) 0%, rgba(255, 231, 187, 0.22) 34%, rgba(255, 231, 187, 0.08) 52%, rgba(255, 231, 187, 0.02) 64%, transparent 72%),
 			linear-gradient(to bottom, rgba(255, 231, 187, 0.18) 0%, rgba(255, 231, 187, 0.08) 28%, rgba(255, 231, 187, 0.02) 50%, transparent 68%);
-		clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+		clip-path: polygon(50% 0%, calc(var(--spotlight-spread) * -1) 100%, calc(100% + var(--spotlight-spread)) 100%);
 		filter: blur(0.5px);
 		transform-origin: 50% 50%;
 		transform: rotate(calc(180deg + var(--spotlight-tilt)));
 		mix-blend-mode: screen;
-		animation: spotlight-flicker 2.8s ease-in-out infinite;
+		animation: spotlight-flicker 8s ease-in-out infinite;
 	}
 
 	.impact-spotlight.spotlight-left {
@@ -946,16 +947,16 @@ body.dark-mode-forced .mobile-tabs-backing {
 	@keyframes spotlight-flicker {
 		0%,
 		100% {
+			opacity: 0.64;
+		}
+		35% {
 			opacity: 0.7;
 		}
-		20% {
-			opacity: 0.9;
+		60% {
+			opacity: 0.66;
 		}
-		45% {
-			opacity: 0.6;
-		}
-		70% {
-			opacity: 0.95;
+		82% {
+			opacity: 0.72;
 		}
 	}
 
