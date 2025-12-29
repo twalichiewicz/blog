@@ -211,38 +211,10 @@
 		transition: background-color 520ms ease, border-color 520ms ease, color 520ms ease, box-shadow 520ms ease;
 	}
 
-	body.impact-mode {
-		--bg-body: #{variables.$body-bg-dark};
-		--bg-card: #{variables.$card-bg-dark};
-		--bg-nav: #{variables.$nav-bg-dark};
-		--bg-overlay: rgba(20, 20, 20, 0.95);
-		--text-primary: #{variables.$text-color-dark};
-		--text-secondary: #{variables.$text-color-secondary-dark};
-		--text-inverse: #{variables.$black};
-		--border-color: #{variables.$border-color-dark};
-		--border-color-hover: #{color.adjust(variables.$border-color-dark, $lightness: 10%)};
-		--card-border-color: #{variables.$card-border-color-dark};
-		--link-color: #{variables.$link-color-dark};
-		--link-hover: #{variables.$hover-color-dark};
-		color-scheme: dark;
-		background-color: variables.$body-bg-dark;
-		color: variables.$text-color-dark;
-	}
-
 	body.impact-mode .blog .blog-content,
 	body.impact-mode .blog .content-inner-wrapper,
 	body.impact-mode .blog .content-wrapper {
 		background-color: variables.$card-bg-dark;
-	}
-
-	body.impact-mode .tabs-wrapper {
-		background: rgba(20, 20, 20, 0.7);
-		border-bottom-color: variables.$border-color-dark;
-	}
-
-	body.impact-mode.device-mobile .blog .blog-content .tabs-wrapper {
-		background: rgba(20, 20, 20, 0.7);
-		border-bottom-color: variables.$border-color-dark;
 	}
 
 	body.impact-mode .mobile-tabs {

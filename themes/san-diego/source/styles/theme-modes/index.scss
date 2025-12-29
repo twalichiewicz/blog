@@ -11,6 +11,27 @@
 
 /* Theme system now uses only prefers-color-scheme media queries */
 
+body.dark-mode-forced {
+	--bg-body: #{variables.$body-bg-dark};
+	--bg-card: #{variables.$card-bg-dark};
+	--bg-nav: #{variables.$nav-bg-dark};
+	--bg-overlay: rgba(20, 20, 20, 0.95);
+	--text-primary: #{variables.$text-color-dark};
+	--text-secondary: #{variables.$text-color-secondary-dark};
+	--text-inverse: #{variables.$black};
+	--border-color: #{variables.$border-color-dark};
+	--border-color-hover: #{color.adjust(variables.$border-color-dark, $lightness: 10%)};
+	--card-border-color: #{variables.$card-border-color-dark};
+	--link-color: #{variables.$link-color-dark};
+	--link-hover: #{variables.$hover-color-dark};
+	--bg-color: rgb(20 20 20 / 70%);
+	color-scheme: dark;
+}
+
+body.dark-mode-forced .blog {
+	--bg-color: rgb(20 20 20 / 70%);
+}
+
 /* Base theme mode transitions */
 .blog {
 	transition:

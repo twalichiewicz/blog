@@ -259,6 +259,7 @@ function scheduleImpactModeTimer(callback, delay) {
 function setImpactModeActive(isActive) {
 	if (!document.body) return;
 	document.body.classList.toggle('impact-mode', isActive);
+	document.body.classList.toggle('dark-mode-forced', isActive);
 }
 
 function setImpactSpotlightsActive(isActive) {
