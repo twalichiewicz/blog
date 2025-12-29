@@ -6,6 +6,28 @@ import { initSectionAnimations, initColumnTitleScrollDetection } from './utils/a
 import { initializeSoundEffects } from './utils/sound-effects.js';
 import { initResponsiveTables } from './components/responsive-tables.js';
 
+let impactCharacterModulePromise = null;
+
+function loadImpactCharacterModule() {
+	if (!impactCharacterModulePromise) {
+		impactCharacterModulePromise = import('./components/impact-character.js');
+	}
+	return impactCharacterModulePromise;
+}
+
+function startImpactCharacter() {
+	return loadImpactCharacterModule()
+		.then((module) => module.startImpactCharacter?.())
+		.catch(() => {});
+}
+
+function stopImpactCharacter() {
+	if (!impactCharacterModulePromise) return;
+	impactCharacterModulePromise
+		.then((module) => module.stopImpactCharacter?.())
+		.catch(() => {});
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 	// Initialize sound effects first
 	initializeSoundEffects();
@@ -580,8 +602,10 @@ function hideMobileActionHosts(onComplete) {
 function runImpactInlineEnhancements() {
 	const delay = getMobileActionTimings().fade;
 	window.setTimeout(() => {
+		if (!mobileActionState.active || mobileActionState.currentType !== 'impact') return;
 		initImpactGridAnimations();
 		fitTextInTiles();
+		startImpactCharacter();
 	}, delay);
 }
 
@@ -670,6 +694,7 @@ function openMobileAction(type) {
 			setImpactSpotlightsActive(false);
 			setImpactModeActive(true);
 		} else if (previousType === 'impact') {
+			stopImpactCharacter();
 			clearImpactModeTimers();
 			setImpactSpotlightsActive(false);
 			setImpactModeActive(false);
@@ -790,6 +815,7 @@ function closeMobileAction() {
 
 	const closingImpact = mobileActionState.currentType === 'impact';
 	if (closingImpact) {
+		stopImpactCharacter();
 		clearImpactModeTimers();
 		setImpactSpotlightsActive(false);
 	}
@@ -869,8 +895,10 @@ function openImpactModal(event) {
         }, 10);
 
         setTimeout(() => {
+            if (!modal.classList.contains('active')) return;
             initImpactGridAnimations();
             fitTextInTiles();
+            startImpactCharacter();
         }, 300);
     }
 }
@@ -892,6 +920,7 @@ function closeImpactModal() {
 
     const modal = document.getElementById('impact-modal');
     if (modal) {
+        stopImpactCharacter();
         modal.classList.remove('active');
         setTimeout(() => {
             modal.style.display = 'none';
