@@ -264,8 +264,7 @@ function getMobileActionTimings() {
 		transition: reducedMotion ? 0 : 640,
 		fade: reducedMotion ? 0 : 280,
 		rollFade: reducedMotion ? 0 : 480,
-		darkTransition: reducedMotion ? 0 : 520,
-		spotlightDelay: reducedMotion ? 0 : 200
+		darkTransition: reducedMotion ? 0 : 520
 	};
 }
 
@@ -293,11 +292,6 @@ function setImpactModeActive(isActive) {
 function setImpactInlineActive(isActive) {
 	if (!document.body) return;
 	document.body.classList.toggle('impact-inline-active', isActive);
-}
-
-function setImpactSpotlightsActive(isActive) {
-	if (!document.body) return;
-	document.body.classList.toggle('impact-spotlights-active', isActive);
 }
 
 function ensureMobileActionElements() {
@@ -814,9 +808,9 @@ function openMobileAction(type) {
 		const previousType = mobileActionState.currentType;
 		mobileActionState.isTransitioning = true;
 		setMobileActionToggleState(type);
+
 		if (type === 'impact') {
 			clearImpactModeTimers();
-			setImpactSpotlightsActive(false);
 			setImpactModeActive(true);
 			promoteImpactInlineHosts();
 			setImpactInlineActive(true);
@@ -824,12 +818,12 @@ function openMobileAction(type) {
 		} else if (previousType === 'impact') {
 			stopImpactCharacter();
 			clearImpactModeTimers();
-			setImpactSpotlightsActive(false);
 			restoreContentInnerWrapper();
 			restoreImpactInlineHosts();
 			setImpactInlineActive(false);
 			setImpactModeActive(false);
 		}
+
 		hideMobileActionHosts(() => {
 			restoreMobileActionNodes(mobileActionState.currentType);
 			const mounted = mountMobileActionNodes(type);
@@ -838,11 +832,9 @@ function openMobileAction(type) {
 					restoreContentInnerWrapper();
 					restoreImpactInlineHosts();
 					setImpactInlineActive(false);
-					setImpactSpotlightsActive(false);
 					setImpactModeActive(false);
 				} else if (previousType === 'impact') {
 					clearImpactModeTimers();
-					setImpactSpotlightsActive(false);
 					setImpactModeActive(true);
 					promoteImpactInlineHosts();
 					setImpactInlineActive(true);
@@ -853,7 +845,6 @@ function openMobileAction(type) {
 				if (recoveryMounted) {
 					showMobileActionHosts();
 					if (previousType === 'impact') {
-						setImpactSpotlightsActive(true);
 						runImpactInlineEnhancements();
 					}
 				}
@@ -867,10 +858,10 @@ function openMobileAction(type) {
 			mobileActionState.currentType = type;
 			mobileActionState.isTransitioning = false;
 			if (type === 'impact') {
-				setImpactSpotlightsActive(true);
 				runImpactInlineEnhancements();
 			}
 		});
+
 		return true;
 	}
 
@@ -878,6 +869,7 @@ function openMobileAction(type) {
 	setMobileActionToggleState(type);
 	mobileActionState.isTransitioning = true;
 	const timings = getMobileActionTimings();
+
 	const startRollAndFade = () => {
 		let rollDuration = timings.transition;
 		if (mobileActionState.tabsElement?.classList.contains('has-slider-element')) {
@@ -916,7 +908,6 @@ function openMobileAction(type) {
 					mobileActionState.contentWrapper.classList.remove('is-fading');
 				}
 				if (type === 'impact') {
-					setImpactSpotlightsActive(false);
 					restoreContentInnerWrapper();
 					restoreImpactInlineHosts();
 					setImpactInlineActive(false);
@@ -926,22 +917,13 @@ function openMobileAction(type) {
 				return;
 			}
 
-			const finalizeShow = () => {
-				showMobileActionHosts();
-				mobileActionState.active = true;
-				mobileActionState.currentType = type;
-				mobileActionState.isTransitioning = false;
-				attachMobileActionKeydown();
-				if (type === 'impact') {
-					runImpactInlineEnhancements();
-				}
-			};
-
+			showMobileActionHosts();
+			mobileActionState.active = true;
+			mobileActionState.currentType = type;
+			mobileActionState.isTransitioning = false;
+			attachMobileActionKeydown();
 			if (type === 'impact') {
-				setImpactSpotlightsActive(true);
-				scheduleImpactModeTimer(finalizeShow, timings.spotlightDelay);
-			} else {
-				finalizeShow();
+				runImpactInlineEnhancements();
 			}
 		};
 
@@ -953,7 +935,6 @@ function openMobileAction(type) {
 	};
 
 	if (type === 'impact') {
-		setImpactSpotlightsActive(false);
 		setImpactModeActive(true);
 		if (timings.darkTransition > 0) {
 			scheduleImpactModeTimer(startRollAndFade, timings.darkTransition);
@@ -961,7 +942,6 @@ function openMobileAction(type) {
 			startRollAndFade();
 		}
 	} else {
-		setImpactSpotlightsActive(false);
 		restoreContentInnerWrapper();
 		setImpactInlineActive(false);
 		restoreImpactInlineHosts();
@@ -981,7 +961,6 @@ function closeMobileAction() {
 	if (closingImpact) {
 		stopImpactCharacter();
 		clearImpactModeTimers();
-		setImpactSpotlightsActive(false);
 	}
 	mobileActionState.isTransitioning = true;
 	setMobileActionToggleState(null);
