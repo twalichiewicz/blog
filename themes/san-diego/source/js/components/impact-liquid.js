@@ -55,6 +55,33 @@ const SHADER_FRAGMENT = `
 		return value;
 	}
 
+	float flowPotential(vec2 p) {
+		float n = noise(p);
+		n += 0.52 * noise(p * 2.13 + vec2(17.2, 9.2));
+		n += 0.27 * noise(p * 4.18 - vec2(4.2, 11.7));
+		return n / 1.79;
+	}
+
+	vec2 curlNoise(vec2 uv, float t) {
+		vec2 p = uv * 3.4 + vec2(t * 0.12, -t * 0.08);
+		float e = 0.035;
+		float nT = flowPotential(p + vec2(0.0, e));
+		float nB = flowPotential(p - vec2(0.0, e));
+		float nR = flowPotential(p + vec2(e, 0.0));
+		float nL = flowPotential(p - vec2(e, 0.0));
+		float dy = (nT - nB) / (2.0 * e);
+		float dx = (nR - nL) / (2.0 * e);
+		return vec2(dy, -dx);
+	}
+
+	vec2 advectUv(vec2 uv, float t) {
+		vec2 v1 = curlNoise(uv, t);
+		uv += v1 * 0.012;
+		vec2 v2 = curlNoise(uv * 1.35 + 0.15, t + 12.3);
+		uv += v2 * 0.007;
+		return uv;
+	}
+
 	vec3 metalShade(vec2 uv, float mask) {
 		float t = u_time * 0.35;
 		vec2 p = uv * 6.0;
@@ -90,11 +117,12 @@ const SHADER_FRAGMENT = `
 
 	void main() {
 		vec2 uv = vUv;
+		vec2 uvFlow = advectUv(uv, u_time);
 
 		float edgeDist = min(min(uv.x, 1.0 - uv.x), min(uv.y, 1.0 - uv.y));
 		float maxEdge = 0.5;
 		float fillFront = clamp(u_fill, 0.0, 1.0) * maxEdge;
-		float edgeNoise = (fbm(uv * 4.5 + u_time * 0.15) - 0.5) * 0.045;
+		float edgeNoise = (fbm(uvFlow * 4.5 + u_time * 0.15) - 0.5) * 0.055;
 		float fillField = fillFront + edgeNoise;
 		float fillMask = 1.0 - smoothstep(fillField, fillField + 0.02, edgeDist);
 
@@ -102,7 +130,7 @@ const SHADER_FRAGMENT = `
 		vec2 centered = (uv - 0.5) * vec2(aspect, 1.0);
 		float centerDist = length(centered);
 		float holeRadius = clamp(u_hole, 0.0, 1.0);
-		float holeNoise = (fbm(uv * 5.2 - u_time * 0.22) - 0.5) * 0.03;
+		float holeNoise = (fbm(uvFlow * 5.2 - u_time * 0.22) - 0.5) * 0.035;
 		float holeField = holeRadius + holeNoise;
 		float holeMask = smoothstep(holeField - 0.02, holeField + 0.02, centerDist);
 
@@ -111,8 +139,8 @@ const SHADER_FRAGMENT = `
 		float textMask = texture2D(u_text, uv).a;
 		float textAlpha = textMask * clamp(u_textAlpha, 0.0, 1.0) * (1.0 - holeMask);
 
-		vec3 liquidColor = metalShade(uv, liquidAlpha);
-		vec3 textColor = metalShade(uv * 1.1 + vec2(0.05, 0.02), 1.0) * 1.05;
+		vec3 liquidColor = metalShade(uvFlow, liquidAlpha);
+		vec3 textColor = metalShade(uvFlow * 1.1 + vec2(0.05, 0.02), 1.0) * 1.05;
 		vec3 outColor = mix(liquidColor, textColor, textAlpha);
 		float outAlpha = max(liquidAlpha, textAlpha);
 
