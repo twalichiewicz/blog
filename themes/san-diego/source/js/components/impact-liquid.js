@@ -75,7 +75,8 @@ const SHADER_FRAGMENT = `
 
 		vec3 envTop = vec3(0.98, 0.985, 1.0);
 		vec3 envBot = vec3(0.22, 0.22, 0.245);
-		vec3 env = mix(envBot, envTop, pow(1.0 - uv.y, 1.15));
+		float envFactor = pow(clamp(1.0 - uv.y, 0.0, 1.0), 1.15);
+		vec3 env = mix(envBot, envTop, envFactor);
 
 		vec3 base = vec3(0.72, 0.73, 0.76);
 		vec3 color = base * 0.18;
