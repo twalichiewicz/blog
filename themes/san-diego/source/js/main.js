@@ -1089,6 +1089,20 @@ function closeMobileAction() {
 			closeMobileContactMenu();
 		}
 
+		let closeAnchor = null;
+		const closeAnchorEl =
+			document.querySelector('.profile-header .mobile-buttons-container') ||
+			document.querySelector('.profile-header .mobile-impact-button');
+		if (closeAnchorEl && typeof closeAnchorEl.getBoundingClientRect === 'function') {
+			const rect = closeAnchorEl.getBoundingClientRect();
+			closeAnchor = {
+				top: rect.top,
+				right: window.innerWidth - rect.right,
+				width: rect.width,
+				height: rect.height
+			};
+		}
+
 		if (document.body) {
 			document.body.classList.add('impact-liquid-active');
 		}
@@ -1097,6 +1111,7 @@ function closeMobileAction() {
 
 		const overlay = await startImpactLiquidOverlay({
 			stats: collectImpactLiquidStats(),
+			closeAnchor,
 			onRequestClose: () => {
 				closeImpactLiquidExperience();
 			}

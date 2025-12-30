@@ -1001,8 +1001,9 @@ class FluidSim {
 }
 
 class ImpactLiquidOverlay {
-	constructor({ stats, onRequestClose } = {}) {
+	constructor({ stats, closeAnchor, onRequestClose } = {}) {
 		this.stats = resolveStats(stats);
+		this.closeAnchor = closeAnchor || null;
 		this.onRequestClose = typeof onRequestClose === 'function' ? onRequestClose : null;
 		this.activeIndex = 0;
 		this.phase = 'enter-fill';
@@ -1038,9 +1039,12 @@ class ImpactLiquidOverlay {
 		this.closeButton.className = 'impact-liquid-close';
 		this.closeButton.setAttribute('aria-label', 'Close stats');
 		this.closeButton.innerHTML = `
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-				<path fill="currentColor" d="M6.4 5.3L5.3 6.4 10.9 12 5.3 17.6l1.1 1.1L12 13.1l5.6 5.6 1.1-1.1L13.1 12l5.6-5.6-1.1-1.1L12 10.9 6.4 5.3z"/>
-			</svg>
+			<span class="impact-liquid-close-icon" aria-hidden="true">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
+					<path fill="currentColor" d="M6.4 5.3L5.3 6.4 10.9 12 5.3 17.6l1.1 1.1L12 13.1l5.6 5.6 1.1-1.1L13.1 12l5.6-5.6-1.1-1.1L12 10.9 6.4 5.3z"/>
+				</svg>
+			</span>
+			<span class="impact-liquid-close-text" aria-hidden="true">Close</span>
 		`;
 		this.closeButton.addEventListener('pointerdown', (event) => event.stopPropagation());
 		this.closeButton.addEventListener('pointerup', (event) => event.stopPropagation());
@@ -1049,6 +1053,15 @@ class ImpactLiquidOverlay {
 			this.requestClose();
 		});
 		this.root.appendChild(this.closeButton);
+
+		if (this.closeAnchor) {
+			const { top, right, width, height } = this.closeAnchor;
+			if (Number.isFinite(top)) this.closeButton.style.top = `${top}px`;
+			if (Number.isFinite(right)) this.closeButton.style.right = `${right}px`;
+			if (Number.isFinite(width)) this.closeButton.style.width = `${width}px`;
+			if (Number.isFinite(width)) this.closeButton.style.minWidth = `${width}px`;
+			if (Number.isFinite(height)) this.closeButton.style.height = `${height}px`;
+		}
 
 		this.caption = document.createElement('div');
 		this.caption.className = 'impact-liquid-caption';

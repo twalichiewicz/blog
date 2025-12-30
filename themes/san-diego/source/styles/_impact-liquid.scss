@@ -42,33 +42,55 @@ body.impact-liquid-active #contact-modal {
 
 .impact-liquid-close {
 	position: absolute;
-	top: calc(12px + env(safe-area-inset-top));
+	top: calc(22px + env(safe-area-inset-top));
 	right: calc(12px + env(safe-area-inset-right));
-	width: 36px;
+	width: calc(36px * 2 + 6px);
+	min-width: calc(36px * 2 + 6px);
 	height: 36px;
 	border-radius: 999px;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	gap: 8px;
+	padding: 0;
 	cursor: pointer;
-	border: 1px solid rgba(variables.$border-color, 0.45);
-	background: rgba(variables.$white, 0.75);
-	color: rgba(variables.$text-color, 0.9);
+	border: 1px solid variables.$text-color-secondary-dark;
+	background: variables.$text-color-secondary-dark;
+	color: variables.$black;
 	box-shadow:
-		0 1px 2px rgba(0, 0, 0, 0.08),
-		0 8px 24px rgba(0, 0, 0, 0.08);
-	backdrop-filter: blur(14px) saturate(1.2);
-	-webkit-backdrop-filter: blur(14px) saturate(1.2);
+		0 2px 6px rgb(0 0 0 / 20%);
 	z-index: 3;
+	transition: background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease;
 }
 
-.impact-liquid-close svg {
-	width: 18px;
-	height: 18px;
+.impact-liquid-close:hover {
+	background: color.adjust(variables.$text-color-secondary-dark, $lightness: 6%);
+	border-color: color.adjust(variables.$text-color-secondary-dark, $lightness: 6%);
 }
 
 .impact-liquid-close:active {
+	background: color.adjust(variables.$text-color-secondary-dark, $lightness: -6%);
 	transform: translateY(1px);
+}
+
+.impact-liquid-close-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+}
+
+.impact-liquid-close-icon svg {
+	width: 20px;
+	height: 20px;
+}
+
+.impact-liquid-close-text {
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-semibold);
+	line-height: 1;
+	letter-spacing: 0.01em;
 }
 
 .impact-liquid-caption {
@@ -108,15 +130,6 @@ body.impact-liquid-active #contact-modal {
 }
 
 @media (prefers-color-scheme: dark) {
-	.impact-liquid-close {
-		background: rgba(0, 0, 0, 0.55);
-		border-color: rgba(255, 255, 255, 0.18);
-		color: rgba(255, 255, 255, 0.88);
-		box-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.5),
-			0 8px 24px rgba(0, 0, 0, 0.55);
-	}
-
 	.impact-liquid-caption-inner {
 		background: rgba(0, 0, 0, 0.55);
 		border-color: rgba(255, 255, 255, 0.16);
