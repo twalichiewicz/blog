@@ -13,7 +13,11 @@
 	background: transparent;
 }
 
-.impact-liquid-overlay.is-covered {
+.impact-liquid-overlay::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
 	background: radial-gradient(
 		circle at 50% 24%,
 		rgb(18, 18, 20) 0%,
@@ -21,6 +25,12 @@
 		rgb(0, 0, 0) 75%,
 		rgb(0, 0, 0) 100%
 	);
+	opacity: 0;
+	transition: opacity 760ms ease;
+}
+
+.impact-liquid-overlay.is-covered::before {
+	opacity: 1;
 }
 
 body.impact-liquid-active {
