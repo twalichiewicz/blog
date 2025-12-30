@@ -9,6 +9,14 @@ const DEFAULT_STATS = [
 const HOLE_MAX = 0.42;
 const HOLE_EXIT_MAX = 0.74;
 
+const POINTER_INTERACTION = {
+	radius: 0.14,
+	strength: 6.2,
+	holdMs: 220,
+	decayMs: 900,
+	maxVelocity: 2.4
+};
+
 const FLUID_SIM = {
 	maxDelta: 1 / 30,
 	targetScale: 0.42,
@@ -241,6 +249,10 @@ const SIM_FORCE_FRAGMENT = `
 	uniform float u_centerStrength;
 	uniform vec2 u_center;
 	uniform float u_centerRadius;
+	uniform vec2 u_pointer;
+	uniform vec2 u_pointerVelocity;
+	uniform float u_pointerRadius;
+	uniform float u_pointerStrength;
 	uniform float u_aspect;
 	${SIM_COMMON}
 	void main() {
@@ -257,7 +269,18 @@ const SIM_FORCE_FRAGMENT = `
 		vec2 radial = dir * (u_centerStrength * falloff);
 		vec2 tangential = vec2(-dir.y, dir.x) * (abs(u_centerStrength) * 0.42) * falloff * sign(u_centerStrength);
 
-		vel += (noiseForce + radial + tangential) * u_dt;
+		vec2 pointerForce = vec2(0.0);
+		if (u_pointerStrength > 0.0001) {
+			vec2 toPointer = uv - u_pointer;
+			vec2 pointerScaled = vec2(toPointer.x * u_aspect, toPointer.y);
+			float pointerDist = length(pointerScaled);
+			float pointerFalloff = smoothstep(u_pointerRadius, 0.0, pointerDist);
+			vec2 pv = u_pointerVelocity;
+			vec2 pvTwist = vec2(-pv.y, pv.x);
+			pointerForce = (pv * 0.92 + pvTwist * 0.35) * (u_pointerStrength * pointerFalloff);
+		}
+
+		vel += (noiseForce + radial + tangential + pointerForce) * u_dt;
 		vel = clamp(vel, vec2(-10.0), vec2(10.0));
 		vel *= 0.993;
 
@@ -650,6 +673,10 @@ class FluidSim {
 				u_centerStrength: { value: 0 },
 				u_center: { value: new THREE.Vector2(0.5, 0.5) },
 				u_centerRadius: { value: 0.3 },
+				u_pointer: { value: new THREE.Vector2(0.5, 0.5) },
+				u_pointerVelocity: { value: new THREE.Vector2(0, 0) },
+				u_pointerRadius: { value: POINTER_INTERACTION.radius },
+				u_pointerStrength: { value: 0 },
 				u_aspect: { value: 1 }
 			}
 		});
@@ -884,7 +911,11 @@ class FluidSim {
 		holeStrength = 0,
 		holeHardness = 0.12,
 		textTexture = null,
-		textStrength = 0
+		textStrength = 0,
+		pointer = null,
+		pointerVelocity = null,
+		pointerRadius = POINTER_INTERACTION.radius,
+		pointerStrength = 0
 	} = {}) {
 		const delta = Math.min(Math.max(dt || 0, 0), FLUID_SIM.maxDelta);
 		if (!delta) return;
@@ -896,6 +927,13 @@ class FluidSim {
 		this.forceMaterial.uniforms.u_noiseStrength.value = FLUID_SIM.noiseStrength;
 		this.forceMaterial.uniforms.u_centerStrength.value = centerStrength;
 		this.forceMaterial.uniforms.u_centerRadius.value = centerRadius;
+		this.forceMaterial.uniforms.u_pointerRadius.value = pointerRadius;
+		this.forceMaterial.uniforms.u_pointerStrength.value = pointerStrength;
+		this.forceMaterial.uniforms.u_pointer.value.set(pointer?.x ?? 0.5, pointer?.y ?? 0.5);
+		this.forceMaterial.uniforms.u_pointerVelocity.value.set(
+			pointerVelocity?.vx ?? pointerVelocity?.x ?? 0,
+			pointerVelocity?.vy ?? pointerVelocity?.y ?? 0
+		);
 		this.renderPass(this.forceMaterial, this.velocity.write);
 		this.swap(this.velocity);
 
@@ -1017,12 +1055,26 @@ class ImpactLiquidOverlay {
 		this.isExiting = false;
 		this.isCovered = false;
 		this.exitHoleStart = null;
+		this.pointer = {
+			isDown: false,
+			x: 0.5,
+			y: 0.5,
+			vx: 0,
+			vy: 0,
+			lastX: 0.5,
+			lastY: 0.5,
+			lastTime: null,
+			lastMoveTime: null,
+			pointerId: null
+		};
 		this.pointerDown = null;
 		this.lastFrame = null;
 
 		this.handleResize = this.handleResize.bind(this);
 		this.handlePointerDown = this.handlePointerDown.bind(this);
+		this.handlePointerMove = this.handlePointerMove.bind(this);
 		this.handlePointerUp = this.handlePointerUp.bind(this);
+		this.handlePointerCancel = this.handlePointerCancel.bind(this);
 		this.handleTouchMove = this.handleTouchMove.bind(this);
 		this.animate = this.animate.bind(this);
 		this.handleKeydown = this.handleKeydown.bind(this);
@@ -1102,7 +1154,9 @@ class ImpactLiquidOverlay {
 		this.setCoveredState(false);
 
 		this.root.addEventListener('pointerdown', this.handlePointerDown);
+		this.root.addEventListener('pointermove', this.handlePointerMove);
 		this.root.addEventListener('pointerup', this.handlePointerUp);
+		this.root.addEventListener('pointercancel', this.handlePointerCancel);
 		this.root.addEventListener('touchmove', this.handleTouchMove, { passive: false });
 		window.addEventListener('resize', this.handleResize);
 		window.addEventListener('orientationchange', this.handleResize);
@@ -1255,6 +1309,29 @@ class ImpactLiquidOverlay {
 	}
 
 	handlePointerDown(event) {
+		if (this.pointer && this.pointer.isDown && this.pointer.pointerId !== event.pointerId) return;
+		const width = Math.max(1, window.innerWidth || 1);
+		const height = Math.max(1, window.innerHeight || 1);
+		const x = clamp(event.clientX / width, 0, 1);
+		const y = clamp(1 - event.clientY / height, 0, 1);
+
+		this.pointer.isDown = true;
+		this.pointer.pointerId = event.pointerId;
+		this.pointer.x = x;
+		this.pointer.y = y;
+		this.pointer.lastX = x;
+		this.pointer.lastY = y;
+		this.pointer.vx = 0;
+		this.pointer.vy = 0;
+		this.pointer.lastTime = performance.now();
+		this.pointer.lastMoveTime = performance.now();
+
+		try {
+			this.root?.setPointerCapture?.(event.pointerId);
+		} catch (err) {
+			// Ignore pointer capture failures
+		}
+
 		this.pointerDown = {
 			x: event.clientX,
 			y: event.clientY,
@@ -1262,7 +1339,46 @@ class ImpactLiquidOverlay {
 		};
 	}
 
+	handlePointerMove(event) {
+		if (!this.pointer?.isDown) return;
+		if (this.pointer.pointerId != null && event.pointerId !== this.pointer.pointerId) return;
+
+		const width = Math.max(1, window.innerWidth || 1);
+		const height = Math.max(1, window.innerHeight || 1);
+		const now = performance.now();
+		const x = clamp(event.clientX / width, 0, 1);
+		const y = clamp(1 - event.clientY / height, 0, 1);
+		const lastTime = this.pointer.lastTime ?? now;
+		const dt = Math.max((now - lastTime) / 1000, 0.001);
+
+		const vx = clamp((x - this.pointer.lastX) / dt, -POINTER_INTERACTION.maxVelocity, POINTER_INTERACTION.maxVelocity);
+		const vy = clamp((y - this.pointer.lastY) / dt, -POINTER_INTERACTION.maxVelocity, POINTER_INTERACTION.maxVelocity);
+
+		this.pointer.x = x;
+		this.pointer.y = y;
+		this.pointer.vx = vx;
+		this.pointer.vy = vy;
+		this.pointer.lastX = x;
+		this.pointer.lastY = y;
+		this.pointer.lastTime = now;
+		this.pointer.lastMoveTime = now;
+	}
+
 	handlePointerUp(event) {
+		if (this.pointer?.isDown) {
+			if (this.pointer.pointerId == null || event.pointerId === this.pointer.pointerId) {
+				this.pointer.isDown = false;
+				this.pointer.pointerId = null;
+				this.pointer.lastTime = performance.now();
+				this.pointer.lastMoveTime = performance.now();
+				try {
+					this.root?.releasePointerCapture?.(event.pointerId);
+				} catch (err) {
+					// Ignore pointer capture failures
+				}
+			}
+		}
+
 		if (!this.pointerDown) return;
 		const dx = event.clientX - this.pointerDown.x;
 		const dy = event.clientY - this.pointerDown.y;
@@ -1272,6 +1388,20 @@ class ImpactLiquidOverlay {
 
 		if (dist > 14 || elapsed > 800) return;
 		this.advance();
+	}
+
+	handlePointerCancel(event) {
+		if (this.pointer?.isDown) {
+			if (this.pointer.pointerId == null || event.pointerId === this.pointer.pointerId) {
+				this.pointer.isDown = false;
+				this.pointer.pointerId = null;
+				this.pointer.vx = 0;
+				this.pointer.vy = 0;
+				this.pointer.lastTime = performance.now();
+				this.pointer.lastMoveTime = performance.now();
+			}
+		}
+		this.pointerDown = null;
 	}
 
 	handleTouchMove(event) {
@@ -1408,6 +1538,27 @@ class ImpactLiquidOverlay {
 			const centerRadius = Math.max(FLUID_SIM.centerRadiusBase, holeRadius * 1.05);
 			const holeHardness = 0.06 + holeRadius * 0.28;
 
+			let pointerStrength = 0;
+			let pointerRadius = POINTER_INTERACTION.radius;
+			if (this.pointer?.lastMoveTime != null) {
+				const msSinceMove = now - this.pointer.lastMoveTime;
+				let influence = 0;
+				if (this.pointer.isDown) {
+					influence = 1;
+				} else if (msSinceMove <= POINTER_INTERACTION.holdMs) {
+					influence = 1;
+				} else {
+					influence = clamp(
+						1 - (msSinceMove - POINTER_INTERACTION.holdMs) / POINTER_INTERACTION.decayMs,
+						0,
+						1
+					);
+				}
+
+				pointerStrength = POINTER_INTERACTION.strength * influence;
+				pointerRadius = POINTER_INTERACTION.radius * (0.92 + influence * 0.18);
+			}
+
 			this.fluid.step({
 				dt,
 				time,
@@ -1419,7 +1570,11 @@ class ImpactLiquidOverlay {
 				holeStrength,
 				holeHardness,
 				textTexture: this.textTexture,
-				textStrength: this.textAlpha
+				textStrength: this.textAlpha,
+				pointer: this.pointer,
+				pointerVelocity: this.pointer,
+				pointerRadius,
+				pointerStrength
 			});
 			this.uniforms.u_dye.value = this.fluid.dyeTexture;
 			this.uniforms.u_velocity.value = this.fluid.velocityTexture;
@@ -1438,7 +1593,9 @@ class ImpactLiquidOverlay {
 		}
 
 		this.root?.removeEventListener('pointerdown', this.handlePointerDown);
+		this.root?.removeEventListener('pointermove', this.handlePointerMove);
 		this.root?.removeEventListener('pointerup', this.handlePointerUp);
+		this.root?.removeEventListener('pointercancel', this.handlePointerCancel);
 		this.root?.removeEventListener('touchmove', this.handleTouchMove);
 		window.removeEventListener('resize', this.handleResize);
 		window.removeEventListener('orientationchange', this.handleResize);
