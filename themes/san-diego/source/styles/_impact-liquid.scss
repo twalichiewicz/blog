@@ -10,6 +10,10 @@
 	touch-action: none;
 	-webkit-tap-highlight-color: transparent;
 	overflow: hidden;
+	background: transparent;
+}
+
+.impact-liquid-overlay.is-covered {
 	background: radial-gradient(
 		circle at 50% 24%,
 		rgb(18, 18, 20) 0%,
@@ -23,12 +27,12 @@ body.impact-liquid-active {
 	overflow: hidden;
 }
 
-body.impact-liquid-active main.blog {
+body.impact-liquid-covered main.blog {
 	display: none !important;
 }
 
-body.impact-liquid-active #impact-modal,
-body.impact-liquid-active #contact-modal {
+body.impact-liquid-covered #impact-modal,
+body.impact-liquid-covered #contact-modal {
 	display: none !important;
 }
 

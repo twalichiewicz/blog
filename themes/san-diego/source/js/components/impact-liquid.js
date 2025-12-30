@@ -6,6 +6,9 @@ const DEFAULT_STATS = [
 	{ value: '85%', label: 'Support Tickets Reduced', detail: 'Universal overlay platform rollout' }
 ];
 
+const HOLE_MAX = 0.42;
+const HOLE_EXIT_MAX = 0.74;
+
 const FLUID_SIM = {
 	maxDelta: 1 / 30,
 	targetScale: 0.42,
@@ -463,7 +466,7 @@ const SIM_COVERAGE_FRAGMENT = `
 
 		float holeMask = 0.0;
 		float holeDist = 0.0;
-		float holeRadius = clamp(u_holeRadius, 0.0, 0.5);
+		float holeRadius = clamp(u_holeRadius, 0.0, 0.85);
 		if (holeRadius > 0.001) {
 			vec2 centerWarp = curlNoise(uvFlow * 1.35 + 0.12, u_time * 0.6) * (u_texelSize * 22.0);
 			vec2 centered = (uvFlow - 0.5 + centerWarp) * vec2(u_aspect, 1.0);
@@ -1012,6 +1015,8 @@ class ImpactLiquidOverlay {
 		this.hole = 0;
 		this.textAlpha = 0;
 		this.isExiting = false;
+		this.isCovered = false;
+		this.exitHoleStart = null;
 		this.pointerDown = null;
 		this.lastFrame = null;
 
@@ -1021,6 +1026,18 @@ class ImpactLiquidOverlay {
 		this.handleTouchMove = this.handleTouchMove.bind(this);
 		this.animate = this.animate.bind(this);
 		this.handleKeydown = this.handleKeydown.bind(this);
+	}
+
+	setCoveredState(nextCovered) {
+		const isCovered = Boolean(nextCovered);
+		if (this.isCovered === isCovered) return;
+		this.isCovered = isCovered;
+		if (this.root) {
+			this.root.classList.toggle('is-covered', isCovered);
+		}
+		if (typeof document !== 'undefined' && document.body) {
+			document.body.classList.toggle('impact-liquid-covered', isCovered);
+		}
 	}
 
 	mount() {
@@ -1082,6 +1099,7 @@ class ImpactLiquidOverlay {
 		this.root.appendChild(this.caption);
 
 		document.body.appendChild(this.root);
+		this.setCoveredState(false);
 
 		this.root.addEventListener('pointerdown', this.handlePointerDown);
 		this.root.addEventListener('pointerup', this.handlePointerUp);
@@ -1277,7 +1295,9 @@ class ImpactLiquidOverlay {
 
 	requestClose() {
 		if (this.isExiting) return;
+		this.setCoveredState(false);
 		this.isExiting = true;
+		this.exitHoleStart = this.hole;
 		if (this.closeButton) {
 			this.closeButton.classList.remove('is-expanded');
 		}
@@ -1296,11 +1316,12 @@ class ImpactLiquidOverlay {
 		const elapsed = now - this.phaseStart;
 
 		if (this.phase === 'enter-fill') {
-			const t = easeInOutCubic(clamp(elapsed / 1100, 0, 1));
-			this.fill = t;
-			this.hole = 0;
+			const t = easeInOutCubic(clamp(elapsed / 760, 0, 1));
+			this.fill = 1;
+			this.hole = (1 - t) * HOLE_MAX;
 			this.textAlpha = 0;
 			if (t >= 1) {
+				this.setCoveredState(true);
 				this.phase = 'enter-fill-delay';
 				this.phaseStart = now;
 			}
@@ -1315,7 +1336,7 @@ class ImpactLiquidOverlay {
 		} else if (this.phase === 'enter-reveal') {
 			const t = easeInOutCubic(clamp(elapsed / 920, 0, 1));
 			this.fill = 1;
-			this.hole = t * 0.42;
+			this.hole = t * HOLE_MAX;
 			this.textAlpha = clamp((t - 0.22) / 0.78, 0, 1);
 			if (t >= 1) {
 				this.phase = 'show-stat';
@@ -1324,7 +1345,7 @@ class ImpactLiquidOverlay {
 		} else if (this.phase === 'cycle-close') {
 			const t = easeInOutCubic(clamp(elapsed / 520, 0, 1));
 			this.fill = 1;
-			this.hole = (1 - t) * 0.42;
+			this.hole = (1 - t) * HOLE_MAX;
 			this.textAlpha = clamp(1 - t * 1.2, 0, 1);
 			if (t >= 1) {
 				this.phase = 'cycle-delay';
@@ -1342,8 +1363,9 @@ class ImpactLiquidOverlay {
 		} else if (this.phase === 'exit') {
 			const t = easeInOutCubic(clamp(elapsed / 760, 0, 1));
 			this.textAlpha = 0;
-			this.hole = 0;
-			this.fill = 1 - t;
+			const startHole = Number.isFinite(this.exitHoleStart) ? this.exitHoleStart : this.hole;
+			this.hole = startHole + (HOLE_EXIT_MAX - startHole) * t;
+			this.fill = 1;
 			if (t >= 1) {
 				this.dispose();
 				return;
@@ -1361,7 +1383,11 @@ class ImpactLiquidOverlay {
 			let fillStrength = 5.2;
 			let holeStrength = 0;
 
-			if (this.phase === 'enter-reveal') {
+			if (this.phase === 'enter-fill') {
+				centerStrength = -FLUID_SIM.centerStrength * 1.05;
+				fillStrength = 7.4;
+				holeStrength = 0;
+			} else if (this.phase === 'enter-reveal') {
 				centerStrength = FLUID_SIM.centerStrength;
 				holeStrength = 8.5;
 			} else if (this.phase === 'show-stat') {
@@ -1374,9 +1400,8 @@ class ImpactLiquidOverlay {
 				centerStrength = -FLUID_SIM.centerStrength * 0.45;
 				holeStrength = 0;
 			} else if (this.phase === 'exit') {
-				centerStrength = -FLUID_SIM.centerStrength * 0.7;
-				fillStrength = -6.8;
-				holeStrength = 0;
+				centerStrength = FLUID_SIM.centerStrength;
+				holeStrength = 9.2;
 			}
 
 			const holeRadius = Math.max(0.0, this.hole);
@@ -1433,6 +1458,7 @@ class ImpactLiquidOverlay {
 		this.material = null;
 		this.renderer = null;
 		this.uniforms = null;
+		this.setCoveredState(false);
 
 		if (this.root?.parentElement) {
 			this.root.parentElement.removeChild(this.root);
@@ -1455,7 +1481,9 @@ export function stopImpactLiquidOverlay() {
 	if (overlay.closeButton) {
 		overlay.closeButton.classList.remove('is-expanded');
 	}
+	overlay.setCoveredState(false);
 	overlay.isExiting = true;
+	overlay.exitHoleStart = overlay.hole;
 	overlay.phase = 'exit';
 	overlay.phaseStart = performance.now();
 

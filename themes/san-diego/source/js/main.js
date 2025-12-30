@@ -1110,6 +1110,7 @@ function closeMobileAction() {
 		}
 
 		if (document.body) {
+			document.body.classList.remove('impact-liquid-covered');
 			document.body.classList.add('impact-liquid-active');
 		}
 
@@ -1128,6 +1129,7 @@ function closeMobileAction() {
 			impactLiquidState.isTransitioning = false;
 			if (document.body) {
 				document.body.classList.remove('impact-liquid-active');
+				document.body.classList.remove('impact-liquid-covered');
 			}
 			return false;
 		}
@@ -1146,6 +1148,7 @@ function closeMobileAction() {
 				impactLiquidState.isOpen = false;
 				if (document.body) {
 					document.body.classList.remove('impact-liquid-active');
+					document.body.classList.remove('impact-liquid-covered');
 				}
 			})
 			.finally(() => {
