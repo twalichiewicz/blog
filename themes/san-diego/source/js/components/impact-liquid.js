@@ -8,16 +8,16 @@ const DEFAULT_STATS = [
 
 const FLUID_SIM = {
 	maxDelta: 1 / 30,
-	targetScale: 0.35,
-	minSize: 96,
-	maxSize: 420,
-	pressureIterations: 14,
-	vorticityStrength: 18,
-	velocityDissipation: 0.22,
-	dyeDissipation: 0.07,
-	noiseStrength: 55,
-	centerStrength: 145,
-	centerRadiusBase: 0.12
+	targetScale: 0.42,
+	minSize: 112,
+	maxSize: 520,
+	pressureIterations: 16,
+	vorticityStrength: 14,
+	velocityDissipation: 0.28,
+	dyeDissipation: 0.09,
+	noiseStrength: 42,
+	centerStrength: 132,
+	centerRadiusBase: 0.14
 };
 
 const SHADER_VERTEX = `
@@ -74,7 +74,9 @@ const SHADER_FRAGMENT = `
 
 	float heightField(vec2 uv) {
 		vec4 dye = texture2D(u_dye, clamp(uv, 0.0, 1.0));
-		return dye.r * 0.72 + dye.g * 0.28;
+		float base = dye.r * 0.72 + dye.g * 0.28;
+		float emboss = dye.b;
+		return clamp(base + emboss * 0.34, 0.0, 1.0);
 	}
 
 	float coverageField(vec2 uv) {
@@ -122,25 +124,35 @@ const SHADER_FRAGMENT = `
 	void main() {
 		vec2 uv = vUv;
 		vec2 vel = velocityField(uv);
-		vec2 warp = vel * u_texelSize * 0.75;
-		vec2 uvFlow = clamp(uv + warp, 0.0, 1.0);
-		float turbulence = heightField(uvFlow) - 0.5;
+		vec2 shadeUv = clamp(uv + vel * u_texelSize * 0.35, 0.0, 1.0);
+		float turbulence = heightField(shadeUv) - 0.5;
+		float digitPresence = texture2D(u_dye, uv).b;
+		float digitBoost = smoothstep(0.18, 0.85, digitPresence);
 
-		float coverage = coverageField(uvFlow);
-		float coverageSmooth = smoothstep(0.06, 0.92, coverage);
+		float c0 = coverageField(uv);
+		float cL = coverageField(uv - vec2(u_texelSize.x, 0.0));
+		float cR = coverageField(uv + vec2(u_texelSize.x, 0.0));
+		float cB = coverageField(uv - vec2(0.0, u_texelSize.y));
+		float cT = coverageField(uv + vec2(0.0, u_texelSize.y));
+		float cTL = coverageField(uv + vec2(-u_texelSize.x, u_texelSize.y));
+		float cTR = coverageField(uv + vec2(u_texelSize.x, u_texelSize.y));
+		float cBL = coverageField(uv + vec2(-u_texelSize.x, -u_texelSize.y));
+		float cBR = coverageField(uv + vec2(u_texelSize.x, -u_texelSize.y));
+		float cBlur = (c0 * 4.0 + (cL + cR + cB + cT) * 2.0 + (cTL + cTR + cBL + cBR)) / 16.0;
+		float cMax = max(c0, max(max(cL, cR), max(cB, cT)));
+		cMax = max(cMax, max(max(cTL, cTR), max(cBL, cBR)));
+		float coverage = mix(cBlur, cMax, 0.26);
+		float liquidAlpha = smoothstep(0.14, 0.84, coverage);
+		liquidAlpha = pow(liquidAlpha, 0.92);
 
-		vec2 textWarp = vel * u_texelSize * 0.28 + vec2(turbulence) * 0.02;
-		textWarp += vec2(noise(uvFlow * 8.0 + u_time * 0.3) - 0.5) * 0.012;
-		vec2 textUv = clamp(uv + textWarp, 0.0, 1.0);
-		float rawText = texture2D(u_text, textUv).a;
-		float edgeNoise = (noise(textUv * 18.0 + u_time * 0.55) - 0.5) * 0.18;
-		float textMask = smoothstep(0.38 + edgeNoise, 0.72 + edgeNoise, rawText) * clamp(u_textAlpha, 0.0, 1.0);
+		float edge = abs(cR - cL) + abs(cT - cB);
+		float glow = smoothstep(0.04, 0.18, edge) * smoothstep(0.12, 0.72, liquidAlpha);
 
-		float liquidAlpha = max(coverageSmooth, textMask * 0.98);
-		float detailBoost = mix(1.0, 1.4, textMask);
-
-		vec3 outColor = metalShade(uvFlow + warp * 0.2, liquidAlpha, detailBoost);
-		outColor = mix(outColor, outColor + vec3(0.12, 0.13, 0.15) * liquidAlpha, textMask * 0.7);
+		float detailBoost = 1.0 + clamp(abs(turbulence) * 1.1, 0.0, 0.45);
+		detailBoost += digitBoost * 0.55;
+		vec3 outColor = metalShade(shadeUv, liquidAlpha, detailBoost);
+		outColor = mix(outColor, outColor * 1.08 + vec3(0.04), digitBoost * liquidAlpha);
+		outColor += glow * vec3(0.07, 0.08, 0.09);
 
 		gl_FragColor = vec4(outColor, liquidAlpha);
 	}
@@ -212,8 +224,7 @@ const SIM_SEED_FRAGMENT = `
 		vec2 uv = vUv;
 		float n1 = fbm(uv * 7.5 + u_seed);
 		float n2 = fbm(uv * 11.0 - u_seed * 0.7);
-		float n3 = fbm(uv * 17.0 + vec2(u_seed * 0.3, -u_seed * 0.5));
-		gl_FragColor = vec4(n1, n2, n3, 0.0);
+		gl_FragColor = vec4(n1, n2, 0.0, 0.0);
 	}
 `;
 
@@ -262,7 +273,7 @@ const SIM_ADVECT_FRAGMENT = `
 	void main() {
 		vec2 uv = vUv;
 		vec2 vel = texture2D(u_velocity, uv).xy;
-		vec2 coord = uv - vel * u_texelSize * (u_dt * 1.65);
+		vec2 coord = uv - vel * u_texelSize * (u_dt * 1.25);
 		coord = clamp(coord, 0.0, 1.0);
 		vec4 result = texture2D(u_source, coord);
 		result /= (1.0 + u_dissipation * u_dt);
@@ -281,10 +292,11 @@ const SIM_ADVECT_DYE_FRAGMENT = `
 	void main() {
 		vec2 uv = vUv;
 		vec2 vel = texture2D(u_velocity, uv).xy;
-		vec2 coord = uv - vel * u_texelSize * (u_dt * 1.65);
+		vec2 coord = uv - vel * u_texelSize * (u_dt * 1.25);
 		coord = clamp(coord, 0.0, 1.0);
 		vec4 result = texture2D(u_source, coord);
 		result.rgb /= (1.0 + u_dissipation * u_dt);
+		result.a /= (1.0 + u_dissipation * u_dt * 0.15);
 		gl_FragColor = result;
 	}
 `;
@@ -405,11 +417,15 @@ const SIM_INJECT_FRAGMENT = `
 	void main() {
 		vec2 uv = vUv;
 		vec4 dye = texture2D(u_dye, uv);
+		float coverage = dye.a;
+		float digitField = dye.b;
 		float n1 = fbm(uv * 6.0 + vec2(u_time * 0.05, -u_time * 0.03));
 		float n2 = fbm(uv * 9.3 + vec2(-u_time * 0.04, u_time * 0.06));
 		float n3 = fbm(uv * 14.8 + vec2(u_time * 0.02, u_time * 0.01));
 		vec3 target = vec3(n1, n2, n3);
-		dye.rgb = mix(dye.rgb, target, u_strength);
+		dye.rg = mix(dye.rg, target.rg, u_strength);
+		dye.b = digitField;
+		dye.a = coverage;
 		gl_FragColor = clamp(dye, 0.0, 1.0);
 	}
 `;
@@ -438,6 +454,7 @@ const SIM_COVERAGE_FRAGMENT = `
 		vec2 uv = vUv;
 		vec4 dye = texture2D(u_dye, uv);
 		float coverage = dye.a;
+		float digitField = dye.b;
 
 		vec2 vel = texture2D(u_velocity, uv).xy;
 		vec2 uvFlow = clamp(uv + vel * u_texelSize * 1.35, 0.0, 1.0);
@@ -448,70 +465,113 @@ const SIM_COVERAGE_FRAGMENT = `
 		float holeDist = 0.0;
 		float holeRadius = clamp(u_holeRadius, 0.0, 0.5);
 		if (holeRadius > 0.001) {
-			vec2 centerWarp = curlNoise(uvFlow * 1.35 + 0.12, u_time * 0.6) * (u_texelSize * 26.0);
+			vec2 centerWarp = curlNoise(uvFlow * 1.35 + 0.12, u_time * 0.6) * (u_texelSize * 22.0);
 			vec2 centered = (uvFlow - 0.5 + centerWarp) * vec2(u_aspect, 1.0);
 			float dist = length(centered);
 			holeDist = dist;
 			float angle = atan(centered.y, centered.x);
 			float angleNorm = angle * 0.15915494309 + 0.5;
-			float angularNoise = fbm(vec2(angleNorm * 6.4, u_time * 0.08)) - 0.5;
-			angularNoise += (fbm(vec2(angleNorm * 14.8, u_time * 0.11)) - 0.5) * 0.35;
+			float angularNoise = fbm(vec2(angleNorm * 4.6, u_time * 0.06)) - 0.5;
+			angularNoise += (fbm(vec2(angleNorm * 9.2, u_time * 0.09)) - 0.5) * 0.28;
 
-			float holeWobble = baseNoise * u_holeHardness * 2.6;
-			holeWobble += (fbm(uvFlow * 9.6 + vec2(u_time * 0.08, u_time * 0.06)) - 0.5) * u_holeHardness * 1.4;
-			holeWobble += (fbm(centered * 4.2 + vec2(u_time * 0.12, -u_time * 0.1)) - 0.5) * u_holeHardness * 1.1;
-			holeWobble += angularNoise * u_holeHardness * 2.0;
+			float holeWobble = baseNoise * u_holeHardness * 1.05;
+			holeWobble += (fbm(uvFlow * 4.2 + vec2(u_time * 0.06, u_time * 0.04)) - 0.5) * u_holeHardness * 0.85;
+			holeWobble += angularNoise * u_holeHardness * 0.65;
+			holeWobble = clamp(holeWobble, -holeRadius * 0.34, holeRadius * 0.18);
 			float radius = max(0.0, holeRadius + holeWobble);
-			float holeSoft = max(0.02, u_holeHardness * (0.55 + abs(holeWobble) * 3.6));
+			float holeSoft = max(0.03, 0.07 + u_holeHardness * 0.22);
 			holeMask = 1.0 - smoothstep(radius, radius + holeSoft, dist);
 		}
 
-		float fillFront = clamp(u_fillAmount, 0.0, 1.0) * 0.5;
+		float holeProtect = 1.0 - holeMask;
+
+		float fillFront = clamp(u_fillAmount, 0.0, 1.0) * 0.62;
 		float edgeDist = edgeDistance(uvFlow);
-		float edgeJitter = baseNoise * 0.06 + (fbm(uvFlow * 16.0 - u_time * 0.1) - 0.5) * 0.03;
-		float edgeSoft = 0.03 + abs(edgeJitter) * 0.85;
+		float edgeJitter = baseNoise * 0.036 + (fbm(uvFlow * 8.4 - u_time * 0.06) - 0.5) * 0.012;
+		float edgeSoft = 0.04 + abs(edgeJitter) * 0.8;
 		float edgeMask = 1.0 - smoothstep(fillFront, fillFront + edgeSoft, edgeDist + edgeJitter);
 		float fillDelta = edgeMask * u_fillStrength * u_dt;
 		fillDelta *= (1.0 - holeMask * 0.98);
 		coverage = clamp(coverage + fillDelta, 0.0, 1.0);
 
 		float textFill = clamp(u_textStrength, 0.0, 1.0);
-		float textMask = 0.0;
-		if (textFill > 0.001) {
-			vec2 curlWarp = curlNoise(uvFlow * 2.2 + vec2(0.2, -0.3), u_time * 0.45) * (u_texelSize * 6.5);
-			vec2 textWarp = vel * u_texelSize * (0.22 + holeRadius * 0.18);
-			textWarp += curlWarp;
-			textWarp += vec2(baseNoise) * 0.008;
-			vec2 textUv = clamp(uv + textWarp, 0.0, 1.0);
+		float digitMask = 0.0;
+
+		if (textFill > 0.001 && holeRadius > 0.001) {
+			vec2 curlWarp = curlNoise(uv * 1.35 + vec2(0.18, -0.24), u_time * 0.24) * (u_texelSize * 1.35);
+			vec2 flowWarp = vel * u_texelSize * 0.16;
+			vec2 textUv = clamp(uv + curlWarp + flowWarp, 0.0, 1.0);
+
 			float rawText = texture2D(u_text, textUv).a;
-			float melt = baseNoise * 0.32 + (fbm(uvFlow * 18.0 + vec2(u_time * 0.22, -u_time * 0.18)) - 0.5) * 0.24;
-			float edge = 0.5 + melt * 0.08;
-			float softness = 0.14 + abs(melt) * 0.22;
-			textMask = smoothstep(edge - softness, edge + softness, rawText);
+			float wobble = baseNoise * 0.38 + (fbm(uvFlow * 5.6 + vec2(u_time * 0.15, -u_time * 0.13)) - 0.5) * 0.34;
+			float threshold = 0.52 + wobble * 0.085;
+			float softness = 0.085 + abs(wobble) * 0.15;
+			float textMask = smoothstep(threshold - softness, threshold + softness, rawText);
+
+			float inject = clamp(u_dt * (8.5 + holeRadius * 10.0), 0.0, 1.0);
+			digitField = mix(digitField, textMask, inject);
+			digitField = clamp(digitField, 0.0, 1.0) * holeMask;
+
+			float interior = smoothstep(0.48, 0.92, textMask);
+			vec2 rippleUv = uvFlow * 6.2 + vel * 0.1 + vec2(u_time * 0.22, -u_time * 0.19);
+			float ripple = (fbm(rippleUv) - 0.5);
+			ripple += (fbm(rippleUv * 1.65 + vec2(-u_time * 0.17, u_time * 0.14)) - 0.5) * 0.7;
+			digitField = clamp(digitField + ripple * 0.105 * interior, 0.0, 1.0);
+			digitField = max(digitField, textMask * 0.3);
+			digitField *= holeMask;
+
+			float edgeNoise = (fbm(uvFlow * 2.35 + vec2(u_time * 0.16, -u_time * 0.12)) - 0.5) * 0.04;
+			edgeNoise += (fbm(uvFlow * 4.4 + vec2(-u_time * 0.11, u_time * 0.09)) - 0.5) * 0.016;
+			float edgeSoft = 0.06 + abs(edgeNoise) * 0.1;
+			float outline = mix(textMask, digitField, 0.32);
+			digitMask = smoothstep(0.5 - edgeSoft, 0.5 + edgeSoft, outline + edgeNoise) * textFill * holeMask;
+
+			vec2 swirlUv = uvFlow * 9.2 + vel * 0.08 + vec2(u_time * 0.24, -u_time * 0.22);
+			float s1 = fbm(swirlUv) - 0.5;
+			float s2 = fbm(swirlUv * 1.8 + vec2(4.1, -3.7)) - 0.5;
+			vec2 shimmer = vec2(0.52 + s1 * 0.22, 0.52 + s2 * 0.21);
+			dye.rg = mix(dye.rg, shimmer, digitMask * 0.26);
 		}
 
-		float textPresence = textMask * textFill;
+		float digitDecay = clamp(u_dt * 3.0, 0.0, 1.0);
+		digitField = mix(digitField, 0.0, digitDecay * (1.0 - textFill));
+		digitField = clamp(digitField, 0.0, 1.0) * holeMask;
+		dye.b = digitField;
 
 		if (u_holeStrength > 0.0 && holeRadius > 0.001) {
 			float drain = holeMask * u_holeStrength * u_dt;
-			drain *= (1.0 - textPresence * 0.985);
+			drain *= (1.0 - digitMask * 0.98);
 			coverage = clamp(coverage - drain, 0.0, 1.0);
 		}
 
-		if (textFill > 0.001 && holeRadius > 0.001) {
-			float sculpt = holeMask * textFill * u_dt * (5.4 + holeRadius * 6.0);
-			coverage = clamp(coverage + (textMask - coverage) * sculpt, 0.0, 1.0);
+		float background = coverage * holeProtect;
 
-			vec2 swirlUv = uvFlow * 12.0 + vel * 0.05 + vec2(u_time * 0.25, -u_time * 0.19);
-			float s1 = fbm(swirlUv) - 0.5;
-			float s2 = fbm(swirlUv * 1.85 + vec2(4.7, -3.3)) - 0.5;
-			float s3 = fbm(swirlUv * 2.6 + vec2(-2.1, 5.9)) - 0.5;
-			vec3 shimmer = vec3(0.62 + s1 * 0.22, 0.6 + s2 * 0.2, 0.58 + s3 * 0.18);
-			vec3 embossed = clamp(shimmer + vec3(0.16), 0.0, 1.0);
-			dye.rgb = mix(dye.rgb, embossed, textPresence * 0.75);
-		}
+		float cL = texture2D(u_dye, uv - vec2(u_texelSize.x, 0.0)).a;
+		float cR = texture2D(u_dye, uv + vec2(u_texelSize.x, 0.0)).a;
+		float cB = texture2D(u_dye, uv - vec2(0.0, u_texelSize.y)).a;
+		float cT = texture2D(u_dye, uv + vec2(0.0, u_texelSize.y)).a;
+		float cTL = texture2D(u_dye, uv + vec2(-u_texelSize.x, u_texelSize.y)).a;
+		float cTR = texture2D(u_dye, uv + vec2(u_texelSize.x, u_texelSize.y)).a;
+		float cBL = texture2D(u_dye, uv + vec2(-u_texelSize.x, -u_texelSize.y)).a;
+		float cBR = texture2D(u_dye, uv + vec2(u_texelSize.x, -u_texelSize.y)).a;
+		float neighborMax = max(max(cL, cR), max(cB, cT));
+		neighborMax = max(neighborMax, max(max(cTL, cTR), max(cBL, cBR)));
+		float neighborAvg = (cL + cR + cB + cT + cTL + cTR + cBL + cBR) / 8.0;
+		float closed = max(background, neighborMax * 0.985 * holeProtect);
+		closed = max(closed, neighborAvg * 0.96 * holeProtect);
 
-		dye.a = coverage;
+		float avg = (closed * 4.0 + cL + cR + cB + cT + cTL + cTR + cBL + cBR) / 12.0;
+		float boundary = closed * (1.0 - closed);
+		float smoothAmt = clamp((0.28 + boundary * 0.72) * holeProtect, 0.0, 0.78);
+		smoothAmt *= (1.0 - digitMask * 0.9);
+		float smoothed = mix(closed, avg, smoothAmt);
+
+		float enforce = edgeMask * smoothstep(0.18, 1.0, clamp(u_fillAmount, 0.0, 1.0));
+		smoothed = max(smoothed, enforce * 0.94 * holeProtect);
+
+		coverage = max(smoothed, digitMask);
+
+		dye.a = clamp(coverage, 0.0, 1.0);
 
 		gl_FragColor = clamp(dye, 0.0, 1.0);
 	}
@@ -529,6 +589,19 @@ function clamp(value, min, max) {
 
 function normalizeWhitespace(value) {
 	return (value || '').replace(/\s+/g, ' ').trim();
+}
+
+function drawTrackedText(ctx, text, trackingPx, method) {
+	const chars = Array.from(text || '');
+	if (!chars.length) return;
+	const widths = chars.map((ch) => ctx.measureText(ch).width);
+	const total = widths.reduce((sum, w) => sum + w, 0) + trackingPx * (widths.length - 1);
+	let cursor = -total / 2;
+	const drawMethod = typeof method === 'string' && ctx[method] ? method : 'fillText';
+	for (let i = 0; i < chars.length; i += 1) {
+		ctx[drawMethod](chars[i], cursor, 0);
+		cursor += widths[i] + trackingPx;
+	}
 }
 
 function resolveStats(stats) {
@@ -1073,10 +1146,14 @@ class ImpactLiquidOverlay {
 
 	resizeTextCanvas(width, height) {
 		const dpr = Math.min(window.devicePixelRatio || 1, 2);
-		const size = Math.max(720, Math.floor(Math.min(width, height) * dpr));
-		if (this.textCanvas.width === size && this.textCanvas.height === size) return;
-		this.textCanvas.width = size;
-		this.textCanvas.height = size;
+		const longEdge = Math.max(width, height);
+		const targetLongEdge = clamp(Math.floor(longEdge * dpr), 720, 1024);
+		const scale = targetLongEdge / Math.max(1, longEdge);
+		const nextW = Math.max(1, Math.round(width * scale));
+		const nextH = Math.max(1, Math.round(height * scale));
+		if (this.textCanvas.width === nextW && this.textCanvas.height === nextH) return;
+		this.textCanvas.width = nextW;
+		this.textCanvas.height = nextH;
 		this.textTexture.needsUpdate = true;
 	}
 
@@ -1099,23 +1176,36 @@ class ImpactLiquidOverlay {
 		ctx.clearRect(0, 0, width, height);
 		ctx.save();
 		ctx.translate(width / 2, height / 2);
-		ctx.textAlign = 'center';
+		ctx.textAlign = 'left';
 		ctx.textBaseline = 'middle';
 
 		const value = this.currentValue || '';
+		const charCount = Array.from(value).length;
 		const maxWidth = width * 0.86;
-		let fontSize = Math.floor(width * 0.22);
-		fontSize = clamp(fontSize, 72, 220);
-		ctx.font = `700 ${fontSize}px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-		while (fontSize > 42 && ctx.measureText(value).width > maxWidth) {
+		let fontSize = Math.floor(Math.min(width, height) * 0.34);
+		fontSize = clamp(fontSize, 64, 240);
+		ctx.font = `800 ${fontSize}px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+		while (fontSize > 42) {
+			if (ctx.measureText(value).width <= maxWidth) break;
 			fontSize -= 6;
-			ctx.font = `700 ${fontSize}px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+			ctx.font = `800 ${fontSize}px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+		}
+
+		let trackingPx = clamp(fontSize * 0.035, 0, 18);
+		if (charCount > 2) {
+			const totalWidth = ctx.measureText(value).width + trackingPx * Math.max(0, charCount - 1);
+			if (totalWidth > maxWidth) {
+				trackingPx = clamp(trackingPx * (maxWidth / totalWidth), 0, 18);
+			}
 		}
 
 		ctx.fillStyle = '#ffffff';
-		ctx.shadowColor = 'rgba(255,255,255,0.35)';
-		ctx.shadowBlur = Math.max(12, fontSize * 0.12);
-		ctx.fillText(value, 0, 0);
+		ctx.lineJoin = 'round';
+		ctx.miterLimit = 2;
+		drawTrackedText(ctx, value, trackingPx, 'fillText');
+		ctx.strokeStyle = 'rgba(255, 255, 255, 0.92)';
+		ctx.lineWidth = clamp(fontSize * 0.032, 1.5, 7);
+		drawTrackedText(ctx, value, trackingPx, 'strokeText');
 		ctx.restore();
 		this.textTexture.needsUpdate = true;
 	}

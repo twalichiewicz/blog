@@ -1038,6 +1038,29 @@ function closeMobileAction() {
 	}
 
 	// Impact Modal functionality
+	function extractImpactTileValue(valueEl) {
+		if (!valueEl) return '';
+		let output = '';
+		valueEl.childNodes.forEach((node) => {
+			if (node.nodeType === Node.TEXT_NODE) {
+				output += node.textContent || '';
+				return;
+			}
+
+			if (node.nodeType !== Node.ELEMENT_NODE) return;
+
+			const el = node;
+			if (el.classList?.contains('counter') && el.dataset?.target) {
+				output += String(el.dataset.target);
+				return;
+			}
+
+			output += el.textContent || '';
+		});
+
+		return output.replace(/\s+/g, ' ').trim();
+	}
+
 	function collectImpactLiquidStats() {
 		const modal = document.getElementById('impact-modal');
 		if (!modal) return null;
@@ -1045,7 +1068,8 @@ function closeMobileAction() {
 		const tiles = Array.from(modal.querySelectorAll('.impact-tile'));
 		const stats = tiles
 			.map((tile) => {
-				const value = tile.querySelector('.tile-value')?.textContent?.trim();
+				const valueEl = tile.querySelector('.tile-value');
+				const value = extractImpactTileValue(valueEl) || valueEl?.textContent?.trim();
 				const label = tile.querySelector('.tile-label')?.textContent?.trim();
 				const detail = tile.querySelector('.tile-detail')?.textContent?.trim();
 				if (!value) return null;
