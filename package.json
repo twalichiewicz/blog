@@ -130,7 +130,7 @@
   "notes": "All vulnerabilities have been addressed by removing hexo-admin and hexo-pdf, and replacing hoek with @hapi/hoek.",
   "devDependencies": {
     "chalk": "^5.6.2",
-    "chokidar": "^4.0.3",
+    "chokidar": "^5.0.0",
     "clean-css": "^5.3.3",
     "concurrently": "^9.2.1",
     "fs-extra": "^11.3.2",
