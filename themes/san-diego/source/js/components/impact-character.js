@@ -18,6 +18,7 @@ class ImpactCharacterViewer {
 		this.pointerCurrent = { x: 0, y: 0 };
 		this.dragStart = { x: 0, y: 0 };
 		this.dragStartRotation = { x: 0, y: 0 };
+		this.baseRotation = { x: 0, y: 0 };
 		this.archetype = container.getAttribute('data-archetype') || 'operator';
 		this.hasReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
 
@@ -124,6 +125,8 @@ class ImpactCharacterViewer {
 		this.bustGroup.add(chest);
 
 		this.bustGroup.rotation.y = 0.35;
+		this.baseRotation.x = this.bustGroup.rotation.x;
+		this.baseRotation.y = this.bustGroup.rotation.y;
 	}
 
 	onResize() {
@@ -218,13 +221,11 @@ class ImpactCharacterViewer {
 		this.pointerCurrent.x += (this.pointerTarget.x - this.pointerCurrent.x) * (this.hasReducedMotion ? 0.08 : 0.12);
 		this.pointerCurrent.y += (this.pointerTarget.y - this.pointerCurrent.y) * (this.hasReducedMotion ? 0.08 : 0.12);
 
-		const idleSpeed = this.hasReducedMotion ? 0 : 0.00035;
-		const idle = now * idleSpeed;
 		const dragY = this.dragRotationTargetY || 0;
 		const dragX = this.dragRotationTargetX || 0;
 
-		const targetY = idle + dragY + this.pointerCurrent.x * 0.25;
-		const targetX = dragX + this.pointerCurrent.y * 0.12;
+		const targetY = this.baseRotation.y + dragY + this.pointerCurrent.x * 0.25;
+		const targetX = this.baseRotation.x + dragX + this.pointerCurrent.y * 0.12;
 
 		this.bustGroup.rotation.y += (targetY - this.bustGroup.rotation.y) * (dt / 120);
 		this.bustGroup.rotation.x += (targetX - this.bustGroup.rotation.x) * (dt / 140);
@@ -297,4 +298,3 @@ export function stopImpactCharacter() {
 	latestStartToken++;
 	viewer?.stop();
 }
-
