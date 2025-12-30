@@ -192,6 +192,9 @@
 	filter: saturate(0.9) contrast(1.05) brightness(0.9);
 	opacity: 0.9;
 	transition: opacity 300ms ease;
+	pointer-events: none;
+	user-select: none;
+	-webkit-user-drag: none;
 }
 
 .impact-character.is-three-ready .impact-character-canvas {
