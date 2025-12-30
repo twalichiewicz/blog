@@ -7,6 +7,13 @@ import { initializeSoundEffects } from './utils/sound-effects.js';
 import { initResponsiveTables } from './components/responsive-tables.js';
 
 let impactCharacterModulePromise = null;
+let impactLiquidModulePromise = null;
+
+const impactLiquidState = {
+	isOpen: false,
+	isTransitioning: false,
+	closePromise: null
+};
 
 function loadImpactCharacterModule() {
 	if (!impactCharacterModulePromise) {
@@ -25,6 +32,26 @@ function stopImpactCharacter() {
 	if (!impactCharacterModulePromise) return;
 	impactCharacterModulePromise
 		.then((module) => module.stopImpactCharacter?.())
+		.catch(() => {});
+}
+
+function loadImpactLiquidModule() {
+	if (!impactLiquidModulePromise) {
+		impactLiquidModulePromise = import('./components/impact-liquid.js');
+	}
+	return impactLiquidModulePromise;
+}
+
+function startImpactLiquidOverlay(options) {
+	return loadImpactLiquidModule()
+		.then((module) => module.startImpactLiquidOverlay?.(options))
+		.catch(() => null);
+}
+
+function stopImpactLiquidOverlay() {
+	if (!impactLiquidModulePromise) return Promise.resolve();
+	return impactLiquidModulePromise
+		.then((module) => module.stopImpactLiquidOverlay?.())
 		.catch(() => {});
 }
 
@@ -1008,26 +1035,108 @@ function closeMobileAction() {
 	});
 
 	return true;
-}
-
-// Impact Modal functionality
-function openImpactModal(event) {
-    if (event) {
-        event.stopPropagation();
-    }
-
-	if (mobileContactMenuState.isOpen) {
-		closeMobileContactMenu();
 	}
-    
-    // Play toggle sound when opening impact report
-    if (window.playToggleSound) {
-        window.playToggleSound();
-    }
-    
-    if (openMobileAction('impact')) {
-        return;
-    }
+
+	// Impact Modal functionality
+	function collectImpactLiquidStats() {
+		const modal = document.getElementById('impact-modal');
+		if (!modal) return null;
+
+		const tiles = Array.from(modal.querySelectorAll('.impact-tile'));
+		const stats = tiles
+			.map((tile) => {
+				const value = tile.querySelector('.tile-value')?.textContent?.trim();
+				const label = tile.querySelector('.tile-label')?.textContent?.trim();
+				const detail = tile.querySelector('.tile-detail')?.textContent?.trim();
+				if (!value) return null;
+				return { value, label, detail };
+			})
+			.filter(Boolean);
+
+		return stats.length ? stats : null;
+	}
+
+	async function openImpactLiquidExperience() {
+		if (!isMobileActionViewport()) return false;
+		if (impactLiquidState.isTransitioning || impactLiquidState.isOpen) return true;
+		impactLiquidState.isTransitioning = true;
+
+		if (mobileContactMenuState.isOpen) {
+			closeMobileContactMenu();
+		}
+
+		if (document.body) {
+			document.body.classList.add('impact-liquid-active');
+		}
+
+		impactLiquidState.isOpen = true;
+
+		const overlay = await startImpactLiquidOverlay({
+			stats: collectImpactLiquidStats(),
+			onRequestClose: () => {
+				closeImpactLiquidExperience();
+			}
+		});
+
+		if (!overlay) {
+			impactLiquidState.isOpen = false;
+			impactLiquidState.isTransitioning = false;
+			if (document.body) {
+				document.body.classList.remove('impact-liquid-active');
+			}
+			return false;
+		}
+
+		impactLiquidState.isTransitioning = false;
+		return true;
+	}
+
+	function closeImpactLiquidExperience() {
+		if (!impactLiquidState.isOpen) return Promise.resolve(false);
+		if (impactLiquidState.closePromise) return impactLiquidState.closePromise;
+
+		impactLiquidState.isTransitioning = true;
+		impactLiquidState.closePromise = stopImpactLiquidOverlay()
+			.then(() => {
+				impactLiquidState.isOpen = false;
+				if (document.body) {
+					document.body.classList.remove('impact-liquid-active');
+				}
+			})
+			.finally(() => {
+				impactLiquidState.isTransitioning = false;
+				impactLiquidState.closePromise = null;
+			});
+
+		return impactLiquidState.closePromise;
+	}
+
+	function openImpactModal(event) {
+	    if (event) {
+	        event.stopPropagation();
+	    }
+
+		if (mobileContactMenuState.isOpen) {
+			closeMobileContactMenu();
+		}
+	    
+	    // Play toggle sound when opening impact report
+	    if (window.playToggleSound) {
+	        window.playToggleSound();
+	    }
+
+		if (isMobileActionViewport()) {
+			if (impactLiquidState.isOpen) {
+				closeImpactLiquidExperience();
+			} else {
+				openImpactLiquidExperience();
+			}
+			return;
+		}
+	    
+	    if (openMobileAction('impact')) {
+	        return;
+	    }
 
     const modal = document.getElementById('impact-modal');
     if (modal) {
