@@ -1055,11 +1055,18 @@ class ImpactLiquidOverlay {
 		this.root.appendChild(this.closeButton);
 
 		if (this.closeAnchor) {
-			const { top, right, width, height } = this.closeAnchor;
+			const { top, left, collapsedWidth, expandedWidth, height } = this.closeAnchor;
 			if (Number.isFinite(top)) this.closeButton.style.top = `${top}px`;
-			if (Number.isFinite(right)) this.closeButton.style.right = `${right}px`;
-			if (Number.isFinite(width)) this.closeButton.style.width = `${width}px`;
-			if (Number.isFinite(width)) this.closeButton.style.minWidth = `${width}px`;
+			if (Number.isFinite(left)) {
+				this.closeButton.style.left = `${left}px`;
+				this.closeButton.style.right = 'auto';
+			}
+			if (Number.isFinite(collapsedWidth)) {
+				this.closeButton.style.setProperty('--impact-liquid-close-collapsed-width', `${collapsedWidth}px`);
+			}
+			if (Number.isFinite(expandedWidth)) {
+				this.closeButton.style.setProperty('--impact-liquid-close-expanded-width', `${expandedWidth}px`);
+			}
 			if (Number.isFinite(height)) this.closeButton.style.height = `${height}px`;
 		}
 
@@ -1086,6 +1093,12 @@ class ImpactLiquidOverlay {
 		this.initThree();
 		this.setStat(0);
 		this.handleResize();
+
+		requestAnimationFrame(() => {
+			if (!this.closeButton) return;
+			this.closeButton.classList.add('is-expanded');
+		});
+
 		this.phase = 'enter-fill';
 		this.phaseStart = performance.now();
 		this.running = true;
@@ -1265,6 +1278,9 @@ class ImpactLiquidOverlay {
 	requestClose() {
 		if (this.isExiting) return;
 		this.isExiting = true;
+		if (this.closeButton) {
+			this.closeButton.classList.remove('is-expanded');
+		}
 		this.phase = 'exit';
 		this.phaseStart = performance.now();
 		if (this.onRequestClose) {
@@ -1436,6 +1452,9 @@ export function startImpactLiquidOverlay(options = {}) {
 
 export function stopImpactLiquidOverlay() {
 	if (!overlay) return Promise.resolve();
+	if (overlay.closeButton) {
+		overlay.closeButton.classList.remove('is-expanded');
+	}
 	overlay.isExiting = true;
 	overlay.phase = 'exit';
 	overlay.phaseStart = performance.now();

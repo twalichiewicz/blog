@@ -1090,16 +1090,22 @@ function closeMobileAction() {
 		}
 
 		let closeAnchor = null;
-		const closeAnchorEl =
-			document.querySelector('.profile-header .mobile-buttons-container') ||
-			document.querySelector('.profile-header .mobile-impact-button');
-		if (closeAnchorEl && typeof closeAnchorEl.getBoundingClientRect === 'function') {
-			const rect = closeAnchorEl.getBoundingClientRect();
+		const impactButton = document.querySelector('.profile-header .mobile-impact-button');
+		const buttonsContainer = document.querySelector('.profile-header .mobile-buttons-container');
+		if (impactButton && typeof impactButton.getBoundingClientRect === 'function') {
+			const impactRect = impactButton.getBoundingClientRect();
+			const containerRect =
+				buttonsContainer && typeof buttonsContainer.getBoundingClientRect === 'function'
+					? buttonsContainer.getBoundingClientRect()
+					: impactRect;
+			const collapsedWidth = impactRect.width;
+			const expandedWidth = Math.max(impactRect.width, containerRect.right - impactRect.left);
 			closeAnchor = {
-				top: rect.top,
-				right: window.innerWidth - rect.right,
-				width: rect.width,
-				height: rect.height
+				top: impactRect.top,
+				left: impactRect.left,
+				collapsedWidth,
+				expandedWidth,
+				height: impactRect.height
 			};
 		}
 

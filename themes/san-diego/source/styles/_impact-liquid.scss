@@ -44,14 +44,14 @@ body.impact-liquid-active #contact-modal {
 	position: absolute;
 	top: calc(22px + env(safe-area-inset-top));
 	right: calc(12px + env(safe-area-inset-right));
-	width: calc(36px * 2 + 6px);
-	min-width: calc(36px * 2 + 6px);
+	width: var(--impact-liquid-close-collapsed-width, 36px);
+	min-width: var(--impact-liquid-close-collapsed-width, 36px);
 	height: 36px;
 	border-radius: 999px;
 	display: inline-flex;
 	align-items: center;
-	justify-content: center;
-	gap: 8px;
+	justify-content: flex-start;
+	gap: 3px;
 	padding: 0;
 	cursor: pointer;
 	border: 1px solid variables.$text-color-secondary-dark;
@@ -60,25 +60,39 @@ body.impact-liquid-active #contact-modal {
 	box-shadow:
 		0 2px 6px rgb(0 0 0 / 20%);
 	z-index: 3;
-	transition: background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease;
+	transition:
+		background 200ms ease,
+		border-color 200ms ease,
+		color 200ms ease,
+		transform 200ms ease,
+		width 340ms ease,
+		min-width 340ms ease;
+}
+
+.impact-liquid-close.is-expanded {
+	width: var(--impact-liquid-close-expanded-width, calc(36px * 2 + 6px));
+	min-width: var(--impact-liquid-close-expanded-width, calc(36px * 2 + 6px));
 }
 
 .impact-liquid-close:hover {
 	background: color.adjust(variables.$text-color-secondary-dark, $lightness: 6%);
 	border-color: color.adjust(variables.$text-color-secondary-dark, $lightness: 6%);
+	color: variables.$black;
 }
 
 .impact-liquid-close:active {
 	background: color.adjust(variables.$text-color-secondary-dark, $lightness: -6%);
 	transform: translateY(1px);
+	color: variables.$black;
 }
 
 .impact-liquid-close-icon {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 20px;
-	height: 20px;
+	width: 36px;
+	height: 36px;
+	flex: 0 0 36px;
 }
 
 .impact-liquid-close-icon svg {
@@ -91,6 +105,18 @@ body.impact-liquid-active #contact-modal {
 	font-weight: var(--font-weight-semibold);
 	line-height: 1;
 	letter-spacing: 0.01em;
+	white-space: nowrap;
+	opacity: 0;
+	max-width: 0;
+	overflow: hidden;
+	transform: translateX(-6px);
+	transition: max-width 340ms ease, opacity 220ms ease, transform 340ms ease;
+}
+
+.impact-liquid-close.is-expanded .impact-liquid-close-text {
+	opacity: 1;
+	max-width: 80px;
+	transform: translateX(0);
 }
 
 .impact-liquid-caption {
