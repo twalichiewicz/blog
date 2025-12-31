@@ -562,7 +562,10 @@ const SIM_COVERAGE_FRAGMENT = `
 		float tBL = clamp(texture2D(u_text, textUv + vec2(-u_texelSize.x, -u_texelSize.y)).a, 0.0, 1.0);
 		float tBR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, -u_texelSize.y)).a, 0.0, 1.0);
 		float blurText = (rawText * 4.0 + tL + tR + tB + tT + tTL + tTR + tBL + tBR) / 12.0;
-		rawText = max(rawText, blurText * 0.96);
+		float neighborMax = max(max(tL, tR), max(tB, tT));
+		neighborMax = max(neighborMax, max(max(tTL, tTR), max(tBL, tBR)));
+		float fillGap = smoothstep(0.38, 0.72, neighborMax) * (1.0 - smoothstep(0.04, 0.16, rawText));
+		rawText = max(rawText, blurText * fillGap);
 		rawText = pow(rawText, 0.85);
 		float threshold = 0.3;
 		float softness = 0.07;
@@ -1479,7 +1482,7 @@ class ParticleTextSim {
 			});
 		}
 
-		const maskPointSize = clamp((Math.min(maskW, maskH) / 120) * safePixelRatio, 2.2, 6.8);
+		const maskPointSize = clamp((Math.min(maskW, maskH) / 160) * safePixelRatio, 1.9, 5.4);
 		this.maskPointsMaterial.uniforms.u_pointSize.value = maskPointSize;
 		this.renderMask();
 	}
