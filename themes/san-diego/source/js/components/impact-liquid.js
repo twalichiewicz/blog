@@ -824,7 +824,7 @@ const PARTICLE_MASK_FRAGMENT = `
 		float r = length(p);
 		if (r > 0.5) discard;
 		float falloff = smoothstep(0.5, 0.0, r);
-		falloff = pow(falloff, 2.35);
+		falloff = pow(falloff, 1.75);
 		gl_FragColor = vec4(0.0, 0.0, 0.0, falloff);
 	}
 `;
@@ -1534,7 +1534,7 @@ class ParticleTextSim {
 
 		if (!this.maskTarget || this.maskTarget.width !== maskW || this.maskTarget.height !== maskH) {
 			this.maskTarget?.dispose?.();
-			const filter = THREE.NearestFilter;
+			const filter = this.supportsLinearFiltering ? THREE.LinearFilter : THREE.NearestFilter;
 			this.maskTarget = new THREE.WebGLRenderTarget(maskW, maskH, {
 				type: THREE.HalfFloatType,
 				format: THREE.RGBAFormat,
@@ -1547,7 +1547,7 @@ class ParticleTextSim {
 			});
 		}
 
-		const maskPointSize = clamp((Math.min(maskW, maskH) / 240) * safePixelRatio, 1.05, 3.8);
+		const maskPointSize = clamp((Math.min(maskW, maskH) / 175) * safePixelRatio, 1.55, 5.6);
 		this.maskPointsMaterial.uniforms.u_pointSize.value = maskPointSize;
 		this.renderMask();
 	}
