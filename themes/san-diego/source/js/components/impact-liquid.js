@@ -582,24 +582,41 @@ const SIM_COVERAGE_FRAGMENT = `
 			float textMask = smoothstep(threshold - softness, threshold + softness, rawText);
 			float textMaskSoft = smoothstep(threshold - softness * 2.2, threshold + softness * 2.2, rawText);
 			float baseMask = smoothstep(threshold - softness, threshold + softness, rawBase);
+			float tMaskBaseL = smoothstep(threshold - softness, threshold + softness, tL);
+			float tMaskBaseR = smoothstep(threshold - softness, threshold + softness, tR);
+			float tMaskBaseB = smoothstep(threshold - softness, threshold + softness, tB);
+			float tMaskBaseT = smoothstep(threshold - softness, threshold + softness, tT);
+			float tMaskBaseTL = smoothstep(threshold - softness, threshold + softness, tTL);
+			float tMaskBaseTR = smoothstep(threshold - softness, threshold + softness, tTR);
+			float tMaskBaseBL = smoothstep(threshold - softness, threshold + softness, tBL);
+			float tMaskBaseBR = smoothstep(threshold - softness, threshold + softness, tBR);
+			float morphMax = max(max(tMaskBaseL, tMaskBaseR), max(tMaskBaseB, tMaskBaseT));
+			morphMax = max(morphMax, max(max(tMaskBaseTL, tMaskBaseTR), max(tMaskBaseBL, tMaskBaseBR)));
+			morphMax = max(morphMax, baseMask);
+			float morphMin = min(min(tMaskBaseL, tMaskBaseR), min(tMaskBaseB, tMaskBaseT));
+			morphMin = min(morphMin, min(min(tMaskBaseTL, tMaskBaseTR), min(tMaskBaseBL, tMaskBaseBR)));
+			morphMin = min(morphMin, baseMask);
+			float morphBlend = smoothstep(0.35, 0.65, mix(morphMax, morphMin, 0.5));
+			float textMaskMorph = mix(textMask, morphBlend, 0.6);
+			float textMaskSoftMorph = mix(textMaskSoft, textMaskMorph, 0.35);
 
 			float inject = clamp(u_dt * (8.5 + holeRadius * 10.0), 0.0, 1.0);
-			digitField = mix(digitField, textMask, inject);
+			digitField = mix(digitField, textMaskMorph, inject);
 			digitField = clamp(digitField, 0.0, 1.0) * holeMask;
-			digitField *= textMask;
+			digitField *= textMaskMorph;
 
-			float edgeBand = smoothstep(0.08, 0.32, textMaskSoft) * (1.0 - smoothstep(0.62, 0.92, textMaskSoft));
+			float edgeBand = smoothstep(0.08, 0.32, textMaskSoftMorph) * (1.0 - smoothstep(0.62, 0.92, textMaskSoftMorph));
 			vec2 rippleUv = uvFlow * 6.2 + vel * 0.1 + vec2(u_time * 0.22, -u_time * 0.19);
 			float ripple = (fbm(rippleUv) - 0.5);
 			ripple += (fbm(rippleUv * 1.65 + vec2(-u_time * 0.17, u_time * 0.14)) - 0.5) * 0.7;
 			digitField = clamp(digitField + ripple * 0.055 * edgeBand, 0.0, 1.0);
-			digitField = max(digitField, textMask * 0.35);
+			digitField = max(digitField, textMaskMorph * 0.35);
 			digitField *= holeMask;
 
 			float edgeNoise = (fbm(uvFlow * 2.35 + vec2(u_time * 0.16, -u_time * 0.12)) - 0.5) * 0.016;
 			edgeNoise += (fbm(uvFlow * 4.4 + vec2(-u_time * 0.11, u_time * 0.09)) - 0.5) * 0.007;
 			float edgeSoft = 0.048 + abs(edgeNoise) * 0.05;
-			float outline = textMaskSoft;
+			float outline = textMaskSoftMorph;
 			digitMask = smoothstep(0.5 - edgeSoft, 0.5 + edgeSoft, outline + edgeNoise) * textFill * holeMask;
 
 			vec2 swirlUv = uvFlow * 9.2 + vel * 0.08 + vec2(u_time * 0.24, -u_time * 0.22);
