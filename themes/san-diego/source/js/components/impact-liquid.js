@@ -505,6 +505,14 @@ const SIM_COVERAGE_FRAGMENT = `
 		vec4 dye = texture2D(u_dye, uv);
 		float coverage = dye.a;
 		float digitField = dye.b;
+		float textWeightL = 1.0;
+		float textWeightR = 1.0;
+		float textWeightB = 1.0;
+		float textWeightT = 1.0;
+		float textWeightTL = 1.0;
+		float textWeightTR = 1.0;
+		float textWeightBL = 1.0;
+		float textWeightBR = 1.0;
 
 		vec2 vel = texture2D(u_velocity, uv).xy;
 		vec2 uvFlow = clamp(uv + vel * u_texelSize * 1.35, 0.0, 1.0);
@@ -547,53 +555,69 @@ const SIM_COVERAGE_FRAGMENT = `
 		float textFill = clamp(u_textStrength, 0.0, 1.0);
 		float digitMask = 0.0;
 
-	if (textFill > 0.001 && holeRadius > 0.001) {
-		vec2 curlWarp = curlNoise(uv * 1.35 + vec2(0.18, -0.24), u_time * 0.24) * (u_texelSize * 0.65);
-		vec2 flowWarp = vel * u_texelSize * 0.06;
-		vec2 textUv = clamp(uv + curlWarp + flowWarp, 0.0, 1.0);
+		if (textFill > 0.001 && holeRadius > 0.001) {
+			vec2 textUv = uv;
 
-		float rawText = clamp(texture2D(u_text, textUv).a, 0.0, 1.0);
-		float tL = clamp(texture2D(u_text, textUv - vec2(u_texelSize.x, 0.0)).a, 0.0, 1.0);
-		float tR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, 0.0)).a, 0.0, 1.0);
+			float rawText = clamp(texture2D(u_text, textUv).a, 0.0, 1.0);
+			float tL = clamp(texture2D(u_text, textUv - vec2(u_texelSize.x, 0.0)).a, 0.0, 1.0);
+			float tR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, 0.0)).a, 0.0, 1.0);
 		float tB = clamp(texture2D(u_text, textUv - vec2(0.0, u_texelSize.y)).a, 0.0, 1.0);
 		float tT = clamp(texture2D(u_text, textUv + vec2(0.0, u_texelSize.y)).a, 0.0, 1.0);
-		float tTL = clamp(texture2D(u_text, textUv + vec2(-u_texelSize.x, u_texelSize.y)).a, 0.0, 1.0);
-		float tTR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, u_texelSize.y)).a, 0.0, 1.0);
-		float tBL = clamp(texture2D(u_text, textUv + vec2(-u_texelSize.x, -u_texelSize.y)).a, 0.0, 1.0);
-		float tBR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, -u_texelSize.y)).a, 0.0, 1.0);
-		float blurText = (rawText * 4.0 + tL + tR + tB + tT + tTL + tTR + tBL + tBR) / 12.0;
-		float neighborMax = max(max(tL, tR), max(tB, tT));
-		neighborMax = max(neighborMax, max(max(tTL, tTR), max(tBL, tBR)));
-		float fillGap = smoothstep(0.38, 0.72, neighborMax) * (1.0 - smoothstep(0.04, 0.16, rawText));
-		rawText = max(rawText, blurText * fillGap);
-		rawText = pow(rawText, 0.85);
-		float threshold = 0.3;
-		float softness = 0.07;
-		float textMask = smoothstep(threshold - softness, threshold + softness, rawText);
+			float tTL = clamp(texture2D(u_text, textUv + vec2(-u_texelSize.x, u_texelSize.y)).a, 0.0, 1.0);
+			float tTR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, u_texelSize.y)).a, 0.0, 1.0);
+			float tBL = clamp(texture2D(u_text, textUv + vec2(-u_texelSize.x, -u_texelSize.y)).a, 0.0, 1.0);
+			float tBR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, -u_texelSize.y)).a, 0.0, 1.0);
+			float blurText = (rawText * 4.0 + tL + tR + tB + tT + tTL + tTR + tBL + tBR) / 12.0;
+			float neighborMax = max(max(tL, tR), max(tB, tT));
+			neighborMax = max(neighborMax, max(max(tTL, tTR), max(tBL, tBR)));
+			float fillGap = smoothstep(0.38, 0.72, neighborMax) * (1.0 - smoothstep(0.04, 0.16, rawText));
+			rawText = max(rawText, blurText * fillGap);
+			rawText = pow(rawText, 0.78);
+			float threshold = 0.42;
+			float softness = 0.045;
+			float textMask = smoothstep(threshold - softness, threshold + softness, rawText);
 
-		float inject = clamp(u_dt * (8.5 + holeRadius * 10.0), 0.0, 1.0);
-		digitField = mix(digitField, textMask, inject);
-		digitField = clamp(digitField, 0.0, 1.0) * holeMask;
+			float inject = clamp(u_dt * (8.5 + holeRadius * 10.0), 0.0, 1.0);
+			digitField = mix(digitField, textMask, inject);
+			digitField = clamp(digitField, 0.0, 1.0) * holeMask;
+			digitField *= textMask;
 
-		float edgeBand = smoothstep(0.08, 0.32, textMask) * (1.0 - smoothstep(0.62, 0.92, textMask));
-		vec2 rippleUv = uvFlow * 6.2 + vel * 0.1 + vec2(u_time * 0.22, -u_time * 0.19);
-		float ripple = (fbm(rippleUv) - 0.5);
-		ripple += (fbm(rippleUv * 1.65 + vec2(-u_time * 0.17, u_time * 0.14)) - 0.5) * 0.7;
-		digitField = clamp(digitField + ripple * 0.075 * edgeBand, 0.0, 1.0);
-		digitField = max(digitField, textMask * 0.35);
-		digitField *= holeMask;
+			float edgeBand = smoothstep(0.08, 0.32, textMask) * (1.0 - smoothstep(0.62, 0.92, textMask));
+			vec2 rippleUv = uvFlow * 6.2 + vel * 0.1 + vec2(u_time * 0.22, -u_time * 0.19);
+			float ripple = (fbm(rippleUv) - 0.5);
+			ripple += (fbm(rippleUv * 1.65 + vec2(-u_time * 0.17, u_time * 0.14)) - 0.5) * 0.7;
+			digitField = clamp(digitField + ripple * 0.075 * edgeBand, 0.0, 1.0);
+			digitField = max(digitField, textMask * 0.35);
+			digitField *= holeMask;
 
-		float edgeNoise = (fbm(uvFlow * 2.35 + vec2(u_time * 0.16, -u_time * 0.12)) - 0.5) * 0.022;
-		edgeNoise += (fbm(uvFlow * 4.4 + vec2(-u_time * 0.11, u_time * 0.09)) - 0.5) * 0.01;
-		float edgeSoft = 0.038 + abs(edgeNoise) * 0.06;
-		float outline = mix(textMask, digitField, 0.22);
-		digitMask = smoothstep(0.5 - edgeSoft, 0.5 + edgeSoft, outline + edgeNoise) * textFill * holeMask;
+			float edgeNoise = (fbm(uvFlow * 2.35 + vec2(u_time * 0.16, -u_time * 0.12)) - 0.5) * 0.022;
+			edgeNoise += (fbm(uvFlow * 4.4 + vec2(-u_time * 0.11, u_time * 0.09)) - 0.5) * 0.01;
+			float edgeSoft = 0.038 + abs(edgeNoise) * 0.06;
+			float outline = textMask;
+			digitMask = smoothstep(0.5 - edgeSoft, 0.5 + edgeSoft, outline + edgeNoise) * textFill * holeMask;
 
-		vec2 swirlUv = uvFlow * 9.2 + vel * 0.08 + vec2(u_time * 0.24, -u_time * 0.22);
-		float s1 = fbm(swirlUv) - 0.5;
+			vec2 swirlUv = uvFlow * 9.2 + vel * 0.08 + vec2(u_time * 0.24, -u_time * 0.22);
+			float s1 = fbm(swirlUv) - 0.5;
 			float s2 = fbm(swirlUv * 1.8 + vec2(4.1, -3.7)) - 0.5;
 			vec2 shimmer = vec2(0.52 + s1 * 0.22, 0.52 + s2 * 0.21);
 			dye.rg = mix(dye.rg, shimmer, digitMask * 0.26);
+
+			float tMaskL = smoothstep(threshold - softness, threshold + softness, tL);
+			float tMaskR = smoothstep(threshold - softness, threshold + softness, tR);
+			float tMaskB = smoothstep(threshold - softness, threshold + softness, tB);
+			float tMaskT = smoothstep(threshold - softness, threshold + softness, tT);
+			float tMaskTL = smoothstep(threshold - softness, threshold + softness, tTL);
+			float tMaskTR = smoothstep(threshold - softness, threshold + softness, tTR);
+			float tMaskBL = smoothstep(threshold - softness, threshold + softness, tBL);
+			float tMaskBR = smoothstep(threshold - softness, threshold + softness, tBR);
+			textWeightL = 1.0 - smoothstep(0.15, 0.55, tMaskL);
+			textWeightR = 1.0 - smoothstep(0.15, 0.55, tMaskR);
+			textWeightB = 1.0 - smoothstep(0.15, 0.55, tMaskB);
+			textWeightT = 1.0 - smoothstep(0.15, 0.55, tMaskT);
+			textWeightTL = 1.0 - smoothstep(0.15, 0.55, tMaskTL);
+			textWeightTR = 1.0 - smoothstep(0.15, 0.55, tMaskTR);
+			textWeightBL = 1.0 - smoothstep(0.15, 0.55, tMaskBL);
+			textWeightBR = 1.0 - smoothstep(0.15, 0.55, tMaskBR);
 		}
 
 		float digitDecay = clamp(u_dt * 3.0, 0.0, 1.0);
@@ -609,14 +633,14 @@ const SIM_COVERAGE_FRAGMENT = `
 
 		float background = coverage * holeProtect;
 
-		float cL = texture2D(u_dye, uv - vec2(u_texelSize.x, 0.0)).a;
-		float cR = texture2D(u_dye, uv + vec2(u_texelSize.x, 0.0)).a;
-		float cB = texture2D(u_dye, uv - vec2(0.0, u_texelSize.y)).a;
-		float cT = texture2D(u_dye, uv + vec2(0.0, u_texelSize.y)).a;
-		float cTL = texture2D(u_dye, uv + vec2(-u_texelSize.x, u_texelSize.y)).a;
-		float cTR = texture2D(u_dye, uv + vec2(u_texelSize.x, u_texelSize.y)).a;
-		float cBL = texture2D(u_dye, uv + vec2(-u_texelSize.x, -u_texelSize.y)).a;
-		float cBR = texture2D(u_dye, uv + vec2(u_texelSize.x, -u_texelSize.y)).a;
+		float cL = texture2D(u_dye, uv - vec2(u_texelSize.x, 0.0)).a * textWeightL;
+		float cR = texture2D(u_dye, uv + vec2(u_texelSize.x, 0.0)).a * textWeightR;
+		float cB = texture2D(u_dye, uv - vec2(0.0, u_texelSize.y)).a * textWeightB;
+		float cT = texture2D(u_dye, uv + vec2(0.0, u_texelSize.y)).a * textWeightT;
+		float cTL = texture2D(u_dye, uv + vec2(-u_texelSize.x, u_texelSize.y)).a * textWeightTL;
+		float cTR = texture2D(u_dye, uv + vec2(u_texelSize.x, u_texelSize.y)).a * textWeightTR;
+		float cBL = texture2D(u_dye, uv + vec2(-u_texelSize.x, -u_texelSize.y)).a * textWeightBL;
+		float cBR = texture2D(u_dye, uv + vec2(u_texelSize.x, -u_texelSize.y)).a * textWeightBR;
 		float neighborMax = max(max(cL, cR), max(cB, cT));
 		neighborMax = max(neighborMax, max(max(cTL, cTR), max(cBL, cBR)));
 		float neighborAvg = (cL + cR + cB + cT + cTL + cTR + cBL + cBR) / 8.0;
