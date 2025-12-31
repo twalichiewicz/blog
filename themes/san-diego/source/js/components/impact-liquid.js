@@ -1715,6 +1715,10 @@ class ImpactLiquidOverlay {
 		this.onRequestClose = typeof onRequestClose === 'function' ? onRequestClose : null;
 		this.activeIndex = 0;
 		this.captionVisible = false;
+		this.autoAdvanceMs = 18000;
+		this.autoAdvanceStart = null;
+		this.hasInteracted = false;
+		this.lastPhase = null;
 		this.themeColorNodes = null;
 		this.themeColorValues = null;
 		this.prevHtmlBg = null;
@@ -1747,6 +1751,7 @@ class ImpactLiquidOverlay {
 			this.handleResize = this.handleResize.bind(this);
 			this.handlePointerDown = this.handlePointerDown.bind(this);
 			this.handlePointerMove = this.handlePointerMove.bind(this);
+		this.handlePointerEnter = this.handlePointerEnter.bind(this);
 		this.handlePointerUp = this.handlePointerUp.bind(this);
 		this.handlePointerCancel = this.handlePointerCancel.bind(this);
 		this.handleTouchMove = this.handleTouchMove.bind(this);
@@ -1820,6 +1825,12 @@ class ImpactLiquidOverlay {
 			<div class="impact-liquid-caption-inner">
 				<div class="impact-liquid-caption-label"></div>
 				<div class="impact-liquid-caption-detail"></div>
+				<div class="impact-liquid-caption-progress" aria-hidden="true">
+					<svg viewBox="0 0 36 36">
+						<circle class="impact-liquid-caption-progress-track" cx="18" cy="18" r="15"></circle>
+						<circle class="impact-liquid-caption-progress-value" cx="18" cy="18" r="15"></circle>
+					</svg>
+				</div>
 			</div>
 		`;
 		this.root.appendChild(this.caption);
@@ -1831,6 +1842,7 @@ class ImpactLiquidOverlay {
 
 		this.root.addEventListener('pointerdown', this.handlePointerDown);
 		this.root.addEventListener('pointermove', this.handlePointerMove);
+		this.root.addEventListener('pointerenter', this.handlePointerEnter);
 		this.root.addEventListener('pointerup', this.handlePointerUp);
 		this.root.addEventListener('pointercancel', this.handlePointerCancel);
 		this.root.addEventListener('touchmove', this.handleTouchMove, { passive: false });
@@ -1955,6 +1967,22 @@ class ImpactLiquidOverlay {
 		this.captionVisible = nextVisible;
 		if (!this.caption) return;
 		this.caption.classList.toggle('is-fading', !nextVisible);
+	}
+
+	setAutoAdvanceProgress(progress) {
+		if (!this.caption) return;
+		this.caption.style.setProperty('--impact-progress', progress.toFixed(3));
+	}
+
+	registerInteraction(now = performance.now()) {
+		this.hasInteracted = true;
+		this.autoAdvanceStart = now;
+	}
+
+	handlePointerEnter(event) {
+		if (event.pointerType === 'mouse') {
+			this.registerInteraction();
+		}
 	}
 
 	ensureThemeColorNodes() {
@@ -2121,6 +2149,7 @@ class ImpactLiquidOverlay {
 		this.pointer.vy = 0;
 		this.pointer.lastTime = performance.now();
 		this.pointer.lastMoveTime = performance.now();
+		this.registerInteraction();
 
 		try {
 			this.root?.setPointerCapture?.(event.pointerId);
@@ -2158,6 +2187,7 @@ class ImpactLiquidOverlay {
 		this.pointer.lastY = y;
 		this.pointer.lastTime = now;
 		this.pointer.lastMoveTime = now;
+		this.registerInteraction(now);
 	}
 
 	handlePointerUp(event) {
@@ -2298,6 +2328,25 @@ class ImpactLiquidOverlay {
 			}
 		}
 
+		if (this.phase !== this.lastPhase && this.phase === 'show-stat' && this.hasInteracted) {
+			this.autoAdvanceStart = now;
+		}
+
+		let progress = 0;
+		if (this.hasInteracted && this.phase === 'show-stat') {
+			if (this.autoAdvanceStart == null) {
+				this.autoAdvanceStart = now;
+			}
+			progress = clamp((now - this.autoAdvanceStart) / this.autoAdvanceMs, 0, 1);
+			if (progress >= 1) {
+				this.autoAdvanceStart = now;
+				this.advance();
+				progress = 0;
+			}
+		}
+		this.setAutoAdvanceProgress(progress);
+		this.lastPhase = this.phase;
+
 		const captionVisible =
 			this.phase === 'show-stat' || (this.phase === 'enter-reveal' && this.textAlpha > 0.18);
 		this.setCaptionVisible(captionVisible);
@@ -2419,6 +2468,7 @@ class ImpactLiquidOverlay {
 
 		this.root?.removeEventListener('pointerdown', this.handlePointerDown);
 		this.root?.removeEventListener('pointermove', this.handlePointerMove);
+		this.root?.removeEventListener('pointerenter', this.handlePointerEnter);
 		this.root?.removeEventListener('pointerup', this.handlePointerUp);
 		this.root?.removeEventListener('pointercancel', this.handlePointerCancel);
 		this.root?.removeEventListener('touchmove', this.handleTouchMove);

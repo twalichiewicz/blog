@@ -148,12 +148,13 @@ body.impact-liquid-covered #contact-modal {
 
 .impact-liquid-caption-inner {
 	border-radius: 18px;
-	padding: 14px 16px;
+	padding: 14px 42px 14px 16px;
 	background: rgba(variables.$white, 0.84);
 	border: 1px solid rgba(variables.$border-color, 0.35);
 	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 	backdrop-filter: blur(16px) saturate(1.2);
 	-webkit-backdrop-filter: blur(16px) saturate(1.2);
+	position: relative;
 	max-height: 120px;
 	overflow: hidden;
 	transition:
@@ -166,7 +167,7 @@ body.impact-liquid-covered #contact-modal {
 
 .impact-liquid-caption:not(.has-detail) .impact-liquid-caption-inner {
 	max-height: 56px;
-	padding: 12px 16px;
+	padding: 12px 42px 12px 16px;
 }
 
 .impact-liquid-caption-label {
@@ -198,6 +199,55 @@ body.impact-liquid-covered #contact-modal {
 	transform: translateY(6px);
 }
 
+.impact-liquid-caption-progress {
+	position: absolute;
+	top: 8px;
+	right: 10px;
+	width: 22px;
+	height: 22px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: hsl(24deg 6% 18%);
+	opacity: 0;
+	transform: scale(0.92);
+	transition: opacity 200ms ease, transform 200ms ease;
+	pointer-events: none;
+}
+
+.impact-liquid-caption-progress svg {
+	width: 100%;
+	height: 100%;
+	transform: rotate(-90deg);
+}
+
+.impact-liquid-caption-progress circle {
+	fill: none;
+	stroke-width: 2.4;
+}
+
+.impact-liquid-caption-progress-track {
+	stroke: rgba(variables.$text-color, 0.24);
+}
+
+.impact-liquid-caption-progress-value {
+	stroke: currentColor;
+	stroke-linecap: round;
+	stroke-dasharray: 94.2;
+	stroke-dashoffset: calc(94.2 * (1 - var(--impact-progress, 0)));
+	transition: stroke-dashoffset 180ms linear;
+}
+
+.impact-liquid-caption.has-detail .impact-liquid-caption-progress {
+	opacity: 0.9;
+	transform: scale(1);
+}
+
+.impact-liquid-caption.is-fading .impact-liquid-caption-progress {
+	opacity: 0;
+	transform: scale(0.9);
+}
+
 .impact-liquid-caption:not(.has-detail) .impact-liquid-caption-detail {
 	max-height: 0;
 	margin-top: 0;
@@ -218,5 +268,13 @@ body.impact-liquid-covered #contact-modal {
 
 	.impact-liquid-caption-detail {
 		color: hsl(0deg 0% 86%);
+	}
+
+	.impact-liquid-caption-progress {
+		color: hsl(0deg 0% 96%);
+	}
+
+	.impact-liquid-caption-progress-track {
+		stroke: rgba(255, 255, 255, 0.2);
 	}
 }
