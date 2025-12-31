@@ -1264,6 +1264,7 @@ class ImpactLiquidOverlay {
 		if (labelEl) labelEl.textContent = stat.label || '';
 		if (detailEl) detailEl.textContent = stat.detail || '';
 		this.currentValue = stat.value;
+		this.currentLabel = stat.label;
 		this.redrawText();
 	}
 
@@ -1275,19 +1276,23 @@ class ImpactLiquidOverlay {
 		ctx.save();
 		ctx.translate(width / 2, height / 2);
 		ctx.textAlign = 'left';
-		ctx.textBaseline = 'middle';
+		ctx.textBaseline = 'alphabetic';
 
 		const value = this.currentValue || '';
+		const label = this.currentLabel || '';
 		const charCount = Array.from(value).length;
 		const maxWidth = width * 0.86;
 		let fontSize = Math.floor(Math.min(width, height) * 0.34);
 		fontSize = clamp(fontSize, 64, 240);
-		ctx.font = `800 ${fontSize}px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+		const valueFont = (size) =>
+			`900 ${size}px Impact, Haettenschweiler, "Arial Narrow Bold", "Arial Narrow", "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+		ctx.font = valueFont(fontSize);
 		while (fontSize > 42) {
 			if (ctx.measureText(value).width <= maxWidth) break;
 			fontSize -= 6;
-			ctx.font = `800 ${fontSize}px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+			ctx.font = valueFont(fontSize);
 		}
+		const resolvedValueFont = ctx.font;
 
 		let trackingPx = clamp(fontSize * 0.035, 0, 18);
 		if (charCount > 2) {
@@ -1297,13 +1302,61 @@ class ImpactLiquidOverlay {
 			}
 		}
 
+		const valueMetrics = ctx.measureText(value);
+		const valueAscent = valueMetrics.actualBoundingBoxAscent ?? fontSize * 0.78;
+		const valueDescent = valueMetrics.actualBoundingBoxDescent ?? fontSize * 0.22;
+
+		let resolvedLabelFont = null;
+		let labelMetrics = null;
+		let resolvedLabelFontSize = 0;
+		if (label) {
+			let labelFontSize = clamp(Math.round(fontSize * 0.19), 14, 72);
+			const labelFont = (size) =>
+				`600 ${size}px "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+			ctx.font = labelFont(labelFontSize);
+			while (labelFontSize > 12) {
+				if (ctx.measureText(label).width <= maxWidth) break;
+				labelFontSize -= 2;
+				ctx.font = labelFont(labelFontSize);
+			}
+			resolvedLabelFont = ctx.font;
+			resolvedLabelFontSize = labelFontSize;
+			labelMetrics = ctx.measureText(label);
+		}
+
+		const labelAscent = labelMetrics?.actualBoundingBoxAscent ?? resolvedLabelFontSize * 0.74;
+		const labelDescent = labelMetrics?.actualBoundingBoxDescent ?? resolvedLabelFontSize * 0.26;
+		const labelGap = label ? clamp(Math.round((labelAscent + labelDescent) * 0.55), 8, 18) : 0;
+		const totalHeight = valueAscent + valueDescent + (label ? labelGap + labelAscent + labelDescent : 0);
+		const blockTop = -totalHeight / 2;
+		const valueBaseline = blockTop + valueAscent;
+		const labelBaseline = valueBaseline + valueDescent + labelGap + labelAscent;
+
 		ctx.fillStyle = '#ffffff';
 		ctx.lineJoin = 'round';
 		ctx.miterLimit = 2;
+
+		ctx.save();
+		ctx.translate(0, valueBaseline);
+		ctx.font = resolvedValueFont;
 		drawTrackedText(ctx, value, trackingPx, 'fillText');
 		ctx.strokeStyle = 'rgba(255, 255, 255, 0.92)';
 		ctx.lineWidth = clamp(fontSize * 0.032, 1.5, 7);
 		drawTrackedText(ctx, value, trackingPx, 'strokeText');
+		ctx.restore();
+
+		if (label && resolvedLabelFont) {
+			ctx.save();
+			ctx.translate(0, labelBaseline);
+			ctx.font = resolvedLabelFont;
+			ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+			drawTrackedText(ctx, label, 0, 'fillText');
+			ctx.strokeStyle = 'rgba(255, 255, 255, 0.82)';
+			ctx.lineWidth = clamp((labelAscent + labelDescent) * 0.11, 1, 3);
+			drawTrackedText(ctx, label, 0, 'strokeText');
+			ctx.restore();
+		}
+
 		ctx.restore();
 		this.textTexture.needsUpdate = true;
 	}
