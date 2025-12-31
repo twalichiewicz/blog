@@ -1713,6 +1713,11 @@ class ImpactLiquidOverlay {
 		this.onRequestClose = typeof onRequestClose === 'function' ? onRequestClose : null;
 		this.activeIndex = 0;
 		this.captionVisible = false;
+		this.themeColorNodes = null;
+		this.themeColorValues = null;
+		this.prevHtmlBg = null;
+		this.prevBodyBg = null;
+		this.chromeTintApplied = false;
 		this.phase = 'enter-fill';
 		this.phaseStart = performance.now();
 		this.fill = 0;
@@ -1820,6 +1825,7 @@ class ImpactLiquidOverlay {
 
 		document.body.appendChild(this.root);
 		this.setCoveredState(false);
+		this.applyChromeTint('rgb(0, 0, 0)');
 
 		this.root.addEventListener('pointerdown', this.handlePointerDown);
 		this.root.addEventListener('pointermove', this.handlePointerMove);
@@ -1945,6 +1951,59 @@ class ImpactLiquidOverlay {
 		this.captionVisible = nextVisible;
 		if (!this.caption) return;
 		this.caption.classList.toggle('is-fading', !nextVisible);
+	}
+
+	ensureThemeColorNodes() {
+		if (this.themeColorNodes) return;
+		const nodes = Array.from(document.querySelectorAll('meta[name="theme-color"]'));
+		if (!nodes.length && document.head) {
+			const fallback = getComputedStyle(document.body || document.documentElement).backgroundColor || 'rgb(0, 0, 0)';
+			const meta = document.createElement('meta');
+			meta.setAttribute('name', 'theme-color');
+			meta.setAttribute('content', fallback);
+			document.head.appendChild(meta);
+			nodes.push(meta);
+		}
+		this.themeColorNodes = nodes;
+		this.themeColorValues = nodes.map((node) => node.getAttribute('content'));
+	}
+
+	applyChromeTint(color) {
+		if (this.chromeTintApplied) return;
+		this.ensureThemeColorNodes();
+		if (this.themeColorNodes?.length) {
+			this.themeColorNodes.forEach((node) => node.setAttribute('content', color));
+		}
+		if (document.documentElement) {
+			this.prevHtmlBg = document.documentElement.style.backgroundColor;
+			document.documentElement.style.backgroundColor = color;
+		}
+		if (document.body) {
+			this.prevBodyBg = document.body.style.backgroundColor;
+			document.body.style.backgroundColor = color;
+		}
+		this.chromeTintApplied = true;
+	}
+
+	restoreChromeTint() {
+		if (!this.chromeTintApplied) return;
+		if (this.themeColorNodes?.length && this.themeColorValues) {
+			this.themeColorNodes.forEach((node, index) => {
+				const value = this.themeColorValues[index];
+				if (value == null) {
+					node.removeAttribute('content');
+				} else {
+					node.setAttribute('content', value);
+				}
+			});
+		}
+		if (document.documentElement) {
+			document.documentElement.style.backgroundColor = this.prevHtmlBg || '';
+		}
+		if (document.body) {
+			document.body.style.backgroundColor = this.prevBodyBg || '';
+		}
+		this.chromeTintApplied = false;
 	}
 
 	redrawText() {
@@ -2378,8 +2437,9 @@ class ImpactLiquidOverlay {
 			this.material = null;
 			this.particleText = null;
 			this.renderer = null;
-			this.uniforms = null;
-			this.setCoveredState(false);
+		this.uniforms = null;
+		this.setCoveredState(false);
+		this.restoreChromeTint();
 
 		if (this.root?.parentElement) {
 			this.root.parentElement.removeChild(this.root);
