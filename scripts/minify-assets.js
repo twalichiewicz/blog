@@ -6,6 +6,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
+const crypto = require('crypto');
 const { minify: minifyHTML } = require('html-minifier-terser');
 const CleanCSS = require('clean-css');
 const { minify: minifyJS } = require('terser');
@@ -94,6 +95,31 @@ async function minifyCSSFiles() {
   }
 }
 
+async function revStylesheet() {
+  try {
+    const cssPath = path.join('public', 'styles', 'styles.css');
+    const cssContent = await fs.readFile(cssPath);
+    const hash = crypto.createHash('md5').update(cssContent).digest('hex').slice(0, 8);
+    const hashedName = `styles.${hash}.css`;
+    const hashedPath = path.join('public', 'styles', hashedName);
+
+    await fs.writeFile(hashedPath, cssContent);
+
+    const htmlFiles = await glob('public/**/*.html');
+    const cssPattern = /styles\/styles\.css(?:\?v=[^"']+)?/g;
+    for (const file of htmlFiles) {
+      const content = await fs.readFile(file, 'utf8');
+      if (!cssPattern.test(content)) continue;
+      const updated = content.replace(cssPattern, `styles/${hashedName}`);
+      await fs.writeFile(file, updated);
+    }
+
+    console.log(`✓ Stylesheet revisioned as ${hashedName}`);
+  } catch (error) {
+    console.error('Error revisioning stylesheet:', error);
+  }
+}
+
 // Minify JS files
 async function minifyJSFiles() {
   try {
@@ -125,6 +151,7 @@ async function minifyAssets() {
   
   await minifyHTMLFiles();
   await minifyCSSFiles();
+  await revStylesheet();
   await minifyJSFiles();
   
   console.log('✅ Asset minification complete!');
