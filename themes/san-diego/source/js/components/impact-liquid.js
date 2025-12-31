@@ -31,6 +31,19 @@ const FLUID_SIM = {
 	centerRadiusBase: 0.14
 };
 
+const PARTICLE_TEXT = {
+	textureWidth: 256,
+	textureHeight: 128,
+	sampleLongEdge: 512,
+	alphaThreshold: 18,
+	returnStrength: 18,
+	damping: 0.88,
+	noiseStrength: 0.25,
+	basePointSize: 3.0,
+	pointerStrengthMultiplier: 2.6,
+	pointerRadiusMultiplier: 1.2
+};
+
 const SHADER_VERTEX = `
 	varying vec2 vUv;
 
@@ -601,6 +614,132 @@ const SIM_COVERAGE_FRAGMENT = `
 
 		gl_FragColor = clamp(dye, 0.0, 1.0);
 	}
+	`;
+
+const PARTICLE_SEED_FRAGMENT = `
+	precision highp float;
+	varying vec2 vUv;
+	uniform sampler2D u_target;
+	void main() {
+		vec4 target = texture2D(u_target, vUv);
+		gl_FragColor = vec4(target.xy, 0.0, 0.0);
+	}
+`;
+
+const PARTICLE_SIM_FRAGMENT = `
+	precision highp float;
+	varying vec2 vUv;
+	uniform sampler2D u_state;
+	uniform sampler2D u_target;
+	uniform float u_dt;
+	uniform float u_time;
+	uniform float u_aspect;
+	uniform vec2 u_pointer;
+	uniform vec2 u_pointerVelocity;
+	uniform float u_pointerStrength;
+	uniform float u_pointerRadius;
+	uniform float u_returnStrength;
+	uniform float u_reform;
+	uniform float u_noiseStrength;
+	${SIM_COMMON}
+	void main() {
+		vec2 uv = vUv;
+		vec4 target = texture2D(u_target, uv);
+		float alive = step(0.5, target.a);
+		if (alive < 0.5) {
+			gl_FragColor = vec4(0.0);
+			return;
+		}
+
+		vec4 state = texture2D(u_state, uv);
+		vec2 pos = state.xy;
+		vec2 vel = state.zw;
+
+		vec2 toTarget = target.xy - pos;
+		float reform = clamp(u_reform, 0.0, 1.0);
+		vel += toTarget * (u_returnStrength * reform) * u_dt;
+
+		vec2 drift = curlNoise(pos * 0.55 + vec2(2.1, -1.7), u_time * 0.22);
+		vel += drift * (u_noiseStrength * (0.25 + (1.0 - reform) * 0.75)) * u_dt;
+
+		if (u_pointerStrength > 0.0001) {
+			vec2 toPointer = pos - u_pointer;
+			vec2 pointerScaled = vec2(toPointer.x * u_aspect, toPointer.y);
+			float dist = length(pointerScaled);
+			float falloff = smoothstep(u_pointerRadius, 0.0, dist);
+			vec2 dir = normalize(pointerScaled + vec2(0.00001));
+			dir.x /= max(u_aspect, 0.0001);
+			dir = normalize(dir);
+			vec2 swirl = vec2(-dir.y, dir.x);
+			vec2 pv = u_pointerVelocity;
+			float kick = u_pointerStrength * falloff;
+			vel += (dir * kick + swirl * kick * 0.38 + pv * kick * 0.22) * u_dt;
+		}
+
+		vel *= pow(${PARTICLE_TEXT.damping.toFixed(2)}, u_dt * 60.0);
+		vel = clamp(vel, vec2(-6.0), vec2(6.0));
+		pos += vel * u_dt;
+		pos = clamp(pos, vec2(-1.2), vec2(1.2));
+
+		gl_FragColor = vec4(pos, vel);
+	}
+`;
+
+const PARTICLE_RENDER_VERTEX = `
+	precision highp float;
+	uniform sampler2D u_state;
+	uniform sampler2D u_target;
+	uniform vec2 u_resolution;
+	uniform float u_opacity;
+	uniform float u_pointSize;
+	varying float vAlpha;
+	varying float vSpeed;
+	void main() {
+		vec2 uv = position.xy;
+		vec4 state = texture2D(u_state, uv);
+		vec4 target = texture2D(u_target, uv);
+		float alive = step(0.5, target.a);
+		vec2 pos = state.xy;
+		vec2 vel = state.zw;
+		vAlpha = alive * u_opacity;
+		vSpeed = length(vel);
+		gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 0.0, 1.0);
+		gl_PointSize = u_pointSize * alive;
+	}
+`;
+
+const PARTICLE_RENDER_FRAGMENT = `
+	precision highp float;
+	varying float vAlpha;
+	varying float vSpeed;
+	void main() {
+		if (vAlpha <= 0.001) discard;
+		vec2 p = gl_PointCoord - 0.5;
+		float r = length(p) * 2.0;
+		if (r > 1.0) discard;
+		float edge = smoothstep(1.0, 0.0, r);
+
+		float z = sqrt(max(0.0, 1.0 - r * r));
+		vec3 normal = normalize(vec3(p * 2.0, z));
+		vec3 viewDir = vec3(0.0, 0.0, 1.0);
+		vec3 lightDir = normalize(vec3(-0.25, 0.65, 1.0));
+
+		float diffuse = clamp(dot(normal, lightDir), 0.0, 1.0);
+		vec3 halfDir = normalize(lightDir + viewDir);
+		float spec = pow(clamp(dot(normal, halfDir), 0.0, 1.0), 72.0);
+		float fresnel = pow(1.0 - clamp(dot(normal, viewDir), 0.0, 1.0), 3.0);
+
+		vec3 envTop = vec3(0.98, 0.985, 1.0);
+		vec3 envBot = vec3(0.22, 0.22, 0.245);
+		vec3 env = mix(envBot, envTop, clamp(normal.y * 0.5 + 0.5, 0.0, 1.0));
+
+		float speedBoost = clamp(vSpeed * 0.15, 0.0, 0.35);
+		vec3 color = vec3(0.1) + env * (0.72 * diffuse + 0.25);
+		color += vec3(1.0) * (spec * (1.1 + speedBoost));
+		color += envTop * (fresnel * 0.45);
+
+		gl_FragColor = vec4(color, edge * vAlpha);
+	}
 `;
 
 function easeInOutCubic(t) {
@@ -615,6 +754,36 @@ function clamp(value, min, max) {
 
 function normalizeWhitespace(value) {
 	return (value || '').replace(/\s+/g, ' ').trim();
+}
+
+const FLOAT_TO_HALF_BUFFER = new ArrayBuffer(4);
+const FLOAT_TO_HALF_FLOAT_VIEW = new Float32Array(FLOAT_TO_HALF_BUFFER);
+const FLOAT_TO_HALF_INT_VIEW = new Uint32Array(FLOAT_TO_HALF_BUFFER);
+
+function floatToHalf(value) {
+	FLOAT_TO_HALF_FLOAT_VIEW[0] = value;
+	const x = FLOAT_TO_HALF_INT_VIEW[0];
+	let bits = (x >> 16) & 0x8000;
+	let m = (x >> 12) & 0x07ff;
+	let e = (x >> 23) & 0xff;
+
+	if (e < 103) return bits;
+
+	if (e > 142) {
+		bits |= 0x7c00;
+		if (e === 255 && (x & 0x007fffff)) bits |= 1;
+		return bits;
+	}
+
+	if (e < 113) {
+		m |= 0x0800;
+		bits |= (m >> (114 - e)) + ((m >> (113 - e)) & 1);
+		return bits;
+	}
+
+	bits |= ((e - 112) << 10) | (m >> 1);
+	bits += m & 1;
+	return bits;
 }
 
 function drawTrackedText(ctx, text, trackingPx, method) {
@@ -1041,6 +1210,253 @@ class FluidSim {
 	}
 }
 
+class ParticleTextSim {
+	constructor(renderer) {
+		this.renderer = renderer;
+		this.simWidth = PARTICLE_TEXT.textureWidth;
+		this.simHeight = PARTICLE_TEXT.textureHeight;
+		this.count = this.simWidth * this.simHeight;
+
+		this.scene = new THREE.Scene();
+		this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+		this.mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.MeshBasicMaterial());
+		this.scene.add(this.mesh);
+
+		const options = {
+			type: THREE.HalfFloatType,
+			format: THREE.RGBAFormat,
+			minFilter: THREE.NearestFilter,
+			magFilter: THREE.NearestFilter,
+			depthBuffer: false,
+			stencilBuffer: false,
+			wrapS: THREE.ClampToEdgeWrapping,
+			wrapT: THREE.ClampToEdgeWrapping
+		};
+
+		const buildTarget = () => new THREE.WebGLRenderTarget(this.simWidth, this.simHeight, options);
+		this.state = { read: buildTarget(), write: buildTarget() };
+
+		this.targetData = new Uint16Array(this.count * 4);
+		this.targetTexture = new THREE.DataTexture(
+			this.targetData,
+			this.simWidth,
+			this.simHeight,
+			THREE.RGBAFormat,
+			THREE.HalfFloatType
+		);
+		this.targetTexture.needsUpdate = true;
+		this.targetTexture.minFilter = THREE.NearestFilter;
+		this.targetTexture.magFilter = THREE.NearestFilter;
+		this.targetTexture.wrapS = THREE.ClampToEdgeWrapping;
+		this.targetTexture.wrapT = THREE.ClampToEdgeWrapping;
+
+		this.seedMaterial = new THREE.ShaderMaterial({
+			vertexShader: SIM_VERTEX,
+			fragmentShader: PARTICLE_SEED_FRAGMENT,
+			uniforms: { u_target: { value: this.targetTexture } }
+		});
+
+		this.simMaterial = new THREE.ShaderMaterial({
+			vertexShader: SIM_VERTEX,
+			fragmentShader: PARTICLE_SIM_FRAGMENT,
+			uniforms: {
+				u_state: { value: this.state.read.texture },
+				u_target: { value: this.targetTexture },
+				u_dt: { value: 0.016 },
+				u_time: { value: 0 },
+				u_aspect: { value: 1 },
+				u_pointer: { value: new THREE.Vector2(0, 0) },
+				u_pointerVelocity: { value: new THREE.Vector2(0, 0) },
+				u_pointerStrength: { value: 0 },
+				u_pointerRadius: { value: 0.3 },
+				u_returnStrength: { value: PARTICLE_TEXT.returnStrength },
+				u_reform: { value: 1 },
+				u_noiseStrength: { value: PARTICLE_TEXT.noiseStrength }
+			}
+		});
+
+		this.sampleCanvas = document.createElement('canvas');
+		this.sampleContext = this.sampleCanvas.getContext('2d', { willReadFrequently: true });
+
+		this.points = this.buildPoints();
+	}
+
+	buildPoints() {
+		const geometry = new THREE.BufferGeometry();
+		const positions = new Float32Array(this.count * 3);
+		for (let i = 0; i < this.count; i += 1) {
+			const x = (i % this.simWidth) + 0.5;
+			const y = Math.floor(i / this.simWidth) + 0.5;
+			const idx = i * 3;
+			positions[idx] = x / this.simWidth;
+			positions[idx + 1] = y / this.simHeight;
+			positions[idx + 2] = 0;
+		}
+		geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+		this.pointsMaterial = new THREE.ShaderMaterial({
+			vertexShader: PARTICLE_RENDER_VERTEX,
+			fragmentShader: PARTICLE_RENDER_FRAGMENT,
+			transparent: true,
+			depthTest: false,
+			depthWrite: false,
+			uniforms: {
+				u_state: { value: this.state.read.texture },
+				u_target: { value: this.targetTexture },
+				u_resolution: { value: new THREE.Vector2(1, 1) },
+				u_opacity: { value: 0 },
+				u_pointSize: { value: 2 }
+			}
+		});
+		this.pointsMaterial.blending = THREE.NormalBlending;
+
+		const points = new THREE.Points(geometry, this.pointsMaterial);
+		points.frustumCulled = false;
+		points.renderOrder = 5;
+		return points;
+	}
+
+	renderPass(material, target) {
+		const prevTarget = this.renderer.getRenderTarget();
+		const prevMaterial = this.mesh.material;
+		this.mesh.material = material;
+		this.renderer.setRenderTarget(target);
+		this.renderer.render(this.scene, this.camera);
+		this.renderer.setRenderTarget(prevTarget);
+		this.mesh.material = prevMaterial;
+	}
+
+	swap(pair) {
+		const temp = pair.read;
+		pair.read = pair.write;
+		pair.write = temp;
+	}
+
+	seed() {
+		this.seedMaterial.uniforms.u_target.value = this.targetTexture;
+		this.renderPass(this.seedMaterial, this.state.read);
+		this.renderPass(this.seedMaterial, this.state.write);
+		this.pointsMaterial.uniforms.u_state.value = this.state.read.texture;
+	}
+
+	resize(viewWidth, viewHeight, pixelRatio = 1) {
+		const width = Math.max(1, Math.floor(viewWidth));
+		const height = Math.max(1, Math.floor(viewHeight));
+		const aspect = width / Math.max(height, 1);
+		this.simMaterial.uniforms.u_aspect.value = aspect;
+		this.pointsMaterial.uniforms.u_resolution.value.set(width, height);
+		const base = clamp(Math.min(width, height) / 320, 1.8, 4.4);
+		this.pointsMaterial.uniforms.u_pointSize.value = base * Math.min(pixelRatio, 2);
+	}
+
+	setTargetsFromCanvas(sourceCanvas) {
+		if (!this.sampleContext || !sourceCanvas) return;
+		const srcW = Math.max(1, sourceCanvas.width);
+		const srcH = Math.max(1, sourceCanvas.height);
+		const srcAspect = srcW / srcH;
+		const longEdge = PARTICLE_TEXT.sampleLongEdge;
+		const sampleW = srcAspect >= 1 ? longEdge : Math.max(1, Math.round(longEdge * srcAspect));
+		const sampleH = srcAspect >= 1 ? Math.max(1, Math.round(longEdge / srcAspect)) : longEdge;
+
+		if (this.sampleCanvas.width !== sampleW || this.sampleCanvas.height !== sampleH) {
+			this.sampleCanvas.width = sampleW;
+			this.sampleCanvas.height = sampleH;
+		}
+
+		this.sampleContext.clearRect(0, 0, sampleW, sampleH);
+		this.sampleContext.drawImage(sourceCanvas, 0, 0, srcW, srcH, 0, 0, sampleW, sampleH);
+
+		const image = this.sampleContext.getImageData(0, 0, sampleW, sampleH);
+		const data = image.data;
+		const threshold = PARTICLE_TEXT.alphaThreshold;
+
+		this.targetData.fill(0);
+
+		let filled = 0;
+		let seen = 0;
+		for (let y = 0; y < sampleH; y += 1) {
+			for (let x = 0; x < sampleW; x += 1) {
+				const alpha = data[(y * sampleW + x) * 4 + 3];
+				if (alpha < threshold) continue;
+				seen += 1;
+				let slot = -1;
+				if (filled < this.count) {
+					slot = filled;
+					filled += 1;
+				} else {
+					const r = Math.floor(Math.random() * seen);
+					if (r >= this.count) continue;
+					slot = r;
+				}
+
+				const nx = ((x + 0.5) / sampleW) * 2 - 1;
+				const ny = -(((y + 0.5) / sampleH) * 2 - 1);
+				const idx = slot * 4;
+				this.targetData[idx] = floatToHalf(nx);
+				this.targetData[idx + 1] = floatToHalf(ny);
+				this.targetData[idx + 2] = floatToHalf(0);
+				this.targetData[idx + 3] = floatToHalf(1);
+			}
+		}
+
+		if (filled === 0) {
+			this.targetData[3] = floatToHalf(1);
+		}
+
+		this.targetTexture.needsUpdate = true;
+		this.seed();
+	}
+
+	step({
+		dt,
+		time,
+		pointer = null,
+		pointerVelocity = null,
+		pointerRadius = 0.3,
+		pointerStrength = 0,
+		opacity = 0,
+		reform = 1
+	} = {}) {
+		const delta = Math.min(Math.max(dt || 0, 0), FLUID_SIM.maxDelta);
+		this.pointsMaterial.uniforms.u_opacity.value = clamp(opacity, 0, 1);
+		if (!delta) return;
+
+		this.simMaterial.uniforms.u_state.value = this.state.read.texture;
+		this.simMaterial.uniforms.u_target.value = this.targetTexture;
+		this.simMaterial.uniforms.u_dt.value = delta;
+		this.simMaterial.uniforms.u_time.value = time;
+		const px = pointer?.x ?? 0.5;
+		const py = pointer?.y ?? 0.5;
+		this.simMaterial.uniforms.u_pointer.value.set(px * 2 - 1, py * 2 - 1);
+
+		const vx = pointerVelocity?.vx ?? pointerVelocity?.x ?? 0;
+		const vy = pointerVelocity?.vy ?? pointerVelocity?.y ?? 0;
+		this.simMaterial.uniforms.u_pointerVelocity.value.set(vx * 2, vy * 2);
+		this.simMaterial.uniforms.u_pointerStrength.value = pointerStrength;
+		this.simMaterial.uniforms.u_pointerRadius.value = pointerRadius * 2;
+		this.simMaterial.uniforms.u_reform.value = clamp(reform, 0, 1);
+
+		this.renderPass(this.simMaterial, this.state.write);
+		this.swap(this.state);
+		this.pointsMaterial.uniforms.u_state.value = this.state.read.texture;
+	}
+
+	dispose() {
+		this.state?.read?.dispose?.();
+		this.state?.write?.dispose?.();
+		this.targetTexture?.dispose?.();
+		this.seedMaterial?.dispose?.();
+		this.simMaterial?.dispose?.();
+		this.pointsMaterial?.dispose?.();
+		this.points?.geometry?.dispose?.();
+		this.mesh?.geometry?.dispose?.();
+		this.mesh = null;
+		this.scene = null;
+		this.camera = null;
+		this.points = null;
+	}
+}
+
 class ImpactLiquidOverlay {
 	constructor({ stats, closeAnchor, onRequestClose } = {}) {
 		this.stats = resolveStats(stats);
@@ -1177,9 +1593,9 @@ class ImpactLiquidOverlay {
 		this.animationFrame = requestAnimationFrame(this.animate);
 	}
 
-	initThree() {
-		this.scene = new THREE.Scene();
-		this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+		initThree() {
+			this.scene = new THREE.Scene();
+			this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
 		this.renderer = new THREE.WebGLRenderer({
 			canvas: this.canvas,
@@ -1222,21 +1638,25 @@ class ImpactLiquidOverlay {
 			fragmentShader: SHADER_FRAGMENT
 		});
 
-		this.mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), this.material);
-		this.scene.add(this.mesh);
-	}
+			this.mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), this.material);
+			this.scene.add(this.mesh);
 
-	handleResize() {
-		if (!this.renderer || !this.uniforms) return;
-		const width = Math.max(1, Math.floor(window.innerWidth));
-		const height = Math.max(1, Math.floor(window.innerHeight));
-		this.renderer.setSize(width, height, false);
-		this.uniforms.u_resolution.value.set(width, height);
-		if (this.fluid) {
-			this.fluid.resize(width, height);
-			this.uniforms.u_dye.value = this.fluid.dyeTexture;
-			this.uniforms.u_velocity.value = this.fluid.velocityTexture;
-			this.uniforms.u_texelSize.value.copy(this.fluid.texelSize);
+			this.particleText = new ParticleTextSim(this.renderer);
+			this.scene.add(this.particleText.points);
+		}
+
+		handleResize() {
+			if (!this.renderer || !this.uniforms) return;
+			const width = Math.max(1, Math.floor(window.innerWidth));
+			const height = Math.max(1, Math.floor(window.innerHeight));
+			this.renderer.setSize(width, height, false);
+			this.uniforms.u_resolution.value.set(width, height);
+			this.particleText?.resize(width, height, this.renderer.getPixelRatio());
+			if (this.fluid) {
+				this.fluid.resize(width, height);
+				this.uniforms.u_dye.value = this.fluid.dyeTexture;
+				this.uniforms.u_velocity.value = this.fluid.velocityTexture;
+				this.uniforms.u_texelSize.value.copy(this.fluid.texelSize);
 		}
 		this.resizeTextCanvas(width, height);
 		this.redrawText();
@@ -1359,6 +1779,7 @@ class ImpactLiquidOverlay {
 
 		ctx.restore();
 		this.textTexture.needsUpdate = true;
+		this.particleText?.setTargetsFromCanvas(this.textCanvas);
 	}
 
 	handlePointerDown(event) {
@@ -1560,11 +1981,11 @@ class ImpactLiquidOverlay {
 		this.uniforms.u_hole.value = this.hole;
 		this.uniforms.u_textAlpha.value = this.textAlpha;
 
-		if (this.fluid) {
-			const time = now / 1000;
-			let centerStrength = 0;
-			let fillStrength = 5.2;
-			let holeStrength = 0;
+			if (this.fluid) {
+				const time = now / 1000;
+				let centerStrength = 0;
+				let fillStrength = 5.2;
+				let holeStrength = 0;
 
 			if (this.phase === 'enter-fill') {
 				centerStrength = -FLUID_SIM.centerStrength * 1.05;
@@ -1587,15 +2008,16 @@ class ImpactLiquidOverlay {
 				holeStrength = 9.2;
 			}
 
-			const holeRadius = Math.max(0.0, this.hole);
-			const centerRadius = Math.max(FLUID_SIM.centerRadiusBase, holeRadius * 1.05);
-			const holeHardness = 0.06 + holeRadius * 0.28;
+				const holeRadius = Math.max(0.0, this.hole);
+				const centerRadius = Math.max(FLUID_SIM.centerRadiusBase, holeRadius * 1.05);
+				const holeHardness = 0.06 + holeRadius * 0.28;
 
-			let pointerStrength = 0;
-			let pointerRadius = POINTER_INTERACTION.radius;
-			if (this.pointer?.lastMoveTime != null) {
-				const msSinceMove = now - this.pointer.lastMoveTime;
-				let influence = 0;
+				let pointerInfluence = 0;
+				let pointerStrength = 0;
+				let pointerRadius = POINTER_INTERACTION.radius;
+				if (this.pointer?.lastMoveTime != null) {
+					const msSinceMove = now - this.pointer.lastMoveTime;
+					let influence = 0;
 				if (this.pointer.isDown) {
 					influence = 1;
 				} else if (msSinceMove <= POINTER_INTERACTION.holdMs) {
@@ -1604,15 +2026,16 @@ class ImpactLiquidOverlay {
 					influence = clamp(
 						1 - (msSinceMove - POINTER_INTERACTION.holdMs) / POINTER_INTERACTION.decayMs,
 						0,
-						1
-					);
+							1
+						);
+					}
+
+					pointerInfluence = influence;
+					pointerStrength = POINTER_INTERACTION.strength * influence;
+					pointerRadius = POINTER_INTERACTION.radius * (0.92 + influence * 0.18);
 				}
 
-				pointerStrength = POINTER_INTERACTION.strength * influence;
-				pointerRadius = POINTER_INTERACTION.radius * (0.92 + influence * 0.18);
-			}
-
-			this.fluid.step({
+				this.fluid.step({
 				dt,
 				time,
 				centerStrength,
@@ -1620,19 +2043,30 @@ class ImpactLiquidOverlay {
 				fillAmount: this.fill,
 				fillStrength,
 				holeRadius,
-				holeStrength,
-				holeHardness,
-				textTexture: this.textTexture,
-				textStrength: this.textAlpha,
-				pointer: this.pointer,
-				pointerVelocity: this.pointer,
-				pointerRadius,
-				pointerStrength
-			});
-			this.uniforms.u_dye.value = this.fluid.dyeTexture;
-			this.uniforms.u_velocity.value = this.fluid.velocityTexture;
-			this.uniforms.u_texelSize.value.copy(this.fluid.texelSize);
-		}
+					holeStrength,
+					holeHardness,
+					textTexture: this.textTexture,
+					textStrength: 0,
+					pointer: this.pointer,
+					pointerVelocity: this.pointer,
+					pointerRadius,
+					pointerStrength
+				});
+				this.uniforms.u_dye.value = this.fluid.dyeTexture;
+				this.uniforms.u_velocity.value = this.fluid.velocityTexture;
+				this.uniforms.u_texelSize.value.copy(this.fluid.texelSize);
+
+				this.particleText?.step({
+					dt,
+					time,
+					pointer: this.pointer,
+					pointerVelocity: this.pointer,
+					pointerRadius: pointerRadius * PARTICLE_TEXT.pointerRadiusMultiplier,
+					pointerStrength: pointerStrength * PARTICLE_TEXT.pointerStrengthMultiplier,
+					opacity: this.textAlpha,
+					reform: 1 - pointerInfluence
+				});
+			}
 
 		this.renderer.render(this.scene, this.camera);
 		this.animationFrame = requestAnimationFrame(this.animate);
@@ -1654,21 +2088,23 @@ class ImpactLiquidOverlay {
 		window.removeEventListener('orientationchange', this.handleResize);
 		window.removeEventListener('keydown', this.handleKeydown);
 
-		if (this.mesh) {
-			this.mesh.geometry?.dispose();
-			this.material?.dispose();
-		}
+			if (this.mesh) {
+				this.mesh.geometry?.dispose();
+				this.material?.dispose();
+			}
 
-		this.textTexture?.dispose();
-		this.fluid?.dispose?.();
-		this.renderer?.dispose();
-		this.scene = null;
-		this.camera = null;
-		this.mesh = null;
-		this.material = null;
-		this.renderer = null;
-		this.uniforms = null;
-		this.setCoveredState(false);
+			this.textTexture?.dispose();
+			this.particleText?.dispose?.();
+			this.fluid?.dispose?.();
+			this.renderer?.dispose();
+			this.scene = null;
+			this.camera = null;
+			this.mesh = null;
+			this.material = null;
+			this.particleText = null;
+			this.renderer = null;
+			this.uniforms = null;
+			this.setCoveredState(false);
 
 		if (this.root?.parentElement) {
 			this.root.parentElement.removeChild(this.root);
