@@ -1071,15 +1071,15 @@ function closeMobileAction() {
 			},
 			{
 				value: '$8M+',
-				label: 'Financial Savings',
+				label: 'Financial Impact',
 				detail:
-					'Secured significant annual operational savings via streamlined engineering and operations.'
+					'Generated multi-million dollar revenue impact through new features and customer crisis resolution.'
 			},
 			{
 				value: '$1.2M+',
-				label: 'Platform Scale',
+				label: 'Financial Savings',
 				detail:
-					'Optimized platform efficiency, resulting in massive data and storage savings.'
+					'Secured significant annual operational savings via streamlined engineering and operations.'
 			},
 			{
 				value: '250x',
@@ -1094,6 +1094,12 @@ function closeMobileAction() {
 					'Reduced support and maintenance burdens by over 80%, freeing up critical resources.'
 			},
 			{
+				value: '5x',
+				label: 'Efficiency Gains',
+				detail:
+					'Improved deployment and provisioning times from days to minutes through self-service platforms.'
+			},
+			{
 				value: '2x',
 				label: 'Behavioral Impact',
 				detail:
@@ -1103,12 +1109,6 @@ function closeMobileAction() {
 				value: '85%',
 				label: 'Behavioral Impact',
 				detail: 'Achieved best-in-class user retention rates.'
-			},
-			{
-				value: '5x',
-				label: 'Efficiency Gains',
-				detail:
-					'Improved deployment and provisioning times from days to minutes through self-service platforms.'
 			}
 		];
 		if (overrideStats.length) return overrideStats;
