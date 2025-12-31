@@ -1062,6 +1062,57 @@ function closeMobileAction() {
 	}
 
 	function collectImpactLiquidStats() {
+		const overrideStats = [
+			{
+				value: '$50M+',
+				label: 'Financial Impact',
+				detail:
+					'Generated multi-million dollar revenue impact through new features and customer crisis resolution.'
+			},
+			{
+				value: '$8M+',
+				label: 'Financial Savings',
+				detail:
+					'Secured significant annual operational savings via streamlined engineering and operations.'
+			},
+			{
+				value: '$1.2M+',
+				label: 'Platform Scale',
+				detail:
+					'Optimized platform efficiency, resulting in massive data and storage savings.'
+			},
+			{
+				value: '250x',
+				label: 'Efficiency Gains',
+				detail:
+					'Accelerated critical processes by over 250x, transforming multi-week tasks into hourly efforts.'
+			},
+			{
+				value: '85%',
+				label: 'Efficiency Gains',
+				detail:
+					'Reduced support and maintenance burdens by over 80%, freeing up critical resources.'
+			},
+			{
+				value: '2x',
+				label: 'Behavioral Impact',
+				detail:
+					'Doubled industry standard conversion rates for key product lines.'
+			},
+			{
+				value: '85%',
+				label: 'Behavioral Impact',
+				detail: 'Achieved best-in-class user retention rates.'
+			},
+			{
+				value: '5x',
+				label: 'Efficiency Gains',
+				detail:
+					'Improved deployment and provisioning times from days to minutes through self-service platforms.'
+			}
+		];
+		if (overrideStats.length) return overrideStats;
+
 		const modal = document.getElementById('impact-modal');
 		if (!modal) return null;
 
