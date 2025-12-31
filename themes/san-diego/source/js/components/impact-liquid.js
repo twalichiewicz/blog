@@ -10,7 +10,7 @@ const HOLE_MAX = 0.42;
 const HOLE_EXIT_MAX = 0.74;
 
 const POINTER_INTERACTION = {
-	radius: 0.14,
+	radius: 0.07,
 	strength: 6.2,
 	holdMs: 220,
 	decayMs: 900,
