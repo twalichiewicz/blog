@@ -147,8 +147,8 @@ body.impact-liquid-covered #contact-modal {
 
 .impact-liquid-caption-inner {
 	border-radius: 18px;
-	padding: 12px 14px;
-	background: rgba(variables.$white, 0.72);
+	padding: 14px 16px;
+	background: rgba(variables.$white, 0.84);
 	border: 1px solid rgba(variables.$border-color, 0.35);
 	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 	backdrop-filter: blur(16px) saturate(1.2);
@@ -165,24 +165,25 @@ body.impact-liquid-covered #contact-modal {
 
 .impact-liquid-caption:not(.has-detail) .impact-liquid-caption-inner {
 	max-height: 56px;
-	padding: 10px 14px;
+	padding: 12px 16px;
 }
 
 .impact-liquid-caption-label {
-	font-size: var(--font-size-sm);
-	font-weight: var(--font-weight-semibold);
+	font-size: var(--font-size-lg);
+	font-weight: var(--font-weight-bold);
 	line-height: var(--line-height-tight);
-	color: variables.$text-color;
+	color: hsl(24deg 6% 18%);
 	text-align: center;
+	letter-spacing: 0.01em;
 	transition: opacity 220ms ease, transform 220ms ease;
 	will-change: opacity, transform;
 }
 
 .impact-liquid-caption-detail {
-	margin-top: 6px;
-	font-size: var(--font-size-xs);
-	line-height: var(--line-height-tight);
-	color: variables.$text-color-secondary;
+	margin-top: 8px;
+	font-size: var(--font-size-md);
+	line-height: var(--line-height-normal);
+	color: hsl(24deg 6% 24%);
 	text-align: center;
 	max-height: 60px;
 	overflow: hidden;
@@ -205,16 +206,16 @@ body.impact-liquid-covered #contact-modal {
 
 @media (prefers-color-scheme: dark) {
 	.impact-liquid-caption-inner {
-		background: rgba(0, 0, 0, 0.55);
+		background: rgba(0, 0, 0, 0.72);
 		border-color: rgba(255, 255, 255, 0.16);
 		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
 	}
 
 	.impact-liquid-caption-label {
-		color: variables.$text-color-dark;
+		color: hsl(0deg 0% 98%);
 	}
 
 	.impact-liquid-caption-detail {
-		color: variables.$text-color-secondary-dark;
+		color: hsl(0deg 0% 86%);
 	}
 }
