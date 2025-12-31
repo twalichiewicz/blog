@@ -880,6 +880,22 @@ function normalizeWhitespace(value) {
 	return (value || '').replace(/\s+/g, ' ').trim();
 }
 
+function shortenStatValue(value) {
+	let output = normalizeWhitespace(value);
+	if (!output) return output;
+	output = output
+		.replace(/\s*\/\s*yr\b/gi, '')
+		.replace(/\s*\/\s*year\b/gi, '')
+		.replace(/\bper\s+year\b/gi, '')
+		.replace(/\bMonths?\b/gi, 'Mo')
+		.replace(/\bWeeks?\b/gi, 'Wk')
+		.replace(/\bDays?\b/gi, 'd')
+		.replace(/\bHours?\b/gi, 'hr')
+		.replace(/\bMinutes?\b/gi, 'm')
+		.replace(/Same[\-\u2010\u2011]day/gi, '1d');
+	return normalizeWhitespace(output);
+}
+
 const FLOAT_TO_HALF_BUFFER = new ArrayBuffer(4);
 const FLOAT_TO_HALF_FLOAT_VIEW = new Float32Array(FLOAT_TO_HALF_BUFFER);
 const FLOAT_TO_HALF_INT_VIEW = new Uint32Array(FLOAT_TO_HALF_BUFFER);
@@ -1672,11 +1688,12 @@ class ParticleTextSim {
 }
 
 class ImpactLiquidOverlay {
-		constructor({ stats, closeAnchor, onRequestClose } = {}) {
-			this.stats = resolveStats(stats);
-			this.closeAnchor = closeAnchor || null;
-			this.onRequestClose = typeof onRequestClose === 'function' ? onRequestClose : null;
-			this.activeIndex = 0;
+	constructor({ stats, closeAnchor, onRequestClose } = {}) {
+		this.stats = resolveStats(stats);
+		this.closeAnchor = closeAnchor || null;
+		this.onRequestClose = typeof onRequestClose === 'function' ? onRequestClose : null;
+		this.activeIndex = 0;
+		this.captionVisible = false;
 		this.phase = 'enter-fill';
 		this.phaseStart = performance.now();
 		this.fill = 0;
@@ -1780,6 +1797,7 @@ class ImpactLiquidOverlay {
 			</div>
 		`;
 		this.root.appendChild(this.caption);
+		this.setCaptionVisible(false);
 
 		document.body.appendChild(this.root);
 		this.setCoveredState(false);
@@ -1897,9 +1915,17 @@ class ImpactLiquidOverlay {
 		const detailEl = this.caption?.querySelector('.impact-liquid-caption-detail');
 		if (labelEl) labelEl.textContent = stat.label || '';
 		if (detailEl) detailEl.textContent = stat.detail || '';
-		this.currentValue = stat.value;
+		this.currentValue = shortenStatValue(stat.value) || stat.value;
 		this.currentLabel = stat.label;
 		this.redrawText();
+	}
+
+	setCaptionVisible(visible) {
+		const nextVisible = Boolean(visible);
+		if (this.captionVisible === nextVisible) return;
+		this.captionVisible = nextVisible;
+		if (!this.caption) return;
+		this.caption.classList.toggle('is-fading', !nextVisible);
 	}
 
 	redrawText() {
@@ -1913,11 +1939,11 @@ class ImpactLiquidOverlay {
 		ctx.textBaseline = 'alphabetic';
 
 		const value = this.currentValue || '';
-		const label = this.currentLabel || '';
+		const label = '';
 		const charCount = Array.from(value).length;
-		const maxWidth = width * 0.86;
-		let fontSize = Math.floor(Math.min(width, height) * 0.34);
-		fontSize = clamp(fontSize, 64, 240);
+		const maxWidth = width * 0.9;
+		let fontSize = Math.floor(Math.min(width, height) * 0.42);
+		fontSize = clamp(fontSize, 72, 320);
 		const valueFont = (size) =>
 			`900 ${size}px Impact, Haettenschweiler, "Arial Narrow Bold", "Arial Narrow", "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
 		ctx.font = valueFont(fontSize);
@@ -2189,6 +2215,10 @@ class ImpactLiquidOverlay {
 				return;
 			}
 		}
+
+		const captionVisible =
+			this.phase === 'show-stat' || (this.phase === 'enter-reveal' && this.textAlpha > 0.18);
+		this.setCaptionVisible(captionVisible);
 
 		this.uniforms.u_time.value = now / 1000;
 		this.uniforms.u_fill.value = this.fill;

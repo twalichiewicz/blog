@@ -159,6 +159,8 @@ body.impact-liquid-covered #contact-modal {
 	line-height: var(--line-height-tight);
 	color: variables.$text-color;
 	text-align: center;
+	transition: opacity 220ms ease, transform 220ms ease;
+	will-change: opacity, transform;
 }
 
 .impact-liquid-caption-detail {
@@ -167,6 +169,14 @@ body.impact-liquid-covered #contact-modal {
 	line-height: var(--line-height-tight);
 	color: variables.$text-color-secondary;
 	text-align: center;
+	transition: opacity 220ms ease, transform 220ms ease;
+	will-change: opacity, transform;
+}
+
+.impact-liquid-caption.is-fading .impact-liquid-caption-label,
+.impact-liquid-caption.is-fading .impact-liquid-caption-detail {
+	opacity: 0;
+	transform: translateY(6px);
 }
 
 @media (prefers-color-scheme: dark) {
