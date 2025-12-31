@@ -1716,7 +1716,8 @@ class ImpactLiquidOverlay {
 		this.activeIndex = 0;
 		this.captionVisible = false;
 		this.autoAdvanceMs = 18000;
-		this.autoAdvanceStart = null;
+		this.autoAdvanceElapsed = 0;
+		this.autoAdvanceLastTick = null;
 		this.hasInteracted = false;
 		this.lastPhase = null;
 		this.themeColorNodes = null;
@@ -1975,8 +1976,11 @@ class ImpactLiquidOverlay {
 	}
 
 	registerInteraction(now = performance.now()) {
-		this.hasInteracted = true;
-		this.autoAdvanceStart = now;
+		if (!this.hasInteracted) {
+			this.hasInteracted = true;
+			this.autoAdvanceElapsed = 0;
+			this.autoAdvanceLastTick = now;
+		}
 	}
 
 	handlePointerEnter(event) {
@@ -2328,21 +2332,30 @@ class ImpactLiquidOverlay {
 			}
 		}
 
-		if (this.phase !== this.lastPhase && this.phase === 'show-stat' && this.hasInteracted) {
-			this.autoAdvanceStart = now;
-		}
-
 		let progress = 0;
 		if (this.hasInteracted && this.phase === 'show-stat') {
-			if (this.autoAdvanceStart == null) {
-				this.autoAdvanceStart = now;
+			if (this.autoAdvanceLastTick == null) {
+				this.autoAdvanceLastTick = now;
 			}
-			progress = clamp((now - this.autoAdvanceStart) / this.autoAdvanceMs, 0, 1);
-			if (progress >= 1) {
-				this.autoAdvanceStart = now;
-				this.advance();
-				progress = 0;
+			if (this.phase !== this.lastPhase) {
+				this.autoAdvanceElapsed = 0;
+				this.autoAdvanceLastTick = now;
 			}
+			const isPaused = this.pointer?.isDown;
+			if (isPaused) {
+				this.autoAdvanceLastTick = now;
+			} else {
+				const deltaMs = Math.max(0, now - this.autoAdvanceLastTick);
+				this.autoAdvanceElapsed = Math.min(this.autoAdvanceElapsed + deltaMs, this.autoAdvanceMs);
+				this.autoAdvanceLastTick = now;
+				if (this.autoAdvanceElapsed >= this.autoAdvanceMs) {
+					this.autoAdvanceElapsed = 0;
+					this.advance();
+				}
+			}
+			progress = clamp(this.autoAdvanceElapsed / this.autoAdvanceMs, 0, 1);
+		} else if (this.autoAdvanceLastTick != null) {
+			this.autoAdvanceLastTick = now;
 		}
 		this.setAutoAdvanceProgress(progress);
 		this.lastPhase = this.phase;
