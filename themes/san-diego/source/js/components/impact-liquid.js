@@ -166,10 +166,11 @@ const SHADER_FRAGMENT = `
 		float cMax = max(c0, max(max(cL, cR), max(cB, cT)));
 		cMax = max(cMax, max(max(cTL, cTR), max(cBL, cBR)));
 		float coverage = mix(cBlur, cMax, 0.26);
-		float liquidAlpha = smoothstep(0.14, 0.84, coverage);
-		liquidAlpha = pow(liquidAlpha, 0.92);
-
 		float edge = abs(cR - cL) + abs(cT - cB);
+		float edgeBlend = smoothstep(0.02, 0.2, edge);
+		float smoothCoverage = mix(coverage, cBlur, edgeBlend * (0.3 + digitBoost * 0.5));
+		float liquidAlpha = smoothstep(0.14, 0.84, smoothCoverage);
+		liquidAlpha = pow(liquidAlpha, 0.92);
 		float glow = smoothstep(0.04, 0.18, edge) * smoothstep(0.12, 0.72, liquidAlpha);
 
 	float detailBoost = 1.0 + clamp(abs(turbulence) * 1.1, 0.0, 0.45);
