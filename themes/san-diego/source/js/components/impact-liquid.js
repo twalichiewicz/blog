@@ -19,9 +19,9 @@ const POINTER_INTERACTION = {
 
 const FLUID_SIM = {
 	maxDelta: 1 / 30,
-	targetScale: 0.52,
+	targetScale: 0.62,
 	minSize: 112,
-	maxSize: 640,
+	maxSize: 768,
 	pressureIterations: 16,
 	vorticityStrength: 14,
 	velocityDissipation: 0.28,
@@ -513,6 +513,7 @@ const SIM_COVERAGE_FRAGMENT = `
 		float textWeightTR = 1.0;
 		float textWeightBL = 1.0;
 		float textWeightBR = 1.0;
+		float counterCut = 0.0;
 
 		vec2 vel = texture2D(u_velocity, uv).xy;
 		vec2 uvFlow = clamp(uv + vel * u_texelSize * 1.35, 0.0, 1.0);
@@ -559,10 +560,11 @@ const SIM_COVERAGE_FRAGMENT = `
 			vec2 textUv = uv;
 
 			float rawText = clamp(texture2D(u_text, textUv).a, 0.0, 1.0);
+			float rawBase = rawText;
 			float tL = clamp(texture2D(u_text, textUv - vec2(u_texelSize.x, 0.0)).a, 0.0, 1.0);
 			float tR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, 0.0)).a, 0.0, 1.0);
-		float tB = clamp(texture2D(u_text, textUv - vec2(0.0, u_texelSize.y)).a, 0.0, 1.0);
-		float tT = clamp(texture2D(u_text, textUv + vec2(0.0, u_texelSize.y)).a, 0.0, 1.0);
+			float tB = clamp(texture2D(u_text, textUv - vec2(0.0, u_texelSize.y)).a, 0.0, 1.0);
+			float tT = clamp(texture2D(u_text, textUv + vec2(0.0, u_texelSize.y)).a, 0.0, 1.0);
 			float tTL = clamp(texture2D(u_text, textUv + vec2(-u_texelSize.x, u_texelSize.y)).a, 0.0, 1.0);
 			float tTR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, u_texelSize.y)).a, 0.0, 1.0);
 			float tBL = clamp(texture2D(u_text, textUv + vec2(-u_texelSize.x, -u_texelSize.y)).a, 0.0, 1.0);
@@ -570,12 +572,14 @@ const SIM_COVERAGE_FRAGMENT = `
 			float blurText = (rawText * 4.0 + tL + tR + tB + tT + tTL + tTR + tBL + tBR) / 12.0;
 			float neighborMax = max(max(tL, tR), max(tB, tT));
 			neighborMax = max(neighborMax, max(max(tTL, tTR), max(tBL, tBR)));
-			float fillGap = smoothstep(0.38, 0.72, neighborMax) * (1.0 - smoothstep(0.04, 0.16, rawText));
-			rawText = max(rawText, blurText * fillGap);
-			rawText = pow(rawText, 0.78);
-			float threshold = 0.42;
-			float softness = 0.045;
+			float bridge = smoothstep(0.58, 0.86, neighborMax) * (1.0 - smoothstep(0.08, 0.22, rawText));
+			bridge *= smoothstep(0.18, 0.62, blurText);
+			rawText = max(rawText, blurText * bridge);
+			rawText = pow(rawText, 1.25);
+			float threshold = 0.52;
+			float softness = 0.035;
 			float textMask = smoothstep(threshold - softness, threshold + softness, rawText);
+			float baseMask = smoothstep(threshold - softness, threshold + softness, rawBase);
 
 			float inject = clamp(u_dt * (8.5 + holeRadius * 10.0), 0.0, 1.0);
 			digitField = mix(digitField, textMask, inject);
@@ -602,14 +606,50 @@ const SIM_COVERAGE_FRAGMENT = `
 			vec2 shimmer = vec2(0.52 + s1 * 0.22, 0.52 + s2 * 0.21);
 			dye.rg = mix(dye.rg, shimmer, digitMask * 0.26);
 
-			float tMaskL = smoothstep(threshold - softness, threshold + softness, tL);
-			float tMaskR = smoothstep(threshold - softness, threshold + softness, tR);
-			float tMaskB = smoothstep(threshold - softness, threshold + softness, tB);
-			float tMaskT = smoothstep(threshold - softness, threshold + softness, tT);
-			float tMaskTL = smoothstep(threshold - softness, threshold + softness, tTL);
-			float tMaskTR = smoothstep(threshold - softness, threshold + softness, tTR);
-			float tMaskBL = smoothstep(threshold - softness, threshold + softness, tBL);
-			float tMaskBR = smoothstep(threshold - softness, threshold + softness, tBR);
+			float detectThreshold = threshold - 0.09;
+			float detectSoftness = softness * 1.25;
+
+			float tMaskL = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tL);
+			float tMaskR = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tR);
+			float tMaskB = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tB);
+			float tMaskT = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tT);
+			float tMaskTL = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tTL);
+			float tMaskTR = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tTR);
+			float tMaskBL = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tBL);
+			float tMaskBR = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tBR);
+
+			float tL2 = clamp(texture2D(u_text, textUv - vec2(u_texelSize.x * 2.0, 0.0)).a, 0.0, 1.0);
+			float tR2 = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x * 2.0, 0.0)).a, 0.0, 1.0);
+			float tB2 = clamp(texture2D(u_text, textUv - vec2(0.0, u_texelSize.y * 2.0)).a, 0.0, 1.0);
+			float tT2 = clamp(texture2D(u_text, textUv + vec2(0.0, u_texelSize.y * 2.0)).a, 0.0, 1.0);
+			float tL4 = clamp(texture2D(u_text, textUv - vec2(u_texelSize.x * 4.0, 0.0)).a, 0.0, 1.0);
+			float tR4 = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x * 4.0, 0.0)).a, 0.0, 1.0);
+			float tB4 = clamp(texture2D(u_text, textUv - vec2(0.0, u_texelSize.y * 4.0)).a, 0.0, 1.0);
+			float tT4 = clamp(texture2D(u_text, textUv + vec2(0.0, u_texelSize.y * 4.0)).a, 0.0, 1.0);
+			float tL8 = clamp(texture2D(u_text, textUv - vec2(u_texelSize.x * 8.0, 0.0)).a, 0.0, 1.0);
+			float tR8 = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x * 8.0, 0.0)).a, 0.0, 1.0);
+			float tB8 = clamp(texture2D(u_text, textUv - vec2(0.0, u_texelSize.y * 8.0)).a, 0.0, 1.0);
+			float tT8 = clamp(texture2D(u_text, textUv + vec2(0.0, u_texelSize.y * 8.0)).a, 0.0, 1.0);
+
+			float tMaskL2 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tL2);
+			float tMaskR2 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tR2);
+			float tMaskB2 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tB2);
+			float tMaskT2 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tT2);
+			float tMaskL4 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tL4);
+			float tMaskR4 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tR4);
+			float tMaskB4 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tB4);
+			float tMaskT4 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tT4);
+			float tMaskL8 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tL8);
+			float tMaskR8 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tR8);
+			float tMaskB8 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tB8);
+			float tMaskT8 = smoothstep(detectThreshold - detectSoftness, detectThreshold + detectSoftness, tT8);
+
+			float leftHit = max(tMaskL, max(tMaskL2, max(tMaskL4, tMaskL8)));
+			float rightHit = max(tMaskR, max(tMaskR2, max(tMaskR4, tMaskR8)));
+			float upHit = max(tMaskT, max(tMaskT2, max(tMaskT4, tMaskT8)));
+			float downHit = max(tMaskB, max(tMaskB2, max(tMaskB4, tMaskB8)));
+			float enclosed = min(min(leftHit, rightHit), min(upHit, downHit));
+			counterCut = (1.0 - baseMask) * smoothstep(0.48, 0.88, enclosed) * holeMask;
 			textWeightL = 1.0 - smoothstep(0.15, 0.55, tMaskL);
 			textWeightR = 1.0 - smoothstep(0.15, 0.55, tMaskR);
 			textWeightB = 1.0 - smoothstep(0.15, 0.55, tMaskB);
@@ -657,6 +697,7 @@ const SIM_COVERAGE_FRAGMENT = `
 		smoothed = max(smoothed, enforce * 0.94 * holeProtect);
 
 		coverage = max(smoothed, digitMask);
+		coverage *= (1.0 - counterCut);
 
 		dye.a = clamp(coverage, 0.0, 1.0);
 
@@ -783,7 +824,7 @@ const PARTICLE_MASK_FRAGMENT = `
 		float r = length(p);
 		if (r > 0.5) discard;
 		float falloff = smoothstep(0.5, 0.0, r);
-		falloff = pow(falloff, 1.65);
+		falloff = pow(falloff, 2.35);
 		gl_FragColor = vec4(0.0, 0.0, 0.0, falloff);
 	}
 `;
@@ -1493,7 +1534,7 @@ class ParticleTextSim {
 
 		if (!this.maskTarget || this.maskTarget.width !== maskW || this.maskTarget.height !== maskH) {
 			this.maskTarget?.dispose?.();
-			const filter = this.supportsLinearFiltering ? THREE.LinearFilter : THREE.NearestFilter;
+			const filter = THREE.NearestFilter;
 			this.maskTarget = new THREE.WebGLRenderTarget(maskW, maskH, {
 				type: THREE.HalfFloatType,
 				format: THREE.RGBAFormat,
@@ -1506,7 +1547,7 @@ class ParticleTextSim {
 			});
 		}
 
-		const maskPointSize = clamp((Math.min(maskW, maskH) / 160) * safePixelRatio, 1.9, 5.4);
+		const maskPointSize = clamp((Math.min(maskW, maskH) / 240) * safePixelRatio, 1.05, 3.8);
 		this.maskPointsMaterial.uniforms.u_pointSize.value = maskPointSize;
 		this.renderMask();
 	}
