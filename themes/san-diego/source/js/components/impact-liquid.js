@@ -19,9 +19,9 @@ const POINTER_INTERACTION = {
 
 const FLUID_SIM = {
 	maxDelta: 1 / 30,
-	targetScale: 0.42,
+	targetScale: 0.52,
 	minSize: 112,
-	maxSize: 520,
+	maxSize: 640,
 	pressureIterations: 16,
 	vorticityStrength: 14,
 	velocityDissipation: 0.28,
@@ -150,8 +150,8 @@ const SHADER_FRAGMENT = `
 		vec2 vel = velocityField(uv);
 		vec2 shadeUv = clamp(uv + vel * u_texelSize * 0.35, 0.0, 1.0);
 		float turbulence = heightField(shadeUv) - 0.5;
-		float digitPresence = texture2D(u_dye, uv).b;
-		float digitBoost = smoothstep(0.18, 0.85, digitPresence);
+	float digitPresence = texture2D(u_dye, uv).b;
+	float digitBoost = smoothstep(0.18, 0.85, digitPresence);
 
 		float c0 = coverageField(uv);
 		float cL = coverageField(uv - vec2(u_texelSize.x, 0.0));
@@ -172,11 +172,11 @@ const SHADER_FRAGMENT = `
 		float edge = abs(cR - cL) + abs(cT - cB);
 		float glow = smoothstep(0.04, 0.18, edge) * smoothstep(0.12, 0.72, liquidAlpha);
 
-		float detailBoost = 1.0 + clamp(abs(turbulence) * 1.1, 0.0, 0.45);
-		detailBoost += digitBoost * 0.55;
-		vec3 outColor = metalShade(shadeUv, liquidAlpha, detailBoost);
-		outColor = mix(outColor, outColor * 1.08 + vec3(0.04), digitBoost * liquidAlpha);
-		outColor += glow * vec3(0.07, 0.08, 0.09);
+	float detailBoost = 1.0 + clamp(abs(turbulence) * 1.1, 0.0, 0.45);
+	detailBoost += digitBoost * 0.32;
+	vec3 outColor = metalShade(shadeUv, liquidAlpha, detailBoost);
+	outColor = mix(outColor, outColor * 1.08 + vec3(0.04), digitBoost * liquidAlpha);
+	outColor += glow * vec3(0.07, 0.08, 0.09);
 
 		gl_FragColor = vec4(outColor, liquidAlpha);
 	}
@@ -547,37 +547,47 @@ const SIM_COVERAGE_FRAGMENT = `
 		float textFill = clamp(u_textStrength, 0.0, 1.0);
 		float digitMask = 0.0;
 
-			if (textFill > 0.001 && holeRadius > 0.001) {
-				vec2 curlWarp = curlNoise(uv * 1.35 + vec2(0.18, -0.24), u_time * 0.24) * (u_texelSize * 1.35);
-				vec2 flowWarp = vel * u_texelSize * 0.16;
-				vec2 textUv = clamp(uv + curlWarp + flowWarp, 0.0, 1.0);
+	if (textFill > 0.001 && holeRadius > 0.001) {
+		vec2 curlWarp = curlNoise(uv * 1.35 + vec2(0.18, -0.24), u_time * 0.24) * (u_texelSize * 0.65);
+		vec2 flowWarp = vel * u_texelSize * 0.06;
+		vec2 textUv = clamp(uv + curlWarp + flowWarp, 0.0, 1.0);
 
-				float rawText = clamp(texture2D(u_text, textUv).a, 0.0, 1.0);
-				float wobble = baseNoise * 0.38 + (fbm(uvFlow * 5.6 + vec2(u_time * 0.15, -u_time * 0.13)) - 0.5) * 0.34;
-				float threshold = 0.52 + wobble * 0.085;
-				float softness = 0.085 + abs(wobble) * 0.15;
-				float textMask = smoothstep(threshold - softness, threshold + softness, rawText);
+		float rawText = clamp(texture2D(u_text, textUv).a, 0.0, 1.0);
+		float tL = clamp(texture2D(u_text, textUv - vec2(u_texelSize.x, 0.0)).a, 0.0, 1.0);
+		float tR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, 0.0)).a, 0.0, 1.0);
+		float tB = clamp(texture2D(u_text, textUv - vec2(0.0, u_texelSize.y)).a, 0.0, 1.0);
+		float tT = clamp(texture2D(u_text, textUv + vec2(0.0, u_texelSize.y)).a, 0.0, 1.0);
+		float tTL = clamp(texture2D(u_text, textUv + vec2(-u_texelSize.x, u_texelSize.y)).a, 0.0, 1.0);
+		float tTR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, u_texelSize.y)).a, 0.0, 1.0);
+		float tBL = clamp(texture2D(u_text, textUv + vec2(-u_texelSize.x, -u_texelSize.y)).a, 0.0, 1.0);
+		float tBR = clamp(texture2D(u_text, textUv + vec2(u_texelSize.x, -u_texelSize.y)).a, 0.0, 1.0);
+		float blurText = (rawText * 4.0 + tL + tR + tB + tT + tTL + tTR + tBL + tBR) / 12.0;
+		rawText = max(rawText, blurText * 0.96);
+		rawText = pow(rawText, 0.85);
+		float threshold = 0.3;
+		float softness = 0.07;
+		float textMask = smoothstep(threshold - softness, threshold + softness, rawText);
 
-			float inject = clamp(u_dt * (8.5 + holeRadius * 10.0), 0.0, 1.0);
-			digitField = mix(digitField, textMask, inject);
-			digitField = clamp(digitField, 0.0, 1.0) * holeMask;
+		float inject = clamp(u_dt * (8.5 + holeRadius * 10.0), 0.0, 1.0);
+		digitField = mix(digitField, textMask, inject);
+		digitField = clamp(digitField, 0.0, 1.0) * holeMask;
 
-			float interior = smoothstep(0.48, 0.92, textMask);
-			vec2 rippleUv = uvFlow * 6.2 + vel * 0.1 + vec2(u_time * 0.22, -u_time * 0.19);
-			float ripple = (fbm(rippleUv) - 0.5);
-			ripple += (fbm(rippleUv * 1.65 + vec2(-u_time * 0.17, u_time * 0.14)) - 0.5) * 0.7;
-			digitField = clamp(digitField + ripple * 0.105 * interior, 0.0, 1.0);
-			digitField = max(digitField, textMask * 0.3);
-			digitField *= holeMask;
+		float edgeBand = smoothstep(0.08, 0.32, textMask) * (1.0 - smoothstep(0.62, 0.92, textMask));
+		vec2 rippleUv = uvFlow * 6.2 + vel * 0.1 + vec2(u_time * 0.22, -u_time * 0.19);
+		float ripple = (fbm(rippleUv) - 0.5);
+		ripple += (fbm(rippleUv * 1.65 + vec2(-u_time * 0.17, u_time * 0.14)) - 0.5) * 0.7;
+		digitField = clamp(digitField + ripple * 0.075 * edgeBand, 0.0, 1.0);
+		digitField = max(digitField, textMask * 0.35);
+		digitField *= holeMask;
 
-			float edgeNoise = (fbm(uvFlow * 2.35 + vec2(u_time * 0.16, -u_time * 0.12)) - 0.5) * 0.04;
-			edgeNoise += (fbm(uvFlow * 4.4 + vec2(-u_time * 0.11, u_time * 0.09)) - 0.5) * 0.016;
-			float edgeSoft = 0.06 + abs(edgeNoise) * 0.1;
-			float outline = mix(textMask, digitField, 0.32);
-			digitMask = smoothstep(0.5 - edgeSoft, 0.5 + edgeSoft, outline + edgeNoise) * textFill * holeMask;
+		float edgeNoise = (fbm(uvFlow * 2.35 + vec2(u_time * 0.16, -u_time * 0.12)) - 0.5) * 0.022;
+		edgeNoise += (fbm(uvFlow * 4.4 + vec2(-u_time * 0.11, u_time * 0.09)) - 0.5) * 0.01;
+		float edgeSoft = 0.038 + abs(edgeNoise) * 0.06;
+		float outline = mix(textMask, digitField, 0.22);
+		digitMask = smoothstep(0.5 - edgeSoft, 0.5 + edgeSoft, outline + edgeNoise) * textFill * holeMask;
 
-			vec2 swirlUv = uvFlow * 9.2 + vel * 0.08 + vec2(u_time * 0.24, -u_time * 0.22);
-			float s1 = fbm(swirlUv) - 0.5;
+		vec2 swirlUv = uvFlow * 9.2 + vel * 0.08 + vec2(u_time * 0.24, -u_time * 0.22);
+		float s1 = fbm(swirlUv) - 0.5;
 			float s2 = fbm(swirlUv * 1.8 + vec2(4.1, -3.7)) - 0.5;
 			vec2 shimmer = vec2(0.52 + s1 * 0.22, 0.52 + s2 * 0.21);
 			dye.rg = mix(dye.rg, shimmer, digitMask * 0.26);
