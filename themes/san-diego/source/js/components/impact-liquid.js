@@ -547,16 +547,16 @@ const SIM_COVERAGE_FRAGMENT = `
 		float textFill = clamp(u_textStrength, 0.0, 1.0);
 		float digitMask = 0.0;
 
-		if (textFill > 0.001 && holeRadius > 0.001) {
-			vec2 curlWarp = curlNoise(uv * 1.35 + vec2(0.18, -0.24), u_time * 0.24) * (u_texelSize * 1.35);
-			vec2 flowWarp = vel * u_texelSize * 0.16;
-			vec2 textUv = clamp(uv + curlWarp + flowWarp, 0.0, 1.0);
+			if (textFill > 0.001 && holeRadius > 0.001) {
+				vec2 curlWarp = curlNoise(uv * 1.35 + vec2(0.18, -0.24), u_time * 0.24) * (u_texelSize * 1.35);
+				vec2 flowWarp = vel * u_texelSize * 0.16;
+				vec2 textUv = clamp(uv + curlWarp + flowWarp, 0.0, 1.0);
 
-			float rawText = texture2D(u_text, textUv).a;
-			float wobble = baseNoise * 0.38 + (fbm(uvFlow * 5.6 + vec2(u_time * 0.15, -u_time * 0.13)) - 0.5) * 0.34;
-			float threshold = 0.52 + wobble * 0.085;
-			float softness = 0.085 + abs(wobble) * 0.15;
-			float textMask = smoothstep(threshold - softness, threshold + softness, rawText);
+				float rawText = clamp(texture2D(u_text, textUv).a, 0.0, 1.0);
+				float wobble = baseNoise * 0.38 + (fbm(uvFlow * 5.6 + vec2(u_time * 0.15, -u_time * 0.13)) - 0.5) * 0.34;
+				float threshold = 0.52 + wobble * 0.085;
+				float softness = 0.085 + abs(wobble) * 0.15;
+				float textMask = smoothstep(threshold - softness, threshold + softness, rawText);
 
 			float inject = clamp(u_dt * (8.5 + holeRadius * 10.0), 0.0, 1.0);
 			digitField = mix(digitField, textMask, inject);
@@ -716,6 +716,38 @@ const PARTICLE_RENDER_VERTEX = `
 		vSpeed = length(vel);
 		gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 0.0, 1.0);
 		gl_PointSize = u_pointSize * alive;
+	}
+`;
+
+const PARTICLE_MASK_VERTEX = `
+	precision highp float;
+	uniform sampler2D u_state;
+	uniform sampler2D u_target;
+	uniform float u_pointSize;
+	varying float vAlive;
+	void main() {
+		vec2 uv = position.xy;
+		vec4 state = texture2D(u_state, uv);
+		vec4 target = texture2D(u_target, uv);
+		float alive = step(0.5, target.a);
+		vAlive = alive;
+		vec2 pos = state.xy;
+		gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 0.0, 1.0);
+		gl_PointSize = u_pointSize * alive;
+	}
+`;
+
+const PARTICLE_MASK_FRAGMENT = `
+	precision highp float;
+	varying float vAlive;
+	void main() {
+		if (vAlive <= 0.001) discard;
+		vec2 p = gl_PointCoord - 0.5;
+		float r = length(p);
+		if (r > 0.5) discard;
+		float falloff = smoothstep(0.5, 0.0, r);
+		falloff = pow(falloff, 1.35);
+		gl_FragColor = vec4(0.0, 0.0, 0.0, falloff);
 	}
 `;
 
@@ -1230,6 +1262,10 @@ class ParticleTextSim {
 		this.simWidth = PARTICLE_TEXT.textureWidth;
 		this.simHeight = PARTICLE_TEXT.textureHeight;
 		this.count = this.simWidth * this.simHeight;
+		this.supportsLinearFiltering =
+			renderer.capabilities.isWebGL2 ||
+			Boolean(renderer.extensions?.get?.('OES_texture_half_float_linear')) ||
+			Boolean(renderer.extensions?.get?.('OES_texture_float_linear'));
 
 		this.scene = new THREE.Scene();
 		this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -1264,6 +1300,10 @@ class ParticleTextSim {
 		this.targetTexture.wrapS = THREE.ClampToEdgeWrapping;
 		this.targetTexture.wrapT = THREE.ClampToEdgeWrapping;
 
+		this.maskScene = new THREE.Scene();
+		this.maskCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+		this.maskTarget = null;
+
 		this.seedMaterial = new THREE.ShaderMaterial({
 			vertexShader: SIM_VERTEX,
 			fragmentShader: PARTICLE_SEED_FRAGMENT,
@@ -1293,6 +1333,11 @@ class ParticleTextSim {
 		this.sampleContext = this.sampleCanvas.getContext('2d', { willReadFrequently: true });
 
 		this.points = this.buildPoints();
+		this.maskPoints = this.buildMaskPoints(this.points.geometry);
+	}
+
+	get maskTexture() {
+		return this.maskTarget?.texture || null;
 	}
 
 	buildPoints() {
@@ -1330,6 +1375,27 @@ class ParticleTextSim {
 		return points;
 	}
 
+	buildMaskPoints(sharedGeometry) {
+		this.maskPointsMaterial = new THREE.ShaderMaterial({
+			vertexShader: PARTICLE_MASK_VERTEX,
+			fragmentShader: PARTICLE_MASK_FRAGMENT,
+			transparent: true,
+			depthTest: false,
+			depthWrite: false,
+			uniforms: {
+				u_state: { value: this.state.read.texture },
+				u_target: { value: this.targetTexture },
+				u_pointSize: { value: 4 }
+			}
+		});
+		this.maskPointsMaterial.blending = THREE.AdditiveBlending;
+
+		const points = new THREE.Points(sharedGeometry, this.maskPointsMaterial);
+		points.frustumCulled = false;
+		this.maskScene.add(points);
+		return points;
+	}
+
 	renderPass(material, target) {
 		const prevTarget = this.renderer.getRenderTarget();
 		const prevMaterial = this.mesh.material;
@@ -1351,6 +1417,17 @@ class ParticleTextSim {
 		this.renderPass(this.seedMaterial, this.state.read);
 		this.renderPass(this.seedMaterial, this.state.write);
 		this.pointsMaterial.uniforms.u_state.value = this.state.read.texture;
+		this.maskPointsMaterial.uniforms.u_state.value = this.state.read.texture;
+	}
+
+	renderMask() {
+		if (!this.maskTarget) return;
+		const prevTarget = this.renderer.getRenderTarget();
+		this.renderer.setRenderTarget(this.maskTarget);
+		this.renderer.clearColor();
+		this.renderer.clear(true, true, true);
+		this.renderer.render(this.maskScene, this.maskCamera);
+		this.renderer.setRenderTarget(prevTarget);
 	}
 
 	resize(viewWidth, viewHeight, pixelRatio = 1) {
@@ -1362,6 +1439,39 @@ class ParticleTextSim {
 		const safePixelRatio = clamp(pixelRatio || 1, 1, 2);
 		const viewportScale = clamp(Math.min(width, height) / 360, 0.95, 1.4);
 		this.pointsMaterial.uniforms.u_pointSize.value = PARTICLE_TEXT.basePointSize * viewportScale * safePixelRatio;
+
+		const scaledW = Math.floor(width * FLUID_SIM.targetScale);
+		const scaledH = Math.floor(height * FLUID_SIM.targetScale);
+		let maskW = Math.max(FLUID_SIM.minSize, Math.min(FLUID_SIM.maxSize, scaledW));
+		let maskH = Math.max(FLUID_SIM.minSize, Math.min(FLUID_SIM.maxSize, scaledH));
+
+		if (aspect > 1.05) {
+			maskH = Math.max(FLUID_SIM.minSize, Math.round(maskW / aspect));
+		} else if (aspect < 0.95) {
+			maskW = Math.max(FLUID_SIM.minSize, Math.round(maskH * aspect));
+		}
+
+		maskW = Math.max(FLUID_SIM.minSize, Math.min(FLUID_SIM.maxSize, maskW));
+		maskH = Math.max(FLUID_SIM.minSize, Math.min(FLUID_SIM.maxSize, maskH));
+
+		if (!this.maskTarget || this.maskTarget.width !== maskW || this.maskTarget.height !== maskH) {
+			this.maskTarget?.dispose?.();
+			const filter = this.supportsLinearFiltering ? THREE.LinearFilter : THREE.NearestFilter;
+			this.maskTarget = new THREE.WebGLRenderTarget(maskW, maskH, {
+				type: THREE.HalfFloatType,
+				format: THREE.RGBAFormat,
+				minFilter: filter,
+				magFilter: filter,
+				depthBuffer: false,
+				stencilBuffer: false,
+				wrapS: THREE.ClampToEdgeWrapping,
+				wrapT: THREE.ClampToEdgeWrapping
+			});
+		}
+
+		const maskPointSize = clamp(Math.min(maskW, maskH) / 54, 3.2, 9.5) * safePixelRatio;
+		this.maskPointsMaterial.uniforms.u_pointSize.value = maskPointSize;
+		this.renderMask();
 	}
 
 	setTargetsFromCanvas(sourceCanvas) {
@@ -1423,6 +1533,7 @@ class ParticleTextSim {
 
 		this.targetTexture.needsUpdate = true;
 		this.seed();
+		this.renderMask();
 	}
 
 	step({
@@ -1457,15 +1568,22 @@ class ParticleTextSim {
 		this.renderPass(this.simMaterial, this.state.write);
 		this.swap(this.state);
 		this.pointsMaterial.uniforms.u_state.value = this.state.read.texture;
+		this.maskPointsMaterial.uniforms.u_state.value = this.state.read.texture;
+		this.renderMask();
 	}
 
 	dispose() {
 		this.state?.read?.dispose?.();
 		this.state?.write?.dispose?.();
+		this.maskTarget?.dispose?.();
 		this.targetTexture?.dispose?.();
 		this.seedMaterial?.dispose?.();
 		this.simMaterial?.dispose?.();
+		this.maskPointsMaterial?.dispose?.();
 		this.pointsMaterial?.dispose?.();
+		this.maskScene = null;
+		this.maskCamera = null;
+		this.maskTarget = null;
 		this.points?.geometry?.dispose?.();
 		this.mesh?.geometry?.dispose?.();
 		this.mesh = null;
@@ -1660,8 +1778,7 @@ class ImpactLiquidOverlay {
 			this.mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), this.material);
 			this.scene.add(this.mesh);
 
-			this.particleText = new ParticleTextSim(this.renderer);
-			this.scene.add(this.particleText.points);
+				this.particleText = new ParticleTextSim(this.renderer);
 		}
 
 		handleResize() {
@@ -2062,8 +2179,8 @@ class ImpactLiquidOverlay {
 					holeRadius,
 						holeStrength,
 						holeHardness,
-						textTexture: this.textTexture,
-						textStrength: 0,
+						textTexture: this.particleText?.maskTexture || this.textTexture,
+						textStrength: this.textAlpha,
 						pointer: this.pointer,
 						pointerVelocity: this.pointer,
 						pointerRadius: pointerRadius * 1.05,
