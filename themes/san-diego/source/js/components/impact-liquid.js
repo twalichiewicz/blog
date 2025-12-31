@@ -19,9 +19,9 @@ const POINTER_INTERACTION = {
 
 const FLUID_SIM = {
 	maxDelta: 1 / 30,
-	targetScale: 0.62,
-	minSize: 112,
-	maxSize: 768,
+	targetScale: 0.78,
+	minSize: 140,
+	maxSize: 960,
 	pressureIterations: 16,
 	vorticityStrength: 14,
 	velocityDissipation: 0.28,
@@ -167,9 +167,11 @@ const SHADER_FRAGMENT = `
 		cMax = max(cMax, max(max(cTL, cTR), max(cBL, cBR)));
 		float coverage = mix(cBlur, cMax, 0.26);
 		float edge = abs(cR - cL) + abs(cT - cB);
-		float edgeBlend = smoothstep(0.02, 0.2, edge);
-		float smoothCoverage = mix(coverage, cBlur, edgeBlend * (0.3 + digitBoost * 0.5));
-		float liquidAlpha = smoothstep(0.14, 0.84, smoothCoverage);
+		float edgeDiag = abs(cTR - cBL) + abs(cTL - cBR);
+		edge = max(edge, edgeDiag * 0.85);
+		float edgeBlend = smoothstep(0.015, 0.16, edge);
+		float smoothCoverage = mix(coverage, cBlur, edgeBlend * (0.42 + digitBoost * 0.55));
+		float liquidAlpha = smoothstep(0.12, 0.88, smoothCoverage);
 		liquidAlpha = pow(liquidAlpha, 0.92);
 		float glow = smoothstep(0.04, 0.18, edge) * smoothstep(0.12, 0.72, liquidAlpha);
 
