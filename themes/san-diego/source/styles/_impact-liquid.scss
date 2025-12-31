@@ -142,6 +142,7 @@ body.impact-liquid-covered #contact-modal {
 	width: min(92vw, 460px);
 	pointer-events: none;
 	z-index: 2;
+	transition: transform 240ms ease, opacity 240ms ease;
 }
 
 .impact-liquid-caption-inner {
@@ -152,6 +153,19 @@ body.impact-liquid-covered #contact-modal {
 	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 	backdrop-filter: blur(16px) saturate(1.2);
 	-webkit-backdrop-filter: blur(16px) saturate(1.2);
+	max-height: 120px;
+	overflow: hidden;
+	transition:
+		max-height 240ms ease,
+		padding 240ms ease,
+		background 240ms ease,
+		border-color 240ms ease,
+		box-shadow 240ms ease;
+}
+
+.impact-liquid-caption:not(.has-detail) .impact-liquid-caption-inner {
+	max-height: 56px;
+	padding: 10px 14px;
 }
 
 .impact-liquid-caption-label {
@@ -170,7 +184,9 @@ body.impact-liquid-covered #contact-modal {
 	line-height: var(--line-height-tight);
 	color: variables.$text-color-secondary;
 	text-align: center;
-	transition: opacity 220ms ease, transform 220ms ease;
+	max-height: 60px;
+	overflow: hidden;
+	transition: opacity 220ms ease, transform 220ms ease, max-height 220ms ease, margin-top 220ms ease;
 	will-change: opacity, transform;
 }
 
@@ -178,6 +194,13 @@ body.impact-liquid-covered #contact-modal {
 .impact-liquid-caption.is-fading .impact-liquid-caption-detail {
 	opacity: 0;
 	transform: translateY(6px);
+}
+
+.impact-liquid-caption:not(.has-detail) .impact-liquid-caption-detail {
+	max-height: 0;
+	margin-top: 0;
+	opacity: 0;
+	transform: translateY(4px);
 }
 
 @media (prefers-color-scheme: dark) {

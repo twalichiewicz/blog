@@ -1938,6 +1938,8 @@ class ImpactLiquidOverlay {
 		const stat = this.stats[this.activeIndex];
 		const labelEl = this.caption?.querySelector('.impact-liquid-caption-label');
 		const detailEl = this.caption?.querySelector('.impact-liquid-caption-detail');
+		const hasDetail = Boolean(stat.detail);
+		if (this.caption) this.caption.classList.toggle('has-detail', hasDetail);
 		if (labelEl) labelEl.textContent = stat.label || '';
 		if (detailEl) detailEl.textContent = stat.detail || '';
 		this.currentValue = shortenStatValue(stat.value) || stat.value;
