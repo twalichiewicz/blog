@@ -12,7 +12,7 @@
         display: flex;
         flex-direction: column;
         background: hsl(0, 0.5%, 9.95%);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: none;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 
                     0 0 0 1px rgba(255, 255, 255, 0.05);
         
@@ -91,15 +91,15 @@
         }
     }
     
-    // Party mode button - gold/yellow gradient style
+    // Party mode button - match default light/dark tones
     &-party-mode {
         height: 24px;
         padding: 0 12px;
         border-radius: 30px;
-        background: linear-gradient(to bottom, hsl(40, 90%, 60%), hsl(40, 90%, 50%));
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
-        border: 1px solid hsl(40, 90%, 45%);
-        color: white;
+        background: transparent;
+        box-shadow: none;
+        border: 1px solid rgba($border-color, 0.6);
+        color: $text-color;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -116,7 +116,7 @@
         
         @media (max-width: 768px) {
             padding: 0 6px;
-            gap: 0;
+            gap: 3px;
         }
         
         .party-icon {
@@ -133,41 +133,61 @@
         }
         
         .party-text {
-            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+            text-shadow: none;
             letter-spacing: 0.02em;
             
             @media (max-width: 768px) {
-                display: none;
+                display: inline-block;
+                font-size: 9px;
             }
         }
         
         &:hover {
-            background: linear-gradient(to bottom, hsl(40, 90%, 62%), hsl(40, 90%, 52%));
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 -1px 0 rgba(0, 0, 0, 0.25) inset;
+            background: rgba($black, 0.05);
+            border-color: rgba($border-color, 0.85);
+            box-shadow: none;
         }
         
-        // Pressed state
         &:active {
-            background: linear-gradient(to bottom, hsl(40, 90%, 58%), hsl(40, 90%, 48%));
-            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5) inset, 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+            background: rgba($black, 0.1);
+            border-color: rgba($border-color, 0.9);
             transform: translateY(1px);
         }
         
-        // Active/playing state - toggle state when music is playing
         &.playing {
-            background: linear-gradient(to bottom, hsl(40, 90%, 55%), hsl(40, 90%, 45%));
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.6) inset, 0 1px 0 rgba(255, 255, 255, 0.15) inset;
+            background: rgba($black, 0.12);
+            border-color: rgba($border-color, 0.95);
             
             &:hover {
-                background: linear-gradient(to bottom, hsl(40, 90%, 57%), hsl(40, 90%, 47%));
-                box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset, 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+                background: rgba($black, 0.14);
             }
             
             &:active {
-                background: linear-gradient(to bottom, hsl(40, 90%, 53%), hsl(40, 90%, 43%));
-                box-shadow: 0 0 4px rgba(0, 0, 0, 0.7) inset, 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+                background: rgba($black, 0.16);
                 transform: translateY(1px);
             }
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        &-party-mode {
+            border-color: rgba($border-color-dark, 0.6);
+            color: $text-color-dark;
+        }
+
+        &-party-mode:hover,
+        &-party-mode:active {
+            background: rgba($white, 0.06);
+            border-color: rgba($border-color-dark, 0.9);
+        }
+
+        &-party-mode.playing {
+            background: rgba($white, 0.12);
+            border-color: rgba($border-color-dark, 0.95);
+        }
+
+        &-party-mode.playing:hover {
+            background: rgba($white, 0.16);
         }
     }
     
@@ -272,7 +292,7 @@
     text-align: center;
     font-family: var(--font-sans);
     font-size: var(--font-size-sm);
-    line-height: var(--line-height-tight).5;
+    line-height: 1.5;
     color: rgba(255, 255, 255, 0.7);
     letter-spacing: 0.02em;
     font-weight: var(--font-weight-normal);
@@ -292,7 +312,7 @@
     @media (max-width: 768px) {
         font-size: var(--font-size-xs);
         padding: 15px 20px 12px;
-        line-height: var(--line-height-tight).4;
+        line-height: 1.4;
         letter-spacing: 0.01em;
     }
 }
@@ -324,15 +344,17 @@
         filter: blur(20px);
     }
     
-    &:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3),
-                    0 0 30px -5px var(--accent-color);
-        
-        &::before {
-            opacity: 0.3;
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3),
+                        0 0 30px -5px var(--accent-color);
+            
+            &::before {
+                opacity: 0.3;
+            }
         }
     }
     
@@ -376,73 +398,48 @@
             opacity: 0.8;
         }
         
-        @media (max-width: 768px) {
-            margin-bottom: 0;
-        }
     }
     
     // Label styling
     .tile-label {
         font-size: var(--font-size-base);
         font-weight: var(--font-weight-semibold);
-        color: rgba(255, 255, 255, 0.9);
+        color: var(--text-secondary, #{$text-color-secondary});
         margin-bottom: 2px;
         letter-spacing: 0.01em;
         text-transform: uppercase;
         opacity: 0.9;
-        line-height: var(--line-height-tight).2;
+        line-height: var(--line-height-tight);
         
-        @media (max-width: 768px) {
-            margin-bottom: 0;
-        }
     }
     
     // Detail styling
     .tile-detail {
         font-size: var(--font-size-xs);
         color: rgba(255, 255, 255, 0.6);
-        line-height: var(--line-height-tight).4;
+        line-height: 1.4;
     }
     
     // Icon styling
     .tile-icon {
-        width: 48px;
-        height: 48px;
-        margin-bottom: 16px;
+        width: auto;
+        height: auto;
+        margin: clamp(10px, 1.2vw, 14px) 0 clamp(8px, 1vw, 12px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        opacity: 0.85;
         
         svg {
-            width: 100%;
-            height: 100%;
-            color: var(--accent-color);
+            width: clamp(22px, 4vw, 30px);
+            height: clamp(22px, 4vw, 30px);
             filter: drop-shadow(0 0 6px var(--accent-color));
         }
     }
     
     // Tile-specific colors are now defined in _impact-grid.scss using --accent-color
     
-    // Mobile overrides for all tile sizes
-    @media (max-width: 768px) {
-        &.tile-small,
-        &.tile-medium,
-        &.tile-large {
-            .tile-inner {
-                padding: 9px 10px !important;
-                align-items: flex-start !important;
-                text-align: left !important;
-            }
-            
-            .tile-value {
-                font-size: var(--font-size-2xl) !important;
-                margin-bottom: 0 !important;
-            }
-            
-            .tile-label {
-                font-size: var(--font-size-xs) !important;
-                font-weight: 300 !important;
-                margin-bottom: 0 !important;
-            }
-        }
-    }
 }
 
 // Special tile variations
@@ -463,10 +460,6 @@
         .tile-value {
             font-size: 56px;
             
-            @media (max-width: 768px) {
-                font-size: var(--font-size-2xl);
-                margin-bottom: 0;
-            }
         }
         
         .tile-hover-content {
@@ -481,14 +474,16 @@
             p {
                 font-size: var(--font-size-sm);
                 color: rgba(255, 255, 255, 0.7);
-                line-height: var(--line-height-tight).5;
+                line-height: 1.5;
                 margin: 0;
             }
         }
         
-        &:hover .tile-hover-content {
-            opacity: 1;
-            transform: translateY(0);
+        @media (hover: hover) and (pointer: fine) {
+            &:hover .tile-hover-content {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     }
     
@@ -873,6 +868,75 @@
             transform: rotateY(180deg);
         }
     }
+}
+
+@media (max-width: 768px) {
+	.impact-tile .tile-inner {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 12px;
+		padding: 14px;
+		min-height: 0;
+		text-align: left;
+	}
+
+	.impact-tile .tile-icon {
+		order: 1;
+		flex: 0 0 auto;
+		width: 30px;
+		height: 30px;
+		margin: 0;
+		color: currentColor;
+		opacity: 0.65;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		svg {
+			width: 18px;
+			height: 18px;
+			filter: none;
+		}
+	}
+
+	.impact-tile .tile-meta {
+		order: 2;
+		flex: 1 1 auto;
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.impact-tile .tile-label {
+		margin: 0;
+		text-transform: none;
+		letter-spacing: 0;
+		opacity: 0.95;
+	}
+
+	.impact-tile .tile-detail {
+		margin: 0;
+		line-height: 1.3;
+	}
+
+	.impact-tile .tile-value {
+		order: 3;
+		flex: 0 0 auto;
+		margin: 0;
+		font-size: var(--font-size-xl);
+		text-align: right;
+		text-shadow: none;
+		-webkit-text-stroke: 0;
+		filter: none;
+		justify-content: flex-end;
+		align-self: center;
+	}
+
+	.impact-tile.tile-large .tile-value {
+		font-size: var(--font-size-2xl);
+	}
 }
 
 // Animations

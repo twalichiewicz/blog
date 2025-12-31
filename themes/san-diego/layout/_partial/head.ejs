@@ -55,7 +55,7 @@
   <!-- Primary Meta Tags -->
   <title><% if (page.layout === 'blog') { %>Newest at the Top - Design in Everything<% } else if (page.layout === 'project_gallery') { %><%= page.title %> | <%= page.company %> - Design in Everything<% } else if (page.layout === 'about') { %>About - Design in Everything<% } else if (page.title && page.layout === 'post') { %><%= page.title %> | Design in Everything<% } else { %>Design in Everything - by Thomas Walichiewicz<% } %></title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
   <meta name="description" content="<%= pageDescription %>">
   <meta name="author" content="<%= config.author || 'Thomas Walichiewicz' %>">
   <% if (config.keywords && config.keywords.length > 0) { %>

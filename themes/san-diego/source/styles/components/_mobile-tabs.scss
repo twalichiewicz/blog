@@ -171,6 +171,66 @@
 	}
 }
 
+body.dark-mode-forced .mobile-tabs {
+	background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
+	border-color: variables.$border-color-dark;
+	box-shadow:
+		0 1px 2px rgb(0 0 0 / 30%),
+		0 -1px 0 rgb(255 255 255 / 10%) inset,
+		0 2px 0 rgb(0 0 0 / 20%) inset;
+}
+
+body.dark-mode-forced .mobile-tabs::after {
+	background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+	box-shadow:
+		0 1px 2px rgb(0 0 0 / 40%),
+		0 1px 0 rgb(255 255 255 / 30%) inset,
+		0 -1px 0 rgb(0 0 0 / 20%) inset;
+	border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
+}
+
+body.dark-mode-forced .mobile-tabs .tab-button.active {
+	color: variables.$black !important;
+	text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
+}
+
+body.dark-mode-forced .mobile-tabs .tab-button:not(.active) {
+	color: variables.$text-color-secondary-dark !important;
+	text-shadow: 0 1px 0 rgb(0 0 0 / 50%);
+}
+
+body.dark-mode-forced .mobile-tabs .tab-button:not(.active):hover {
+	color: variables.$text-color-dark !important;
+}
+
+body.dark-mode-forced .mobile-tabs #tab-portfolio::after {
+	background-color: #757575;
+	color: white;
+	text-shadow: none;
+}
+
+body.dark-mode-forced .mobile-tabs #tab-portfolio.active::after {
+	background-color: black;
+	color: white;
+}
+
+body.dark-mode-forced .mobile-tabs .mobile-tabs-slider {
+	background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+	box-shadow:
+		0 1px 2px rgb(0 0 0 / 40%),
+		0 1px 0 rgb(255 255 255 / 30%) inset,
+		0 -1px 0 rgb(0 0 0 / 20%) inset;
+	border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
+}
+
+body.dark-mode-forced .mobile-tabs-backing {
+	background: linear-gradient(rgb(66, 66, 66), rgb(46, 46, 46));
+}
+
+.mobile-tabs-backing {
+	display: none;
+}
+
 .mobile-tab-pane {
 	opacity: 0;
 	pointer-events: none;
@@ -181,4 +241,693 @@
 		opacity: 1;
 		pointer-events: auto;
 	}
+}
+
+@media screen and (max-width: variables.$mobile-breakpoint) {
+	.tabs-wrapper {
+		--mobile-tabs-left: 0px;
+		--mobile-tabs-top: 0px;
+		--mobile-tabs-width: 0px;
+		--mobile-tabs-height: 0px;
+		--mobile-tabs-roll-duration: 640ms;
+		--mobile-tabs-roll-fade: 480ms;
+	}
+
+	body {
+		transition: background-color 520ms ease, color 520ms ease;
+	}
+
+	.blog,
+	.blog-content,
+	.content-inner-wrapper,
+	.content-wrapper,
+	.tabs-wrapper,
+	.profile-header,
+	.search-container,
+	.mobile-tabs {
+		transition: background-color 520ms ease, border-color 520ms ease, color 520ms ease, box-shadow 520ms ease;
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.btn--default {
+		background: rgba(variables.$card-bg-dark, 0.9);
+		border-color: rgba(variables.$border-color-dark, 0.7);
+		color: variables.$text-color-secondary-dark;
+		box-shadow:
+			0 1px 2px rgb(0 0 0 / 25%),
+			0 -1px 0 rgb(255 255 255 / 6%) inset;
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.btn--default:hover {
+		background: rgba(variables.$card-bg-dark, 0.98);
+		border-color: rgba(variables.$border-color-dark, 0.9);
+		color: variables.$text-color-dark;
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.btn--default:active {
+		background: color.adjust(variables.$card-bg-dark, $lightness: -2%);
+		border-color: rgba(variables.$border-color-dark, 0.95);
+		color: variables.$text-color-dark;
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.is-active {
+		background: variables.$text-color-secondary-dark;
+		border-color: variables.$text-color-secondary-dark;
+		color: variables.$black;
+		box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.is-active:hover {
+		background: color.adjust(variables.$text-color-secondary-dark, $lightness: 6%);
+		border-color: color.adjust(variables.$text-color-secondary-dark, $lightness: 6%);
+		color: variables.$black;
+	}
+
+	body.impact-mode .profile-header .mobile-impact-button.is-active:active {
+		background: color.adjust(variables.$text-color-secondary-dark, $lightness: -6%);
+		color: variables.$black;
+	}
+
+	.mobile-tabs.has-slider-element {
+		transform-origin: center 55%;
+		transform-style: preserve-3d;
+		transform: none;
+		backface-visibility: hidden;
+		transition: opacity 240ms ease;
+		will-change: transform, opacity;
+		z-index: 2;
+	}
+
+	.mobile-tabs.has-slider-element.is-rolling {
+		opacity: 1;
+		animation: mobile-tabs-roll-forward var(--mobile-tabs-roll-duration) cubic-bezier(0.4, 0, 0.2, 1) both;
+	}
+
+	.mobile-tabs.has-slider-element.is-rolling.is-rolling-back {
+		animation-name: mobile-tabs-roll-back;
+		transform: perspective(900px) rotate3d(1, 0, 0, -0.5turn);
+	}
+
+	.mobile-tabs-backing {
+		display: block;
+		position: absolute;
+		left: var(--mobile-tabs-left);
+		top: var(--mobile-tabs-top);
+		width: var(--mobile-tabs-width);
+		height: var(--mobile-tabs-height);
+		border-radius: 30px;
+		background: color(srgb 0.9696 0.9662 0.9628);
+		box-shadow: 0 0px 3px rgba(0, 0, 0, 0.1), 0 -1px 2px rgba(0, 0, 0, 0.06);
+		opacity: 0;
+		pointer-events: none;
+		z-index: 99999999999;
+		transform: translateZ(0);
+		transition: opacity 240ms ease;
+		will-change: opacity;
+	}
+
+	.tabs-wrapper.is-rolling .mobile-tabs-backing {
+		animation: mobile-tabs-backing-forward var(--mobile-tabs-roll-duration) cubic-bezier(0.4, 0, 0.2, 1) both;
+	}
+
+	.tabs-wrapper.is-rolling .mobile-tabs.is-rolling-back ~ .mobile-tabs-backing {
+		animation-name: mobile-tabs-backing-back;
+	}
+
+	.tabs-wrapper.is-rolling-out .mobile-tabs.has-slider-element,
+	.tabs-wrapper.is-rolling-out .mobile-tabs-backing {
+		opacity: 0;
+		transition-duration: var(--mobile-tabs-roll-fade);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.mobile-tabs-backing {
+			background: linear-gradient(rgb(66, 66, 66), rgb(46, 46, 46));
+		}
+	}
+
+	.blog .blog-content .content-wrapper {
+		transition: opacity 280ms ease;
+		will-change: opacity;
+	}
+
+	.blog .blog-content .content-wrapper.is-fading {
+		opacity: 0;
+	}
+
+	.impact-inline-wrapper {
+		display: none;
+		width: 100%;
+		padding: 0 0 18px;
+	}
+
+	body.impact-inline-active .blog .blog-content > .content-inner-wrapper {
+		display: none;
+	}
+
+	body.impact-inline-active .impact-inline-wrapper {
+		display: block;
+	}
+
+	.mobile-action-header,
+	.mobile-action-content {
+		display: none;
+		opacity: 0;
+		transform: translateY(-6px);
+		transition: opacity 280ms ease, transform 280ms ease;
+	}
+
+	.mobile-action-content {
+		transform: translateY(8px);
+	}
+
+	.mobile-action-header[data-mode="impact"] {
+		transform: translateY(16px);
+		transition: opacity 420ms ease, transform 420ms ease;
+	}
+
+	.mobile-action-content[data-mode="impact"] {
+		transform: translateY(36px);
+		transition: opacity 420ms ease, transform 420ms ease;
+	}
+
+	.mobile-action-header[data-mode="impact"] .impact-modal-title {
+		transition: transform 420ms cubic-bezier(0.4, 0, 0.2, 1), opacity 420ms ease;
+	}
+
+	.mobile-action-header.is-visible,
+	.mobile-action-content.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.mobile-action-content.is-visible {
+		border: none;
+		box-shadow: none;
+	}
+
+	.mobile-action-header {
+		width: 100%;
+		max-width: 600px;
+		margin: 0 auto;
+		padding: 2.5px;
+		background: transparent;
+		border: none;
+		border-radius: 30px;
+		box-shadow: none;
+		overflow: visible;
+		box-sizing: border-box;
+	}
+
+	.mobile-action-content {
+		width: 100%;
+		max-width: 600px;
+		margin: 0 auto;
+		background: transparent;
+	}
+
+	.mobile-action-content .impact-modal-sheet {
+		width: 100%;
+		max-width: none;
+		height: auto;
+		max-height: none;
+		border: none;
+		box-shadow: none;
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.mobile-action-content .contact-modal-sheet.contact-modal-sheet {
+		width: 100%;
+		max-width: none;
+		height: auto;
+		max-height: none;
+		border-radius: 0;
+		background: transparent;
+		border: none;
+		box-shadow: none;
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.mobile-action-content .impact-modal-sheet {
+		min-height: 0;
+	}
+
+	.mobile-action-content .contact-modal-sheet {
+		margin: 0;
+	}
+
+	.mobile-action-header .impact-modal-header,
+	.mobile-action-header .contact-modal-header {
+		background: transparent;
+		border: none;
+		padding: 4px 0;
+		min-height: 32px;
+	}
+
+	.mobile-action-header .impact-modal-title,
+	.mobile-action-header .contact-modal-title {
+		color: variables.$text-color;
+		text-shadow: none;
+		transform-origin: center top;
+		transform: perspective(720px) rotateX(65deg);
+		opacity: 0;
+		transition: transform 320ms cubic-bezier(0.4, 0, 0.2, 1), opacity 280ms ease;
+	}
+
+	.mobile-action-header.is-visible .impact-modal-title,
+	.mobile-action-header.is-visible .contact-modal-title {
+		transform: perspective(720px) rotateX(0deg);
+		opacity: 1;
+	}
+
+	.mobile-action-header .impact-modal-close.minimal-close,
+	.mobile-action-header .contact-modal-close.minimal-close {
+		display: none;
+	}
+
+	.mobile-action-header .impact-modal-close.minimal-close,
+	.mobile-action-header .contact-modal-close.minimal-close {
+		background: transparent;
+		border: 1px solid rgba(variables.$border-color, 0.6);
+		box-shadow: none;
+
+		svg {
+			color: variables.$text-color;
+		}
+	}
+
+	.mobile-action-header .impact-modal-close.minimal-close:hover,
+	.mobile-action-header .contact-modal-close.minimal-close:hover {
+		background: rgba(variables.$black, 0.04);
+		border-color: rgba(variables.$border-color, 0.8);
+	}
+
+	.mobile-action-header .impact-modal-close.minimal-close:active,
+	.mobile-action-header .contact-modal-close.minimal-close:active {
+		background: rgba(variables.$black, 0.08);
+		border-color: rgba(variables.$border-color, 0.9);
+		transform: none;
+	}
+
+	.mobile-action-header .impact-modal-party-mode {
+		background: transparent;
+		box-shadow: none;
+		border: 1px solid rgba(63.75, 63.75, 63.75, 0.6);
+		color: rgba(63.75, 63.75, 63.75, 0.9);
+		margin-right: 0;
+	}
+
+	.mobile-action-header .impact-modal-party-mode:hover,
+	.mobile-action-header .impact-modal-party-mode:active {
+		background: transparent;
+		border-color: rgba(63.75, 63.75, 63.75, 0.6);
+		box-shadow: none;
+	}
+
+	.mobile-action-content .contact-modal-options.contact-modal-options {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 12px;
+		padding: 12px 0 24px;
+		margin: 0;
+		opacity: 1;
+		transform: none;
+		max-height: none;
+		justify-items: stretch;
+		align-content: start;
+		justify-content: stretch;
+	}
+
+	.mobile-action-content .contact-modal-options.contact-modal-options a {
+		width: 100%;
+	}
+
+	.mobile-action-content .contact-modal-options .contact-option {
+		background: variables.$card-bg;
+		border: 1px solid rgb(255 255 255 / 10%);
+		border-radius: 30px;
+		color: variables.$text-color-secondary;
+		box-shadow:
+			0 1px 3px rgb(0 0 0 / 10%),
+			0 1px 2px rgb(0 0 0 / 6%),
+			inset 0 2px 4px rgb(0 0 0 / 10%),
+			inset 0 -1px 2px rgb(255 255 255 / 10%);
+	}
+
+	.mobile-action-content .contact-modal-options .contact-option:hover {
+		background: variables.$link-color;
+		border-color: color.adjust(variables.$link-color, $lightness: -10%);
+		color: variables.$white;
+		transform: translateY(-1px);
+		box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+	}
+
+	.mobile-action-content .contact-modal-options .contact-option.email:hover,
+	.mobile-action-content .contact-modal-options .contact-option.linkedin:hover,
+	.mobile-action-content .contact-modal-options .contact-option.resume:hover,
+	.mobile-action-content .contact-modal-options .contact-option.github:hover,
+	.mobile-action-content .contact-modal-options .contact-option.email:focus-visible,
+	.mobile-action-content .contact-modal-options .contact-option.linkedin:focus-visible,
+	.mobile-action-content .contact-modal-options .contact-option.resume:focus-visible,
+	.mobile-action-content .contact-modal-options .contact-option.github:focus-visible {
+		border-color: color.adjust(variables.$link-color, $lightness: -10%);
+		box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+	}
+
+	.mobile-action-content .contact-modal-options .contact-option .contact-icon {
+		color: variables.$text-color-secondary;
+	}
+
+	.mobile-action-content .contact-modal-options .contact-option:hover .contact-icon {
+		color: variables.$white;
+	}
+
+	.mobile-action-content .contact-modal-options .contact-option .contact-label,
+	.mobile-action-content .contact-modal-options .contact-option .contact-sublabel {
+		color: variables.$text-color-secondary;
+	}
+
+	.mobile-action-content .contact-modal-options .contact-option:hover .contact-label,
+	.mobile-action-content .contact-modal-options .contact-option:hover .contact-sublabel {
+		color: variables.$white;
+		text-shadow: 0 1px 0 rgb(0 0 0 / 25%);
+	}
+
+	.mobile-action-content .impact-modal-sheet,
+	.mobile-action-content .impact-grid,
+	.mobile-action-content .impact-grid .impact-section,
+	.mobile-action-content .impact-grid .impact-tile {
+		color: variables.$text-color;
+	}
+
+	.mobile-action-content .impact-modal-sheet {
+		background: transparent;
+		border-color: variables.$border-color;
+	}
+
+	.mobile-action-content .impact-grid .impact-section {
+		background: transparent;
+		border-color: variables.$border-color;
+	}
+
+	.mobile-action-content .impact-grid .impact-tile {
+		background: variables.$card-bg;
+		border-color: variables.$border-color;
+	}
+
+	.mobile-action-content .impact-grid .section-label {
+		background: transparent;
+		color: variables.$text-color-secondary;
+	}
+
+	.mobile-action-content .impact-grid .tile-detail {
+		color: variables.$text-color-secondary;
+	}
+
+	.mobile-action-content .impact-grid .tile-hover-content {
+		background: variables.$card-bg;
+		border-top-color: variables.$border-color;
+	}
+
+	.mobile-action-content .impact-grid .tile-hover-content p {
+		color: variables.$text-color-secondary;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.mobile-action-header .impact-modal-title,
+		.mobile-action-header .contact-modal-title {
+			color: variables.$text-color-dark;
+		}
+
+		.mobile-action-header .impact-modal-close.minimal-close,
+		.mobile-action-header .contact-modal-close.minimal-close {
+			border-color: rgba(variables.$border-color-dark, 0.6);
+
+			svg {
+				color: variables.$text-color-dark;
+			}
+		}
+
+		.mobile-action-header .impact-modal-close.minimal-close:hover,
+		.mobile-action-header .contact-modal-close.minimal-close:hover {
+			background: rgba(variables.$white, 0.05);
+			border-color: rgba(variables.$border-color-dark, 0.85);
+		}
+
+		.mobile-action-header .impact-modal-close.minimal-close:active,
+		.mobile-action-header .contact-modal-close.minimal-close:active {
+			background: rgba(variables.$white, 0.1);
+			border-color: rgba(variables.$border-color-dark, 0.95);
+		}
+
+		.mobile-action-header .impact-modal-party-mode {
+			border-color: rgba(63.75, 63.75, 63.75, 0.6);
+			color: rgba(63.75, 63.75, 63.75, 0.9);
+			background: transparent;
+			box-shadow: none;
+			margin-right: 0;
+		}
+
+		.mobile-action-header .impact-modal-party-mode:hover,
+		.mobile-action-header .impact-modal-party-mode:active {
+			background: transparent;
+			border-color: rgba(63.75, 63.75, 63.75, 0.6);
+		}
+
+		.mobile-action-content .contact-modal-options .contact-option {
+			background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
+			border-color: variables.$border-color-dark;
+			color: variables.$text-color-secondary-dark;
+			box-shadow:
+				0 1px 2px rgb(0 0 0 / 30%),
+				0 -1px 0 rgb(255 255 255 / 10%) inset,
+				0 2px 0 rgb(0 0 0 / 20%) inset;
+		}
+
+		.mobile-action-content .contact-modal-options .contact-option:hover {
+			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
+			border-color: color.adjust(variables.$link-color-dark, $lightness: -15%);
+			color: variables.$black;
+			text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
+			box-shadow:
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
+		}
+
+		.mobile-action-content .contact-modal-options .contact-option.email:hover,
+		.mobile-action-content .contact-modal-options .contact-option.linkedin:hover,
+		.mobile-action-content .contact-modal-options .contact-option.resume:hover,
+		.mobile-action-content .contact-modal-options .contact-option.github:hover,
+		.mobile-action-content .contact-modal-options .contact-option.email:focus-visible,
+		.mobile-action-content .contact-modal-options .contact-option.linkedin:focus-visible,
+		.mobile-action-content .contact-modal-options .contact-option.resume:focus-visible,
+		.mobile-action-content .contact-modal-options .contact-option.github:focus-visible {
+			border-color: color.adjust(variables.$link-color-dark, $lightness: -15%);
+			box-shadow:
+				0 1px 2px rgb(0 0 0 / 40%),
+				0 1px 0 rgb(255 255 255 / 30%) inset,
+				0 -1px 0 rgb(0 0 0 / 20%) inset;
+		}
+
+		.mobile-action-content .contact-modal-options .contact-option .contact-icon {
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .contact-modal-options .contact-option:hover .contact-icon {
+			color: variables.$black;
+		}
+
+		.mobile-action-content .contact-modal-options .contact-option .contact-label,
+		.mobile-action-content .contact-modal-options .contact-option .contact-sublabel {
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .contact-modal-options .contact-option:hover .contact-label,
+		.mobile-action-content .contact-modal-options .contact-option:hover .contact-sublabel {
+			color: variables.$black;
+			text-shadow: 0 1px 0 rgb(255 255 255 / 30%);
+		}
+
+		.mobile-action-content .impact-modal-sheet,
+		.mobile-action-content .impact-grid,
+		.mobile-action-content .impact-grid .impact-section,
+		.mobile-action-content .impact-grid .impact-tile {
+			color: variables.$text-color-dark;
+		}
+
+		.mobile-action-content .impact-modal-sheet {
+			background: transparent;
+			border-color: variables.$border-color-dark;
+		}
+
+		.mobile-action-content .impact-grid .impact-section {
+			background: transparent;
+			border-color: variables.$border-color-dark;
+		}
+
+		.mobile-action-content .impact-grid .impact-tile {
+			background: variables.$card-bg-dark;
+			border-color: variables.$border-color-dark;
+		}
+
+		.mobile-action-content .impact-grid .section-label {
+			background: transparent;
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .impact-grid .tile-detail {
+			color: variables.$text-color-secondary-dark;
+		}
+
+		.mobile-action-content .impact-grid .tile-hover-content {
+			background: variables.$card-bg-dark;
+			border-top-color: variables.$border-color-dark;
+		}
+
+		.mobile-action-content .impact-grid .tile-hover-content p {
+			color: variables.$text-color-secondary-dark;
+		}
+	}
+
+	body.impact-mode .impact-grid {
+		--impact-accent-primary: #{variables.$link-color-dark};
+		--impact-accent-secondary: #{variables.$accent-gold-light};
+		--impact-accent-tertiary: #{variables.$accent-sage-light};
+	}
+
+	body.impact-mode .mobile-action-header .impact-modal-title,
+	body.impact-mode .mobile-action-header .contact-modal-title {
+		color: variables.$text-color-dark;
+	}
+
+	body.impact-mode .mobile-action-content .impact-modal-sheet,
+	body.impact-mode .mobile-action-content .impact-grid,
+	body.impact-mode .mobile-action-content .impact-grid .impact-section,
+	body.impact-mode .mobile-action-content .impact-grid .impact-tile {
+		color: variables.$text-color-dark;
+	}
+
+	body.impact-mode .mobile-action-content .impact-modal-sheet {
+		background: transparent;
+		border-color: variables.$border-color-dark;
+	}
+
+	body.impact-mode .mobile-action-content .impact-grid .impact-section {
+		background: transparent;
+		border-color: variables.$border-color-dark;
+	}
+
+	body.impact-mode .mobile-action-content .impact-grid .impact-tile {
+		background: variables.$card-bg-dark;
+		border-color: variables.$border-color-dark;
+	}
+
+	body.impact-mode .mobile-action-content .impact-grid .section-label {
+		background: transparent;
+		color: variables.$text-color-secondary-dark;
+	}
+
+	body.impact-mode .mobile-action-content .impact-grid .tile-detail {
+		color: variables.$text-color-secondary-dark;
+	}
+
+	body.impact-mode .mobile-action-content .impact-grid .tile-hover-content {
+		background: variables.$card-bg-dark;
+		border-top-color: variables.$border-color-dark;
+	}
+
+	body.impact-mode .mobile-action-content .impact-grid .tile-hover-content p {
+		color: variables.$text-color-secondary-dark;
+	}
+
+	body.impact-mode .post-preview-card {
+		background-color: variables.$card-bg-dark;
+		border-color: variables.$border-color-dark;
+		box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+	}
+
+	body.impact-mode .post-preview-card .preview-cover-image {
+		background-color: variables.$card-bg-dark;
+	}
+
+	body.impact-mode .post-preview-card .preview-title a {
+		color: variables.$text-color-dark;
+	}
+
+	body.impact-mode .post-preview-card .preview-excerpt,
+	body.impact-mode .post-preview-card .preview-metadata,
+	body.impact-mode .post-preview-card .preview-metadata .preview-separator {
+		color: variables.$text-color-secondary-dark;
+	}
+
+	@keyframes mobile-tabs-roll-forward {
+		0% {
+			transform: perspective(900px) rotate3d(1, 0, 0, 0turn);
+		}
+		100% {
+			transform: perspective(900px) rotate3d(1, 0, 0, -0.5turn);
+		}
+	}
+
+	@keyframes mobile-tabs-roll-back {
+		0% {
+			transform: perspective(900px) rotate3d(1, 0, 0, -0.5turn);
+		}
+		100% {
+			transform: perspective(900px) rotate3d(1, 0, 0, -1turn);
+		}
+	}
+
+	@keyframes mobile-tabs-backing-forward {
+		0%,
+		45% {
+			opacity: 0;
+		}
+		55%,
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@keyframes mobile-tabs-backing-back {
+		0%,
+		45% {
+			opacity: 1;
+		}
+		55%,
+		100% {
+			opacity: 0;
+		}
+	}
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.mobile-tabs.has-slider-element,
+	.blog .blog-content .content-wrapper,
+	.mobile-action-header,
+	.mobile-action-content {
+		transition: none !important;
+		animation: none !important;
+}
+
+	.mobile-action-header .impact-modal-title,
+	.mobile-action-header .contact-modal-title {
+		transition: none !important;
+		transform: none;
+		opacity: 1;
+	}
+
+	.mobile-tabs.has-slider-element.is-rolling {
+		transform: none;
+	}
+
+	.mobile-tabs-backing {
+		animation: none !important;
+	}
+
 }
