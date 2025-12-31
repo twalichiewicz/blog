@@ -1064,51 +1064,70 @@ function closeMobileAction() {
 	function collectImpactLiquidStats() {
 		const overrideStats = [
 			{
-				value: '$50M+',
-				label: 'Financial Impact',
+				value: '$30M+',
+				label: 'Commercial Engine',
 				detail:
-					'Generated multi-million dollar revenue impact through new features and customer crisis resolution.'
+					'Directly enabled new ARR and secured at-risk enterprise revenue through strategic UX interventions and rapid crisis resolution.'
 			},
 			{
-				value: '$8M+',
-				label: 'Financial Impact',
+				value: '100+',
+				label: 'Platform Transformation',
 				detail:
-					'Generated multi-million dollar revenue impact through new features and customer crisis resolution.'
-			},
-			{
-				value: '$1.2M+',
-				label: 'Financial Savings',
-				detail:
-					'Secured significant annual operational savings via streamlined engineering and operations.'
+					'Spearheaded the unification of a 100+ product ecosystem, achieving a 5x increase in developer velocity and standardized design-to-code pipelines.'
 			},
 			{
 				value: '250x',
-				label: 'Efficiency Gains',
+				label: 'Velocity Shift',
 				detail:
-					'Accelerated critical processes by over 250x, transforming multi-week tasks into hourly efforts.'
+					'Re-engineered core publishing workflows, collapsing legacy 3-week cycles into under 2 hours to enable real-time business agility.'
+			},
+			{
+				value: '$9.2M',
+				label: 'Efficiency Architect',
+				detail:
+					'Delivered $9.2M in annual operational savings by optimizing engineering workflows and automating over 15,000 daily manual tasks.'
 			},
 			{
 				value: '85%',
-				label: 'Efficiency Gains',
+				label: 'Proactive Problem Solving',
 				detail:
-					'Reduced support and maintenance burdens by over 80%, freeing up critical resources.'
+					'Reduced the global support burden by 85% by identifying and designing out systemic friction points before they reached the customer.'
 			},
 			{
-				value: '5x',
-				label: 'Efficiency Gains',
+				value: '12TB',
+				label: 'Infrastructure Optimization',
 				detail:
-					'Improved deployment and provisioning times from days to minutes through self-service platforms.'
+					'Led a design-for-efficiency initiative that eliminated 12TB of redundant data storage, lowering cloud overhead and improving platform performance.'
 			},
 			{
-				value: '2x',
-				label: 'Behavioral Impact',
+				value: '50K+',
+				label: 'Full-Stack Leadership',
 				detail:
-					'Doubled industry standard conversion rates for key product lines.'
+					'Shipped over 50,000 lines of production-ready code, proving that design leadership can directly accelerate the build.'
+			},
+			{
+				value: '22%',
+				label: 'Market-Leading Conversion',
+				detail:
+					'Engineered a high-performance user journey that achieved a 22% conversion rate, doubling the industry standard of 12%.'
 			},
 			{
 				value: '85%',
-				label: 'Behavioral Impact',
-				detail: 'Achieved best-in-class user retention rates.'
+				label: 'Best-in-Class Retention',
+				detail:
+					'Cultivated an ecosystem that maintains an 85% user retention rate, significantly outperforming competitors in the enterprise space.'
+			},
+			{
+				value: '$1.3M',
+				label: 'Customer-Centric Savings',
+				detail:
+					'Developed cost-saving features that directly returned $1.3M to users, strengthening brand trust and long-term loyalty.'
+			},
+			{
+				value: '5+ yrs',
+				label: 'Design Longevity',
+				detail:
+					'Created a suite of strategic tools with an average lifespan of 5+ years, proving the durability and long-term ROI of the design vision.'
 			}
 		];
 		if (overrideStats.length) return overrideStats;
