@@ -32,9 +32,9 @@ const FLUID_SIM = {
 };
 
 const PARTICLE_TEXT = {
-	textureWidth: 256,
-	textureHeight: 128,
-	sampleLongEdge: 1024,
+	textureWidth: 512,
+	textureHeight: 256,
+	sampleLongEdge: 1400,
 	alphaThreshold: 10,
 	returnStrength: 20,
 	damping: 0.88,
@@ -746,7 +746,7 @@ const PARTICLE_MASK_FRAGMENT = `
 		float r = length(p);
 		if (r > 0.5) discard;
 		float falloff = smoothstep(0.5, 0.0, r);
-		falloff = pow(falloff, 1.35);
+		falloff = pow(falloff, 1.65);
 		gl_FragColor = vec4(0.0, 0.0, 0.0, falloff);
 	}
 `;
@@ -1469,7 +1469,7 @@ class ParticleTextSim {
 			});
 		}
 
-		const maskPointSize = clamp(Math.min(maskW, maskH) / 54, 3.2, 9.5) * safePixelRatio;
+		const maskPointSize = clamp((Math.min(maskW, maskH) / 120) * safePixelRatio, 2.2, 6.8);
 		this.maskPointsMaterial.uniforms.u_pointSize.value = maskPointSize;
 		this.renderMask();
 	}
@@ -1801,7 +1801,7 @@ class ImpactLiquidOverlay {
 	resizeTextCanvas(width, height) {
 		const dpr = Math.min(window.devicePixelRatio || 1, 2);
 		const longEdge = Math.max(width, height);
-		const targetLongEdge = clamp(Math.floor(longEdge * dpr), 720, 1024);
+		const targetLongEdge = clamp(Math.floor(longEdge * dpr), 900, 1400);
 		const scale = targetLongEdge / Math.max(1, longEdge);
 		const nextW = Math.max(1, Math.round(width * scale));
 		const nextH = Math.max(1, Math.round(height * scale));
