@@ -17,7 +17,9 @@ const impactLiquidState = {
 	coveredTarget: null,
 	mountTarget: null,
 	isEmbedded: false,
-	keydownHandler: null
+	keydownHandler: null,
+	resizeHandler: null,
+	viewportMode: null
 };
 
 function loadImpactCharacterModule() {
@@ -1218,6 +1220,10 @@ function closeMobileAction() {
 		toggle.textContent = isActive ? activeText : defaultText;
 	}
 
+	function getImpactViewportMode() {
+		return isMobileActionViewport() ? 'mobile' : 'desktop';
+	}
+
 	function attachImpactLiquidKeydown() {
 		if (impactLiquidState.keydownHandler) return;
 		impactLiquidState.keydownHandler = (event) => {
@@ -1232,6 +1238,24 @@ function closeMobileAction() {
 		if (!impactLiquidState.keydownHandler) return;
 		document.removeEventListener('keydown', impactLiquidState.keydownHandler);
 		impactLiquidState.keydownHandler = null;
+	}
+
+	function attachImpactLiquidResize() {
+		if (impactLiquidState.resizeHandler) return;
+		impactLiquidState.resizeHandler = () => {
+			if (!impactLiquidState.isOpen) return;
+			const nextMode = getImpactViewportMode();
+			if (impactLiquidState.viewportMode && impactLiquidState.viewportMode !== nextMode) {
+				closeImpactLiquidExperience();
+			}
+		};
+		window.addEventListener('resize', impactLiquidState.resizeHandler);
+	}
+
+	function detachImpactLiquidResize() {
+		if (!impactLiquidState.resizeHandler) return;
+		window.removeEventListener('resize', impactLiquidState.resizeHandler);
+		impactLiquidState.resizeHandler = null;
 	}
 
 	async function openImpactLiquidExperience() {
@@ -1253,6 +1277,8 @@ function closeMobileAction() {
 
 		impactLiquidState.isOpen = true;
 		setDesktopImpactToggleState(true);
+		impactLiquidState.viewportMode = getImpactViewportMode();
+		attachImpactLiquidResize();
 
 		const overlay = await startImpactLiquidOverlay({
 			stats: collectImpactLiquidStats(),
@@ -1270,6 +1296,8 @@ function closeMobileAction() {
 			impactLiquidState.isTransitioning = false;
 			setDesktopImpactToggleState(false);
 			detachImpactLiquidKeydown();
+			detachImpactLiquidResize();
+			impactLiquidState.viewportMode = null;
 			setImpactLiquidActive(impactLiquidState.activeTarget, false);
 			clearImpactLiquidCovered(impactLiquidState.coveredTarget);
 			impactLiquidState.mountTarget = null;
@@ -1301,6 +1329,8 @@ function closeMobileAction() {
 				impactLiquidState.isTransitioning = false;
 				impactLiquidState.closePromise = null;
 				detachImpactLiquidKeydown();
+				detachImpactLiquidResize();
+				impactLiquidState.viewportMode = null;
 				impactLiquidState.mountTarget = null;
 				impactLiquidState.coveredTarget = null;
 				impactLiquidState.activeTarget = null;
