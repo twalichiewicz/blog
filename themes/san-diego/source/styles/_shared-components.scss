@@ -14,7 +14,8 @@
 	@media (prefers-color-scheme: light) {
 		background: rgb(255 255 255 / 70%);
 		backdrop-filter: blur(5px);
-		border: 1px solid rgba(variables.$text-color-secondary, 0.1) !important;
+		border: 1px solid variables.$text-color-secondary !important;
+		border-color: rgba(variables.$text-color-secondary, 0.1) !important;
 		box-shadow: variables.$shadow-soft;
 		color: variables.$text-color;
 	}

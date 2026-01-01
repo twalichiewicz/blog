@@ -69,7 +69,8 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			border: 1px solid rgba(variables.$black, 0.06);
+			border: 1px solid variables.$black;
+			border-color: rgba(variables.$black, 0.06);
 			transition: all 150ms ease-out;
 
 			&:hover {

@@ -158,7 +158,7 @@ async function minifyAssets() {
 }
 
 // Export for use in build scripts
-module.exports = { minifyAssets };
+module.exports = { minifyAssets, config };
 
 // Run if called directly
 if (require.main === module) {

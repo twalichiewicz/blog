@@ -380,7 +380,8 @@
 		.posts-only-button {
 			color: variables.$text-color-secondary-dark;
 			background: rgba(variables.$card-bg-dark, 0.8);
-			border: 1px solid rgba(variables.$white, 0.15);
+			border: 1px solid variables.$white;
+			border-color: rgba(variables.$white, 0.15);
 			transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
 
 			&:hover {
@@ -507,7 +508,8 @@ body.dark-mode-forced {
 	height: 44px;
 	border-radius: 14px;
 	background: rgba(variables.$black, 0.04);
-	border: 1px solid rgba(variables.$black, 0.08);
+	border: 1px solid variables.$black;
+	border-color: rgba(variables.$black, 0.08);
 	box-shadow: 0 6px 12px rgba(variables.$black, 0.08);
 
 	svg {

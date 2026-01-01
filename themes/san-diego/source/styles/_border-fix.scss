@@ -10,17 +10,20 @@
   .portfolio-item.has-writeup {
     // Light mode borders
     @media (prefers-color-scheme: light) {
-      border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+      border: 1px solid rgb(88, 78, 65) !important;
+      border-color: rgba(87.975, 78.4125, 65.025, 0.1) !important;
     }
     
     // Dark mode borders
     @media (prefers-color-scheme: dark) {
-      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border: 1px solid rgb(255, 255, 255) !important;
+      border-color: rgba(255, 255, 255, 0.1) !important;
     }
     
     // Fallback for systems without color scheme preference
     @media not all and (prefers-color-scheme) {
-      border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+      border: 1px solid rgb(88, 78, 65) !important;
+      border-color: rgba(87.975, 78.4125, 65.025, 0.1) !important;
     }
   }
 }
@@ -32,11 +35,13 @@
     .post-list-item.post-long,
     .portfolio-item.has-writeup {
       @media (prefers-color-scheme: light) {
-        border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+        border: 1px solid rgb(88, 78, 65) !important;
+        border-color: rgba(87.975, 78.4125, 65.025, 0.1) !important;
       }
       
       @media (prefers-color-scheme: dark) {
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgb(255, 255, 255) !important;
+        border-color: rgba(255, 255, 255, 0.1) !important;
       }
     }
   }
@@ -45,10 +50,12 @@
 // Ensure card-base derived elements have proper borders
 .card-base {
   @media (prefers-color-scheme: light) {
-    border: 1px solid rgba(87.975, 78.4125, 65.025, 0.1) !important;
+    border: 1px solid rgb(88, 78, 65) !important;
+    border-color: rgba(87.975, 78.4125, 65.025, 0.1) !important;
   }
   
   @media (prefers-color-scheme: dark) {
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgb(255, 255, 255) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
   }
 }

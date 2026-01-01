@@ -109,7 +109,8 @@
 		.spinner {
 			width: 40px;
 			height: 40px;
-			border: 2px solid rgba(variables.$text-color-secondary, 0.2);
+			border: 2px solid variables.$text-color-secondary;
+			border-color: rgba(variables.$text-color-secondary, 0.2);
 			border-top-color: variables.$text-color-secondary;
 			border-radius: 50%;
 			animation: spin 0.8s linear infinite;

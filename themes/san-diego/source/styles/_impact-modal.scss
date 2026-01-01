@@ -38,7 +38,8 @@
         border-radius: 12px;
         background: rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
+        border: 1px solid rgb(255, 255, 255);
+        border-color: rgba(255, 255, 255, 0.15);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -84,7 +85,8 @@
         justify-content: space-between;
         align-items: center;
         position: relative;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgb(255, 255, 255);
+        border-bottom-color: rgba(255, 255, 255, 0.1);
         
         @media (max-width: 768px) {
             padding: 9px;
@@ -98,7 +100,8 @@
         border-radius: 30px;
         background: transparent;
         box-shadow: none;
-        border: 1px solid rgba($border-color, 0.6);
+        border: 1px solid $border-color;
+        border-color: rgba($border-color, 0.6);
         color: $text-color;
         display: flex;
         align-items: center;
@@ -202,7 +205,8 @@
         border-radius: 14px;
         background: rgba(255, 255, 255, 0.12);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgb(255, 255, 255);
+        border-color: rgba(255, 255, 255, 0.2);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -297,7 +301,8 @@
     letter-spacing: 0.02em;
     font-weight: var(--font-weight-normal);
     background: rgba(255, 255, 255, 0.02);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
     
     // Subtle glow effect for emphasis
@@ -322,7 +327,8 @@
     position: relative;
     overflow: visible;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgb(255, 255, 255);
+    border-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
 	cursor: default;

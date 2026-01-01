@@ -511,7 +511,8 @@ body.dark-mode-forced .mobile-tabs-backing {
 	.mobile-action-header .impact-modal-close.minimal-close,
 	.mobile-action-header .contact-modal-close.minimal-close {
 		background: transparent;
-		border: 1px solid rgba(variables.$border-color, 0.6);
+		border: 1px solid variables.$border-color;
+		border-color: rgba(variables.$border-color, 0.6);
 		box-shadow: none;
 
 		svg {
@@ -535,7 +536,8 @@ body.dark-mode-forced .mobile-tabs-backing {
 	.mobile-action-header .impact-modal-party-mode {
 		background: transparent;
 		box-shadow: none;
-		border: 1px solid rgba(63.75, 63.75, 63.75, 0.6);
+		border: 1px solid rgb(64, 64, 64);
+		border-color: rgba(63.75, 63.75, 63.75, 0.6);
 		color: rgba(63.75, 63.75, 63.75, 0.9);
 		margin-right: 0;
 	}

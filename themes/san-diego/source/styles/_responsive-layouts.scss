@@ -274,7 +274,8 @@
 				transition: all 0.2s ease;
 				white-space: nowrap;
 				background: color.adjust(variables.$link-color, $lightness: -5%);
-				border: 1px solid rgba(variables.$link-color, 0.6);
+				border: 1px solid variables.$link-color;
+				border-color: rgba(variables.$link-color, 0.6);
 				border-radius: 6px;
 				cursor: pointer;
 				box-shadow:
@@ -1201,7 +1202,8 @@
 					transition: all 0.2s ease;
 					white-space: nowrap;
 					background: variables.$card-bg;
-					border: 1px solid rgba(variables.$border-color, 0.6);
+					border: 1px solid variables.$border-color;
+					border-color: rgba(variables.$border-color, 0.6);
 					border-radius: 6px;
 					cursor: pointer;
 

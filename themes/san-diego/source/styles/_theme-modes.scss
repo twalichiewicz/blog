@@ -449,7 +449,8 @@
 				0 0 30px rgba(variables.$link-color-dark, 0.05);
 
 				/* Subtle border highlight */
-				border: 1px solid rgba(variables.$link-color-dark, 0.15);
+				border: 1px solid variables.$link-color-dark;
+				border-color: rgba(variables.$link-color-dark, 0.15);
 
 				/* Smooth transition for hover effects */
 				transition: all 0.3s ease,
@@ -1131,7 +1132,8 @@
 								background: rgb(255 255 255 / 70%);
 								backdrop-filter: blur(5px);
 								backdrop-filter: blur(5px);
-								border: 1px solid rgba(variables.$text-color-secondary, 0.1);
+								border: 1px solid variables.$text-color-secondary;
+								border-color: rgba(variables.$text-color-secondary, 0.1);
 								box-shadow: variables.$shadow-soft;
 								color: variables.$text-color;
 
@@ -1305,7 +1307,8 @@
 		background: rgb(255 255 255 / 70%);
 		backdrop-filter: blur(5px);
 		backdrop-filter: blur(5px);
-		border: 1px solid rgba(variables.$text-color-secondary, 0.1);
+		border: 1px solid variables.$text-color-secondary;
+		border-color: rgba(variables.$text-color-secondary, 0.1);
 		box-shadow: variables.$shadow-soft;
 
 		// Only modify the company-byline styling
@@ -1354,7 +1357,8 @@
 	background: rgb(255 255 255 / 70%);
 	backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
-	border: 1px solid rgba(variables.$text-color-secondary, 0.1);
+	border: 1px solid variables.$text-color-secondary;
+	border-color: rgba(variables.$text-color-secondary, 0.1);
 	box-shadow: variables.$shadow-soft;
 	color: variables.$text-color;
 	transition: all 300ms ease-in-out;
@@ -1487,7 +1491,8 @@
 	background: rgb(255 255 255 / 70%);
 	backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
-	border: 1px solid rgba(variables.$text-color-secondary, 0.1);
+	border: 1px solid variables.$text-color-secondary;
+	border-color: rgba(variables.$text-color-secondary, 0.1);
 	box-shadow: variables.$shadow-soft;
 	color: variables.$text-color;
 
