@@ -245,7 +245,8 @@
 			height: 36px;
 			padding: 0 16px;
 			border-radius: 20px;
-			border: 1px solid rgba(variables.$border-color, 0.55);
+			border: 1px solid variables.$border-color;
+			border-color: rgba(variables.$border-color, 0.55);
 			display: flex;
 			align-items: center;
 			justify-content: center;
