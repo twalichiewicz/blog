@@ -12,7 +12,14 @@ let impactLiquidModulePromise = null;
 const impactLiquidState = {
 	isOpen: false,
 	isTransitioning: false,
-	closePromise: null
+	closePromise: null,
+	activeTarget: null,
+	coveredTarget: null,
+	mountTarget: null,
+	isEmbedded: false,
+	keydownHandler: null,
+	resizeHandler: null,
+	viewportMode: null
 };
 
 function loadImpactCharacterModule() {
@@ -1150,15 +1157,32 @@ function closeMobileAction() {
 		return stats.length ? stats : null;
 	}
 
-	async function openImpactLiquidExperience() {
-		if (!isMobileActionViewport()) return false;
-		if (impactLiquidState.isTransitioning || impactLiquidState.isOpen) return true;
-		impactLiquidState.isTransitioning = true;
+	function getImpactLiquidTargets() {
+		const hostCandidate = !isMobileActionViewport() ? document.querySelector('.blog-content') : null;
+		const host = hostCandidate && document.contains(hostCandidate) ? hostCandidate : null;
+		const isEmbedded = Boolean(host);
+		const fallbackTarget = document.body || null;
 
-		if (mobileContactMenuState.isOpen) {
-			closeMobileContactMenu();
-		}
+		return {
+			isEmbedded,
+			host,
+			mountTarget: isEmbedded ? host : fallbackTarget,
+			coveredTarget: isEmbedded ? host : fallbackTarget,
+			activeTarget: isEmbedded ? host : fallbackTarget
+		};
+	}
 
+	function setImpactLiquidActive(target, isActive) {
+		if (!target?.classList) return;
+		target.classList.toggle('impact-liquid-active', isActive);
+	}
+
+	function clearImpactLiquidCovered(target) {
+		if (!target?.classList) return;
+		target.classList.remove('impact-liquid-covered');
+	}
+
+	function getImpactLiquidCloseAnchor() {
 		let closeAnchor = null;
 		const impactButton = document.querySelector('.profile-header .mobile-impact-button');
 		const buttonsContainer = document.querySelector('.profile-header .mobile-buttons-container');
@@ -1178,32 +1202,112 @@ function closeMobileAction() {
 				height: impactRect.height
 			};
 		}
+		return closeAnchor;
+	}
 
-		if (document.body) {
-			document.body.classList.remove('impact-liquid-covered');
-			document.body.classList.add('impact-liquid-active');
+	function getDesktopImpactToggle() {
+		return document.querySelector('.impact-report-btn');
+	}
+
+	function setDesktopImpactToggleState(isActive) {
+		const toggle = getDesktopImpactToggle();
+		if (!toggle) return;
+		const defaultText = toggle.dataset.textDefault || toggle.textContent?.trim() || 'Stats';
+		const activeText = toggle.dataset.textActive || defaultText;
+		toggle.classList.toggle('is-active', isActive);
+		toggle.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+		updateMobileActionLabel(toggle, isActive);
+		toggle.textContent = isActive ? activeText : defaultText;
+	}
+
+	function getImpactViewportMode() {
+		return isMobileActionViewport() ? 'mobile' : 'desktop';
+	}
+
+	function attachImpactLiquidKeydown() {
+		if (impactLiquidState.keydownHandler) return;
+		impactLiquidState.keydownHandler = (event) => {
+			if (event.key === 'Escape') {
+				closeImpactLiquidExperience();
+			}
+		};
+		document.addEventListener('keydown', impactLiquidState.keydownHandler);
+	}
+
+	function detachImpactLiquidKeydown() {
+		if (!impactLiquidState.keydownHandler) return;
+		document.removeEventListener('keydown', impactLiquidState.keydownHandler);
+		impactLiquidState.keydownHandler = null;
+	}
+
+	function attachImpactLiquidResize() {
+		if (impactLiquidState.resizeHandler) return;
+		impactLiquidState.resizeHandler = () => {
+			if (!impactLiquidState.isOpen) return;
+			const nextMode = getImpactViewportMode();
+			if (impactLiquidState.viewportMode && impactLiquidState.viewportMode !== nextMode) {
+				closeImpactLiquidExperience();
+			}
+		};
+		window.addEventListener('resize', impactLiquidState.resizeHandler);
+	}
+
+	function detachImpactLiquidResize() {
+		if (!impactLiquidState.resizeHandler) return;
+		window.removeEventListener('resize', impactLiquidState.resizeHandler);
+		impactLiquidState.resizeHandler = null;
+	}
+
+	async function openImpactLiquidExperience() {
+		if (impactLiquidState.isTransitioning || impactLiquidState.isOpen) return true;
+		impactLiquidState.isTransitioning = true;
+
+		if (mobileContactMenuState.isOpen) {
+			closeMobileContactMenu();
 		}
 
+		const targets = getImpactLiquidTargets();
+		impactLiquidState.mountTarget = targets.mountTarget;
+		impactLiquidState.coveredTarget = targets.coveredTarget;
+		impactLiquidState.activeTarget = targets.activeTarget;
+		impactLiquidState.isEmbedded = targets.isEmbedded;
+
+		clearImpactLiquidCovered(impactLiquidState.coveredTarget);
+		setImpactLiquidActive(impactLiquidState.activeTarget, true);
+
 		impactLiquidState.isOpen = true;
+		setDesktopImpactToggleState(true);
+		impactLiquidState.viewportMode = getImpactViewportMode();
+		attachImpactLiquidResize();
 
 		const overlay = await startImpactLiquidOverlay({
 			stats: collectImpactLiquidStats(),
-			closeAnchor,
+			closeAnchor: targets.isEmbedded ? null : getImpactLiquidCloseAnchor(),
 			onRequestClose: () => {
 				closeImpactLiquidExperience();
-			}
+			},
+			mountTarget: impactLiquidState.mountTarget,
+			coveredTarget: impactLiquidState.coveredTarget,
+			applyChromeTint: !targets.isEmbedded
 		});
 
 		if (!overlay) {
 			impactLiquidState.isOpen = false;
 			impactLiquidState.isTransitioning = false;
-			if (document.body) {
-				document.body.classList.remove('impact-liquid-active');
-				document.body.classList.remove('impact-liquid-covered');
-			}
+			setDesktopImpactToggleState(false);
+			detachImpactLiquidKeydown();
+			detachImpactLiquidResize();
+			impactLiquidState.viewportMode = null;
+			setImpactLiquidActive(impactLiquidState.activeTarget, false);
+			clearImpactLiquidCovered(impactLiquidState.coveredTarget);
+			impactLiquidState.mountTarget = null;
+			impactLiquidState.coveredTarget = null;
+			impactLiquidState.activeTarget = null;
+			impactLiquidState.isEmbedded = false;
 			return false;
 		}
 
+		attachImpactLiquidKeydown();
 		impactLiquidState.isTransitioning = false;
 		return true;
 	}
@@ -1213,17 +1317,24 @@ function closeMobileAction() {
 		if (impactLiquidState.closePromise) return impactLiquidState.closePromise;
 
 		impactLiquidState.isTransitioning = true;
+		setDesktopImpactToggleState(false);
+		const { activeTarget, coveredTarget } = impactLiquidState;
 		impactLiquidState.closePromise = stopImpactLiquidOverlay()
 			.then(() => {
 				impactLiquidState.isOpen = false;
-				if (document.body) {
-					document.body.classList.remove('impact-liquid-active');
-					document.body.classList.remove('impact-liquid-covered');
-				}
+				setImpactLiquidActive(activeTarget, false);
+				clearImpactLiquidCovered(coveredTarget);
 			})
 			.finally(() => {
 				impactLiquidState.isTransitioning = false;
 				impactLiquidState.closePromise = null;
+				detachImpactLiquidKeydown();
+				detachImpactLiquidResize();
+				impactLiquidState.viewportMode = null;
+				impactLiquidState.mountTarget = null;
+				impactLiquidState.coveredTarget = null;
+				impactLiquidState.activeTarget = null;
+				impactLiquidState.isEmbedded = false;
 			});
 
 		return impactLiquidState.closePromise;
@@ -1243,46 +1354,24 @@ function closeMobileAction() {
 	        window.playToggleSound();
 	    }
 
-		if (isMobileActionViewport()) {
-			if (impactLiquidState.isOpen) {
-				closeImpactLiquidExperience();
-			} else {
-				openImpactLiquidExperience();
-			}
+		if (impactLiquidState.isOpen) {
+			closeImpactLiquidExperience();
 			return;
 		}
-	    
-	    if (openMobileAction('impact')) {
-	        return;
-	    }
 
-    const modal = document.getElementById('impact-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        
-        // Add keyboard support
-        document.addEventListener('keydown', handleImpactModalKeydown);
-        
-        // Trigger animation
-        setTimeout(() => {
-            modal.classList.add('active');
-        }, 10);
-
-        setTimeout(() => {
-            if (!modal.classList.contains('active')) return;
-            initImpactGridAnimations();
-            fitTextInTiles();
-            startImpactCharacter();
-        }, 300);
-    }
-}
+		openImpactLiquidExperience();
+	}
 
 function closeImpactModal() {
     // Play the same sound as Posts only button (small click)
     if (window.playSmallClickSound) {
         window.playSmallClickSound();
     }
+
+	if (impactLiquidState.isOpen) {
+		closeImpactLiquidExperience();
+		return;
+	}
     
     // Stop the party if it's playing
     if (isPartyMode) {

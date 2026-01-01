@@ -8,6 +8,8 @@ const DEFAULT_STATS = [
 
 const HOLE_MAX = 0.42;
 const HOLE_EXIT_MAX = 0.74;
+const HOLE_EXIT_DELTA = HOLE_EXIT_MAX - HOLE_MAX;
+const HOLE_MAX_EMBEDDED = 0.6;
 
 const POINTER_INTERACTION = {
 	radius: 0.07,
@@ -1709,10 +1711,16 @@ class ParticleTextSim {
 }
 
 class ImpactLiquidOverlay {
-	constructor({ stats, closeAnchor, onRequestClose } = {}) {
+	constructor({ stats, closeAnchor, onRequestClose, mountTarget, coveredTarget, applyChromeTint } = {}) {
 		this.stats = resolveStats(stats);
 		this.closeAnchor = closeAnchor || null;
 		this.onRequestClose = typeof onRequestClose === 'function' ? onRequestClose : null;
+		this.mountTarget = mountTarget && mountTarget.nodeType === 1 ? mountTarget : document.body;
+		this.coveredTarget = coveredTarget && coveredTarget.nodeType === 1 ? coveredTarget : document.body;
+		this.applyChromeTintOnMount = applyChromeTint !== false;
+		this.isEmbedded = this.mountTarget && this.mountTarget !== document.body;
+		this.holeMax = HOLE_MAX;
+		this.holeExitMax = HOLE_EXIT_MAX;
 		this.activeIndex = 0;
 		this.captionVisible = false;
 		this.autoAdvanceMs = 18000;
@@ -1767,15 +1775,24 @@ class ImpactLiquidOverlay {
 		if (this.root) {
 			this.root.classList.toggle('is-covered', isCovered);
 		}
-		if (typeof document !== 'undefined' && document.body) {
+		if (this.coveredTarget?.classList) {
+			this.coveredTarget.classList.toggle('impact-liquid-covered', isCovered);
+		} else if (typeof document !== 'undefined' && document.body) {
 			document.body.classList.toggle('impact-liquid-covered', isCovered);
 		}
 	}
 
 	mount() {
 		if (this.root && document.contains(this.root)) return;
+		const mountTarget =
+			this.mountTarget && document.contains(this.mountTarget) ? this.mountTarget : document.body;
+		this.mountTarget = mountTarget;
+		this.isEmbedded = this.mountTarget && this.mountTarget !== document.body;
 		this.root = document.createElement('div');
 		this.root.className = 'impact-liquid-overlay';
+		if (this.isEmbedded) {
+			this.root.classList.add('is-embedded');
+		}
 		this.root.setAttribute('aria-hidden', 'false');
 		this.root.setAttribute('role', 'presentation');
 
@@ -1783,40 +1800,42 @@ class ImpactLiquidOverlay {
 		this.canvas.className = 'impact-liquid-canvas';
 		this.root.appendChild(this.canvas);
 
-		this.closeButton = document.createElement('button');
-		this.closeButton.type = 'button';
-		this.closeButton.className = 'impact-liquid-close';
-		this.closeButton.setAttribute('aria-label', 'Close stats');
-		this.closeButton.innerHTML = `
-			<span class="impact-liquid-close-icon" aria-hidden="true">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
-					<path fill="currentColor" d="M6.4 5.3L5.3 6.4 10.9 12 5.3 17.6l1.1 1.1L12 13.1l5.6 5.6 1.1-1.1L13.1 12l5.6-5.6-1.1-1.1L12 10.9 6.4 5.3z"/>
-				</svg>
-			</span>
-			<span class="impact-liquid-close-text" aria-hidden="true">Close</span>
-		`;
-		this.closeButton.addEventListener('pointerdown', (event) => event.stopPropagation());
-		this.closeButton.addEventListener('pointerup', (event) => event.stopPropagation());
-		this.closeButton.addEventListener('click', (event) => {
-			event.stopPropagation();
-			this.requestClose();
-		});
-		this.root.appendChild(this.closeButton);
+		if (!this.isEmbedded) {
+			this.closeButton = document.createElement('button');
+			this.closeButton.type = 'button';
+			this.closeButton.className = 'impact-liquid-close';
+			this.closeButton.setAttribute('aria-label', 'Close stats');
+			this.closeButton.innerHTML = `
+				<span class="impact-liquid-close-icon" aria-hidden="true">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
+						<path fill="currentColor" d="M6.4 5.3L5.3 6.4 10.9 12 5.3 17.6l1.1 1.1L12 13.1l5.6 5.6 1.1-1.1L13.1 12l5.6-5.6-1.1-1.1L12 10.9 6.4 5.3z"/>
+					</svg>
+				</span>
+				<span class="impact-liquid-close-text" aria-hidden="true">Close</span>
+			`;
+			this.closeButton.addEventListener('pointerdown', (event) => event.stopPropagation());
+			this.closeButton.addEventListener('pointerup', (event) => event.stopPropagation());
+			this.closeButton.addEventListener('click', (event) => {
+				event.stopPropagation();
+				this.requestClose();
+			});
+			this.root.appendChild(this.closeButton);
 
-		if (this.closeAnchor) {
-			const { top, left, collapsedWidth, expandedWidth, height } = this.closeAnchor;
-			if (Number.isFinite(top)) this.closeButton.style.top = `${top}px`;
-			if (Number.isFinite(left)) {
-				this.closeButton.style.left = `${left}px`;
-				this.closeButton.style.right = 'auto';
+			if (this.closeAnchor) {
+				const { top, left, collapsedWidth, expandedWidth, height } = this.closeAnchor;
+				if (Number.isFinite(top)) this.closeButton.style.top = `${top}px`;
+				if (Number.isFinite(left)) {
+					this.closeButton.style.left = `${left}px`;
+					this.closeButton.style.right = 'auto';
+				}
+				if (Number.isFinite(collapsedWidth)) {
+					this.closeButton.style.setProperty('--impact-liquid-close-collapsed-width', `${collapsedWidth}px`);
+				}
+				if (Number.isFinite(expandedWidth)) {
+					this.closeButton.style.setProperty('--impact-liquid-close-expanded-width', `${expandedWidth}px`);
+				}
+				if (Number.isFinite(height)) this.closeButton.style.height = `${height}px`;
 			}
-			if (Number.isFinite(collapsedWidth)) {
-				this.closeButton.style.setProperty('--impact-liquid-close-collapsed-width', `${collapsedWidth}px`);
-			}
-			if (Number.isFinite(expandedWidth)) {
-				this.closeButton.style.setProperty('--impact-liquid-close-expanded-width', `${expandedWidth}px`);
-			}
-			if (Number.isFinite(height)) this.closeButton.style.height = `${height}px`;
 		}
 
 		this.caption = document.createElement('div');
@@ -1837,9 +1856,11 @@ class ImpactLiquidOverlay {
 		this.root.appendChild(this.caption);
 		this.setCaptionVisible(false);
 
-		document.body.appendChild(this.root);
+		mountTarget.appendChild(this.root);
 		this.setCoveredState(false);
-		this.applyChromeTint('rgb(0, 0, 0)');
+		if (this.applyChromeTintOnMount) {
+			this.applyChromeTint('rgb(0, 0, 0)');
+		}
 
 		this.root.addEventListener('pointerdown', this.handlePointerDown);
 		this.root.addEventListener('pointermove', this.handlePointerMove);
@@ -1917,10 +1938,33 @@ class ImpactLiquidOverlay {
 				this.particleText = new ParticleTextSim(this.renderer);
 		}
 
+		getViewportRect() {
+			if (this.root) {
+				const rect = this.root.getBoundingClientRect();
+				if (rect.width && rect.height) {
+					return rect;
+				}
+			}
+			if (this.mountTarget && this.mountTarget !== document.body) {
+				const rect = this.mountTarget.getBoundingClientRect();
+				if (rect.width && rect.height) {
+					return rect;
+				}
+			}
+			return {
+				left: 0,
+				top: 0,
+				width: window.innerWidth || 1,
+				height: window.innerHeight || 1
+			};
+		}
+
 		handleResize() {
 			if (!this.renderer || !this.uniforms) return;
-			const width = Math.max(1, Math.floor(window.innerWidth));
-			const height = Math.max(1, Math.floor(window.innerHeight));
+			const rect = this.getViewportRect();
+			const width = Math.max(1, Math.floor(rect.width));
+			const height = Math.max(1, Math.floor(rect.height));
+			this.updateHoleTargets(width);
 			this.renderer.setSize(width, height, false);
 			this.uniforms.u_resolution.value.set(width, height);
 			this.particleText?.resize(width, height, this.renderer.getPixelRatio());
@@ -1932,6 +1976,13 @@ class ImpactLiquidOverlay {
 		}
 		this.resizeTextCanvas(width, height);
 		this.redrawText();
+	}
+
+	updateHoleTargets(width) {
+		const useEmbeddedSize = this.isEmbedded && width > 768;
+		const nextHoleMax = useEmbeddedSize ? HOLE_MAX_EMBEDDED : HOLE_MAX;
+		this.holeMax = nextHoleMax;
+		this.holeExitMax = Math.min(0.92, nextHoleMax + HOLE_EXIT_DELTA);
 	}
 
 	resizeTextCanvas(width, height) {
@@ -2138,10 +2189,11 @@ class ImpactLiquidOverlay {
 
 	handlePointerDown(event) {
 		if (this.pointer && this.pointer.isDown && this.pointer.pointerId !== event.pointerId) return;
-		const width = Math.max(1, window.innerWidth || 1);
-		const height = Math.max(1, window.innerHeight || 1);
-		const x = clamp(event.clientX / width, 0, 1);
-		const y = clamp(1 - event.clientY / height, 0, 1);
+		const rect = this.getViewportRect();
+		const width = Math.max(1, rect.width || 1);
+		const height = Math.max(1, rect.height || 1);
+		const x = clamp((event.clientX - rect.left) / width, 0, 1);
+		const y = clamp(1 - (event.clientY - rect.top) / height, 0, 1);
 
 		this.pointer.isDown = true;
 		this.pointer.pointerId = event.pointerId;
@@ -2172,11 +2224,12 @@ class ImpactLiquidOverlay {
 		if (!this.pointer?.isDown) return;
 		if (this.pointer.pointerId != null && event.pointerId !== this.pointer.pointerId) return;
 
-		const width = Math.max(1, window.innerWidth || 1);
-		const height = Math.max(1, window.innerHeight || 1);
+		const rect = this.getViewportRect();
+		const width = Math.max(1, rect.width || 1);
+		const height = Math.max(1, rect.height || 1);
 		const now = performance.now();
-		const x = clamp(event.clientX / width, 0, 1);
-		const y = clamp(1 - event.clientY / height, 0, 1);
+		const x = clamp((event.clientX - rect.left) / width, 0, 1);
+		const y = clamp(1 - (event.clientY - rect.top) / height, 0, 1);
 		const lastTime = this.pointer.lastTime ?? now;
 		const dt = Math.max((now - lastTime) / 1000, 0.001);
 
@@ -2278,7 +2331,7 @@ class ImpactLiquidOverlay {
 		if (this.phase === 'enter-fill') {
 			const t = easeInOutCubic(clamp(elapsed / 760, 0, 1));
 			this.fill = 1;
-			this.hole = (1 - t) * HOLE_MAX;
+			this.hole = (1 - t) * this.holeMax;
 			this.textAlpha = 0;
 			if (t >= 1) {
 				this.setCoveredState(true);
@@ -2296,7 +2349,7 @@ class ImpactLiquidOverlay {
 		} else if (this.phase === 'enter-reveal') {
 			const t = easeInOutCubic(clamp(elapsed / 920, 0, 1));
 			this.fill = 1;
-			this.hole = t * HOLE_MAX;
+			this.hole = t * this.holeMax;
 			this.textAlpha = clamp((t - 0.22) / 0.78, 0, 1);
 			if (t >= 1) {
 				this.phase = 'show-stat';
@@ -2305,7 +2358,7 @@ class ImpactLiquidOverlay {
 		} else if (this.phase === 'cycle-close') {
 			const t = easeInOutCubic(clamp(elapsed / 520, 0, 1));
 			this.fill = 1;
-			this.hole = (1 - t) * HOLE_MAX;
+			this.hole = (1 - t) * this.holeMax;
 			this.textAlpha = clamp(1 - t * 1.2, 0, 1);
 			if (t >= 1) {
 				this.phase = 'cycle-delay';
@@ -2324,7 +2377,7 @@ class ImpactLiquidOverlay {
 			const t = easeInOutCubic(clamp(elapsed / 760, 0, 1));
 			this.textAlpha = 0;
 			const startHole = Number.isFinite(this.exitHoleStart) ? this.exitHoleStart : this.hole;
-			this.hole = startHole + (HOLE_EXIT_MAX - startHole) * t;
+			this.hole = startHole + (this.holeExitMax - startHole) * t;
 			this.fill = 1;
 			if (t >= 1) {
 				this.dispose();
@@ -2506,7 +2559,9 @@ class ImpactLiquidOverlay {
 			this.renderer = null;
 		this.uniforms = null;
 		this.setCoveredState(false);
-		this.restoreChromeTint();
+		if (this.applyChromeTintOnMount) {
+			this.restoreChromeTint();
+		}
 
 		if (this.root?.parentElement) {
 			this.root.parentElement.removeChild(this.root);
