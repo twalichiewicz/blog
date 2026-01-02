@@ -1,0 +1,1 @@
+function initializeBlog(){"function"==typeof window.initializeAnchorLinks?window.initializeAnchorLinks():setTimeout(function(){"function"==typeof window.initializeAnchorLinks&&window.initializeAnchorLinks()},1e3)}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",initializeBlog):initializeBlog();
