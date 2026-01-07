@@ -38,10 +38,10 @@
     
     @media (max-width: 768px) {
         gap: 16px;
+        padding: 12px;
         max-height: none;
         overflow-y: visible;
-        padding: 10px;
-        overflow-x: hidden; // Prevent horizontal overflow
+        overflow-x: hidden;
     }
 }
 
@@ -52,7 +52,8 @@
     grid-auto-rows: minmax(140px, 1fr);
     gap: 16px;
     padding: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgb(255, 255, 255);
+    border-color: rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.02);
     position: relative;
@@ -73,17 +74,18 @@
     }
     
     @media (max-width: 768px) {
-        grid-template-columns: 1fr;  // Single column on mobile
+        grid-template-columns: 1fr;
         grid-auto-rows: auto;
-        gap: 8px;
-        padding: 12px;
-        border-radius: 12px;
-        
-        // Override any inline grid-column styles
-        .impact-tile {
-            grid-column: span 1 !important;
-            grid-row: span 1 !important;
-        }
+        gap: 10px;
+        padding: 14px;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .impact-section .impact-tile {
+        grid-column: 1 / -1 !important;
+        grid-row: auto !important;
     }
 }
 
@@ -102,10 +104,16 @@
     font-family: 'SF Pro Text', var(--font-sans);
     z-index: 10; // Increased z-index
     
-    @media (max-width: 768px) {
-        font-size: 8px;
-        left: 12px;
-        top: -8px;
+}
+
+@media (max-width: 768px) {
+    .section-label {
+        position: static;
+        top: unset;
+        left: unset;
+        margin: 0 0 10px;
+        padding: 0;
+        background: transparent;
     }
 }
 
@@ -125,61 +133,55 @@
         0 1px 3px rgba(0, 0, 0, 0.2),
         0 4px 8px rgba(0, 0, 0, 0.1),
         inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgb(255, 255, 255);
+    border-color: rgba(255, 255, 255, 0.08);
     
-    // Mobile tiny card style
-    @media (max-width: 768px) {
-        border-radius: 8px;
-        height: 60px !important;
-        display: flex;
-        align-items: center;
-        grid-column: span 1 !important;  // All tiles span single column
-        grid-row: span 1 !important;
-    }
     
-    &:hover {
-        transform: translateY(-4px) scale(1.02);
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.15);
-        box-shadow: 
-            0 8px 16px rgba(0, 0, 0, 0.3),
-            0 12px 32px rgba(0, 0, 0, 0.2),
-            0 0 40px -10px var(--accent-color),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-        
-        .tile-hover-content {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .tile-value {
-            // Enhanced neon glow on hover
-            text-shadow: 
-                // Inner glass highlight (brighter)
-                0 -1px 0 rgba(255, 255, 255, 0.5),
-                // Glass tube depth
-                0 1px 2px rgba(0, 0, 0, 0.9),
-                // Inner neon glow (stronger)
-                inset 0 0 15px var(--accent-color),
-                // Outer glow (more intense)
-                0 0 12px var(--accent-color),
-                0 0 20px var(--accent-color);
-            filter: contrast(1.3) brightness(1.2);
-        }
-        
-        .counter {
-            // Enhanced neon glow on hover
-            text-shadow: 
-                // Inner glass highlight (brighter)
-                0 -1px 0 rgba(255, 255, 255, 0.5),
-                // Glass tube depth
-                0 1px 2px rgba(0, 0, 0, 0.9),
-                // Inner neon glow (stronger)
-                inset 0 0 15px var(--accent-color),
-                // Outer glow (more intense)
-                0 0 12px var(--accent-color),
-                0 0 20px var(--accent-color);
-            filter: contrast(1.3) brightness(1.2);
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            transform: translateY(-4px) scale(1.02);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 8px 16px rgba(0, 0, 0, 0.3),
+                0 12px 32px rgba(0, 0, 0, 0.2),
+                0 0 40px -10px var(--accent-color),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            
+            .tile-hover-content {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            .tile-value {
+                // Enhanced neon glow on hover
+                text-shadow: 
+                    // Inner glass highlight (brighter)
+                    0 -1px 0 rgba(255, 255, 255, 0.5),
+                    // Glass tube depth
+                    0 1px 2px rgba(0, 0, 0, 0.9),
+                    // Inner neon glow (stronger)
+                    inset 0 0 15px var(--accent-color),
+                    // Outer glow (more intense)
+                    0 0 12px var(--accent-color),
+                    0 0 20px var(--accent-color);
+                filter: contrast(1.3) brightness(1.2);
+            }
+            
+            .counter {
+                // Enhanced neon glow on hover
+                text-shadow: 
+                    // Inner glass highlight (brighter)
+                    0 -1px 0 rgba(255, 255, 255, 0.5),
+                    // Glass tube depth
+                    0 1px 2px rgba(0, 0, 0, 0.9),
+                    // Inner neon glow (stronger)
+                    inset 0 0 15px var(--accent-color),
+                    // Outer glow (more intense)
+                    0 0 12px var(--accent-color),
+                    0 0 20px var(--accent-color);
+                filter: contrast(1.3) brightness(1.2);
+            }
         }
     }
     
@@ -192,20 +194,12 @@
         grid-column: span 1;
         grid-row: span 1;
         
-        @media (max-width: 768px) {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
     }
     
     &.tile-medium {
         grid-column: span 2;
         grid-row: span 1;
         
-        @media (max-width: 768px) {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
     }
     
     &.tile-large {
@@ -217,10 +211,6 @@
             grid-row: span 2;
         }
         
-        @media (max-width: 768px) {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
     }
 }
 
@@ -240,38 +230,22 @@
     box-sizing: border-box;
     min-height: 120px;
     
-    @media (max-width: 768px) {
-        padding: 9px 10px;
-        min-height: 60px;
-        height: 60px;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: flex-start;
-        gap: 0;
-        text-align: left;
-    }
 }
 
 .tile-icon {
-    margin-bottom: clamp(6px, 1vw, 12px);
+    margin: clamp(10px, 1.2vw, 14px) 0 clamp(8px, 1vw, 12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--accent-color);
+    opacity: 0.85;
     filter: drop-shadow(0 0 6px var(--accent-color));
     
     svg {
-        width: clamp(24px, 4vw, 32px);
-        height: clamp(24px, 4vw, 32px);
+        width: clamp(22px, 4vw, 30px);
+        height: clamp(22px, 4vw, 30px);
     }
     
-    @media (max-width: 768px) {
-        margin-bottom: 0;
-        flex-shrink: 0;
-        margin-right: 6px;
-        
-        svg {
-            width: 20px;
-            height: 20px;
-        }
-    }
 }
 
 .tile-value {
@@ -280,8 +254,12 @@
     color: var(--accent-color);
     margin-bottom: 4px;
     display: flex;
+    flex-wrap: nowrap;
     align-items: baseline;
     justify-content: center;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: keep-all;
     font-family: 'SF Pro Display', var(--font-sans);
     letter-spacing: -0.02em;
     // Photorealistic neon glass tube effect
@@ -327,71 +305,33 @@
         color: var(--accent-color);
         font-weight: var(--font-weight-semibold);
         opacity: 0.8;
+        white-space: nowrap;
     }
     
-    @media (max-width: 768px) {
-        font-size: var(--font-size-2xl);
-        margin-bottom: 0;
-        // Subtle neon effect for mobile
-        text-shadow: 
-            0 -0.5px 0 rgba(255, 255, 255, 0.2),
-            0 0.5px 1px rgba(0, 0, 0, 0.6),
-            0 0 4px var(--accent-color);
-        line-height: var(--line-height-tight);
-        justify-content: flex-start;
-        -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.08);
-        
-        .tile-small &,
-        .tile-medium &,
-        .tile-large & {
-            font-size: var(--font-size-2xl);
-        }
-        
-        .unit {
-            font-size: 0.8em;
-        }
-    }
 }
 
 .tile-label {
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-secondary, #{$text-color-secondary});
     margin-bottom: 2px;
     font-family: 'SF Pro Text', var(--font-sans);
     letter-spacing: 0.01em;
     text-transform: uppercase;
     opacity: 0.9;
-    line-height: var(--line-height-tight).2;
+    line-height: var(--line-height-tight);
     
     // Smaller in small tiles
     .tile-small & {
         font-size: var(--font-size-sm);
     }
     
-    @media (max-width: 768px) {
-        font-size: var(--font-size-xs) !important;
-        font-weight: 300 !important;
-        text-transform: none;
-        letter-spacing: 0;
-        margin-bottom: 0 !important;
-        flex: 0 1 auto;
-        line-height: var(--line-height-tight).2;
-        white-space: nowrap;
-        
-        .tile-small &,
-        .tile-medium &,
-        .tile-large & {
-            font-size: var(--font-size-2xs) !important;
-            font-weight: 300 !important;
-        }
-    }
 }
 
 .tile-detail {
     font-size: var(--font-size-xs);
     color: rgba(255, 255, 255, 0.5);
-    line-height: var(--line-height-tight).3;
+    line-height: 1.3;
     
     // Even smaller in small tiles
     .tile-small & {
@@ -402,10 +342,6 @@
         font-size: var(--font-size-xs);
     }
     
-    @media (max-width: 768px) {
-        font-size: 8px;
-        display: none; // Hide detail text on mobile for space
-    }
 }
 
 .tile-hover-content {
@@ -420,19 +356,17 @@
     transform: translateY(20px);
     transition: all 0.3s ease;
     border-radius: 0 0 16px 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgb(255, 255, 255);
+    border-top-color: rgba(255, 255, 255, 0.1);
     
     p {
         font-size: clamp(11px, 1.1vw, 13px);
         color: rgba(255, 255, 255, 0.8);
         margin: 0;
-        line-height: var(--line-height-tight).4;
+        line-height: 1.4;
         font-family: 'SF Pro Text', var(--font-sans);
     }
     
-    @media (max-width: 768px) {
-        display: none; // No hover content on mobile
-    }
 }
 
 // Animation specific styles
@@ -473,9 +407,6 @@
         box-shadow: 0 0 6px var(--accent-color);
     }
     
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 // Donut chart
@@ -486,22 +417,9 @@
     margin: 0 auto 3px;
     flex-shrink: 0;
     
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 // Show mobile value instead of desktop value on mobile
-@media (max-width: 768px) {
-    .tile-mobile-wrapper .tile-value {
-        display: block !important;
-    }
-    
-    .tile-inner > .tile-value,
-    .tile-inner > .tile-label {
-        display: none;
-    }
-}
 
 .donut-chart {
     width: 100%;
@@ -562,9 +480,6 @@
         }
     }
     
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 // Year rings
@@ -605,9 +520,6 @@
         }
     }
     
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 // Growth visual
@@ -646,9 +558,6 @@
         }
     }
     
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 // Calendar visual
@@ -693,9 +602,6 @@
         }
     }
     
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 // Velocity chart
@@ -761,9 +667,6 @@
         }
     }
     
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 // Innovation icons
@@ -805,9 +708,6 @@
         }
     }
     
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 // Globe visual
@@ -874,9 +774,6 @@
         }
     }
     
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 // Flip animation
@@ -887,8 +784,10 @@
         transition: transform 0.6s;
     }
     
-    &:hover .tile-inner {
-        transform: rotateY(180deg);
+    @media (hover: hover) and (pointer: fine) {
+        &:hover .tile-inner {
+            transform: rotateY(180deg);
+        }
     }
     
     .tile-front,
@@ -910,179 +809,79 @@
     }
 }
 
-// Bright glowing color variants
-.tile-revenue {
-    --accent-color: #7DFFB3; // Bright mint
+// Unified impact palette aligned to site tones
+$impact-accent-primary: $link-color;
+$impact-accent-secondary: $accent-gold;
+$impact-accent-tertiary: $accent-sage;
+
+.impact-grid {
+    --impact-accent-primary: #{$impact-accent-primary};
+    --impact-accent-secondary: #{$impact-accent-secondary};
+    --impact-accent-tertiary: #{$impact-accent-tertiary};
+
+    @media (prefers-color-scheme: dark) {
+        --impact-accent-primary: #{$link-color-dark};
+        --impact-accent-secondary: #{$accent-gold-light};
+        --impact-accent-tertiary: #{$accent-sage-light};
+    }
 }
 
-.tile-savings {
-    --accent-color: #80FFE5; // Bright teal
+// Financial + growth
+.tile-revenue,
+.tile-savings,
+.tile-hours,
+.tile-conversion,
+.tile-ctr,
+.tile-retention,
+.tile-cash,
+.tile-savings-per {
+    --accent-color: var(--impact-accent-primary);
 }
 
-.tile-hours {
-    --accent-color: #B3E5FF; // Bright sky
-}
-
-.tile-borrower {
-    --accent-color: #FFE580; // Bright yellow
-}
-
-.tile-pilot {
-    --accent-color: #FFB3E6; // Bright pink
-}
-
-.tile-efficiency {
-    --accent-color: #FFB380; // Bright peach
-}
-
-.tile-support {
-    --accent-color: #FF7D7D; // Bright coral
-}
-
-.tile-tickets {
-    --accent-color: #80FFCC; // Bright mint green
-}
-
-.tile-deployment {
-    --accent-color: #E680FF; // Bright purple
-}
-
-.tile-infra {
-    --accent-color: #FF80B3; // Bright magenta
+// Efficiency + operational improvements
+.tile-efficiency,
+.tile-support,
+.tile-tickets,
+.tile-deployment,
+.tile-infra,
+.tile-velocity,
+.tile-systems,
+.tile-storage,
+.tile-covid,
+.tile-threats {
+    --accent-color: var(--impact-accent-secondary);
 }
 
 .tile-velocity {
-    --accent-color: #80FFB3; // Bright green
-    --success-color: #7DFFB3;
+    --success-color: var(--impact-accent-secondary);
 }
 
-.tile-fte {
-    --accent-color: #FFB3CC; // Bright rose
-}
-
-.tile-systems {
-    --accent-color: #FF99CC; // Bright pink
-}
-
-.tile-adoption {
-    --accent-color: #B3BBFF; // Bright periwinkle
-}
-
-.tile-storage {
-    --accent-color: #FFD97D; // Bright gold
-}
-
-.tile-users {
-    --accent-color: #80E5FF; // Bright cyan
-}
-
-.tile-teams {
-    --accent-color: #CC99FF; // Bright lavender
-}
-
-// User experience metric colors
-.tile-satisfaction {
-    --accent-color: #7DFFB3; // Bright mint - satisfaction
-}
-
-.tile-accessibility {
-    --accent-color: #80E5FF; // Bright cyan - accessibility
-}
-
-.tile-research {
-    --accent-color: #B3E5FF; // Bright sky blue - research
-}
-
-.tile-selfservice {
-    --accent-color: #80FFE5; // Bright teal - self-service
-}
-
-.tile-realimpact {
-    --accent-color: #FFE580; // Bright yellow - real impact
-}
-
-// Collaboration colors
-.tile-change {
-    --accent-color: #FF99CC; // Bright pink - change management
-}
-
-.tile-trust {
-    --accent-color: #B3BBFF; // Bright periwinkle - trust
-}
-
-.tile-technical {
-    --accent-color: #99FF99; // Bright lime green - technical
-}
-
-// Business threats
-.tile-threats {
-    --accent-color: #FF7D7D; // Bright coral - threats resolved
-}
-
-.tile-conversion {
-    --accent-color: #7DFFCC; // Bright seafoam
-}
-
-.tile-ctr {
-    --accent-color: #FFB3D9; // Bright rose
-}
-
-.tile-savings-per {
-    --accent-color: #80FF99; // Bright lime
-}
-
-.tile-retention {
-    --accent-color: #FFB3D9; // Bright rose
-}
-
-.tile-cash {
-    --accent-color: #FFE6B3; // Bright cream
-}
-
-.tile-covid {
-    --accent-color: #FF9999; // Bright red
-}
-
-// Cross-functional collaboration colors
-.tile-engineering {
-    --accent-color: #9999FF; // Bright blue-purple
-}
-
-.tile-workshops {
-    --accent-color: #FF99E6; // Bright fuchsia
-}
-
-.tile-code {
-    --accent-color: #99FF99; // Bright lime green
-}
-
-// Strategic innovation colors
-.tile-northstar {
-    --accent-color: #FFD700; // Bright gold
-}
-
-.tile-executive {
-    --accent-color: #FFD700; // Bright gold - executive recognition
-}
-
-.tile-vp-sponsor {
-    --accent-color: #FFB366; // Bright orange - VP sponsorship
-}
-
-.tile-overlay {
-    --accent-color: #99E6FF; // Bright sky blue
-}
-
-.tile-map {
-    --accent-color: #FF99B3; // Bright coral pink
-}
-
-.tile-orgdesign {
-    --accent-color: #B399FF; // Bright violet
-}
-
+// People, adoption, and strategic impact
+.tile-borrower,
+.tile-pilot,
+.tile-fte,
+.tile-adoption,
+.tile-users,
+.tile-teams,
+.tile-satisfaction,
+.tile-accessibility,
+.tile-research,
+.tile-selfservice,
+.tile-realimpact,
+.tile-change,
+.tile-trust,
+.tile-technical,
+.tile-engineering,
+.tile-workshops,
+.tile-code,
+.tile-northstar,
+.tile-executive,
+.tile-vp-sponsor,
+.tile-overlay,
+.tile-map,
+.tile-orgdesign,
 .tile-legacy {
-    --accent-color: #FFD700; // Gold
+    --accent-color: var(--impact-accent-tertiary);
 }
 
 // Party mode animations
@@ -1183,29 +982,11 @@
 .tile-mobile-wrapper {
     display: contents; // Normal flow on desktop
     
-    @media (max-width: 768px) {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 8px;
-        width: 100%;
-        height: 100%;
-    }
 }
 
 .tile-mobile-content {
     display: contents; // Normal flow on desktop
     
-    @media (max-width: 768px) {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        flex: 1;
-        gap: 12px;
-        height: 100%;
-        text-align: left;
-    }
 }
 
 // Scrollbar styling
@@ -1242,9 +1023,6 @@
         filter: drop-shadow(0 0 8px var(--accent-color));
     }
     
-    @media (max-width: 768px) {
-        display: none;
-    }
 }
 
 // Add shimmer effect for recognition tile

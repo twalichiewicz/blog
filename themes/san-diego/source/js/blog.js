@@ -192,6 +192,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Device detection (usually needed only once)
 	const isMobile = window.innerWidth <= 768;
 	const isDesktop = document.body.classList.contains('device-desktop');
+	const searchCollapseState = {
+		hasInteracted: false,
+		isCollapsed: false,
+		lastScrollTop: 0,
+		scrollHandler: null,
+		collapseTimeout: null,
+		collapseDelay: 600,
+		ignoreNextFocus: false
+	};
 
 	// Global scroll function available for both standalone and dynamic contexts
 	function scrollToFullStory() {
@@ -214,8 +223,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function cleanupInteractiveComponents() {
 		// Tear down any existing notebook carousel instance so we don't duplicate listeners
-		if (window._notebookCarouselDebug && typeof window._notebookCarouselDebug.getInstance === 'function') {
-			const existingCarousel = window._notebookCarouselDebug.getInstance();
+		[window._notebookCarousel, window._notebookCarouselDebug].forEach((carouselApi) => {
+			if (!carouselApi || typeof carouselApi.getInstance !== 'function') {
+				return;
+			}
+			const existingCarousel = carouselApi.getInstance();
 			if (existingCarousel && typeof existingCarousel.destroy === 'function') {
 				try {
 					existingCarousel.destroy();
@@ -223,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					// Best-effort cleanup – failures shouldn't block navigation
 				}
 			}
-		}
+		});
 
 		// Destroy the current mobile tabs instance before we rebuild the DOM
 		if (window.mobileTabs && typeof window.mobileTabs.destroy === 'function') {
@@ -390,6 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			initializeProjectToggle();
 			initializePostsOnlyButton();
+			initializeSearchCollapse();
 
 			if (window.innerWidth <= 768) {
 				const tabsWrapper = blogContentElement.querySelector('.tabs-wrapper');
@@ -1367,8 +1380,17 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 		});
 
 		if (noResultsMessage) {
-			noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+			const showNoResults = visibleCount === 0;
+			noResultsMessage.style.display = showNoResults ? 'flex' : 'none';
+			noResultsMessage.setAttribute('aria-hidden', showNoResults ? 'false' : 'true');
 		}
+
+		const postsContent = blogContent.querySelector('#postsContent');
+		if (postsContent) {
+			postsContent.classList.toggle('has-no-results', visibleCount === 0);
+		}
+
+		refreshSearchInteractionState(e.target.closest('.search-container'));
 	}
 	
 	// Initialize posts only button
@@ -1394,7 +1416,6 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 	
 	function handlePostsOnlyClick(event) {
 		// Posts only button clicked
-		
 		// Play the same sound effect as carousel buttons
 		if (window.playSmallClickSound) {
 			window.playSmallClickSound();
@@ -1418,6 +1439,172 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 			if (searchContainer.classList.contains('active') && searchInput) {
 				searchInput.focus();
 			}
+		}
+	}
+
+	function isMobileSearchViewport() {
+		return window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+	}
+
+	function getSearchScrollTop() {
+		const scrollElement = document.scrollingElement || document.documentElement;
+		return Math.max(0, window.pageYOffset || scrollElement.scrollTop || 0);
+	}
+
+	function getSearchContainer() {
+		return document.querySelector('.search-container');
+	}
+
+	function setSearchContainerCollapsed(container, shouldCollapse) {
+		if (!container) return;
+		container.classList.toggle('is-collapsed', shouldCollapse);
+		searchCollapseState.isCollapsed = shouldCollapse;
+		clearSearchCollapseTimeout();
+
+		const toggleButton = container.querySelector('.search-collapse-toggle');
+		if (toggleButton) {
+			toggleButton.setAttribute('aria-expanded', shouldCollapse ? 'false' : 'true');
+		}
+	}
+
+	function refreshSearchInteractionState(container) {
+		const activeContainer = container || getSearchContainer();
+		if (!activeContainer) {
+			searchCollapseState.hasInteracted = false;
+			return false;
+		}
+
+		const searchInput = activeContainer.querySelector('#postSearch');
+		const postsOnlyButton = activeContainer.querySelector('.posts-only-button');
+		const hasValue = Boolean(searchInput && searchInput.value.trim());
+		const postsOnlyActive = Boolean(postsOnlyButton && postsOnlyButton.classList.contains('active'));
+		const shouldHoldOpen = hasValue || postsOnlyActive;
+
+		searchCollapseState.hasInteracted = shouldHoldOpen;
+
+		if (shouldHoldOpen && searchCollapseState.isCollapsed) {
+			setSearchContainerCollapsed(activeContainer, false);
+		}
+
+		if (!shouldHoldOpen) {
+			clearSearchCollapseTimeout();
+		}
+
+		return shouldHoldOpen;
+	}
+
+	function markSearchInteraction(event) {
+		if (event?.type === 'focus' && searchCollapseState.ignoreNextFocus) {
+			searchCollapseState.ignoreNextFocus = false;
+			return;
+		}
+		const container = event?.currentTarget?.closest('.search-container');
+		refreshSearchInteractionState(container);
+	}
+
+	function clearSearchCollapseTimeout() {
+		if (searchCollapseState.collapseTimeout) {
+			clearTimeout(searchCollapseState.collapseTimeout);
+			searchCollapseState.collapseTimeout = null;
+		}
+	}
+
+	function scheduleSearchCollapse(container) {
+		if (searchCollapseState.collapseTimeout) return;
+		searchCollapseState.collapseTimeout = window.setTimeout(() => {
+			searchCollapseState.collapseTimeout = null;
+			if (!isMobileSearchViewport()) return;
+			if (searchCollapseState.hasInteracted || searchCollapseState.isCollapsed) return;
+			const activeContainer = container || getSearchContainer();
+			if (!activeContainer) return;
+			const containerStyles = window.getComputedStyle(activeContainer);
+			if (containerStyles.display === 'none' || containerStyles.visibility === 'hidden') {
+				return;
+			}
+			setSearchContainerCollapsed(activeContainer, true);
+		}, searchCollapseState.collapseDelay);
+	}
+
+	function handleSearchCollapseToggle(event) {
+		const container = event.currentTarget?.closest('.search-container') || getSearchContainer();
+		if (!container) return;
+		setSearchContainerCollapsed(container, false);
+		clearSearchCollapseTimeout();
+		const searchInput = container.querySelector('#postSearch');
+		if (searchInput) {
+			searchCollapseState.ignoreNextFocus = true;
+			setTimeout(() => searchInput.focus(), 0);
+		}
+	}
+
+	function initializeSearchCollapse() {
+		const container = getSearchContainer();
+		if (!container) return;
+
+		const toggleButton = container.querySelector('.search-collapse-toggle');
+		const searchInput = container.querySelector('#postSearch');
+
+		searchCollapseState.isCollapsed = container.classList.contains('is-collapsed');
+		refreshSearchInteractionState(container);
+
+		if (toggleButton) {
+			toggleButton.removeEventListener('click', handleSearchCollapseToggle);
+			toggleButton.addEventListener('click', handleSearchCollapseToggle);
+		}
+		if (searchInput) {
+			searchInput.removeEventListener('focus', markSearchInteraction);
+			searchInput.addEventListener('focus', markSearchInteraction);
+			searchInput.removeEventListener('input', markSearchInteraction);
+			searchInput.addEventListener('input', markSearchInteraction);
+			searchInput.removeEventListener('click', markSearchInteraction);
+			searchInput.addEventListener('click', markSearchInteraction);
+		}
+
+		if (!searchCollapseState.scrollHandler) {
+			searchCollapseState.lastScrollTop = getSearchScrollTop();
+			searchCollapseState.scrollHandler = () => {
+				const currentScrollTop = getSearchScrollTop();
+				const lastScrollTop = searchCollapseState.lastScrollTop;
+				searchCollapseState.lastScrollTop = currentScrollTop;
+
+				if (!isMobileSearchViewport()) {
+					const activeContainer = getSearchContainer();
+					if (activeContainer && searchCollapseState.isCollapsed) {
+						setSearchContainerCollapsed(activeContainer, false);
+					}
+					clearSearchCollapseTimeout();
+					return;
+				}
+
+				if (searchCollapseState.hasInteracted) {
+					clearSearchCollapseTimeout();
+					return;
+				}
+
+				const activeContainer = getSearchContainer();
+				if (!activeContainer) {
+					clearSearchCollapseTimeout();
+					return;
+				}
+
+				const containerStyles = window.getComputedStyle(activeContainer);
+				if (containerStyles.display === 'none' || containerStyles.visibility === 'hidden') {
+					clearSearchCollapseTimeout();
+					return;
+				}
+
+				if (searchCollapseState.isCollapsed) {
+					clearSearchCollapseTimeout();
+					return;
+				}
+
+				if (currentScrollTop > lastScrollTop + 4 && currentScrollTop > 0) {
+					scheduleSearchCollapse(activeContainer);
+				} else if (currentScrollTop < lastScrollTop - 4 || currentScrollTop <= 0) {
+					clearSearchCollapseTimeout();
+				}
+			};
+			window.addEventListener('scroll', searchCollapseState.scrollHandler, { passive: true });
 		}
 	}
 
@@ -1557,6 +1744,7 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 	initializeMobileTabs();
 	initializeProjectToggle();
 	initializePostsOnlyButton();
+	initializeSearchCollapse();
 	// Anchor links are now handled by anchor-links-simple.js
 	
 	// Initialize search clear button on page load

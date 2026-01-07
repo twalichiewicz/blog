@@ -894,7 +894,8 @@ button {
 			transition: all 0.2s ease;
 			white-space: nowrap;
 			background: transparent;
-			border: 1px solid rgba(variables.$border-color, 0.6);
+			border: 1px solid variables.$border-color;
+			border-color: rgba(variables.$border-color, 0.6);
 			border-radius: 6px;
 			cursor: pointer;
 			width: 100%;
@@ -983,68 +984,6 @@ button {
 			}
 		}
 		
-		.mobile-buttons-container {
-			display: flex;
-			gap: 8px;
-			margin-top: 12px;
-		}
-		
-		.mobile-impact-button,
-		.mobile-contact-button {
-			// Override component library default button styles to use reusable button
-			&.btn--default {
-				@include reusable-button;
-	& {
-		height: auto !important;
-	} // Override fixed height
-			}
-		}
-		
-		// Apply bordered button style to View impact report
-		.mobile-impact-button.btn--default {
-			@include reusable-button-bordered;
-		}
-		
-		// Custom emphasis for Get in touch button
-		.mobile-contact-button.btn--default {
-			color: variables.$white;
-			background: linear-gradient(to bottom,
-					color.adjust(variables.$link-color, $lightness: 5%),
-					variables.$link-color);
-			border-color: variables.$link-color;
-			
-			&:hover {
-				background: linear-gradient(to bottom,
-						color.adjust(variables.$link-color, $lightness: 10%),
-						color.adjust(variables.$link-color, $lightness: 5%));
-				border-color: color.scale(variables.$link-color, $lightness: 10%);
-				color: variables.$white;
-				box-shadow:
-					0 4px 8px rgba(variables.$link-color, 0.25),
-					0 2px 4px rgba(variables.$link-color, 0.15);
-				transform: translateY(-2px);
-			}
-			
-			@media (prefers-color-scheme: dark) {
-				color: variables.$black;
-				background: linear-gradient(to bottom,
-						color.adjust(variables.$link-color-dark, $lightness: 5%),
-						variables.$link-color-dark);
-				border-color: variables.$link-color-dark;
-				
-				&:hover {
-					background: linear-gradient(to bottom,
-							color.adjust(variables.$link-color-dark, $lightness: 10%),
-							color.adjust(variables.$link-color-dark, $lightness: 5%));
-					border-color: color.scale(variables.$link-color-dark, $lightness: 10%);
-					color: variables.$black;
-					box-shadow:
-						0 4px 8px rgba(variables.$link-color-dark, 0.3),
-						0 2px 4px rgba(variables.$link-color-dark, 0.2);
-				}
-			}
-		}
-		
 		.mobile-expand-button {
 			display: inline-flex;
 			align-items: center;
@@ -1069,7 +1008,8 @@ button {
 			);
 			backdrop-filter: blur(10px) saturate(1.5);
 			-webkit-backdrop-filter: blur(10px) saturate(1.5);
-			border: 1px solid rgba(255, 255, 255, 0.18);
+			border: 1px solid rgb(255, 255, 255);
+			border-color: rgba(255, 255, 255, 0.18);
 			border-radius: 8px;
 			box-shadow:
 				inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
@@ -1185,13 +1125,6 @@ button {
 			}
 		}
 		
-		// Mobile action buttons now use the component library
-		// Additional styles can be added here if needed
-		.mobile-impact-button,
-		.mobile-contact-button {
-			flex: 1; // Make buttons equal width in container
-		}
-		
 		@keyframes borderRotate {
 			0% {
 				background: linear-gradient(
@@ -1270,7 +1203,8 @@ button {
 				display: flex;
 				flex-direction: row;
 				margin-top: 12px;
-				border: 1px solid rgba(variables.$border-color, 0.6);
+				border: 1px solid variables.$border-color;
+				border-color: rgba(variables.$border-color, 0.6);
 				border-radius: 6px;
 				overflow: hidden;
 				box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
@@ -1300,7 +1234,8 @@ button {
 					}
 					
 					&:not(:last-child) {
-						border-right: 1px solid rgba(variables.$border-color, 0.4);
+						border-right: 1px solid variables.$border-color;
+						border-right-color: rgba(variables.$border-color, 0.4);
 						
 						&::after {
 							content: '';
@@ -1487,7 +1422,8 @@ button {
 
 			/* Use active styling as default on mobile */
 			background: rgba(variables.$link-color, 0.8);
-			border: 1px solid rgba(variables.$link-color, 0.6);
+			border: 1px solid variables.$link-color;
+			border-color: rgba(variables.$link-color, 0.6);
 			border-radius: 6px;
 			font-size: var(--font-size-xs);
 			font-weight: var(--font-weight-semibold);
@@ -1539,7 +1475,8 @@ button {
 			display: none;
 			flex-direction: column;
 			background: rgba(variables.$card-bg, 0.8);
-			border: 1px solid rgba(variables.$border-color, 0.6);
+			border: 1px solid variables.$border-color;
+			border-color: rgba(variables.$border-color, 0.6);
 			border-radius: 6px;
 			box-shadow: 0 4px 8px rgb(0 0 0 / 5%);
 			overflow: hidden;
@@ -1570,7 +1507,8 @@ button {
 				}
 
 				&:not(:last-child) {
-					border-bottom: 1px solid rgba(variables.$border-color, 0.4);
+					border-bottom: 1px solid variables.$border-color;
+					border-bottom-color: rgba(variables.$border-color, 0.4);
 				}
 			}
 		}
@@ -1594,7 +1532,8 @@ button {
 		.contact-options {
 			display: flex;
 			flex-direction: row;
-			border: 1px solid rgba(variables.$border-color, 0.6);
+			border: 1px solid variables.$border-color;
+			border-color: rgba(variables.$border-color, 0.6);
 			border-radius: 6px;
 			overflow: hidden;
 			box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
@@ -1622,7 +1561,8 @@ button {
 				}
 
 				&:not(:last-child) {
-					border-right: 1px solid rgba(variables.$border-color, 0.4);
+					border-right: 1px solid variables.$border-color;
+					border-right-color: rgba(variables.$border-color, 0.4);
 
 					&::after {
 						content: '';
@@ -2112,7 +2052,8 @@ table {
 	border-collapse: collapse;
 	font-size: var(--font-size-xs);
 	line-height: var(--line-height-tight).4;
-	border: 1px solid rgba(variables.$border-color, 0.3);
+	border: 1px solid variables.$border-color;
+	border-color: rgba(variables.$border-color, 0.3);
 	border-radius: 6px;
 	overflow: hidden;
 	box-shadow:
@@ -2124,7 +2065,8 @@ table {
 		display: flex;
 		width: 100%;
 		align-items: stretch;
-		border-bottom: 1px solid rgba(variables.$border-color, 0.2);
+		border-bottom: 1px solid variables.$border-color;
+		border-bottom-color: rgba(variables.$border-color, 0.2);
 
 		&:last-child {
 			border-bottom: none;
@@ -2150,8 +2092,10 @@ table {
 		width: 100%;
 		box-sizing: border-box;
 		align-self: stretch;
-		border-right: 1px solid rgba(variables.$border-color, 0.2);
-		border-bottom: 1px solid rgba(variables.$border-color, 0.3);
+		border-right: 1px solid variables.$border-color;
+		border-right-color: rgba(variables.$border-color, 0.2);
+		border-bottom: 1px solid variables.$border-color;
+		border-bottom-color: rgba(variables.$border-color, 0.3);
 
 		&:last-child {
 			border-right: none;
@@ -2163,7 +2107,8 @@ table {
 		vertical-align: top;
 		width: 100%;
 		align-self: stretch;
-		border-right: 1px solid rgba(variables.$border-color, 0.2);
+		border-right: 1px solid variables.$border-color;
+		border-right-color: rgba(variables.$border-color, 0.2);
 
 		&:last-child {
 			border-right: none;
@@ -3090,7 +3035,8 @@ table {
 		background: rgba(255, 255, 255, 0.08);
 		backdrop-filter: blur(30px);
 		-webkit-backdrop-filter: blur(30px);
-		border: 1px solid rgba(255, 255, 255, 0.15);
+		border: 1px solid rgb(255, 255, 255);
+		border-color: rgba(255, 255, 255, 0.15);
 		border-radius: 11px;
 		overflow: hidden;
 		opacity: 1;
@@ -3220,8 +3166,6 @@ table {
 		width: 100%;
 		max-height: 90vh;
 		overflow-y: auto;
-		box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 
-		            0 10px 10px -5px rgba(0, 0, 0, 0.4);
 		animation: slideUpModal 0.3s ease-out;
 
 		@media (max-width: variables.$mobile-breakpoint) {

@@ -164,7 +164,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
 	<title><%= config.title %><% if (config.subtitle) { %> | <%= config.subtitle %><% } %></title>
 	<style>
 		* { margin: 0; padding: 0; box-sizing: border-box; }
@@ -616,6 +616,8 @@
                     <button class="tab-button" data-type="portfolio" data-pane="projectsContent" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Works</button>
                     <button class="tab-button" data-type="wares" data-pane="waresContent" role="tab" aria-selected="false" aria-controls="waresContent" id="tab-wares">Wares</button>
                 </div>
+                <div class="mobile-tabs-backing" aria-hidden="true"></div>
+                <div class="mobile-action-header" aria-hidden="true"></div>
             </div>
 
             <% 
@@ -634,6 +636,7 @@
             ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
             %>
 
+            <div class="mobile-action-content" aria-hidden="true"></div>
             <div class="content-wrapper">
                 <%- partial('_partial/blog-posts', { blogPosts: blogPosts }) %>
                 <%- partial('_partial/portfolio-projects', { projectPosts: projectPosts, config: config }) %>

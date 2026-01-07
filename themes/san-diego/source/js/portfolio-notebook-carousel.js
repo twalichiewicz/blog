@@ -56,13 +56,14 @@
                 const rect = this.container.getBoundingClientRect();
                 const computedStyle = getComputedStyle(this.container);
                 
+                this.containerInfo = {
                     height: rect.height,
                     scrollHeight: this.container.scrollHeight,
                     canScroll: this.container.scrollHeight > rect.height,
                     overflow: computedStyle.overflow,
                     overflowY: computedStyle.overflowY,
                     position: computedStyle.position
-                });
+                };
                 
                 // Setup the carousel functionality
                 this.setupCarousel();

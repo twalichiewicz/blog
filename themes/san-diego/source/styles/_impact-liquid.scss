@@ -1,0 +1,344 @@
+@use 'variables' as variables;
+@use 'sass:color';
+
+.impact-liquid-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 1000000000000;
+	display: block;
+	pointer-events: auto;
+	touch-action: none;
+	-webkit-tap-highlight-color: transparent;
+	overflow: hidden;
+	background: transparent;
+}
+
+.impact-liquid-overlay.is-embedded {
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+}
+
+.impact-liquid-overlay.is-embedded::before {
+	border-radius: inherit;
+}
+
+.impact-liquid-overlay.is-embedded .impact-liquid-caption {
+	width: min(92%, 460px);
+}
+
+.impact-liquid-overlay::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: radial-gradient(
+		circle at 50% 24%,
+		rgb(18, 18, 20) 0%,
+		rgb(7, 7, 8) 45%,
+		rgb(0, 0, 0) 75%,
+		rgb(0, 0, 0) 100%
+	);
+	opacity: 0;
+	transition: opacity 760ms ease;
+}
+
+.impact-liquid-overlay.is-covered::before {
+	opacity: 1;
+}
+
+body.impact-liquid-active {
+	overflow: hidden;
+	background: #000;
+}
+
+body .blog-content.impact-liquid-active {
+	overflow: hidden;
+	background: #000;
+}
+
+body .blog-content.impact-liquid-active .content-wrapper {
+	overflow: hidden;
+}
+
+body .blog-content.impact-liquid-covered > :not(.impact-liquid-overlay) {
+	opacity: 0;
+	pointer-events: none;
+}
+
+body.impact-liquid-covered main.blog {
+	display: none !important;
+}
+
+body.impact-liquid-covered #impact-modal,
+body.impact-liquid-covered #contact-modal {
+	display: none !important;
+}
+
+.impact-liquid-canvas {
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: absolute;
+	inset: 0;
+}
+
+.impact-liquid-close {
+	position: absolute;
+	top: calc(22px + env(safe-area-inset-top));
+	right: calc(12px + env(safe-area-inset-right));
+	width: var(--impact-liquid-close-collapsed-width, 36px);
+	min-width: var(--impact-liquid-close-collapsed-width, 36px);
+	height: 36px;
+	border-radius: 999px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1px;
+	padding: 0;
+	cursor: pointer;
+	border: 1px solid variables.$text-color-secondary-dark;
+	background: variables.$text-color-secondary-dark;
+	color: variables.$black;
+	box-shadow:
+		0 2px 6px rgb(0 0 0 / 20%);
+	z-index: 3;
+	transition:
+		background 200ms ease,
+		border-color 200ms ease,
+		color 200ms ease,
+		transform 200ms ease,
+		width 340ms ease,
+		min-width 340ms ease;
+}
+
+.impact-liquid-close.is-expanded {
+	width: var(--impact-liquid-close-expanded-width, calc(36px * 2 + 6px));
+	min-width: var(--impact-liquid-close-expanded-width, calc(36px * 2 + 6px));
+}
+
+.impact-liquid-close:hover {
+	background: color.adjust(variables.$text-color-secondary-dark, $lightness: 6%);
+	border-color: color.adjust(variables.$text-color-secondary-dark, $lightness: 6%);
+	color: variables.$black;
+}
+
+.impact-liquid-close:active {
+	background: color.adjust(variables.$text-color-secondary-dark, $lightness: -6%);
+	transform: translateY(1px);
+	color: variables.$black;
+}
+
+.impact-liquid-close-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	flex: 0 0 36px;
+	margin-right: -2px;
+}
+
+.impact-liquid-close-icon svg {
+	width: 20px;
+	height: 20px;
+}
+
+.impact-liquid-close-text {
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-semibold);
+	line-height: 1;
+	letter-spacing: 0.01em;
+	white-space: nowrap;
+	opacity: 0;
+	max-width: 0;
+	overflow: hidden;
+	transform: translateX(-6px);
+	transition: max-width 340ms ease, opacity 220ms ease, transform 340ms ease;
+}
+
+.impact-liquid-close.is-expanded .impact-liquid-close-text {
+	opacity: 1;
+	max-width: 80px;
+	transform: translateX(0);
+}
+
+.impact-liquid-caption {
+	position: absolute;
+	left: 50%;
+	bottom: calc(18px + env(safe-area-inset-bottom));
+	transform: translateX(-50%);
+	width: min(92vw, 460px);
+	pointer-events: none;
+	z-index: 2;
+	transition: transform 240ms ease, opacity 240ms ease;
+	--impact-caption-text-delay: 120ms;
+	--impact-caption-inner-delay: 0ms;
+
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		bottom: calc(36px + env(safe-area-inset-bottom));
+	}
+}
+
+.impact-liquid-caption-inner {
+	border-radius: 18px;
+	padding: 14px 42px 14px 16px;
+	background: rgba(variables.$white, 0.84);
+	border: 1px solid variables.$border-color;
+	border-color: rgba(variables.$border-color, 0.3);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+	backdrop-filter: blur(16px) saturate(1.2);
+	-webkit-backdrop-filter: blur(16px) saturate(1.2);
+	position: relative;
+	max-height: 120px;
+	overflow: hidden;
+	opacity: 1;
+	transition:
+		max-height 240ms ease,
+		padding 240ms ease,
+		background 240ms ease,
+		border-color 240ms ease,
+		box-shadow 240ms ease,
+		opacity 220ms ease var(--impact-caption-inner-delay, 0ms);
+
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		border-radius: 9px;
+	}
+}
+
+.impact-liquid-caption:not(.has-detail) .impact-liquid-caption-inner {
+	max-height: 56px;
+	padding: 12px 42px 12px 16px;
+}
+
+.impact-liquid-caption-label {
+	font-size: var(--font-size-2xl);
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-tight);
+	color: hsl(24deg 6% 18%);
+	text-align: center;
+	letter-spacing: 0.01em;
+	transition:
+		opacity 220ms ease var(--impact-caption-text-delay, 0ms),
+		transform 220ms ease var(--impact-caption-text-delay, 0ms);
+	will-change: opacity, transform;
+
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		font-size: var(--font-size-xl);
+	}
+}
+
+.impact-liquid-caption-detail {
+	margin-top: 6px;
+	font-size: var(--font-size-md);
+	line-height: var(--line-height-normal);
+	color: hsl(24deg 6% 24%);
+	text-align: center;
+	max-height: 60px;
+	overflow: hidden;
+	transition:
+		opacity 220ms ease var(--impact-caption-text-delay, 0ms),
+		transform 220ms ease var(--impact-caption-text-delay, 0ms),
+		max-height 220ms ease,
+		margin-top 220ms ease;
+	will-change: opacity, transform;
+
+	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+		font-size: var(--font-size-sm);
+	}
+}
+
+.impact-liquid-caption.is-fading .impact-liquid-caption-label,
+.impact-liquid-caption.is-fading .impact-liquid-caption-detail {
+	opacity: 0;
+	transform: translateY(6px);
+}
+
+.impact-liquid-caption.is-fading {
+	--impact-caption-text-delay: 0ms;
+	--impact-caption-inner-delay: 120ms;
+}
+
+.impact-liquid-caption.is-fading .impact-liquid-caption-inner {
+	opacity: 0;
+}
+
+.impact-liquid-caption-progress {
+	position: absolute;
+	top: 8px;
+	right: 10px;
+	width: 22px;
+	height: 22px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: hsl(24deg 6% 18%);
+	opacity: 0;
+	transform: scale(0.92);
+	transition: opacity 200ms ease, transform 200ms ease;
+	pointer-events: none;
+}
+
+.impact-liquid-caption-progress svg {
+	width: 100%;
+	height: 100%;
+	transform: rotate(-90deg);
+}
+
+.impact-liquid-caption-progress circle {
+	fill: none;
+	stroke-width: 2.4;
+}
+
+.impact-liquid-caption-progress-track {
+	stroke: rgba(variables.$text-color, 0.24);
+}
+
+.impact-liquid-caption-progress-value {
+	stroke: currentColor;
+	stroke-linecap: round;
+	stroke-dasharray: 94.2;
+	stroke-dashoffset: calc(94.2 * (1 - var(--impact-progress, 0)));
+	transition: stroke-dashoffset 180ms linear;
+}
+
+.impact-liquid-caption.has-detail .impact-liquid-caption-progress {
+	opacity: 0.9;
+	transform: scale(1);
+}
+
+.impact-liquid-caption.is-fading .impact-liquid-caption-progress {
+	opacity: 0;
+	transform: scale(0.9);
+}
+
+.impact-liquid-caption:not(.has-detail) .impact-liquid-caption-detail {
+	max-height: 0;
+	margin-top: 0;
+	opacity: 0;
+	transform: translateY(4px);
+}
+
+@media (prefers-color-scheme: dark) {
+	.impact-liquid-caption-inner {
+		background: rgba(0, 0, 0, 0.72);
+		border-color: rgba(255, 255, 255, 0.16);
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+	}
+
+	.impact-liquid-caption-label {
+		color: hsl(0deg 0% 98%);
+	}
+
+	.impact-liquid-caption-detail {
+		color: hsl(0deg 0% 86%);
+	}
+
+	.impact-liquid-caption-progress {
+		color: hsl(0deg 0% 96%);
+	}
+
+	.impact-liquid-caption-progress-track {
+		stroke: rgba(255, 255, 255, 0.2);
+	}
+}

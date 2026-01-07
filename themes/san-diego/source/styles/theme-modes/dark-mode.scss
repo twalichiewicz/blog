@@ -5,7 +5,7 @@
    Dark Mode Specific Styles
    ========================================================================== */
 
-@media (prefers-color-scheme: dark) {
+@mixin dark-mode-styles {
 	.blog {
 		/* Set CSS variable for dark mode */
 		--bg-color: rgb(20 20 20 / 70%);
@@ -182,4 +182,12 @@
 		}
 		
 	}
+}
+
+@media (prefers-color-scheme: dark) {
+	@include dark-mode-styles;
+}
+
+body.dark-mode-forced {
+	@include dark-mode-styles;
 }

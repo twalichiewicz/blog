@@ -19,6 +19,22 @@
             </button>
         </div>
         <button class="posts-only-button" data-filter="posts"><span class="button-text-full">Posts only</span></button>
+        <button class="search-collapse-toggle" type="button" aria-label="Open search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 21l-4.35-4.35"/>
+                <path d="M15.5 10.5a5 5 0 1 0-10 0 5 5 0 0 0 10 0z"/>
+            </svg>
+        </button>
+    </div>
+    <div class="no-results-message" role="status" aria-live="polite" aria-hidden="true">
+        <div class="no-results-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
+            </svg>
+        </div>
+        <div class="no-results-title">No matches found</div>
+        <div class="no-results-copy">Try a different keyword or clear the filter.</div>
     </div>
     
     <% if (blogPosts.length > 0) { %>

@@ -17,12 +17,13 @@
             initializeCarousel();
         },
         checkState: () => {
+            return {
                 instance: !!currentCarouselInstance,
                 initialized: currentCarouselInstance?.initialized,
                 activeIndex: currentCarouselInstance?.currentActiveIndex,
                 notebookCount: currentCarouselInstance?.notebooks?.length,
                 container: !!document.querySelector('.portfolio-featured-grid.notebook-carousel-mobile')
-            });
+            };
         }
     };
     
@@ -222,12 +223,13 @@
                     const notebookCenter = rect.left + rect.width / 2;
                     const distanceFromCenter = Math.abs(notebookCenter - containerCenter);
                     
+                    this.intersectionInfo = {
                         isIntersecting: entry.isIntersecting,
                         notebookIndex: this.notebooks.indexOf(entry.target),
                         notebookCenter: notebookCenter,
                         distanceFromCenter: distanceFromCenter,
                         intersectionRatio: entry.intersectionRatio
-                    });
+                    };
                     
                     if (entry.isIntersecting) {
                         if (distanceFromCenter < bestCenterDistance) {

@@ -32,8 +32,10 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgb(255, 255, 255);
+  border-top-color: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgb(255, 255, 255);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
   border-left: none;
   border-right: none;
   
@@ -81,7 +83,8 @@
 
 .project-stat-item {
   padding: 15px 24px;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgb(255, 255, 255);
+  border-right-color: rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -96,7 +99,8 @@
   
   // Add right border to Team (spanning item that needs a border)
   &:nth-child(1) {
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgb(255, 255, 255);
+    border-right-color: rgba(255, 255, 255, 0.1);
     
     @media (prefers-color-scheme: light) {
       border-right-color: rgba(0, 0, 0, 0.08);
@@ -105,7 +109,8 @@
   
   // Add bottom borders
   &:nth-child(2) { // Timeline
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
     
     @media (prefers-color-scheme: light) {
       border-bottom-color: rgba(0, 0, 0, 0.08);
@@ -114,7 +119,8 @@
   
   &:nth-child(1), // Team (spans 2 rows, needs bottom border)
   &:nth-child(3) { // Platform
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
     
     @media (prefers-color-scheme: light) {
       border-bottom-color: rgba(0, 0, 0, 0.08);
@@ -129,7 +135,8 @@
   // Mobile - no borders between items
   @media (max-width: variables.$mobile-breakpoint) {
     border-right: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
     padding: 15px 24px; // Same padding on mobile
     min-height: auto;
     
@@ -312,7 +319,8 @@
     flex-direction: column;
     
     .project-stat-item {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgb(255, 255, 255);
+      border-bottom-color: rgba(255, 255, 255, 0.1);
       border-right: none;
       
       &:last-child {
@@ -330,7 +338,8 @@
     
     .stat-team {
       grid-row: span 1;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; // Restore border on mobile
+      border-bottom: 1px solid rgb(255, 255, 255) !important; // Restore border on mobile
+      border-bottom-color: rgba(255, 255, 255, 0.1) !important;
       
       @media (prefers-color-scheme: light) {
         border-bottom-color: rgba(0, 0, 0, 0.08) !important;
@@ -354,8 +363,10 @@
     
     // First grid (Problem/Solution) has top and bottom border
     &:first-child {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgb(255, 255, 255);
+      border-top-color: rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgb(255, 255, 255);
+      border-bottom-color: rgba(255, 255, 255, 0.1);
       
       @media (prefers-color-scheme: light) {
         border-top-color: rgba(0, 0, 0, 0.08);
@@ -366,7 +377,8 @@
     
     // Leadership grid gets top border only (Skills grid has bottom borders on items)
     &.project-stats-grid--leadership {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgb(255, 255, 255);
+      border-top-color: rgba(255, 255, 255, 0.1);
       
       @media (prefers-color-scheme: light) {
         border-top-color: rgba(0, 0, 0, 0.08);
@@ -376,7 +388,8 @@
     // Skills grid - let individual items handle borders
     &.project-stats-grid--skills {
       .project-stat-item {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgb(255, 255, 255);
+        border-bottom-color: rgba(255, 255, 255, 0.1);
         
         @media (prefers-color-scheme: light) {
           border-bottom-color: rgba(0, 0, 0, 0.08);

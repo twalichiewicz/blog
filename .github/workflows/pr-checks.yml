@@ -99,6 +99,9 @@ jobs:
         
       - name: Build site
         run: npm run build
+
+      - name: Validate CSS borders after minification
+        run: npm run test:css
         
       - name: Check build output
         run: |

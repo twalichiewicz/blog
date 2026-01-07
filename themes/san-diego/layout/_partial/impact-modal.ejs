@@ -19,11 +19,54 @@
                 </audio>
             </button>
         </div>
-		<div class="impact-modal-subtitle">Strategic design leadership through collaboration, innovation, and measurable business impact.</div>
         <div class="impact-grid">
-            <!-- FINANCIAL IMPACT Section -->
+            <div class="impact-character" data-impact-character data-archetype="operator" style="--level-progress: 0.72;">
+                <div class="impact-character-header">
+                    <div class="impact-character-kicker">CHARACTER</div>
+                    <div class="impact-character-header-row">
+                        <div class="impact-character-identity">
+                            <div class="impact-character-name">Thomas Walichiewicz</div>
+                            <div class="impact-character-role">Principal Product Designer · AI/ML + Behavioral</div>
+                        </div>
+                        <div class="impact-character-level">
+                            <div class="impact-character-level-badge">LVL <span class="impact-character-level-number">27</span></div>
+                            <div class="impact-character-progress" role="progressbar" aria-label="Level progress" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">
+                                <div class="impact-character-progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="impact-character-selector" role="tablist" aria-label="Archetype">
+                        <button type="button" class="impact-character-chip is-active" data-archetype="operator" role="tab" aria-selected="true">Operator</button>
+                        <button type="button" class="impact-character-chip" data-archetype="architect" role="tab" aria-selected="false">Architect</button>
+                        <button type="button" class="impact-character-chip" data-archetype="behavior" role="tab" aria-selected="false">Behavior</button>
+                    </div>
+                </div>
+	                <div class="impact-character-body">
+	                    <div class="impact-character-viewport" aria-label="3D character preview">
+	                        <canvas class="impact-character-canvas" aria-hidden="true"></canvas>
+	                        <img class="impact-character-fallback" src="/img/profilePhoto.jpeg" alt="Thomas Walichiewicz" loading="lazy" draggable="false">
+	                        <div class="impact-character-hint">Drag</div>
+	                    </div>
+	                    <div class="impact-character-stats" aria-label="Character stats">
+                        <div class="impact-character-stat">
+                            <div class="impact-character-stat-label">Core</div>
+                            <div class="impact-character-stat-value">Systems thinking</div>
+                        </div>
+                        <div class="impact-character-stat">
+                            <div class="impact-character-stat-label">Special</div>
+                            <div class="impact-character-stat-value">Prototype → Prod</div>
+                        </div>
+                        <div class="impact-character-badges" aria-label="Highlights">
+                            <span class="impact-character-badge">IC by choice</span>
+                            <span class="impact-character-badge">Platform scale</span>
+                            <span class="impact-character-badge">AI‑native</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- BUSINESS IMPACT Section -->
             <div class="impact-section" data-section="financial">
-                <div class="section-label">FINANCIAL IMPACT</div>
+                <div class="section-label">BUSINESS IMPACT</div>
                 
                 <!-- Total Impact - Large tile spanning 3x2 -->
                 <div class="impact-tile tile-large tile-revenue" data-animate="counter" style="grid-column: span 3; grid-row: span 2;">
@@ -31,347 +74,346 @@
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
                                 <div class="tile-value">
-									<span class="unit">$</span>
-                                    <span class="counter" data-target="30">0</span>
-                                    <span class="unit">M+</span>
+									<span class="unit">$</span><span class="counter" data-target="40">0</span><span class="unit">M+</span>
                                 </div>
-                                <div class="tile-label">Revenue Impact</div>
+								<div class="tile-meta">
+									<div class="tile-label">ARR Impacted</div>
+									<div class="tile-detail">Cash‑sweep flows: +18–35% conversion</div>
+								</div>
                             </div>
                         </div>
-                        <div class="tile-detail">At-risk revenue saved + new ARR enabled</div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 17l6-6 4 4 8-8" />
+                                <path d="M21 7v6h-6" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Annual Savings - Medium tile -->
-                <div class="impact-tile tile-medium tile-savings" data-animate="counter" style="grid-column: span 3;">
+                <div class="impact-tile tile-medium tile-savings" data-animate="none" style="grid-column: span 3;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
                                 <div class="tile-value">
-                                    <span class="unit">$</span>
-                                    <span class="counter" data-target="8">0</span>
-                                    <span class="unit">M/yr</span>
+                                    <span class="unit">$</span><span class="counter">3–5</span><span class="unit">M/yr</span>
                                 </div>
-                                <div class="tile-label">Yearly Savings Delivered</div>
+								<div class="tile-meta">
+									<div class="tile-label">Cost Savings Delivered</div>
+									<div class="tile-detail">Annual savings in development costs</div>
+								</div>
                             </div>
                         </div>
-                        <div class="tile-detail">Engineering & operational efficiency</div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 6c0 1.7 3.6 3 8 3s8-1.3 8-3-3.6-3-8-3-8 1.3-8 3Z" />
+                                <path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6" />
+                                <path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Engineering Hours Saved - Small tile -->
-                <div class="impact-tile tile-medium tile-hours" data-animate="counter" style="grid-column: span 3;">
+                <!-- Conversion Lift - Medium tile -->
+                <div class="impact-tile tile-medium tile-hours" data-animate="none" style="grid-column: span 3;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
                                 <div class="tile-value">
-                                    <span class="unit">$</span>
-                                    <span class="counter" data-target="1.2">0</span>
-                                    <span class="unit">M/yr</span>
+                                    <span class="unit">+</span><span class="counter">18–35</span><span class="unit">%</span>
                                 </div>
-                                <div class="tile-label">Engineering Productivity Impact</div>
+								<div class="tile-meta">
+									<div class="tile-label">Conversion Lift</div>
+									<div class="tile-detail">Fintech cash‑sweep flow redesign</div>
+								</div>
                             </div>
                         </div>
-                        <div class="tile-detail">Design system & tooling efficiency</div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 5L5 19" />
+                                <circle cx="7" cy="7" r="2" />
+                                <circle cx="17" cy="17" r="2" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- EFFICIENCY GAINS Section -->
+            <!-- AI/ML DELIVERY Section -->
             <div class="impact-section" data-section="efficiency">
-                <div class="section-label">EFFICIENCY GAINS</div>
+                <div class="section-label">AI/ML DELIVERY</div>
                 
                 <!-- Process Acceleration - Medium tile -->
-                <div class="impact-tile tile-medium tile-efficiency" data-animate="flip" style="grid-column: span 2;">
+                <div class="impact-tile tile-medium tile-efficiency" data-animate="none" style="grid-column: span 2;">
                     <div class="tile-inner">
-                        <div class="tile-front">
-                            <div class="tile-mobile-wrapper">
-                                <div class="tile-mobile-content">
-                                    <div class="tile-value">3wk→2hr</div>
-                                    <div class="tile-label">Publishing Time</div>
-                                </div>
+                        <div class="tile-mobile-wrapper">
+                            <div class="tile-mobile-content">
+                                <div class="tile-value">Months→Weeks</div>
+								<div class="tile-meta">
+									<div class="tile-label">Model Deploy Cycle</div>
+									<div class="tile-detail">−35% model→production time</div>
+								</div>
                             </div>
                         </div>
-                        <div class="tile-back">
-                            <div class="tile-detail">250× faster content deployment</div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="7" y="7" width="10" height="10" rx="2" />
+                                <rect x="10" y="10" width="4" height="4" rx="1" />
+                                <path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" />
+                            </svg>
                         </div>
                     </div>
                 </div>
 
                 <!-- Support Reduction - Large tile -->
-                <div class="impact-tile tile-large tile-support" data-animate="wave" style="grid-column: span 2; grid-row: span 2;">
+                <div class="impact-tile tile-large tile-support" data-animate="none" style="grid-column: span 2; grid-row: span 2;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
                                 <div class="tile-value">1200→180</div>
-                                <div class="tile-label">Monthly Support Tickets</div>
+								<div class="tile-meta">
+									<div class="tile-label">Monthly Support Tickets</div>
+									<div class="tile-detail">85% reduction in support load</div>
+								</div>
                             </div>
                         </div>
-                        <div class="tile-detail">85% reduction in support load</div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 7h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4V7z" />
+                                <path d="M9 12h6" />
+                                <path d="M9 9h6" opacity="0.5" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
                 <!-- UI Ticket Reduction - Small tile -->
-                <div class="impact-tile tile-small tile-tickets" data-animate="grow">
+                <div class="impact-tile tile-small tile-tickets" data-animate="scale">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
                                 <div class="tile-value">90%</div>
-                                <div class="tile-label">Design Issues Prevented</div>
+								<div class="tile-meta">
+									<div class="tile-label">Faster Design→Dev</div>
+								</div>
                             </div>
+                        </div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M8 9L5 12l3 3" />
+                                <path d="M16 9l3 3-3 3" />
+                                <path d="M13 8l-2 8" />
+                            </svg>
                         </div>
                     </div>
                 </div>
 
                 <!-- Deployment Time - Small tile -->
-                <div class="impact-tile tile-small tile-deployment" data-animate="race">
+                <div class="impact-tile tile-small tile-deployment" data-animate="none">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
                                 <div class="tile-value">8hr→45m</div>
-                                <div class="tile-label">Deploy Time</div>
+								<div class="tile-meta">
+									<div class="tile-label">Release Cycle</div>
+									<div class="tile-detail">90% faster enterprise deployment</div>
+								</div>
                             </div>
                         </div>
-                        <div class="tile-detail">90% faster enterprise deployment</div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="8" />
+                                <path d="M12 8v4l3 2" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
                 <!-- Infrastructure Reduction - Medium tile -->
-                <div class="impact-tile tile-medium tile-infra" data-animate="scale" style="grid-column: span 2;">
+                <div class="impact-tile tile-medium tile-infra" data-animate="none" style="grid-column: span 2;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
-                                <div class="tile-value">Days→Min</div>
-                                <div class="tile-label">Provisioning Time</div>
+                                <div class="tile-value">130+</div>
+								<div class="tile-meta">
+									<div class="tile-label">Engineers Un‑siloed</div>
+									<div class="tile-detail">Tokenized design system ships to prod</div>
+								</div>
                             </div>
                         </div>
-                        <div class="tile-detail">Self-service hub deployment</div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="9" r="3" />
+                                <circle cx="17" cy="10" r="2.5" opacity="0.6" />
+                                <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+                                <path d="M14 20c0-2.2 1.8-4 4-4s4 1.8 4 4" opacity="0.6" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
                 <!-- Dev Velocity - Medium tile spanning 2 columns -->
-                <div class="impact-tile tile-medium tile-velocity" data-animate="grow" style="grid-column: span 2;">
+                <div class="impact-tile tile-medium tile-velocity" data-animate="none" style="grid-column: span 2;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
-                                <div class="tile-value">5× Average</div>
-                                <div class="tile-label">Developer Speed</div>
+                                <div class="tile-value">3wk→Same‑day</div>
+								<div class="tile-meta">
+									<div class="tile-label">Content Updates</div>
+									<div class="tile-detail">Self‑service publishing platform</div>
+								</div>
                             </div>
                         </div>
-                        <div class="tile-detail">Time to deploy from design</div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="6" width="16" height="14" rx="2" />
+                                <path d="M8 2v4M16 2v4" />
+                                <path d="M4 10h16" />
+                                <path d="M8 15l2 2 4-4" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- PLATFORM SCALE Section -->
             <div class="impact-section" data-section="scale">
-                <div class="section-label">PLATFORM SCALE</div>
+                <div class="section-label">SCALE & ADOPTION</div>
                 <!-- Products Unified - Large tile -->
-                <div class="impact-tile tile-large tile-systems" data-animate="stack" style="grid-column: span 6;">
+                <div class="impact-tile tile-large tile-systems" data-animate="none" style="grid-column: span 6;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
-                                <div class="tile-value">250×</div>
-                                <div class="tile-label">Faster Content Deployment</div>
+                                <div class="tile-value">100+</div>
+								<div class="tile-meta">
+									<div class="tile-label">Products Unified</div>
+									<div class="tile-detail">Universal overlay adopted org‑wide</div>
+								</div>
                             </div>
                         </div>
-                        <div class="tile-detail">Weeks to hours transformation</div>
-                    </div>
-                </div>
-
-                <!-- Storage Eliminated - Medium tile -->
-                <div class="impact-tile tile-medium tile-storage" data-animate="shine" style="grid-column: span 3;">
-                    <div class="tile-inner">
-                        <div class="tile-mobile-wrapper">
-                            <div class="tile-mobile-content">
-                                <div class="tile-value">12TB</div>
-                                <div class="tile-label">Customer Storage Saved</div>
-                            </div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2l9 5-9 5-9-5 9-5z" />
+                                <path d="M3 12l9 5 9-5" />
+                                <path d="M3 17l9 5 9-5" />
+                            </svg>
                         </div>
-                        <div class="tile-detail">Reduced redundancy</div>
                     </div>
                 </div>
 				<!-- Platform Adoption - Medium tile -->
-			<div class="impact-tile tile-medium tile-adoption" data-animate="counter" style="grid-column: span 3;">
+			<div class="impact-tile tile-medium tile-adoption" data-animate="counter" style="grid-column: span 6;">
 				<div class="tile-inner">
 					<div class="tile-mobile-wrapper">
 						<div class="tile-mobile-content">
 							<div class="tile-value">
-								<span class="counter" data-target="45">0</span>
-									<span class="unit">K</span>
+								<span class="counter" data-target="465">0</span><span class="unit">K</span>
 							</div>
-							<div class="tile-label">Monthly Active Operations</div>
+							<div class="tile-meta">
+								<div class="tile-label">Participants Reached</div>
+								<div class="tile-detail">150K pilots → 465K production</div>
+							</div>
 						</div>
 					</div>
-					<div class="tile-detail">15K+ tasks automated daily</div>
+                    <div class="tile-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="6" cy="12" r="2" />
+                            <circle cx="18" cy="6" r="2" />
+                            <circle cx="18" cy="18" r="2" />
+                            <path d="M8 12l8-6" />
+                            <path d="M8 12l8 6" />
+                        </svg>
+                    </div>
 				</div>
 			</div>
             </div>
-            <!-- BEHAVIORAL IMPACT Section -->
+            <!-- BEHAVIORAL OUTCOMES Section -->
             <div class="impact-section" data-section="behavioral">
-                <div class="section-label">BEHAVIORAL IMPACT</div>
+                <div class="section-label">BEHAVIORAL OUTCOMES</div>
                 
                 <!-- Conversion Rate - Large tile -->
-                <div class="impact-tile tile-large tile-conversion" data-animate="wave" style="grid-column: span 2; grid-row: span 2;">
+                <div class="impact-tile tile-large tile-conversion" data-animate="none" style="grid-column: span 2; grid-row: span 2;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
-                                <div class="tile-value">2×</div>
-                                <div class="tile-label">Industry Conversion Rate</div>
+                                <div class="tile-value">12→22%</div>
+								<div class="tile-meta">
+									<div class="tile-label">Savings Conversion</div>
+									<div class="tile-detail">Refund‑to‑savings intervention</div>
+								</div>
                             </div>
                         </div>
-                        <div class="tile-detail">22% conversion vs 12% average</div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="8" />
+                                <circle cx="12" cy="12" r="4" />
+                                <path d="M12 12l6-6" />
+                                <path d="M18 6h-4v4" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Borrower Savings - Large tile -->
-                <div class="impact-tile tile-large tile-borrower" data-animate="shine" style="grid-column: span 2; grid-row: span 2;">
+                <div class="impact-tile tile-large tile-borrower" data-animate="none" style="grid-column: span 2; grid-row: span 2;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
-                                <div class="tile-value">$1.3M</div>
-                                <div class="tile-label">Total saved for families</div>
+                                <div class="tile-value">$1M</div>
+								<div class="tile-meta">
+									<div class="tile-label">Moved Into Savings</div>
+									<div class="tile-detail">85% retained after 3 months</div>
+								</div>
                             </div>
+                        </div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 10l9-6 9 6" />
+                                <path d="M5 10h14v10H5V10z" />
+                                <path d="M8 10v10M12 10v10M16 10v10" opacity="0.6" />
+                            </svg>
                         </div>
                     </div>
                 </div>
 
                 <!-- CTR Increase - Medium tile -->
-                <div class="impact-tile tile-medium tile-ctr" data-animate="spark" style="grid-column: span 2;">
+                <div class="impact-tile tile-medium tile-ctr" data-animate="none" style="grid-column: span 2;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
-                                <div class="tile-value">75%</div>
-                                <div class="tile-label">Avg Click Rate Improvement</div>
+                                <div class="tile-value">59%</div>
+								<div class="tile-meta">
+									<div class="tile-label">CTR Lift</div>
+									<div class="tile-detail">Behavioral messaging framework</div>
+								</div>
                             </div>
+                        </div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4l7 16 2-7 7-2L4 4z" />
+                                <path d="M14 14l6 6" opacity="0.6" />
+                            </svg>
                         </div>
                     </div>
                 </div>
 
                 <!-- Retention - Medium tile -->
-                <div class="impact-tile tile-medium tile-retention" data-animate="pulse" style="grid-column: span 2;">
+                <div class="impact-tile tile-medium tile-retention" data-animate="none" style="grid-column: span 2;">
                     <div class="tile-inner">
                         <div class="tile-mobile-wrapper">
                             <div class="tile-mobile-content">
                                 <div class="tile-value">85%</div>
-                                <div class="tile-label">User Retention Rate</div>
+								<div class="tile-meta">
+									<div class="tile-label">3‑mo Retention</div>
+									<div class="tile-detail">Sustained savings behavior</div>
+								</div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- CROSS-FUNCTIONAL COLLABORATION Section -->
-            <div class="impact-section" data-section="collaboration">
-                <div class="section-label">CROSS-FUNCTIONAL COLLABORATION</div>
-                
-                <!-- Engineering Partnership - Large tile -->
-                <div class="impact-tile tile-large tile-engineering" data-animate="counter" style="grid-column: span 3; grid-row: span 2;">
-                    <div class="tile-inner">
-                        <div class="tile-mobile-wrapper">
-                            <div class="tile-mobile-content">
-                                <div class="tile-value">Full-Stack</div>
-                                <div class="tile-label">Design + Engineering</div>
-                            </div>
+                        <div class="tile-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 2l4 4-4 4" />
+                                <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                                <path d="M7 22l-4-4 4-4" />
+                                <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+                            </svg>
                         </div>
-                        <div class="tile-detail">Ship production React, Python, JS</div>
-                    </div>
-                </div>
-                
-                <!-- Platform Adoption - Medium tile -->
-                <div class="impact-tile tile-medium tile-change" data-animate="counter" style="grid-column: span 3;">
-                    <div class="tile-inner">
-                        <div class="tile-mobile-wrapper">
-                            <div class="tile-mobile-content">
-                                <div class="tile-value">100+ Products</div>
-                                <div class="tile-label">Platform Standardization</div>
-                            </div>
-                        </div>
-                        <div class="tile-detail">Autodesk cloud unification</div>
-                    </div>
-                </div>
-                
-                <!-- Research Cohorts - Medium tile -->
-                <div class="impact-tile tile-medium tile-trust" data-animate="pulse" style="grid-column: span 2;">
-                    <div class="tile-inner">
-                        <div class="tile-mobile-wrapper">
-                            <div class="tile-mobile-content">
-                                <div class="tile-value">Quarterly</div>
-                                <div class="tile-label">Research Programs Led</div>
-                            </div>
-                        </div>
-                        <div class="tile-detail">Admin & customer cohorts</div>
-                    </div>
-                </div>
-                
-                <!-- Code Contributions - Small tile -->
-                <div class="impact-tile tile-small tile-technical" data-animate="counter">
-                    <div class="tile-inner">
-                        <div class="tile-mobile-wrapper">
-                            <div class="tile-mobile-content">
-                                <div class="tile-value">50K+</div>
-                                <div class="tile-label">Lines Shipped</div>
-                            </div>
-                        </div>
-                        <div class="tile-detail">Production code</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- STRATEGIC INNOVATION Section -->
-            <div class="impact-section" data-section="innovation">
-                <div class="section-label">STRATEGIC INNOVATION</div>
-                
-                <!-- Design Longevity - Medium tile -->
-                <div class="impact-tile tile-medium tile-executive" data-animate="counter" style="grid-column: span 3;">
-                    <div class="tile-inner">
-                        <div class="tile-mobile-wrapper">
-                            <div class="tile-mobile-content">
-                                <div class="tile-value">5+ Years</div>
-                                <div class="tile-label">Average Lifespan of Designed Tool</div>
-                            </div>
-                        </div>
-                        <div class="tile-detail">Director: "Still discovering new uses"</div>
-                    </div>
-                </div>
-                
-                <!-- Strategic Initiatives - Medium tile -->
-                <div class="impact-tile tile-medium tile-vp-sponsor" data-animate="counter" style="grid-column: span 3;">
-                    <div class="tile-inner">
-                        <div class="tile-mobile-wrapper">
-                            <div class="tile-mobile-content">
-                                <div class="tile-value">3</div>
-                                <div class="tile-label">VP-Sponsored Initiatives</div>
-                            </div>
-                        </div>
-                        <div class="tile-detail">Executive-backed strategic platforms</div>
-                    </div>
-                </div>
-                
-                <!-- Patents/IP - Medium tile -->
-                <div class="impact-tile tile-medium tile-map" data-animate="counter" style="grid-column: span 3;">
-                    <div class="tile-inner">
-                        <div class="tile-mobile-wrapper">
-                            <div class="tile-mobile-content">
-                                <div class="tile-value">4 Practices</div>
-                                <div class="tile-label">Transformed How Teams Work</div>
-                            </div>
-                        </div>
-                        <div class="tile-detail">Dev process, research ops, impact analysis, design systems</div>
-                    </div>
-                </div>
-                
-                <!-- At-Risk Revenue - Medium tile -->
-                <div class="impact-tile tile-medium tile-threats" data-animate="counter" style="grid-column: span 3;">
-                    <div class="tile-inner">
-                        <div class="tile-mobile-wrapper">
-                            <div class="tile-mobile-content">
-                                <div class="tile-value">
-                                    <span class="unit">$</span>
-                                    <span class="counter" data-target="22">0</span>
-                                    <span class="unit">M+</span>
-                                </div>
-                                <div class="tile-label">At-Risk Revenue Protected</div>
-                            </div>
-                        </div>
-                        <div class="tile-detail">Resolved enterprise customer crisis</div>
                     </div>
                 </div>
             </div>

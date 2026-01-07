@@ -349,9 +349,17 @@ export default class MobileTabs {
 		if (!slider) return;
 
 		try {
+			if (this.tabContainer.offsetParent === null) {
+				return;
+			}
+
 			// Get the active button's position and dimensions
 			const buttonRect = activeButton.getBoundingClientRect();
 			const containerRect = this.tabContainer.getBoundingClientRect();
+
+			if (containerRect.width <= 0 || buttonRect.width <= 0) {
+				return;
+			}
 
 			// Get computed styles to account for potential padding differences
 			const containerStyle = window.getComputedStyle(this.tabContainer);
@@ -889,6 +897,7 @@ export default class MobileTabs {
 				const containerStyles = window.getComputedStyle(container);
 				const originalContainerPosition = container.style.position;
 				const originalContainerHeight = container.style.height;
+				const originalContainerMinHeight = container.style.minHeight;
 				const originalShowStyles = {
 					position: showElement.style.position,
 					top: showElement.style.top,
@@ -917,6 +926,7 @@ export default class MobileTabs {
 				}
 				if (!Number.isNaN(targetHeight) && targetHeight > 0) {
 					container.style.height = `${targetHeight}px`;
+					container.style.minHeight = `${targetHeight}px`;
 				}
 
 				const applyOverlayStyles = (element) => {
@@ -952,6 +962,11 @@ export default class MobileTabs {
 						container.style.height = originalContainerHeight;
 					} else {
 						container.style.removeProperty('height');
+					}
+					if (originalContainerMinHeight) {
+						container.style.minHeight = originalContainerMinHeight;
+					} else {
+						container.style.removeProperty('min-height');
 					}
 				};
 			}
