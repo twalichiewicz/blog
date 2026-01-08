@@ -122,11 +122,7 @@
 	overflow: hidden;
 	width: 220px;
 	height: 180px;
-	background: linear-gradient(135deg, #f5f2ec 0%, #e7e3da 100%);
-
-	@media (prefers-color-scheme: dark) {
-		background: linear-gradient(135deg, #1c1a18 0%, #141312 100%);
-	}
+	background: transparent;
 
 	img {
 		width: 100%;
@@ -138,15 +134,7 @@
 }
 
 .wares-card__overlay {
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(180deg, transparent 0%, rgb(0 0 0 / 20%) 100%);
-	opacity: 0.4;
-	transition: opacity 200ms ease;
-
-	@media (prefers-color-scheme: dark) {
-		opacity: 0.6;
-	}
+	display: none;
 }
 
 .wares-card__placeholder {
