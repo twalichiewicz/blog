@@ -153,14 +153,16 @@
 
 // Provide consistent vertical padding for tab panels on all viewports
 #postsContent,
-#projectsContent {
+#projectsContent,
+#waresContent {
   padding-top: variables.$space-sm;
   padding-bottom: calc(variables.$space-sm + env(safe-area-inset-bottom, 0px));
 }
 
 @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
   #postsContent,
-  #projectsContent {
+  #projectsContent,
+  #waresContent {
     padding-top: variables.$space-md;
     padding-bottom: variables.$space-md;
   }
@@ -168,7 +170,8 @@
 
 @media (min-width: variables.$tablet-breakpoint) {
   #postsContent,
-  #projectsContent {
+  #projectsContent,
+  #waresContent {
     padding-top: variables.$space-xl;
     padding-bottom: variables.$space-xl;
   }

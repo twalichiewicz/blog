@@ -1,4 +1,4 @@
-<div id="waresContent" class="wares-list mobile-tab-pane" role="tabpanel" aria-labelledby="tab-wares" aria-hidden="true">
+<div id="waresContent" class="wares-list portfolio-list portfolio-list--redesigned mobile-tab-pane" role="tabpanel" aria-labelledby="tab-wares" aria-hidden="true">
     <div class="column-title wares-column-title">Wares</div>
 
     <% if (warePosts.length > 0) { %>
@@ -11,15 +11,27 @@
                         if (datedPathPattern.test(coverImagePath)) {
                             coverImagePath = '/' + coverImagePath;
                         } else {
-                            coverImagePath = post.path + coverImagePath;
+                            const postBasePath = url_for(post.path);
+                            const normalizedBasePath = postBasePath.endsWith('/') ? postBasePath : postBasePath + '/';
+                            const normalizedAssetPath = coverImagePath.replace(/^\.?\//, '');
+                            coverImagePath = normalizedBasePath + normalizedAssetPath;
                         }
                     }
+                    const coverImageUrl = coverImagePath
+                        ? (coverImagePath.startsWith('http') ? coverImagePath : url_for(coverImagePath))
+                        : '';
                     const subtitle = post.subtitle || post.display_description || post.summary || post.excerpt || '';
+                    let wareLink = url_for(post.path);
+                    let wareLinkExternal = false;
+                    if (post.cta_url) {
+                        wareLinkExternal = /^https?:\/\//.test(post.cta_url);
+                        wareLink = wareLinkExternal ? post.cta_url : url_for(post.cta_url);
+                    }
                 %>
-                <a href="<%- url_for(post.path) %>" class="wares-card" data-content-type="wares">
+                <a href="<%- wareLink %>" class="wares-card" data-content-type="wares"<% if (wareLinkExternal) { %> target="_blank" rel="noopener"<% } %>>
                     <div class="wares-card__media">
-                        <% if (coverImagePath) { %>
-                            <img src="<%- url_for(coverImagePath) %>" alt="<%- post.title %>" loading="lazy" />
+                        <% if (coverImageUrl) { %>
+                            <img src="<%- coverImageUrl %>" alt="<%- post.title %>" loading="lazy" />
                         <% } else { %>
                             <div class="wares-card__placeholder">Interactive preview</div>
                         <% } %>
