@@ -66,7 +66,8 @@
 
 // Fix #postsContent and #projectsContent width constraints
 #postsContent,
-#projectsContent {
+#projectsContent,
+#waresContent {
   // Desktop/tablet styles
   @media (min-width: variables.$tablet-breakpoint) {
     // Let the containers fill the width
@@ -76,7 +77,8 @@
     // Only prevent horizontal overflow, allow vertical scrolling
     overflow-x: hidden !important;
     overflow-y: auto !important;
-    height: auto !important;
+    height: 100%;
+    min-height: 100%;
   }
   
   // Mobile preserves existing styles
@@ -151,14 +153,16 @@
 
 // Provide consistent vertical padding for tab panels on all viewports
 #postsContent,
-#projectsContent {
+#projectsContent,
+#waresContent {
   padding-top: variables.$space-sm;
   padding-bottom: calc(variables.$space-sm + env(safe-area-inset-bottom, 0px));
 }
 
 @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
   #postsContent,
-  #projectsContent {
+  #projectsContent,
+  #waresContent {
     padding-top: variables.$space-md;
     padding-bottom: variables.$space-md;
   }
@@ -166,7 +170,8 @@
 
 @media (min-width: variables.$tablet-breakpoint) {
   #postsContent,
-  #projectsContent {
+  #projectsContent,
+  #waresContent {
     padding-top: variables.$space-xl;
     padding-bottom: variables.$space-xl;
   }

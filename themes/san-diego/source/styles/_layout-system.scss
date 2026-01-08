@@ -183,7 +183,8 @@ $layout-levels: (
 
 // Content width management
 #postsContent,
-#projectsContent {
+#projectsContent,
+#waresContent {
   @media (min-width: variables.$tablet-breakpoint) {
     width: 100%;
     max-width: none;

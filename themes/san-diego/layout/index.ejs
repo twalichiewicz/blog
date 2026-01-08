@@ -612,8 +612,9 @@
         <div class="content-inner-wrapper">
             <div class="tabs-wrapper">
                 <div class="mobile-tabs" role="tablist" aria-label="Content Sections">
-                    <button class="tab-button active" data-type="blog" role="tab" aria-selected="true" aria-controls="postsContent" id="tab-blog">Words</button>
-                    <button class="tab-button" data-type="portfolio" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Works</button>
+                    <button class="tab-button active" data-type="blog" data-pane="postsContent" role="tab" aria-selected="true" aria-controls="postsContent" id="tab-blog">Words</button>
+                    <button class="tab-button" data-type="portfolio" data-pane="projectsContent" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Works</button>
+                    <button class="tab-button" data-type="wares" data-pane="waresContent" role="tab" aria-selected="false" aria-controls="waresContent" id="tab-wares">Wares</button>
                 </div>
                 <div class="mobile-tabs-backing" aria-hidden="true"></div>
                 <div class="mobile-action-header" aria-hidden="true"></div>
@@ -629,12 +630,20 @@
             const projectPosts = allPosts.filter(post => 
                 post.tags && post.tags.toArray().some(tag => tag.name === 'portfolio') && !post.draft
             ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+            const warePosts = allPosts.filter(post => {
+                if (post.draft) return false;
+                const hasWaresTag = post.tags && post.tags.toArray().some(tag => tag.name === 'wares');
+                const isWareLayout = post.layout === 'ware';
+                return hasWaresTag || isWareLayout;
+            }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
             %>
 
             <div class="mobile-action-content" aria-hidden="true"></div>
             <div class="content-wrapper">
                 <%- partial('_partial/blog-posts', { blogPosts: blogPosts }) %>
                 <%- partial('_partial/portfolio-projects', { projectPosts: projectPosts, config: config }) %>
+                <%- partial('_partial/wares-items', { warePosts: warePosts }) %>
             </div>
         </div>
     </div>
@@ -654,18 +663,19 @@ document.addEventListener('DOMContentLoaded', function() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const postPath = urlParams.get('post');
 	const projectPath = urlParams.get('project');
-	if (postPath || projectPath) {
-		const path = postPath || projectPath;
-		const isProject = !!projectPath;
-		const originatingTab = isProject ? 'portfolio' : 'blog';
+	const warePath = urlParams.get('ware');
+	if (postPath || projectPath || warePath) {
+		const path = postPath || projectPath || warePath;
+		const contentType = projectPath ? 'portfolio' : warePath ? 'wares' : 'blog';
+		const originatingTab = contentType;
 		setTimeout(function() {
 			const blogContent = document.querySelector('.blog-content');
 			if (blogContent && window.fetchAndDisplayContent) {
 				if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
 					window.mobileTabs.switchTab(originatingTab, true);
 				}
-				window.fetchAndDisplayContent(path, false, isProject, originatingTab);
-				window.history.replaceState({ path: path, isDynamic: true, isProject: isProject, fromTab: originatingTab }, '', path);
+				window.fetchAndDisplayContent(path, false, contentType, originatingTab);
+				window.history.replaceState({ path: path, isDynamic: true, contentType: contentType, fromTab: originatingTab }, '', path);
 			}
 		}, 500);
 	}
