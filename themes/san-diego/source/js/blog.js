@@ -816,14 +816,16 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 				}
 			// Safari fix: Fix image paths BEFORE cloning
 			const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+			let projectPath = null;
+			if (isProject) {
+				const urlObj = new URL(url, window.location.origin);
+				const pathname = urlObj.pathname;
+				projectPath = pathname.replace(/\.html$/, '').replace(/\/?$/, '/');
+			}
 			if (isSafari && isProject) {
 				const carouselImages = newContentContainer.querySelectorAll('.carousel img');
 
 				// For project pages, we need to build the full path including the project directory
-				const urlObj = new URL(url, window.location.origin);
-				const pathname = urlObj.pathname;
-				const projectPath = pathname.replace(/\.html$/, '').replace(/\/?$/, '/');
-
 				carouselImages.forEach((img) => {
 					const originalSrc = img.getAttribute('src') || '';
 					if (originalSrc.startsWith('./')) {
@@ -834,6 +836,44 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 						const resolvedSrc = projectPath + originalSrc;
 						img.setAttribute('src', resolvedSrc);
 					}
+				});
+			}
+			if (isProject && projectPath) {
+				const resolveProjectAssetPath = (assetPath) => {
+					if (!assetPath) return assetPath;
+					if (
+						assetPath.startsWith('/') ||
+						assetPath.startsWith('http') ||
+						assetPath.startsWith('data:') ||
+						assetPath.startsWith('blob:')
+					) {
+						return assetPath;
+					}
+					const normalizedPath = assetPath.startsWith('./') ? assetPath.substring(2) : assetPath;
+					return projectPath + normalizedPath;
+				};
+
+				const videos = newContentContainer.querySelectorAll('video');
+				videos.forEach((video) => {
+					const posterSrc = video.getAttribute('poster');
+					const resolvedPoster = resolveProjectAssetPath(posterSrc);
+					if (resolvedPoster && resolvedPoster !== posterSrc) {
+						video.setAttribute('poster', resolvedPoster);
+					}
+
+					const videoSrc = video.getAttribute('src');
+					const resolvedVideoSrc = resolveProjectAssetPath(videoSrc);
+					if (resolvedVideoSrc && resolvedVideoSrc !== videoSrc) {
+						video.setAttribute('src', resolvedVideoSrc);
+					}
+
+					video.querySelectorAll('source').forEach((source) => {
+						const sourceSrc = source.getAttribute('src');
+						const resolvedSourceSrc = resolveProjectAssetPath(sourceSrc);
+						if (resolvedSourceSrc && resolvedSourceSrc !== sourceSrc) {
+							source.setAttribute('src', resolvedSourceSrc);
+						}
+					});
 				});
 			}
 
@@ -1099,15 +1139,22 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 		// If we're returning to the home page (no state or initial state)
 		if (!event.state || event.state.isInitial) {
 			const currentHistoryState = history.state;
-			const returningContentType = (event.state && event.state.contentType) || (currentHistoryState && currentHistoryState.contentType) || null;
+			const stateFromTab = event.state && event.state.fromTab;
+			const returningContentType = stateFromTab ||
+				lastTabBeforeDynamicLoad ||
+				(event.state && event.state.contentType) ||
+				(currentHistoryState && currentHistoryState.contentType) ||
+				null;
 			const wasOnProject = returningContentType === 'portfolio' || window.location.pathname.includes('/20');
-			const cameFromPortfolioTab = (event.state && event.state.fromTab === 'portfolio') || (currentHistoryState && currentHistoryState.fromTab === 'portfolio');
+			const cameFromPortfolioTab = stateFromTab === 'portfolio' ||
+				(currentHistoryState && currentHistoryState.fromTab === 'portfolio') ||
+				lastTabBeforeDynamicLoad === 'portfolio';
 
 			cleanupInteractiveComponents();
 
 			restoreInitialView({
 				fromContentType: returningContentType || (wasOnProject || cameFromPortfolioTab ? 'portfolio' : null),
-				originatingTab: lastTabBeforeDynamicLoad
+				originatingTab: stateFromTab || lastTabBeforeDynamicLoad
 			});
 
 			return;

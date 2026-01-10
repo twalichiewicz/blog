@@ -589,12 +589,31 @@ export default class MobileTabs {
 			this.tabContainer?.dataset?.activeTab ||
 			Array.from(this.tabButtons || []).find(btn => btn.classList?.contains(this.config.activeClass))?.dataset?.type ||
 			null;
+		const needsHistorySync = !history.state ||
+			history.state.fromTab !== type ||
+			history.state.contentType !== type;
+		const syncHistoryState = (nextUrl) => {
+			const resolvedUrl = nextUrl || `${window.location.pathname}${window.location.search}${window.location.hash}`;
+			const currentState = history.state || {};
+			const nextState = {
+				...currentState,
+				path: resolvedUrl,
+				isInitial: true,
+				isDynamic: false,
+				fromTab: type,
+				contentType: type
+			};
+			history.replaceState(nextState, '', resolvedUrl);
+		};
 
 		if (!this.tabContainer || !this.tabButtons || this.tabButtons.length === 0) {
 			return;
 		}
 
 		if (activeTab === type) {
+			if (needsHistorySync) {
+				syncHistoryState();
+			}
 			return;
 		}
 
@@ -611,8 +630,12 @@ export default class MobileTabs {
 			if (urlParams.has('tab')) {
 				urlParams.delete('tab');
 				const newUrl = urlParams.toString() ? '?' + urlParams.toString() : '/';
-				history.replaceState({ path: newUrl, isInitial: true, isDynamic: false }, '', newUrl);
+				syncHistoryState(newUrl);
+			} else {
+				syncHistoryState();
 			}
+		} else if (needsHistorySync) {
+			syncHistoryState();
 		}
 
 		// Remove active class from all buttons
