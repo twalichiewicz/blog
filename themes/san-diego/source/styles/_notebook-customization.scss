@@ -348,7 +348,7 @@ $notebook-brands: (
             }
             
             // Die-cut style override for sticker 1
-            &[data-sticker-1][style*="--sticker-1-style: die-cut"]::before {
+            &[data-sticker-1][data-sticker-1-style="die-cut"]::before {
                 padding: 3px 8px;
                 font-size: var(--font-size-sm);
                 font-weight: 900;
@@ -361,7 +361,7 @@ $notebook-brands: (
             }
             
             // Circle shape adjustment for die-cut sticker 1
-            &[data-sticker-1][style*="--sticker-1-style: die-cut"][style*="--sticker-1-shape: circle"]::before {
+            &[data-sticker-1][data-sticker-1-style="die-cut"][data-sticker-1-shape="circle"]::before {
                 width: 45px;
                 height: 45px;
                 padding: 0;
@@ -394,7 +394,7 @@ $notebook-brands: (
             }
             
             // Die-cut style override for sticker 2
-            &[data-sticker-2][style*="--sticker-2-style: die-cut"]::after {
+            &[data-sticker-2][data-sticker-2-style="die-cut"]::after {
                 padding: 3px 8px;
                 font-size: var(--font-size-sm);
                 font-weight: 900;
@@ -407,7 +407,7 @@ $notebook-brands: (
             }
             
             // Circle shape adjustment for die-cut sticker 2
-            &[data-sticker-2][style*="--sticker-2-style: die-cut"][style*="--sticker-2-shape: circle"]::after {
+            &[data-sticker-2][data-sticker-2-style="die-cut"][data-sticker-2-shape="circle"]::after {
                 width: 45px;
                 height: 45px;
                 padding: 0;
@@ -440,7 +440,7 @@ $notebook-brands: (
             }
             
             // Die-cut style override for sticker 3
-            .sticker-3[data-sticker-3][style*="--sticker-3-style: die-cut"]::after {
+            .sticker-3[data-sticker-3][data-sticker-3-style="die-cut"]::after {
                 padding: 3px 8px;
                 font-size: var(--font-size-sm);
                 font-weight: 900;
@@ -453,14 +453,14 @@ $notebook-brands: (
             }
             
             // Badge shape for die-cut sticker 3
-            .sticker-3[data-sticker-3][style*="--sticker-3-style: die-cut"][style*="--sticker-3-shape: badge"]::after {
+            .sticker-3[data-sticker-3][data-sticker-3-style="die-cut"][data-sticker-3-shape="badge"]::after {
                 border-radius: 4px 4px 0 0;
                 clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
                 padding-bottom: 8px;
             }
             
             // Circle shape for die-cut sticker 3
-            .sticker-3[data-sticker-3][style*="--sticker-3-style: die-cut"][style*="--sticker-3-shape: circle"]::after {
+            .sticker-3[data-sticker-3][data-sticker-3-style="die-cut"][data-sticker-3-shape="circle"]::after {
                 width: 45px;
                 height: 45px;
                 padding: 0;
@@ -490,7 +490,7 @@ $notebook-brands: (
             }
             
             // Die-cut style override for sticker 4
-            .sticker-4[data-sticker-4][style*="--sticker-4-style: die-cut"]::after {
+            .sticker-4[data-sticker-4][data-sticker-4-style="die-cut"]::after {
                 padding: 3px 8px;
                 font-size: var(--font-size-sm);
                 font-weight: 900;
@@ -503,7 +503,7 @@ $notebook-brands: (
             }
             
             // Circle shape for die-cut sticker 4
-            .sticker-4[data-sticker-4][style*="--sticker-4-style: die-cut"][style*="--sticker-4-shape: circle"]::after {
+            .sticker-4[data-sticker-4][data-sticker-4-style="die-cut"][data-sticker-4-shape="circle"]::after {
                 width: 45px;
                 height: 45px;
                 padding: 0;

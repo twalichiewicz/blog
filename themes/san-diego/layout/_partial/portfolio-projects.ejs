@@ -226,6 +226,8 @@
                                                  const defaultShapes = ['rectangle', 'rectangle', 'rounded', 'circle'];
                                                  
                                                  allAttributes.push(`data-sticker-${stickerNum}="${sticker.text}"`);
+                                                 allAttributes.push(`data-sticker-${stickerNum}-style="${sticker.style || 'regular'}"`);
+                                                 allAttributes.push(`data-sticker-${stickerNum}-shape="${sticker.shape || defaultShapes[index]}"`);
                                                  
                                                  const stickerStyles = Object.entries({
                                                      [`--sticker-${stickerNum}-color`]: sticker.color || defaultColors[index],
@@ -250,7 +252,7 @@
                                 >
                                     <% if (post.notebook_stickers && post.notebook_stickers.length > 2) { %>
                                         <% if (post.notebook_stickers[2]) { %>
-                                            <span class="sticker-3" data-sticker-3="<%- post.notebook_stickers[2].text %>" 
+                                            <span class="sticker-3" data-sticker-3="<%- post.notebook_stickers[2].text %>" data-sticker-3-style="<%- post.notebook_stickers[2].style || 'regular' %>" data-sticker-3-shape="<%- post.notebook_stickers[2].shape || 'rounded' %>"
                                                   style="<%- Object.entries({
                                                       '--sticker-3-color': post.notebook_stickers[2].color || '#fff',
                                                       '--sticker-3-bg': post.notebook_stickers[2].bg || '#4CAF50',
@@ -264,7 +266,7 @@
                                                   }).filter(([k,v]) => v).map(([k,v]) => `${k}: ${v}`).join('; ') %>;"></span>
                                         <% } %>
                                         <% if (post.notebook_stickers[3]) { %>
-                                            <span class="sticker-4" data-sticker-4="<%- post.notebook_stickers[3].text %>" 
+                                            <span class="sticker-4" data-sticker-4="<%- post.notebook_stickers[3].text %>" data-sticker-4-style="<%- post.notebook_stickers[3].style || 'regular' %>" data-sticker-4-shape="<%- post.notebook_stickers[3].shape || 'circle' %>"
                                                   style="<%- Object.entries({
                                                       '--sticker-4-color': post.notebook_stickers[3].color || '#fff',
                                                       '--sticker-4-bg': post.notebook_stickers[3].bg || '#9C27B0',
@@ -360,4 +362,3 @@
         <!-- No portfolio items to display -->
     <% } %>
 </div>
-
