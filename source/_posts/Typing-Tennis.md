@@ -15,5 +15,7 @@ url: https://typingtennis.com
 <i>Serve up your typing skills! A retro-style typing game where you play tennis with words.</i>
 
 </center>
+<br/>
+This is a quick game I threw together over the weekend from an idea that popped in my head. 
 
-This is a quick game I threw together over the weekend from an idea that popped in my head. Enjoy!
+Enjoy!
