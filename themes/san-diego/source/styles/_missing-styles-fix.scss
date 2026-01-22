@@ -29,12 +29,23 @@ body {
 
 // Content wrapper background - consistent across desktop/mobile
 .blog .blog-content .content-wrapper {
-  background: rgb(249, 248, 246) !important;
-  background-image: none !important; // Override any gradients
-  
-  @media (prefers-color-scheme: dark) {
-    background: rgb(9, 9, 9) !important;
+  // Desktop/Tablet only
+  @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+    background: rgb(249, 248, 246) !important;
+    background-image: none !important; // Override any gradients
+    
+    @media (prefers-color-scheme: dark) {
+      background: rgb(9, 9, 9) !important;
+      background-image: none !important;
+    }
+  }
+
+  // Mobile: Transparent to prevent layering effect
+  @media (max-width: variables.$mobile-breakpoint) {
+    background: transparent !important;
     background-image: none !important;
+    box-shadow: none !important;
+    border: none !important;
   }
 }
 
