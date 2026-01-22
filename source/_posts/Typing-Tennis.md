@@ -69,9 +69,11 @@ slug: Typing-Tennis
                 box.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                 
                 // Move back layer opposite to mouse to create depth/thickness illusion
-                // Reduced movement factor from 0.15 to 0.05
-                const backX = (centerX - x) * 0.05;
-                const backY = (centerY - y) * 0.05;
+                // We use the clamped rotation values as a proxy for the translation 
+                // to ensure the back layer stops moving when the rotation caps at 15deg.
+                const backX = -(rotateY / 20) * centerX * 0.05;
+                const backY = (rotateX / 20) * centerY * 0.05;
+                
                 // Apply same rotation as foreground to match deformation
                 back.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate(${backX}px, ${backY}px)`;
                 
