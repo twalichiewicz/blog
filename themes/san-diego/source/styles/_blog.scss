@@ -21,10 +21,17 @@
 	position: relative;
 
 	
-	@media (max-width: variables.$mobile-breakpoint) {
-		background-color: transparent !important;
-		padding-top: 120px;
-	}
+		@media (max-width: variables.$mobile-breakpoint) {
+			padding: 0;
+			gap: 0;
+			width: 100%;
+			max-width: 100vw;
+			margin-left: auto;
+			margin-right: auto;
+			overflow-x: hidden;
+			overflow-y: visible;
+			background-color: transparent !important;
+		}
 
 	.blog-header {
 		height: 100dvh;
@@ -61,6 +68,11 @@
 		transition: opacity 0.3s ease-in-out;
 		margin-top: 12px;
 		
+		@media (max-width: variables.$mobile-breakpoint) {
+			background-color: transparent !important;
+			padding-top: 120px;
+		}
+
 		// Desktop/tablet: fixed height with scroll
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
 			height: calc(100dvh - 12px);
