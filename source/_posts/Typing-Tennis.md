@@ -7,6 +7,7 @@ short: true
 slug: Typing-Tennis
 ---
 
+{% raw %}
 <div id="tt-embed-root" style="perspective: 1000px; margin: 12px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
     <div class="tt-card" style="background: #151515; border-radius: 12px; padding: 20px; display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: center; border: 1px solid #333; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); transform-style: preserve-3d; transition: transform 0.1s ease-out; position: relative; overflow: hidden;">
         
@@ -15,7 +16,7 @@ slug: Typing-Tennis
 
         <!-- Art Container -->
         <div class="tt-art-wrapper" style="position: relative; border-radius: 6px; overflow: hidden; height: 100px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform: translateZ(20px); z-index: 3;">
-             <img src="/2026/01/18/Typing-Tennis/typingTennisPromo.jpg" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Typing Tennis">
+             <img src="/img/typingTennisPromo.jpg" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Typing Tennis">
              <!-- Gloss -->
              <div style="position: absolute; top: 0; left: 0; right: 0; height: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%); pointer-events: none;"></div>
         </div>
@@ -77,3 +78,4 @@ slug: Typing-Tennis
     });
 })();
 </script>
+{% endraw %}
