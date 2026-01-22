@@ -1149,6 +1149,8 @@
 		
 		/* Mobile overrides for light mode to remove layers */
 		@media screen and (max-width: variables.$mobile-breakpoint) {
+			background-color: variables.$body-bg; // Ensure base layer matches
+			
 			.blog-content {
 				background: transparent !important;
 				box-shadow: none !important;
