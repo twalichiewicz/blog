@@ -20,6 +20,12 @@
 	white-space: nowrap;
 	text-decoration: none;
 	display: inline-block;
+
+	// Mobile optimization for touch targets
+	@media (max-width: variables.$mobile-breakpoint) {
+		font-size: var(--font-size-sm);
+		padding: 10px 16px;
+	}
 	
 	&:hover {
 		background: linear-gradient(to bottom,
@@ -85,6 +91,12 @@
 	white-space: nowrap;
 	text-decoration: none;
 	display: inline-block;
+
+	// Mobile optimization for touch targets
+	@media (max-width: variables.$mobile-breakpoint) {
+		font-size: var(--font-size-sm);
+		padding: 10px 16px;
+	}
 	
 	&:hover {
 		border-color: variables.$link-color;
@@ -989,10 +1001,10 @@ button {
 			align-items: center;
 			justify-content: center;
 			gap: 4px;
-			padding: 8px 16px;
+			padding: 10px 16px;
 			margin: 6px 0 0 0;
 			position: relative;
-			font-size: var(--font-size-xs); // Match other buttons
+			font-size: var(--font-size-sm); // Match other buttons
 			font-weight: var(--font-weight-semibold);
 			color: variables.$text-color;
 			cursor: pointer;
@@ -1418,14 +1430,14 @@ button {
 
 		.contact-button {
 			display: block;
-			padding: 8px 16px;
+			padding: 10px 16px;
 
 			/* Use active styling as default on mobile */
 			background: rgba(variables.$link-color, 0.8);
 			border: 1px solid variables.$link-color;
 			border-color: rgba(variables.$link-color, 0.6);
 			border-radius: 6px;
-			font-size: var(--font-size-xs);
+			font-size: var(--font-size-sm);
 			font-weight: var(--font-weight-semibold);
 			color: variables.$white;
 			text-decoration: none;
