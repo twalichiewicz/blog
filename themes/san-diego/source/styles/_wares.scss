@@ -107,16 +107,9 @@
         }
 
         &:hover {
-                transform: translateY(-2px); // Subtle lift
-
                 .wares-card__overlay {
                         opacity: 1;
                 }
-                
-                // Remove the inner image scale to match portfolio (it scales the whole card)
-                // .wares-card__media img {
-                //      transform: scale(1.03);
-                // }
         }
 }
 
