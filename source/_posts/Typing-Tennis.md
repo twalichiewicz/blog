@@ -69,10 +69,11 @@ slug: Typing-Tennis
                 box.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                 
                 // Move back layer opposite to mouse to create depth/thickness illusion
-                // We use template literals for cleaner code
-                const backX = (centerX - x) * 0.15;
-                const backY = (centerY - y) * 0.15;
-                back.style.transform = `translate(${backX}px, ${backY}px)`;
+                // Reduced movement factor from 0.15 to 0.05
+                const backX = (centerX - x) * 0.05;
+                const backY = (centerY - y) * 0.05;
+                // Apply same rotation as foreground to match deformation
+                back.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate(${backX}px, ${backY}px)`;
                 
                 shine.style.setProperty('--mouse-x', `${xPct}%`);
                 shine.style.setProperty('--mouse-y', `${yPct}%`);
@@ -85,7 +86,7 @@ slug: Typing-Tennis
     
     card.addEventListener('mouseleave', () => {
         box.style.transform = 'rotateX(0) rotateY(0)';
-        back.style.transform = 'translate(0, 0)';
+        back.style.transform = 'rotateX(0) rotateY(0) translate(0, 0)';
         shine.style.setProperty('--mouse-x', '50%');
         shine.style.setProperty('--mouse-y', '50%');
     });
