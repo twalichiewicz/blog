@@ -107,12 +107,13 @@ $layout-levels: (
       height: 100%;
       
       .content-wrapper {
-        overflow: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         height: 100%;
         min-height: 0;
         flex: 1;
         background-image: none;
-        background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
+        background: transparent;
         display: flex;
         flex-direction: column;
       }
