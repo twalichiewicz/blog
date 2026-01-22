@@ -178,7 +178,7 @@
 	
 	// Mobile adjustments
 	@media (max-width: variables.$mobile-breakpoint) {
-		margin-bottom: 16px;
+		margin-bottom: 8px;
 
 		&.post-long .preview-cover-image,
 		.blog .blog-list &.post-long .preview-cover-image {

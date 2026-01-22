@@ -72,14 +72,37 @@
         }
 
         @media (max-width: variables.$mobile-breakpoint) {
-                grid-template-columns: repeat(1, 1fr);
+                // Horizontal carousel layout for mobile
+                display: flex !important;
+                flex-direction: row !important;
                 gap: 20px;
-                padding: 0 16px;
+                padding: 20px 20px 40px 20px;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                grid-template-columns: none !important;
+                align-items: start;
+                width: 100%;
+                margin-left: -20px; // Compensate for parent padding
+                width: calc(100% + 40px); // Compensate for parent padding
+                
+                // Add centering spacers
+                &::before,
+                &::after {
+                        content: '';
+                        flex: 0 0 calc(50vw - 120px); // Half screen width minus half card width
+                        height: 1px;
+                }
         }
 
         > :only-child {
                 grid-column: 1 / -1;
                 justify-self: center;
+                
+                @media (max-width: variables.$mobile-breakpoint) {
+                        margin: 0 auto;
+                }
         }
 }
 
@@ -103,6 +126,13 @@
 
         @media (prefers-color-scheme: dark) {
                 background: transparent;
+        }
+        
+        @media (max-width: variables.$mobile-breakpoint) {
+                flex: 0 0 auto;
+                scroll-snap-align: center;
+                width: 240px !important;
+                margin: 0;
         }
 
         &:hover {
