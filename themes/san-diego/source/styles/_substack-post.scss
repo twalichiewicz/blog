@@ -75,13 +75,13 @@
 		
 		.post-title {
 			margin: 0 auto 16px auto;
-			line-height: var(--line-height-tight).2;
+			line-height: 1.2;
 			@include substack-title;
 		}
 		
 		.post-subtitle {
 			font-size: var(--font-size-lg);
-			line-height: var(--line-height-tight).4;
+			line-height: 1.4;
 			color: variables.$text-color-secondary;
 			margin-bottom: 24px;
 			font-weight: var(--font-weight-normal);
@@ -141,22 +141,28 @@
 	
 	// Content styles
 	.post-content {
-		line-height: var(--line-height-tight).7;
+		--post-body-leading: 1.6;
+		--post-block-spacing: 1.25rem;
+		--post-hr-mid: rgb(0 0 0 / 30%);
+
+		line-height: var(--post-body-leading);
 		color: variables.$text-color;
 		
 		@media (prefers-color-scheme: dark) {
 			color: variables.$text-color-dark;
+			--post-hr-mid: rgb(255 255 255 / 30%);
 		}
 		
 		
 		p {
-			margin: 20px 0;
-			line-height: var(--line-height-tight).7;
+			margin: var(--post-block-spacing) 0;
+			line-height: inherit;
 		}
 		
 		h1, h2, h3, h4, h5, h6 {
 			font-family: var(--font-sans);
 			font-weight: var(--font-weight-semibold);
+			line-height: 1.25;
 			margin-top: 32px;
 			margin-bottom: 16px;
 			color: variables.$text-color;
@@ -173,7 +179,7 @@
 		h4 { font-size: var(--font-size-lg); }
 		
 		blockquote {
-			margin: 24px 0;
+			margin: var(--post-block-spacing) 0;
 			padding-left: 20px;
 			border-left: 3px solid variables.$border-color;
 			font-style: italic;
@@ -190,7 +196,13 @@
 			max-width: 100%;
 			height: auto;
 			border-radius: 4px;
-			margin: 20px 0;
+			margin: var(--post-block-spacing) 0;
+
+			@media (prefers-color-scheme: dark) {
+				filter: brightness(0.9);
+				border: 1px solid variables.$border-color-dark;
+				box-shadow: variables.$shadow-soft-dark;
+			}
 		}
 		
 		a {
@@ -231,8 +243,9 @@
 			background-color: variables.$card-bg;
 			padding: 16px;
 			border-radius: 6px;
+			border: 0;
 			overflow-x: auto;
-			margin: 24px 0;
+			margin: var(--post-block-spacing) 0;
 			
 			@media (prefers-color-scheme: dark) {
 				background-color: variables.$card-bg-dark;
@@ -245,25 +258,99 @@
 				font-size: var(--font-size-sm);
 			}
 		}
+
+		// Highlighted code blocks from Hexo
+		figure.highlight {
+			max-width: 720px;
+			margin: var(--post-block-spacing) auto;
+			border: 0;
+			background-color: variables.$card-bg;
+			border-radius: 6px;
+			overflow-x: auto;
+
+			@media (prefers-color-scheme: dark) {
+				background-color: variables.$card-bg-dark;
+			}
+
+			@media (max-width: variables.$mobile-breakpoint) {
+				max-width: 100%;
+			}
+
+			table {
+				width: 100%;
+				margin: 0;
+				border: 0;
+				border-collapse: collapse;
+				table-layout: auto;
+				background: transparent;
+				display: table !important;
+				border-radius: 0;
+				overflow: visible;
+			}
+
+			table tr,
+			table th,
+			table td {
+				border: 0;
+				background: transparent;
+			}
+
+			table tbody tr,
+			table tbody tr:hover {
+				background: transparent;
+			}
+
+			.gutter {
+				padding: 8px 10px;
+				text-align: right;
+				vertical-align: top;
+			}
+
+			.code {
+				padding: 8px 12px;
+			}
+
+			pre {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				background: transparent;
+			}
+
+			code {
+				padding: 0;
+				background: none;
+				font-size: var(--font-size-sm);
+			}
+		}
 		
 		ul, ol {
-			margin: 20px 0;
+			margin: var(--post-block-spacing) 0;
 			padding-left: 30px;
 			
 			li {
 				margin-bottom: 8px;
-				line-height: var(--line-height-tight).7;
+				line-height: inherit;
 			}
+		}
+
+		hr {
+			margin: var(--post-block-spacing) auto;
+			border: 0;
+			height: 1px;
+			width: 100%;
+			max-width: 720px;
+			background-image: linear-gradient(to right, rgb(0 0 0 / 0%), var(--post-hr-mid), rgb(0 0 0 / 0%));
 		}
 		
 		// Table styles for consistent column widths
 		table {
 			width: 100%;
-			margin: 24px 0;
+			margin: var(--post-block-spacing) 0;
 			border-collapse: collapse;
 			table-layout: auto; // Allow automatic column sizing
 			font-size: var(--font-size-sm);
-			line-height: var(--line-height-tight).5;
+			line-height: 1.5;
 			background: var(--table-bg, variables.$card-bg);
 			border: 1px solid var(--table-border, variables.$border-color);
 			border-radius: 8px;
@@ -370,7 +457,7 @@
 		.table-wrapper,
 		.table-scroll-container {
 			overflow-x: auto;
-			margin: 24px 0;
+			margin: var(--post-block-spacing) 0;
 			-webkit-overflow-scrolling: touch;
 			max-width: 100%;
 			position: relative;
@@ -514,22 +601,24 @@
 		
 		.post-content {
 			font-size: var(--font-size-base);
-			
+			line-height: var(--post-body-leading);
+		
 			// Apply max-width to text elements
 			p, 
 			h1, h2, h3, h4, h5, h6,
 			blockquote,
 			ul, ol,
-			pre {
+			pre,
+			hr {
 				max-width: 720px;
 				margin-left: auto;
 				margin-right: auto;
 			}
-			
+		
 			p {
 				font-size: var(--font-size-base);
 			}
-			
+		
 			// Allow tables to expand beyond text width
 			table,
 			.table-wrapper {
@@ -537,7 +626,7 @@
 				margin-left: auto;
 				margin-right: auto;
 			}
-			
+		
 			// Images - default behavior is to follow text width
 			img {
 				max-width: 720px;
@@ -550,7 +639,7 @@
 					max-width: 100%;
 				}
 			}
-			
+		
 			// Code blocks within pre should follow parent width
 			pre code {
 				max-width: none;
@@ -611,7 +700,7 @@
 			
 			.author-card-bio {
 				font-size: var(--font-size-sm);
-				line-height: var(--line-height-tight).5;
+				line-height: 1.5;
 				color: variables.$text-color-secondary;
 				margin: 0 0 12px 0;
 				

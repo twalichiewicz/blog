@@ -1802,6 +1802,21 @@ function getAllEmojis() {
 // Process emoji in content
 function processEmoji(content) {
   const allEmojis = getAllEmojis();
+
+  // Protect code blocks and inline code from emoji processing
+  const protectedBlocks = [];
+  const protectBlocks = (regex) => {
+    content = content.replace(regex, (match) => {
+      const placeholder = `__PROTECTED_BLOCK_${protectedBlocks.length}__`;
+      protectedBlocks.push(match);
+      return placeholder;
+    });
+  };
+
+  // Protect highlighted code blocks, pre blocks, and inline code
+  protectBlocks(/<figure\b[^>]*class="[^"]*highlight[^"]*"[^>]*>[\s\S]*?<\/figure>/gi);
+  protectBlocks(/<pre\b[^>]*>[\s\S]*?<\/pre>/gi);
+  protectBlocks(/<code\b[^>]*>[\s\S]*?<\/code>/gi);
   
   // Store protected content (like title attributes)
   const protectedContent = [];
@@ -1838,6 +1853,11 @@ function processEmoji(content) {
   // Restore protected content
   for (let i = 0; i < protectedContent.length; i++) {
     content = content.replace(`__PROTECTED_${i}__`, protectedContent[i]);
+  }
+
+  // Restore protected code blocks
+  for (let i = 0; i < protectedBlocks.length; i++) {
+    content = content.replace(`__PROTECTED_BLOCK_${i}__`, protectedBlocks[i]);
   }
   
   return content;

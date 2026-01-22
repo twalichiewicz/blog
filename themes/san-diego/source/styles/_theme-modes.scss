@@ -1956,11 +1956,11 @@
 }
 
 /* Dark mode for tables */
-@media (prefers-color-scheme: dark) {
-	table {
-		border-color: rgba(variables.$border-color-dark, 0.3);
-		box-shadow: variables.$shadow-soft-dark;
-		background-color: rgb(0 0 0 / 20%);
+	@media (prefers-color-scheme: dark) {
+		table {
+			border-color: rgba(variables.$border-color-dark, 0.3);
+			box-shadow: variables.$shadow-soft-dark;
+			background-color: rgb(0 0 0 / 20%);
 
 		tr {
 			border-bottom-color: rgba(variables.$border-color-dark, 0.2);
@@ -1982,12 +1982,37 @@
 		}
 
 		// Style for the "Updated" and "New" badges
-		th span {
-			background-color: rgb(255 255 255 / 10%);
-			color: variables.$text-color-dark;
+			th span {
+				background-color: rgb(255 255 255 / 10%);
+				color: variables.$text-color-dark;
+			}
+		}
+
+		.substack-post .post-content table {
+			box-shadow: none;
+			background-color: var(--table-bg-dark, variables.$card-bg-dark);
+			border-color: var(--table-border-dark, variables.$border-color-dark);
+
+			tr {
+				border-bottom-color: var(--table-border-dark, variables.$border-color-dark);
+
+				&:nth-child(even) {
+					background-color: transparent;
+				}
+			}
+
+			th {
+				background: var(--table-header-bg-dark, rgba(255 255 255 / 5%));
+				color: variables.$text-color-dark;
+				border-right-color: transparent;
+			}
+
+			td {
+				color: variables.$text-color-dark;
+				border-right-color: transparent;
+			}
 		}
 	}
-}
 
 /* Dark mode for tags */
 @media (prefers-color-scheme: dark) {
@@ -2085,7 +2110,6 @@
 
 /* Forced theme mode styles */
 body {
-
 	&.light-mode-forced.blog .profile-header,
 	&.dark-mode-forced.blog .profile-header {
 		.profile-info {
@@ -2101,6 +2125,119 @@ body {
 				.location-icon {
 					color: var(--location-pill-icon-color);
 				}
+			}
+		}
+	}
+
+	&.dark-mode-forced {
+		.substack-post {
+			color: variables.$text-color-dark;
+
+			.post-content {
+				color: variables.$text-color-dark;
+
+				h1,
+				h2,
+				h3,
+				h4,
+				h5,
+				h6,
+				p,
+				li {
+					color: variables.$text-color-dark;
+				}
+
+				a {
+					color: variables.$link-color-dark;
+				}
+
+				blockquote {
+					background-color: rgb(255 255 255 / 3%) !important;
+					border-left-color: rgb(255 255 255 / 5%);
+					color: variables.$text-color-dark;
+
+					p {
+						color: variables.$text-color-dark;
+					}
+				}
+
+				pre,
+				code,
+				p code,
+				li code,
+				figure.highlight {
+					background-color: variables.$card-bg-dark;
+					color: variables.$text-color-dark;
+				}
+
+				figure.highlight table {
+					background: transparent;
+				}
+
+				table {
+					box-shadow: none;
+					background-color: var(--table-bg-dark, variables.$card-bg-dark);
+					border-color: var(--table-border-dark, variables.$border-color-dark);
+
+					tr {
+						border-bottom-color: var(--table-border-dark, variables.$border-color-dark);
+
+						&:nth-child(even) {
+							background-color: transparent;
+						}
+					}
+
+					th {
+						background: var(--table-header-bg-dark, rgba(255 255 255 / 5%));
+						color: variables.$text-color-dark;
+						border-right-color: transparent;
+					}
+
+					td {
+						color: variables.$text-color-dark;
+						border-right-color: transparent;
+					}
+				}
+
+				img {
+					filter: brightness(0.9);
+					border: 1px solid variables.$border-color-dark;
+					box-shadow: variables.$shadow-soft-dark;
+				}
+
+				hr {
+					background-image: linear-gradient(to right, rgb(255 255 255 / 0%), rgb(255 255 255 / 30%), rgb(255 255 255 / 0%));
+				}
+			}
+
+			.highlight .name {
+				color: #7ee787;
+			}
+
+			.highlight .attr,
+			.highlight .meta,
+			.highlight .meta-keyword,
+			.highlight .attribute,
+			.highlight .number,
+			.highlight .selector-class {
+				color: #79c0ff;
+			}
+
+			.highlight .string,
+			.highlight .symbol {
+				color: #79c0ff;
+			}
+
+			.highlight .selector-tag {
+				color: #7ee787;
+			}
+
+			.highlight .built_in {
+				color: #d2a8ff;
+			}
+
+			.highlight .keyword {
+				color: #ff7b72;
 			}
 		}
 	}
