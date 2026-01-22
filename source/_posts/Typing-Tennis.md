@@ -12,7 +12,8 @@ slug: Typing-Tennis
     <div class="tt-card" style="background: #151515; border-radius: 12px; padding: 20px; display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; overflow: hidden;">
         
         <!-- Art Container (The Box) -->
-        <div class="tt-box-container" style="perspective: 1000px; width: 80px; height: 120px; flex-shrink: 0; padding: 0; margin: 0;">
+        <div class="tt-box-container" style="perspective: 1000px; width: 80px; height: 120px; flex-shrink: 0; padding: 0; margin: 0; position: relative;">
+            <div class="tt-back-layer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #222; border-radius: 4px; z-index: -1; transition: transform 0.1s ease-out; box-shadow: 0 0 10px rgba(0,0,0,0.5);"></div>
             <div class="tt-art-wrapper" style="position: relative; border-radius: 4px; overflow: hidden; width: 100%; height: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform-style: preserve-3d; transition: transform 0.1s ease-out; background: #000; padding: 0; margin: 0;">
                  <img src="/img/typingTennisPromo.jpg" style="width: 100%; height: 100%; object-fit: fill; display: block; margin: 0 !important; border-radius: 1px; padding: 0 !important; transform: none !important; transition: none !important;" alt="Typing Tennis">
                  
@@ -41,6 +42,7 @@ slug: Typing-Tennis
     const root = document.getElementById('tt-embed-root');
     const card = root.querySelector('.tt-card');
     const box = root.querySelector('.tt-art-wrapper');
+    const back = root.querySelector('.tt-back-layer');
     const shine = root.querySelector('.tt-shine');
     
     let isTicking = false;
@@ -60,11 +62,18 @@ slug: Typing-Tennis
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                // Cap rotation at 45 degrees
-                const rotateY = Math.max(-45, Math.min(45, ((x - centerX) / centerX) * 20)); 
-                const rotateX = Math.max(-45, Math.min(45, ((centerY - y) / centerY) * 20));
+                // Cap rotation at 15 degrees
+                const rotateY = Math.max(-15, Math.min(15, ((x - centerX) / centerX) * 20)); 
+                const rotateX = Math.max(-15, Math.min(15, ((centerY - y) / centerY) * 20));
                 
                 box.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                
+                // Move back layer opposite to mouse to create depth/thickness illusion
+                // We use template literals for cleaner code
+                const backX = (centerX - x) * 0.15;
+                const backY = (centerY - y) * 0.15;
+                back.style.transform = `translate(${backX}px, ${backY}px)`;
+                
                 shine.style.setProperty('--mouse-x', `${xPct}%`);
                 shine.style.setProperty('--mouse-y', `${yPct}%`);
                 
@@ -76,6 +85,7 @@ slug: Typing-Tennis
     
     card.addEventListener('mouseleave', () => {
         box.style.transform = 'rotateX(0) rotateY(0)';
+        back.style.transform = 'translate(0, 0)';
         shine.style.setProperty('--mouse-x', '50%');
         shine.style.setProperty('--mouse-y', '50%');
     });
