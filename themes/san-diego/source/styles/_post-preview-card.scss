@@ -48,20 +48,22 @@
 	}
 
 	// List view layout for long-form posts: thumbnail on the left
-	#postsContent &.post-long {
+	&.post-long {
 		display: flex;
+		flex-direction: row;
 		align-items: center;
 	}
 
-	#postsContent &.post-long .preview-cover-image {
+	&.post-long .preview-cover-image {
 		width: 140px;
 		height: 96px;
 		flex: 0 0 140px;
 		align-self: center;
 	}
 
-	#postsContent &.post-long .preview-content {
+	&.post-long .preview-content {
 		flex: 1 1 auto;
+		min-width: 0;
 	}
 	
 	// Content container
@@ -170,16 +172,12 @@
 	@media (max-width: variables.$mobile-breakpoint) {
 		margin-bottom: 16px;
 
-		#postsContent &.post-long {
-			flex-direction: column;
-			align-items: stretch;
-		}
-
-		#postsContent &.post-long .preview-cover-image {
-			width: 100%;
-			height: 150px;
-			flex: 0 0 auto;
-			align-self: stretch;
+		&.post-long .preview-cover-image {
+			width: 120px;
+			height: 84px;
+			flex: 0 0 120px;
+			align-self: center;
+			max-height: none;
 		}
 		
 		.preview-cover-image {
