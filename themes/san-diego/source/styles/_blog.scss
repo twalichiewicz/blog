@@ -35,7 +35,6 @@
 		}
 
 		@media (max-width: variables.$mobile-breakpoint) {
-			height: 100%;
 			padding: 0;
 			gap: 0;
 			width: 100%;
@@ -54,17 +53,10 @@
 		transition: opacity 0.3s ease-in-out;
 		margin-top: 12px;
 		
-		// Mobile only: background and box-shadow (no border)
-		@media (max-width: variables.$mobile-breakpoint) {
-			background-color: variables.$white;
-			box-shadow: 0 2px 10px rgb(0 0 0 / 5%);
-			// No border on mobile
-		}
-		
 		@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
 			background-color: rgb(9, 9, 9);
 		}
-		
+
 		// Desktop/tablet: fixed height with scroll
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
 			height: calc(100dvh - 12px);
@@ -72,23 +64,10 @@
 			-webkit-overflow-scrolling: touch;
 		}
 
-
 		// Dark mode styles moved to _theme-modes.scss
 	}
 	
-	// Mobile-specific content-inner-wrapper styles
-	@media (max-width: variables.$mobile-breakpoint) {
-		.blog-content .content-inner-wrapper {
-			border-left: none;
-			border-right: none;
-			border-bottom: none;
-			margin-bottom: 0;
-			// Removed border-radius: 0 to allow dynamic border-radius from JS
-		}
-	}
-
-	// Base styles for blog posts
-	.blog-posts {
+	// Base styles for blog posts	.blog-posts {
 		margin-bottom: 2rem;
 	}
 
