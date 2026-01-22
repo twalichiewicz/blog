@@ -43,6 +43,7 @@
 			margin-right: auto;
 			overflow-x: hidden;
 			overflow-y: visible;
+			background-color: variables.$body-bg;
 		}
 	}
 
@@ -54,7 +55,7 @@
 		margin-top: 12px;
 		
 		@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
-			background-color: rgb(9, 9, 9);
+			background-color: transparent !important;
 		}
 
 		// Desktop/tablet: fixed height with scroll
@@ -701,12 +702,10 @@
 				}
 			}
 		}
-	}
 
 	#bookNavigation {
 		display: none;
 	}
-
 	#bookView:not([style*="display: none"])~#bookNavigation {
 		display: flex;
 	}

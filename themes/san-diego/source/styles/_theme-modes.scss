@@ -1168,6 +1168,25 @@
 			}
 		}
 
+		/* Mobile overrides for light mode to remove layers */
+		@media screen and (max-width: variables.$mobile-breakpoint) {
+			.blog-content {
+				background: transparent !important;
+				box-shadow: none !important;
+				border: none !important;
+				
+				.content-wrapper {
+					background: transparent !important;
+					box-shadow: none !important;
+					border: none !important;
+					
+					&::before {
+						display: none;
+					}
+				}
+			}
+		}
+
 		/* Specific styles for tablet in light mode */
 		&.device-tablet .blog-content {
 			background: linear-gradient(135deg,
