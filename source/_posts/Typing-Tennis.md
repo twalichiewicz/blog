@@ -14,7 +14,7 @@ slug: Typing-Tennis
         <!-- Art Container (The Box) -->
         <div class="tt-box-container" style="perspective: 1000px; width: 80px; height: 120px; flex-shrink: 0;">
             <div class="tt-art-wrapper" style="position: relative; border-radius: 4px; overflow: hidden; width: 100%; height: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform-style: preserve-3d; transition: transform 0.1s ease-out; background: #000;">
-                 <img src="/img/typingTennisPromo.jpg" style="width: 100%; height: 100%; object-fit: fill; display: block; margin: 0 !important;" alt="Typing Tennis">
+                 <img src="/img/typingTennisPromo.jpg" style="width: 100%; height: 100%; object-fit: fill; display: block; margin: 0 !important; border-radius: 1px;" alt="Typing Tennis">
                  
                  <!-- Interactive Lighting Overlay (Now inside the box wrapper) -->
                  <div class="tt-shine" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2; background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.2) 0%, rgba(0,0,0,0) 60%); mix-blend-mode: soft-light; pointer-events: none;"></div>
