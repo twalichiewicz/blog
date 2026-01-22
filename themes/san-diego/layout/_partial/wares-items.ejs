@@ -28,7 +28,7 @@
                         wareLink = wareLinkExternal ? post.cta_url : url_for(post.cta_url);
                     }
                 %>
-                <a href="<%- wareLink %>" class="wares-card" data-content-type="wares"<% if (wareLinkExternal) { %> target="_blank" rel="noopener"<% } %>>
+                <a href="<%- wareLink %>" class="wares-card no-external-indicators" data-content-type="wares"<% if (wareLinkExternal) { %> target="_blank" rel="noopener"<% } %>>
                     <div class="wares-card__media">
                         <% if (coverImageUrl) { %>
                             <img src="<%- coverImageUrl %>" alt="<%- post.title %>" loading="lazy" />
