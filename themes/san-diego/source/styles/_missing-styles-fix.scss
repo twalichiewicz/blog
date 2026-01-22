@@ -10,12 +10,21 @@ body {
 
 // Consistent styles for tabs-wrapper on both mobile and desktop
 .tabs-wrapper {
-  background: linear-gradient(135deg, #f1f0ed 0%, #faf9f9 100%);
-  border-bottom: 1px solid #e6e6e6;
-  
-  @media (prefers-color-scheme: dark) {
-    background: linear-gradient(to bottom right, #2c2c2c, #111111);
-    border-bottom-color: variables.$border-color-dark;
+  // Mobile: Transparent background to avoid layering
+  @media (max-width: variables.$mobile-breakpoint) {
+    background: transparent !important;
+    border-bottom: none !important;
+  }
+
+  // Desktop/Tablet: Gradient background
+  @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+    background: linear-gradient(135deg, #f1f0ed 0%, #faf9f9 100%);
+    border-bottom: 1px solid #e6e6e6;
+    
+    @media (prefers-color-scheme: dark) {
+      background: linear-gradient(to bottom right, #2c2c2c, #111111);
+      border-bottom-color: variables.$border-color-dark;
+    }
   }
 }
 
