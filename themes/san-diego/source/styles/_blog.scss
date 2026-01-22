@@ -30,12 +30,12 @@
 			margin-right: auto;
 			overflow-x: hidden;
 			overflow-y: visible;
-			background-color: variables.$nav-bg !important;
+			background-color: variables.$body-bg !important;
 			padding-top: 120px;
 		}
 		
 		@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
-			background-color: variables.$nav-bg-dark !important;
+			background-color: variables.$body-bg-dark !important;
 		}
 
 	.blog-header {
