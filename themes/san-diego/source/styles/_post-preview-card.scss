@@ -53,21 +53,24 @@
 	.blog .blog-list &.post-long {
 		display: flex;
 		flex-direction: row;
-		align-items: center;
+		align-items: stretch;
 	}
 
 	&.post-long .preview-cover-image,
 	.blog .blog-list &.post-long .preview-cover-image {
 		width: 140px;
-		height: 96px;
 		flex: 0 0 140px;
-		align-self: center;
+		height: auto;
+		align-self: stretch;
 	}
 
 	&.post-long .preview-content,
 	.blog .blog-list &.post-long .preview-content {
 		flex: 1 1 auto;
 		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 	
 	// Content container
@@ -179,9 +182,9 @@
 		&.post-long .preview-cover-image,
 		.blog .blog-list &.post-long .preview-cover-image {
 			width: 120px;
-			height: 84px;
 			flex: 0 0 120px;
-			align-self: center;
+			height: auto;
+			align-self: stretch;
 			max-height: none;
 		}
 		
