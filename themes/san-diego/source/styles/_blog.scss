@@ -30,11 +30,12 @@
 			margin-right: auto;
 			overflow-x: hidden;
 			overflow-y: visible;
-			background-color: variables.$body-bg !important;
+			background-color: variables.$nav-bg !important;
+			padding-top: 120px;
 		}
 		
 		@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
-			background-color: variables.$body-bg-dark !important;
+			background-color: variables.$nav-bg-dark !important;
 		}
 
 	.blog-header {
@@ -73,15 +74,20 @@
 	}
 
 	.blog-content {
-		// Top-left border radius only (matching the top/left borders)
-		border-radius: 12px 0 0 0;
 		position: relative;
 		transition: opacity 0.3s ease-in-out;
-		margin-top: 12px;
+		
+		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			// Top-left border radius only (matching the top/left borders)
+			border-radius: 12px 0 0 0;
+			margin-top: 12px;
+		}
 		
 		@media (max-width: variables.$mobile-breakpoint) {
 			background-color: transparent !important;
 			padding-top: 120px;
+			margin-top: 0;
+			border-radius: 0;
 		}
 
 		// Desktop/tablet: fixed height with scroll
