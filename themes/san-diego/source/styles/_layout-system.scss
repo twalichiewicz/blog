@@ -119,9 +119,9 @@ $layout-levels: (
       }
       
       .content-inner-wrapper {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        height: 100%;
+        overflow: visible;
+        height: auto;
+        min-height: 100%;
         display: flex;
         flex-direction: column;
         flex: 1;
@@ -132,9 +132,10 @@ $layout-levels: (
   // Ensure proper page scroll
   html,
   body {
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden; // Prevent body scroll on mobile, inner wrapper handles it
+    height: 100%;
+    width: 100%;
+    overscroll-behavior: none; // Prevent bounce effects on body
   }
   
   // Prevent transform issues

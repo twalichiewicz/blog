@@ -62,7 +62,13 @@
 			top: 0;
 			left: 0;
 			z-index: 100;
-			background-color: transparent;
+			background-color: variables.$nav-bg;
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			
+			@media (prefers-color-scheme: dark) {
+				background-color: variables.$nav-bg-dark;
+			}
 		}
 	}
 

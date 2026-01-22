@@ -266,6 +266,9 @@ body.dark-mode-forced .mobile-tabs-backing {
 	.search-container,
 	.mobile-tabs {
 		transition: background-color 520ms ease, border-color 520ms ease, color 520ms ease, box-shadow 520ms ease;
+		background: transparent !important;
+		border: none !important;
+		box-shadow: none !important;
 	}
 
 	body.impact-mode .profile-header .mobile-impact-button.btn--default {
