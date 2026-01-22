@@ -572,6 +572,12 @@ export default class MobileTabs {
 
 		this.scheduleSearchBarVisibility(false, shouldAnimate ? fadeOutDuration : 0);
 			this.scheduleScrollReset('wares', targetPane, shouldAnimate, totalDuration);
+
+			// Always reset wares carousel horizontal scroll to first item
+			setTimeout(() => {
+				this.resetWaresCarouselScroll(targetPane);
+			}, shouldAnimate ? totalDuration + 50 : 50);
+
 			this.markInitialRenderComplete(type, totalDuration);
 		} else {
 			this.markInitialRenderComplete(type, 0);
@@ -1125,7 +1131,33 @@ export default class MobileTabs {
 				contentWrapper.scrollTop = 0;
 			}
 
+			// Also reset horizontal scroll for wares carousel
+			if (tabType === 'wares') {
+				const waresGrid = contentElement.querySelector('.wares-grid');
+				if (waresGrid) {
+					waresGrid.scrollLeft = 0;
+				}
+			}
+
 			this.tabScrollStates.set(tabType, { initialScrollResetDone: true });
+		});
+	}
+
+	/**
+	 * Reset the wares carousel horizontal scroll to the first item
+	 * This is called every time the wares tab is shown to ensure consistent positioning
+	 * @param {HTMLElement} waresContent - The wares content container
+	 */
+	resetWaresCarouselScroll(waresContent) {
+		if (!waresContent) return;
+
+		const waresGrid = waresContent.querySelector('.wares-grid');
+		if (!waresGrid) return;
+
+		// Reset horizontal scroll to show first item
+		// The carousel uses ::before spacer, so scroll to 0 centers the first item
+		requestAnimationFrame(() => {
+			waresGrid.scrollLeft = 0;
 		});
 	}
 

@@ -10,10 +10,14 @@ body {
 
 // Consistent styles for tabs-wrapper on both mobile and desktop
 .tabs-wrapper {
-  // Mobile: Transparent background to avoid layering
+  // Mobile: Solid background (gaps around border-radius filled by .blog background)
   @media (max-width: variables.$mobile-breakpoint) {
-    background: transparent !important;
-    border-bottom: none !important;
+    background: var(--bg-color, #fff);
+    border-bottom: none;
+
+    @media (prefers-color-scheme: dark) {
+      background: var(--bg-color-dark, #1a1a1a);
+    }
   }
 
   // Desktop/Tablet: Gradient background
@@ -49,12 +53,16 @@ body {
     }
   }
 
-  // Mobile: Transparent to prevent layering effect
+  // Mobile: Solid background for content area
   @media (max-width: variables.$mobile-breakpoint) {
-    background: transparent !important;
-    background-image: none !important;
-    box-shadow: none !important;
-    border: none !important;
+    background: var(--bg-color, #fff);
+    background-image: none;
+    box-shadow: none;
+    border: none;
+
+    @media (prefers-color-scheme: dark) {
+      background: var(--bg-color-dark, #1a1a1a);
+    }
   }
 }
 

@@ -3595,7 +3595,7 @@ body.demo-inline-active .project-edge-wrapper .above-the-fold-preview .above-fol
 			
 			.portfolio-more-company {
 				@media (max-width: variables.$mobile-breakpoint) {
-					margin: 0 8px; // Add horizontal margins on mobile to prevent edge touching
+					margin: 0 16px; // Larger horizontal margins on mobile for more breathing room
 				}
 				.portfolio-more-company-name {
 					font-family: var(--font-sans);

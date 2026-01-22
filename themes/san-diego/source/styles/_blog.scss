@@ -20,23 +20,14 @@
 	overflow-x: hidden;
 	position: relative;
 
-	
-		@media (max-width: variables.$mobile-breakpoint) {
-			padding: 0;
-			gap: 0;
-			width: 100%;
-			max-width: 100vw;
-			margin-left: auto;
-			margin-right: auto;
-			overflow-x: hidden;
-			overflow-y: visible;
-			background-color: variables.$body-bg !important;
-			padding-top: 120px;
-		}
-		
-		@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
-			background-color: variables.$body-bg-dark !important;
-		}
+	// Mobile: nav background on .blog fills gaps around tabs border-radius
+	@media (max-width: variables.$mobile-breakpoint) {
+		background-color: variables.$nav-bg;
+	}
+
+	@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
+		background-color: variables.$nav-bg-dark;
+	}
 
 	.blog-header {
 		height: 100dvh;
@@ -57,61 +48,55 @@
 			gap: 0;
 			width: 100%;
 			max-width: 100vw;
-			margin-left: auto;
-			margin-right: auto;
 			position: absolute;
 			top: 0;
 			left: 0;
 			z-index: 100;
-			background-color: variables.$nav-bg;
-			backdrop-filter: blur(20px);
-			-webkit-backdrop-filter: blur(20px);
-			
-			@media (prefers-color-scheme: dark) {
-				background-color: variables.$nav-bg-dark;
-			}
+			// Background inherited from .blog - no need for separate bg
+			background-color: transparent;
 		}
 	}
 
 	.blog-content {
 		position: relative;
 		transition: opacity 0.3s ease-in-out;
-		
+
+		// Desktop/tablet: border-radius and margin
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-			// Top-left border radius only (matching the top/left borders)
 			border-radius: 12px 0 0 0;
 			margin-top: 12px;
-		}
-		
-		@media (max-width: variables.$mobile-breakpoint) {
-			background-color: transparent !important;
-			margin-top: 0;
-			border-radius: 0;
-		}
-
-		// Desktop/tablet: fixed height with scroll
-		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
 			height: calc(100dvh - 12px);
 			overflow-y: auto;
 			-webkit-overflow-scrolling: touch;
 		}
 
+		// Mobile: transparent background, no extra styling
+		@media (max-width: variables.$mobile-breakpoint) {
+			background-color: transparent;
+			margin-top: 0;
+			border-radius: 0;
+		}
+
 		// Dark mode styles moved to _theme-modes.scss
 	}
 	
-	// Mobile-specific content-inner-wrapper styles
+	// Mobile-specific styles
 	@media (max-width: variables.$mobile-breakpoint) {
 		.blog-content .content-inner-wrapper {
 			border-left: none;
 			border-right: none;
 			border-bottom: none;
 			margin-bottom: 0;
+		}
+
+		// Tabs need padding to sit below the absolute header
+		.blog-content .tabs-wrapper {
 			padding-top: 120px;
-			// Removed border-radius: 0 to allow dynamic border-radius from JS
 		}
 	}
-	
-	// Base styles for blog posts	.blog-posts {
+
+	// Base styles for blog posts
+	.blog-posts {
 		margin-bottom: 2rem;
 	}
 
@@ -745,10 +730,12 @@
 				}
 			}
 		}
+	}
 
 	#bookNavigation {
 		display: none;
 	}
+
 	#bookView:not([style*="display: none"])~#bookNavigation {
 		display: flex;
 	}
@@ -1040,7 +1027,7 @@ p {
 				}
 				
 				// Reduce spacing for mobile
-				margin-bottom: 0.75rem;
+				margin-bottom: 1rem;
 				
 				&.post-long {
 					padding: variables.$space-sm;

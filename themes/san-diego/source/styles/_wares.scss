@@ -154,6 +154,14 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // Add subtle shadow
         display: flex;
         justify-content: center;
+        align-items: center;
+        // Add padding around the icon for more breathing room (like notebooks)
+        padding: 16px;
+
+        @media (max-width: variables.$mobile-breakpoint) {
+                height: 200px; // Taller on mobile to match notebook visual presence
+                padding: 20px;
+        }
 
         @media (prefers-color-scheme: dark) {
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -162,6 +170,7 @@
         img {
                 width: auto;
                 height: 100%;
+                max-height: 100%; // Respect the padding
                 object-fit: contain; // Keep rectangular shape
                 display: block;
         }
@@ -218,8 +227,9 @@
         margin-left: auto;
         margin-right: auto;
 
+        // Match notebook byline sizing on mobile
         @media (max-width: variables.$mobile-breakpoint) {
-                font-size: var(--font-size-base);
+                font-size: var(--font-size-sm);
         }
 
         @media (prefers-color-scheme: dark) {
