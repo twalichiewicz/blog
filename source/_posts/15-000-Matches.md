@@ -6,4 +6,4 @@ tags:
 short: true
 ---
 
-Shout out to the 15.47k people who played [Typing Tennis](#post-Typing-Tennis) in the first 24 hours (!).
+Shout out to the thousands of people who played [Typing Tennis](#post-Typing-Tennis) in the first 24 hours (!).
