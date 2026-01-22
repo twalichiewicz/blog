@@ -203,6 +203,21 @@
 				}
 			}
 		}
+
+		// Specific override to ensure long post images stretch on mobile
+		// This must override the fixed height set for #postsContent .preview-cover-image
+		&.post-long .preview-cover-image {
+			#postsContent & {
+				height: auto !important;
+				max-height: none !important;
+				align-self: stretch;
+
+				img {
+					height: 100% !important;
+					max-height: none !important;
+				}
+			}
+		}
 		
 		.preview-content {
 			padding: 12px;
