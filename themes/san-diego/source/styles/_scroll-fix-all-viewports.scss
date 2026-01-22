@@ -88,30 +88,21 @@
 @media (max-width: variables.$mobile-breakpoint) {
   .blog {
     // Mobile uses body scroll, not container scroll
-    height: auto !important;
-    min-height: 100dvh !important;
-    overflow: visible !important;
+    min-height: 100dvh;
     
     .blog-header {
       // Fix excessive height on mobile
-      height: auto !important;
-      min-height: auto !important;
+      height: auto;
+      min-height: auto;
       // Remove any margins that might be causing extra space
-      margin-bottom: 0 !important;
+      margin-bottom: 0;
     }
     
     .blog-content {
-      overflow: visible !important;
-      height: auto !important;
-      
       .content-inner-wrapper {
-        overflow: visible !important;
-        height: auto !important;
         // Border radius handled by JavaScript
         
         .content-wrapper {
-          overflow: visible !important;
-          height: auto !important;
         }
       }
     }

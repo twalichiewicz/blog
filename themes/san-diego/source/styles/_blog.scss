@@ -17,7 +17,6 @@
 .blog {
 	width: 100%;
 	box-sizing: border-box;
-	height: auto;
 	overflow-x: hidden;
 	position: relative;
 
@@ -71,12 +70,6 @@
 			height: calc(100dvh - 12px);
 			overflow-y: auto;
 			-webkit-overflow-scrolling: touch;
-		}
-		
-		// Mobile: no fixed height, no scroll container - just normal flow
-		@media (max-width: variables.$mobile-breakpoint) {
-			height: auto;
-			overflow: visible;
 		}
 
 
