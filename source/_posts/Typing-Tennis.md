@@ -7,7 +7,7 @@ short: true
 slug: Typing-Tennis
 ---
 
-<div id="tt-embed-root" style="perspective: 1000px; margin: 3rem 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<div id="tt-embed-root" style="perspective: 1000px; margin: 12px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
     <div class="tt-card" style="background: #151515; border-radius: 12px; padding: 20px; display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: center; border: 1px solid #333; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); transform-style: preserve-3d; transition: transform 0.1s ease-out; position: relative; overflow: hidden;">
         
         <!-- Interactive Lighting Overlay -->
