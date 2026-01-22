@@ -124,19 +124,21 @@
         position: relative;
         border-radius: 12px;
         overflow: hidden;
-        width: 180px;
+        width: auto; // Allow width to be determined by image
         height: 180px;
         background: transparent;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // Add subtle shadow
+        display: flex;
+        justify-content: center;
 
         @media (prefers-color-scheme: dark) {
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         img {
-                width: 100%;
+                width: auto;
                 height: 100%;
-                object-fit: cover;
+                object-fit: contain; // Keep rectangular shape
                 transition: transform 300ms ease;
                 display: block;
         }
