@@ -107,17 +107,20 @@ $layout-levels: (
       height: 100%;
       
       .content-wrapper {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+        overflow: hidden;
         height: 100%;
         min-height: 0;
         flex: 1;
         background-image: none;
         background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
+        display: flex;
+        flex-direction: column;
       }
       
       .content-inner-wrapper {
-        overflow: visible;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        height: 100%;
         display: flex;
         flex-direction: column;
         flex: 1;
@@ -194,10 +197,8 @@ $layout-levels: (
   
   @media (max-width: variables.$mobile-breakpoint) {
     height: auto;
-    min-height: 100%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    min-height: auto;
+    display: block;
   }
   
   // Individual items maintain max-width
