@@ -48,20 +48,24 @@
 	}
 
 	// List view layout for long-form posts: thumbnail on the left
-	&.post-long {
+	// High specificity to override .blog .blog-list .post-list-item.post-long from _blog.scss
+	&.post-long,
+	.blog .blog-list &.post-long {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 	}
 
-	&.post-long .preview-cover-image {
+	&.post-long .preview-cover-image,
+	.blog .blog-list &.post-long .preview-cover-image {
 		width: 140px;
 		height: 96px;
 		flex: 0 0 140px;
 		align-self: center;
 	}
 
-	&.post-long .preview-content {
+	&.post-long .preview-content,
+	.blog .blog-list &.post-long .preview-content {
 		flex: 1 1 auto;
 		min-width: 0;
 	}
@@ -172,7 +176,8 @@
 	@media (max-width: variables.$mobile-breakpoint) {
 		margin-bottom: 16px;
 
-		&.post-long .preview-cover-image {
+		&.post-long .preview-cover-image,
+		.blog .blog-list &.post-long .preview-cover-image {
 			width: 120px;
 			height: 84px;
 			flex: 0 0 120px;
