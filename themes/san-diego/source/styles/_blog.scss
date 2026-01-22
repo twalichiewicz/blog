@@ -85,7 +85,6 @@
 		
 		@media (max-width: variables.$mobile-breakpoint) {
 			background-color: transparent !important;
-			padding-top: 120px;
 			margin-top: 0;
 			border-radius: 0;
 		}
@@ -98,6 +97,18 @@
 		}
 
 		// Dark mode styles moved to _theme-modes.scss
+	}
+	
+	// Mobile-specific content-inner-wrapper styles
+	@media (max-width: variables.$mobile-breakpoint) {
+		.blog-content .content-inner-wrapper {
+			border-left: none;
+			border-right: none;
+			border-bottom: none;
+			margin-bottom: 0;
+			padding-top: 120px;
+			// Removed border-radius: 0 to allow dynamic border-radius from JS
+		}
 	}
 	
 	// Base styles for blog posts	.blog-posts {
