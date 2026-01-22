@@ -107,7 +107,7 @@
         }
 
         &:hover {
-                transform: translateY(-8px) scale(1.02); // Match portfolio hover effect
+                transform: translateY(-2px); // Subtle lift
 
                 .wares-card__overlay {
                         opacity: 1;
