@@ -13,7 +13,7 @@ slug: Typing-Tennis
     </div>
     <div style="display: flex; flex-direction: column; gap: 8px;">
         <h3 style="margin: 0; color: #fa5c5c; font-size: 20px; font-weight: 700; line-height: 1.2;">Typing Tennis</h3>
-        <p style="margin: 0; color: #e0e0e0; font-size: 14px; line-height: 1.4;">This is a quick game I threw together over the weekend. Enjoy!</p>
+        <p style="margin: 0; color: #e0e0e0; font-size: 14px; line-height: 1.4;">A retro-style typing game where you play tennis with words.</p>
         <div style="margin-top: 8px;">
             <a href="https://typingtennis.com" target="_blank" style="display: inline-block; background-color: #fa5c5c; color: white; padding: 10px 24px; border-radius: 3px; text-decoration: none; font-weight: 700; font-size: 15px; text-shadow: 0 1px 2px rgba(0,0,0,0.2); box-shadow: 0 4px 0 #d14040; transition: transform 0.1s, box-shadow 0.1s; transform: translateY(0);">Play Game</a>
         </div>
