@@ -1007,8 +1007,8 @@ body.dark-mode-forced .mobile-tabs-backing {
 		visibility: visible;
 	}
 
-	// Hide on desktop/tablet
-	@media screen and (min-width: (variables.$mobile-breakpoint + 1px)) {
+	// Hide on desktop (tabs aren't visible on desktop)
+	@media screen and (min-width: 1024px) {
 		display: none;
 	}
 
@@ -1093,8 +1093,8 @@ body.dark-mode-forced .tabs-search-trigger {
 		transform: scaleX(1) translateX(0);
 	}
 
-	// Hide on desktop/tablet
-	@media screen and (min-width: (variables.$mobile-breakpoint + 1px)) {
+	// Hide on desktop (tabs aren't visible on desktop)
+	@media screen and (min-width: 1024px) {
 		display: none;
 	}
 

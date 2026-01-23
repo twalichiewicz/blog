@@ -742,8 +742,8 @@ export default class MobileTabs {
 		this.suppressAnimations();
 		const newDeviceType = this.getDeviceType();
 
-		// Close search overlay when resizing away from mobile
-		if (newDeviceType !== 'mobile' && this.searchOverlayOpen) {
+		// Close search overlay when resizing to desktop (where tabs aren't visible)
+		if (newDeviceType === 'desktop' && this.searchOverlayOpen) {
 			this.closeSearchOverlay();
 		}
 
@@ -1345,8 +1345,17 @@ export default class MobileTabs {
 	 * Set up the tabs-integrated search functionality
 	 */
 	setupSearchIntegration() {
-		// Only set up on mobile
+		console.log('[MobileTabs] Setting up search integration...', {
+			searchTrigger: !!this.searchTrigger,
+			searchOverlay: !!this.searchOverlay,
+			tabsSearchInput: !!this.tabsSearchInput,
+			inlineSearchContainer: !!this.inlineSearchContainer,
+			deviceType: this.currentDeviceType
+		});
+
+		// Only set up if required elements exist
 		if (!this.searchTrigger || !this.searchOverlay || !this.tabsSearchInput) {
+			console.log('[MobileTabs] Search integration skipped - missing elements');
 			return;
 		}
 
@@ -1413,17 +1422,28 @@ export default class MobileTabs {
 		this.searchVisibilityObserver = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
-					// Only show trigger when on Words tab
+					// Only show trigger when on Words tab and on mobile/tablet (where tabs are visible)
 					const activeTab = this.tabContainer?.dataset?.activeTab || 'blog';
 					const isWordsTab = activeTab === 'blog';
-					const isMobile = this.currentDeviceType === 'mobile';
+					const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
 
-					if (!entry.isIntersecting && isWordsTab && isMobile && !this.searchOverlayOpen) {
+					console.log('[MobileTabs] Search visibility changed:', {
+						isIntersecting: entry.isIntersecting,
+						activeTab,
+						isWordsTab,
+						deviceType: this.currentDeviceType,
+						isTabsVisible,
+						searchOverlayOpen: this.searchOverlayOpen
+					});
+
+					if (!entry.isIntersecting && isWordsTab && isTabsVisible && !this.searchOverlayOpen) {
 						// Inline search is off-screen - show trigger
 						this.searchTrigger?.classList.add('is-visible');
+						console.log('[MobileTabs] Search trigger shown');
 					} else {
 						// Inline search is visible or not on Words tab - hide trigger
 						this.searchTrigger?.classList.remove('is-visible');
+						console.log('[MobileTabs] Search trigger hidden');
 					}
 				});
 			},
@@ -1435,7 +1455,7 @@ export default class MobileTabs {
 		);
 
 		this.searchVisibilityObserver.observe(this.inlineSearchContainer);
-		console.log('[MobileTabs] Search visibility observer set up');
+		console.log('[MobileTabs] Search visibility observer set up for:', this.inlineSearchContainer);
 	}
 
 	/**
@@ -1557,9 +1577,9 @@ export default class MobileTabs {
 
 		const activeTab = this.tabContainer?.dataset?.activeTab || 'blog';
 		const isWordsTab = activeTab === 'blog';
-		const isMobile = this.currentDeviceType === 'mobile';
+		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
 
-		if (!isWordsTab || !isMobile || this.searchOverlayOpen) {
+		if (!isWordsTab || !isTabsVisible || this.searchOverlayOpen) {
 			this.searchTrigger.classList.remove('is-visible');
 			return;
 		}
