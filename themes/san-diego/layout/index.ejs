@@ -548,37 +548,38 @@
         <div class="content-inner-wrapper">
             <div class="tabs-wrapper">
                 <div class="mobile-tabs" role="tablist" aria-label="Content Sections">
-                    <button class="tab-button active" data-type="blog" data-pane="postsContent" role="tab" aria-selected="true" aria-controls="postsContent" id="tab-blog">Words</button>
-                    <button class="tab-button" data-type="portfolio" data-pane="projectsContent" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Works</button>
-                    <button class="tab-button" data-type="wares" data-pane="waresContent" role="tab" aria-selected="false" aria-controls="waresContent" id="tab-wares">Wares</button>
-                    <!-- Tabs-integrated search trigger (shown when inline search scrolls off-screen) -->
+                    <!-- Search reveal layer (hidden behind slider, revealed when slider moves) -->
+                    <div class="tabs-search-reveal" aria-hidden="true">
+                        <div class="tabs-search-input-wrapper">
+                            <span class="tabs-search-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.3-4.3"></path>
+                                </svg>
+                            </span>
+                            <input type="search" class="tabs-search-input" placeholder="Search posts..." aria-label="Search posts">
+                            <button class="tabs-search-clear" aria-label="Clear search" style="display: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <button class="tabs-search-posts-only" data-filter="posts">Posts only</button>
+                    </div>
+                    <!-- Tab buttons (fade out when search is revealed) -->
+                    <div class="tabs-buttons-layer">
+                        <button class="tab-button active" data-type="blog" data-pane="postsContent" role="tab" aria-selected="true" aria-controls="postsContent" id="tab-blog">Words</button>
+                        <button class="tab-button" data-type="portfolio" data-pane="projectsContent" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Works</button>
+                        <button class="tab-button" data-type="wares" data-pane="waresContent" role="tab" aria-selected="false" aria-controls="waresContent" id="tab-wares">Wares</button>
+                    </div>
+                    <!-- Search trigger (toggles between 🔍 and ✕) -->
                     <button class="tabs-search-trigger" aria-label="Search posts" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="icon-search" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
                             <path d="m21 21-4.3-4.3"></path>
                         </svg>
-                    </button>
-                </div>
-                <!-- Tabs search overlay (morphs from tabs when search is activated) -->
-                <div class="tabs-search-overlay" aria-hidden="true">
-                    <div class="tabs-search-input-wrapper">
-                        <span class="tabs-search-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </svg>
-                        </span>
-                        <input type="search" class="tabs-search-input" placeholder="Search posts..." aria-label="Search posts">
-                        <button class="tabs-search-clear" aria-label="Clear search" style="display: none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                        </button>
-                    </div>
-                    <button class="tabs-search-posts-only" data-filter="posts">Posts only</button>
-                    <button class="tabs-search-close" aria-label="Close search">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
                         </svg>
