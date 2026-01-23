@@ -27,7 +27,13 @@ export default class MobileTabs {
 		this.boundListeners = {
 			handleTabClick: null,
 			handleResize: null,
-			handleOrientationChange: null
+			handleOrientationChange: null,
+			handleSearchTriggerClick: null,
+			handleSearchCloseClick: null,
+			handleSearchInputSync: null,
+			handleSearchClear: null,
+			handleSearchKeydown: null,
+			handleOriginalSearchInput: null
 		};
 		this.tabClickListeners = new Map(); // Store individual tab click listeners
 
@@ -43,6 +49,10 @@ export default class MobileTabs {
 		this.animationSuppressedUntil = 0;
 		this.searchBarVisibilityTimeout = null;
 		this.pendingLayoutCleanup = null;
+
+		// Search integration state
+		this.searchOverlayOpen = false;
+		this.searchVisibilityObserver = null;
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -65,6 +75,14 @@ export default class MobileTabs {
 
 		// Validate active state to ensure UI consistency
 		this.validateActiveState();
+
+		// Reset wares carousel scroll on initial load
+		if (this.waresContent) {
+			this.resetWaresCarouselScroll(this.waresContent);
+		}
+
+		// Initialize search integration (mobile only)
+		this.setupSearchIntegration();
 	}
 
 	/**
@@ -73,7 +91,7 @@ export default class MobileTabs {
 	cacheElements() {
 		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 		console.log('[MobileTabs] Caching DOM elements (Safari:', isSafari + ')');
-		
+
 		// Clear existing references first (Safari fix)
 		this.tabsWrapper = null;
 		this.tabContainer = null;
@@ -82,7 +100,16 @@ export default class MobileTabs {
 		this.projectsContent = null;
 		this.waresContent = null;
 		this.searchBar = null;
-		
+
+		// Clear search integration elements
+		this.searchTrigger = null;
+		this.searchOverlay = null;
+		this.tabsSearchInput = null;
+		this.tabsSearchClear = null;
+		this.tabsSearchClose = null;
+		this.originalSearchInput = null;
+		this.inlineSearchContainer = null;
+
 		// Re-query all elements
 		this.tabsWrapper = document.querySelector(this.config.tabsWrapperSelector);
 		this.tabContainer = document.querySelector(this.config.tabContainerSelector);
@@ -97,13 +124,24 @@ export default class MobileTabs {
 		this.waresContent = document.getElementById(this.config.waresContentId);
 		this.searchBar = document.querySelector(this.config.searchBarSelector);
 
+		// Cache search integration elements
+		this.searchTrigger = this.tabContainer.querySelector('.tabs-search-trigger');
+		this.searchOverlay = this.tabsWrapper?.querySelector('.tabs-search-overlay');
+		this.tabsSearchInput = this.searchOverlay?.querySelector('.tabs-search-input');
+		this.tabsSearchClear = this.searchOverlay?.querySelector('.tabs-search-clear');
+		this.tabsSearchClose = this.searchOverlay?.querySelector('.tabs-search-close');
+		this.originalSearchInput = document.getElementById('postSearch');
+		this.inlineSearchContainer = this.postsContent?.querySelector('.search-container');
+
 		this.ensurePaneClasses();
-		
+
 		console.log('[MobileTabs] Cached elements:', {
 			tabButtons: this.tabButtons.length,
 			postsContent: !!this.postsContent,
 			projectsContent: !!this.projectsContent,
 			waresContent: !!this.waresContent,
+			searchTrigger: !!this.searchTrigger,
+			searchOverlay: !!this.searchOverlay,
 			isSafari: isSafari
 		});
 	}
@@ -167,14 +205,17 @@ export default class MobileTabs {
 			this.pendingLayoutCleanup = null;
 		}
 		this.removeEventListeners();
-		
+
+		// Clean up search integration
+		this.cleanupSearchIntegration();
+
 		// Remove the slider element to ensure clean state
 		const slider = this.tabContainer?.querySelector('.mobile-tabs-slider');
 		if (slider) {
 			slider.remove();
 		}
 		this.tabContainer?.classList.remove('has-slider-element');
-		
+
 		// Clear all timeouts
 		if (this.sliderUpdateTimeout) {
 			clearTimeout(this.sliderUpdateTimeout);
@@ -200,7 +241,7 @@ export default class MobileTabs {
 			this.scrollResetTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
 			this.scrollResetTimeouts.clear();
 		}
-		
+
 		// Clear cached elements
 		this.tabsWrapper = null;
 		this.tabContainer = null;
@@ -209,7 +250,16 @@ export default class MobileTabs {
 		this.projectsContent = null;
 		this.waresContent = null;
 		this.searchBar = null;
-		
+
+		// Clear search integration elements
+		this.searchTrigger = null;
+		this.searchOverlay = null;
+		this.tabsSearchInput = null;
+		this.tabsSearchClear = null;
+		this.tabsSearchClose = null;
+		this.originalSearchInput = null;
+		this.inlineSearchContainer = null;
+
 		// Clear state
 		this.userSelectedTab = null;
 		this.currentDeviceType = null;
@@ -223,6 +273,7 @@ export default class MobileTabs {
 			this.searchBarVisibilityTimeout = null;
 		}
 		this.pendingLayoutCleanup = null;
+		this.searchOverlayOpen = false;
 	}
 
 	/**
@@ -546,6 +597,11 @@ export default class MobileTabs {
 
 			this.scheduleScrollReset('blog', targetPane, shouldAnimate, totalDuration);
 			this.markInitialRenderComplete(type, totalDuration);
+
+			// Update search trigger visibility after transition
+			setTimeout(() => {
+				this.updateSearchTriggerVisibility();
+			}, shouldAnimate ? totalDuration + 50 : 50);
 		} else if (type === 'portfolio' && targetPane) {
 		const { totalDuration, fadeOutDuration } = this.applyTabFade(targetPane, currentPane && currentPane !== targetPane ? currentPane : this.postsContent, shouldAnimate);
 
@@ -557,6 +613,9 @@ export default class MobileTabs {
 
 			this.scheduleScrollReset('portfolio', targetPane, shouldAnimate, totalDuration);
 			this.markInitialRenderComplete(type, totalDuration);
+
+			// Hide search trigger on non-Words tabs
+			this.searchTrigger?.classList.remove('is-visible');
 
 			// Dispatch portfolio-loaded event to trigger carousel initialization
 			setTimeout(() => {
@@ -572,6 +631,9 @@ export default class MobileTabs {
 
 		this.scheduleSearchBarVisibility(false, shouldAnimate ? fadeOutDuration : 0);
 			this.scheduleScrollReset('wares', targetPane, shouldAnimate, totalDuration);
+
+			// Hide search trigger on non-Words tabs
+			this.searchTrigger?.classList.remove('is-visible');
 
 			// Always reset wares carousel horizontal scroll to first item
 			setTimeout(() => {
@@ -590,6 +652,11 @@ export default class MobileTabs {
 	 * @param {boolean} isUserAction - Whether this was triggered by user action
 	 */
 	switchTab(type, isUserAction = false) {
+		// Close search overlay when switching tabs
+		if (this.searchOverlayOpen) {
+			this.closeSearchOverlay();
+		}
+
 		// If we're already on the requested tab, do nothing to avoid replaying animations
 		const activeTab =
 			this.tabContainer?.dataset?.activeTab ||
@@ -674,6 +741,12 @@ export default class MobileTabs {
 	handleResize() {
 		this.suppressAnimations();
 		const newDeviceType = this.getDeviceType();
+
+		// Close search overlay when resizing away from mobile
+		if (newDeviceType !== 'mobile' && this.searchOverlayOpen) {
+			this.closeSearchOverlay();
+		}
+
 		if (newDeviceType !== this.currentDeviceType) {
 			this.currentDeviceType = newDeviceType;
 			this.handleDeviceChange(true);
@@ -895,6 +968,12 @@ export default class MobileTabs {
 		// Immediate switch without animation (initial render or missing counterpart)
 		if (!animate || !paneToHide) {
 			showElement.style.display = 'block';
+
+			// Reset wares carousel scroll BEFORE making visible (after display:block so scrollIntoView works)
+			if (showElement === this.waresContent) {
+				this.resetWaresCarouselScroll(showElement);
+			}
+
 			showElement.classList.add('is-visible');
 			showElement.setAttribute('aria-hidden', 'false');
 
@@ -912,6 +991,11 @@ export default class MobileTabs {
 
 		// Prepare panes for sequential fade
 		showElement.style.display = 'block';
+
+		// Reset wares carousel scroll BEFORE making visible (after display:block so scrollIntoView works)
+		if (showElement === this.waresContent) {
+			this.resetWaresCarouselScroll(showElement);
+		}
 		showElement.classList.remove('is-visible');
 		showElement.setAttribute('aria-hidden', 'true');
 
@@ -1133,10 +1217,7 @@ export default class MobileTabs {
 
 			// Also reset horizontal scroll for wares carousel
 			if (tabType === 'wares') {
-				const waresGrid = contentElement.querySelector('.wares-grid');
-				if (waresGrid) {
-					waresGrid.scrollLeft = 0;
-				}
+				this.resetWaresCarouselScroll(contentElement);
 			}
 
 			this.tabScrollStates.set(tabType, { initialScrollResetDone: true });
@@ -1145,7 +1226,6 @@ export default class MobileTabs {
 
 	/**
 	 * Reset the wares carousel horizontal scroll to the first item
-	 * This is called every time the wares tab is shown to ensure consistent positioning
 	 * @param {HTMLElement} waresContent - The wares content container
 	 */
 	resetWaresCarouselScroll(waresContent) {
@@ -1154,11 +1234,31 @@ export default class MobileTabs {
 		const waresGrid = waresContent.querySelector('.wares-grid');
 		if (!waresGrid) return;
 
-		// Reset horizontal scroll to show first item
-		// The carousel uses ::before spacer, so scroll to 0 centers the first item
-		requestAnimationFrame(() => {
+		// Find the first actual card (not the ::before pseudo-element spacer)
+		const firstCard = waresGrid.querySelector('.wares-card');
+
+		if (firstCard) {
+			// Temporarily disable scroll-snap to prevent fighting with our scroll position
+			const originalSnapType = waresGrid.style.scrollSnapType;
+			waresGrid.style.scrollSnapType = 'none';
+
+			// Scroll the first card into view (centered, instant)
+			firstCard.scrollIntoView({
+				behavior: 'instant',
+				block: 'nearest',
+				inline: 'center'
+			});
+
+			// Re-enable scroll-snap after a microtask to ensure scroll position is set
+			requestAnimationFrame(() => {
+				waresGrid.style.scrollSnapType = originalSnapType || '';
+				waresGrid.classList.add('scroll-ready');
+			});
+		} else {
+			// Fallback if no cards found
 			waresGrid.scrollLeft = 0;
-		});
+			waresGrid.classList.add('scroll-ready');
+		}
 	}
 
 	markInitialRenderComplete(type, delay = 0) {
@@ -1235,5 +1335,280 @@ export default class MobileTabs {
 		}
 
 		return true;
+	}
+
+	// ============================================
+	// Search Integration Methods
+	// ============================================
+
+	/**
+	 * Set up the tabs-integrated search functionality
+	 */
+	setupSearchIntegration() {
+		// Only set up on mobile
+		if (!this.searchTrigger || !this.searchOverlay || !this.tabsSearchInput) {
+			return;
+		}
+
+		// Mark body that tabs search is available (used to hide floating search)
+		document.body.classList.add('tabs-search-available');
+
+		// Set up IntersectionObserver to track inline search visibility
+		this.setupSearchVisibilityObserver();
+
+		// Set up event listeners
+		this.boundListeners.handleSearchTriggerClick = this.openSearchOverlay.bind(this);
+		this.searchTrigger.addEventListener('click', this.boundListeners.handleSearchTriggerClick);
+
+		this.boundListeners.handleSearchCloseClick = this.closeSearchOverlay.bind(this);
+		this.tabsSearchClose?.addEventListener('click', this.boundListeners.handleSearchCloseClick);
+
+		// Sync tabs search input with original search input
+		this.boundListeners.handleSearchInputSync = this.syncSearchInputs.bind(this);
+		this.tabsSearchInput.addEventListener('input', this.boundListeners.handleSearchInputSync);
+
+		// Sync original search input to tabs search input (bidirectional)
+		if (this.originalSearchInput) {
+			this.boundListeners.handleOriginalSearchInput = () => {
+				if (this.tabsSearchInput && this.tabsSearchInput.value !== this.originalSearchInput.value) {
+					this.tabsSearchInput.value = this.originalSearchInput.value;
+					this.updateSearchClearVisibility();
+				}
+			};
+			this.originalSearchInput.addEventListener('input', this.boundListeners.handleOriginalSearchInput);
+		}
+
+		// Clear button functionality
+		this.boundListeners.handleSearchClear = this.clearSearchInput.bind(this);
+		this.tabsSearchClear?.addEventListener('click', this.boundListeners.handleSearchClear);
+
+		// Keyboard handling (Escape to close)
+		this.boundListeners.handleSearchKeydown = (e) => {
+			if (e.key === 'Escape' && this.searchOverlayOpen) {
+				e.preventDefault();
+				this.closeSearchOverlay();
+			}
+		};
+		document.addEventListener('keydown', this.boundListeners.handleSearchKeydown);
+
+		console.log('[MobileTabs] Search integration initialized');
+	}
+
+	/**
+	 * Set up IntersectionObserver to track when inline search scrolls off-screen
+	 */
+	setupSearchVisibilityObserver() {
+		// Find the inline search container within posts content
+		if (!this.inlineSearchContainer) {
+			this.inlineSearchContainer = this.postsContent?.querySelector('.search-container');
+		}
+
+		// If no inline search container, we can't observe it
+		if (!this.inlineSearchContainer) {
+			console.log('[MobileTabs] No inline search container found for observation');
+			return;
+		}
+
+		// Create intersection observer
+		this.searchVisibilityObserver = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					// Only show trigger when on Words tab
+					const activeTab = this.tabContainer?.dataset?.activeTab || 'blog';
+					const isWordsTab = activeTab === 'blog';
+					const isMobile = this.currentDeviceType === 'mobile';
+
+					if (!entry.isIntersecting && isWordsTab && isMobile && !this.searchOverlayOpen) {
+						// Inline search is off-screen - show trigger
+						this.searchTrigger?.classList.add('is-visible');
+					} else {
+						// Inline search is visible or not on Words tab - hide trigger
+						this.searchTrigger?.classList.remove('is-visible');
+					}
+				});
+			},
+			{
+				root: null, // viewport
+				rootMargin: '-60px 0px 0px 0px', // Account for sticky tabs
+				threshold: 0
+			}
+		);
+
+		this.searchVisibilityObserver.observe(this.inlineSearchContainer);
+		console.log('[MobileTabs] Search visibility observer set up');
+	}
+
+	/**
+	 * Open the search overlay
+	 */
+	openSearchOverlay() {
+		if (!this.searchOverlay || !this.tabsSearchInput || this.searchOverlayOpen) {
+			return;
+		}
+
+		this.searchOverlayOpen = true;
+
+		// Add active classes
+		this.searchOverlay.classList.add('is-active');
+		this.searchOverlay.setAttribute('aria-hidden', 'false');
+		this.tabContainer?.classList.add('search-overlay-active');
+		this.searchTrigger?.setAttribute('aria-expanded', 'true');
+
+		// Sync value from original search input
+		if (this.originalSearchInput && this.tabsSearchInput) {
+			this.tabsSearchInput.value = this.originalSearchInput.value;
+		}
+
+		// Focus the input after animation
+		setTimeout(() => {
+			this.tabsSearchInput?.focus();
+			this.updateSearchClearVisibility();
+		}, 300);
+
+		// Play click sound
+		if (window.soundEffects && window.soundEffects.isEnabled()) {
+			window.soundEffects.play('click');
+		}
+
+		console.log('[MobileTabs] Search overlay opened');
+	}
+
+	/**
+	 * Close the search overlay
+	 */
+	closeSearchOverlay() {
+		if (!this.searchOverlay || !this.searchOverlayOpen) {
+			return;
+		}
+
+		this.searchOverlayOpen = false;
+
+		// Remove active classes
+		this.searchOverlay.classList.remove('is-active');
+		this.searchOverlay.setAttribute('aria-hidden', 'true');
+		this.tabContainer?.classList.remove('search-overlay-active');
+		this.searchTrigger?.setAttribute('aria-expanded', 'false');
+
+		// Blur the input
+		this.tabsSearchInput?.blur();
+
+		// Check if trigger should be visible again
+		this.updateSearchTriggerVisibility();
+
+		// Play click sound
+		if (window.soundEffects && window.soundEffects.isEnabled()) {
+			window.soundEffects.play('click');
+		}
+
+		console.log('[MobileTabs] Search overlay closed');
+	}
+
+	/**
+	 * Sync the tabs search input value to the original search input
+	 */
+	syncSearchInputs() {
+		if (!this.tabsSearchInput || !this.originalSearchInput) {
+			return;
+		}
+
+		// Update original search input value
+		this.originalSearchInput.value = this.tabsSearchInput.value;
+
+		// Trigger input event on original to activate filtering
+		const inputEvent = new Event('input', { bubbles: true });
+		this.originalSearchInput.dispatchEvent(inputEvent);
+
+		// Update clear button visibility
+		this.updateSearchClearVisibility();
+	}
+
+	/**
+	 * Clear the search input
+	 */
+	clearSearchInput() {
+		if (!this.tabsSearchInput) {
+			return;
+		}
+
+		this.tabsSearchInput.value = '';
+		this.syncSearchInputs();
+		this.tabsSearchInput.focus();
+	}
+
+	/**
+	 * Update the visibility of the search clear button
+	 */
+	updateSearchClearVisibility() {
+		if (!this.tabsSearchClear || !this.tabsSearchInput) {
+			return;
+		}
+
+		const hasValue = this.tabsSearchInput.value.length > 0;
+		this.tabsSearchClear.style.display = hasValue ? 'flex' : 'none';
+	}
+
+	/**
+	 * Update the visibility of the search trigger based on current state
+	 */
+	updateSearchTriggerVisibility() {
+		if (!this.searchTrigger || !this.inlineSearchContainer) {
+			return;
+		}
+
+		const activeTab = this.tabContainer?.dataset?.activeTab || 'blog';
+		const isWordsTab = activeTab === 'blog';
+		const isMobile = this.currentDeviceType === 'mobile';
+
+		if (!isWordsTab || !isMobile || this.searchOverlayOpen) {
+			this.searchTrigger.classList.remove('is-visible');
+			return;
+		}
+
+		// Check if inline search is currently visible
+		const rect = this.inlineSearchContainer.getBoundingClientRect();
+		const isVisible = rect.top > 60 && rect.bottom > 0;
+
+		if (isVisible) {
+			this.searchTrigger.classList.remove('is-visible');
+		} else {
+			this.searchTrigger.classList.add('is-visible');
+		}
+	}
+
+	/**
+	 * Clean up search integration resources
+	 */
+	cleanupSearchIntegration() {
+		// Remove event listeners
+		if (this.boundListeners.handleSearchTriggerClick) {
+			this.searchTrigger?.removeEventListener('click', this.boundListeners.handleSearchTriggerClick);
+		}
+		if (this.boundListeners.handleSearchCloseClick) {
+			this.tabsSearchClose?.removeEventListener('click', this.boundListeners.handleSearchCloseClick);
+		}
+		if (this.boundListeners.handleSearchInputSync) {
+			this.tabsSearchInput?.removeEventListener('input', this.boundListeners.handleSearchInputSync);
+		}
+		if (this.boundListeners.handleOriginalSearchInput) {
+			this.originalSearchInput?.removeEventListener('input', this.boundListeners.handleOriginalSearchInput);
+		}
+		if (this.boundListeners.handleSearchClear) {
+			this.tabsSearchClear?.removeEventListener('click', this.boundListeners.handleSearchClear);
+		}
+		if (this.boundListeners.handleSearchKeydown) {
+			document.removeEventListener('keydown', this.boundListeners.handleSearchKeydown);
+		}
+
+		// Disconnect observer
+		if (this.searchVisibilityObserver) {
+			this.searchVisibilityObserver.disconnect();
+			this.searchVisibilityObserver = null;
+		}
+
+		// Remove body class
+		document.body.classList.remove('tabs-search-available');
+
+		// Reset state
+		this.searchOverlayOpen = false;
 	}
 }

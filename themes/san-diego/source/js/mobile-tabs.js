@@ -144,12 +144,64 @@ function initializeTabsInternal() {
 
 document.addEventListener('DOMContentLoaded', () => {
 	initializeMobileTabs();
+
+	// Initialize wares carousel scroll position - scroll first card into view
+	const waresGrid = document.querySelector('.wares-grid');
+	if (waresGrid) {
+		const firstCard = waresGrid.querySelector('.wares-card');
+		if (firstCard) {
+			// Disable scroll-snap temporarily
+			const originalSnapType = waresGrid.style.scrollSnapType;
+			waresGrid.style.scrollSnapType = 'none';
+
+			firstCard.scrollIntoView({
+				behavior: 'instant',
+				block: 'nearest',
+				inline: 'center'
+			});
+
+			// Re-enable scroll-snap
+			requestAnimationFrame(() => {
+				waresGrid.style.scrollSnapType = originalSnapType || '';
+				waresGrid.classList.add('scroll-ready');
+			});
+		} else {
+			waresGrid.scrollLeft = 0;
+			waresGrid.classList.add('scroll-ready');
+		}
+	}
 });
 
 window.addEventListener('pageshow', function (event) {
 	if (event.persisted) {
 		// Page is loaded from bfcache, re-initialize mobile tabs
 		initializeMobileTabs();
+
+		// Reset wares carousel scroll - scroll first card into view
+		const waresGrid = document.querySelector('.wares-grid');
+		if (waresGrid) {
+			const firstCard = waresGrid.querySelector('.wares-card');
+			if (firstCard) {
+				// Disable scroll-snap temporarily
+				const originalSnapType = waresGrid.style.scrollSnapType;
+				waresGrid.style.scrollSnapType = 'none';
+
+				firstCard.scrollIntoView({
+					behavior: 'instant',
+					block: 'nearest',
+					inline: 'center'
+				});
+
+				// Re-enable scroll-snap
+				requestAnimationFrame(() => {
+					waresGrid.style.scrollSnapType = originalSnapType || '';
+					waresGrid.classList.add('scroll-ready');
+				});
+			} else {
+				waresGrid.scrollLeft = 0;
+				waresGrid.classList.add('scroll-ready');
+			}
+		}
 	}
 });
 
