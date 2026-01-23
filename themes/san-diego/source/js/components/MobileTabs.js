@@ -33,7 +33,8 @@ export default class MobileTabs {
 			handleSearchInputSync: null,
 			handleSearchClear: null,
 			handleSearchKeydown: null,
-			handleOriginalSearchInput: null
+			handleOriginalSearchInput: null,
+			handleSearchPostsOnlyClick: null
 		};
 		this.tabClickListeners = new Map(); // Store individual tab click listeners
 
@@ -130,7 +131,9 @@ export default class MobileTabs {
 		this.tabsSearchInput = this.searchOverlay?.querySelector('.tabs-search-input');
 		this.tabsSearchClear = this.searchOverlay?.querySelector('.tabs-search-clear');
 		this.tabsSearchClose = this.searchOverlay?.querySelector('.tabs-search-close');
+		this.tabsSearchPostsOnly = this.searchOverlay?.querySelector('.tabs-search-posts-only');
 		this.originalSearchInput = document.getElementById('postSearch');
+		this.originalPostsOnlyButton = this.postsContent?.querySelector('.posts-only-button');
 		this.inlineSearchContainer = this.postsContent?.querySelector('.search-container');
 
 		this.ensurePaneClasses();
@@ -1409,6 +1412,12 @@ export default class MobileTabs {
 		};
 		document.addEventListener('keydown', this.boundListeners.handleSearchKeydown);
 
+		// Posts only button - sync with original
+		this.boundListeners.handleSearchPostsOnlyClick = () => {
+			this.togglePostsOnlyFilter();
+		};
+		this.tabsSearchPostsOnly?.addEventListener('click', this.boundListeners.handleSearchPostsOnlyClick);
+
 		console.log('[MobileTabs] Search integration initialized');
 	}
 
@@ -1493,6 +1502,9 @@ export default class MobileTabs {
 			this.tabsSearchInput.value = this.originalSearchInput.value;
 		}
 
+		// Sync posts only button state
+		this.syncPostsOnlyState();
+
 		// Focus the input after animation
 		setTimeout(() => {
 			this.tabsSearchInput?.focus();
@@ -1567,6 +1579,35 @@ export default class MobileTabs {
 		this.tabsSearchInput.value = '';
 		this.syncSearchInputs();
 		this.tabsSearchInput.focus();
+	}
+
+	/**
+	 * Toggle the posts only filter and sync with original button
+	 */
+	togglePostsOnlyFilter() {
+		if (!this.tabsSearchPostsOnly || !this.originalPostsOnlyButton) {
+			return;
+		}
+
+		// Trigger click on original button to activate/deactivate filter
+		this.originalPostsOnlyButton.click();
+
+		// Sync the active state after a brief delay to let original handler complete
+		setTimeout(() => {
+			this.syncPostsOnlyState();
+		}, 10);
+	}
+
+	/**
+	 * Sync the active state of the posts only button with the original
+	 */
+	syncPostsOnlyState() {
+		if (!this.tabsSearchPostsOnly || !this.originalPostsOnlyButton) {
+			return;
+		}
+
+		const isActive = this.originalPostsOnlyButton.classList.contains('active');
+		this.tabsSearchPostsOnly.classList.toggle('active', isActive);
 	}
 
 	/**
@@ -1669,6 +1710,9 @@ export default class MobileTabs {
 		}
 		if (this.boundListeners.handleSearchKeydown) {
 			document.removeEventListener('keydown', this.boundListeners.handleSearchKeydown);
+		}
+		if (this.boundListeners.handleSearchPostsOnlyClick) {
+			this.tabsSearchPostsOnly?.removeEventListener('click', this.boundListeners.handleSearchPostsOnlyClick);
 		}
 
 		// Disconnect observer

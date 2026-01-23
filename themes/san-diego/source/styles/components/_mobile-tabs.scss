@@ -1253,6 +1253,65 @@ body.dark-mode-forced .tabs-search-clear {
 	}
 }
 
+// Posts only button in search overlay
+.tabs-search-posts-only {
+	flex-shrink: 0;
+	padding: 6px 12px;
+	border: 1px solid variables.$border-color;
+	border-radius: 20px;
+	background: transparent;
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-medium);
+	color: variables.$text-color;
+	cursor: pointer;
+	white-space: nowrap;
+	transition: all 0.2s ease;
+	box-shadow: none;
+
+	&:hover {
+		border-color: rgba(variables.$black, 0.3);
+		background: rgba(variables.$black, 0.05);
+	}
+
+	&.active {
+		background: variables.$black;
+		color: variables.$white;
+		border-color: variables.$black;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+		border-color: rgba(variables.$border-color-dark, 0.5);
+
+		&:hover {
+			border-color: rgba(variables.$white, 0.3);
+			background: rgba(variables.$white, 0.05);
+		}
+
+		&.active {
+			background: variables.$white;
+			color: variables.$black;
+			border-color: variables.$white;
+		}
+	}
+}
+
+body.dark-mode-forced .tabs-search-posts-only {
+	color: variables.$text-color-dark;
+	border-color: rgba(variables.$border-color-dark, 0.5);
+
+	&:hover {
+		border-color: rgba(variables.$white, 0.3);
+		background: rgba(variables.$white, 0.05);
+	}
+
+	&.active {
+		background: variables.$white;
+		color: variables.$black;
+		border-color: variables.$white;
+	}
+}
+
 // Close button for search overlay
 .tabs-search-close {
 	width: 36px;
