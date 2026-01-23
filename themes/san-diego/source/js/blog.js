@@ -1438,6 +1438,24 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 		}
 
 		refreshSearchInteractionState(e.target.closest('.search-container'));
+
+		// Scroll to first result when there's a query and results (debounced)
+		if (query && visiblePosts.length > 0) {
+			// Clear any pending scroll
+			if (handleSearch.scrollTimeout) {
+				clearTimeout(handleSearch.scrollTimeout);
+			}
+			// Debounce scroll to avoid jumping on every keystroke
+			handleSearch.scrollTimeout = setTimeout(() => {
+				const firstResult = visiblePosts[0];
+				if (firstResult) {
+					firstResult.scrollIntoView({
+						behavior: 'smooth',
+						block: 'center'
+					});
+				}
+			}, 150);
+		}
 	}
 	
 	// Initialize posts only button
