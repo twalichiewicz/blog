@@ -258,11 +258,6 @@
 				background: rgba(variables.$black, 0.5);
 			}
 		}
-
-		// Hide on desktop
-		@media screen and (min-width: 1024px) {
-			display: none;
-		}
 	}
 
 	// Hide the pseudo-element when the JavaScript slider is active
@@ -1239,8 +1234,9 @@ body.dark-mode-forced .tabs-search-input-wrapper {
 .tabs-search-icon {
 	position: absolute;
 	left: 8px;
-	top: 50%;
-	transform: translateY(-50%);
+	top: 0;
+	bottom: 0;
+	margin: auto;
 	width: 13px;
 	height: 13px;
 	opacity: 0.55;
@@ -1368,7 +1364,7 @@ body.dark-mode-forced .tabs-search-clear {
 	flex-shrink: 0;
 	height: 100%; // Fill overlay height
 	padding: 0 12px;
-	border: 1px solid variables.$border-color;
+	border: 1px solid #e7e3dc;
 	border-radius: 26px;
 	background: transparent;
 	font-size: 11px;

@@ -747,11 +747,6 @@ export default class MobileTabs {
 		this.suppressAnimations();
 		const newDeviceType = this.getDeviceType();
 
-		// Close search overlay when resizing to desktop (where tabs aren't visible)
-		if (newDeviceType === 'desktop' && this.searchOverlayOpen) {
-			this.closeSearchOverlay();
-		}
-
 		if (newDeviceType !== this.currentDeviceType) {
 			this.currentDeviceType = newDeviceType;
 			this.handleDeviceChange(true);
@@ -1495,7 +1490,8 @@ export default class MobileTabs {
 
 		const activeTab = this.tabContainer?.dataset?.activeTab || 'blog';
 		const isWordsTab = activeTab === 'blog';
-		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
+		// Search is available on all device types where tabs are shown (mobile, tablet, and desktop)
+		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet' || this.currentDeviceType === 'desktop';
 
 		// Get the search container's position relative to the viewport
 		const rect = this.inlineSearchContainer.getBoundingClientRect();
@@ -1510,7 +1506,7 @@ export default class MobileTabs {
 			return;
 		}
 
-		// Inverse: if inline search is focused/has value and scrolls off-screen, open mobile tabs search
+		// Inverse: if inline search is focused/has value and scrolls off-screen, open tabs search
 		if (isWordsTab && isTabsVisible && isOffScreen && !this.searchOverlayOpen) {
 			const inlineHasFocus = document.activeElement === this.originalSearchInput;
 			const inlineHasValue = this.originalSearchInput?.value?.length > 0;
@@ -1549,8 +1545,8 @@ export default class MobileTabs {
 		const searchValue = this.tabsSearchInput?.value || '';
 		const hadFocus = document.activeElement === this.tabsSearchInput;
 
-		// Close the overlay (this will blur tabs input)
-		this.closeSearchOverlay();
+		// Close the overlay without clearing search (transfer preserves value)
+		this.closeSearchOverlay(false);
 
 		// The values should already be synced via input event listeners,
 		// but ensure the inline search has the correct value
@@ -1657,8 +1653,9 @@ export default class MobileTabs {
 	/**
 	 * Close the search overlay with reverse magic reveal animation
 	 * The slider expands left from the trigger ring back to its original position
+	 * @param {boolean} clearSearch - Whether to clear the search input (default: true for (x) button)
 	 */
-	closeSearchOverlay() {
+	closeSearchOverlay(clearSearch = true) {
 		if (!this.searchReveal || !this.searchOverlayOpen) {
 			return;
 		}
@@ -1672,6 +1669,20 @@ export default class MobileTabs {
 
 		// Switch trigger icon back to search mode
 		this.searchTrigger?.classList.remove('is-close-mode');
+
+		// Clear search input if requested (default for (x) button close)
+		if (clearSearch) {
+			if (this.tabsSearchInput) {
+				this.tabsSearchInput.value = '';
+			}
+			if (this.originalSearchInput) {
+				this.originalSearchInput.value = '';
+				// Trigger input event to reset filtering
+				const inputEvent = new Event('input', { bubbles: true });
+				this.originalSearchInput.dispatchEvent(inputEvent);
+			}
+			this.updateSearchClearVisibility();
+		}
 
 		// Blur the input
 		this.tabsSearchInput?.blur();
@@ -1830,7 +1841,8 @@ export default class MobileTabs {
 
 		const activeTab = this.tabContainer?.dataset?.activeTab || 'blog';
 		const isWordsTab = activeTab === 'blog';
-		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
+		// Search trigger is available on all device types where tabs are shown
+		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet' || this.currentDeviceType === 'desktop';
 
 		if (!isWordsTab || !isTabsVisible || this.searchOverlayOpen) {
 			this.hideSearchTrigger();
