@@ -1057,6 +1057,7 @@ body.dark-mode-forced .tabs-search-trigger {
 }
 
 // Search overlay (replaces tabs when search is active)
+// Lives inside .tabs-wrapper, overlays .mobile-tabs content
 .tabs-search-overlay {
 	position: absolute;
 	top: 0;
@@ -1067,7 +1068,7 @@ body.dark-mode-forced .tabs-search-trigger {
 	align-items: center;
 	gap: 8px;
 	padding: 4px;
-	background: variables.$card-bg;
+	background: transparent; // No background - uses .mobile-tabs background
 	border-radius: 30px;
 	opacity: 0;
 	visibility: hidden;
@@ -1078,12 +1079,8 @@ body.dark-mode-forced .tabs-search-trigger {
 		opacity 300ms cubic-bezier(0.4, 0, 0.2, 1),
 		visibility 300ms cubic-bezier(0.4, 0, 0.2, 1),
 		transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
-	box-shadow:
-		0 1px 3px rgb(0 0 0 / 10%),
-		0 1px 2px rgb(0 0 0 / 6%),
-		inset 0 2px 4px rgb(0 0 0 / 10%),
-		inset 0 -1px 2px rgb(255 255 255 / 10%);
-	border: 1px solid rgb(255 255 255 / 10%);
+	box-shadow: none;
+	border: none;
 
 	&.is-active {
 		opacity: 1;
@@ -1095,23 +1092,12 @@ body.dark-mode-forced .tabs-search-trigger {
 	@media screen and (min-width: 1024px) {
 		display: none;
 	}
-
-	// Dark mode
-	@media (prefers-color-scheme: dark) {
-		background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
-		border-color: variables.$border-color-dark;
-		box-shadow:
-			0 1px 2px rgb(0 0 0 / 30%),
-			0 -1px 0 rgb(255 255 255 / 10%) inset,
-			0 2px 0 rgb(0 0 0 / 20%) inset;
-	}
 }
 
+// No dark mode overrides needed since overlay is transparent
 body.dark-mode-forced .tabs-search-overlay {
-	background: linear-gradient(to bottom, color.adjust(variables.$card-bg-dark, $lightness: 8%), variables.$card-bg-dark);
-	border-color: variables.$border-color-dark;
-	box-shadow:
-		0 1px 2px rgb(0 0 0 / 30%),
+	background: transparent;
+	box-shadow: none;
 		0 -1px 0 rgb(255 255 255 / 10%) inset,
 		0 2px 0 rgb(0 0 0 / 20%) inset;
 }
@@ -1355,12 +1341,15 @@ body.dark-mode-forced .tabs-search-close {
 .mobile-tabs.search-overlay-active {
 	.tab-button {
 		opacity: 0;
-		transition: opacity 180ms ease;
+		visibility: hidden;
+		pointer-events: none;
+		transition: opacity 180ms ease, visibility 180ms ease;
 	}
 
 	.mobile-tabs-slider {
 		opacity: 0;
-		transition: opacity 180ms ease;
+		visibility: hidden;
+		transition: opacity 180ms ease, visibility 180ms ease;
 	}
 
 	// Hide the search trigger when overlay is active
