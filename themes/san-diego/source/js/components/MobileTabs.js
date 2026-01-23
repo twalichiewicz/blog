@@ -852,7 +852,10 @@ export default class MobileTabs {
 	applyMobileOverflowFixes() {
 		if (!this.tabsWrapper) return;
 
-		if (this.currentDeviceType !== 'mobile') {
+		// Apply sticky positioning for mobile and tablet (needed for search trigger to work)
+		const shouldBeSticky = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
+
+		if (!shouldBeSticky) {
 			this.clearMobileOverflowFixes();
 			return;
 		}
