@@ -1582,7 +1582,7 @@ export default class MobileTabs {
 	}
 
 	/**
-	 * Update the position of the search trigger to align with the slider
+	 * Update the position of the search trigger to overlay on the slider
 	 */
 	updateSearchTriggerPosition() {
 		if (!this.searchTrigger || !this.tabContainer) {
@@ -1595,10 +1595,11 @@ export default class MobileTabs {
 			return;
 		}
 
-		// Get the slider's current position and width from its computed transform
+		// Get the slider's current position and dimensions
 		const sliderStyle = window.getComputedStyle(slider);
 		const sliderTransform = sliderStyle.transform;
 		const sliderWidth = slider.offsetWidth;
+		const sliderHeight = slider.offsetHeight;
 
 		// Parse the translateX value from the transform matrix
 		let sliderX = 0;
@@ -1607,11 +1608,15 @@ export default class MobileTabs {
 			sliderX = matrix.m41; // translateX value
 		}
 
-		// Position the trigger to the right of the slider
-		// Add a small gap (4px) between slider and trigger
-		const triggerLeft = sliderX + sliderWidth + 4;
-		this.searchTrigger.style.left = `${triggerLeft}px`;
+		// Position the trigger on the right side of the slider, overlaid on it
+		// Inset by a few pixels from the right edge
+		const triggerSize = Math.min(sliderHeight - 4, 28); // Slightly smaller than slider height
+		const triggerRight = sliderX + sliderWidth - triggerSize - 4; // 4px inset from right edge
+
+		this.searchTrigger.style.left = `${triggerRight}px`;
 		this.searchTrigger.style.right = 'auto';
+		this.searchTrigger.style.width = `${triggerSize}px`;
+		this.searchTrigger.style.height = `${triggerSize}px`;
 	}
 
 	/**
