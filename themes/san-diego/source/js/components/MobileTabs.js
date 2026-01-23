@@ -1436,22 +1436,6 @@ export default class MobileTabs {
 			return;
 		}
 
-		// Find the scroll container
-		// On mobile, each tab pane (.mobile-tab-pane) scrolls independently with overflow-y: auto
-		// So we need to listen on postsContent itself, not a parent wrapper
-		const isMobile = this.currentDeviceType === 'mobile';
-		if (isMobile && this.postsContent) {
-			// On mobile, postsContent is the scroll container
-			this.scrollContainer = this.postsContent;
-		} else {
-			// On tablet/desktop, try parent containers
-			this.scrollContainer = this.postsContent?.closest('.content-wrapper')
-				|| this.postsContent?.closest('.blog-content')
-				|| document.querySelector('.blog')
-				|| window;
-		}
-		console.log('[MobileTabs] Using scroll container:', this.scrollContainer, 'isMobile:', isMobile);
-
 		// Create scroll handler with throttling
 		let ticking = false;
 		this.boundListeners.handleSearchScroll = () => {
@@ -1464,16 +1448,33 @@ export default class MobileTabs {
 			}
 		};
 
-		// Add scroll listener to the scroll container
-		const scrollTarget = this.scrollContainer === window ? window : this.scrollContainer;
-		scrollTarget.addEventListener('scroll', this.boundListeners.handleSearchScroll, { passive: true });
+		// Listen on multiple potential scroll containers to catch scroll events
+		// regardless of where they originate (postsContent, parent wrappers, or window)
+		const scrollTargets = new Set();
 
-		// Also listen on window in case that's where scroll happens
-		if (scrollTarget !== window) {
-			window.addEventListener('scroll', this.boundListeners.handleSearchScroll, { passive: true });
+		// Always listen on postsContent if it exists (scrolls on mobile, might scroll on tablet)
+		if (this.postsContent) {
+			scrollTargets.add(this.postsContent);
 		}
 
-		console.log('[MobileTabs] Scroll listener set up');
+		// Also check parent containers that might scroll
+		const contentWrapper = this.postsContent?.closest('.content-wrapper');
+		const blogContent = this.postsContent?.closest('.blog-content');
+		if (contentWrapper) scrollTargets.add(contentWrapper);
+		if (blogContent) scrollTargets.add(blogContent);
+
+		// Always listen on window as fallback
+		scrollTargets.add(window);
+
+		// Attach scroll listeners to all potential scroll containers
+		scrollTargets.forEach(target => {
+			target.addEventListener('scroll', this.boundListeners.handleSearchScroll, { passive: true });
+		});
+
+		// Store for cleanup
+		this.scrollTargets = scrollTargets;
+
+		console.log('[MobileTabs] Scroll listeners set up on', scrollTargets.size, 'targets');
 
 		// Position the trigger initially
 		requestAnimationFrame(() => {
@@ -1888,11 +1889,12 @@ export default class MobileTabs {
 			this.tabsSearchPostsOnly?.removeEventListener('click', this.boundListeners.handleSearchPostsOnlyClick);
 		}
 
-		// Remove scroll listener
-		if (this.boundListeners.handleSearchScroll) {
-			const scrollTarget = this.scrollContainer === window ? window : this.scrollContainer;
-			scrollTarget?.removeEventListener('scroll', this.boundListeners.handleSearchScroll);
-			window.removeEventListener('scroll', this.boundListeners.handleSearchScroll);
+		// Remove scroll listeners from all targets
+		if (this.boundListeners.handleSearchScroll && this.scrollTargets) {
+			this.scrollTargets.forEach(target => {
+				target?.removeEventListener('scroll', this.boundListeners.handleSearchScroll);
+			});
+			this.scrollTargets.clear();
 		}
 
 		// Remove body class
