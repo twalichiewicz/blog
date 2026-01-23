@@ -72,14 +72,49 @@
         }
 
         @media (max-width: variables.$mobile-breakpoint) {
-                grid-template-columns: repeat(1, 1fr);
+                // Horizontal carousel layout for mobile
+                display: flex !important;
+                flex-direction: row !important;
+                flex: 1;
                 gap: 20px;
-                padding: 0 16px;
+                padding: 20px 20px 40px 20px;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                scroll-padding-inline: calc(50vw - 120px);
+                grid-template-columns: none !important;
+                align-items: start;
+                width: 100%;
+                margin-left: -20px;
+                width: calc(100% + 40px);
+                margin-bottom: 0 !important;
+
+                // Hide initially until JS positions it correctly
+                opacity: 0;
+                transition: opacity 0.2s ease;
+
+                &.scroll-ready {
+                        opacity: 1;
+                }
+
+                // Spacer elements for centering first/last items
+                &::before,
+                &::after {
+                        content: '';
+                        flex: 0 0 calc(50vw - 140px);
+                        height: 1px;
+                        scroll-snap-align: none;
+                }
         }
 
         > :only-child {
                 grid-column: 1 / -1;
                 justify-self: center;
+                
+                @media (max-width: variables.$mobile-breakpoint) {
+                        margin: 0 auto;
+                }
         }
 }
 
@@ -104,6 +139,14 @@
         @media (prefers-color-scheme: dark) {
                 background: transparent;
         }
+        
+        @media (max-width: variables.$mobile-breakpoint) {
+                flex: 0 0 auto;
+                scroll-snap-align: center;
+                scroll-snap-stop: always; // Prevent skipping items
+                width: 240px !important;
+                margin: 0;
+        }
 
         &:hover {
                 .wares-card__overlay {
@@ -114,24 +157,29 @@
 
 .wares-card__media {
         position: relative;
-        border-radius: 12px;
-        overflow: hidden;
-        width: auto; // Allow width to be determined by image
-        height: 180px;
+        border-radius: 0; // Clean, no rounded corners like notebooks
+        overflow: visible;
+        width: auto;
+        height: 200px; // Taller for more open space
         background: transparent;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // Add subtle shadow
+        box-shadow: none; // No shadow - clean like notebooks
         display: flex;
         justify-content: center;
+        align-items: center;
+        padding: 24px; // More padding for breathing room
 
-        @media (prefers-color-scheme: dark) {
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        @media (max-width: variables.$mobile-breakpoint) {
+                height: 220px; // Even more space on mobile
+                padding: 28px;
         }
 
         img {
                 width: auto;
                 height: 100%;
-                object-fit: contain; // Keep rectangular shape
+                max-height: 100%;
+                object-fit: contain;
                 display: block;
+                // Let the image speak for itself - no container styling
         }
 }
 
@@ -186,8 +234,9 @@
         margin-left: auto;
         margin-right: auto;
 
+        // Match notebook byline sizing on mobile
         @media (max-width: variables.$mobile-breakpoint) {
-                font-size: var(--font-size-base);
+                font-size: var(--font-size-sm);
         }
 
         @media (prefers-color-scheme: dark) {

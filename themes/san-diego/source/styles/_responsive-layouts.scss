@@ -191,8 +191,8 @@
 .device-mobile .blog {
 	display: flex;
 	flex-direction: column;
-	min-height: 100dvh;
-	overflow: unset;
+	height: 100dvh;
+	overflow: hidden;
 	position: relative;
 
 	.blog-header {
@@ -305,6 +305,8 @@
 
 	.blog-content {
 		/* Reset all base styling for mobile */
+		flex: 1;
+		min-height: 0;
 		width: 100%;
 		padding: 0;
 		margin: 0;
@@ -314,7 +316,7 @@
 		box-shadow: none !important;
 		border: none !important;
 		border-radius: 0 !important;
-		align-items: center;
+		align-items: stretch; /* Changed from center to allow children to fill width */
 		position: relative;
 
 		/* Negate the ::before pseudo-element styling */
@@ -325,6 +327,7 @@
 		}
 
 		.tabs-wrapper {
+			flex-shrink: 0;
 			position: sticky;
 			top: 0;
 			z-index: 100;
@@ -336,7 +339,7 @@
 			margin-bottom: 0;
 			max-width: 600px;
 			border-bottom: 1px solid #e6e6e6;
-			
+
 			@media (prefers-color-scheme: dark) {
 				border-bottom-color: #242424;
 			}
@@ -352,11 +355,18 @@
 		}
 
 		.content-wrapper {
-			flex-direction: column;
+			position: relative; /* Positioning context for absolute tab panes */
+			flex: 1;
+			min-height: 0;
 			width: 100%;
+			overflow: hidden; /* Panes handle their own scrolling */
 		}
 
 		.content-inner-wrapper {
+			flex: 1;
+			min-height: 0;
+			display: flex;
+			flex-direction: column;
 			width: 100%;
 			max-width: 600px;
 			margin-left: auto;
@@ -418,9 +428,9 @@
 			width: calc(100% + 30px);
 			padding: 0; // Ensure no padding on portfolio-more-section
 			padding-bottom: 0; // Explicitly set padding-bottom to 0
-			
+
 			.portfolio-more-content {
-				padding: variables.$space-sm 16px calc(variables.$space-xl + env(safe-area-inset-bottom));
+				padding: variables.$space-sm 20px calc(variables.$space-xl + env(safe-area-inset-bottom));
 				width: 100%;
 				margin: 0;
 			}

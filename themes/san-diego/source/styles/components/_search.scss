@@ -339,6 +339,155 @@
 	.blog {
 		padding-bottom: calc(160px + env(safe-area-inset-bottom, 0px));
 	}
+
+	// When tabs-integrated search is available, reset search to inline position
+	// (removing the fixed floating behavior so it scrolls with content)
+	body.tabs-search-available .search-container {
+		position: static;
+		left: auto;
+		right: auto;
+		bottom: auto;
+		transform: none;
+		width: 100%;
+		max-width: none;
+		padding: 0 15px;
+		margin-bottom: 1.5rem;
+		background: transparent;
+		border: none;
+		box-shadow: none;
+		height: auto;
+		z-index: auto;
+		border-radius: 0;
+
+		.search-input-wrapper {
+			flex: 1;
+			position: relative;
+			display: flex;
+			align-items: center;
+			background: transparent;
+			border-radius: 0;
+			padding: 0;
+			height: auto;
+			box-shadow: none;
+		}
+
+		.search-icon {
+			left: 9px;
+			top: 46%;
+		}
+
+		.search-input {
+			flex: 1;
+			padding: 8px 36px 8px 32px;
+			height: auto;
+			line-height: normal;
+			font-size: var(--font-size-sm);
+			font-weight: var(--font-weight-medium);
+			border: 1px solid variables.$border-color;
+			border-radius: 30px;
+			background: transparent;
+			color: variables.$text-color;
+			box-shadow: none;
+			transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+			&:hover {
+				border-color: rgba(variables.$black, 0.3);
+				background: rgba(variables.$black, 0.05);
+			}
+
+			&:focus {
+				outline: none;
+				border-color: variables.$link-color;
+				background: variables.$white;
+				box-shadow:
+					0 0 0 2px rgba(variables.$link-color, 0.2),
+					0 2px 4px rgba(variables.$link-color, 0.1);
+			}
+
+			&::placeholder {
+				color: variables.$text-color-secondary;
+				opacity: 0.6;
+			}
+		}
+
+		.search-clear {
+			right: 8px;
+		}
+
+		// Hide collapse toggle in inline mode (not needed when inline)
+		.search-collapse-toggle {
+			display: none;
+		}
+
+		// Reset posts-only button to match desktop styles (undo mobile floating styles)
+		.posts-only-button {
+			// Reset to desktop defaults from reusable-button-bordered mixin
+			height: auto;
+			padding: 8px 16px;
+			border-radius: 30px;
+			border: 1px solid variables.$border-color;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: transparent;
+			box-shadow: none;
+			font-size: var(--font-size-sm);
+			font-weight: var(--font-weight-medium);
+			color: variables.$text-color;
+			flex-shrink: 0;
+			white-space: nowrap;
+			max-width: none;
+			opacity: 1;
+			transform: none;
+			pointer-events: auto;
+			margin: 0;
+			transition: all 0.2s ease;
+
+			&:hover {
+				border-color: rgba(variables.$black, 0.3);
+				color: variables.$text-color;
+				background: rgba(variables.$black, 0.05);
+			}
+
+			&.active {
+				background: variables.$black;
+				color: variables.$white;
+				border-color: variables.$black;
+			}
+		}
+
+		// In inline mode, .is-collapsed state should behave the same as normal
+		// (the collapse toggle is hidden, so this state shouldn't occur,
+		// but we reset it just in case)
+		&.is-collapsed {
+			width: 100%;
+			right: auto;
+			padding: 0 15px;
+			gap: 8px;
+			background: transparent;
+			border: none;
+			box-shadow: none;
+			transform: none;
+			overflow: visible;
+		}
+
+		&.is-collapsed .search-input-wrapper,
+		&.is-collapsed .posts-only-button {
+			opacity: 1;
+			transform: none;
+			pointer-events: auto;
+			max-width: none;
+		}
+
+		&.is-collapsed .search-collapse-toggle {
+			display: none;
+		}
+	}
+
+	// Reduce bottom padding since floating search is removed
+	body.tabs-search-available .blog {
+		padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+	}
 }
 
 @mixin search-dark-mode {
@@ -351,11 +500,11 @@
 
 		.search-clear {
 			box-shadow: none;
-			
+
 			svg {
 				stroke: variables.$text-color-secondary-dark;
 			}
-			
+
 			&:hover,
 			&:active,
 			&:focus {
@@ -367,6 +516,50 @@
 			color: hsl(0, 0%, 75%);
 			border-color: rgba(variables.$white, 0.16);
 		}
+
+	// Dark mode for tabs-search-available inline search
+	@media (max-width: variables.$mobile-breakpoint) {
+		body.tabs-search-available & {
+			.search-input {
+				border-color: rgba(variables.$border-color-dark, 0.5);
+				color: variables.$text-color-dark;
+
+				&::placeholder {
+					color: variables.$text-color-secondary-dark;
+				}
+
+				&:focus {
+					border-color: variables.$link-color-dark;
+					background: rgba(variables.$black, 0.5);
+					box-shadow:
+						0 0 0 2px rgba(variables.$link-color-dark, 0.2),
+						0 2px 4px rgba(variables.$link-color-dark, 0.15);
+				}
+
+				&:hover {
+					border-color: rgba(variables.$white, 0.3);
+					background: rgba(variables.$white, 0.05);
+				}
+			}
+
+			.posts-only-button {
+				color: variables.$text-color-dark;
+				border-color: rgba(variables.$border-color-dark, 0.5);
+
+				&:hover {
+					border-color: rgba(variables.$white, 0.3);
+					color: variables.$text-color-dark;
+					background: rgba(variables.$white, 0.05);
+				}
+
+				&.active {
+					background: variables.$white;
+					color: variables.$black;
+					border-color: variables.$white;
+				}
+			}
+		}
+	}
 
 		@media (max-width: variables.$mobile-breakpoint) {
 			background: rgba(variables.$card-bg-dark, 0.95);

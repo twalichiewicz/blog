@@ -10,12 +10,25 @@ body {
 
 // Consistent styles for tabs-wrapper on both mobile and desktop
 .tabs-wrapper {
-  background: linear-gradient(135deg, #f1f0ed 0%, #faf9f9 100%);
-  border-bottom: 1px solid #e6e6e6;
-  
-  @media (prefers-color-scheme: dark) {
-    background: linear-gradient(to bottom right, #2c2c2c, #111111);
-    border-bottom-color: variables.$border-color-dark;
+  // Mobile: Solid background (gaps around border-radius filled by .blog background)
+  @media (max-width: variables.$mobile-breakpoint) {
+    background: var(--bg-color, #fff);
+    border-bottom: none;
+
+    @media (prefers-color-scheme: dark) {
+      background: var(--bg-color-dark, #1a1a1a);
+    }
+  }
+
+  // Desktop/Tablet: Gradient background
+  @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+    background: linear-gradient(135deg, #f1f0ed 0%, #faf9f9 100%);
+    border-bottom: 1px solid #e6e6e6;
+    
+    @media (prefers-color-scheme: dark) {
+      background: linear-gradient(to bottom right, #2c2c2c, #111111);
+      border-bottom-color: variables.$border-color-dark;
+    }
   }
 }
 
@@ -29,12 +42,27 @@ body {
 
 // Content wrapper background - consistent across desktop/mobile
 .blog .blog-content .content-wrapper {
-  background: rgb(249, 248, 246) !important;
-  background-image: none !important; // Override any gradients
-  
-  @media (prefers-color-scheme: dark) {
-    background: rgb(9, 9, 9) !important;
-    background-image: none !important;
+  // Desktop/Tablet only
+  @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+    background: rgb(249, 248, 246) !important;
+    background-image: none !important; // Override any gradients
+    
+    @media (prefers-color-scheme: dark) {
+      background: rgb(9, 9, 9) !important;
+      background-image: none !important;
+    }
+  }
+
+  // Mobile: Solid background for content area
+  @media (max-width: variables.$mobile-breakpoint) {
+    background: var(--bg-color, #fff);
+    background-image: none;
+    box-shadow: none;
+    border: none;
+
+    @media (prefers-color-scheme: dark) {
+      background: var(--bg-color-dark, #1a1a1a);
+    }
   }
 }
 

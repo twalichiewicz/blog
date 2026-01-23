@@ -1634,6 +1634,14 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 					return;
 				}
 
+				// Don't collapse if the search input is currently focused
+				// (iOS scrolls the page when focusing an input, which would incorrectly trigger collapse)
+				const searchInput = activeContainer.querySelector('#postSearch');
+				if (searchInput && document.activeElement === searchInput) {
+					clearSearchCollapseTimeout();
+					return;
+				}
+
 				const containerStyles = window.getComputedStyle(activeContainer);
 				if (containerStyles.display === 'none' || containerStyles.visibility === 'hidden') {
 					clearSearchCollapseTimeout();

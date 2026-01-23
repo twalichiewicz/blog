@@ -19,11 +19,41 @@
 	border: 1px solid rgb(255 255 255 / 10%);
 	box-sizing: border-box;
 
+	// Focus ring when search overlay is active and input is focused
+	// Uses sibling focus detection via parent wrapper
+	.tabs-wrapper:focus-within &.search-overlay-active {
+		box-shadow:
+			0 0 0 3px rgba(variables.$link-color, 0.3),
+			0 1px 3px rgb(0 0 0 / 10%),
+			0 1px 2px rgb(0 0 0 / 6%),
+			inset 0 2px 4px rgb(0 0 0 / 10%),
+			inset 0 -1px 2px rgb(255 255 255 / 10%);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.tabs-wrapper:focus-within &.search-overlay-active {
+			box-shadow:
+				0 0 0 3px rgba(variables.$link-color-dark, 0.4),
+				0 1px 2px rgb(0 0 0 / 30%),
+				inset 0 2px 4px rgb(0 0 0 / 30%),
+				inset 0 -1px 2px rgb(255 255 255 / 5%);
+		}
+	}
+
 	// Add CSS custom properties for slider position and width
 	--slider-x: 4px; // Initial position matching container padding
 	--button-width: calc(50% - 6px); // Initial width approximation (half container minus half gap)
 
+	// CSS custom properties for magic reveal animation
+	--slider-start-left: 4px;
+	--slider-start-width: 100px;
+	--slider-end-left: calc(100% - 25px); // Will be set by JS
+	--slider-end-size: 21px; // Trigger button size
+	--reveal-duration: 350ms;
+	--reveal-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
 	// The slider element (added by JavaScript)
+	// In search mode, shrinks right to become a ring around the trigger
 	.mobile-tabs-slider {
 		position: absolute;
 		left: 0;
@@ -35,9 +65,16 @@
 		/* Default, will be overridden by JS */
 		background: variables.$link-color;
 		border-radius: 30px;
-		z-index: 1;
+		z-index: 1; // Behind tab buttons so text shows on top of slider
 		box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
-		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s ease, top 0.3s ease, height 0.3s ease;
+		transition:
+			transform var(--reveal-duration) var(--reveal-easing),
+			width var(--reveal-duration) var(--reveal-easing),
+			height var(--reveal-duration) var(--reveal-easing),
+			top var(--reveal-duration) var(--reveal-easing),
+			left var(--reveal-duration) var(--reveal-easing),
+			border-radius var(--reveal-duration) var(--reveal-easing);
+		pointer-events: none; // Allow clicks to pass through to search trigger
 
 		@media (prefers-color-scheme: dark) {
 			background: linear-gradient(to bottom, variables.$link-color-dark, color.adjust(variables.$link-color-dark, $lightness: -10%));
@@ -46,6 +83,185 @@
 				0 1px 0 rgb(255 255 255 / 30%) inset,
 				0 -1px 0 rgb(0 0 0 / 20%) inset;
 			border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
+		}
+	}
+
+	// Slider in search reveal mode - shrunk to ring around trigger
+	&.search-reveal-active .mobile-tabs-slider {
+		// These values are set dynamically by JS for precise positioning
+		left: var(--slider-end-left) !important;
+		width: var(--slider-end-size) !important;
+		height: var(--slider-end-size) !important;
+		top: 50% !important;
+		transform: translateY(-50%) !important;
+		border-radius: 50% !important;
+	}
+
+	// Search reveal layer - positioned behind slider, revealed when slider moves
+	// Hidden by default, shown when search is opened
+	.tabs-search-reveal {
+		position: absolute;
+		left: 4px;
+		right: 4px;
+		top: 4px;
+		bottom: 4px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 0 32px 0 0; // Right padding for trigger area
+		z-index: 0; // Behind everything
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition:
+			opacity calc(var(--reveal-duration) * 0.6) ease,
+			visibility calc(var(--reveal-duration) * 0.6) ease;
+	}
+
+	// Show search reveal content when slider has moved
+	&.search-reveal-active .tabs-search-reveal {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+	}
+
+	// Tab buttons layer - fades out when search is revealed
+	.tabs-buttons-layer {
+		display: flex;
+		flex: 1; // Take up available space in mobile-tabs flex container
+		gap: 4px;
+		position: relative;
+		z-index: 2; // Same as reveal, but visible by default
+		transition: opacity calc(var(--reveal-duration) * 0.5) ease;
+	}
+
+	&.search-reveal-active .tabs-buttons-layer {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	// Search trigger - positioned inside mobile-tabs
+	// Position is set dynamically by JS to align with slider's right edge
+	// Hidden by default, shown via JS when inline search scrolls off-screen
+	.tabs-search-trigger {
+		position: absolute;
+		left: var(--trigger-left, 33%); // Fallback ~1/3 for blog tab
+		top: 50%;
+		transform: translateY(-50%);
+		width: 24px;
+		height: 24px;
+		padding: 0;
+		margin: 0;
+		border-radius: 50%;
+		border: none;
+		background: rgba(variables.$black, 0.25);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		z-index: 10;
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition: opacity 200ms ease, visibility 200ms ease, background-color 150ms ease;
+		box-shadow: none;
+		-webkit-appearance: none;
+		appearance: none;
+
+		// Icons need absolute positioning to overlap for crossfade
+		.icon-search,
+		.icon-close {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 12px;
+			height: 12px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: opacity 200ms ease, visibility 200ms ease;
+		}
+
+		.icon-search {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.icon-close {
+			opacity: 0;
+			visibility: hidden;
+		}
+
+		svg {
+			width: 12px;
+			height: 12px;
+			stroke: variables.$white;
+			stroke-width: 2.5;
+			transition: stroke 150ms ease;
+		}
+
+		&:hover {
+			background: rgba(variables.$black, 0.35);
+		}
+
+		&:active {
+			background: rgba(variables.$black, 0.45);
+		}
+
+		&:focus {
+			outline: none;
+			box-shadow: none;
+		}
+
+		// Show trigger when visible (JS adds this class when inline search scrolls off-screen)
+		&.is-visible {
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
+		}
+
+		// Close mode - swap icons (search is open)
+		// Align with slider end position for perfect overlap
+		&.is-close-mode {
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
+			// Use same position as slider in search-reveal-active
+			left: var(--slider-end-left);
+			right: auto;
+			background: transparent;
+
+			.icon-search {
+				opacity: 0;
+				visibility: hidden;
+			}
+
+			.icon-close {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+
+		@media (prefers-color-scheme: dark) {
+			background: rgba(variables.$black, 0.3);
+
+			svg {
+				stroke: variables.$black; // Match "Words" text color
+			}
+
+			&:hover {
+				background: rgba(variables.$black, 0.4);
+			}
+
+			&:active {
+				background: rgba(variables.$black, 0.5);
+			}
+		}
+
+		// Hide on desktop
+		@media screen and (min-width: 1024px) {
+			display: none;
 		}
 	}
 
@@ -223,6 +439,15 @@ body.dark-mode-forced .mobile-tabs .mobile-tabs-slider {
 	border: 1px solid color.adjust(variables.$link-color-dark, $lightness: -15%);
 }
 
+// Focus ring for search overlay in dark-mode-forced
+body.dark-mode-forced .tabs-wrapper:focus-within .mobile-tabs.search-overlay-active {
+	box-shadow:
+		0 0 0 3px rgba(variables.$link-color-dark, 0.4),
+		0 1px 2px rgb(0 0 0 / 30%),
+		inset 0 2px 4px rgb(0 0 0 / 30%),
+		inset 0 -1px 2px rgb(255 255 255 / 5%);
+}
+
 body.dark-mode-forced .mobile-tabs-backing {
 	background: linear-gradient(rgb(66, 66, 66), rgb(46, 46, 46));
 }
@@ -240,6 +465,17 @@ body.dark-mode-forced .mobile-tabs-backing {
 	&.is-visible {
 		opacity: 1;
 		pointer-events: auto;
+	}
+
+	// Mobile: Stack panes on top of each other using absolute positioning
+	@media (max-width: variables.$mobile-breakpoint) {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
 	}
 }
 
@@ -932,4 +1168,389 @@ body.dark-mode-forced .mobile-tabs-backing {
 		animation: none !important;
 	}
 
+	// Reduced motion: instant transitions for search overlay
+	.tabs-search-trigger,
+	.tabs-search-overlay,
+	.mobile-tabs .tab-button,
+	.mobile-tabs .mobile-tabs-slider {
+		transition-duration: 0ms !important;
+	}
+}
+
+// ============================================
+// Tabs-Integrated Search Styles
+// ============================================
+
+// Bouncy pop-in animation for search trigger
+@keyframes search-trigger-pop-in {
+	0% {
+		opacity: 0;
+		transform: translateY(-50%) scale(0.3);
+	}
+	60% {
+		opacity: 1;
+		transform: translateY(-50%) scale(1.1);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(-50%) scale(1);
+	}
+}
+
+// Bouncy pop-out animation for search trigger
+@keyframes search-trigger-pop-out {
+	0% {
+		opacity: 1;
+		transform: translateY(-50%) scale(1);
+	}
+	40% {
+		opacity: 0.8;
+		transform: translateY(-50%) scale(1.1);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(-50%) scale(0.3);
+	}
+}
+
+// NOTE: .tabs-search-trigger styles are now inside .mobile-tabs block above
+// NOTE: .tabs-search-overlay replaced by .tabs-search-reveal inside .mobile-tabs
+
+// Search input wrapper inside overlay - fills the available space
+.tabs-search-input-wrapper {
+	flex: 1;
+	min-width: 0; // Allow shrinking
+	position: relative;
+	display: flex;
+	align-items: center;
+	background: transparent; // No extra background - uses mobile-tabs bg
+	border-radius: 30px; // Match mobile-tabs border-radius
+	height: 100%;
+	box-shadow: none;
+	box-sizing: border-box;
+}
+
+body.dark-mode-forced .tabs-search-input-wrapper {
+	background: transparent;
+	box-shadow: none;
+}
+
+// Search icon in overlay
+.tabs-search-icon {
+	position: absolute;
+	left: 8px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 13px;
+	height: 13px;
+	opacity: 0.55;
+	pointer-events: none;
+
+	svg {
+		width: 100%;
+		height: 100%;
+		stroke: variables.$text-color-secondary;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		svg {
+			stroke: variables.$text-color-secondary-dark;
+		}
+	}
+}
+
+body.dark-mode-forced .tabs-search-icon svg {
+	stroke: variables.$text-color-secondary-dark;
+}
+
+// Search input in overlay
+.tabs-search-input {
+	flex: 1;
+	width: 100%;
+	height: 100%;
+	padding: 0 28px 0 26px;
+	border: none;
+	background: transparent;
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-medium);
+	color: variables.$text-color;
+	outline: none;
+	box-shadow: none;
+
+	&::placeholder {
+		color: variables.$text-color-secondary;
+		opacity: 0.65;
+	}
+
+	&::-webkit-search-cancel-button {
+		display: none;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		color: variables.$text-color-dark;
+
+		&::placeholder {
+			color: variables.$text-color-secondary-dark;
+		}
+	}
+}
+
+body.dark-mode-forced .tabs-search-input {
+	color: variables.$text-color-dark;
+
+	&::placeholder {
+		color: variables.$text-color-secondary-dark;
+	}
+}
+
+// Clear button in search overlay
+.tabs-search-clear {
+	position: absolute;
+	right: 6px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 18px;
+	height: 18px;
+	border: none;
+	background: transparent;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	opacity: 0.5;
+	transition: opacity 150ms ease, background-color 150ms ease;
+	box-shadow: none;
+
+	svg {
+		width: 11px;
+		height: 11px;
+		stroke: variables.$text-color-secondary;
+	}
+
+	&:hover {
+		opacity: 0.75;
+		background: rgba(variables.$black, 0.06);
+	}
+
+	&:active {
+		opacity: 1;
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		svg {
+			stroke: variables.$text-color-secondary-dark;
+		}
+
+		&:hover {
+			background: rgba(variables.$white, 0.1);
+		}
+	}
+}
+
+body.dark-mode-forced .tabs-search-clear {
+	svg {
+		stroke: variables.$text-color-secondary-dark;
+	}
+
+	&:hover {
+		background: rgba(variables.$white, 0.1);
+	}
+}
+
+// Posts only button in search overlay - match inline posts-only button styling exactly
+.tabs-search-posts-only {
+	flex-shrink: 0;
+	height: 100%; // Fill overlay height
+	padding: 0 12px;
+	border: 1px solid variables.$border-color;
+	border-radius: 26px;
+	background: transparent;
+	font-size: 11px;
+	font-weight: var(--font-weight-medium);
+	color: variables.$text-color;
+	cursor: pointer;
+	white-space: nowrap;
+	transition: all 0.2s ease;
+	box-shadow: none;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&:hover {
+		border-color: rgba(variables.$black, 0.3);
+		color: variables.$text-color;
+		background: rgba(variables.$black, 0.05);
+	}
+
+	&.active {
+		background: variables.$black;
+		color: variables.$white;
+		border-color: variables.$black;
+	}
+
+	// Dark mode: match inline mobile posts-only button styling exactly
+	@media (prefers-color-scheme: dark) {
+		background: rgba(variables.$card-bg-dark, 0.8);
+		border-color: rgba(variables.$white, 0.15);
+		color: variables.$text-color-secondary-dark;
+		box-shadow: none;
+
+		&:hover {
+			background: rgba(variables.$card-bg-dark, 0.95);
+			border-color: rgba(variables.$white, 0.3);
+			color: variables.$text-color-dark;
+		}
+
+		&:active {
+			background: color.adjust(variables.$card-bg-dark, $lightness: -2%);
+			border-color: rgba(variables.$white, 0.3);
+			color: variables.$text-color-dark;
+		}
+
+		&.active {
+			background: variables.$white;
+			color: variables.$black;
+			border-color: variables.$white;
+		}
+	}
+}
+
+body.dark-mode-forced .tabs-search-posts-only {
+	background: rgba(variables.$card-bg-dark, 0.8);
+	border-color: rgba(variables.$white, 0.15);
+	color: variables.$text-color-secondary-dark;
+	box-shadow: none;
+
+	&:hover {
+		background: rgba(variables.$card-bg-dark, 0.95);
+		border-color: rgba(variables.$white, 0.3);
+		color: variables.$text-color-dark;
+	}
+
+	&:active {
+		background: color.adjust(variables.$card-bg-dark, $lightness: -2%);
+		border-color: rgba(variables.$white, 0.3);
+		color: variables.$text-color-dark;
+	}
+
+	&.active {
+		background: variables.$white;
+		color: variables.$black;
+		border-color: variables.$white;
+	}
+}
+
+// Close button for search overlay - matches trigger button styling
+.tabs-search-close {
+	width: 26px;
+	height: 26px;
+	flex-shrink: 0;
+	border: none;
+	background: rgba(variables.$black, 0.08);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: background-color 150ms ease;
+	box-shadow: none;
+
+	svg {
+		width: 13px;
+		height: 13px;
+		stroke: variables.$text-color;
+		stroke-width: 2.5;
+		opacity: 0.7;
+		transition: stroke 150ms ease, opacity 150ms ease;
+	}
+
+	&:hover {
+		background: rgba(variables.$black, 0.15);
+
+		svg {
+			opacity: 0.9;
+		}
+	}
+
+	&:active {
+		background: rgba(variables.$black, 0.22);
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		background: rgba(variables.$black, 0.12);
+
+		svg {
+			stroke: variables.$text-color-dark;
+			opacity: 0.65;
+		}
+
+		&:hover {
+			background: rgba(variables.$black, 0.2);
+
+			svg {
+				opacity: 0.85;
+			}
+		}
+
+		&:active {
+			background: rgba(variables.$black, 0.28);
+		}
+
+		&:focus {
+			box-shadow: 0 0 0 2px rgba(variables.$link-color-dark, 0.3);
+		}
+	}
+}
+
+body.dark-mode-forced .tabs-search-close {
+	background: rgba(variables.$black, 0.12);
+
+	svg {
+		stroke: variables.$text-color-dark;
+		opacity: 0.65;
+	}
+
+	&:hover {
+		background: rgba(variables.$black, 0.2);
+
+		svg {
+			opacity: 0.85;
+		}
+	}
+
+	&:active {
+		background: rgba(variables.$black, 0.28);
+	}
+
+	&:focus {
+		box-shadow: none;
+	}
+}
+
+// When search overlay is active, fade out tab buttons and slider
+.mobile-tabs.search-overlay-active {
+	.tab-button {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition: opacity 180ms ease, visibility 180ms ease;
+	}
+
+	.mobile-tabs-slider {
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 180ms ease, visibility 180ms ease;
+	}
 }

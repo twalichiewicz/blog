@@ -85,55 +85,52 @@ $layout-levels: (
 }
 
 // Mobile responsive layout (level 2)
+// Header is position: absolute, content fills viewport
 @media (max-width: variables.$mobile-breakpoint) {
+  html,
+  body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    overscroll-behavior: none;
+  }
+
   .blog,
   .device-mobile .blog {
     display: flex;
     flex-direction: column;
-    height: auto;
-    min-height: 100dvh;
-    min-height: -webkit-fill-available;
-    overflow: visible;
-    
+    height: 100dvh;
+    overflow: hidden;
+
+    // Header is absolute-positioned (styles in _blog.scss)
     .blog-header {
-      flex-shrink: 0;
-      height: auto;
+      // Positioned absolutely, not part of flex flow
     }
-    
+
     .blog-content {
-      flex: 1 1 auto;
-      overflow: visible;
+      flex: 1;
+      overflow: hidden;
       min-height: 0;
       display: flex;
       flex-direction: column;
-      
-      .content-wrapper {
-        overflow: visible;
-        height: auto;
-        min-height: 100%;
-        flex: 1 1 auto;
-        background-image: none;
-        background: linear-gradient(to bottom right, hsl(35, 20%, 98%) 0%, hsl(35, 15%, 96%) 100%);
-      }
-      
+
       .content-inner-wrapper {
-        overflow: visible;
-        height: auto;
-        min-height: 100%;
+        flex: 1;
+        min-height: 0;
         display: flex;
         flex-direction: column;
       }
+
+      .content-wrapper {
+        position: relative; /* Positioning context for absolute tab panes */
+        flex: 1;
+        min-height: 0;
+        overflow: hidden; /* Panes handle their own scrolling */
+        // Background set in _missing-styles-fix.scss
+      }
     }
   }
-  
-  // Ensure proper page scroll
-  html,
-  body {
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  
+
   // Prevent transform issues
   .blog,
   .blog-content,
@@ -161,7 +158,6 @@ $layout-levels: (
     
     .content-inner-wrapper {
       overflow: visible;
-      height: auto;
       min-height: auto;
       max-height: none;
       
@@ -192,6 +188,11 @@ $layout-levels: (
     overflow: visible;
     height: auto;
     padding-bottom: 48px;
+  }
+  
+  @media (max-width: variables.$mobile-breakpoint) {
+    // Panes are positioned absolutely via .mobile-tab-pane styles
+    // Height and overflow handled by pane positioning
   }
   
   // Individual items maintain max-width

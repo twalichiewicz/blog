@@ -17,9 +17,17 @@
 .blog {
 	width: 100%;
 	box-sizing: border-box;
-	height: auto;
 	overflow-x: hidden;
 	position: relative;
+
+	// Mobile: nav background on .blog fills gaps around tabs border-radius
+	@media (max-width: variables.$mobile-breakpoint) {
+		background-color: variables.$nav-bg;
+	}
+
+	@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
+		background-color: variables.$nav-bg-dark;
+	}
 
 	.blog-header {
 		height: 100dvh;
@@ -36,61 +44,54 @@
 		}
 
 		@media (max-width: variables.$mobile-breakpoint) {
-			height: 100%;
 			padding: 0;
 			gap: 0;
 			width: 100%;
 			max-width: 100vw;
-			margin-left: auto;
-			margin-right: auto;
-			overflow-x: hidden;
-			overflow-y: visible;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 100;
+			// Background inherited from .blog - no need for separate bg
+			background-color: transparent;
 		}
 	}
 
 	.blog-content {
-		// Top-left border radius only (matching the top/left borders)
-		border-radius: 12px 0 0 0;
 		position: relative;
 		transition: opacity 0.3s ease-in-out;
-		margin-top: 12px;
-		
-		// Mobile only: background and box-shadow (no border)
-		@media (max-width: variables.$mobile-breakpoint) {
-			background-color: variables.$white;
-			box-shadow: 0 2px 10px rgb(0 0 0 / 5%);
-			// No border on mobile
-		}
-		
-		@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
-			background-color: rgb(9, 9, 9);
-		}
-		
-		// Desktop/tablet: fixed height with scroll
+
+		// Desktop/tablet: border-radius and margin
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			border-radius: 12px 0 0 0;
+			margin-top: 12px;
 			height: calc(100dvh - 12px);
 			overflow-y: auto;
 			-webkit-overflow-scrolling: touch;
 		}
-		
-		// Mobile: no fixed height, no scroll container - just normal flow
-		@media (max-width: variables.$mobile-breakpoint) {
-			height: auto;
-			overflow: visible;
-		}
 
+		// Mobile: transparent background, no extra styling
+		@media (max-width: variables.$mobile-breakpoint) {
+			background-color: transparent;
+			margin-top: 0;
+			border-radius: 0;
+		}
 
 		// Dark mode styles moved to _theme-modes.scss
 	}
 	
-	// Mobile-specific content-inner-wrapper styles
+	// Mobile-specific styles
 	@media (max-width: variables.$mobile-breakpoint) {
 		.blog-content .content-inner-wrapper {
 			border-left: none;
 			border-right: none;
 			border-bottom: none;
 			margin-bottom: 0;
-			// Removed border-radius: 0 to allow dynamic border-radius from JS
+		}
+
+		// Tabs need padding to sit below the absolute header
+		.blog-content .tabs-wrapper {
+			padding-top: 120px;
 		}
 	}
 

@@ -27,7 +27,14 @@ export default class MobileTabs {
 		this.boundListeners = {
 			handleTabClick: null,
 			handleResize: null,
-			handleOrientationChange: null
+			handleOrientationChange: null,
+			handleSearchTriggerClick: null,
+			handleSearchInputSync: null,
+			handleSearchClear: null,
+			handleSearchKeydown: null,
+			handleOriginalSearchInput: null,
+			handleSearchPostsOnlyClick: null,
+			handleSearchScroll: null
 		};
 		this.tabClickListeners = new Map(); // Store individual tab click listeners
 
@@ -43,6 +50,10 @@ export default class MobileTabs {
 		this.animationSuppressedUntil = 0;
 		this.searchBarVisibilityTimeout = null;
 		this.pendingLayoutCleanup = null;
+
+		// Search integration state
+		this.searchOverlayOpen = false;
+		this.searchVisibilityObserver = null;
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -65,6 +76,14 @@ export default class MobileTabs {
 
 		// Validate active state to ensure UI consistency
 		this.validateActiveState();
+
+		// Reset wares carousel scroll on initial load
+		if (this.waresContent) {
+			this.resetWaresCarouselScroll(this.waresContent);
+		}
+
+		// Initialize search integration (mobile only)
+		this.setupSearchIntegration();
 	}
 
 	/**
@@ -73,7 +92,7 @@ export default class MobileTabs {
 	cacheElements() {
 		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 		console.log('[MobileTabs] Caching DOM elements (Safari:', isSafari + ')');
-		
+
 		// Clear existing references first (Safari fix)
 		this.tabsWrapper = null;
 		this.tabContainer = null;
@@ -82,7 +101,15 @@ export default class MobileTabs {
 		this.projectsContent = null;
 		this.waresContent = null;
 		this.searchBar = null;
-		
+
+		// Clear search integration elements
+		this.searchTrigger = null;
+		this.searchReveal = null;
+		this.tabsSearchInput = null;
+		this.tabsSearchClear = null;
+		this.originalSearchInput = null;
+		this.inlineSearchContainer = null;
+
 		// Re-query all elements
 		this.tabsWrapper = document.querySelector(this.config.tabsWrapperSelector);
 		this.tabContainer = document.querySelector(this.config.tabContainerSelector);
@@ -97,13 +124,27 @@ export default class MobileTabs {
 		this.waresContent = document.getElementById(this.config.waresContentId);
 		this.searchBar = document.querySelector(this.config.searchBarSelector);
 
+		// Cache search integration elements
+		// Trigger and search reveal are now inside .mobile-tabs for magic reveal animation
+		this.searchTrigger = this.tabContainer?.querySelector('.tabs-search-trigger');
+		this.searchReveal = this.tabContainer?.querySelector('.tabs-search-reveal');
+		this.tabsSearchInput = this.searchReveal?.querySelector('.tabs-search-input');
+		this.tabsSearchClear = this.searchReveal?.querySelector('.tabs-search-clear');
+		this.tabsSearchPostsOnly = this.searchReveal?.querySelector('.tabs-search-posts-only');
+		this.tabsButtonsLayer = this.tabContainer?.querySelector('.tabs-buttons-layer');
+		this.originalSearchInput = document.getElementById('postSearch');
+		this.originalPostsOnlyButton = this.postsContent?.querySelector('.posts-only-button');
+		this.inlineSearchContainer = this.postsContent?.querySelector('.search-container');
+
 		this.ensurePaneClasses();
-		
+
 		console.log('[MobileTabs] Cached elements:', {
 			tabButtons: this.tabButtons.length,
 			postsContent: !!this.postsContent,
 			projectsContent: !!this.projectsContent,
 			waresContent: !!this.waresContent,
+			searchTrigger: !!this.searchTrigger,
+			searchReveal: !!this.searchReveal,
 			isSafari: isSafari
 		});
 	}
@@ -167,14 +208,17 @@ export default class MobileTabs {
 			this.pendingLayoutCleanup = null;
 		}
 		this.removeEventListeners();
-		
+
+		// Clean up search integration
+		this.cleanupSearchIntegration();
+
 		// Remove the slider element to ensure clean state
 		const slider = this.tabContainer?.querySelector('.mobile-tabs-slider');
 		if (slider) {
 			slider.remove();
 		}
 		this.tabContainer?.classList.remove('has-slider-element');
-		
+
 		// Clear all timeouts
 		if (this.sliderUpdateTimeout) {
 			clearTimeout(this.sliderUpdateTimeout);
@@ -200,7 +244,7 @@ export default class MobileTabs {
 			this.scrollResetTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
 			this.scrollResetTimeouts.clear();
 		}
-		
+
 		// Clear cached elements
 		this.tabsWrapper = null;
 		this.tabContainer = null;
@@ -209,7 +253,15 @@ export default class MobileTabs {
 		this.projectsContent = null;
 		this.waresContent = null;
 		this.searchBar = null;
-		
+
+		// Clear search integration elements
+		this.searchTrigger = null;
+		this.searchReveal = null;
+		this.tabsSearchInput = null;
+		this.tabsSearchClear = null;
+		this.originalSearchInput = null;
+		this.inlineSearchContainer = null;
+
 		// Clear state
 		this.userSelectedTab = null;
 		this.currentDeviceType = null;
@@ -223,6 +275,7 @@ export default class MobileTabs {
 			this.searchBarVisibilityTimeout = null;
 		}
 		this.pendingLayoutCleanup = null;
+		this.searchOverlayOpen = false;
 	}
 
 	/**
@@ -376,6 +429,9 @@ export default class MobileTabs {
 			// Also update the top position to account for potential padding differences
 			slider.style.top = `${containerPadding}px`;
 			slider.style.height = `calc(100% - ${containerPadding * 2}px)`;
+
+			// Update search trigger position to align with slider
+			this.updateSearchTriggerPosition();
 		} catch (error) {
 			// Error updating slider
 		}
@@ -546,6 +602,11 @@ export default class MobileTabs {
 
 			this.scheduleScrollReset('blog', targetPane, shouldAnimate, totalDuration);
 			this.markInitialRenderComplete(type, totalDuration);
+
+			// Update search trigger visibility after transition
+			setTimeout(() => {
+				this.updateSearchTriggerVisibility();
+			}, shouldAnimate ? totalDuration + 50 : 50);
 		} else if (type === 'portfolio' && targetPane) {
 		const { totalDuration, fadeOutDuration } = this.applyTabFade(targetPane, currentPane && currentPane !== targetPane ? currentPane : this.postsContent, shouldAnimate);
 
@@ -557,6 +618,9 @@ export default class MobileTabs {
 
 			this.scheduleScrollReset('portfolio', targetPane, shouldAnimate, totalDuration);
 			this.markInitialRenderComplete(type, totalDuration);
+
+			// Hide search trigger on non-Words tabs
+			this.hideSearchTrigger();
 
 			// Dispatch portfolio-loaded event to trigger carousel initialization
 			setTimeout(() => {
@@ -572,6 +636,15 @@ export default class MobileTabs {
 
 		this.scheduleSearchBarVisibility(false, shouldAnimate ? fadeOutDuration : 0);
 			this.scheduleScrollReset('wares', targetPane, shouldAnimate, totalDuration);
+
+			// Hide search trigger on non-Words tabs
+			this.hideSearchTrigger();
+
+			// Always reset wares carousel horizontal scroll to first item
+			setTimeout(() => {
+				this.resetWaresCarouselScroll(targetPane);
+			}, shouldAnimate ? totalDuration + 50 : 50);
+
 			this.markInitialRenderComplete(type, totalDuration);
 		} else {
 			this.markInitialRenderComplete(type, 0);
@@ -584,6 +657,11 @@ export default class MobileTabs {
 	 * @param {boolean} isUserAction - Whether this was triggered by user action
 	 */
 	switchTab(type, isUserAction = false) {
+		// Close search overlay when switching tabs
+		if (this.searchOverlayOpen) {
+			this.closeSearchOverlay();
+		}
+
 		// If we're already on the requested tab, do nothing to avoid replaying animations
 		const activeTab =
 			this.tabContainer?.dataset?.activeTab ||
@@ -668,6 +746,12 @@ export default class MobileTabs {
 	handleResize() {
 		this.suppressAnimations();
 		const newDeviceType = this.getDeviceType();
+
+		// Close search overlay when resizing to desktop (where tabs aren't visible)
+		if (newDeviceType === 'desktop' && this.searchOverlayOpen) {
+			this.closeSearchOverlay();
+		}
+
 		if (newDeviceType !== this.currentDeviceType) {
 			this.currentDeviceType = newDeviceType;
 			this.handleDeviceChange(true);
@@ -889,6 +973,12 @@ export default class MobileTabs {
 		// Immediate switch without animation (initial render or missing counterpart)
 		if (!animate || !paneToHide) {
 			showElement.style.display = 'block';
+
+			// Reset wares carousel scroll BEFORE making visible (after display:block so scrollIntoView works)
+			if (showElement === this.waresContent) {
+				this.resetWaresCarouselScroll(showElement);
+			}
+
 			showElement.classList.add('is-visible');
 			showElement.setAttribute('aria-hidden', 'false');
 
@@ -906,6 +996,11 @@ export default class MobileTabs {
 
 		// Prepare panes for sequential fade
 		showElement.style.display = 'block';
+
+		// Reset wares carousel scroll BEFORE making visible (after display:block so scrollIntoView works)
+		if (showElement === this.waresContent) {
+			this.resetWaresCarouselScroll(showElement);
+		}
 		showElement.classList.remove('is-visible');
 		showElement.setAttribute('aria-hidden', 'true');
 
@@ -1125,8 +1220,50 @@ export default class MobileTabs {
 				contentWrapper.scrollTop = 0;
 			}
 
+			// Also reset horizontal scroll for wares carousel
+			if (tabType === 'wares') {
+				this.resetWaresCarouselScroll(contentElement);
+			}
+
 			this.tabScrollStates.set(tabType, { initialScrollResetDone: true });
 		});
+	}
+
+	/**
+	 * Reset the wares carousel horizontal scroll to the first item
+	 * @param {HTMLElement} waresContent - The wares content container
+	 */
+	resetWaresCarouselScroll(waresContent) {
+		if (!waresContent) return;
+
+		const waresGrid = waresContent.querySelector('.wares-grid');
+		if (!waresGrid) return;
+
+		// Find the first actual card (not the ::before pseudo-element spacer)
+		const firstCard = waresGrid.querySelector('.wares-card');
+
+		if (firstCard) {
+			// Temporarily disable scroll-snap to prevent fighting with our scroll position
+			const originalSnapType = waresGrid.style.scrollSnapType;
+			waresGrid.style.scrollSnapType = 'none';
+
+			// Scroll the first card into view (centered, instant)
+			firstCard.scrollIntoView({
+				behavior: 'instant',
+				block: 'nearest',
+				inline: 'center'
+			});
+
+			// Re-enable scroll-snap after a microtask to ensure scroll position is set
+			requestAnimationFrame(() => {
+				waresGrid.style.scrollSnapType = originalSnapType || '';
+				waresGrid.classList.add('scroll-ready');
+			});
+		} else {
+			// Fallback if no cards found
+			waresGrid.scrollLeft = 0;
+			waresGrid.classList.add('scroll-ready');
+		}
 	}
 
 	markInitialRenderComplete(type, delay = 0) {
@@ -1203,5 +1340,550 @@ export default class MobileTabs {
 		}
 
 		return true;
+	}
+
+	// ============================================
+	// Search Integration Methods
+	// ============================================
+
+	/**
+	 * Set up the tabs-integrated search functionality
+	 */
+	setupSearchIntegration() {
+		console.log('[MobileTabs] Setting up search integration...', {
+			searchTrigger: !!this.searchTrigger,
+			searchReveal: !!this.searchReveal,
+			tabsSearchInput: !!this.tabsSearchInput,
+			inlineSearchContainer: !!this.inlineSearchContainer,
+			deviceType: this.currentDeviceType
+		});
+
+		// Only set up if required elements exist
+		if (!this.searchTrigger || !this.searchReveal || !this.tabsSearchInput) {
+			console.log('[MobileTabs] Search integration skipped - missing elements');
+			return;
+		}
+
+		// Mark body that tabs search is available (used to hide floating search)
+		document.body.classList.add('tabs-search-available');
+
+		// Set up IntersectionObserver to track inline search visibility
+		this.setupSearchVisibilityObserver();
+
+		// Set up event listeners
+		// Trigger acts as both open and close button depending on state
+		this.boundListeners.handleSearchTriggerClick = (e) => {
+			e.preventDefault();
+			e.stopPropagation();
+			if (this.searchOverlayOpen) {
+				console.log('[MobileTabs] Search trigger clicked - closing');
+				this.closeSearchOverlay();
+			} else {
+				console.log('[MobileTabs] Search trigger clicked - opening');
+				this.openSearchOverlay();
+			}
+		};
+		this.searchTrigger.addEventListener('click', this.boundListeners.handleSearchTriggerClick);
+		console.log('[MobileTabs] Click listener attached to search trigger');
+
+		// Sync tabs search input with original search input
+		this.boundListeners.handleSearchInputSync = this.syncSearchInputs.bind(this);
+		this.tabsSearchInput.addEventListener('input', this.boundListeners.handleSearchInputSync);
+
+		// Sync original search input to tabs search input (bidirectional)
+		if (this.originalSearchInput) {
+			this.boundListeners.handleOriginalSearchInput = () => {
+				if (this.tabsSearchInput && this.tabsSearchInput.value !== this.originalSearchInput.value) {
+					this.tabsSearchInput.value = this.originalSearchInput.value;
+					this.updateSearchClearVisibility();
+				}
+			};
+			this.originalSearchInput.addEventListener('input', this.boundListeners.handleOriginalSearchInput);
+		}
+
+		// Clear button functionality
+		this.boundListeners.handleSearchClear = this.clearSearchInput.bind(this);
+		this.tabsSearchClear?.addEventListener('click', this.boundListeners.handleSearchClear);
+
+		// Keyboard handling (Escape to close)
+		this.boundListeners.handleSearchKeydown = (e) => {
+			if (e.key === 'Escape' && this.searchOverlayOpen) {
+				e.preventDefault();
+				this.closeSearchOverlay();
+			}
+		};
+		document.addEventListener('keydown', this.boundListeners.handleSearchKeydown);
+
+		// Posts only button - sync with original
+		this.boundListeners.handleSearchPostsOnlyClick = () => {
+			this.togglePostsOnlyFilter();
+		};
+		this.tabsSearchPostsOnly?.addEventListener('click', this.boundListeners.handleSearchPostsOnlyClick);
+
+		console.log('[MobileTabs] Search integration initialized');
+	}
+
+	/**
+	 * Set up scroll listener to track when inline search scrolls off-screen
+	 */
+	setupSearchVisibilityObserver() {
+		// Find the inline search container within posts content
+		if (!this.inlineSearchContainer) {
+			this.inlineSearchContainer = this.postsContent?.querySelector('.search-container');
+		}
+
+		// If no inline search container, we can't observe it
+		if (!this.inlineSearchContainer) {
+			console.log('[MobileTabs] No inline search container found for observation');
+			return;
+		}
+
+		// Find the scroll container
+		// On mobile, each tab pane (.mobile-tab-pane) scrolls independently with overflow-y: auto
+		// So we need to listen on postsContent itself, not a parent wrapper
+		const isMobile = this.currentDeviceType === 'mobile';
+		if (isMobile && this.postsContent) {
+			// On mobile, postsContent is the scroll container
+			this.scrollContainer = this.postsContent;
+		} else {
+			// On tablet/desktop, try parent containers
+			this.scrollContainer = this.postsContent?.closest('.content-wrapper')
+				|| this.postsContent?.closest('.blog-content')
+				|| document.querySelector('.blog')
+				|| window;
+		}
+		console.log('[MobileTabs] Using scroll container:', this.scrollContainer, 'isMobile:', isMobile);
+
+		// Create scroll handler with throttling
+		let ticking = false;
+		this.boundListeners.handleSearchScroll = () => {
+			if (!ticking) {
+				requestAnimationFrame(() => {
+					this.checkSearchVisibility();
+					ticking = false;
+				});
+				ticking = true;
+			}
+		};
+
+		// Add scroll listener to the scroll container
+		const scrollTarget = this.scrollContainer === window ? window : this.scrollContainer;
+		scrollTarget.addEventListener('scroll', this.boundListeners.handleSearchScroll, { passive: true });
+
+		// Also listen on window in case that's where scroll happens
+		if (scrollTarget !== window) {
+			window.addEventListener('scroll', this.boundListeners.handleSearchScroll, { passive: true });
+		}
+
+		console.log('[MobileTabs] Scroll listener set up');
+
+		// Position the trigger initially
+		requestAnimationFrame(() => {
+			this.updateSearchTriggerPosition();
+			// Check initial visibility
+			this.checkSearchVisibility();
+		});
+	}
+
+	/**
+	 * Check if the inline search is visible and update trigger accordingly
+	 */
+	checkSearchVisibility() {
+		if (!this.inlineSearchContainer || !this.searchTrigger) {
+			return;
+		}
+
+		const activeTab = this.tabContainer?.dataset?.activeTab || 'blog';
+		const isWordsTab = activeTab === 'blog';
+		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
+
+		// Get the search container's position relative to the viewport
+		const rect = this.inlineSearchContainer.getBoundingClientRect();
+		// Consider the search "off-screen" when its bottom edge is above the tabs area (roughly 60px from top)
+		const isOffScreen = rect.bottom < 60;
+		// Consider inline search "visible" when it's scrolled into view
+		const isInlineSearchVisible = rect.top > 60 && rect.bottom > 0;
+
+		// If search overlay is open and user scrolls to reveal inline search, auto-close overlay
+		if (this.searchOverlayOpen && isInlineSearchVisible) {
+			this.transferSearchToInline();
+			return;
+		}
+
+		// Inverse: if inline search is focused/has value and scrolls off-screen, open mobile tabs search
+		if (isWordsTab && isTabsVisible && isOffScreen && !this.searchOverlayOpen) {
+			const inlineHasFocus = document.activeElement === this.originalSearchInput;
+			const inlineHasValue = this.originalSearchInput?.value?.length > 0;
+
+			if (inlineHasFocus || inlineHasValue) {
+				this.transferSearchToTabs();
+				return;
+			}
+		}
+
+		if (!isWordsTab || !isTabsVisible || this.searchOverlayOpen) {
+			this.hideSearchTrigger();
+			return;
+		}
+
+		if (isOffScreen) {
+			this.searchTrigger.classList.remove('is-hiding'); // Cancel any pending hide
+			this.searchTrigger.classList.add('is-visible');
+		} else {
+			this.hideSearchTrigger();
+		}
+	}
+
+	/**
+	 * Transfer search from tabs overlay to inline search bar
+	 * Called when user scrolls up to reveal inline search while overlay is open
+	 */
+	transferSearchToInline() {
+		if (!this.searchOverlayOpen) {
+			return;
+		}
+
+		console.log('[MobileTabs] Transferring search to inline search bar');
+
+		// Get the current search value from tabs input before closing
+		const searchValue = this.tabsSearchInput?.value || '';
+		const hadFocus = document.activeElement === this.tabsSearchInput;
+
+		// Close the overlay (this will blur tabs input)
+		this.closeSearchOverlay();
+
+		// The values should already be synced via input event listeners,
+		// but ensure the inline search has the correct value
+		if (this.originalSearchInput) {
+			// Only update if values differ (avoid unnecessary events)
+			if (this.originalSearchInput.value !== searchValue) {
+				this.originalSearchInput.value = searchValue;
+			}
+			// If user was actively typing, focus the inline search so they can continue
+			if (hadFocus && searchValue) {
+				this.originalSearchInput.focus();
+				// Place cursor at end of text
+				this.originalSearchInput.setSelectionRange(searchValue.length, searchValue.length);
+			}
+		}
+	}
+
+	/**
+	 * Transfer search from inline search bar to tabs overlay
+	 * Called when user scrolls down while inline search is active
+	 */
+	transferSearchToTabs() {
+		if (this.searchOverlayOpen) {
+			return;
+		}
+
+		console.log('[MobileTabs] Transferring search to tabs overlay');
+
+		// Get the current search value from inline input
+		const searchValue = this.originalSearchInput?.value || '';
+		const hadFocus = document.activeElement === this.originalSearchInput;
+
+		// Blur the inline input first
+		this.originalSearchInput?.blur();
+
+		// Open the search overlay (this will sync the value and focus)
+		this.openSearchOverlay();
+
+		// Ensure the value is transferred (openSearchOverlay already syncs, but ensure)
+		if (this.tabsSearchInput && searchValue) {
+			this.tabsSearchInput.value = searchValue;
+			// If user was actively typing, ensure cursor is at end
+			if (hadFocus) {
+				this.tabsSearchInput.setSelectionRange(searchValue.length, searchValue.length);
+			}
+		}
+	}
+
+	/**
+	 * Open the search overlay with magic reveal animation
+	 * The slider shrinks right to reveal the search content beneath it
+	 */
+	openSearchOverlay() {
+		if (!this.searchReveal || !this.tabsSearchInput || this.searchOverlayOpen) {
+			return;
+		}
+
+		this.searchOverlayOpen = true;
+
+		// Calculate slider end position (ring around trigger)
+		// The trigger is positioned at right: 4px inside mobile-tabs
+		// We need the slider to end up centered on the trigger
+		const triggerSize = 24;
+		const tabsRect = this.tabContainer?.getBoundingClientRect();
+		const tabsWidth = tabsRect?.width || 600;
+
+		// Slider end position: 2px from right edge
+		const sliderEndLeft = tabsWidth - 6 - triggerSize;
+
+		// Set CSS custom properties for the animation
+		this.tabContainer?.style.setProperty('--slider-end-left', `${sliderEndLeft}px`);
+		this.tabContainer?.style.setProperty('--slider-end-size', `${triggerSize}px`);
+
+		// Add active class to trigger the magic reveal animation
+		this.tabContainer?.classList.add('search-reveal-active');
+		this.searchReveal.setAttribute('aria-hidden', 'false');
+		this.searchTrigger?.setAttribute('aria-expanded', 'true');
+
+		// Switch trigger icon to close mode
+		this.searchTrigger?.classList.add('is-close-mode');
+
+		// Sync value from original search input
+		if (this.originalSearchInput && this.tabsSearchInput) {
+			this.tabsSearchInput.value = this.originalSearchInput.value;
+		}
+
+		// Sync posts only button state
+		this.syncPostsOnlyState();
+
+		// Focus the input after animation completes
+		setTimeout(() => {
+			this.tabsSearchInput?.focus();
+			this.updateSearchClearVisibility();
+		}, 350); // Match --reveal-duration
+
+		// Play click sound
+		if (window.soundEffects && window.soundEffects.isEnabled()) {
+			window.soundEffects.play('click');
+		}
+
+		console.log('[MobileTabs] Search reveal opened');
+	}
+
+	/**
+	 * Close the search overlay with reverse magic reveal animation
+	 * The slider expands left from the trigger ring back to its original position
+	 */
+	closeSearchOverlay() {
+		if (!this.searchReveal || !this.searchOverlayOpen) {
+			return;
+		}
+
+		this.searchOverlayOpen = false;
+
+		// Remove active class to trigger reverse animation
+		this.tabContainer?.classList.remove('search-reveal-active');
+		this.searchReveal.setAttribute('aria-hidden', 'true');
+		this.searchTrigger?.setAttribute('aria-expanded', 'false');
+
+		// Switch trigger icon back to search mode
+		this.searchTrigger?.classList.remove('is-close-mode');
+
+		// Blur the input
+		this.tabsSearchInput?.blur();
+
+		// After animation completes, update slider to follow active tab
+		setTimeout(() => {
+			this.updateSlider();
+			this.updateSearchTriggerVisibility();
+		}, 350); // Match --reveal-duration
+
+		// Play click sound
+		if (window.soundEffects && window.soundEffects.isEnabled()) {
+			window.soundEffects.play('click');
+		}
+
+		console.log('[MobileTabs] Search reveal closed');
+	}
+
+	/**
+	 * Sync the tabs search input value to the original search input
+	 */
+	syncSearchInputs() {
+		if (!this.tabsSearchInput || !this.originalSearchInput) {
+			return;
+		}
+
+		// Update original search input value
+		this.originalSearchInput.value = this.tabsSearchInput.value;
+
+		// Trigger input event on original to activate filtering
+		const inputEvent = new Event('input', { bubbles: true });
+		this.originalSearchInput.dispatchEvent(inputEvent);
+
+		// Update clear button visibility
+		this.updateSearchClearVisibility();
+	}
+
+	/**
+	 * Clear the search input
+	 */
+	clearSearchInput() {
+		if (!this.tabsSearchInput) {
+			return;
+		}
+
+		this.tabsSearchInput.value = '';
+		this.syncSearchInputs();
+		this.tabsSearchInput.focus();
+	}
+
+	/**
+	 * Toggle the posts only filter and sync with original button
+	 */
+	togglePostsOnlyFilter() {
+		if (!this.tabsSearchPostsOnly || !this.originalPostsOnlyButton) {
+			return;
+		}
+
+		// Trigger click on original button to activate/deactivate filter
+		this.originalPostsOnlyButton.click();
+
+		// Sync the active state after a brief delay to let original handler complete
+		setTimeout(() => {
+			this.syncPostsOnlyState();
+		}, 10);
+	}
+
+	/**
+	 * Sync the active state of the posts only button with the original
+	 */
+	syncPostsOnlyState() {
+		if (!this.tabsSearchPostsOnly || !this.originalPostsOnlyButton) {
+			return;
+		}
+
+		const isActive = this.originalPostsOnlyButton.classList.contains('active');
+		this.tabsSearchPostsOnly.classList.toggle('active', isActive);
+	}
+
+	/**
+	 * Update the visibility of the search clear button
+	 */
+	updateSearchClearVisibility() {
+		if (!this.tabsSearchClear || !this.tabsSearchInput) {
+			return;
+		}
+
+		const hasValue = this.tabsSearchInput.value.length > 0;
+		this.tabsSearchClear.style.display = hasValue ? 'flex' : 'none';
+	}
+
+	/**
+	 * Update the position of the search trigger to align with slider's right edge
+	 * Also sets the slider end position for the magic reveal animation
+	 */
+	updateSearchTriggerPosition() {
+		if (!this.searchTrigger || !this.tabContainer) {
+			return;
+		}
+
+		const slider = this.tabContainer.querySelector('.mobile-tabs-slider');
+		if (!slider) return;
+
+		const triggerSize = 24; // Match CSS width/height
+		const tabsRect = this.tabContainer.getBoundingClientRect();
+		const sliderRect = slider.getBoundingClientRect();
+
+		// Position trigger inside slider, aligned to slider's right edge
+		const sliderRightEdge = sliderRect.right - tabsRect.left;
+		const triggerLeft = sliderRightEdge - triggerSize - 4; // 4px padding from edge
+
+		// Set trigger position
+		this.tabContainer.style.setProperty('--trigger-left', `${triggerLeft}px`);
+
+		// Calculate slider end position for magic reveal (where slider shrinks to)
+		// Position 4px from right edge
+		const tabsWidth = tabsRect.width;
+		const sliderEndLeft = tabsWidth - 6 - triggerSize; // 2px from right edge
+		this.tabContainer.style.setProperty('--slider-end-left', `${sliderEndLeft}px`);
+	}
+
+	/**
+	 * Hide the search trigger with animation
+	 * @param {boolean} animate - Whether to animate the hiding
+	 */
+	hideSearchTrigger(animate = true) {
+		if (!this.searchTrigger) return;
+
+		// If not visible, nothing to hide
+		if (!this.searchTrigger.classList.contains('is-visible')) {
+			return;
+		}
+
+		if (animate) {
+			// Add hiding class to trigger pop-out animation
+			this.searchTrigger.classList.add('is-hiding');
+			this.searchTrigger.classList.remove('is-visible');
+
+			// Remove hiding class after animation completes
+			setTimeout(() => {
+				this.searchTrigger?.classList.remove('is-hiding');
+			}, 200); // Match animation duration
+		} else {
+			// Instant hide
+			this.searchTrigger.classList.remove('is-visible', 'is-hiding');
+		}
+	}
+
+	/**
+	 * Update the visibility of the search trigger based on current state
+	 */
+	updateSearchTriggerVisibility() {
+		if (!this.searchTrigger || !this.inlineSearchContainer) {
+			return;
+		}
+
+		const activeTab = this.tabContainer?.dataset?.activeTab || 'blog';
+		const isWordsTab = activeTab === 'blog';
+		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
+
+		if (!isWordsTab || !isTabsVisible || this.searchOverlayOpen) {
+			this.hideSearchTrigger();
+			return;
+		}
+
+		// Check if inline search is currently visible
+		const rect = this.inlineSearchContainer.getBoundingClientRect();
+		const isVisible = rect.top > 60 && rect.bottom > 0;
+
+		if (isVisible) {
+			this.hideSearchTrigger();
+		} else {
+			this.searchTrigger.classList.remove('is-hiding'); // Cancel any pending hide
+			this.searchTrigger.classList.add('is-visible');
+		}
+	}
+
+	/**
+	 * Clean up search integration resources
+	 */
+	cleanupSearchIntegration() {
+		// Remove event listeners
+		if (this.boundListeners.handleSearchTriggerClick) {
+			this.searchTrigger?.removeEventListener('click', this.boundListeners.handleSearchTriggerClick);
+		}
+		if (this.boundListeners.handleSearchInputSync) {
+			this.tabsSearchInput?.removeEventListener('input', this.boundListeners.handleSearchInputSync);
+		}
+		if (this.boundListeners.handleOriginalSearchInput) {
+			this.originalSearchInput?.removeEventListener('input', this.boundListeners.handleOriginalSearchInput);
+		}
+		if (this.boundListeners.handleSearchClear) {
+			this.tabsSearchClear?.removeEventListener('click', this.boundListeners.handleSearchClear);
+		}
+		if (this.boundListeners.handleSearchKeydown) {
+			document.removeEventListener('keydown', this.boundListeners.handleSearchKeydown);
+		}
+		if (this.boundListeners.handleSearchPostsOnlyClick) {
+			this.tabsSearchPostsOnly?.removeEventListener('click', this.boundListeners.handleSearchPostsOnlyClick);
+		}
+
+		// Remove scroll listener
+		if (this.boundListeners.handleSearchScroll) {
+			const scrollTarget = this.scrollContainer === window ? window : this.scrollContainer;
+			scrollTarget?.removeEventListener('scroll', this.boundListeners.handleSearchScroll);
+			window.removeEventListener('scroll', this.boundListeners.handleSearchScroll);
+		}
+
+		// Remove body class
+		document.body.classList.remove('tabs-search-available');
+
+		// Reset state
+		this.searchOverlayOpen = false;
 	}
 }

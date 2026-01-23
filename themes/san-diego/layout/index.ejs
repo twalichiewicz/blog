@@ -286,9 +286,7 @@
 			opacity: 0;
 		}
 		
-		body.loaded {
-			overflow: auto;
-		}
+		/* body.loaded - don't override overflow, let CSS handle it */
 		
 		body.loaded .blog {
 			opacity: 1 !important;
@@ -315,22 +313,45 @@
 		/* Ensure blog-content is scrollable on desktop/tablet */
 		@media (min-width: 769px) {
 			.blog-content {
-				height: calc(100vh - 12px) !important;
-				overflow-y: auto !important;
+				height: calc(100vh - 12px);
+				overflow-y: auto;
 				-webkit-overflow-scrolling: touch;
 			}
 		}
-		
+
+		/* Mobile: blog-content fills space, content-wrapper scrolls */
+		@media (max-width: 768px) {
+			.blog-content {
+				flex: 1;
+				min-height: 0;
+				overflow: hidden;
+				border-radius: 0;
+			}
+
+			.content-inner-wrapper {
+				flex: 1;
+				min-height: 0;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.content-wrapper {
+				position: relative;
+				flex: 1;
+				min-height: 0;
+				overflow: hidden; /* Panes handle their own scrolling */
+			}
+		}
+
 		/* Ensure all child elements are visible */
 		body.loaded .blog * {
 			visibility: visible !important;
 		}
-		
+
 		/* Ensure content-inner-wrapper is visible */
 		body.loaded .content-inner-wrapper {
 			opacity: 1 !important;
 			visibility: visible !important;
-			display: block !important;
 		}
 		
 		/* Ensure body is visible and scrollable */
@@ -339,10 +360,20 @@
 			visibility: visible !important;
 		}
 		
-		/* Ensure html and body can scroll */
-		html, body {
-			height: auto !important;
-			overflow: visible !important;
+		/* Mobile: lock body scroll, delegate to inner wrapper */
+		@media (max-width: 768px) {
+			html, body {
+				height: 100%;
+				overflow: hidden;
+			}
+		}
+
+		/* Desktop/tablet: allow normal scroll behavior */
+		@media (min-width: 769px) {
+			html, body {
+				height: 100%;
+				overflow: hidden; /* blog-content handles scroll */
+			}
 		}
 		
 		/* Ensure main element uses proper flex layout */
@@ -396,59 +427,19 @@
 		}, 500);
 	}
 	
-	// Simple hide function
+	// Simple hide function - remove loading screen, let CSS control layout
 	function hideLoadingScreen() {
-		// Hide loading screen
 		var loadingScreen = document.querySelector('.loading-screen');
 		if (loadingScreen) {
-			// Force hide with inline styles first, then remove
-			loadingScreen.style.display = 'none';
-			loadingScreen.style.opacity = '0';
-			loadingScreen.style.visibility = 'hidden';
-			loadingScreen.style.pointerEvents = 'none';
-			loadingScreen.style.position = 'absolute';
-			loadingScreen.style.left = '-9999px';
-			
-			// Remove from DOM after a short delay
+			loadingScreen.classList.add('hidden');
+			// Remove from DOM after transition
 			setTimeout(function() {
 				if (loadingScreen && loadingScreen.parentNode) {
 					loadingScreen.parentNode.removeChild(loadingScreen);
-					// Loading screen removed from DOM
 				}
-			}, 100);
+			}, 300);
 		}
 		document.body.classList.add('loaded');
-		
-		// CRITICAL: Ensure body and html are scrollable
-		document.body.style.overflow = 'auto';
-		document.body.style.height = 'auto';
-		document.documentElement.style.overflow = 'auto';
-		document.documentElement.style.height = 'auto';
-		
-		// Debug: Check what's happening with blog-content
-		var blogContent = document.querySelector('.blog-content');
-		if (blogContent) {
-			// blog-content found
-			// Check computed styles before fix
-			
-			// Force it visible with highest specificity, preserving border-radius
-			blogContent.setAttribute('style', 'opacity: 1 !important; visibility: visible !important; border-radius: 12px 0 0 0 !important;');
-			
-			// Styles applied
-		} else {
-			// blog-content not found
-		}
-		
-		// Also check content-inner-wrapper
-		var contentInner = document.querySelector('.content-inner-wrapper');
-		if (contentInner) {
-			// content-inner-wrapper found
-			contentInner.setAttribute('style', 'opacity: 1 !important; visibility: visible !important;');
-		}
-		
-		// Check all children
-		var blogChildren = document.querySelectorAll('.blog-content > *');
-		// Check blog-content children
 	}
 	
 		var loadingResolved = false;
@@ -500,74 +491,19 @@
 			}, 100);
 		}
 		
-		// Extra safety check after 2 seconds
+		// Simplified safety check - only ensure visibility, let CSS handle layout
 		setTimeout(function() {
-			// 2-second safety check
-			// Force blog-content visible again
+			// Just ensure elements are visible, don't override layout properties
 			var blogContent = document.querySelector('.blog-content');
 			if (blogContent) {
-				// Remove ALL inline styles and re-apply visibility
-				blogContent.removeAttribute('style');
-				
-				// Check if we're on desktop/tablet
-				var isDesktop = window.innerWidth > 768;
-				if (isDesktop) {
-					// Ensure proper height calculation and scrolling for desktop
-					blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: calc(100vh - 12px) !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; border-radius: 12px 0 0 0 !important;';
-					
-					// Also ensure the content-inner-wrapper doesn't interfere with scrolling
-					var innerWrapper = blogContent.querySelector('.content-inner-wrapper');
-					if (innerWrapper) {
-						innerWrapper.style.minHeight = '100%';
-						// Preserve border-radius on inner wrapper too
-						innerWrapper.style.borderRadius = '12px 0 0 0';
-					}
-				} else {
-					// Mobile styles
-					blogContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: auto !important; overflow: visible !important; border-radius: 12px 0 0 0 !important;';
-				}
-				
-				// Check actual computed height
-				var computedHeight = window.getComputedStyle(blogContent).height;
-				// Check blog-content computed height
-				
-				// If height is 0 or very small, force a minimum height
-				if (parseInt(computedHeight) < 100) {
-					// blog-content height too small, forcing minimum height
-					blogContent.style.minHeight = '500px';
-				}
-				
-				// Do the same for all children
-				var allChildren = blogContent.querySelectorAll('*');
-				allChildren.forEach(function(child) {
-					if (child.style.opacity === '0' || child.style.visibility === 'hidden') {
-						child.style.opacity = '1';
-						child.style.visibility = 'visible';
-					}
-				});
+				blogContent.style.opacity = '1';
+				blogContent.style.visibility = 'visible';
 			}
-			
-			// Also ensure blog has no hiding styles
+
 			var blog = document.querySelector('.blog');
 			if (blog) {
 				blog.style.opacity = '1';
 				blog.style.visibility = 'visible';
-				
-				// Check blog dimensions
-				var blogHeight = window.getComputedStyle(blog).height;
-				// Check blog element height
-			}
-			
-			// Final check - ensure blog-header isn't taking all the space
-			var blogHeader = document.querySelector('.blog-header');
-			if (blogHeader) {
-				var headerHeight = window.getComputedStyle(blogHeader).height;
-				// Check blog-header height
-				
-				// If header is taking full viewport, allow CSS layout to handle sizing
-				if (parseInt(headerHeight) >= window.innerHeight - 50) {
-					blogHeader.style.removeProperty('height');
-				}
 			}
 		}, 2000);
 	
@@ -612,9 +548,42 @@
         <div class="content-inner-wrapper">
             <div class="tabs-wrapper">
                 <div class="mobile-tabs" role="tablist" aria-label="Content Sections">
-                    <button class="tab-button active" data-type="blog" data-pane="postsContent" role="tab" aria-selected="true" aria-controls="postsContent" id="tab-blog">Words</button>
-                    <button class="tab-button" data-type="portfolio" data-pane="projectsContent" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Works</button>
-                    <button class="tab-button" data-type="wares" data-pane="waresContent" role="tab" aria-selected="false" aria-controls="waresContent" id="tab-wares">Wares</button>
+                    <!-- Search reveal layer (hidden behind slider, revealed when slider moves) -->
+                    <div class="tabs-search-reveal" aria-hidden="true">
+                        <div class="tabs-search-input-wrapper">
+                            <span class="tabs-search-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.3-4.3"></path>
+                                </svg>
+                            </span>
+                            <input type="search" class="tabs-search-input" placeholder="Search posts..." aria-label="Search posts">
+                            <button class="tabs-search-clear" aria-label="Clear search" style="display: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <button class="tabs-search-posts-only" data-filter="posts">Posts only</button>
+                    </div>
+                    <!-- Tab buttons (fade out when search is revealed) -->
+                    <div class="tabs-buttons-layer">
+                        <button class="tab-button active" data-type="blog" data-pane="postsContent" role="tab" aria-selected="true" aria-controls="postsContent" id="tab-blog">Words</button>
+                        <button class="tab-button" data-type="portfolio" data-pane="projectsContent" role="tab" aria-selected="false" aria-controls="projectsContent" id="tab-portfolio">Works</button>
+                        <button class="tab-button" data-type="wares" data-pane="waresContent" role="tab" aria-selected="false" aria-controls="waresContent" id="tab-wares">Wares</button>
+                    </div>
+                    <!-- Search trigger (toggles between 🔍 and ✕) -->
+                    <button class="tabs-search-trigger" aria-label="Search posts" aria-expanded="false">
+                        <svg class="icon-search" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </svg>
+                        <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
                 </div>
                 <div class="mobile-tabs-backing" aria-hidden="true"></div>
                 <div class="mobile-action-header" aria-hidden="true"></div>
