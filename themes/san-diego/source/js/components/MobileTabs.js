@@ -427,6 +427,9 @@ export default class MobileTabs {
 			// Also update the top position to account for potential padding differences
 			slider.style.top = `${containerPadding}px`;
 			slider.style.height = `calc(100% - ${containerPadding * 2}px)`;
+
+			// Update search trigger position to align with slider
+			this.updateSearchTriggerPosition();
 		} catch (error) {
 			// Error updating slider
 		}
@@ -1366,8 +1369,14 @@ export default class MobileTabs {
 		this.setupSearchVisibilityObserver();
 
 		// Set up event listeners
-		this.boundListeners.handleSearchTriggerClick = this.openSearchOverlay.bind(this);
+		this.boundListeners.handleSearchTriggerClick = (e) => {
+			e.preventDefault();
+			e.stopPropagation();
+			console.log('[MobileTabs] Search trigger clicked');
+			this.openSearchOverlay();
+		};
 		this.searchTrigger.addEventListener('click', this.boundListeners.handleSearchTriggerClick);
+		console.log('[MobileTabs] Click listener attached to search trigger');
 
 		this.boundListeners.handleSearchCloseClick = this.closeSearchOverlay.bind(this);
 		this.tabsSearchClose?.addEventListener('click', this.boundListeners.handleSearchCloseClick);
@@ -1456,6 +1465,11 @@ export default class MobileTabs {
 
 		this.searchVisibilityObserver.observe(this.inlineSearchContainer);
 		console.log('[MobileTabs] Search visibility observer set up for:', this.inlineSearchContainer);
+
+		// Position the trigger initially
+		requestAnimationFrame(() => {
+			this.updateSearchTriggerPosition();
+		});
 	}
 
 	/**
@@ -1565,6 +1579,39 @@ export default class MobileTabs {
 
 		const hasValue = this.tabsSearchInput.value.length > 0;
 		this.tabsSearchClear.style.display = hasValue ? 'flex' : 'none';
+	}
+
+	/**
+	 * Update the position of the search trigger to align with the slider
+	 */
+	updateSearchTriggerPosition() {
+		if (!this.searchTrigger || !this.tabContainer) {
+			return;
+		}
+
+		// Get the slider element
+		const slider = this.tabContainer.querySelector('.mobile-tabs-slider');
+		if (!slider) {
+			return;
+		}
+
+		// Get the slider's current position and width from its computed transform
+		const sliderStyle = window.getComputedStyle(slider);
+		const sliderTransform = sliderStyle.transform;
+		const sliderWidth = slider.offsetWidth;
+
+		// Parse the translateX value from the transform matrix
+		let sliderX = 0;
+		if (sliderTransform && sliderTransform !== 'none') {
+			const matrix = new DOMMatrix(sliderTransform);
+			sliderX = matrix.m41; // translateX value
+		}
+
+		// Position the trigger to the right of the slider
+		// Add a small gap (4px) between slider and trigger
+		const triggerLeft = sliderX + sliderWidth + 4;
+		this.searchTrigger.style.left = `${triggerLeft}px`;
+		this.searchTrigger.style.right = 'auto';
 	}
 
 	/**
