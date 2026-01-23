@@ -113,9 +113,10 @@
 		opacity: 0;
 		visibility: hidden;
 		pointer-events: none;
+		// No delay when hiding - start immediately
 		transition:
-			opacity calc(var(--reveal-duration) * 0.6) ease,
-			visibility calc(var(--reveal-duration) * 0.6) ease;
+			opacity calc(var(--reveal-duration) * 0.5) ease,
+			visibility calc(var(--reveal-duration) * 0.5) ease;
 	}
 
 	// Show search reveal content when slider has moved
@@ -123,6 +124,10 @@
 		opacity: 1;
 		visibility: visible;
 		pointer-events: auto;
+		// Delay showing until slider has moved out of the way
+		transition:
+			opacity calc(var(--reveal-duration) * 0.5) ease calc(var(--reveal-duration) * 0.5),
+			visibility calc(var(--reveal-duration) * 0.5) ease calc(var(--reveal-duration) * 0.5);
 	}
 
 	// Tab buttons layer - fades out when search is revealed
