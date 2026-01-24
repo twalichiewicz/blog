@@ -113,9 +113,10 @@
 		opacity: 0;
 		visibility: hidden;
 		pointer-events: none;
+		// No delay when hiding - start immediately
 		transition:
-			opacity calc(var(--reveal-duration) * 0.6) ease,
-			visibility calc(var(--reveal-duration) * 0.6) ease;
+			opacity calc(var(--reveal-duration) * 0.5) ease,
+			visibility calc(var(--reveal-duration) * 0.5) ease;
 	}
 
 	// Show search reveal content when slider has moved
@@ -123,6 +124,10 @@
 		opacity: 1;
 		visibility: visible;
 		pointer-events: auto;
+		// Delay showing until slider has moved out of the way
+		transition:
+			opacity calc(var(--reveal-duration) * 0.5) ease calc(var(--reveal-duration) * 0.5),
+			visibility calc(var(--reveal-duration) * 0.5) ease calc(var(--reveal-duration) * 0.5);
 	}
 
 	// Tab buttons layer - fades out when search is revealed
@@ -132,12 +137,34 @@
 		gap: 4px;
 		position: relative;
 		z-index: 2; // Same as reveal, but visible by default
-		transition: opacity calc(var(--reveal-duration) * 0.5) ease;
+
+		// Stagger button fade - each button fades as slider passes over it
+		.tab-button {
+			transition: opacity calc(var(--reveal-duration) * 0.25) ease;
+
+			// First button (Words) - fades at 1/3 of animation
+			&:nth-child(1) {
+				transition-delay: 0ms;
+			}
+
+			// Second button (Works) - fades at 2/3 of animation
+			&:nth-child(2) {
+				transition-delay: calc(var(--reveal-duration) * 0.33);
+			}
+
+			// Third button (Wares) - fades at 3/3 of animation
+			&:nth-child(3) {
+				transition-delay: calc(var(--reveal-duration) * 0.66);
+			}
+		}
 	}
 
 	&.search-reveal-active .tabs-buttons-layer {
-		opacity: 0;
 		pointer-events: none;
+
+		.tab-button {
+			opacity: 0;
+		}
 	}
 
 	// Search trigger - positioned inside mobile-tabs
@@ -223,14 +250,19 @@
 
 		// Close mode - swap icons (search is open)
 		// Align with slider end position for perfect overlap
+		// Delay visibility until slider animation reaches end position
 		&.is-close-mode {
-			opacity: 1;
-			visibility: visible;
-			pointer-events: auto;
 			// Use same position as slider in search-reveal-active
 			left: var(--slider-end-left);
 			right: auto;
 			background: transparent;
+			// Delay showing until slider has moved to end position
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none;
+			transition:
+				opacity 100ms ease calc(var(--reveal-duration) * 0.7),
+				visibility 100ms ease calc(var(--reveal-duration) * 0.7);
 
 			.icon-search {
 				opacity: 0;
@@ -242,6 +274,17 @@
 				visibility: visible;
 			}
 		}
+	}
+
+	// After delay, show the close button (must be at .mobile-tabs level)
+	&.search-reveal-active .tabs-search-trigger.is-close-mode {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+	}
+
+	// Re-open .tabs-search-trigger block for remaining styles
+	.tabs-search-trigger {
 
 		@media (prefers-color-scheme: dark) {
 			background: rgba(variables.$black, 0.3);
@@ -257,11 +300,6 @@
 			&:active {
 				background: rgba(variables.$black, 0.5);
 			}
-		}
-
-		// Hide on desktop
-		@media screen and (min-width: 1024px) {
-			display: none;
 		}
 	}
 
@@ -1243,12 +1281,16 @@ body.dark-mode-forced .tabs-search-input-wrapper {
 	transform: translateY(-50%);
 	width: 13px;
 	height: 13px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	opacity: 0.55;
 	pointer-events: none;
 
 	svg {
-		width: 100%;
-		height: 100%;
+		width: 13px;
+		height: 13px;
+		flex-shrink: 0;
 		stroke: variables.$text-color-secondary;
 	}
 
@@ -1368,7 +1410,7 @@ body.dark-mode-forced .tabs-search-clear {
 	flex-shrink: 0;
 	height: 100%; // Fill overlay height
 	padding: 0 12px;
-	border: 1px solid variables.$border-color;
+	border: 1px solid #e7e3dc;
 	border-radius: 26px;
 	background: transparent;
 	font-size: 11px;

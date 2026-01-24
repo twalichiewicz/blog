@@ -747,11 +747,6 @@ export default class MobileTabs {
 		this.suppressAnimations();
 		const newDeviceType = this.getDeviceType();
 
-		// Close search overlay when resizing to desktop (where tabs aren't visible)
-		if (newDeviceType === 'desktop' && this.searchOverlayOpen) {
-			this.closeSearchOverlay();
-		}
-
 		if (newDeviceType !== this.currentDeviceType) {
 			this.currentDeviceType = newDeviceType;
 			this.handleDeviceChange(true);
@@ -857,7 +852,10 @@ export default class MobileTabs {
 	applyMobileOverflowFixes() {
 		if (!this.tabsWrapper) return;
 
-		if (this.currentDeviceType !== 'mobile') {
+		// Apply sticky positioning for mobile and tablet (needed for search trigger to work)
+		const shouldBeSticky = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
+
+		if (!shouldBeSticky) {
 			this.clearMobileOverflowFixes();
 			return;
 		}
@@ -1438,22 +1436,6 @@ export default class MobileTabs {
 			return;
 		}
 
-		// Find the scroll container
-		// On mobile, each tab pane (.mobile-tab-pane) scrolls independently with overflow-y: auto
-		// So we need to listen on postsContent itself, not a parent wrapper
-		const isMobile = this.currentDeviceType === 'mobile';
-		if (isMobile && this.postsContent) {
-			// On mobile, postsContent is the scroll container
-			this.scrollContainer = this.postsContent;
-		} else {
-			// On tablet/desktop, try parent containers
-			this.scrollContainer = this.postsContent?.closest('.content-wrapper')
-				|| this.postsContent?.closest('.blog-content')
-				|| document.querySelector('.blog')
-				|| window;
-		}
-		console.log('[MobileTabs] Using scroll container:', this.scrollContainer, 'isMobile:', isMobile);
-
 		// Create scroll handler with throttling
 		let ticking = false;
 		this.boundListeners.handleSearchScroll = () => {
@@ -1466,16 +1448,33 @@ export default class MobileTabs {
 			}
 		};
 
-		// Add scroll listener to the scroll container
-		const scrollTarget = this.scrollContainer === window ? window : this.scrollContainer;
-		scrollTarget.addEventListener('scroll', this.boundListeners.handleSearchScroll, { passive: true });
+		// Listen on multiple potential scroll containers to catch scroll events
+		// regardless of where they originate (postsContent, parent wrappers, or window)
+		const scrollTargets = new Set();
 
-		// Also listen on window in case that's where scroll happens
-		if (scrollTarget !== window) {
-			window.addEventListener('scroll', this.boundListeners.handleSearchScroll, { passive: true });
+		// Always listen on postsContent if it exists (scrolls on mobile, might scroll on tablet)
+		if (this.postsContent) {
+			scrollTargets.add(this.postsContent);
 		}
 
-		console.log('[MobileTabs] Scroll listener set up');
+		// Also check parent containers that might scroll
+		const contentWrapper = this.postsContent?.closest('.content-wrapper');
+		const blogContent = this.postsContent?.closest('.blog-content');
+		if (contentWrapper) scrollTargets.add(contentWrapper);
+		if (blogContent) scrollTargets.add(blogContent);
+
+		// Always listen on window as fallback
+		scrollTargets.add(window);
+
+		// Attach scroll listeners to all potential scroll containers
+		scrollTargets.forEach(target => {
+			target.addEventListener('scroll', this.boundListeners.handleSearchScroll, { passive: true });
+		});
+
+		// Store for cleanup
+		this.scrollTargets = scrollTargets;
+
+		console.log('[MobileTabs] Scroll listeners set up on', scrollTargets.size, 'targets');
 
 		// Position the trigger initially
 		requestAnimationFrame(() => {
@@ -1495,7 +1494,8 @@ export default class MobileTabs {
 
 		const activeTab = this.tabContainer?.dataset?.activeTab || 'blog';
 		const isWordsTab = activeTab === 'blog';
-		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
+		// Search is available on all device types where tabs are shown (mobile, tablet, and desktop)
+		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet' || this.currentDeviceType === 'desktop';
 
 		// Get the search container's position relative to the viewport
 		const rect = this.inlineSearchContainer.getBoundingClientRect();
@@ -1510,7 +1510,19 @@ export default class MobileTabs {
 			return;
 		}
 
-		// Inverse: if inline search is focused/has value and scrolls off-screen, open mobile tabs search
+		// If search overlay is open but input is not focused AND has no value, close on scroll
+		if (this.searchOverlayOpen) {
+			const inputHasFocus = document.activeElement === this.tabsSearchInput;
+			const inputHasValue = this.tabsSearchInput?.value?.length > 0;
+			// Only auto-close if user isn't actively searching (no focus AND no value)
+			if (!inputHasFocus && !inputHasValue) {
+				// Close and clear since user is scrolling away without actively searching
+				this.closeSearchOverlay(true);
+				return;
+			}
+		}
+
+		// Inverse: if inline search is focused/has value and scrolls off-screen, open tabs search
 		if (isWordsTab && isTabsVisible && isOffScreen && !this.searchOverlayOpen) {
 			const inlineHasFocus = document.activeElement === this.originalSearchInput;
 			const inlineHasValue = this.originalSearchInput?.value?.length > 0;
@@ -1549,8 +1561,8 @@ export default class MobileTabs {
 		const searchValue = this.tabsSearchInput?.value || '';
 		const hadFocus = document.activeElement === this.tabsSearchInput;
 
-		// Close the overlay (this will blur tabs input)
-		this.closeSearchOverlay();
+		// Close the overlay without clearing search (transfer preserves value)
+		this.closeSearchOverlay(false);
 
 		// The values should already be synced via input event listeners,
 		// but ensure the inline search has the correct value
@@ -1608,6 +1620,9 @@ export default class MobileTabs {
 			return;
 		}
 
+		// Save current scroll position to restore if user cancels search
+		this.savedScrollPosition = window.scrollY;
+
 		this.searchOverlayOpen = true;
 
 		// Calculate slider end position (ring around trigger)
@@ -1657,8 +1672,9 @@ export default class MobileTabs {
 	/**
 	 * Close the search overlay with reverse magic reveal animation
 	 * The slider expands left from the trigger ring back to its original position
+	 * @param {boolean} clearSearch - Whether to clear the search input (default: true for (x) button)
 	 */
-	closeSearchOverlay() {
+	closeSearchOverlay(clearSearch = true) {
 		if (!this.searchReveal || !this.searchOverlayOpen) {
 			return;
 		}
@@ -1672,6 +1688,32 @@ export default class MobileTabs {
 
 		// Switch trigger icon back to search mode
 		this.searchTrigger?.classList.remove('is-close-mode');
+
+		// Clear search input if requested (default for (x) button close)
+		if (clearSearch) {
+			if (this.tabsSearchInput) {
+				this.tabsSearchInput.value = '';
+			}
+			if (this.originalSearchInput) {
+				this.originalSearchInput.value = '';
+				// Trigger input event to reset filtering
+				const inputEvent = new Event('input', { bubbles: true });
+				this.originalSearchInput.dispatchEvent(inputEvent);
+			}
+			this.updateSearchClearVisibility();
+
+			// Restore scroll position to where user was before opening search
+			if (typeof this.savedScrollPosition === 'number') {
+				window.scrollTo({
+					top: this.savedScrollPosition,
+					behavior: 'smooth'
+				});
+				this.savedScrollPosition = null;
+			}
+		} else {
+			// Not restoring scroll, but clear saved position since search continues
+			this.savedScrollPosition = null;
+		}
 
 		// Blur the input
 		this.tabsSearchInput?.blur();
@@ -1830,7 +1872,8 @@ export default class MobileTabs {
 
 		const activeTab = this.tabContainer?.dataset?.activeTab || 'blog';
 		const isWordsTab = activeTab === 'blog';
-		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
+		// Search trigger is available on all device types where tabs are shown
+		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet' || this.currentDeviceType === 'desktop';
 
 		if (!isWordsTab || !isTabsVisible || this.searchOverlayOpen) {
 			this.hideSearchTrigger();
@@ -1873,11 +1916,12 @@ export default class MobileTabs {
 			this.tabsSearchPostsOnly?.removeEventListener('click', this.boundListeners.handleSearchPostsOnlyClick);
 		}
 
-		// Remove scroll listener
-		if (this.boundListeners.handleSearchScroll) {
-			const scrollTarget = this.scrollContainer === window ? window : this.scrollContainer;
-			scrollTarget?.removeEventListener('scroll', this.boundListeners.handleSearchScroll);
-			window.removeEventListener('scroll', this.boundListeners.handleSearchScroll);
+		// Remove scroll listeners from all targets
+		if (this.boundListeners.handleSearchScroll && this.scrollTargets) {
+			this.scrollTargets.forEach(target => {
+				target?.removeEventListener('scroll', this.boundListeners.handleSearchScroll);
+			});
+			this.scrollTargets.clear();
 		}
 
 		// Remove body class

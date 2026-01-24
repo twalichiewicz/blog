@@ -1438,6 +1438,56 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 		}
 
 		refreshSearchInteractionState(e.target.closest('.search-container'));
+
+		// Scroll to first result when there's a query and results (debounced)
+		if (query && visiblePosts.length > 0) {
+			// Clear any pending scroll
+			if (handleSearch.scrollTimeout) {
+				clearTimeout(handleSearch.scrollTimeout);
+			}
+			// Debounce scroll to avoid jumping on every keystroke
+			handleSearch.scrollTimeout = setTimeout(() => {
+				const firstResult = visiblePosts[0];
+				if (firstResult) {
+					// Calculate scroll position to place result just below tabs-wrapper
+					const tabsWrapper = document.querySelector('.tabs-wrapper');
+					const tabsHeight = tabsWrapper ? tabsWrapper.offsetHeight : 0;
+					const padding = 16; // Extra padding below tabs
+					const resultRect = firstResult.getBoundingClientRect();
+					const scrollContainer = firstResult.closest('.mobile-tab-pane') || window;
+
+					// Calculate minimum scroll position to keep inline search hidden
+					// The inline search bar should stay scrolled off-screen above the tabs
+					const inlineSearch = blogContent.querySelector('.search-container');
+					let minScrollY = 0;
+					if (inlineSearch && tabsWrapper) {
+						const inlineSearchRect = inlineSearch.getBoundingClientRect();
+						const inlineSearchBottom = window.scrollY + inlineSearchRect.bottom;
+						// Minimum scroll keeps inline search bar just above the viewport
+						minScrollY = inlineSearchBottom - tabsHeight + padding;
+					}
+
+					if (scrollContainer === window || scrollContainer === document.documentElement) {
+						// Scroll window
+						const targetY = window.scrollY + resultRect.top - tabsHeight - padding;
+						// Don't scroll above the minimum (which would reveal inline search)
+						const clampedY = Math.max(minScrollY, targetY);
+						window.scrollTo({
+							top: Math.max(0, clampedY),
+							behavior: 'smooth'
+						});
+					} else {
+						// Scroll container (mobile tab pane)
+						const containerRect = scrollContainer.getBoundingClientRect();
+						const targetScroll = scrollContainer.scrollTop + (resultRect.top - containerRect.top) - tabsHeight - padding;
+						scrollContainer.scrollTo({
+							top: Math.max(0, targetScroll),
+							behavior: 'smooth'
+						});
+					}
+				}
+			}, 150);
+		}
 	}
 	
 	// Initialize posts only button
