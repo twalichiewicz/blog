@@ -1510,6 +1510,16 @@ export default class MobileTabs {
 			return;
 		}
 
+		// If search overlay is open but input is not focused, close on scroll
+		if (this.searchOverlayOpen) {
+			const inputHasFocus = document.activeElement === this.tabsSearchInput;
+			if (!inputHasFocus) {
+				// Close and clear since user is scrolling away without actively searching
+				this.closeSearchOverlay(true);
+				return;
+			}
+		}
+
 		// Inverse: if inline search is focused/has value and scrolls off-screen, open tabs search
 		if (isWordsTab && isTabsVisible && isOffScreen && !this.searchOverlayOpen) {
 			const inlineHasFocus = document.activeElement === this.originalSearchInput;
