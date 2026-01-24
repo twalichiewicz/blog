@@ -274,13 +274,17 @@
 				visibility: visible;
 			}
 		}
+	}
 
-		// After delay, show the close button
-		.search-reveal-active &.is-close-mode {
-			opacity: 1;
-			visibility: visible;
-			pointer-events: auto;
-		}
+	// After delay, show the close button (must be at .mobile-tabs level)
+	&.search-reveal-active .tabs-search-trigger.is-close-mode {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+	}
+
+	// Re-open .tabs-search-trigger block for remaining styles
+	.tabs-search-trigger {
 
 		@media (prefers-color-scheme: dark) {
 			background: rgba(variables.$black, 0.3);
