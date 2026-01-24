@@ -1620,6 +1620,9 @@ export default class MobileTabs {
 			return;
 		}
 
+		// Save current scroll position to restore if user cancels search
+		this.savedScrollPosition = window.scrollY;
+
 		this.searchOverlayOpen = true;
 
 		// Calculate slider end position (ring around trigger)
@@ -1698,6 +1701,18 @@ export default class MobileTabs {
 				this.originalSearchInput.dispatchEvent(inputEvent);
 			}
 			this.updateSearchClearVisibility();
+
+			// Restore scroll position to where user was before opening search
+			if (typeof this.savedScrollPosition === 'number') {
+				window.scrollTo({
+					top: this.savedScrollPosition,
+					behavior: 'smooth'
+				});
+				this.savedScrollPosition = null;
+			}
+		} else {
+			// Not restoring scroll, but clear saved position since search continues
+			this.savedScrollPosition = null;
 		}
 
 		// Blur the input

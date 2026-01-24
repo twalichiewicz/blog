@@ -1456,11 +1456,24 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 					const resultRect = firstResult.getBoundingClientRect();
 					const scrollContainer = firstResult.closest('.mobile-tab-pane') || window;
 
+					// Calculate minimum scroll position to keep inline search hidden
+					// The inline search bar should stay scrolled off-screen above the tabs
+					const inlineSearch = blogContent.querySelector('.search-container');
+					let minScrollY = 0;
+					if (inlineSearch && tabsWrapper) {
+						const inlineSearchRect = inlineSearch.getBoundingClientRect();
+						const inlineSearchBottom = window.scrollY + inlineSearchRect.bottom;
+						// Minimum scroll keeps inline search bar just above the viewport
+						minScrollY = inlineSearchBottom - tabsHeight + padding;
+					}
+
 					if (scrollContainer === window || scrollContainer === document.documentElement) {
 						// Scroll window
 						const targetY = window.scrollY + resultRect.top - tabsHeight - padding;
+						// Don't scroll above the minimum (which would reveal inline search)
+						const clampedY = Math.max(minScrollY, targetY);
 						window.scrollTo({
-							top: Math.max(0, targetY),
+							top: Math.max(0, clampedY),
 							behavior: 'smooth'
 						});
 					} else {
