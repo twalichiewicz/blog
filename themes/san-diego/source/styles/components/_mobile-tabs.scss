@@ -137,12 +137,34 @@
 		gap: 4px;
 		position: relative;
 		z-index: 2; // Same as reveal, but visible by default
-		transition: opacity calc(var(--reveal-duration) * 0.5) ease;
+
+		// Stagger button fade - each button fades as slider passes over it
+		.tab-button {
+			transition: opacity calc(var(--reveal-duration) * 0.25) ease;
+
+			// First button (Words) - fades at 1/3 of animation
+			&:nth-child(1) {
+				transition-delay: 0ms;
+			}
+
+			// Second button (Works) - fades at 2/3 of animation
+			&:nth-child(2) {
+				transition-delay: calc(var(--reveal-duration) * 0.33);
+			}
+
+			// Third button (Wares) - fades at 3/3 of animation
+			&:nth-child(3) {
+				transition-delay: calc(var(--reveal-duration) * 0.66);
+			}
+		}
 	}
 
 	&.search-reveal-active .tabs-buttons-layer {
-		opacity: 0;
 		pointer-events: none;
+
+		.tab-button {
+			opacity: 0;
+		}
 	}
 
 	// Search trigger - positioned inside mobile-tabs
@@ -228,14 +250,19 @@
 
 		// Close mode - swap icons (search is open)
 		// Align with slider end position for perfect overlap
+		// Delay visibility until slider animation reaches end position
 		&.is-close-mode {
-			opacity: 1;
-			visibility: visible;
-			pointer-events: auto;
 			// Use same position as slider in search-reveal-active
 			left: var(--slider-end-left);
 			right: auto;
 			background: transparent;
+			// Delay showing until slider has moved to end position
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none;
+			transition:
+				opacity 100ms ease calc(var(--reveal-duration) * 0.7),
+				visibility 100ms ease calc(var(--reveal-duration) * 0.7);
 
 			.icon-search {
 				opacity: 0;
@@ -246,6 +273,13 @@
 				opacity: 1;
 				visibility: visible;
 			}
+		}
+
+		// After delay, show the close button
+		.search-reveal-active &.is-close-mode {
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
 		}
 
 		@media (prefers-color-scheme: dark) {
@@ -1239,17 +1273,20 @@ body.dark-mode-forced .tabs-search-input-wrapper {
 .tabs-search-icon {
 	position: absolute;
 	left: 8px;
-	top: 0;
-	bottom: 0;
-	margin: auto;
+	top: 50%;
+	transform: translateY(-50%);
 	width: 13px;
 	height: 13px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	opacity: 0.55;
 	pointer-events: none;
 
 	svg {
-		width: 100%;
-		height: 100%;
+		width: 13px;
+		height: 13px;
+		flex-shrink: 0;
 		stroke: variables.$text-color-secondary;
 	}
 
