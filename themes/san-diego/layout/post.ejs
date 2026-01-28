@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= config.language %>">
     <%- partial('_partial/head') %>
     <body>
         <script>
-            // Redirect to homepage with post path
+            // Redirect to homepage with post path for SPA deep linking
             (function() {
                 const currentPath = window.location.pathname;
+                if (currentPath === '/') return;
+
+                // Check if this is a direct access (not from within the site)
                 const isDirectAccess = !document.referrer || !document.referrer.includes(window.location.origin);
-                const isRefresh = window.performance && window.performance.navigation && window.performance.navigation.type === 1;
-                
-                // Redirect if accessing directly OR on refresh (not from within the site)
-                if ((isDirectAccess || isRefresh) && currentPath !== '/') {
-                    // Redirect to homepage with post parameter
-                    window.location.href = '/?post=' + encodeURIComponent(currentPath);
+
+                // Check for page refresh using modern Navigation API with fallback
+                let isRefresh = false;
+                if (performance.getEntriesByType) {
+                    const navEntries = performance.getEntriesByType('navigation');
+                    isRefresh = navEntries.length > 0 && navEntries[0].type === 'reload';
+                } else if (window.performance && window.performance.navigation) {
+                    // Fallback for older browsers
+                    isRefresh = window.performance.navigation.type === 1;
+                }
+
+                // Redirect if accessing directly OR on refresh
+                if (isDirectAccess || isRefresh) {
+                    window.location.replace('/?post=' + encodeURIComponent(currentPath));
                 }
             })();
         </script>
