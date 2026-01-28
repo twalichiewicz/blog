@@ -17,7 +17,7 @@
       return 'Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.';
     }
     // Default site description
-    return config.description || 'Thomas Walichiewicz - Designer, Developer, Thinker';
+    return config.description || 'Thomas Walichiewicz';
   }
 
   // Helper function to get canonical URL
@@ -286,5 +286,17 @@
   <% if (config.feed && config.feed.path) { %>
   <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for(config.feed.path) %>">
   <% } %>
-  
+
+  <% if (page.layout === 'post') { %>
+  <!-- Deep link redirect - post.ejs only loads on direct access, so always redirect -->
+  <script>
+  (function() {
+    var path = window.location.pathname;
+    if (path !== '/') {
+      window.location.replace('/?post=' + encodeURIComponent(path));
+    }
+  })();
+  </script>
+  <% } %>
+
 </head>

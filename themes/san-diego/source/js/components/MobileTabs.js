@@ -1539,6 +1539,8 @@ export default class MobileTabs {
 		}
 
 		if (isOffScreen) {
+			// Ensure trigger position is up-to-date before showing
+			this.updateSearchTriggerPosition();
 			this.searchTrigger.classList.remove('is-hiding'); // Cancel any pending hide
 			this.searchTrigger.classList.add('is-visible');
 		} else {
