@@ -637,7 +637,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		const path = postPath || projectPath || warePath;
 		const contentType = projectPath ? 'portfolio' : warePath ? 'wares' : 'blog';
 		const originatingTab = contentType;
-		setTimeout(function() {
+
+		// Retry until fetchAndDisplayContent is available (modules load async)
+		function tryLoadContent(attempts) {
+			if (attempts <= 0) {
+				console.error('[DeepLink] fetchAndDisplayContent not available after retries');
+				return;
+			}
 			const blogContent = document.querySelector('.blog-content');
 			if (blogContent && window.fetchAndDisplayContent) {
 				if (window.mobileTabs && typeof window.mobileTabs.switchTab === 'function') {
@@ -645,8 +651,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 				window.fetchAndDisplayContent(path, false, contentType, originatingTab);
 				window.history.replaceState({ path: path, isDynamic: true, contentType: contentType, fromTab: originatingTab }, '', path);
+			} else {
+				setTimeout(function() { tryLoadContent(attempts - 1); }, 100);
 			}
-		}, 500);
+		}
+		tryLoadContent(20); // Try up to 20 times (2 seconds total)
 	}
 });
 </script>
