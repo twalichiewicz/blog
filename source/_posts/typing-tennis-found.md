@@ -1,13 +1,13 @@
 ---
 title: "For all you Typing Tennis fans out there"
-date: 2026-01-28
+author: Thomas Walichiewicz
 tags:
   - blog
+short: true
+date: 2026-01-28
 ---
 
-This is for all you Typing Tennis fans out there.
-
-<video width="100%" autoplay loop muted playsinline>
+<video autoplay loop muted playsinline style="width: 100%; height: auto; margin: 24px 0; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
   <source src="/2026/01/28/typing-tennis-found/typingTennis3d.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
