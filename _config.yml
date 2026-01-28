@@ -11,6 +11,7 @@ timezone: "UTC"
 
 # URL
 url: https://twalichiewicz.github.io  # Ensure this is correct
+root: /
 permalink: :year/:month/:day/:title/
 pretty_urls:
   trailing_index: false
