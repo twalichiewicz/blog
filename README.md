@@ -135,26 +135,6 @@ hexo new portfolio-post "Project Name"
 hexo new draft "Work in Progress"
 ```
 
-### 🤖 Claude Auto-Fix System (NEW)
-
-Automatically fix failing tests using Claude AI:
-
-```bash
-# Set up Claude API key
-export CLAUDE_API_KEY="sk-ant-..."
-
-# Auto-fix all tests
-npm run test:autofix
-
-# Fix demo standards only
-npm run fix:demos
-
-# Preview fixes without applying
-DRY_RUN=true npm run fix:demos
-```
-
-See [Claude Auto-Fix Documentation](./docs/CLAUDE-AUTOFIX-SYSTEM.md) for complete guide.
-
 ---
 
 ## ⚡ Performance Optimization Systems
