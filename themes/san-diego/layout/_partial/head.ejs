@@ -286,5 +286,17 @@
   <% if (config.feed && config.feed.path) { %>
   <link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%- url_for(config.feed.path) %>">
   <% } %>
-  
+
+  <% if (page.layout === 'post') { %>
+  <!-- Deep link redirect for direct post access -->
+  <script>
+  (function() {
+    var path = window.location.pathname;
+    if (path !== '/' && (!document.referrer || document.referrer.indexOf(window.location.origin) === -1)) {
+      window.location.replace('/?post=' + encodeURIComponent(path));
+    }
+  })();
+  </script>
+  <% } %>
+
 </head>
