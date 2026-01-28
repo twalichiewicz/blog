@@ -44,7 +44,3 @@ If my previous work on {% post_link Agent-Swarm-Architecture 'Agent Swarm Archit
 We are leaving the "Chat" era and entering the "Representative" era. The next great challenge isn't making LLMs smarter, but building the protocols that allow these proxies to negotiate, schedule, and coordinate without human intervention. The Proxy Era will truly arrive when our agents can resolve a conflict without either of us ever opening an email.
 
 The ultimate UI isn't a better dashboard. It’s the silence of a task already handled.
-
----
-
-*Proxy AI Agent is open source at [github.com/Triglavis/proxy-ai-agent](https://github.com/Triglavis/proxy-ai-agent/). If you're building in the proxy space, I'd love to chat.*
