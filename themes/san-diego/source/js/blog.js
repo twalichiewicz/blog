@@ -765,6 +765,11 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 
 	let contentInserted = false;
 
+	// Update URL immediately so users can copy/share the link
+	if (isPushState) {
+		history.pushState({ path: url, contentType: type, isProject: isProject, isDynamic: true, fromTab: resolvedOriginatingTab }, '', url);
+	}
+
 	try {
 		const response = await fetch(url);
 		if (!response.ok) {
@@ -1044,10 +1049,6 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 					// Simplified: just append the error message
 					if (backButton) { backButton.after(errorMsg); } else { blogContentElement.appendChild(errorMsg); }
 				}
-
-		if (isPushState) {
-			history.pushState({ path: url, contentType: type, isProject: isProject, isDynamic: true, fromTab: resolvedOriginatingTab }, '', url);
-		}
 		} catch (error) {
 			console.error('[fetchAndDisplayContent] Failed to load dynamic content:', error);
 			if (!contentInserted) {
