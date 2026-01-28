@@ -33,7 +33,7 @@ On the surface, Clawdbot appears to be just a streamlined interface for Claude. 
 
 If the Proxy Agent is inevitable, why isn't it already standard? The bottleneck isn't technology; it is trust.
 
-Moving from a tool that *suggests* to a proxy that *acts* requires a massive leap in delegation. You cannot simply hand over your credentials and hope for the best; you need a mechanism to encode your judgment. In Tempo, I addressed this with a "User Constitution." Instead of a traditional settings page, I built a set of governing principles—like *"Prioritize revenue-generating meetings over internal syncs"*—that allowed the agent to make decisions aligned with my values.
+Moving from a tool that *suggests* to a proxy that *acts* requires a massive leap in delegation. You cannot simply hand over your credentials and hope for the best; you need a mechanism to encode your judgment. In Tempo, I addressed this with a "User Constitution." Instead of a traditional settings page, I built a set of governing principles (e.g. *"Prioritize revenue-generating meetings over internal syncs"*) that allowed the agent to make decisions aligned with my values.
 
 To achieve a truly invisible proxy, we must move beyond configuration and toward this kind of explicit framework for autonomy.
 
