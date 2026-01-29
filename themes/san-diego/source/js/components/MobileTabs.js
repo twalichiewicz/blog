@@ -973,11 +973,12 @@ export default class MobileTabs {
 			}
 		};
 
-		// Listen for scroll on the blog container (main scroll container on mobile)
-		blogContainer.addEventListener('scroll', this.boundListeners.handleStickyScroll, { passive: true });
+		// Listen for scroll on window (body/html scrolls on iOS Safari for toolbar collapse)
+		// With body scrolling approach, .blog has overflow: visible and doesn't fire scroll events
+		window.addEventListener('scroll', this.boundListeners.handleStickyScroll, { passive: true });
 
 		// Store reference for cleanup
-		this.stickyScrollContainer = blogContainer;
+		this.stickyScrollContainer = window;
 
 		// Initial check in case page is already scrolled
 		checkStickyPosition();
@@ -1586,8 +1587,10 @@ export default class MobileTabs {
 		if (blogContent) scrollTargets.add(blogContent);
 		if (blogContainer) scrollTargets.add(blogContainer);
 
-		// Always listen on window as fallback
+		// Always listen on window and document for body/html scrolling
+		// This is critical for iOS Safari where body scrolls to enable toolbar collapse
 		scrollTargets.add(window);
+		scrollTargets.add(document);
 
 		// Attach scroll listeners to all potential scroll containers
 		scrollTargets.forEach(target => {

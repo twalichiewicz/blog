@@ -187,12 +187,17 @@
 
 /* ==========================================================================
    Mobile Layout (Default)
+   Note: Scrolling behavior is handled by _scroll-system.scss for iOS Safari
+   toolbar collapse. We use min-height and overflow: visible here.
    ========================================================================== */
 .device-mobile .blog {
 	display: flex;
 	flex-direction: column;
-	height: 100dvh;
-	overflow: hidden;
+	// Use min-height for Safari toolbar collapse (content can extend below)
+	min-height: 100svh;
+	min-height: -webkit-fill-available;
+	// Let body handle scrolling for Safari toolbar collapse
+	overflow: visible;
 	position: relative;
 
 	.blog-header {
@@ -360,7 +365,8 @@
 			flex: 1;
 			min-height: 0;
 			width: 100%;
-			overflow: hidden; /* Panes handle their own scrolling */
+			// Let body handle scrolling for Safari toolbar collapse
+			overflow: visible;
 		}
 
 		.content-inner-wrapper {
