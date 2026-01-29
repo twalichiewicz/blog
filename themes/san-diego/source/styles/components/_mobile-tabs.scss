@@ -505,15 +505,17 @@ body.dark-mode-forced .mobile-tabs-backing {
 		pointer-events: auto;
 	}
 
-	// Mobile: Stack panes on top of each other using absolute positioning
+	// Mobile: Visible pane is in document flow, hidden panes are display:none
 	@media (max-width: variables.$mobile-breakpoint) {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
+		display: none; // Hidden by default
+		overflow: visible; // Parent handles scroll
+		position: static;
+		width: 100%;
+		min-height: 100vh; // Ensure full height background
+		
+		&.is-visible {
+			display: block; // Show the active pane in document flow
+		}
 	}
 }
 
