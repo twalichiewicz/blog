@@ -1,5 +1,5 @@
 // Modern theme system using CSS custom properties
-// Replaces _theme-modes.scss without !important usage
+// Supersedes legacy theme-mode partials without !important usage
 @use 'variables';
 @use "sass:color";
 

@@ -1,4 +1,4 @@
-// Consolidated layout system - replaces layout-fixes.scss and mobile-scroll-fix.scss
+// Consolidated layout system - replaces legacy layout fixes and mobile scroll overrides
 // Uses proper CSS cascade and specificity instead of !important
 @use 'variables';
 @use 'device-breakpoints';
