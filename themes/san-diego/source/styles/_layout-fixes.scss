@@ -177,6 +177,20 @@
   padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: variables.$mobile-breakpoint) {
+    #postsContent,
+    #projectsContent,
+    #waresContent {
+      padding-bottom: 0;
+    }
+
+    #postsContent.blog-list.mobile-tab-pane.is-visible {
+      padding-bottom: 0 !important;
+    }
+  }
+}
+
 // Mobile-specific fixes
 @media (max-width: variables.$mobile-breakpoint) {
   .blog,
