@@ -202,9 +202,7 @@
     left: auto !important;
     right: auto !important;
     top: auto !important;
-    height: auto !important; // Changed from 100dvh to auto
-    min-height: 100vh !important;
-    overflow: visible !important; // Changed from hidden
+    // Removed conflicting height/overflow overrides to defer to _scroll-fix-all-viewports.scss
     
     .blog-header {
       flex-shrink: 0;
