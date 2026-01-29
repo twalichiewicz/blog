@@ -191,19 +191,21 @@
 .device-mobile .blog {
 	display: flex;
 	flex-direction: column;
-	height: 100dvh;
-	overflow: hidden;
+	min-height: 100dvh; // Changed from height: 100dvh to allow content growth
+	overflow-x: hidden; // Only hide horizontal overflow
+	overflow-y: visible; // Allow vertical scroll on body
 	position: relative;
 
 	.blog-header {
-		position: relative;
+		position: relative; // In document flow - scrolls with content
 		width: 100%;
 		max-width: 100vw;
 		flex-shrink: 0;
 		padding-top: 0;
 		overflow-x: hidden;
 		overflow-y: visible;
-		min-height: 300px;
+		height: auto; // Remove fixed height, size to content
+		min-height: auto; // Override any min-height
 		margin-left: auto;
 		margin-right: auto;
 
@@ -331,11 +333,12 @@
 			position: sticky;
 			top: 0;
 			z-index: 100;
-			background: var(--bg-color, #fff);
+			// Use solid body background color (not semi-transparent --bg-color)
+			background-color: var(--bg-body);
 			width: 100%;
 			padding: 9px 15px;
 			box-sizing: border-box;
-			border-radius: 12px 12px 0 0;
+			border-radius: 0; // Remove border-radius to prevent background peek-through
 			margin-bottom: 0;
 			max-width: 600px;
 			border-bottom: 1px solid #e6e6e6;
@@ -355,11 +358,11 @@
 		}
 
 		.content-wrapper {
-			position: relative; /* Positioning context for absolute tab panes */
+			position: relative; /* Positioning context for hidden (absolute) tab panes */
 			flex: 1;
 			min-height: 0;
 			width: 100%;
-			overflow: hidden; /* Panes handle their own scrolling */
+			overflow: visible; /* Body handles scrolling, visible pane is in document flow */
 		}
 
 		.content-inner-wrapper {

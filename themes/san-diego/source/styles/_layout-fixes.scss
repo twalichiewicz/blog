@@ -269,12 +269,20 @@
         }
       }
 
+      // Mobile tab panes: hidden panes are collapsed, visible pane is in document flow
+      // Body handles scrolling - header scrolls away, tabs stick
       .mobile-tab-pane {
-        height: 100%;
-        min-height: 100%;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        -webkit-overflow-scrolling: touch;
+        // Hidden panes
+        height: 0;
+        overflow: hidden;
+
+        // Visible pane is in document flow
+        &.is-visible {
+          height: auto;
+          min-height: calc(100dvh - 200px);
+          overflow: visible;
+          padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 120px);
+        }
       }
     }
   }
