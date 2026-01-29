@@ -84,17 +84,11 @@
 // Blog content specific borders (must come after border-system)
 @use 'blog-content-borders';
 
-// Unified dynamic content architecture (saved for future implementation)
-// @use 'unified-dynamic-content';
-
 // Fix for missing styles
 @use 'missing-styles-fix';
 
-// Dynamic content scroll fixes - MUST come after responsive-layouts to override
-@use 'dynamic-content-scroll-fix';
-
-// Layout fixes for content wrapper and posts content
-@use 'layout-fixes';
+// Consolidated scroll system - replaces multiple scroll fix files
+@use 'scroll-system';
 
 // Component Library
 @use '../components/index' as component-lib;
@@ -124,5 +118,6 @@
 // Demo cursors (only apply within demos/prototypes)
 @use 'demo-cursors';
 
-// Comprehensive scroll fix for all viewports - MUST be last for highest specificity
-@use 'scroll-fix-all-viewports';
+// Note: scroll-fix-all-viewports.scss, dynamic-content-scroll-fix.scss,
+// mobile-scroll-fix.scss, mobile-dynamic-content-fix.scss, and layout-fixes.scss
+// have been consolidated into scroll-system.scss and layout-system.scss

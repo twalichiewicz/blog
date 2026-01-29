@@ -293,20 +293,21 @@ body.modal-open {
   }
 }
 
-// Mobile blog list separators
+// Mobile blog list separators - use higher specificity instead of !important
 @media (max-width: variables.$mobile-breakpoint) {
   .blog-list .post-separator {
     margin: 30px 0;
     opacity: 0.5;
   }
 
-  .blog-list .post-list-item {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+  // Reset margins on mobile - handled by separators
+  .blog .blog-list .post-list-item {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
-  .blog-list .post-list-item:not(:last-child) {
-    margin-bottom: 0 !important;
+  .blog .blog-list .post-list-item:not(:last-child) {
+    margin-bottom: 0;
   }
 }
 
@@ -330,5 +331,117 @@ body.modal-open {
 .project-edge-wrapper {
   .content-wrapper {
     overflow-y: auto;
+  }
+}
+
+// Remove bottom padding from main blog container
+.blog#main-content {
+  padding-bottom: 0;
+}
+
+// Tab panel vertical padding - responsive
+#postsContent,
+#projectsContent,
+#waresContent {
+  padding-top: variables.$space-sm;
+  padding-bottom: calc(variables.$space-sm + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  #postsContent,
+  #projectsContent,
+  #waresContent {
+    padding-top: variables.$space-md;
+    padding-bottom: variables.$space-md;
+  }
+}
+
+@media (min-width: variables.$tablet-breakpoint) {
+  #postsContent,
+  #projectsContent,
+  #waresContent {
+    padding-top: variables.$space-xl;
+    padding-bottom: variables.$space-xl;
+  }
+
+  // Fix cutoff at bottom for content wrapper
+  .content-wrapper {
+    padding-bottom: variables.$space-md;
+  }
+}
+
+// Mobile posts list extra bottom padding (for navigation)
+#postsContent.blog-list.mobile-tab-pane.is-visible {
+  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+}
+
+// Long-form content mode (reading view)
+.blog.long-form-active {
+  @media (max-width: variables.$mobile-breakpoint) {
+    .blog-header {
+      display: none;
+    }
+
+    .blog-content {
+      flex: 1 1 auto;
+      width: 100%;
+    }
+
+    .content-inner-wrapper {
+      margin: 30px 30px 0;
+    }
+  }
+}
+
+// Mobile-specific layout overrides (must be more specific than base rules)
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog,
+  .device-mobile .blog {
+    position: static;
+    width: 100%;
+    left: auto;
+    right: auto;
+    top: auto;
+
+    .blog-header {
+      height: auto;
+    }
+
+    .blog-content {
+      position: static;
+      width: 100%;
+
+      &.has-dynamic-content {
+        .content-wrapper,
+        .content-inner-wrapper {
+          overflow: visible;
+        }
+      }
+
+      .content-wrapper {
+        height: auto;
+        padding-bottom: 0;
+        background-color: variables.$white;
+
+        @media (prefers-color-scheme: dark) {
+          background-color: variables.$white-dark;
+        }
+      }
+
+      .content-inner-wrapper {
+        height: auto;
+
+        // When dynamic content exists
+        &:has(.post-wrapper.dynamic-loaded),
+        &:has(.project-wrapper.dynamic-loaded) {
+          height: auto;
+        }
+      }
+    }
+  }
+
+  // Dark mode forced support
+  body.dark-mode-forced .blog .blog-content .content-wrapper {
+    background-color: variables.$white-dark;
   }
 }

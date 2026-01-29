@@ -1,0 +1,405 @@
+// Scroll System - Consolidated from multiple scroll fix files
+// ==========================================================
+// This file consolidates:
+// - _mobile-scroll-fix.scss
+// - _mobile-dynamic-content-fix.scss
+// - _dynamic-content-scroll-fix.scss
+// - _scroll-fix-all-viewports.scss
+//
+// Organization:
+// 1. Base scroll behavior
+// 2. Desktop viewport rules (>1024px)
+// 3. Tablet viewport rules (769-1024px)
+// 4. Mobile viewport rules (≤768px)
+// 5. Dynamic content handling
+// 6. iOS Safari fixes
+
+@use 'variables';
+
+// =============================================================================
+// 1. BASE SCROLL BEHAVIOR
+// =============================================================================
+
+// Dynamic scroll host - the container that handles scrolling for dynamic content
+.blog .blog-content.has-dynamic-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100vh;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .dynamic-scroll-host {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    opacity: 1;
+
+    // Custom scrollbar styling
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgb(0 0 0 / 20%);
+      border-radius: 3px;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: rgb(255 255 255 / 20%);
+      }
+    }
+
+    // Content wrappers inside scroll host
+    .post-wrapper,
+    .substack-post,
+    .project-wrapper {
+      overflow: visible;
+      max-height: none;
+      padding-bottom: 2rem;
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .content-inner-wrapper.dynamic-scroll-host {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+}
+
+// =============================================================================
+// 2. DESKTOP VIEWPORT RULES (>1024px)
+// =============================================================================
+
+@media (min-width: calc(variables.$tablet-breakpoint + 1px)) {
+  .blog {
+    .blog-content {
+      // Default state: blog-content contains, content-wrapper scrolls
+      &:not(.has-dynamic-content) {
+        overflow: hidden;
+        height: calc(100dvh - 24px); // Account for margins
+
+        .content-inner-wrapper {
+          height: 100%;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+
+          .tabs-wrapper {
+            flex-shrink: 0;
+          }
+
+          .content-wrapper {
+            flex: 1;
+            min-height: 0; // Important for flexbox
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+
+            // Scrollbar styling
+            &::-webkit-scrollbar {
+              width: 6px;
+            }
+
+            &::-webkit-scrollbar-track {
+              background: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background-color: rgb(0 0 0 / 20%);
+              border-radius: 3px;
+
+              @media (prefers-color-scheme: dark) {
+                background-color: rgb(255 255 255 / 20%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Dynamic content on desktop - allow natural scroll
+  .device-desktop .blog .blog-content.has-dynamic-content .content-inner-wrapper.dynamic-scroll-host,
+  .device-tablet .blog .blog-content.has-dynamic-content .content-inner-wrapper.dynamic-scroll-host {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+// =============================================================================
+// 3. TABLET VIEWPORT RULES (769-1024px)
+// =============================================================================
+
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) and (max-width: variables.$tablet-breakpoint) {
+  .blog {
+    .blog-content {
+      &:not(.has-dynamic-content) {
+        overflow: hidden;
+        height: calc(100dvh - 24px);
+
+        .content-inner-wrapper {
+          height: 100%;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+
+          .tabs-wrapper {
+            flex-shrink: 0;
+          }
+
+          .content-wrapper {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+          }
+        }
+      }
+    }
+  }
+}
+
+// =============================================================================
+// 4. MOBILE VIEWPORT RULES (≤768px)
+// =============================================================================
+
+@media (max-width: variables.$mobile-breakpoint) {
+  // Lock scroll on html/body - .blog handles all scrolling on mobile
+  html,
+  body {
+    height: 100vh; // Fallback
+    height: 100dvh;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .blog {
+    // Blog is the main scroll container on mobile
+    height: 100vh; // Fallback
+    height: 100dvh;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+
+    .blog-header {
+      height: auto;
+      min-height: auto;
+      flex-shrink: 0;
+      position: relative;
+      margin-bottom: 0;
+    }
+
+    .blog-content {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
+
+      // Tabs: start in natural position, JS toggles to fixed when header scrolls out
+      .tabs-wrapper {
+        position: relative;
+        z-index: 1000;
+        padding: variables.$space-sm 16px; // Use $space-sm (12px) for vertical
+        background: variables.$body-bg;
+        flex-shrink: 0;
+
+        @media (prefers-color-scheme: dark) {
+          background: variables.$body-bg-dark;
+        }
+
+        // When JS determines tabs should be fixed (header scrolled out of view)
+        &.is-sticky-fixed {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      // Placeholder inserted by JS to prevent content jump when tabs become fixed
+      .tabs-sticky-placeholder {
+        flex-shrink: 0;
+      }
+
+      .content-inner-wrapper {
+        padding-top: 0;
+        border-radius: 12px;
+      }
+
+      .content-wrapper {
+        // Add padding to ensure bottom content is visible above safe area/controls
+        padding-bottom: calc(24px + env(safe-area-inset-bottom, 20px));
+      }
+    }
+  }
+
+  // Dark mode support for sticky tabs
+  body.dark-mode-forced .blog .blog-content .tabs-wrapper {
+    background: variables.$body-bg-dark;
+  }
+
+  body.dark-mode-forced .blog .blog-content .tabs-wrapper.is-sticky-fixed {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  // Modal state - prevent body scroll
+  body.modal-open {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  // Blog list separators
+  .blog-list .post-separator {
+    margin: 0.75rem 0;
+    opacity: 0.5;
+  }
+
+  // Search container
+  .search-container {
+    margin-bottom: 1rem;
+    position: sticky;
+    top: 0;
+    background-color: inherit;
+    z-index: 10;
+    padding: 0.5rem 0;
+  }
+}
+
+// =============================================================================
+// 5. DYNAMIC CONTENT HANDLING
+// =============================================================================
+
+// Mobile dynamic content - inherits from base .has-dynamic-content
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog .blog-content.has-dynamic-content {
+    min-height: auto;
+
+    .dynamic-scroll-host {
+      overflow: visible;
+      height: auto;
+      max-height: none;
+
+      .post-wrapper,
+      .project-wrapper,
+      .substack-post {
+        overflow: visible;
+        height: auto;
+        max-height: none;
+        padding-bottom: 1rem;
+        margin-bottom: 0;
+      }
+    }
+
+    // Post/project content wrappers
+    .content-inner-wrapper {
+      overflow: visible;
+      height: auto;
+      min-height: auto;
+      max-height: none;
+
+      .post-wrapper,
+      .project-wrapper,
+      .substack-post {
+        margin-top: 0;
+        padding-top: 24px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    // Ensure parent containers don't interfere
+    .content-wrapper {
+      overflow: visible;
+    }
+
+    // Dynamic back button positioning
+    .dynamic-back-button {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 1001;
+      margin: 0;
+      display: block;
+      width: fit-content;
+      background-color: black;
+    }
+  }
+
+  // Remove transform/will-change that might cause issues
+  .blog,
+  .blog-content,
+  .content-wrapper,
+  .content-inner-wrapper {
+    transform: none;
+    will-change: auto;
+  }
+}
+
+// Desktop/tablet dynamic content
+.blog-content.has-dynamic-content {
+  @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+    .content-wrapper,
+    .content-inner-wrapper {
+      height: auto;
+      min-height: 0;
+      overflow: visible;
+    }
+  }
+}
+
+// =============================================================================
+// 6. IOS SAFARI FIXES
+// =============================================================================
+
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: variables.$mobile-breakpoint) {
+    .blog-content.has-dynamic-content {
+      -webkit-transform: translateZ(0);
+      -webkit-overflow-scrolling: touch;
+
+      .content-inner-wrapper {
+        -webkit-transform: translateZ(0);
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// 7. UNIFIED TEXT COLOR FOR BLOG LIST
+// =============================================================================
+
+// Ensure blog post list items always use the unified text color token
+.blog .post-list-item ul li,
+.blog .post-list-item ol li,
+.blog .blog-list .post-list-item ul li,
+.blog .blog-list .post-list-item ol li {
+  color: var(--blog-list-text-color);
+}

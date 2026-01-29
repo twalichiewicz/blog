@@ -111,3 +111,13 @@ $spacing-inline-lg: $space-md; // 24px - Large horizontal spacing
 // Meta Card Background Colors
 $meta-card-bg-light: hsl(0deg 0% 95%);
 $meta-card-bg-dark: hsl(0deg 0% 22%);
+
+// Border Radius System
+// SCSS variables for use in Sass calculations
+$radius-sm: 4px;       // Subtle rounding (inputs, small chips)
+$radius-base: 8px;     // Default (buttons, small cards)
+$radius-md: 12px;      // Cards, containers
+$radius-lg: 16px;      // Large elements, modals
+$radius-xl: 24px;      // Hero sections
+$radius-full: 9999px;  // Pills, circular buttons
+$radius-circle: 50%;   // Avatars, icons
