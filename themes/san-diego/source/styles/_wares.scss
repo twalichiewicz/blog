@@ -3,6 +3,16 @@
 
 #waresContent {
         display: none;
+
+        // When visible as a mobile tab pane, use flex to fill available space
+        &.is-visible {
+                @media screen and (max-width: variables.$mobile-breakpoint) {
+                        display: flex;
+                        flex-direction: column;
+                        flex: 1;
+                        min-height: 0;
+                }
+        }
 }
 
 .wares-list {
@@ -15,9 +25,10 @@
 
         @media screen and (max-width: variables.$mobile-breakpoint) {
                 padding: 0;
-                // Fill available viewport space so carousel is vertically centered
-                // Account for header (~200px) and tabs (~60px) and safe area
-                min-height: calc(100svh - 280px - env(safe-area-inset-bottom, 0px));
+                // Use flex to fill available space in parent
+                flex: 1;
+                // Fallback min-height for layout stability
+                min-height: calc(100svh - 320px - env(safe-area-inset-bottom, 0px));
                 justify-content: center; // Center content vertically
         }
 }
