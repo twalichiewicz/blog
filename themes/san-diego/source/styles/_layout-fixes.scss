@@ -188,6 +188,16 @@
     #postsContent.blog-list.mobile-tab-pane.is-visible {
       padding-bottom: 0 !important;
     }
+
+    .blog,
+    .device-mobile .blog {
+      min-height: 100vh !important;
+    }
+
+    .blog .content-wrapper,
+    .blog .content-inner-wrapper {
+      min-height: calc(100vh - var(--blog-header-height, 0px));
+    }
   }
 }
 
