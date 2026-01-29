@@ -764,6 +764,7 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 	blogContentElement.innerHTML = '';
 
 	let contentInserted = false;
+	const resolvedOriginatingTab = originatingTab || (type === 'portfolio' ? 'portfolio' : type === 'wares' ? 'wares' : 'blog');
 
 	// Update URL immediately so users can copy/share the link
 	if (isPushState) {
@@ -806,7 +807,6 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 					newContentContainer.querySelector('.post-wrapper')
 				);
 			const isLongFormContent = type === 'blog' && containsPostWrapper;
-				const resolvedOriginatingTab = originatingTab || (type === 'portfolio' ? 'portfolio' : type === 'wares' ? 'wares' : 'blog');
 				const dynamicLifecycleDetail = {
 					source: 'dynamic-content',
 					url,

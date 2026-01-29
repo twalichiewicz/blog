@@ -579,7 +579,7 @@
 			display: flex;
 			flex-direction: column;
 			-webkit-overflow-scrolling: touch;
-			padding-bottom: 64px; // Extra padding at bottom
+			padding-bottom: 0;
 		}
 		
 		.content-inner-wrapper {

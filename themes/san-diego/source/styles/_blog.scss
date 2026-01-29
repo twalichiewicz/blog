@@ -53,6 +53,15 @@
 			left: 0;
 			z-index: 100;
 			background-color: var(--bg-nav);
+			// Smooth transition for scroll-to-hide behavior
+			transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+
+			// Header scrolled out of view
+			&.header-hidden {
+				transform: translateY(-100%);
+				opacity: 0;
+				pointer-events: none;
+			}
 		}
 	}
 
@@ -91,6 +100,12 @@
 		// Tabs need padding to sit below the absolute header
 		.blog-content .tabs-wrapper {
 			padding-top: 120px;
+			transition: padding-top 0.3s ease-out;
+		}
+
+		// When header is hidden, reduce tabs padding
+		&:has(.blog-header.header-hidden) .blog-content .tabs-wrapper {
+			padding-top: env(safe-area-inset-top, 12px);
 		}
 	}
 

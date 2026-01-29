@@ -34,7 +34,8 @@ export default class MobileTabs {
 			handleSearchKeydown: null,
 			handleOriginalSearchInput: null,
 			handleSearchPostsOnlyClick: null,
-			handleSearchScroll: null
+			handleSearchScroll: null,
+			handleHeaderScroll: null
 		};
 		this.tabClickListeners = new Map(); // Store individual tab click listeners
 
@@ -54,6 +55,14 @@ export default class MobileTabs {
 		// Search integration state
 		this.searchOverlayOpen = false;
 		this.searchVisibilityObserver = null;
+
+		// Header scroll-to-hide state
+		this.headerScrollState = {
+			lastScrollTop: 0,
+			isHeaderHidden: false,
+			scrollThreshold: 50, // Minimum scroll before hiding header
+			scrollUpThreshold: 10 // Minimum scroll up before showing header
+		};
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -84,6 +93,9 @@ export default class MobileTabs {
 
 		// Initialize search integration (mobile only)
 		this.setupSearchIntegration();
+
+		// Initialize header scroll-to-hide behavior (mobile only)
+		this.setupHeaderScrollBehavior();
 	}
 
 	/**
@@ -200,6 +212,112 @@ export default class MobileTabs {
 	}
 
 	/**
+	 * Set up header scroll-to-hide behavior for mobile
+	 * Hides the header when scrolling down, shows it when scrolling up
+	 */
+	setupHeaderScrollBehavior() {
+		// Only enable on mobile
+		if (this.getDeviceType() !== 'mobile') return;
+
+		const blogHeader = document.querySelector('.blog-header');
+		if (!blogHeader) return;
+
+		// Create throttled scroll handler
+		let ticking = false;
+		this.boundListeners.handleHeaderScroll = () => {
+			if (!ticking) {
+				requestAnimationFrame(() => {
+					this.handleHeaderScroll();
+					ticking = false;
+				});
+				ticking = true;
+			}
+		};
+
+		// Listen on the active tab pane for scroll events
+		this.headerScrollTargets = new Set();
+
+		// Get all tab panes
+		const tabPanes = [this.postsContent, this.projectsContent, this.waresContent].filter(Boolean);
+		tabPanes.forEach(pane => {
+			this.headerScrollTargets.add(pane);
+			pane.addEventListener('scroll', this.boundListeners.handleHeaderScroll, { passive: true });
+		});
+	}
+
+	/**
+	 * Handle scroll events for header visibility
+	 */
+	handleHeaderScroll() {
+		// Only handle on mobile
+		if (this.getDeviceType() !== 'mobile') return;
+
+		const blogHeader = document.querySelector('.blog-header');
+		if (!blogHeader) return;
+
+		// Find the currently visible tab pane
+		const activePane = document.querySelector('.mobile-tab-pane.is-visible');
+		if (!activePane) return;
+
+		const scrollTop = activePane.scrollTop;
+		const { lastScrollTop, scrollThreshold, scrollUpThreshold, isHeaderHidden } = this.headerScrollState;
+
+		// Determine scroll direction
+		const scrollingDown = scrollTop > lastScrollTop;
+		const scrollDelta = Math.abs(scrollTop - lastScrollTop);
+
+		// Update last scroll position
+		this.headerScrollState.lastScrollTop = scrollTop;
+
+		// At the top - always show header
+		if (scrollTop <= scrollThreshold) {
+			if (isHeaderHidden) {
+				blogHeader.classList.remove('header-hidden');
+				this.headerScrollState.isHeaderHidden = false;
+			}
+			return;
+		}
+
+		// Scrolling down past threshold - hide header
+		if (scrollingDown && scrollTop > scrollThreshold && !isHeaderHidden) {
+			blogHeader.classList.add('header-hidden');
+			this.headerScrollState.isHeaderHidden = true;
+			return;
+		}
+
+		// Scrolling up significantly - show header
+		if (!scrollingDown && scrollDelta > scrollUpThreshold && isHeaderHidden) {
+			blogHeader.classList.remove('header-hidden');
+			this.headerScrollState.isHeaderHidden = false;
+		}
+	}
+
+	/**
+	 * Clean up header scroll listeners
+	 */
+	cleanupHeaderScrollBehavior() {
+		if (this.boundListeners.handleHeaderScroll && this.headerScrollTargets) {
+			this.headerScrollTargets.forEach(target => {
+				target?.removeEventListener('scroll', this.boundListeners.handleHeaderScroll);
+			});
+			this.headerScrollTargets.clear();
+		}
+
+		// Reset header state
+		const blogHeader = document.querySelector('.blog-header');
+		if (blogHeader) {
+			blogHeader.classList.remove('header-hidden');
+		}
+
+		this.headerScrollState = {
+			lastScrollTop: 0,
+			isHeaderHidden: false,
+			scrollThreshold: 50,
+			scrollUpThreshold: 10
+		};
+	}
+
+	/**
 	 * Destroy the component instance, removing listeners.
 	 */
 	destroy() {
@@ -211,6 +329,9 @@ export default class MobileTabs {
 
 		// Clean up search integration
 		this.cleanupSearchIntegration();
+
+		// Clean up header scroll behavior
+		this.cleanupHeaderScrollBehavior();
 
 		// Remove the slider element to ensure clean state
 		const slider = this.tabContainer?.querySelector('.mobile-tabs-slider');

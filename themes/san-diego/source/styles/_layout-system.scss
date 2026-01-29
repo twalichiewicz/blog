@@ -284,6 +284,12 @@ $layout-levels: (
       background-color: rgb(246, 245, 243);
     }
 
+    // Ensure blog-content also fills to safe area
+    .blog .blog-content {
+      min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
+      background-color: rgb(246, 245, 243);
+    }
+
     .blog-content.has-dynamic-content {
       -webkit-transform: translateZ(0);
       -webkit-overflow-scrolling: touch;
@@ -299,7 +305,8 @@ $layout-levels: (
   @media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
     html,
     body,
-    .blog {
+    .blog,
+    .blog .blog-content {
       // Match the dark mode content-wrapper gradient end color
       background-color: hsl(28deg 8% 16%);
     }
