@@ -1,13 +1,6 @@
 // Fix for missing styles
 @use 'variables';
 
-// Dark mode body background color
-body {
-  @media (prefers-color-scheme: dark) {
-    background-color: hsl(40.1, 8.4%, 35.98%);
-  }
-}
-
 // Consistent styles for tabs-wrapper on both mobile and desktop
 .tabs-wrapper {
   // Mobile: Solid background (gaps around border-radius filled by .blog background)
