@@ -26,7 +26,7 @@
 	}
 
 	@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
-		background-color: hsl(28deg 8% 16%); // Match dark content-wrapper gradient end
+		background-color: rgb(9, 9, 9); // Match dark content-wrapper gradient end
 	}
 
 	.blog-header {

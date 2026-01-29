@@ -967,12 +967,10 @@
 				position: relative;
 				width: 100%;
 				overflow: visible;
-				background-image: linear-gradient(to right bottom, rgb(251, 250, 249) 0%, rgb(246, 245, 243) 100%);
+				background-color: rgb(243, 240, 237);
 				
 				@media (prefers-color-scheme: dark) {
-					background-image: linear-gradient(to right bottom, 
-						hsl(28deg 10% 12%) 0%, 
-						hsl(28deg 8% 16%) 100%);
+					background-color: rgb(9, 9, 9);
 				}
 
 			}
