@@ -1245,12 +1245,15 @@ export default class MobileTabs {
 			const originalSnapType = waresGrid.style.scrollSnapType;
 			waresGrid.style.scrollSnapType = 'none';
 
-			// Scroll the first card into view (centered, instant)
-			firstCard.scrollIntoView({
-				behavior: 'instant',
-				block: 'nearest',
-				inline: 'center'
-			});
+			// Calculate the horizontal scroll position to center the first card
+			// Use scrollLeft instead of scrollIntoView to avoid vertical scrolling
+			const gridRect = waresGrid.getBoundingClientRect();
+			const cardRect = firstCard.getBoundingClientRect();
+			const cardCenterOffset = (cardRect.left - gridRect.left) + waresGrid.scrollLeft;
+			const centerPosition = cardCenterOffset - (gridRect.width / 2) + (cardRect.width / 2);
+
+			// Set horizontal scroll position directly (no vertical scroll)
+			waresGrid.scrollLeft = Math.max(0, centerPosition);
 
 			// Re-enable scroll-snap after a microtask to ensure scroll position is set
 			requestAnimationFrame(() => {

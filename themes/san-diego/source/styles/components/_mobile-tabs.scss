@@ -511,8 +511,8 @@ body.dark-mode-forced .mobile-tabs-backing {
 		overflow: visible; // Parent handles scroll
 		position: static;
 		width: 100%;
-		min-height: 100vh; // Ensure full height background
-		
+		min-height: 0; // Allow natural content height - no forced minimum
+
 		&.is-visible {
 			display: block; // Show the active pane in document flow
 		}

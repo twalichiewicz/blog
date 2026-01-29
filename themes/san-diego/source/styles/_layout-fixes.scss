@@ -200,10 +200,11 @@
     }
 
     .blog-content {
-      flex: 1 1 auto !important;
+      // Tabs use position: fixed on mobile (handled in _scroll-fix-all-viewports.scss)
+      flex: 1 !important;
       position: static !important;
       width: 100% !important;
-      overflow: visible !important; // Changed from auto
+      overflow: visible !important;
       min-height: 0 !important;
       display: flex !important;
       flex-direction: column !important;

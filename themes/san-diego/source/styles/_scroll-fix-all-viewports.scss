@@ -113,18 +113,42 @@
     }
 
     .blog-content {
-      // Content flexes to fill space
       flex: 1;
-      min-height: 0; // Important for nested flex scroll
+      min-height: 0;
       display: flex;
       flex-direction: column;
-      overflow: visible; // Ensure sticky tabs work
+      overflow: visible;
+
+      // FIXED TABS: Use position: fixed instead of sticky for reliable behavior
+      .tabs-wrapper {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 12px 16px;
+        background: variables.$body-bg;
+
+        @media (prefers-color-scheme: dark) {
+          background: variables.$body-bg-dark;
+        }
+      }
+
+      // Add padding to content to account for fixed tabs
+      .content-inner-wrapper {
+        padding-top: 60px; // Height of fixed tabs
+      }
 
       .content-wrapper {
          // Add padding to ensure bottom content is visible above safe area/controls
          padding-bottom: calc(24px + env(safe-area-inset-bottom, 20px));
       }
     }
+  }
+
+  // Dark mode forced support for fixed tabs
+  body.dark-mode-forced .blog .blog-content .tabs-wrapper {
+    background: variables.$body-bg-dark;
   }
 }
 

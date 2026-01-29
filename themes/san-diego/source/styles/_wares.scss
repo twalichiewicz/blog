@@ -15,7 +15,8 @@
 
         @media screen and (max-width: variables.$mobile-breakpoint) {
                 padding: 0;
-                min-height: 150vh; // Force scrollable height so header can scroll away
+                min-height: 0;
+                justify-content: flex-start;
         }
 }
 
