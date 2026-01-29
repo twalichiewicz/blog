@@ -505,18 +505,23 @@ body.dark-mode-forced .mobile-tabs-backing {
 		pointer-events: auto;
 	}
 
-	// Mobile: Stack panes on top of each other using absolute positioning
+	// Mobile: Visible pane is in document flow, hidden panes are display:none
 	@media (max-width: variables.$mobile-breakpoint) {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
-		// Add padding for fixed tabs at top and iOS Safari safe area at bottom
-		padding-top: calc(env(safe-area-inset-top, 0px) + 50px); // Account for fixed tabs
+		display: none; // Hidden by default
+		overflow: visible; // Parent handles scroll
 		padding-bottom: env(safe-area-inset-bottom, 0px);
+		// Ensure pane fills available space with matching background
+		min-height: 100vh; // Fallback
+		min-height: -webkit-fill-available;
+		background-color: rgb(246, 245, 243);
+
+		@media (prefers-color-scheme: dark) {
+			background-color: hsl(28deg 8% 16%);
+		}
+
+		&.is-visible {
+			display: block; // Show the active pane in document flow
+		}
 	}
 }
 
