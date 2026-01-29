@@ -90,6 +90,7 @@ $layout-levels: (
   body {
     overflow: hidden;
     height: 100%;
+    height: -webkit-fill-available;
     width: 100%;
     overscroll-behavior: none;
   }
@@ -99,6 +100,8 @@ $layout-levels: (
     display: flex;
     flex-direction: column;
     height: 100dvh;
+    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
     overflow: hidden;
 
     // Header is absolute-positioned (styles in _blog.scss)
@@ -266,10 +269,11 @@ $layout-levels: (
 @supports (-webkit-touch-callout: none) {
   @media (max-width: variables.$mobile-breakpoint) {
     // Ensure content extends into bottom safe area to prevent colored block
-    // Use content area colors for seamless safe area
+    // Use -webkit-fill-available for proper iOS Safari viewport handling
     html,
     body {
-      min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
+      height: -webkit-fill-available;
+      min-height: -webkit-fill-available;
       // Match the content-wrapper gradient end color for seamless safe area
       background-color: rgb(246, 245, 243);
     }
@@ -280,13 +284,15 @@ $layout-levels: (
 
     // Ensure .blog fills the entire viewport including safe areas
     .blog {
-      min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
+      height: -webkit-fill-available;
+      min-height: -webkit-fill-available;
       background-color: rgb(246, 245, 243);
     }
 
     // Ensure blog-content also fills to safe area
     .blog .blog-content {
-      min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
+      height: -webkit-fill-available;
+      min-height: -webkit-fill-available;
       background-color: rgb(246, 245, 243);
     }
 

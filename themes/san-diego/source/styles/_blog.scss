@@ -97,16 +97,8 @@
 			margin-bottom: 0;
 		}
 
-		// Tabs need padding to sit below the absolute header
-		.blog-content .tabs-wrapper {
-			padding-top: 120px;
-			transition: padding-top 0.3s ease-out;
-		}
-
-		// When header is hidden, reduce tabs padding
-		&:has(.blog-header.header-hidden) .blog-content .tabs-wrapper {
-			padding-top: env(safe-area-inset-top, 12px);
-		}
+		// Tabs are now fixed at top (handled in _responsive-layouts.scss)
+		// No additional padding needed here
 	}
 
 	// Base styles for blog posts

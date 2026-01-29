@@ -514,7 +514,8 @@ body.dark-mode-forced .mobile-tabs-backing {
 		bottom: 0;
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
-		// Add padding at the bottom for iOS Safari safe area
+		// Add padding for fixed tabs at top and iOS Safari safe area at bottom
+		padding-top: calc(env(safe-area-inset-top, 0px) + 50px); // Account for fixed tabs
 		padding-bottom: env(safe-area-inset-bottom, 0px);
 	}
 }
