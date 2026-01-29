@@ -265,12 +265,13 @@ $layout-levels: (
 // iOS Safari specific fixes
 @supports (-webkit-touch-callout: none) {
   @media (max-width: variables.$mobile-breakpoint) {
-    // Ensure content extends into bottom safe area to prevent black/colored block
+    // Ensure content extends into bottom safe area to prevent colored block
+    // Use content area colors (not --bg-body which is tan/beige)
     html,
     body {
       min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
-      // Background color must match content to fill safe area
-      background-color: var(--bg-body);
+      // Match the content-wrapper gradient end color for seamless safe area
+      background-color: rgb(246, 245, 243);
     }
 
     body {
@@ -283,8 +284,8 @@ $layout-levels: (
     // Ensure .blog fills the entire viewport including safe areas
     .blog {
       min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
-      // Ensure background extends into safe area
-      background-color: var(--bg-body);
+      // Match content background for seamless safe area
+      background-color: rgb(246, 245, 243);
     }
 
     // Visible mobile tab pane needs extra bottom padding for safe area
@@ -300,6 +301,16 @@ $layout-levels: (
         -webkit-transform: translateZ(0);
         -webkit-overflow-scrolling: touch;
       }
+    }
+  }
+
+  // Dark mode for iOS Safari
+  @media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
+    html,
+    body,
+    .blog {
+      // Match the dark mode content-wrapper gradient end color
+      background-color: hsl(28deg 8% 16%);
     }
   }
 }

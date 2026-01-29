@@ -82,11 +82,20 @@ body {
 }
 
 // Mobile-specific body styling to align with content background
-// Note: html background is handled separately for iOS Safari (see _layout-system.scss)
-// to prevent colored block in safe areas
+// Use content area colors (not --bg-body) for seamless iOS Safari safe area
 @media (max-width: variables.$mobile-breakpoint) {
+	html,
 	body {
-		background-color: var(--bg-body);
+		// Match the content-wrapper gradient end color
+		background-color: rgb(246, 245, 243);
+	}
+}
+
+@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
+	html,
+	body {
+		// Match dark mode content-wrapper gradient end color
+		background-color: hsl(28deg 8% 16%);
 	}
 }
 
