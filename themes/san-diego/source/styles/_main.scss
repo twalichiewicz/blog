@@ -81,16 +81,11 @@ body {
 	}
 }
 
-// Mobile-specific body styling to match tablet
+// Mobile-specific body styling to align with header background
 @media (max-width: variables.$mobile-breakpoint) {
+	html,
 	body {
-		background-color: hsl(35deg 15% 88%); // Same as default body-bg
-	}
-	
-	@media (prefers-color-scheme: dark) {
-		body {
-			background-color: hsl(28deg 8% 12%); // Match tablet dark background
-		}
+		background-color: var(--bg-nav);
 	}
 }
 
