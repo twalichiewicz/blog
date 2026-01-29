@@ -870,8 +870,18 @@ export default class MobileTabs {
 	applyMobileOverflowFixes() {
 		if (!this.tabsWrapper) return;
 
-		// Apply sticky positioning for mobile and tablet (needed for search trigger to work)
-		const shouldBeSticky = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet';
+		// On mobile, we use JavaScript scroll detection (setupMobileStickyBehavior)
+		// instead of CSS sticky, so skip the sticky positioning here
+		if (this.currentDeviceType === 'mobile') {
+			// Only ensure z-index is set for proper layering
+			if (!this.tabsWrapper.style.zIndex) {
+				this.tabsWrapper.style.zIndex = '1000';
+			}
+			return;
+		}
+
+		// Apply sticky positioning for tablet (needed for search trigger to work)
+		const shouldBeSticky = this.currentDeviceType === 'tablet';
 
 		if (!shouldBeSticky) {
 			this.clearMobileOverflowFixes();
