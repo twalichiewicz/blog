@@ -57,7 +57,7 @@ $layout-levels: (
           overflow-y: auto;
           overflow-x: hidden;
           -webkit-overflow-scrolling: touch;
-          padding-bottom: 24px;
+          padding-bottom: 0;
           
           // Custom scrollbar
           &::-webkit-scrollbar {
