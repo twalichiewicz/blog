@@ -268,14 +268,28 @@
       .content-inner-wrapper {
         padding-top: 0;
         border-radius: 12px;
+        // Explicitly ensure no scroll container is created
+        overflow: visible;
+        height: auto;
       }
 
       .content-wrapper {
         // Safe area padding for home indicator + extra breathing room
         // Using a larger value to ensure content is visible above Safari's bottom bar
         padding-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px);
+        // Explicitly ensure no scroll container is created
+        overflow: visible;
+        height: auto;
       }
     }
+  }
+
+  // Ensure content panes don't create scroll containers
+  #postsContent,
+  #projectsContent,
+  #waresContent {
+    overflow: visible;
+    height: auto;
   }
 
   // Dark mode support for sticky tabs

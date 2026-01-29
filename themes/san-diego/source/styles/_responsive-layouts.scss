@@ -378,6 +378,9 @@
 			max-width: 600px;
 			margin-left: auto;
 			margin-right: auto;
+			// Ensure no scroll container is created - let document scroll
+			overflow: visible;
+			height: auto;
 		}
 	}
 
