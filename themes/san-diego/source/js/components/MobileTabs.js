@@ -1460,8 +1460,10 @@ export default class MobileTabs {
 		// Also check parent containers that might scroll
 		const contentWrapper = this.postsContent?.closest('.content-wrapper');
 		const blogContent = this.postsContent?.closest('.blog-content');
+		const blogContainer = document.querySelector('.blog');
 		if (contentWrapper) scrollTargets.add(contentWrapper);
 		if (blogContent) scrollTargets.add(blogContent);
+		if (blogContainer) scrollTargets.add(blogContainer);
 
 		// Always listen on window as fallback
 		scrollTargets.add(window);
