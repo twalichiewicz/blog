@@ -140,10 +140,6 @@
     }
   }
   
-  // Fix cutoff at bottom for both Words and Works
-  .content-wrapper {
-    padding-bottom: variables.$space-md; // Provide breathing room for scroll container
-  }
 }
 
 // Remove bottom padding from the main blog container

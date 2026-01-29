@@ -57,7 +57,6 @@ $layout-levels: (
           overflow-y: auto;
           overflow-x: hidden;
           -webkit-overflow-scrolling: touch;
-          padding-bottom: 24px;
           
           // Custom scrollbar
           &::-webkit-scrollbar {
@@ -266,6 +265,10 @@ $layout-levels: (
 // iOS Safari specific fixes
 @supports (-webkit-touch-callout: none) {
   @media (max-width: variables.$mobile-breakpoint) {
+    body {
+      padding-top: 0;
+    }
+
     .blog-content.has-dynamic-content {
       -webkit-transform: translateZ(0);
       -webkit-overflow-scrolling: touch;
