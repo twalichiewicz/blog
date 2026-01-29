@@ -184,26 +184,44 @@
 // =============================================================================
 
 @media (max-width: variables.$mobile-breakpoint) {
-  // Lock scroll on html/body - .blog handles all scrolling on mobile
-  html,
+  // iOS Safari Toolbar Collapse Fix
+  // --------------------------------
+  // To enable Safari's toolbar collapse on scroll (like apple.com), we need to:
+  // 1. Let the BODY scroll, not a nested container
+  // 2. Use min-height instead of fixed height so content can extend
+  // 3. Apply safe-area-insets for the home indicator
+  //
+  // The key insight: Safari only collapses its toolbar when the document scrolls,
+  // not when scrolling inside a nested element with overflow: auto.
+
+  html {
+    // Use svh (small viewport height) as the minimum - this is the viewport
+    // height when Safari's toolbar is EXPANDED (visible)
+    height: 100%;
+    overflow-x: hidden;
+    // Allow vertical scrolling to trigger toolbar collapse
+    overflow-y: auto;
+    overscroll-behavior-y: none;
+  }
+
   body {
-    height: 100vh; // Fallback
-    height: 100dvh;
-    overflow: hidden;
-    overscroll-behavior: none;
+    // min-height ensures content can grow beyond viewport
+    // svh = small viewport (toolbar visible), content extends below
+    min-height: 100svh;
+    min-height: -webkit-fill-available; // Fallback for older iOS
+    overflow-x: hidden;
+    // CRITICAL: Don't set overflow-y: hidden - this prevents toolbar collapse
+    overflow-y: visible;
   }
 
   .blog {
-    // Blog is the main scroll container on mobile
-    height: 100vh; // Fallback
-    height: 100dvh;
-    min-height: 100dvh;
+    // Don't constrain height - let content flow naturally
+    min-height: 100svh;
     min-height: -webkit-fill-available;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
     display: flex;
     flex-direction: column;
+    // Remove overflow control from .blog - body handles scrolling now
+    overflow: visible;
 
     .blog-header {
       height: auto;
@@ -224,7 +242,7 @@
       .tabs-wrapper {
         position: relative;
         z-index: 1000;
-        padding: variables.$space-sm 16px; // Use $space-sm (12px) for vertical
+        padding: variables.$space-sm 16px;
         background: variables.$body-bg;
         flex-shrink: 0;
 
@@ -253,8 +271,9 @@
       }
 
       .content-wrapper {
-        // Add padding to ensure bottom content is visible above safe area/controls
-        padding-bottom: calc(24px + env(safe-area-inset-bottom, 20px));
+        // Safe area padding for home indicator + extra breathing room
+        // Using a larger value to ensure content is visible above Safari's bottom bar
+        padding-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px);
       }
     }
   }
@@ -268,10 +287,11 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
-  // Modal state - prevent body scroll
+  // Modal state - prevent body scroll (only when modal is open)
   body.modal-open {
     position: fixed;
     width: 100%;
+    height: 100%;
     overflow: hidden;
   }
 
@@ -296,12 +316,13 @@
 // 5. DYNAMIC CONTENT HANDLING
 // =============================================================================
 
-// Mobile dynamic content - inherits from base .has-dynamic-content
+// Mobile dynamic content - let body scroll for Safari toolbar collapse
 @media (max-width: variables.$mobile-breakpoint) {
   .blog .blog-content.has-dynamic-content {
     min-height: auto;
 
     .dynamic-scroll-host {
+      // Don't create a scroll container - let body scroll
       overflow: visible;
       height: auto;
       max-height: none;
@@ -312,7 +333,8 @@
         overflow: visible;
         height: auto;
         max-height: none;
-        padding-bottom: 1rem;
+        // Extra bottom padding for Safari toolbar + home indicator
+        padding-bottom: calc(env(safe-area-inset-bottom, 34px) + 48px);
         margin-bottom: 0;
       }
     }
@@ -329,12 +351,12 @@
       .substack-post {
         margin-top: 0;
         padding-top: 24px;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+        // Don't set overflow-y: auto - let body handle scrolling
+        overflow: visible;
       }
     }
 
-    // Ensure parent containers don't interfere
+    // Ensure parent containers don't interfere with body scrolling
     .content-wrapper {
       overflow: visible;
     }
@@ -349,10 +371,15 @@
       display: block;
       width: fit-content;
       background-color: black;
+
+      // Account for safe area in landscape
+      @supports (-webkit-touch-callout: none) {
+        left: calc(env(safe-area-inset-left, 0) + 16px);
+      }
     }
   }
 
-  // Remove transform/will-change that might cause issues
+  // Avoid transforms that can break scrolling behavior
   .blog,
   .blog-content,
   .content-wrapper,
@@ -378,9 +405,21 @@
 // 6. IOS SAFARI FIXES
 // =============================================================================
 
+// Detect iOS Safari (supports -webkit-touch-callout is iOS-specific)
 @supports (-webkit-touch-callout: none) {
   @media (max-width: variables.$mobile-breakpoint) {
+    // Ensure smooth scrolling on iOS
+    html {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    // Prevent rubber-banding at the top while allowing toolbar collapse
+    body {
+      overscroll-behavior-y: none;
+    }
+
     .blog-content.has-dynamic-content {
+      // GPU acceleration for smooth scrolling
       -webkit-transform: translateZ(0);
       -webkit-overflow-scrolling: touch;
 
@@ -388,6 +427,22 @@
         -webkit-transform: translateZ(0);
         -webkit-overflow-scrolling: touch;
       }
+    }
+
+    // Ensure safe area is respected on notched devices (iPhone X+)
+    .blog .blog-content .content-wrapper {
+      // Add left/right safe areas for landscape mode
+      padding-left: env(safe-area-inset-left, 0);
+      padding-right: env(safe-area-inset-right, 0);
+      // Bottom safe area for home indicator
+      padding-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px);
+    }
+
+    // Fixed elements need safe area consideration
+    .tabs-wrapper.is-sticky-fixed {
+      // Account for notch in landscape
+      padding-left: calc(env(safe-area-inset-left, 0) + 16px);
+      padding-right: calc(env(safe-area-inset-right, 0) + 16px);
     }
   }
 }
