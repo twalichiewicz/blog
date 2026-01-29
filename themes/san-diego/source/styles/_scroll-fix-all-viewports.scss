@@ -86,39 +86,27 @@
 
 // Mobile (<= 768px)
 @media (max-width: variables.$mobile-breakpoint) {
-  // Enable body scroll on mobile - header scrolls away, tabs stick
-  html,
-  body {
-    overflow-x: hidden;
-    overflow-y: auto; // Body handles scroll
-    overscroll-behavior: none;
-    // Extend into safe area
-    min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
-  }
-
   .blog {
-    // Blog container doesn't scroll - body does
+    // Mobile uses container scroll via tab panes, not body scroll
+    // Use calc to extend into safe area on iOS Safari
     min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
-    overflow: visible;
 
     .blog-header {
-      // Header is in document flow - scrolls with content
+      // Fix excessive height on mobile
       height: auto;
       min-height: auto;
+      // Remove any margins that might be causing extra space
       margin-bottom: 0;
-      flex-shrink: 0;
     }
 
     .blog-content {
-      // Content fills remaining space
-      flex: 1;
-      overflow: visible;
+      // Extend content to cover bottom safe area
+      min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
 
       .content-inner-wrapper {
-        overflow: visible;
+        // Border radius handled by JavaScript
 
         .content-wrapper {
-          overflow: visible;
         }
       }
     }

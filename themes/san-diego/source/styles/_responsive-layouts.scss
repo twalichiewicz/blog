@@ -191,21 +191,19 @@
 .device-mobile .blog {
 	display: flex;
 	flex-direction: column;
-	min-height: 100dvh; // Changed from height: 100dvh to allow content growth
-	overflow-x: hidden; // Only hide horizontal overflow
-	overflow-y: visible; // Allow vertical scroll on body
+	height: 100dvh;
+	overflow: hidden;
 	position: relative;
 
 	.blog-header {
-		position: relative; // In document flow - scrolls with content
+		position: relative;
 		width: 100%;
 		max-width: 100vw;
 		flex-shrink: 0;
 		padding-top: 0;
 		overflow-x: hidden;
 		overflow-y: visible;
-		height: auto; // Remove fixed height, size to content
-		min-height: auto; // Override any min-height
+		min-height: 300px;
 		margin-left: auto;
 		margin-right: auto;
 
@@ -358,11 +356,11 @@
 		}
 
 		.content-wrapper {
-			position: relative; /* Positioning context for hidden (absolute) tab panes */
+			position: relative; /* Positioning context for absolute tab panes */
 			flex: 1;
 			min-height: 0;
 			width: 100%;
-			overflow: visible; /* Body handles scrolling, visible pane is in document flow */
+			overflow: hidden; /* Panes handle their own scrolling */
 		}
 
 		.content-inner-wrapper {

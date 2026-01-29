@@ -266,7 +266,7 @@ $layout-levels: (
 @supports (-webkit-touch-callout: none) {
   @media (max-width: variables.$mobile-breakpoint) {
     // Ensure content extends into bottom safe area to prevent colored block
-    // Use content area colors (not --bg-body which is tan/beige)
+    // Use content area colors for seamless safe area
     html,
     body {
       min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
@@ -276,21 +276,12 @@ $layout-levels: (
 
     body {
       padding-top: 0;
-      // Allow body to scroll
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
     }
 
     // Ensure .blog fills the entire viewport including safe areas
     .blog {
       min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
-      // Match content background for seamless safe area
       background-color: rgb(246, 245, 243);
-    }
-
-    // Visible mobile tab pane needs extra bottom padding for safe area
-    .mobile-tab-pane.is-visible {
-      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 120px);
     }
 
     .blog-content.has-dynamic-content {

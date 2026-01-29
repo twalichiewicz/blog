@@ -505,25 +505,15 @@ body.dark-mode-forced .mobile-tabs-backing {
 		pointer-events: auto;
 	}
 
-	// Mobile: Hidden panes are absolute, visible pane is in document flow
-	// This allows the header to scroll away while tabs stick
+	// Mobile: Stack panes on top of each other using absolute positioning
 	@media (max-width: variables.$mobile-breakpoint) {
-		// Hidden panes: absolute positioned, collapsed
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 0;
-		overflow: hidden;
-
-		// Visible pane: in document flow, body handles scroll
-		&.is-visible {
-			position: static;
-			height: auto;
-			overflow: visible;
-			min-height: calc(100dvh - 200px); // Ensure minimum height for content
-			padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 120px); // Safe area + extra padding for scroll
-		}
+		bottom: 0;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
 	}
 }
 
