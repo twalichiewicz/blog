@@ -100,19 +100,27 @@ $layout-levels: (
     display: flex;
     flex-direction: column;
     height: 100dvh;
-    overflow: hidden;
+    overflow-y: auto; // Allow scrolling
+    overflow-x: hidden;
 
-    // Header is absolute-positioned (styles in _blog.scss)
+    // Header is relative (default), flows with content
     .blog-header {
-      // Positioned absolutely, not part of flex flow
+      flex-shrink: 0;
     }
 
     .blog-content {
       flex: 1;
-      overflow: hidden;
+      overflow: visible; // Allow sticky elements to stick to .blog
       min-height: 0;
       display: flex;
       flex-direction: column;
+
+      .tabs-wrapper {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        flex-shrink: 0;
+      }
 
       .content-inner-wrapper {
         flex: 1;
@@ -122,11 +130,10 @@ $layout-levels: (
       }
 
       .content-wrapper {
-        position: relative; /* Positioning context for absolute tab panes */
+        position: relative;
         flex: 1;
         min-height: 0;
-        overflow: hidden; /* Panes handle their own scrolling */
-        // Background set in _missing-styles-fix.scss
+        overflow: visible;
       }
     }
   }

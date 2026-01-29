@@ -192,9 +192,7 @@
     left: auto !important;
     right: auto !important;
     top: auto !important;
-    height: auto !important; // Changed from 100dvh to auto
-    min-height: 100dvh !important;
-    overflow: visible !important; // Changed from hidden
+    // Removed conflicting height/overflow overrides to defer to _scroll-fix-all-viewports.scss
     
     .blog-header {
       flex-shrink: 0;
@@ -226,8 +224,7 @@
       .content-wrapper {
         overflow: visible !important;
         height: auto !important;
-        min-height: 100%;
-        min-height: calc(100dvh - var(--blog-header-height, 100vh));
+        min-height: 0;
         flex: 1 1 auto;
         background-color: variables.$white; // Ensure background extends
         padding-bottom: 0 !important; // Prevent excess bottom padding on mobile
@@ -245,8 +242,7 @@
       .content-inner-wrapper {
         overflow: visible !important;
         height: auto !important;
-        min-height: 100%;
-        min-height: calc(100dvh - var(--blog-header-height, 0px));
+        min-height: 0;
         // Ensure it expands to fit content
         display: flex;
         flex-direction: column;
@@ -254,15 +250,12 @@
         // When dynamic content exists
         &:has(.post-wrapper.dynamic-loaded),
         &:has(.project-wrapper.dynamic-loaded) {
-          min-height: calc(100dvh - var(--blog-header-height, 0px));
           height: auto;
         }
       }
     }
   }
 }
-
-// Ensure compatibility with dynamically loaded content
 .post-wrapper,
 .project-wrapper {
   &.dynamic-loaded {
