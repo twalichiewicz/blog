@@ -34,7 +34,8 @@ export default class MobileTabs {
 			handleSearchKeydown: null,
 			handleOriginalSearchInput: null,
 			handleSearchPostsOnlyClick: null,
-			handleSearchScroll: null
+			handleSearchScroll: null,
+			handleStickyScroll: null
 		};
 		this.tabClickListeners = new Map(); // Store individual tab click listeners
 
@@ -54,6 +55,10 @@ export default class MobileTabs {
 		// Search integration state
 		this.searchOverlayOpen = false;
 		this.searchVisibilityObserver = null;
+
+		// Mobile sticky tabs state
+		this.isStickyFixed = false;
+		this.stickyPlaceholder = null;
 
 		// Cache DOM elements
 		this.cacheElements();
@@ -211,6 +216,9 @@ export default class MobileTabs {
 
 		// Clean up search integration
 		this.cleanupSearchIntegration();
+
+		// Clean up mobile sticky behavior
+		this.cleanupMobileStickyBehavior();
 
 		// Remove the slider element to ensure clean state
 		const slider = this.tabContainer?.querySelector('.mobile-tabs-slider');
@@ -817,6 +825,13 @@ export default class MobileTabs {
 			setTimeout(() => this.updateSlider(), 50);
 
 			this.applyMobileOverflowFixes();
+
+			// Set up mobile sticky behavior (tabs stick when header scrolls out)
+			if (this.currentDeviceType === 'mobile') {
+				this.setupMobileStickyBehavior();
+			} else {
+				this.cleanupMobileStickyBehavior();
+			}
 		} else {
 			// On desktop, show both sections and hide tabs
 			if (this.postsContent && this.projectsContent) {
@@ -831,6 +846,9 @@ export default class MobileTabs {
 
 			this.clearMobileOverflowFixes();
 			this.resetScrollContainersForDevice();
+
+			// Clean up mobile sticky behavior on desktop
+			this.cleanupMobileStickyBehavior();
 		}
 	}
 
@@ -888,6 +906,96 @@ export default class MobileTabs {
 			this.tabsWrapper.style.top = '';
 			this.tabsWrapper.style.zIndex = '';
 		}
+	}
+
+	/**
+	 * Set up mobile sticky behavior for tabs
+	 * Tabs start in natural position below header, then stick to top when header scrolls out
+	 */
+	setupMobileStickyBehavior() {
+		if (this.currentDeviceType !== 'mobile') return;
+
+		const blogContainer = document.querySelector('.blog');
+		const header = document.querySelector('.blog-header');
+
+		if (!blogContainer || !header || !this.tabsWrapper) return;
+
+		// Only set up once
+		if (this.stickyPlaceholder) return;
+
+		// Create placeholder for layout stability when tabs become fixed
+		this.stickyPlaceholder = document.createElement('div');
+		this.stickyPlaceholder.className = 'tabs-sticky-placeholder';
+		this.stickyPlaceholder.style.display = 'none';
+		this.tabsWrapper.parentNode.insertBefore(this.stickyPlaceholder, this.tabsWrapper);
+
+		this.isStickyFixed = false;
+
+		const checkStickyPosition = () => {
+			const headerRect = header.getBoundingClientRect();
+			// Tabs should become fixed when header's bottom edge is at or above the viewport top
+			const shouldBeFixed = headerRect.bottom <= 0;
+
+			if (shouldBeFixed && !this.isStickyFixed) {
+				// Transition to fixed position
+				this.isStickyFixed = true;
+				// Set placeholder height to match tabs height to prevent content jump
+				this.stickyPlaceholder.style.height = `${this.tabsWrapper.offsetHeight}px`;
+				this.stickyPlaceholder.style.display = 'block';
+				this.tabsWrapper.classList.add('is-sticky-fixed');
+			} else if (!shouldBeFixed && this.isStickyFixed) {
+				// Transition back to natural position
+				this.isStickyFixed = false;
+				this.stickyPlaceholder.style.display = 'none';
+				this.tabsWrapper.classList.remove('is-sticky-fixed');
+			}
+		};
+
+		// Throttled scroll handler using requestAnimationFrame for performance
+		let ticking = false;
+		this.boundListeners.handleStickyScroll = () => {
+			if (!ticking) {
+				requestAnimationFrame(() => {
+					checkStickyPosition();
+					ticking = false;
+				});
+				ticking = true;
+			}
+		};
+
+		// Listen for scroll on the blog container (main scroll container on mobile)
+		blogContainer.addEventListener('scroll', this.boundListeners.handleStickyScroll, { passive: true });
+
+		// Store reference for cleanup
+		this.stickyScrollContainer = blogContainer;
+
+		// Initial check in case page is already scrolled
+		checkStickyPosition();
+	}
+
+	/**
+	 * Clean up mobile sticky behavior resources
+	 */
+	cleanupMobileStickyBehavior() {
+		// Remove scroll listener
+		if (this.boundListeners.handleStickyScroll && this.stickyScrollContainer) {
+			this.stickyScrollContainer.removeEventListener('scroll', this.boundListeners.handleStickyScroll);
+			this.boundListeners.handleStickyScroll = null;
+			this.stickyScrollContainer = null;
+		}
+
+		// Remove placeholder
+		if (this.stickyPlaceholder && this.stickyPlaceholder.parentNode) {
+			this.stickyPlaceholder.parentNode.removeChild(this.stickyPlaceholder);
+			this.stickyPlaceholder = null;
+		}
+
+		// Reset tabs wrapper state
+		if (this.tabsWrapper) {
+			this.tabsWrapper.classList.remove('is-sticky-fixed');
+		}
+
+		this.isStickyFixed = false;
 	}
 
 	resetScrollContainersForDevice() {
