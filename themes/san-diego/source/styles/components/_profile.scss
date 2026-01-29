@@ -1194,11 +1194,11 @@
 			gap: 4px;
 			width: max-content;
 			max-width: 100%;
-			padding: 4px 6px;
+			padding: 0;
 			border-radius: 10px;
 			background: transparent;
 			// Use hex color to survive production minifiers that strip CSS4 color() syntax
-			border: 1px solid #e3ded8;
+			border: none;
 			box-shadow: none;
 			transition: var(--contact-chin-transition, all 0.025s ease);
 			overflow: visible;
@@ -1226,13 +1226,9 @@
 			padding: 6px 7px;
 			min-height: 0;
 			border-radius: 8px;
-			border: 1px solid rgb(209, 204, 194);
-			background: linear-gradient(
-				rgb(243, 239, 233),
-				rgb(229, 223, 214) 87.39%,
-				rgb(231, 227, 221)
-			);
-			background-color: rgb(238, 234, 228);
+			border: none;
+			background: transparent;
+			background-color: transparent;
 			color: rgba(255, 255, 255, 0.88);
 			text-transform: uppercase;
 			letter-spacing: 0.12em;
@@ -1244,10 +1240,7 @@
 			flex: 0 0 auto;
 			min-width: 0;
 			overflow: visible;
-			box-shadow:
-				0 1px 0 rgba(119, 119, 119, 0.18) inset,
-				0 -2px 5px rgba(186, 186, 186, 0.55) inset,
-				0 3px 6px rgba(205, 205, 205, 0.4);
+			box-shadow: none;
 			--contact-btn-accent-rgb: 196, 210, 255;
 		}
 
@@ -1331,21 +1324,15 @@
 		.blog {
 			.desktop-contact-chin .contact-chin-inner {
 				background: transparent;
-				border: 1px solid rgb(47, 44, 39);
+				border: none;
 				box-shadow: none;
 			}
 
 		.desktop-contact-chin .contact-chin-btn {
-			border: 1px solid rgb(41, 41, 41);
-			background: linear-gradient(
-				rgb(14, 14, 13),
-				rgb(30, 28, 27)
-			);
+			border: none;
+			background: transparent;
 			color: rgba(255, 255, 255, 0.92);
-			box-shadow:
-				inset 0 1px 0 rgba(0, 0, 0, 0.1),
-				inset 0 -2px 6px rgba(29, 29, 29, 0.85),
-				0 8px 20px rgba(0, 0, 0, 0.15);
+			box-shadow: none;
 		}
 
 			.desktop-contact-chin .contact-chin-btn:hover,

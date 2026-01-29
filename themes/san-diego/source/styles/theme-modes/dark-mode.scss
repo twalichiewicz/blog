@@ -177,7 +177,7 @@
 		
 		/* Dark mode for separators */
 		.post-separator {
-			background: #4a4a4a;
+			background: rgba(255, 255, 255, 0.1);
 			box-shadow: 0 0 1px rgba(variables.$border-color-dark, 0.05);
 		}
 		
