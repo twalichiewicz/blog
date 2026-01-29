@@ -81,11 +81,11 @@ body {
 	}
 }
 
-// Mobile-specific body styling to align with header background
+// Mobile-specific body styling to align with content background
 @media (max-width: variables.$mobile-breakpoint) {
 	html,
 	body {
-		background-color: var(--bg-nav);
+		background-color: var(--bg-body);
 	}
 }
 

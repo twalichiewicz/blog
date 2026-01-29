@@ -188,28 +188,6 @@
     #postsContent.blog-list.mobile-tab-pane.is-visible {
       padding-bottom: 0 !important;
     }
-
-    .blog,
-    .device-mobile .blog {
-      min-height: 100vh !important;
-    }
-
-    .blog .content-wrapper,
-    .blog .content-inner-wrapper {
-      min-height: calc(100vh - var(--blog-header-height, 0px));
-    }
-
-    @supports (height: 100lvh) {
-      .blog,
-      .device-mobile .blog {
-        min-height: 100lvh !important;
-      }
-
-      .blog .content-wrapper,
-      .blog .content-inner-wrapper {
-        min-height: calc(100lvh - var(--blog-header-height, 0px));
-      }
-    }
   }
 }
 
@@ -225,7 +203,7 @@
     right: auto !important;
     top: auto !important;
     height: auto !important; // Changed from 100dvh to auto
-    min-height: 100dvh !important;
+    min-height: 100vh !important;
     overflow: visible !important; // Changed from hidden
     
     .blog-header {
@@ -259,7 +237,7 @@
         overflow: visible !important;
         height: auto !important;
         min-height: 100%;
-        min-height: calc(100dvh - var(--blog-header-height, 100vh));
+        min-height: calc(100vh - var(--blog-header-height, 0px));
         flex: 1 1 auto;
         background-color: variables.$white; // Ensure background extends
         padding-bottom: 0 !important; // Prevent excess bottom padding on mobile
@@ -278,7 +256,7 @@
         overflow: visible !important;
         height: auto !important;
         min-height: 100%;
-        min-height: calc(100dvh - var(--blog-header-height, 0px));
+        min-height: calc(100vh - var(--blog-header-height, 0px));
         // Ensure it expands to fit content
         display: flex;
         flex-direction: column;
@@ -286,10 +264,38 @@
         // When dynamic content exists
         &:has(.post-wrapper.dynamic-loaded),
         &:has(.project-wrapper.dynamic-loaded) {
-          min-height: calc(100dvh - var(--blog-header-height, 0px));
+          min-height: calc(100vh - var(--blog-header-height, 0px));
           height: auto;
         }
       }
+
+      .mobile-tab-pane {
+        height: 100%;
+        min-height: 100%;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+  }
+
+  @supports (height: 100lvh) {
+    .blog,
+    .device-mobile .blog {
+      min-height: 100lvh !important;
+    }
+
+    .blog .content-wrapper {
+      min-height: calc(100lvh - var(--blog-header-height, 0px));
+    }
+
+    .blog .content-inner-wrapper {
+      min-height: calc(100lvh - var(--blog-header-height, 0px));
+    }
+
+    .blog .content-inner-wrapper:has(.post-wrapper.dynamic-loaded),
+    .blog .content-inner-wrapper:has(.project-wrapper.dynamic-loaded) {
+      min-height: calc(100lvh - var(--blog-header-height, 0px));
     }
   }
 }

@@ -20,13 +20,13 @@
 	overflow-x: hidden;
 	position: relative;
 
-	// Mobile: nav background on .blog fills gaps around tabs border-radius
+	// Mobile: use content background to avoid bottom safe-area tint
 	@media (max-width: variables.$mobile-breakpoint) {
-		background-color: variables.$nav-bg;
+		background-color: var(--bg-body);
 	}
 
 	@media (max-width: variables.$mobile-breakpoint) and (prefers-color-scheme: dark) {
-		background-color: variables.$nav-bg-dark;
+		background-color: var(--bg-body);
 	}
 
 	.blog-header {
@@ -52,8 +52,7 @@
 			top: 0;
 			left: 0;
 			z-index: 100;
-			// Background inherited from .blog - no need for separate bg
-			background-color: transparent;
+			background-color: var(--bg-nav);
 		}
 	}
 
