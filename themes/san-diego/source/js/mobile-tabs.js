@@ -145,7 +145,7 @@ function initializeTabsInternal() {
 document.addEventListener('DOMContentLoaded', () => {
 	initializeMobileTabs();
 
-	// Initialize wares carousel scroll position - scroll first card into view
+	// Initialize wares carousel scroll position - center first card horizontally
 	const waresGrid = document.querySelector('.wares-grid');
 	if (waresGrid) {
 		const firstCard = waresGrid.querySelector('.wares-card');
@@ -154,11 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			const originalSnapType = waresGrid.style.scrollSnapType;
 			waresGrid.style.scrollSnapType = 'none';
 
-			firstCard.scrollIntoView({
-				behavior: 'instant',
-				block: 'nearest',
-				inline: 'center'
-			});
+			// Calculate horizontal scroll position to center the first card
+			// Use scrollLeft instead of scrollIntoView to avoid vertical scrolling
+			const gridRect = waresGrid.getBoundingClientRect();
+			const cardRect = firstCard.getBoundingClientRect();
+			const cardCenterOffset = (cardRect.left - gridRect.left) + waresGrid.scrollLeft;
+			const centerPosition = cardCenterOffset - (gridRect.width / 2) + (cardRect.width / 2);
+			waresGrid.scrollLeft = Math.max(0, centerPosition);
 
 			// Re-enable scroll-snap
 			requestAnimationFrame(() => {
@@ -177,7 +179,7 @@ window.addEventListener('pageshow', function (event) {
 		// Page is loaded from bfcache, re-initialize mobile tabs
 		initializeMobileTabs();
 
-		// Reset wares carousel scroll - scroll first card into view
+		// Reset wares carousel scroll - center first card horizontally
 		const waresGrid = document.querySelector('.wares-grid');
 		if (waresGrid) {
 			const firstCard = waresGrid.querySelector('.wares-card');
@@ -186,11 +188,13 @@ window.addEventListener('pageshow', function (event) {
 				const originalSnapType = waresGrid.style.scrollSnapType;
 				waresGrid.style.scrollSnapType = 'none';
 
-				firstCard.scrollIntoView({
-					behavior: 'instant',
-					block: 'nearest',
-					inline: 'center'
-				});
+				// Calculate horizontal scroll position to center the first card
+				// Use scrollLeft instead of scrollIntoView to avoid vertical scrolling
+				const gridRect = waresGrid.getBoundingClientRect();
+				const cardRect = firstCard.getBoundingClientRect();
+				const cardCenterOffset = (cardRect.left - gridRect.left) + waresGrid.scrollLeft;
+				const centerPosition = cardCenterOffset - (gridRect.width / 2) + (cardRect.width / 2);
+				waresGrid.scrollLeft = Math.max(0, centerPosition);
 
 				// Re-enable scroll-snap
 				requestAnimationFrame(() => {

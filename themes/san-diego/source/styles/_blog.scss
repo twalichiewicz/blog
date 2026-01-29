@@ -48,10 +48,8 @@
 			gap: 0;
 			width: 100%;
 			max-width: 100vw;
-			position: absolute;
-			top: 0;
-			left: 0;
-			z-index: 100;
+			position: relative;
+			z-index: 1;
 			// Background inherited from .blog - no need for separate bg
 			background-color: transparent;
 		}
@@ -89,9 +87,9 @@
 			margin-bottom: 0;
 		}
 
-		// Tabs need padding to sit below the absolute header
+		// Tabs don't need extra padding now that header flows naturally
 		.blog-content .tabs-wrapper {
-			padding-top: 120px;
+			padding-top: 0;
 		}
 	}
 

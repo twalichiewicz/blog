@@ -319,12 +319,12 @@
 			}
 		}
 
-		/* Mobile: blog-content fills space, content-wrapper scrolls */
+		/* Mobile: .blog is the scroll container, tabs start relative and become fixed via JS */
 		@media (max-width: 768px) {
 			.blog-content {
 				flex: 1;
 				min-height: 0;
-				overflow: hidden;
+				overflow: visible;
 				border-radius: 0;
 			}
 
@@ -339,7 +339,28 @@
 				position: relative;
 				flex: 1;
 				min-height: 0;
-				overflow: hidden; /* Panes handle their own scrolling */
+				overflow: visible;
+			}
+
+			/* Tabs wrapper - starts relative, JS adds .is-sticky-fixed when needed */
+			.tabs-wrapper {
+				position: relative;
+				z-index: 1000;
+				padding: 12px 16px;
+				background: #fff;
+			}
+
+			.tabs-wrapper.is-sticky-fixed {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				.tabs-wrapper {
+					background: #1a1a1a;
+				}
 			}
 		}
 

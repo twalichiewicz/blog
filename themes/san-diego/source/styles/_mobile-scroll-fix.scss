@@ -72,12 +72,11 @@
   
   // Content wrapper background is handled in _missing-styles-fix.scss
   
-  // Ensure proper scroll behavior for the entire page
+  // Lock scroll on html/body - .blog handles all scrolling on mobile
   html,
   body {
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
+    height: 100%;
   }
   
   // Remove any transform or will-change that might cause issues

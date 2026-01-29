@@ -305,6 +305,7 @@
 
 	.blog-content {
 		/* Reset all base styling for mobile */
+		/* Tabs use position: fixed on mobile (handled in _scroll-fix-all-viewports.scss) */
 		flex: 1;
 		min-height: 0;
 		width: 100%;
