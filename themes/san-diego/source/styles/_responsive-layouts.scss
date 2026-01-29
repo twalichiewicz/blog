@@ -328,17 +328,20 @@
 
 		.tabs-wrapper {
 			flex-shrink: 0;
-			position: sticky;
+			position: fixed;
 			top: 0;
-			z-index: 101;
+			left: 0;
+			right: 0;
+			z-index: 101; // Above header (z-index: 100)
 			// Use solid body background color (not semi-transparent --bg-color)
 			background-color: var(--bg-body);
 			width: 100%;
 			padding: 9px 15px;
+			padding-top: calc(env(safe-area-inset-top, 0px) + 9px);
 			box-sizing: border-box;
-			border-radius: 0;
+			border-radius: 0; // Remove border-radius to prevent background peek-through
 			margin-bottom: 0;
-			max-width: 100%;
+			max-width: none; // Full width when fixed
 			border-bottom: 1px solid #e6e6e6;
 
 			@media (prefers-color-scheme: dark) {

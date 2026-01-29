@@ -84,20 +84,14 @@ $layout-levels: (
 }
 
 // Mobile responsive layout (level 2)
-// Single scroll context: blog scrolls, header scrolls away, tabs stick
+// Header is position: absolute, content fills viewport
 @media (max-width: variables.$mobile-breakpoint) {
-  html {
-    height: 100vh; // Fallback
-    height: -webkit-fill-available;
-  }
-
+  html,
   body {
-    height: 100vh; // Fallback
-    height: -webkit-fill-available;
-    min-height: 100vh; // Fallback
-    min-height: -webkit-fill-available;
-    width: 100%;
     overflow: hidden;
+    height: 100%;
+    height: -webkit-fill-available;
+    width: 100%;
     overscroll-behavior: none;
   }
 
@@ -105,22 +99,19 @@ $layout-levels: (
   .device-mobile .blog {
     display: flex;
     flex-direction: column;
-    height: 100vh; // Fallback
+    height: 100dvh;
     height: -webkit-fill-available;
-    min-height: 100vh; // Fallback
     min-height: -webkit-fill-available;
-    overflow-y: auto; // Blog is the scroll container
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
 
-    // Header scrolls with content (in the flow)
+    // Header is absolute-positioned (styles in _blog.scss)
     .blog-header {
-      flex-shrink: 0;
-      position: relative; // In the document flow, not absolute
+      // Positioned absolutely, not part of flex flow
     }
 
     .blog-content {
-      flex: 1 0 auto; // Can grow, don't shrink, auto basis
+      flex: 1;
+      overflow: hidden;
       min-height: 0;
       display: flex;
       flex-direction: column;
@@ -133,10 +124,11 @@ $layout-levels: (
       }
 
       .content-wrapper {
-        position: relative;
+        position: relative; /* Positioning context for absolute tab panes */
         flex: 1;
         min-height: 0;
-        overflow: visible; // Content flows naturally
+        overflow: hidden; /* Panes handle their own scrolling */
+        // Background set in _missing-styles-fix.scss
       }
     }
   }

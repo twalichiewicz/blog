@@ -87,9 +87,9 @@
 // Mobile (<= 768px)
 @media (max-width: variables.$mobile-breakpoint) {
   .blog {
-    // Use -webkit-fill-available for iOS Safari
-    min-height: 100vh; // Fallback
-    min-height: -webkit-fill-available;
+    // Mobile uses container scroll via tab panes, not body scroll
+    // Use calc to extend into safe area on iOS Safari
+    min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
 
     .blog-header {
       // Fix excessive height on mobile
@@ -100,9 +100,15 @@
     }
 
     .blog-content {
-      // Extend content to fill available space
-      min-height: 100vh; // Fallback
-      min-height: -webkit-fill-available;
+      // Extend content to cover bottom safe area
+      min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
+
+      .content-inner-wrapper {
+        // Border radius handled by JavaScript
+
+        .content-wrapper {
+        }
+      }
     }
   }
 }
