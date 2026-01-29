@@ -3,13 +3,13 @@
 
 // Consistent styles for tabs-wrapper on both mobile and desktop
 .tabs-wrapper {
-  // Mobile: Solid background (gaps around border-radius filled by .blog background)
+  // Mobile: Solid opaque background for seamless iOS Safari safe area
   @media (max-width: variables.$mobile-breakpoint) {
-    background: var(--bg-color, #fff);
+    background: rgb(246, 245, 243); // Match safe area color exactly
     border-bottom: none;
 
     @media (prefers-color-scheme: dark) {
-      background: var(--bg-color-dark, #1a1a1a);
+      background: hsl(28deg 8% 16%); // Match dark safe area color exactly
     }
   }
 
@@ -46,15 +46,16 @@
     }
   }
 
-  // Mobile: Solid background for content area
+  // Mobile: Solid opaque background for seamless iOS Safari safe area
+  // Must use solid colors (not semi-transparent --bg-color) to match body/html
   @media (max-width: variables.$mobile-breakpoint) {
-    background: var(--bg-color, #fff);
+    background: rgb(246, 245, 243); // Match safe area color exactly
     background-image: none;
     box-shadow: none;
     border: none;
 
     @media (prefers-color-scheme: dark) {
-      background: var(--bg-color-dark, #1a1a1a);
+      background: hsl(28deg 8% 16%); // Match dark safe area color exactly
     }
   }
 }
