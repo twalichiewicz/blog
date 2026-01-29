@@ -265,8 +265,19 @@ $layout-levels: (
 // iOS Safari specific fixes
 @supports (-webkit-touch-callout: none) {
   @media (max-width: variables.$mobile-breakpoint) {
+    // Ensure content extends into bottom safe area to prevent black block
+    html,
+    body {
+      min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
+    }
+
     body {
       padding-top: 0;
+    }
+
+    // Ensure .blog fills the entire viewport including safe areas
+    .blog {
+      min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
     }
 
     .blog-content.has-dynamic-content {
