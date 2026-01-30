@@ -1624,6 +1624,17 @@ export default class MobileTabs {
 		// Search is available on all device types where tabs are shown (mobile, tablet, and desktop)
 		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet' || this.currentDeviceType === 'desktop';
 
+		// Double-check Words tab is actually visible (the pane has is-visible class)
+		// This guards against stale data-active-tab or timing issues
+		const postsPane = this.postsContent;
+		const isPostsPaneVisible = postsPane && postsPane.classList.contains('is-visible');
+
+		// If Words tab isn't actually visible, don't show search trigger
+		if (!isPostsPaneVisible) {
+			this.hideSearchTrigger();
+			return;
+		}
+
 		// Get the search container's position relative to the viewport
 		const rect = this.inlineSearchContainer.getBoundingClientRect();
 		// Use actual tabs height instead of hardcoded value for accurate threshold
