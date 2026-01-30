@@ -1,11 +1,8 @@
-<div id="waresContent" class="blog-list mobile-tab-pane" role="tabpanel" aria-labelledby="tab-wares" aria-hidden="true">
+<div id="waresContent" class="wares-list mobile-tab-pane" role="tabpanel" aria-labelledby="tab-wares" aria-hidden="true">
     <% if (warePosts.length > 0) { %>
-        <% warePosts.forEach(function(post, index) { %>
+        <% warePosts.forEach(function(post) { %>
             <%
-                // Generate unique post ID
-                const postId = 'ware-' + (post.slug || post.title.toLowerCase().replace(/[^\w]+/g, '-'));
-
-                // Handle cover image
+                // Handle cover image path resolution
                 let coverImagePath = post.cover_image || post.header_image;
                 if (coverImagePath && !coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
                     const datedPathPattern = new RegExp('^\\d{4}/\\d{2}/\\d{2}/');
@@ -22,9 +19,9 @@
                     ? (coverImagePath.startsWith('http') ? coverImagePath : url_for(coverImagePath))
                     : '/img/blogPostDefaultCover.png';
 
-                const subtitle = post.subtitle || post.display_description || post.summary || post.excerpt || '';
+                const subtitle = post.subtitle || post.display_description || post.summary || '';
 
-                // Handle link - can be external CTA or internal post
+                // Handle link - external CTA or internal post
                 let wareLink = url_for(post.path);
                 let wareLinkExternal = false;
                 if (post.cta_url) {
@@ -32,28 +29,20 @@
                     wareLink = wareLinkExternal ? post.cta_url : url_for(post.cta_url);
                 }
             %>
-            <article class="post-list-item wares-item" id="<%= postId %>">
-                <a href="<%- wareLink %>" class="post-link-wrapper no-external-indicators"<% if (wareLinkExternal) { %> target="_blank" rel="noopener"<% } %>>
-                    <div class="post-list-item post-long post-preview-card">
-                        <div class="preview-cover-image">
-                            <img src="<%- coverImageUrl %>" alt="<%- post.title %>" loading="lazy" />
-                        </div>
-                        <div class="preview-content">
-                            <h3 class="preview-title">
-                                <%- post.title %>
-                            </h3>
-                            <% if (subtitle) { %>
-                            <div class="preview-excerpt">
-                                <%- subtitle %>
-                            </div>
-                            <% } %>
-                        </div>
-                    </div>
-                </a>
-            </article>
-            <% if (index < warePosts.length - 1) { %>
-                <hr class="post-separator">
-            <% } %>
+            <a href="<%- wareLink %>" class="wares-item no-external-indicators"<% if (wareLinkExternal) { %> target="_blank" rel="noopener"<% } %>>
+                <div class="wares-item__icon">
+                    <img src="<%- coverImageUrl %>" alt="<%- post.title %>" loading="lazy" />
+                </div>
+                <div class="wares-item__info">
+                    <h3 class="wares-item__title"><%- post.title %></h3>
+                    <% if (subtitle) { %>
+                        <p class="wares-item__subtitle"><%- subtitle %></p>
+                    <% } %>
+                </div>
+                <div class="wares-item__action">
+                    <span class="wares-item__button">Get</span>
+                </div>
+            </a>
         <% }); %>
     <% } else { %>
         <p class="wares-empty">No wares published yet.</p>
