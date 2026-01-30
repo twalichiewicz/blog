@@ -213,25 +213,24 @@
   // The key insight: Safari only collapses its toolbar when the document scrolls,
   // not when scrolling inside a nested element with overflow: auto.
 
-  html {
+  html,
+  body {
     // CRITICAL FOR SAFARI TOOLBAR COLLAPSE:
-    // Use min-height, NOT height - fixed height creates a scroll container
-    // which Safari treats as nested scrolling, preventing toolbar collapse.
-    // Document-level scrolling requires natural content overflow.
+    // Height must be auto (not 100% or 100vh) to allow document to grow
+    // Overflow-y must be visible or auto to allow scrolling
+    height: auto;
     min-height: 100%;
     overflow-x: hidden;
-    // Do NOT set overflow-y here - let document scroll naturally
+    overflow-y: visible; // Allow vertical scrolling
     overscroll-behavior-y: none;
+    // Remove any positioning that might break scrolling
+    position: static;
   }
 
   body {
-    // min-height ensures content can grow beyond viewport
-    // svh = small viewport (toolbar visible), content extends below
+    // Ensure body can grow beyond viewport
     min-height: 100svh;
     min-height: -webkit-fill-available; // Fallback for older iOS
-    overflow-x: hidden;
-    // Do NOT set any overflow-y - let document scroll naturally
-    // Safari detects document scrolling for toolbar collapse
   }
 
   .blog {
