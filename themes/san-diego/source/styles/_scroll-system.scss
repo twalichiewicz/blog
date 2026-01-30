@@ -335,10 +335,10 @@
 
     &.is-visible {
       display: block;
-      // Calculate remaining space: viewport - header - tabs - safe area
-      // Adjusted offset to reach bottom of viewport
-      min-height: calc(100svh - 180px);
-      min-height: calc(100dvh - 180px);
+      // Calculate remaining space: viewport - header - tabs
+      // 167px = header height + tabs height (tuned empirically)
+      min-height: calc(100svh - 167px);
+      min-height: calc(100dvh - 167px);
       box-sizing: border-box;
       // DEBUG: temporary background to verify
       background: rgba(255, 0, 0, 0.1);
