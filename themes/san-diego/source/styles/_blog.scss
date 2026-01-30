@@ -536,12 +536,22 @@
 			max-width: 75ch;
 			margin: 0 auto;
 			padding: 0 12px;
-			
+
 			@media (max-width: variables.$mobile-breakpoint) {
 				padding-left: 18px;
 				padding-right: 18px;
 			}
 			position: relative;
+
+			// Remove padding when also a post-preview-card
+			&.post-preview-card {
+				padding: 0;
+
+				@media (max-width: variables.$mobile-breakpoint) {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
 
 			&:last-child {
 				margin-bottom: 24px; // Keep spacing at bottom so last post isn't flush
