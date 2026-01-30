@@ -214,8 +214,8 @@ export const ScrollUtility = {
             const absoluteTop = targetRect.top + window.pageYOffset;
             
             // Since tabs-wrapper is position: sticky with top: 0, we just need to account for its height
-            // Add some padding so the target isn't right against the tabs
-            const padding = Math.max(60, tabsHeight + 20);
+            // Add generous padding so the target isn't right against the tabs
+            const padding = tabsHeight + 40;
             const scrollPosition = Math.max(0, absoluteTop - padding);
             
             window.scrollTo({
@@ -286,8 +286,8 @@ export const ScrollUtility = {
                 const tabsWrapper = document.querySelector('.tabs-wrapper');
                 const tabsHeight = tabsWrapper ? tabsWrapper.offsetHeight : 0;
                 
-                // Add padding to account for tabs
-                const padding = Math.max(60, tabsHeight + 20);
+                // Add generous padding to account for tabs
+                const padding = tabsHeight + 40;
                 const newScrollTop = containerScrollTop + relativeTop - padding;
                 
                 // Scroll the container instead of the whole page
