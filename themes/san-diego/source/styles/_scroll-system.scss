@@ -226,6 +226,13 @@
     position: static;
   }
 
+  // Dark mode: black background for Safari safe areas (dynamic island, home indicator)
+  @media (prefers-color-scheme: dark) {
+    html {
+      background-color: #000;
+    }
+  }
+
   body {
     // Body sizing for mobile viewport
     min-height: 100svh;
