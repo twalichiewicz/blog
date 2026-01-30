@@ -890,10 +890,18 @@ p {
 #postsContent .post-list-item {
 	margin-top: 0;
 	margin-bottom: 0;
-	
+
 	@media (max-width: variables.$mobile-breakpoint) {
 		padding-left: 18px;
 		padding-right: 18px;
+	}
+
+	// Override for post-preview-card which has its own internal padding
+	&.post-preview-card {
+		@media (max-width: variables.$mobile-breakpoint) {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
 }
 
@@ -901,6 +909,14 @@ p {
 	@media (max-width: variables.$mobile-breakpoint) {
 		padding-left: 18px;
 		padding-right: 18px;
+	}
+
+	// Override for post-preview-card which has its own internal padding
+	&.post-preview-card {
+		@media (max-width: variables.$mobile-breakpoint) {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
 }
 
