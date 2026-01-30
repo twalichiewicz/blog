@@ -71,10 +71,8 @@
 	.post-preview-card .preview-cover-image,
 	.post-preview-card.post-long .preview-cover-image {
 		position: relative;
-		width: 90px !important;
-		min-width: 90px !important;
-		max-width: 90px !important;
-		flex: 0 0 90px !important;
+		width: 90px;
+		flex: 0 0 90px;
 		height: 90px !important;
 		min-height: 90px !important;
 		max-height: 90px !important;
