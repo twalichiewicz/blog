@@ -789,7 +789,8 @@ export default class MobileTabs {
 	getDeviceType() {
 		const width = window.innerWidth;
 
-		if (width <= 767) {
+		// Must match CSS $mobile-breakpoint: 768px
+		if (width <= 768) {
 			return 'mobile';
 		}
 
