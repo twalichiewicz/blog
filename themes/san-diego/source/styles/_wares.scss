@@ -21,6 +21,11 @@
 }
 
 // Wares list item spacing - equal margins above and below
+// Override the 24px margin-bottom from _layout-system.scss
+#waresContent .post-list-item:not(:last-child) {
+	margin-bottom: 0;
+}
+
 .wares-item {
 	margin: 12px 0;
 
