@@ -12,14 +12,10 @@
 	}
 }
 
-// Mobile: Ensure wares fills the screen using flexbox
+// Mobile: Wares padding (height handled in scroll-system.scss)
 @media screen and (max-width: variables.$mobile-breakpoint) {
 	#waresContent.is-visible {
-		// Use flex to fill remaining space in flex container
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 24px 16px 60px;
+		padding: 24px 16px;
 		box-sizing: border-box;
 	}
 }
