@@ -9,10 +9,15 @@
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
 	border: 1px solid variables.$border-color;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-	
+
+	// Remove margin when nested inside another post-list-item to prevent double margins
+	.post-list-item & {
+		margin-bottom: 0;
+	}
+
 	// When combined with post-list-item and post-long, remove padding
 	&.post-list-item.post-long {
-		padding: 0 !important;
+		padding: 0;
 	}
 	
 	&:hover {
