@@ -530,7 +530,7 @@
 			position: relative;
 
 			&:last-child {
-				margin-bottom: 0;
+				margin-bottom: 24px; // Keep spacing at bottom so last post isn't flush
 			}
 
 			.post-byline {
