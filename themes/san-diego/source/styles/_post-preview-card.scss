@@ -58,9 +58,9 @@
 
 	&.post-long .preview-cover-image,
 	.blog .blog-list &.post-long .preview-cover-image {
-		width: 140px;
-		flex: 0 0 140px;
-		height: auto;
+		width: 90px !important;
+		flex: 0 0 90px !important;
+		height: 90px !important;
 		align-self: stretch;
 	}
 
@@ -182,11 +182,11 @@
 
 		&.post-long .preview-cover-image,
 		.blog .blog-list &.post-long .preview-cover-image {
-			width: 120px;
-			flex: 0 0 120px;
-			height: auto;
+			width: 90px !important;
+			flex: 0 0 90px !important;
+			height: 90px !important;
 			align-self: stretch;
-			max-height: none;
+			max-height: 90px !important;
 		}
 		
 		.preview-cover-image {
