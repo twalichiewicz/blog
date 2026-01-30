@@ -1,52 +1,69 @@
-<div id="waresContent" class="wares-list mobile-tab-pane" role="tabpanel" aria-labelledby="tab-wares" aria-hidden="true">
-    <div class="column-title wares-column-title">Wares</div>
-
+<div id="waresContent" class="blog-list mobile-tab-pane" role="tabpanel" aria-labelledby="tab-wares" aria-hidden="true">
     <% if (warePosts.length > 0) { %>
-        <div class="wares-grid">
-            <% warePosts.forEach(function(post) { %>
-                <%
-                    let coverImagePath = post.cover_image || post.header_image;
-                    if (coverImagePath && !coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
-                        const datedPathPattern = new RegExp('^\\d{4}/\\d{2}/\\d{2}/');
-                        if (datedPathPattern.test(coverImagePath)) {
-                            coverImagePath = '/' + coverImagePath;
-                        } else {
-                            const postBasePath = url_for(post.path);
-                            const normalizedBasePath = postBasePath.endsWith('/') ? postBasePath : postBasePath + '/';
-                            const normalizedAssetPath = coverImagePath.replace(/^\.?\//, '');
-                            coverImagePath = normalizedBasePath + normalizedAssetPath;
-                        }
+        <% warePosts.forEach(function(post, index) { %>
+            <%
+                // Generate unique post ID
+                const postId = 'ware-' + (post.slug || post.title.toLowerCase().replace(/[^\w]+/g, '-'));
+
+                // Handle cover image
+                let coverImagePath = post.cover_image || post.header_image;
+                if (coverImagePath && !coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
+                    const datedPathPattern = new RegExp('^\\d{4}/\\d{2}/\\d{2}/');
+                    if (datedPathPattern.test(coverImagePath)) {
+                        coverImagePath = '/' + coverImagePath;
+                    } else {
+                        const postBasePath = url_for(post.path);
+                        const normalizedBasePath = postBasePath.endsWith('/') ? postBasePath : postBasePath + '/';
+                        const normalizedAssetPath = coverImagePath.replace(/^\.?\//, '');
+                        coverImagePath = normalizedBasePath + normalizedAssetPath;
                     }
-                    const coverImageUrl = coverImagePath
-                        ? (coverImagePath.startsWith('http') ? coverImagePath : url_for(coverImagePath))
-                        : '';
-                    const subtitle = post.subtitle || post.display_description || post.summary || post.excerpt || '';
-                    let wareLink = url_for(post.path);
-                    let wareLinkExternal = false;
-                    if (post.cta_url) {
-                        wareLinkExternal = /^https?:\/\//.test(post.cta_url);
-                        wareLink = wareLinkExternal ? post.cta_url : url_for(post.cta_url);
-                    }
-                %>
-                <a href="<%- wareLink %>" class="wares-card no-external-indicators" data-content-type="wares"<% if (wareLinkExternal) { %> target="_blank" rel="noopener"<% } %>>
-                    <div class="wares-card__media">
-                        <% if (coverImageUrl) { %>
+                }
+                const coverImageUrl = coverImagePath
+                    ? (coverImagePath.startsWith('http') ? coverImagePath : url_for(coverImagePath))
+                    : '/img/blogPostDefaultCover.png';
+
+                const subtitle = post.subtitle || post.display_description || post.summary || post.excerpt || '';
+
+                // Handle link - can be external CTA or internal post
+                let wareLink = url_for(post.path);
+                let wareLinkExternal = false;
+                if (post.cta_url) {
+                    wareLinkExternal = /^https?:\/\//.test(post.cta_url);
+                    wareLink = wareLinkExternal ? post.cta_url : url_for(post.cta_url);
+                }
+            %>
+            <article class="post-list-item" id="<%= postId %>">
+                <div class="post-byline">
+                    <%= date(post.date, 'MMMM D, YYYY') %> • Ware
+                </div>
+                <a href="<%- wareLink %>" class="post-link-wrapper no-external-indicators"<% if (wareLinkExternal) { %> target="_blank" rel="noopener"<% } %>>
+                    <div class="post-list-item post-long post-preview-card">
+                        <div class="preview-cover-image">
                             <img src="<%- coverImageUrl %>" alt="<%- post.title %>" loading="lazy" />
-                        <% } else { %>
-                            <div class="wares-card__placeholder">Interactive preview</div>
-                        <% } %>
-                        <div class="wares-card__overlay"></div>
-                    </div>
-                    <div class="wares-card__body">
-                        <h3 class="wares-card__title"><%- post.title %></h3>
-                        <% if (subtitle) { %>
-                            <p class="wares-card__subtitle"><%- subtitle %></p>
-                        <% } %>
+                        </div>
+                        <div class="preview-content">
+                            <h3 class="preview-title">
+                                <%- post.title %>
+                            </h3>
+                            <% if (subtitle) { %>
+                            <div class="preview-excerpt">
+                                <%- subtitle %>
+                            </div>
+                            <% } %>
+                            <% if (wareLinkExternal) { %>
+                            <div class="preview-metadata">
+                                <span class="preview-external-link">↗ External link</span>
+                            </div>
+                            <% } %>
+                        </div>
                     </div>
                 </a>
-            <% }); %>
-        </div>
+            </article>
+            <% if (index < warePosts.length - 1) { %>
+                <hr class="post-separator">
+            <% } %>
+        <% }); %>
     <% } else { %>
-        <p class="wares-empty">No wares published yet. Add your first ware to see it here.</p>
+        <p class="wares-empty">No wares published yet.</p>
     <% } %>
 </div>
