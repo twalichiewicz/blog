@@ -53,7 +53,7 @@
 	.blog .blog-list &.post-long {
 		display: flex;
 		flex-direction: row;
-		align-items: stretch;
+		align-items: center;
 	}
 
 	&.post-long .preview-cover-image,
@@ -61,7 +61,6 @@
 		width: 90px !important;
 		flex: 0 0 90px !important;
 		height: 90px !important;
-		align-self: stretch;
 	}
 
 	&.post-long .preview-content,
@@ -185,7 +184,6 @@
 			width: 90px !important;
 			flex: 0 0 90px !important;
 			height: 90px !important;
-			align-self: stretch;
 			max-height: 90px !important;
 		}
 		
@@ -204,17 +202,15 @@
 			}
 		}
 
-		// Specific override to ensure long post images stretch on mobile
-		// This must override the fixed height set for #postsContent .preview-cover-image
+		// Specific override to ensure long post images are sized correctly on mobile
 		&.post-long .preview-cover-image {
 			#postsContent & {
-				height: auto !important;
-				max-height: none !important;
-				align-self: stretch;
+				height: 90px !important;
+				max-height: 90px !important;
 
 				img {
 					height: 100% !important;
-					max-height: none !important;
+					max-height: 90px !important;
 				}
 			}
 		}
