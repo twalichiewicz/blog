@@ -216,6 +216,7 @@
 			}
 		}
 
+
 		.img-grid {
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -577,13 +578,27 @@
 					letter-spacing: normal;
 					opacity: 1;
 					color: variables.$text-color;
-					
+
 					img {
 						margin: 0; // Remove margin from images in lists
 						display: inline-block; // Allow images to flow with text
 						vertical-align: middle; // Align with text
 					}
 				}
+			}
+
+			// Constrain image height in blog list to prevent content sprawl
+			// Excludes preview-cover-image which has its own sizing
+			> img,
+			> p > img,
+			> figure > img {
+				max-height: 400px;
+				width: auto;
+				max-width: 100%;
+				object-fit: contain;
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
 			}
 
 			// Keep existing image styles for non-list contexts
