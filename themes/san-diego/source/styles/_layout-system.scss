@@ -204,8 +204,13 @@ $layout-levels: (
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    
+
     &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+
+    // Add bottom margin to last post so it's not flush against container edge
+    &:last-child {
       margin-bottom: 24px;
     }
   }
@@ -306,6 +311,11 @@ body.modal-open {
 
   .blog .blog-list .post-list-item:not(:last-child) {
     margin-bottom: 0;
+  }
+
+  // Keep bottom margin on last post for breathing room
+  .blog .blog-list .post-list-item:last-child {
+    margin-bottom: 24px;
   }
 }
 
