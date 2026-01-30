@@ -240,6 +240,8 @@
     flex-direction: column;
     // Remove overflow control from .blog - body handles scrolling now
     overflow: visible;
+    // DEBUG: purple border
+    border: 2px solid purple;
 
     .blog-header {
       height: auto;
@@ -255,6 +257,8 @@
       display: flex;
       flex-direction: column;
       overflow: visible;
+      // DEBUG: orange border
+      border: 2px solid orange;
 
       // Tabs: start in natural position, JS toggles to fixed when header scrolls out
       .tabs-wrapper {
@@ -294,6 +298,8 @@
         flex-direction: column;
         flex: 1;
         min-height: 0;
+        // DEBUG: green border
+        border: 2px solid green;
       }
 
       .content-wrapper {
