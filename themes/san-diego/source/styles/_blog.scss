@@ -587,11 +587,14 @@
 				}
 			}
 
-			// Constrain image height in blog list to prevent content sprawl
+			// Constrain image/video height in blog list to prevent content sprawl
 			// Excludes preview-cover-image which has its own sizing
 			> img,
 			> p > img,
-			> figure > img {
+			> figure > img,
+			> video,
+			> p > video,
+			> figure > video {
 				max-height: 600px;
 				width: auto;
 				max-width: 100%;
