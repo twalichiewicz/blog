@@ -318,10 +318,20 @@
 
   // Ensure content panes don't create scroll containers
   #postsContent,
-  #projectsContent,
+  #projectsContent {
+    overflow: visible;
+    height: auto;
+  }
+
+  // Wares needs flex properties to fill available height
   #waresContent {
     overflow: visible;
     height: auto;
+    // These flex properties let Wares fill the remaining viewport height
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
   }
 
   // Dark mode support for sticky tabs
