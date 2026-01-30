@@ -327,17 +327,20 @@
     height: auto;
   }
 
-  // Wares needs flex to fill available height
+  // Wares needs to fill available height
+  // Flex chain doesn't work because .blog uses min-height (not height)
+  // So we calculate the remaining viewport space directly
   #waresContent {
     overflow: visible;
-    height: auto;
 
     &.is-visible {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      min-height: 0;
-      // DEBUG: temporary background to verify flex is working
+      display: block;
+      // Calculate remaining space: viewport - header - tabs - safe area
+      // Using a smaller offset to ensure it extends far enough
+      min-height: calc(100svh - 280px);
+      min-height: calc(100dvh - 280px);
+      box-sizing: border-box;
+      // DEBUG: temporary background to verify
       background: rgba(255, 0, 0, 0.1);
     }
   }
