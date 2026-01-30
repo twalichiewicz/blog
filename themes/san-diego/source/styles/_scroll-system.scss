@@ -299,6 +299,11 @@
         // Explicitly ensure no scroll container is created
         overflow: visible;
         height: auto;
+        // Make content-wrapper a flex container so child panes can fill height
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
       }
     }
   }

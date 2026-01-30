@@ -1948,24 +1948,27 @@ export default class MobileTabs {
 	}
 
 	/**
-	 * Update the position of the search trigger to align with slider's right edge
+	 * Update the position of the search trigger to align with Words tab button
 	 * Also sets the slider end position for the magic reveal animation
+	 * Note: We position relative to the Words tab button, NOT the slider,
+	 * because the slider moves when switching tabs but search is only for Words.
 	 */
 	updateSearchTriggerPosition() {
 		if (!this.searchTrigger || !this.tabContainer) {
 			return;
 		}
 
-		const slider = this.tabContainer.querySelector('.mobile-tabs-slider');
-		if (!slider) return;
+		// Find the Words (blog) tab button - search trigger should always align with this
+		const wordsTabButton = this.tabContainer.querySelector('.tab-button[data-type="blog"]');
+		if (!wordsTabButton) return;
 
 		const triggerSize = 24; // Match CSS width/height
 		const tabsRect = this.tabContainer.getBoundingClientRect();
-		const sliderRect = slider.getBoundingClientRect();
+		const wordsButtonRect = wordsTabButton.getBoundingClientRect();
 
-		// Position trigger inside slider, aligned to slider's right edge
-		const sliderRightEdge = sliderRect.right - tabsRect.left;
-		const triggerLeft = sliderRightEdge - triggerSize - 4; // 4px padding from edge
+		// Position trigger inside the Words tab button area, aligned to its right edge
+		const wordsButtonRightEdge = wordsButtonRect.right - tabsRect.left;
+		const triggerLeft = wordsButtonRightEdge - triggerSize - 4; // 4px padding from edge
 
 		// Set trigger position
 		this.tabContainer.style.setProperty('--trigger-left', `${triggerLeft}px`);
