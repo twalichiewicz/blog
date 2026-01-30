@@ -12,21 +12,15 @@
 	}
 }
 
-// Mobile: Ensure wares fills the screen
+// Mobile: Ensure wares fills the screen using flexbox
 @media screen and (max-width: variables.$mobile-breakpoint) {
 	#waresContent.is-visible {
-		// Use min-height to fill remaining viewport
-		min-height: calc(100dvh - 380px);
-		min-height: calc(100svh - 380px);
+		// Use flex to fill remaining space in flex container
+		flex: 1;
+		display: flex;
+		flex-direction: column;
 		padding: 24px 16px 60px;
 		box-sizing: border-box;
-	}
-
-	// Also target when inside the content wrapper
-	.content-wrapper #waresContent.is-visible,
-	.content-inner-wrapper #waresContent.is-visible {
-		min-height: calc(100dvh - 380px);
-		min-height: calc(100svh - 380px);
 	}
 }
 
