@@ -246,6 +246,13 @@
 			opacity: 1;
 			visibility: visible;
 			pointer-events: auto;
+			animation: search-trigger-pop-in 200ms ease forwards;
+		}
+
+		// Hiding state - animate out before removing visibility
+		&.is-hiding {
+			animation: search-trigger-pop-out 200ms ease forwards;
+			pointer-events: none;
 		}
 
 		// Close mode - swap icons (search is open)

@@ -1,0 +1,521 @@
+// Scroll System - Consolidated from multiple scroll fix files
+// ==========================================================
+// This file consolidates:
+// - _mobile-scroll-fix.scss
+// - _mobile-dynamic-content-fix.scss
+// - _dynamic-content-scroll-fix.scss
+// - _scroll-fix-all-viewports.scss
+//
+// Organization:
+// 1. Base scroll behavior
+// 2. Desktop viewport rules (>1024px)
+// 3. Tablet viewport rules (769-1024px)
+// 4. Mobile viewport rules (≤768px)
+// 5. Dynamic content handling
+// 6. iOS Safari fixes
+
+@use 'variables';
+
+// =============================================================================
+// 1. BASE SCROLL BEHAVIOR
+// =============================================================================
+
+// Mobile: NO nested scroll container - body scrolls for Safari toolbar collapse
+// This MUST come before the desktop rules to ensure proper cascade
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog .blog-content.has-dynamic-content {
+    overflow: visible;
+    overflow-y: visible;
+    min-height: auto;
+    height: auto;
+
+    .dynamic-scroll-host {
+      overflow: visible;
+      -webkit-overflow-scrolling: auto;
+    }
+  }
+}
+
+// Desktop/Tablet: Use nested scroll container for dynamic content
+// Wrapped in media query to prevent overriding mobile body-scroll behavior
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  .blog .blog-content.has-dynamic-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100vh;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .dynamic-scroll-host {
+      flex: 1 1 auto;
+      min-height: 0;
+      height: auto;
+      max-height: none;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+      opacity: 1;
+
+      // Custom scrollbar styling
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgb(0 0 0 / 20%);
+        border-radius: 3px;
+
+        @media (prefers-color-scheme: dark) {
+          background-color: rgb(255 255 255 / 20%);
+        }
+      }
+
+      // Content wrappers inside scroll host
+      .post-wrapper,
+      .substack-post,
+      .project-wrapper {
+        overflow: visible;
+        max-height: none;
+        padding-bottom: 2rem;
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+
+    .content-inner-wrapper.dynamic-scroll-host {
+      height: auto;
+      min-height: 0;
+      max-height: none;
+    }
+  }
+}
+
+// =============================================================================
+// 2. DESKTOP VIEWPORT RULES (>1024px)
+// =============================================================================
+
+@media (min-width: calc(variables.$tablet-breakpoint + 1px)) {
+  .blog {
+    .blog-content {
+      // Default state: blog-content contains, content-wrapper scrolls
+      &:not(.has-dynamic-content) {
+        overflow: hidden;
+        height: calc(100dvh - 24px); // Account for margins
+
+        .content-inner-wrapper {
+          height: 100%;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+
+          .tabs-wrapper {
+            flex-shrink: 0;
+          }
+
+          .content-wrapper {
+            flex: 1;
+            min-height: 0; // Important for flexbox
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+
+            // Scrollbar styling
+            &::-webkit-scrollbar {
+              width: 6px;
+            }
+
+            &::-webkit-scrollbar-track {
+              background: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background-color: rgb(0 0 0 / 20%);
+              border-radius: 3px;
+
+              @media (prefers-color-scheme: dark) {
+                background-color: rgb(255 255 255 / 20%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Dynamic content on desktop - allow natural scroll
+  .device-desktop .blog .blog-content.has-dynamic-content .content-inner-wrapper.dynamic-scroll-host,
+  .device-tablet .blog .blog-content.has-dynamic-content .content-inner-wrapper.dynamic-scroll-host {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+// =============================================================================
+// 3. TABLET VIEWPORT RULES (769-1024px)
+// =============================================================================
+
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) and (max-width: variables.$tablet-breakpoint) {
+  .blog {
+    .blog-content {
+      &:not(.has-dynamic-content) {
+        overflow: hidden;
+        height: calc(100dvh - 24px);
+
+        .content-inner-wrapper {
+          height: 100%;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+
+          .tabs-wrapper {
+            flex-shrink: 0;
+          }
+
+          .content-wrapper {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+          }
+        }
+      }
+    }
+  }
+}
+
+// =============================================================================
+// 4. MOBILE VIEWPORT RULES (≤768px)
+// =============================================================================
+
+@media (max-width: variables.$mobile-breakpoint) {
+  // iOS Safari Toolbar Collapse Fix
+  // --------------------------------
+  // To enable Safari's toolbar collapse on scroll (like apple.com), we need to:
+  // 1. Let the BODY scroll, not a nested container
+  // 2. Use min-height instead of fixed height so content can extend
+  // 3. Apply safe-area-insets for the home indicator
+  //
+  // The key insight: Safari only collapses its toolbar when the document scrolls,
+  // not when scrolling inside a nested element with overflow: auto.
+
+  // CRITICAL FOR SAFARI TOOLBAR COLLAPSE:
+  // Safari only collapses its toolbar when the DOCUMENT scrolls.
+  // We must NOT set any overflow properties on html/body - let browser defaults handle it.
+
+  html, body {
+    // Remove any constraints that might block scrolling
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    position: static;
+  }
+
+  // Dark mode: black background for Safari safe areas (dynamic island, home indicator)
+  @media (prefers-color-scheme: dark) {
+    html {
+      background-color: #000;
+    }
+  }
+
+  body {
+    // Body sizing for mobile viewport
+    min-height: 100svh;
+    min-height: 100dvh;
+  }
+
+  .blog {
+    // Don't constrain height - let content flow naturally
+    min-height: 100svh;
+    min-height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    // Remove overflow control from .blog - body handles scrolling now
+    overflow: visible;
+
+    .blog-header {
+      height: auto;
+      min-height: auto;
+      flex-shrink: 0;
+      position: relative;
+      margin-bottom: 0;
+    }
+
+    .blog-content {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
+
+      // Tabs: start in natural position, JS toggles to fixed when header scrolls out
+      .tabs-wrapper {
+        position: relative;
+        z-index: 1000;
+        padding: variables.$space-sm 16px;
+        background: variables.$body-bg;
+        flex-shrink: 0;
+
+        @media (prefers-color-scheme: dark) {
+          background: variables.$body-bg-dark;
+        }
+
+        // When JS determines tabs should be fixed (header scrolled out of view)
+        &.is-sticky-fixed {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      // Placeholder inserted by JS to prevent content jump when tabs become fixed
+      .tabs-sticky-placeholder {
+        flex-shrink: 0;
+      }
+
+      .content-inner-wrapper {
+        padding-top: 0;
+        border-radius: 12px;
+        // Explicitly ensure no scroll container is created
+        overflow: visible;
+        height: auto;
+        // Flex chain for Wares to fill available height
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+      }
+
+      .content-wrapper {
+        // Explicitly ensure no scroll container is created
+        overflow: visible;
+        height: auto;
+        // Make content-wrapper a flex container so child panes can fill height
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+      }
+    }
+  }
+
+  // Ensure content panes don't create scroll containers
+  #postsContent,
+  #projectsContent {
+    overflow: visible;
+    height: auto;
+  }
+
+  // Wares needs to fill available height
+  // Flex chain doesn't work because .blog uses min-height (not height)
+  // So we calculate the remaining viewport space directly
+  #waresContent {
+    overflow: visible;
+
+    &.is-visible {
+      display: block;
+      // Calculate remaining space: viewport - header - tabs - margins
+      // 143px = tuned to account for all spacing
+      min-height: calc(100svh - 143px);
+      min-height: calc(100dvh - 143px);
+      box-sizing: border-box;
+    }
+  }
+
+  // Dark mode support for sticky tabs
+  body.dark-mode-forced .blog .blog-content .tabs-wrapper {
+    background: variables.$body-bg-dark;
+  }
+
+  body.dark-mode-forced .blog .blog-content .tabs-wrapper.is-sticky-fixed {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  // Modal state - prevent body scroll (only when modal is open)
+  body.modal-open {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  // Blog list separators
+  .blog-list .post-separator {
+    margin: 0.75rem 0;
+    opacity: 0.5;
+  }
+
+  // Search container
+  .search-container {
+    margin-bottom: 1rem;
+    position: sticky;
+    top: 0;
+    background-color: inherit;
+    z-index: 10;
+    padding: 0.5rem 0;
+  }
+}
+
+// =============================================================================
+// 5. DYNAMIC CONTENT HANDLING
+// =============================================================================
+
+// Mobile dynamic content - let body scroll for Safari toolbar collapse
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog .blog-content.has-dynamic-content {
+    min-height: auto;
+
+    .dynamic-scroll-host {
+      // Don't create a scroll container - let body scroll
+      overflow: visible;
+      height: auto;
+      max-height: none;
+
+      .post-wrapper,
+      .project-wrapper,
+      .substack-post {
+        overflow: visible;
+        height: auto;
+        max-height: none;
+        // Extra bottom padding for Safari toolbar + home indicator
+        padding-bottom: calc(env(safe-area-inset-bottom, 34px) + 48px);
+        margin-bottom: 0;
+      }
+    }
+
+    // Post/project content wrappers
+    .content-inner-wrapper {
+      overflow: visible;
+      height: auto;
+      min-height: auto;
+      max-height: none;
+
+      .post-wrapper,
+      .project-wrapper,
+      .substack-post {
+        margin-top: 0;
+        padding-top: 24px;
+        // Don't set overflow-y: auto - let body handle scrolling
+        overflow: visible;
+      }
+    }
+
+    // Ensure parent containers don't interfere with body scrolling
+    .content-wrapper {
+      overflow: visible;
+    }
+
+    // Dynamic back button positioning
+    .dynamic-back-button {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 1001;
+      margin: 0;
+      display: block;
+      width: fit-content;
+      background-color: black;
+
+      // Account for safe area in landscape
+      @supports (-webkit-touch-callout: none) {
+        left: calc(env(safe-area-inset-left, 0) + 16px);
+      }
+    }
+  }
+
+  // Avoid transforms that can break scrolling behavior
+  .blog,
+  .blog-content,
+  .content-wrapper,
+  .content-inner-wrapper {
+    transform: none;
+    will-change: auto;
+  }
+}
+
+// Desktop/tablet dynamic content
+.blog-content.has-dynamic-content {
+  @media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+    .content-wrapper,
+    .content-inner-wrapper {
+      height: auto;
+      min-height: 0;
+      overflow: visible;
+    }
+  }
+}
+
+// =============================================================================
+// 6. IOS SAFARI FIXES
+// =============================================================================
+
+// Detect iOS Safari (supports -webkit-touch-callout is iOS-specific)
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: variables.$mobile-breakpoint) {
+    // Ensure smooth scrolling on iOS
+    html {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    // Prevent rubber-banding at the top while allowing toolbar collapse
+    body {
+      overscroll-behavior-y: none;
+    }
+
+    .blog-content.has-dynamic-content {
+      // GPU acceleration for smooth scrolling
+      -webkit-transform: translateZ(0);
+      -webkit-overflow-scrolling: touch;
+
+      .content-inner-wrapper {
+        -webkit-transform: translateZ(0);
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    // Ensure safe area is respected on notched devices (iPhone X+)
+    .blog .blog-content .content-wrapper {
+      // Add left/right safe areas for landscape mode
+      padding-left: env(safe-area-inset-left, 0);
+      padding-right: env(safe-area-inset-right, 0);
+      // Bottom safe area for home indicator
+      padding-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px);
+    }
+
+    // Fixed elements need safe area consideration
+    .tabs-wrapper.is-sticky-fixed {
+      // Account for notch in landscape
+      padding-left: calc(env(safe-area-inset-left, 0) + 16px);
+      padding-right: calc(env(safe-area-inset-right, 0) + 16px);
+    }
+  }
+}
+
+// =============================================================================
+// 7. UNIFIED TEXT COLOR FOR BLOG LIST
+// =============================================================================
+
+// Ensure blog post list items always use the unified text color token
+.blog .post-list-item ul li,
+.blog .post-list-item ol li,
+.blog .blog-list .post-list-item ul li,
+.blog .blog-list .post-list-item ol li {
+  color: var(--blog-list-text-color);
+}

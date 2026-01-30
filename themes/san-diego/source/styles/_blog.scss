@@ -30,7 +30,6 @@
 	}
 
 	.blog-header {
-		height: 100dvh;
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -39,11 +38,16 @@
 		padding: 24px 0;
 		gap: 24px;
 
+		// Desktop/Tablet: Full viewport height for sidebar layout
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			height: 100dvh;
 			justify-content: space-between;
 		}
 
+		// Mobile: Auto height - flows with content for Safari toolbar collapse
 		@media (max-width: variables.$mobile-breakpoint) {
+			height: auto;
+			min-height: auto;
 			padding: 0;
 			gap: 0;
 			width: 100%;
@@ -101,7 +105,7 @@
 	.post-list-item {
 		margin: 4.5rem 0;
 		padding: 0 1rem;
-		
+
 		@media (max-width: variables.$mobile-breakpoint) {
 			padding-left: 18px;
 			padding-right: 18px;
@@ -111,11 +115,16 @@
 		margin-left: auto;
 		margin-right: auto;
 		transition: variables.$transition-standard;
-		
+
+		// Remove margin from nested .post-list-item to prevent double margins
+		.post-list-item {
+			margin: 0;
+		}
+
 		// Override padding when used with post-preview-card
 		&.post-preview-card {
 			padding: 0;
-			
+
 			@media (max-width: variables.$mobile-breakpoint) {
 				padding-left: 0;
 				padding-right: 0;
@@ -212,6 +221,7 @@
 			}
 		}
 
+
 		.img-grid {
 			display: grid;
 			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -291,8 +301,16 @@
 			width: 100%;
 			height: auto;
 			overflow: hidden;
-			background-color: hsl(24deg 20% 85%);
+			background-color: transparent;
+			border-color: transparent;
+			border: none;
 			margin-bottom: 9px;
+
+			// Ensure transparent in dark mode too
+			@media (prefers-color-scheme: dark) {
+				background-color: transparent;
+				border-color: transparent;
+			}
 
 			&-track {
 				position: relative;
@@ -518,15 +536,25 @@
 			max-width: 75ch;
 			margin: 0 auto;
 			padding: 0 12px;
-			
+
 			@media (max-width: variables.$mobile-breakpoint) {
 				padding-left: 18px;
 				padding-right: 18px;
 			}
 			position: relative;
 
+			// Remove padding when also a post-preview-card
+			&.post-preview-card {
+				padding: 0;
+
+				@media (max-width: variables.$mobile-breakpoint) {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+
 			&:last-child {
-				margin-bottom: 0;
+				margin-bottom: 24px; // Keep spacing at bottom so last post isn't flush
 			}
 
 			.post-byline {
@@ -573,13 +601,30 @@
 					letter-spacing: normal;
 					opacity: 1;
 					color: variables.$text-color;
-					
+
 					img {
 						margin: 0; // Remove margin from images in lists
 						display: inline-block; // Allow images to flow with text
 						vertical-align: middle; // Align with text
 					}
 				}
+			}
+
+			// Constrain image/video height in blog list to prevent content sprawl
+			// Excludes preview-cover-image which has its own sizing
+			> img,
+			> p > img,
+			> figure > img,
+			> video,
+			> p > video,
+			> figure > video {
+				max-height: 600px;
+				width: auto;
+				max-width: 100%;
+				object-fit: contain;
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
 			}
 
 			// Keep existing image styles for non-list contexts
@@ -635,6 +680,12 @@
 
 			margin-bottom: 1.5rem;
 			position: relative;
+
+			// When also a post-preview-card, remove padding/margin from card-base
+			&.post-preview-card {
+				padding: 0;
+				margin: 0;
+			}
 			
 			// Add visual separator after each post-long item
 			&:not(:last-child)::after {
@@ -839,10 +890,18 @@ p {
 #postsContent .post-list-item {
 	margin-top: 0;
 	margin-bottom: 0;
-	
+
 	@media (max-width: variables.$mobile-breakpoint) {
 		padding-left: 18px;
 		padding-right: 18px;
+	}
+
+	// Override for post-preview-card which has its own internal padding
+	&.post-preview-card {
+		@media (max-width: variables.$mobile-breakpoint) {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
 }
 
@@ -850,6 +909,14 @@ p {
 	@media (max-width: variables.$mobile-breakpoint) {
 		padding-left: 18px;
 		padding-right: 18px;
+	}
+
+	// Override for post-preview-card which has its own internal padding
+	&.post-preview-card {
+		@media (max-width: variables.$mobile-breakpoint) {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
 }
 

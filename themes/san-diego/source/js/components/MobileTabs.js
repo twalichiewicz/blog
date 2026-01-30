@@ -789,7 +789,8 @@ export default class MobileTabs {
 	getDeviceType() {
 		const width = window.innerWidth;
 
-		if (width <= 767) {
+		// Must match CSS $mobile-breakpoint: 768px
+		if (width <= 768) {
 			return 'mobile';
 		}
 
@@ -973,11 +974,12 @@ export default class MobileTabs {
 			}
 		};
 
-		// Listen for scroll on the blog container (main scroll container on mobile)
-		blogContainer.addEventListener('scroll', this.boundListeners.handleStickyScroll, { passive: true });
+		// Listen for scroll on window (body/html scrolls on iOS Safari for toolbar collapse)
+		// With body scrolling approach, .blog has overflow: visible and doesn't fire scroll events
+		window.addEventListener('scroll', this.boundListeners.handleStickyScroll, { passive: true });
 
 		// Store reference for cleanup
-		this.stickyScrollContainer = blogContainer;
+		this.stickyScrollContainer = window;
 
 		// Initial check in case page is already scrolled
 		checkStickyPosition();
@@ -1546,16 +1548,18 @@ export default class MobileTabs {
 	 * Set up scroll listener to track when inline search scrolls off-screen
 	 */
 	setupSearchVisibilityObserver() {
-		// Find the inline search container within posts content
+		// Try to find the inline search container within posts content
 		if (!this.inlineSearchContainer) {
 			this.inlineSearchContainer = this.postsContent?.querySelector('.search-container');
 		}
 
-		// If no inline search container, we can't observe it
+		// Log whether we found the container (helpful for debugging)
 		if (!this.inlineSearchContainer) {
-			console.log('[MobileTabs] No inline search container found for observation');
-			return;
+			console.log('[MobileTabs] No inline search container found yet - will check lazily');
 		}
+
+		// ALWAYS set up scroll listeners, even if container isn't found yet
+		// The checkSearchVisibility function will try to find the container lazily
 
 		// Create scroll handler with throttling
 		let ticking = false;
@@ -1586,8 +1590,10 @@ export default class MobileTabs {
 		if (blogContent) scrollTargets.add(blogContent);
 		if (blogContainer) scrollTargets.add(blogContainer);
 
-		// Always listen on window as fallback
+		// Always listen on window and document for body/html scrolling
+		// This is critical for iOS Safari where body scrolls to enable toolbar collapse
 		scrollTargets.add(window);
+		scrollTargets.add(document);
 
 		// Attach scroll listeners to all potential scroll containers
 		scrollTargets.forEach(target => {
@@ -1611,6 +1617,12 @@ export default class MobileTabs {
 	 * Check if the inline search is visible and update trigger accordingly
 	 */
 	checkSearchVisibility() {
+		// Try to find the search container lazily if not already found
+		if (!this.inlineSearchContainer) {
+			this.inlineSearchContainer = this.postsContent?.querySelector('.search-container');
+		}
+
+		// Still can't find it - nothing to observe
 		if (!this.inlineSearchContainer || !this.searchTrigger) {
 			return;
 		}
@@ -1620,12 +1632,25 @@ export default class MobileTabs {
 		// Search is available on all device types where tabs are shown (mobile, tablet, and desktop)
 		const isTabsVisible = this.currentDeviceType === 'mobile' || this.currentDeviceType === 'tablet' || this.currentDeviceType === 'desktop';
 
+		// Double-check Words tab is actually visible (the pane has is-visible class)
+		// This guards against stale data-active-tab or timing issues
+		const postsPane = this.postsContent;
+		const isPostsPaneVisible = postsPane && postsPane.classList.contains('is-visible');
+
+		// If Words tab isn't actually visible, don't show search trigger
+		if (!isPostsPaneVisible) {
+			this.hideSearchTrigger();
+			return;
+		}
+
 		// Get the search container's position relative to the viewport
 		const rect = this.inlineSearchContainer.getBoundingClientRect();
-		// Consider the search "off-screen" when its bottom edge is above the tabs area (roughly 60px from top)
-		const isOffScreen = rect.bottom < 60;
+		// Use actual tabs height instead of hardcoded value for accurate threshold
+		const tabsHeight = this.tabContainer?.offsetHeight || 60;
+		// Consider the search "off-screen" when its bottom edge is above the tabs area
+		const isOffScreen = rect.bottom < tabsHeight;
 		// Consider inline search "visible" when it's scrolled into view
-		const isInlineSearchVisible = rect.top > 60 && rect.bottom > 0;
+		const isInlineSearchVisible = rect.top > tabsHeight && rect.bottom > 0;
 
 		// If search overlay is open and user scrolls to reveal inline search, auto-close overlay
 		if (this.searchOverlayOpen && isInlineSearchVisible) {
@@ -1931,24 +1956,27 @@ export default class MobileTabs {
 	}
 
 	/**
-	 * Update the position of the search trigger to align with slider's right edge
+	 * Update the position of the search trigger to align with Words tab button
 	 * Also sets the slider end position for the magic reveal animation
+	 * Note: We position relative to the Words tab button, NOT the slider,
+	 * because the slider moves when switching tabs but search is only for Words.
 	 */
 	updateSearchTriggerPosition() {
 		if (!this.searchTrigger || !this.tabContainer) {
 			return;
 		}
 
-		const slider = this.tabContainer.querySelector('.mobile-tabs-slider');
-		if (!slider) return;
+		// Find the Words (blog) tab button - search trigger should always align with this
+		const wordsTabButton = this.tabContainer.querySelector('.tab-button[data-type="blog"]');
+		if (!wordsTabButton) return;
 
 		const triggerSize = 24; // Match CSS width/height
 		const tabsRect = this.tabContainer.getBoundingClientRect();
-		const sliderRect = slider.getBoundingClientRect();
+		const wordsButtonRect = wordsTabButton.getBoundingClientRect();
 
-		// Position trigger inside slider, aligned to slider's right edge
-		const sliderRightEdge = sliderRect.right - tabsRect.left;
-		const triggerLeft = sliderRightEdge - triggerSize - 4; // 4px padding from edge
+		// Position trigger inside the Words tab button area, aligned to its right edge
+		const wordsButtonRightEdge = wordsButtonRect.right - tabsRect.left;
+		const triggerLeft = wordsButtonRightEdge - triggerSize - 4; // 4px padding from edge
 
 		// Set trigger position
 		this.tabContainer.style.setProperty('--trigger-left', `${triggerLeft}px`);

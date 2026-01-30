@@ -3,42 +3,24 @@
 
 :root {
   // === SPACING SCALE ===
-  // Consistent spacing system based on 4px grid
-  --space-0: 0;
-  --space-1: 0.25rem;  // 4px
-  --space-2: 0.5rem;   // 8px
-  --space-3: 0.75rem;  // 12px
-  --space-4: 1rem;     // 16px
-  --space-5: 1.5rem;   // 24px
-  --space-6: 2rem;     // 32px
-  --space-7: 3rem;     // 48px
-  --space-8: 4rem;     // 64px
-  --space-9: 6rem;     // 96px
-  --space-10: 8rem;    // 128px
+  // CSS custom property equivalents of SCSS spacing variables (3pt grid)
+  // These mirror $space-* variables in _variables.scss for runtime access
+  --space-1: 3px;   // $space-xxs - Minimal spacing, borders
+  --space-2: 6px;   // $space-xs  - Tight spacing, small gaps
+  --space-3: 9px;   // Element gap (new)
+  --space-4: 12px;  // $space-sm  - Default padding, margins
+  --space-5: 15px;  // Medium gap (new)
+  --space-6: 18px;  // Mobile screen padding
+  --space-8: 24px;  // $space-md  - Section spacing
+  --space-12: 36px; // $space-lg  - Large gaps
+  --space-16: 48px; // $space-xl  - Major sections
+  --space-24: 72px; // $space-xxl - Page level spacing
   
-  // === TYPOGRAPHY SCALE ===
-  // Modular scale based on 1.25 ratio
-  --text-xs: 0.75rem;    // 12px
-  --text-sm: 0.875rem;   // 14px
-  --text-base: 1rem;     // 16px
-  --text-lg: 1.125rem;   // 18px
-  --text-xl: 1.25rem;    // 20px
-  --text-2xl: 1.5rem;    // 24px
-  --text-3xl: 2rem;      // 32px
-  --text-4xl: 2.5rem;    // 40px
-  
-  // === LINE HEIGHTS ===
-  --leading-tight: 1.25;
-  --leading-snug: 1.375;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.625;
-  --leading-loose: 1.75;
-  
-  // === FONT WEIGHTS ===
-  --font-normal: 400;
-  --font-medium: 500;
-  --font-semibold: 600;
-  --font-bold: 700;
+  // === TYPOGRAPHY ===
+  // Typography tokens are defined in _typography-system.scss
+  // Use --font-size-* variables (e.g., --font-size-xs, --font-size-sm, --font-size-base)
+  // Use --font-weight-* variables (e.g., --font-weight-normal, --font-weight-medium)
+  // Use --line-height-* variables (e.g., --line-height-tight, --line-height-normal)
   
   // === BREAKPOINTS ===
   // Single source for all media queries
@@ -59,11 +41,13 @@
   --z-tooltip: 600;
   
   // === BORDER RADIUS ===
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-full: 9999px;
+  --radius-sm: 4px;       // Subtle rounding (inputs, small chips)
+  --radius-base: 8px;     // Default (buttons, small cards)
+  --radius-md: 12px;      // Cards, containers
+  --radius-lg: 16px;      // Large elements, modals
+  --radius-xl: 24px;      // Hero sections
+  --radius-full: 9999px;  // Pills, circular buttons
+  --radius-circle: 50%;   // Avatars, icons
   
   // === TRANSITIONS ===
   --transition-fast: 150ms ease;
@@ -76,8 +60,71 @@
   --container-narrow: 768px;
   --container-wide: 1400px;
   --container-padding: var(--space-4);
-  
+
   @media (min-width: 768px) {
     --container-padding: var(--space-6);
   }
+
+  // === SEMANTIC COLORS (Light Mode) ===
+  // Surface colors
+  --bg-surface: hsl(35deg 15% 88%);       // Body background
+  --bg-card: hsl(0deg 0% 100%);           // Card backgrounds
+  --bg-elevated: hsl(0deg 0% 100%);       // Elevated surfaces (modals, dropdowns)
+
+  // Text colors
+  --text-primary: hsl(24deg 3% 35%);      // Primary text
+  --text-secondary: hsl(35deg 15% 30%);   // Secondary text
+  --text-muted: hsl(35deg 10% 50%);       // Muted/tertiary text
+
+  // Border colors
+  --border-subtle: hsl(35deg 10% 75%);    // Subtle borders
+  --border-default: hsl(35deg 10% 85%);   // Default borders
+
+  // Interactive colors
+  --link-color: hsl(15deg 70% 40%);       // Link text
+  --link-hover: hsl(15deg 70% 40%);       // Link hover state
+}
+
+// === SEMANTIC COLORS (Dark Mode) ===
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Surface colors
+    --bg-surface: hsl(28deg 8% 15%);
+    --bg-card: hsl(0deg 0% 18%);
+    --bg-elevated: hsl(0deg 0% 20%);
+
+    // Text colors
+    --text-primary: hsl(0deg 0% 95%);
+    --text-secondary: hsl(0deg 0% 75%);
+    --text-muted: hsl(0deg 0% 65%);
+
+    // Border colors
+    --border-subtle: hsl(0deg 0% 25%);
+    --border-default: hsl(0deg 0% 30%);
+
+    // Interactive colors
+    --link-color: hsl(40deg 90% 60%);
+    --link-hover: hsl(40deg 90% 65%);
+  }
+}
+
+// === FORCED DARK MODE ===
+body.dark-mode-forced {
+  // Surface colors
+  --bg-surface: hsl(28deg 8% 15%);
+  --bg-card: hsl(0deg 0% 18%);
+  --bg-elevated: hsl(0deg 0% 20%);
+
+  // Text colors
+  --text-primary: hsl(0deg 0% 95%);
+  --text-secondary: hsl(0deg 0% 75%);
+  --text-muted: hsl(0deg 0% 65%);
+
+  // Border colors
+  --border-subtle: hsl(0deg 0% 25%);
+  --border-default: hsl(0deg 0% 30%);
+
+  // Interactive colors
+  --link-color: hsl(40deg 90% 60%);
+  --link-hover: hsl(40deg 90% 65%);
 }

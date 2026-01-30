@@ -108,6 +108,28 @@
         <!-- Desktop/tablet content (always visible) -->
         <div class="desktop-content mobile-hide no-external-indicators">
             <p class="profile-bio">Building <a href="https://www.tryworkspaceos.com" target="_blank"><b>WorkspaceOS</b></a> @ <a href="https://www.triglavis.com" target="_blank"><b>Triglavis</b></a><br/><br/>Designer, researcher, and relentless problem solver. Leading design at startups and established companies. Building thoughtful digital experiences.</p>
+            <% if (contactLinks.length) { %>
+                <div class="contact-chin">
+                    <% contactLinks.forEach((link) => {
+                        const isExternal = Boolean(link.external);
+                        const classNames = ['contact-chin-btn'];
+                        if (isExternal && link.no_external_indicator) {
+                            classNames.push('no-external-indicators');
+                        }
+                    %>
+                        <a
+                            href="<%= link.href %>"
+                            class="<%= classNames.join(' ') %>"
+                            aria-label="<%= link.aria_label || link.label %>"
+                            <% if (isExternal) { %>target="_blank" rel="noopener"<% } %>
+                        >
+                            <span class="contact-icon" aria-hidden="true">
+                                <%- partial('_partial/contact-icon', { icon: link.id }) %>
+                            </span>
+                        </a>
+                    <% }) %>
+                </div>
+            <% } %>
             <div class="profile-stats-container">
                 <div class="profile-stats" onclick="openImpactModal()" role="button" tabindex="0" aria-label="View stats">
                     <div class="stat">
@@ -139,31 +161,3 @@
         </div>
     </div>
 </div>
-<% if (contactLinks.length) { %>
-    <div class="desktop-contact-chin mobile-hide">
-        <div class="contact-chin-inner">
-            <% contactLinks.forEach((link) => {
-                const isExternal = Boolean(link.external);
-                const classNames = ['contact-chin-btn'];
-                if (isExternal && link.no_external_indicator) {
-                    classNames.push('no-external-indicators');
-                }
-                if (link.modifier) {
-                    classNames.push(`contact-chin-btn--${link.modifier}`);
-                }
-            %>
-                <a
-                    href="<%= link.href %>"
-                    class="<%= classNames.join(' ') %>"
-                    aria-label="<%= link.aria_label || link.label %>"
-                    data-label="<%= link.label %>"
-                    <% if (isExternal) { %>target="_blank" rel="noopener"<% } %>
-                >
-                    <span class="contact-icon" aria-hidden="true">
-                        <%- partial('_partial/contact-icon', { icon: link.id }) %>
-                    </span>
-                </a>
-            <% }) %>
-        </div>
-    </div>
-<% } %>

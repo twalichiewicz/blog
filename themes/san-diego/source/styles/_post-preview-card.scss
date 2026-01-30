@@ -9,10 +9,15 @@
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
 	border: 1px solid variables.$border-color;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-	
+
+	// Remove margin when nested inside another post-list-item to prevent double margins
+	.post-list-item & {
+		margin-bottom: 0;
+	}
+
 	// When combined with post-list-item and post-long, remove padding
 	&.post-list-item.post-long {
-		padding: 0 !important;
+		padding: 0;
 	}
 	
 	&:hover {
@@ -53,15 +58,15 @@
 	.blog .blog-list &.post-long {
 		display: flex;
 		flex-direction: row;
-		align-items: stretch;
+		align-items: stretch; // Stretch so image container fills card height
 	}
 
 	&.post-long .preview-cover-image,
 	.blog .blog-list &.post-long .preview-cover-image {
-		width: 140px;
-		flex: 0 0 140px;
-		height: auto;
-		align-self: stretch;
+		width: 90px;
+		flex: 0 0 90px;
+		min-height: 90px; // Minimum height, but can stretch taller
+		height: auto; // Allow stretching to fill card
 	}
 
 	&.post-long .preview-content,
@@ -71,7 +76,25 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding-left: 15px;
+		padding: 12px 12px 12px 15px;
+	}
+
+	// Text constraints for post-long to keep cards compact
+	&.post-long .preview-title,
+	.blog .blog-list &.post-long .preview-title {
+		// Single line with ellipsis
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-bottom: 4px;
+	}
+
+	&.post-long .preview-excerpt,
+	.blog .blog-list &.post-long .preview-excerpt {
+		-webkit-line-clamp: 2; // Limit to 2 lines
+		margin-bottom: 4px;
 	}
 	
 	// Content container
@@ -180,62 +203,31 @@
 	@media (max-width: variables.$mobile-breakpoint) {
 		margin-bottom: 8px;
 
+		// Post-long on mobile: image stretches to fill card height
 		&.post-long .preview-cover-image,
 		.blog .blog-list &.post-long .preview-cover-image {
-			width: 120px;
-			flex: 0 0 120px;
+			width: 90px;
+			flex: 0 0 90px;
+			min-height: 90px;
 			height: auto;
-			align-self: stretch;
-			max-height: none;
 		}
-		
+
 		.preview-cover-image {
 			height: 150px;
-			
-			// Specific override for Words tab
-			#postsContent & {
-				max-height: 90px !important;
-				height: 90px !important;
-				
-				img {
-					max-height: 90px !important;
-					height: 90px !important;
-				}
-			}
 		}
 
-		// Specific override to ensure long post images stretch on mobile
-		// This must override the fixed height set for #postsContent .preview-cover-image
-		&.post-long .preview-cover-image {
-			#postsContent & {
-				height: auto !important;
-				max-height: none !important;
-				align-self: stretch;
-
-				img {
-					height: 100% !important;
-					max-height: none !important;
-				}
-			}
-		}
-		
 		.preview-content {
 			padding: 12px;
-			
+
 			.preview-title {
 				font-size: var(--font-size-lg);
 			}
-			
+
 			.preview-excerpt {
-				font-size: var(--font-size-base);
+				font-size: var(--font-size-sm);
 				-webkit-line-clamp: 2; // Show only 2 lines on mobile
-				
-				// Specific override for Words page
-				#postsContent & {
-					font-size: var(--font-size-sm) !important;
-				}
 			}
-			
+
 			.preview-metadata {
 				font-size: var(--font-size-2xs);
 				gap: 6px;
@@ -274,14 +266,11 @@
 .content-inner-wrapper {
 	// Border radius is now handled by JavaScript
 	// Removed CSS rules to prevent conflicts
-	
-	.post-list-item {
-		&:has(.post-preview-card) {
-			overflow: hidden;
-			border-radius: 12px;
-		}
-	}
-	
+
+	// Note: We intentionally do NOT set overflow: hidden on .post-list-item
+	// because it clips the box-shadow of the inner .post-preview-card.
+	// The card handles its own border-radius and overflow internally.
+
 	// Ensure the post-preview-card within dynamic content maintains proper styling
 	.post-preview-card {
 		border-radius: 12px;

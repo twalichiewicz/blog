@@ -30,7 +30,7 @@ slug: Typing-Tennis
             <h3 style="margin: 0; color: oklch(85.2% 0.199 91.936); font-size: 22px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;">TYPING TENNIS</h3>
             <p style="margin: 0; color: #888; font-size: 12px; line-height: 1.5;">A retro-style typing game where you play tennis with words.</p>
             
-            <a href="https://typingtennis.com" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; width: fit-content; margin-top: 6px; padding: 10px 24px; background: oklch(85.2% 0.199 91.936); color: #151515; border: 2px solid oklch(85.2% 0.199 91.936); text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 4px; transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1); box-shadow: none; position: relative; overflow: hidden;" onmouseover="this.style.boxShadow='0 0 20px oklch(85.2% 0.199 91.936 / 0.4)';" onmouseout="this.style.boxShadow='none';">
+            <a href="https://typingtennis.com" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; width: fit-content; margin-top: 6px; padding: 6px 15px; background: oklch(85.2% 0.199 91.936); color: #151515; border: 2px solid oklch(85.2% 0.199 91.936); text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 4px; transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1); box-shadow: none; position: relative; overflow: hidden;" onmouseover="this.style.boxShadow='0 0 20px oklch(85.2% 0.199 91.936 / 0.4)';" onmouseout="this.style.boxShadow='none';">
                 Play Game
             </a>
         </div>

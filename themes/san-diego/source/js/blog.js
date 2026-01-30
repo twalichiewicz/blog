@@ -736,8 +736,15 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 
 	// Add has-dynamic-content class to enable proper scrolling
 	blogContentElement.classList.add('has-dynamic-content');
-	blogContentElement.style.overflowY = 'auto';
-	blogContentElement.style.overflowX = 'hidden';
+
+	// On mobile, let body scroll for Safari toolbar collapse
+	// On desktop, use nested scroll container for better layout control
+	const isMobileScroll = window.matchMedia('(max-width: 768px)').matches;
+	if (!isMobileScroll) {
+		blogContentElement.style.overflowY = 'auto';
+		blogContentElement.style.overflowX = 'hidden';
+	}
+	// Mobile overflow is handled by CSS in _scroll-system.scss
 
 	// Ensure existing content-inner-wrapper has border-radius during transition
 	const existingInnerWrapper = blogContentElement.querySelector('.content-inner-wrapper');
@@ -892,9 +899,12 @@ async function fetchAndDisplayContent(url, isPushState = true, contentType = 'bl
 				const innerWrapper = document.createElement('div');
 				innerWrapper.className = 'content-inner-wrapper';
 				innerWrapper.style.opacity = '0'; // Start transparent for fade-in
-				innerWrapper.style.overflow = 'hidden';
 
 				const isMobile = window.matchMedia('(max-width: 768px)').matches;
+				// Only set overflow hidden on desktop; mobile needs body scroll for Safari toolbar
+				if (!isMobile) {
+					innerWrapper.style.overflow = 'hidden';
+				}
 				if (isMobile) {
 					innerWrapper.style.setProperty('border-radius', '12px', 'important');
 				} else {

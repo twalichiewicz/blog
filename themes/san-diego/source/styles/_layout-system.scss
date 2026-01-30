@@ -12,22 +12,26 @@ $layout-levels: (
 );
 
 // Core blog layout structure
-.blog {
-  // Base layout (level 1)
-  height: 100dvh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  
-  .blog-header {
-    flex-shrink: 0;
-  }
-  
-  .blog-content {
-    flex: 1;
+// Note: Mobile layout is handled separately to enable Safari toolbar collapse
+// Desktop/Tablet base layout only - mobile must NOT have fixed height/overflow:hidden
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  .blog {
+    // Base layout (level 1) - desktop/tablet only
+    height: 100dvh;
     overflow: hidden;
-    height: 100%;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .blog-header {
+      flex-shrink: 0;
+    }
+
+    .blog-content {
+      flex: 1;
+      overflow: hidden;
+      height: 100%;
+      position: relative;
+    }
   }
 }
 
@@ -85,23 +89,18 @@ $layout-levels: (
 }
 
 // Mobile responsive layout (level 2)
-// Header is position: absolute, content fills viewport
+// Scrolling behavior is handled by _scroll-system.scss to enable Safari toolbar collapse
 @media (max-width: variables.$mobile-breakpoint) {
-  html,
-  body {
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-    overscroll-behavior: none;
-  }
+  // Note: html/body overflow is set in _scroll-system.scss
+  // We intentionally DON'T set overflow: hidden here to allow Safari toolbar to collapse
 
   .blog,
   .device-mobile .blog {
     display: flex;
     flex-direction: column;
-    height: 100dvh;
-    overflow-y: auto; // Allow scrolling
-    overflow-x: hidden;
+    // Use min-height instead of fixed height for Safari toolbar collapse
+    min-height: 100svh;
+    overflow: visible; // Let body handle scrolling
 
     // Header is relative (default), flows with content
     .blog-header {
@@ -115,8 +114,7 @@ $layout-levels: (
       display: flex;
       flex-direction: column;
 
-      // Tabs use position: fixed on mobile (set in _scroll-fix-all-viewports.scss)
-      // This block is intentionally minimal - fixed positioning handles the stickiness
+      // Tabs positioning handled in _scroll-system.scss
       .tabs-wrapper {
         flex-shrink: 0;
       }
@@ -137,7 +135,7 @@ $layout-levels: (
     }
   }
 
-  // Prevent transform issues
+  // Prevent transform issues that can break iOS scrolling
   .blog,
   .blog-content,
   .content-wrapper,
@@ -206,9 +204,19 @@ $layout-levels: (
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    
+
     &:not(:last-child) {
       margin-bottom: 24px;
+    }
+
+    // Add bottom margin to last post so it's not flush against container edge
+    &:last-child {
+      margin-bottom: 24px;
+    }
+
+    // Remove margin from nested .post-list-item (e.g., article > div structure)
+    .post-list-item {
+      margin-bottom: 0;
     }
   }
   
@@ -293,20 +301,26 @@ body.modal-open {
   }
 }
 
-// Mobile blog list separators
+// Mobile blog list separators - use higher specificity instead of !important
 @media (max-width: variables.$mobile-breakpoint) {
   .blog-list .post-separator {
     margin: 30px 0;
     opacity: 0.5;
   }
 
-  .blog-list .post-list-item {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+  // Reset margins on mobile - handled by separators
+  .blog .blog-list .post-list-item {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
-  .blog-list .post-list-item:not(:last-child) {
-    margin-bottom: 0 !important;
+  .blog .blog-list .post-list-item:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+  // Keep bottom margin on last post for breathing room
+  .blog .blog-list .post-list-item:last-child {
+    margin-bottom: 24px;
   }
 }
 
@@ -330,5 +344,118 @@ body.modal-open {
 .project-edge-wrapper {
   .content-wrapper {
     overflow-y: auto;
+  }
+}
+
+// Remove bottom padding from main blog container
+.blog#main-content {
+  padding-bottom: 0;
+}
+
+// Tab panel vertical padding - responsive
+#postsContent,
+#projectsContent,
+#waresContent {
+  padding-top: variables.$space-sm;
+  padding-bottom: calc(variables.$space-sm + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  #postsContent,
+  #projectsContent,
+  #waresContent {
+    padding-top: variables.$space-md;
+    padding-bottom: variables.$space-md;
+  }
+}
+
+@media (min-width: variables.$tablet-breakpoint) {
+  #postsContent,
+  #projectsContent,
+  #waresContent {
+    padding-top: variables.$space-xl;
+    padding-bottom: variables.$space-xl;
+  }
+
+  // Fix cutoff at bottom for content wrapper
+  .content-wrapper {
+    padding-bottom: variables.$space-md;
+  }
+}
+
+// Mobile posts list extra bottom padding (for navigation)
+#postsContent.blog-list.mobile-tab-pane.is-visible {
+  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+}
+
+// Long-form content mode (reading view)
+.blog.long-form-active {
+  @media (max-width: variables.$mobile-breakpoint) {
+    .blog-header {
+      display: none;
+    }
+
+    .blog-content {
+      flex: 1 1 auto;
+      width: 100%;
+    }
+
+    .content-inner-wrapper {
+      margin: 0 16px;  // Horizontal margin only, no top margin
+      padding-top: 0;
+    }
+  }
+}
+
+// Mobile-specific layout overrides (must be more specific than base rules)
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog,
+  .device-mobile .blog {
+    position: static;
+    width: 100%;
+    left: auto;
+    right: auto;
+    top: auto;
+
+    .blog-header {
+      height: auto;
+    }
+
+    .blog-content {
+      position: static;
+      width: 100%;
+
+      &.has-dynamic-content {
+        .content-wrapper,
+        .content-inner-wrapper {
+          overflow: visible;
+        }
+      }
+
+      .content-wrapper {
+        height: auto;
+        // Don't reset padding-bottom here - safe-area insets are set in _scroll-system.scss
+        background-color: variables.$white;
+
+        @media (prefers-color-scheme: dark) {
+          background-color: variables.$white-dark;
+        }
+      }
+
+      .content-inner-wrapper {
+        height: auto;
+
+        // When dynamic content exists
+        &:has(.post-wrapper.dynamic-loaded),
+        &:has(.project-wrapper.dynamic-loaded) {
+          height: auto;
+        }
+      }
+    }
+  }
+
+  // Dark mode forced support
+  body.dark-mode-forced .blog .blog-content .content-wrapper {
+    background-color: variables.$white-dark;
   }
 }

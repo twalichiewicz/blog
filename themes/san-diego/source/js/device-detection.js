@@ -10,7 +10,8 @@
 	const body = document.body;
 
 	// Add appropriate device class (mobile or tablet only)
-	if (width <= 767) {
+	// IMPORTANT: Must match CSS breakpoint of 768px (max-width: 768px)
+	if (width <= 768) {
 		body.classList.add('device-mobile');
 	} else {
 		body.classList.add('device-tablet');
@@ -26,8 +27,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 	const DeviceDetection = {
-		// Mobile breakpoint
-		mobileBreakpoint: 767,
+		// Mobile breakpoint - must match CSS $mobile-breakpoint: 768px
+		mobileBreakpoint: 768,
 
 		/**
 		 * Initialize device detection

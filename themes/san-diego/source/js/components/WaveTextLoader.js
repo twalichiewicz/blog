@@ -33,8 +33,8 @@ const isLowEndDevice = () => {
 	// More reliable mobile detection using multiple signals
 	const isMobile =
 		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigatorInfo.userAgent) ||
-		(window.innerWidth < 768) ||
-		(window.matchMedia && window.matchMedia('(max-width: 767px)').matches) ||
+		(window.innerWidth <= 768) ||
+		(window.matchMedia && window.matchMedia('(max-width: 768px)').matches) ||
 		(navigatorInfo.maxTouchPoints && navigatorInfo.maxTouchPoints > 1); // Likely touch device
 
 	// If we're on iOS, it can have performance issues with complex animations
