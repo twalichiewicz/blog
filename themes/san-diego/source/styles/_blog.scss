@@ -670,6 +670,12 @@
 
 			margin-bottom: 1.5rem;
 			position: relative;
+
+			// When also a post-preview-card, remove padding/margin from card-base
+			&.post-preview-card {
+				padding: 0;
+				margin: 0;
+			}
 			
 			// Add visual separator after each post-long item
 			&:not(:last-child)::after {

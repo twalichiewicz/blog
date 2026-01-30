@@ -213,6 +213,11 @@ $layout-levels: (
     &:last-child {
       margin-bottom: 24px;
     }
+
+    // Remove margin from nested .post-list-item (e.g., article > div structure)
+    .post-list-item {
+      margin-bottom: 0;
+    }
   }
   
   // Full-width separators
