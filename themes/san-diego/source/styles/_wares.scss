@@ -59,11 +59,13 @@
 		overflow: visible !important;
 	}
 
-	// Show full subtitle (override base line-clamp)
+	// Show full subtitle with smaller font on mobile
 	.post-preview-card .preview-excerpt {
 		display: block !important;
 		-webkit-line-clamp: unset !important;
 		overflow: visible !important;
+		font-size: var(--font-size-xs) !important;
+		line-height: 1.4 !important;
 	}
 
 	.post-preview-card .preview-cover-image,
