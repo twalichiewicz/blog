@@ -74,7 +74,7 @@
 
 		.profile-bio {
 			color: variables.$text-color-secondary;
-			margin: 0 0 16px 0;
+			margin: 0 0 9px 0;
 			font-size: var(--font-size-sm);
 			line-height: var(--line-height-tight).4;
 			max-width: 450px;
@@ -1168,217 +1168,76 @@
 	}
 }
 
-.blog {
-	.desktop-contact-chin {
-		display: none;
-	}
+// Contact chin - circular icon buttons under profile bio
+.contact-chin {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-bottom: 16px;
 }
 
-@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-	.blog {
-		.desktop-contact-chin {
-			display: flex;
-			width: 100%;
-			padding: 0 24px 0;
-			box-sizing: border-box;
-			position: relative;
-			margin-top: auto;
-			--contact-chin-transition: all 0.025s ease;
-		}
+.contact-chin-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background: transparent;
+	border: none;
+	text-decoration: none;
+	transition: background-color 0.15s ease;
 
-		.desktop-contact-chin .contact-chin-inner {
-			position: relative;
-			display: flex;
-			align-items: stretch;
-			gap: 6px;
-			width: 100%;
-			padding: 9px 18px;
-			border-radius: 12px;
-			background: transparent;
-			// Use hex color to survive production minifiers that strip CSS4 color() syntax
-			border: 1px solid #e3ded8;
-			box-shadow: none;
-			transition: var(--contact-chin-transition, all 0.025s ease);
-			overflow: visible;
-		}
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.08);
+	}
 
-		.desktop-contact-chin .contact-chin-inner::after {
-			content: '';
-			position: absolute;
-			bottom: -50%;
-			left: -10%;
-			width: 120%;
+	&:active {
+		background-color: rgba(0, 0, 0, 0.12);
+	}
+
+	&:focus-visible {
+		outline: 2px solid variables.$link-color;
+		outline-offset: 2px;
+	}
+
+	.contact-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		color: variables.$text-color-secondary;
+		transition: color 0.15s ease;
+
+		svg {
+			width: 100%;
 			height: 100%;
-			background: radial-gradient(ellipse at center,
-				rgba(255, 255, 255, 0.02) 0%,
-				transparent 70%);
-			pointer-events: none;
+			display: block;
 		}
+	}
 
-		.desktop-contact-chin .contact-chin-btn {
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			padding: 9px 12px;
-			min-height: 30px;
-			border-radius: 10px;
-			border: 1px solid rgb(209, 204, 194);
-			background: linear-gradient(
-				rgb(243, 239, 233),
-				rgb(229, 223, 214) 87.39%,
-				rgb(231, 227, 221)
-			);
-			background-color: rgb(238, 234, 228);
-			color: rgba(255, 255, 255, 0.88);
-			text-transform: uppercase;
-			letter-spacing: 0.12em;
-			font-size: var(--font-size-2xs);
-			font-weight: var(--font-weight-semibold);
-			text-decoration: none;
-			text-align: center;
-			transition: var(--contact-chin-transition, all 0.025s ease);
-			flex: 1 1 0;
-			min-width: 0;
-			overflow: visible;
-			box-shadow:
-				0 1px 0 rgba(119, 119, 119, 0.18) inset,
-				0 -2px 5px rgba(186, 186, 186, 0.55) inset,
-				0 3px 6px rgba(205, 205, 205, 0.4);
-			--contact-btn-accent-rgb: 196, 210, 255;
-		}
-
-		.desktop-contact-chin .contact-chin-btn:hover,
-		.desktop-contact-chin .contact-chin-btn:focus-visible {
-			background: linear-gradient(
-				rgb(231, 226, 216),
-				rgb(214, 210, 202) 79.83%,
-				rgb(194, 190, 184)
-			);
-			background-color: rgb(244, 240, 234);
-			border-color: rgb(140, 135, 124);
-			color: rgba(255, 255, 255, 0.92);
-		}
-
-		.desktop-contact-chin .contact-chin-btn:active {
-			background: linear-gradient(
-				rgb(241, 237, 231),
-				rgb(230, 225, 217) 65%,
-				rgb(234, 229, 223)
-			);
-			background-color: rgb(240, 236, 230);
-			box-shadow:
-				inset 0 1px 0 rgba(255, 255, 255, 0.35),
-				inset 0 -1px 3px rgba(0, 0, 0, 0.2),
-				0 1px 3px rgba(0, 0, 0, 0.15);
-			border-color: rgb(216, 211, 203);
-			color: inherit;
-		}
-
-		.desktop-contact-chin .contact-chin-btn:focus-visible {
-			outline: 2px solid variables.$link-color;
-			outline-offset: 2px;
-		}
-
-		.desktop-contact-chin .contact-chin-btn .contact-icon {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			width: 26px;
-			height: 26px;
-			color: #7e7c78;
-			opacity: 1;
-			transition: color 0.025s ease, opacity 0.025s ease;
-
-			svg {
-				width: 100%;
-				height: 100%;
-				display: block;
-				color: inherit;
-			}
-		}
-
-		.desktop-contact-chin .contact-chin-btn:hover .contact-icon,
-		.desktop-contact-chin .contact-chin-btn:focus-visible .contact-icon {
-			opacity: 1;
-			color: variables.$black;
-		}
-
-		.desktop-contact-chin .contact-chin-btn--email {
-			--contact-btn-accent-rgb: 128, 255, 229;
-		}
-
-		.desktop-contact-chin .contact-chin-btn--linkedin {
-			--contact-btn-accent-rgb: 128, 179, 255;
-		}
-
-		.desktop-contact-chin .contact-chin-btn--github {
-			--contact-btn-accent-rgb: 179, 229, 255;
-		}
-
-		.desktop-contact-chin .contact-chin-btn--resume {
-			--contact-btn-accent-rgb: 255, 179, 128;
-		}
-
+	&:hover .contact-icon {
+		color: variables.$text-color;
 	}
 }
 
 @media (prefers-color-scheme: dark) {
-	@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
-		.blog {
-			.desktop-contact-chin .contact-chin-inner {
-				background: transparent;
-				border: 1px solid rgb(47, 44, 39);
-				box-shadow: none;
-			}
-
-		.desktop-contact-chin .contact-chin-btn {
-			border: 1px solid rgb(41, 41, 41);
-			background: linear-gradient(
-				rgb(14, 14, 13),
-				rgb(30, 28, 27)
-			);
-			color: rgba(255, 255, 255, 0.92);
-			box-shadow:
-				inset 0 1px 0 rgba(0, 0, 0, 0.1),
-				inset 0 -2px 6px rgba(29, 29, 29, 0.85),
-				0 8px 20px rgba(0, 0, 0, 0.15);
+	.contact-chin-btn {
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.1);
 		}
 
-			.desktop-contact-chin .contact-chin-btn:hover,
-			.desktop-contact-chin .contact-chin-btn:focus-visible {
-				background: linear-gradient(
-					rgb(56, 53, 48),
-					rgb(29, 28, 26)
-				);
-				border-color: rgba(255, 255, 255, 0.35);
-				color: rgba(255, 255, 255, 0.96);
-			}
+		&:active {
+			background-color: rgba(255, 255, 255, 0.15);
+		}
 
-			.desktop-contact-chin .contact-chin-btn:active {
-				background: linear-gradient(
-					rgb(13, 12, 11),
-					rgb(24, 22, 20)
-				);
-				box-shadow:
-					inset 0 1px 0 rgba(255, 255, 255, 0.08),
-					inset 0 -1px 3px rgba(0, 0, 0, 0.75),
-					0 4px 12px rgba(0, 0, 0, 0.5);
-				border-color: rgba(255, 255, 255, 0.18);
-				color: rgba(255, 255, 255, 0.92);
-			}
+		.contact-icon {
+			color: variables.$text-color-secondary-dark;
+		}
 
-			.desktop-contact-chin .contact-chin-btn .contact-icon {
-				color: hsl(0deg 0% 72%);
-				opacity: 0.9;
-				transition: color 0.025s ease, opacity 0.025s ease;
-			}
-
-			.desktop-contact-chin .contact-chin-btn:hover .contact-icon,
-			.desktop-contact-chin .contact-chin-btn:focus-visible .contact-icon {
-				color: variables.$white;
-			}
+		&:hover .contact-icon {
+			color: variables.$text-color-dark;
 		}
 	}
 }

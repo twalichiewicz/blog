@@ -184,7 +184,7 @@
 	min-width: 72px;
 	padding: 6px 18px;
 	border-radius: 999px;
-	background: variables.$link-color;
+	background: #000;
 	color: #fff;
 	font-family: var(--font-sans);
 	font-size: var(--font-size-sm);
@@ -193,7 +193,7 @@
 	transition: opacity 150ms ease, transform 150ms ease;
 
 	@media (prefers-color-scheme: dark) {
-		background: variables.$link-color-dark;
+		background: #fff;
 		color: #000;
 	}
 
