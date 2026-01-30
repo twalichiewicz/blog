@@ -20,64 +20,83 @@
 // 1. BASE SCROLL BEHAVIOR
 // =============================================================================
 
-// Dynamic scroll host - the container that handles scrolling for dynamic content
-.blog .blog-content.has-dynamic-content {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  min-height: 100vh;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-
-  .dynamic-scroll-host {
-    flex: 1 1 auto;
-    min-height: 0;
+// Mobile: NO nested scroll container - body scrolls for Safari toolbar collapse
+// This MUST come before the desktop rules to ensure proper cascade
+@media (max-width: variables.$mobile-breakpoint) {
+  .blog .blog-content.has-dynamic-content {
+    overflow: visible;
+    overflow-y: visible;
+    min-height: auto;
     height: auto;
-    max-height: none;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    position: relative;
-    opacity: 1;
 
-    // Custom scrollbar styling
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: rgb(0 0 0 / 20%);
-      border-radius: 3px;
-
-      @media (prefers-color-scheme: dark) {
-        background-color: rgb(255 255 255 / 20%);
-      }
-    }
-
-    // Content wrappers inside scroll host
-    .post-wrapper,
-    .substack-post,
-    .project-wrapper {
+    .dynamic-scroll-host {
       overflow: visible;
-      max-height: none;
-      padding-bottom: 2rem;
-
-      img {
-        max-width: 100%;
-        height: auto;
-      }
+      -webkit-overflow-scrolling: auto;
     }
   }
+}
 
-  .content-inner-wrapper.dynamic-scroll-host {
-    height: auto;
-    min-height: 0;
-    max-height: none;
+// Desktop/Tablet: Use nested scroll container for dynamic content
+// Wrapped in media query to prevent overriding mobile body-scroll behavior
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  .blog .blog-content.has-dynamic-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100vh;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .dynamic-scroll-host {
+      flex: 1 1 auto;
+      min-height: 0;
+      height: auto;
+      max-height: none;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+      opacity: 1;
+
+      // Custom scrollbar styling
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgb(0 0 0 / 20%);
+        border-radius: 3px;
+
+        @media (prefers-color-scheme: dark) {
+          background-color: rgb(255 255 255 / 20%);
+        }
+      }
+
+      // Content wrappers inside scroll host
+      .post-wrapper,
+      .substack-post,
+      .project-wrapper {
+        overflow: visible;
+        max-height: none;
+        padding-bottom: 2rem;
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+
+    .content-inner-wrapper.dynamic-scroll-host {
+      height: auto;
+      min-height: 0;
+      max-height: none;
+    }
   }
 }
 

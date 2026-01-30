@@ -27,8 +27,8 @@
                 padding: 0;
                 // Use flex to fill available space in parent
                 flex: 1;
-                // Fallback min-height for layout stability
-                min-height: calc(100svh - 320px - env(safe-area-inset-bottom, 0px));
+                // Let flexbox fill space naturally - no hardcoded min-height
+                min-height: 0;
                 justify-content: center; // Center content vertically
         }
 }
