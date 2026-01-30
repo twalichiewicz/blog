@@ -266,14 +266,11 @@
 .content-inner-wrapper {
 	// Border radius is now handled by JavaScript
 	// Removed CSS rules to prevent conflicts
-	
-	.post-list-item {
-		&:has(.post-preview-card) {
-			overflow: hidden;
-			border-radius: 12px;
-		}
-	}
-	
+
+	// Note: We intentionally do NOT set overflow: hidden on .post-list-item
+	// because it clips the box-shadow of the inner .post-preview-card.
+	// The card handles its own border-radius and overflow internally.
+
 	// Ensure the post-preview-card within dynamic content maintains proper styling
 	.post-preview-card {
 		border-radius: 12px;
