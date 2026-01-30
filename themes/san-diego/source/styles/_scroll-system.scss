@@ -303,9 +303,6 @@
       }
 
       .content-wrapper {
-        // Safe area padding for home indicator + extra breathing room
-        // Using a larger value to ensure content is visible above Safari's bottom bar
-        padding-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px);
         // Explicitly ensure no scroll container is created
         overflow: visible;
         height: auto;
