@@ -214,12 +214,13 @@
   // not when scrolling inside a nested element with overflow: auto.
 
   html {
-    // Use svh (small viewport height) as the minimum - this is the viewport
-    // height when Safari's toolbar is EXPANDED (visible)
-    height: 100%;
+    // CRITICAL FOR SAFARI TOOLBAR COLLAPSE:
+    // Use min-height, NOT height - fixed height creates a scroll container
+    // which Safari treats as nested scrolling, preventing toolbar collapse.
+    // Document-level scrolling requires natural content overflow.
+    min-height: 100%;
     overflow-x: hidden;
-    // Allow vertical scrolling to trigger toolbar collapse
-    overflow-y: auto;
+    // Do NOT set overflow-y here - let document scroll naturally
     overscroll-behavior-y: none;
   }
 
@@ -229,8 +230,8 @@
     min-height: 100svh;
     min-height: -webkit-fill-available; // Fallback for older iOS
     overflow-x: hidden;
-    // CRITICAL: Don't set overflow-y: hidden - this prevents toolbar collapse
-    overflow-y: visible;
+    // Do NOT set any overflow-y - let document scroll naturally
+    // Safari detects document scrolling for toolbar collapse
   }
 
   .blog {
@@ -290,6 +291,11 @@
         // Explicitly ensure no scroll container is created
         overflow: visible;
         height: auto;
+        // Flex chain for Wares to fill available height
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
       }
 
       .content-wrapper {

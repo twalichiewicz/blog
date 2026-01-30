@@ -1548,16 +1548,18 @@ export default class MobileTabs {
 	 * Set up scroll listener to track when inline search scrolls off-screen
 	 */
 	setupSearchVisibilityObserver() {
-		// Find the inline search container within posts content
+		// Try to find the inline search container within posts content
 		if (!this.inlineSearchContainer) {
 			this.inlineSearchContainer = this.postsContent?.querySelector('.search-container');
 		}
 
-		// If no inline search container, we can't observe it
+		// Log whether we found the container (helpful for debugging)
 		if (!this.inlineSearchContainer) {
-			console.log('[MobileTabs] No inline search container found for observation');
-			return;
+			console.log('[MobileTabs] No inline search container found yet - will check lazily');
 		}
+
+		// ALWAYS set up scroll listeners, even if container isn't found yet
+		// The checkSearchVisibility function will try to find the container lazily
 
 		// Create scroll handler with throttling
 		let ticking = false;
@@ -1615,6 +1617,12 @@ export default class MobileTabs {
 	 * Check if the inline search is visible and update trigger accordingly
 	 */
 	checkSearchVisibility() {
+		// Try to find the search container lazily if not already found
+		if (!this.inlineSearchContainer) {
+			this.inlineSearchContainer = this.postsContent?.querySelector('.search-container');
+		}
+
+		// Still can't find it - nothing to observe
 		if (!this.inlineSearchContainer || !this.searchTrigger) {
 			return;
 		}
