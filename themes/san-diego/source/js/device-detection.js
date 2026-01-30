@@ -1,7 +1,24 @@
 /**
  * Device Detection and Responsive Behavior
- * 
- * Simplified device detection - mobile vs tablet only
+ *
+ * DEPRECATION NOTICE:
+ * ==================
+ * The device-type classes (device-mobile, device-tablet) should NOT be used
+ * for layout CSS. Use pure CSS media queries instead:
+ *   - @media (max-width: 768px) for mobile
+ *   - @media (min-width: 769px) and (max-width: 1024px) for tablet
+ *   - @media (min-width: 1025px) for desktop
+ *
+ * In JavaScript, use window.matchMedia() instead of checking body classes:
+ *   - const isMobile = window.matchMedia('(max-width: 768px)').matches;
+ *
+ * This script is kept for:
+ *   - Orientation classes (orientation-portrait, orientation-landscape)
+ *   - Touch capability detection (touch-capable, mouse-input)
+ *   - Legacy compatibility with older code
+ *
+ * Reason: Device-type classes have race conditions - the script may run
+ * before body exists, or after CSS has already rendered.
  */
 
 // Run device detection immediately to ensure device classes are set before DOM is fully loaded

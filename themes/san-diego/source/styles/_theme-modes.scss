@@ -357,270 +357,274 @@
 			}
 		}
 
-		/* Specific styles for tablet */
-		&.device-tablet .blog-content {
-			background: linear-gradient(135deg,
-					hsl(28deg 10% 12%) 0%,
-					hsl(28deg 8% 16%) 100%);
+		/* Specific styles for tablet (using media query instead of device class) */
+		@media (min-width: 769px) and (max-width: 1024px) {
+			.blog-content {
+				background: linear-gradient(135deg,
+						hsl(28deg 10% 12%) 0%,
+						hsl(28deg 8% 16%) 100%);
 
-			/* Tablet-specific content styling */
-			.content-wrapper {
-				/* Subtle glow effect on content containers */
-				box-shadow:
-					variables.$shadow-soft-dark,
-					0 0 20px rgba(variables.$link-color-dark, 0.05);
+				/* Tablet-specific content styling */
+				.content-wrapper {
+					/* Subtle glow effect on content containers */
+					box-shadow:
+						variables.$shadow-soft-dark,
+						0 0 20px rgba(variables.$link-color-dark, 0.05);
 
-				/* Border removed - handled by blog-content-borders.scss */
+					/* Border removed - handled by blog-content-borders.scss */
 
-				#postsContent,
-				#projectsContent {
-					/* Remove any box-shadow that might be inherited */
-					box-shadow: none;
-					border: none;
+					#postsContent,
+					#projectsContent {
+						/* Remove any box-shadow that might be inherited */
+						box-shadow: none;
+						border: none;
 
-					/* Tablet-specific portfolio item styling */
-					.portfolio-item {
-						box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
+						/* Tablet-specific portfolio item styling */
+						.portfolio-item {
+							box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
 
-						&:hover {
-							box-shadow: 0 4px 12px rgb(0 0 0 / 25%),
-								0 0 0 1px rgba(variables.$link-color-dark, 0.15);
+							&:hover {
+								box-shadow: 0 4px 12px rgb(0 0 0 / 25%),
+									0 0 0 1px rgba(variables.$link-color-dark, 0.15);
+							}
 						}
 					}
 				}
-			}
 
-			/* Scrollbar styling for tablet */
-			::-webkit-scrollbar {
-				width: 6px;
-				height: 6px;
-			}
+				/* Scrollbar styling for tablet */
+				::-webkit-scrollbar {
+					width: 6px;
+					height: 6px;
+				}
 
-			::-webkit-scrollbar-track {
-				background: rgb(0 0 0 / 20%);
-				border-radius: 4px;
-			}
+				::-webkit-scrollbar-track {
+					background: rgb(0 0 0 / 20%);
+					border-radius: 4px;
+				}
 
-			::-webkit-scrollbar-thumb {
-				background: rgba(variables.$link-color-dark, 0.3);
-				border-radius: 4px;
+				::-webkit-scrollbar-thumb {
+					background: rgba(variables.$link-color-dark, 0.3);
+					border-radius: 4px;
 
-				&:hover {
-					background: rgba(variables.$link-color-dark, 0.5);
+					&:hover {
+						background: rgba(variables.$link-color-dark, 0.5);
+					}
 				}
 			}
 		}
 
-		/* Specific styles for desktop */
-		&.device-desktop .blog-content {
-			background: linear-gradient(135deg,
-					hsl(28deg 10% 14%) 0%,
-					hsl(28deg 8% 10%) 100%);
-			/* Removed backdrop-filter for Chrome performance */
+		/* Specific styles for desktop (using media query instead of device class) */
+		@media (min-width: 1025px) {
+			.blog-content {
+				background: linear-gradient(135deg,
+						hsl(28deg 10% 14%) 0%,
+						hsl(28deg 8% 10%) 100%);
+				/* Removed backdrop-filter for Chrome performance */
 
-			/* Chrome fix: Simplified for better performance */
+				/* Chrome fix: Simplified for better performance */
 
-			/* Desktop-specific content styling */
-			.content-wrapper {
+				/* Desktop-specific content styling */
+				.content-wrapper {
 
-				/* Add subtle grain texture */
-				&::before {
-					content: '';
-					position: absolute;
-					inset: 0;
-					background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-					opacity: 0.03;
-					pointer-events: none;
-					z-index: -1;
-				}
-
-				/* Enhanced shadow for desktop */
-				box-shadow: 0 4px 20px rgb(0 0 0 / 20%),
-				0 0 30px rgba(variables.$link-color-dark, 0.05);
-
-				/* Subtle border highlight */
-				border: 1px solid variables.$link-color-dark;
-				border-color: rgba(variables.$link-color-dark, 0.15);
-
-				/* Smooth transition for hover effects */
-				transition: all 0.3s ease,
-				transform 0.3s ease;
-
-				&:hover {
-					box-shadow:
-						0 6px 25px rgb(0 0 0 / 25%),
-						0 0 40px rgba(variables.$link-color-dark, 0.08);
-					transform: translateY(-2px);
-				}
-
-				#postsContent,
-				#projectsContent {
-					/* Remove any box-shadow that might be inherited */
-					box-shadow: none;
-					border: none;
-
-					/* Enhanced post item styling */
-					.post-list-item {
-						position: relative;
-						overflow: hidden;
-
-						&::after {
-							content: '';
-							position: absolute;
-							bottom: 0;
-							left: 0;
-							width: 100%;
-							height: 1px;
-							background: linear-gradient(to right,
-									transparent,
-									rgba(variables.$link-color-dark, 0.2),
-									transparent);
-						}
-
-						&:last-child::after {
-							display: none;
-						}
-
-						/* Add subtle hover effect only to post-long items */
-						&.post-long:hover {
-							background-color: rgb(30 30 30 / 80%);
-							transform: translateY(-2px);
-
-							h3 {
-								color: variables.$link-color-dark;
-							}
-						}
+					/* Add subtle grain texture */
+					&::before {
+						content: '';
+						position: absolute;
+						inset: 0;
+						background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+						opacity: 0.03;
+						pointer-events: none;
+						z-index: -1;
 					}
 
-					/* Enhanced portfolio item styling for desktop */
-					.portfolio-item {
-						box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
+					/* Enhanced shadow for desktop */
+					box-shadow: 0 4px 20px rgb(0 0 0 / 20%),
+					0 0 30px rgba(variables.$link-color-dark, 0.05);
 
-						/* Removed transform to fix Chrome rendering issues */
+					/* Subtle border highlight */
+					border: 1px solid variables.$link-color-dark;
+					border-color: rgba(variables.$link-color-dark, 0.15);
 
-						&:hover {
-							box-shadow: 0 6px 16px rgb(0 0 0 / 30%),
-								0 0 0 1px rgba(variables.$link-color-dark, 0.2);
-							background-color: rgb(255 255 255 / 10%);
+					/* Smooth transition for hover effects */
+					transition: all 0.3s ease,
+					transform 0.3s ease;
+
+					&:hover {
+						box-shadow:
+							0 6px 25px rgb(0 0 0 / 25%),
+							0 0 40px rgba(variables.$link-color-dark, 0.08);
+						transform: translateY(-2px);
+					}
+
+					#postsContent,
+					#projectsContent {
+						/* Remove any box-shadow that might be inherited */
+						box-shadow: none;
+						border: none;
+
+						/* Enhanced post item styling */
+						.post-list-item {
+							position: relative;
+							overflow: hidden;
+
+							&::after {
+								content: '';
+								position: absolute;
+								bottom: 0;
+								left: 0;
+								width: 100%;
+								height: 1px;
+								background: linear-gradient(to right,
+										transparent,
+										rgba(variables.$link-color-dark, 0.2),
+										transparent);
+							}
+
+							&:last-child::after {
+								display: none;
+							}
+
+							/* Add subtle hover effect only to post-long items */
+							&.post-long:hover {
+								background-color: rgb(30 30 30 / 80%);
+								transform: translateY(-2px);
+
+								h3 {
+									color: variables.$link-color-dark;
+								}
+							}
 						}
 
-						&.has-writeup {
-							background: rgb(20 20 20 / 70%);
-							/* Removed backdrop-filter for Chrome performance */
-							border: 1px solid rgb(255 255 255 / 10%);
-							color: variables.$text-color-dark;
-							box-shadow: variables.$shadow-soft-dark;
+						/* Enhanced portfolio item styling for desktop */
+						.portfolio-item {
+							box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
+
+							/* Removed transform to fix Chrome rendering issues */
 
 							&:hover {
-								background-color: rgb(30 30 30 / 80%);
-								box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+								box-shadow: 0 6px 16px rgb(0 0 0 / 30%),
+									0 0 0 1px rgba(variables.$link-color-dark, 0.2);
+								background-color: rgb(255 255 255 / 10%);
 							}
 
-							/* Dark mode typography */
-							.company-byline {
-								color: variables.$grey-dark;
-								opacity: 0.8;
-							}
-
-							h3 {
-								font-size: var(--font-size-base);
-								margin: 0.25rem 0 0.1rem;
-								line-height: var(--line-height-tight).4;
-
-								a {
-									color: variables.$white;
-									text-decoration: underline;
-									text-decoration-style: dotted;
-									text-underline-offset: 4px;
-									text-decoration-thickness: 1px;
-
-									&:hover {
-										color: variables.$link-color-dark;
-										text-decoration-style: solid;
-									}
-								}
-							}
-
-							p {
-								color: variables.$grey-light;
-							}
-
-							.external-icon {
-								/* Dark mode appearance only - structure comes from _components.scss */
-								background: rgb(255 255 255 / 10%);
-								border-color: rgb(255 255 255 / 5%);
-								color: variables.$white;
+							&.has-writeup {
+								background: rgb(20 20 20 / 70%);
+								/* Removed backdrop-filter for Chrome performance */
+								border: 1px solid rgb(255 255 255 / 10%);
+								color: variables.$text-color-dark;
+								box-shadow: variables.$shadow-soft-dark;
 
 								&:hover {
-									background: variables.$link-color-dark;
-									color: variables.$white;
+									background-color: rgb(30 30 30 / 80%);
+									box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
 								}
-							}
 
-							/* Dark mode accordion */
-							.content-accordion {
-								border-top-color: rgb(255 255 255 / 5%);
-
-								summary {
+								/* Dark mode typography */
+								.company-byline {
 									color: variables.$grey-dark;
+									opacity: 0.8;
+								}
 
-									&:hover {
-										color: variables.$link-color-dark;
+								h3 {
+									font-size: var(--font-size-base);
+									margin: 0.25rem 0 0.1rem;
+									line-height: var(--line-height-tight).4;
+
+									a {
+										color: variables.$white;
+										text-decoration: underline;
+										text-decoration-style: dotted;
+										text-underline-offset: 4px;
+										text-decoration-thickness: 1px;
+
+										&:hover {
+											color: variables.$link-color-dark;
+											text-decoration-style: solid;
+										}
 									}
 								}
 
-								.accordion-content {
-									color: variables.$grey-dark;
-									background: rgb(255 255 255 / 3%);
+								p {
+									color: variables.$grey-light;
 								}
+
+								.external-icon {
+									/* Dark mode appearance only - structure comes from _components.scss */
+									background: rgb(255 255 255 / 10%);
+									border-color: rgb(255 255 255 / 5%);
+									color: variables.$white;
+
+									&:hover {
+										background: variables.$link-color-dark;
+										color: variables.$white;
+									}
+								}
+
+								/* Dark mode accordion */
+								.content-accordion {
+									border-top-color: rgb(255 255 255 / 5%);
+
+									summary {
+										color: variables.$grey-dark;
+
+										&:hover {
+											color: variables.$link-color-dark;
+										}
+									}
+
+									.accordion-content {
+										color: variables.$grey-dark;
+										background: rgb(255 255 255 / 3%);
+									}
+								}
+							}
+
+							&:not(.has-writeup):hover {
+								transform: none;
+								box-shadow: none;
+								background: hsl(35deg 10% 75%);
 							}
 						}
 
-						&:not(.has-writeup):hover {
-							transform: none;
-							box-shadow: none;
-							background: hsl(35deg 10% 75%);
+						/* Enhance scrollbar for better visibility */
+						&::-webkit-scrollbar {
+							width: 8px;
 						}
-					}
 
-					/* Enhance scrollbar for better visibility */
-					&::-webkit-scrollbar {
-						width: 8px;
-					}
+						&::-webkit-scrollbar-track {
+							background: rgb(0 0 0 / 20%);
+							border-radius: 4px;
+						}
 
-					&::-webkit-scrollbar-track {
-						background: rgb(0 0 0 / 20%);
-						border-radius: 4px;
-					}
+						&::-webkit-scrollbar-thumb {
+							background: rgba(variables.$link-color-dark, 0.3);
+							border-radius: 4px;
 
-					&::-webkit-scrollbar-thumb {
-						background: rgba(variables.$link-color-dark, 0.3);
-						border-radius: 4px;
-
-						&:hover {
-							background: rgba(variables.$link-color-dark, 0.5);
+							&:hover {
+								background: rgba(variables.$link-color-dark, 0.5);
+							}
 						}
 					}
 				}
-			}
 
-			/* Custom scrollbar for desktop */
-			::-webkit-scrollbar {
-				width: 8px;
-				height: 8px;
-			}
+				/* Custom scrollbar for desktop */
+				::-webkit-scrollbar {
+					width: 8px;
+					height: 8px;
+				}
 
-			::-webkit-scrollbar-track {
-				background: rgb(0 0 0 / 20%);
-				border-radius: 4px;
-			}
+				::-webkit-scrollbar-track {
+					background: rgb(0 0 0 / 20%);
+					border-radius: 4px;
+				}
 
-			::-webkit-scrollbar-thumb {
-				background: rgba(variables.$link-color-dark, 0.3);
-				border-radius: 4px;
+				::-webkit-scrollbar-thumb {
+					background: rgba(variables.$link-color-dark, 0.3);
+					border-radius: 4px;
 
-				&:hover {
-					background: rgba(variables.$link-color-dark, 0.5);
+					&:hover {
+						background: rgba(variables.$link-color-dark, 0.5);
+					}
 				}
 			}
 		}
@@ -1157,28 +1161,32 @@
 			}
 		}
 
-		/* Specific styles for tablet in light mode */
-		&.device-tablet .blog-content {
-			background: linear-gradient(135deg,
-					hsl(35deg 15% 92%) 0%,
-					hsl(35deg 10% 98%) 100%);
+		/* Specific styles for tablet in light mode (using media query instead of device class) */
+		@media (min-width: 769px) and (max-width: 1024px) {
+			.blog-content {
+				background: linear-gradient(135deg,
+						hsl(35deg 15% 92%) 0%,
+						hsl(35deg 10% 98%) 100%);
 
-			.content-wrapper {
-				/* Subtle glow effect on content containers */
-				box-shadow:
-					variables.$shadow-soft,
-					0 0 20px rgba(variables.$accent-gold, 0.05);
+				.content-wrapper {
+					/* Subtle glow effect on content containers */
+					box-shadow:
+						variables.$shadow-soft,
+						0 0 20px rgba(variables.$accent-gold, 0.05);
 
-				/* Border removed - handled by blog-content-borders.scss */
+					/* Border removed - handled by blog-content-borders.scss */
+				}
 			}
 		}
 
-		/* Specific styles for desktop in light mode */
-		&.device-desktop .blog-content {
-			background: linear-gradient(135deg,
-					hsl(35deg 15% 94%) 0%,
-					hsl(35deg 10% 98%) 100%);
-			/* Removed backdrop-filter to improve Chrome performance */
+		/* Specific styles for desktop in light mode (using media query instead of device class) */
+		@media (min-width: 1025px) {
+			.blog-content {
+				background: linear-gradient(135deg,
+						hsl(35deg 15% 94%) 0%,
+						hsl(35deg 10% 98%) 100%);
+				/* Removed backdrop-filter to improve Chrome performance */
+			}
 		}
 
 		/* Light mode portfolio item styles - see consolidated section at end of file */

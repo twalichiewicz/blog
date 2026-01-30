@@ -83,35 +83,25 @@ function setupColumnTitleScroll(contentId, config) {
 	const columnTitle = contentEl.querySelector('.column-title');
 	if (!columnTitle) return;
 
+	// Use matchMedia for reliable device detection (body classes may not be set yet)
+	const desktopMediaQuery = window.matchMedia('(min-width: 1025px)');
+
 	// Only ensure the column title is visible on desktop
 	// Let CSS handle visibility for mobile/tablet
-	if (document.body.classList.contains('device-desktop')) {
-		columnTitle.style.display = 'block';
-	} else {
-		// Reset any inline styles to let CSS control display
-		columnTitle.style.display = '';
-	}
-
-	// Handle device type changes
 	const handleDeviceChange = () => {
-		if (document.body.classList.contains('device-desktop')) {
+		if (desktopMediaQuery.matches) {
 			columnTitle.style.display = 'block';
 		} else {
+			// Reset any inline styles to let CSS control display
 			columnTitle.style.display = '';
 		}
 	};
 
-	// Listen for class changes on body (device type changes)
-	const observer = new MutationObserver((mutations) => {
-		mutations.forEach((mutation) => {
-			if (mutation.attributeName === 'class') {
-				handleDeviceChange();
-			}
-		});
-	});
+	// Initial check
+	handleDeviceChange();
 
-	// Start observing
-	observer.observe(document.body, { attributes: true });
+	// Listen for media query changes (more reliable than MutationObserver on body classes)
+	desktopMediaQuery.addEventListener('change', handleDeviceChange);
 
 	// Set up scroll event handling
 	let ticking = false;

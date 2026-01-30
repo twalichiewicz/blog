@@ -3,6 +3,18 @@
 
 #waresContent {
         display: none;
+
+        // When visible, ensure it fills available space on mobile
+        &.is-visible {
+                display: block;
+
+                @media screen and (max-width: variables.$mobile-breakpoint) {
+                        display: flex;
+                        flex-direction: column;
+                        flex: 1;
+                        min-height: calc(100svh - 200px); // Account for header and tabs
+                }
+        }
 }
 
 .wares-list {
@@ -15,8 +27,10 @@
 
         @media screen and (max-width: variables.$mobile-breakpoint) {
                 padding: 0;
-                min-height: 0;
-                justify-content: flex-start;
+                // Fill remaining height on mobile
+                flex: 1;
+                min-height: calc(100svh - 300px); // Account for header, tabs, and some padding
+                justify-content: center; // Center content vertically
         }
 }
 

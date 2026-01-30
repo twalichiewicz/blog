@@ -132,3 +132,18 @@ $desktop-xl-min: 2560px;
 		@content;
 	}
 }
+
+// Additional mixins for tablet-and-up patterns (matching existing codebase)
+// Use these instead of .device-tablet/.device-desktop class selectors
+@mixin tablet-and-up {
+	@media (min-width: #{$tablet-portrait-min}) {
+		@content;
+	}
+}
+
+// Matches the old .device-tablet pattern (768px to 1199px)
+@mixin tablet-range {
+	@media (min-width: #{$tablet-portrait-min}) and (max-width: #{$tablet-landscape-max}) {
+		@content;
+	}
+}

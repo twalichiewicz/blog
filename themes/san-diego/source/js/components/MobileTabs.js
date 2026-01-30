@@ -1622,10 +1622,12 @@ export default class MobileTabs {
 
 		// Get the search container's position relative to the viewport
 		const rect = this.inlineSearchContainer.getBoundingClientRect();
-		// Consider the search "off-screen" when its bottom edge is above the tabs area (roughly 60px from top)
-		const isOffScreen = rect.bottom < 60;
+		// Use actual tabs height instead of hardcoded value for accurate threshold
+		const tabsHeight = this.tabContainer?.offsetHeight || 60;
+		// Consider the search "off-screen" when its bottom edge is above the tabs area
+		const isOffScreen = rect.bottom < tabsHeight;
 		// Consider inline search "visible" when it's scrolled into view
-		const isInlineSearchVisible = rect.top > 60 && rect.bottom > 0;
+		const isInlineSearchVisible = rect.top > tabsHeight && rect.bottom > 0;
 
 		// If search overlay is open and user scrolls to reveal inline search, auto-close overlay
 		if (this.searchOverlayOpen && isInlineSearchVisible) {

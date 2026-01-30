@@ -189,9 +189,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	let updateDynamicBackButtonPlacement = () => {};
 
-	// Device detection (usually needed only once)
-	const isMobile = window.innerWidth <= 768;
-	const isDesktop = document.body.classList.contains('device-desktop');
+	// Device detection using matchMedia (more reliable than body classes)
+	const isMobile = window.matchMedia('(max-width: 768px)').matches;
+	const isDesktop = window.matchMedia('(min-width: 1025px)').matches;
 	const searchCollapseState = {
 		hasInteracted: false,
 		isCollapsed: false,
