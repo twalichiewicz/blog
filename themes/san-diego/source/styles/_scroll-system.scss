@@ -318,20 +318,10 @@
 
   // Ensure content panes don't create scroll containers
   #postsContent,
-  #projectsContent {
-    overflow: visible;
-    height: auto;
-  }
-
-  // Wares needs flex properties to fill available height
+  #projectsContent,
   #waresContent {
     overflow: visible;
     height: auto;
-    // These flex properties let Wares fill the remaining viewport height
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
   }
 
   // Dark mode support for sticky tabs
@@ -513,4 +503,24 @@
 .blog .blog-list .post-list-item ul li,
 .blog .blog-list .post-list-item ol li {
   color: var(--blog-list-text-color);
+}
+
+// =============================================================================
+// 8. WARES PAGE HEIGHT FIX (Mobile Only)
+// =============================================================================
+// Must come last to override earlier #waresContent rules
+@media (max-width: variables.$mobile-breakpoint) {
+  // Use higher specificity to ensure these rules win
+  .blog .blog-content #waresContent.is-visible {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+
+    .wares-list {
+      flex: 1;
+      min-height: 0;
+      justify-content: center;
+    }
+  }
 }
