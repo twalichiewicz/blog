@@ -32,10 +32,7 @@
                     wareLink = wareLinkExternal ? post.cta_url : url_for(post.cta_url);
                 }
             %>
-            <article class="post-list-item" id="<%= postId %>">
-                <div class="post-byline">
-                    <%= date(post.date, 'MMMM D, YYYY') %> • Ware
-                </div>
+            <article class="post-list-item wares-item" id="<%= postId %>">
                 <a href="<%- wareLink %>" class="post-link-wrapper no-external-indicators"<% if (wareLinkExternal) { %> target="_blank" rel="noopener"<% } %>>
                     <div class="post-list-item post-long post-preview-card">
                         <div class="preview-cover-image">

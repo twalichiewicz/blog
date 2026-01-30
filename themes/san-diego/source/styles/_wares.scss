@@ -1,14 +1,46 @@
 @use 'variables';
 @use 'sass:color';
 
-// Wares now uses blog-list styling, so minimal custom CSS needed
+// Wares uses blog-list styling with some customizations
 
 #waresContent {
 	display: none;
 
-	// When visible, show as block (blog-list handles the rest)
+	// When visible, show as block and fill available height
 	&.is-visible {
 		display: block;
+
+		@media screen and (max-width: variables.$mobile-breakpoint) {
+			// Fill remaining viewport height below tabs
+			min-height: calc(100dvh - 400px);
+			padding-bottom: 40px;
+		}
+	}
+}
+
+// Wares-specific card styling
+.wares-item {
+	// Remove the byline/date spacing since we removed it
+	.post-byline {
+		display: none;
+	}
+
+	// Fixed image dimensions for wares cards
+	.post-preview-card.post-long .preview-cover-image {
+		width: 120px;
+		flex: 0 0 120px;
+		height: 90px;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	// Slightly smaller title for wares
+	.preview-title {
+		font-size: 18px;
 	}
 }
 
@@ -16,6 +48,11 @@
 	color: variables.$text-color-secondary;
 	padding: 40px 16px;
 	text-align: center;
+	// Center empty message in available space
+	min-height: calc(100dvh - 450px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	@media (prefers-color-scheme: dark) {
 		color: variables.$text-color-secondary-dark;
