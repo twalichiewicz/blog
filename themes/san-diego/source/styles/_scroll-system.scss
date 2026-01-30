@@ -215,25 +215,21 @@
 
   // CRITICAL FOR SAFARI TOOLBAR COLLAPSE:
   // Safari only collapses its toolbar when the DOCUMENT scrolls.
-  // We must ensure:
-  // 1. No fixed heights on html/body
-  // 2. No overflow: hidden/auto/scroll on html/body
-  // 3. Content must be able to extend beyond viewport
+  // We must NOT set any overflow properties on html/body - let browser defaults handle it.
 
-  html {
-    // html should not constrain scrolling
-    overflow-x: hidden;
-    overflow-y: scroll; // scroll (not auto) can help with iOS
-    // Don't set height or min-height on html - let it size naturally
+  html, body {
+    // Remove any constraints that might block scrolling
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    position: static;
   }
 
   body {
-    // Body handles the actual content sizing
+    // Body sizing for mobile viewport
     min-height: 100svh;
-    min-height: 100dvh; // Dynamic viewport height for mobile
-    margin: 0;
-    padding: 0;
-    // overflow is inherited from html, don't override
+    min-height: 100dvh;
   }
 
   .blog {
