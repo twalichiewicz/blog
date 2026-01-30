@@ -332,10 +332,10 @@
 
     &.is-visible {
       display: block;
-      // Calculate remaining space: viewport - header - tabs
-      // 167px = header height + tabs height (tuned empirically)
-      min-height: calc(100svh - 167px);
-      min-height: calc(100dvh - 167px);
+      // Calculate remaining space: viewport - header - tabs - margins
+      // 143px = tuned to account for all spacing (167 - 24 for margins)
+      min-height: calc(100svh - 143px);
+      min-height: calc(100dvh - 143px);
       box-sizing: border-box;
       // DEBUG: temporary background to verify
       background: rgba(255, 0, 0, 0.1);
