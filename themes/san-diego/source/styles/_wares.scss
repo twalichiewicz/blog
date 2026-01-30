@@ -64,13 +64,23 @@
 		overflow: visible !important;
 	}
 
-	// Show full subtitle with smaller font on mobile
+	// Match portfolio-byline styling for consistency
 	.post-preview-card .preview-excerpt {
-		display: block !important;
-		-webkit-line-clamp: unset !important;
-		overflow: visible !important;
-		font-size: var(--font-size-xs) !important;
-		line-height: 1.4 !important;
+		display: block;
+		-webkit-line-clamp: unset;
+		overflow: visible;
+		font-size: var(--font-size-sm);
+		line-height: var(--line-height-tight);
+		letter-spacing: -0.01em;
+		color: variables.$text-color-secondary;
+
+		@media (max-width: variables.$mobile-breakpoint) {
+			font-size: var(--font-size-base);
+		}
+
+		@media (prefers-color-scheme: dark) {
+			color: variables.$text-color-secondary-dark;
+		}
 	}
 
 	.post-preview-card .preview-cover-image,
