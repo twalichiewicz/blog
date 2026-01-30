@@ -53,14 +53,15 @@
 	.blog .blog-list &.post-long {
 		display: flex;
 		flex-direction: row;
-		align-items: center;
+		align-items: stretch; // Stretch so image container fills card height
 	}
 
 	&.post-long .preview-cover-image,
 	.blog .blog-list &.post-long .preview-cover-image {
-		width: 90px !important;
-		flex: 0 0 90px !important;
-		height: 90px !important;
+		width: 90px;
+		flex: 0 0 90px;
+		min-height: 90px; // Minimum height, but can stretch taller
+		height: auto; // Allow stretching to fill card
 	}
 
 	&.post-long .preview-content,
@@ -70,7 +71,25 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding-left: 15px;
+		padding: 12px 12px 12px 15px;
+	}
+
+	// Text constraints for post-long to keep cards compact
+	&.post-long .preview-title,
+	.blog .blog-list &.post-long .preview-title {
+		// Single line with ellipsis
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-bottom: 4px;
+	}
+
+	&.post-long .preview-excerpt,
+	.blog .blog-list &.post-long .preview-excerpt {
+		-webkit-line-clamp: 2; // Limit to 2 lines
+		margin-bottom: 4px;
 	}
 	
 	// Content container
@@ -179,59 +198,31 @@
 	@media (max-width: variables.$mobile-breakpoint) {
 		margin-bottom: 8px;
 
+		// Post-long on mobile: image stretches to fill card height
 		&.post-long .preview-cover-image,
 		.blog .blog-list &.post-long .preview-cover-image {
-			width: 90px !important;
-			flex: 0 0 90px !important;
-			height: 90px !important;
-			max-height: 90px !important;
+			width: 90px;
+			flex: 0 0 90px;
+			min-height: 90px;
+			height: auto;
 		}
-		
+
 		.preview-cover-image {
 			height: 150px;
-			
-			// Specific override for Words tab
-			#postsContent & {
-				max-height: 90px !important;
-				height: 90px !important;
-				
-				img {
-					max-height: 90px !important;
-					height: 90px !important;
-				}
-			}
 		}
 
-		// Specific override to ensure long post images are sized correctly on mobile
-		&.post-long .preview-cover-image {
-			#postsContent & {
-				height: 90px !important;
-				max-height: 90px !important;
-
-				img {
-					height: 100% !important;
-					max-height: 90px !important;
-				}
-			}
-		}
-		
 		.preview-content {
 			padding: 12px;
-			
+
 			.preview-title {
 				font-size: var(--font-size-lg);
 			}
-			
+
 			.preview-excerpt {
-				font-size: var(--font-size-base);
+				font-size: var(--font-size-sm);
 				-webkit-line-clamp: 2; // Show only 2 lines on mobile
-				
-				// Specific override for Words page
-				#postsContent & {
-					font-size: var(--font-size-sm) !important;
-				}
 			}
-			
+
 			.preview-metadata {
 				font-size: var(--font-size-2xs);
 				gap: 6px;
