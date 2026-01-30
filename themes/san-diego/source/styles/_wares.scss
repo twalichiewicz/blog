@@ -51,21 +51,19 @@
 		min-height: 90px;
 		max-height: 90px;
 		height: 90px;
-		overflow: visible; // Allow text to show
+		overflow: visible !important; // Override base overflow: hidden
 	}
 
 	// Ensure text content doesn't get clipped
-	.preview-content {
-		overflow: visible;
+	.post-preview-card .preview-content {
+		overflow: visible !important;
 	}
 
-	// Truncate subtitle with ellipsis if too long
-	.preview-excerpt {
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-		text-overflow: ellipsis;
+	// Show full subtitle (override base line-clamp)
+	.post-preview-card .preview-excerpt {
+		display: block !important;
+		-webkit-line-clamp: unset !important;
+		overflow: visible !important;
 	}
 
 	.post-preview-card .preview-cover-image,
@@ -125,7 +123,7 @@
 			height: 100% !important;
 			min-height: 90px !important;
 			max-height: 90px !important;
-			object-fit: none !important;
+			object-fit: fill !important;
 			object-position: center !important;
 			// Remove any background
 			background: transparent !important;
