@@ -296,8 +296,16 @@
 			width: 100%;
 			height: auto;
 			overflow: hidden;
-			background-color: hsl(24deg 20% 85%);
+			background-color: transparent;
+			border-color: transparent;
+			border: none;
 			margin-bottom: 9px;
+
+			// Ensure transparent in dark mode too
+			@media (prefers-color-scheme: dark) {
+				background-color: transparent;
+				border-color: transparent;
+			}
 
 			&-track {
 				position: relative;
