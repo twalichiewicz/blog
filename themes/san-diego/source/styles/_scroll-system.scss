@@ -317,9 +317,9 @@
   }
 
   // Ensure content panes don't create scroll containers
+  // Note: #waresContent is excluded - its flex rules are in _wares.scss
   #postsContent,
-  #projectsContent,
-  #waresContent {
+  #projectsContent {
     overflow: visible;
     height: auto;
   }
