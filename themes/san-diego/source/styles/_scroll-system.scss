@@ -504,23 +504,3 @@
 .blog .blog-list .post-list-item ol li {
   color: var(--blog-list-text-color);
 }
-
-// =============================================================================
-// 8. WARES PAGE HEIGHT FIX (Mobile Only)
-// =============================================================================
-// Must come last to override earlier #waresContent rules
-@media (max-width: variables.$mobile-breakpoint) {
-  // Use higher specificity to ensure these rules win
-  .blog .blog-content #waresContent.is-visible {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
-
-    .wares-list {
-      flex: 1;
-      min-height: 0;
-      justify-content: center;
-    }
-  }
-}
