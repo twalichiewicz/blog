@@ -308,6 +308,8 @@
         flex-direction: column;
         flex: 1;
         min-height: 0;
+        // DEBUG: temporary border to verify flex is working
+        border: 2px solid blue;
       }
     }
   }
@@ -329,6 +331,8 @@
       flex-direction: column;
       flex: 1;
       min-height: 0;
+      // DEBUG: temporary background to verify flex is working
+      background: rgba(255, 0, 0, 0.1);
     }
   }
 
