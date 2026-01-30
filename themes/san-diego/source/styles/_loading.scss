@@ -37,7 +37,7 @@ body.loaded {
 	transition: opacity 0.3s ease-out;
 	
 	@media (prefers-color-scheme: dark) {
-		background: hsl(40.1, 8.4%, 35.98%);
+		background: hsl(28deg 8% 15%); // Match $body-bg-dark
 	}
 	
 	&.hidden {
