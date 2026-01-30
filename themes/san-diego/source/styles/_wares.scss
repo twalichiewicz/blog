@@ -9,32 +9,60 @@
 	// When visible, show as block and fill available height
 	&.is-visible {
 		display: block;
-
-		@media screen and (max-width: variables.$mobile-breakpoint) {
-			// Fill remaining viewport height below tabs
-			min-height: calc(100dvh - 400px);
-			padding-bottom: 40px;
-		}
 	}
 }
 
-// Wares-specific card styling
+// Mobile: Ensure wares fills the screen
+@media screen and (max-width: variables.$mobile-breakpoint) {
+	#waresContent.is-visible {
+		// Use min-height to fill remaining viewport
+		min-height: calc(100dvh - 380px);
+		min-height: calc(100svh - 380px);
+		padding: 24px 16px 60px;
+		box-sizing: border-box;
+	}
+
+	// Also target when inside the content wrapper
+	.content-wrapper #waresContent.is-visible,
+	.content-inner-wrapper #waresContent.is-visible {
+		min-height: calc(100dvh - 380px);
+		min-height: calc(100svh - 380px);
+	}
+}
+
+// Wares-specific card styling - force consistent card heights
 .wares-item {
 	// Remove the byline/date spacing since we removed it
 	.post-byline {
 		display: none;
 	}
 
-	// Fixed image dimensions for wares cards
-	.post-preview-card.post-long .preview-cover-image {
-		width: 120px;
-		flex: 0 0 120px;
+	// Force all wares cards to have identical image dimensions
+	.post-preview-card {
+		// Fixed height for the entire card
+		min-height: 90px;
+		max-height: 90px;
 		height: 90px;
+	}
+
+	.post-preview-card .preview-cover-image,
+	.post-preview-card.post-long .preview-cover-image {
+		width: 120px !important;
+		min-width: 120px !important;
+		max-width: 120px !important;
+		flex: 0 0 120px !important;
+		height: 90px !important;
+		min-height: 90px !important;
+		max-height: 90px !important;
+		overflow: hidden;
 
 		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
+			width: 100% !important;
+			height: 100% !important;
+			min-height: 90px !important;
+			max-height: 90px !important;
+			object-fit: cover !important;
+			object-position: center !important;
 		}
 	}
 
