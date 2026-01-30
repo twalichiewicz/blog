@@ -15,8 +15,11 @@
 	}
 }
 
-// Desktop/tablet padding
+// Wares list container with max-width
 #waresContent.wares-list {
+	max-width: 540px;
+	margin-left: auto;
+	margin-right: auto;
 	padding: 24px 48px;
 
 	@media (min-width: 1200px) {
@@ -32,9 +35,13 @@
 	}
 }
 
-// Mobile padding - needs higher specificity to override _responsive-layouts.scss
+// Mobile - needs higher specificity to override _responsive-layouts.scss
 .device-mobile .blog #waresContent.wares-list {
 	padding: 20px 16px;
+	// Fill remaining viewport height
+	min-height: calc(100svh - 131px);
+	min-height: calc(100dvh - 131px);
+	box-sizing: border-box;
 }
 
 // =============================================================================
