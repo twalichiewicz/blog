@@ -20,6 +20,24 @@
 	}
 }
 
+// Wares list item spacing - equal margins above and below
+.wares-item {
+	margin: 12px 0;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+// Wares separator - smaller margins
+#waresContent .post-separator {
+	margin: 8px 0;
+}
+
 // Wares-specific card styling - force consistent card heights
 .wares-item {
 	// Remove the byline/date spacing since we removed it
@@ -37,14 +55,22 @@
 
 	.post-preview-card .preview-cover-image,
 	.post-preview-card.post-long .preview-cover-image {
-		width: 120px !important;
-		min-width: 120px !important;
-		max-width: 120px !important;
-		flex: 0 0 120px !important;
+		width: 90px !important;
+		min-width: 90px !important;
+		max-width: 90px !important;
+		flex: 0 0 90px !important;
 		height: 90px !important;
 		min-height: 90px !important;
 		max-height: 90px !important;
 		overflow: hidden;
+		// iOS-style border
+		border-radius: 16px;
+		border: 1px solid variables.$border-color;
+		background: transparent;
+
+		@media (prefers-color-scheme: dark) {
+			border-color: variables.$border-color-dark;
+		}
 
 		img {
 			width: 100% !important;
@@ -53,12 +79,29 @@
 			max-height: 90px !important;
 			object-fit: cover !important;
 			object-position: center !important;
+			// Remove any background
+			background: transparent !important;
 		}
 	}
 
 	// Slightly smaller title for wares
 	.preview-title {
 		font-size: 18px;
+	}
+
+	// External link indicator - smaller and more faint
+	.preview-metadata {
+		margin-top: 4px;
+	}
+
+	.preview-external-link {
+		font-size: var(--font-size-xs);
+		color: variables.$text-color-secondary;
+		opacity: 0.7;
+
+		@media (prefers-color-scheme: dark) {
+			color: variables.$text-color-secondary-dark;
+		}
 	}
 }
 
