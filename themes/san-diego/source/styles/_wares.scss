@@ -25,11 +25,11 @@
 
         @media screen and (max-width: variables.$mobile-breakpoint) {
                 padding: 0;
-                // Use flex to fill available space in parent
-                flex: 1;
-                // Let flexbox fill space naturally - no hardcoded min-height
-                min-height: 0;
-                justify-content: center; // Center content vertically
+                // Use viewport-based min-height to fill available space
+                // 100svh minus approximate header (300px) and tabs (60px)
+                min-height: calc(100svh - 360px);
+                min-height: calc(100dvh - 360px); // Dynamic viewport for iOS
+                justify-content: center;
         }
 }
 
