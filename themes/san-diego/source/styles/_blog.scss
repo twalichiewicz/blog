@@ -30,7 +30,6 @@
 	}
 
 	.blog-header {
-		height: 100dvh;
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -39,11 +38,16 @@
 		padding: 24px 0;
 		gap: 24px;
 
+		// Desktop/Tablet: Full viewport height for sidebar layout
 		@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+			height: 100dvh;
 			justify-content: space-between;
 		}
 
+		// Mobile: Auto height - flows with content for Safari toolbar collapse
 		@media (max-width: variables.$mobile-breakpoint) {
+			height: auto;
+			min-height: auto;
 			padding: 0;
 			gap: 0;
 			width: 100%;

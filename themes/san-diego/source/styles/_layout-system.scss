@@ -12,22 +12,26 @@ $layout-levels: (
 );
 
 // Core blog layout structure
-.blog {
-  // Base layout (level 1)
-  height: 100dvh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  
-  .blog-header {
-    flex-shrink: 0;
-  }
-  
-  .blog-content {
-    flex: 1;
+// Note: Mobile layout is handled separately to enable Safari toolbar collapse
+// Desktop/Tablet base layout only - mobile must NOT have fixed height/overflow:hidden
+@media (min-width: calc(variables.$mobile-breakpoint + 1px)) {
+  .blog {
+    // Base layout (level 1) - desktop/tablet only
+    height: 100dvh;
     overflow: hidden;
-    height: 100%;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .blog-header {
+      flex-shrink: 0;
+    }
+
+    .blog-content {
+      flex: 1;
+      overflow: hidden;
+      height: 100%;
+      position: relative;
+    }
   }
 }
 
