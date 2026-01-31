@@ -6,6 +6,10 @@ tags:
   - blog
 ---
 
-Nothing accelerates burnout faster than bad management. Think you're passionate about the craft of design? See how long that lasts in a toxic design culture.
+Nothing accelerates burnout faster than bad management. You can be passionate about the craft, but a toxic culture will drain that battery faster than you can recharge it.
 
-These are obviously very difficult things to scale though. A small startup has a much easier time of maintaining a culture of trust and respect for the process than a large multi-org corporation.
+The danger is that burnout is often framed as a personal failure—"I didn't have enough resilience." In reality, it's often a structural failure. In small startups, culture is maintained by proximity and shared mission. In large orgs, it's maintained by policy.
+
+When managers prioritize policy over people, they don't just kill productivity; they kill the very passion that drove their team to join in the first place.
+
+*Updated: January 30, 2026*

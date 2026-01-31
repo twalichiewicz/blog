@@ -8,8 +8,10 @@ tags:
 
 Designers who hide behind rigid processes and endless documentation stifle creativity and churn out uninspired designs that miss the mark.
 
-In the 2010s, many designers lacked the depth needed to excel, relying on frameworks instead of honing their intuition. Now, they've climbed the ranks, enforcing ineffective policies that suffocate innovation. They demand more research and documentation, frustrating those with the vision to make real change.
+In the last decade, we saw the rise of "Design Thinking" as a commodity—a checklist that anyone could follow to technically "do design." This allowed many to enter the field without developing the deep, unspoken taste that defines great work. They climbed the ranks by enforcing these checklists: more research, more artifacts, more justification.
 
-Recent layoffs have weeded out many of these "B players." Now is the time for the design industry to refocus on genuine growth and mentorship. Experienced designers should be valued for their expertise and encouraged to guide newcomers, fostering intuition and leadership skills. Companies should prioritize continuous learning and balance structured methods with intuitive decision-making.
+But process should be a scaffold, not a cage.
 
-By embracing mentorship and ongoing growth, we can elevate design quality and move the industry forward. I think it's time to champion real expertise and prepare the next generation to lead with vision and creativity.
+As the industry tightens, we are seeing a correction. The designers who survive and thrive won't be the ones who can perfectly execute a double-diamond diagram; they will be the ones who can cut through the noise, make intuitive leaps, and ship work that matters. It's time to value outcomes over artifacts.
+
+*Updated: January 30, 2026*
