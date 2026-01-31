@@ -70,6 +70,19 @@
                         <%= post.type === 'link' ? 'Link' : (post.short ? 'Musing' : 'Post') %>
                     </div>
                     <% if (post.type === 'link') { %>
+                        <!-- Skeleton placeholder for link posts -->
+                        <div class="blog-skeleton blog-skeleton--link">
+                            <div class="skeleton-byline-line"></div>
+                            <div class="skeleton-blockquote">
+                                <div class="skeleton-quote-line"></div>
+                                <div class="skeleton-quote-line"></div>
+                                <div class="skeleton-quote-line"></div>
+                            </div>
+                            <div class="skeleton-link-button">
+                                <div class="skeleton-link-text"></div>
+                                <div class="skeleton-link-arrow"></div>
+                            </div>
+                        </div>
                         <div class="link-share no-external-indicators">
                             <% if (post.content) { %>
                                 <% 
@@ -319,6 +332,13 @@
                             </a>
                         </div>
                     <% } else if (post.short) { %>
+                        <!-- Skeleton placeholder for short posts -->
+                        <div class="blog-skeleton blog-skeleton--short">
+                            <div class="skeleton-byline-line"></div>
+                            <div class="skeleton-short-line"></div>
+                            <div class="skeleton-short-line"></div>
+                            <div class="skeleton-short-line"></div>
+                        </div>
                         <%- post.content %>
                     <% } %>
                 </article>

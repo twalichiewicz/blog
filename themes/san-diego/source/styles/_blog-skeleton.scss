@@ -1,0 +1,327 @@
+@use 'variables';
+@use 'sass:color';
+
+// Blog Skeleton UI
+// Provides loading placeholders for blog post cards while images load
+
+// Skeleton animation (reusing same keyframe pattern as notebook-skeleton)
+@keyframes blog-skeleton-shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+// Skeleton mixin for consistent shimmer effect
+@mixin skeleton-base {
+    background: linear-gradient(
+        90deg,
+        rgba(variables.$text-color, 0.06) 0%,
+        rgba(variables.$text-color, 0.02) 20%,
+        rgba(variables.$text-color, 0.06) 40%,
+        rgba(variables.$text-color, 0.06) 100%
+    );
+    background-size: 200% 100%;
+    animation: blog-skeleton-shimmer 2s infinite ease-in-out;
+    border-radius: variables.$radius-sm;
+}
+
+// Dark mode skeleton mixin
+@mixin skeleton-base-dark {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.04) 0%,
+        rgba(255, 255, 255, 0.01) 20%,
+        rgba(255, 255, 255, 0.04) 40%,
+        rgba(255, 255, 255, 0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: blog-skeleton-shimmer 2s infinite ease-in-out;
+}
+
+// ==============================================
+// Post Preview Card Skeleton (with image)
+// ==============================================
+
+.blog-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; // Above card background, below actual content
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity 0.5s ease-out 0.1s;
+
+    // Card skeleton layout (matches post-preview-card.post-long)
+    &--card {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        padding: 0;
+    }
+}
+
+// Skeleton image placeholder
+.skeleton-image {
+    width: 90px;
+    flex: 0 0 90px;
+    min-height: 90px;
+    @include skeleton-base;
+    border-radius: 0; // Match card's overflow:hidden on left side
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// Skeleton content container
+.skeleton-content {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 12px 12px 12px 15px;
+    gap: 6px;
+}
+
+// Skeleton title line
+.skeleton-title-line {
+    height: 18px;
+    width: 85%;
+    @include skeleton-base;
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// Skeleton text lines
+.skeleton-text-line {
+    height: 14px;
+    width: 100%;
+    @include skeleton-base;
+
+    &.short {
+        width: 75%;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// Skeleton metadata
+.skeleton-meta {
+    height: 12px;
+    width: 60px;
+    margin-top: 2px;
+    @include skeleton-base;
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// ==============================================
+// Link Post Skeleton
+// ==============================================
+
+.blog-skeleton--link {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 12px;
+}
+
+.skeleton-byline-line {
+    height: 12px;
+    width: 120px;
+    @include skeleton-base;
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// Skeleton blockquote container
+.skeleton-blockquote {
+    border-left: 3px solid rgba(variables.$text-color, 0.1);
+    padding: 12px 16px;
+    margin: 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @media (prefers-color-scheme: dark) {
+        border-left-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.skeleton-quote-line {
+    height: 14px;
+    @include skeleton-base;
+
+    &:first-child {
+        width: 95%;
+    }
+
+    &:nth-child(2) {
+        width: 80%;
+    }
+
+    &:last-child {
+        width: 60%;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// Skeleton link button
+.skeleton-link-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-radius: variables.$radius-md;
+    background: rgba(variables.$text-color, 0.03);
+    border: 1px solid rgba(variables.$text-color, 0.08);
+    margin-top: 8px;
+
+    @media (prefers-color-scheme: dark) {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+}
+
+.skeleton-link-text {
+    height: 16px;
+    width: 70%;
+    @include skeleton-base;
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+.skeleton-link-arrow {
+    width: 24px;
+    height: 24px;
+    border-radius: variables.$radius-sm;
+    @include skeleton-base;
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// ==============================================
+// Short Post (Musing) Skeleton
+// ==============================================
+
+.blog-skeleton--short {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 10px;
+}
+
+.skeleton-short-line {
+    height: 16px;
+    @include skeleton-base;
+
+    &:first-child {
+        width: 100%;
+    }
+
+    &:nth-child(2) {
+        width: 90%;
+    }
+
+    &:last-child {
+        width: 65%;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// ==============================================
+// Visibility Control
+// ==============================================
+
+// Post preview card with skeleton support
+.post-preview-card {
+    position: relative;
+
+    // Hide skeleton when image loads (CSS :has() - modern browsers)
+    &:has(.preview-cover-image img.loaded) .blog-skeleton {
+        opacity: 0;
+        animation: none;
+        pointer-events: none;
+    }
+
+    // JS fallback class
+    &.blog-content-loaded .blog-skeleton {
+        opacity: 0;
+        animation: none;
+        pointer-events: none;
+    }
+}
+
+// Link posts and short posts - use class-based hiding
+.post-list-item {
+    position: relative;
+
+    &.blog-content-loaded .blog-skeleton {
+        opacity: 0;
+        animation: none;
+        pointer-events: none;
+    }
+}
+
+// ==============================================
+// Mobile Adjustments
+// ==============================================
+
+@media (max-width: variables.$mobile-breakpoint) {
+    .skeleton-image {
+        width: 90px;
+        flex: 0 0 90px;
+        min-height: 90px;
+    }
+
+    .skeleton-content {
+        padding: 10px;
+        gap: 5px;
+    }
+
+    .skeleton-title-line {
+        height: 16px;
+    }
+
+    .skeleton-text-line {
+        height: 12px;
+    }
+
+    .skeleton-meta {
+        height: 10px;
+        width: 50px;
+    }
+
+    // Link post mobile adjustments
+    .skeleton-blockquote {
+        padding: 10px 12px;
+    }
+
+    .skeleton-link-button {
+        padding: 10px 12px;
+    }
+}
