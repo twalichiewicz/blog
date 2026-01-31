@@ -32,7 +32,6 @@
       this.initializeDynamicNavigation();
       this.initializeProjectToggle();
       this.initializePostsOnlyButton();
-      this.initializeBlogSkeletons();
 
       this.initialized = true;
       SD.events.emit('blog:initialized');
@@ -194,9 +193,6 @@
         window.videoAutoplayManager.refresh();
       }
 
-      // Reinitialize blog skeletons for any new cards
-      this.initializeBlogSkeletons();
-
       SD.events.emit('blog:content-reinitialized');
     }
 
@@ -220,89 +216,6 @@
       postsOnlyBtn.addEventListener('click', () => {
         this.filterPostsOnly();
       });
-    }
-
-    /**
-     * Initialize skeleton loading states for blog posts
-     * Observes images and marks cards as loaded when content is ready
-     */
-    initializeBlogSkeletons() {
-      // Handle post preview cards with images
-      this.observeBlogCardImages();
-
-      // Handle link posts and short posts (no images to wait for)
-      this.observeNonImagePosts();
-    }
-
-    /**
-     * Observe blog card images and mark parent card as loaded
-     */
-    observeBlogCardImages() {
-      const cards = document.querySelectorAll('.post-preview-card');
-
-      cards.forEach(card => {
-        const img = card.querySelector('.preview-cover-image img');
-
-        if (!img) {
-          // No image, mark as loaded immediately
-          this.markCardLoaded(card);
-          return;
-        }
-
-        // Add loaded class to image when it loads (for CSS :has() support)
-        const markImageLoaded = () => {
-          img.classList.add('loaded');
-          this.markCardLoaded(card);
-        };
-
-        if (img.complete && img.naturalHeight !== 0) {
-          // Image already loaded (from cache)
-          markImageLoaded();
-        } else {
-          // Wait for image to load
-          img.addEventListener('load', markImageLoaded, { once: true });
-          img.addEventListener('error', markImageLoaded, { once: true });
-        }
-      });
-    }
-
-    /**
-     * Observe link posts and short posts using IntersectionObserver
-     * Fades out skeleton shortly after entering viewport
-     */
-    observeNonImagePosts() {
-      const nonImagePosts = document.querySelectorAll('.post-list-item.post-link, .post-list-item:has(.blog-skeleton--short)');
-
-      if (nonImagePosts.length === 0) return;
-
-      // Use IntersectionObserver for viewport detection
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // Small delay before marking as loaded for visual feedback
-            setTimeout(() => {
-              this.markCardLoaded(entry.target);
-            }, 300);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        rootMargin: '50px',
-        threshold: 0.1
-      });
-
-      nonImagePosts.forEach(post => {
-        observer.observe(post);
-      });
-    }
-
-    /**
-     * Mark a card/post element as loaded (hides skeleton)
-     */
-    markCardLoaded(element) {
-      if (element) {
-        element.classList.add('blog-content-loaded');
-      }
     }
 
     switchTab(tab, playSound = true) {

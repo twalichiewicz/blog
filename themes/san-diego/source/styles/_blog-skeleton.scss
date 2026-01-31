@@ -14,6 +14,17 @@
     }
 }
 
+// Auto-hide animation - skeleton fades out after delay
+@keyframes skeleton-fade-out {
+    0%, 80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
 // Skeleton mixin for consistent shimmer effect
 @mixin skeleton-base {
     background: linear-gradient(
@@ -52,9 +63,10 @@
     width: 100%;
     height: 100%;
     z-index: 0; // Behind actual content
-    opacity: 1;
     pointer-events: none;
-    transition: opacity 0.5s ease-out 0.1s;
+
+    // Auto-hide after 1.5s (enough time to see shimmer on slow loads)
+    animation: skeleton-fade-out 1.5s ease-out forwards;
 
     // Card skeleton layout (matches post-preview-card.post-long)
     &--card {
@@ -266,24 +278,12 @@
     .preview-content {
         position: relative;
         z-index: 1;
-    }
-
-    // Hide skeleton when image loads (CSS :has() - modern browsers)
-    &:has(.preview-cover-image img.loaded) .blog-skeleton {
-        opacity: 0;
-        animation: none;
-        pointer-events: none;
-    }
-
-    // JS fallback class
-    &.blog-content-loaded .blog-skeleton {
-        opacity: 0;
-        animation: none;
-        pointer-events: none;
+        // Add background to ensure content covers skeleton
+        background: inherit;
     }
 }
 
-// Link posts and short posts - use class-based hiding
+// Link posts and short posts
 .post-list-item {
     position: relative;
 
@@ -294,12 +294,6 @@
     > div:not(.blog-skeleton) {
         position: relative;
         z-index: 1;
-    }
-
-    &.blog-content-loaded .blog-skeleton {
-        opacity: 0;
-        animation: none;
-        pointer-events: none;
     }
 }
 
