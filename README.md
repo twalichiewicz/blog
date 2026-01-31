@@ -8,7 +8,7 @@ A sophisticated Hexo-powered portfolio and blog for Thomas Walichiewicz, featuri
 
 ## 🚀 Overview
 
-This is a **static site generator (SSG)** built on Hexo 7.3.0 with a custom "san-diego" theme. It serves as both a personal blog and professional portfolio, featuring:
+This is a **static site generator (SSG)** built on Hexo 8.0.0 with a custom "san-diego" theme. It serves as both a personal blog and professional portfolio, featuring:
 
 - **222+ blog posts and portfolio projects**
 - **Custom theme with dark/light modes**
@@ -22,14 +22,12 @@ This is a **static site generator (SSG)** built on Hexo 7.3.0 with a custom "san
 
 ## 🏗️ Architecture
 
-- **Core Framework**: Hexo 7.3.0 (Static Site Generator)
+- **Core Framework**: Hexo 8.0.0 (Static Site Generator)
 - **Theme**: Custom "san-diego" theme with modular EJS templates
 - **Styling**: SCSS with atomic design principles
 - **JavaScript**: ES6 modules with component-based architecture
-- **Build Tools**: Sharp.js for images, hexo-minify for assets
+- **Build Tools**: Sharp.js for images, custom minification scripts
 - **Deployment**: GitHub Actions → GitHub Pages
-
-For detailed technical documentation, see [Architecture Guide](./docs/reference/architecture/overview.md).
 
 ---
 
@@ -38,7 +36,7 @@ For detailed technical documentation, see [Architecture Guide](./docs/reference/
 ```
 blog/
 ├── source/              # Content (Markdown posts, images, assets)
-│   ├── _posts/         # Blog posts and portfolio projects (222+ files)
+│   ├── _posts/         # Blog posts and portfolio projects
 │   ├── img/            # Site-wide images
 │   └── media/          # Audio/video assets
 ├── themes/san-diego/    # Custom theme
@@ -46,24 +44,20 @@ blog/
 │   ├── source/         # Theme assets (JS, SCSS, images)
 │   └── scripts/        # Build-time processors
 ├── demos/              # Interactive portfolio demos
-│   ├── shared/         # Shared demo components
-│   └── [project-demos]/# Individual demo projects
 ├── build-system/       # Self-healing development system
-├── docs/               # Comprehensive documentation
-│   ├── guides/         # How-to guides
-│   ├── reference/      # Technical reference
-│   └── project/        # Project management
+├── docs/               # Documentation guides
 ├── test-scripts/       # Testing and validation
 ├── tools/              # Build optimization and utilities
 ├── _config.yml         # Hexo configuration
 └── package.json        # Dependencies
+```
 
 ---
 
 ## 🛠️ Quick Start
 
 ### Prerequisites
-- Node.js 18+ (LTS recommended)
+- Node.js 20+ (LTS recommended)
 - npm or yarn
 - Git
 
@@ -93,9 +87,6 @@ npm run fix
 # Interactive health dashboard
 npm run health
 
-# Simple server without self-healing (legacy)
-npm run server
-
 # Build everything (demos + site)
 npm run build
 
@@ -105,21 +96,8 @@ npm run build:prod
 # Deploy to GitHub Pages
 npm run deploy
 
-# Run tests (comprehensive suite)
+# Run tests
 npm test
-
-# Quick tests for development
-npm run test:quick
-
-# Optimize images only
-npm run optimize:images
-
-# Analyze build size
-npm run analyze
-
-# Lint SCSS files
-npm run lint:scss
-npm run lint:scss:fix
 ```
 
 ### Creating Content
@@ -143,25 +121,24 @@ hexo new draft "Work in Progress"
 
 - **Script:** `tools/optimize-images.js` (Node.js + Sharp)
 - **What it does:**
-  - Compresses JPEG/PNG images in `source/` (quality 85%, progressive, >500KB or >1920x1080px)
+  - Compresses JPEG/PNG images in `source/`
   - Skips already optimized or small images
   - Batch processing for efficiency
 - **How to use:**
   - Run manually: `npm run optimize:images`
   - Runs automatically in CI/CD before build
 
-### Asset Minification (`hexo-minify`)
+### Asset Minification
 
+- **Script:** `scripts/minify-assets.js`
 - **Minifies:** HTML, CSS, JS, and images
-- **Configuration:** See `_config.yml` under `minify:`
-- **No deprecated dependencies** (replaces `hexo-filter-optimize`)
-- **Preview mode**: Disabled for local server, enabled for production
+- **Configuration:** Controlled via build scripts
+- Replaces deprecated `hexo-minify` plugin
 
 ### Lazy Loading
 
-- **Plugin:** `hexo-lazyload-image`
-- **SVG placeholder** for smooth UX
-- **Configuration:** See `_config.yml` under `lazyload:`
+- **Native Support:** The custom theme uses native `loading="lazy"` attributes.
+- **Configuration:** `hexo-lazyload-image` is installed but currently disabled in `_config.yml` in favor of theme-based handling.
 
 ### SEO & Search
 
@@ -179,129 +156,20 @@ hexo new draft "Work in Progress"
   4. Analyze build size
   5. Deploy to GitHub Pages
 
-### 🚨 Emergency Rollback Procedure
-
-If a deployment causes issues in production (redirect loops, broken functionality, etc.):
-
-#### Quick Rollback (< 2 minutes)
-```bash
-# 1. Find the last known good commit
-git log --oneline -10
-
-# 2. Reset to that commit
-git reset --hard <commit-hash>
-# Example: git reset --hard b487fa843
-
-# 3. Force push to main
-git push --force origin main
-
-# 4. Trigger GitHub Pages rebuild
-git commit --allow-empty -m "Force rebuild after rollback"
-git push origin main
-```
-
-#### Cache Issues After Rollback
-If users still see the broken version due to browser caching:
-
-1. **Clear browser cache** (varies by browser):
-   - Chrome: Cmd+Shift+R (Mac) / Ctrl+Shift+R (Windows)
-   - Safari: Cmd+Option+R or Develop menu → Empty Caches
-   - Firefox: Cmd+Shift+R (Mac) / Ctrl+Shift+R (Windows)
-
-2. **Force new deployment** with cache-busting:
-   - The site now includes cache-control headers and version query parameters
-   - Each deployment will force browsers to fetch fresh assets
-
-#### Prevention Measures
-- **Always run** `npm run pre-deploy` before deploying
-- **Test locally** with `npm run build:prod && npm run server`
-- **Check multiple browsers** before pushing to production
-- **Use feature branches** for risky changes
-
----
-
-## 🔧 Configuration Highlights
-
-See `_config.yml` for all options. Key sections:
-
-```yaml
-minify:
-  preview: false
-  exclude: ['*.min.*']
-  js:
-    enable: true
-    sourceMap:
-      enable: false
-      sourceMappingURL: false
-    options: {}
-  css:
-    enable: true
-    options: {}
-  html:
-    enable: true
-    options:
-      minifyJS: true
-      minifyCSS: true
-      removeComments: true
-      collapseWhitespace: true
-      removeAttributeQuotes: true
-  image:
-    enable: true
-    options: {}
-
-lazyload:
-  enable: true
-  placeholder: data:image/svg+xml;base64,...
-
-sitemap:
-  path: sitemap.xml
-  tags: true
-  categories: true
-
-search:
-  path: search.xml
-  field: post
-  content: true
-```
-
----
-
-## 🧑‍💻 Maintenance & Best Practices
-
-- **Optimize images** before/after adding new posts
-- **Check build size** regularly (`npm run analyze`)
-- **Keep dependencies up to date**
-- **Review largest files** and optimize further if needed
-- **See** [Performance Guide](./docs/02-development/performance-guide.md) **for advanced tips**
-
 ---
 
 ## 🏥 Self-Healing Development System
 
-The portfolio includes an innovative self-healing system that automatically detects and fixes common development issues:
+The portfolio includes an innovative self-healing system that automatically detects and fixes common development issues.
 
-### Features
-- **Automatic Issue Detection**: Monitors for Hexo warehouse errors, port conflicts, memory issues, missing dependencies, and more
-- **Smart Auto-Fix**: Safely repairs database corruption, kills zombie processes, rebuilds missing assets
-- **Real-Time Monitoring**: Watches development server for errors and applies fixes automatically
-- **Health Dashboard**: Interactive terminal UI for system monitoring and control
-
-### Common Issues Fixed Automatically
-1. **Hexo Warehouse Errors**: "ID has been used" → Cleans database and restarts
-2. **Port 4000 Blocked**: Process using port → Kills process and frees port
-3. **High Memory Usage**: > 800MB → Triggers garbage collection
-4. **Missing Demo Builds**: Demos not in theme → Rebuilds demos
-5. **Stale Cache**: > 7 days old → Clears and rebuilds cache
-6. **CSS Issues**: Dark mode visibility → Updates styles
+See [build-system/README.md](./build-system/README.md) for full details.
 
 ### Usage
 ```bash
 npm run doctor    # Check system health
 npm run fix       # Apply automatic fixes
-npm run health    # Open dashboard (requires: npm install blessed blessed-contrib)
+npm run health    # Open dashboard
 ```
-
-For detailed information, see [Self-Healing System Guide](./docs/guides/development/self-healing-system.md).
 
 ---
 
@@ -325,38 +193,18 @@ For detailed information, see [Self-Healing System Guide](./docs/guides/developm
 
 ---
 
-## ⚠️ Known Issues
-
-See [Technical Debt Analysis](./docs/04-project-health/technical-debt-analysis.md) for detailed technical debt tracking.
-
-### Critical Issues:
-1. **HTML Size Limit**: Large index.html files due to inline post rendering
-   - **Temporary Fix**: Applied in `blog-posts.ejs`
-   - **Proper Fix**: Set `per_page: 20` in `_config.yml`
-
-2. **Sass Deprecation**: Legacy JS API will break with Dart Sass 2.0
-   - **Action Required**: Update build configuration
-
----
-
 ## 📚 Documentation
 
-- [ARCHITECTURE.md](./ARCHITECTURE.md) — Technical architecture overview
-- [docs/](./docs/) — Comprehensive documentation
-  - [Overview](./docs/01-overview/) — Project overview and architecture
-  - [Development](./docs/02-development/) — Development guides and workflows
-  - [Features](./docs/03-features/) — Component and feature documentation
-  - [Project Health](./docs/04-project-health/) — Technical debt and maintenance
-  - [Portfolio](./docs/portfolio/) — Portfolio analysis and improvements
-  - **[Testing Guide](./docs/TESTING.md)** — Comprehensive testing system
-  - **[Quick Reference](./docs/QUICK-REFERENCE.md)** — Essential commands and patterns
-  - **[Demo Standardization](./docs/DEMO-STANDARDIZATION-SUMMARY.md)** — Recent improvements
+- [docs/](./docs/README.md) — Main documentation hub
+  - [Desktop Install Enhancement](./docs/guides/desktop-install-enhancement.md)
+  - [Foreground Editing Guide](./docs/guides/foreground-editing-guide.md)
+- [build-system/](./build-system/README.md) — Build system & self-healing documentation
+- [demos/](./demos/README.md) — Interactive demos documentation
 - [CLAUDE.md](./CLAUDE.md) — AI assistant instructions
 - [CHANGELOG.md](./CHANGELOG.md) — Project history and changes
 
 ### External Resources:
 - [Hexo Documentation](https://hexo.io/docs/)
-- [hexo-minify](https://github.com/Lete114/hexo-minify)
 - [Sharp.js](https://sharp.pixelplumbing.com/)
 
 ---
@@ -371,4 +219,4 @@ See [Technical Debt Analysis](./docs/04-project-health/technical-debt-analysis.m
 
 ## 📄 License
 
-This project is MIT licensed. See [LICENSE](./LICENSE) for details.
+This project is MIT licensed.

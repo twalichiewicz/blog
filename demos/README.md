@@ -100,8 +100,6 @@ npm run build        # Builds demos + blog
 See `examples/` directory for starter templates:
 
 - `react-demo-template/` - React + Vite setup
-- `vanilla-demo-template/` - Vanilla JavaScript setup
-- `vue-demo-template/` - Vue + Vite setup
 
 ## Best Practices
 
