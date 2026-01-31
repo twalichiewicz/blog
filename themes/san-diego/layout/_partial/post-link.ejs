@@ -9,7 +9,17 @@ const postId = 'post-' + (post.slug || post.title.toLowerCase().replace(/[^\w]+/
 	</div>
 	<a href="<%- url_for(post.path) %>" class="post-link-wrapper">
 		<div class="post-list-item post-long post-preview-card">
-			<% 
+			<!-- Skeleton placeholder -->
+			<div class="blog-skeleton blog-skeleton--card">
+				<div class="skeleton-image"></div>
+				<div class="skeleton-content">
+					<div class="skeleton-title-line"></div>
+					<div class="skeleton-text-line"></div>
+					<div class="skeleton-text-line short"></div>
+					<div class="skeleton-meta"></div>
+				</div>
+			</div>
+			<%
 			// Handle cover image
 			let coverImagePath = post.cover_image || post.header_image;
 			if (coverImagePath && !coverImagePath.startsWith('/') && !coverImagePath.startsWith('http')) {
@@ -21,7 +31,7 @@ const postId = 'post-' + (post.slug || post.title.toLowerCase().replace(/[^\w]+/
 			}
 			%>
 			<div class="preview-cover-image">
-				<img src="<%- url_for(coverImagePath) %>" alt="<%= post.title %>" loading="lazy" />
+				<img src="<%- url_for(coverImagePath) %>" alt="<%= post.title %>" loading="lazy" onload="this.closest('.post-preview-card').classList.add('skeleton-hidden')" onerror="this.closest('.post-preview-card').classList.add('skeleton-hidden')" />
 			</div>
 			<div class="preview-content">
 				<h3 class="preview-title">

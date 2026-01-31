@@ -1,0 +1,183 @@
+@use 'variables';
+@use 'sass:color';
+
+// Blog Skeleton UI
+// Provides loading placeholders for blog post cards while images load
+
+// Skeleton animation (reusing same keyframe pattern as notebook-skeleton)
+@keyframes blog-skeleton-shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+
+// Skeleton mixin for consistent shimmer effect
+@mixin skeleton-base {
+    background: linear-gradient(
+        90deg,
+        rgba(variables.$text-color, 0.06) 0%,
+        rgba(variables.$text-color, 0.02) 20%,
+        rgba(variables.$text-color, 0.06) 40%,
+        rgba(variables.$text-color, 0.06) 100%
+    );
+    background-size: 200% 100%;
+    animation: blog-skeleton-shimmer 2s infinite ease-in-out;
+    border-radius: variables.$radius-sm;
+}
+
+// Dark mode skeleton mixin
+@mixin skeleton-base-dark {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.04) 0%,
+        rgba(255, 255, 255, 0.01) 20%,
+        rgba(255, 255, 255, 0.04) 40%,
+        rgba(255, 255, 255, 0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: blog-skeleton-shimmer 2s infinite ease-in-out;
+}
+
+// ==============================================
+// Post Preview Card Skeleton (with image)
+// ==============================================
+
+.blog-skeleton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; // Behind actual content
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+
+    // Card skeleton layout (matches post-preview-card.post-long)
+    &--card {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        padding: 0;
+    }
+}
+
+// Skeleton image placeholder
+.skeleton-image {
+    width: 90px;
+    flex: 0 0 90px;
+    min-height: 90px;
+    @include skeleton-base;
+    border-radius: 0; // Match card's overflow:hidden on left side
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// Skeleton content container
+.skeleton-content {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 12px 12px 12px 15px;
+    gap: 6px;
+}
+
+// Skeleton title line
+.skeleton-title-line {
+    height: 18px;
+    width: 85%;
+    @include skeleton-base;
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// Skeleton text lines
+.skeleton-text-line {
+    height: 14px;
+    width: 100%;
+    @include skeleton-base;
+
+    &.short {
+        width: 75%;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+// Skeleton metadata
+.skeleton-meta {
+    height: 12px;
+    width: 60px;
+    margin-top: 2px;
+    @include skeleton-base;
+
+    @media (prefers-color-scheme: dark) {
+        @include skeleton-base-dark;
+    }
+}
+
+
+// ==============================================
+// Visibility Control
+// ==============================================
+
+// Post preview card with skeleton support
+.post-preview-card {
+    position: relative;
+
+    // Ensure actual content sits above skeleton
+    .preview-cover-image,
+    .preview-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    // Hide skeleton when content loads (class added via onload handler)
+    &.skeleton-hidden .blog-skeleton {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+
+// ==============================================
+// Mobile Adjustments
+// ==============================================
+
+@media (max-width: variables.$mobile-breakpoint) {
+    .skeleton-image {
+        width: 90px;
+        flex: 0 0 90px;
+        min-height: 90px;
+    }
+
+    .skeleton-content {
+        padding: 10px;
+        gap: 5px;
+    }
+
+    .skeleton-title-line {
+        height: 16px;
+    }
+
+    .skeleton-text-line {
+        height: 12px;
+    }
+
+    .skeleton-meta {
+        height: 10px;
+        width: 50px;
+    }
+}
