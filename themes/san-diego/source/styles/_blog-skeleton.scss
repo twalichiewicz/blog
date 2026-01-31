@@ -51,7 +51,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; // Above card background, below actual content
+    z-index: 0; // Behind actual content
     opacity: 1;
     pointer-events: none;
     transition: opacity 0.5s ease-out 0.1s;
@@ -261,6 +261,13 @@
 .post-preview-card {
     position: relative;
 
+    // Ensure actual content sits above skeleton
+    .preview-cover-image,
+    .preview-content {
+        position: relative;
+        z-index: 1;
+    }
+
     // Hide skeleton when image loads (CSS :has() - modern browsers)
     &:has(.preview-cover-image img.loaded) .blog-skeleton {
         opacity: 0;
@@ -279,6 +286,15 @@
 // Link posts and short posts - use class-based hiding
 .post-list-item {
     position: relative;
+
+    // Ensure actual content sits above skeleton
+    .post-byline,
+    .link-share,
+    > p,
+    > div:not(.blog-skeleton) {
+        position: relative;
+        z-index: 1;
+    }
 
     &.blog-content-loaded .blog-skeleton {
         opacity: 0;
