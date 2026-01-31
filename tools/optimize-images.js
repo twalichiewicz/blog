@@ -4,13 +4,15 @@ const path = require('path');
 const { glob } = require('glob');
 
 class ImageOptimizer {
-	constructor() {
+	constructor(options = {}) {
 		this.sourceDir = 'source';
 		this.outputDir = 'source';
+		this.generateWebP = options.generateWebP !== false; // Default: true
 		this.stats = {
 			processed: 0,
 			originalSize: 0,
 			optimizedSize: 0,
+			webpGenerated: 0,
 			errors: 0
 		};
 	}
@@ -113,11 +115,54 @@ class ImageOptimizer {
 				this.stats.optimizedSize += originalSize;
 			}
 
+			// Generate WebP version alongside original
+			if (this.generateWebP) {
+				await this.generateWebPVersion(filePath, image);
+			}
+
 			this.stats.processed++;
 
 		} catch (error) {
 			console.error(`❌ Error processing ${filePath}:`, error.message);
 			this.stats.errors++;
+		}
+	}
+
+	async generateWebPVersion(filePath, sharpInstance) {
+		try {
+			const ext = path.extname(filePath).toLowerCase();
+			const webpPath = filePath.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+
+			// Skip if WebP already exists and is newer
+			try {
+				const originalStats = await fs.stat(filePath);
+				const webpStats = await fs.stat(webpPath);
+				if (webpStats.mtime > originalStats.mtime) {
+					return; // WebP is up to date
+				}
+			} catch {
+				// WebP doesn't exist, generate it
+			}
+
+			// Create a fresh Sharp instance from the file
+			const webpBuffer = await sharp(filePath)
+				.webp({
+					quality: 85,
+					effort: 6 // Higher effort = better compression, slower
+				})
+				.toBuffer();
+
+			const originalStats = await fs.stat(filePath);
+
+			// Only save WebP if it's actually smaller
+			if (webpBuffer.length < originalStats.size) {
+				await fs.writeFile(webpPath, webpBuffer);
+				const savedPercent = (((originalStats.size - webpBuffer.length) / originalStats.size) * 100).toFixed(1);
+				console.log(`   🌐 WebP: ${this.formatBytes(webpBuffer.length)} (${savedPercent}% smaller than original)`);
+				this.stats.webpGenerated++;
+			}
+		} catch (error) {
+			console.error(`   ⚠️  WebP generation failed for ${filePath}:`, error.message);
 		}
 	}
 
@@ -140,6 +185,7 @@ class ImageOptimizer {
 		console.log(`   Original size: ${this.formatBytes(this.stats.originalSize)}`);
 		console.log(`   Optimized size: ${this.formatBytes(this.stats.optimizedSize)}`);
 		console.log(`   Space saved: ${this.formatBytes(savedBytes)} (${savedPercent}%)`);
+		console.log(`   WebP versions generated: ${this.stats.webpGenerated}`);
 		console.log(`   Errors: ${this.stats.errors}`);
 	}
 }
