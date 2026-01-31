@@ -120,6 +120,66 @@ async function revStylesheet() {
   }
 }
 
+// Revision JS files with content hashes for long-term caching
+async function revJavaScriptFiles() {
+  try {
+    const jsDir = path.join('public', 'js');
+    const jsFiles = await glob(`${jsDir}/**/*.js`, {
+      ignore: ['**/*.min.js']
+    });
+
+    console.log(`Found ${jsFiles.length} JS files to revision`);
+
+    const htmlFiles = await glob('public/**/*.html');
+    const revisionMap = new Map(); // oldPath -> newPath
+
+    // First pass: create hashed versions of all JS files
+    for (const file of jsFiles) {
+      const content = await fs.readFile(file);
+      const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 8);
+
+      const dir = path.dirname(file);
+      const ext = path.extname(file);
+      const basename = path.basename(file, ext);
+      const hashedName = `${basename}.${hash}${ext}`;
+      const hashedPath = path.join(dir, hashedName);
+
+      // Write the hashed file
+      await fs.writeFile(hashedPath, content);
+
+      // Store mapping for HTML replacement (relative to public/)
+      const relativePath = path.relative('public', file);
+      const relativeHashedPath = path.relative('public', hashedPath);
+      revisionMap.set(relativePath, relativeHashedPath);
+    }
+
+    // Second pass: update all HTML files with new paths
+    for (const htmlFile of htmlFiles) {
+      let content = await fs.readFile(htmlFile, 'utf8');
+      let modified = false;
+
+      for (const [oldPath, newPath] of revisionMap) {
+        // Match the path with optional ?v= query string
+        const escapedPath = oldPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const pattern = new RegExp(`(["'/])${escapedPath}(?:\\?v=[^"']+)?`, 'g');
+
+        if (pattern.test(content)) {
+          content = content.replace(pattern, `$1${newPath}`);
+          modified = true;
+        }
+      }
+
+      if (modified) {
+        await fs.writeFile(htmlFile, content);
+      }
+    }
+
+    console.log(`✓ JavaScript files revisioned (${revisionMap.size} files)`);
+  } catch (error) {
+    console.error('Error revisioning JavaScript:', error);
+  }
+}
+
 // Minify JS files
 async function minifyJSFiles() {
   try {
@@ -148,12 +208,13 @@ async function minifyJSFiles() {
 // Main function
 async function minifyAssets() {
   console.log('Starting asset minification...');
-  
+
   await minifyHTMLFiles();
   await minifyCSSFiles();
   await revStylesheet();
   await minifyJSFiles();
-  
+  await revJavaScriptFiles();
+
   console.log('✅ Asset minification complete!');
 }
 

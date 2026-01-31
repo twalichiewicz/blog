@@ -109,10 +109,8 @@
   <meta name="twitter:creator" content="@<%= config.twitter_username %>">
   <% } %>
   
-  <!-- Cache Control - Prevent aggressive caching -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  <!-- Cache Control - Assets use content hashes for cache busting -->
+  <!-- HTML pages should revalidate, but static assets (CSS/JS) are immutable with hashed filenames -->
   
   <!-- Security Headers (Meta Tag Equivalents) -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -125,9 +123,9 @@
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
   
-  <!-- Stylesheets -->
-  <link rel="preload" href="<%- url_for('/styles/styles.css') %>?v=<%= Date.now() %>" as="style">
-  <link rel="stylesheet" href="<%- url_for('/styles/styles.css') %>?v=<%= Date.now() %>">
+  <!-- Stylesheets (revisioned with content hash at build time) -->
+  <link rel="preload" href="<%- url_for('/styles/styles.css') %>" as="style">
+  <link rel="stylesheet" href="<%- url_for('/styles/styles.css') %>">
   
   <!-- Initial loading state -->
   <style>
@@ -169,27 +167,27 @@
   }
   </script>
 
-  <!-- Core Scripts -->
-  <script src="<%- url_for('/js/san-diego-namespace.js') %>?v=<%= Date.now() %>"></script>
-  <script type="module" src="<%- url_for('/js/main.js') %>?v=<%= Date.now() %>"></script>
-  <script type="module" src="<%- url_for('js/components/HomeVisuals.js') %>?v=<%= Date.now() %>"></script>
-  <script type="module" src="<%- url_for('js/mobile-tabs.js') %>?v=<%= Date.now() %>"></script>
-  <script type="module" src="<%- url_for('js/carousel.js') %>?v=<%= Date.now() %>"></script>
-  <script type="module" src="<%- url_for('js/utils/animations.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/project-tabs.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/project-summary.js') %>?v=<%= Date.now() %>"></script>
-  <script type="module" src="<%- url_for('js/scroll.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/sound-effects.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/screen-wipe-transition.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/external-links.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/project-demo.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/project-demo-walkthrough.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/byline-modal.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/portfolio-parallax-optimized.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/portfolio-filters.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/portfolio-filters-dropdown.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/portfolio-notebook-carousel-state.js') %>?v=<%= Date.now() %>"></script>
-  <script src="<%- url_for('js/notebook-skeleton-loader.js') %>?v=<%= Date.now() %>"></script>
+  <!-- Core Scripts (revisioned with content hash at build time) -->
+  <script src="<%- url_for('/js/san-diego-namespace.js') %>"></script>
+  <script type="module" src="<%- url_for('/js/main.js') %>"></script>
+  <script type="module" src="<%- url_for('js/components/HomeVisuals.js') %>"></script>
+  <script type="module" src="<%- url_for('js/mobile-tabs.js') %>"></script>
+  <script type="module" src="<%- url_for('js/carousel.js') %>"></script>
+  <script type="module" src="<%- url_for('js/utils/animations.js') %>"></script>
+  <script src="<%- url_for('js/project-tabs.js') %>"></script>
+  <script src="<%- url_for('js/project-summary.js') %>"></script>
+  <script type="module" src="<%- url_for('js/scroll.js') %>"></script>
+  <script src="<%- url_for('js/sound-effects.js') %>"></script>
+  <script src="<%- url_for('js/screen-wipe-transition.js') %>"></script>
+  <script src="<%- url_for('js/external-links.js') %>"></script>
+  <script src="<%- url_for('js/project-demo.js') %>"></script>
+  <script src="<%- url_for('js/project-demo-walkthrough.js') %>"></script>
+  <script src="<%- url_for('js/byline-modal.js') %>"></script>
+  <script src="<%- url_for('js/portfolio-parallax-optimized.js') %>"></script>
+  <script src="<%- url_for('js/portfolio-filters.js') %>"></script>
+  <script src="<%- url_for('js/portfolio-filters-dropdown.js') %>"></script>
+  <script src="<%- url_for('js/portfolio-notebook-carousel-state.js') %>"></script>
+  <script src="<%- url_for('js/notebook-skeleton-loader.js') %>"></script>
   
   <!-- Structured Data -->
   <script type="application/ld+json">

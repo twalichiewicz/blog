@@ -92,7 +92,7 @@
             %>
             <% if (!hideCoverImage) { %>
             <div class="post-cover-image">
-                <img src="<%- url_for(coverImagePath) %>" alt="<%= page.title %>" loading="eager" />
+                <img src="<%- url_for(coverImagePath) %>" alt="<%= page.title %>" loading="eager" decoding="async" fetchpriority="high" />
             </div>
             <% } %>
             
