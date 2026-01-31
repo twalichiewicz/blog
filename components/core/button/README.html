@@ -1,0 +1,117 @@
+<h1 id="Button-Component"><a href="#Button-Component" class="headerlink" title="Button Component"></a>Button Component</h1><p>A flexible, accessible button component with multiple variants, sizes, and states.</p><h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul><li><strong>Multiple variants</strong>: default, primary, secondary, ghost, soft</li><li><strong>Three sizes</strong>: small, medium, large</li><li><strong>Accessible</strong>: Full keyboard support, ARIA attributes, focus management</li><li><strong>States</strong>: loading, disabled, pressed</li><li><strong>Icons</strong>: Support for icons at start or end positions</li><li><strong>Effects</strong>: Optional ripple effect and sound feedback</li><li><strong>Flexible</strong>: Can render as <code>&lt;button&gt;</code>, <code>&lt;a&gt;</code>, or <code>&lt;input&gt;</code></li></ul><h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><h3 id="Basic-Button"><a href="#Basic-Button" class="headerlink" title="Basic Button"></a>Basic Button</h3><pre><code class="language-ejs">&lt;%- include(&#39;components/core/button/button&#39;, {
+  text: &#39;Click me&#39;,
+  variant: &#39;primary&#39;
+}) %&gt;
+</code></pre><h3 id="Link-Button"><a href="#Link-Button" class="headerlink" title="Link Button"></a>Link Button</h3><pre><code class="language-ejs">&lt;%- include(&#39;components/core/button/button&#39;, {
+  text: &#39;Learn more&#39;,
+  href: &#39;/about&#39;,
+  variant: &#39;secondary&#39;
+}) %&gt;
+</code></pre><h3 id="Button-with-Icon"><a href="#Button-with-Icon" class="headerlink" title="Button with Icon"></a>Button with Icon</h3><pre><code class="language-ejs">&lt;%- include(&#39;components/core/button/button&#39;, {
+  text: &#39;Download&#39;,
+  icon: &#39;&lt;svg&gt;...&lt;/svg&gt;&#39;,
+  iconPosition: &#39;start&#39;,
+  variant: &#39;primary&#39;
+}) %&gt;
+</code></pre><h3 id="Loading-Button"><a href="#Loading-Button" class="headerlink" title="Loading Button"></a>Loading Button</h3><pre><code class="language-ejs">&lt;%- include(&#39;components/core/button/button&#39;, {
+  text: &#39;Submit&#39;,
+  loading: true,
+  loadingText: &#39;Submitting...&#39;,
+  variant: &#39;primary&#39;
+}) %&gt;
+</code></pre><h3 id="Icon-Only-Button"><a href="#Icon-Only-Button" class="headerlink" title="Icon-Only Button"></a>Icon-Only Button</h3><pre><code class="language-ejs">&lt;%- include(&#39;components/core/button/button&#39;, {
+  icon: &#39;&lt;svg&gt;...&lt;/svg&gt;&#39;,
+  iconOnly: true,
+  ariaLabel: &#39;Settings&#39;,
+  variant: &#39;ghost&#39;
+}) %&gt;
+</code></pre><h2 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h2><table><thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>tag</code></td><td>string</td><td>‘button’</td><td>HTML tag to use (‘button’, ‘a’, ‘input’)</td></tr><tr><td><code>variant</code></td><td>string</td><td>‘default’</td><td>Visual style variant</td></tr><tr><td><code>size</code></td><td>string</td><td>‘md’</td><td>Button size (‘sm’, ‘md’, ‘lg’)</td></tr><tr><td><code>type</code></td><td>string</td><td>‘button’</td><td>Button type attribute</td></tr><tr><td><code>href</code></td><td>string</td><td>null</td><td>URL for link buttons</td></tr><tr><td><code>icon</code></td><td>string</td><td>null</td><td>HTML&#x2F;SVG string for icon</td></tr><tr><td><code>iconPosition</code></td><td>string</td><td>‘start’</td><td>Icon position (‘start’, ‘end’)</td></tr><tr><td><code>loading</code></td><td>boolean</td><td>false</td><td>Show loading state</td></tr><tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disable button</td></tr><tr><td><code>fullWidth</code></td><td>boolean</td><td>false</td><td>Make button full width</td></tr><tr><td><code>pill</code></td><td>boolean</td><td>false</td><td>Use pill shape</td></tr><tr><td><code>iconOnly</code></td><td>boolean</td><td>false</td><td>Icon-only button</td></tr><tr><td><code>ripple</code></td><td>boolean</td><td>true</td><td>Enable ripple effect</td></tr><tr><td><code>soundEffect</code></td><td>boolean</td><td>true</td><td>Play sound on click</td></tr><tr><td><code>loadingText</code></td><td>string</td><td>‘Loading…’</td><td>Text shown when loading</td></tr><tr><td><code>ariaLabel</code></td><td>string</td><td>null</td><td>Accessibility label</td></tr><tr><td><code>ariaPressed</code></td><td>boolean</td><td>null</td><td>For toggle buttons</td></tr><tr><td><code>ariaExpanded</code></td><td>boolean</td><td>null</td><td>For dropdown triggers</td></tr><tr><td><code>text</code></td><td>string</td><td>‘’</td><td>Button text content</td></tr></tbody></table><h2 id="JavaScript-API"><a href="#JavaScript-API" class="headerlink" title="JavaScript API"></a>JavaScript API</h2><h3 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h3><p>Buttons are auto-initialized if they have <code>data-component=&quot;button&quot;</code>:</p><pre><code class="language-html">&lt;button data-component=&quot;button&quot; data-button-options=&#39;{&quot;variant&quot;: &quot;primary&quot;}&#39;&gt;
+  Click me
+&lt;/button&gt;
+</code></pre><p>Or initialize manually:</p><pre><code class="language-javascript">import Button from &#39;/components/core/button/button.js&#39;;
+
+const button = new Button(element, {
+  variant: &#39;primary&#39;,
+  ripple: true
+});
+</code></pre><h3 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h3><pre><code class="language-javascript">// Set loading state
+button.setLoading(true, &#39;Processing...&#39;);
+
+// Enable/disable
+button.enable();
+button.disable();
+
+// Update text
+button.setText(&#39;New text&#39;);
+
+// Update icon
+button.setIcon(&#39;&lt;svg&gt;...&lt;/svg&gt;&#39;, &#39;end&#39;);
+
+// Programmatic click
+button.click();
+
+// Focus management
+button.focus();
+button.blur();
+
+// Destroy
+button.destroy();
+</code></pre><h3 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h3><pre><code class="language-javascript">// Listen for button clicks
+element.addEventListener(&#39;btn:click&#39;, (e) =&gt; {
+  console.log(&#39;Button clicked&#39;, e.detail.button);
+});
+
+// Loading state changes
+element.addEventListener(&#39;btn:loading:start&#39;, (e) =&gt; {
+  console.log(&#39;Loading started&#39;);
+});
+
+element.addEventListener(&#39;btn:loading:end&#39;, (e) =&gt; {
+  console.log(&#39;Loading ended&#39;);
+});
+</code></pre><h2 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h2><h3 id="CSS-Custom-Properties"><a href="#CSS-Custom-Properties" class="headerlink" title="CSS Custom Properties"></a>CSS Custom Properties</h3><pre><code class="language-css">.btn {
+  /* Override design tokens */
+  --btn-height: 40px;
+  --btn-padding: 0 24px;
+  --btn-font-size: 16px;
+  --btn-border-radius: 12px;
+}
+</code></pre><h3 id="Custom-Variants"><a href="#Custom-Variants" class="headerlink" title="Custom Variants"></a>Custom Variants</h3><p>Create custom button variants:</p><pre><code class="language-scss">.btn--custom {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  
+  &amp;:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+  }
+}
+</code></pre><h2 id="Accessibility"><a href="#Accessibility" class="headerlink" title="Accessibility"></a>Accessibility</h2><ul><li>Full keyboard support (Enter&#x2F;Space activation)</li><li>Proper ARIA attributes for states</li><li>Focus visible indicators</li><li>Screen reader announcements for loading states</li><li>Disabled state handling for all button types</li></ul><h2 id="Browser-Support"><a href="#Browser-Support" class="headerlink" title="Browser Support"></a>Browser Support</h2><ul><li>Modern browsers (Chrome, Firefox, Safari, Edge)</li><li>IE11 with graceful degradation (no ripple effect)</li><li>Touch-friendly with haptic feedback support</li></ul><h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="Button-Group"><a href="#Button-Group" class="headerlink" title="Button Group"></a>Button Group</h3><pre><code class="language-ejs">&lt;div class=&quot;btn-group&quot;&gt;
+  &lt;%- include(&#39;components/core/button/button&#39;, {
+    text: &#39;Previous&#39;,
+    variant: &#39;secondary&#39;
+  }) %&gt;
+  &lt;%- include(&#39;components/core/button/button&#39;, {
+    text: &#39;Next&#39;,
+    variant: &#39;primary&#39;
+  }) %&gt;
+&lt;/div&gt;
+</code></pre><h3 id="Form-Submit-Button"><a href="#Form-Submit-Button" class="headerlink" title="Form Submit Button"></a>Form Submit Button</h3><pre><code class="language-ejs">&lt;form&gt;
+  &lt;!-- form fields --&gt;
+  &lt;%- include(&#39;components/core/button/button&#39;, {
+    text: &#39;Submit&#39;,
+    type: &#39;submit&#39;,
+    variant: &#39;primary&#39;,
+    fullWidth: true,
+    disableOnClick: true
+  }) %&gt;
+&lt;/form&gt;
+</code></pre><h3 id="Toggle-Button"><a href="#Toggle-Button" class="headerlink" title="Toggle Button"></a>Toggle Button</h3><pre><code class="language-ejs">&lt;%- include(&#39;components/core/button/button&#39;, {
+  text: &#39;Notifications&#39;,
+  variant: &#39;ghost&#39;,
+  ariaPressed: false,
+  attributes: {
+    &#39;data-toggle&#39;: &#39;notifications&#39;
+  }
+}) %&gt;
+</code></pre>

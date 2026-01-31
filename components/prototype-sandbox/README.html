@@ -1,0 +1,63 @@
+<h1 id="Prototype-Sandbox-Component"><a href="#Prototype-Sandbox-Component" class="headerlink" title="Prototype Sandbox Component"></a>Prototype Sandbox Component</h1><p>A reusable sandbox system for blog prototypes that provides isolation, common controls, and prevents scroll&#x2F;event leakage.</p><h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul><li><strong>Event Isolation</strong>: Prevents click&#x2F;scroll events from affecting the main page</li><li><strong>Scroll Containment</strong>: Keeps scrolling within the prototype</li><li><strong>Play Button</strong>: Requires user interaction to start (no auto-play)</li><li><strong>Common Controls</strong>: Reset and fullscreen buttons</li><li><strong>Focus Trapping</strong>: Keyboard navigation stays within prototype</li><li><strong>Theme Support</strong>: YouTube, SoundCloud, or generic styling</li><li><strong>Responsive</strong>: Works on all devices</li></ul><h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><h3 id="Basic-HTML-Structure"><a href="#Basic-HTML-Structure" class="headerlink" title="Basic HTML Structure"></a>Basic HTML Structure</h3><pre><code class="language-html">&lt;!-- Wrap your prototype in a container with data attribute --&gt;
+&lt;div data-prototype-sandbox=&#39;{&quot;theme&quot;: &quot;youtube&quot;, &quot;autoStart&quot;: false}&#39;&gt;
+  &lt;!-- Your prototype HTML goes here --&gt;
+  &lt;div class=&quot;youtube-demo&quot;&gt;
+    &lt;!-- ... --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h3 id="JavaScript-API"><a href="#JavaScript-API" class="headerlink" title="JavaScript API"></a>JavaScript API</h3><pre><code class="language-javascript">// Manual initialization
+const element = document.querySelector(&#39;.my-prototype&#39;);
+const sandbox = new PrototypeSandbox(element, {
+  autoStart: false,    // Don&#39;t auto-play
+  showControls: true,  // Show reset/fullscreen buttons
+  isolated: true,      // Prevent event bubbling
+  theme: &#39;youtube&#39;,    // Visual theme
+  aspectRatio: &#39;16/9&#39;  // Video aspect ratio
+});
+
+// Listen for events
+element.addEventListener(&#39;prototypeStart&#39;, (e) =&gt; {
+  console.log(&#39;Prototype started&#39;);
+  // Initialize your prototype logic here
+});
+
+element.addEventListener(&#39;prototypeReset&#39;, (e) =&gt; {
+  console.log(&#39;Prototype reset requested&#39;);
+  // Reset your prototype state
+  e.preventDefault(); // Prevent default reload behavior
+});
+</code></pre><h3 id="Integration-with-Existing-Prototypes"><a href="#Integration-with-Existing-Prototypes" class="headerlink" title="Integration with Existing Prototypes"></a>Integration with Existing Prototypes</h3><p>Before:</p><pre><code class="language-html">&lt;div class=&quot;youtube-demo&quot;&gt;
+  &lt;!-- Complex prototype code --&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Prototype initialization code
+&lt;/script&gt;
+</code></pre><p>After:</p><pre><code class="language-html">&lt;div data-prototype-sandbox=&#39;{&quot;theme&quot;: &quot;youtube&quot;}&#39;&gt;
+  &lt;div class=&quot;youtube-demo&quot;&gt;
+    &lt;!-- Same complex prototype code --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// Wait for sandbox to start
+document.querySelector(&#39;[data-prototype-sandbox]&#39;)
+  .addEventListener(&#39;prototypeStart&#39;, function() {
+    // Original initialization code
+  });
+&lt;/script&gt;
+</code></pre><h2 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h2><table><thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>autoStart</code></td><td>boolean</td><td><code>false</code></td><td>Start immediately without play button</td></tr><tr><td><code>showControls</code></td><td>boolean</td><td><code>true</code></td><td>Show reset&#x2F;fullscreen buttons</td></tr><tr><td><code>isolated</code></td><td>boolean</td><td><code>true</code></td><td>Prevent event propagation</td></tr><tr><td><code>theme</code></td><td>string</td><td><code>&#39;generic&#39;</code></td><td>Visual theme: ‘youtube’, ‘soundcloud’, ‘generic’</td></tr><tr><td><code>aspectRatio</code></td><td>string</td><td><code>&#39;16/9&#39;</code></td><td>CSS aspect ratio for content</td></tr></tbody></table><h2 id="CSS-Classes"><a href="#CSS-Classes" class="headerlink" title="CSS Classes"></a>CSS Classes</h2><ul><li><code>.prototype-sandbox</code> - Main container</li><li><code>.prototype-sandbox.active</code> - When prototype is running</li><li><code>.prototype-sandbox.fullscreen</code> - Fullscreen mode</li><li><code>.prototype-sandbox.loading</code> - Loading state</li><li><code>.sandbox-content</code> - Scrollable content area</li><li><code>.sandbox-controls</code> - Control buttons container</li></ul><h2 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h2><ol><li><strong>Never auto-start prototypes</strong> - Always require user interaction</li><li><strong>Keep prototypes lightweight</strong> - Load assets on demand</li><li><strong>Provide clear visual feedback</strong> - Show play button and loading states</li><li><strong>Test scroll containment</strong> - Ensure scrolling doesn’t leak to main page</li><li><strong>Add keyboard support</strong> - Make prototypes accessible</li></ol><h2 id="Migration-Guide"><a href="#Migration-Guide" class="headerlink" title="Migration Guide"></a>Migration Guide</h2><p>To migrate existing YouTube prototype:</p><pre><code class="language-javascript">// 1. Wrap in sandbox container
+&lt;div data-prototype-sandbox=&#39;{&quot;theme&quot;: &quot;youtube&quot;, &quot;aspectRatio&quot;: &quot;16/9&quot;}&#39;&gt;
+  &lt;!-- Existing prototype HTML --&gt;
+&lt;/div&gt;
+
+// 2. Move initialization to start event
+document.addEventListener(&#39;prototypeStart&#39;, function(e) {
+  if (e.target.querySelector(&#39;.youtube-demo&#39;)) {
+    // Existing initialization code
+  }
+});
+
+// 3. Remove any auto-play logic
+// 4. Remove custom scroll containment (sandbox handles it)
+</code></pre>

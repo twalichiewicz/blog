@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Thomas Walichiewicz</title>
+    <link>https://twalichiewicz.github.io/</link>
+    
+    <atom:link href="https://twalichiewicz.github.io/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>Thomas Walichiewicz - Designer, Developer, Thinker</description>
+    <pubDate>Sat, 31 Jan 2026 08:00:40 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Code is Cheap. Show me the Talk.</title>
+      <link>https://twalichiewicz.github.io/2026/01/30/code-is-cheap/</link>
+      <guid>https://twalichiewicz.github.io/2026/01/30/code-is-cheap/</guid>
+      <pubDate>Fri, 30 Jan 2026 10:00:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Programming is 90% thinking and 10% typing—now, for real.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This resonates. As the cost of generating cod</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<blockquote><p>Programming is 90% thinking and 10% typing—now, for real.</p></blockquote><p>This resonates. As the cost of generating code drops to near-zero, the value of <em>deciding what code to write</em> skyrockets. The tools don’t replace the need for engineering rigor; they just move it upstream. We are transitioning from a discipline of syntax management to one of pure system architecture, where the ability to communicate intent is the only hard skill left.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2026/01/30/code-is-cheap/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>The Inevitable Rise of the Proxy Agent</title>
+      <link>https://twalichiewicz.github.io/2026/01/28/The-Inevitable-Rise-of-the-Proxy-Agent/</link>
+      <guid>https://twalichiewicz.github.io/2026/01/28/The-Inevitable-Rise-of-the-Proxy-Agent/</guid>
+      <pubDate>Wed, 28 Jan 2026 02:50:09 GMT</pubDate>
+      
+      <description>The ultimate user interface is no interface at all.</description>
+      
+      
+      
+      <content:encoded><![CDATA[<p>Eight months ago, I pivoted my AI project, <a href="https://github.com/Triglavis/proxy-ai-agent/">Tempo</a>, based on a single bet: <strong>The “UI” for the most successful AI agents will eventually disappear.</strong></p><p>At the time, I was building a “Chief of Staff” dashboard—a comprehensive command center for managing calendar invites, emails, and notifications. While technically impressive, I hated using it. It was just another silo to manage, another screen demanding my attention. I had built a better way to view the chaos, but I hadn’t solved it.</p><h2 id="Interaction-Debt-and-the-Pivot-to-Proxy"><a href="#Interaction-Debt-and-the-Pivot-to-Proxy" class="headerlink" title="Interaction Debt and the Pivot to Proxy"></a>Interaction Debt and the Pivot to Proxy</h2><p>We are living through the peak of “Interaction Debt.” Every new AI tool promises to save us time but ultimately demands more of it—asking us to chat, review summaries, or navigate custom interfaces. I realized I didn’t want a better tool to manage my calendar; I wanted a representative to <strong>own</strong> it.</p><p>This led to the core architectural distinction in Tempo: <strong>Chaos Mode vs. Proxy Mode.</strong></p><ul><li><strong>Chaos Mode</strong> is the status quo of manual routing. Even with AI assistance, you remain the switchboard operator, clicking “Accept” or “Draft Reply” across disjointed apps.</li><li><strong>Proxy Mode</strong> is the transition to invisible representation. The agent stands <em>in front</em> of the chaos, defending your time and processing information autonomously based on your intent rather than your direct input.</li></ul><h2 id="The-Clawdbot-Signal"><a href="#The-Clawdbot-Signal" class="headerlink" title="The Clawdbot Signal"></a>The Clawdbot Signal</h2><p>I’m seeing this thesis validated in real-time by the sudden popularity of <a href="https://clawd.bot/">Clawdbot</a>.</p><p>On the surface, Clawdbot appears to be just a streamlined interface for Claude. However, its success signals a deeper shift: users are choosing <strong>Representation over Conversation.</strong> Clawdbot wins because it functions as a specialized proxy, stripping away the baggage of the general-purpose “chat” platform to provide a frictionless, direct channel to intelligence. It is the first step toward the “Invisible Core”—where value is defined by autonomous execution rather than interface engagement.</p><h2 id="The-Trust-Bottleneck-A-User-Constitution"><a href="#The-Trust-Bottleneck-A-User-Constitution" class="headerlink" title="The Trust Bottleneck: A User Constitution"></a>The Trust Bottleneck: A User Constitution</h2><p>If the Proxy Agent is inevitable, why isn’t it already standard? The bottleneck isn’t technology; it is trust.</p><p>Moving from a tool that <em>suggests</em> to a proxy that <em>acts</em> requires a massive leap in delegation. You cannot simply hand over your credentials and hope for the best; you need a mechanism to encode your judgment. In Tempo, I addressed this with a “User Constitution.” Instead of a traditional settings page, I built a set of governing principles (e.g. <em>“Prioritize revenue-generating meetings over internal syncs”</em>) that allowed the agent to make decisions aligned with my values.</p><p>To achieve a truly invisible proxy, we must move beyond configuration and toward this kind of explicit framework for autonomy.</p><h2 id="Protocol-over-Platform"><a href="#Protocol-over-Platform" class="headerlink" title="Protocol over Platform"></a>Protocol over Platform</h2><p>If my previous work on <a href="/2026/01/20/Agent-Swarm-Architecture/" title="Agent Swarm Architecture">Agent Swarm Architecture</a> proved that agent <em>architecture</em> is converging on a hierarchy, then projects like Tempo and Clawdbot demonstrate that agent <em>interaction</em> is converging on the proxy.</p><p>We are leaving the “Chat” era and entering the “Representative” era. The next great challenge isn’t making LLMs smarter, but building the protocols that allow these proxies to negotiate, schedule, and coordinate without human intervention. The Proxy Era will truly arrive when our agents can resolve a conflict without either of us ever opening an email.</p><p>The ultimate UI isn’t a better dashboard. It’s the silence of a task already handled.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/AI/">AI</category>
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/agents/">agents</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2026/01/28/The-Inevitable-Rise-of-the-Proxy-Agent/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>For all you Typing Tennis fans out there</title>
+      <link>https://twalichiewicz.github.io/2026/01/28/typing-tennis-found/</link>
+      <guid>https://twalichiewicz.github.io/2026/01/28/typing-tennis-found/</guid>
+      <pubDate>Wed, 28 Jan 2026 00:00:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;video autoplay loop muted playsinline style=&quot;width: auto; max-width: 100%; max-height: 600px; height: auto; margin: 24px auto; display: blo</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<video autoplay loop muted playsinline style="width: auto; max-width: 100%; max-height: 600px; height: auto; margin: 24px auto; display: block; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">  <source src="/2026/01/28/typing-tennis-found/typingTennis3d.mp4" type="video/mp4">  Your browser does not support the video tag.</video>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2026/01/28/typing-tennis-found/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>15,000 Matches</title>
+      <link>https://twalichiewicz.github.io/2026/01/21/15-000-Matches/</link>
+      <guid>https://twalichiewicz.github.io/2026/01/21/15-000-Matches/</guid>
+      <pubDate>Wed, 21 Jan 2026 10:00:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Shout out to the thousands of people who played &lt;a href=&quot;#post-Typing-Tennis&quot;&gt;Typing Tennis&lt;/a&gt; in the first 24 hours (!).&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Shout out to the thousands of people who played <a href="#post-Typing-Tennis">Typing Tennis</a> in the first 24 hours (!).</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2026/01/21/15-000-Matches/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Agent Swarm Architecture</title>
+      <link>https://twalichiewicz.github.io/2026/01/20/Agent-Swarm-Architecture/</link>
+      <guid>https://twalichiewicz.github.io/2026/01/20/Agent-Swarm-Architecture/</guid>
+      <pubDate>Tue, 20 Jan 2026 18:10:04 GMT</pubDate>
+      
+      <description>Multi-agent swarm behavior seems to result in architectural convergence, namely the planner/worker/judge separation.</description>
+      
+      
+      
+      <content:encoded><![CDATA[<p>I just finished reading <a href="https://simonwillison.net/2026/Jan/19/scaling-long-running-autonomous-coding/">Simon Willison’s blog post</a> about <a href="https://cursor.com/blog/scaling-agents">Wilson Lin’s team’s work at Cursor</a>. I found myself nodding along as I read it—not just because the work is impressive, but because the architectural conclusions they reached felt remarkably familiar.</p><hr><p>Eight months ago, I built <a href="https://github.com/twalichiewicz/meshseeks">MeshSeeks</a>, an MCP server designed to coordinate AI coding agents. Reading about Cursor’s journey felt like watching someone else get punched in the face by the exact same problems I encountered. Interestingly, we both arrived at nearly identical solutions.</p><p>I believe anyone who seriously tackles multi-agent coordination will eventually converge on this specific architecture. The problem space itself seems to have strong opinions on how it wants to be solved.</p><h2 id="The-Architecture-of-Convergence"><a href="#The-Architecture-of-Convergence" class="headerlink" title="The Architecture of Convergence"></a>The Architecture of Convergence</h2><p>Wilson Lin describes Cursor’s final system as a recursive machine: planners explore the codebase and create tasks, often spawning sub-planners to handle specific areas in parallel. Workers pick up these tasks with a singular focus on execution, and at the end of each cycle, a judge agent determines whether the work meets the standard.</p><p>When I looked at what I had built in MeshSeeks, the reflection was almost perfect.</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">                      COORDINATION LAYER</span><br><span class="line">┌─────────────────────────────────────────────────────────────┐</span><br><span class="line">│                  SwarmOrchestrator                          │</span><br><span class="line">│  ┌─────────────┐  ┌─────────────┐  ┌──────────────────┐     │</span><br><span class="line">│  │ SessionMgr  │  │CheckpointMgr│  │ AgentPoolManager │     │</span><br><span class="line">│  │ (week-long) │  │(persistence)│  │ (1-500 agents)   │     │</span><br><span class="line">│  └─────────────┘  └─────────────┘  └──────────────────┘     │</span><br><span class="line">│                                                             │</span><br><span class="line">│  ┌──────────────────────────────────────────────────────┐   │</span><br><span class="line">│  │        HierarchicalPlanner (Recursive)               │   │</span><br><span class="line">│  └──────────────────────────────────────────────────────┘   │</span><br><span class="line">│                                                             │</span><br><span class="line">│  ┌──────────────────────────────────────────────────────┐   │</span><br><span class="line">│  │      JudgeSystem (Automated Verification Loop)       │   │</span><br><span class="line">│  └──────────────────────────────────────────────────────┘   │</span><br><span class="line">└─────────────────────────────────────────────────────────────┘</span><br><span class="line">                           │</span><br><span class="line">                           ▼</span><br><span class="line">                  AGENT EXECUTION LAYER</span><br><span class="line">┌─────────────────────────────────────────────────────────────┐</span><br><span class="line">│             AgentPool (100+ concurrent)                     │</span><br><span class="line">│                                                             │</span><br><span class="line">│  🔍 Analysis    ⚙️ Implement    🧪 Test      📝 Doc         │</span><br><span class="line">│  🐛 Debug       🎯 Judge        📋 Plan                     │</span><br><span class="line">└─────────────────────────────────────────────────────────────┘</span><br></pre></td></tr></table></figure><p>The parallels were striking. Where Cursor solved planning scale by having planners spawn sub-planners, I had implemented a <code>HierarchicalPlanner</code> with a recursive decomposition method. We both solved the “lazy worker” problem by enforcing strict role specialization—separating the “deciding” from the “doing.” And perhaps most importantly, we both realized that you can’t have a human in the loop for every decision, nor can you trust an agent to grade its own homework. You need a dedicated Judge.</p><p>Neither of us planned it this way from the start. We evolved into it because every other option failed.</p><h2 id="The-Failures-That-Teach-You"><a href="#The-Failures-That-Teach-You" class="headerlink" title="The Failures That Teach You"></a>The Failures That Teach You</h2><p>The most valuable part of Cursor’s post was their honest accounting of those failures. Their initial approach gave agents equal status, letting them self-coordinate via a shared file. This is the obvious first attempt, and it is almost always the wrong one.</p><p>Cursor found that locking mechanisms became throughput killers, noting that “twenty agents would slow down to the effective throughput of two or three.” I hit this exact wall in MeshSeeks. My first iteration had agents coordinating through a shared task queue that quickly became a massive chokepoint. Agents spent more time checking the queue and locking resources than actually working, causing the coordination overhead to scale quadratically.</p><p>The fix was to abandon the flat structure entirely in favor of strict hierarchy. In MeshSeeks, the <code>HierarchicalPlanner</code> owns the task tree. Workers don’t talk to each other; they receive tasks from the planner and report results back. This simple change reduced coordination overhead from O(n^2) to O(n).</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// From hierarchical-planner.ts</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">HierarchicalTask</span> &#123;</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">parentId</span>: <span class="built_in">string</span> | <span class="literal">null</span>;</span><br><span class="line">  <span class="attr">depth</span>: <span class="built_in">number</span>;              <span class="comment">// 0 = root, max 5</span></span><br><span class="line">  <span class="attr">children</span>: <span class="built_in">string</span>[];         <span class="comment">// Child task IDs</span></span><br><span class="line">  <span class="attr">status</span>: <span class="title class_">TaskStatus</span>;</span><br><span class="line">  <span class="comment">// Workers don&#x27;t see other workers&#x27; tasks</span></span><br><span class="line">  <span class="comment">// They only see their assignment</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Beyond performance, the flat structure created a fascinating behavioral problem: risk aversion. Cursor noted that without hierarchy, “agents became risk-averse,” avoiding difficult tasks to make small, safe changes instead. I saw the same game-theoretic nightmare. When agents are peers, the Nash equilibrium is a swarm of agents effectively bikeshedding on easy tasks while the hard problems rot. Hierarchy solves this by removing the choice. The planner decides what needs to happen, and the worker executes. There is no opportunity for strategic avoidance.</p><p>We also both learned that conflict resolution cannot happen in real-time. Cursor tried an “integrator” role to manage conflicts but found it became a bottleneck. I learned the same lesson and built a <code>JudgeSystem</code> instead.</p><p>In MeshSeeks, the judge acts less like a manager and more like a CI&#x2F;CD pipeline with an opinion. It runs unit tests, checks linting, and performs a semantic review against the original requirements. If the tests pass but the logic is brittle, the Judge rejects the task with specific rework instructions. The distinction is critical: an integrator sits in the critical path (push-based), while a judge evaluates completed work asynchronously (pull-based).</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// From judge-system.ts</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">JudgeCriterion</span> &#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;correctness&#x27;</span> | <span class="string">&#x27;completeness&#x27;</span> | <span class="string">&#x27;quality&#x27;</span> | <span class="string">&#x27;testing&#x27;</span>;</span><br><span class="line">  <span class="attr">weight</span>: <span class="built_in">number</span>;</span><br><span class="line">  <span class="attr">enabled</span>: <span class="built_in">boolean</span>;</span><br><span class="line">  <span class="attr">passThreshold</span>: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="Why-Recursive-Planning-Matters"><a href="#Why-Recursive-Planning-Matters" class="headerlink" title="Why Recursive Planning Matters"></a>Why Recursive Planning Matters</h2><p>Complex software projects have a fractal structure. A goal like “build a browser” decomposes into subsystems, which decompose into components, which decompose into functions. A single planner trying to enumerate every leaf task upfront will inevitably fail—it will miss details, plan too abstractly, or simply time out.</p><p>Recursive planning allows you to parallelize the planning itself. The top-level planner spawns a sub-planner for the CSS subsystem, which spawns a sub-planner for the layout engine, and so on.</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Simplified from hierarchical-planner.ts</span></span><br><span class="line"><span class="keyword">async</span> <span class="title function_">decompose</span>(<span class="attr">task</span>: <span class="title class_">HierarchicalTask</span>, <span class="attr">context</span>: <span class="title class_">PlanningContext</span>): <span class="title class_">Promise</span>&lt;<span class="title class_">DecompositionResult</span>&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (task.<span class="property">depth</span> &gt;= context.<span class="property">maxDepth</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">tasks</span>: [task], <span class="attr">strategy</span>: <span class="string">&#x27;none&#x27;</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Analyze task complexity</span></span><br><span class="line">  <span class="keyword">const</span> analysis = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="title function_">analyzeTask</span>(task);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (analysis.<span class="property">shouldDecompose</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> subtasks = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="title function_">createSubtasks</span>(task, analysis);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Recursive: subtasks may themselves be decomposed</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> subtask <span class="keyword">of</span> subtasks) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="title function_">shouldSpawnSubPlanner</span>(subtask)) &#123;</span><br><span class="line">        <span class="comment">// Sub-planner handles this branch of the tree</span></span><br><span class="line">        <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="title function_">spawnSubPlanner</span>(subtask, context);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">tasks</span>: subtasks, <span class="attr">strategy</span>: analysis.<span class="property">strategy</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; <span class="attr">tasks</span>: [task], <span class="attr">strategy</span>: <span class="string">&#x27;none&#x27;</span> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="The-Checkpoint-Problem"><a href="#The-Checkpoint-Problem" class="headerlink" title="The Checkpoint Problem"></a>The Checkpoint Problem</h2><p>Solving the coordination problem allows the swarm to run effectively, but it exposes a new class of infrastructure challenges. When you run agents for weeks (or even days), you are no longer writing a script; you are building a database. You need crash recovery. In MeshSeeks, the <code>CheckpointStore</code> uses atomic writes—writing to a temp file and renaming it—to ensure state is never corrupted, even if the process dies mid-save.</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// From checkpoint-store.ts</span></span><br><span class="line"><span class="keyword">async</span> <span class="title function_">save</span>(<span class="attr">state</span>: <span class="title class_">SessionState</span>): <span class="title class_">Promise</span>&lt;<span class="built_in">string</span>&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> checkpointId = <span class="string">`checkpoint-<span class="subst">__PROTECTED_BLOCK_4__#123;<span class="built_in">Date</span>.now()&#125;</span>-<span class="subst">__PROTECTED_BLOCK_4__#123;randomBytes(<span class="number">4</span>).toString(<span class="string">&#x27;hex&#x27;</span>)&#125;</span>`</span>;</span><br><span class="line">  <span class="keyword">const</span> tempPath = <span class="title function_">join</span>(<span class="variable language_">this</span>.<span class="property">checkpointDir</span>, <span class="string">`<span class="subst">__PROTECTED_BLOCK_4__#123;checkpointId&#125;</span>.tmp`</span>);</span><br><span class="line">  <span class="keyword">const</span> finalPath = <span class="title function_">join</span>(<span class="variable language_">this</span>.<span class="property">checkpointDir</span>, <span class="string">`<span class="subst">__PROTECTED_BLOCK_4__#123;checkpointId&#125;</span>.json`</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Write to temp file first</span></span><br><span class="line">  <span class="keyword">await</span> fs.<span class="title function_">writeFile</span>(tempPath, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(state), <span class="string">&#x27;utf-8&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Atomic rename - the database durability pattern</span></span><br><span class="line">  <span class="keyword">await</span> fs.<span class="title function_">rename</span>(tempPath, finalPath);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> checkpointId;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="Insights-I-Missed"><a href="#Insights-I-Missed" class="headerlink" title="Insights I Missed"></a>Insights I Missed</h2><p>While our architectures converged, Cursor’s team had insights I missed, particularly regarding model selection. They found that different models excel at different roles—for example, GPT-5.2 is better for planning, while other models might be better suited for raw coding. I had built MeshSeeks to be model-agnostic, but I hadn’t optimized the model-to-role fit. This is a clear area for improvement.</p><p>They also reinforced that prompts matter more than architecture. I spent more time tuning system prompts than writing coordination logic. If you get the prompt wrong, the agent ignores your fancy architecture and reverts to its base training.</p><h2 id="The-Sweet-Spot"><a href="#The-Sweet-Spot" class="headerlink" title="The Sweet Spot"></a>The Sweet Spot</h2><p>If you are coordinating more than a handful of agents on a complex project, the problem forces you into a specific shape. You need hierarchical planning to handle the scope, role separation to keep agents focused, and an asynchronous judge to ensure quality. You need checkpoints because systems crash. And you need to eliminate peer-to-peer coordination because it doesn’t scale.</p><p>It’s not about being clever. It’s about survival. Flat structures don’t scale, unguided agents are lazy, and synchronous integration is a bottleneck. Cursor’s post is validating because it suggests this architecture is robust enough for arbitrarily complex projects.</p><p>The question is no longer “Can we coordinate hundreds of agents?” but “How do we standardize the protocol between them?” If we can agree on the interface for a Planner, Worker, and Judge, we might finally move beyond building swarms and start building the operating system that runs them.</p><hr><p><em>MeshSeeks is open source at <a href="https://github.com/twalichiewicz/meshseeks">github.com&#x2F;twalichiewicz&#x2F;meshseeks</a>.</em></p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2026/01/20/Agent-Swarm-Architecture/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Typing Tennis</title>
+      <link>https://twalichiewicz.github.io/2026/01/18/Typing-Tennis-Ware/</link>
+      <guid>https://twalichiewicz.github.io/2026/01/18/Typing-Tennis-Ware/</guid>
+      <pubDate>Sun, 18 Jan 2026 22:15:28 GMT</pubDate>
+      
+      
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/wares/">wares</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2026/01/18/Typing-Tennis-Ware/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Typing Tennis</title>
+      <link>https://twalichiewicz.github.io/2026/01/18/Typing-Tennis/</link>
+      <guid>https://twalichiewicz.github.io/2026/01/18/Typing-Tennis/</guid>
+      <pubDate>Sun, 18 Jan 2026 22:15:28 GMT</pubDate>
+      
+        
+        
+      <description>
+&lt;div id=&quot;tt-embed-root&quot; style=&quot;margin: 12px 0; font-family: -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-s</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<div id="tt-embed-root" style="margin: 12px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">    <div class="tt-card" style="background: #151515; border-radius: 12px; padding: 20px; display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; overflow: hidden;">                <!-- Art Container (The Box) -->        <div class="tt-box-container" style="perspective: 1000px; width: 80px; height: 120px; flex-shrink: 0; padding: 0; margin: 0; position: relative;">            <div class="tt-back-layer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #222; border-radius: 4px; z-index: -1; transition: transform 0.1s ease-out; box-shadow: 0 0 10px rgba(0,0,0,0.5);"></div>            <div class="tt-art-wrapper" style="position: relative; border-radius: 4px; overflow: hidden; width: 100%; height: 100%; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform-style: preserve-3d; transition: transform 0.1s ease-out; background: #000; padding: 0; margin: 0;">                 <img src="/img/typingTennisPromo.jpg" style="width: 100%; height: 100%; object-fit: fill; display: block; margin: 0 !important; border-radius: 1px; padding: 0 !important; transform: none !important; transition: none !important;" alt="Typing Tennis">                                  <!-- Interactive Lighting Overlay (Now inside the box wrapper) -->                 <div class="tt-shine" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2; background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.2) 0%, rgba(0,0,0,0) 60%); mix-blend-mode: soft-light; pointer-events: none;"></div>                                  <!-- Static Gloss -->                 <div style="position: absolute; top: 0; left: 0; right: 0; height: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%); pointer-events: none; z-index: 3;"></div>            </div>        </div>        <!-- Content -->        <div style="display: flex; flex-direction: column; gap: 8px; position: relative;">            <h3 style="margin: 0; color: oklch(85.2% 0.199 91.936); font-size: 22px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;">TYPING TENNIS</h3>            <p style="margin: 0; color: #888; font-size: 12px; line-height: 1.5;">A retro-style typing game where you play tennis with words.</p>                        <a href="https://typingtennis.com" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; width: fit-content; margin-top: 6px; padding: 6px 15px; background: oklch(85.2% 0.199 91.936); color: #151515; border: 2px solid oklch(85.2% 0.199 91.936); text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 4px; transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1); box-shadow: none; position: relative; overflow: hidden;" onmouseover="this.style.boxShadow='0 0 20px oklch(85.2% 0.199 91.936 / 0.4)';" onmouseout="this.style.boxShadow='none';">                Play Game            </a>        </div>    </div></div><script>(function() {    const root = document.getElementById('tt-embed-root');    const card = root.querySelector('.tt-card');    const box = root.querySelector('.tt-art-wrapper');    const back = root.querySelector('.tt-back-layer');    const shine = root.querySelector('.tt-shine');        let isTicking = false;        card.addEventListener('mousemove', (e) => {        if (!isTicking) {            window.requestAnimationFrame(() => {                const rect = box.getBoundingClientRect();                const x = e.clientX - rect.left;                const y = e.clientY - rect.top;                                // Calculate percentages for gradients (relative to the box)                const xPct = (x / rect.width) * 100;                const yPct = (y / rect.height) * 100;                                // Calculate rotation based on cursor relative to box center                const centerX = rect.width / 2;                const centerY = rect.height / 2;                                // Cap rotation at 15 degrees                const rotateY = Math.max(-15, Math.min(15, ((x - centerX) / centerX) * 20));                 const rotateX = Math.max(-15, Math.min(15, ((centerY - y) / centerY) * 20));                                box.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;                                // Move back layer opposite to mouse to create depth/thickness illusion                // We use the clamped rotation values as a proxy for the translation                 // to ensure the back layer stops moving when the rotation caps at 15deg.                const backX = -(rotateY / 20) * centerX * 0.05;                const backY = (rotateX / 20) * centerY * 0.05;                                // Apply same rotation as foreground to match deformation                back.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate(${backX}px, ${backY}px)`;                                shine.style.setProperty('--mouse-x', `${xPct}%`);                shine.style.setProperty('--mouse-y', `${yPct}%`);                                isTicking = false;            });            isTicking = true;        }    });        card.addEventListener('mouseleave', () => {        box.style.transform = 'rotateX(0) rotateY(0)';        back.style.transform = 'rotateX(0) rotateY(0) translate(0, 0)';        shine.style.setProperty('--mouse-x', '50%');        shine.style.setProperty('--mouse-y', '50%');    });})();</script>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2026/01/18/Typing-Tennis/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Meshseeks</title>
+      <link>https://twalichiewicz.github.io/2026/01/14/Meshseeks/</link>
+      <guid>https://twalichiewicz.github.io/2026/01/14/Meshseeks/</guid>
+      <pubDate>Wed, 14 Jan 2026 13:37:55 GMT</pubDate>
+      
+      
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/wares/">wares</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2026/01/14/Meshseeks/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Tessellated Materials</title>
+      <link>https://twalichiewicz.github.io/2026/01/09/Tessellated-Materials/</link>
+      <guid>https://twalichiewicz.github.io/2026/01/09/Tessellated-Materials/</guid>
+      <pubDate>Fri, 09 Jan 2026 17:47:50 GMT</pubDate>
+      
+      
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2026/01/09/Tessellated-Materials/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Hard to justify Tahoe icons</title>
+      <link>https://twalichiewicz.github.io/2026/01/07/Hard-to-justify-Tahoe-icons/</link>
+      <guid>https://twalichiewicz.github.io/2026/01/07/Hard-to-justify-Tahoe-icons/</guid>
+      <pubDate>Wed, 07 Jan 2026 12:10:53 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;I found myself agreeing with much of this post; macOS simply hasn’t kept up with the design strides made by the hardware team.&lt;/p&gt;
+&lt;p&gt;How</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>I found myself agreeing with much of this post; macOS simply hasn’t kept up with the design strides made by the hardware team.</p><p>However, we need to stop treating the 1992 Macintosh HIG as the ultimate authority on interface design. It is merely a snapshot—albeit a brilliant one—of personal computing in a specific era. Dogmatic adherence to 30-year-old rules suggests two things:</p><ol><li><strong>A lack of originality:</strong> You are relying on a safety blanket rather than generating new ideas.</li><li><strong>Stagnation:</strong> Like any form of fundamentalism, it stifles innovation and ignores the context of the modern world.</li></ol>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2026/01/07/Hard-to-justify-Tahoe-icons/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>New Impact design NYE 2025</title>
+      <link>https://twalichiewicz.github.io/2025/12/31/New-Impact-design-NYE-2025/</link>
+      <guid>https://twalichiewicz.github.io/2025/12/31/New-Impact-design-NYE-2025/</guid>
+      <pubDate>Wed, 31 Dec 2025 12:53:03 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Created a new experience for viewing impact metrics on mobile, check it out with the 🎖️ button in the header. Happy New Years Eve!&lt;/p&gt;
+&lt;</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Created a new experience for viewing impact metrics on mobile, check it out with the 🎖️ button in the header. Happy New Years Eve!</p><p><strong>Update:</strong> Desktop now supported as well.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/12/31/New-Impact-design-NYE-2025/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>:near CSS class</title>
+      <link>https://twalichiewicz.github.io/2025/12/26/near-CSS-class/</link>
+      <guid>https://twalichiewicz.github.io/2025/12/26/near-CSS-class/</guid>
+      <pubDate>Fri, 26 Dec 2025 13:52:53 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;code&gt;:near&lt;/code&gt; should be added as a pseudoclass in the CSS specification. Proximity-based styling would be a great addition to the af</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><code>:near</code> should be added as a pseudoclass in the CSS specification. Proximity-based styling would be a great addition to the affordance toolkit of designers.  </p><p>We actually see this pattern fairly regularly in consumer electronics: you’ll bring your hand near a set of controls and either the display will update, the button will glow brighter, etc.</p><p>Example:<br><code>button:near(200px){ border: solid 1px black; }</code></p><p><strong>Update:</strong> <a href="https://github.com/w3c/csswg-drafts/issues/13271">https://github.com/w3c/csswg-drafts/issues/13271</a></p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/12/26/near-CSS-class/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Detour</title>
+      <link>https://twalichiewicz.github.io/2025/12/09/Detour/</link>
+      <guid>https://twalichiewicz.github.io/2025/12/09/Detour/</guid>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate>
+      
+      
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/wares/">wares</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/12/09/Detour/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Too busy to write</title>
+      <link>https://twalichiewicz.github.io/2025/11/25/Too-busy-to-write/</link>
+      <guid>https://twalichiewicz.github.io/2025/11/25/Too-busy-to-write/</guid>
+      <pubDate>Tue, 25 Nov 2025 22:47:37 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Backlog of design and tech topics to finish blog posts about &amp;lt; Keep working on WorkspaceOS&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Backlog of design and tech topics to finish blog posts about &lt; Keep working on WorkspaceOS</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/11/25/Too-busy-to-write/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Tahoe&#39;s Terrible Icons</title>
+      <link>https://twalichiewicz.github.io/2025/11/08/Tahoe-s-Terrible-Icons/</link>
+      <guid>https://twalichiewicz.github.io/2025/11/08/Tahoe-s-Terrible-Icons/</guid>
+      <pubDate>Sat, 08 Nov 2025 12:10:59 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Very progressive of Apple to hire blind stylists to do their icons.&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Very progressive of Apple to hire blind stylists to do their icons.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/11/08/Tahoe-s-Terrible-Icons/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Look, another AI browser</title>
+      <link>https://twalichiewicz.github.io/2025/10/23/Look-another-AI-browser/</link>
+      <guid>https://twalichiewicz.github.io/2025/10/23/Look-another-AI-browser/</guid>
+      <pubDate>Thu, 23 Oct 2025 11:13:19 GMT</pubDate>
+      
+      
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/10/23/Look-another-AI-browser/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Apple Gaming Strategy</title>
+      <link>https://twalichiewicz.github.io/2025/10/11/Apple-Gaming-Strategy/</link>
+      <guid>https://twalichiewicz.github.io/2025/10/11/Apple-Gaming-Strategy/</guid>
+      <pubDate>Sat, 11 Oct 2025 14:14:09 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Apple’s gaming strategy is so bizarre. Early on it basically was the platform for gaming (remember when Halo was previewed at MacWorld? (</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Apple’s gaming strategy is so bizarre. Early on it basically was the platform for gaming (remember when Halo was previewed at MacWorld? (What sort of weird alternate timeline would we have had if Apple bought it instead of Microsoft? Would there even be an Xbox?)) and it again regained that title, but as a side effect of the iPhone’s portable-but-powerful platform.</p><p>But their current strategy seems lacking.</p><ul><li>Why isn’t there an integration with Steam? You’re not getting around the fact that people have huge collections of purchases on that platform, so having some way to not double-purchase by linking your Steam and App Store accounts would already help.</li><li>This new Games app is basically just the App Store but pared down without the junk.</li><li>Why doesn’t Apple have an in-house porting team? If a company like Nightdive can come in and fill the gap by porting classic titles to modern platforms, I’m sure Apple could pull their weight to help convince developers.</li></ul><p>People always mention how macOS isn’t a large enough platform to justify developing games for it, but I’d argue that if more games supported it (and ran well), why would anyone want to have to buy both a Mac and a PC? They could accelerate this effort by taking a similar strategy to what Sony did to reverse their fortunes in the 360&#x2F;PS3 era—find the top-tier, critically acclaimed games and port those to macOS. That alone would shift the conversation to “Well, with a Mac I’ll always be able to play the top games, but maybe I miss out on the random indie stuff.”</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/10/11/Apple-Gaming-Strategy/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>The awe keeps dropping</title>
+      <link>https://twalichiewicz.github.io/2025/09/16/The-awe-keeps-dropping/</link>
+      <guid>https://twalichiewicz.github.io/2025/09/16/The-awe-keeps-dropping/</guid>
+      <pubDate>Tue, 16 Sep 2025 02:37:35 GMT</pubDate>
+      
+      
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/09/16/The-awe-keeps-dropping/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Claude will now train on your chats by default</title>
+      <link>https://twalichiewicz.github.io/2025/08/28/Anthropic-user-data-choice/</link>
+      <guid>https://twalichiewicz.github.io/2025/08/28/Anthropic-user-data-choice/</guid>
+      <pubDate>Thu, 28 Aug 2025 16:45:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;Starting to smell a little like enshittification.&lt;/p&gt;
+</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>Starting to smell a little like enshittification.</p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/08/28/Anthropic-user-data-choice/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Late is just for a little while, suck is forever</title>
+      <link>https://twalichiewicz.github.io/2025/08/23/Late-is-just-for-a-little-while-suck-is-forever/</link>
+      <guid>https://twalichiewicz.github.io/2025/08/23/Late-is-just-for-a-little-while-suck-is-forever/</guid>
+      <pubDate>Sat, 23 Aug 2025 10:00:00 GMT</pubDate>
+      
+      <description>Gabe Newell&#39;s timeless wisdom on prioritizing quality over deadlines.</description>
+      
+      
+      
+      <content:encoded><![CDATA[<iframe   class="youtube-video"  style="width:100%;height:300px;"  src="https://www.youtube-nocookie.com/embed/lA1H_GycBTE"   title="Gabe Newell - Late is just for a little while, suck is forever"  frameborder="0"   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"   allowfullscreen  loading="lazy"  referrerpolicy="strict-origin-when-cross-origin"></iframe>]]></content:encoded>
+      
+      
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/blog/">blog</category>
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/musing/">musing</category>
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/development/">development</category>
+      
+      <category domain="https://twalichiewicz.github.io/blog/tags/quality/">quality</category>
+      
+      
+      <comments>https://twalichiewicz.github.io/2025/08/23/Late-is-just-for-a-little-while-suck-is-forever/#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>

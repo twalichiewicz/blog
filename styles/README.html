@@ -1,0 +1,35 @@
+<h1 id="San-Diego-Theme-Styles"><a href="#San-Diego-Theme-Styles" class="headerlink" title="San Diego Theme Styles"></a>San Diego Theme Styles</h1><p>A simplified and maintainable styling system for the San Diego theme.</p><h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><pre><code>styles/
+├── main.scss         # Main entry point
+├── base.scss         # Base styles (variables, reset, typography)
+├── layout.scss       # Layout styles (grid, responsive, header, footer)
+├── components.scss   # All component styles
+└── utilities.scss    # Helper classes and utilities
+</code></pre><h2 id="File-Descriptions"><a href="#File-Descriptions" class="headerlink" title="File Descriptions"></a>File Descriptions</h2><h3 id="main-scss"><a href="#main-scss" class="headerlink" title="main.scss"></a>main.scss</h3><p>The main entry point that imports all other style modules. This file is responsible for bringing together all the different parts of the styling system.</p><h3 id="base-scss"><a href="#base-scss" class="headerlink" title="base.scss"></a>base.scss</h3><p>Contains foundational styles and variables:</p><ul><li>Color variables and CSS custom properties</li><li>Typography settings</li><li>Reset styles</li><li>Base element styles</li></ul><h3 id="layout-scss"><a href="#layout-scss" class="headerlink" title="layout.scss"></a>layout.scss</h3><p>Contains structural and layout-related styles:</p><ul><li>Responsive mixins</li><li>Grid system</li><li>Header styles</li><li>Footer styles</li><li>Container layouts</li></ul><h3 id="components-scss"><a href="#components-scss" class="headerlink" title="components.scss"></a>components.scss</h3><p>Contains all component-specific styles:</p><ul><li>Profile components</li><li>Blog components</li><li>Post components</li><li>Project components</li><li>Interactive components</li><li>Search components</li><li>Navigation components</li></ul><h3 id="utilities-scss"><a href="#utilities-scss" class="headerlink" title="utilities.scss"></a>utilities.scss</h3><p>Contains helper classes and utility functions:</p><ul><li>Display utilities</li><li>Spacing utilities</li><li>Text utilities</li><li>Animations</li><li>Dark mode utilities</li></ul><h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><h3 id="Variables-and-Custom-Properties"><a href="#Variables-and-Custom-Properties" class="headerlink" title="Variables and Custom Properties"></a>Variables and Custom Properties</h3><p>The theme uses both SCSS variables and CSS custom properties:</p><pre><code class="language-scss">// SCSS Variables (in base.scss)
+$space-md: 1rem;
+$mobile-breakpoint: 768px;
+
+// CSS Custom Properties
+:root {
+  --text-color: hsl(24, 3%, 35%);
+  --body-bg: hsl(35, 15%, 88%);
+}
+</code></pre><h3 id="Responsive-Design"><a href="#Responsive-Design" class="headerlink" title="Responsive Design"></a>Responsive Design</h3><p>The theme includes several responsive mixins:</p><pre><code class="language-scss">@include mobile { ... }        // &lt; 768px
+@include tablet { ... }        // 768px - 1023px
+@include desktop { ... }       // &gt;= 1024px
+@include tablet-and-up { ... } // &gt;= 768px
+@include dark-mode { ... }     // Dark mode styles
+</code></pre><h3 id="Utility-Classes"><a href="#Utility-Classes" class="headerlink" title="Utility Classes"></a>Utility Classes</h3><p>Common utility classes follow a consistent naming pattern:</p><pre><code class="language-scss">// Display
+.d-none, .d-block, .d-flex
+
+// Spacing
+.m-0 through .m-5 (margin)
+.p-0 through .p-5 (padding)
+
+// Text
+.text-center, .text-bold, .text-uppercase
+
+// Animations
+.fade-in, .slide-in
+</code></pre><h2 id="Development"><a href="#Development" class="headerlink" title="Development"></a>Development</h2><h3 id="Building-Styles"><a href="#Building-Styles" class="headerlink" title="Building Styles"></a>Building Styles</h3><p>The styles are processed using Sass. To build:</p><pre><code class="language-bash">npm run build:css     # Build styles
+npm run watch:css     # Watch for changes
+</code></pre><h3 id="Adding-New-Styles"><a href="#Adding-New-Styles" class="headerlink" title="Adding New Styles"></a>Adding New Styles</h3><ol><li>Add variables to <code>base.scss</code></li><li>Add layout styles to <code>layout.scss</code></li><li>Add component styles to <code>components.scss</code></li><li>Add utility classes to <code>utilities.scss</code></li></ol><h3 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h3><ul><li>Use CSS custom properties for values that change in different themes&#x2F;modes</li><li>Follow the existing naming conventions</li><li>Keep components modular and self-contained</li><li>Use utility classes for common patterns</li><li>Document any complex components or utilities</li></ul><h2 id="Browser-Support"><a href="#Browser-Support" class="headerlink" title="Browser Support"></a>Browser Support</h2><p>The theme supports modern browsers and includes fallbacks for older browsers where necessary. Dark mode support is provided through the <code>prefers-color-scheme</code> media query.</p>

@@ -1,0 +1,373 @@
+<h1 id="UX-Artifacts-Component-Library"><a href="#UX-Artifacts-Component-Library" class="headerlink" title="UX Artifacts Component Library"></a>UX Artifacts Component Library</h1><p>A comprehensive set of reusable components for documenting UX process, research, and design work in portfolio case studies.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><ol><li><strong>Include the styles</strong> in your main SCSS file:</li></ol><pre><code class="language-scss">@import &#39;ux-artifacts&#39;;
+</code></pre><ol start="2"><li><strong>Use components</strong> in your EJS templates:</li></ol><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/research-insights&#39;, { insights: [...] }) %&gt;
+</code></pre><h2 id="Available-Components"><a href="#Available-Components" class="headerlink" title="Available Components"></a>Available Components</h2><h3 id="1-Research-Discovery"><a href="#1-Research-Discovery" class="headerlink" title="1. Research &amp; Discovery"></a>1. Research &amp; Discovery</h3><h4 id="Research-Insights"><a href="#Research-Insights" class="headerlink" title="Research Insights"></a>Research Insights</h4><p>Displays key findings from user research, stakeholder interviews, and discovery work.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/research-insights&#39;, { 
+  insights: [
+    {
+      type: &quot;User Interview&quot;,
+      title: &quot;Complex workflows cause frustration&quot;,
+      description: &quot;Users struggle with multi-step processes that lack clear progress indicators.&quot;,
+      quote: &quot;I never know how many more steps there are or if I&#39;m doing it right.&quot;,
+      source: &quot;User #3, Product Manager&quot;,
+      impact: &quot;Led to simplified 3-step flow design&quot;
+    }
+  ]
+}) %&gt;
+</code></pre><p><strong>Data Structure:</strong></p><ul><li><code>type</code>: Category of insight (User Interview, Analytics, etc.)</li><li><code>title</code>: Key finding headline</li><li><code>description</code>: Detailed explanation</li><li><code>quote</code> (optional): Direct user quote</li><li><code>source</code> (optional): Quote attribution</li><li><code>impact</code> (optional): How this insight influenced design</li></ul><h4 id="User-Journey-Map"><a href="#User-Journey-Map" class="headerlink" title="User Journey Map"></a>User Journey Map</h4><p>Documents current or future state user journeys with emotions, pain points, and opportunities.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/user-journey&#39;, {
+  journey: {
+    title: &quot;Content Publishing Journey&quot;,
+    persona: &quot;Marketing Manager at mid-size SaaS company&quot;,
+    phases: [
+      {
+        title: &quot;Content Planning&quot;,
+        icon: &quot;📝&quot;,
+        actions: [&quot;Research topics&quot;, &quot;Create content calendar&quot;],
+        thoughts: [&quot;What should I write about?&quot;, &quot;When should this be published?&quot;],
+        pain_points: [&quot;No visibility into what engineering is working on&quot;],
+        opportunities: [&quot;Automated topic suggestions based on product roadmap&quot;],
+        emotion: {
+          level: &quot;medium&quot;,
+          icon: &quot;😐&quot;,
+          label: &quot;Neutral&quot;
+        }
+      }
+    ]
+  }
+}) %&gt;
+</code></pre><h3 id="2-Process-Ideation"><a href="#2-Process-Ideation" class="headerlink" title="2. Process &amp; Ideation"></a>2. Process &amp; Ideation</h3><h4 id="Process-Timeline"><a href="#Process-Timeline" class="headerlink" title="Process Timeline"></a>Process Timeline</h4><p>Shows design process phases with deliverables and timeframes.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/process-timeline&#39;, {
+  phases: [
+    {
+      title: &quot;Discovery &amp; Research&quot;,
+      duration: &quot;2 weeks&quot;,
+      description: &quot;Stakeholder interviews, user research, competitive analysis&quot;,
+      deliverables: [&quot;User personas&quot;, &quot;Journey maps&quot;, &quot;Requirements doc&quot;]
+    },
+    {
+      title: &quot;Ideation &amp; Concept&quot;,
+      duration: &quot;1 week&quot;, 
+      description: &quot;Design studio sessions, rapid prototyping, concept validation&quot;,
+      deliverables: [&quot;Wireframes&quot;, &quot;User flows&quot;, &quot;Concept prototypes&quot;]
+    }
+  ]
+}) %&gt;
+</code></pre><h4 id="Design-Principles"><a href="#Design-Principles" class="headerlink" title="Design Principles"></a>Design Principles</h4><p>Documents the key principles that guided design decisions.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/design-principles&#39;, {
+  principles: [
+    {
+      title: &quot;Progressive Disclosure&quot;,
+      description: &quot;Present information in layers, showing only what&#39;s needed at each step.&quot;,
+      example: &quot;Start with summary view, allow drill-down to details&quot;,
+      impact: &quot;Reduced cognitive load and improved task completion rates&quot;
+    }
+  ]
+}) %&gt;
+</code></pre><h4 id="Wireframe-Evolution"><a href="#Wireframe-Evolution" class="headerlink" title="Wireframe Evolution"></a>Wireframe Evolution</h4><p>Shows design iteration with rationale for changes.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/wireframe-evolution&#39;, {
+  evolution: {
+    title: &quot;Dashboard Layout Evolution&quot;,
+    iterations: [
+      {
+        title: &quot;Initial Concept&quot;,
+        date: &quot;Week 1&quot;,
+        image: &quot;./wireframe-v1.png&quot;,
+        description: &quot;Three-column layout with navigation sidebar&quot;,
+        changes: [&quot;Added main navigation&quot;, &quot;Created widget grid system&quot;],
+        rationale: &quot;Followed standard dashboard patterns&quot;,
+        feedback: [&quot;Too much information at once&quot;, &quot;Navigation unclear&quot;]
+      },
+      {
+        title: &quot;Simplified Layout&quot;, 
+        date: &quot;Week 2&quot;,
+        image: &quot;./wireframe-v2.png&quot;,
+        description: &quot;Two-column layout with clearer hierarchy&quot;,
+        changes: [&quot;Removed sidebar&quot;, &quot;Simplified navigation&quot;, &quot;Larger primary content area&quot;],
+        rationale: &quot;Focus user attention on primary tasks&quot;,
+        feedback: [&quot;Much clearer&quot;, &quot;Easier to scan information&quot;]
+      }
+    ],
+    final_outcome: &quot;Final design increased task completion by 40% in usability testing&quot;
+  }
+}) %&gt;
+</code></pre><h3 id="3-Design-System-Visual"><a href="#3-Design-System-Visual" class="headerlink" title="3. Design System &amp; Visual"></a>3. Design System &amp; Visual</h3><h4 id="Component-Showcase"><a href="#Component-Showcase" class="headerlink" title="Component Showcase"></a>Component Showcase</h4><p>Displays design system components with usage guidelines.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/component-showcase&#39;, {
+  components: [
+    {
+      name: &quot;Button Component&quot;,
+      description: &quot;Primary and secondary actions with consistent styling&quot;,
+      image: &quot;./button-component.png&quot;,
+      variants: [&quot;Primary&quot;, &quot;Secondary&quot;, &quot;Ghost&quot;, &quot;Destructive&quot;],
+      usage_stats: {
+        &quot;Times Used&quot;: &quot;50+&quot;,
+        &quot;Teams&quot;: &quot;4&quot;,
+        &quot;Products&quot;: &quot;8&quot;
+      },
+      guidelines: [
+        &quot;Use primary for main actions only&quot;,
+        &quot;Maximum 2 primary buttons per screen&quot;,
+        &quot;Ghost buttons for tertiary actions&quot;
+      ]
+    }
+  ]
+}) %&gt;
+</code></pre><h4 id="System-Architecture"><a href="#System-Architecture" class="headerlink" title="System Architecture"></a>System Architecture</h4><p>Documents technical architecture and integration points.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/system-architecture&#39;, {
+  architecture: {
+    title: &quot;Design System Architecture&quot;,
+    diagram: &quot;./architecture-diagram.png&quot;,
+    layers: [
+      {
+        name: &quot;Design Tokens&quot;,
+        description: &quot;Core visual properties: colors, typography, spacing&quot;,
+        components: [&quot;Color palette&quot;, &quot;Type scale&quot;, &quot;Spacing units&quot;]
+      },
+      {
+        name: &quot;Component Library&quot;, 
+        description: &quot;Reusable UI components built on design tokens&quot;,
+        components: [&quot;Buttons&quot;, &quot;Forms&quot;, &quot;Navigation&quot;, &quot;Data display&quot;]
+      }
+    ],
+    integrations: [
+      {
+        name: &quot;Figma Integration&quot;,
+        icon: &quot;🎨&quot;,
+        description: &quot;Automated sync between Figma and code components&quot;,
+        challenge: &quot;Maintaining consistency across design and development&quot;
+      }
+    ],
+    constraints: [
+      {
+        type: &quot;Technical&quot;,
+        description: &quot;Must work across React, Vue, and Angular frameworks&quot;,
+        solution: &quot;Web Components architecture for framework-agnostic approach&quot;
+      }
+    ]
+  }
+}) %&gt;
+</code></pre><h3 id="4-Testing-Validation"><a href="#4-Testing-Validation" class="headerlink" title="4. Testing &amp; Validation"></a>4. Testing &amp; Validation</h3><h4 id="Testing-Results"><a href="#Testing-Results" class="headerlink" title="Testing Results"></a>Testing Results</h4><p>Documents usability testing, A&#x2F;B tests, and validation methods.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/testing-results&#39;, {
+  testing: {
+    title: &quot;Usability Testing Results&quot;,
+    methods: [
+      {
+        name: &quot;Moderated Usability Testing&quot;,
+        icon: &quot;👥&quot;,
+        description: &quot;1-on-1 sessions testing core user flows&quot;,
+        participants: &quot;8 users&quot;,
+        duration: &quot;60 minutes each&quot;
+      },
+      {
+        name: &quot;A/B Testing&quot;,
+        icon: &quot;🧪&quot;, 
+        description: &quot;Split test of old vs new navigation design&quot;,
+        participants: &quot;2,000 users&quot;,
+        duration: &quot;2 weeks&quot;
+      }
+    ],
+    key_findings: [
+      {
+        title: &quot;Navigation confusion&quot;,
+        priority: &quot;high&quot;,
+        description: &quot;60% of users couldn&#39;t find the settings page&quot;,
+        evidence: &quot;Task completion rate: 40%&quot;,
+        action_taken: &quot;Redesigned navigation with clearer labels&quot;
+      }
+    ],
+    metrics: [
+      {
+        label: &quot;Task Success Rate&quot;,
+        value: &quot;85%&quot;,
+        baseline: &quot;60%&quot;,
+        change: {
+          direction: &quot;up&quot;, 
+          amount: &quot;+25%&quot;
+        }
+      }
+    ],
+    iterations: [
+      {
+        title: &quot;Navigation Redesign&quot;,
+        description: &quot;Simplified main navigation based on user feedback&quot;,
+        changes: [&quot;Reduced menu items from 8 to 5&quot;, &quot;Added icons to text labels&quot;],
+        result: &quot;Task success rate improved from 60% to 85%&quot;
+      }
+    ]
+  }
+}) %&gt;
+</code></pre><h3 id="5-Impact-Results"><a href="#5-Impact-Results" class="headerlink" title="5. Impact &amp; Results"></a>5. Impact &amp; Results</h3><h4 id="Impact-Metrics"><a href="#Impact-Metrics" class="headerlink" title="Impact Metrics"></a>Impact Metrics</h4><p>Showcases business and user impact with detailed methodology.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/impact-metrics&#39;, {
+  metrics: {
+    title: &quot;Project Impact &amp; Results&quot;,
+    primary: [
+      {
+        value: &quot;$2.5M&quot;,
+        unit: &quot;/year&quot;,
+        label: &quot;Engineering Cost Savings&quot;,
+        timeframe: &quot;First year post-launch&quot;,
+        description: &quot;Reduced support tickets and faster feature development&quot;,
+        icon: &quot;💰&quot;,
+        category: &quot;business&quot;
+      },
+      {
+        value: &quot;250x&quot;,
+        label: &quot;Faster Publishing&quot;,
+        timeframe: &quot;3-week cycles → same-day&quot;,
+        description: &quot;Content publishing cycle time improvement&quot;,
+        icon: &quot;⚡&quot;,
+        category: &quot;efficiency&quot;
+      }
+    ],
+    secondary: [
+      {
+        value: &quot;90%&quot;,
+        label: &quot;Reduction in Support Tickets&quot;,
+        trend: &quot;positive&quot;,
+        description: &quot;Fewer user questions about publishing process&quot;
+      }
+    ],
+    timeline: [
+      {
+        date: &quot;Q1 2020&quot;,
+        title: &quot;Design System Launch&quot;,
+        description: &quot;Initial component library released to 3 teams&quot;,
+        metrics: [
+          { value: &quot;24&quot;, label: &quot;Components&quot; },
+          { value: &quot;3&quot;, label: &quot;Teams&quot; }
+        ]
+      }
+    ],
+    methodology: {
+      description: &quot;Impact measured through analytics, user feedback, and business metrics&quot;,
+      data_sources: [
+        &quot;Google Analytics dashboard metrics&quot;,
+        &quot;Customer support ticket volume&quot;,
+        &quot;Development velocity tracking&quot;,
+        &quot;User satisfaction surveys (quarterly)&quot;
+      ],
+      limitations: [
+        &quot;Self-reported data from user surveys&quot;,
+        &quot;Cannot isolate design impact from other product changes&quot;,
+        &quot;Limited baseline data for some metrics&quot;
+      ]
+    }
+  }
+}) %&gt;
+</code></pre><h3 id="6-Reflection-Learning"><a href="#6-Reflection-Learning" class="headerlink" title="6. Reflection &amp; Learning"></a>6. Reflection &amp; Learning</h3><h4 id="Before-After-Comparison"><a href="#Before-After-Comparison" class="headerlink" title="Before&#x2F;After Comparison"></a>Before&#x2F;After Comparison</h4><p>Visual comparison showing transformation achieved.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/before-after&#39;, {
+  comparison: {
+    title: &quot;Publishing Workflow Transformation&quot;,
+    before: {
+      image: &quot;./before-workflow.png&quot;,
+      description: &quot;Manual, 3-week publishing cycle with multiple handoffs&quot;,
+      pain_points: [
+        &quot;Engineering bottleneck for every content change&quot;,
+        &quot;No preview capability&quot;,
+        &quot;Frequent publishing errors&quot;
+      ],
+      metrics: [
+        { value: &quot;3 weeks&quot;, label: &quot;Cycle Time&quot; },
+        { value: &quot;45%&quot;, label: &quot;Error Rate&quot; }
+      ]
+    },
+    after: {
+      image: &quot;./after-workflow.png&quot;, 
+      description: &quot;Self-service publishing with real-time preview&quot;,
+      improvements: [
+        &quot;Marketing team can publish independently&quot;,
+        &quot;Live preview before publishing&quot;,
+        &quot;Automated error checking&quot;
+      ],
+      metrics: [
+        { value: &quot;Same day&quot;, label: &quot;Cycle Time&quot; },
+        { value: &quot;5%&quot;, label: &quot;Error Rate&quot; }
+      ]
+    }
+  }
+}) %&gt;
+</code></pre><h4 id="Stakeholder-Quotes"><a href="#Stakeholder-Quotes" class="headerlink" title="Stakeholder Quotes"></a>Stakeholder Quotes</h4><p>Testimonials from team members and stakeholders.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/stakeholder-quotes&#39;, {
+  quotes: [
+    {
+      text: &quot;This design system has transformed how quickly we can build new features. What used to take weeks now takes days.&quot;,
+      name: &quot;Sarah Chen&quot;,
+      role: &quot;Senior Frontend Engineer&quot;,
+      company: &quot;Human Interest&quot;,
+      avatar: &quot;./sarah-avatar.jpg&quot;,
+      context: &quot;Feedback after 6 months using the design system&quot;
+    }
+  ]
+}) %&gt;
+</code></pre><h4 id="Reflection-Learnings"><a href="#Reflection-Learnings" class="headerlink" title="Reflection &amp; Learnings"></a>Reflection &amp; Learnings</h4><p>Documents what worked, challenges, and future opportunities.</p><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/reflection-learnings&#39;, {
+  reflection: {
+    what_worked: [
+      {
+        title: &quot;Early stakeholder involvement&quot;,
+        description: &quot;Including engineering and product teams in design reviews prevented major issues later&quot;,
+        impact: &quot;95% of designs were implemented without changes&quot;,
+        takeaway: &quot;Cross-functional collaboration is critical for design success&quot;
+      }
+    ],
+    challenges: [
+      {
+        title: &quot;Legacy system constraints&quot;,
+        description: &quot;Had to work within existing technical architecture limitations&quot;,
+        solution: &quot;Created hybrid approach that gradually replaced legacy components&quot;,
+        outcome: &quot;Successfully migrated 80% of legacy UI within 6 months&quot;,
+        learning: &quot;Sometimes incremental change is more effective than complete redesign&quot;
+      }
+    ],
+    would_do_differently: [
+      {
+        title: &quot;More user testing early in process&quot;,
+        description: &quot;Would conduct usability testing on wireframes, not just final designs&quot;,
+        reason: &quot;Discovered major usability issues late in design process&quot;,
+        expected_impact: &quot;Could have saved 2-3 weeks of design iterations&quot;
+      }
+    ],
+    key_learnings: [
+      {
+        title: &quot;Design systems require ongoing evangelism&quot;,
+        description: &quot;Building the system is only half the work - adoption requires constant communication&quot;,
+        application: &quot;Will create adoption roadmaps and regular training sessions for future projects&quot;
+      }
+    ],
+    next_steps: [
+      {
+        title: &quot;Advanced component patterns&quot;,
+        priority: &quot;high&quot;,
+        description: &quot;Develop more complex components like data tables and charts&quot;,
+        timeline: &quot;Next 2 quarters&quot;,
+        potential_impact: &quot;Could enable faster development of dashboard features&quot;
+      }
+    ]
+  }
+}) %&gt;
+</code></pre><h2 id="Styling-Customization"><a href="#Styling-Customization" class="headerlink" title="Styling Customization"></a>Styling Customization</h2><p>The components use CSS custom properties that can be customized:</p><pre><code class="language-scss">:root {
+  --primary-color: #ff6b35;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --error-color: #dc3545;
+  --text-primary: #333;
+  --text-secondary: #666;
+  --card-bg: #fff;
+  --secondary-bg: #f8f9fa;
+  --border-color: #dee2e6;
+}
+</code></pre><h2 id="Best-Practices"><a href="#Best-Practices" class="headerlink" title="Best Practices"></a>Best Practices</h2><h3 id="1-Content-Guidelines"><a href="#1-Content-Guidelines" class="headerlink" title="1. Content Guidelines"></a>1. Content Guidelines</h3><ul><li><strong>Be specific</strong>: Use concrete examples rather than vague descriptions</li><li><strong>Show impact</strong>: Include metrics and outcomes where possible</li><li><strong>Tell a story</strong>: Connect artifacts to create a coherent narrative</li><li><strong>Use visuals</strong>: Include images, diagrams, and screenshots</li></ul><h3 id="2-Data-Structure"><a href="#2-Data-Structure" class="headerlink" title="2. Data Structure"></a>2. Data Structure</h3><ul><li><strong>Keep it simple</strong>: Use flat objects rather than deeply nested data</li><li><strong>Be consistent</strong>: Use the same property names across similar components</li><li><strong>Plan for missing data</strong>: Make optional fields truly optional</li><li><strong>Validate content</strong>: Ensure all required fields are populated</li></ul><h3 id="3-Performance"><a href="#3-Performance" class="headerlink" title="3. Performance"></a>3. Performance</h3><ul><li><strong>Optimize images</strong>: Compress screenshots and diagrams</li><li><strong>Progressive enhancement</strong>: Ensure content works without JavaScript</li><li><strong>Mobile-first</strong>: Test all components on small screens</li><li><strong>Lazy loading</strong>: Consider loading images only when visible</li></ul><h3 id="4-Accessibility"><a href="#4-Accessibility" class="headerlink" title="4. Accessibility"></a>4. Accessibility</h3><ul><li><strong>Alt text</strong>: Provide descriptive alt text for all images</li><li><strong>Color contrast</strong>: Ensure sufficient contrast for all text</li><li><strong>Keyboard navigation</strong>: Test with keyboard-only navigation</li><li><strong>Screen readers</strong>: Use semantic HTML and proper headings</li></ul><h2 id="Component-Combinations"><a href="#Component-Combinations" class="headerlink" title="Component Combinations"></a>Component Combinations</h2><p>Recommended component combinations for different case study sections:</p><h3 id="Research-Discovery-Section"><a href="#Research-Discovery-Section" class="headerlink" title="Research &amp; Discovery Section"></a>Research &amp; Discovery Section</h3><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/research-insights&#39;, { insights: [...] }) %&gt;
+&lt;%- include(&#39;components/ux-artifacts/user-journey&#39;, { journey: {...} }) %&gt;
+&lt;%- include(&#39;components/ux-artifacts/design-principles&#39;, { principles: [...] }) %&gt;
+</code></pre><h3 id="Design-Process-Section"><a href="#Design-Process-Section" class="headerlink" title="Design Process Section"></a>Design Process Section</h3><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/process-timeline&#39;, { phases: [...] }) %&gt;
+&lt;%- include(&#39;components/ux-artifacts/wireframe-evolution&#39;, { evolution: {...} }) %&gt;
+&lt;%- include(&#39;components/ux-artifacts/before-after&#39;, { comparison: {...} }) %&gt;
+</code></pre><h3 id="Results-Impact-Section"><a href="#Results-Impact-Section" class="headerlink" title="Results &amp; Impact Section"></a>Results &amp; Impact Section</h3><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/testing-results&#39;, { testing: {...} }) %&gt;
+&lt;%- include(&#39;components/ux-artifacts/impact-metrics&#39;, { metrics: {...} }) %&gt;
+&lt;%- include(&#39;components/ux-artifacts/stakeholder-quotes&#39;, { quotes: [...] }) %&gt;
+</code></pre><h3 id="Reflection-Section"><a href="#Reflection-Section" class="headerlink" title="Reflection Section"></a>Reflection Section</h3><pre><code class="language-ejs">&lt;%- include(&#39;components/ux-artifacts/reflection-learnings&#39;, { reflection: {...} }) %&gt;
+</code></pre><h2 id="File-Structure"><a href="#File-Structure" class="headerlink" title="File Structure"></a>File Structure</h2><pre><code>themes/san-diego/source/components/ux-artifacts/
+├── README.md                    # This file
+├── research-insights.ejs        # Research findings component
+├── process-timeline.ejs         # Design process timeline
+├── before-after.ejs            # Before/after comparison
+├── design-principles.ejs       # Design principles documentation
+├── user-journey.ejs            # User journey mapping
+├── stakeholder-quotes.ejs      # Testimonials and feedback
+├── wireframe-evolution.ejs     # Design iteration showcase
+├── component-showcase.ejs      # Design system components
+├── system-architecture.ejs     # Technical architecture
+├── testing-results.ejs         # Usability testing results
+├── impact-metrics.ejs          # Business impact metrics
+└── reflection-learnings.ejs    # Project reflection
+</code></pre><pre><code>themes/san-diego/source/styles/
+└── _ux-artifacts.scss          # Complete styling for all components
+</code></pre><p>Remember to import the styles in your main SCSS file:</p><pre><code class="language-scss">@import &#39;ux-artifacts&#39;;
+</code></pre>

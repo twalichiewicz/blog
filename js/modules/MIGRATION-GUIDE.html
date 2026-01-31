@@ -1,0 +1,135 @@
+<h1 id="San-Diego-Theme-Module-System-Migration-Guide"><a href="#San-Diego-Theme-Module-System-Migration-Guide" class="headerlink" title="San Diego Theme Module System Migration Guide"></a>San Diego Theme Module System Migration Guide</h1><p>This guide explains how to migrate from the old global variable system to the new SD namespace module system.</p><h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The new module system organizes all JavaScript functionality under a single <code>SD</code> (San Diego) namespace to avoid global variable pollution and improve code organization.</p><h2 id="Namespace-Structure"><a href="#Namespace-Structure" class="headerlink" title="Namespace Structure"></a>Namespace Structure</h2><pre><code class="language-javascript">window.SD = {
+  core: {
+    initialized: boolean,
+    modules: Map
+  },
+  ui: {
+    modals: ModalsModule,
+    tabs: {
+      mobile: MobileTabsModule,
+      project: ProjectTabsModule
+    },
+    carousels: CarouselsModule,
+    animations: AnimationsModule
+  },
+  utils: {
+    sound: SoundEffectsModule,
+    navigation: NavigationModule,
+    device: DeviceDetectionModule,
+    cookies: CookiesModule
+  },
+  content: {
+    blog: BlogModule,
+    portfolio: PortfolioModule,
+    search: SearchModule
+  },
+  events: EventEmitter
+}
+</code></pre><h2 id="Migration-Examples"><a href="#Migration-Examples" class="headerlink" title="Migration Examples"></a>Migration Examples</h2><h3 id="Sound-Effects"><a href="#Sound-Effects" class="headerlink" title="Sound Effects"></a>Sound Effects</h3><p><strong>Old way:</strong></p><pre><code class="language-javascript">window.soundEffects.play(&#39;toggle&#39;);
+window.playButtonSound();
+window.initializeSoundEffects();
+</code></pre><p><strong>New way:</strong></p><pre><code class="language-javascript">SD.utils.sound.play(&#39;toggle&#39;);
+SD.utils.sound.playButton();
+SD.utils.sound.init(); // Called automatically by SD.init()
+</code></pre><h3 id="Modals"><a href="#Modals" class="headerlink" title="Modals"></a>Modals</h3><p><strong>Old way:</strong></p><pre><code class="language-javascript">window.openImpactModal(event);
+window.closeImpactModal();
+window.openContactModal(event);
+window.closeContactModal();
+</code></pre><p><strong>New way:</strong></p><pre><code class="language-javascript">SD.ui.modals.openImpact(event);
+SD.ui.modals.closeImpact();
+SD.ui.modals.openContact(event);
+SD.ui.modals.closeContact();
+
+// Or use generic modal methods:
+SD.ui.modals.openModal(&#39;impact-modal&#39;);
+SD.ui.modals.closeModal(&#39;impact-modal&#39;);
+</code></pre><h3 id="Blog-Functions"><a href="#Blog-Functions" class="headerlink" title="Blog Functions"></a>Blog Functions</h3><p><strong>Old way:</strong></p><pre><code class="language-javascript">window.scrollToFullStory();
+window.fetchAndDisplayContent(url);
+window.initializeProjectToggle();
+window.initializePostsOnlyButton();
+</code></pre><p><strong>New way:</strong></p><pre><code class="language-javascript">SD.content.blog.scrollToFullStory();
+SD.content.blog.fetchAndDisplayContent(url);
+SD.content.blog.initializeProjectToggle();
+SD.content.blog.initializePostsOnlyButton();
+</code></pre><h3 id="Mobile-Tabs"><a href="#Mobile-Tabs" class="headerlink" title="Mobile Tabs"></a>Mobile Tabs</h3><p><strong>Old way:</strong></p><pre><code class="language-javascript">window.mobileTabs.switchTab(&#39;portfolio&#39;);
+window.mobileTabs.getActiveTab();
+</code></pre><p><strong>New way:</strong></p><pre><code class="language-javascript">SD.ui.tabs.mobile.switchTab(&#39;portfolio&#39;);
+SD.ui.tabs.mobile.getActiveTab();
+</code></pre><h3 id="Navigation"><a href="#Navigation" class="headerlink" title="Navigation"></a>Navigation</h3><p><strong>Old way:</strong></p><pre><code class="language-javascript">window.initializeAnchorLinks();
+window.processExternalLinks();
+</code></pre><p><strong>New way:</strong></p><pre><code class="language-javascript">SD.utils.navigation.initAnchorLinks();
+SD.utils.navigation.processExternalLinks();
+</code></pre><h2 id="Using-the-Event-System"><a href="#Using-the-Event-System" class="headerlink" title="Using the Event System"></a>Using the Event System</h2><p>The new module system includes an event emitter for inter-module communication:</p><pre><code class="language-javascript">// Listen for events
+SD.events.on(&#39;modal:opened&#39;, function(data) {
+  console.log(&#39;Modal opened:&#39;, data.modalId);
+});
+
+// Emit events
+SD.events.emit(&#39;custom:event&#39;, { data: &#39;value&#39; });
+
+// Remove listener
+SD.events.off(&#39;modal:opened&#39;, listenerFunction);
+</code></pre><h2 id="Legacy-Compatibility"><a href="#Legacy-Compatibility" class="headerlink" title="Legacy Compatibility"></a>Legacy Compatibility</h2><p>During the transition period, the legacy global functions are still available through <code>SD.legacy.mapGlobals()</code>. This is called automatically when the namespace initializes.</p><pre><code class="language-javascript">// These will still work during migration:
+window.soundEffects.play(&#39;toggle&#39;);
+window.openImpactModal();
+window.scrollToFullStory();
+</code></pre><h2 id="Module-Creation-Template"><a href="#Module-Creation-Template" class="headerlink" title="Module Creation Template"></a>Module Creation Template</h2><p>To create a new module:</p><pre><code class="language-javascript">(function(SD) {
+  &#39;use strict&#39;;
+
+  class MyModule {
+    constructor() {
+      this.initialized = false;
+    }
+
+    init() {
+      if (this.initialized) return;
+      
+      // Module initialization code
+      
+      this.initialized = true;
+      SD.events.emit(&#39;my-module:initialized&#39;);
+    }
+
+    // Module methods...
+  }
+
+  // Create and register the module
+  const myModule = new MyModule();
+  
+  // Register with SD namespace
+  SD.category.myModule = myModule;
+  SD.registerModule(&#39;my-module&#39;, myModule);
+
+})(window.SD || (window.SD = {}));
+</code></pre><h2 id="HTML-Integration"><a href="#HTML-Integration" class="headerlink" title="HTML Integration"></a>HTML Integration</h2><p>Replace individual script tags with the module loader:</p><p><strong>Old way:</strong></p><pre><code class="language-html">&lt;script src=&quot;/js/sound-effects.34fe355d.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/main.1514f216.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/blog.6631a4f7.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/js/mobile-tabs.9ab05473.js&quot;&gt;&lt;/script&gt;
+&lt;!-- etc... --&gt;
+</code></pre><p><strong>New way:</strong></p><pre><code class="language-html">&lt;script src=&quot;/js/module-loader.b5ebc74e.js&quot;&gt;&lt;/script&gt;
+</code></pre><h2 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h2><p>The module system initializes automatically when the page loads. You can also manually initialize:</p><pre><code class="language-javascript">// Wait for DOM ready
+document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+  // Modules are loaded and initialized automatically
+  
+  // Access modules after initialization
+  if (SD.core.initialized) {
+    SD.utils.sound.play(&#39;ready&#39;);
+  }
+});
+
+// Or listen for the ready event
+SD.events.on(&#39;namespace:ready&#39;, function() {
+  // All modules are loaded and initialized
+});
+</code></pre><h2 id="Benefits"><a href="#Benefits" class="headerlink" title="Benefits"></a>Benefits</h2><ol><li><strong>No Global Pollution</strong>: Only one global variable (<code>SD</code>)</li><li><strong>Better Organization</strong>: Related functionality grouped together</li><li><strong>Dependency Management</strong>: Clear module dependencies</li><li><strong>Event-Driven</strong>: Modules can communicate without tight coupling</li><li><strong>Easier Testing</strong>: Modules can be tested in isolation</li><li><strong>Better Performance</strong>: Load modules in optimal order</li><li><strong>Future-Proof</strong>: Easy to add new modules or refactor existing ones</li></ol><h2 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a>Debugging</h2><pre><code class="language-javascript">// Check if a module is loaded
+SD.isModuleLoaded(&#39;sound-effects&#39;); // returns true/false
+
+// Get a registered module
+const soundModule = SD.getModule(&#39;sound-effects&#39;);
+
+// List all registered modules
+console.log(SD.core.modules);
+
+// Check namespace structure
+console.log(SD);
+</code></pre><h2 id="Common-Issues"><a href="#Common-Issues" class="headerlink" title="Common Issues"></a>Common Issues</h2><ol><li><strong>Module not found</strong>: Ensure the module is added to <code>module-loader.js</code></li><li><strong>Function undefined</strong>: Check if module is initialized before use</li><li><strong>Legacy function not working</strong>: Ensure <code>SD.legacy.mapGlobals()</code> is called</li><li><strong>Events not firing</strong>: Make sure listeners are registered before events are emitted</li></ol><h2 id="Gradual-Migration-Strategy"><a href="#Gradual-Migration-Strategy" class="headerlink" title="Gradual Migration Strategy"></a>Gradual Migration Strategy</h2><ol><li>Start using the module loader alongside existing scripts</li><li>Test that legacy functions still work</li><li>Gradually update code to use SD namespace</li><li>Remove individual script tags once migration is complete</li><li>Remove legacy compatibility layer when no longer needed</li></ol>

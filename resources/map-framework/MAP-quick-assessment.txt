@@ -1,0 +1,168 @@
+# MAP Framework Quick Assessment Tool
+
+Use this tool to evaluate if your team is ready for the MAP Framework or to assess how well you're implementing it.
+
+## Current State Assessment
+
+### How does your team currently sequence work?
+
+**Traditional Approach (Score 0-1 per item)**
+- [ ] Product defines requirements first
+- [ ] Design makes those requirements usable
+- [ ] Engineering builds what's specified
+- [ ] Changes require going back to start
+- [ ] Designers work in isolation until handoff
+
+**MAP Approach (Score 2-3 per item)**
+- [ ] Design explores solution space first
+- [ ] Product assesses and prioritizes options
+- [ ] Engineering is involved throughout
+- [ ] Iteration happens within phases
+- [ ] Cross-functional collaboration from day 1
+
+**Total Score: _____ / 15**
+
+---
+
+## Readiness Indicators
+
+### Team Capabilities
+
+#### Design Team
+- [ ] Comfortable with ambiguity
+- [ ] Can articulate business value
+- [ ] Skilled at rapid prototyping
+- [ ] Strong research skills
+- [ ] Strategic thinking ability
+
+#### Product Team
+- [ ] Willing to postpone requirement definition
+- [ ] Can evaluate multiple options objectively
+- [ ] Comfortable with iterative planning
+- [ ] Strong analytical skills
+- [ ] Good at stakeholder management
+
+#### Engineering Team
+- [ ] Engaged in early exploration
+- [ ] Provides constructive feasibility input
+- [ ] Thinks beyond implementation
+- [ ] Values design quality
+- [ ] Collaborative mindset
+
+### Organizational Readiness
+- [ ] Leadership supports process experimentation
+- [ ] Timelines allow for upfront exploration
+- [ ] Budget exists for research/prototyping
+- [ ] Teams have collaborative tools/spaces
+- [ ] Success metrics go beyond velocity
+
+---
+
+## Quick Diagnostic Questions
+
+### For Your Current Process
+
+1. **How many design options typically get explored?**
+   - Just one (0 points)
+   - 2-3 variations (1 point)
+   - Multiple diverse approaches (2 points)
+
+2. **When do engineers first see designs?**
+   - At handoff (0 points)
+   - During review (1 point)
+   - During exploration (2 points)
+
+3. **How often do you pivot after starting development?**
+   - Frequently (0 points)
+   - Sometimes (1 point)
+   - Rarely (2 points)
+
+4. **How cohesive is your user experience?**
+   - Features feel disconnected (0 points)
+   - Mostly consistent (1 point)
+   - Seamlessly integrated (2 points)
+
+5. **How much rework happens post-launch?**
+   - Significant (0 points)
+   - Moderate (1 point)
+   - Minimal (2 points)
+
+**Process Score: _____ / 10**
+
+---
+
+## Implementation Roadmap
+
+Based on your scores, here's your recommended path:
+
+### Score 0-7: Foundation Building
+Start with:
+1. Design literacy workshops for PM/Eng
+2. Include designers in planning meetings
+3. Pilot MAP on one small project
+4. Document and share learnings
+
+### Score 8-15: Ready for Pilot
+Start with:
+1. Choose a medium-complexity project
+2. Run full MAP workshop
+3. Track metrics vs. traditional approach
+4. Adjust process based on feedback
+
+### Score 16-25: Scale Implementation
+Start with:
+1. Standardize MAP across teams
+2. Create playbooks and templates
+3. Train new team members
+4. Measure long-term impact
+
+---
+
+## Red Flags to Watch
+
+**During Mapping**
+- [ ] Designers creating in a vacuum
+- [ ] No technical input on feasibility
+- [ ] Skipping user research
+- [ ] Over-polishing too early
+
+**During Assessment**
+- [ ] Choosing based on opinion vs. data
+- [ ] Ignoring technical complexity
+- [ ] Unrealistic timelines
+- [ ] No clear success metrics
+
+**During Production**
+- [ ] Designs changing significantly
+- [ ] Engineers confused about intent
+- [ ] Scope creep from new ideas
+- [ ] Quality sacrificed for speed
+
+---
+
+## Success Indicators
+
+You know MAP is working when:
+
+### Short-term (1-3 months)
+- [ ] Fewer mid-project pivots
+- [ ] Engineers asking "why" not just "what"
+- [ ] PMs comparing options not defining features
+- [ ] Designers showing multiple approaches
+
+### Long-term (6-12 months)
+- [ ] Improved user satisfaction scores
+- [ ] Reduced support tickets
+- [ ] Faster time-to-market
+- [ ] Higher team morale
+- [ ] More innovative solutions
+
+---
+
+## Next Steps
+
+1. **Score 0-10**: Focus on team education and small experiments
+2. **Score 11-20**: Run a pilot project with external facilitation
+3. **Score 21-25**: You're ready! Use the workshop template to get started
+
+Remember: MAP is a journey, not a destination. Even experienced teams continue refining their approach.

@@ -1,0 +1,1 @@
+import{WaveAnimation,SkullAnimation}from"./components/HomeVisuals.js";export function initHomeVisuals(n={}){const{showWave:i=!0,showSkull:o=!0,waveConfig:e={},skullConfig:t={}}=n;if(i){const n=document.getElementById("waveCanvas");n&&new WaveAnimation(n,e).init()}if(o){const n=document.getElementById("skullCanvas");n&&new SkullAnimation(n,"img/skully3d.glb",t)}}
