@@ -14,16 +14,6 @@
     }
 }
 
-// Auto-hide animation - skeleton fades out after delay
-@keyframes skeleton-fade-out {
-    0%, 80% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        visibility: hidden;
-    }
-}
 
 // Skeleton mixin for consistent shimmer effect
 @mixin skeleton-base {
@@ -64,9 +54,8 @@
     height: 100%;
     z-index: 0; // Behind actual content
     pointer-events: none;
-
-    // Auto-hide after 1.5s (enough time to see shimmer on slow loads)
-    animation: skeleton-fade-out 1.5s ease-out forwards;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
 
     // Card skeleton layout (matches post-preview-card.post-long)
     &--card {
@@ -139,131 +128,6 @@
     }
 }
 
-// ==============================================
-// Link Post Skeleton
-// ==============================================
-
-.blog-skeleton--link {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    gap: 12px;
-}
-
-.skeleton-byline-line {
-    height: 12px;
-    width: 120px;
-    @include skeleton-base;
-
-    @media (prefers-color-scheme: dark) {
-        @include skeleton-base-dark;
-    }
-}
-
-// Skeleton blockquote container
-.skeleton-blockquote {
-    border-left: 3px solid rgba(variables.$text-color, 0.1);
-    padding: 12px 16px;
-    margin: 8px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    @media (prefers-color-scheme: dark) {
-        border-left-color: rgba(255, 255, 255, 0.1);
-    }
-}
-
-.skeleton-quote-line {
-    height: 14px;
-    @include skeleton-base;
-
-    &:first-child {
-        width: 95%;
-    }
-
-    &:nth-child(2) {
-        width: 80%;
-    }
-
-    &:last-child {
-        width: 60%;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        @include skeleton-base-dark;
-    }
-}
-
-// Skeleton link button
-.skeleton-link-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    border-radius: variables.$radius-md;
-    background: rgba(variables.$text-color, 0.03);
-    border: 1px solid rgba(variables.$text-color, 0.08);
-    margin-top: 8px;
-
-    @media (prefers-color-scheme: dark) {
-        background: rgba(255, 255, 255, 0.03);
-        border-color: rgba(255, 255, 255, 0.08);
-    }
-}
-
-.skeleton-link-text {
-    height: 16px;
-    width: 70%;
-    @include skeleton-base;
-
-    @media (prefers-color-scheme: dark) {
-        @include skeleton-base-dark;
-    }
-}
-
-.skeleton-link-arrow {
-    width: 24px;
-    height: 24px;
-    border-radius: variables.$radius-sm;
-    @include skeleton-base;
-
-    @media (prefers-color-scheme: dark) {
-        @include skeleton-base-dark;
-    }
-}
-
-// ==============================================
-// Short Post (Musing) Skeleton
-// ==============================================
-
-.blog-skeleton--short {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    gap: 10px;
-}
-
-.skeleton-short-line {
-    height: 16px;
-    @include skeleton-base;
-
-    &:first-child {
-        width: 100%;
-    }
-
-    &:nth-child(2) {
-        width: 90%;
-    }
-
-    &:last-child {
-        width: 65%;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        @include skeleton-base-dark;
-    }
-}
 
 // ==============================================
 // Visibility Control
@@ -278,24 +142,15 @@
     .preview-content {
         position: relative;
         z-index: 1;
-        // Add background to ensure content covers skeleton
-        background: inherit;
+    }
+
+    // Hide skeleton when content loads (class added via onload handler)
+    &.skeleton-hidden .blog-skeleton {
+        opacity: 0;
+        pointer-events: none;
     }
 }
 
-// Link posts and short posts
-.post-list-item {
-    position: relative;
-
-    // Ensure actual content sits above skeleton
-    .post-byline,
-    .link-share,
-    > p,
-    > div:not(.blog-skeleton) {
-        position: relative;
-        z-index: 1;
-    }
-}
 
 // ==============================================
 // Mobile Adjustments
@@ -324,14 +179,5 @@
     .skeleton-meta {
         height: 10px;
         width: 50px;
-    }
-
-    // Link post mobile adjustments
-    .skeleton-blockquote {
-        padding: 10px 12px;
-    }
-
-    .skeleton-link-button {
-        padding: 10px 12px;
     }
 }

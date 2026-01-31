@@ -31,7 +31,7 @@ const postId = 'post-' + (post.slug || post.title.toLowerCase().replace(/[^\w]+/
 			}
 			%>
 			<div class="preview-cover-image">
-				<img src="<%- url_for(coverImagePath) %>" alt="<%= post.title %>" loading="lazy" />
+				<img src="<%- url_for(coverImagePath) %>" alt="<%= post.title %>" loading="lazy" onload="this.closest('.post-preview-card').classList.add('skeleton-hidden')" onerror="this.closest('.post-preview-card').classList.add('skeleton-hidden')" />
 			</div>
 			<div class="preview-content">
 				<h3 class="preview-title">
